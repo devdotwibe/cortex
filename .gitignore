@@ -8,6 +8,7 @@
 /gitlog
 .env
 .htaccess
+git-update.php
 .index
 .env.backup
 .env.production
