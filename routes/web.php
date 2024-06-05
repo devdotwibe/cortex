@@ -4,6 +4,10 @@ use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
+/**
+ * Development
+ */
+
 Route::get('/rollback', function() {
     Artisan::call('migrate:rollback');
     dd(Artisan::output());
@@ -27,4 +31,5 @@ Route::get('/db-seed', function() {
 
 
 
-Route::get('/',  [HomeController::class,'index']);
+Route::get('/',[HomeController::class,'index']);
+Route::get('/login', [HomeController::class,'login'])->name('login');
