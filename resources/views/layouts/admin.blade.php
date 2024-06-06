@@ -10,45 +10,95 @@
             @yield('title') |
         @endif {{ config('app.name') }}
     </title>
+
+
+    @stack('meta')
+
+    <link rel="shortcut icon" href="{{ asset("assets/images/favicon.png") }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ asset("assets/css/datatables.min.css") }}" > 
+
+    @stack('style')
+
+    <script src="{{ asset('assets/js/jquery-3.7.0.min.js') }}"></script> 
+    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script> 
+
+    @stack('header-script')
+
 </head>
 
 <body>
+    <nav class="navbar navbar-expand" >
+        <div class="container"> 
+            <a class="navbar-brand"  href="{{ url('/') }}">
+                <img src="{{ asset('assets/images/cortexlogo.svg') }}" alt="">
+            </a>    
+            <ul class="navbar-nav ml-auto">
+                {{-- <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarNotification" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-bell"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarNotification">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li> --}}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarLogin" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span>{{auth('admin')->user()->name}}</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarLogin">
+                        <a class="dropdown-item" href="#">Profile</a>
+                        <a class="dropdown-item" href="#">Settings</a>
+                        <div class="dropdown-divider"></div>
+                        <div class="dropdown-item" href="{{route('admin.logout')}}">Logout </div>
+                    </div>
+                </li>
+            </ul>   
+        </div>
+    </nav>
+     
     <aside class="side_bar">
-        <div class="side-bar-logo">
-            <a href="{{ url('/') }}">
-                <img src="{{ asset('assets/images/logo-small.png') }}" alt="">
-            </a>
-        </div>
         <div class="side-nav-toggle">
-            <button class="btn btn-close-toggle"><img src="./assets/images/close.svg" alt=""></button>
-        </div>
+            <button class="btn btn-close-toggle"><img src="{{asset("assets/images/close.svg")}}" alt="close"></button>
+        </div> 
         <div class="sidebar-content js-simplebar">
             <ul class="sidebar-nav">
                 <li class="side-item  active ">
-                    <a href="">
-                        <span class="side-icon" active=""><img src="./assets/images/Dashboard-wht.svg"
-                                alt=""></span>
-                        <span class="active-icon"><img src="./assets/images/Dashboard-blk.svg" alt=""></span>
+                    <a href="{{route('admin.dashboard')}}">
+                        <span class="side-icon" >
+                            <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
+                        </span>
+                        <span class="active-icon">
+                            <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Dashboard">
+                        </span>
                         Dashboard
                     </a>
                 </li>
                 <li class="side-item">
-                    <a href="">
-                        <span class="side-icon" active=""><img src="./assets/images/Dashboard-wht.svg"
-                                alt=""></span>
-                        <span class="active-icon"><img src="./assets/images/Dashboard-blk.svg" alt=""></span>
-                        Dashboard
+                    <a href="{{route("admin.user.index")}}">
+                        <span class="side-icon" >
+                            <img src="{{asset("assets/images/Dashboard-wht.svg")}}"  alt="Users">
+                        </span>
+                        <span class="active-icon">
+                            <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Users">
+                        </span>
+                        Users
                     </a>
                 </li>
 
 
                 <li class="side-item">
                     <a href="">
-                        <span class="side-icon" active=""><img src="./assets/images/Dashboard-wht.svg"
-                                alt=""></span>
-                        <span class="active-icon"><img src="./assets/images/Dashboard-blk.svg" alt=""></span>
+                        <span class="side-icon" >
+                            <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
+                        </span>
+                        <span class="active-icon">
+                            <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Dashboard">
+                        </span>
                         Dashboard
                     </a>
                 </li>
@@ -56,9 +106,12 @@
 
                 <li class="side-item ">
                     <a href="">
-                        <span class="side-icon" active=""><img src="./assets/images/Dashboard-wht.svg"
-                                alt=""></span>
-                        <span class="active-icon"><img src="./assets/images/Dashboard-blk.svg" alt=""></span>
+                        <span class="side-icon" >
+                            <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
+                        </span>
+                        <span class="active-icon">
+                            <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Dashboard">
+                        </span>
                         Dashboard
                     </a>
                 </li>
@@ -66,9 +119,12 @@
 
                 <li class="side-item ">
                     <a href="">
-                        <span class="side-icon" active=""><img src="./assets/images/Dashboard-wht.svg"
-                                alt=""></span>
-                        <span class="active-icon"><img src="./assets/images/Dashboard-blk.svg" alt=""></span>
+                        <span class="side-icon" >
+                            <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
+                        </span>
+                        <span class="active-icon">
+                            <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Dashboard">
+                        </span>
                         Settings
                     </a>
                 </li>
@@ -76,9 +132,12 @@
 
                 <li class="side-item side-dropdown ">
                     <a class="side-dropdown-toggle" id="pagesLink">
-                        <span class="side-icon" active=""><img src="./assets/images/Dashboard-wht.svg"
-                                alt=""></span>
-                        <span class="active-icon"><img src="./assets/images/Dashboard-blk.svg" alt=""></span>
+                        <span class="side-icon" >
+                            <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
+                        </span>
+                        <span class="active-icon">
+                            <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Dashboard">
+                        </span>
                         Pages
                     </a>
                     <ul class="side-dropdown-menu" id="pagesDropdown">
@@ -105,130 +164,14 @@
         </div>
     </aside>
     <main class="content_outer">
-        <section class="header_nav">
-            <div class="header_wrapp">
-                <div class="header_title">
-                    <h2>Dashboard</h2>
-                </div>
-                <div class="header_right">
-                    <ul class="nav_bar">
-                        <li class="nav_item"><a href="" class="nav_link btn">Demo</a></li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-        <section class="content_section">
-            <div class="container">
-                <div class="row">
-                    <div class="dash_card">
-                        <div class="admin-icon">
-                            <span class="wht-icon"><img
-                                    src="https://suryaplacement.com/assets/images/Settings-wht.png"></span>
-                            <span class="red-icon"><img
-                                    src="https://suryaplacement.com/assets/images/Settings-red.png"></span>
-                        </div>
-                        <h3>Settings</h3>
-                    </div>
-                    <div class="dash_card">
-                        <div class="admin-icon">
-                            <span class="wht-icon"><img
-                                    src="https://suryaplacement.com/assets/images/Settings-wht.png"></span>
-                            <span class="red-icon"><img
-                                    src="https://suryaplacement.com/assets/images/Settings-red.png"></span>
-                        </div>
-                        <h3>Settings</h3>
-                    </div>
-                    <div class="dash_card">
-                        <div class="admin-icon">
-                            <span class="wht-icon"><img
-                                    src="https://suryaplacement.com/assets/images/Settings-wht.png"></span>
-                            <span class="red-icon"><img
-                                    src="https://suryaplacement.com/assets/images/Settings-red.png"></span>
-                        </div>
-                        <h3>Settings</h3>
-                    </div>
-                    <div class="dash_card">
-                        <div class="admin-icon">
-                            <span class="wht-icon"><img
-                                    src="https://suryaplacement.com/assets/images/Settings-wht.png"></span>
-                            <span class="red-icon"><img
-                                    src="https://suryaplacement.com/assets/images/Settings-red.png"></span>
-                        </div>
-                        <h3>Settings</h3>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="table-section">
-            <div class="container">
-                <div class="row">
-                    <div class="table-outer">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Sl.No</th>
-                                    <th>Date</th>
-                                    <th>Name</th>
-                                    <th>Place</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>2023-11-03</td>
-                                    <td>Amal</td>
-                                    <td>Aluva</td>
-                                    <td>
-                                        <a href="" class="btn btn-icons view_btn"><img
-                                                src="./assets/images/view.svg" alt=""></a>
-                                        <a href="" class="btn btn-icons edit_btn"><img
-                                                src="./assets/images/edit.svg" alt=""></a>
-                                        <a href="" class="btn btn-icons dlt_btn"><img
-                                                src="./assets/images/delete.svg" alt=""></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>2023-11-03</td>
-                                    <td>Amal</td>
-                                    <td>Aluva</td>
-                                    <td>
-                                        <a href="" class="btn btn-icons view_btn"><img
-                                                src="./assets/images/view.svg" alt=""></a>
-                                        <a href="" class="btn btn-icons edit_btn"><img
-                                                src="./assets/images/edit.svg" alt=""></a>
-                                        <a href="" class="btn btn-icons dlt_btn"><img
-                                                src="./assets/images/delete.svg" alt=""></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>2023-11-03</td>
-                                    <td>Amal</td>
-                                    <td>Aluva</td>
-                                    <td>
-                                        <a href="" class="btn btn-icons view_btn"><img
-                                                src="./assets/images/view.svg" alt=""></a>
-                                        <a href="" class="btn btn-icons edit_btn"><img
-                                                src="./assets/images/edit.svg" alt=""></a>
-                                        <a href="" class="btn btn-icons dlt_btn"><img
-                                                src="./assets/images/delete.svg" alt=""></a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </section>
+        @yield('content')
     </main>
 
+    @stack('modals')
 
-    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('assets/js/jquery-3.7.0.min.js') }}"></script>
-    <script src="{{ asset('assets/js/popper.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatables.min.js') }}"></script> 
     <script src="{{ asset('assets/js/custom.js') }}"></script>
+    @stack('footer-script')
 </body>
 
 </html>

@@ -239,8 +239,11 @@
 .container{max-width: 100%;}
 
 /* ------------------------------------------------------------------------------- */
+nav.navbar { width: 100vw;padding: 10px; position: fixed;background: #ffff;z-index: 100;box-shadow: 4px 0px 16px 0px #0000000A;left: 0;border-radius: 0 0 10px 0;top: 0}
+.navbar-brand img{height: 50px;}
+main{ margin-top: 80px;}
 
-.side_bar { width: 270px;height: 100vh;padding: 30px;overflow: hidden;position: fixed;background: #ffff;z-index: 99;box-shadow: 4px 0px 16px 0px #0000000A;left: 0;border-radius: 0 10px 10px 0;top: 0}
+.side_bar { width: 270px;height: 100vh;padding: 30px;overflow: hidden;position: fixed;background: #ffff;z-index: 99;box-shadow: 4px 0px 16px 0px #0000000A;left: 0;border-radius: 0 10px 10px 0;top: 80px}
 .side-bar-logo {margin: 0 0 20px;}
 .side-nav-toggle {display: none;}
 .sidebar-content {overflow: auto;height: 100%;padding: 0 0 50px;}

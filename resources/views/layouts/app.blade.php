@@ -5,7 +5,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-        <title>Laravel</title>
+        <title>
+            @hasSection('title')
+                @yield('title') |
+            @endif {{ config('app.name') }}
+        </title>
+
+        <link rel="shortcut icon" href="{{ asset("assets/images/favicon.png") }}" type="image/x-icon">
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
