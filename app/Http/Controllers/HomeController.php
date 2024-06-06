@@ -29,6 +29,12 @@ class HomeController extends Controller
             $request->session()->regenerate();  
             return redirect()->intended('/dashboard');
         }
+        if (Auth::guard('admin')->attempt($credentials))
+        {
+            RateLimiter::clear($this->throttleKey($request));
+            $request->session()->regenerate();  
+            return redirect()->intended('/admin/dashboard');
+        }
         RateLimiter::hit($this->throttleKey($request));
         throw ValidationException::withMessages([
             'login' => 'The provided credentials do not match our records.',
