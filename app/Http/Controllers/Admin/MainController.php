@@ -13,6 +13,9 @@ use Illuminate\Validation\ValidationException;
 
 class MainController extends Controller
 {
+    public function index(Request $request){
+        return view("admin.dashboard");
+    }
     public function login(Request $request){ 
         return view("auth.login");
     }
