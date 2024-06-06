@@ -7,8 +7,9 @@
         @hasSection('title') @yield('title') | @endif   {{config('app.name')}}
     </title>
     <link rel="stylesheet" href="{{asset("assets/css/bootstrap.min.css")}}"> 
+    <link rel="stylesheet" href="{{asset("assets/css/style.css")}}"> 
 </head>
-<body style="background-image: url(https://laravel.com/assets/img/welcome/background.svg);"> 
+<body > 
     <main class="content_outer">
         @yield('content')
     </main>

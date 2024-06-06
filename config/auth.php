@@ -71,7 +71,7 @@ return [
 
         'admins' => [
             'driver' => 'eloquent',  // or 'token', 'jwt', etc.
-            'provider' => App\Models\Admin::class,
+            'model' => App\Models\Admin::class,
         ],
 
         // 'users' => [
@@ -107,7 +107,7 @@ return [
             'throttle' => 60,
         ],
         'admins' => [
-            'provider' => 'users',
+            'provider' => 'admins',
             'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
             'expire' => 60,
             'throttle' => 60,

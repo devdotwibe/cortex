@@ -32,4 +32,8 @@ Route::get('/db-seed', function() {
 
 
 Route::get('/',[HomeController::class,'index']);
-Route::get('/login', [HomeController::class,'login'])->name('login');
+
+Route::middleware('guest')->group(function(){
+    Route::get('/login', [HomeController::class,'login'])->name('login');
+    Route::post('/login', [HomeController::class,'loginSubmit']);
+});
