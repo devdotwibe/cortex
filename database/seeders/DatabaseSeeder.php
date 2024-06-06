@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-        DB::table('admins')->truncate();
+        // DB::table('admins')->truncate();
         DB::table('admins')->insert([
             'name' => 'Admin',
             'email' => 'admin@cortex.com',
