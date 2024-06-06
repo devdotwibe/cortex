@@ -9,8 +9,8 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::post('/login', [MainController::class,'loginSubmit']);
     });
     Route::middleware('auth:admin')->group(function(){
-
         Route::get('/',[MainController::class,'index']);
         Route::get('/dashboard',[MainController::class,'index']);
+        Route::get('/logout',[MainController::class,'logout'])->name('logout');
     });
 });
