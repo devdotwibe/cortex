@@ -68,7 +68,7 @@
                         $("#table-{{$tableID}}_wrapper .pagination").hide();
                     }
                 },
-                columncolumns:[
+                columns:[
                     {
                         data:'DT_RowIndex',
                         name:'id',

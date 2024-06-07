@@ -3,12 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge"> 
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>
         @hasSection('title')
             @yield('title') |
@@ -52,13 +48,13 @@
                 </li> --}}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarLogin" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span>{{auth('admin')->user()->name}}</span>
+                        <span>{{auth('web')->user()->name}}</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarLogin">
                         <a class="dropdown-item" href="#">Profile</a>
                         <a class="dropdown-item" href="#">Settings</a>
                         <div class="dropdown-divider"></div>
-                        <div class="dropdown-item" href="{{route('admin.logout')}}">Logout </div>
+                        <div class="dropdown-item" href="{{route('logout')}}">Logout </div>
                     </div>
                 </li>
             </ul>   
@@ -72,7 +68,7 @@
         <div class="sidebar-content js-simplebar">
             <ul class="sidebar-nav">
                 <li class="side-item  active ">
-                    <a href="{{route('admin.dashboard')}}">
+                    <a href="{{route('dashboard')}}">
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
                         </span>
@@ -81,18 +77,7 @@
                         </span>
                         Dashboard
                     </a>
-                </li>
-                <li class="side-item">
-                    <a href="{{route("admin.user.index")}}">
-                        <span class="side-icon" >
-                            <img src="{{asset("assets/images/Dashboard-wht.svg")}}"  alt="Users">
-                        </span>
-                        <span class="active-icon">
-                            <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Users">
-                        </span>
-                        Users
-                    </a>
-                </li>
+                </li> 
 
 
                 <li class="side-item">
@@ -155,7 +140,7 @@
                 </li>
 
                 <li class="side-item logout">
-                    <a href="{{route('admin.logout')}}" class="log-out"> 
+                    <a href="{{route('logout')}}" class="log-out"> 
                         <span class="side-icon">
                             <img src="{{asset("assets/images/log-out.svg")}}" alt="log-out">
                         </span>
@@ -173,19 +158,6 @@
 
     @stack('modals')
 
-    <script>
-        $.ajaxSetup({
-             headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-             },
-             beforeSend:function(xhr){
-                 $('.loading-wrap').show();
-             },
-             complete:function(xhr,status){
-                 $('.loading-wrap').hide();
-             },
-        });
-    </script>
     <script src="{{ asset('assets/js/datatables.min.js') }}"></script> 
     <script src="{{ asset('assets/js/custom.js') }}"></script>
     @stack('footer-script')

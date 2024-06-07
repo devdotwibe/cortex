@@ -1,13 +1,10 @@
 body {
     background: #000;
+    font-family: Arial, sans-serif;  
 }
 .card {
     border: none;
-    height: 320px;
-}
-.login-error.card {
-    border: none;
-    height: 400px;
+    /* height: 320px; */
 }
 .forms-inputs {
     position: relative;
@@ -38,4 +35,17 @@ body {
 }
 .bxs-badge-check {
     font-size: 90px;
+}
+
+.register-container p,.login-container p {
+    margin: 10px 0;
+}
+
+.register-wrapp a ,.login-wrapp a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.register-wrapp a:hover ,.login-wrapp a:hover {
+    text-decoration: underline;
 }

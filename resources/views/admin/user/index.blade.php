@@ -6,11 +6,11 @@
         <div class="header_title">
             <h2>Users</h2>
         </div>
-        <div class="header_right">
+        {{-- <div class="header_right">
             <ul class="nav_bar">
                 <li class="nav_item"><a href="{{route('admin.user.create')}}" class="nav_link btn">Invite</a></li>
             </ul>
-        </div>
+        </div> --}}
     </div>
 </section>
 <section class="content_section">
@@ -66,7 +66,7 @@
     <div class="container">
         <div class="row">
             <x-ajax-table :coloumns='[
-                ["th"=>"Date","name"=>"created_at","data"=>"created_at"],
+                ["th"=>"Date","name"=>"created_at","data"=>"date"],
                 ["th"=>"Name","name"=>"name","data"=>"name"],
                 ["th"=>"Email","name"=>"email","data"=>"email"],
             ]' />
@@ -77,6 +77,6 @@
 
 @push('footer-script')
     <script>
-        $(function(){   })
+         
     </script>
 @endpush

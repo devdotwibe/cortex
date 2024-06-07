@@ -20,6 +20,9 @@ trait ResourceController
         
     public function buildTable($rawColumn=[]){
         $table=DataTables::of(app(self::$model)->query());
+        $table->addColumn('date',function($data){
+            return $data->created_at->format('Y-m-d');
+        });
         foreach (self::$columns as $key => $value) {
             $table->addColumn($key ,$value);
         }
@@ -47,14 +50,4 @@ trait ResourceController
         self::$columns[$name]=$content;
         return $this;
     }
-
-
-    public function create($fields=[]){ 
-        $fields['slug']=md5(Str::random(16).time());
-        return  app(self::$model)->create($fields);
-    }
-    public function update($fields=[],$id){  
-        return  app(self::$model)->where('id',$id)->update($fields);
-    }
-
 }
