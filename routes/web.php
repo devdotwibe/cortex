@@ -43,6 +43,9 @@ Route::middleware('guest')->group(function(){
 Route::middleware('auth')->group(function(){
     Route::get('/dashboard',[UserMainController::class,'index'])->name('dashboard');
     Route::get('/logout',[UserMainController::class,'logout'])->name('logout');
+
+
+    
 });
 
 Route::middleware('signed')->get('email/{id}/{hash}/verify', [HomeController::class,'verifyemail'])->name('verification.verify');

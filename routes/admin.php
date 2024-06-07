@@ -15,5 +15,13 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::get('/logout',[AdminMainController::class,'logout'])->name('logout');
 
         Route::resource("/user",UserController::class);
+
+
+        
     });
+
+
+
+
+
 });
