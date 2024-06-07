@@ -13,7 +13,7 @@
                     @enderror
                     @session('success')
                     <div class="alert alert-success">
-                        {{ session('success') }} * {{$message}}
+                        {{ session('success') }}
                     </div>
                     @endsession
                     <form action="{{url()->current()}}" class="form" method="post">
