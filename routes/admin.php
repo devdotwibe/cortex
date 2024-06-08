@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\ExamController;
 use App\Http\Controllers\Admin\LearnController;
 use App\Http\Controllers\Admin\MainController as AdminMainController;
+use App\Http\Controllers\Admin\QuestionBankChapterController;
 use App\Http\Controllers\Admin\QuestionBankSectionController;
 use App\Http\Controllers\Admin\QuestionBankTopicController;
 use App\Http\Controllers\Admin\UserController;
@@ -22,8 +23,8 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::resource("/exam",ExamController::class);
         Route::prefix('question-bank')->name('question-bank.')->group(function () {
             Route::resource("/topic",QuestionBankTopicController::class);
+            Route::resource("/chapters",QuestionBankChapterController::class);
             Route::resource("/section",QuestionBankSectionController::class);
-            Route::resource("/chapters",QuestionBankSectionController::class);
         });
 
         Route::resource("/learn",LearnController::class);

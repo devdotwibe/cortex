@@ -121,7 +121,7 @@
                         Question Bank
                     </a>
                     <ul class="side-dropdown-menu" >
-                        <li class="side-item "><a href="">Exam</a></li>
+                        <li class="side-item "><a href="{{route('admin.exam.index')}}">Exam</a></li>
                         <li class="side-item "><a href="{{route('admin.question-bank.topic.index')}}">Topic</a></li> 
                         <li class="side-item "><a href="{{route('admin.question-bank.chapters.index')}}">Chapters</a></li> 
                         <li class="side-item "><a href="{{route('admin.question-bank.section.index')}}">Section</a></li> 

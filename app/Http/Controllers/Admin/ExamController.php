@@ -25,18 +25,23 @@ class ExamController extends Controller
     public function create(Request $request){
         return view("admin.exam.create");
     }
-    public function show(Request $request,Exam $user){
-        return view("admin.exam.show",compact('user'));
+    public function show(Request $request,Exam $exam){
+        return view("admin.exam.show",compact('exam'));
     }
-    public function edit(Request $request,Exam $user){
-        return view("admin.exam.edit",compact('user'));
+    public function edit(Request $request,Exam $exam){
+        return view("admin.exam.edit",compact('exam'));
     }
-    public function update(Request $request,Exam $user){
-        $userdat=$request->validate([
+    public function update(Request $request,Exam $exam){
+        $examdat=$request->validate([
             "name"=>"required"
         ]);
-        $user->update($userdat);
+        $exam->update($examdat);
         
         return redirect()->route('admin.exam.index')->with("success","Exam updated success");
+    }
+
+    public function destroy(Request $request,Exam $exam){ 
+        $exam->delete();        
+        return redirect()->route('admin.question-bank.chapter.index')->with("success","QuestionBankChapter deleted success");
     }
 }

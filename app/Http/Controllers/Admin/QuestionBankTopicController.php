@@ -45,4 +45,8 @@ class QuestionBankTopicController extends Controller
         $topic->update($topicdat);        
         return redirect()->route('admin.question-bank.topic.index')->with("success","QuestionBankTopic updated success");
     }
+    public function destroy(Request $request,QuestionBankTopic $chapter){ 
+        $chapter->delete();        
+        return redirect()->route('admin.question-bank.chapter.index')->with("success","QuestionBankChapter deleted success");
+    }
 }
