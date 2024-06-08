@@ -52,11 +52,16 @@ class HomeController extends Controller
     
     public function registerSubmit(Request $request){
         $userdata=$request->validate([
-            "name"=>["required",'string','min:3','max:250'],
+            "first_name"=>["required",'string','min:3','max:250'],
+            "last_name"=>["required",'string','min:3','max:250'],
             "email"=>["required",'email:rfc,dns','unique:users','unique:admins','max:250'],
+            "phone"=>["required",'string','min:3','max:250'],
             "password"=>["required",'string','min:6','max:250'],
             "re_password" => ["required","same:password"]
         ]);
+
+        $userdata['name'] = $request->first_name . ' ' . $request->last_name;
+
         $user=User::store($userdata);
         event(new Registered($user));
         return redirect()->route('login')->with('success', " Account created Succesfully");
