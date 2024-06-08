@@ -13,6 +13,14 @@
 
         <button class="btn btn-success" onclick="AddSubject()">Add Subject+</button>
 
+            <x-ajax-table :coloumns='[
+                ["th"=>"Date","name"=>"created_at","data"=>"date"],
+                ["th"=>"Subject","name"=>"subject","data"=>"subject"],
+               
+            ]' />
+
+    </div>
+
     </div>
 
 </section>
@@ -31,10 +39,9 @@
 
                     <div class="modal-body">
 
-                        <x-modal-form name="admin.exam" :url="1" btnsubmit="Add" onclick="CloseModal()" :fields='[
-                            ["name"=>"Subject","label"=>"Subject" ,"placeholder"=>"Enter Subject Name" ,"size"=>8],
-                             ["name"=>"over_view","label"=>"Over View" ,"placeholder"=>"Over View" ,"size"=>8],
-                        
+                        <x-modal-form  :url="route('admin.learn.store',)" btnsubmit="Add" onclick="CloseModal()" :fields='[
+                            ["name"=>"subject","label"=>"Subject" ,"placeholder"=>"Enter Subject Name" ,"size"=>8],
+                            
                         ]' /> 
                             
                     </div>
@@ -48,6 +55,15 @@
 @push('footer-script')
     <script>
          
+         @error('subject')
+             
+           $(document).ready(function()
+            {
+                AddSubject();
+            });
+
+         @enderror
+
         function AddSubject()
             {
                 $('#add_subject_modal').modal('show');

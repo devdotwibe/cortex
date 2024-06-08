@@ -3,6 +3,7 @@
         <div class="card-body">
             <form action="{{$url}}" class="form" id="{{$frmID}}" method="post">
                 @csrf 
+              
                 <div class="row">
                     @foreach ($fields as $item)
                         <div class="col-md-{{$item->size??4}}">
