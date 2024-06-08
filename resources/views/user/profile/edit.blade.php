@@ -19,7 +19,7 @@
         <div class="row">
 
             <x-general-form :url="route('profile.edit')" :id="$user->slug" btnsubmit="Save" :cancel="route('profile.view')" :fields='[
-                ["name"=>"first_name", "label"=>"First Name" ,"size"=>6,"value"=>$user->name],
+                ["name"=>"first_name", "label"=>"First Name" ,"size"=>6,"value"=>$user->first_name?? $user->name],
                 ["name"=>"last_name","label"=>"Last Name" ,"size"=>6,"value"=>$user->last_name], 
                 ["name"=>"email","label"=>"email", "size"=>6,"value"=>$user->email,"readonly"=>true],
                 ["name"=>"phone", "label"=>"Phone No", "size"=>6,"value"=>$user->phone], 

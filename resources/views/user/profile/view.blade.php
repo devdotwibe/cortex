@@ -19,11 +19,11 @@
         <div class="row">
 
             <x-show-fields :fields='[
-                ["name"=>"first_name", "label"=>"First Name" ,"size"=>6,"value"=>$user->name,"readonly"=>true],
-                ["name"=>"last_name","label"=>"Last Name" ,"size"=>6,"value"=>$user->last_name,"readonly"=>true], 
-                ["name"=>"email","label"=>"email", "size"=>6,"value"=>$user->email,"readonly"=>true],
-                ["name"=>"phone", "label"=>"Phone No", "size"=>6,"value"=>$user->phone,"readonly"=>true], 
-                ["name"=>"schooling_year", "label"=>"Current year of schooling", "size"=>6,"value"=>$user->schooling_year,"readonly"=>true], 
+                ["name"=>"first_name", "label"=>"First Name" ,"size"=>6,"value"=>$user->first_name?? $user->name],
+                ["name"=>"last_name","label"=>"Last Name" ,"size"=>6,"value"=>$user->last_name], 
+                ["name"=>"email","label"=>"email", "size"=>6,"value"=>$user->email],
+                ["name"=>"phone", "label"=>"Phone No", "size"=>6,"value"=>$user->phone], 
+                ["name"=>"schooling_year", "label"=>"Current year of schooling", "size"=>6,"value"=>$user->schooling_year], 
                 
                 
                
