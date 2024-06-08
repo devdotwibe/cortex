@@ -31,10 +31,22 @@ class UserController extends Controller
         return view("admin.user.edit",compact('user'));
     }
     public function update(Request $request,User $user){
+
         $userdat=$request->validate([
-            "name"=>"required"
+            "first_name"=>"required",
+            "last_name"=>"required",
+            "phone"=>"required",
+            "schooling_year"=>"required",
         ]);
-        $user->update($userdat);
+
+        // $user->update($userdat);
+        $user->name = $request->first_name.' '.$request->last_name;
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->phone = $request->phone;
+        $user->schooling_year = $request->schooling_year;
+        $user->save();
+
         return redirect()->route('admin.user.index')->with("success","User updated success");
     }
 }

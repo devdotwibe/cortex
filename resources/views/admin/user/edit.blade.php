@@ -11,8 +11,11 @@
 <section class="invite-wrap mt-2">
     <div class="container">
         <x-edit-form name="admin.user" :id="$user->slug" btnsubmit="Save" :fields='[
-            ["name"=>"name","size"=>6,"value"=>$user->name],
-            ["name"=>"email","size"=>6,"value"=>$user->email,"readonly"=>true], 
+            ["name"=>"first_name", "label"=>"First Name" ,"size"=>6,"value"=>$user->first_name?? $user->name],
+            ["name"=>"last_name","label"=>"Last Name" ,"size"=>6,"value"=>$user->last_name], 
+            ["name"=>"email","label"=>"email", "size"=>6,"value"=>$user->email,"readonly"=>true],
+            ["name"=>"phone", "label"=>"Phone No", "size"=>6,"value"=>$user->phone], 
+            ["name"=>"schooling_year", "label"=>"Current year of schooling", "size"=>6,"value"=>$user->schooling_year], 
         ]' /> 
     </div>
 </section> 
