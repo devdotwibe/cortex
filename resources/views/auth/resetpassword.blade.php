@@ -11,51 +11,58 @@
                         <span>{{$message}}</span>
                     </div>
                     @enderror
-                    @session('success')
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                    @endsession
-
                     @session('message')
                     <div class="alert alert-success">
                         {{ session('message') }}
                     </div>
                     @endsession
 
+                    @session('success')
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endsession
+
+                    @error('email')
+                        <div class="alert alert-danger">
+                            <span>{{ $message }}</span>
+                        </div>
+                    @endif
+
                     <form action="{{url()->current()}}" class="form" method="post">
                         @csrf 
                         <div class="form-group">
                             <div class="form-data">
-                                <div class="forms-inputs mb-4"> 
-                                    <span>Email or username</span> 
-                                    <input autocomplete="off" name="email" type="text" placeholder="Enter your email or username" value="{{old('email')}}" class="form-control @error('email') is-invalid @enderror " >
-                                    @error('email')
-                                    <div class="invalid-feedback">{{$message}}</div>
-                                    @enderror
-                                </div>
+                                
                                 <div class="forms-inputs mb-4"> 
                                     <span>Password</span> 
                                     <input autocomplete="off" name="password" type="password" placeholder="Enter your password" class="form-control @error('password') is-invalid @enderror " >
-                                    @error('password')
-                                    <div class="invalid-feedback">{{$message}}</div>
-                                    @enderror
+                                  
                                 </div>
+
+                                <div class="forms-inputs mb-4"> 
+                                    <span>Confirm Password</span> 
+                                    <input autocomplete="off" name="re_password" type="password" placeholder="Enter your password" class="form-control @error('re_password') is-invalid @enderror " >
+                                  
+                                </div>
+
+                                @error('credential')
+                                <span class="invalid-feedback">{{ $message }}</span>
+                                @enderror
+
+                                @if(session('mail-error'))
+                                    <div class="invalid-feedback">
+                                        {{ session('mail-error') }}
+                                    </div>
+                                @endif
+
                                 <div class="mb-3"> 
-                                    <button type="submit" class="btn btn-dark w-100">Login</button> 
+                                    <button type="submit" class="btn btn-dark w-100">Submit</button> 
                                 </div>
                             </div>
                         </div>
                     </form>
-                    <p>Not registered? <a href="{{route("register")}}" >Register here</a>
-
-                       
-                    </p> 
-
-                    <p>   
-                        <a href="{{ route('password-reset') }}">Forgot your password?</a> 
-                    </p>  
-
+                                
                 </div>
             </div>
         </div>

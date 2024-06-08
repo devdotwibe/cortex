@@ -40,6 +40,13 @@ Route::middleware('guest')->group(function(){
     Route::post('/login', [HomeController::class,'loginSubmit']);
     Route::get('/register', [HomeController::class,'register'])->name('register');
     Route::post('/register', [HomeController::class,'registerSubmit']);
+
+    Route::get('/password-reset', [HomeController::class,'sendresetlink'])->name('password-reset');
+    Route::post('/password-reset', [HomeController::class,'submitresetlink']);
+
+    Route::get('/password-change/{token}', [HomeController::class,'resetpassword'])->name('password.reset');
+    Route::post('/password-change/{token}', [HomeController::class,'resetpassword']);
+    
 });
 Route::middleware('auth')->group(function(){
     Route::get('/dashboard',[UserMainController::class,'index'])->name('dashboard');
@@ -49,7 +56,8 @@ Route::middleware('auth')->group(function(){
     Route::post('/profile/edit',[ProfileController::class,'update']);
 
     Route::get('/profile',[ProfileController::class,'view'])->name('profile.view');
-    
+
+   
 });
 
 Route::middleware('signed')->get('email/{id}/{hash}/verify', [HomeController::class,'verifyemail'])->name('verification.verify');

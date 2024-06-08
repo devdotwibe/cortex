@@ -1,5 +1,5 @@
 @extends('layouts.auth')
-@section('title', 'Login')
+@section('title', 'Forgot Password')
 @section('content')
 <section class="login-wrapp">
     <div class="container mt-5">
@@ -16,17 +16,23 @@
                         {{ session('success') }}
                     </div>
                     @endsession
-
-                    @session('message')
+                    @session('status')
                     <div class="alert alert-success">
-                        {{ session('message') }}
+                        {{ session('status') }}
                     </div>
                     @endsession
+                    @session('mail-error')
+                    <div class="alert alert-success">
+                        {{ session('mail-error') }}
+                    </div>
+                    @endsession
+                  
 
                     <form action="{{url()->current()}}" class="form" method="post">
                         @csrf 
                         <div class="form-group">
                             <div class="form-data">
+
                                 <div class="forms-inputs mb-4"> 
                                     <span>Email or username</span> 
                                     <input autocomplete="off" name="email" type="text" placeholder="Enter your email or username" value="{{old('email')}}" class="form-control @error('email') is-invalid @enderror " >
@@ -34,27 +40,14 @@
                                     <div class="invalid-feedback">{{$message}}</div>
                                     @enderror
                                 </div>
-                                <div class="forms-inputs mb-4"> 
-                                    <span>Password</span> 
-                                    <input autocomplete="off" name="password" type="password" placeholder="Enter your password" class="form-control @error('password') is-invalid @enderror " >
-                                    @error('password')
-                                    <div class="invalid-feedback">{{$message}}</div>
-                                    @enderror
-                                </div>
+                               
                                 <div class="mb-3"> 
-                                    <button type="submit" class="btn btn-dark w-100">Login</button> 
+                                    <button type="submit" class="btn btn-dark w-100">Reset Password</button> 
                                 </div>
                             </div>
                         </div>
                     </form>
-                    <p>Not registered? <a href="{{route("register")}}" >Register here</a>
-
-                       
-                    </p> 
-
-                    <p>   
-                        <a href="{{ route('password-reset') }}">Forgot your password?</a> 
-                    </p>  
+                    <p>Click Here to <a href="{{route("login")}}" >Login</a> </p>    
 
                 </div>
             </div>
