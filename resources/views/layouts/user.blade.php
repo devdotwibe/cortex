@@ -80,28 +80,15 @@
                 </li> 
 
 
-                <li class="side-item">
-                    <a href="">
-                        <span class="side-icon" >
-                            <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
-                        </span>
-                        <span class="active-icon">
-                            <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Dashboard">
-                        </span>
-                        Dashboard
-                    </a>
-                </li>
-
-
                 <li class="side-item ">
-                    <a href="">
+                    <a href="{{ route('profile') }}">
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
                         </span>
                         <span class="active-icon">
                             <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Dashboard">
                         </span>
-                        Dashboard
+                        Profile
                     </a>
                 </li>
 

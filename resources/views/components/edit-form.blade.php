@@ -10,10 +10,10 @@
                             <div class="form-group">
                                 <div class="form-data">
                                     <div class="forms-inputs mb-4"> 
-                                        <label for="{{$item->name}}-{{$frmID}}">{{ucfirst($item->name)}}</label>
+                                        <label for="{{$item->name}}-{{$frmID}}">{{ucfirst($item->label??$item->name)}}</label>
                                         @switch($item->type??"text")
                                             @case('textarea')
-                                                <textarea name="{{$item->name}}" id="{{$item->name}}-{{$frmID}}"  class="form-control @error($item->name) is-invalid @enderror "  rows="5">{{old($item->name)}}</textarea>
+                                                <textarea name="{{$item->name}}" id="{{$item->name}}-{{$frmID}}"  class="form-control @error($item->name) is-invalid @enderror "  rows="5" @readonly($item->readonly??false) >{{old($item->name)}}</textarea>
                                                 @break
                                             @case('select')
                                                 <select name="{{$item->name}}" id="{{$item->name}}-{{$frmID}}">
