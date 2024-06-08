@@ -13,19 +13,36 @@
 
         <button class="btn btn-success" onclick="AddSubject()">Add Subject+</button>
 
-        <div class="form-fields" id="show_field">
-
-            <x-create-form name="admin.exam" btnsubmit="Add" :fields='[
-                ["name"=>"Subject","label"=>"Subject" ,"placeholder"=>"Enter Subject Name" ,"size"=>3],
-            
-            ]' /> 
-
-        </div>
-
-
     </div>
 
-</section> 
+</section>
+
+
+    <div class="modal fade bd-example-modal-lg"  id="add_subject_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Subject</h5>
+                    <button type="button" onclick="CloseModal()" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                    <div class="modal-body">
+
+                        <x-modal-form name="admin.exam" :url="1" btnsubmit="Add" onclick="CloseModal()" :fields='[
+                            ["name"=>"Subject","label"=>"Subject" ,"placeholder"=>"Enter Subject Name" ,"size"=>8],
+                             ["name"=>"over_view","label"=>"Over View" ,"placeholder"=>"Over View" ,"size"=>8],
+                        
+                        ]' /> 
+                            
+                    </div>
+ 
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @push('footer-script')
@@ -33,8 +50,13 @@
          
         function AddSubject()
             {
-                $('#show_field').toggle();
+                $('#add_subject_modal').modal('show');
             }
 
+        function CloseModal()
+        {
+            $('#add_subject_modal').modal('hide');
+        }
+            
     </script>
 @endpush
