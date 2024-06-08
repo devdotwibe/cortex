@@ -109,48 +109,22 @@
                 </li>
 
 
-                <li class="side-item ">
-                    <a href="">
-                        <span class="side-icon" >
-                            <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
-                        </span>
-                        <span class="active-icon">
-                            <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Dashboard">
-                        </span>
-                        Dashboard
-                    </a>
-                </li>
-
-
-                <li class="side-item ">
-                    <a href="">
-                        <span class="side-icon" >
-                            <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
-                        </span>
-                        <span class="active-icon">
-                            <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Dashboard">
-                        </span>
-                        Settings
-                    </a>
-                </li>
-
 
                 <li class="side-item side-dropdown ">
-                    <a class="side-dropdown-toggle" id="pagesLink">
+                    <a class="side-dropdown-toggle" >
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
                         </span>
                         <span class="active-icon">
                             <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Dashboard">
                         </span>
-                        Pages
+                        Question Bank
                     </a>
-                    <ul class="side-dropdown-menu" id="pagesDropdown">
-                        <li class="side-item "><a href="">Contact Details</a></li>
-                        <li class="side-item "><a href="">Home</a></li>
-                        <li class="side-item "><a href="">About Us</a></li>
-                        <li class="side-item "><a href="">Employer</a></li>
-                        <li class="side-item "><a href="">Terms and Conditions</a></li>
+                    <ul class="side-dropdown-menu" >
+                        <li class="side-item "><a href="">Exam</a></li>
+                        <li class="side-item "><a href="{{route('admin.question-bank.topic.index')}}">Topic</a></li> 
+                        <li class="side-item "><a href="{{route('admin.question-bank.chapters.index')}}">Chapters</a></li> 
+                        <li class="side-item "><a href="{{route('admin.question-bank.section.index')}}">Section</a></li> 
 
                     </ul>
                 </li>
