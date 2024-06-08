@@ -22,7 +22,7 @@
                     </div>
                     @endsession
                     @session('mail-error')
-                    <div class="alert alert-success">
+                    <div class="alert alert-danger">
                         {{ session('mail-error') }}
                     </div>
                     @endsession

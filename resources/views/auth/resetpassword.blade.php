@@ -37,13 +37,19 @@
                                 <div class="forms-inputs mb-4"> 
                                     <span>Password</span> 
                                     <input autocomplete="off" name="password" type="password" placeholder="Enter your password" class="form-control @error('password') is-invalid @enderror " >
-                                  
+                                    @error('password')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+    
                                 </div>
 
                                 <div class="forms-inputs mb-4"> 
                                     <span>Confirm Password</span> 
-                                    <input autocomplete="off" name="re_password" type="password" placeholder="Enter your password" class="form-control @error('re_password') is-invalid @enderror " >
-                                  
+                                    <input autocomplete="off" name="password_confirmation" type="password" placeholder="Enter your password" class="form-control @error('password_confirmation') is-invalid @enderror " >
+                                    @error('password_confirmation')
+                                    <div class="invalid-feedback">{{ $message }}</div>  
+                                    @enderror
+    
                                 </div>
 
                                 @error('credential')
@@ -55,6 +61,9 @@
                                         {{ session('mail-error') }}
                                     </div>
                                 @endif
+
+                                <input type="hidden" name="token" value="{{ $token }}">
+                                <input type="hidden" name="email" value="{{ $email }}">
 
                                 <div class="mb-3"> 
                                     <button type="submit" class="btn btn-dark w-100">Submit</button> 

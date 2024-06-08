@@ -45,7 +45,7 @@ Route::middleware('guest')->group(function(){
     Route::post('/password-reset', [HomeController::class,'submitresetlink']);
 
     Route::get('/password-change/{token}', [HomeController::class,'resetpassword'])->name('password.reset');
-    Route::post('/password-change/{token}', [HomeController::class,'resetpassword']);
+    Route::post('/password-change/{token}', [HomeController::class,'updatepassword']);
     
 });
 Route::middleware('auth')->group(function(){

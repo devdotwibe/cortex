@@ -17,9 +17,9 @@
                     </div>
                     @endsession
 
-                    @session('message')
+                    @session('status')
                     <div class="alert alert-success">
-                        {{ session('message') }}
+                        {{ session('status') }}
                     </div>
                     @endsession
 
