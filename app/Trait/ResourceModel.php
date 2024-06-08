@@ -17,19 +17,21 @@ trait ResourceModel
     public function getRouteKeyName(){
         return 'slug';
     } 
-
-    public static function getFormFields(){
-        $fields=[];
-        foreach(parent::newInstance()->fillable as $f){
-            if(!in_array($f,['slug','id','created_at','updated_at'])){
-                if(empty(self::$formFields[$f])){
-                    $fields[$f]= ["name"=>$f,"size"=>4,"value"=>parent::$$f??""];
-                }else{
-                    $fields[$f]=self::$formFields[$f];
-                }
-            }
-        }
-        return $fields;
-    }
+    // public function getFields(){
+    //     static::getFormFields();
+    // }
+    // public static function getFormFields(){
+    //     $fields=[];
+    //     foreach(parent::newInstance()->fillable as $f){
+    //         if(!in_array($f,['slug','id','created_at','updated_at'])){
+    //             if(empty(self::$formFields[$f])){
+    //                 $fields[$f]= ["name"=>$f,"size"=>4,"value"=>parent::$$f??""];
+    //             }else{
+    //                 $fields[$f]=self::$formFields[$f];
+    //             }
+    //         }
+    //     }
+    //     return $fields;
+    // }
 
 }

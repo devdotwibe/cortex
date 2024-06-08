@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/dashboard.css') }}">
     <link rel="stylesheet" href="{{ asset("assets/css/datatables.min.css") }}" > 
+    <link rel="stylesheet" href="{{ asset("assets/css/select2.min.css") }}" > 
 
     @stack('style')
 
@@ -187,6 +188,7 @@
         });
     </script>
     <script src="{{ asset('assets/js/datatables.min.js') }}"></script> 
+    <script src="{{ asset('assets/js/select2.min.js') }}"></script> 
     <script src="{{ asset('assets/js/custom.js') }}"></script>
     @stack('footer-script')
 </body>
