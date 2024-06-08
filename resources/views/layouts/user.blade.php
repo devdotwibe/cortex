@@ -81,7 +81,7 @@
 
 
                 <li class="side-item ">
-                    <a href="{{ route('profile') }}">
+                    <a href="{{ route('profile.view') }}">
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
                         </span>

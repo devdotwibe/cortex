@@ -45,9 +45,11 @@ Route::middleware('auth')->group(function(){
     Route::get('/dashboard',[UserMainController::class,'index'])->name('dashboard');
     Route::get('/logout',[UserMainController::class,'logout'])->name('logout');
 
-    Route::get('/profile',[ProfileController::class,'index'])->name('profile');
+    Route::get('/profile/edit',[ProfileController::class,'index'])->name('profile.edit');
+    Route::post('/profile/edit',[ProfileController::class,'update']);
 
-
+    Route::get('/profile',[ProfileController::class,'view'])->name('profile.view');
+    
 });
 
 Route::middleware('signed')->get('email/{id}/{hash}/verify', [HomeController::class,'verifyemail'])->name('verification.verify');
