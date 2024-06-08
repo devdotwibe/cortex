@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ExamController;
 use App\Http\Controllers\Admin\MainController as AdminMainController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
@@ -15,6 +16,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::get('/logout',[AdminMainController::class,'logout'])->name('logout');
 
         Route::resource("/user",UserController::class);
+        Route::resource("/exam",ExamController::class);
 
 
         
