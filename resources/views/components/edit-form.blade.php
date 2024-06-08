@@ -21,7 +21,7 @@
                                                 </select>
                                                 @break
                                             @default
-                                                <input type="{{$item->type??"text"}}" name="{{$item->name}}" id="{{$item->name}}-{{$frmID}}" value="{{old($item->name,$item->value??"")}}" class="form-control @error($item->name) is-invalid @enderror " @readonly($item->readonly??false) >        
+                                                <input type="{{$item->type??"text"}}" name="{{$item->name}}" id="{{$item->name}}-{{$frmID}}" value="{{old($item->name,$item->value??"")}}" placeholder="{{ucfirst($item->placeholder??$item->name)}}" class="form-control @error($item->name) is-invalid @enderror " @readonly($item->readonly??false) >        
                                         @endswitch
                                         
                                         @error($item->name)

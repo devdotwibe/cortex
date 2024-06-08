@@ -10,10 +10,19 @@
 </section>
 <section class="invite-wrap mt-2">
     <div class="container">
-        <x-create-form name="admin.exam" btnsubmit="Add" :fields='[
-            ["name"=>"Subject","label"=>"Subject" "placeholder"=>"Enter Subject Name" ,"size"=>3],
-          
-        ]' /> 
+
+        <button class="btn btn-success" onclick="AddSubject()">Add Subject+</button>
+
+        <div class="form-fields" id="show_field">
+
+            <x-create-form name="admin.exam" btnsubmit="Add" :fields='[
+                ["name"=>"Subject","label"=>"Subject" ,"placeholder"=>"Enter Subject Name" ,"size"=>3],
+            
+            ]' /> 
+
+        </div>
+
+
     </div>
 
 </section> 
@@ -22,5 +31,10 @@
 @push('footer-script')
     <script>
          
+        function AddSubject()
+            {
+                $('#show_field').toggle();
+            }
+
     </script>
 @endpush
