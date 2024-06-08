@@ -97,14 +97,14 @@
 
 
                 <li class="side-item">
-                    <a href="">
+                    <a href="{{ route('admin.learn.index') }}">
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
                         </span>
                         <span class="active-icon">
                             <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Dashboard">
                         </span>
-                        Dashboard
+                        Learn
                     </a>
                 </li>
 

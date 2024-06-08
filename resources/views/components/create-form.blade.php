@@ -31,7 +31,7 @@
                                                 @endif                                                 --}}
                                                 @break
                                             @default
-                                                <input type="{{$item->type??"text"}}" id="{{$item->name}}-{{$frmID}}" value="{{old($item->name)}}" class="form-control @error($item->name) is-invalid @enderror " placeholder="{{ucfirst($item->label??$item->name)}}" aria-placeholder="{{ucfirst($item->label??$item->name)}}" >        
+                                                <input type="{{$item->type??"text"}}" id="{{$item->name}}-{{$frmID}}" value="{{old($item->name)}}" class="form-control @error($item->name) is-invalid @enderror " placeholder="{{ucfirst($item->placeholder??$item->name)}}" aria-placeholder="{{ucfirst($item->placeholder??$item->name)}}" >        
                                         @endswitch
                                         
                                         @error($item->name)

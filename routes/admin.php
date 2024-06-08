@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ExamController;
+use App\Http\Controllers\Admin\LearnController;
 use App\Http\Controllers\Admin\MainController as AdminMainController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
@@ -17,6 +18,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
         Route::resource("/user",UserController::class);
         Route::resource("/exam",ExamController::class);
+        Route::resource("/learn",LearnController::class);
 
 
         
