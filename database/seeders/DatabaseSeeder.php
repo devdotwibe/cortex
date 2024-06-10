@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         // ]);
 
 
-        // DB::table('admins')->truncate();
+        DB::table('admins')->truncate();
         DB::table('admins')->insert([
             'name' => 'Admin',
             'email' => 'admin@cortex.com',
