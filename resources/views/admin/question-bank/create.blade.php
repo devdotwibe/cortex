@@ -10,9 +10,9 @@
 </section>
 <section class="invite-wrap mt-2">
     <div class="container">
-        <x-create-form name="admin.question-bank.section" btnsubmit="Save" :fields='[
+        <x-create-form name="admin.question-bank" :params='[]' btnsubmit="Save" :fields='[
             ["name"=>"category_id", "value"=>$category->id,"type"=>"hidden"],
-            ["name"=>"sub_category_id" ,"type"=>"select"],
+            ["name"=>"sub_category_id" ,"label"=>"Sub Category","ajaxurl"=>"","type"=>"select"],
             ["name"=>"title","size"=>8], 
         ]' /> 
     </div>

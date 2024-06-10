@@ -96,7 +96,7 @@ class LearnController extends Controller
 
                 if(!empty($request->category))
                 {
-                    $category = Learn::find($request->category);
+                    $category = Learn::findSlug($request->category);
 
                     return $this->where('learn_id',$category->id)->buildTable();
                 }

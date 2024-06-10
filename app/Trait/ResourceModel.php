@@ -13,10 +13,15 @@ trait ResourceModel
     public static function edit($fields=[],$id){  
         return  self::where('id',$id)->update($fields);
     }
-
+    public static function findSlug($slug){
+        return self::where("slug",$slug)->first();
+    }
     public function getRouteKeyName(){
         return 'slug';
     } 
+    // public function getKeyName(){
+    //     return 'slug';
+    // } 
     // public function getFields(){
     //     static::getFormFields();
     // }
