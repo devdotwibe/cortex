@@ -27,7 +27,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::get('/',[QuestionBankController::class,'index'])->name('index');
             Route::get('/{category}',[QuestionBankController::class,'show'])->name('show');
             Route::get('/{category}/create',[QuestionBankController::class,'create'])->name('create');
-            Route::post('/{category}/store',[QuestionBankController::class,'store'])->name('store');
+            Route::post('/{category}/store',[QuestionBankController::class,'store'])->name('store'); 
 
             Route::resource("/topic",QuestionBankTopicController::class);
             Route::resource("/chapters",QuestionBankChapterController::class);

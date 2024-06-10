@@ -1,7 +1,7 @@
 <div class="row"> 
     <div class="card">
         <div class="card-body">
-            <form action="{{route("$name.store")}}" class="form" id="{{$frmID}}" method="post">
+            <form @if (!empty($params))   action="{{route("$name.store",...$params)}}"    @else   action="{{route("$name.store")}}"   @endif class="form" id="{{$frmID}}" method="post">
                 @csrf 
                 <div class="row">
                     @foreach ($fields as $item)
@@ -19,7 +19,7 @@
                                                 <textarea name="{{$item->name}}" id="{{$item->name}}-{{$frmID}}"  class="form-control @error($item->name) is-invalid @enderror "  rows="5">{{old($item->name)}}</textarea>
                                                 @break
                                             @case('select')
-                                                <select name="{{$item->name}}" data-value="{{old($item->name)}}" id="{{$item->name}}-{{$frmID}}"  class="form-control select2 @error($item->name) is-invalid @enderror " data-placeholder="{{ucfirst($item->label??$item->name)}}" placeholder="{{ucfirst($item->label??$item->name)}}" >
+                                                <select name="{{$item->name}}" data-value="{{old($item->name)}}" id="{{$item->name}}-{{$frmID}}" @if(isset($item->ajaxurl)) data-ajax--url="{{$item->ajaxurl}}" data-ajax--cache="true" @endif  class="form-control select2 @error($item->name) is-invalid @enderror " data-placeholder="{{ucfirst($item->label??$item->name)}}" placeholder="{{ucfirst($item->label??$item->name)}}" >
                                                     @if(isset($item->options)) 
                                                         @foreach ($item->options as $opt)
                                                         <option value="{{$opt->value}}">{{$opt->text}}</option>                                                            
