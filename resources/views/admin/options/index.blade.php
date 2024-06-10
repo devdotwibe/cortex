@@ -93,9 +93,83 @@
                             </div> 
 
 
-                            <x-ajax-table tableid="sub_category" beforeajax='beforeajaxcallback' :url="route('admin.sub_category_table.show')" :coloumns='[
+                            <x-ajax-table tableid="sub_category" beforeajax='beforeajaxcallback'  :coloumns='[
                                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
                                 ["th"=>"Sub Category","name"=>"name","data"=>"name"],
+                              
+                            ]' />
+                                
+                        </div>
+
+                      
+                            
+                    </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal fade bd-example-modal-lg"  id="table-addset-create" tabindex="-1" role="dialog" aria-labelledby="table-addset-createLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="table-addset-createLabel">Add Set Name</h5>
+                    <button type="button" class="close" data-dismiss="modal" onclick="CloseSet()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                    <div class="modal-body">
+
+                        <div class="modal-body">
+
+                            <div class="row"> 
+                                <div class="card">
+                                    <div class="card-body">
+                                        <form action="#" class="form" id="table-form-addset" method="post">
+                                            @csrf 
+                            
+                                            <div class="row">
+                                               
+                                                    <div class="col-md-8">
+                                                        <div class="form-group">
+                                                            <div class="form-data">
+                                                                <div class="forms-inputs mb-4"> 
+
+                                                                    <label for="set_name">Add Set Name</label>
+                                                                    
+                                                                            <input type="text" name="name" id="set_name" class="form-control">        
+                                                                   
+                                                                    
+                                                                    <div class="invalid-feedback" id="set_name-error"></div>
+                                                                   
+                                                                </div>
+                                                            </div>
+                                                        </div>    
+                                                    </div> 
+                                               
+                                                 
+                                            </div>
+                            
+                                            <div class="mb-3"> 
+                                                                 
+                                                    <a  onclick="Closeset()" class="btn btn-secondary">Cancel</a>
+                    
+                                                    <button type="submit" class="btn btn-dark">Save</button> 
+                            
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div> 
+                            </div> 
+
+
+                            <x-ajax-table tableid="addset" beforeajax='beforeajaxcallback' :url="route('admin.set_table.show')" :coloumns='[
+                                ["th"=>"Date","name"=>"created_at","data"=>"date"],
+                                ["th"=>"Set Name","name"=>"name","data"=>"name"],
                               
                             ]' />
                                 
@@ -131,6 +205,13 @@
             $('#table-subcategory-create').modal('hide');
         }
 
+        function CloseSet()
+        {
+            $('#table-addset-create').modal('hide');
+
+            $('#table-subcategory-create').modal('show');
+        }
+
         function beforeajaxcallback(data)
         {
             data.category= $('#table-sub_category').data('category');
@@ -146,11 +227,24 @@
                 $('#table-sub_category').data('category',slug).DataTable().ajax.reload();
 
             }
+
+            function AddSet(url,slug)
+            {
+                $('#table-subcategory-create').modal('hide');
+
+                $('#table-addset-create').modal('show');
+
+                $('#table-form-addset').attr('action',url);
+                $('#table-addset').data('set_name',slug).DataTable().ajax.reload();
+
+            }
+
+            
         
     
             $(document).ready(function() {
 
-                $('#table-form-sub').on('submit', function(e) {
+                $('#table-form-addset').on('submit', function(e) {
                     e.preventDefault();
 
                     $.ajax({
@@ -160,10 +254,10 @@
                         
                         success: function(response) {
 
-                            $('#table-subcategory-create').modal('show');
+                            $('#table-addset-create').modal('show');
 
-                            $('#table-sub_category').DataTable().ajax.reload();
-                            $('#sub_name').val("");
+                            $('#table-addset').DataTable().ajax.reload();
+                            $('#set_name').val("");
 
                         },
 

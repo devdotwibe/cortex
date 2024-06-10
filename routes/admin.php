@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\QuestionBankController;
 use App\Http\Controllers\Admin\QuestionBankSectionController;
 use App\Http\Controllers\Admin\QuestionBankTopicController;
 use App\Http\Controllers\Admin\QuestionController;
+use App\Http\Controllers\Admin\SetController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -42,6 +43,10 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
     
         Route::resource("/options",CategoryController::class);
+
+        Route::resource("/set",SetController::class);
+
+        Route::get('/set/view',[SetController::class,'set_table_show'])->name('set_table.show');
 
         Route::post('/add-subcatecory/{slug}',[CategoryController::class,'add_subcatecory'])->name('add_subcatecory');
 
