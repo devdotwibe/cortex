@@ -23,7 +23,7 @@
                     <span class="red-icon"><img
                             src="{{asset("assets/images/User-red.png")}}"></span>
                 </div>
-                <h3>New  Users</h3> 
+                <h3>Exam attemt</h3> 
                 <span class="badge text-success">{{$newuser??0}}</span> 
             </div>
              
@@ -34,7 +34,7 @@
                     <span class="red-icon"><img
                             src="{{asset("assets/images/User-red.png")}}"></span>
                 </div>
-                <h3>Verifyed  Users</h3> 
+                <h3>Exam pass</h3> 
                 <span class="badge text-success">{{$newuser??0}}</span> 
             </div>
 
@@ -46,7 +46,7 @@
                     <span class="red-icon"><img
                             src="{{asset("assets/images/User-red.png")}}"></span>
                 </div>
-                <h3>Trial  Users</h3> 
+                <h3>Exam failed</h3> 
                 <span class="badge text-success">{{$newuser??0}}</span> 
             </div>
             <div class="dash_card">
@@ -56,8 +56,8 @@
                     <span class="red-icon"><img
                             src="{{asset("assets/images/User-red.png")}}"></span>
                 </div>
-                <h3>Paid  Users</h3> 
-                <span class="badge text-success">{{$newuser??0}}</span> 
+                <h3>Total Exam</h3> 
+                <span class="badge text-success">{{$totalexam??0}}</span> 
             </div>
         </div>
     </div>

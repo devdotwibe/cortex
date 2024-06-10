@@ -30,8 +30,39 @@
     </table>
 </div>
 
+@push('modals')
+    
+
+<div class="modal fade"  id="table-{{$tableID}}-delete" tabindex="-1" role="dialog" aria-labelledby="{{$tableID}}Label" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="{{$tableID}}Lablel">Delete Record</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+
+                <div class="modal-body">
+
+                    <x-modal-form  :url="route('admin.learn.store',)" btnsubmit="Add" onclick="CloseModal()" :fields='[
+                        ["name"=>"subject","label"=>"Subject" ,"placeholder"=>"Enter Subject Name" ,"size"=>8],
+                        
+                    ]' /> 
+                        
+                </div>
+
+        </div>
+    </div>
+</div>
+@endpush
 @push('footer-script')
     <script>
+        function deleteRecord(url){
+            
+        } 
+        function deleteRecordConfirm(url){
+            
+        } 
         $(function(){
             $('#table-{{$tableID}}').DataTable({
                 processing:true,

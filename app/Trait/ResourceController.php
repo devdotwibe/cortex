@@ -36,15 +36,18 @@ trait ResourceController
                     <a href="'.route(self::$routeName.".edit",$data->slug).'" class="btn btn-icons edit_btn">
                         <img src="'.asset("assets/images/edit.svg").'" alt="">
                     </a>
-                    <a  class="btn btn-icons dlt_btn">
+                    <a  class="btn btn-icons dlt_btn" onclick="deleteRecord('."'".route(self::$routeName.".destroy",$data->slug)."'".')">
                         <img src="'.asset("assets/images/delete.svg").'" alt="">
-                    </a>
+                    </a> 
                 </div>
                 
                 ';
             });
         }
         return $table->rawColumns($rawColumn)->addIndexColumn()->make(true);
+    }
+    public function totalCount(){
+        return app(self::$model)->count();
     }
     public function addColumn(string $name, callable|string $content){
         self::$columns[$name]=$content;

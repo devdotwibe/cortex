@@ -20,7 +20,8 @@ class ExamController extends Controller
         if($request->ajax()){
             return $this->buildTable();
         }
-        return view("admin.exam.index");
+        $totalexam=$this->totalCount();
+        return view("admin.exam.index",compact('totalexam'));
     }
     public function create(Request $request){
         return view("admin.exam.create");

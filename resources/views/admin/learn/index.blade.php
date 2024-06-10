@@ -26,31 +26,36 @@
 </section>
 
 
-    <div class="modal fade bd-example-modal-lg"  id="add_subject_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
+@endsection
 
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add Subject</h5>
-                    <button type="button" onclick="CloseModal()" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
+
+@push('modals')
+    
+
+<div class="modal fade bd-example-modal-lg"  id="add_subject_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Subject</h5>
+                <button type="button" onclick="CloseModal()" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+                <div class="modal-body">
+
+                    <x-modal-form  :url="route('admin.learn.store',)" btnsubmit="Add" onclick="CloseModal()" :fields='[
+                        ["name"=>"subject","label"=>"Subject" ,"placeholder"=>"Enter Subject Name" ,"size"=>8],
+                        
+                    ]' /> 
+                        
                 </div>
 
-                    <div class="modal-body">
-
-                        <x-modal-form  :url="route('admin.learn.store',)" btnsubmit="Add" onclick="CloseModal()" :fields='[
-                            ["name"=>"subject","label"=>"Subject" ,"placeholder"=>"Enter Subject Name" ,"size"=>8],
-                            
-                        ]' /> 
-                            
-                    </div>
- 
-            </div>
         </div>
     </div>
-
-@endsection
+</div>
+@endpush
 
 @push('footer-script')
     <script>
