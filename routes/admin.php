@@ -25,11 +25,15 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
         Route::prefix('question-bank')->name('question-bank.')->group(function () { 
             Route::get('/',[QuestionBankController::class,'index'])->name('index');
-            
+            Route::get('/{category}',[QuestionBankController::class,'show'])->name('show');
+            Route::get('/{category}/create',[QuestionBankController::class,'create'])->name('create');
+
             Route::resource("/topic",QuestionBankTopicController::class);
             Route::resource("/chapters",QuestionBankChapterController::class);
             Route::resource("/section",QuestionBankSectionController::class);
         });
+
+        Route::resource("/question",LearnController::class);
 
         Route::resource("/learn",LearnController::class);
 

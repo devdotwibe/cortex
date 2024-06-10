@@ -18,12 +18,45 @@ trait ResourceController
     protected static $columns=[];
 
     protected static $actions=[];
+    protected static $whereCondition=[];
+
+    public static function reset(){
+
+     $model=null;
+     $routeName=null;
+     $columns=[];
+
+     $actions=[];
+     $whereCondition=[];
+    }
     public function addAction(callable $action){
         self::$actions[]=$action;
         return $this;
+    }    
+    public function where($field,$condition){
+        self::$whereCondition[]=[$field,$condition];
+        return $this;
+    }
+    public function buildPagination($limit=12){
+        $query=app(self::$model)->query();
+        foreach(self::$whereCondition as $condition){
+            $query->where($condition[0]??"",$condition[1]??null);
+        }
+        return $query->paginate($limit);
+    }
+    public function buildResult($limit=12){
+        $query=app(self::$model)->query();
+        foreach(self::$whereCondition as $condition){
+            $query->where($condition[0]??"",$condition[1]??null);
+        }
+        return $query->get();
     }
     public function buildTable($rawColumn=[]){
-        $table=DataTables::of(app(self::$model)->query());
+        $query=app(self::$model)->query();
+        foreach(self::$whereCondition as $condition){
+            $query->where($condition[0]??"",$condition[1]??null);
+        }
+        $table=DataTables::of($query);
         $table->addColumn('date',function($data){
             return $data->created_at->format('Y-m-d');
         });
