@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Learn;
+use App\Models\SubCategory;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
 
@@ -21,7 +22,10 @@ class LearnController extends Controller
     {
         if($request->ajax()){
             return $this->addAction(function($data){
-              return  "<a>".$data->slug."</a>";
+
+            return '<a onclick="SubCat(\''.route('admin.sub_category_table.show', $data->slug).'\')" class="btn btn-icons view_btn">+</a>';
+
+
             })->buildTable();
         }
 
@@ -40,7 +44,8 @@ class LearnController extends Controller
 
         $learn->store($learn_data);
         
-        return redirect()->back()->with('success',"Subject Added Successfully");
+        return response()->json(['success' => 'Module Added Successfully']);
+
     }
 
     public function show(Request $request,Learn $learn){
@@ -58,6 +63,42 @@ class LearnController extends Controller
         }        
         return redirect()->route('admin.learn.index')->with("success","QuestionBankChapter deleted success");
     }
+
+    
+    function add_subcatecory(Request $request,$slug)
+    {
+       
+        $sub_data = $request->validate([
+
+            "name"=>"required",
+        ]);
+
+        $learn = Learn::where('slug',$slug)->first();
+
+        $sub_data['learn_id'] = $learn->id;
+        
+        $sub = new SubCategory;
+
+        $sub->store($sub_data);
+        
+        return response()->json(['success' => 'Sub Category Added Successfully']);
+
+    }
+
+    function sub_category_table(Request $request)
+
+        {
+            if($request->ajax()){
+
+                self::$model=SubCategory::class;
+
+                self::$routeName="admin.sub_category_table";
+
+                return $this->where('')->buildTable();
+            }
+            
+        }
+    
 
 }
 

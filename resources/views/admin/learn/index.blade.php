@@ -13,11 +13,18 @@
 
         <button class="btn btn-success" onclick="AddSubject()">Add Module+</button>
 
-            <x-ajax-table :coloumns='[
+            <x-ajax-table tableid="module" ajaxcreate="true" title="Add Module" :createurl="route('admin.learn.store')" :coloumns='[
                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
-                ["th"=>"Subject","name"=>"subject","data"=>"subject"],
+                ["th"=>"Module","name"=>"subject","data"=>"subject"],
                
-            ]' />
+            ]'
+            btnsubmit="Add" onclick="CloseModal()"
+            :fields='[
+                        ["name"=>"subject","label"=>"Subject" ,"placeholder"=>"Enter Subject Name" ,"size"=>8],
+                        
+                    ]' 
+            
+            />
 
     </div>
 
@@ -28,56 +35,148 @@
 
 @endsection
 
-
 @push('modals')
-    
 
-<div class="modal fade bd-example-modal-lg"  id="add_subject_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
+    <div class="modal fade bd-example-modal-lg"  id="table-subcategory-create" tabindex="-1" role="dialog" aria-labelledby="table-subcategory-createLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
 
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add Subject</h5>
-                <button type="button" onclick="CloseModal()" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-
-                <div class="modal-body">
-
-                    <x-modal-form  :url="route('admin.learn.store',)" btnsubmit="Add" onclick="CloseModal()" :fields='[
-                        ["name"=>"subject","label"=>"Subject" ,"placeholder"=>"Enter Subject Name" ,"size"=>8],
-                        
-                    ]' /> 
-                        
+                <div class="modal-header">
+                    <h5 class="modal-title" id="table-subcategory-createLabel">Add Topic</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
 
+                    <div class="modal-body">
+
+                        <div class="modal-body">
+
+                            <div class="row"> 
+                                <div class="card">
+                                    <div class="card-body">
+                                        <form action="#" class="form" id="table-form-sub" method="post">
+                                            @csrf 
+                            
+                                            <div class="row">
+                                               
+                                                    <div class="col-md-8">
+                                                        <div class="form-group">
+                                                            <div class="form-data">
+                                                                <div class="forms-inputs mb-4"> 
+
+                                                                    <label for="sub_name">Sub Category</label>
+                                                                    
+                                                                            <input type="text" name="name" id="sub_name" class="form-control">        
+                                                                   
+                                                                    
+                                                                    <div class="invalid-feedback" id="name-error"></div>
+                                                                   
+                                                                </div>
+                                                            </div>
+                                                        </div>    
+                                                    </div> 
+                                               
+                                                 
+                                            </div>
+                            
+                                            <div class="mb-3"> 
+                                                                 
+                                                    <a  onclick="CloseSub()" class="btn btn-secondary">Cancel</a>
+                    
+                                                    <button type="submit" class="btn btn-dark">Save</button> 
+                            
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div> 
+                            </div> 
+
+
+                            <x-ajax-table tableid="sub_category" :url="route('admin.sub_category_table.show')" :coloumns='[
+                                ["th"=>"Date","name"=>"created_at","data"=>"date"],
+                                ["th"=>"Sub Category","name"=>"name","data"=>"name"],
+                              
+                            ]' />
+                                
+                        </div>
+
+                      
+                            
+                    </div>
+
+            </div>
         </div>
     </div>
-</div>
+    
 @endpush
 
 @push('footer-script')
     <script>
          
-         @error('subject')
-             
-           $(document).ready(function()
-            {
-                AddSubject();
-            });
-
-         @enderror
 
         function AddSubject()
             {
-                $('#add_subject_modal').modal('show');
+              
+                $('#table-module-create').modal('show');
             }
 
         function CloseModal()
         {
-            $('#add_subject_modal').modal('hide');
+            $('#table-module-create').modal('hide');
         }
+
+        function CloseSub()
+        {
+            $('#table-subcategory-create').modal('hide');
+        }
+
+        function SubCat(url)
+            {
+              
+                $('#table-subcategory-create').modal('show');
+
+                $('#table-form-sub').attr('action',url);
+
+
+            }
+        
+    
+            $(document).ready(function() {
+
+                $('#table-form-sub').on('submit', function(e) {
+                    e.preventDefault();
+
+                    $.ajax({
+                        url: $(this).attr('action'),
+                        method: $(this).attr('method'),
+                        data: $(this).serialize(),
+                        
+                        success: function(response) {
+
+                            $('#table-subcategory-create').modal('hide');
+
+                            $('#table-sub_category').DataTable().ajax.reload();
+                            $('#sub_name').val("");
+
+                        },
+
+                        error: function(xhr) {
+
+                            var errors = xhr.responseJSON.errors;
+                            
+                            $.each(errors, function(key, value) {
+
+                                $('#' + key + '-error').text(value[0]).show();
+
+                            });
+
+                        }
+                    });
+                });
+            });
+
             
     </script>
+
 @endpush

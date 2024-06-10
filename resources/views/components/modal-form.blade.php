@@ -3,7 +3,7 @@
         <div class="card-body">
             <form action="{{$url}}" class="form" id="{{$frmID}}" method="post">
                 @csrf 
-              
+
                 <div class="row">
                     @foreach ($fields as $item)
                         <div class="col-md-{{$item->size??4}}">
@@ -24,9 +24,9 @@
                                                 <input type="{{$item->type??"text"}}" name="{{$item->name}}" id="{{$item->name}}-{{$frmID}}" value="{{old($item->name,$item->value??"")}}" class="form-control @error($item->name) is-invalid @enderror " @readonly($item->readonly??false) >        
                                         @endswitch
                                         
-                                        @error($item->name)
-                                        <div class="invalid-feedback">{{$message}}</div>
-                                        @enderror
+                                       
+                                        <div class="invalid-feedback" id="{{$item->name}}-error-{{$frmID}}"></div>
+                                       
                                     </div>
                                 </div>
                             </div>    
@@ -46,9 +46,49 @@
 
                     @endif
 
-                     <button type="submit" class="btn btn-dark">{{$btnsubmit}}</button> 
+                        <button type="submit" class="btn btn-dark">{{$btnsubmit}}</button> 
+
                 </div>
             </form>
         </div>
     </div> 
 </div>
+
+@push('footer-script')
+  
+         <script>
+
+        $(document).ready(function() {
+
+            $('#{{$frmID}}').on('submit', function(e) {
+                e.preventDefault();
+
+                $.ajax({
+                    url: $(this).attr('action'),
+                    method: $(this).attr('method'),
+                    data: $(this).serialize(),
+                    
+                    success: function(response) {
+
+                        
+                        $('#{{ $modalname }}').modal('hide');
+
+                    },
+
+                    error: function(xhr) {
+
+                        var errors = xhr.responseJSON.errors;
+                        
+                        $.each(errors, function(key, value) {
+
+                            $('#' + key + '-error-{{$frmID}}').text(value[0]).show();
+
+                        });
+
+                    }
+                });
+            });
+        });
+    </script>
+            
+@endpush

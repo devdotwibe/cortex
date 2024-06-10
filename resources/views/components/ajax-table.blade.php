@@ -1,5 +1,5 @@
-<div class="table-outer table-{{ $tableID }}-outer">
-    <table class="table" id="table-{{ $tableID }}">
+<div class="table-outer table-{{ $tableid }}-outer">
+    <table class="table" id="table-{{ $tableid }}">
         <thead>
             <tr>
                 <th data-th="Sl.No">Sl.No</th>
@@ -15,18 +15,95 @@
 </div>
 
 @push('modals')
-    <div class="modal fade" id="table-{{ $tableID }}-delete" tabindex="-1" role="dialog"
-        aria-labelledby="{{ $tableID }}Label" aria-hidden="true">
+
+    @if ($ajaxcreate??false)
+        
+
+        <div class="modal fade bd-example-modal-lg"  id="table-{{ $tableid }}-create" tabindex="-1" role="dialog" aria-labelledby="table-{{ $tableid }}-createLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="table-{{ $tableid }}-createLabel">{{ $title??"Add" }}</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                        <div class="modal-body">
+
+                            <div class="row"> 
+                                <div class="card">
+                                    <div class="card-body">
+                                        <form action="{{$createurl}}" class="form" id="table-{{ $tableid }}-form-create" method="post">
+                                            @csrf 
+                            
+                                            <div class="row">
+                                                @foreach ($fields as $item)
+                                                    <div class="col-md-{{$item->size??4}}">
+                                                        <div class="form-group">
+                                                            <div class="form-data">
+                                                                <div class="forms-inputs mb-4"> 
+                                                                    <label for="{{$item->name}}-table-{{ $tableid }}-form-create">{{ucfirst($item->label??$item->name)}}</label>
+                                                                    @switch($item->type??"text")
+                                                                        @case('textarea')
+                                                                            <textarea name="{{$item->name}}" id="{{$item->name}}-table-{{ $tableid }}-form-create"  class="form-control @error($item->name) is-invalid @enderror "  rows="5" @readonly($item->readonly??false) >{{old($item->name)}}</textarea>
+                                                                            @break
+                                                                        @case('select')
+                                                                            <select name="{{$item->name}}" id="{{$item->name}}-table-{{ $tableid }}-form-create">
+                            
+                                                                            </select>
+                                                                            @break
+                                                                        @default
+                                                                            <input type="{{$item->type??"text"}}" name="{{$item->name}}" id="{{$item->name}}-table-{{ $tableid }}-form-create" value="{{old($item->name,$item->value??"")}}" class="form-control @error($item->name) is-invalid @enderror " @readonly($item->readonly??false) >        
+                                                                    @endswitch
+                                                                    
+                                                                   
+                                                                    <div class="invalid-feedback" id="{{$item->name}}-error-table-{{ $tableid }}-form-create"></div>
+                                                                   
+                                                                </div>
+                                                            </div>
+                                                        </div>    
+                                                    </div> 
+                                                @endforeach
+                                                 
+                                            </div>
+                            
+                                            <div class="mb-3"> 
+                                                @if(!empty($cancel))
+                                                    <a href="{{ $cancel }}"  class="btn btn-secondary">Cancel</a>
+                                                @elseif(!empty($onclick))                            
+                                                    <a  onclick="{{ $onclick }}" class="btn btn-secondary">Cancel</a>
+                            
+                                                @endif
+                            
+                                                    <button type="submit" class="btn btn-dark">{{$btnsubmit}}</button> 
+                            
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div> 
+                            </div> 
+                                
+                        </div>
+
+                </div>
+            </div>
+        </div>
+    @endif
+
+    <div class="modal fade" id="table-{{ $tableid }}-delete" tabindex="-1" role="dialog"
+        aria-labelledby="{{ $tableid }}Label" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <h5 class="modal-title" id="{{ $tableID }}Lablel">Delete Confirmation Required</h5>
+                    <h5 class="modal-title" id="{{ $tableid }}Lablel">Delete Confirmation Required</h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
-                    <form action=""  id="table-{{ $tableID }}-delete-form" method="post">
+                    <form action=""  id="table-{{ $tableid }}-delete-form" method="post">
                         @csrf
                         @method("DELETE")
                         <p>Are you sure you want to delete the record </p>
@@ -40,20 +117,56 @@
 @endpush
 @push('footer-script')
     <script>
+
+        $(document).ready(function() {
+
+        $('#table-{{ $tableid }}-form-create').on('submit', function(e) {
+            e.preventDefault();
+
+            $.ajax({
+                url: $(this).attr('action'),
+                method: $(this).attr('method'),
+                data: $(this).serialize(),
+                
+                success: function(response) {
+
+                    
+                    $('#table-{{ $tableid }}-create').modal('hide');
+
+                    $('#table-{{ $tableid }}').DataTable().ajax.reload();
+
+                },
+
+                error: function(xhr) {
+
+                    var errors = xhr.responseJSON.errors;
+                    
+                    $.each(errors, function(key, value) {
+
+                        $('#' + key + '-error-table-{{ $tableid }}-form-create').text(value[0]).show();
+
+                    });
+
+                }
+            });
+        });
+        });
+
+
         function deleteRecord(url) {
-            $("#table-{{ $tableID }}-delete-form").attr("action",url)
-            $('#table-{{ $tableID }}-delete').modal('show')
+            $("#table-{{ $tableid }}-delete-form").attr("action",url)
+            $('#table-{{ $tableid }}-delete').modal('show')
         } 
         $(function() {
-            $('#table-{{ $tableID }}-delete-form').submit(function(e){
+            $('#table-{{ $tableid }}-delete-form').submit(function(e){
                 e.preventDefault();
                 $.post($(this).attr("action"),$(this).serialize(),function(res){
-                    $('#table-{{ $tableID }}').DataTable().ajax.reload();
-                    $('#table-{{ $tableID }}-delete').modal('hide')
+                    $('#table-{{ $tableid }}').DataTable().ajax.reload();
+                    $('#table-{{ $tableid }}-delete').modal('hide')
                 })
                 return false;
             })
-            $('#table-{{ $tableID }}').DataTable({
+            $('#table-{{ $tableid }}').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: {
@@ -65,27 +178,27 @@
                 initComplete: function(settings) {
                     var info = this.api().page.info();
                     if (info.pages > 1) {
-                        $("#table-{{ $tableID }}_wrapper .dataTables_paginate").show();
+                        $("#table-{{ $tableid }}_wrapper .dataTables_paginate").show();
                     } else {
-                        $("#table-{{ $tableID }}_wrapper .dataTables_paginate").hide();
+                        $("#table-{{ $tableid }}_wrapper .dataTables_paginate").hide();
                     }
                     if (info.recordsTotal > 0) {
-                        $("#table-{{ $tableID }}_wrapper .pagination").show();
+                        $("#table-{{ $tableid }}_wrapper .pagination").show();
                     } else {
-                        $("#table-{{ $tableID }}_wrapper .pagination").hide();
+                        $("#table-{{ $tableid }}_wrapper .pagination").hide();
                     }
                 },
                 drawCallback: function() {
                     var info = this.api().page.info();
                     if (info.pages > 1) {
-                        $("#table-{{ $tableID }}_wrapper .dataTables_paginate").show();
+                        $("#table-{{ $tableid }}_wrapper .dataTables_paginate").show();
                     } else {
-                        $("#table-{{ $tableID }}_wrapper .dataTables_paginate").hide();
+                        $("#table-{{ $tableid }}_wrapper .dataTables_paginate").hide();
                     }
                     if (info.recordsTotal > 0) {
-                        $("#table-{{ $tableID }}_wrapper .pagination").show();
+                        $("#table-{{ $tableid }}_wrapper .pagination").show();
                     } else {
-                        $("#table-{{ $tableID }}_wrapper .pagination").hide();
+                        $("#table-{{ $tableid }}_wrapper .pagination").hide();
                     }
                 },
                 columns: [{
