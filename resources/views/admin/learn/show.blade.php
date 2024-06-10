@@ -11,11 +11,13 @@
 <section class="invite-wrap mt-2">
     <div class="container">
        
-        <x-edit-form name="admin.learn" :id="$learn->slug" btnsubmit="Save" :fields='[
-            ["name"=>"first_name", "label"=>"First Name" ,"size"=>6,"value"=>$learn->subject],
+        <x-general-form :url="route('admin.lessson_create',$learn->slug)" :id="$learn->slug" btnsubmit="Save" :fields='[
+            ["name"=>"lessons", "label"=>"Lessons" ,"size"=>6], 
            
         ]' /> 
+            
     </div>
+
 </section> 
 @endsection
 
