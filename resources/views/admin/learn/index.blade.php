@@ -11,7 +11,7 @@
 <section class="invite-wrap mt-2">
     <div class="container">
 
-        <button class="btn btn-success" onclick="AddSubject()">Add Subject+</button>
+        <button class="btn btn-success" onclick="AddSubject()">Add Module+</button>
 
             <x-ajax-table :coloumns='[
                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
