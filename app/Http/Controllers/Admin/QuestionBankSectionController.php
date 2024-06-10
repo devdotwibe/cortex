@@ -46,8 +46,11 @@ class QuestionBankSectionController extends Controller
         return redirect()->route('admin.question-bank.section.index')->with("success","QuestionBankSection updated success");
     }
 
-    public function destroy(Request $request,QuestionBankSection $chapter){ 
-        $chapter->delete();        
-        return redirect()->route('admin.question-bank.chapter.index')->with("success","QuestionBankChapter deleted success");
+    public function destroy(Request $request,QuestionBankSection $section){ 
+        $section->delete();
+        if($request->ajax()){
+            return response()->json(["success"=>"QuestionBankSection deleted success"]);
+        }
+        return redirect()->route('admin.question-bank.section.index')->with("success","QuestionBankChapter deleted success");
     }
 }

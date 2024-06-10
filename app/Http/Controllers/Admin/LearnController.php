@@ -51,5 +51,13 @@ class LearnController extends Controller
 
     }
 
+    public function destroy(Request $request,Learn $exam){ 
+        $exam->delete();
+        if($request->ajax()){
+            return response()->json(["success"=>"Learn deleted success"]);
+        }        
+        return redirect()->route('admin.learn.index')->with("success","QuestionBankChapter deleted success");
+    }
+
 }
 

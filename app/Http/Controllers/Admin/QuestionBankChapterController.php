@@ -46,7 +46,10 @@ class QuestionBankChapterController extends Controller
         return redirect()->route('admin.question-bank.chapter.index')->with("success","QuestionBankChapter updated success");
     }
     public function destroy(Request $request,QuestionBankChapter $chapter){ 
-        $chapter->delete();        
+        $chapter->delete();
+        if($request->ajax()){
+            return response()->json(["success"=>"QuestionBankChapter deleted success"]);
+        }
         return redirect()->route('admin.question-bank.chapter.index')->with("success","QuestionBankChapter deleted success");
     }
 }

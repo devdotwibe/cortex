@@ -42,7 +42,10 @@ class ExamController extends Controller
     }
 
     public function destroy(Request $request,Exam $exam){ 
-        $exam->delete();        
-        return redirect()->route('admin.question-bank.chapter.index')->with("success","QuestionBankChapter deleted success");
+        $exam->delete();
+        if($request->ajax()){
+            return response()->json(["success"=>"Exam deleted success"]);
+        }        
+        return redirect()->route('admin.exam.index')->with("success","QuestionBankChapter deleted success");
     }
 }
