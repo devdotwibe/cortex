@@ -19,13 +19,14 @@ class AjaxTable extends Component
     public $btnsubmit;
     public $cancel;
     public $onclick;
+    public $beforeajax;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($coloumns,$url=null,$fields=null,$tableid=null,$ajaxcreate=null,$createurl=null,$cancel=null,$btnsubmit=null,$onclick=null)
+    public function __construct($coloumns,$url=null,$fields=null,$tableid=null,$ajaxcreate=null,$createurl=null,$cancel=null,$btnsubmit=null,$onclick=null,$beforeajax=null)
     {
         $this->coloumns = json_decode(json_encode($coloumns),false); 
         $this->url = $url??url()->current();
@@ -36,6 +37,7 @@ class AjaxTable extends Component
         $this->btnsubmit = $btnsubmit??"Save";
         $this->cancel = $cancel;
         $this->onclick = $onclick;
+        $this->beforeajax = $beforeajax;
     }
 
     /**

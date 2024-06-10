@@ -93,7 +93,7 @@
                             </div> 
 
 
-                            <x-ajax-table tableid="sub_category" :url="route('admin.sub_category_table.show')" :coloumns='[
+                            <x-ajax-table tableid="sub_category" beforeajax='beforeajaxcallback' :url="route('admin.sub_category_table.show')" :coloumns='[
                                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
                                 ["th"=>"Sub Category","name"=>"name","data"=>"name"],
                               
@@ -131,13 +131,19 @@
             $('#table-subcategory-create').modal('hide');
         }
 
-        function SubCat(url)
+        function beforeajaxcallback(data)
+        {
+            data.category= $('#table-sub_category').data('category');
+            return data;
+        }
+
+        function SubCat(url,slug)
             {
               
                 $('#table-subcategory-create').modal('show');
 
                 $('#table-form-sub').attr('action',url);
-
+                $('#table-sub_category').data('category',slug).DataTable().ajax.reload();
 
             }
         

@@ -171,6 +171,9 @@
                 serverSide: true,
                 ajax: {
                     url: "{{ $url }}",
+                    @if(isset($beforeajax))
+                    data:{{$beforeajax}}
+                    @endif
                 },
                 order: [
                     [0, 'DESC']

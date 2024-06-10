@@ -23,7 +23,7 @@ class LearnController extends Controller
         if($request->ajax()){
             return $this->addAction(function($data){
 
-            return '<a onclick="SubCat(\''.route('admin.sub_category_table.show', $data->slug).'\')" class="btn btn-icons view_btn">+</a>';
+            return '<a onclick="SubCat(\''.route('admin.sub_category_table.show', $data->slug).'\', \''.$data->slug.'\')" class="btn btn-icons view_btn">+</a>';
 
 
             })->buildTable();
@@ -94,7 +94,17 @@ class LearnController extends Controller
 
                 self::$routeName="admin.sub_category_table";
 
-                return $this->where('')->buildTable();
+                if(!empty($request->category))
+                {
+                    $category = Learn::find($request->category);
+
+                    return $this->where('learn_id',$category->id)->buildTable();
+                }
+                else
+                {
+                    return $this->buildTable();
+                }
+               
             }
             
         }
