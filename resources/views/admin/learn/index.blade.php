@@ -160,7 +160,7 @@
                         
                         success: function(response) {
 
-                            $('#table-subcategory-create').modal('hide');
+                            $('#table-subcategory-create').modal('show');
 
                             $('#table-sub_category').DataTable().ajax.reload();
                             $('#sub_name').val("");

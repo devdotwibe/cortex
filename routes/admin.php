@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ExamController;
 use App\Http\Controllers\Admin\LearnController;
 use App\Http\Controllers\Admin\MainController as AdminMainController;
@@ -45,8 +46,9 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::get('/edit-subcatecory',[LearnController::class,'sub_category_edit'])->name('sub_category_table.edit');
 
         Route::get('/destroy-subcatecory',[LearnController::class,'sub_category_edit'])->name('sub_category_table.destroy');
+
         
-        
+        Route::resource("/options",CategoryController::class);
 
 
         
