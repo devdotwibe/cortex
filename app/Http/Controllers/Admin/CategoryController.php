@@ -59,8 +59,8 @@ class CategoryController extends Controller
 
     }
 
-    public function destroy(Request $request,Category $exam){ 
-        $exam->delete();
+    public function destroy(Request $request,Category $category){ 
+        $category->delete();
         if($request->ajax()){
             return response()->json(["success"=>"Category deleted success"]);
         }        
