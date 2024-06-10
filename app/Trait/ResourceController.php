@@ -17,7 +17,11 @@ trait ResourceController
     protected static $routeName;
     protected static $columns=[];
 
-        
+    protected static $actions=[];
+    public function addAction(callable $action){
+        self::$actions[]=$action;
+        return $this;
+    }
     public function buildTable($rawColumn=[]){
         $table=DataTables::of(app(self::$model)->query());
         $table->addColumn('date',function($data){
@@ -28,8 +32,13 @@ trait ResourceController
         }
         if(auth("admin")->check()){
             $table->addColumn('action',function($data){
-                return '
+                $action="";
+                foreach (self::$actions as $callable) {
+                  $action.=($callable($data)??"");
+                }
+                return  '
                 <div>
+                    '.$action.'
                     <a href="'.route(self::$routeName.".show",$data->slug).'" class="btn btn-icons view_btn">
                         <img src="'.asset("assets/images/view.svg").'" alt="">
                     </a>

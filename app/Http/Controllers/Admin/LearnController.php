@@ -20,7 +20,9 @@ class LearnController extends Controller
     function index(Request $request)
     {
         if($request->ajax()){
-            return $this->buildTable();
+            return $this->addAction(function($data){
+              return  "<a>".$data->slug."</a>";
+            })->buildTable();
         }
 
         return view('admin.learn.index');
