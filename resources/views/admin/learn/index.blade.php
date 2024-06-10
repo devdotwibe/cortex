@@ -11,7 +11,7 @@
 <section class="invite-wrap mt-2">
     <div class="container">
 
-        <button class="btn btn-success" onclick="AddSubject()">Add Subject+</button>
+        <button class="btn btn-success" onclick="AddSubject()">Add Module+</button>
 
             <x-ajax-table :coloumns='[
                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
@@ -31,7 +31,7 @@
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add Subject</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Add Module</h5>
                     <button type="button" onclick="CloseModal()" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -40,7 +40,7 @@
                     <div class="modal-body">
 
                         <x-modal-form  :url="route('admin.learn.store',)" btnsubmit="Add" onclick="CloseModal()" :fields='[
-                            ["name"=>"subject","label"=>"Subject" ,"placeholder"=>"Enter Subject Name" ,"size"=>8],
+                            ["name"=>"category","label"=>"Category" ,"placeholder"=>"Enter Category Name" ,"size"=>8],
                             
                         ]' /> 
                             
