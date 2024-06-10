@@ -5,6 +5,10 @@
                 @csrf 
                 <div class="row">
                     @foreach ($fields as $item)
+                        @if (($item->type??"text")=="hidden")
+                            <input type="hidden" name="{{$item->name}}" id="{{$item->name}}-{{$frmID}}" value="{{old($item->name,$item->value??"")}}">
+                        @else
+                            
                         <div class="col-md-{{$item->size??4}}">
                             <div class="form-group">
                                 <div class="form-data">
@@ -41,6 +45,8 @@
                                 </div>
                             </div>    
                         </div> 
+
+                        @endif
                     @endforeach
                      
                 </div>
