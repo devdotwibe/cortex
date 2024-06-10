@@ -109,8 +109,20 @@
                 </li>
 
 
+                <li class="side-item">
+                    <a href="{{ route('admin.question-bank.index') }}">
+                        <span class="side-icon" >
+                            <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
+                        </span>
+                        <span class="active-icon">
+                            <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Dashboard">
+                        </span>
+                        Question Bank
+                    </a>
+                </li>
 
-                <li class="side-item side-dropdown ">
+
+                {{-- <li class="side-item side-dropdown ">
                     <a class="side-dropdown-toggle" >
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
@@ -127,7 +139,7 @@
                         <li class="side-item "><a href="{{route('admin.question-bank.section.index')}}">Section</a></li> 
 
                     </ul>
-                </li>
+                </li> --}}
 
                 <li class="side-item logout">
                     <a href="{{route('admin.logout')}}" class="log-out"> 
