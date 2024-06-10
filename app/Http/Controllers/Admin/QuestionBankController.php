@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Learn;
+use App\Models\Category;
 use App\Models\Question;
 use App\Models\SubCategory;
 use App\Trait\ResourceController;
@@ -15,12 +15,12 @@ class QuestionBankController extends Controller
     use ResourceController; 
     public function index(Request $request){
         self::reset();
-        self::$model = Learn::class;
+        self::$model = Category::class;
         self::$routeName = "admin.question-bank"; 
         $categorys=$this->buildResult();
         return view("admin.question-bank.index",compact('categorys'));
     }
-    public function show(Request $request,Learn $category){
+    public function show(Request $request,Category $category){
         self::reset();
         self::$model = Question::class;
         self::$routeName = "admin.question"; 
@@ -29,7 +29,7 @@ class QuestionBankController extends Controller
         } 
         return view("admin.question-bank.show",compact('category'));
     }
-    public function create(Request $request,Learn $category){ 
+    public function create(Request $request,Category $category){ 
         self::reset();
         self::$model = SubCategory::class; 
         if($request->ajax()){
@@ -37,7 +37,7 @@ class QuestionBankController extends Controller
         } 
         return view("admin.question-bank.create",compact('category'));
     }
-    public function subcat(Request $request,Learn $category){ 
+    public function subcat(Request $request,Category $category){ 
         return view("admin.question-bank.create",compact('category'));
     }
     

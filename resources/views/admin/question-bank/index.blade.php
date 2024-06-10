@@ -22,7 +22,7 @@
                                     <img src="{{asset("assets/images/User-red.png")}}">
                                 </div>
                                 <div class="category-content">
-                                    <h3>{{$item->subject}}</h3>
+                                    <h3>{{$item->name}}</h3>
                                 </div>
                             </div>
                         </div>

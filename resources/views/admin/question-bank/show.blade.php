@@ -1,10 +1,10 @@
 @extends('layouts.admin')
-@section('title', $category->subject.' - Questions')
+@section('title', $category->name.' - Questions')
 @section('content')
 <section class="header_nav">
     <div class="header_wrapp">
         <div class="header_title">
-            <h2>{{$category->subject}} - Questions</h2>
+            <h2>{{$category->name}} - Questions</h2>
         </div>
         <div class="header_right">
             <ul class="nav_bar">
