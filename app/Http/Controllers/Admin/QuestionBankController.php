@@ -33,7 +33,7 @@ class QuestionBankController extends Controller
         self::reset();
         self::$model = SubCategory::class; 
         if($request->ajax()){
-            return $this->where('category_id',$category->id)->buildPagination();
+            return $this->where('category_id',$category->id)->buildSelectOption();
         } 
         return view("admin.question-bank.create",compact('category'));
     }

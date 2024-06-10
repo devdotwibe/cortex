@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\QuestionBankChapterController;
 use App\Http\Controllers\Admin\QuestionBankController;
 use App\Http\Controllers\Admin\QuestionBankSectionController;
 use App\Http\Controllers\Admin\QuestionBankTopicController;
+use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,7 +36,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::resource("/section",QuestionBankSectionController::class);
         });
 
-        Route::resource("/question",LearnController::class);
+        Route::resource("/question",QuestionController::class);
 
         Route::resource("/learn",LearnController::class);
 

@@ -33,9 +33,32 @@ trait ResourceController
         self::$actions[]=$action;
         return $this;
     }    
-    public function where($field,$condition){
-        self::$whereCondition[]=[$field,$condition];
+    public function where(...$condition){
+        self::$whereCondition[]=$condition;
         return $this;
+    }
+    public function buildSelectOption($searchfield="name",$limit=12){
+        $query=app(self::$model)->query();
+        foreach(self::$whereCondition as $condition){
+            $query->where(...$condition);
+        }
+        if(!empty(request("term"))){
+            $query->where($searchfield,'like',"%".(request("term"))."%");
+        }
+        $paginate=$query->paginate($limit);
+        $result=[];
+        foreach ($paginate->items() as $row) {
+            $result[]=[
+                "id"=>$row->id,
+                "text"=>$row->$searchfield
+            ];
+        }
+        return [
+            "results"=>$result,
+            "pagination"=>[
+                "more"=>$paginate->hasMorePages()
+            ]
+        ];
     }
     public function buildPagination($limit=12){
         $query=app(self::$model)->query();
