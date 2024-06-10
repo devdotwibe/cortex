@@ -39,16 +39,16 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
         Route::resource("/learn",LearnController::class);
 
-        Route::post('/add-subcatecory/{slug}',[LearnController::class,'add_subcatecory'])->name('add_subcatecory');
-
-        Route::get('/view-subcatecory',[LearnController::class,'sub_category_table'])->name('sub_category_table.show');
-
-        Route::get('/edit-subcatecory',[LearnController::class,'sub_category_edit'])->name('sub_category_table.edit');
-
-        Route::get('/destroy-subcatecory',[LearnController::class,'sub_category_edit'])->name('sub_category_table.destroy');
-
-        
+    
         Route::resource("/options",CategoryController::class);
+
+        Route::post('/add-subcatecory/{slug}',[CategoryController::class,'add_subcatecory'])->name('add_subcatecory');
+
+        Route::get('/view-subcatecory',[CategoryController::class,'sub_category_table'])->name('sub_category_table.show');
+
+        Route::get('/edit-subcatecory',[CategoryController::class,'sub_category_edit'])->name('sub_category_table.edit');
+
+        Route::get('/destroy-subcatecory',[CategoryController::class,'sub_category_edit'])->name('sub_category_table.destroy');
 
 
         
