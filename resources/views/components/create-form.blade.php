@@ -18,11 +18,12 @@
                                             <div class="forms-inputs mb-4"> 
                                                 <label for="{{$item->name}}-{{$frmID}}-{{$k}}">Choice</label>
                                                 <div class="input-group">
-                                                    <input type="text" name="{{$item->name}}[]" id="{{$item->name}}-{{$frmID}}-{{$k}}" value="{{old($item->name)[$k]}}" class="form-control @error($item->name.".$k") is-invalid @enderror " placeholder="{{ucfirst($item->label??$item->name)}}" aria-placeholder="{{ucfirst($item->label??$item->name)}}" >
-                                                    <div class="input-group-append">
+                                                    <div class="input-group-prepend">
                                                         <label class="input-group-label choice-label" for="{{$item->name}}-{{$frmID}}-{{$k}}-check"></label>
                                                         <input type="radio"  name="choice_{{$item->name}}" id="{{$item->name}}-{{$frmID}}-{{$k}}-check" value="{{$k}}" >
                                                     </div>
+                                                    <input type="text" name="{{$item->name}}[]" id="{{$item->name}}-{{$frmID}}-{{$k}}" value="{{old($item->name)[$k]}}" class="form-control @error($item->name.".$k") is-invalid @enderror " placeholder="{{ucfirst($item->label??$item->name)}}" aria-placeholder="{{ucfirst($item->label??$item->name)}}" >
+                                                    
                                                     @error($item->name.".$k")
                                                     <div class="invalid-feedback">{{$message}}</div>
                                                     @enderror
@@ -38,11 +39,12 @@
                                             <div class="forms-inputs mb-4"> 
                                                 <label for="{{$item->name}}-{{$frmID}}-0">Choice</label>
                                                 <div class="input-group">
-                                                    <input type="text" name="{{$item->name}}[]" id="{{$item->name}}-{{$frmID}}-0" value="" class="form-control" placeholder="{{ucfirst($item->label??$item->name)}}" aria-placeholder="{{ucfirst($item->label??$item->name)}}" >
-                                                    <div class="input-group-append choice-check-group">
+                                                    <div class="input-group-prepend choice-check-group">
                                                         <label class="input-group-label choice-label"  for="{{$item->name}}-{{$frmID}}-0-check"></label>
                                                         <input type="radio" class="input-group-check choice-check"  id="{{$item->name}}-{{$frmID}}-0-check" name="choice_{{$item->name}}" value="0" checked >
                                                     </div>
+                                                    <input type="text" name="{{$item->name}}[]" id="{{$item->name}}-{{$frmID}}-0" value="" class="form-control" placeholder="{{ucfirst($item->label??$item->name)}}" aria-placeholder="{{ucfirst($item->label??$item->name)}}" >
+                                                    
                                                 </div>
 
                                             </div>
@@ -130,11 +132,12 @@
                         <div class="forms-inputs mb-4"> 
                             <label for="${name}-{{$frmID}}-chcnt-${chcnt}">Choice</label>
                             <div class="input-group">
-                                <input type="text" name="${name}[]" id="${name}-{{$frmID}}-chcnt-${chcnt}" value="" class="form-control" placeholder="${label}" aria-placeholder="${label}" >
-                                <div class="input-group-append choice-check-group">
+                                 <div class="input-group-prepend choice-check-group">
                                     <label class="input-group-label choice-label"  for="${name}-{{$frmID}}-chcnt-${chcnt}-check"></label>
                                     <input type="radio" class="input-group-check choice-check"  id="${name}-{{$frmID}}-chcnt-${chcnt}-check" name="choice_${name}" value="${chcnt}" >
                                 </div>
+                                <input type="text" name="${name}[]" id="${name}-{{$frmID}}-chcnt-${chcnt}" value="" class="form-control" placeholder="${label}" aria-placeholder="${label}" >
+                               
                             </div>
 
                         </div>

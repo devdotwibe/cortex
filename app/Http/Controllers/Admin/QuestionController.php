@@ -33,7 +33,7 @@ class QuestionController extends Controller
             Answer::store([
                 "exam_id"=>$question->exam_id,
                 "question_id"=>$question->id,
-                "iscorrect"=>$k==$questiondat["choice_answer"]?true:false,
+                "iscorrect"=>$k==($request->choice_answer??0)?true:false,
                 "title"=>$ans
             ]);
         }
