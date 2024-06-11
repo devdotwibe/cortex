@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\QuestionBankSectionController;
 use App\Http\Controllers\Admin\QuestionBankTopicController;
 use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\SetController;
+use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\UploadController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
@@ -33,8 +34,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::get('/{category}/create',[QuestionBankController::class,'create'])->name('create');
             Route::post('/{category}/store',[QuestionBankController::class,'store'])->name('store');  
         });
-
-
+       
         Route::resource("/question",QuestionController::class);
 
         Route::resource("/learn",LearnController::class);
@@ -42,6 +42,11 @@ Route::name('admin.')->prefix('admin')->group(function(){
     
         Route::resource("/options",CategoryController::class);
 
+        Route::resource("/subcategory",SubCategoryController::class);
+
+        Route::get('/view-subcatecory',[SubCategoryController::class,'subcategory_table'])->name('subcategory_table.show');
+
+        
         Route::resource("/set",SetController::class);
 
         Route::get('/set/view',[SetController::class,'set_table_show'])->name('set_table.show');
@@ -51,15 +56,8 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
         Route::post('/add-subcatecory/{slug}',[CategoryController::class,'add_subcatecory'])->name('add_subcatecory');
 
-        Route::get('/view-subcatecory',[CategoryController::class,'sub_category_table'])->name('sub_category_table.show');
+        Route::get('/get-category',[CategoryController::class,'get_edit_details'])->name('get_edit_details');
 
-        Route::get('/edit-subcatecory',[CategoryController::class,'sub_category_edit'])->name('sub_category_table.edit');
-
-        Route::get('/destroy-subcatecory',[CategoryController::class,'sub_category_edit'])->name('sub_category_table.destroy');
-
-        Route::get('/get-category',[CategoryController::class,'get_category'])->name('get_category');
-        
-        
     });
 
 

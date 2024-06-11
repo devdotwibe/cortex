@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Learn;
+use App\Models\Setname;
 use App\Models\SubCategory;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
@@ -29,7 +30,7 @@ class CategoryController extends Controller
 
                 return '<a onclick="SubCat(\''.route('admin.add_subcatecory', $data->slug).'\', \''.$data->slug.'\')" class="btn btn-icons view_btn">+</a>'.
 
-                     '<a onclick="EditSub(\''.route('admin.add_subcatecory', $data->slug).'\', \''.$data->slug.'\')" class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>';
+                     '<a onclick="EditSub(\''.route('admin.options.update', $data->slug).'\', \''.$data->slug.'\' , \'category\')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>';
 
 
             })->buildTable();
@@ -54,6 +55,26 @@ class CategoryController extends Controller
         return response()->json(['success' => 'Module Added Successfully']);
 
     }
+
+    function update(Request $request, $slug)
+        {
+
+            $edit_data = $request->validate([
+
+                "name"=>"required",
+            ]);
+
+            $category = Category::findSlug($slug);
+
+            if(!empty($category))
+            {
+               $category->update($edit_data);
+
+            }
+
+            return response()->json(['success',"Category Updated Successfully",'type'=>'category']);
+        
+        }
 
     public function show(Request $request,Category $option){
 
@@ -92,53 +113,63 @@ class CategoryController extends Controller
 
     }
 
-    function sub_category_table(Request $request)
+   
 
+        function get_edit_details(Request $request)
         {
-            if($request->ajax()){
+           
+            if($request->type==='category')
+            {
+                $category = Category::findSlug($request->slug);
 
-                self::$model=SubCategory::class;
-
-                self::$routeName="admin.sub_category_table";
-
-                if(!empty($request->category))
+                if(!empty($category))
                 {
-                    
-                    $category = Category::findSlug($request->category);
+                    $name = $category->name;
 
-                    return $this->where('category_id',$category->id)
-                    ->addAction(function($data){
-
-                        return '<a onclick="AddSet(\''.route('admin.set.set_store', $data->slug).'\', \''.$data->slug.'\')" class="btn btn-icons view_btn">+</a>';
-
-
-            
-                        })
-                        ->buildTable();
+                    return response()->json(['name'=>$name]);
                 }
                 else
                 {
-                    return $this->buildTable();
+                    return response()->json(['fail' => 'Failed to get Category Name']);
                 }
-               
+
             }
-            
-        }
-
-        function get_category(Request $request ,$slug)
-        {
-            $category = Category::findSlug($slug);
-
-            if(!empty($category))
+            elseif($request->type==='subcategory')
             {
-                $name = $category->name;
 
-                return response()->json(['name'=>$name]);
+                $sub = SubCategory::findSlug($request->slug);
+
+                if(!empty($sub))
+                {
+                    $name = $sub->name;
+
+                    return response()->json(['name'=>$name]);
+                }
+                else
+                {
+                    return response()->json(['fail' => 'Failed to get Category Name']);
+                }
+
             }
             else
             {
-                return response()->json(['fail' => 'Failed to get Category Name']);
+
+                $set = Setname::findSlug($request->slug);
+
+                if(!empty($set))
+                {
+                    $name = $set->name;
+
+                    return response()->json(['name'=>$name]);
+                }
+                else
+                {
+                    return response()->json(['fail' => 'Failed to get Category Name']);
+                }
+
             }
+            
+            
         }
 
         

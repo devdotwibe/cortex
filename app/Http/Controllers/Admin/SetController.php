@@ -15,7 +15,7 @@ class SetController extends Controller
     {
         self::$model=Setname::class;
         self::$routeName="admin.set";
-        self::$defaultActions=['edit','delete'];
+        self::$defaultActions=['delete'];
     }
     
     function set_store(Request $request,$slug)
@@ -48,9 +48,16 @@ class SetController extends Controller
             if(!empty($request->set))
             {
                 
-                $category = SubCategory::findSlug($request->set);
+                $set = SubCategory::findSlug($request->set);
 
-                return $this->buildTable();
+                return $this
+                ->addAction(function($data){
+
+                    return 
+
+                    '<a onclick="EditSub(\''.route('admin.set.update', $data->slug).'\', \''.$data->slug.'\' , \'set\')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>';;
+
+                    })->buildTable();
             }
             else
             {
@@ -59,6 +66,26 @@ class SetController extends Controller
            
         }
 
+    }
+
+
+    function update(Request $request, $slug)
+    {
+
+        $edit_data = $request->validate([
+
+            "name"=>"required",
+        ]);
+
+        $set = Setname::findSlug($slug);
+
+        if(!empty($set))
+        {
+           $set->update($edit_data);
+
+        }
+
+        return response()->json(['success',"Sub Category Updated Successfully",'type'=>'set']);
     }
 
 
