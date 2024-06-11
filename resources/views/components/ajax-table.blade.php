@@ -161,8 +161,12 @@
             $('#table-{{ $tableid }}-delete-form').submit(function(e){
                 e.preventDefault();
                 $.post($(this).attr("action"),$(this).serialize(),function(res){
+
                     $('#table-{{ $tableid }}').DataTable().ajax.reload();
-                    $('#table-{{ $tableid }}-delete').modal('hide')
+
+                    console.log('#table-{{ $tableid }}');
+                   
+                    $('#table-{{ $tableid }}-delete').modal('hide');
                 })
                 return false;
             })

@@ -23,7 +23,7 @@ class SetController extends Controller
        
         $set_data = $request->validate([
 
-            "name"=>"required|unique",
+            "name" => "required|unique:setnames,name",
         ]);
 
         $sub = SubCategory::where('slug',$slug)->first();
@@ -76,7 +76,7 @@ class SetController extends Controller
 
         $edit_data = $request->validate([
 
-            "name"=>"required",
+            "name" => "required|unique:setnames,name",
         ]);
 
         $set = Setname::findSlug($slug);
@@ -87,7 +87,7 @@ class SetController extends Controller
 
         }
 
-        return response()->json(['success',"Sub Category Updated Successfully",'type'=>'set']);
+        return response()->json(['success',"Set Name Updated Successfully",'type'=>'set']);
     }
 
 

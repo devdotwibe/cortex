@@ -1,21 +1,43 @@
 @extends('layouts.admin')
-@section('title', 'Learn Detail')
+@section('title', $category->name)
 @section('content')
 <section class="header_nav">
     <div class="header_wrapp">
         <div class="header_title">
-            <h2>Learn Detail</h2>
+            <h2>{{ $category->name }}</h2>
         </div> 
     </div>
 </section>
 <section class="invite-wrap mt-2">
     <div class="container">
        
-        <x-general-form :url="route('admin.lessson_create',$learn->slug)" :id="$learn->slug" btnsubmit="Save" :fields='[
-            ["name"=>"lessons", "label"=>"Lessons" ,"size"=>6], 
+        <x-create-form name="admin.exam" btnsubmit="Save" :fields='[
+
+             ["name"=>"time_of_exam","label"=>"Time Of Exam (Hrs)","size"=>3,"type"=>"select","options"=>"[]"], 
+            ["name"=>"title","size"=>8],
+            ["name"=>"name","size"=>4],
+            ["name"=>"price","size"=>3],
+            ["name"=>"discount","size"=>3],
+            ["name"=>"duration","label"=>"Expire at","size"=>3],
            
+            ["name"=>"overview","size"=>4,"type"=>"textarea"],
+            ["name"=>"requirements","size"=>4,"type"=>"textarea"], 
+            ["name"=>"description","size"=>4,"type"=>"textarea"],
         ]' /> 
-            
+
+
+        <x-create-form name="admin.question" :cancel="route('admin.question-bank.show',$category->slug)"  btnsubmit="Save" :fields='[
+            ["name"=>"exam_id", "value"=>$exam->id,"type"=>"hidden"],
+            ["name"=>"category_id", "value"=>$category->id,"type"=>"hidden"],
+            ["name"=>"redirect", "value"=>route("admin.question-bank.show",$category->slug),"type"=>"hidden"],
+            ["name"=>"sub_category_id" ,"label"=>"Sub Category","ajaxurl"=>route("admin.question-bank.create",$category->slug),"type"=>"select","child"=>"sub_category_set","size"=>4],
+            ["name"=>"sub_category_set" ,"label"=>"Set","ajaxurl"=>route("admin.question-bank.create",$category->slug),"type"=>"select","parent"=>"sub_category_id","size"=>4],
+            ["name"=>"duration" ,"label"=>"Duration","placeholder"=>"duration in Minutes","type"=>"select","size"=>4,"options"=>array_map(function($num){ return [ "value"=>"$num minute","text"=>"$num minute" ]; },range(1,10))],
+             
+            ["name"=>"description","label"=>"Question","size"=>12,"type"=>"editor"], 
+            ["name"=>"answer","label"=>"answer" ,"type"=>"choice" ,"size"=>6]
+        ]' /> 
+
     </div>
 
 </section> 
