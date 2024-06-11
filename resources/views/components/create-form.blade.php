@@ -123,6 +123,12 @@
 
     <script>
         var chcnt=$('.choice-item').length;
+        function removeChoice(target,checkbox,parent){
+            if($(checkbox).is(":checked")){
+                $(parent).find(".choice-item:first .choice-check").prop("checked",true)
+            }
+            $(target).remove()
+        }
         function addChoice(name,label,target){    
             $(target).append(
             `
@@ -137,7 +143,9 @@
                                     <input type="radio" class="input-group-check choice-check"  id="${name}-{{$frmID}}-chcnt-${chcnt}-check" name="choice_${name}" value="${chcnt}" >
                                 </div>
                                 <input type="text" name="${name}[]" id="${name}-{{$frmID}}-chcnt-${chcnt}" value="" class="form-control" placeholder="${label}" aria-placeholder="${label}" >
-                               
+                                <div class="input-group-append choice-check-group">
+                                    <button type="button" onclick="removeChoice('#${name}-{{$frmID}}-choice-item-chcnt-${chcnt}','#${name}-{{$frmID}}-chcnt-${chcnt}-check','${target}')" class="btn btn-danger "><img src="{{asset("assets/images/delete-icon.svg")}}"></button>
+                                </div>
                             </div>
 
                         </div>

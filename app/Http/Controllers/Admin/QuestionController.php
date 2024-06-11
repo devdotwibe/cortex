@@ -23,8 +23,8 @@ class QuestionController extends Controller
             "exam_id"=>['required'],
             "category_id"=>['required'],
             "sub_category_id"=>['required'],
-            "title"=>['required'],
-            "description"=>['nullable'],
+            // "title"=>['nullable'],
+            "description"=>['required'],
             "duration"=>["required"],
             "answer.*"=>["required"],
         ]);
