@@ -167,7 +167,7 @@
                             </div> 
 
 
-                            <x-ajax-table tableid="addset" beforeajax='beforeajaxcallback' :url="route('admin.set_table.show')" :coloumns='[
+                            <x-ajax-table tableid="addset" beforeajax='beforeajaxcallsub' :url="route('admin.set_table.show')" :coloumns='[
                                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
                                 ["th"=>"Set Name","name"=>"name","data"=>"name"],
                               
@@ -306,6 +306,14 @@
             data.category= $('#table-sub_category').data('category');
             return data;
         }
+
+        function beforeajaxcallsub(data)
+        {
+            data.set= $('#table-addset').data('set_name');
+            return data;
+        }
+
+        
 
         
             function EditSub (url,slug,type)

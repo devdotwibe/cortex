@@ -18,7 +18,7 @@ class SubCategory extends Model
 
     public function setname()
     {
-        return $this->belongsTo(Setname::class,'id','sub_category_id');
+        return $this->hasMany(Setname::class,'sub_category_id','id');
     }
 
     public function category()

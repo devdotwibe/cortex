@@ -50,7 +50,7 @@ class SetController extends Controller
                 
                 $set = SubCategory::findSlug($request->set);
 
-                return $this
+                return $this->where('sub_category_id',$set->id)
                 ->addAction(function($data){
 
                     return 
