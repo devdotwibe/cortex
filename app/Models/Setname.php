@@ -15,4 +15,10 @@ class Setname extends Model
         'name',
         'sub_category_id',
     ];
+
+    public function subcategory()
+    {
+        return $this->belongsTo(SubCategory::class);
+    }
+   
 }

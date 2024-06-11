@@ -59,7 +59,6 @@ Route::middleware('auth')->group(function(){
     Route::get('/profile',[ProfileController::class,'view'])->name('profile.view');
 
    
-    Route::post('/upload', [UploadController::class, 'uploadfile'])->name('upload');
 });
 
 Route::middleware('signed')->get('email/{id}/{hash}/verify', [HomeController::class,'verifyemail'])->name('verification.verify');

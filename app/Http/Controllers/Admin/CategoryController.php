@@ -18,7 +18,7 @@ class CategoryController extends Controller
     {
         self::$model=Category::class;
         self::$routeName="admin.options";
-        self::$defaultActions=['delete'];
+        self::$defaultActions=[''];
 
     }
     
@@ -26,15 +26,32 @@ class CategoryController extends Controller
     function index(Request $request)
     {
         if($request->ajax()){
+
             return $this->addAction(function($data){
 
-                return '<a onclick="SubCat(\''.route('admin.add_subcatecory', $data->slug).'\', \''.$data->slug.'\')" class="btn btn-icons view_btn">+</a>'.
+                if(!empty($data->subcategories) && count($data->subcategories) > 0)
+                {
+                    return '<a onclick="SubCat(\''.route('admin.add_subcatecory', $data->slug).'\', \''.$data->slug.'\')" class="btn btn-icons view_btn">+</a>'.
 
                      '<a onclick="EditSub(\''.route('admin.options.update', $data->slug).'\', \''.$data->slug.'\' , \'category\')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>';
 
+                }
+                else
+                {
+                    return '<a onclick="SubCat(\''.route('admin.add_subcatecory', $data->slug).'\', \''.$data->slug.'\')" class="btn btn-icons view_btn">+</a>'.
+
+                    '<a onclick="EditSub(\''.route('admin.options.update', $data->slug).'\', \''.$data->slug.'\' , \'category\')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>'.
+
+                     '<a  class="btn btn-icons dlt_btn" onclick="deleteRecord('."'".route("admin.options.destroy",$data->slug)."'".')">
+                                    <img src="'.asset("assets/images/delete.svg").'" alt="">
+                                </a> ';
+
+                }
 
             })->buildTable();
         }
+
+        // $category = Category::with('subcategories')->where('id',$id)->first();
 
         return view('admin.options.index');
     }
@@ -84,8 +101,13 @@ class CategoryController extends Controller
 
     }
 
-    public function destroy(Request $request,Category $category){ 
+    public function destroy(Request $request,Category $category)
+    { 
+        
+        // print_r($category);
+
         $category->delete();
+
         if($request->ajax()){
             return response()->json(["success"=>"Category deleted success"]);
         }        

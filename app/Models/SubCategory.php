@@ -15,4 +15,14 @@ class SubCategory extends Model
         'name',
         'category_id',
     ];
+
+    public function setname()
+    {
+        return $this->belongsTo(Setname::class,'id','sub_category_id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }
