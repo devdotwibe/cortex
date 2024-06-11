@@ -23,12 +23,14 @@ class SetController extends Controller
        
         $set_data = $request->validate([
 
-            "name"=>"required",
+            "name"=>"required|unique",
         ]);
 
         $sub = SubCategory::where('slug',$slug)->first();
 
         $set_data['sub_category_id'] = $sub->id;
+
+        $set_data['category_id'] = $sub->category_id;
         
         $set = new Setname;
 

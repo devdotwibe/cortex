@@ -62,7 +62,7 @@ class CategoryController extends Controller
        
         $options_data = $request->validate([
 
-            "name"=>"required",
+            "name"=>"required|unique",
         ]);
         
         $option = new Category;

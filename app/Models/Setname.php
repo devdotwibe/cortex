@@ -14,6 +14,7 @@ class Setname extends Model
         'slug',
         'name',
         'sub_category_id',
+        'category_id',
     ];
 
     public function subcategory()
