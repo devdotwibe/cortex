@@ -7,6 +7,29 @@
                     @foreach ($fields as $item)
                         @if (($item->type??"text")=="hidden")
                             <input type="hidden" name="{{$item->name}}" id="{{$item->name}}-{{$frmID}}" value="{{old($item->name,$item->value??"")}}">
+                        @elseif(($item->type??"text")=="choice")
+                        <div class="choice">
+                            <div class="choice-button">
+                                <button class="btn btn-success"> <i></i> Add </button>
+                            </div>
+                            <div class="choice-group col-md-12" id="{{$item->name}}-{{$frmID}}-choice-group" >
+                                @foreach (old($item->name,[]) as $k=> $item)
+                                <div class="choice-item" id="{{$item->name}}-{{$frmID}}-choice-item-{{$k}}"  >
+                                    <div class="form-group">
+                                        <div class="form-data">
+                                            <div class="forms-inputs mb-4"> 
+                                                <label for="{{$item->name}}-{{$frmID}}-{{$k}}">{{ucfirst($item->label??$item->name)}}</label>
+                                                <input type="text" name="{{$item->name}}" id="{{$item->name}}-{{$frmID}}-{{$k}}" value="{{old($item->name)}}" class="form-control @error($item->name) is-invalid @enderror " placeholder="{{ucfirst($item->placeholder??$item->name)}}" aria-placeholder="{{ucfirst($item->placeholder??$item->name)}}" >        
+                                                @error($item->name)
+                                                <div class="invalid-feedback">{{$message}}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                                    
+                                @endforeach
+                            </div>
+                        </div>
                         @else
                             
                         <div class="col-md-{{$item->size??4}}">
