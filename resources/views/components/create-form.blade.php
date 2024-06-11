@@ -72,10 +72,10 @@
 
     <script>
         CKEDITOR.replaceAll('texteditor',{ 
-            uploadUrl: '/path/to/ajax_upload.php',
+            // uploadUrl: '/path/to/ajax_upload.php',
             filebrowserUploadUrl: '{{route('admin.upload')}}', 
-            filebrowserImageUploadUrl: '/path/to/ajaxx_upload.php',
-             extraPlugins: 'image',
+            // filebrowserImageUploadUrl: '/path/to/ajaxx_upload.php',
+            //  extraPlugins: 'image',
             filebrowserUploadMethod: 'form'
         })
         $(function(){
