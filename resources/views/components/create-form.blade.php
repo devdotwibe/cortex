@@ -154,7 +154,7 @@
                 if($(this).hasClass('ajax')){
                     $(this).select2({
                         ajax:{
-                            url: $(this).data('ajaxurl'),
+                            // url: $(this).data('ajaxurl'),
                             data:function (params) { 
                                 params.parent_id=$("#{{$frmID}} .select2[name='"+parentel+"']").val()||0
                                 params.name=thisname;
@@ -169,8 +169,23 @@
                 $(this).change(function(){ 
                     $(selectval).val($(this).find('option:selected').text())
                     var childel= $(this).data('child')
+                    var thisval=$(this).val()
                     if(childel){
-                        $("#{{$frmID}} .select2[name='"+childel+"']").val('').select2()
+                        if($("#{{$frmID}} .select2[name='"+childel+"']").hasClass('ajax')){
+                            $("#{{$frmID}} .select2[name='"+childel+"']").select2({
+                                ajax:{
+                                    // url: $(this).data('ajaxurl'),
+                                    data:function (params) { 
+                                        params.parent_id=thisval||0
+                                        params.name=childel;
+                                        return params;
+                                    }
+                                }
+                            })
+                        }else{
+
+                            $("#{{$frmID}} .select2[name='"+childel+"']").val('').select2()
+                        }
                     }
                 })
             })

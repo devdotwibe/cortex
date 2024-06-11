@@ -49,11 +49,11 @@ class QuestionBankController extends Controller
     }
     public function create(Request $request,Category $category){ 
         if($request->ajax()){
-            $name=$request->name??"sub_category_id";
-            if($name!=="sub_category_id"&&isset($request->parent_id)){
+            $name=$request->name??"";
+            if($name=="sub_category_set"){
                 self::reset();
                 self::$model = Setname::class; 
-                return $this->where('sub_category_id',$request->parent_id)/*->where('category_id',$category->id)*/->buildSelectOption();
+                return $this->where('sub_category_id',$request->parent_id??0)/*->where('category_id',$category->id)*/->buildSelectOption();
             }else{
                 self::reset();
                 self::$model = SubCategory::class; 
