@@ -128,8 +128,12 @@
                 $(parent).find(".choice-item:first .choice-check").prop("checked",true)
             }
             $(target).remove()
+            $(parent).find(".choice-item .choice-check").each(function(k,v){
+                $(v).val(k)
+            })
         }
         function addChoice(name,label,target){    
+            var ln=$(target).find(".choice-item .choice-check").length;
             $(target).append(
             `
             <div class="choice-item mt-2" id="${name}-{{$frmID}}-choice-item-chcnt-${chcnt}"  >
@@ -140,7 +144,7 @@
                             <div class="input-group">
                                  <div class="input-group-prepend choice-check-group">
                                     <label class="input-group-label choice-label"  for="${name}-{{$frmID}}-chcnt-${chcnt}-check"></label>
-                                    <input type="radio" class="input-group-check choice-check"  id="${name}-{{$frmID}}-chcnt-${chcnt}-check" name="choice_${name}" value="${chcnt}" >
+                                    <input type="radio" class="input-group-check choice-check"  id="${name}-{{$frmID}}-chcnt-${chcnt}-check" name="choice_${name}" value="${ln}" >
                                 </div>
                                 <input type="text" name="${name}[]" id="${name}-{{$frmID}}-chcnt-${chcnt}" value="" class="form-control" placeholder="${label}" aria-placeholder="${label}" >
                                 <div class="input-group-append choice-check-group">
