@@ -19,11 +19,15 @@
                                                 <textarea name="{{$item->name}}" id="{{$item->name}}-{{$frmID}}"  class="form-control @error($item->name) is-invalid @enderror "  rows="5">{{old($item->name)}}</textarea>
                                                 @break
                                             @case('select')
+                                                <input type="hidden" class="select-val" value="{{old("selectval".$item->name)}}" name="selectval{{$item->name}}" id="select-val-{{$item->name}}-{{$frmID}}">
                                                 <select name="{{$item->name}}" data-value="{{old($item->name)}}" id="{{$item->name}}-{{$frmID}}" @if(isset($item->ajaxurl)) data-ajax--url="{{$item->ajaxurl}}" data-ajax--cache="true" @endif  class="form-control select2 @error($item->name) is-invalid @enderror " data-placeholder="{{ucfirst($item->label??$item->name)}}" placeholder="{{ucfirst($item->label??$item->name)}}" >
                                                     @if(isset($item->options)) 
                                                         @foreach ($item->options as $opt)
                                                         <option value="{{$opt->value}}">{{$opt->text}}</option>                                                            
                                                         @endforeach
+                                                    @endif
+                                                    @if(!empty(old($item->name)))
+                                                        <option value="{{old($item->name)}}">{{old("selectval".$item->name)}}</option>
                                                     @endif
                                                 </select>
                                                 {{-- @if(isset($item->options)) 
@@ -52,7 +56,7 @@
                 </div>
                 
                 <div class="mb-3"> 
-                    <a href="{{route("$name.index")}}"  class="btn btn-secondary">Cancel</a> <button type="submit" class="btn btn-dark">{{$btnsubmit}}</button> 
+                    <a href="{{$cancel??route("$name.index")}}"  class="btn btn-secondary">Cancel</a> <button type="submit" class="btn btn-dark">{{$btnsubmit}}</button> 
                 </div>
 
             </form>
@@ -66,7 +70,11 @@
     <script>
         $(function(){
             $("#{{$frmID}} .select2").each(function(){
-                $(this).val($(this).data("value")).select2()
+                var selectval=$(this).parent().find("input.select-val");
+                $(this).val($(this).data("value")).select2().change(function(){
+                    console.log(this)
+                    $(selectval).val($(this).find('option:selected').text())
+                })
             })
         })
     </script>

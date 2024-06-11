@@ -22,4 +22,8 @@ class Exam extends Model
         'fees', 
         'slug'
     ];
+
+    public function questions(){
+        return $this->hasMany(Question::class);
+    }
 }

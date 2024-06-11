@@ -36,7 +36,7 @@
                 </div>
 
                 <div class="mb-3"> 
-                    <a href="{{route("$name.index")}}"  class="btn btn-secondary">Cancel</a> <button type="submit" class="btn btn-dark">{{$btnsubmit}}</button> 
+                    <a href="{{$cancel??route("$name.index")}}"  class="btn btn-secondary">Cancel</a> <button type="submit" class="btn btn-dark">{{$btnsubmit}}</button> 
                 </div>
             </form>
         </div>

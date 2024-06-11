@@ -16,16 +16,18 @@ class CreateForm extends Component
     public $fields;
     public $btnsubmit;
     public $params;
+    public $cancel;
     /**
      * Create a new component instance.
      */
-    public function __construct($name,$fields,$params=null,$frmID=null,$btnsubmit=null)
+    public function __construct($name,$fields,$params=null,$frmID=null,$btnsubmit=null,$cancel=null)
     {
         $this->name = $name;
         $this->fields = json_decode(json_encode($fields),false); 
         $this->frmID = $frmID??"frm".Str::random(5).time(); 
         $this->btnsubmit = $btnsubmit??"Save";
         $this->params=$params??[];
+        $this->cancel = $cancel; 
     }
 
     /**
