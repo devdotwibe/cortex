@@ -76,6 +76,7 @@ trait ResourceController
         return $query->get();
     }
     public function buildTable($rawColumn=[]){
+        $rawColumn[]="action";
         $query=app(self::$model)->query();
         foreach(self::$whereCondition as $condition){
             $query->where($condition[0]??"",$condition[1]??null);

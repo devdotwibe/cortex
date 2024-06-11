@@ -32,6 +32,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::get('/',[QuestionBankController::class,'index'])->name('index');
             Route::get('/{category}',[QuestionBankController::class,'show'])->name('show');
             Route::get('/{category}/create',[QuestionBankController::class,'create'])->name('create');
+            Route::get('/{category}/{question}/edit',[QuestionBankController::class,'edit'])->name('edit');
             Route::post('/{category}/store',[QuestionBankController::class,'store'])->name('store');  
         });
        
@@ -39,8 +40,16 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
         Route::resource("/learn",LearnController::class);
 
-    
-        Route::resource("/options",CategoryController::class);
+        Route::prefix('options')->name('options.')->group(function () { 
+            Route::get('/',[CategoryController::class,'index'])->name('index');
+            Route::get('/create',[CategoryController::class,'create'])->name('create');
+            Route::post('/',[CategoryController::class,'store'])->name('store');
+            Route::get('/{category}/edit',[CategoryController::class,'edit'])->name('edit');
+            Route::put('/{category}',[CategoryController::class,'update'])->name('update');
+            Route::get('/{category}',[CategoryController::class,'show'])->name('show');
+            Route::delete('/{category}',[CategoryController::class,'destroy'])->name('destroy');
+        });
+        // Route::resource("/options",CategoryController::class);
 
         Route::resource("/subcategory",SubCategoryController::class);
 
