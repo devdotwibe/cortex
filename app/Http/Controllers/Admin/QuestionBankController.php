@@ -50,7 +50,11 @@ class QuestionBankController extends Controller
         self::reset();
         self::$model = SubCategory::class; 
         if($request->ajax()){
-            return $this->where('category_id',$category->id)->buildSelectOption();
+            if(isset($request->parent_id)){
+                return $this->where('sub_category_id',$request->parent_id)->where('category_id',$category->id)->buildSelectOption();
+            }else{
+                return $this->where('category_id',$category->id)->buildSelectOption();
+            }
         } 
         $exam=Exam::where("name",'question-bank')->first();
         if(empty($exam)){

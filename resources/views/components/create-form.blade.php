@@ -72,7 +72,7 @@
                                                 @break
                                             @case('select')
                                                 <input type="hidden" class="select-val" value="{{old("selectval".$item->name)}}" name="selectval{{$item->name}}" id="select-val-{{$item->name}}-{{$frmID}}">
-                                                <select name="{{$item->name}}" data-value="{{old($item->name)}}" id="{{$item->name}}-{{$frmID}}" @if(isset($item->ajaxurl)) data-ajax--url="{{$item->ajaxurl}}" data-ajax--cache="true" @endif  class="form-control select2 @if(isset($item->ajaxurl)) ajax @endif @error($item->name) is-invalid @enderror " data-placeholder="{{ucfirst($item->label??$item->name)}}" placeholder="{{ucfirst($item->label??$item->name)}}" >
+                                                <select name="{{$item->name}}" data-value="{{old($item->name)}}" id="{{$item->name}}-{{$frmID}}" @if(isset($item->ajaxurl)) data-ajaxurl="{{$item->ajaxurl}}" data-ajax--cache="true" @endif  class="form-control select2 @if(isset($item->ajaxurl)) ajax @endif @error($item->name) is-invalid @enderror " data-placeholder="{{ucfirst($item->label??$item->name)}}" placeholder="{{ucfirst($item->label??$item->name)}}" >
                                                     @if(isset($item->options)) 
                                                         @foreach ($item->options as $opt)
                                                         <option value="{{$opt->value}}">{{$opt->text}}</option>                                                            
@@ -150,10 +150,12 @@
                 var selectval=$(this).parent().find("input.select-val");
                 $(this).val($(this).data("value"))
                 var parentel=$(this).data('parent')
-                if(parentel&&$(this).hasClass('ajax')){
+                if($(this).hasClass('ajax')){
                     $(this).select2({
                         ajax:{
+                            url: $(this).data('ajaxurl'),
                             data:function (params) {
+                                console.log(params,$("#{{$frmID}} .select2[name='"+parentel+"']").val())
                                 params.parent_id=$("#{{$frmID}} .select2[name='"+parentel+"']").val()||0
                                 return params;
                             }
