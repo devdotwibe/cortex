@@ -15,6 +15,9 @@
                                     <div class="forms-inputs mb-4"> 
                                         <label for="{{$item->name}}-{{$frmID}}">{{ucfirst($item->label??$item->name)}}</label>
                                         @switch($item->type??"text")
+                                            @case('editor')
+                                                <textarea name="{{$item->name}}" id="{{$item->name}}-{{$frmID}}"  class="form-control texteditor @error($item->name) is-invalid @enderror "  rows="5">{{old($item->name)}}</textarea>
+                                                @break
                                             @case('textarea')
                                                 <textarea name="{{$item->name}}" id="{{$item->name}}-{{$frmID}}"  class="form-control @error($item->name) is-invalid @enderror "  rows="5">{{old($item->name)}}</textarea>
                                                 @break
@@ -68,11 +71,17 @@
 @push('footer-script')
 
     <script>
+        CKEDITOR.replaceAll('texteditor',{ 
+            uploadUrl: '/path/to/ajax_upload.php',
+            filebrowserUploadUrl: '{{route('admin.upload')}}', 
+            filebrowserImageUploadUrl: '/path/to/ajaxx_upload.php',
+             extraPlugins: 'image',
+            filebrowserUploadMethod: 'form'
+        })
         $(function(){
             $("#{{$frmID}} .select2").each(function(){
                 var selectval=$(this).parent().find("input.select-val");
-                $(this).val($(this).data("value")).select2().change(function(){
-                    console.log(this)
+                $(this).val($(this).data("value")).select2().change(function(){ 
                     $(selectval).val($(this).find('option:selected').text())
                 })
             })

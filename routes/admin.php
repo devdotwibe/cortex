@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\QuestionBankSectionController;
 use App\Http\Controllers\Admin\QuestionBankTopicController;
 use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\SetController;
+use App\Http\Controllers\Admin\UploadController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +33,8 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::get('/{category}/create',[QuestionBankController::class,'create'])->name('create');
             Route::post('/{category}/store',[QuestionBankController::class,'store'])->name('store');  
         });
+        Route::post('/upload', [UploadController::class, 'uploadfile'])->name('upload');
+
 
         Route::resource("/question",QuestionController::class);
 

@@ -17,7 +17,7 @@
             ["name"=>"sub_category_id" ,"label"=>"Sub Category","ajaxurl"=>route("admin.question-bank.create",$category->slug),"type"=>"select","child"=>"sub_category_set","size"=>3],
             ["name"=>"sub_category_set" ,"label"=>"Set","ajaxurl"=>route("admin.question-bank.create",$category->slug),"type"=>"select","size"=>3],
             ["name"=>"title","size"=>6], 
-            ["name"=>"description","size"=>12,"type"=>"textarea"], 
+            ["name"=>"description","size"=>12,"type"=>"editor"], 
         ]' /> 
     </div>
 </section> 

@@ -23,6 +23,7 @@ class QuestionController extends Controller
             "category_id"=>['required'],
             "sub_category_id"=>['required'],
             "title"=>['required'],
+            "description"=>['nullable']
         ]);
         Question::store($questiondat);
         $redirect=$request->redirect??route('admin.question.index');
