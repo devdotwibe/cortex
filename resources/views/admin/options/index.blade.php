@@ -309,7 +309,7 @@
 
         function beforeajaxcallsub(data)
         {
-            data.set= $('#table-addset').data('set_name');
+            data.set_name= $('#table-addset').data('set_name');
             return data;
         }
 

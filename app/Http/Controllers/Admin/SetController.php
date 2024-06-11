@@ -45,10 +45,10 @@ class SetController extends Controller
         
         if($request->ajax()){
 
-            if(!empty($request->set))
+            if(!empty($request->set_name))
             {
                 
-                $set = SubCategory::findSlug($request->set);
+                $set = SubCategory::findSlug($request->set_name);
 
                 return $this->where('sub_category_id',$set->id)
                 ->addAction(function($data){
