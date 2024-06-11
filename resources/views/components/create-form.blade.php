@@ -206,7 +206,7 @@
             })
         })
 
-        // CKEDITOR.replaceAll('texteditor')
+        CKEDITOR.replaceAll('texteditor')
     </script>
  
 @endpush

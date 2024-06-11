@@ -168,7 +168,7 @@
     </script>
     <script src="{{ asset('assets/js/datatables.min.js') }}"></script> 
     <script src="{{ asset('assets/js/select2.min.js') }}"></script> 
-    <script src="{{ asset('ckeditor4/ckeditor.js') }}"></script>
+    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
     <script src="{{ asset('assets/js/custom.js') }}"></script>
     @stack('footer-script')
 </body>
