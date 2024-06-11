@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Exam;
 use App\Models\Learn;
 use App\Models\SubCategory;
 use App\Trait\ResourceController;
@@ -11,50 +13,33 @@ use Illuminate\Http\Request;
 class LearnController extends Controller
 {
     
-    use ResourceController;
-    function __construct()
-    {
-        self::$model=Learn::class;
-        self::$routeName="admin.learn";
-    }
+    use ResourceController; 
     
-    function index(Request $request)
-    {
-        if($request->ajax()){
-            return $this->addAction(function($data){
+    public function index(Request $request){
+        self::reset();
 
-            return '<a onclick="SubCat(\''.route('admin.add_subcatecory', $data->slug).'\', \''.$data->slug.'\')" class="btn btn-icons view_btn">+</a>';
+        self::$model = Category::class;
+        self::$routeName = "admin.learn"; 
+
+        $categorys=$this->buildResult();
+      
+        return view("admin.learn.index",compact('categorys'));
+    }
 
 
-            })->buildTable();
+
+    public function show(Request $request,Category $category)
+        {
+                self::reset();
+                self::$model = Category::class;
+                self::$routeName = "admin.learn"; 
+               
+                // if($request->ajax()){
+                //     return $this->where('category_id',$category->id)->buildTable();
+                // } 
+                return view("admin.learn.show",compact('category'));
         }
 
-        return view('admin.learn.index');
-    }
-
-    function store(Request $request)
-    {
-       
-        $learn_data = $request->validate([
-
-            "subject"=>"required",
-        ]);
-        
-        $learn = new Learn;
-
-        $learn->store($learn_data);
-        
-        return response()->json(['success' => 'Module Added Successfully']);
-
-    }
-
-    public function show(Request $request,Learn $learn){
-
-        // dd($learn->slug);
-        
-        return view("admin.learn.show",compact('learn'));
-
-    }
 
     public function destroy(Request $request,Learn $exam){ 
         $exam->delete();
