@@ -19,9 +19,9 @@ trait ResourceModel
     public function getRouteKeyName(){
         return 'slug';
     } 
-    // public function getKeyName(){
-    //     return 'slug';
-    // } 
+    public function getKeyName(){
+        return 'slug';
+    } 
     // public function getFields(){
     //     static::getFormFields();
     // }

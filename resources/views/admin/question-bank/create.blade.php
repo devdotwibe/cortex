@@ -18,7 +18,7 @@
             ["name"=>"sub_category_set" ,"label"=>"Set","ajaxurl"=>route("admin.question-bank.create",$category->slug),"type"=>"select","size"=>3],
             ["name"=>"title","size"=>6], 
             ["name"=>"description","size"=>12,"type"=>"editor"], 
-            ["name"=>"answer[]" ,"type"=>"choice" ,"size"=>6]
+            ["name"=>"answer","label"=>"answer" ,"type"=>"choice" ,"size"=>6]
         ]' /> 
     </div>
 </section> 
