@@ -19,6 +19,7 @@ trait ResourceController
 
     protected static $actions=[];
     protected static $whereCondition=[];
+    protected static $defaultActions=['view','edit','delete'];
 
     public static function reset(){
 
@@ -86,29 +87,49 @@ trait ResourceController
         foreach (self::$columns as $key => $value) {
             $table->addColumn($key ,$value);
         }
-        if(auth("admin")->check()){
+        // if(auth("admin")->check()){
             $table->addColumn('action',function($data){
                 $action="";
                 foreach (self::$actions as $callable) {
                   $action.=($callable($data)??"");
                 }
+                foreach (self::$defaultActions as $act) {
+                    switch ($act) {
+                        case 'view':
+                            $action.='                            
+                                    <a href="'.route(self::$routeName.".show",$data->slug).'" class="btn btn-icons view_btn">
+                                        <img src="'.asset("assets/images/view.svg").'" alt="">
+                                    </a>
+                            ';
+                            break;
+                        case 'edit':
+                                $action.='
+                                <a href="'.route(self::$routeName.".edit",$data->slug).'" class="btn btn-icons edit_btn">
+                                    <img src="'.asset("assets/images/edit.svg").'" alt="">
+                                </a>
+                                ';
+                            break;
+                        case 'delete':
+                                $action.='
+                                 <a  class="btn btn-icons dlt_btn" onclick="deleteRecord('."'".route(self::$routeName.".destroy",$data->slug)."'".')">
+                                    <img src="'.asset("assets/images/delete.svg").'" alt="">
+                                </a> 
+                                ';
+                            break;
+                        
+                        default:
+                            # code...
+                            break;
+                    }
+                }
                 return  '
                 <div>
-                    '.$action.'
-                    <a href="'.route(self::$routeName.".show",$data->slug).'" class="btn btn-icons view_btn">
-                        <img src="'.asset("assets/images/view.svg").'" alt="">
-                    </a>
-                    <a href="'.route(self::$routeName.".edit",$data->slug).'" class="btn btn-icons edit_btn">
-                        <img src="'.asset("assets/images/edit.svg").'" alt="">
-                    </a>
-                    <a  class="btn btn-icons dlt_btn" onclick="deleteRecord('."'".route(self::$routeName.".destroy",$data->slug)."'".')">
-                        <img src="'.asset("assets/images/delete.svg").'" alt="">
-                    </a> 
+                    '.$action.' 
                 </div>
                 
                 ';
             });
-        }
+        // }
         return $table->rawColumns($rawColumn)->addIndexColumn()->make(true);
     }
     public function totalCount(){

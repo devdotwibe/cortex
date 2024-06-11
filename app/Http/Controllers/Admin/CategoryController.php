@@ -17,6 +17,8 @@ class CategoryController extends Controller
     {
         self::$model=Category::class;
         self::$routeName="admin.options";
+        self::$defaultActions=['edit','delete'];
+
     }
     
     
@@ -105,7 +107,9 @@ class CategoryController extends Controller
                     return $this->where('category_id',$category->id)
                     ->addAction(function($data){
 
-                        return '<a onclick="AddSet(\''.route('admin.set.store', $data->slug).'\', \''.$data->slug.'\')" class="btn btn-icons view_btn">+</a>';
+                        return '<a onclick="AddSet(\''.route('admin.set.set_store', $data->slug).'\', \''.$data->slug.'\')" class="btn btn-icons view_btn">+</a>';
+
+
             
                         })
                         ->buildTable();

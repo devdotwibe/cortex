@@ -44,6 +44,9 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
         Route::get('/set/view',[SetController::class,'set_table_show'])->name('set_table.show');
 
+        Route::post('/set/store/{slug}',[SetController::class,'set_store'])->name('set.set_store');
+        
+
         Route::post('/add-subcatecory/{slug}',[CategoryController::class,'add_subcatecory'])->name('add_subcatecory');
 
         Route::get('/view-subcatecory',[CategoryController::class,'sub_category_table'])->name('sub_category_table.show');

@@ -15,9 +15,10 @@ class SetController extends Controller
     {
         self::$model=Setname::class;
         self::$routeName="admin.set";
+        self::$defaultActions=['edit','delete'];
     }
     
-    function store(Request $request,$slug)
+    function set_store(Request $request,$slug)
     {
        
         $set_data = $request->validate([
@@ -38,7 +39,7 @@ class SetController extends Controller
     }
 
 
-    public function show(Request $request,Setname $setname){
+    public function show(Request $request,Setname $setname){    
 
         // dd($learn->slug);
         
