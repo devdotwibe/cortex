@@ -42,11 +42,9 @@ class QuestionBankController extends Controller
                 "title"=>"Question Bank",
                 "name"=>"question-bank",
             ]);
+            $exam=Exam::find( $exam->id );
         }
-        return view("admin.question-bank.create",compact('category'));
-    }
-    public function subcat(Request $request,Category $category){ 
-        return view("admin.question-bank.create",compact('category'));
-    }
+        return view("admin.question-bank.create",compact('category','exam'));
+    } 
     
 }

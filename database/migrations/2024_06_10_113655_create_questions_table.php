@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string("title")->nullable();
             $table->text("description")->nullable();
+            $table->integer('exam_id')->nullable();
             $table->integer('category_id')->nullable();
             $table->integer('sub_category_id')->nullable();
             $table->string('sub_category_set')->nullable();
