@@ -78,7 +78,7 @@ class SubCategoryController extends Controller
 
         $edit_data = $request->validate([
 
-           "name"=>"required|unique",
+            "name" => "required|unique:sub_categories,name",
         ]);
 
         $sub = SubCategory::findSlug($slug);

@@ -28,11 +28,13 @@ class LearnController extends Controller
 
 
 
-    public function show(Request $request,Category $category)
+    public function show(Request $request, $slug)
         {
                 self::reset();
                 self::$model = Category::class;
-                self::$routeName = "admin.learn"; 
+                self::$routeName = "admin.learn";
+                
+                $category = Category::findSlug($slug);
                
                 // if($request->ajax()){
                 //     return $this->where('category_id',$category->id)->buildTable();

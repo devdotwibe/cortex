@@ -62,7 +62,7 @@ class CategoryController extends Controller
        
         $options_data = $request->validate([
 
-            "name"=>"required|unique",
+            "name" => "required|unique:categories,name",
         ]);
         
         $option = new Category;
@@ -78,7 +78,7 @@ class CategoryController extends Controller
 
             $edit_data = $request->validate([
 
-                "name"=>"required",
+                "name" => "required|unique:categories,name",
             ]);
 
             $category = Category::findSlug($slug);
@@ -120,7 +120,7 @@ class CategoryController extends Controller
        
         $sub_data = $request->validate([
 
-            "name"=>"required",
+           "name" => "required|unique:sub_categories,name",
         ]);
 
         $option = Category::where('slug',$slug)->first();
