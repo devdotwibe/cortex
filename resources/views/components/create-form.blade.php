@@ -72,7 +72,7 @@
                                                 @break
                                             @case('select')
                                                 <input type="hidden" class="select-val" value="{{old("selectval".$item->name)}}" name="selectval{{$item->name}}" id="select-val-{{$item->name}}-{{$frmID}}">
-                                                <select name="{{$item->name}}" data-value="{{old($item->name)}}" id="{{$item->name}}-{{$frmID}}" @if(isset($item->ajaxurl)) data-ajaxurl="{{$item->ajaxurl}}" data-ajax--cache="true" @endif  class="form-control select2 @if(isset($item->ajaxurl)) ajax @endif @error($item->name) is-invalid @enderror " data-placeholder="{{ucfirst($item->label??$item->name)}}" placeholder="{{ucfirst($item->label??$item->name)}}" >
+                                                <select name="{{$item->name}}" @isset($item->child) data-child="{{$item->child}}" @isset($item->parent) data-parent="{{$item->parent}}" @endisset data-value="{{old($item->name)}}" id="{{$item->name}}-{{$frmID}}" @if(isset($item->ajaxurl)) data-ajaxurl="{{$item->ajaxurl}}" data-ajax--cache="true" @endif  class="form-control select2 @if(isset($item->ajaxurl)) ajax @endif @error($item->name) is-invalid @enderror " data-placeholder="{{ucfirst($item->label??$item->name)}}" placeholder="{{ucfirst($item->label??$item->name)}}" >
                                                     @if(isset($item->options)) 
                                                         @foreach ($item->options as $opt)
                                                         <option value="{{$opt->value}}">{{$opt->text}}</option>                                                            
@@ -148,15 +148,16 @@
         $(function(){
             $("#{{$frmID}} .select2").each(function(){
                 var selectval=$(this).parent().find("input.select-val");
+                var thisname=$(this).attr("name")
                 $(this).val($(this).data("value"))
                 var parentel=$(this).data('parent')
                 if($(this).hasClass('ajax')){
                     $(this).select2({
                         ajax:{
                             url: $(this).data('ajaxurl'),
-                            data:function (params) {
-                                console.log(params,$("#{{$frmID}} .select2[name='"+parentel+"']").val())
+                            data:function (params) { 
                                 params.parent_id=$("#{{$frmID}} .select2[name='"+parentel+"']").val()||0
+                                params.name=thisname;
                                 return params;
                             }
                         }

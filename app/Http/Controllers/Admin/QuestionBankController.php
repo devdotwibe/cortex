@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Exam;
 use App\Models\Question;
+use App\Models\Setname;
 use App\Models\SubCategory;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
@@ -47,12 +48,15 @@ class QuestionBankController extends Controller
         return view("admin.question-bank.show",compact('category','exam'));
     }
     public function create(Request $request,Category $category){ 
-        self::reset();
-        self::$model = SubCategory::class; 
         if($request->ajax()){
-            if(isset($request->parent_id)){
-                return $this->where('sub_category_id',$request->parent_id)->where('category_id',$category->id)->buildSelectOption();
+            $name=$request->name??"sub_category_id";
+            if($name!=="sub_category_id"&&isset($request->parent_id)){
+                self::reset();
+                self::$model = Setname::class; 
+                return $this->where('sub_category_id',$request->parent_id)/*->where('category_id',$category->id)*/->buildSelectOption();
             }else{
+                self::reset();
+                self::$model = SubCategory::class; 
                 return $this->where('category_id',$category->id)->buildSelectOption();
             }
         } 
