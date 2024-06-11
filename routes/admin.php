@@ -33,7 +33,6 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::get('/{category}/create',[QuestionBankController::class,'create'])->name('create');
             Route::post('/{category}/store',[QuestionBankController::class,'store'])->name('store');  
         });
-        Route::post('/upload', [UploadController::class, 'uploadfile'])->name('upload');
 
 
         Route::resource("/question",QuestionController::class);

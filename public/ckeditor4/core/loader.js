@@ -33,12 +33,12 @@ if ( !CKEDITOR.loader ) {
 				'htmldataprocessor', 'htmlparser', 'htmlparser/element', 'htmlparser/fragment', 'htmlparser/filter',
 				'htmlparser/basicwriter', 'template', 'tools',
 
-				'ckeditor_version-check', 'ckeditor_license-check'
+				//'ckeditor_version-check', 'ckeditor_license-check'
 			],
 			'ckeditor_base': [],
 			'ckeditor_basic': [ 'editor_basic', 'env', 'event' ],
-			'ckeditor_license-check': [ 'ckeditor_basic', 'config', 'log' ],
-			'ckeditor_version-check': [ 'ckeditor_basic', 'config', 'tools' ],
+			// 'ckeditor_license-check': [ 'ckeditor_basic', 'config', 'log' ],
+			// 'ckeditor_version-check': [ 'ckeditor_basic', 'config', 'tools' ],
 			'command': [],
 			'config': [ 'ckeditor_base' ],
 			'dom': [],

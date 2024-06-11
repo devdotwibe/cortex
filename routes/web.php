@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UploadController;
 use App\Http\Controllers\User\MainController as UserMainController;
 use App\Http\Controllers\User\ProfileController;
 use Illuminate\Support\Facades\Artisan;
@@ -58,6 +59,7 @@ Route::middleware('auth')->group(function(){
     Route::get('/profile',[ProfileController::class,'view'])->name('profile.view');
 
    
+    Route::post('/upload', [UploadController::class, 'uploadfile'])->name('upload');
 });
 
 Route::middleware('signed')->get('email/{id}/{hash}/verify', [HomeController::class,'verifyemail'])->name('verification.verify');

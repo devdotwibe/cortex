@@ -6,8 +6,7 @@
 CKEDITOR.editorConfig = function( config ) {
 	// Define changes to default configuration here. For example:
 	// config.language = 'fr';
-	// config.uiColor = '#AADC6E';
-	// %REMOVE_START%
+	// config.uiColor = '#AADC6E'; 
 	config.plugins =
 		'about,' +
 		'a11yhelp,' +
@@ -71,7 +70,6 @@ CKEDITOR.editorConfig = function( config ) {
 		'undo,' +
 		'uploadimage,' +
 		'wysiwygarea';
-	// %REMOVE_END%
-};
-
-// %LEAVE_UNMINIFIED% %REMOVE_LINE%
+	config.allowedContent = true;
+	config.removeButtons = 'Save,NewPage,ExportPdf,Preview,Print,Templates,PasteText,PasteFromWord,Cut,SelectAll,BidiLtr,BidiRtl,Language,Image,Smiley,SpecialChar,PageBreak,ShowBlocks,About';
+}; 
