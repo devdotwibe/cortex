@@ -93,7 +93,7 @@
                             </div> 
 
 
-                            <x-ajax-table tableid="sub_category" beforeajax='beforeajaxcallback' :url="route('admin.sub_category_table.show')" :coloumns='[
+                            <x-ajax-table tableid="sub_category" beforeajax='beforeajaxcallback' :url="route('admin.subcategory.show')" :coloumns='[
                                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
                                 ["th"=>"Sub Category","name"=>"name","data"=>"name"],
                               

@@ -93,7 +93,7 @@
                             </div> 
 
 
-                            <x-ajax-table tableid="sub_category" beforeajax='beforeajaxcallback' :url="route('admin.sub_category_table.show')"  :coloumns='[
+                            <x-ajax-table tableid="sub_category" beforeajax='beforeajaxcallback' :url="route('admin.subcategory_table.show')"  :coloumns='[
                                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
                                 ["th"=>"Sub Category","name"=>"name","data"=>"name"],
                               
@@ -182,6 +182,73 @@
             </div>
         </div>
     </div>
+
+
+
+    <div class="modal fade bd-example-modal-lg"  id="table-common-edit" tabindex="-1" role="dialog" aria-labelledby="table-addset-createLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="table_common_edit_Label"></h5>
+                    <button type="button" class="close" data-bs-dismiss="modal"  aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                    <div class="modal-body">
+
+                        <div class="modal-body">
+
+                            <div class="row"> 
+                                <div class="card">
+                                    <div class="card-body">
+                                        <form action="#" class="form" id="table-form-edit-common" method="post">
+                                            @csrf 
+
+                                        @method('put')
+                            
+                                            <div class="row">
+                                               
+                                                    <div class="col-md-8">
+                                                        <div class="form-group">
+                                                            <div class="form-data">
+                                                                <div class="forms-inputs mb-4"> 
+
+                                                                    <label for="common_name" id="common_label"></label>
+                                                                    
+                                                                            <input type="text" name="name" id="common_name" class="form-control">        
+                                                                   
+                                                                    
+                                                                    <div class="invalid-feedback" id="common_name-error"></div>
+                                                                   
+                                                                </div>
+                                                            </div>
+                                                        </div>    
+                                                    </div> 
+                                               
+                                                 
+                                            </div>
+                            
+                                            <div class="mb-3"> 
+                                                                 
+                                                    <a  onclick="CloseCommon()" class="btn btn-secondary">Cancel</a>
+                    
+                                                    <button type="submit" class="btn btn-dark">Save</button> 
+                            
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div> 
+                            </div> 
+                                
+                        </div>
+                            
+                    </div>
+
+            </div>
+        </div>
+    </div>
     
 @endpush
 
@@ -200,6 +267,12 @@
             $('#table-module-create').modal('hide');
         }
 
+        function CloseCommon()
+        {
+            $('#table-common-edit').modal('hide');
+        }
+
+    
         function CloseSub()
         {
             $('#table-subcategory-create').modal('hide');
@@ -219,22 +292,56 @@
         }
 
         
-            function EditSub (url,slug)
+            function EditSub (url,slug,type)
             {
               
-                $('#table-module-form-create').attr('action',url);
+                $('#table-form-edit-common').attr('action',url);
+
+                var route ="{{ route('admin.get_edit_details') }}";
 
                 $.ajax({
 
-                        url: "{{ route('admin.get_category') }}",
+                        url: route,
                         method: "get",
-                        slug:slug,
+                        data:{
+                            slug: slug,
+                            type: type,
+
+                        },
                         
                         success: function(response) {
 
-                            $('#table-module-create').modal('show');
+                           
 
-                            $('#sub_name').val(response.name);
+                            if(type =='category')
+                            {
+
+                                $('#table_common_edit_Label').text("Edit Module");
+
+                                $('#common_label').text('Module');
+
+                            }else if(type =='subcategory')
+
+                            {
+
+                                $('#table-subcategory-create').modal('hide');
+
+                                $('#table_common_edit_Label').text("Edit Sub Category");
+
+                                $('#common_label').text('Subcategory');
+                            }
+                            else
+                            {
+                                $('#table_common_edit_Label').text("Edit Set Name");
+
+                                $('#common_label').text('Set Name');
+
+                            }
+                            
+
+                            $('#table-common-edit').modal('show');
+
+                            $('#common_name').val(response.name);
 
                         },
 
@@ -270,6 +377,60 @@
                 $('#table-addset').data('set_name',slug).DataTable().ajax.reload();
 
             }
+
+            $(document).ready(function() {
+
+                $('#table-form-edit-common').on('submit', function(e) {
+                    e.preventDefault();
+
+                    $.ajax({
+                        url: $(this).attr('action'),
+                        method: $(this).attr('method'),
+                        data: $(this).serialize(),
+                        
+                        success: function(response) {
+
+                            $('#table-common-edit').modal('hide');
+
+                            if(response.type == 'category')
+                            {
+                                $('#table-module').DataTable().ajax.reload();
+                            }
+                            else if(response.type == 'subcategory')
+                            {
+                                $('#table-subcategory-create').modal('show'); 
+
+                                $('#table-sub_category').DataTable().ajax.reload();
+                            }
+                            else
+                            {
+                                $('#table-addset-create').modal('show');
+
+                                $('#table-addset').DataTable().ajax.reload();
+                            }
+
+                            console.log(response.type);
+
+                            $('#common_name').val("");
+
+                        },
+
+                        error: function(xhr) {
+
+                            var errors = xhr.responseJSON.errors;
+                            
+                            $.each(errors, function(key, value) {
+
+                                $('#common_name-error').text(value[0]).show();
+
+                            });
+
+                        }
+                    });
+                });
+            });
+
+            
 
             $(document).ready(function() {
 
