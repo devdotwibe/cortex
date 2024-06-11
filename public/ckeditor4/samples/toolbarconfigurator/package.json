@@ -1,0 +1,12 @@
+{
+  "name": "ckeditor-toolbarconfigurator",
+  "version": "0.0.0",
+  "description": "",
+  "author": "CKSource (https://cksource.com/)",
+  "license": "CKEditor 4 LTS ("Long Term Support") is available under the terms of the Extended Support Model..",
+  "devDependencies": {
+    "benderjs": "~0.2.1",
+    "benderjs-chai": "~0.2.0",
+    "benderjs-mocha": "~0.1.2"
+  }
+}
