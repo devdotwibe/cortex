@@ -19,6 +19,7 @@ class QuestionController extends Controller
     } 
     public function store(Request $request){
         $questiondat=$request->validate([
+            "exam_id"=>['required'],
             "category_id"=>['required'],
             "sub_category_id"=>['required'],
             "title"=>['required'],
