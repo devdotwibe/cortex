@@ -17,7 +17,7 @@ class CategoryController extends Controller
     {
         self::$model=Category::class;
         self::$routeName="admin.options";
-        self::$defaultActions=['edit','delete'];
+        self::$defaultActions=['delete'];
 
     }
     
@@ -27,7 +27,9 @@ class CategoryController extends Controller
         if($request->ajax()){
             return $this->addAction(function($data){
 
-            return '<a onclick="SubCat(\''.route('admin.add_subcatecory', $data->slug).'\', \''.$data->slug.'\')" class="btn btn-icons view_btn">+</a>';
+                return '<a onclick="SubCat(\''.route('admin.add_subcatecory', $data->slug).'\', \''.$data->slug.'\')" class="btn btn-icons view_btn">+</a>'.
+
+                     '<a onclick="EditSub(\''.route('admin.add_subcatecory', $data->slug).'\', \''.$data->slug.'\')" class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>';
 
 
             })->buildTable();
@@ -121,6 +123,22 @@ class CategoryController extends Controller
                
             }
             
+        }
+
+        function get_category(Request $request ,$slug)
+        {
+            $category = Category::findSlug($slug);
+
+            if(!empty($category))
+            {
+                $name = $category->name;
+
+                return response()->json(['name'=>$name]);
+            }
+            else
+            {
+                return response()->json(['fail' => 'Failed to get Category Name']);
+            }
         }
 
         
