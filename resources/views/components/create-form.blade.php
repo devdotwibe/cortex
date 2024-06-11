@@ -11,22 +11,22 @@
                         <div class="choice">
                             <h3>{{ucfirst($item->label??$item->name)}}</h3>
                             <div class="choice-group col-md-12" id="{{$item->name}}-{{$frmID}}-choice-group" >
-                                @forelse (old($item->name,[]) as $k=> $item)
+                                @forelse (old($item->name,[]) as $k=> $v)
                                 <div class="choice-item mt-2" id="{{$item->name}}-{{$frmID}}-choice-item-{{$k}}"  >
                                     <div class="form-group">
                                         <div class="form-data">
                                             <div class="forms-inputs mb-4"> 
                                                 <label for="{{$item->name}}-{{$frmID}}-{{$k}}">Choice</label>
                                                 <div class="input-group">
-                                                    <input type="text" name="{{$item->name}}[]" id="{{$item->name}}-{{$frmID}}-{{$k}}" value="{{old($item->name)[$k]}}" class="form-control @error($item->name) is-invalid @enderror " placeholder="{{ucfirst($item->label??$item->name)}}" aria-placeholder="{{ucfirst($item->label??$item->name)}}" >
+                                                    <input type="text" name="{{$item->name}}[]" id="{{$item->name}}-{{$frmID}}-{{$k}}" value="{{old($item->name)[$k]}}" class="form-control @error($item->name.".$k") is-invalid @enderror " placeholder="{{ucfirst($item->label??$item->name)}}" aria-placeholder="{{ucfirst($item->label??$item->name)}}" >
                                                     <div class="input-group-append">
                                                         <label class="input-group-label choice-label" for="{{$item->name}}-{{$frmID}}-{{$k}}-check"></label>
                                                         <input type="radio"  name="choice_{{$item->name}}" id="{{$item->name}}-{{$frmID}}-{{$k}}-check" value="{{$k}}" >
                                                     </div>
+                                                    @error($item->name.".$k")
+                                                    <div class="invalid-feedback">{{$message}}</div>
+                                                    @enderror
                                                 </div>
-                                                @error($item->name.".$k")
-                                                <div class="invalid-feedback">{{$message}}</div>
-                                                @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -120,9 +120,8 @@
 @push('footer-script')
 
     <script>
-        var chcnt=0;
-        function addChoice(name,label,target){        
-            chcnt++;
+        var chcnt=$('.choice-item').length;
+        function addChoice(name,label,target){    
             $(target).append(
             `
             <div class="choice-item mt-2" id="${name}-{{$frmID}}-choice-item-chcnt-${chcnt}"  >
@@ -143,7 +142,8 @@
                 </div>
             </div> 
             
-            `)
+            `)    
+            chcnt++;
         }
         $(function(){
             $("#{{$frmID}} .select2").each(function(){

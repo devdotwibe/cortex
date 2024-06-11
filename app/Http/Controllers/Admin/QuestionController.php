@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Answer;
 use App\Models\Question;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
@@ -27,8 +28,27 @@ class QuestionController extends Controller
             "duration"=>["required"],
             "answer.*"=>["required"],
         ]);
-        Question::store($questiondat);
+        $question=Question::store($questiondat);
+        foreach($request->answer as $k =>$ans){
+            Answer::store([
+                "exam_id"=>$question->exam_id,
+                "question_id"=>$question->id,
+                "iscorrect"=>$k==$questiondat["choice_answer"]?true:false,
+                "title"=>$ans
+            ]);
+        }
+
         $redirect=$request->redirect??route('admin.question.index');
-        return redirect($redirect)->with("success","QuestionBankSection updated success");
+        return redirect($redirect)->with("success","Question updated success");
+    }
+
+    public function destroy(Request $request,Question $question){ 
+        Answer::where("question_id",$question->id)->delete();
+        $question->delete();
+        if($request->ajax()){
+            return response()->json(["success"=>"Question deleted success"]);
+        }        
+        $redirect=$request->redirect??route('admin.question.index');
+        return redirect($redirect)->with("success","Question deleted success");
     }
 }
