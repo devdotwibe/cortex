@@ -102,7 +102,13 @@ class CategoryController extends Controller
                     
                     $category = Category::findSlug($request->category);
 
-                    return $this->where('category_id',$category->id)->buildTable();
+                    return $this->where('category_id',$category->id)
+                    ->addAction(function($data){
+
+                        return '<a onclick="AddSet(\''.route('admin.set.store', $data->slug).'\', \''.$data->slug.'\')" class="btn btn-icons view_btn">+</a>';
+            
+                        })
+                        ->buildTable();
                 }
                 else
                 {
