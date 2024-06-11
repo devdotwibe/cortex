@@ -218,6 +218,37 @@
             return data;
         }
 
+        
+            function EditSub (url,slug)
+            {
+              
+                $('#table-module-form-create').attr('action',url);
+
+                $.ajax({
+
+                        url: "{{ route('admin.get_category') }}",
+                        method: "get",
+                        slug:slug,
+                        
+                        success: function(response) {
+
+                            $('#table-module-create').modal('show');
+
+                            $('#sub_name').val(response.name);
+
+                        },
+
+                        error: function(xhr) {
+
+                            var errors = xhr.responseJSON.errors;
+
+                            console.log(errors);
+                    
+                        }
+                    });
+
+            }
+
         function SubCat(url,slug)
             {
               

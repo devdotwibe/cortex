@@ -55,7 +55,8 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
         Route::get('/destroy-subcatecory',[CategoryController::class,'sub_category_edit'])->name('sub_category_table.destroy');
 
-
+        Route::get('/get-category',[CategoryController::class,'get_category'])->name('get_category');
+        
         
     });
 
