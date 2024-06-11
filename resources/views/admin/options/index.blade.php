@@ -93,7 +93,7 @@
                             </div> 
 
 
-                            <x-ajax-table tableid="sub_category" beforeajax='beforeajaxcallback'  :coloumns='[
+                            <x-ajax-table tableid="sub_category" beforeajax='beforeajaxcallback' :url="route('admin.sub_category_table.show')"  :coloumns='[
                                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
                                 ["th"=>"Sub Category","name"=>"name","data"=>"name"],
                               
@@ -230,6 +230,7 @@
 
             function AddSet(url,slug)
             {
+                console.log(url);
                 $('#table-subcategory-create').modal('hide');
 
                 $('#table-addset-create').modal('show');
@@ -239,7 +240,39 @@
 
             }
 
-            
+            $(document).ready(function() {
+
+                $('#table-form-sub').on('submit', function(e) {
+                    e.preventDefault();
+
+                    $.ajax({
+                        url: $(this).attr('action'),
+                        method: $(this).attr('method'),
+                        data: $(this).serialize(),
+                        
+                        success: function(response) {
+
+                            $('#table-subcategory-create').modal('show');
+
+                            $('#table-sub_category').DataTable().ajax.reload();
+                            $('#sub_name').val("");
+
+                        },
+
+                        error: function(xhr) {
+
+                            var errors = xhr.responseJSON.errors;
+                            
+                            $.each(errors, function(key, value) {
+
+                                $('#' + key + '-error').text(value[0]).show();
+
+                            });
+
+                        }
+                    });
+                });
+                });
         
     
             $(document).ready(function() {
@@ -267,7 +300,7 @@
                             
                             $.each(errors, function(key, value) {
 
-                                $('#' + key + '-error').text(value[0]).show();
+                                $('#' + key + 'set_name-error').text(value[0]).show();
 
                             });
 
