@@ -165,6 +165,42 @@
                  $('.loading-wrap').hide();
              },
         });
+
+
+        // class CKEditorUploadAdapter {
+        //     constructor(loader) {
+        //         this.loader = loader;
+        //     }
+        //     upload() {
+        //         return this.loader.file.then(file => new Promise((resolve, reject) => {
+        //             const data = new FormData();
+        //             data.append('upload', file);
+
+        //             fetch('/upload/image', {
+        //             method: 'POST',
+        //             body: data,
+        //             })
+        //             .then(response => response.json())
+        //             .then(result => {
+        //             if (result.error) {
+        //                 return reject(result.error.message);
+        //             }
+
+        //             // Resolve with a placeholder image URL or identifier.
+        //             resolve({
+        //                 default: `/images/placeholder.png?imageId=${result.id}` // Placeholder
+        //             });
+        //             })
+        //             .catch(err => {
+        //             reject(err.message);
+        //             });
+        //         }));
+        //     }
+
+        //     abort() {
+        //         // Handle the upload aborting if necessary
+        //     }
+        // }
     </script>
     <script src="{{ asset('assets/js/datatables.min.js') }}"></script> 
     <script src="{{ asset('assets/js/select2.min.js') }}"></script> 

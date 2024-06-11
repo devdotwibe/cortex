@@ -83,14 +83,7 @@
                                                     @if(!empty(old($item->name)))
                                                         <option value="{{old($item->name)}}">{{old("selectval".$item->name)}}</option>
                                                     @endif
-                                                </select>
-                                                {{-- @if(isset($item->options)) 
-                                                    <data-option data-type="array" data-target="{{$item->name}}-{{$frmID}}" data-selected="{{old($item->name)}}">
-                                                        @json($item->options)
-                                                    </data-option>
-                                                @elseif(isset($item->srcUrl))
-                                                    <data-option data-type="url"  data-target="{{$item->name}}-{{$frmID}}"></data-option>
-                                                @endif                                                 --}}
+                                                </select>                                                --}}
                                                 @break
                                             @default
                                                 <input type="{{$item->type??"text"}}" name="{{$item->name}}" id="{{$item->name}}-{{$frmID}}" value="{{old($item->name)}}" class="form-control @error($item->name) is-invalid @enderror " placeholder="{{ucfirst($item->placeholder??$item->name)}}" aria-placeholder="{{ucfirst($item->placeholder??$item->name)}}" >        

@@ -46,9 +46,9 @@ class QuestionBankController extends Controller
         if($request->ajax()){
             return $this->where('exam_id',$exam->id)
                 ->where('category_id',$category->id)
-                ->addAction(function($data){
+                ->addAction(function($data)use($category){
                     return '
-                    <a href="'.route("admin.question-bank.edit",$data->slug).'" class="btn btn-icons edit_btn">
+                    <a href="'.route("admin.question-bank.edit",["category"=>$category->slug,"question"=>$data->slug]).'" class="btn btn-icons edit_btn">
                         <img src="'.asset("assets/images/edit.svg").'" alt="">
                     </a>
                     ';
@@ -81,7 +81,7 @@ class QuestionBankController extends Controller
         return view("admin.question-bank.create",compact('category','exam'));
     } 
 
-    public function edit(Request $request,Category $category){ 
+    public function edit(Request $request,Category $category,Question $question){ 
         if($request->ajax()){
             $name=$request->name??"";
             if($name=="sub_category_set"){
@@ -102,7 +102,7 @@ class QuestionBankController extends Controller
             ]);
             $exam=Exam::find( $exam->id );
         } 
-        return view("admin.question-bank.create",compact('category','exam'));
+        return view("admin.question-bank.edit",compact('category','exam','question'));
     }
     
 }
