@@ -17,6 +17,8 @@ class CategoryController extends Controller
     {
         self::$model=Category::class;
         self::$routeName="admin.options";
+        self::$defaultActions=['edit','delete'];
+
     }
     
     

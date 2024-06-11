@@ -15,6 +15,7 @@ class SetController extends Controller
     {
         self::$model=Setname::class;
         self::$routeName="admin.set";
+        self::$defaultActions=['edit','delete'];
     }
     
     function set_store(Request $request,$slug)
