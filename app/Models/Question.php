@@ -11,7 +11,8 @@ class Question extends Model
     use HasFactory,ResourceModel;
     protected $fillable = [
         'title', 
-        'description',  
+        'description', 
+        'duration', 
         'exam_id', 
         'category_id', 
         'sub_category_id', 
