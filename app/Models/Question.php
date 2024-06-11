@@ -12,6 +12,7 @@ class Question extends Model
     protected $fillable = [
         'title', 
         'description',  
+        'exam_id', 
         'category_id', 
         'sub_category_id', 
         'sub_category_set',
