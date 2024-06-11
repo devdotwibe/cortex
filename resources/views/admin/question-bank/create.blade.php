@@ -15,7 +15,7 @@
             ["name"=>"category_id", "value"=>$category->id,"type"=>"hidden"],
             ["name"=>"redirect", "value"=>route("admin.question-bank.show",$category->slug),"type"=>"hidden"],
             ["name"=>"sub_category_id" ,"label"=>"Sub Category","ajaxurl"=>route("admin.question-bank.create",$category->slug),"type"=>"select","child"=>"sub_category_set","size"=>3],
-            ["name"=>"sub_category_set" ,"label"=>"Set","ajaxurl"=>route("admin.question-bank.create",$category->slug),"type"=>"select","size"=>3],
+            ["name"=>"sub_category_set" ,"label"=>"Set","ajaxurl"=>route("admin.question-bank.create",$category->slug),"type"=>"select","parent"=>"sub_category_id","size"=>3],
             ["name"=>"title","size"=>6], 
             ["name"=>"description","size"=>12,"type"=>"editor"], 
             ["name"=>"answer","label"=>"answer" ,"type"=>"choice" ,"size"=>6]

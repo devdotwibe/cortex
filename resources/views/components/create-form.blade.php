@@ -41,7 +41,7 @@
                                                     <input type="text" name="{{$item->name}}[]" id="{{$item->name}}-{{$frmID}}-0" value="" class="form-control" placeholder="{{ucfirst($item->label??$item->name)}}" aria-placeholder="{{ucfirst($item->label??$item->name)}}" >
                                                     <div class="input-group-append choice-check-group">
                                                         <label class="input-group-label choice-label"  for="{{$item->name}}-{{$frmID}}-0-check"></label>
-                                                        <input type="radio" class="input-group-check choice-check"  id="{{$item->name}}-{{$frmID}}-0-check" name="choice_{{$item->name}}" value="0" >
+                                                        <input type="radio" class="input-group-check choice-check"  id="{{$item->name}}-{{$frmID}}-0-check" name="choice_{{$item->name}}" value="0" checked >
                                                     </div>
                                                 </div>
 
@@ -53,7 +53,7 @@
                             </div>
 
                             <div class="choice-button">
-                                <button class="btn btn-dark btn-sm float-end" type="button" onclick="addChoice('{{$item->name}}','{{$frmID}}','#{{$item->name}}-{{$frmID}}-choice-group')"> <img src="{{asset("assets/images/plus.svg")}}" alt=""> Add </button>
+                                <button class="btn btn-dark btn-sm float-end" type="button" onclick="addChoice('{{$item->name}}','{{ucfirst($item->label??$item->name)}}','#{{$item->name}}-{{$frmID}}-choice-group')"> <img src="{{asset("assets/images/plus.svg")}}" alt=""> Add </button>
                             </div>
                         </div>
                         @else
@@ -72,7 +72,7 @@
                                                 @break
                                             @case('select')
                                                 <input type="hidden" class="select-val" value="{{old("selectval".$item->name)}}" name="selectval{{$item->name}}" id="select-val-{{$item->name}}-{{$frmID}}">
-                                                <select name="{{$item->name}}" data-value="{{old($item->name)}}" id="{{$item->name}}-{{$frmID}}" @if(isset($item->ajaxurl)) data-ajax--url="{{$item->ajaxurl}}" data-ajax--cache="true" @endif  class="form-control select2 @error($item->name) is-invalid @enderror " data-placeholder="{{ucfirst($item->label??$item->name)}}" placeholder="{{ucfirst($item->label??$item->name)}}" >
+                                                <select name="{{$item->name}}" data-value="{{old($item->name)}}" id="{{$item->name}}-{{$frmID}}" @if(isset($item->ajaxurl)) data-ajax--url="{{$item->ajaxurl}}" data-ajax--cache="true" @endif  class="form-control select2 @if(isset($item->ajaxurl)) ajax @endif @error($item->name) is-invalid @enderror " data-placeholder="{{ucfirst($item->label??$item->name)}}" placeholder="{{ucfirst($item->label??$item->name)}}" >
                                                     @if(isset($item->options)) 
                                                         @foreach ($item->options as $opt)
                                                         <option value="{{$opt->value}}">{{$opt->text}}</option>                                                            
@@ -120,21 +120,21 @@
 @push('footer-script')
 
     <script>
-        CKEDITOR.replaceAll('texteditor')
-        var cnt=0;
+        var chcnt=0;
         function addChoice(name,label,target){        
-            cnt++;
+            chcnt++;
+            $(target).append(
             `
-            <div class="choice-item mt-2" id="${name}-{{$frmID}}-choice-item-cnt-${cnt}"  >
+            <div class="choice-item mt-2" id="${name}-{{$frmID}}-choice-item-chcnt-${chcnt}"  >
                 <div class="form-group">
                     <div class="form-data">
                         <div class="forms-inputs mb-4"> 
-                            <label for="${name}-{{$frmID}}-cnt-${cnt}">Choice</label>
+                            <label for="${name}-{{$frmID}}-chcnt-${chcnt}">Choice</label>
                             <div class="input-group">
-                                <input type="text" name="${name}[]" id="${name}-{{$frmID}}-cnt-${cnt}" value="" class="form-control" placeholder="${label}" aria-placeholder="${label}" >
+                                <input type="text" name="${name}[]" id="${name}-{{$frmID}}-chcnt-${chcnt}" value="" class="form-control" placeholder="${label}" aria-placeholder="${label}" >
                                 <div class="input-group-append choice-check-group">
-                                    <label class="input-group-label choice-label"  for="${name}-{{$frmID}}-cnt-${cnt}-check"></label>
-                                    <input type="radio" class="input-group-check choice-check"  id="${name}-{{$frmID}}-cnt-${cnt}-check" name="choice_${name}" value="${cnt}" >
+                                    <label class="input-group-label choice-label"  for="${name}-{{$frmID}}-chcnt-${chcnt}-check"></label>
+                                    <input type="radio" class="input-group-check choice-check"  id="${name}-{{$frmID}}-chcnt-${chcnt}-check" name="choice_${name}" value="${chcnt}" >
                                 </div>
                             </div>
 
@@ -143,55 +143,37 @@
                 </div>
             </div> 
             
-            `
+            `)
         }
         $(function(){
             $("#{{$frmID}} .select2").each(function(){
                 var selectval=$(this).parent().find("input.select-val");
-                $(this).val($(this).data("value")).select2().change(function(){ 
+                $(this).val($(this).data("value"))
+                var parentel=$(this).data('parent')
+                if(parentel&&$(this).hasClass('ajax')){
+                    $(this).select2({
+                        ajax:{
+                            data:function (params) {
+                                params.parent_id=$("#{{$frmID}} .select2[name='"+parentel+"']").val()||0
+                                return params;
+                            }
+                        }
+                    })
+                }else{
+                    $(this).select2()
+                }
+                
+                $(this).change(function(){ 
                     $(selectval).val($(this).find('option:selected').text())
+                    var childel= $(this).data('child')
+                    if(childel){
+                        $("#{{$frmID}} .select2[name='"+childel+"']").val('').select2()
+                    }
                 })
             })
         })
 
+        // CKEDITOR.replaceAll('texteditor')
     </script>
-
-    {{-- <script> 
-        if(!customElements.get('data-option')){
-            class DataOption extends HTMLElement {
-                constructor() {
-                    super();  
-                    var selectElement = document.getElementById(this.dataset.target)
-                    var selected = this.dataset.selected||"";
-                    if(this.dataset.type=="array"){
-                        try {
-                            var datalist = JSON.parse((this.textContent||"").trim()); 
-                            console.log(typeof datalist,"datalist")
-                            
-                            datalist.forEach(v => {
-                                if(typeof v=="object"){
-                                }else{
-                                    var option = document.createElement('option');
-                                    option.textContent = v;
-                                    if(selected==v){
-                                        option.selected =true;
-                                    }
-                                    selectElement.appendChild(option);
-                                }
-                            });
-                        }catch (error) {
-                            
-                        }
-                    } 
-                    selectElement.classList.add('array-select2')
-                }  
-            } 
-            customElements.define('data-option', DataOption); 
-        }
-
-        $(function(){
-
-        })
-
-    </script> --}}
+ 
 @endpush
