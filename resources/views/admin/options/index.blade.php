@@ -191,7 +191,7 @@
 
                 <div class="modal-header">
                     <h5 class="modal-title" id="table_common_edit_Label"></h5>
-                    <button type="button" class="close" data-bs-dismiss="modal"  aria-label="Close">
+                    <button type="button" class="close" data-dismiss="modal" id="common_button" data-button="category" onclick="CloseCommon()"  aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -270,6 +270,22 @@
         function CloseCommon()
         {
             $('#table-common-edit').modal('hide');
+
+            var commonedit = $('#common_button').data('button');
+            console.log(commonedit);
+
+            if(commonedit == 'subcategory')
+            {
+                $('#table-subcategory-create').modal('show');
+            }
+            else if(commonedit == 'set')
+            {
+                $('#table-addset-create').modal('show');
+            }
+            else
+            {
+
+            }
         }
 
     
@@ -320,6 +336,8 @@
 
                                 $('#common_label').text('Module');
 
+                                $('#common_button').data('button','category');
+
                             }else if(type =='subcategory')
 
                             {
@@ -329,12 +347,18 @@
                                 $('#table_common_edit_Label').text("Edit Sub Category");
 
                                 $('#common_label').text('Subcategory');
+
+                                $('#common_button').data('button','subcategory');
                             }
                             else
-                            {
+                            { 
+                                $('#table-addset-create').modal('hide');
+
                                 $('#table_common_edit_Label').text("Edit Set Name");
 
                                 $('#common_label').text('Set Name');
+
+                                $('#common_button').data('button','set');
 
                             }
                             

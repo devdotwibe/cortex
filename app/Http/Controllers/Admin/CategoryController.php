@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Learn;
+use App\Models\Setname;
 use App\Models\SubCategory;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
@@ -136,9 +137,35 @@ class CategoryController extends Controller
             elseif($request->type==='subcategory')
             {
 
+                $sub = SubCategory::findSlug($request->slug);
+
+                if(!empty($sub))
+                {
+                    $name = $sub->name;
+
+                    return response()->json(['name'=>$name]);
+                }
+                else
+                {
+                    return response()->json(['fail' => 'Failed to get Category Name']);
+                }
+
             }
             else
             {
+
+                $set = Setname::findSlug($request->slug);
+
+                if(!empty($set))
+                {
+                    $name = $set->name;
+
+                    return response()->json(['name'=>$name]);
+                }
+                else
+                {
+                    return response()->json(['fail' => 'Failed to get Category Name']);
+                }
 
             }
             
