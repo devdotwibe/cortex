@@ -6,6 +6,88 @@
                 @method("PUT")
                 <div class="row">
                     @foreach ($fields as $item)
+                        @if (($item->type??"text")=="hidden")
+                            <input type="hidden" name="{{$item->name}}" id="{{$item->name}}-{{$frmID}}" value="{{old($item->name,$item->value??"")}}">
+                        @elseif(($item->type??"text")=="choice")
+                        <div class="choice @if(!empty($item->addclass)) {{ $item->addclass }} @endif"  @if(!empty($item->display)) style="display:none" @endif>
+                            <h3>{{ucfirst($item->label??$item->name)}}</h3>
+                            <div class="choice-group col-md-12" id="{{$item->name}}-{{$frmID}}-choice-group" >
+                                @if (count(old($item->name,[]))>0)
+                                    @foreach(old($item->name,[]) as $k=> $v)
+                                    <div class="choice-item mt-2" id="{{$item->name}}-{{$frmID}}-choice-item-{{$k}}"  >
+                                        <div class="form-group">
+                                            <div class="form-data">
+                                                <div class="forms-inputs mb-4"> 
+                                                    <label for="{{$item->name}}-{{$frmID}}-{{$k}}">Choice</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <label class="input-group-label choice-label" for="{{$item->name}}-{{$frmID}}-{{$k}}-check"></label>
+                                                            <input type="radio"  name="choice_{{$item->name}}" id="{{$item->name}}-{{$frmID}}-{{$k}}-check" value="{{$k}}" @checked(old('choice_'.$item->name)==$k) >
+                                                        </div>
+                                                        <input type="text" name="{{$item->name}}[]" id="{{$item->name}}-{{$frmID}}-{{$k}}" value="{{old($item->name)[$k]}}"  class="form-control  @error($item->name.".$k") is-invalid @enderror " placeholder="{{ucfirst($item->label??$item->name)}}" aria-placeholder="{{ucfirst($item->label??$item->name)}}" >
+                                                        
+                                                        @error($item->name.".$k")
+                                                        <div class="invalid-feedback">{{$message}}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endforeach
+                                @else
+                                    
+                                @forelse ($item->value??[] as $k=> $v)
+                                <div class="choice-item mt-2" id="{{$item->name}}-{{$frmID}}-choice-item-{{$k}}"  >
+                                    <div class="form-group">
+                                        <div class="form-data">
+                                            <div class="forms-inputs mb-4"> 
+                                                <label for="{{$item->name}}-{{$frmID}}-{{$k}}">Choice</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <label class="input-group-label choice-label" for="{{$item->name}}-{{$frmID}}-{{$k}}-check"></label>
+                                                        <input type="radio"  name="choice_{{$item->name}}" id="{{$item->name}}-{{$frmID}}-{{$k}}-check" value="{{$k}}" @checked($v->choice)>
+                                                    </div>
+                                                    <input type="text" name="{{$item->name}}[]" id="{{$item->name}}-{{$frmID}}-{{$k}}" value="{{$v->value}}"  class="form-control  @error($item->name.".$k") is-invalid @enderror " placeholder="{{ucfirst($item->label??$item->name)}}" aria-placeholder="{{ucfirst($item->label??$item->name)}}" >
+                                                    
+                                                    @error($item->name.".$k")
+                                                    <div class="invalid-feedback">{{$message}}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>    
+                                @empty
+                                <div class="choice-item mt-2" id="{{$item->name}}-{{$frmID}}-choice-item-0"  @if(!empty($item->display)) style="display:none" @endif>
+                                    <div class="form-group">
+                                        <div class="form-data">
+                                            <div class="forms-inputs mb-4"> 
+                                                <label for="{{$item->name}}-{{$frmID}}-0">Choice</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend choice-check-group">
+                                                        <label class="input-group-label choice-label"  for="{{$item->name}}-{{$frmID}}-0-check"></label>
+                                                        <input type="radio" class="input-group-check choice-check"  id="{{$item->name}}-{{$frmID}}-0-check" name="choice_{{$item->name}}" value="0" checked >
+                                                    </div>
+                                                    <input type="text" name="{{$item->name}}[]" id="{{$item->name}}-{{$frmID}}-0" value="" class="form-control  " placeholder="{{ucfirst($item->label??$item->name)}}" aria-placeholder="{{ucfirst($item->label??$item->name)}}" >
+                                                    
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>      
+                                @endforelse
+
+                                @endif
+                            </div>
+
+                            <div class="choice-button">
+                                <button class="btn btn-dark btn-sm float-end" type="button" onclick="addChoice('{{$item->name}}','{{ucfirst($item->label??$item->name)}}','#{{$item->name}}-{{$frmID}}-choice-group')"> <img src="{{asset("assets/images/plus.svg")}}" alt=""> Add </button>
+                            </div>
+                        </div>
+                        @else
+                            
                         <div class="col-md-{{$item->size??4}}">
                             <div class="form-group">
                                 <div class="form-data">
@@ -43,6 +125,7 @@
                                 </div>
                             </div>    
                         </div> 
+                        @endif
                     @endforeach
                      
                 </div>
