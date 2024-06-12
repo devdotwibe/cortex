@@ -92,10 +92,10 @@ class SetController extends Controller
         return response()->json(['success',"Set Name Updated Successfully",'type'=>'set']);
     }
 
-    public function destroy(Request $request,Setname $setname)
+    public function destroy(Request $request,Setname $set)
     { 
         
-        $setname->delete();
+        $set->delete();
 
         if($request->ajax()){
             return response()->json(["success"=>"Set Name deleted success"]);

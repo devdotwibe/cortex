@@ -95,12 +95,10 @@ class SubCategoryController extends Controller
     
     }
 
-    public function destroy(Request $request,SubCategory $subCategory)
+    public function destroy(Request $request,SubCategory $subcategory)
     { 
         
-        // print_r($category);
-
-        $subCategory->delete();
+        $subcategory->delete();
 
         if($request->ajax()){
             return response()->json(["success"=>"Subcategory deleted success"]);
