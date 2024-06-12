@@ -40,6 +40,8 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
         Route::resource("/learn",LearnController::class);
 
+        // Route::resource("/options",CategoryController::class);
+
         Route::prefix('options')->name('options.')->group(function () { 
             Route::get('/',[CategoryController::class,'index'])->name('index');
             Route::get('/create',[CategoryController::class,'create'])->name('create');
@@ -49,23 +51,44 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::get('/{category}',[CategoryController::class,'show'])->name('show');
             Route::delete('/{category}',[CategoryController::class,'destroy'])->name('destroy');
         });
-        // Route::resource("/options",CategoryController::class);
 
-        Route::resource("/subcategory",SubCategoryController::class);
+        Route::post('/add-subcatecory/{slug}',[CategoryController::class,'add_subcatecory'])->name('add_subcatecory');
+
+        Route::get('/get-category',[CategoryController::class,'get_edit_details'])->name('get_edit_details');
+        
+
+        // Route::resource("/subcategory",SubCategoryController::class);
+
+        Route::prefix('subcategory')->name('subcategory.')->group(function () { 
+            Route::get('/',[SubCategoryController::class,'index'])->name('index');
+            Route::get('/create',[SubCategoryController::class,'create'])->name('create');
+            Route::post('/',[SubCategoryController::class,'store'])->name('store');
+            Route::get('/{subcategory}/edit',[SubCategoryController::class,'edit'])->name('edit');
+            Route::put('/{subcategory}',[SubCategoryController::class,'update'])->name('update');
+            Route::get('/{subcategory}',[SubCategoryController::class,'show'])->name('show');
+            Route::delete('/{subcategory}',[SubCategoryController::class,'destroy'])->name('destroy');
+        });
 
         Route::get('/view-subcatecory',[SubCategoryController::class,'subcategory_table'])->name('subcategory_table.show');
 
-        
-        Route::resource("/set",SetController::class);
+        // Route::resource("/set",SetController::class);
+
+        Route::prefix('set')->name('set.')->group(function () { 
+            Route::get('/',[SetController::class,'index'])->name('index');
+            Route::get('/create',[SetController::class,'create'])->name('create');
+            Route::post('/',[SetController::class,'store'])->name('store');
+            Route::get('/{set}/edit',[SetController::class,'edit'])->name('edit');
+            Route::put('/{set}',[SetController::class,'update'])->name('update');
+            Route::get('/{set}',[SetController::class,'show'])->name('show');
+            Route::delete('/{set}',[SetController::class,'destroy'])->name('destroy');
+        });
 
         Route::get('/set/view',[SetController::class,'set_table_show'])->name('set_table.show');
 
         Route::post('/set/store/{slug}',[SetController::class,'set_store'])->name('set.set_store');
         
 
-        Route::post('/add-subcatecory/{slug}',[CategoryController::class,'add_subcatecory'])->name('add_subcatecory');
-
-        Route::get('/get-category',[CategoryController::class,'get_edit_details'])->name('get_edit_details');
+        
 
     });
 

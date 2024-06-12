@@ -19,7 +19,7 @@
     @if ($ajaxcreate??false)
         
 
-        <div class="modal fade bd-example-modal-lg"  id="table-{{ $tableid }}-create" tabindex="-1" role="dialog" aria-labelledby="table-{{ $tableid }}-createLabel" aria-hidden="true">
+        <div class="modal fade bd-example-modal-lg"  id="table-{{ $tableid }}-static" tabindex="-1" role="dialog" aria-labelledby="table-{{ $tableid }}-createLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
 
@@ -133,6 +133,8 @@
 
                     
                     $('#table-{{ $tableid }}-create').modal('hide');
+
+                    $('#table-{{ $tableid }}-static').modal('hide');
 
                     $('#table-{{ $tableid }}').DataTable().ajax.reload();
 

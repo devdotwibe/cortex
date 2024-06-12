@@ -259,12 +259,12 @@
         function AddSubject()
             {
               
-                $('#table-module-create').modal('show');
+                $('#table-module-static').modal('show');
             }
 
         function CloseModal()
         {
-            $('#table-module-create').modal('hide');
+            $('#table-module-static').modal('hide');
         }
 
         function CloseCommon()
