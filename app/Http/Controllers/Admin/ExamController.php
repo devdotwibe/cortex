@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Exam;
+use App\Models\Question;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
 use Stripe\Stripe;
@@ -18,15 +19,46 @@ class ExamController extends Controller
     } 
     public function index(Request $request){
         if($request->ajax()){
-            return $this->buildTable();
+            self::$defaultActions=["edit","delete"]; 
+            return $this->addAction(function($data){
+                return '
+                <a href="'.route("admin.exam-simulator.index",["exam"=>$data->slug]).'" class="btn btn-icons view_btn">
+                    <img src="'.asset("assets/images/view.svg").'" alt="">
+                </a>
+                ';
+            })->where("name","full-mock-exam")->buildTable();
         }
-        $totalexam=$this->totalCount();
+        $totalexam=$this->where("name","full-mock-exam")->totalCount();
         return view("admin.exam.index",compact('totalexam'));
     }
     public function create(Request $request){
         return view("admin.exam.create");
     }
+    public function store(Request $request){
+        $examdat=$request->validate([
+            "title"=>"required"
+        ]);
+        $examdat['name']="full-mock-exam";
+        $exam=Exam::store($examdat);        
+        return redirect()->route('admin.exam.index')->with("success","Exam updated success");
+    }
     public function show(Request $request,Exam $exam){
+        self::reset();
+        self::$model = Question::class;
+        self::$routeName = "admin.question"; 
+        self::$defaultActions=["delete"];
+
+        if($request->ajax()){
+            return $this->where('exam_id',$exam->id) 
+                ->addAction(function($data)use($exam){
+                    return '
+                    <a href="'.route("admin.exam-simulator.edit",["exam"=>$exam->slug,"question"=>$data->slug]).'" class="btn btn-icons edit_btn">
+                        <img src="'.asset("assets/images/edit.svg").'" alt="">
+                    </a>
+                    ';
+                })
+                ->buildTable(['description']);
+        } 
         return view("admin.exam.show",compact('exam'));
     }
     public function edit(Request $request,Exam $exam){
@@ -34,7 +66,7 @@ class ExamController extends Controller
     }
     public function update(Request $request,Exam $exam){
         $examdat=$request->validate([
-            "name"=>"required"
+            "title"=>"required"
         ]);
         $exam->update($examdat);
         

@@ -9,14 +9,20 @@
     </div>
 </section>
 <section class="invite-wrap mt-2">
-    <div class="container">
-        <x-edit-form name="admin.user" :id="$user->slug" btnsubmit="Save" :fields='[
-            ["name"=>"first_name", "label"=>"First Name" ,"size"=>6,"value"=>$user->first_name?? $user->name],
-            ["name"=>"last_name","label"=>"Last Name" ,"size"=>6,"value"=>$user->last_name], 
-            ["name"=>"email","label"=>"email", "size"=>6,"value"=>$user->email,"readonly"=>true],
-            ["name"=>"phone", "label"=>"Phone No", "size"=>6,"value"=>$user->phone], 
-            ["name"=>"schooling_year", "label"=>"Current year of schooling", "size"=>6,"value"=>$user->schooling_year], 
-        ]' /> 
+    <div class="container"> 
+        <x-edit-form name="admin.exam"  :id="$exam->slug" btnsubmit="Save" :fields='[
+            ["name"=>"title","size"=>12,"value"=>$exam->title],  
+        ]' />
+        {{-- <x-edit-form name="admin.exam"  :id="$exam->slug" btnsubmit="Save" :fields='[
+            ["name"=>"title","size"=>8], 
+            ["name"=>"price","size"=>3],
+            ["name"=>"discount","size"=>3],
+            ["name"=>"duration","label"=>"Expire at","size"=>3],
+            ["name"=>"time_of_exam","label"=>"Time Of Exam (Hrs)","size"=>3,"type"=>"select","options"=> array_map(function($k){ return (object)["value"=>$k,"text"=>"$k Hr"]; },range(1, 24))],
+            ["name"=>"overview","size"=>4,"type"=>"textarea"],
+            ["name"=>"requirements","size"=>4,"type"=>"textarea"], 
+            ["name"=>"description","size"=>4,"type"=>"textarea"],
+        ]' /> --}}
     </div>
 </section> 
 @endsection

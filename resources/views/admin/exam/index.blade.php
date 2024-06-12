@@ -67,8 +67,7 @@
         <div class="row">
             <x-ajax-table :coloumns='[
                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
-                ["th"=>"Name","name"=>"name","data"=>"name"],
-                ["th"=>"Email","name"=>"email","data"=>"email"],
+                ["th"=>"Title","name"=>"title","data"=>"title"], 
             ]' />
         </div>
     </div>

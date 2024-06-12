@@ -134,7 +134,11 @@ trait ResourceController
         return $table->rawColumns($rawColumn)->addIndexColumn()->make(true);
     }
     public function totalCount(){
-        return app(self::$model)->count();
+        $query=app(self::$model)->query();
+        foreach(self::$whereCondition as $condition){
+            $query->where($condition[0]??"",$condition[1]??null);
+        }
+        return $query->count();
     }
     public function addColumn(string $name, callable|string $content){
         self::$columns[$name]=$content;

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ExamController;
+use App\Http\Controllers\Admin\ExamQuestionController;
 use App\Http\Controllers\Admin\LearnController;
 use App\Http\Controllers\Admin\MainController as AdminMainController;
 use App\Http\Controllers\Admin\QuestionBankChapterController;
@@ -31,6 +32,13 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::resource("/user",UserController::class);
         Route::resource("/exam",ExamController::class);
 
+        Route::prefix('exam-simulator')->name('exam-simulator.')->group(function () { 
+            Route::get('/{exam}',[ExamQuestionController::class,'index'])->name('index');
+            Route::get('/{exam}/question/{question}',[ExamQuestionController::class,'show'])->name('show');
+            Route::get('/{exam}/create',[ExamQuestionController::class,'create'])->name('create');
+            Route::get('/{exam}/question/{question}/edit',[ExamQuestionController::class,'edit'])->name('edit');
+            Route::post('/{exam}/store',[ExamQuestionController::class,'store'])->name('store');  
+        });
         Route::prefix('question-bank')->name('question-bank.')->group(function () { 
             Route::get('/',[QuestionBankController::class,'index'])->name('index');
             Route::get('/{category}',[QuestionBankController::class,'show'])->name('show');
@@ -39,6 +47,13 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::post('/{category}/store',[QuestionBankController::class,'store'])->name('store');  
         });
        
+        Route::prefix('topic-exam')->name('topic-exam.')->group(function () { 
+            Route::get('/',[QuestionBankController::class,'index'])->name('index');
+            Route::get('/{category}',[QuestionBankController::class,'show'])->name('show');
+            Route::get('/{category}/create',[QuestionBankController::class,'create'])->name('create');
+            Route::get('/{category}/{question}/edit',[QuestionBankController::class,'edit'])->name('edit');
+            Route::post('/{category}/store',[QuestionBankController::class,'store'])->name('store');  
+        });
         Route::resource("/question",QuestionController::class);
 
         Route::resource("/learn",LearnController::class);

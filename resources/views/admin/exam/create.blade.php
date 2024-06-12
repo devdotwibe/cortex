@@ -11,8 +11,10 @@
 <section class="invite-wrap mt-2">
     <div class="container">
         <x-create-form name="admin.exam" btnsubmit="Save" :fields='[
-            ["name"=>"title","size"=>8],
-            ["name"=>"name","size"=>4],
+            ["name"=>"title","size"=>12],  
+        ]' /> 
+        {{-- <x-create-form name="admin.exam" btnsubmit="Save" :fields='[
+            ["name"=>"title","size"=>8], 
             ["name"=>"price","size"=>3],
             ["name"=>"discount","size"=>3],
             ["name"=>"duration","label"=>"Expire at","size"=>3],
@@ -20,7 +22,7 @@
             ["name"=>"overview","size"=>4,"type"=>"textarea"],
             ["name"=>"requirements","size"=>4,"type"=>"textarea"], 
             ["name"=>"description","size"=>4,"type"=>"textarea"],
-        ]' /> 
+        ]' />  --}}
     </div>
 </section> 
 @endsection
