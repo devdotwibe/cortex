@@ -33,7 +33,7 @@
                                     </div>
                                 </div>    
                                 @empty
-                                <div class="choice-item mt-2" id="{{$item->name}}-{{$frmID}}-choice-item-0"  @if(!empty($item->display)) style="display:none" @endif>
+                                <div class="choice-item mt-2" id="{{$item->name}}-{{$frmID}}-choice-item-0">
                                     <div class="form-group">
                                         <div class="form-data">
                                             <div class="forms-inputs mb-4"> 
