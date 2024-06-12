@@ -8,7 +8,7 @@
                         @if (($item->type??"text")=="hidden")
                             <input type="hidden" name="{{$item->name}}" id="{{$item->name}}-{{$frmID}}" value="{{old($item->name,$item->value??"")}}">
                         @elseif(($item->type??"text")=="choice")
-                        <div class="choice">
+                        <div class="choice @if(!empty($item->addclass)) {{ $item->addclass }} @endif"  @if(!empty($item->display)) style="display:none" @endif>
                             <h3>{{ucfirst($item->label??$item->name)}}</h3>
                             <div class="choice-group col-md-12" id="{{$item->name}}-{{$frmID}}-choice-group" >
                                 @forelse (old($item->name,[]) as $k=> $v)
@@ -22,7 +22,7 @@
                                                         <label class="input-group-label choice-label" for="{{$item->name}}-{{$frmID}}-{{$k}}-check"></label>
                                                         <input type="radio"  name="choice_{{$item->name}}" id="{{$item->name}}-{{$frmID}}-{{$k}}-check" value="{{$k}}" >
                                                     </div>
-                                                    <input type="text" name="{{$item->name}}[]" id="{{$item->name}}-{{$frmID}}-{{$k}}" value="{{old($item->name)[$k]}}" @if(!empty($item->addclass)) {{ $item->addclass }} @endif class="form-control @error($item->name.".$k") is-invalid @enderror " placeholder="{{ucfirst($item->label??$item->name)}}" aria-placeholder="{{ucfirst($item->label??$item->name)}}" >
+                                                    <input type="text" name="{{$item->name}}[]" id="{{$item->name}}-{{$frmID}}-{{$k}}" value="{{old($item->name)[$k]}}"  class="form-control  @error($item->name.".$k") is-invalid @enderror " placeholder="{{ucfirst($item->label??$item->name)}}" aria-placeholder="{{ucfirst($item->label??$item->name)}}" >
                                                     
                                                     @error($item->name.".$k")
                                                     <div class="invalid-feedback">{{$message}}</div>
@@ -33,7 +33,7 @@
                                     </div>
                                 </div>    
                                 @empty
-                                <div class="choice-item mt-2" id="{{$item->name}}-{{$frmID}}-choice-item-0"  >
+                                <div class="choice-item mt-2" id="{{$item->name}}-{{$frmID}}-choice-item-0"  @if(!empty($item->display)) style="display:none" @endif>
                                     <div class="form-group">
                                         <div class="form-data">
                                             <div class="forms-inputs mb-4"> 
@@ -43,7 +43,7 @@
                                                         <label class="input-group-label choice-label"  for="{{$item->name}}-{{$frmID}}-0-check"></label>
                                                         <input type="radio" class="input-group-check choice-check"  id="{{$item->name}}-{{$frmID}}-0-check" name="choice_{{$item->name}}" value="0" checked >
                                                     </div>
-                                                    <input type="text" name="{{$item->name}}[]" id="{{$item->name}}-{{$frmID}}-0" value="" class="form-control" placeholder="{{ucfirst($item->label??$item->name)}}" aria-placeholder="{{ucfirst($item->label??$item->name)}}" >
+                                                    <input type="text" name="{{$item->name}}[]" id="{{$item->name}}-{{$frmID}}-0" value="" class="form-control  " placeholder="{{ucfirst($item->label??$item->name)}}" aria-placeholder="{{ucfirst($item->label??$item->name)}}" >
                                                     
                                                 </div>
 
@@ -60,7 +60,7 @@
                         </div>
                         @else
                             
-                        <div class="col-md-{{$item->size??4}}">
+                        <div class="col-md-{{$item->size??4}} @if(!empty($item->addclass)) {{ $item->addclass }} @endif" @if(!empty($item->display)) style="display:none" @endif>
                             <div class="form-group">
                                 <div class="form-data">
                                     <div class="forms-inputs mb-4"> 
@@ -86,7 +86,7 @@
                                                 </select>                                                
                                                 @break
                                             @default
-                                                <input type="{{$item->type??"text"}}" name="{{$item->name}}" id="{{$item->name}}-{{$frmID}}" value="{{old($item->name)}}" class="form-control @error($item->name) is-invalid @enderror " placeholder="{{ucfirst($item->placeholder??$item->name)}}" aria-placeholder="{{ucfirst($item->placeholder??$item->name)}}" >        
+                                                <input type="{{$item->type??"text"}}" name="{{$item->name}}" id="{{$item->name}}-{{$frmID}}" value="{{old($item->name)}}" class="form-control  @error($item->name) is-invalid @enderror " placeholder="{{ucfirst($item->placeholder??$item->name)}}" aria-placeholder="{{ucfirst($item->placeholder??$item->name)}}" >        
                                         @endswitch
                                         
                                         @error($item->name)

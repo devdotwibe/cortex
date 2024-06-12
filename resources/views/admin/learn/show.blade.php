@@ -16,30 +16,24 @@
             ["name"=>"redirect", "value"=>route("admin.question-bank.show",$category->slug),"type"=>"hidden"],
             ["name"=>"sub_category_id" ,"label"=>"Sub Category","ajaxurl"=>route("admin.learn.show",$category->slug),"type"=>"select","child"=>"sub_category_set","size"=>4],
             ["name"=>"sub_category_set" ,"label"=>"Set","ajaxurl"=>route("admin.learn.show",$category->slug),"type"=>"select","parent"=>"sub_category_id","size"=>4],
-            ["name"=>"learn_type", "event"=>["change"=>"cclickback"] ,"label"=>"Learn Type","placeholder"=>"Select Learn Type","type"=>"select","size"=>4,"options"=>[["value"=>"video","text"=>"Video"],["value"=>"Notes","text"=>"Short Notes"],["value"=>"mcq","text"=>"MCQs"]]],
+            ["name"=>"learn_type", "event"=>["change"=>"cclickback"] ,"label"=>"Learn Type","placeholder"=>"Select Learn Type","type"=>"select","size"=>4,"options"=>[["value"=>"video","text"=>"Video"],["value"=>"notes","text"=>"Short Notes"],["value"=>"mcq","text"=>"MCQs"]]],
              
-            ["name"=>"video_url", "addclass"="video_section" , "placeholder"=>"Video url","label"=>"Vimeo Video","size"=>12,"type"=>"text"], 
+            ["name"=>"video_url", "addclass"=>"video_section" ,"display"=>"none" , "placeholder"=>"Video url","label"=>"Vimeo Video","size"=>12,"type"=>"text"], 
            
+            ["name"=>"description", "addclass"=>"mcq_section","display"=>"none" , "label"=>"Question","size"=>12,"type"=>"editor"], 
+            ["name"=>"answer", "addclass"=>"mcq_section" , "display"=>"none", "label"=>"answer" ,"type"=>"choice" ,"size"=>6],
+
+             ["name"=>"short_question", "addclass"=>"short_section","display"=>"none" , "label"=>"Question","size"=>12,"type"=>"editor"],
+
+            ["name"=>"short_answer", "addclass"=>"short_section" ,"display"=>"none" , "placeholder"=>"Type Answer Here","label"=>"Answer","size"=>12,"type"=>"text"], 
+
         ]' /> 
-
-
-        
-        <div class="form-sections" id="video_section" style="display: none;">
-
-            <x-create-form name="admin.exam" btnsubmit="Save" :fields='[
-            
-                ["name"=>"video_url", "placeholder"=>"Video url","label"=>"Vimeo Video","size"=>12,"type"=>"text"], 
-               
-            ]' /> 
-
-        </div>
 
         <div class="form-sections" id="mcq_section" style="display: none;">
 
             <x-create-form name="admin.exam" btnsubmit="Save" :fields='[
             
-                ["name"=>"description","label"=>"Question","size"=>12,"type"=>"editor"], 
-                ["name"=>"answer","label"=>"answer" ,"type"=>"choice" ,"size"=>6]
+               
             ]' /> 
 
         </div>
@@ -54,26 +48,23 @@
 
         function cclickback(e){
 
-            console.log(e.id);
-            console.log("Selected value:", e.value);
-
             if(e.value == 'notes')
             {
-                $('#video_section').hide();
-                $('#mcq_section').hide();
+                $('.video_section').hide();
+                $('.mcq_section').hide();
+                $('.short_section').show();
             }
             else if(e.value == 'mcq')
             {
-                $('#video_section').hide();
-
-                $('#mcq_section').show();
+                $('.video_section').hide();
+                $('.short_section').hide();
+                $('.mcq_section').show(); 
             }
             else
             {
-                
-                $('#video_section').show();
-
-                $('#mcq_section').hide();
+                $('.mcq_section').hide();
+                $('.short_section').hide();
+                $('.video_section').show();
             }
 
          }
