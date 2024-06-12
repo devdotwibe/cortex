@@ -19,4 +19,17 @@ class Question extends Model
         'sub_category_set',
         'slug'
     ];
+    public function category(){
+        return $this->belongsTo(Category::class);
+    }
+    public function subCategory(){
+        return $this->belongsTo(SubCategory::class);
+    }
+    public function setname(){
+        return $this->belongsTo(Setname::class,'sub_category_set');
+    }
+
+    public function answers(){
+        return $this->hasMany(Answer::class);
+    }
 }

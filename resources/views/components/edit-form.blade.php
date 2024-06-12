@@ -19,13 +19,18 @@
                                             <div class="form-data">
                                                 <div class="forms-inputs mb-4"> 
                                                     <label for="{{$item->name}}-{{$frmID}}-{{$k}}">Choice</label>
+                                                    <input type="hidden" name="choice_{{$item->name}}_id[]"  value="{{old('choice_'.$item->name."_id",[])[$k]??""}}">
                                                     <div class="input-group">
-                                                        <div class="input-group-prepend">
+                                                        <div class="input-group-prepend choice-check-group">
                                                             <label class="input-group-label choice-label" for="{{$item->name}}-{{$frmID}}-{{$k}}-check"></label>
-                                                            <input type="radio"  name="choice_{{$item->name}}" id="{{$item->name}}-{{$frmID}}-{{$k}}-check" value="{{$k}}" @checked(old('choice_'.$item->name)==$k) >
+                                                            <input type="radio" class="input-group-label choice-label"  name="choice_{{$item->name}}" id="{{$item->name}}-{{$frmID}}-{{$k}}-check" value="{{$k}}" @checked(old('choice_'.$item->name)==$k) >
                                                         </div>
                                                         <input type="text" name="{{$item->name}}[]" id="{{$item->name}}-{{$frmID}}-{{$k}}" value="{{old($item->name)[$k]}}"  class="form-control  @error($item->name.".$k") is-invalid @enderror " placeholder="{{ucfirst($item->label??$item->name)}}" aria-placeholder="{{ucfirst($item->label??$item->name)}}" >
-                                                        
+                                                        @if ($k!=0)
+                                                        <div class="input-group-append choice-check-group">
+                                                            <button type="button" onclick="removeChoice('#{{$item->name}}-{{$frmID}}-choice-item-{{$k}}','#{{$item->name}}-{{$frmID}}-{{$k}}-check','#{{$item->name}}-{{$frmID}}-choice-group')" class="btn btn-danger "><img src="{{asset("assets/images/delete-icon.svg")}}"></button>
+                                                        </div>
+                                                        @endif
                                                         @error($item->name.".$k")
                                                         <div class="invalid-feedback">{{$message}}</div>
                                                         @enderror
@@ -43,13 +48,18 @@
                                         <div class="form-data">
                                             <div class="forms-inputs mb-4"> 
                                                 <label for="{{$item->name}}-{{$frmID}}-{{$k}}">Choice</label>
+                                                <input type="hidden" name="choice_{{$item->name}}_id[]"  value="{{$v->id}}">
                                                 <div class="input-group">
-                                                    <div class="input-group-prepend">
+                                                    <div class="input-group-prepend choice-check-group">
                                                         <label class="input-group-label choice-label" for="{{$item->name}}-{{$frmID}}-{{$k}}-check"></label>
-                                                        <input type="radio"  name="choice_{{$item->name}}" id="{{$item->name}}-{{$frmID}}-{{$k}}-check" value="{{$k}}" @checked($v->choice)>
+                                                        <input type="radio" class="input-group-check choice-check" name="choice_{{$item->name}}" id="{{$item->name}}-{{$frmID}}-{{$k}}-check" value="{{$k}}" @checked($v->choice) >
                                                     </div>
                                                     <input type="text" name="{{$item->name}}[]" id="{{$item->name}}-{{$frmID}}-{{$k}}" value="{{$v->value}}"  class="form-control  @error($item->name.".$k") is-invalid @enderror " placeholder="{{ucfirst($item->label??$item->name)}}" aria-placeholder="{{ucfirst($item->label??$item->name)}}" >
-                                                    
+                                                    @if ($k!=0)
+                                                    <div class="input-group-append choice-check-group">
+                                                        <button type="button" onclick="removeChoice('#{{$item->name}}-{{$frmID}}-choice-item-{{$k}}','#{{$item->name}}-{{$frmID}}-{{$k}}-check','#{{$item->name}}-{{$frmID}}-choice-group')" class="btn btn-danger "><img src="{{asset("assets/images/delete-icon.svg")}}"></button>
+                                                    </div>
+                                                    @endif
                                                     @error($item->name.".$k")
                                                     <div class="invalid-feedback">{{$message}}</div>
                                                     @enderror
@@ -64,6 +74,7 @@
                                         <div class="form-data">
                                             <div class="forms-inputs mb-4"> 
                                                 <label for="{{$item->name}}-{{$frmID}}-0">Choice</label>
+                                                <input type="hidden" name="choice_{{$item->name}}_id[]"  value="">
                                                 <div class="input-group">
                                                     <div class="input-group-prepend choice-check-group">
                                                         <label class="input-group-label choice-label"  for="{{$item->name}}-{{$frmID}}-0-check"></label>
@@ -163,6 +174,7 @@
                     <div class="form-data">
                         <div class="forms-inputs mb-4"> 
                             <label for="${name}-{{$frmID}}-chcnt-${chcnt}">Choice</label>
+                            <input type="hidden" name="choice_{{$item->name}}_id[]"  value="">
                             <div class="input-group">
                                  <div class="input-group-prepend choice-check-group">
                                     <label class="input-group-label choice-label"  for="${name}-{{$frmID}}-chcnt-${chcnt}-check"></label>

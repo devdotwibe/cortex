@@ -23,7 +23,7 @@ class QuestionController extends Controller
             "exam_id"=>['required'],
             "category_id"=>['required'],
             "sub_category_id"=>['required'],
-            // "title"=>['nullable'],
+            "sub_category_set"=>['nullable'],
             "description"=>['required'],
             "duration"=>["required"],
             "answer.*"=>["required"],
@@ -41,7 +41,46 @@ class QuestionController extends Controller
         $redirect=$request->redirect??route('admin.question.index');
         return redirect($redirect)->with("success","Question updated success");
     }
+    public function update(Request $request,Question $question){
+        $questiondat=$request->validate([ 
+            "category_id"=>['required'],
+            "sub_category_id"=>['required'],
+            "sub_category_set"=>['nullable'],
+            "description"=>['required'],
+            "duration"=>["required"],
+            "answer.*"=>["required"],
+        ]);
+        $question->update($questiondat);
+        $ansIds=[];
+        foreach($request->answer as $k =>$ans){
+            $answer=null;
+            if(!empty($request->choice_answer_id[$k]??"")){
+                $answer=Answer::find($request->choice_answer_id[$k]??"");
+            }
+            if(empty($answer)){
+                $answer=Answer::store([
+                    "exam_id"=>$question->exam_id,
+                    "question_id"=>$question->id,
+                    "iscorrect"=>$k==($request->choice_answer??0)?true:false,
+                    "title"=>$ans
+                ]);
 
+            }else{
+                $answer->update([
+                    "exam_id"=>$question->exam_id,
+                    "question_id"=>$question->id,
+                    "iscorrect"=>$k==($request->choice_answer??0)?true:false,
+                    "title"=>$ans
+                ]);
+            }
+            $ansIds[]=$answer->id;
+        }
+        Answer::where('question_id',$question->id)->whereNotIn('id',$ansIds)->delete();
+        
+
+        $redirect=$request->redirect??route('admin.question.index');
+        return redirect($redirect)->with("success","Question updated success");
+    }
     public function destroy(Request $request,Question $question){ 
         Answer::where("question_id",$question->id)->delete();
         $question->delete();
