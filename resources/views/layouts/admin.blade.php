@@ -151,6 +151,11 @@
         @yield('content')
     </main>
 
+    <!-- Toasts -->
+    <div class="toast-container position-fixed top-0 end-0 p-3" id="toastContainer">
+        <!-- Toast will be appended here dynamically -->
+    </div>
+
     @stack('modals')
 
     <script>
@@ -165,42 +170,121 @@
                  $('.loading-wrap').hide();
              },
         });
+        // Function to show Bootstrap Toasts
+        function showToast(message, type, autohide) {
+            var toastId = 'toast' + Math.random().toString(36).substring(7);
+            var toastHTML = `
+                <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" id="${toastId}">
+                    <div class="toast-header bg-${type} text-white">
+                        <strong class="me-auto">Notification</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body">
+                        ${message}
+                    </div>
+                </div>`;
+            $('#toastContainer').append(toastHTML);
+            if(autohide){
+                var toastElement = new bootstrap.Toast(document.getElementById(toastId), { autohide: true ,delay:3000 });
+                toastElement.show();
+            }else{
+                var toastElement = new bootstrap.Toast(document.getElementById(toastId), { autohide: false ,delay:13000 });
+                toastElement.show();
+            }
+            return toastId;
+        }
 
+        // Function to update Bootstrap Toasts
+        function updateToast(toastId, message, type) {
+            var toastElement = $('#' + toastId);
+            toastElement.find('.toast-header').removeClass('bg-info bg-success bg-danger').addClass('bg-' + type);
+            toastElement.find('.toast-body').text(message);
+            var toastInstance = new bootstrap.Toast(toastElement[0]);
+            toastInstance.show();
+        }
+  
+        function handleFileUpload(file){
+            return new Promise((resolve, reject) => {
+                var formData = new FormData(); 
+                formData.append("file", file);
+                formData.append("foldername", "ckeditor");
+                var toastId = showToast('Uploading... 0%', 'info', false);
 
-        // class CKEditorUploadAdapter {
-        //     constructor(loader) {
-        //         this.loader = loader;
-        //     }
-        //     upload() {
-        //         return this.loader.file.then(file => new Promise((resolve, reject) => {
-        //             const data = new FormData();
-        //             data.append('upload', file);
+                $.ajax({
+                    url : "{{route('admin.upload')}}",
+                    type : 'POST',
+                    data : formData,
+                    processData: false,
+                    contentType: false,                        
+                    xhr: function() {
+                        var xhr = new window.XMLHttpRequest();
+                        xhr.upload.addEventListener('progress', function(event) {
+                            if (event.lengthComputable) {
+                                var percentComplete = Math.round((event.loaded / event.total) * 100);
+                                updateToast(toastId, `Uploading... ${percentComplete}%`, 'info');
+                            }
+                        }, false);
+                        return xhr;
+                    },
+                    success: function(response) {
+                        updateToast(toastId, 'Upload complete!', 'success');
+                        // resolve({  default: `${response.url}`   });
+                        resolve(response);
+                    },
+                    error: function(xhr, status, error) {
+                        var errorMessage = xhr.status + ': ' + xhr.statusText + '\n' + xhr.responseText;
+                        updateToast(toastId, 'Upload failed.', 'danger');
+                        // reject(errorMessage)
+                        reject({code:xhr.status,status:xhr.statusText,error:xhr.responseText})
+                    }                      
+                });
+            });
+        }
+        function uploadButtonPlugin(editor){
+            editor.ui.addButton('UploadButton', {
+                label: 'Upload Button',
+                command: 'uploadButtonCommand',
+                toolbar: 'insert',
+                icon: '{{asset("assets/images/paperclip1.svg")}}'
+            });
+            editor.addCommand('uploadButtonCommand', {
+                exec: function(editor) {
+                    var input = document.createElement('input');
+                    input.type = 'file';
+                    input.onchange = function() {
+                        var file = input.files[0];
+                        if (file) { 
+                            handleFileUpload(file).then(function(res) { 
+                                if(res.mime_type.startsWith('image/')){
+                                    editor.insertHtml(`
+                                    <figure class="image-area">
+                                        <img alt="" src="${res.url}" width="600" height="400"  /> 
+                                    </figure>
+                                    `);
+                                }else if(res.mime_type.startsWith('video/')){
+                                    editor.insertHtml(`
+                                    <figure class="video-area">
+                                        <video alt="" controls src="${res.url}" type="${res.mime_type}" /> 
+                                    </figure>
+                                    `);
+                                }else{
+                                    editor.insertHtml(`
+                                    <figure class="frame-area">
+                                        <iframe alt="" src="${res.url}"  width="600" height="400" frameborder="0" type="${res.mime_type}" > </iframe>
+                                    </figure>
+                                    `);
+                                }
 
-        //             fetch('/upload/image', {
-        //             method: 'POST',
-        //             body: data,
-        //             })
-        //             .then(response => response.json())
-        //             .then(result => {
-        //             if (result.error) {
-        //                 return reject(result.error.message);
-        //             }
-
-        //             // Resolve with a placeholder image URL or identifier.
-        //             resolve({
-        //                 default: `/images/placeholder.png?imageId=${result.id}` // Placeholder
-        //             });
-        //             })
-        //             .catch(err => {
-        //             reject(err.message);
-        //             });
-        //         }));
-        //     }
-
-        //     abort() {
-        //         // Handle the upload aborting if necessary
-        //     }
-        // }
+                            })
+                            .catch(function(error) { 
+                                console.error('Error uploading file:', error);
+                            });;
+                        }
+                    };
+                    input.click();
+                }
+            });
+        }
     </script>
     <script src="{{ asset('assets/js/datatables.min.js') }}"></script> 
     <script src="{{ asset('assets/js/select2.min.js') }}"></script> 

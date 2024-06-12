@@ -3,7 +3,14 @@
  * For licensing, see https://ckeditor.com/legal/ckeditor-oss-license
  */
 
- CKEDITOR.editorConfig = function( config ) {
+ CKEDITOR.plugins.add('uploadButton', {
+	requires: 'toolbar',
+	init: uploadButtonPlugin
+ })
+
+ CKEDITOR.editorConfig = function( config ) { 
+	config.extraPlugins = 'uploadButton';
+	config.removePlugins = 'easyimage';
 	config.toolbarGroups = [
 		{ name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
 		{ name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
@@ -13,7 +20,7 @@
 		{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
 		{ name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
 		{ name: 'links', groups: [ 'links' ] },
-		{ name: 'insert', groups: [ 'insert' ] },
+		{ name: 'insert', groups: [ 'UploadButton' ] },
 		'/',
 		{ name: 'styles', groups: [ 'styles' ] },
 		{ name: 'colors', groups: [ 'colors' ] },
@@ -22,5 +29,5 @@
 		{ name: 'about', groups: [ 'about' ] }
 	];
 	config.allowedContent = true;
-	config.removeButtons = 'Save,NewPage,ExportPdf,Preview,Print,Templates,PasteText,PasteFromWord,Cut,SelectAll,BidiLtr,BidiRtl,Language,Image,Smiley,SpecialChar,PageBreak,ShowBlocks,About';
+	config.removeButtons = 'Save,NewPage,ExportPdf,Preview,Print,Templates,PasteText,PasteFromWord,Cut,SelectAll,BidiLtr,BidiRtl,Language, SpecialChar,PageBreak,ShowBlocks,About';
 };

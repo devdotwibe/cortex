@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\User\MainController as UserMainController;
@@ -36,6 +37,9 @@ Route::get('/db-seed', function() {
 
 Route::get('/',[HomeController::class,'index']);
 
+Route::get('d0/{avathar}/{name}', [DocumentController::class, 'getuploadedFiles'])->name('file.view');
+Route::get('/d0/{avathar}/{name}/download', [DocumentController::class, 'downloaduploadedFiles'])->name('file.download');
+
 Route::middleware('guest')->group(function(){
     Route::get('/login', [HomeController::class,'login'])->name('login');
     Route::post('/login', [HomeController::class,'loginSubmit']);
@@ -57,8 +61,7 @@ Route::middleware('auth')->group(function(){
     Route::post('/profile/edit',[ProfileController::class,'update']);
 
     Route::get('/profile',[ProfileController::class,'view'])->name('profile.view');
-
-   
+ 
 });
 
 Route::middleware('signed')->get('email/{id}/{hash}/verify', [HomeController::class,'verifyemail'])->name('verification.verify');

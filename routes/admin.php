@@ -21,6 +21,9 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::post('/login', [AdminMainController::class,'loginSubmit']);
     });
     Route::middleware('auth:admin')->group(function(){
+
+        Route::post("/upload",[UploadController::class,'uploadFile'])->name("upload");
+
         Route::get('/',[AdminMainController::class,'index']);
         Route::get('/dashboard',[AdminMainController::class,'index'])->name('dashboard');
         Route::get('/logout',[AdminMainController::class,'logout'])->name('logout');
