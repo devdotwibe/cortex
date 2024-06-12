@@ -11,32 +11,38 @@
 <section class="invite-wrap mt-2">
     <div class="container">
        
-        <x-create-form name="admin.exam" btnsubmit="Save" :fields='[
-
-             ["name"=>"time_of_exam","label"=>"Time Of Exam (Hrs)","size"=>3,"type"=>"select","options"=>"[]"], 
-            ["name"=>"title","size"=>8],
-            ["name"=>"name","size"=>4],
-            ["name"=>"price","size"=>3],
-            ["name"=>"discount","size"=>3],
-            ["name"=>"duration","label"=>"Expire at","size"=>3],
-           
-            ["name"=>"overview","size"=>4,"type"=>"textarea"],
-            ["name"=>"requirements","size"=>4,"type"=>"textarea"], 
-            ["name"=>"description","size"=>4,"type"=>"textarea"],
-        ]' /> 
-
-
-        <x-create-form name="admin.question" :cancel="route('admin.question-bank.show',$category->slug)"  btnsubmit="Save" :fields='[
-            ["name"=>"exam_id", "value"=>$exam->id,"type"=>"hidden"],
+        <x-create-form name="admin.learn" :cancel="route('admin.learn.show',$category->slug)"  btnsubmit="Save" :fields='[
             ["name"=>"category_id", "value"=>$category->id,"type"=>"hidden"],
             ["name"=>"redirect", "value"=>route("admin.question-bank.show",$category->slug),"type"=>"hidden"],
-            ["name"=>"sub_category_id" ,"label"=>"Sub Category","ajaxurl"=>route("admin.question-bank.create",$category->slug),"type"=>"select","child"=>"sub_category_set","size"=>4],
-            ["name"=>"sub_category_set" ,"label"=>"Set","ajaxurl"=>route("admin.question-bank.create",$category->slug),"type"=>"select","parent"=>"sub_category_id","size"=>4],
-            ["name"=>"duration" ,"label"=>"Duration","placeholder"=>"duration in Minutes","type"=>"select","size"=>4,"options"=>array_map(function($num){ return [ "value"=>"$num minute","text"=>"$num minute" ]; },range(1,10))],
+            ["name"=>"sub_category_id" ,"label"=>"Sub Category","ajaxurl"=>route("admin.learn.show",$category->slug),"type"=>"select","child"=>"sub_category_set","size"=>4],
+            ["name"=>"sub_category_set" ,"label"=>"Set","ajaxurl"=>route("admin.learn.show",$category->slug),"type"=>"select","parent"=>"sub_category_id","size"=>4],
+            ["name"=>"learn_type", "event"=>["change"=>"cclickback"] ,"label"=>"Learn Type","placeholder"=>"Select Learn Type","type"=>"select","size"=>4,"options"=>[["value"=>"video","text"=>"Video"],["value"=>"Notes","text"=>"Short Notes"],["value"=>"mcq","text"=>"MCQs"]]],
              
-            ["name"=>"description","label"=>"Question","size"=>12,"type"=>"editor"], 
-            ["name"=>"answer","label"=>"answer" ,"type"=>"choice" ,"size"=>6]
+            ["name"=>"video_url", "addclass"="video_section" , "placeholder"=>"Video url","label"=>"Vimeo Video","size"=>12,"type"=>"text"], 
+           
         ]' /> 
+
+
+        
+        <div class="form-sections" id="video_section" style="display: none;">
+
+            <x-create-form name="admin.exam" btnsubmit="Save" :fields='[
+            
+                ["name"=>"video_url", "placeholder"=>"Video url","label"=>"Vimeo Video","size"=>12,"type"=>"text"], 
+               
+            ]' /> 
+
+        </div>
+
+        <div class="form-sections" id="mcq_section" style="display: none;">
+
+            <x-create-form name="admin.exam" btnsubmit="Save" :fields='[
+            
+                ["name"=>"description","label"=>"Question","size"=>12,"type"=>"editor"], 
+                ["name"=>"answer","label"=>"answer" ,"type"=>"choice" ,"size"=>6]
+            ]' /> 
+
+        </div>
 
     </div>
 
@@ -45,6 +51,32 @@
 
 @push('footer-script')
     <script>
+
+        function cclickback(e){
+
+            console.log(e.id);
+            console.log("Selected value:", e.value);
+
+            if(e.value == 'notes')
+            {
+                $('#video_section').hide();
+                $('#mcq_section').hide();
+            }
+            else if(e.value == 'mcq')
+            {
+                $('#video_section').hide();
+
+                $('#mcq_section').show();
+            }
+            else
+            {
+                
+                $('#video_section').show();
+
+                $('#mcq_section').hide();
+            }
+
+         }
          
     </script>
 @endpush

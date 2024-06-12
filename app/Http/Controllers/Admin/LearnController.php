@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Exam;
 use App\Models\Learn;
+use App\Models\Setname;
 use App\Models\SubCategory;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
@@ -36,66 +37,24 @@ class LearnController extends Controller
                 
                 $category = Category::findSlug($slug);
                
+                if($request->ajax()){
+                    $name=$request->name??"";
+                    if($name=="sub_category_set"){
+                        self::reset();
+                        self::$model = Setname::class; 
+                        return $this->where('sub_category_id',$request->parent_id??0)/*->where('category_id',$category->id)*/->buildSelectOption();
+                    }else{
+                        self::reset();
+                        self::$model = SubCategory::class; 
+                        return $this->where('category_id',$category->id)->buildSelectOption();
+                    }
+                } 
                 // if($request->ajax()){
                 //     return $this->where('category_id',$category->id)->buildTable();
                 // } 
                 return view("admin.learn.show",compact('category'));
         }
 
-
-    public function destroy(Request $request,Learn $exam){ 
-        $exam->delete();
-        if($request->ajax()){
-            return response()->json(["success"=>"Learn deleted success"]);
-        }        
-        return redirect()->route('admin.learn.index')->with("success","QuestionBankChapter deleted success");
-    }
-
-    
-    function add_subcatecory(Request $request,$slug)
-    {
-       
-        $sub_data = $request->validate([
-
-            "name"=>"required",
-        ]);
-
-        $learn = Learn::where('slug',$slug)->first();
-
-        $sub_data['learn_id'] = $learn->id;
-        
-        $sub = new SubCategory;
-
-        $sub->store($sub_data);
-        
-        return response()->json(['success' => 'Sub Category Added Successfully']);
-
-    }
-
-    function sub_category_table(Request $request)
-
-        {
-            if($request->ajax()){
-
-                self::$model=SubCategory::class;
-
-                self::$routeName="admin.sub_category_table";
-
-                if(!empty($request->category))
-                {
-                    $category = Learn::findSlug($request->category);
-
-                    return $this->where('learn_id',$category->id)->buildTable();
-                }
-                else
-                {
-                    return $this->buildTable();
-                }
-               
-            }
-            
-        }
-    
 
 }
 
