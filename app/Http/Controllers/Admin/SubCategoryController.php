@@ -76,9 +76,11 @@ class SubCategoryController extends Controller
     function update(Request $request, $slug)
     {
 
+        $sub = SubCategory::findSlug($slug);
+
         $edit_data = $request->validate([
 
-            "name" => "required|unique:sub_categories,name",
+            "name" => "required|unique:sub_categories,name".$sub->id,
         ]);
 
         $sub = SubCategory::findSlug($slug);

@@ -76,9 +76,11 @@ class CategoryController extends Controller
     function update(Request $request, $slug)
         {
 
+            $category = Category::findSlug($slug);
+
             $edit_data = $request->validate([
 
-                "name" => "required|unique:categories,name",
+                "name" => "required|unique:categories,name,".$category->id,
             ]);
 
             $category = Category::findSlug($slug);

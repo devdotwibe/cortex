@@ -74,9 +74,11 @@ class SetController extends Controller
     function update(Request $request, $slug)
     {
 
+        $set = SubCategory::findSlug($slug);
+
         $edit_data = $request->validate([
 
-            "name" => "required|unique:setnames,name",
+            "name" => "required|unique:setnames,name".$set->id,
         ]);
 
         $set = Setname::findSlug($slug);
