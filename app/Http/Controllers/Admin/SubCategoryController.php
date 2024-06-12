@@ -50,7 +50,7 @@ class SubCategoryController extends Controller
 
                         '<a onclick="EditSub(\''.route('admin.subcategory.update', $data->slug).'\', \''.$data->slug.'\' , \'subcategory\')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>'.
 
-                        '<a  class="btn btn-icons dlt_btn" onclick="deleteRecord('."'".route("admin.subcategory.destroy",$data->slug)."'".')">
+                        '<a  class="btn btn-icons dlt_btn" data-delete="'.route("admin.subcategory.destroy",$data->slug).'">
                         <img src="'.asset("assets/images/delete.svg").'" alt="">
                         </a> ';
 
@@ -93,5 +93,17 @@ class SubCategoryController extends Controller
     
     }
 
+    public function destroy(Request $request,SubCategory $subCategory)
+    { 
+        
+        // print_r($category);
+
+        $subCategory->delete();
+
+        if($request->ajax()){
+            return response()->json(["success"=>"Subcategory deleted success"]);
+        }        
+        return redirect()->route('admin.options.index')->with("success","SubCategory deleted success");
+    }
 
 }

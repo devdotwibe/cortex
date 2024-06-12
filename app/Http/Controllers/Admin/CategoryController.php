@@ -42,7 +42,7 @@ class CategoryController extends Controller
 
                     '<a onclick="EditSub(\''.route('admin.options.update', $data->slug).'\', \''.$data->slug.'\' , \'category\')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>'.
 
-                     '<a  class="btn btn-icons dlt_btn" onclick="deleteRecord('."'".route("admin.options.destroy",$data->slug)."'".')">
+                     '<a  class="btn btn-icons dlt_btn" data-delete="'.route("admin.options.destroy",$data->slug).'" >
                                     <img src="'.asset("assets/images/delete.svg").'" alt="">
                                 </a> ';
 

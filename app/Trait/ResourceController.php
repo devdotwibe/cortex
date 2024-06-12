@@ -112,7 +112,7 @@ trait ResourceController
                             break;
                         case 'delete':
                                 $action.='
-                                 <a  class="btn btn-icons dlt_btn" onclick="deleteRecord('."'".route(self::$routeName.".destroy",$data->slug)."'".')">
+                                 <a  class="btn btn-icons dlt_btn" data-delete="'.route(self::$routeName.".destroy",$data->slug).'">
                                     <img src="'.asset("assets/images/delete.svg").'" alt="">
                                 </a> 
                                 ';

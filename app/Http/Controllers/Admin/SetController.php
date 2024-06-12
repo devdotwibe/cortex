@@ -90,5 +90,16 @@ class SetController extends Controller
         return response()->json(['success',"Set Name Updated Successfully",'type'=>'set']);
     }
 
+    public function destroy(Request $request,Setname $setname)
+    { 
+        
+        $setname->delete();
+
+        if($request->ajax()){
+            return response()->json(["success"=>"Set Name deleted success"]);
+        }        
+        return redirect()->route('admin.options.index')->with("success","Set Name deleted success");
+    }
+
 
 }

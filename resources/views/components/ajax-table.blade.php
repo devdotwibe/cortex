@@ -116,6 +116,7 @@
     </div>
 @endpush
 @push('footer-script')
+   
     <script>
 
         $(document).ready(function() {
@@ -153,20 +154,32 @@
         });
 
 
-        function deleteRecord(url) {
-            $("#table-{{ $tableid }}-delete-form").attr("action",url)
-            $('#table-{{ $tableid }}-delete').modal('show')
-        } 
+        
         $(function() {
+            $(document).on('click','#table-{{ $tableid }} .dlt_btn',function(e){
+                var url = $(this).data("delete");
+                $("#table-{{ $tableid }}-delete-form").attr("action",url);
+
+                $('#table-{{ $tableid }}-create').modal('hide');
+
+                $('#table-{{ $tableid }}-delete').modal('show');
+
+                // console.log('#table-{{ $tableid }}');
+
+            }) 
             $('#table-{{ $tableid }}-delete-form').submit(function(e){
                 e.preventDefault();
                 $.post($(this).attr("action"),$(this).serialize(),function(res){
 
+                    $('#table-{{ $tableid }}-delete').modal('hide');
+
+                    $('#table-{{ $tableid }}-create').modal('show');
+
                     $('#table-{{ $tableid }}').DataTable().ajax.reload();
 
-                    console.log('#table-{{ $tableid }}');
+                    // console.log('#table-{{ $tableid }}');
                    
-                    $('#table-{{ $tableid }}-delete').modal('hide');
+                   
                 })
                 return false;
             })

@@ -37,12 +37,12 @@
 
 @push('modals')
 
-    <div class="modal fade bd-example-modal-lg"  id="table-subcategory-create" tabindex="-1" role="dialog" aria-labelledby="table-subcategory-createLabel" aria-hidden="true">
+    <div class="modal fade bd-example-modal-lg"  id="table-sub_category-create" tabindex="-1" role="dialog" aria-labelledby="table-sub_category-createLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <h5 class="modal-title" id="table-subcategory-createLabel">Add Sub Category</h5>
+                    <h5 class="modal-title" id="table-sub_category-createLabel">Add Sub Category</h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -276,7 +276,7 @@
 
             if(commonedit == 'subcategory')
             {
-                $('#table-subcategory-create').modal('show');
+                $('#table-sub_category-create').modal('show');
             }
             else if(commonedit == 'set')
             {
@@ -291,14 +291,14 @@
     
         function CloseSub()
         {
-            $('#table-subcategory-create').modal('hide');
+            $('#table-sub_category-create').modal('hide');
         }
 
         function CloseSet()
         {
             $('#table-addset-create').modal('hide');
 
-            $('#table-subcategory-create').modal('show');
+            $('#table-sub_category-create').modal('show');
         }
 
         function beforeajaxcallback(data)
@@ -350,7 +350,7 @@
 
                             {
 
-                                $('#table-subcategory-create').modal('hide');
+                                $('#table-sub_category-create').modal('hide');
 
                                 $('#table_common_edit_Label').text("Edit Sub Category");
 
@@ -391,7 +391,7 @@
         function SubCat(url,slug)
             {
               
-                $('#table-subcategory-create').modal('show');
+                $('#table-sub_category-create').modal('show');
 
                 $('#table-form-sub').attr('action',url);
                 $('#table-sub_category').data('category',slug).DataTable().ajax.reload();
@@ -401,7 +401,7 @@
             function AddSet(url,slug)
             {
                 console.log(url);
-                $('#table-subcategory-create').modal('hide');
+                $('#table-sub_category-create').modal('hide');
 
                 $('#table-addset-create').modal('show');
 
@@ -430,7 +430,7 @@
                             }
                             else if(response.type == 'subcategory')
                             {
-                                $('#table-subcategory-create').modal('show'); 
+                                $('#table-sub_category-create').modal('show'); 
 
                                 $('#table-sub_category').DataTable().ajax.reload();
                             }
@@ -476,7 +476,7 @@
                         
                         success: function(response) {
 
-                            $('#table-subcategory-create').modal('show');
+                            $('#table-sub_category-create').modal('show');
 
                             $('#table-sub_category').DataTable().ajax.reload();
                             $('#sub_name').val("");
