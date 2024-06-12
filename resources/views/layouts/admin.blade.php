@@ -188,7 +188,7 @@
                 var toastElement = new bootstrap.Toast(document.getElementById(toastId), { autohide: true ,delay:3000 });
                 toastElement.show();
             }else{
-                var toastElement = new bootstrap.Toast(document.getElementById(toastId), { autohide: false ,delay:13000 });
+                var toastElement = new bootstrap.Toast(document.getElementById(toastId), { autohide: false ,delay:0 });
                 toastElement.show();
             }
             return toastId;
