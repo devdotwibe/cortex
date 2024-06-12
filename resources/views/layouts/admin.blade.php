@@ -171,7 +171,7 @@
              },
         });
         // Function to show Bootstrap Toasts
-        function showToast(message, type, autohide) {
+        function showToast(message, type, autohide=true) {
             var toastId = 'toast' + Math.random().toString(36).substring(7);
             var toastHTML = `
                 <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" id="${toastId}">
