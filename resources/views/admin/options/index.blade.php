@@ -20,7 +20,7 @@
             ]'
             btnsubmit="Add" onclick="CloseModal()"
             :fields='[
-                        ["name"=>"name","label"=>"Module" ,"Category"=>"Enter Category Name" ,"size"=>8],
+                        ["name"=>"name","label"=>"Category" ,"placeholder"=>"Enter Category Name" ,"size"=>8],
                         
                     ]' 
             
@@ -346,9 +346,9 @@
                             if(type =='category')
                             {
 
-                                $('#table_common_edit_Label').text("Edit Module");
+                                $('#table_common_edit_Label').text("Edit Category");
 
-                                $('#common_label').text('Module');
+                                $('#common_label').text('Category');
 
                                 $('#common_button').data('button','category');
 
