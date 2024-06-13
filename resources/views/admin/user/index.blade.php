@@ -65,7 +65,7 @@
 <section class="table-section">
     <div class="container">
         <div class="row">
-            <x-ajax-table :coloumns='[
+            <x-ajax-table :bulkaction="true" bulkactionlink="{{route('admin.user.bulkaction')}}" :coloumns='[
                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
                 ["th"=>"Name","name"=>"name","data"=>"name"],
                 ["th"=>"Email","name"=>"email","data"=>"email"],

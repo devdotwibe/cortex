@@ -1,7 +1,19 @@
+
+@if ($bulkaction)
+<form action="{{$bulkactionlink}}" method="post" id="table-{{ $tableid }}-bulk-action-form">
+    @csrf
+@endif
 <div class="table-outer table-{{ $tableid }}-outer">
     <table class="table" id="table-{{ $tableid }}">
         <thead>
             <tr>
+                @if ($bulkaction)
+                <th>
+                    <div class="form-check" id="table-{{ $tableid }}-bulk-box">
+                        <input type="checkbox" id="table-{{ $tableid }}-bulk" class="form-check-box" name="select_all" value="yes">
+                    </div>
+                </th>                    
+                @endif
                 <th data-th="Sl.No">Sl.No</th>
                 @foreach ($coloumns as $item)
                     <th data-th="{{ ucfirst($item->th) }}">{{ ucfirst($item->th) }}</th>
@@ -11,8 +23,28 @@
         </thead>
         <tbody> 
         </tbody>
+        @if ($bulkaction)
+        <tfoot>
+            <tr> 
+                <td colspan="{{count($coloumns)+2}}"></td>
+
+                <td >
+                    <div class="selectbox-action" style="display: none"  >
+                        <button class="btn btn-danger" name="bulkaction" value="delete">
+                            Delete
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>                  
+        @endif
     </table>
 </div>
+
+@if ($bulkaction)
+</form > 
+@endif
+
 
 @push('modals')
 
@@ -129,6 +161,15 @@
 
         $(document).ready(function() {
 
+        $('#table-{{ $tableid }}-bulk-action-form').submit(function(e){
+            e.preventDefault();
+            $.post($(this).attr('action'),$(this).serialize(),function(res){
+                showToast(res.success??'Records has been successfully deleted', 'success');
+                $('#table-{{ $tableid }}').DataTable().ajax.reload();
+            },'json').fail(function(){
+                showToast('Bulk action failed', 'danger');
+            })
+        })
         $('#table-{{ $tableid }}-form-create').on('submit', function(e) {
             e.preventDefault();
 
@@ -181,6 +222,32 @@
                 // console.log('#table-{{ $tableid }}');
 
             }) 
+            $('#table-{{ $tableid }}-bulk').change(function(){
+                $('#table-{{ $tableid }}').DataTable().ajax.reload();
+                if($('#table-{{ $tableid }}-bulk').is(":checked")){
+                    $('#table-{{ $tableid }} .selectbox-action').show()
+                }else{
+                    if($('#table-{{ $tableid }} .selectbox:checked').length>1){
+                        $('#table-{{ $tableid }} .selectbox-action').show()
+                    }else{
+                        $('#table-{{ $tableid }} .selectbox-action').hide()
+                    }
+                }
+            })
+            $(document).on('change','#table-{{ $tableid }} .selectbox',function(e){
+                if(!$(this).is(":checked")){
+                    $('#table-{{ $tableid }}-bulk').prop("checked",false);
+                }
+                if($('#table-{{ $tableid }}-bulk').is(":checked")){
+                    $('#table-{{ $tableid }} .selectbox-action').show()
+                }else{
+                    if($('#table-{{ $tableid }} .selectbox:checked').length>1){
+                        $('#table-{{ $tableid }} .selectbox-action').show()
+                    }else{
+                        $('#table-{{ $tableid }} .selectbox-action').hide()
+                    }
+                }
+            })
             $('#table-{{ $tableid }}-delete-form').submit(function(e){
                 e.preventDefault();
                 $.post($(this).attr("action"),$(this).serialize(),function(res){
@@ -201,9 +268,17 @@
                 serverSide: true,
                 ajax: {
                     url: "{{ $url }}",
-                    @if(isset($beforeajax))
-                    data:{{$beforeajax}}
-                    @endif
+                    data:function(d){
+                        @if($bulkaction)
+                            d.select_all=$('#table-{{ $tableid }}-bulk').is(':checked')?"yes":"no";
+                        @endif
+
+                        @if(isset($beforeajax))
+                        return {{$beforeajax}}(d);
+                        @else
+                        return d;
+                        @endif
+                    }
                 },
                 order: [
                     [0, 'DESC']
@@ -215,10 +290,17 @@
                     } else {
                         $("#table-{{ $tableid }}_wrapper .dataTables_paginate").hide();
                     }
-                    if (info.recordsTotal > 0) {
+                    if (info.recordsTotal > 0) { 
                         $("#table-{{ $tableid }}_wrapper .pagination").show();
-                    } else {
+                    } else { 
                         $("#table-{{ $tableid }}_wrapper .pagination").hide();
+                    }
+                    if (info.recordsTotal > 1){
+                        $('#table-{{ $tableid }}-bulk-box').show()
+                        $('#table-{{ $tableid }}_wrapper .selectbox-box').show()
+                    }else{
+                        $('#table-{{ $tableid }}-bulk-box').hide()
+                        $('#table-{{ $tableid }}_wrapper .selectbox-box').hide()
                     }
                 },
                 drawCallback: function() {
@@ -233,8 +315,25 @@
                     } else {
                         $("#table-{{ $tableid }}_wrapper .pagination").hide();
                     }
+                    if (info.recordsTotal > 1){
+                        $('#table-{{ $tableid }}_wrapper #table-{{ $tableid }}-bulk-box').show()
+                        $('#table-{{ $tableid }}_wrapper .selectbox-box').show()
+                    }else{
+                        $('#table-{{ $tableid }}_wrapper #table-{{ $tableid }}-bulk-box').hide()
+                        $('#table-{{ $tableid }}_wrapper .selectbox-box').hide()
+                    }
                 },
-                columns: [{
+                columns: [
+                    @if($bulkaction)
+                    {
+                        data: 'selectbox',
+                        name: 'id',
+                        orderable: false,
+                        searchable: false,
+                    },
+                    @endif
+
+                    {
                         data: 'DT_RowIndex',
                         name: 'id',
                         orderable: true,

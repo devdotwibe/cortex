@@ -77,12 +77,21 @@ trait ResourceController
     }
     public function buildTable($rawColumn=[]){
         $rawColumn[]="action";
+        $rawColumn[]="selectbox";
         $query=app(self::$model)->query();
         foreach(self::$whereCondition as $condition){
             $query->where($condition[0]??"",$condition[1]??null);
         }
         $table=DataTables::of($query);
-        $table->addColumn('date',function($data){
+        $table->addColumn('selectbox',function($data){
+            return ' 
+
+            <div class="form-check selectbox-box">
+                <input type="checkbox"  class="selectbox form-check-box" name="selectbox" value="'.($data->id).'" '.(request('select_all','no')=="yes"?"checked":"").'> 
+            </div>
+                
+            ';
+        })->addColumn('date',function($data){
             return $data->created_at->format('Y-m-d');
         });
         foreach (self::$columns as $key => $value) {

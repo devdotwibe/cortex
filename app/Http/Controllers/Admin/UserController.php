@@ -24,6 +24,17 @@ class UserController extends Controller
     public function create(Request $request){
         return view("admin.user.create");
     }
+    public function bulkaction(Request $request){
+        if($request->input('select_all','no')=="yes"){
+            User::where('id','>',0)->delete();
+        }else{
+            User::whereIn('id',$request->input('selectbox',[]))->delete();
+        }
+        if($request->ajax()){
+            return response()->json(["success"=>"Users deleted success"]);
+        }
+        return redirect()->route('admin.user.index')->with("success","Users deleted success");
+    }
     public function show(Request $request,User $user){
         return view("admin.user.show",compact('user'));
     }

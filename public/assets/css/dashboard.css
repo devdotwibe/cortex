@@ -286,7 +286,28 @@ table.dataTable img{
 table.dataTable tr td{
   max-height: 50px;
   overflow-y: hidden;
+} 
+table tr th .form-check .form-check-box {
+  width: 25px; 
+  height: 25px; 
+  border: 2px solid #FFF;
 }
+table tr th .form-check .form-check-box:checked{
+  background:url(../images/tick.svg); 
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+table tr td .form-check .form-check-box {
+  width: 25px; 
+  height: 25px; 
+  border: 2px solid #26a72f;
+}
+table tr td .form-check .form-check-box:checked{
+  background:url(../images/tick-green.png); 
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 
 .side_bar { width: 270px;height: 100vh;padding: 30px;overflow: hidden;position: fixed;background: #ffff;z-index: 99;box-shadow: 4px 0px 16px 0px #0000000A;left: 0;border-radius: 0 10px 10px 0;top: 80px}
 .side-bar-logo {margin: 0 0 20px;}

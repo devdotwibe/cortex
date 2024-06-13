@@ -28,6 +28,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::get('/logout',[AdminMainController::class,'logout'])->name('logout');
 
         Route::resource("/user",UserController::class);
+        Route::post('/user/bulk/action',[UserController::class,'bulkaction'])->name('user.bulkaction');
         Route::resource("/exam",ExamController::class);
 
         Route::prefix('full-mock-exam')->name('full-mock-exam.')->group(function () { 

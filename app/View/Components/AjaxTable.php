@@ -21,12 +21,14 @@ class AjaxTable extends Component
     public $onclick;
     public $beforeajax;
 
+    public $bulkaction;
+    public $bulkactionlink;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($coloumns,$url=null,$fields=null,$tableid=null,$ajaxcreate=null,$createurl=null,$cancel=null,$btnsubmit=null,$onclick=null,$beforeajax=null)
+    public function __construct($coloumns,$url=null,$fields=null,$tableid=null,$ajaxcreate=null,$createurl=null,$cancel=null,$btnsubmit=null,$onclick=null,$beforeajax=null,$bulkaction=false,$bulkactionlink=null)
     {
         $this->coloumns = json_decode(json_encode($coloumns),false); 
         $this->url = $url??url()->current();
@@ -38,6 +40,8 @@ class AjaxTable extends Component
         $this->cancel = $cancel;
         $this->onclick = $onclick;
         $this->beforeajax = $beforeajax;
+        $this->bulkaction = $bulkaction;
+        $this->bulkactionlink=$bulkactionlink;
     }
 
     /**
