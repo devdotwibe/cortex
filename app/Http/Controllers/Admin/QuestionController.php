@@ -29,6 +29,8 @@ class QuestionController extends Controller
                     "description"=>['required'],
                     "duration"=>["required"],
                     "answer.*"=>["required"],
+                ],[
+                    'answer.*.required'=>['The answer field is required.']
                 ]);
                 break;
 
@@ -39,6 +41,8 @@ class QuestionController extends Controller
                     "description"=>['required'],
                     "duration"=>["required"],
                     "answer.*"=>["required"],
+                ],[
+                    'answer.*.required'=>['The answer field is required.']
                 ]);
                 break;
 
@@ -50,6 +54,8 @@ class QuestionController extends Controller
                     "description"=>['required'],
                     "duration"=>["required"],
                     "answer.*"=>["required"],
+                ],[
+                    'answer.*.required'=>['The answer field is required.']
                 ]);
                 break;
             
@@ -62,6 +68,8 @@ class QuestionController extends Controller
                     "description"=>['required'],
                     "duration"=>["required"],
                     "answer.*"=>["required"],
+                ],[
+                    'answer.*.required'=>['The answer field is required.']
                 ]);
                 break;
         }
@@ -89,6 +97,8 @@ class QuestionController extends Controller
                     "description"=>['required'],
                     "duration"=>["required"],
                     "answer.*"=>["required"],
+                ],[
+                    'answer.*.required'=>['The answer field is required.']
                 ]);
                 break;
 
@@ -98,6 +108,8 @@ class QuestionController extends Controller
                     "description"=>['required'],
                     "duration"=>["required"],
                     "answer.*"=>["required"],
+                ],[
+                    'answer.*.required'=>['The answer field is required.']
                 ]);
                 break;
 
@@ -108,6 +120,8 @@ class QuestionController extends Controller
                     "description"=>['required'],
                     "duration"=>["required"],
                     "answer.*"=>["required"],
+                ],[
+                    'answer.*.required'=>['The answer field is required.']
                 ]);
                 break;
             
@@ -119,6 +133,8 @@ class QuestionController extends Controller
                     "description"=>['required'],
                     "duration"=>["required"],
                     "answer.*"=>["required"],
+                ],[
+                    'answer.*.required'=>['The answer field is required.']
                 ]);
                 break;
         }
