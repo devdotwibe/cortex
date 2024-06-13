@@ -223,16 +223,12 @@
 
             }) 
             $('#table-{{ $tableid }}-bulk').change(function(){
-                $('#table-{{ $tableid }}').DataTable().ajax.reload();
                 if($('#table-{{ $tableid }}-bulk').is(":checked")){
                     $('#table-{{ $tableid }} .selectbox-action').show()
                 }else{
-                    if($('#table-{{ $tableid }} .selectbox:checked').length>1){
-                        $('#table-{{ $tableid }} .selectbox-action').show()
-                    }else{
-                        $('#table-{{ $tableid }} .selectbox-action').hide()
-                    }
+                    $('#table-{{ $tableid }} .selectbox-action').hide()
                 }
+                $('#table-{{ $tableid }}').DataTable().ajax.reload(); 
             })
             $(document).on('change','#table-{{ $tableid }} .selectbox',function(e){
                 if(!$(this).is(":checked")){
@@ -344,7 +340,7 @@
                             data: '{{ $item->data }}',
                             name: '{{ $item->name }}',
                             orderable: true,
-                            searchable: false,
+                            searchable: true,
                         },
                     @endforeach {
                         data: 'action',
