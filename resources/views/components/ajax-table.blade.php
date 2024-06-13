@@ -145,7 +145,7 @@
                     $('#table-{{ $tableid }}-static').modal('hide');
 
                     $('#table-{{ $tableid }}').DataTable().ajax.reload();
-                    showToast('Record has been successfully created', 'success', false);
+                    showToast('Record has been successfully created', 'success');
 
                     $('.invalid-feedback').text('');
 
@@ -191,7 +191,7 @@
 
                     $('#table-{{ $tableid }}').DataTable().ajax.reload();
 
-                    showToast('Record has been successfully deleted', 'success', false)
+                    showToast('Record has been successfully deleted', 'success')
   
                 })
                 return false;

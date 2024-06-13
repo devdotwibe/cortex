@@ -39,6 +39,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
         });
         Route::prefix('question-bank')->name('question-bank.')->group(function () { 
             Route::get('/',[QuestionBankController::class,'index'])->name('index');
+            Route::post('/subtitle',[QuestionBankController::class,'subtitle'])->name('subtitle');  
             Route::get('/{category}',[QuestionBankController::class,'show'])->name('show');
             Route::get('/{category}/create',[QuestionBankController::class,'create'])->name('create');
             Route::get('/{category}/{question}/edit',[QuestionBankController::class,'edit'])->name('edit');
@@ -47,6 +48,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
        
         Route::prefix('topic-test')->name('topic-test.')->group(function () { 
             Route::get('/',[TopicTestController::class,'index'])->name('index');
+            Route::post('/subtitle',[TopicTestController::class,'subtitle'])->name('subtitle');  
             Route::get('/{category}',[TopicTestController::class,'show'])->name('show');
             Route::get('/{category}/create',[TopicTestController::class,'create'])->name('create');
             Route::get('/{category}/{question}/edit',[TopicTestController::class,'edit'])->name('edit');
