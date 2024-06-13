@@ -22,7 +22,7 @@ class ExamController extends Controller
             self::$defaultActions=["edit","delete"]; 
             return $this->addAction(function($data){
                 return '
-                <a href="'.route("admin.exam-simulator.index",["exam"=>$data->slug]).'" class="btn btn-icons view_btn">
+                <a href="'.route("admin.full-mock-exam.index",["exam"=>$data->slug]).'" class="btn btn-icons view_btn">
                     <img src="'.asset("assets/images/view.svg").'" alt="">
                 </a>
                 ';
@@ -52,7 +52,7 @@ class ExamController extends Controller
             return $this->where('exam_id',$exam->id) 
                 ->addAction(function($data)use($exam){
                     return '
-                    <a href="'.route("admin.exam-simulator.edit",["exam"=>$exam->slug,"question"=>$data->slug]).'" class="btn btn-icons edit_btn">
+                    <a href="'.route("admin.full-mock-exam.edit",["exam"=>$exam->slug,"question"=>$data->slug]).'" class="btn btn-icons edit_btn">
                         <img src="'.asset("assets/images/edit.svg").'" alt="">
                     </a>
                     ';

@@ -1,14 +1,11 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\ExamController;
-use App\Http\Controllers\Admin\ExamQuestionController;
+use App\Http\Controllers\Admin\ExamController; 
+use App\Http\Controllers\Admin\FullMockExamController;
 use App\Http\Controllers\Admin\LearnController;
-use App\Http\Controllers\Admin\MainController as AdminMainController;
-use App\Http\Controllers\Admin\QuestionBankChapterController;
-use App\Http\Controllers\Admin\QuestionBankController;
-use App\Http\Controllers\Admin\QuestionBankSectionController;
-use App\Http\Controllers\Admin\QuestionBankTopicController;
+use App\Http\Controllers\Admin\MainController as AdminMainController; 
+use App\Http\Controllers\Admin\QuestionBankController; 
 use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\SetController;
 use App\Http\Controllers\Admin\SubCategoryController;
@@ -32,12 +29,12 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::resource("/user",UserController::class);
         Route::resource("/exam",ExamController::class);
 
-        Route::prefix('exam-simulator')->name('exam-simulator.')->group(function () { 
-            Route::get('/{exam}',[ExamQuestionController::class,'index'])->name('index');
-            Route::get('/{exam}/question/{question}',[ExamQuestionController::class,'show'])->name('show');
-            Route::get('/{exam}/create',[ExamQuestionController::class,'create'])->name('create');
-            Route::get('/{exam}/question/{question}/edit',[ExamQuestionController::class,'edit'])->name('edit');
-            Route::post('/{exam}/store',[ExamQuestionController::class,'store'])->name('store');  
+        Route::prefix('full-mock-exam')->name('full-mock-exam.')->group(function () { 
+            Route::get('/{exam}',[FullMockExamController::class,'index'])->name('index');
+            Route::get('/{exam}/question/{question}',[FullMockExamController::class,'show'])->name('show');
+            Route::get('/{exam}/create',[FullMockExamController::class,'create'])->name('create');
+            Route::get('/{exam}/question/{question}/edit',[FullMockExamController::class,'edit'])->name('edit');
+            Route::post('/{exam}/store',[FullMockExamController::class,'store'])->name('store');  
         });
         Route::prefix('question-bank')->name('question-bank.')->group(function () { 
             Route::get('/',[QuestionBankController::class,'index'])->name('index');

@@ -143,8 +143,106 @@
         @yield('content')
     </main>
 
+    <x-toast-container />
+
     @stack('modals')
 
+    @stack('before-script')
+    <script>
+        $.ajaxSetup({
+             headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+             },
+             beforeSend:function(xhr){
+                 $('.loading-wrap').show();
+             },
+             complete:function(xhr,status){
+                 $('.loading-wrap').hide();
+             },
+        });
+        function handleFileUpload(file){
+            return new Promise((resolve, reject) => {
+                var formData = new FormData(); 
+                formData.append("file", file);
+                formData.append("foldername", "ckeditor");
+                var toastId = showToast('Uploading... 0%', 'info', false);
+
+                $.ajax({
+                    url : "{{route('admin.upload')}}",
+                    type : 'POST',
+                    data : formData,
+                    processData: false,
+                    contentType: false,                        
+                    xhr: function() {
+                        var xhr = new window.XMLHttpRequest();
+                        xhr.upload.addEventListener('progress', function(event) {
+                            if (event.lengthComputable) {
+                                var percentComplete = Math.round((event.loaded / event.total) * 100);
+                                updateToast(toastId, `Uploading... ${percentComplete}%`, 'info');
+                            }
+                        }, false);
+                        return xhr;
+                    },
+                    success: function(response) {
+                        updateToast(toastId, 'Upload complete!', 'success');
+                        // resolve({  default: `${response.url}`   });
+                        resolve(response);
+                    },
+                    error: function(xhr, status, error) {
+                        var errorMessage = xhr.status + ': ' + xhr.statusText + '\n' + xhr.responseText;
+                        updateToast(toastId, 'Upload failed.', 'danger');
+                        // reject(errorMessage)
+                        reject({code:xhr.status,status:xhr.statusText,error:xhr.responseText})
+                    }                      
+                });
+            });
+        }
+        function uploadButtonPlugin(editor){
+            editor.ui.addButton('UploadButton', {
+                label: 'Upload Button',
+                command: 'uploadButtonCommand',
+                toolbar: 'insert',
+                icon: '{{asset("assets/images/paperclip1.svg")}}'
+            });
+            editor.addCommand('uploadButtonCommand', {
+                exec: function(editor) {
+                    var input = document.createElement('input');
+                    input.type = 'file';
+                    input.onchange = function() {
+                        var file = input.files[0];
+                        if (file) { 
+                            handleFileUpload(file).then(function(res) { 
+                                if(res.mime_type.startsWith('image/')){
+                                    editor.insertHtml(`
+                                    <figure class="image-area">
+                                        <img alt="" src="${res.url}" width="600" height="400"  /> 
+                                    </figure>
+                                    `);
+                                }else if(res.mime_type.startsWith('video/')){
+                                    editor.insertHtml(`
+                                    <figure class="video-area">
+                                        <video alt="" controls src="${res.url}" type="${res.mime_type}" /> 
+                                    </figure>
+                                    `);
+                                }else{
+                                    editor.insertHtml(`
+                                    <figure class="frame-area">
+                                        <iframe alt="" src="${res.url}"  width="600" height="400" frameborder="0" type="${res.mime_type}" > </iframe>
+                                    </figure>
+                                    `);
+                                }
+
+                            })
+                            .catch(function(error) { 
+                                console.error('Error uploading file:', error);
+                            });;
+                        }
+                    };
+                    input.click();
+                }
+            });
+        }
+    </script>
     <script src="{{ asset('assets/js/datatables.min.js') }}"></script> 
     <script src="{{ asset('assets/js/custom.js') }}"></script>
     @stack('footer-script')
