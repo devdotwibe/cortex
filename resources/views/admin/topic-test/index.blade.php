@@ -22,7 +22,7 @@
                                     <img src="{{asset("assets/images/User-red.png")}}">
                                 </div>
                                 <div class="category-content">
-                                    <h5><span id="category-content-subtitle-{{$item->id}}"> {{$exam->subtitle($item->id,"Topic ".($k+1))}} </span> <i onclick="editsubtitle(event,this)" data-title="{{$item->name}}" data-subtitle="{{$exam->subtitle($item->id,"Topic ".($k+1))}}" data-category="{{$item->id}}"><img src="{{asset('assets/images/pen.png')}}" width="25" alt=""> </i></h5>
+                                    <h5><span id="category-content-subtitle-{{$item->id}}"> {{$exam->subtitle($item->id,"Topic ".($k+1))}} </span> <i onclick="editsubtitle(event,this)" data-title="{{$item->name}}" data-subtitle="{{$exam->subtitle($item->id,"Topic ".($k+1))}}" data-category="{{$item->id}}"><img src="{{asset('assets/images/pen.png')}}" width="15" alt=""> </i></h5>
                                     <h3>{{$item->name}}</h3>
                                 </div>
                             </div>
