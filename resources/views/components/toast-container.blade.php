@@ -39,8 +39,27 @@
             toastElement.find('.toast-body').text(message);
             var toastInstance = new bootstrap.Toast(toastElement[0]);
             toastInstance.show();
-        }
-  
+        } 
     </script>
+@endpush
+
+@push('footer-script')
+
+@session('success')
+<script>
+    $(function(){
+        showToast("{{session('success')}}",'success')
+    })
+</script>
+@endsession
+
+@session('error')
+<script>
+    $(function(){
+        showToast("{{session('error')}}",'danger')
+    })
+</script>
+@endsession
+
 @endpush
 
