@@ -51,4 +51,20 @@ class FullMockExamController extends Controller
         }  
         return view("admin.full-mock-exam.create",compact('exam'));
     }
+
+    public function edit(Request $request,Exam $exam,Question $question){ 
+        if($request->ajax()){
+            $name=$request->name??"";
+            if($name=="category_id"){
+                self::reset();
+                self::$model = Category::class; 
+                return $this->buildSelectOption();
+            }else{
+                self::reset();
+                self::$model = SubCategory::class; 
+                return $this->where('category_id',$request->parent_id??0)->buildSelectOption();
+            }
+        }  
+        return view("admin.full-mock-exam.edit",compact('exam','question'));
+    }
 }

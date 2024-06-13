@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\QuestionBankController;
 use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\SetController;
 use App\Http\Controllers\Admin\SubCategoryController;
+use App\Http\Controllers\Admin\TopicTestController;
 use App\Http\Controllers\Admin\UploadController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
@@ -44,12 +45,12 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::post('/{category}/store',[QuestionBankController::class,'store'])->name('store');  
         });
        
-        Route::prefix('topic-exam')->name('topic-exam.')->group(function () { 
-            Route::get('/',[QuestionBankController::class,'index'])->name('index');
-            Route::get('/{category}',[QuestionBankController::class,'show'])->name('show');
-            Route::get('/{category}/create',[QuestionBankController::class,'create'])->name('create');
-            Route::get('/{category}/{question}/edit',[QuestionBankController::class,'edit'])->name('edit');
-            Route::post('/{category}/store',[QuestionBankController::class,'store'])->name('store');  
+        Route::prefix('topic-test')->name('topic-test.')->group(function () { 
+            Route::get('/',[TopicTestController::class,'index'])->name('index');
+            Route::get('/{category}',[TopicTestController::class,'show'])->name('show');
+            Route::get('/{category}/create',[TopicTestController::class,'create'])->name('create');
+            Route::get('/{category}/{question}/edit',[TopicTestController::class,'edit'])->name('edit');
+            Route::post('/{category}/store',[TopicTestController::class,'store'])->name('store');  
         });
         Route::resource("/question",QuestionController::class);
 

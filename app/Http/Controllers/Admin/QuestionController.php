@@ -19,15 +19,52 @@ class QuestionController extends Controller
         self::$routeName = "admin.question-bank.section";
     } 
     public function store(Request $request){
-        $questiondat=$request->validate([
-            "exam_id"=>['required'],
-            "category_id"=>['required'],
-            "sub_category_id"=>['required'],
-            "sub_category_set"=>['nullable'],
-            "description"=>['required'],
-            "duration"=>["required"],
-            "answer.*"=>["required"],
-        ]);
+        switch ($request->input('exam_type',"")) {
+            case 'question-bank':
+                $questiondat=$request->validate([
+                    "exam_id"=>['required'],
+                    "category_id"=>['required'],
+                    "sub_category_id"=>['required'],
+                    "sub_category_set"=>['nullable'],
+                    "description"=>['required'],
+                    "duration"=>["required"],
+                    "answer.*"=>["required"],
+                ]);
+                break;
+
+            case 'full-mock-exam':
+                $questiondat=$request->validate([
+                    "exam_id"=>['required'],
+                    "category_id"=>['required'],
+                    "description"=>['required'],
+                    "duration"=>["required"],
+                    "answer.*"=>["required"],
+                ]);
+                break;
+
+            case 'topic-test':
+                $questiondat=$request->validate([
+                    "exam_id"=>['required'],
+                    "category_id"=>['required'],
+                    "sub_category_id"=>['required'],
+                    "description"=>['required'],
+                    "duration"=>["required"],
+                    "answer.*"=>["required"],
+                ]);
+                break;
+            
+            default:
+                $questiondat=$request->validate([
+                    "exam_id"=>['required'],
+                    "category_id"=>['required'],
+                    "sub_category_id"=>['required'],
+                    "sub_category_set"=>['nullable'],
+                    "description"=>['required'],
+                    "duration"=>["required"],
+                    "answer.*"=>["required"],
+                ]);
+                break;
+        }
         $question=Question::store($questiondat);
         foreach($request->answer as $k =>$ans){
             Answer::store([
@@ -39,17 +76,52 @@ class QuestionController extends Controller
         }
 
         $redirect=$request->redirect??route('admin.question.index');
-        return redirect($redirect)->with("success","Question updated success");
+        return redirect($redirect)->with("success","Question has been successfully created");
     }
     public function update(Request $request,Question $question){
-        $questiondat=$request->validate([ 
-            "category_id"=>['required'],
-            "sub_category_id"=>['required'],
-            "sub_category_set"=>['nullable'],
-            "description"=>['required'],
-            "duration"=>["required"],
-            "answer.*"=>["required"],
-        ]);
+        
+        switch ($request->input('exam_type',"")) {
+            case 'question-bank':
+                $questiondat=$request->validate([ 
+                    "category_id"=>['required'],
+                    "sub_category_id"=>['required'],
+                    "sub_category_set"=>['nullable'],
+                    "description"=>['required'],
+                    "duration"=>["required"],
+                    "answer.*"=>["required"],
+                ]);
+                break;
+
+            case 'full-mock-exam':
+                $questiondat=$request->validate([ 
+                    "category_id"=>['required'],
+                    "description"=>['required'],
+                    "duration"=>["required"],
+                    "answer.*"=>["required"],
+                ]);
+                break;
+
+            case 'topic-test':
+                $questiondat=$request->validate([ 
+                    "category_id"=>['required'],
+                    "sub_category_id"=>['required'],
+                    "description"=>['required'],
+                    "duration"=>["required"],
+                    "answer.*"=>["required"],
+                ]);
+                break;
+            
+            default:
+                $questiondat=$request->validate([ 
+                    "category_id"=>['required'],
+                    "sub_category_id"=>['required'],
+                    "sub_category_set"=>['nullable'],
+                    "description"=>['required'],
+                    "duration"=>["required"],
+                    "answer.*"=>["required"],
+                ]);
+                break;
+        }
         $question->update($questiondat);
         $ansIds=[];
         foreach($request->answer as $k =>$ans){
@@ -79,15 +151,15 @@ class QuestionController extends Controller
         
 
         $redirect=$request->redirect??route('admin.question.index');
-        return redirect($redirect)->with("success","Question updated success");
+        return redirect($redirect)->with("success","Question has been successfully updated");
     }
     public function destroy(Request $request,Question $question){ 
         Answer::where("question_id",$question->id)->delete();
         $question->delete();
         if($request->ajax()){
-            return response()->json(["success"=>"Question deleted success"]);
+            return response()->json(["success"=>"Question has been successfully deleted"]);
         }        
         $redirect=$request->redirect??route('admin.question.index');
-        return redirect($redirect)->with("success","Question deleted success");
+        return redirect($redirect)->with("success","Question has been successfully deleted");
     }
 }

@@ -8,7 +8,7 @@
         </div>
         <div class="header_right">
             <ul class="nav_bar">
-                <li class="nav_item"><a href="{{route('admin.question-bank.create',$category->slug)}}" class="nav_link btn">New Questions</a></li>
+                <li class="nav_item"><a href="{{route('admin.topic-test.create',$category->slug)}}" class="nav_link btn">New Questions</a></li>
             </ul>
         </div>
     </div>

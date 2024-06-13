@@ -142,7 +142,7 @@
                         Exam Simulator
                     </a>
                     <ul class="side-dropdown-menu" >
-                        <li class="side-item "><a href="{{route('admin.topic-exam.index')}}">Topic Test</a></li> 
+                        <li class="side-item "><a href="{{route('admin.topic-test.index')}}">Topic Test</a></li> 
                         <li class="side-item "><a href="{{route('admin.exam.index')}}">Full Mock Exam</a></li> 
                     </ul>
                 </li>
