@@ -6,24 +6,19 @@ use App\Trait\ResourceModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Learn extends Model
+class LearnAnswer extends Model
 {
     use HasFactory,ResourceModel;
 
     protected $fillable = [
         'slug',
-        'subject',
+        'mcq_answer',
+        'learn_id',
     ];
 
-
-
-    public function learnanswers()
+    public function learn()
     {
-        return $this->hasMany(LearnAnswer::class,'learn_id','id');
+        return $this->belongsTo(Learn::class);
     }
 
-    public function subcategories()
-    {
-        return $this->belongsTo(SubCategory::class);
-    }
 }
