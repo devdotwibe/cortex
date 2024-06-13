@@ -6,14 +6,14 @@
         <div class="header_title">
             <h2>Dashboard</h2>
         </div>
-        <div class="header_right">
+        {{-- <div class="header_right">
             <ul class="nav_bar">
                 <li class="nav_item"><a href="" class="nav_link btn">Demo</a></li>
             </ul>
-        </div>
+        </div> --}}
     </div>
 </section>
-<section class="content_section">
+{{-- <section class="content_section">
     <div class="container">
         <div class="row">
             <div class="dash_card">
@@ -117,5 +117,5 @@
             </div>
         </div>
     </div>
-</section>
+</section> --}}
 @endsection
