@@ -28,12 +28,6 @@
 
         ]' /> 
 
-        <div class="form-sections" id="mcq_section" style="display: none;">
-
-            <x-create-form name="admin.exam" btnsubmit="Save" :fields='[
-            
-               
-            ]' /> 
 
         </div>
 
