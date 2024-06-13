@@ -76,9 +76,9 @@
     <script>
          function editsubtitle(event,element){
             event.preventDefault()
-            $('#question-bank-subtitleLablel').text(element.dataset.title)
-            $('#question-bank-category-title').val(element.dataset.subtitle).removeClass('is-invalid')
-            $('#question-bank-category-id').val(element.dataset.category)
+            $('#question-bank-subtitleLablel').text($(element).data('title'))
+            $('#question-bank-category-title').val($(element).data('subtitle')).removeClass('is-invalid')
+            $('#question-bank-category-id').val($(element).data('category'))
             $('#question-bank-subtitle').modal('show')
          }
          $(function(){
