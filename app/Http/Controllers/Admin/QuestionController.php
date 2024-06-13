@@ -25,7 +25,7 @@ class QuestionController extends Controller
                     "exam_id"=>['required'],
                     "category_id"=>['required'],
                     "sub_category_id"=>['required'],
-                    "sub_category_set"=>['nullable'],
+                    "sub_category_set"=>['required'],
                     "description"=>['required'],
                     "duration"=>["required"],
                     "answer.*"=>["required"],
@@ -93,7 +93,7 @@ class QuestionController extends Controller
                 $questiondat=$request->validate([ 
                     "category_id"=>['required'],
                     "sub_category_id"=>['required'],
-                    "sub_category_set"=>['nullable'],
+                    "sub_category_set"=>['required'],
                     "description"=>['required'],
                     "duration"=>["required"],
                     "answer.*"=>["required"],
