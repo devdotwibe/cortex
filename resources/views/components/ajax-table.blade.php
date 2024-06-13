@@ -137,6 +137,7 @@
                     $('#table-{{ $tableid }}-static').modal('hide');
 
                     $('#table-{{ $tableid }}').DataTable().ajax.reload();
+                    showToast('Record has been successfully created', 'success', false)
 
                 },
 
@@ -179,9 +180,8 @@
 
                     $('#table-{{ $tableid }}').DataTable().ajax.reload();
 
-                    // console.log('#table-{{ $tableid }}');
-                   
-                   
+                    showToast('Record has been successfully deleted', 'success', false)
+  
                 })
                 return false;
             })
