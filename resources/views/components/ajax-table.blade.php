@@ -99,7 +99,7 @@
 
                 <div class="modal-header">
                     <h5 class="modal-title" id="{{ $tableid }}Lablel">Delete Confirmation Required</h5>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span
+                    <button type="button" class="close"  onclick="DeleteClose('{{ $tableid }}')" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
@@ -107,7 +107,7 @@
                         @csrf
                         @method("DELETE")
                         <p>Are you sure you want to delete the record </p>
-                        <button type="button"  data-bs-dismiss="modal" class="btn btn-secondary">Cancel</button><button type="submit" class="btn btn-danger">Delete</button>
+                        <button type="button" onclick="DeleteClose('{{ $tableid }}')"   class="btn btn-secondary">Cancel</button><button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                 </div>
 
@@ -118,6 +118,14 @@
 @push('footer-script')
    
     <script>
+
+        function DeleteClose(modal)
+        {
+            console.log(modal);
+            $('#table-'+modal+'-delete').modal('hide');
+
+            $('#table-'+modal+'-create').modal('show');
+        }
 
         $(document).ready(function() {
 

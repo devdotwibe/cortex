@@ -11,16 +11,16 @@
 <section class="invite-wrap mt-2">
     <div class="container">
 
-        <button class="btn btn-success" onclick="AddSubject()">Add Module+</button>
+        <button class="btn btn-success" onclick="AddSubject()">Add Category+</button>
 
-            <x-ajax-table tableid="module" ajaxcreate="true" title="Add Module" :createurl="route('admin.options.store')" :coloumns='[
+            <x-ajax-table tableid="module" ajaxcreate="true" title="Add Category" :createurl="route('admin.options.store')" :coloumns='[
                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
-                ["th"=>"Module","name"=>"name","data"=>"name"],
+                ["th"=>"Category","name"=>"name","data"=>"name"],
                
             ]'
             btnsubmit="Add" onclick="CloseModal()"
             :fields='[
-                        ["name"=>"name","label"=>"Module" ,"placeholder"=>"Enter Module Name" ,"size"=>8],
+                        ["name"=>"name","label"=>"Module" ,"Category"=>"Enter Category Name" ,"size"=>8],
                         
                     ]' 
             
@@ -301,6 +301,10 @@
             $('#table-addset-create').modal('hide');
 
             $('#table-sub_category-create').modal('show');
+
+            // beforeajaxcallback(data);
+
+            $('#table-sub_category').DataTable().ajax.reload();
         }
 
         function beforeajaxcallback(data)
