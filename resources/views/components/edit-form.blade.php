@@ -28,7 +28,7 @@
                                                         <input type="text" name="{{$item->name}}[]" id="{{$item->name}}-{{$frmID}}-{{$k}}" value="{{old($item->name)[$k]}}"  class="form-control  @error($item->name.".$k") is-invalid @enderror " placeholder="{{ucfirst($item->label??$item->name)}}" aria-placeholder="{{ucfirst($item->label??$item->name)}}" >
                                                         @if ($k!=0)
                                                         <div class="input-group-append choice-check-group">
-                                                            <button type="button" onclick="removeChoice('#{{$item->name}}-{{$frmID}}-choice-item-{{$k}}','#{{$item->name}}-{{$frmID}}-{{$k}}-check','#{{$item->name}}-{{$frmID}}-choice-group')" class="btn btn-danger "><img src="{{asset("assets/images/delete-icon.svg")}}"></button>
+                                                            <button type="button" onclick="removeChoice{{$frmID}}('#{{$item->name}}-{{$frmID}}-choice-item-{{$k}}','#{{$item->name}}-{{$frmID}}-{{$k}}-check','#{{$item->name}}-{{$frmID}}-choice-group')" class="btn btn-danger "><img src="{{asset("assets/images/delete-icon.svg")}}"></button>
                                                         </div>
                                                         @endif
                                                         @error($item->name.".$k")
@@ -57,7 +57,7 @@
                                                     <input type="text" name="{{$item->name}}[]" id="{{$item->name}}-{{$frmID}}-{{$k}}" value="{{$v->value}}"  class="form-control  @error($item->name.".$k") is-invalid @enderror " placeholder="{{ucfirst($item->label??$item->name)}}" aria-placeholder="{{ucfirst($item->label??$item->name)}}" >
                                                     @if ($k!=0)
                                                     <div class="input-group-append choice-check-group">
-                                                        <button type="button" onclick="removeChoice('#{{$item->name}}-{{$frmID}}-choice-item-{{$k}}','#{{$item->name}}-{{$frmID}}-{{$k}}-check','#{{$item->name}}-{{$frmID}}-choice-group')" class="btn btn-danger "><img src="{{asset("assets/images/delete-icon.svg")}}"></button>
+                                                        <button type="button" onclick="removeChoice{{$frmID}}('#{{$item->name}}-{{$frmID}}-choice-item-{{$k}}','#{{$item->name}}-{{$frmID}}-{{$k}}-check','#{{$item->name}}-{{$frmID}}-choice-group')" class="btn btn-danger "><img src="{{asset("assets/images/delete-icon.svg")}}"></button>
                                                     </div>
                                                     @endif
                                                     @error($item->name.".$k")
@@ -94,7 +94,7 @@
                             </div>
 
                             <div class="choice-button">
-                                <button class="btn btn-dark btn-sm float-end" type="button" onclick="addChoice('{{$item->name}}','{{ucfirst($item->label??$item->name)}}','#{{$item->name}}-{{$frmID}}-choice-group')"> <img src="{{asset("assets/images/plus.svg")}}" alt=""> Add </button>
+                                <button class="btn btn-dark btn-sm float-end" type="button" onclick="addChoice{{$frmID}}('{{$item->name}}','{{ucfirst($item->label??$item->name)}}','#{{$item->name}}-{{$frmID}}-choice-group')"> <img src="{{asset("assets/images/plus.svg")}}" alt=""> Add </button>
                             </div>
                         </div>
                         @else
@@ -156,7 +156,7 @@
 
     <script>
         var chcnt=$('.choice-item').length;
-        function removeChoice(target,checkbox,parent){
+        function removeChoice{{$frmID}}(target,checkbox,parent){
             if($(checkbox).is(":checked")){
                 $(parent).find(".choice-item:first .choice-check").prop("checked",true)
             }
@@ -165,7 +165,7 @@
                 $(v).val(k)
             })
         }
-        function addChoice(name,label,target){    
+        function addChoice{{$frmID}}(name,label,target){    
             var ln=$(target).find(".choice-item .choice-check").length;
             $(target).append(
             `
@@ -182,7 +182,7 @@
                                 </div>
                                 <input type="text" name="${name}[]" id="${name}-{{$frmID}}-chcnt-${chcnt}" value="" class="form-control" placeholder="${label}" aria-placeholder="${label}" >
                                 <div class="input-group-append choice-check-group">
-                                    <button type="button" onclick="removeChoice('#${name}-{{$frmID}}-choice-item-chcnt-${chcnt}','#${name}-{{$frmID}}-chcnt-${chcnt}-check','${target}')" class="btn btn-danger "><img src="{{asset("assets/images/delete-icon.svg")}}"></button>
+                                    <button type="button" onclick="removeChoice{{$frmID}}('#${name}-{{$frmID}}-choice-item-chcnt-${chcnt}','#${name}-{{$frmID}}-chcnt-${chcnt}-check','${target}')" class="btn btn-danger "><img src="{{asset("assets/images/delete-icon.svg")}}"></button>
                                 </div>
                             </div>
 
