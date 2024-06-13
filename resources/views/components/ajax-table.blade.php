@@ -148,6 +148,8 @@
                     showToast('Record has been successfully created', 'success', false);
 
                     $('.invalid-feedback').text('');
+
+                    $('#{{$item->name}}-table-{{ $tableid }}-form-create').val('');
                 },
 
                 error: function(xhr) {

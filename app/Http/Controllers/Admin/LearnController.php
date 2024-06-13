@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Exam;
 use App\Models\Learn;
+use App\Models\LearnAnswer;
 use App\Models\Setname;
 use App\Models\SubCategory;
 use App\Trait\ResourceController;
@@ -15,6 +16,12 @@ class LearnController extends Controller
 {
     
     use ResourceController; 
+
+    function __construct()
+    {
+        self::$model = Learn::class;
+        self::$routeName = "admin.learn";
+    } 
     
     public function index(Request $request){
         self::reset();
@@ -76,6 +83,61 @@ class LearnController extends Controller
                 return view("admin.learn.create",compact('category'));
         }
 
+
+        public function store(Request $request){
+
+            switch ($request->input('learn_type',"")) {
+
+                case 'video':
+                    $learn_data=$request->validate([
+                        "category_id"=>['required'],
+                        "sub_category_id"=>['required'],
+                        "video_url"=>['required'],  
+                    ]);
+                    break;
+    
+                case 'notes':
+                    $learn_data=$request->validate([
+                        "category_id"=>['required'],
+                        "sub_category_id"=>['required'],
+                        "short_question"=>['required'],
+                        "short_answer"=>["required"],
+                    ]);
+                    break;
+    
+                case 'mcq':
+                    $learn_data=$request->validate([
+                        "category_id"=>['required'],
+                        "sub_category_id"=>['required'],
+                        "mcq_question"=>['required'],
+                        "mcq_answer.*"=>["required"],
+                    ],[
+                        'mcq_answer.*.required'=>['The answer field is required.']
+                    ]);
+                    break;
+                
+                default:
+                    $learn_data=$request->validate([
+                        "category_id"=>['required'],
+                        "sub_category_id"=>['required'],
+                        "title"=>['required'],
+                        "learn_type"=>["required"],
+                    ]);
+                    break;
+            }
+            $learn=Learn::store($learn_data);
+
+            foreach($request->answer as $k =>$ans){
+                LearnAnswer::store([
+                    "learn_id"=>$learn->id,
+                    "iscorrect"=>$k==($request->choice_mcq_answer??0)?true:false,
+                    "title"=>$ans
+                ]);
+            }
+    
+            $redirect=$request->redirect??route('admin.learn.index');
+            return redirect($redirect)->with("success","Learn has been successfully created");
+        }
 
 }
 

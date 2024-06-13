@@ -16,8 +16,8 @@ return new class extends Migration
             $table->id();
             $table->string('slug')->unique();
             $table->timestamps();
-            $table->string('mcq_answer')->nullable();
-
+            $table->string('title')->nullable();
+            $table->boolean('iscorrect')->default(false);
             $table->foreignIdFor(Learn::class);
         });
     }
