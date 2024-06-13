@@ -22,7 +22,7 @@
                                     <img src="{{asset("assets/images/User-red.png")}}">
                                 </div>
                                 <div class="category-content">
-                                    <h5><span id="category-content-subtitle-{{$item->id}}"> {{$exam->subtitle($item->id,"Topic ".($k+1))}} </span> <i onclick="editsubtitle(event,this)" data-title="{{$item->name}}" data-subtitle="{{$exam->subtitle($item->id,"Topic ".($k+1))}}" data-category="{{$item->id}}"><img src="{{asset('assets/images/pen.png')}}" width="15" alt=""> </i></h5>
+                                    <h5><span id="category-content-subtitle-{{$item->id}}"> {{$exam->subtitle($item->id,"Topic ".($k+1))}} </span> <i id="category-content-subtitle-edit-{{$item->id}}" onclick="editsubtitle(event,this)" data-title="{{$item->name}}" data-subtitle="{{$exam->subtitle($item->id,"Topic ".($k+1))}}" data-category="{{$item->id}}"><img src="{{asset('assets/images/pen.png')}}" width="15" alt=""> </i></h5>
                                     <h3>{{$item->name}}</h3>
                                 </div>
                             </div>
@@ -45,7 +45,7 @@
 
             <div class="modal-header">
                 <h5 class="modal-title" id="question-bank-subtitleLablel"></h5>
-                <button type="button" class="close"  data-bs-dismis="modal" aria-label="Close"><span
+                <button type="button" class="close"  data-bs-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
@@ -62,7 +62,7 @@
                             </div>
                         </div>                        
                      </div>
-                    <button type="button" data-bs-dismis="modal" class="btn btn-secondary mr-1">Cancel</button>
+                    <button type="button" data-bs-dismiss="modal" class="btn btn-secondary mr-1">Cancel</button>
                     <button type="submit" class="btn btn-dark ml-1">Save</button>
                 </form>
             </div>
@@ -89,6 +89,7 @@
                 $.post('{{route('admin.question-bank.subtitle')}}',$(form).serialize(),function(res){
                     form.reset()
                     $('#category-content-subtitle-'+res.category_id).text(res.title)
+                    $('#category-content-subtitle-edit-'+res.category_id).data('subtitle',res.title)
                     $('#question-bank-subtitle').modal('hide')
                     showToast('Subtitle has been successfully updated', 'success');
                 },'json').fail(function(){

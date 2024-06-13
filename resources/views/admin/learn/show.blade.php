@@ -18,7 +18,7 @@
         <div class="row">
             <x-ajax-table :coloumns='[
                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
-                ["th"=>"Title","name"=>"title","data"=>"title"], 
+                ["th"=>"Question","name"=>"title","data"=>"title"], 
             ]' />
         </div>
     </div>
