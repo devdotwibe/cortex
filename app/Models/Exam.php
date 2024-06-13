@@ -26,4 +26,10 @@ class Exam extends Model
     public function questions(){
         return $this->hasMany(Question::class);
     }
+    public function subtitle($id,$defaultTitle){
+        return optional($this->categoryTitle()->where("category_id",$id)->first())->title??$defaultTitle;
+    }
+    public function categoryTitle(){
+        return $this->hasMany(ExamCategoryTitle::class);
+    }
 }

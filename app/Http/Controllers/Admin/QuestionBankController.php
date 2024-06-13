@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Exam;
+use App\Models\ExamCategoryTitle;
 use App\Models\Question;
 use App\Models\Setname;
 use App\Models\SubCategory;
@@ -29,6 +30,20 @@ class QuestionBankController extends Controller
             $exam=Exam::find( $exam->id );
         }
         return view("admin.question-bank.index",compact('categorys','exam'));
+    }
+    public function subtitle(Request $request){
+        $data=$request->validate([
+            "exam_id"=>['required'],
+            "category_id"=>['required'],
+            "title"=>['required'],
+        ]);
+        $categorytitle=ExamCategoryTitle::where('exam_id',$data['exam_id'])->where('category_id',$data['category_id'])->first();
+        if(empty($categorytitle)){
+            $categorytitle=ExamCategoryTitle::store($data);
+        }else{
+            $categorytitle->update($data);
+        }
+        return $data;
     }
     public function show(Request $request,Category $category){
         self::reset();
