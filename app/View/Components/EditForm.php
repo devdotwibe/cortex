@@ -12,6 +12,8 @@ class EditForm extends Component
     public $id;
     public $frmID;
     public $name;
+    public $params;
+
  
     public $fields;
     public $btnsubmit;
@@ -19,7 +21,7 @@ class EditForm extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct($name,$fields,$id, $frmID=null,$btnsubmit=null,$cancel=null)
+    public function __construct($name,$fields,$id, $params=null,$frmID=null,$btnsubmit=null,$cancel=null)
     {
         $this->id = $id;
         $this->name = $name; 
@@ -27,6 +29,7 @@ class EditForm extends Component
         $this->frmID = $frmID??"frm".Str::random(5).time(); 
         $this->btnsubmit = $btnsubmit??"Save";
         $this->cancel = $cancel; 
+        $this->params=$params??[];
     }
 
 

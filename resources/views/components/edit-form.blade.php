@@ -1,7 +1,7 @@
 <div class="row"> 
     <div class="card">
         <div class="card-body">
-            <form action="{{route("$name.update",$id)}}" class="form" id="{{$frmID}}" method="post">
+            <form  @if (!empty($params))   action="{{route("$name.update",$params)}}"    @else action="{{route("$name.update",$id)}}" @endif class="form" id="{{$frmID}}" method="post">
                 @csrf 
                 @method("PUT")
                 <div class="row">
@@ -99,7 +99,7 @@
                         </div>
                         @else
                             
-                        <div class="col-md-{{$item->size??4}}">
+                        <div class="col-md-{{$item->size??4}}  @if(!empty($item->addclass)) {{ $item->addclass }} @endif" @if(!empty($item->display)) style="display:none" @endif>
                             <div class="form-group">
                                 <div class="form-data">
                                     <div class="forms-inputs mb-4"> 
@@ -114,13 +114,12 @@
                                                 @break
                                             @case('select')
                                                 <input type="hidden" class="select-val" value="{{old("selectval".$item->name)}}" name="selectval{{$item->name}}" id="select-val-{{$item->name}}-{{$frmID}}">
-                                                <select name="{{$item->name}}" @isset($item->child) data-child="{{$item->child}}" @endisset @isset($item->parent) data-parent="{{$item->parent}}" @endisset data-value="{{old($item->name,$item->value??"")}}" id="{{$item->name}}-{{$frmID}}" @if(isset($item->ajaxurl)) data-ajaxurl="{{$item->ajaxurl}}" data-ajax--cache="true" @endif  class="form-control select2 @if(isset($item->ajaxurl)) ajax @endif @error($item->name) is-invalid @enderror " data-placeholder="{{ucfirst($item->label??$item->name)}}" placeholder="{{ucfirst($item->label??$item->name)}}" >
+                                                <select name="{{$item->name}}"  @isset($item->event) @foreach ($item->event as $e=>$cbk) on{{ucfirst($e)}}='{{$cbk}}(this)' @endforeach @endisset  @isset($item->child) data-child="{{$item->child}}" @endisset @isset($item->parent) data-parent="{{$item->parent}}" @endisset data-value="{{old($item->name,$item->value??"")}}" id="{{$item->name}}-{{$frmID}}" @if(isset($item->ajaxurl)) data-ajaxurl="{{$item->ajaxurl}}" data-ajax--cache="true" @endif  class="form-control select2 @if(isset($item->ajaxurl)) ajax @endif @error($item->name) is-invalid @enderror " data-placeholder="{{ucfirst($item->label??$item->name)}}" placeholder="{{ucfirst($item->label??$item->name)}}" >
                                                     @if(isset($item->options)) 
                                                         @foreach ($item->options as $opt)
-                                                        <option value="{{$opt->value}}">{{$opt->text}}</option>                                                            
+                                                        <option value="{{$opt->value}}" @selected(old($item->name,$item->value??"")==$opt->value)>{{$opt->text}}</option>                                                            
                                                         @endforeach
-                                                    @endif
-                                                    @if(!empty(old($item->name,$item->value??"")))
+                                                    @elseif(!empty(old($item->name,$item->value??"")))
                                                         <option value="{{old($item->name,$item->value??"")}}">{{old("selectval".$item->name,$item->valuetext??"")}}</option>
                                                     @endif
                                                 </select>

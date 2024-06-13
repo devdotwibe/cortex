@@ -29,7 +29,7 @@ class Learn extends Model
         return $this->hasMany(LearnAnswer::class,'learn_id','id');
     }
 
-    public function subcategories()
+    public function subCategory()
     {
         return $this->belongsTo(SubCategory::class);
     }

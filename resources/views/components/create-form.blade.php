@@ -1,7 +1,7 @@
 <div class="row"> 
     <div class="card">
         <div class="card-body">
-            <form @if (!empty($params))   action="{{route("$name.store",...$params)}}"    @else   action="{{route("$name.store")}}"   @endif class="form" id="{{$frmID}}" method="post">
+            <form @if (!empty($params))   action="{{route("$name.store",$params)}}"    @else   action="{{route("$name.store")}}"   @endif class="form" id="{{$frmID}}" method="post">
                 @csrf 
                 <div class="row">
                     @foreach ($fields as $item)

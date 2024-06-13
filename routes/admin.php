@@ -64,8 +64,9 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::get('/{category}/create',[LearnController::class,'create'])->name('create');
             Route::get('/{category}/{learn}/edit',[LearnController::class,'edit'])->name('edit');
             Route::post('/{category}/store',[LearnController::class,'store'])->name('store');  
+            Route::put('/{category}/{learn}/update',[LearnController::class,'update'])->name('update');
 
-            Route::delete('/{category}',[LearnController::class,'destroy'])->name('destroy');
+            Route::delete('/{category}/{learn}',[LearnController::class,'destroy'])->name('destroy');
         });
 
         // Route::resource("/options",CategoryController::class);
