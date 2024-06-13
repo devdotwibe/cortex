@@ -44,6 +44,9 @@ class TopicTestController extends Controller
             $exam=Exam::find( $exam->id );
         }
         if($request->ajax()){
+            if(!empty($request->sub_category_id)){
+                $this->where('sub_category_id',$request->sub_category_id);
+            }
             return $this->where('exam_id',$exam->id)
                 ->where('category_id',$category->id)
                 ->addAction(function($data)use($category){

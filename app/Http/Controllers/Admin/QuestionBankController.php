@@ -58,15 +58,21 @@ class QuestionBankController extends Controller
             ]);
             $exam=Exam::find( $exam->id );
         }
-        if($request->ajax()){
-            return $this->where('exam_id',$exam->id)
-                ->where('category_id',$category->id)
-                ->addAction(function($data)use($category){
+        if($request->ajax()){ 
+            if(!empty($request->sub_category_id)){
+                $this->where('sub_category_id',$request->sub_category_id);
+            }
+            if(!empty($request->sub_category_set)){
+                $this->where('sub_category_set',$request->sub_category_set);
+            }
+            return  $this->where('exam_id',$exam->id)->where('category_id',$category->id)->addAction(function($data)use($category){
                     return '
                     <a href="'.route("admin.question-bank.edit",["category"=>$category->slug,"question"=>$data->slug]).'" class="btn btn-icons edit_btn">
                         <img src="'.asset("assets/images/edit.svg").'" alt="">
                     </a>
                     ';
+                })->addColumn('subcategoryname',function($data){
+                    return optional($data->subCategory)->name;
                 })
                 ->buildTable(['description']);
         } 
