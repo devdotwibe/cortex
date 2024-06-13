@@ -27,15 +27,36 @@ class LearnController extends Controller
         return view("admin.learn.index",compact('categorys'));
     }
 
+    public function show(Request $request,Category $category){
+
+        self::reset();
+        self::$model = Learn::class;
+        self::$routeName = "learn.show"; 
+        self::$defaultActions=["delete"];
+       
+        if($request->ajax()){
+            return $this ->where('category_id',$category->id)
+                ->addAction(function($data)use($category){
+                    return '
+                    <a href="'.route("admin.question-bank.edit",["category"=>$category->slug,"learn"=>$data->slug]).'" class="btn btn-icons edit_btn">
+                        <img src="'.asset("assets/images/edit.svg").'" alt="">
+                    </a>
+                    ';
+                })
+                ->buildTable(['title']);  
+        } 
+        
+        return view("admin.learn.show",compact('category'));
+    }
 
 
-    public function show(Request $request, $slug)
+    public function create(Request $request, $category)
         {
                 self::reset();
                 self::$model = Category::class;
                 self::$routeName = "admin.learn";
                 
-                $category = Category::findSlug($slug);
+                $category = Category::findSlug($category);
                
                 if($request->ajax()){
                     $name=$request->name??"";
@@ -52,7 +73,7 @@ class LearnController extends Controller
                 // if($request->ajax()){
                 //     return $this->where('category_id',$category->id)->buildTable();
                 // } 
-                return view("admin.learn.show",compact('category'));
+                return view("admin.learn.create",compact('category'));
         }
 
 
