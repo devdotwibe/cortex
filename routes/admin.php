@@ -60,8 +60,10 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::get('/',[LearnController::class,'index'])->name('index');
             Route::get('/{category}',[LearnController::class,'show'])->name('show');
             Route::get('/{category}/create',[LearnController::class,'create'])->name('create');
-            Route::get('/{category}/{question}/edit',[LearnController::class,'edit'])->name('edit');
+            Route::get('/{category}/{learn}/edit',[LearnController::class,'edit'])->name('edit');
             Route::post('/{category}/store',[LearnController::class,'store'])->name('store');  
+
+            Route::delete('/{category}',[LearnController::class,'destroy'])->name('destroy');
         });
 
         // Route::resource("/options",CategoryController::class);

@@ -12,7 +12,14 @@ class Learn extends Model
 
     protected $fillable = [
         'slug',
-        'subject',
+        'title',
+        'learn_type',
+        'video_url',
+        'short_question',
+        'short_answer',
+        'mcq_question',
+        'category_id',
+        'sub_category_id',
     ];
 
 

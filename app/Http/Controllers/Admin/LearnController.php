@@ -38,14 +38,14 @@ class LearnController extends Controller
 
         self::reset();
         self::$model = Learn::class;
-        self::$routeName = "learn.show"; 
+        self::$routeName = "admin.learn"; 
         self::$defaultActions=["delete"];
        
         if($request->ajax()){
             return $this ->where('category_id',$category->id)
                 ->addAction(function($data)use($category){
                     return '
-                    <a href="'.route("admin.question-bank.edit",["category"=>$category->slug,"learn"=>$data->slug]).'" class="btn btn-icons edit_btn">
+                    <a href="'.route("admin.learn.edit",["category"=>$category->slug,"learn"=>$data->slug]).'" class="btn btn-icons edit_btn">
                         <img src="'.asset("assets/images/edit.svg").'" alt="">
                     </a>
                     ';
@@ -125,16 +125,25 @@ class LearnController extends Controller
                     ]);
                     break;
             }
+
+
+            $learn_data['title'] = $request->title;
+
+            $learn_data['learn_type'] = $request->learn_type;
+
             $learn=Learn::store($learn_data);
 
-            foreach($request->answer as $k =>$ans){
-                LearnAnswer::store([
-                    "learn_id"=>$learn->id,
-                    "iscorrect"=>$k==($request->choice_mcq_answer??0)?true:false,
-                    "title"=>$ans
-                ]);
-            }
-    
+            if($request->learn_type ==="mcq")
+                {
+                    foreach($request->mcq_answer as $k =>$ans){
+                        LearnAnswer::store([
+                            "learn_id"=>$learn->id,
+                            "iscorrect"=>$k==($request->choice_mcq_answer??0)?true:false,
+                            "title"=>$ans
+                        ]);
+                    }
+                }
+           
             $redirect=$request->redirect??route('admin.learn.index');
             return redirect($redirect)->with("success","Learn has been successfully created");
         }
