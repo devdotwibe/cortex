@@ -221,7 +221,7 @@
                     var thisval=$(this).val()
                     if(childel){
                         if($("#{{$frmID}} .select2[name='"+childel+"']").hasClass('ajax')){
-                            $("#{{$frmID}} .select2[name='"+childel+"']").select2({
+                            $("#{{$frmID}} .select2[name='"+childel+"']").val('').select2({
                                 ajax:{
                                     // url: $(this).data('ajaxurl'),
                                     data:function (params) { 
