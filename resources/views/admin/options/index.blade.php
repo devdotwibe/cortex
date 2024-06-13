@@ -260,6 +260,8 @@
             {
               
                 $('#table-module-static').modal('show');
+
+                $('.invalid-feedback').text('');
             }
 
         function CloseModal()
@@ -375,6 +377,8 @@
 
                             $('#common_name').val(response.name);
 
+                            $('.invalid-feedback').text('');
+
                         },
 
                         error: function(xhr) {
@@ -393,6 +397,8 @@
               
                 $('#table-sub_category-create').modal('show');
 
+                $('.invalid-feedback').text('');
+
                 $('#table-form-sub').attr('action',url);
                 $('#table-sub_category').data('category',slug).DataTable().ajax.reload();
 
@@ -404,6 +410,8 @@
                 $('#table-sub_category-create').modal('hide');
 
                 $('#table-addset-create').modal('show');
+
+                $('.invalid-feedback').text('');
 
                 $('#table-form-addset').attr('action',url);
                 $('#table-addset').data('set_name',slug).DataTable().ajax.reload();
@@ -445,6 +453,8 @@
 
                             $('#common_name').val("");
 
+                            $('.invalid-feedback').text('');
+
                         },
 
                         error: function(xhr) {
@@ -481,6 +491,8 @@
                             $('#table-sub_category').DataTable().ajax.reload();
                             $('#sub_name').val("");
 
+                            $('.invalid-feedback').text('');
+
                         },
 
                         error: function(xhr) {
@@ -515,6 +527,8 @@
 
                             $('#table-addset').DataTable().ajax.reload();
                             $('#set_name').val("");
+
+                            $('.invalid-feedback').text('');
 
                         },
 
