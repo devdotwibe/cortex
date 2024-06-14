@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Exam;
 use App\Models\Learn;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
@@ -23,6 +24,14 @@ class LearnTopicController extends Controller
 
         $categorys=$this->buildResult();
       
-        return view("user.learn.index",compact('categorys'));
+        $exam=Exam::where("name",'learn')->first();
+        if(empty($exam)){
+            $exam=Exam::store([
+                "title"=>"Learn",
+                "name"=>"learn",
+            ]);
+            $exam=Exam::find( $exam->id );
+        } 
+        return view("user.learn.index",compact('categorys','exam'));
     }
 }
