@@ -303,7 +303,7 @@ table tr td .form-check .form-check-box {
   border: 2px solid #26a72f;
 }
 table tr td .form-check .form-check-box:checked{
-  background:url(../images/tick-green.png); 
+  background:url(../images/tick-green.svg); 
   background-repeat: no-repeat;
   background-size: cover;
 }
