@@ -17,7 +17,13 @@ class UserController extends Controller
     }
     public function index(Request $request){
         if($request->ajax()){
-            return $this->buildTable();
+            return $this->addAction(function($data){
+                return '                 
+                    <a onclick="resetpassword('."'".route("admin.user.resetpassword",$data->slug)."'".')" class="btn btn-icons reset_btn">
+                        <img src="'.asset("assets/images/lock.svg").'" alt="">
+                    </a>
+                ';
+            })->buildTable();
         }
         return view("admin.user.index");
     }
@@ -40,6 +46,17 @@ class UserController extends Controller
     }
     public function edit(Request $request,User $user){
         return view("admin.user.edit",compact('user'));
+    }
+    public function resetpassword(Request $request,User $user){
+        $data=$request->validate([
+            "password"=>["required",'string','min:6','max:250'],
+            "re_password" => ["required","same:password"]
+        ]);
+        $user->update($data);
+        if($request->ajax()){
+            return response()->json(["success"=>"User `".$user->name."` Password has been successfully updated"]);
+        }
+        return redirect()->route('admin.user.index')->with("success","User `".$user->name."` Password has been successfully updated");
     }
     public function update(Request $request,User $user){
 
