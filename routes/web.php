@@ -3,6 +3,7 @@
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UploadController;
+use App\Http\Controllers\User\LearnTopicController;
 use App\Http\Controllers\User\MainController as UserMainController;
 use App\Http\Controllers\User\ProfileController;
 use Illuminate\Support\Facades\Artisan;
@@ -56,12 +57,22 @@ Route::middleware('guest')->group(function(){
 Route::middleware('auth')->group(function(){
     Route::get('/dashboard',[UserMainController::class,'index'])->name('dashboard');
     Route::get('/logout',[UserMainController::class,'logout'])->name('logout');
-
     Route::get('/profile/edit',[ProfileController::class,'index'])->name('profile.edit');
     Route::post('/profile/edit',[ProfileController::class,'update']);
-
     Route::get('/profile',[ProfileController::class,'view'])->name('profile.view');
- 
+
+
+    Route::prefix('learn')->name('learn.')->group(function () { 
+        Route::get('/',[LearnTopicController::class,'index'])->name('index');
+        Route::get('/{category}',[LearnTopicController::class,'show'])->name('show');
+        Route::get('/{category}/create',[LearnTopicController::class,'create'])->name('create');
+        Route::get('/{category}/{learn}/edit',[LearnTopicController::class,'edit'])->name('edit');
+        Route::post('/{category}/store',[LearnTopicController::class,'store'])->name('store');  
+        Route::put('/{category}/{learn}/update',[LearnTopicController::class,'update'])->name('update');
+
+        Route::delete('/{category}/{learn}',[LearnTopicController::class,'destroy'])->name('destroy');
+    });
+
 });
 
 Route::middleware('signed')->get('email/{id}/{hash}/verify', [HomeController::class,'verifyemail'])->name('verification.verify');

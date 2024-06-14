@@ -6,11 +6,11 @@
         <div class="header_title">
             <h2>Profile Edit</h2>
         </div>
-        <div class="header_right">
+        {{-- <div class="header_right">
             <ul class="nav_bar">
                 <li class="nav_item"><a href="" class="nav_link btn">Demo</a></li>
             </ul>
-        </div>
+        </div> --}}
     </div>
 
 </section>

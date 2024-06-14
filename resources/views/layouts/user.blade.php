@@ -47,14 +47,14 @@
                     </div>
                 </li> --}}
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarLogin" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" id="navbarLogin" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span>{{auth('web')->user()->name}}</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarLogin">
-                        <a class="dropdown-item" href="#">Profile</a>
+                        <a class="dropdown-item" href="{{ route('profile.view') }}">Profile</a>
                         <a class="dropdown-item" href="#">Settings</a>
                         <div class="dropdown-divider"></div>
-                        <div class="dropdown-item" href="{{route('logout')}}">Logout </div>
+                        <div class="dropdown-item" href="{{route('logout')}}">Log Out </div>
                     </div>
                 </li>
             </ul>   
@@ -77,52 +77,55 @@
                         </span>
                         Dashboard
                     </a>
+                </li>   
+                 
+                <li class="side-item">
+                    <a href="{{ route('learn.index') }}">
+                        <span class="side-icon" >
+                            <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
+                        </span>
+                        <span class="active-icon">
+                            <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Dashboard">
+                        </span>
+                        Learn
+                    </a>
+                </li>
+
+                <li class="side-item">
+                    <a href="{{ route('admin.options.index') }}">
+                        <span class="side-icon" >
+                            <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
+                        </span>
+                        <span class="active-icon">
+                            <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Dashboard">
+                        </span>
+                        Options
+                    </a>
+                </li>
+                <li class="side-item">
+                    <a href="{{ route('admin.question-bank.index') }}">
+                        <span class="side-icon" >
+                            <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
+                        </span>
+                        <span class="active-icon">
+                            <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Dashboard">
+                        </span>
+                        Question Bank
+                    </a>
                 </li> 
-
-
-                <li class="side-item ">
-                    <a href="{{ route('profile.view') }}">
-                        <span class="side-icon" >
-                            <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
-                        </span>
-                        <span class="active-icon">
-                            <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Dashboard">
-                        </span>
-                        Profile
-                    </a>
-                </li>
-
-
-                <li class="side-item ">
-                    <a href="">
-                        <span class="side-icon" >
-                            <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
-                        </span>
-                        <span class="active-icon">
-                            <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Dashboard">
-                        </span>
-                        Settings
-                    </a>
-                </li>
-
-
                 <li class="side-item side-dropdown ">
-                    <a class="side-dropdown-toggle" id="pagesLink">
+                    <a class="side-dropdown-toggle" >
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
                         </span>
                         <span class="active-icon">
                             <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Dashboard">
                         </span>
-                        Pages
+                        Exam Simulator
                     </a>
-                    <ul class="side-dropdown-menu" id="pagesDropdown">
-                        <li class="side-item "><a href="">Contact Details</a></li>
-                        <li class="side-item "><a href="">Home</a></li>
-                        <li class="side-item "><a href="">About Us</a></li>
-                        <li class="side-item "><a href="">Employer</a></li>
-                        <li class="side-item "><a href="">Terms and Conditions</a></li>
-
+                    <ul class="side-dropdown-menu" >
+                        <li class="side-item "><a href="{{route('admin.topic-test.index')}}">Topic Test</a></li> 
+                        <li class="side-item "><a href="{{route('admin.exam.index')}}">Full Mock Exam</a></li> 
                     </ul>
                 </li>
 

@@ -60,7 +60,7 @@
                         <a class="dropdown-item" href="#">Profile</a>
                         <a class="dropdown-item" href="#">Settings</a>
                         <div class="dropdown-divider"></div>
-                        <div class="dropdown-item" href="{{route('admin.logout')}}">Logout </div>
+                        <div class="dropdown-item" href="{{route('admin.logout')}}">Log Out </div>
                     </div>
                 </li>
             </ul>   

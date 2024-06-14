@@ -307,6 +307,17 @@ table tr td .form-check .form-check-box:checked{
   background-repeat: no-repeat;
   background-size: cover;
 }
+button.close {
+  background:black;
+  color:white;
+  width:25px;
+  height:25px;
+  font-weight: 500;
+  font-size: large;
+  align-items: center; 
+  border-radius:50%;
+  border: none;
+}
 
 
 .side_bar { width: 270px;height: 100vh;padding: 30px;overflow: hidden;position: fixed;background: #ffff;z-index: 99;box-shadow: 4px 0px 16px 0px #0000000A;left: 0;border-radius: 0 10px 10px 0;top: 80px}

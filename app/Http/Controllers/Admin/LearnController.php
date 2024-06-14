@@ -31,7 +31,15 @@ class LearnController extends Controller
 
         $categorys=$this->buildResult();
       
-        return view("admin.learn.index",compact('categorys'));
+        $exam=Exam::where("name",'learn')->first();
+        if(empty($exam)){
+            $exam=Exam::store([
+                "title"=>"Learn",
+                "name"=>"learn",
+            ]);
+            $exam=Exam::find( $exam->id );
+        } 
+        return view("admin.learn.index",compact('categorys','exam'));
     }
 
     public function show(Request $request,Category $category){
@@ -56,7 +64,15 @@ class LearnController extends Controller
                 ->buildTable(['title']);  
         } 
         
-        return view("admin.learn.show",compact('category'));
+        $exam=Exam::where("name",'learn')->first();
+        if(empty($exam)){
+            $exam=Exam::store([
+                "title"=>"Learn",
+                "name"=>"learn",
+            ]);
+            $exam=Exam::find( $exam->id );
+        } 
+        return view("admin.learn.show",compact('category','exam'));
     }
 
 
@@ -79,7 +95,16 @@ class LearnController extends Controller
                         return $this->where('category_id',$category->id)->buildSelectOption();
                     }
                 }  
-                return view("admin.learn.create",compact('category'));
+
+                $exam=Exam::where("name",'learn')->first();
+                if(empty($exam)){
+                    $exam=Exam::store([
+                        "title"=>"Learn",
+                        "name"=>"learn",
+                    ]);
+                    $exam=Exam::find( $exam->id );
+                } 
+                return view("admin.learn.create",compact('category','exam'));
         }
 
         public function edit(Request $request,Category $category,Learn $learn )
@@ -99,7 +124,16 @@ class LearnController extends Controller
                         return $this->where('category_id',$category->id)->buildSelectOption();
                     }
                 }  
-                return view("admin.learn.edit",compact('category','learn'));
+
+                $exam=Exam::where("name",'learn')->first();
+                if(empty($exam)){
+                    $exam=Exam::store([
+                        "title"=>"Learn",
+                        "name"=>"learn",
+                    ]);
+                    $exam=Exam::find( $exam->id );
+                } 
+                return view("admin.learn.edit",compact('category','learn','exam'));
         }
 
 
