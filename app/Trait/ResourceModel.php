@@ -19,6 +19,9 @@ trait ResourceModel
     public function getRouteKeyName(){
         return 'slug';
     } 
+    public function getIdx(){
+        return self::where('id', '<', $this->id)->count();
+    } 
     // public function getKeyName(){
     //     return 'slug';
     // } 

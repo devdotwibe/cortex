@@ -14,7 +14,7 @@
             @foreach ($categorys as $k=> $item)
             <div class="col-md-3">
 
-                <a href="{{route('admin.learn.show',$item->slug)}}">
+                <a href="{{route('learn.show',$item->slug)}}">
                     <div class="card">
                         <div class="card-body">
                             <div class="category">
@@ -22,7 +22,7 @@
                                     <img src="{{asset("assets/images/User-red.png")}}">
                                 </div>
                                 <div class="category-content">
-                                    <h5><span id="category-content-subtitle-{{$item->id}}"> {{$exam->subtitle($item->id,"Module ".($k+1))}} </span></h5>
+                                    <h5><span id="category-content-subtitle-{{$item->id}}"> {{$exam->subtitle($item->id,"Module ".($item->getIdx()+1))}} </span></h5>
                                     <h3>{{$item->name}}</h3>
                                 </div>
                             </div>

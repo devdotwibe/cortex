@@ -239,6 +239,41 @@
 .container{max-width: 100%;}
 
 /* ------------------------------------------------------------------------------- */
+
+.loading-wrap {
+  height: 100%;
+  position: fixed;
+  background: rgba(255, 255, 255, 0.4);
+  width: 99%;
+  z-index: 999;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.loading-wrap .loading-container {
+  width: 200px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  background-color: white;
+  border-radius: 20px;
+}
+
+.loading-wrap .loading-container .loading-image {
+  width: 30px;
+  margin: auto;
+}
+
+.loading-wrap .loading-container span {
+  text-align: center;
+}
+
+.loading-wrap .loading-container .loading-image img {
+  width: 100%;
+  height: auto;
+}
 nav.navbar { width: 100vw;padding: 10px; position: fixed;background: #ffff;z-index: 100;box-shadow: 4px 0px 16px 0px #0000000A;left: 0;border-radius: 0 0 10px 0;top: 0}
 .navbar-brand img{height: 50px;}
 main{ margin-top: 80px;}
@@ -318,6 +353,86 @@ button.close {
   border-radius:50%;
   border: none;
 }
+.exam-container{
+  width: 100%;
+  margin-top: 40px;
+  padding: 50px 30px; 
+  height: 100%; 
+}
+.container-wrap {
+  width: 100%;
+  float: left;
+  padding: 20px;
+  margin-top:20px;
+  background: #ffff;
+  box-shadow: 4px 0px 16px 0px #0000000A;
+  border-radius: 10px;
+}
+.lesson .lesson-title { 
+  padding: 2px 5px; /* Padding around the code */ 
+  border-left:3px solid #ef9b10
+}
+.lesson .lesson-title h3{
+  font-weight:600;
+  font-size:17px;
+}
+.lesson .lesson-body{
+  margin-top: 10px;
+}
+.lesson .lesson-row {
+  width:100%;
+  border:1px solid #6c757d;
+  color: #000;
+  border-radius:10px;
+  padding:10px; 
+  margin:10px; 
+}
+.lesson .lesson-row:hover {
+  border:1px solid #ef9b10;
+
+}
+.lesson .lesson-row-title{ 
+  width:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+  font-weight:500;
+  font-size:16px
+}
+.lesson .lesson-row-subtitle{ 
+  width:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+  font-weight:500;
+  font-size:14px
+}
+.lesson-pagination {
+  display:flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  width:100%;
+  padding:0;
+}
+
+.lesson-pagination .lesson-left { 
+left:0; 
+margin-right:auto;
+}
+.lesson-pagination .lesson-right { 
+right:0; 
+margin-left:auto;
+}
+.lesson-pagination button{
+  display: flex;
+  color: #FFF;
+  background:#0f97f3; 
+  padding:5px 15px;
+  justify-content: center;
+  align-items: center;
+  margin:auto;
+  border: none;
+} 
 
 
 .side_bar { width: 270px;height: 100vh;padding: 30px;overflow: hidden;position: fixed;background: #ffff;z-index: 99;box-shadow: 4px 0px 16px 0px #0000000A;left: 0;border-radius: 0 10px 10px 0;top: 80px}

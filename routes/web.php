@@ -65,6 +65,7 @@ Route::middleware('auth')->group(function(){
     Route::prefix('learn')->name('learn.')->group(function () { 
         Route::get('/',[LearnTopicController::class,'index'])->name('index');
         Route::get('/{category}',[LearnTopicController::class,'show'])->name('show');
+        Route::get('/{category}/lesson/{sub_category}',[LearnTopicController::class,'lessonshow'])->name('lesson.show');
         Route::get('/{category}/create',[LearnTopicController::class,'create'])->name('create');
         Route::get('/{category}/{learn}/edit',[LearnTopicController::class,'edit'])->name('edit');
         Route::post('/{category}/store',[LearnTopicController::class,'store'])->name('store');  

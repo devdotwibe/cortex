@@ -35,6 +35,12 @@
 </head>
 
 <body>
+    <div class="loading-wrap" style="display: none">
+        <div class="loading-container">
+            <div class="loading-image"><img src="{{asset('assets/images/loader.svg')}}" alt=""></div>
+            <span>Plese wait...</span>
+        </div>            
+    </div>
     <nav class="navbar navbar-expand" >
         <div class="container"> 
             <a class="navbar-brand"  href="{{ url('/') }}">
