@@ -129,7 +129,7 @@
                                 $(`#mcq-${lesseonId}-list`).append(`
                                     <div clas="form-check">
                                         <input type="radio" name="answer" id="user-answer-${lesseonId}-ans-item-${ai}" value="${v.slug}" class="form-check-input"  >        
-                                        <label for="user-answer-${lesseonId}-ans-item-${ai}" >${v.title}</label>
+                                        <label for="user-answer-${lesseonId}-ans-item-${ai}" >${av.title}</label>
                                     </div>  
                                 `)
                             })
