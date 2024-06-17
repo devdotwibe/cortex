@@ -56,6 +56,7 @@ Route::middleware('guest')->group(function(){
 });
 Route::middleware('auth')->group(function(){
     Route::get('/dashboard',[UserMainController::class,'index'])->name('dashboard');
+    Route::post('/progress',[UserMainController::class,'progress'])->name('progress');
     Route::get('/logout',[UserMainController::class,'logout'])->name('logout');
     Route::get('/profile/edit',[ProfileController::class,'index'])->name('profile.edit');
     Route::post('/profile/edit',[ProfileController::class,'update']);

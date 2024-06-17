@@ -12,6 +12,13 @@ class MainController extends Controller
         return view("user.dashboard");
     }
 
+    public function progress(Request $request){
+        $request->validate([
+            "name"=>['required']
+        ]);
+        $user=Auth::user();
+        $user->setProgress($request->input('name'),$request->input('value'));
+    }
     public function logout(Request $request){
         Auth::logout();
         $request->session()->invalidate();

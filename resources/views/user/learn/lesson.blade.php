@@ -27,7 +27,12 @@
 @endsection
 
 @push('footer-script') 
-    <script>
+
+    <script> 
+        var currentprogress={{$user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$subCategory->id,0)}};
+        var totalcount={{$learncount??0}};
+        var questionids={!! $user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$subCategory->id."-progress-ids",'[]') !!};
+        var progressurl="{{$user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$subCategory->id.'-progress-url','')}}";
         function generateRandomId(length) {
             const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
             let result = '';
@@ -56,6 +61,11 @@
                 $('.pagination-arrow').hide();
                 const lesseonId=generateRandomId(10); 
                 $.each(res.data,function(k,v){
+                    questionids.push(v.slug);
+                    questionids=questionids.filter(function(value, index, array){
+                        return array.indexOf(value) === index;
+                    })
+
                     if(v.learn_type=="video"){
                         var vimeoid = `${v.video_url}`; 
                         if (vimeoid.includes('vimeo.com')) {
@@ -143,18 +153,71 @@
                 }
                 if(res.prev_page_url){
                     $('.lesson-left').show().find('button.left-btn').data('pageurl',res.prev_page_url);
-                } 
-                
+                }  
 
             },'json').fail(function(xhr,status,error){
                 showToast("Error: " + error, 'danger'); 
             })
+
+            progressurl=pageurl;
+            const csrf= $('meta[name="csrf-token"]').attr('content');  
+            fetch("{{route('progress')}}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrf,
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify({
+                    name:"exam-{{$exam->id}}-module-{{$category->id}}-lesson-{{$subCategory->id}}-progress-url",
+                    value:progressurl
+                }),
+            }); 
+         }
+         async function updateprogress(callback){  
+            try { 
+                const csrf= $('meta[name="csrf-token"]').attr('content'); 
+                currentprogress=(questionids.length*100/totalcount)
+                const response1 = await fetch("{{route('progress')}}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrf,
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: JSON.stringify({
+                        name:"exam-{{$exam->id}}-module-{{$category->id}}-lesson-{{$subCategory->id}}-progress-ids",
+                        value:JSON.stringify(questionids)
+                    }),
+                }); 
+                const response2 = await fetch("{{route('progress')}}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrf,
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: JSON.stringify({
+                        name:"exam-{{$exam->id}}-module-{{$category->id}}-lesson-{{$subCategory->id}}",
+                        value:currentprogress
+                    }),
+                }); 
+                if (!response2.ok) {
+                    showToast("Error: " + response2.status, 'danger'); 
+                }  
+                callback()
+            } catch (error) { 
+                showToast("Error: " + error, 'danger'); 
+            }
          }
          $(function(){
-            loadlesson()
+            loadlesson(progressurl)
             $('.lesson-left button.left-btn,.lesson-right button.right-btn').click(function(){ 
-                loadlesson($(this).data('pageurl'))
-            });
+                const pageurl=$(this).data('pageurl'); 
+                updateprogress(function(){
+                    loadlesson(pageurl)
+                }) 
+            }); 
          })
     </script>
 @endpush

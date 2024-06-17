@@ -19,7 +19,7 @@
                                     <span>{{ $item->name }}</span>
                                 </div>
                                 <div class="lesson-row-subtitle"> 
-                                    <span>{{session('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$item->id,0)}}%</span>
+                                    <span>{{round($user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$item->id,0),2)}}%</span>
                                 </div>
                             </div>
                         </a>

@@ -10,6 +10,7 @@ use App\Models\LearnAnswer;
 use App\Models\SubCategory;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LearnTopicController extends Controller
 {
@@ -34,7 +35,10 @@ class LearnTopicController extends Controller
             ]);
             $exam=Exam::find( $exam->id );
         } 
-        return view("user.learn.index",compact('categorys','exam'));
+
+        $user=Auth::user();
+
+        return view("user.learn.index",compact('categorys','exam','user'));
     }
     public function show(Request $request,Category $category){
         $lessons=SubCategory::where('category_id',$category->id)->get();
@@ -46,16 +50,11 @@ class LearnTopicController extends Controller
             ]);
             $exam=Exam::find( $exam->id );
         } 
-        return view("user.learn.show",compact('category','exam','lessons'));
+        $user=Auth::user(); 
+        return view("user.learn.show",compact('category','exam','lessons','user'));
     } 
     public function lessonshow(Request $request,Category $category,SubCategory $subCategory){
-        if($request->ajax()){
-            if(!empty($request->question)){
-                $learn=Learn::findSlug($request->question);
-                return LearnAnswer::where('learn_id',$learn->id)->get(['slug','title']);
-            }
-            return Learn::where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->paginate(1,['slug','learn_type','title','short_question','video_url','mcq_question']);
-        }
+
         $exam=Exam::where("name",'learn')->first();
         if(empty($exam)){
             $exam=Exam::store([
@@ -64,7 +63,24 @@ class LearnTopicController extends Controller
             ]);
             $exam=Exam::find( $exam->id );
         } 
-        return view("user.learn.lesson",compact('category','exam','subCategory'));
+        $user=Auth::user(); 
+        if($request->ajax()){
+            $lessons=SubCategory::where('category_id',$category->id)->get();
+            $lessencount=count($lessons);
+            $totalprogres=0;
+            foreach ($lessons as $lesson) {
+                $totalprogres+=$user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$lesson->id,0);
+            }
+            $user->setProgress('exam-'.$exam->id.'-module-'.$category->id,$totalprogres/$lessencount);
+
+            if(!empty($request->question)){
+                $learn=Learn::findSlug($request->question);
+                return LearnAnswer::where('learn_id',$learn->id)->get(['slug','title']);
+            }
+            return Learn::where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->paginate(1,['slug','learn_type','title','short_question','video_url','mcq_question']);
+        }
+        $learncount=Learn::where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->count();
+        return view("user.learn.lesson",compact('category','exam','subCategory','user','learncount'));
     }
     
 }
