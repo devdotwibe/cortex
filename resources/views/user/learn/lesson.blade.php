@@ -3,7 +3,10 @@
 @section('content')
 <section class="exam-container">
     <div class="container-wrap">
-        <div class="lesson">
+        <div class="lesson">            
+            <a class="lesson-exit float-start" href="{{route('learn.show',$category->slug)}}">
+                <img src="{{asset("assets/images/exiticon.svg")}}" alt="exiticon">
+            </a>
             <div class="lesson-title">
                 <h3><span>{{$exam->subtitle($category->id,"Module ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h3>
             </div>
@@ -11,18 +14,22 @@
                 <div class="row" id="lesson-questionlist-list" style="display: none">
                 </div>
             </div>
-            <div class="lesson-footer">
-                <div class="lesson-pagination">
-                    <div class="lesson-left pagination-arrow" style="display: none" >
-                        <button class="left-btn"><img src="{{asset('assets/images/leftarrow.svg')}}" alt="<"> Back </button>
-                    </div>
-                    <div class="lesson-right pagination-arrow" style="display:none">
-                        <button class="right-btn"> Next <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
-                    </div>
-                </div>
-            </div>
+            
         </div>
-    </div>
+    </div> 
+</section>
+<section class="exam-footer"> 
+    <div class="lesson-pagination">
+        <div class="lesson-left pagination-arrow" style="display: none" >
+            <button class="left-btn"><img src="{{asset('assets/images/leftarrow.svg')}}" alt="<"> Back </button>
+        </div>
+        <div class="lesson-right pagination-arrow" style="display:none">
+            <button class="right-btn"> Next <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
+        </div>
+        <div class="lesson-finish pagination-arrow" style="display:none">
+            <button class="finish-btn"> Finish Lesson <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
+        </div>
+    </div> 
 </section>
 @endsection
 
@@ -150,6 +157,8 @@
                 }) 
                 if(res.next_page_url){ 
                     $('.lesson-right').show().find('button.right-btn').data('pageurl',res.next_page_url);
+                }else{
+                    $('.lesson-finish').show().find('button.finish-btn');
                 }
                 if(res.prev_page_url){
                     $('.lesson-left').show().find('button.left-btn').data('pageurl',res.prev_page_url);

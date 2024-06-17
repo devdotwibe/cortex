@@ -369,7 +369,8 @@ button.close {
   border-radius: 10px;
 }
 .lesson .lesson-title { 
-  padding: 2px 5px; /* Padding around the code */ 
+  margin: 0 30px;
+  padding: 2px 5px; 
   border-left:3px solid #ef9b10
 }
 .lesson .lesson-title h3{
@@ -433,7 +434,16 @@ margin-left:auto;
   margin:auto;
   border: none;
 } 
+.progress-area progress {
+  width:90%;
+  height:6px;
+  box-shadow: 1px 1px 4px rgba( 0, 0, 0, 0.2 ); 
+}
 
+.progress-area progress::-webkit-progress-bar {
+background-color: #dee2e6;
+border-radius: 7px;
+}
 
 .side_bar { width: 270px;height: 100vh;padding: 30px;overflow: hidden;position: fixed;background: #ffff;z-index: 99;box-shadow: 4px 0px 16px 0px #0000000A;left: 0;border-radius: 0 10px 10px 0;top: 80px}
 .side-bar-logo {margin: 0 0 20px;}
