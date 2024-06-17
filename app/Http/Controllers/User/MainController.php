@@ -19,6 +19,16 @@ class MainController extends Controller
         $user=Auth::user();
         $user->setProgress($request->input('name'),$request->input('value'));
     }
+    public function getprogress(Request $request){
+        $request->validate([
+            "name"=>['required']
+        ]);
+        $user=Auth::user();
+        return [
+            "name"=>$request->input('name'),
+            "value"=> $user->progress($request->input('name'),$request->input('value'))
+        ];
+    }
     public function logout(Request $request){
         Auth::logout();
         $request->session()->invalidate();

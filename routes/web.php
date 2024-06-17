@@ -57,6 +57,7 @@ Route::middleware('guest')->group(function(){
 Route::middleware('auth')->group(function(){
     Route::get('/dashboard',[UserMainController::class,'index'])->name('dashboard');
     Route::post('/progress',[UserMainController::class,'progress'])->name('progress');
+    Route::post('/getprogress',[UserMainController::class,'getprogress'])->name('getprogress');
     Route::get('/logout',[UserMainController::class,'logout'])->name('logout');
     Route::get('/profile/edit',[ProfileController::class,'index'])->name('profile.edit');
     Route::post('/profile/edit',[ProfileController::class,'update']);
@@ -67,6 +68,7 @@ Route::middleware('auth')->group(function(){
         Route::get('/',[LearnTopicController::class,'index'])->name('index');
         Route::get('/{category}',[LearnTopicController::class,'show'])->name('show');
         Route::get('/{category}/lesson/{sub_category}',[LearnTopicController::class,'lessonshow'])->name('lesson.show');
+        Route::get('/{category}/lesson/{sub_category}/review',[LearnTopicController::class,'lessonreview'])->name('lesson.review');
         Route::get('/{category}/create',[LearnTopicController::class,'create'])->name('create');
         Route::get('/{category}/{learn}/edit',[LearnTopicController::class,'edit'])->name('edit');
         Route::post('/{category}/store',[LearnTopicController::class,'store'])->name('store');  
