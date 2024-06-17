@@ -285,6 +285,7 @@
             $('#finish-exam-confirm').modal('hide')
             $.get("{{ route('learn.lesson.review',['category'=>$category->slug,'sub_category'=>$subCategory->slug]) }}",function(res){
                 $('.pagination-arrow').hide();
+                $('#lesson-questionlist-list').html(``);
             },'json')
          }
          $(function(){
@@ -321,7 +322,9 @@
                 }else{
                     $('.unfinish-message').hide().find('unfinish-count').text(0)
                 }
-                $('#finish-exam-confirm').modal('show')
+                updateprogress(function(){
+                    $('#finish-exam-confirm').modal('show')
+                }) 
             }); 
          })
     </script>
