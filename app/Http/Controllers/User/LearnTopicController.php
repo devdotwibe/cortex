@@ -103,7 +103,7 @@ class LearnTopicController extends Controller
             }
             $user->setProgress('exam-'.$exam->id.'-module-'.$category->id,$totalprogres/$lessencount); 
 
-            return Learn::with('learnanswers')->where('learn_type','mcq')->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->paginate(1);
+            return Learn::with('learnanswers')->whereIn('learn_type',['mcq','short_notes'])->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->paginate(1);
         }
         $learncount=Learn::where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->count();
         return view("user.learn.lesson",compact('category','exam','subCategory','user','learncount'));

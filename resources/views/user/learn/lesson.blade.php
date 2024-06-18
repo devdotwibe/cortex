@@ -123,7 +123,7 @@
                             </div>
                         `).fadeIn();
                     }
-                    if(v.learn_type=="notes"){
+                    if(v.learn_type=="short_notes"){
                         $('#lesson-questionlist-list').html(`
                             <div class="col-md-12">
                                 <div class="note-row" >
