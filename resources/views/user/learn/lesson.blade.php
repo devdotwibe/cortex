@@ -337,6 +337,10 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div id="note-${lesseonId}-answer"> 
+                                            <label>Correct Answer </label>
+                                            ${v.short_answer}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
