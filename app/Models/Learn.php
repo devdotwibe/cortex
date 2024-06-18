@@ -17,6 +17,7 @@ class Learn extends Model
         'video_url',
         'short_question',
         'short_answer',
+        'note',
         'mcq_question',
         'category_id',
         'sub_category_id',

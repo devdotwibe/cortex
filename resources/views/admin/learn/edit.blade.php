@@ -26,7 +26,7 @@
             ["name"=>"redirect", "value"=>route("admin.learn.show",$category->slug),"type"=>"hidden"],
             ["name"=>"sub_category_id" ,"label"=>"Sub Category","ajaxurl"=>route("admin.learn.show",$category->slug),"type"=>"select", "size"=>4 ,"value"=>$learn->sub_category_id,"valuetext"=>optional($learn->subCategory)->name],
              ["name"=>"title", "placeholder"=>"Title","label"=>"Title","size"=>4,"type"=>"text","value"=>$learn->title], 
-            ["name"=>"learn_type", "event"=>["change"=>"cclickback"] ,"label"=>"Learn Type","placeholder"=>"Select Learn Type","type"=>"select","size"=>4,"value"=>$learn->learn_type,"options"=>[["value"=>"video","text"=>"Video"],["value"=>"notes","text"=>"Short Notes"],["value"=>"mcq","text"=>"MCQs"]]],
+            ["name"=>"learn_type", "event"=>["change"=>"cclickback"] ,"label"=>"Learn Type","placeholder"=>"Select Learn Type","type"=>"select","size"=>4,"value"=>$learn->learn_type,"options"=>[["value"=>"video","text"=>"Video"],["value"=>"notes","text"=>"Note"],["value"=>"short_notes","text"=>"Short Note Questions"],["value"=>"mcq","text"=>"MCQs"]]],
              
             ["name"=>"video_url", "addclass"=>"video_section" ,"display"=>"none" , "placeholder"=>"Video url","label"=>"Vimeo Video","size"=>12,"type"=>"text","value"=>$learn->video_url], 
            
@@ -36,7 +36,7 @@
              ["name"=>"short_question", "addclass"=>"short_section","display"=>"none" , "label"=>"Question","size"=>12,"type"=>"editor","value"=>$learn->short_question ],
 
             ["name"=>"short_answer", "addclass"=>"short_section" ,"display"=>"none" , "placeholder"=>"Type Answer Here","label"=>"Answer","size"=>12,"type"=>"textarea" ,"value"=>$learn->short_question,], 
-
+            ["name"=>"note", "addclass"=>"note_section","display"=>"none" , "label"=>"Note","size"=>12,"type"=>"editor"],
         ]' /> 
 
 
@@ -52,26 +52,37 @@
 
         function cclickback(e){
 
-            if(e.value == 'notes')
-            {
-                $('.video_section').hide();
-                $('.mcq_section').hide();
-                $('.short_section').show();
-            }
-            else if(e.value == 'mcq')
-            {
-                $('.video_section').hide();
-                $('.short_section').hide();
-                $('.mcq_section').show(); 
-            }
-            else
-            {
-                $('.mcq_section').hide();
-                $('.short_section').hide();
-                $('.video_section').show();
-            }
+        if(e.value == 'notes')
+        {
+            $('.video_section').hide();
+            $('.mcq_section').hide();
+            $('.short_section').hide();
+            $('.note_section').show();
+        }
+        else if(e.value == 'short_notes')
+        {
+            $('.video_section').hide();
+            $('.mcq_section').hide();
+            $('.short_section').show();
+            $('.note_section').hide();
+        }
+        else if(e.value == 'mcq')
+        {
+            $('.video_section').hide();
+            $('.short_section').hide();
+            $('.mcq_section').show(); 
+            $('.note_section').hide();
+        }
+        else
+        {
+            $('.mcq_section').hide();
+            $('.short_section').hide();
+            $('.video_section').show();
+            $('.note_section').hide();
+        }
 
-         }
+        }
+
 
          $(function(){
             $('[name="learn_type"]').change()

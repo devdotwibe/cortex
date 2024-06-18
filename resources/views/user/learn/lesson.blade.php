@@ -330,7 +330,7 @@
                             `)
                         })
                         refreshquestionanswer(v.slug,function(data){
-                            $(`#mcq-${lesseonId}-list span[data-ans="${data.value}"]`).addClass("checked-ans")
+                            $(`#mcq-${lesseonId}-list input[value="${data.value}"]`).prop("checked",true)
                         }) 
                 }) 
                 $('.lesson-previus').show().find('button.previus-btn').data('pageurl',progressurl);
@@ -384,11 +384,14 @@
             window.location.href="{{ route('learn.show',['category'=>$category->slug]) }}";
          }
          $(function(){
+            /*
             @if($user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$subCategory->id.'-complete-review',"no")=="yes")
             loadlessonreview()
             @else
             loadlesson(progressurl)
             @endif
+            */
+            loadlesson(progressurl)
             $('.lesson-left button.left-btn,.lesson-right button.right-btn').click(function(){   
                 if($('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length>0){
                     $('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]:checked').each(function(){

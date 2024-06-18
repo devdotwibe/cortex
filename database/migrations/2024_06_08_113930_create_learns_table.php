@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('learn_type')->nullable();
 
             $table->string('video_url')->nullable();
+            $table->text('note')->nullable();
 
             $table->text('short_question')->nullable();
 

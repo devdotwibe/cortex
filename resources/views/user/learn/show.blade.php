@@ -6,12 +6,12 @@
         <div class="lesson">
             <div class="lesson-title">
                 <h3><span>{{$exam->subtitle($category->id,"Module ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h3>
-            </div> 
+            </div>
             <div class="lesson-body">
                 <div class="row" id="lesson-list">
                     @forelse ($lessons as $k=> $item)
                     <div class="col-md-6">
-                        <a @if($user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$item->id.'-complete-date',"")=="") href="{{route('learn.lesson.show',["category"=>$category->slug,"sub_category"=>$item->slug])}}" @else @endif>
+                        <a href="{{route('learn.lesson.show',["category"=>$category->slug,"sub_category"=>$item->slug])}}">
                             <div class="lesson-row">
                                 <div class="lesson-row-title">
                                     <span>Lesson {{$k+1}}</span>

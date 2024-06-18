@@ -16,7 +16,7 @@
             ["name"=>"redirect", "value"=>route("admin.learn.show",$category->slug),"type"=>"hidden"],
             ["name"=>"sub_category_id" ,"label"=>"Sub Category","ajaxurl"=>route("admin.learn.show",$category->slug),"type"=>"select","child"=>"sub_category_set","size"=>4],
              ["name"=>"title", "placeholder"=>"Title","label"=>"Title","size"=>4,"type"=>"text"], 
-            ["name"=>"learn_type", "event"=>["change"=>"cclickback"] ,"label"=>"Learn Type","placeholder"=>"Select Learn Type","type"=>"select","size"=>4,"options"=>[["value"=>"video","text"=>"Video"],["value"=>"notes","text"=>"Short Notes"],["value"=>"mcq","text"=>"MCQs"]]],
+            ["name"=>"learn_type", "event"=>["change"=>"cclickback"] ,"label"=>"Learn Type","placeholder"=>"Select Learn Type","type"=>"select","size"=>4,"options"=>[["value"=>"video","text"=>"Video"],["value"=>"notes","text"=>"Note"],["value"=>"short_notes","text"=>"Short Note Questions"],["value"=>"mcq","text"=>"MCQs Questions"]]],
              
             ["name"=>"video_url", "addclass"=>"video_section" ,"display"=>"none" , "placeholder"=>"Video url","label"=>"Vimeo Video","size"=>12,"type"=>"text"], 
            
@@ -26,6 +26,9 @@
              ["name"=>"short_question", "addclass"=>"short_section","display"=>"none" , "label"=>"Question","size"=>12,"type"=>"editor"],
 
             ["name"=>"short_answer", "addclass"=>"short_section" ,"display"=>"none" , "placeholder"=>"Type Answer Here","label"=>"Answer","size"=>12,"type"=>"textarea"], 
+
+            ["name"=>"note", "addclass"=>"note_section","display"=>"none" , "label"=>"Note","size"=>12,"type"=>"editor"],
+
 
         ]' /> 
 
@@ -46,19 +49,29 @@
             {
                 $('.video_section').hide();
                 $('.mcq_section').hide();
+                $('.short_section').hide();
+                $('.note_section').show();
+            }
+            else if(e.value == 'short_notes')
+            {
+                $('.video_section').hide();
+                $('.mcq_section').hide();
                 $('.short_section').show();
+                $('.note_section').hide();
             }
             else if(e.value == 'mcq')
             {
                 $('.video_section').hide();
                 $('.short_section').hide();
                 $('.mcq_section').show(); 
+                $('.note_section').hide();
             }
             else
             {
                 $('.mcq_section').hide();
                 $('.short_section').hide();
                 $('.video_section').show();
+                $('.note_section').hide();
             }
 
          }

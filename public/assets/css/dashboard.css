@@ -455,7 +455,7 @@ border-radius: 7px;
   border-radius:50%;
   margin: 5px; 
 }
-.form-check-ans  span.question-user-ans.wrong.checked-ans{
+/* .form-check-ans  span.question-user-ans.wrong.checked-ans{
   background-color:red;
 }
 .form-check-ans  span.question-user-ans.wrong.checked-ans::after{  
@@ -467,11 +467,11 @@ border-radius: 7px;
   width: 10px; 
   height: 10px;
   content:"";
-}
-.form-check-ans  span.question-user-ans.correct.checked-ans{
+} */
+.form-check-ans  span.question-user-ans.correct{
   background-color:green;
 }
-.form-check-ans  span.question-user-ans.correct.checked-ans::after{  
+.form-check-ans  span.question-user-ans.correct::after{  
   background-image: url('../images/tick.svg');
   background-size: 10px 10px;
   background-repeat: no-repeat; 
