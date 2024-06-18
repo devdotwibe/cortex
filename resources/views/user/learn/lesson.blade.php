@@ -14,7 +14,8 @@
                 <div class="row" id="lesson-questionlist-list" style="display: none">
                 </div>
             </div>
-            
+            <div class="lesson-footer" id="lesson-footer-pagination"> 
+            </div>           
         </div>
     </div> 
 </section>
@@ -92,6 +93,7 @@
          function loadlesson(pageurl=null){ 
             $.get(pageurl||"{{ route('learn.lesson.show',['category'=>$category->slug,'sub_category'=>$subCategory->slug]) }}",function(res){
                 $('.pagination-arrow').hide();
+                $('#lesson-footer-pagination').html('')
                 const lesseonId=generateRandomId(10); 
                 $.each(res.data,function(k,v){
                     questionids.push(v.slug);
@@ -114,6 +116,26 @@
                                     <div class="video-container">
                                         <div id="vimo-videoframe-${lesseonId}">
                                             <iframe src="https://player.vimeo.com/video/${vimeoid}?h=${lesseonId}" width="100%" height="500" frameborder="0" title="${v.title}" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                                        </div>
+                                        <div class="forms-inputs">
+                                            <input type="hidden" name="answer" data-question="${v.slug}" value="Y"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `).fadeIn();
+                    }
+
+                    if(v.learn_type=="notes"){
+                        $('#lesson-questionlist-list').html(`
+                            <div class="col-md-12">
+                                <div class="note-row" >
+                                    <div class="note-title">
+                                        <span>${v.title}</span>
+                                    </div>
+                                    <div class="note-container">
+                                        <div id="note-${lesseonId}">
+                                            ${v.note}
                                         </div>
                                         <div class="forms-inputs">
                                             <input type="hidden" name="answer" data-question="${v.slug}" value="Y"/>
@@ -289,13 +311,41 @@
                 callback(data);
             }
          }
-         function loadlessonreview(){
+         function loadlessonreview(reviewurl){
             $('#finish-exam-confirm').modal('hide')
-            $.get("{{ route('learn.lesson.review',['category'=>$category->slug,'sub_category'=>$subCategory->slug]) }}",function(res){
+            $.get(reviewurl||"{{ route('learn.lesson.review',['category'=>$category->slug,'sub_category'=>$subCategory->slug]) }}",function(res){
                 $('.pagination-arrow').hide();
+                $('#lesson-footer-pagination').html('')
                 const lesseonId=generateRandomId(10); 
                 $.each(res.data,function(k,v){ 
-                     
+                    if(v.learn_type=="short_notes"){
+                        $('#lesson-questionlist-list').html(`
+                            <div class="col-md-12">
+                                <div class="note-row" >
+                                    <div class="note-title">
+                                        <span>${v.title}</span>
+                                    </div>
+                                    <div class="note-container">
+                                        <div id="note-${lesseonId}">
+                                            ${v.short_question}
+                                        </div>
+                                        <div id="note-${lesseonId}-ans" class="form-group">
+                                            <div class="form-data">
+                                                <div class="forms-inputs mb-4"> 
+                                                    <input type="text" readonly name="answer" data-question="${v.slug}" id="user-answer-${lesseonId}" value="" class="form-control" placeholder="Write your answer hear" aria-placeholder="Write your answer hear" >        
+                                                    <div class="invalid-feedback" id="error-answer-field" >The field is required</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `).fadeIn(); 
+                        refreshquestionanswer(v.slug,function(data){
+                            $(`#note-${lesseonId}-ans input[name="answer"]`).val(data.value);
+                        })
+                    }
+                    if(v.learn_type=="mcq"){ 
                         $('#lesson-questionlist-list').html(`
                             <div class="col-md-12">
                                 <div class="mcq-row" >
@@ -313,26 +363,49 @@
                                                 </div> 
                                             </div>
                                         </div>
+                                        <div id="mcq-${lesseonId}-explanation"> 
+                                            <label>Correct Answer <span id="mcq-${lesseonId}-correct"></span></label>
+                                            ${v.explanation}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         `).fadeIn();
                         $(`#mcq-${lesseonId}-list`).html('')
                         $.each(v.learnanswers,function(ai,av){
+                            const letter = String.fromCharCode(ai + 'A'.charCodeAt(0))
                             $(`#mcq-${lesseonId}-list`).append(`
                             <div class="form-check-ans">
                                 <span class="question-user-ans ${av.iscorrect?"correct":"wrong"}" data-ans="${av.slug}"></span>
                                 <div class="form-check">
-                                    <input type="radio" name="answer" data-question="${v.slug}" id="user-answer-${lesseonId}-ans-item-${ai}" value="${av.slug}" class="form-check-input" ${av.iscorrect?"checked":""}  >        
-                                    <label for="user-answer-${lesseonId}-ans-item-${ai}" >${av.title}</label>
+                                    <input type="radio" disabled name="answer" data-question="${v.slug}" id="user-answer-${lesseonId}-ans-item-${ai}" value="${av.slug}" class="form-check-input" ${av.iscorrect?"checked":""}  >        
+                                    <label for="user-answer-${lesseonId}-ans-item-${ai}" >${ letter }. ${av.title}</label>
                                 </div>  
                             </div>
                             `)
+                            if(av.iscorrect){
+                                $(`#mcq-${lesseonId}-correct`).text(`: ${ letter } `)
+                            }
                         })
                         refreshquestionanswer(v.slug,function(data){
                             $(`#mcq-${lesseonId}-list input[value="${data.value}"]`).prop("checked",true)
-                        }) 
+                        })
+                    }
                 }) 
+                if(res.total>1){
+                     $.each(res.links,function(k,v){
+                        if(v.active||!v.url){
+                            $('#lesson-footer-pagination').append(`
+                                <button class="btn btn-secondary ${v.active?"active":""}" disabled  >${v.label}</button>
+                            `)
+                        }else{
+                            $('#lesson-footer-pagination').append(`
+                                <button class="btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
+                            `)
+                        }
+                     })
+                }
+
                 $('.lesson-previus').show().find('button.previus-btn').data('pageurl',progressurl);
                 $('.lesson-end').show();
             },'json')

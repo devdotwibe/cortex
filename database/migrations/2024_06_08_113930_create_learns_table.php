@@ -23,6 +23,7 @@ return new class extends Migration
 
             $table->string('video_url')->nullable();
             $table->text('note')->nullable();
+            $table->text('explanation')->nullable();
 
             $table->text('short_question')->nullable();
 
