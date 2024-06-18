@@ -416,11 +416,11 @@ button.close {
   padding:0;
 }
 
-.lesson-pagination .lesson-left { 
-left:0; 
-margin-right:auto;
+.lesson-pagination .lesson-left,.lesson-pagination .lesson-previus { 
+  left:0; 
+  margin-right:auto;
 }
-.lesson-pagination .lesson-right { 
+.lesson-pagination .lesson-right ,.lesson-pagination .lesson-finish ,.lesson-pagination .lesson-end { 
 right:0; 
 margin-left:auto;
 }
@@ -444,6 +444,44 @@ margin-left:auto;
 background-color: #dee2e6;
 border-radius: 7px;
 }
+.form-check-ans {
+  display:flex;
+  flex-wrap:wrap;
+  left:0;
+}
+.form-check-ans  span.question-user-ans {
+  width:15px;
+  height:15px;
+  border-radius:50%;
+  margin: 5px; 
+}
+.form-check-ans  span.question-user-ans.wrong.checked-ans{
+  background-color:red;
+}
+.form-check-ans  span.question-user-ans.wrong.checked-ans::after{  
+  background-image: url('../images/close.svg');
+  background-size: 10px 10px;
+  background-repeat: no-repeat; 
+  display: inline-block;
+  margin: 3px;
+  width: 10px; 
+  height: 10px;
+  content:"";
+}
+.form-check-ans  span.question-user-ans.correct.checked-ans{
+  background-color:green;
+}
+.form-check-ans  span.question-user-ans.correct.checked-ans::after{  
+  background-image: url('../images/tick.svg');
+  background-size: 10px 10px;
+  background-repeat: no-repeat; 
+  display: inline-block;
+  margin: 3px;
+  width: 10px; 
+  height: 10px;
+  content:"";
+} 
+ 
 
 .side_bar { width: 270px;height: 100vh;padding: 30px;overflow: hidden;position: fixed;background: #ffff;z-index: 99;box-shadow: 4px 0px 16px 0px #0000000A;left: 0;border-radius: 0 10px 10px 0;top: 80px}
 .side-bar-logo {margin: 0 0 20px;}

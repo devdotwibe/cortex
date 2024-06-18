@@ -29,9 +29,16 @@
         <div class="lesson-finish pagination-arrow" style="display:none">
             <button class="finish-btn" > Finish Lesson <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
         </div>
+        <div class="lesson-previus pagination-arrow" style="display: none" >
+            <button class="previus-btn"><img src="{{asset('assets/images/leftarrow.svg')}}" alt="<"> Back </button>
+        </div>
+        <div class="lesson-end pagination-arrow" style="display:none">
+            <button class="end-btn" > End Review <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
+        </div>
     </div> 
 </section>
 @endsection
+
 @push('modals')
 <div class="modal fade" id="finish-exam-confirm" tabindex="-1" role="dialog" aria-labelledby="Label" aria-hidden="true">
     <div class="modal-dialog ">
@@ -51,6 +58,7 @@
     </div>
 </div>
 @endpush
+
 @push('footer-script') 
 
     <script> 
@@ -285,11 +293,102 @@
             $('#finish-exam-confirm').modal('hide')
             $.get("{{ route('learn.lesson.review',['category'=>$category->slug,'sub_category'=>$subCategory->slug]) }}",function(res){
                 $('.pagination-arrow').hide();
-                $('#lesson-questionlist-list').html(``);
+                const lesseonId=generateRandomId(10); 
+                $.each(res.data,function(k,v){ 
+                     
+                        $('#lesson-questionlist-list').html(`
+                            <div class="col-md-12">
+                                <div class="mcq-row" >
+                                    <div class="mcq-title">
+                                        <span>${v.title}</span>
+                                    </div>
+                                    <div class="mcq-container">
+                                        <div id="mcq-${lesseonId}">
+                                            ${v.mcq_question}
+                                        </div>
+                                        <div id="mcq-${lesseonId}-ans" class="form-group">
+                                            <div class="form-data" >
+                                                <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list"> 
+                                                    
+                                                </div> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `).fadeIn();
+                        $(`#mcq-${lesseonId}-list`).html('')
+                        $.each(v.learnanswers,function(ai,av){
+                            $(`#mcq-${lesseonId}-list`).append(`
+                            <div class="form-check-ans">
+                                <span class="question-user-ans ${av.iscorrect?"correct":"wrong"}" data-ans="${av.slug}"></span>
+                                <div class="form-check">
+                                    <input type="radio" name="answer" data-question="${v.slug}" id="user-answer-${lesseonId}-ans-item-${ai}" value="${av.slug}" class="form-check-input" ${av.iscorrect?"checked":""}  >        
+                                    <label for="user-answer-${lesseonId}-ans-item-${ai}" >${av.title}</label>
+                                </div>  
+                            </div>
+                            `)
+                        })
+                        refreshquestionanswer(v.slug,function(data){
+                            $(`#mcq-${lesseonId}-list span[data-ans="${data.value}"]`).addClass("checked-ans")
+                        }) 
+                }) 
+                $('.lesson-previus').show().find('button.previus-btn').data('pageurl',progressurl);
+                $('.lesson-end').show();
             },'json')
          }
+         async function endreview(){
+            const csrf= $('meta[name="csrf-token"]').attr('content'); 
+            progressurl=''; 
+            await fetch("{{route('progress')}}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrf,
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify({
+                    name:"exam-{{$exam->id}}-module-{{$category->id}}-lesson-{{$subCategory->id}}-progress-url",
+                    value:progressurl
+                }),
+            });
+            await fetch("{{route('progress')}}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrf,
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify({
+                    name:"exam-{{$exam->id}}-module-{{$category->id}}-lesson-{{$subCategory->id}}-complete-review",
+                    value:"yes"
+                }),
+            });
+            @if($user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$subCategory->id.'-complete-date',"")=="")
+            const dattimenow= new Date(); 
+            await fetch("{{route('progress')}}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrf,
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify({
+                    name:"exam-{{$exam->id}}-module-{{$category->id}}-lesson-{{$subCategory->id}}-complete-date",
+                    value:dattimenow.toGMTString()
+                }),
+            });
+            @endif
+
+
+            window.location.href="{{ route('learn.show',['category'=>$category->slug]) }}";
+         }
          $(function(){
+            @if($user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$subCategory->id.'-complete-review',"no")=="yes")
+            loadlessonreview()
+            @else
             loadlesson(progressurl)
+            @endif
             $('.lesson-left button.left-btn,.lesson-right button.right-btn').click(function(){   
                 if($('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length>0){
                     $('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]:checked').each(function(){
@@ -305,6 +404,14 @@
                     loadlesson(pageurl)
                 }) 
             }); 
+            $('.lesson-previus button.previus-btn').click(function(){ 
+                const pageurl=$(this).data('pageurl');  
+                loadlesson(pageurl) 
+            })
+
+            $('.lesson-end button.end-btn').click(function(){ 
+                endreview()
+            })
 
             $('.lesson-finish button.finish-btn').click(function(){ 
                 if($('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length>0){
