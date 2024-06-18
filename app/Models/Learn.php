@@ -18,6 +18,7 @@ class Learn extends Model
         'short_question',
         'short_answer',
         'note',
+        'explanation',
         'mcq_question',
         'category_id',
         'sub_category_id',

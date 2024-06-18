@@ -171,6 +171,7 @@ class LearnController extends Controller
                         "sub_category_id"=>['required'],
                         "mcq_question"=>['required'],
                         "mcq_answer.*"=>["required"],
+                        "explanation"=>['nullable']
                     ],[
                         'mcq_answer.*.required'=>['The answer field is required.']
                     ]);
@@ -234,6 +235,7 @@ class LearnController extends Controller
                         "sub_category_id"=>['required'],
                         "mcq_question"=>['required'],
                         "mcq_answer.*"=>["required"],
+                        "explanation"=>['nullable']
                     ],[
                         'mcq_answer.*.required'=>['The answer field is required.']
                     ]);
