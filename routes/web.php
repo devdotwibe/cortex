@@ -68,7 +68,9 @@ Route::middleware('auth')->group(function(){
         Route::get('/',[LearnTopicController::class,'index'])->name('index');
         Route::get('/{category}',[LearnTopicController::class,'show'])->name('show');
         Route::get('/{category}/lesson/{sub_category}',[LearnTopicController::class,'lessonshow'])->name('lesson.show');
+        Route::get('/{category}/lesson/{sub_category}/history',[LearnTopicController::class,'lessonhistory'])->name('lesson.history');
         Route::get('/{category}/lesson/{sub_category}/review',[LearnTopicController::class,'lessonreview'])->name('lesson.review');
+        Route::get('/{category}/lesson/{sub_category}/submit',[LearnTopicController::class,'lessonreviewsubmit'])->name('lesson.submit');
         Route::get('/{category}/create',[LearnTopicController::class,'create'])->name('create');
         Route::get('/{category}/{learn}/edit',[LearnTopicController::class,'edit'])->name('edit');
         Route::post('/{category}/store',[LearnTopicController::class,'store'])->name('store');  

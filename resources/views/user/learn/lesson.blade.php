@@ -22,19 +22,16 @@
 <section class="exam-footer"> 
     <div class="lesson-pagination">
         <div class="lesson-left pagination-arrow" style="display: none" >
-            <button class="left-btn"><img src="{{asset('assets/images/leftarrow.svg')}}" alt="<"> Back </button>
+            <button class="button left-btn"><img src="{{asset('assets/images/leftarrow.svg')}}" alt="<"> Back </button>
         </div>
         <div class="lesson-right pagination-arrow" style="display:none">
-            <button class="right-btn"> Next <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
+            <button class="button right-btn"> Next <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
         </div>
         <div class="lesson-finish pagination-arrow" style="display:none">
-            <button class="finish-btn" > Finish Lesson <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
-        </div>
-        <div class="lesson-previus pagination-arrow" style="display: none" >
-            <button class="previus-btn"><img src="{{asset('assets/images/leftarrow.svg')}}" alt="<"> Back </button>
-        </div>
+            <button class="button finish-btn" > Finish Lesson <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
+        </div> 
         <div class="lesson-end pagination-arrow" style="display:none">
-            <button class="end-btn" > End Review <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
+            <a class="button end-btn" href="{{route('learn.lesson.submit',['category'=>$category->slug,'sub_category'=>$subCategory->slug])}}" > End Review <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></a>
         </div>
     </div> 
 </section>
@@ -52,7 +49,7 @@
             <div class="modal-body"> 
                 <p>Do you want to submit this assessment ?</p>
                 <p style="display:none" class="unfinish-message"> You still have <span class="unfinish-count">0</span> unfinished questions. </p>
-                <button type="button" onclick="loadlessonreview()" class="btn btn-dark">Yes</button>
+                <button type="button" onclick="lessonreviewconfirm()" class="btn btn-dark">Yes</button>
                 <button type="button"  data-bs-dismiss="modal"  class="btn btn-secondary">Cancel</button>
             </div>
         </div>
@@ -96,10 +93,6 @@
                 $('#lesson-footer-pagination').html('')
                 const lesseonId=generateRandomId(10); 
                 $.each(res.data,function(k,v){
-                    questionids.push(v.slug);
-                    questionids=questionids.filter(function(value, index, array){
-                        return array.indexOf(value) === index;
-                    })
 
                     if(v.learn_type=="video"){
                         var vimeoid = `${v.video_url}`; 
@@ -278,6 +271,10 @@
             }
          }
          async function updatequestionanswer(question,ans){
+            questionids.push(question);
+            questionids=questionids.filter(function(value, index, array){
+                return array.indexOf(value) === index;
+            })
             const csrf= $('meta[name="csrf-token"]').attr('content'); 
             const response = await fetch("{{route('progress')}}", {
                 method: 'POST',
@@ -409,26 +406,15 @@
                         }
                      })
                 }
-
-                $('.lesson-previus').show().find('button.previus-btn').data('pageurl',progressurl);
+ 
                 $('.lesson-end').show();
             },'json')
+
          }
-         async function endreview(){
+
+         async function lessonreviewconfirm(){
             const csrf= $('meta[name="csrf-token"]').attr('content'); 
-            progressurl=''; 
-            await fetch("{{route('progress')}}", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': csrf,
-                    'X-Requested-With': 'XMLHttpRequest'
-                },
-                body: JSON.stringify({
-                    name:"exam-{{$exam->id}}-module-{{$category->id}}-lesson-{{$subCategory->id}}-progress-url",
-                    value:progressurl
-                }),
-            });
+            currentprogress=(questionids.length*100/totalcount)
             await fetch("{{route('progress')}}", {
                 method: 'POST',
                 headers: {
@@ -438,37 +424,18 @@
                 },
                 body: JSON.stringify({
                     name:"exam-{{$exam->id}}-module-{{$category->id}}-lesson-{{$subCategory->id}}-complete-review",
-                    value:"yes"
+                    value:'pending'
                 }),
-            });
-            @if($user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$subCategory->id.'-complete-date',"")=="")
-            const dattimenow= new Date(); 
-            await fetch("{{route('progress')}}", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': csrf,
-                    'X-Requested-With': 'XMLHttpRequest'
-                },
-                body: JSON.stringify({
-                    name:"exam-{{$exam->id}}-module-{{$category->id}}-lesson-{{$subCategory->id}}-complete-date",
-                    value:dattimenow.toGMTString()
-                }),
-            });
-            @endif
-
-
-            window.location.href="{{ route('learn.show',['category'=>$category->slug]) }}";
+            }); 
+            loadlessonreview()
          }
-         $(function(){
-            /*
-            @if($user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$subCategory->id.'-complete-review',"no")=="yes")
+          
+         $(function(){ 
+            @if($user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$subCategory->id.'-complete-review',"no")=="pending")
             loadlessonreview()
             @else
             loadlesson(progressurl)
-            @endif
-            */
-            loadlesson(progressurl)
+            @endif  
             $('.lesson-left button.left-btn,.lesson-right button.right-btn').click(function(){   
                 if($('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length>0){
                     $('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]:checked').each(function(){
@@ -483,15 +450,7 @@
                 updateprogress(function(){
                     loadlesson(pageurl)
                 }) 
-            }); 
-            $('.lesson-previus button.previus-btn').click(function(){ 
-                const pageurl=$(this).data('pageurl');  
-                loadlesson(pageurl) 
-            })
-
-            $('.lesson-end button.end-btn').click(function(){ 
-                endreview()
-            })
+            });  
 
             $('.lesson-finish button.finish-btn').click(function(){ 
                 if($('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length>0){
@@ -500,14 +459,18 @@
                     })
                 }else if($('#lesson-questionlist-list .forms-inputs input[name="answer"]').length>0){
                     $('#lesson-questionlist-list .forms-inputs input[name="answer"]').each(function(){
-                        updatequestionanswer($(this).data('question'),$(this).val());
+                        var qnswr=$(this).val()||"";
+                        if(qnswr!=""){
+                            updatequestionanswer($(this).data('question'),$(this).val());
+                        }
                     })
                 }
                 var unfinishcount=totalcount-questionids.length;
+                console.log(unfinishcount)
                 if(unfinishcount>0){
-                    $('.unfinish-message').show().find('unfinish-count').text(unfinishcount)
+                    $('.unfinish-message').show().find('.unfinish-count').text(unfinishcount)
                 }else{
-                    $('.unfinish-message').hide().find('unfinish-count').text(0)
+                    $('.unfinish-message').hide().find('.unfinish-count').text(0)
                 }
                 updateprogress(function(){
                     $('#finish-exam-confirm').modal('show')

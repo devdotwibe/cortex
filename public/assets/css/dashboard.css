@@ -424,7 +424,7 @@ button.close {
 right:0; 
 margin-left:auto;
 }
-.lesson-pagination button{
+.lesson-pagination .button{
   display: flex;
   color: #FFF;
   background:#0f97f3; 

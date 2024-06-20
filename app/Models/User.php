@@ -51,26 +51,33 @@ class User extends Authenticatable implements MustVerifyEmail
             'password' => 'hashed',
         ];
     }
-
+ 
     public function progress($name,$default=null){
         return optional($this->userProgress()->where("name",$name)->first())->value??$default;
     }
-    public function setProgress($name,$value){
-        $progress=UserProgress::where('user_id',$this->id)->where('name',$name)->first();
-        if(empty($progress)){
-            $progress=UserProgress::store([
-                'user_id'=>$this->id,
-                'name'=>$name,
-                'value'=>$value,
-            ]);
+    public function setProgress($name,$value=null){
+        if($value==null){
+            UserProgress::where('user_id',$this->id)->where('name',$name)->delete();
         }else{
-            $progress->update([ 
-                'value'=>$value,
-            ]);
+            $progress=UserProgress::where('user_id',$this->id)->where('name',$name)->first();
+            if(empty($progress)){
+                $progress=UserProgress::store([
+                    'user_id'=>$this->id,
+                    'name'=>$name,
+                    'value'=>$value,
+                ]);
+            }else{
+                $progress->update([ 
+                    'value'=>$value,
+                ]);
+            }
         }
     }
 
     public function userProgress(){
         return $this->hasMany(UserProgress::class);
+    }
+    public function userExamReview(){
+        return $this->hasMany(UserExamReview::class);
     }
 }

@@ -1,11 +1,19 @@
 <?php
 
 namespace App\Trait;
+ 
 use Illuminate\Support\Str;
 
 trait ResourceModel
 {
     protected $formFields=[];
+
+    /**
+     * Save a new model and return the instance.
+     *
+     * @param  array  $attributes
+     * @return \Illuminate\Database\Eloquent\Model|$this
+     */
     public static function store($fields=[]){ 
         $fields['slug']=md5(Str::random(16).time()); 
         return  parent::create($fields);

@@ -6,12 +6,12 @@
         <div class="lesson">
             <div class="lesson-title">
                 <h3><span>{{$exam->subtitle($category->id,"Module ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h3>
-            </div>
+            </div> 
             <div class="lesson-body">
                 <div class="row" id="lesson-list">
                     @forelse ($lessons as $k=> $item)
                     <div class="col-md-6">
-                        <a href="{{route('learn.lesson.show',["category"=>$category->slug,"sub_category"=>$item->slug])}}">
+                        <a @if($user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$item->id.'-complete-review',"no")=="yes") @elseif($user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$item->id.'-complete-date',"")=="") href="{{route('learn.lesson.show',["category"=>$category->slug,"sub_category"=>$item->slug])}}" @else onclick="loadlessonreviews('{{route("learn.lesson.history",["category"=>$category->slug,"sub_category"=>$item->slug])}}',{{$k+1}})" @endif>
                             <div class="lesson-row">
                                 <div class="lesson-row-title">
                                     <span>Lesson {{$k+1}}</span>
@@ -38,7 +38,55 @@
 </section>
 @endsection
 
+@push('modals')
+<div class="modal fade" id="review-history-modal" tabindex="-1" role="dialog" aria-labelledby="Label" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Lesson <span  id="review-history-label" ></span></h5>
+                <button type="button" class="close" data-bs-dismiss="modal"    aria-label="Close"><span  aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body"> 
+                <div class="row">
+                    <div class="col-xs-12">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Progress</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="attemt-list">
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <a type="button" href="" id="restart-btn"  class="btn btn-dark">Re-Start Lesson</a> 
+            </div>
+        </div>
+    </div>
+</div>
+@endpush
 @push('footer-script') 
     <script> 
+    function loadlessonreviews(url,i){
+        $('#attemt-list').html('')
+        $.get(url,function(res){
+            $.each(res.data,function(k,v){ 
+                $('#attemt-list').append(`
+                    <tr>
+                        <td>${v.date}</td>
+                        <td>${v.progress}</td>
+                        <td><a type="button" href="${v.url}" class="btn btn-warning btn-small">Preview</a> </td>
+                    </tr>
+                `)
+            })
+            $('#restart-btn').attr('href',res.url);
+            $('#review-history-label').html(` ${i} : ${res.name} `)
+            $('#review-history-modal').modal('show')
+        },'json')
+    }
     </script>
 @endpush
