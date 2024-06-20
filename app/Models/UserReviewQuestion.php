@@ -21,4 +21,7 @@ class UserReviewQuestion extends Model
         'takenduration',
         'slug'
     ];
+    public function answers(){
+        return $this->hasMany(UserReviewAnswer::class);
+    }
 }

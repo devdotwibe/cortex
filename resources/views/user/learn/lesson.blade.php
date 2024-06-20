@@ -460,6 +460,7 @@
                 }else if($('#lesson-questionlist-list .forms-inputs input[name="answer"]').length>0){
                     $('#lesson-questionlist-list .forms-inputs input[name="answer"]').each(function(){
                         var qnswr=$(this).val()||"";
+                        console.log(qnswr)
                         if(qnswr!=""){
                             updatequestionanswer($(this).data('question'),$(this).val());
                         }

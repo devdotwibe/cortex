@@ -11,6 +11,7 @@ use App\Models\LearnAnswer;
 use App\Models\SubCategory;
 use App\Models\User;
 use App\Models\UserExamReview;
+use App\Models\UserReviewQuestion;
 use App\Trait\ResourceController;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -93,6 +94,29 @@ class LearnTopicController extends Controller
         $learncount=Learn::where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->count();
         return view("user.learn.lesson",compact('category','exam','subCategory','user','learncount'));
     } 
+
+    public function preview(Request $request,UserExamReview $userExamReview){ 
+        $category=Category::find($userExamReview->category_id);
+        $subCategory=SubCategory::find($userExamReview->sub_category_id);
+
+        $exam=Exam::where("name",'learn')->first();
+        if(empty($exam)){
+            $exam=Exam::store([
+                "title"=>"Learn",
+                "name"=>"learn",
+            ]);
+            $exam=Exam::find( $exam->id );
+        } 
+        /**
+         * @var User
+         */
+        $user=Auth::user(); 
+
+        if($request->ajax()){  
+            return UserReviewQuestion::with('answers')->whereIn('review_type',['mcq','short_notes'])->where('user_exam_review_id',$userExamReview->id)->paginate(1);
+        }
+        return view("user.learn.preview",compact('category','exam','subCategory','user','userExamReview'));
+    }
     
     public function lessonreview(Request $request,Category $category,SubCategory $subCategory){
 
@@ -156,13 +180,21 @@ class LearnTopicController extends Controller
          * @var User
          */
         $user=Auth::user();
+        $exam=Exam::where("name",'learn')->first();
+        if(empty($exam)){
+            $exam=Exam::store([
+                "title"=>"Learn",
+                "name"=>"learn",
+            ]);
+            $exam=Exam::find( $exam->id );
+        } 
         $data=[];
-        foreach(UserExamReview::where('user_id',$user->id)->where('exam_id') as  $row){
+        foreach(UserExamReview::where('user_id',$user->id)->where('exam_id',$exam->id)->get() as  $row){
             $data[]=[
                 'slug'=>$row->slug,
-                'date'=>Carbon::parse($row->created_at)->format('Y-m-d- h:i a'),
+                'date'=>Carbon::parse($row->created_at)->format('Y-m-d h:i a'),
                 'progress'=>$row->progress,
-                'url'=>'',
+                'url'=>route('learn.preview',$row->slug),
             ];
         }
         return [

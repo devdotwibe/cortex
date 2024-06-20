@@ -49,18 +49,20 @@
             <div class="modal-body"> 
                 <div class="row">
                     <div class="col-xs-12">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Progress</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody id="attemt-list">
-                                
-                            </tbody>
-                        </table>
+                        <div class="table-outer">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Progress</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="attemt-list">
+                                    
+                                </tbody>
+                            </table>
+                        </div>                        
                     </div>
                 </div>
                 <a type="button" href="" id="restart-btn"  class="btn btn-dark">Re-Start Lesson</a> 
@@ -78,8 +80,8 @@
                 $('#attemt-list').append(`
                     <tr>
                         <td>${v.date}</td>
-                        <td>${v.progress}</td>
-                        <td><a type="button" href="${v.url}" class="btn btn-warning btn-small">Preview</a> </td>
+                        <td>${v.progress}%</td>
+                        <td><a type="button" href="${v.url}" class="btn btn-warning btn-sm">Preview</a> </td>
                     </tr>
                 `)
             })

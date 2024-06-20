@@ -75,8 +75,8 @@ Route::middleware('auth')->group(function(){
         Route::get('/{category}/{learn}/edit',[LearnTopicController::class,'edit'])->name('edit');
         Route::post('/{category}/store',[LearnTopicController::class,'store'])->name('store');  
         Route::put('/{category}/{learn}/update',[LearnTopicController::class,'update'])->name('update');
-
         Route::delete('/{category}/{learn}',[LearnTopicController::class,'destroy'])->name('destroy');
+        Route::get('/attempt/{user_exam_review}/preview',[LearnTopicController::class,'preview'])->name('preview');
     });
 
 });

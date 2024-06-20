@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->text('description')->nullable(); 
             $table->boolean('iscorrect')->default(false);  
+            $table->boolean('user_answer')->default(false);  
             $table->timestamps();
         });
     }
