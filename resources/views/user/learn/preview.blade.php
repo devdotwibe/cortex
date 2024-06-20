@@ -130,6 +130,10 @@
 
          }
 
+         $(function(){
+            loadlessonreview()
+         })
+
 </script>
 
 @endpush

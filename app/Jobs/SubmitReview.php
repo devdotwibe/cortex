@@ -85,11 +85,11 @@ class SubmitReview implements ShouldQueue
                 case 'short_notes': 
                     $note=$learn->short_question;
                     $currect_answer=$learn->short_answer;
-                    $user_answer=$user->progress("exam-".$exam->id."-module-".$category->id."-lesson-".$subCategory->id."-answer-of-".$learn->slug,"N");
+                    $user_answer=$user->progress("exam-".$exam->id."-module-".$category->id."-lesson-".$subCategory->id."-answer-of-".$learn->slug,"");
                     break;
                 case 'mcq': 
                     $note=$learn->short_question; 
-                    $user_answer=$user->progress("exam-".$exam->id."-module-".$category->id."-lesson-".$subCategory->id."-answer-of-".$learn->slug,"N");
+                    $user_answer=$user->progress("exam-".$exam->id."-module-".$category->id."-lesson-".$subCategory->id."-answer-of-".$learn->slug,"");
                     break;
                 default:
                     break;
