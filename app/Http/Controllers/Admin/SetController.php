@@ -78,7 +78,7 @@ class SetController extends Controller
 
         $edit_data = $request->validate([
 
-            "name" => "required|unique:setnames,name".$set->id,
+            "name" => "required|unique:setnames,name,".$set->id,
         ]);
 
         $set = Setname::findSlug($slug);
