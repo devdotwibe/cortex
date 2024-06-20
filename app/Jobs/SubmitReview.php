@@ -110,7 +110,7 @@ class SubmitReview implements ShouldQueue
                         'user_review_question_id'=>$question->id,
                         'title'=>$ans->title,
                         'iscorrect'=>$ans->iscorrect,
-                        'user_answer'=>$ans->slug==$user_answer?true:false,
+                        'user_answer'=>(($ans->slug==$user_answer)?true:false),
                     ]);
                 }
             }

@@ -15,6 +15,7 @@ class UserReviewAnswer extends Model
         'user_exam_review_id',  
         'user_review_question_id', 
         'iscorrect', 
+        'user_answer',
         'slug'
     ];
 }
