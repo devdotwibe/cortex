@@ -99,21 +99,9 @@
                         </span>
                         Learn
                     </a>
-                </li>
-
+                </li> 
                 <li class="side-item">
-                    <a href="{{ route('admin.options.index') }}">
-                        <span class="side-icon" >
-                            <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
-                        </span>
-                        <span class="active-icon">
-                            <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Dashboard">
-                        </span>
-                        Options
-                    </a>
-                </li>
-                <li class="side-item">
-                    <a href="{{ route('admin.question-bank.index') }}">
+                    <a href="{{ route('question-bank.index') }}">
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
                         </span>
@@ -134,8 +122,8 @@
                         Exam Simulator
                     </a>
                     <ul class="side-dropdown-menu" >
-                        <li class="side-item "><a href="{{route('admin.topic-test.index')}}">Topic Test</a></li> 
-                        <li class="side-item "><a href="{{route('admin.exam.index')}}">Full Mock Exam</a></li> 
+                        <li class="side-item "><a href="{{route('topic-test.index')}}">Topic Test</a></li> 
+                        <li class="side-item "><a href="{{route('full-mock-exam.index')}}">Full Mock Exam</a></li> 
                     </ul>
                 </li>
 

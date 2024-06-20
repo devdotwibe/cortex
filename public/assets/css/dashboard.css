@@ -481,7 +481,23 @@ border-radius: 7px;
   height: 10px;
   content:"";
 } 
- 
+.lesson-row-sets {
+  width:100%;
+  display:flex;
+  flex-wrap:wrap;
+}
+
+.lesson-row-sets span.sets-item {
+  padding:5px;
+  margin:5px;
+  border:1px solid #7ef6f8;
+  border-radius:5px;
+  color:black;
+  background: none;
+}
+.lesson-row-sets span.sets-item:hover {
+  background: #7ef6f8;;
+}
 
 .side_bar { width: 270px;height: 100vh;padding: 30px;overflow: hidden;position: fixed;background: #ffff;z-index: 99;box-shadow: 4px 0px 16px 0px #0000000A;left: 0;border-radius: 0 10px 10px 0;top: 80px}
 .side-bar-logo {margin: 0 0 20px;}

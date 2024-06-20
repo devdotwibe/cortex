@@ -3,9 +3,12 @@
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UploadController;
+use App\Http\Controllers\User\ExamQuestionController;
 use App\Http\Controllers\User\LearnTopicController;
 use App\Http\Controllers\User\MainController as UserMainController;
+use App\Http\Controllers\User\MockExamController;
 use App\Http\Controllers\User\ProfileController;
+use App\Http\Controllers\User\TopicExamController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -70,13 +73,26 @@ Route::middleware('auth')->group(function(){
         Route::get('/{category}/lesson/{sub_category}',[LearnTopicController::class,'lessonshow'])->name('lesson.show');
         Route::get('/{category}/lesson/{sub_category}/history',[LearnTopicController::class,'lessonhistory'])->name('lesson.history');
         Route::get('/{category}/lesson/{sub_category}/review',[LearnTopicController::class,'lessonreview'])->name('lesson.review');
-        Route::get('/{category}/lesson/{sub_category}/submit',[LearnTopicController::class,'lessonreviewsubmit'])->name('lesson.submit');
-        Route::get('/{category}/create',[LearnTopicController::class,'create'])->name('create');
-        Route::get('/{category}/{learn}/edit',[LearnTopicController::class,'edit'])->name('edit');
-        Route::post('/{category}/store',[LearnTopicController::class,'store'])->name('store');  
-        Route::put('/{category}/{learn}/update',[LearnTopicController::class,'update'])->name('update');
-        Route::delete('/{category}/{learn}',[LearnTopicController::class,'destroy'])->name('destroy');
+        Route::get('/{category}/lesson/{sub_category}/submit',[LearnTopicController::class,'lessonreviewsubmit'])->name('lesson.submit'); 
         Route::get('/attempt/{user_exam_review}/preview',[LearnTopicController::class,'preview'])->name('preview');
+    });
+
+    Route::prefix('question-bank')->name('question-bank.')->group(function () { 
+        Route::get('/',[ExamQuestionController::class,'index'])->name('index');  
+        Route::get('/{category}',[ExamQuestionController::class,'show'])->name('show'); 
+        Route::get('/{category}/{sub_category}/set/{setname}',[ExamQuestionController::class,'setshow'])->name('setshow'); 
+    });
+
+
+    Route::prefix('topic-test')->name('topic-test.')->group(function () { 
+        Route::get('/',[TopicExamController::class,'index'])->name('index'); 
+        Route::get('/{category}',[TopicExamController::class,'show'])->name('show');  
+    });
+
+    Route::prefix('full-mock-exam')->name('full-mock-exam.')->group(function () { 
+        Route::get('/',[MockExamController::class,'index'])->name('index');
+        Route::get('/{exam}',[MockExamController::class,'show'])->name('show');
+        Route::get('/{exam}/question/{question}',[MockExamController::class,'question'])->name('question'); 
     });
 
 });
