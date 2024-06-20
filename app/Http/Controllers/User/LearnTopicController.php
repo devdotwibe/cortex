@@ -42,6 +42,9 @@ class LearnTopicController extends Controller
             $exam=Exam::find( $exam->id );
         } 
 
+        /**
+         *  @var User
+         */
         $user=Auth::user();
 
         return view("user.learn.index",compact('categorys','exam','user'));
@@ -56,6 +59,10 @@ class LearnTopicController extends Controller
             ]);
             $exam=Exam::find( $exam->id );
         } 
+
+        /**
+         *  @var User
+         */
         $user=Auth::user(); 
         return view("user.learn.show",compact('category','exam','lessons','user'));
     } 
@@ -171,6 +178,16 @@ class LearnTopicController extends Controller
             "sub_category_id"=>$subCategory->id,
             "review"=>md5(Str::random(16).time()),
         ]); 
+        $lessons=SubCategory::where('category_id',$category->id)->get();
+        $lessencount=count($lessons);
+        $totalprogres=0;
+        foreach ($lessons as $lesson) {
+            $totalprogres+=$user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$lesson->id,0);
+        }
+        $user->setProgress('exam-'.$exam->id.'-module-'.$category->id,$totalprogres/$lessencount);
+        if($user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$subCategory->id.'-complete-date',"")==""){
+            $user->setProgress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$subCategory->id.'-complete-date',date('Y-m-d H:i:s'));
+        }
         $user->setProgress("exam-".$exam->id."-module-".$category->id."-lesson-".$subCategory->id."-complete-review",'yes');
         dispatch(new SubmitReview($review)); 
         return  redirect()->route('learn.show',['category'=>$category->slug])->with("success","Lesson Submited");
