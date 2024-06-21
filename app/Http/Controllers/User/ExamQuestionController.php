@@ -57,11 +57,11 @@ class ExamQuestionController extends Controller
     } 
     public function setshow(Request $request,Category $category,SubCategory $subCategory,Setname $setname){
 
-        $exam=Exam::where("name",'learn')->first();
+        $exam=Exam::where("name",'question-bank')->first();
         if(empty($exam)){
             $exam=Exam::store([
-                "title"=>"Learn",
-                "name"=>"learn",
+                "title"=>"Question Bank",
+                "name"=>"question-bank",
             ]);
             $exam=Exam::find( $exam->id );
         } 
@@ -82,12 +82,12 @@ class ExamQuestionController extends Controller
             } 
             
             if(!empty($request->question)){
-                $learn=Question::findSlug($request->question);
-                return Answer::where('learn_id',$learn->id)->get(['slug','title']);
+                $question=Question::findSlug($request->question);
+                return Answer::where('question_id',$question->id)->get(['slug','title']);
             }
-            return Question::where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->paginate(1,['slug','title','description']);
+            return Question::where('exam_id',$exam->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->paginate(1,['slug','title','description','duration']);
         }
         $questioncount=Question::where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->count();
-        return view("user.learn.lesson",compact('category','exam','subCategory','user','setname','questioncount'));
+        return view("user.question-bank.set",compact('category','exam','subCategory','user','setname','questioncount'));
     }
 }

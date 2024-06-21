@@ -7,6 +7,18 @@
             <div class="lesson-title">
                 <h3><span>{{$exam->subtitle($category->id,"Topic ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h3>
             </div> 
+            <div class="lesson-option">
+                <div class="option-toggle">
+                    <div class="option-item">
+                        <label for="option-timed" class="option-item-label">TIMED</label>
+                        <input type="radio" name="timed" id="option-timed" value="timed" checked onchange="changemode(this.value)" >
+                    </div>
+                    <div class="option-item">
+                        <label for="option-untimed" class="option-item-label">UNTIMED</label>
+                        <input type="radio" name="timed" id="option-untimed" value="untimed" onchange="changemode(this.value)">
+                    </div>
+                </div>
+            </div>
             <div class="lesson-body">
                 <div class="row" id="lesson-list">
                     @forelse ($lessons as $k=> $item)
@@ -17,7 +29,9 @@
                             </div>
                             <div class="lesson-row-sets"> 
                                 @foreach ($item->setname as $set)
-                                    <a href=""><span class="sets-item">{{$set->name}}</span></a>
+                                    <div class="sets-item">
+                                        <a @if($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$item->id.'-set-'.$set->id.'-complete-review',"no")=="yes") @elseif($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$item->id.'-set-'.$set->id.'-complete-date',"")=="") href="{{route('question-bank.set.show',["category"=>$category->slug,"sub_category"=>$item->slug,'setname'=>$set->slug])}}" @else onclick="loadlessonsetreviews('{{route("question-bank.set.history",["category"=>$category->slug,"sub_category"=>$item->slug,'setname'=>$set->slug])}}')" @endif ><span class="sets-title">{{$set->name}}</span></a>
+                                    </div>                                    
                                 @endforeach
                             </div> 
                         </div> 
@@ -71,6 +85,11 @@
 @endpush
 @push('footer-script') 
     <script> 
+    localStorage.setItem("question-bank", "timed");
+    function changemode(v){
+        localStorage.setItem("question-bank", v);
+    }
+
     function loadlessonreviews(url,i){
         $('#attemt-list').html('')
         $.get(url,function(res){

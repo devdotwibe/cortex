@@ -356,14 +356,14 @@ button.close {
 .exam-container{
   width: 100%;
   margin-top: 40px;
-  padding: 50px 30px; 
+  padding: 50px 0; 
   height: 100%; 
 }
-.container-wrap {
+.exam-container .container-wrap {
   width: 100%;
   float: left;
-  padding: 20px;
-  margin-top:20px;
+  padding: 20px; 
+  margin:20px 30px;
   background: #ffff;
   box-shadow: 4px 0px 16px 0px #0000000A;
   border-radius: 10px;
@@ -487,7 +487,7 @@ border-radius: 7px;
   flex-wrap:wrap;
 }
 
-.lesson-row-sets span.sets-item {
+.lesson-row-sets .sets-item {
   padding:5px;
   margin:5px;
   border:1px solid #7ef6f8;
@@ -495,8 +495,87 @@ border-radius: 7px;
   color:black;
   background: none;
 }
-.lesson-row-sets span.sets-item:hover {
+.lesson-row-sets .sets-item:hover {
   background: #7ef6f8;;
+}
+.option-toggle {
+  width:fit-content;
+  display:flex;
+  margin: 20px 10px;
+  flex-wrap:wrap;
+  background-color:#f1f7fb;
+  border:1px solid #6c757d;
+  border-radius:10px;
+  overflow:hidden;
+}
+.option-toggle .option-item {
+  padding:8px 14px;    
+}
+.option-toggle .option-item:has(input:checked) {
+ background-color:#ef9b10;
+}
+.exam-progress {    
+  width: 100%;
+  display: table;
+  margin: 0;
+  padding:0;
+  height: 100%;
+  background:#1599f2;
+}
+.exam-progress>.exam-progress-inner {  
+  width: 100%;
+  height: 100%;
+  display: table-row;
+} 
+.exam-progress>.exam-progress-inner>.exam-left {  
+  width: 100%;
+  height: 100%;
+  display: table-cell;
+  float: left; 
+}
+.exam-progress>.exam-progress-inner>.exam-right {  
+  width: 100%;
+  height: 100%;
+  display: table-cell;
+  float: right;
+}
+.exam-progress>.exam-progress-inner>.exam-center {  
+  width: 100%;
+  height: 100%;
+  display: table-cell;
+  float: center;
+}
+.progress-main {
+  min-width: 350px;
+  display:flex;
+  flex-wrap:wrap; 
+}
+.progress-main .timer {
+  width:max-content;
+  display:flex;
+  flex-wrap:wrap;
+  margin-left:5px
+}
+.progress-main .timer .minute {
+  width:max-content;
+  display:block;   
+}
+.progress-main .timer   span {
+  padding:0 15px;
+  width:max-content;
+  display:block; 
+  color:white;
+  font-size:19px;
+}
+
+.exam-progress>.exam-progress-inner>.exam-right .progress-main {
+  justify-content: right;
+}
+
+.exam-progress>.exam-progress-inner>.exam-right .progress-main .bookmark {
+  width: auto;
+  float: right;
+  padding: 7px 15px 0 0;
 }
 
 .side_bar { width: 270px;height: 100vh;padding: 30px;overflow: hidden;position: fixed;background: #ffff;z-index: 99;box-shadow: 4px 0px 16px 0px #0000000A;left: 0;border-radius: 0 10px 10px 0;top: 80px}

@@ -1,14 +1,55 @@
 @extends('layouts.exam')
-@section('title', $exam->subtitle($category->id,"Module ".($category->getIdx()+1)).':'.$category->name)
+@section('title', $exam->subtitle($category->id,"Topic ".($category->getIdx()+1)).':'.$category->name)
 @section('content')
 <section class="exam-container">
+    <div class="exam-progress">
+        <div class="exam-progress-inner">
+            <div class="exam-progress-inner-item exam-left">
+                <div class="progress-main">
+
+                    <div class="exam-exit ">
+                        <a   href="{{route('question-bank.show',$category->slug)}}">
+                            <img src="{{asset("assets/images/exiticon-wht.svg")}}" alt="exiticon">
+                        </a>
+                    </div>
+                    <div class="timer">
+                        <div class="minute">
+                            <span class="runner">00</span>
+                            <span>Mins</span>
+                        </div>
+                        <div class="seperator">
+                            <span>:</span>
+                            <span></span>
+                        </div>
+                        <div class="second">
+                            <span class="runner">00</span>
+                            <span>Seconds</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="exam-center exam-progress-inner-item">
+                <a >
+                    <img src="{{asset("assets/images/menu.svg")}}" alt="exiticon">
+                </a>
+            </div>
+            <div class="exam-right exam-progress-inner-item">
+                <div class="progress-main">
+                    <div class="bookmark">
+                        <a >
+                            <img src="{{asset("assets/images/bookmark.svg")}}" alt="bookmark">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
     <div class="container-wrap">
         <div class="lesson">            
-            <a class="lesson-exit float-start" href="{{route('learn.show',$category->slug)}}">
-                <img src="{{asset("assets/images/exiticon.svg")}}" alt="exiticon">
-            </a>
+            
             <div class="lesson-title">
-                <h3><span>{{$exam->subtitle($category->id,"Module ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h3>
+                <h3><span>{{$exam->subtitle($category->id,"Topic ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h3>
             </div>
             <div class="lesson-body"> 
                 <div class="row" id="lesson-questionlist-list" style="display: none">
@@ -31,7 +72,7 @@
             <button class="button finish-btn" > Finish Lesson <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
         </div> 
         <div class="lesson-end pagination-arrow" style="display:none">
-            <a class="button end-btn" href="{{route('learn.lesson.submit',['category'=>$category->slug,'sub_category'=>$subCategory->slug])}}" > End Review <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></a>
+            <a class="button end-btn" href="{{route('question-bank.set.submit',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug])}}" > End Review <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></a>
         </div>
     </div> 
 </section>
@@ -60,10 +101,12 @@
 @push('footer-script') 
 
     <script> 
-        var currentprogress={{$user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$subCategory->id,0)}};
-        var totalcount={{$learncount??0}};
-        var questionids={!! $user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$subCategory->id."-progress-ids",'[]') !!};
-        var progressurl="{{$user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$subCategory->id.'-progress-url','')}}";
+        var currentprogress={{$user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$subCategory->id,0)}};
+        var totalcount={{$questioncount??0}};
+        var questionids={!! $user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$subCategory->id."-progress-ids",'[]') !!};
+        var progressurl="{{$user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$subCategory->id.'-progress-url','')}}";
+        var timerinterval=null;
+        var timercurrent=Math.floor(Date.now() /1000);
         function generateRandomId(length) {
             const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
             let result = '';
@@ -74,6 +117,20 @@
             }
 
             return result;
+        }
+        function countownTimer(callback){
+            var current=Math.floor(Date.now() /1000);
+            if(timercurrent<current&&timerinterval!=null){
+                clearInterval(timerinterval);
+                timerinterval=null;
+                callback()
+            }else{
+                var differece=timercurrent-current;
+                var minute=Math.floor(differece/60);
+                var second=differece-(minute*60);
+                $('.timer .minute .runner').text(minute)
+                $('.timer .second .runner').text(second)
+            }
         }
         function getVimeoId(url) {
             // Regular expression to match Vimeo URL format
@@ -88,72 +145,27 @@
             }
         } 
          function loadlesson(pageurl=null){ 
-            $.get(pageurl||"{{ route('learn.lesson.show',['category'=>$category->slug,'sub_category'=>$subCategory->slug]) }}",function(res){
+            $.get(pageurl||"{{ route('question-bank.set.show',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug]) }}",function(res){
                 $('.pagination-arrow').hide();
                 $('#lesson-footer-pagination').html('')
                 const lesseonId=generateRandomId(10); 
-                $.each(res.data,function(k,v){
-
-                    if(v.learn_type=="video"){
-                        var vimeoid = `${v.video_url}`; 
-                        if (vimeoid.includes('vimeo.com')) {
-                            vimeoid =getVimeoId(vimeoid);
-                        }
-                        var hash_parameter=
+                $.each(res.data,function(k,v){ 
                         $('#lesson-questionlist-list').html(`
                             <div class="col-md-12">
-                                <div class="video-row" >
-                                    <div class="video-title">
-                                        <span>${v.title}</span>
+                                <div class="mcq-row" >
+                                    <div class="mcq-title">
+                                        <span>${v.title||""}</span>
                                     </div>
-                                    <div class="video-container">
-                                        <div id="vimo-videoframe-${lesseonId}">
-                                            <iframe src="https://player.vimeo.com/video/${vimeoid}?h=${lesseonId}" width="100%" height="500" frameborder="0" title="${v.title}" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                                    <div class="mcq-container">
+                                        <div id="mcq-${lesseonId}" class="mcq-description">
+                                            ${v.description}
                                         </div>
-                                        <div class="forms-inputs">
-                                            <input type="hidden" name="answer" data-question="${v.slug}" value="Y"/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        `).fadeIn();
-                    }
-
-                    if(v.learn_type=="notes"){
-                        $('#lesson-questionlist-list').html(`
-                            <div class="col-md-12">
-                                <div class="note-row" >
-                                    <div class="note-title">
-                                        <span>${v.title}</span>
-                                    </div>
-                                    <div class="note-container">
-                                        <div id="note-${lesseonId}">
-                                            ${v.note}
-                                        </div>
-                                        <div class="forms-inputs">
-                                            <input type="hidden" name="answer" data-question="${v.slug}" value="Y"/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        `).fadeIn();
-                    }
-                    if(v.learn_type=="short_notes"){
-                        $('#lesson-questionlist-list').html(`
-                            <div class="col-md-12">
-                                <div class="note-row" >
-                                    <div class="note-title">
-                                        <span>${v.title}</span>
-                                    </div>
-                                    <div class="note-container">
-                                        <div id="note-${lesseonId}">
-                                            ${v.short_question}
-                                        </div>
-                                        <div id="note-${lesseonId}-ans" class="form-group">
-                                            <div class="form-data">
-                                                <div class="forms-inputs mb-4"> 
-                                                    <input type="text" name="answer" data-question="${v.slug}" id="user-answer-${lesseonId}" value="" class="form-control" placeholder="Write your answer hear" aria-placeholder="Write your answer hear" >        
-                                                    <div class="invalid-feedback" id="error-answer-field" >The field is required</div>
+                                        <div class="mcq-answer">
+                                            <div id="mcq-${lesseonId}-ans" class="form-group" >
+                                                <div class="form-data" >
+                                                    <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list"> 
+                                                        
+                                                    </div> 
                                                 </div>
                                             </div>
                                         </div>
@@ -161,34 +173,10 @@
                                 </div>
                             </div>
                         `).fadeIn();
-
-                        refreshquestionanswer(v.slug,function(data){
-                            $(`#note-${lesseonId}-ans input[name="answer"]`).val(data.value);
-                        })
-                    }
-                    if(v.learn_type=="mcq"){
-                        $('#lesson-questionlist-list').html(`
-                            <div class="col-md-12">
-                                <div class="mcq-row" >
-                                    <div class="mcq-title">
-                                        <span>${v.title}</span>
-                                    </div>
-                                    <div class="mcq-container">
-                                        <div id="mcq-${lesseonId}">
-                                            ${v.mcq_question}
-                                        </div>
-                                        <div id="mcq-${lesseonId}-ans" class="form-group">
-                                            <div class="form-data" >
-                                                <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list"> 
-                                                    
-                                                </div> 
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        `).fadeIn();
-                        $.get(pageurl||"{{ route('learn.lesson.show',['category'=>$category->slug,'sub_category'=>$subCategory->slug]) }}",{question:v.slug},function(ans){
+                        var currentdate=new Date();
+                        currentdate.setMinutes(currentdate.getMinutes()+parseInt(v.duration));
+                        timercurrent=Math.floor(currentdate.getTime() /1000)
+                        $.get(pageurl||"{{ route('question-bank.set.show',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug]) }}",{question:v.slug},function(ans){
                             $(`#mcq-${lesseonId}-list`).html('')
                             $.each(ans,function(ai,av){
                                 $(`#mcq-${lesseonId}-list`).append(`
@@ -201,10 +189,14 @@
                             refreshquestionanswer(v.slug,function(data){
                                 $(`#mcq-${lesseonId}-list input[value="${data.value}"]`).prop("checked",true)
                             })
+                            timerinterval=setInterval(()=>{
+                                countownTimer(()=>{
+                                    
+                                })
+                            }, 1000);
                         },'json').fail(function(xhr,status,error){
                             showToast("Error: " + error, 'danger'); 
-                        })
-                    }
+                        }) 
                 }) 
                 if(res.next_page_url){ 
                     $('.lesson-right').show().find('button.right-btn').data('pageurl',res.next_page_url);
@@ -229,7 +221,7 @@
                     'X-Requested-With': 'XMLHttpRequest'
                 },
                 body: JSON.stringify({
-                    name:"exam-{{$exam->id}}-module-{{$category->id}}-lesson-{{$subCategory->id}}-progress-url",
+                    name:"exam-{{$exam->id}}-topic-{{$category->id}}-lesson-{{$subCategory->id}}-progress-url",
                     value:progressurl
                 }),
             }); 
@@ -246,7 +238,7 @@
                         'X-Requested-With': 'XMLHttpRequest'
                     },
                     body: JSON.stringify({
-                        name:"exam-{{$exam->id}}-module-{{$category->id}}-lesson-{{$subCategory->id}}-progress-ids",
+                        name:"exam-{{$exam->id}}-topic-{{$category->id}}-lesson-{{$subCategory->id}}-progress-ids",
                         value:JSON.stringify(questionids)
                     }),
                 }); 
@@ -258,7 +250,7 @@
                         'X-Requested-With': 'XMLHttpRequest'
                     },
                     body: JSON.stringify({
-                        name:"exam-{{$exam->id}}-module-{{$category->id}}-lesson-{{$subCategory->id}}",
+                        name:"exam-{{$exam->id}}-topic-{{$category->id}}-lesson-{{$subCategory->id}}",
                         value:currentprogress
                     }),
                 }); 
@@ -284,7 +276,7 @@
                     'X-Requested-With': 'XMLHttpRequest'
                 },
                 body: JSON.stringify({
-                    name:"exam-{{$exam->id}}-module-{{$category->id}}-lesson-{{$subCategory->id}}-answer-of-"+question,
+                    name:"exam-{{$exam->id}}-topic-{{$category->id}}-lesson-{{$subCategory->id}}-answer-of-"+question,
                     value:ans
                 }),
             }); 
@@ -299,7 +291,7 @@
                     'X-Requested-With': 'XMLHttpRequest'
                 },
                 body: JSON.stringify({
-                    name:"exam-{{$exam->id}}-module-{{$category->id}}-lesson-{{$subCategory->id}}-answer-of-"+question,
+                    name:"exam-{{$exam->id}}-topic-{{$category->id}}-lesson-{{$subCategory->id}}-answer-of-"+question,
                     value:''
                 }),
             }); 
@@ -310,43 +302,11 @@
          }
          function loadlessonreview(reviewurl){
             $('#finish-exam-confirm').modal('hide')
-            $.get(reviewurl||"{{ route('learn.lesson.review',['category'=>$category->slug,'sub_category'=>$subCategory->slug]) }}",function(res){
+            $.get(reviewurl||"{{ route('question-bank.set.review',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug]) }}",function(res){
                 $('.pagination-arrow').hide();
                 $('#lesson-footer-pagination').html('')
                 const lesseonId=generateRandomId(10); 
-                $.each(res.data,function(k,v){ 
-                    if(v.learn_type=="short_notes"){
-                        $('#lesson-questionlist-list').html(`
-                            <div class="col-md-12">
-                                <div class="note-row" >
-                                    <div class="note-title">
-                                        <span>${v.title}</span>
-                                    </div>
-                                    <div class="note-container">
-                                        <div id="note-${lesseonId}">
-                                            ${v.short_question}
-                                        </div>
-                                        <div id="note-${lesseonId}-ans" class="form-group">
-                                            <div class="form-data">
-                                                <div class="forms-inputs mb-4"> 
-                                                    <input type="text" readonly name="answer" data-question="${v.slug}" id="user-answer-${lesseonId}" value="" class="form-control" placeholder="Write your answer hear" aria-placeholder="Write your answer hear" >        
-                                                    <div class="invalid-feedback" id="error-answer-field" >The field is required</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div id="note-${lesseonId}-answer"> 
-                                            <label>Correct Answer </label>
-                                            ${v.short_answer}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        `).fadeIn(); 
-                        refreshquestionanswer(v.slug,function(data){
-                            $(`#note-${lesseonId}-ans input[name="answer"]`).val(data.value);
-                        })
-                    }
-                    if(v.learn_type=="mcq"){ 
+                $.each(res.data,function(k,v){  
                         $('#lesson-questionlist-list').html(`
                             <div class="col-md-12">
                                 <div class="mcq-row" >
@@ -373,7 +333,7 @@
                             </div>
                         `).fadeIn();
                         $(`#mcq-${lesseonId}-list`).html('')
-                        $.each(v.learnanswers,function(ai,av){
+                        $.each(v.answers,function(ai,av){
                             const letter = String.fromCharCode(ai + 'A'.charCodeAt(0))
                             $(`#mcq-${lesseonId}-list`).append(`
                             <div class="form-check-ans">
@@ -390,8 +350,7 @@
                         })
                         refreshquestionanswer(v.slug,function(data){
                             $(`#mcq-${lesseonId}-list input[value="${data.value}"]`).prop("checked",true)
-                        })
-                    }
+                        }) 
                 }) 
                 if(res.total>1){
                      $.each(res.links,function(k,v){
@@ -423,7 +382,7 @@
                     'X-Requested-With': 'XMLHttpRequest'
                 },
                 body: JSON.stringify({
-                    name:"exam-{{$exam->id}}-module-{{$category->id}}-lesson-{{$subCategory->id}}-complete-review",
+                    name:"exam-{{$exam->id}}-topic-{{$category->id}}-lesson-{{$subCategory->id}}-complete-review",
                     value:'pending'
                 }),
             }); 
@@ -431,7 +390,7 @@
          }
           
          $(function(){ 
-            @if($user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$subCategory->id.'-complete-review',"no")=="pending")
+            @if($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$subCategory->id.'-complete-review',"no")=="pending")
             loadlessonreview()
             @else
             loadlesson(progressurl)
