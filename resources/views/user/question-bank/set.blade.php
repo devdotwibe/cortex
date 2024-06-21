@@ -189,11 +189,10 @@
                             refreshquestionanswer(v.slug,function(data){
                                 $(`#mcq-${lesseonId}-list input[value="${data.value}"]`).prop("checked",true)
                             })
-                            timerinterval=setInterval(()=>{
-                                countownTimer(()=>{
-                                    
-                                })
-                            }, 1000);
+                            var istimed=localStorage.getItem("question-bank")||"timed"
+                            if(istimed=="timed"){
+                                timerinterval=setInterval(countownTimer, 1000);
+                            }
                         },'json').fail(function(xhr,status,error){
                             showToast("Error: " + error, 'danger'); 
                         }) 
