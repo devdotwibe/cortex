@@ -129,6 +129,8 @@
         var endTime=Math.floor((new Date()).getTime() /1000)+({{$endtime}}*60);
         var countownRunCallbacks={};
         var currentSlug="";
+        var countownRunCallbackActive=null;
+        var countownSlugActive="";
         function d2s(number){
             return (number??0).toLocaleString('en-US', { minimumIntegerDigits: 2 })
         }
@@ -144,9 +146,12 @@
             return result;
         }
         function countownRun(){
-            if(countownRunCallbacks[currentSlug])[
+            if(countownRunCallbacks[currentSlug]){
                 countownRunCallbacks[currentSlug]()
-            ]
+            }
+            if(countownRunCallbackActive&&countownSlugActive!=currentSlug){
+                countownRunCallbackActive()
+            } 
             var c=Math.floor(Date.now() /1000);
             if(endTime>c){ 
                 var d=endTime-c;
@@ -222,7 +227,6 @@
                                 currentSlug=v.slug;
                                 if(!countownRunCallbacks[v.slug]){ 
                                     countownRunCallbacks[v.slug]=()=>{
-                                        $('.question-time').removeClass('time-up')
                                        // var current=Math.floor(Date.now() /1000);
                                         if(timercurrent[v.slug]<=0){ 
                                             if(res.next_page_url){
@@ -241,6 +245,7 @@
                                                 })
                                             } 
                                             delete countownRunCallbacks[v.slug];
+                                            delete countownRunCallbackActive;
                                             countownRunCallbacks[v.slug]=()=>{
                                                 $('.question-time').addClass('time-up')
                                                 $('.question-time .timer .minute .runner').text(d2s(0))
@@ -252,11 +257,16 @@
                                                 }
                                             }
                                         }else{
-                                            var differece=timercurrent[v.slug];//-current;
-                                            var minute=Math.floor(differece/60);
-                                            var second=differece-(minute*60);
-                                            $('.question-time .timer .minute .runner').text(d2s(minute))
-                                            $('.question-time .timer .second .runner').text(d2s(second))
+                                            countownSlugActive=v.slug;
+                                            countownRunCallbackActive=countownRunCallbacks[v.slug];
+                                            if(currentSlug==countownSlugActive){
+                                                $('.question-time').removeClass('time-up')
+                                                var differece=timercurrent[v.slug];//-current;
+                                                var minute=Math.floor(differece/60);
+                                                var second=differece-(minute*60);
+                                                $('.question-time .timer .minute .runner').text(d2s(minute))
+                                                $('.question-time .timer .second .runner').text(d2s(second))
+                                            }
                                         }
                                         timercurrent[v.slug]--;
                                     }
