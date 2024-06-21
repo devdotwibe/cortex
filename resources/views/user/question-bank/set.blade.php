@@ -120,6 +120,7 @@
         }
         function countownTimer(callback){
             var current=Math.floor(Date.now() /1000);
+            console.log(timercurrent)
             if(timercurrent<current&&timerinterval!=null){
                 clearInterval(timerinterval);
                 timerinterval=null;
@@ -191,7 +192,30 @@
                             })
                             var istimed=localStorage.getItem("question-bank")||"timed"
                             if(istimed=="timed"){
-                                timerinterval=setInterval(countownTimer, 1000);
+                                if(timerinterval!=null){
+                                    clearInterval(timerinterval);
+                                    timerinterval=null;
+                                }
+                                timerinterval=setInterval(()=>{
+                                    countownTimer(()=>{
+                                        if(res.next_page_url){
+                                            updateandsave(function(){
+                                                loadlesson(res.next_page_url)
+                                            })
+                                        }else{
+                                            var unfinishcount=totalcount-questionids.length; 
+                                            if(unfinishcount>0){
+                                                $('.unfinish-message').show().find('.unfinish-count').text(unfinishcount)
+                                            }else{
+                                                $('.unfinish-message').hide().find('.unfinish-count').text(0)
+                                            }  
+                                            updateandsave(function(){
+                                                $('#finish-exam-confirm').modal('show')
+                                            })
+                                        }
+                                    })
+                                }, 1000);
+                                
                             }
                         },'json').fail(function(xhr,status,error){
                             showToast("Error: " + error, 'danger'); 
@@ -314,7 +338,7 @@
                                     </div>
                                     <div class="mcq-container">
                                         <div id="mcq-${lesseonId}">
-                                            ${v.mcq_question}
+                                            ${v.description}
                                         </div>
                                         <div id="mcq-${lesseonId}-ans" class="form-group">
                                             <div class="form-data" >
@@ -325,7 +349,7 @@
                                         </div>
                                         <div id="mcq-${lesseonId}-explanation"> 
                                             <label>Correct Answer <span id="mcq-${lesseonId}-correct"></span></label>
-                                            ${v.explanation}
+                                            ${v.explanation||""}
                                         </div>
                                     </div>
                                 </div>
@@ -387,6 +411,21 @@
             }); 
             loadlessonreview()
          }
+         async function updateandsave(callback){ 
+            if($('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length>0){
+                $('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]:checked').each(function(){
+                    updatequestionanswer($(this).data('question'),$(this).val());
+                })
+            }else if($('#lesson-questionlist-list .forms-inputs input[name="answer"]').length>0){
+                $('#lesson-questionlist-list .forms-inputs input[name="answer"]').each(function(){
+                    var qnswr=$(this).val()||""; 
+                    if(qnswr!=""){ 
+                        updatequestionanswer($(this).data('question'),$(this).val());
+                    }
+                })
+            }
+            updateprogress(callback) 
+         }
           
          $(function(){ 
             @if($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$subCategory->id.'-complete-review',"no")=="pending")
@@ -395,47 +434,23 @@
             loadlesson(progressurl)
             @endif  
             $('.lesson-left button.left-btn,.lesson-right button.right-btn').click(function(){   
-                if($('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length>0){
-                    $('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]:checked').each(function(){
-                        updatequestionanswer($(this).data('question'),$(this).val());
-                    })
-                }else if($('#lesson-questionlist-list .forms-inputs input[name="answer"]').length>0){
-                    $('#lesson-questionlist-list .forms-inputs input[name="answer"]').each(function(){
-                        var qnswr=$(this).val()||""; 
-                        if(qnswr!=""){ 
-                            updatequestionanswer($(this).data('question'),$(this).val());
-                        }
-                    })
-                }
-                const pageurl=$(this).data('pageurl'); 
-                updateprogress(function(){
+                const pageurl=$(this).data('pageurl');  
+                updateandsave(function(){
                     loadlesson(pageurl)
-                }) 
+                })
             });  
 
-            $('.lesson-finish button.finish-btn').click(function(){ 
-                if($('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length>0){
-                    $('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]:checked').each(function(){
-                        updatequestionanswer($(this).data('question'),$(this).val());
-                    })
-                }else if($('#lesson-questionlist-list .forms-inputs input[name="answer"]').length>0){
-                    $('#lesson-questionlist-list .forms-inputs input[name="answer"]').each(function(){
-                        var qnswr=$(this).val()||""; 
-                        if(qnswr!=""){ 
-                            updatequestionanswer($(this).data('question'),$(this).val());
-                        }
-                    })
-                }
+            $('.lesson-finish button.finish-btn').click(function(){  
                 var unfinishcount=totalcount-questionids.length;
                 console.log(unfinishcount)
                 if(unfinishcount>0){
                     $('.unfinish-message').show().find('.unfinish-count').text(unfinishcount)
                 }else{
                     $('.unfinish-message').hide().find('.unfinish-count').text(0)
-                }
-                updateprogress(function(){
+                }  
+                updateandsave(function(){
                     $('#finish-exam-confirm').modal('show')
-                }) 
+                })
             }); 
          })
     </script>
