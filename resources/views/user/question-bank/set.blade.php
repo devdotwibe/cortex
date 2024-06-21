@@ -12,7 +12,7 @@
                             <img src="{{asset("assets/images/exiticon-wht.svg")}}" alt="exiticon">
                         </a>
                     </div>
-                    <div class="timer">
+                    <div class="timer exam-timer">
                         <div class="minute">
                             <span class="runner">00</span>
                             <span>Mins</span>
@@ -53,8 +53,20 @@
         
     </div>
     <div class="container-wrap">
-        <div class="lesson">            
-            
+        <div class="lesson">  
+            <div class="question-time">
+                <div class="timer"> 
+                    <div class="minute">
+                        <span class="runner">00</span> 
+                    </div>
+                    <div class="seperator">
+                        <span>:</span> 
+                    </div>
+                    <div class="second">
+                        <span class="runner">00</span> 
+                    </div>
+                </div>
+            </div> 
             <div class="lesson-title">
                 <h3><span>{{$exam->subtitle($category->id,"Topic ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h3>
             </div>
@@ -108,12 +120,18 @@
 @push('footer-script') 
 
     <script> 
-        var currentprogress={{$user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$subCategory->id,0)}};
+        // var currentprogress={{$user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$subCategory->id,0)}};
         var totalcount={{$questioncount??0}};
-        var questionids={!! $user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$subCategory->id."-progress-ids",'[]') !!};
-        var progressurl="{{$user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$subCategory->id.'-progress-url','')}}";
-        var timerinterval=null;
-        var timercurrent=Math.floor(Date.now() /1000);
+        var questionids=[];
+        var progressurl="";
+        
+        var timercurrent={};
+        var endTime=Math.floor((new Date()).getTime() /1000)+({{$endtime}}*60);
+        var countownRunCallbacks={};
+        var currentSlug="";
+        function d2s(number){
+            return (number??0).toLocaleString('en-US', { minimumIntegerDigits: 2 })
+        }
         function generateRandomId(length) {
             const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
             let result = '';
@@ -125,20 +143,19 @@
 
             return result;
         }
-        function countownTimer(callback){
-            var current=Math.floor(Date.now() /1000);
-            if(timercurrent<current&&timerinterval!=null){
-                clearInterval(timerinterval);
-                timerinterval=null;
-                callback()
-            }else{
-                var differece=timercurrent-current;
-                var minute=Math.floor(differece/60);
-                var second=differece-(minute*60);
-                $('.timer .minute .runner').text(minute)
-                $('.timer .second .runner').text(second)
-            }
-        }
+        function countownRun(){
+            if(countownRunCallbacks[currentSlug])[
+                countownRunCallbacks[currentSlug]()
+            ]
+            var c=Math.floor(Date.now() /1000);
+            if(endTime>c){ 
+                var d=endTime-c;
+                var m=Math.floor(d/60);
+                var s=d-(m*60);
+                $('.exam-timer .minute .runner').text(d2s(m))
+                $('.exam-timer .second .runner').text(d2s(s))
+            }            
+        } 
         function getVimeoId(url) {
             // Regular expression to match Vimeo URL format
             const regex = /vimeo\.com\/(?:video\/|)(\d+)/;
@@ -180,9 +197,11 @@
                                 </div>
                             </div>
                         `).fadeIn();
-                        var currentdate=new Date();
-                        currentdate.setMinutes(currentdate.getMinutes()+parseInt(v.duration));
-                        timercurrent=Math.floor(currentdate.getTime() /1000)
+                        if(!timercurrent[v.slug]){
+                            // var currentdate=new Date();
+                            // currentdate.setMinutes(currentdate.getMinutes()+parseInt(v.duration));
+                            timercurrent[v.slug]=parseInt(v.duration)*60;//Math.floor(currentdate.getTime() /1000)
+                        }
                         $.get(pageurl||"{{ route('question-bank.set.show',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug]) }}",{question:v.slug},function(ans){
                             $(`#mcq-${lesseonId}-list`).html('')
                             $.each(ans,function(ai,av){
@@ -199,29 +218,49 @@
                             var istimed=localStorage.getItem("question-bank")||"timed"
                             if(istimed=="timed"){
                                 $('.timer').show()
-                                if(timerinterval!=null){
-                                    clearInterval(timerinterval);
-                                    timerinterval=null;
-                                }
-                                timerinterval=setInterval(()=>{
-                                    countownTimer(()=>{
-                                        if(res.next_page_url){
-                                            updateandsave(function(){
-                                                loadlesson(res.next_page_url)
-                                            })
-                                        }else{
-                                            var unfinishcount=totalcount-questionids.length; 
-                                            if(unfinishcount>0){
-                                                $('.unfinish-message').show().find('.unfinish-count').text(unfinishcount)
+                                $('.question-time').data('active',v.slug)
+                                currentSlug=v.slug;
+                                if(!countownRunCallbacks[v.slug]){ 
+                                    countownRunCallbacks[v.slug]=()=>{
+                                        $('.question-time').removeClass('time-up')
+                                       // var current=Math.floor(Date.now() /1000);
+                                        if(timercurrent[v.slug]<=0){ 
+                                            if(res.next_page_url){
+                                                updateandsave(function(){
+                                                    loadlesson(res.next_page_url)
+                                                })
                                             }else{
-                                                $('.unfinish-message').hide().find('.unfinish-count').text(0)
-                                            }  
-                                            updateandsave(function(){
-                                                $('#finish-exam-confirm').modal('show')
-                                            })
+                                                var unfinishcount=totalcount-questionids.length; 
+                                                if(unfinishcount>0){
+                                                    $('.unfinish-message').show().find('.unfinish-count').text(unfinishcount)
+                                                }else{
+                                                    $('.unfinish-message').hide().find('.unfinish-count').text(0)
+                                                }  
+                                                updateandsave(function(){
+                                                    $('#finish-exam-confirm').modal('show')
+                                                })
+                                            } 
+                                            delete countownRunCallbacks[v.slug];
+                                            countownRunCallbacks[v.slug]=()=>{
+                                                $('.question-time').addClass('time-up')
+                                                $('.question-time .timer .minute .runner').text(d2s(0))
+                                                $('.question-time .timer .second .runner').text(d2s(0))
+                                                if($('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length>0){
+                                                    $('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').prop('disabled',true)
+                                                }else{
+                                                    $('#lesson-questionlist-list .forms-inputs input[name="answer"]').prop('readonly',true)
+                                                }
+                                            }
+                                        }else{
+                                            var differece=timercurrent[v.slug];//-current;
+                                            var minute=Math.floor(differece/60);
+                                            var second=differece-(minute*60);
+                                            $('.question-time .timer .minute .runner').text(d2s(minute))
+                                            $('.question-time .timer .second .runner').text(d2s(second))
                                         }
-                                    })
-                                }, 1000);
+                                        timercurrent[v.slug]--;
+                                    }
+                                }   
                                 
                             }else{
                                 $('.timer').hide()
@@ -262,7 +301,7 @@
          async function updateprogress(callback){  
             try { 
                 const csrf= $('meta[name="csrf-token"]').attr('content'); 
-                currentprogress=(questionids.length*100/totalcount)
+                // currentprogress=(questionids.length*100/totalcount)
                 const response1 = await fetch("{{route('progress')}}", {
                     method: 'POST',
                     headers: {
@@ -275,20 +314,20 @@
                         value:JSON.stringify(questionids)
                     }),
                 }); 
-                const response2 = await fetch("{{route('progress')}}", {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': csrf,
-                        'X-Requested-With': 'XMLHttpRequest'
-                    },
-                    body: JSON.stringify({
-                        name:"exam-{{$exam->id}}-topic-{{$category->id}}-lesson-{{$subCategory->id}}",
-                        value:currentprogress
-                    }),
-                }); 
-                if (!response2.ok) {
-                    showToast("Error: " + response2.status, 'danger'); 
+                // const response2 = await fetch("{{route('progress')}}", {
+                //     method: 'POST',
+                //     headers: {
+                //         'Content-Type': 'application/json',
+                //         'X-CSRF-TOKEN': csrf,
+                //         'X-Requested-With': 'XMLHttpRequest'
+                //     },
+                //     body: JSON.stringify({
+                //         name:"exam-{{$exam->id}}-topic-{{$category->id}}-lesson-{{$subCategory->id}}",
+                //         value:currentprogress
+                //     }),
+                // }); 
+                if (!response1.ok) {
+                    showToast("Error: " + response1.status, 'danger'); 
                 }  
                 callback()
             } catch (error) { 
@@ -406,7 +445,7 @@
 
          async function lessonreviewconfirm(){
             const csrf= $('meta[name="csrf-token"]').attr('content'); 
-            currentprogress=(questionids.length*100/totalcount)
+            // currentprogress=(questionids.length*100/totalcount)
             await fetch("{{route('progress')}}", {
                 method: 'POST',
                 headers: {
@@ -462,6 +501,8 @@
                     $('#finish-exam-confirm').modal('show')
                 })
             }); 
+
+            setInterval(countownRun,1000)
          })
     </script>
 @endpush

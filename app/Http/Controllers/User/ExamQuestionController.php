@@ -11,6 +11,7 @@ use App\Models\Setname;
 use App\Models\SubCategory;
 use App\Models\User;
 use App\Trait\ResourceController;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -87,7 +88,12 @@ class ExamQuestionController extends Controller
             }
             return Question::where('exam_id',$exam->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->paginate(1,['slug','title','description','duration']);
         }
-        $questioncount=Question::where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->count();
-        return view("user.question-bank.set",compact('category','exam','subCategory','user','setname','questioncount'));
+        $questioncount=Question::where('exam_id',$exam->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->count();
+        $endtime=0;
+        foreach (Question::where('exam_id',$exam->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->get() as $d) {
+            $endtime+=intval(explode(' ',$d->duration)[0]);
+            $user->setProgress("exam-{$exam->id}-topic-{$category->id}-lesson-{$subCategory->id}-answer-of-{$d->slug}",null);
+        } 
+        return view("user.question-bank.set",compact('category','exam','subCategory','user','setname','questioncount','endtime'));
     }
 }

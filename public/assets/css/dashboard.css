@@ -594,7 +594,62 @@ border-radius: 7px;
 .progress-menu .menu-icon{
   margin:5px 5px 0px 0px;
 }
-
+ 
+.question-time {
+  width:100px;
+  justify-content:center;
+  display:flex;
+  flex-wrap:wrap; 
+  background: #000;
+  margin-right: 30px;
+  float: right;
+  border: 1px solid #1599f2;
+  border-radius: 5px;
+}
+.question-time .timer {
+  width:max-content;
+  display:flex;
+  flex-wrap:wrap;
+  margin-left:5px
+}
+.question-time .timer .minute {
+  width:min-content;
+  display:block;   
+}
+.question-time .timer   span {
+  padding:2px 4px;
+  width:min-content;
+  display:block; 
+  color:white;
+  font-size:19px;
+}
+@keyframes heartbeat {
+  0% {
+      transform: scale(1);
+  }
+  20% {
+      transform: scale(1.1);
+  }
+  40% {
+      transform: scale(1);
+  }
+  60% {
+      transform: scale(1.1);
+  }
+  80% {
+      transform: scale(1);
+  }
+  100% {
+      transform: scale(1);
+  }
+}
+.question-time.time-up {    
+  background-color: red;  
+  animation: heartbeat 1s infinite; 
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
 
 
 
