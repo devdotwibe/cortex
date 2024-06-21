@@ -29,9 +29,16 @@
                 </div>
             </div>
             <div class="exam-center exam-progress-inner-item">
-                <a >
-                    <img src="{{asset("assets/images/menu.svg")}}" alt="exiticon">
-                </a>
+                <div class="progress-menu">
+                    <div class="menu-text">
+                        <span id="menu-text" >Question 0 of 0</span>
+                    </div>
+                    <div class="menu-icon"> 
+                        <a >
+                            <img src="{{asset("assets/images/menu.svg")}}" alt="exiticon">
+                        </a>
+                    </div>
+                </div>
             </div>
             <div class="exam-right exam-progress-inner-item">
                 <div class="progress-main">
@@ -120,7 +127,6 @@
         }
         function countownTimer(callback){
             var current=Math.floor(Date.now() /1000);
-            console.log(timercurrent)
             if(timercurrent<current&&timerinterval!=null){
                 clearInterval(timerinterval);
                 timerinterval=null;
@@ -192,6 +198,7 @@
                             })
                             var istimed=localStorage.getItem("question-bank")||"timed"
                             if(istimed=="timed"){
+                                $('.timer').show()
                                 if(timerinterval!=null){
                                     clearInterval(timerinterval);
                                     timerinterval=null;
@@ -216,6 +223,8 @@
                                     })
                                 }, 1000);
                                 
+                            }else{
+                                $('.timer').hide()
                             }
                         },'json').fail(function(xhr,status,error){
                             showToast("Error: " + error, 'danger'); 
@@ -229,6 +238,7 @@
                 if(res.prev_page_url){
                     $('.lesson-left').show().find('button.left-btn').data('pageurl',res.prev_page_url);
                 }  
+                $('#menu-text').text(`Question ${res.current_page} of ${res.total}`)
 
             },'json').fail(function(xhr,status,error){
                 showToast("Error: " + error, 'danger'); 

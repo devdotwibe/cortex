@@ -516,7 +516,7 @@ border-radius: 7px;
 }
 .exam-progress {    
   width: 100%;
-  display: table;
+  display: block;
   margin: 0;
   padding:0;
   height: 100%;
@@ -525,25 +525,28 @@ border-radius: 7px;
 .exam-progress>.exam-progress-inner {  
   width: 100%;
   height: 100%;
-  display: table-row;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
 } 
 .exam-progress>.exam-progress-inner>.exam-left {  
-  width: 100%;
+  width: auto;
   height: 100%;
-  display: table-cell;
+  display: inline-block;
   float: left; 
 }
 .exam-progress>.exam-progress-inner>.exam-right {  
-  width: 100%;
+  width: auto;
   height: 100%;
-  display: table-cell;
+  display: inline-block;
   float: right;
 }
 .exam-progress>.exam-progress-inner>.exam-center {  
-  width: 100%;
+  width: auto;
   height: 100%;
-  display: table-cell;
-  float: center;
+  display: inline-block;
+  float: none;
 }
 .progress-main {
   min-width: 350px;
@@ -567,16 +570,35 @@ border-radius: 7px;
   color:white;
   font-size:19px;
 }
-
 .exam-progress>.exam-progress-inner>.exam-right .progress-main {
   justify-content: right;
 }
-
 .exam-progress>.exam-progress-inner>.exam-right .progress-main .bookmark {
   width: auto;
   float: right;
   padding: 7px 15px 0 0;
 }
+.progress-menu {
+  width:max-content;
+  display:flex;
+  flex-wrap:wrap;
+  background:#fff;
+  margin:5px;
+  padding: 0px 20px;
+}
+.progress-menu .menu-text{
+  margin:10px 5px;
+  align-items:center;
+  text-align:center;
+}
+.progress-menu .menu-icon{
+  margin:5px 5px 0px 0px;
+}
+
+
+
+
+
 
 .side_bar { width: 270px;height: 100vh;padding: 30px;overflow: hidden;position: fixed;background: #ffff;z-index: 99;box-shadow: 4px 0px 16px 0px #0000000A;left: 0;border-radius: 0 10px 10px 0;top: 80px}
 .side-bar-logo {margin: 0 0 20px;}
