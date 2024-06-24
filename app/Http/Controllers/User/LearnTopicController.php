@@ -175,8 +175,7 @@ class LearnTopicController extends Controller
             "user_id"=>$user->id,
             "exam_id"=>$exam->id,
             "category_id"=>$category->id,
-            "sub_category_id"=>$subCategory->id,
-            "review"=>md5(Str::random(16).time()),
+            "sub_category_id"=>$subCategory->id, 
         ]); 
         $lessons=SubCategory::where('category_id',$category->id)->get();
         $lessencount=count($lessons);

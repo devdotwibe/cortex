@@ -171,7 +171,7 @@ class ExamQuestionController extends Controller
         $questioncount=Question::where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->count();
         return view("user.question-bank.lesson",compact('category','exam','subCategory','user','questioncount','setname'));
     } 
-    public function lessonreviewsubmit(Request $request,Category $category,SubCategory $subCategory,Setname $setname){
+    public function setsubmit(Request $request,Category $category,SubCategory $subCategory,Setname $setname){
         /**
          * @var User
          */
@@ -192,7 +192,12 @@ class ExamQuestionController extends Controller
             "exam_id"=>$exam->id,
             "category_id"=>$category->id,
             "sub_category_id"=>$subCategory->id, 
+            "sub_category_set"=>$setname->id,            
         ]); 
+        $user->setProgress("exam-review-".$review->id."-timed",$request->input("timed",'timed'));
+        $user->setProgress("exam-review-".$review->id."-timetaken",$request->input("timetaken",'timetaken'));
+        $user->setProgress("exam-review-".$review->id."-flags",json_encode($request->input("flags",[])));
+        $user->setProgress("exam-review-".$review->id."-times",json_encode($request->input("times",[])));
         $lessons=SubCategory::where('category_id',$category->id)->get();
         $lessencount=count($lessons);
         $totalprogres=0;
@@ -212,6 +217,9 @@ class ExamQuestionController extends Controller
         }
         $user->setProgress("exam-".$exam->id."-topic-".$category->id."-lesson-".$subCategory->id.'-set-'.$setname->id."-complete-review",'yes');
         dispatch(new SubmitReview($review)); 
+        if($request->ajax()){
+            return  response()->json(["success"=>"Question set Submited"]);    
+        }
         return  redirect()->route('question-bank.show',['category'=>$category->slug])->with("success","Question set Submited");
     }
     public function lessonhistory(Request $request,Category $category,SubCategory $subCategory,Setname $setname){

@@ -82,7 +82,7 @@ Route::middleware('auth')->group(function(){
         Route::get('/{category}',[ExamQuestionController::class,'show'])->name('show'); 
         Route::get('/{category}/{sub_category}/set/{setname}',[ExamQuestionController::class,'setshow'])->name('set.show'); 
         Route::get('/{category}/{sub_category}/set/{setname}/history',[ExamQuestionController::class,'sethistory'])->name('set.history');
-        Route::get('/{category}/{sub_category}/set/{setname}/submit',[ExamQuestionController::class,'setsubmit'])->name('set.submit'); 
+        Route::post('/{category}/{sub_category}/set/{setname}/submit',[ExamQuestionController::class,'setsubmit'])->name('set.submit'); 
         Route::get('/{category}/{sub_category}/set/{setname}/review',[ExamQuestionController::class,'setreview'])->name('set.review'); 
         Route::get('/attempt/{user_exam_review}/preview',[ExamQuestionController::class,'preview'])->name('preview');
     });

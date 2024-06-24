@@ -279,6 +279,7 @@
         var progressurl="";
         
         var timercurrent={};
+        var flagcurrent={};
         var endTime={{$endtime}}*60;
         var countownRunCallbacks={};
         var currentSlug="";
@@ -290,6 +291,7 @@
         var answeridx=[];
         var notansweridx=[]; 
         var timerActive=true;
+        var timetaken=0;
         function toglepreviewpage(){
             timerActive=!timerActive;
             $('#question-preview-page').fadeToggle()
@@ -327,6 +329,7 @@
                     $('.exam-timer .minute .runner').text(d2s(0))
                     $('.exam-timer .second .runner').text(d2s(0))
                 }
+                timetaken++;
             }            
         } 
         function getVimeoId(url) {
@@ -667,7 +670,14 @@
                     value:'pending'
                 }),
             }); 
-            loadlessonreview()
+            $('#finish-exam-confirm').modal('hide')
+            var timed=localStorage.getItem("question-bank")||"timed";
+            $.post('{{route('question-bank.set.submit',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug])}}',{timed:timed,timetaken:timetaken,flags:flagcurrent,times:timercurrent},function(res){
+                if(res.success){
+                    showToast(res.success, 'success')
+                }
+                loadlessonreview()
+            },'json');
          }
          async function updateandsave(callback){ 
             if($('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length>0){
@@ -733,11 +743,13 @@
             $('#bookmark-current').click(function(){
                 if(flagdx[cudx]){
                     flagdx[cudx]=false;
+                    flagcurrent[currentSlug]=true;
                     $("#bookmark-current").removeClass('active');
                     $(`#show-all .question-item[data-idx="${cudx}"]`).removeClass('status-flag')
                     $(`#flagged .question-item[data-idx="${cudx}"]`).removeClass('status-flag')
                 }else{
                     flagdx[cudx]=true;
+                    flagcurrent[currentSlug]=true;
                     $("#bookmark-current").addClass('active')
                     $(`#show-all .question-item[data-idx="${cudx}"]`).addClass('status-flag')
                     $(`#flagged .question-item[data-idx="${cudx}"]`).addClass('status-flag')
