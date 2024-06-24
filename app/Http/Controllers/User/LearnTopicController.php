@@ -206,7 +206,7 @@ class LearnTopicController extends Controller
             $exam=Exam::find( $exam->id );
         } 
         $data=[];
-        foreach(UserExamReview::where('user_id',$user->id)->where('exam_id',$exam->id)->get() as  $row){
+        foreach(UserExamReview::where('user_id',$user->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('exam_id',$exam->id)->get() as  $row){
             $data[]=[
                 'slug'=>$row->slug,
                 'date'=>Carbon::parse($row->created_at)->format('Y-m-d h:i a'),
@@ -217,8 +217,8 @@ class LearnTopicController extends Controller
         return [
             'data'=>$data,
             'url'=>route('learn.lesson.show',[
-                'category'=>$category,
-                'sub_category'=>$subCategory,
+                'category'=>$category->slug,
+                'sub_category'=>$subCategory->slug,
             ]),
             'name'=>$subCategory->name
         ];

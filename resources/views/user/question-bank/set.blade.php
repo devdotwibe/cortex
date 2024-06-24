@@ -273,7 +273,7 @@
 @push('footer-script') 
 
     <script> 
-        // var currentprogress={{$user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$subCategory->id,0)}};
+         
         var totalcount={{$questioncount??0}};
         var questionids=[];
         var progressurl="";
@@ -501,15 +501,15 @@
                     'X-Requested-With': 'XMLHttpRequest'
                 },
                 body: JSON.stringify({
-                    name:"exam-{{$exam->id}}-topic-{{$category->id}}-lesson-{{$subCategory->id}}-progress-url",
+                    name:"exam-{{$exam->id}}-topic-{{$category->id}}-lesson-{{$subCategory->id}}-set-{{$setname->id}}-progress-url",
                     value:progressurl
                 }),
             }); 
          }
          async function updateprogress(callback){  
             try { 
-                const csrf= $('meta[name="csrf-token"]').attr('content'); 
-                // currentprogress=(questionids.length*100/totalcount)
+                const csrf= $('meta[name="csrf-token"]').attr('content');  
+                var currentprogress=(questionids.length*100/totalcount)
                 const response1 = await fetch("{{route('progress')}}", {
                     method: 'POST',
                     headers: {
@@ -518,24 +518,25 @@
                         'X-Requested-With': 'XMLHttpRequest'
                     },
                     body: JSON.stringify({
-                        name:"exam-{{$exam->id}}-topic-{{$category->id}}-lesson-{{$subCategory->id}}-progress-ids",
+                        name:"exam-{{$exam->id}}-topic-{{$category->id}}-lesson-{{$subCategory->id}}-set-{{$setname->id}}-progress-ids",
                         value:JSON.stringify(questionids)
                     }),
+                });  
+
+                const response2 = await fetch("{{route('progress')}}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrf,
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: JSON.stringify({
+                        name:"exam-{{$exam->id}}-topic-{{$category->id}}-lesson-{{$subCategory->id}}-set-{{$setname->id}}",
+                        value:currentprogress
+                    }),
                 }); 
-                // const response2 = await fetch("{{route('progress')}}", {
-                //     method: 'POST',
-                //     headers: {
-                //         'Content-Type': 'application/json',
-                //         'X-CSRF-TOKEN': csrf,
-                //         'X-Requested-With': 'XMLHttpRequest'
-                //     },
-                //     body: JSON.stringify({
-                //         name:"exam-{{$exam->id}}-topic-{{$category->id}}-lesson-{{$subCategory->id}}",
-                //         value:currentprogress
-                //     }),
-                // }); 
-                if (!response1.ok) {
-                    showToast("Error: " + response1.status, 'danger'); 
+                if (!response2.ok) {
+                    showToast("Error: " + response2.status, 'danger'); 
                 }  
                 callback()
             } catch (error) { 
@@ -556,7 +557,7 @@
                     'X-Requested-With': 'XMLHttpRequest'
                 },
                 body: JSON.stringify({
-                    name:"exam-{{$exam->id}}-topic-{{$category->id}}-lesson-{{$subCategory->id}}-answer-of-"+question,
+                    name:"exam-{{$exam->id}}-topic-{{$category->id}}-lesson-{{$subCategory->id}}-set-{{$setname->id}}-answer-of-"+question,
                     value:ans
                 }),
             }); 
@@ -571,7 +572,7 @@
                     'X-Requested-With': 'XMLHttpRequest'
                 },
                 body: JSON.stringify({
-                    name:"exam-{{$exam->id}}-topic-{{$category->id}}-lesson-{{$subCategory->id}}-answer-of-"+question,
+                    name:"exam-{{$exam->id}}-topic-{{$category->id}}-lesson-{{$subCategory->id}}-set-{{$setname->id}}-answer-of-"+question,
                     value:''
                 }),
             }); 
@@ -619,7 +620,7 @@
                             <div class="form-check-ans">
                                 <span class="question-user-ans ${av.iscorrect?"correct":"wrong"}" data-ans="${av.slug}"></span>
                                 <div class="form-check">
-                                    <input type="radio" disabled name="answer" data-question="${v.slug}" id="user-answer-${lesseonId}-ans-item-${ai}" value="${av.slug}" class="form-check-input" ${av.iscorrect?"checked":""}  >        
+                                    <input type="radio" disabled name="answer" data-question="${v.slug}" id="user-answer-${lesseonId}-ans-item-${ai}" value="${av.slug}" class="form-check-input"  >        
                                     <label for="user-answer-${lesseonId}-ans-item-${ai}" >${ letter }. ${av.title}</label>
                                 </div>  
                             </div>
@@ -662,7 +663,7 @@
                     'X-Requested-With': 'XMLHttpRequest'
                 },
                 body: JSON.stringify({
-                    name:"exam-{{$exam->id}}-topic-{{$category->id}}-lesson-{{$subCategory->id}}-complete-review",
+                    name:"exam-{{$exam->id}}-topic-{{$category->id}}-lesson-{{$subCategory->id}}-set-{{$setname->id}}-complete-review",
                     value:'pending'
                 }),
             }); 
@@ -705,7 +706,7 @@
          }
           
          $(function(){ 
-            @if($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$subCategory->id.'-complete-review',"no")=="pending")
+            @if($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$subCategory->id.'-set-'.$setname->id.'-complete-review',"no")=="pending")
             loadlessonreview()
             @else
             loadlesson(progressurl)
@@ -743,9 +744,10 @@
                 } 
 
                 $('#flagged-nav').text(Object.keys(flagdx).length)
-            })
-
-            setInterval(countownRun,1000)
+            }) 
+            if((localStorage.getItem("question-bank")||"timed")=="timed"){
+                setInterval(countownRun,1000)
+            }
          })
     </script>
 @endpush
