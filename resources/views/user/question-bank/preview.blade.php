@@ -4,7 +4,7 @@
 <section class="exam-container">
     <div class="container-wrap">
         <div class="lesson">            
-            <a class="lesson-exit float-start" href="{{route('learn.show',$category->slug)}}">
+            <a class="lesson-exit float-start" href="{{route('question-bank.show',$category->slug)}}">
                 <img src="{{asset("assets/images/exiticon.svg")}}" alt="exiticon">
             </a>
             <div class="lesson-title">
