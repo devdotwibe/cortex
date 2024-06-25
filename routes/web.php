@@ -106,9 +106,18 @@ Route::middleware('auth')->group(function(){
     });
 
     Route::prefix('full-mock-exam')->name('full-mock-exam.')->group(function () {
+        /*
         Route::get('/',[MockExamController::class,'index'])->name('index');
         Route::get('/{exam}',[MockExamController::class,'show'])->name('show');
         Route::get('/{exam}/question/{question}',[MockExamController::class,'question'])->name('question');
+        */
+        Route::get('/',[MockExamController::class,'index'])->name('index');
+        Route::get('/{exam}',[MockExamController::class,'show'])->name('show'); 
+        Route::get('/{exam}/history',[MockExamController::class,'topichistory'])->name('topic.history');
+        Route::post('/{exam}/submit',[MockExamController::class,'topicsubmit'])->name('topic.submit');
+        Route::post('/{exam}/verify',[MockExamController::class,'topicverify'])->name('topic.verify');
+        Route::get('/{exam}/review',[MockExamController::class,'topicreview'])->name('topic.review');
+        Route::get('/attempt/{user_exam_review}/preview',[MockExamController::class,'preview'])->name('preview');
     });
 
 });
