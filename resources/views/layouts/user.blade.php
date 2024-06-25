@@ -145,6 +145,7 @@
     </main>
 
     <x-toast-container />
+    <x-confirm-popup />
 
     @stack('modals')
 

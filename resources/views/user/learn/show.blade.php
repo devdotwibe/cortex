@@ -81,7 +81,7 @@
                     <tr>
                         <td>${v.date}</td>
                         <td>${v.progress}%</td>
-                        <td><a type="button" href="${v.url}" class="btn btn-warning btn-sm">Preview</a> </td>
+                        <td><a type="button" href="${v.url}" class="btn btn-warning btn-sm">Review</a> </td>
                     </tr>
                 `)
             })

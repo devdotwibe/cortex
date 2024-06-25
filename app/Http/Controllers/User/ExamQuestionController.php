@@ -222,7 +222,7 @@ class ExamQuestionController extends Controller
         }
         return  redirect()->route('question-bank.show',['category'=>$category->slug])->with("success","Question set Submited");
     }
-    public function lessonhistory(Request $request,Category $category,SubCategory $subCategory,Setname $setname){
+    public function sethistory(Request $request,Category $category,SubCategory $subCategory,Setname $setname){
         /**
          * @var User
          */

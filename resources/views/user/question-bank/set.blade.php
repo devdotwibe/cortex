@@ -430,14 +430,14 @@
                                                 updateandsave(function(){
                                                     loadlesson(res.next_page_url)
                                                 })
-                                            }else{
-                                                var unfinishcount=totalcount-questionids.length; 
-                                                if(unfinishcount>0){
-                                                    $('.unfinish-message').show().find('.unfinish-count').text(unfinishcount)
-                                                }else{
-                                                    $('.unfinish-message').hide().find('.unfinish-count').text(0)
-                                                }  
+                                            }else{  
                                                 updateandsave(function(){
+                                                    var unfinishcount=totalcount-questionids.length; 
+                                                    if(unfinishcount>0){
+                                                        $('.unfinish-message').show().find('.unfinish-count').text(unfinishcount)
+                                                    }else{
+                                                        $('.unfinish-message').hide().find('.unfinish-count').text(0)
+                                                    }
                                                     $('#finish-exam-confirm').modal('show')
                                                 })
                                             } 
@@ -726,14 +726,13 @@
             });  
 
             $('.lesson-finish button.finish-btn').click(function(){  
-                var unfinishcount=totalcount-questionids.length;
-                console.log(unfinishcount)
-                if(unfinishcount>0){
-                    $('.unfinish-message').show().find('.unfinish-count').text(unfinishcount)
-                }else{
-                    $('.unfinish-message').hide().find('.unfinish-count').text(0)
-                }  
                 updateandsave(function(){
+                    var unfinishcount=totalcount-questionids.length; 
+                    if(unfinishcount>0){
+                        $('.unfinish-message').show().find('.unfinish-count').text(unfinishcount)
+                    }else{
+                        $('.unfinish-message').hide().find('.unfinish-count').text(0)
+                    }  
                     $('#finish-exam-confirm').modal('show')
                 })
             });
