@@ -12,6 +12,7 @@ use App\Models\SubCategory;
 use App\Models\User;
 use App\Models\UserExamReview;
 use App\Models\UserReviewQuestion;
+use App\Models\Subscription;
 use App\Trait\ResourceController;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -20,19 +21,19 @@ use Illuminate\Support\Str;
 
 class LearnTopicController extends Controller
 {
-    use ResourceController; 
+    use ResourceController;
 
     function __construct()
     {
-        self::$model = Learn::class; 
-    } 
-    
+        self::$model = Learn::class;
+    }
+
     public function index(Request $request){
         self::reset();
-        self::$model = Category::class; 
+        self::$model = Category::class;
 
         $categorys=$this->buildResult();
-      
+
         $exam=Exam::where("name",'learn')->first();
         if(empty($exam)){
             $exam=Exam::store([
@@ -40,7 +41,7 @@ class LearnTopicController extends Controller
                 "name"=>"learn",
             ]);
             $exam=Exam::find( $exam->id );
-        } 
+        }
 
         /**
          *  @var User
@@ -48,6 +49,7 @@ class LearnTopicController extends Controller
         $user=Auth::user();
 
         return view("user.learn.index",compact('categorys','exam','user'));
+
     }
     public function show(Request $request,Category $category){
         $lessons=SubCategory::where('category_id',$category->id)->get();
@@ -58,14 +60,23 @@ class LearnTopicController extends Controller
                 "name"=>"learn",
             ]);
             $exam=Exam::find( $exam->id );
-        } 
+        }
 
         /**
          *  @var User
          */
-        $user=Auth::user(); 
+        $user=Auth::user();
+        $subscription = Subscription::where('user_id', $user->id)
+            ->where('category_id', $category->id)
+            ->where('status', 'active')
+            ->first();
+        if($subscription){
         return view("user.learn.show",compact('category','exam','lessons','user'));
-    } 
+        }
+        else{
+            return redirect()->route('stripe.payment');
+        }
+    }
     public function lessonshow(Request $request,Category $category,SubCategory $subCategory){
 
         $exam=Exam::where("name",'learn')->first();
@@ -75,13 +86,13 @@ class LearnTopicController extends Controller
                 "name"=>"learn",
             ]);
             $exam=Exam::find( $exam->id );
-        } 
+        }
 
         /**
          * @var User
          */
-        $user=Auth::user(); 
-        if($request->ajax()){            
+        $user=Auth::user();
+        if($request->ajax()){
             if($user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$subCategory->id.'-complete-date',"")==""){
                 $lessons=SubCategory::where('category_id',$category->id)->get();
                 $lessencount=count($lessons);
@@ -90,8 +101,8 @@ class LearnTopicController extends Controller
                     $totalprogres+=$user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$lesson->id,0);
                 }
                 $user->setProgress('exam-'.$exam->id.'-module-'.$category->id,$totalprogres/$lessencount);
-            } 
-            
+            }
+
             if(!empty($request->question)){
                 $learn=Learn::findSlug($request->question);
                 return LearnAnswer::where('learn_id',$learn->id)->get(['slug','title']);
@@ -100,9 +111,9 @@ class LearnTopicController extends Controller
         }
         $learncount=Learn::where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->count();
         return view("user.learn.lesson",compact('category','exam','subCategory','user','learncount'));
-    } 
+    }
 
-    public function preview(Request $request,UserExamReview $userExamReview){ 
+    public function preview(Request $request,UserExamReview $userExamReview){
         $category=Category::find($userExamReview->category_id);
         $subCategory=SubCategory::find($userExamReview->sub_category_id);
 
@@ -113,18 +124,18 @@ class LearnTopicController extends Controller
                 "name"=>"learn",
             ]);
             $exam=Exam::find( $exam->id );
-        } 
+        }
         /**
          * @var User
          */
-        $user=Auth::user(); 
+        $user=Auth::user();
 
-        if($request->ajax()){  
+        if($request->ajax()){
             return UserReviewQuestion::with('answers')->whereIn('review_type',['mcq','short_notes'])->where('user_exam_review_id',$userExamReview->id)->paginate(1);
         }
         return view("user.learn.preview",compact('category','exam','subCategory','user','userExamReview'));
     }
-    
+
     public function lessonreview(Request $request,Category $category,SubCategory $subCategory){
 
         $exam=Exam::where("name",'learn')->first();
@@ -134,11 +145,11 @@ class LearnTopicController extends Controller
                 "name"=>"learn",
             ]);
             $exam=Exam::find( $exam->id );
-        } 
+        }
         /**
          * @var User
          */
-        $user=Auth::user(); 
+        $user=Auth::user();
         if($request->ajax()){
             if($user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$subCategory->id.'-complete-date',"")==""){
                 $lessons=SubCategory::where('category_id',$category->id)->get();
@@ -148,13 +159,13 @@ class LearnTopicController extends Controller
                     $totalprogres+=$user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$lesson->id,0);
                 }
                 $user->setProgress('exam-'.$exam->id.'-module-'.$category->id,$totalprogres/$lessencount);
-            } 
+            }
 
             return Learn::with('learnanswers')->whereIn('learn_type',['mcq','short_notes'])->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->paginate(1);
         }
         $learncount=Learn::where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->count();
         return view("user.learn.lesson",compact('category','exam','subCategory','user','learncount'));
-    } 
+    }
     public function lessonreviewsubmit(Request $request,Category $category,SubCategory $subCategory){
         /**
          * @var User
@@ -167,7 +178,7 @@ class LearnTopicController extends Controller
                 "name"=>"learn",
             ]);
             $exam=Exam::find( $exam->id );
-        } 
+        }
         $review=UserExamReview::store([
             "title"=>"Learn",
             "name"=>"learn",
@@ -177,7 +188,7 @@ class LearnTopicController extends Controller
             "category_id"=>$category->id,
             "sub_category_id"=>$subCategory->id,
             "review"=>md5(Str::random(16).time()),
-        ]); 
+        ]);
         $lessons=SubCategory::where('category_id',$category->id)->get();
         $lessencount=count($lessons);
         $totalprogres=0;
@@ -189,7 +200,7 @@ class LearnTopicController extends Controller
             $user->setProgress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$subCategory->id.'-complete-date',date('Y-m-d H:i:s'));
         }
         $user->setProgress("exam-".$exam->id."-module-".$category->id."-lesson-".$subCategory->id."-complete-review",'yes');
-        dispatch(new SubmitReview($review)); 
+        dispatch(new SubmitReview($review));
         return  redirect()->route('learn.show',['category'=>$category->slug])->with("success","Lesson Submited");
     }
     public function lessonhistory(Request $request,Category $category,SubCategory $subCategory){
@@ -204,7 +215,7 @@ class LearnTopicController extends Controller
                 "name"=>"learn",
             ]);
             $exam=Exam::find( $exam->id );
-        } 
+        }
         $data=[];
         foreach(UserExamReview::where('user_id',$user->id)->where('exam_id',$exam->id)->get() as  $row){
             $data[]=[
@@ -223,5 +234,5 @@ class LearnTopicController extends Controller
             'name'=>$subCategory->name
         ];
     }
-    
+
 }
