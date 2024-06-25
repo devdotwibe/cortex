@@ -78,7 +78,7 @@
                         </div>                        
                     </div>
                 </div>
-                <a type="button" href="" id="restart-btn"  class="btn btn-dark">Re-Start Lesson</a> 
+                <a type="button" href="" id="restart-btn"  class="btn btn-dark">Re-Start Set</a> 
             </div>
         </div>
     </div>
@@ -96,7 +96,7 @@
         }
     }
 
-    function loadlessonsetreviews(url,i){
+    function loadlessonsetreviews(url){
         $('#attemt-list').html('')
         $.get(url,function(res){
             $.each(res.data,function(k,v){ 
@@ -109,7 +109,7 @@
                 `)
             })
             $('#restart-btn').attr('href',res.url);
-            $('#review-history-label').html(` ${i} : ${res.name} `)
+            $('#review-history-label').html(` ${res.name} `)
             $('#review-history-modal').modal('show')
         },'json')
     }
