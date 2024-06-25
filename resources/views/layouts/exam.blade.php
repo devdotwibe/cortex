@@ -73,6 +73,7 @@
     @yield('content') 
 
     <x-toast-container />
+    <x-confirm-popup />
 
     @stack('modals')
 

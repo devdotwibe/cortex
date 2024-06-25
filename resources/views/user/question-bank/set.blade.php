@@ -89,11 +89,8 @@
             <button class="button right-btn"> Next <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
         </div>
         <div class="lesson-finish pagination-arrow" style="display:none">
-            <button class="button finish-btn" > Finish Lesson <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
-        </div> 
-        <div class="lesson-end pagination-arrow" style="display:none">
-            <a class="button end-btn" href="{{route('question-bank.set.submit',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug])}}" > End Review <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></a>
-        </div>
+            <button class="button finish-btn" > Finish Set <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
+        </div>  
     </div> 
 </section>
 
@@ -273,12 +270,13 @@
 @push('footer-script') 
 
     <script> 
-        // var currentprogress={{$user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$subCategory->id,0)}};
+         
         var totalcount={{$questioncount??0}};
         var questionids=[];
         var progressurl="";
         
         var timercurrent={};
+        var flagcurrent={};
         var endTime={{$endtime}}*60;
         var countownRunCallbacks={};
         var currentSlug="";
@@ -290,6 +288,7 @@
         var answeridx=[];
         var notansweridx=[]; 
         var timerActive=true;
+        var timetaken=0;
         function toglepreviewpage(){
             timerActive=!timerActive;
             $('#question-preview-page').fadeToggle()
@@ -327,6 +326,7 @@
                     $('.exam-timer .minute .runner').text(d2s(0))
                     $('.exam-timer .second .runner').text(d2s(0))
                 }
+                timetaken++;
             }            
         } 
         function getVimeoId(url) {
@@ -430,14 +430,14 @@
                                                 updateandsave(function(){
                                                     loadlesson(res.next_page_url)
                                                 })
-                                            }else{
-                                                var unfinishcount=totalcount-questionids.length; 
-                                                if(unfinishcount>0){
-                                                    $('.unfinish-message').show().find('.unfinish-count').text(unfinishcount)
-                                                }else{
-                                                    $('.unfinish-message').hide().find('.unfinish-count').text(0)
-                                                }  
+                                            }else{  
                                                 updateandsave(function(){
+                                                    var unfinishcount=totalcount-questionids.length; 
+                                                    if(unfinishcount>0){
+                                                        $('.unfinish-message').show().find('.unfinish-count').text(unfinishcount)
+                                                    }else{
+                                                        $('.unfinish-message').hide().find('.unfinish-count').text(0)
+                                                    }
                                                     $('#finish-exam-confirm').modal('show')
                                                 })
                                             } 
@@ -501,15 +501,15 @@
                     'X-Requested-With': 'XMLHttpRequest'
                 },
                 body: JSON.stringify({
-                    name:"exam-{{$exam->id}}-topic-{{$category->id}}-lesson-{{$subCategory->id}}-progress-url",
+                    name:"exam-{{$exam->id}}-topic-{{$category->id}}-lesson-{{$subCategory->id}}-set-{{$setname->id}}-progress-url",
                     value:progressurl
                 }),
             }); 
          }
          async function updateprogress(callback){  
             try { 
-                const csrf= $('meta[name="csrf-token"]').attr('content'); 
-                // currentprogress=(questionids.length*100/totalcount)
+                const csrf= $('meta[name="csrf-token"]').attr('content');  
+                var currentprogress=(questionids.length*100/totalcount)
                 const response1 = await fetch("{{route('progress')}}", {
                     method: 'POST',
                     headers: {
@@ -518,24 +518,25 @@
                         'X-Requested-With': 'XMLHttpRequest'
                     },
                     body: JSON.stringify({
-                        name:"exam-{{$exam->id}}-topic-{{$category->id}}-lesson-{{$subCategory->id}}-progress-ids",
+                        name:"exam-{{$exam->id}}-topic-{{$category->id}}-lesson-{{$subCategory->id}}-set-{{$setname->id}}-progress-ids",
                         value:JSON.stringify(questionids)
                     }),
+                });  
+
+                const response2 = await fetch("{{route('progress')}}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrf,
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: JSON.stringify({
+                        name:"exam-{{$exam->id}}-topic-{{$category->id}}-lesson-{{$subCategory->id}}-set-{{$setname->id}}",
+                        value:currentprogress
+                    }),
                 }); 
-                // const response2 = await fetch("{{route('progress')}}", {
-                //     method: 'POST',
-                //     headers: {
-                //         'Content-Type': 'application/json',
-                //         'X-CSRF-TOKEN': csrf,
-                //         'X-Requested-With': 'XMLHttpRequest'
-                //     },
-                //     body: JSON.stringify({
-                //         name:"exam-{{$exam->id}}-topic-{{$category->id}}-lesson-{{$subCategory->id}}",
-                //         value:currentprogress
-                //     }),
-                // }); 
-                if (!response1.ok) {
-                    showToast("Error: " + response1.status, 'danger'); 
+                if (!response2.ok) {
+                    showToast("Error: " + response2.status, 'danger'); 
                 }  
                 callback()
             } catch (error) { 
@@ -556,7 +557,7 @@
                     'X-Requested-With': 'XMLHttpRequest'
                 },
                 body: JSON.stringify({
-                    name:"exam-{{$exam->id}}-topic-{{$category->id}}-lesson-{{$subCategory->id}}-answer-of-"+question,
+                    name:"exam-{{$exam->id}}-topic-{{$category->id}}-lesson-{{$subCategory->id}}-set-{{$setname->id}}-answer-of-"+question,
                     value:ans
                 }),
             }); 
@@ -571,7 +572,7 @@
                     'X-Requested-With': 'XMLHttpRequest'
                 },
                 body: JSON.stringify({
-                    name:"exam-{{$exam->id}}-topic-{{$category->id}}-lesson-{{$subCategory->id}}-answer-of-"+question,
+                    name:"exam-{{$exam->id}}-topic-{{$category->id}}-lesson-{{$subCategory->id}}-set-{{$setname->id}}-answer-of-"+question,
                     value:''
                 }),
             }); 
@@ -619,7 +620,7 @@
                             <div class="form-check-ans">
                                 <span class="question-user-ans ${av.iscorrect?"correct":"wrong"}" data-ans="${av.slug}"></span>
                                 <div class="form-check">
-                                    <input type="radio" disabled name="answer" data-question="${v.slug}" id="user-answer-${lesseonId}-ans-item-${ai}" value="${av.slug}" class="form-check-input" ${av.iscorrect?"checked":""}  >        
+                                    <input type="radio" disabled name="answer" data-question="${v.slug}" id="user-answer-${lesseonId}-ans-item-${ai}" value="${av.slug}" class="form-check-input"  >        
                                     <label for="user-answer-${lesseonId}-ans-item-${ai}" >${ letter }. ${av.title}</label>
                                 </div>  
                             </div>
@@ -662,11 +663,18 @@
                     'X-Requested-With': 'XMLHttpRequest'
                 },
                 body: JSON.stringify({
-                    name:"exam-{{$exam->id}}-topic-{{$category->id}}-lesson-{{$subCategory->id}}-complete-review",
+                    name:"exam-{{$exam->id}}-topic-{{$category->id}}-lesson-{{$subCategory->id}}-set-{{$setname->id}}-complete-review",
                     value:'pending'
                 }),
             }); 
-            loadlessonreview()
+            $('#finish-exam-confirm').modal('hide')
+            var timed=localStorage.getItem("question-bank")||"timed";
+            $.post('{{route('question-bank.set.submit',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug])}}',{timed:timed,timetaken:timetaken,flags:flagcurrent,times:timercurrent},function(res){
+                if(res.success){
+                    showToast(res.success, 'success')
+                }
+                loadlessonreview()
+            },'json');
          }
          async function updateandsave(callback){ 
             if($('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length>0){
@@ -705,7 +713,7 @@
          }
           
          $(function(){ 
-            @if($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$subCategory->id.'-complete-review',"no")=="pending")
+            @if($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$subCategory->id.'-set-'.$setname->id.'-complete-review',"no")=="pending")
             loadlessonreview()
             @else
             loadlesson(progressurl)
@@ -718,34 +726,36 @@
             });  
 
             $('.lesson-finish button.finish-btn').click(function(){  
-                var unfinishcount=totalcount-questionids.length;
-                console.log(unfinishcount)
-                if(unfinishcount>0){
-                    $('.unfinish-message').show().find('.unfinish-count').text(unfinishcount)
-                }else{
-                    $('.unfinish-message').hide().find('.unfinish-count').text(0)
-                }  
                 updateandsave(function(){
+                    var unfinishcount=totalcount-questionids.length; 
+                    if(unfinishcount>0){
+                        $('.unfinish-message').show().find('.unfinish-count').text(unfinishcount)
+                    }else{
+                        $('.unfinish-message').hide().find('.unfinish-count').text(0)
+                    }  
                     $('#finish-exam-confirm').modal('show')
                 })
             });
             $('#bookmark-current').click(function(){
                 if(flagdx[cudx]){
                     flagdx[cudx]=false;
+                    flagcurrent[currentSlug]=true;
                     $("#bookmark-current").removeClass('active');
                     $(`#show-all .question-item[data-idx="${cudx}"]`).removeClass('status-flag')
                     $(`#flagged .question-item[data-idx="${cudx}"]`).removeClass('status-flag')
                 }else{
                     flagdx[cudx]=true;
+                    flagcurrent[currentSlug]=true;
                     $("#bookmark-current").addClass('active')
                     $(`#show-all .question-item[data-idx="${cudx}"]`).addClass('status-flag')
                     $(`#flagged .question-item[data-idx="${cudx}"]`).addClass('status-flag')
                 } 
 
                 $('#flagged-nav').text(Object.keys(flagdx).length)
-            })
-
-            setInterval(countownRun,1000)
+            }) 
+            if((localStorage.getItem("question-bank")||"timed")=="timed"){
+                setInterval(countownRun,1000)
+            }
          })
     </script>
 @endpush

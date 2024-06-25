@@ -30,7 +30,7 @@
                             <div class="lesson-row-sets"> 
                                 @foreach ($item->setname as $set)
                                     <div class="sets-item">
-                                        <a @if($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$item->id.'-set-'.$set->id.'-complete-review',"no")=="yes") @elseif($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$item->id.'-set-'.$set->id.'-complete-date',"")=="") href="{{route('question-bank.set.show',["category"=>$category->slug,"sub_category"=>$item->slug,'setname'=>$set->slug])}}" @else onclick="loadlessonsetreviews('{{route("question-bank.set.history",["category"=>$category->slug,"sub_category"=>$item->slug,'setname'=>$set->slug])}}')" @endif ><span class="sets-title">{{$set->name}}</span></a>
+                                        <a @if($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$item->id.'-set-'.$set->id.'-complete-review',"no")=="yes") @elseif($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$item->id.'-set-'.$set->id.'-complete-date',"")=="") onclick="confimexam('{{route('question-bank.set.show',['category'=>$category->slug,'sub_category'=>$item->slug,'setname'=>$set->slug])}}')" @else onclick="loadlessonsetreviews('{{route('question-bank.set.history',['category'=>$category->slug,'sub_category'=>$item->slug,'setname'=>$set->slug])}}')" @endif ><span class="sets-title">{{$set->name}}</span></a>
                                     </div>                                    
                                 @endforeach
                             </div> 
@@ -51,6 +51,7 @@
 @endsection
 
 @push('modals')
+ 
 <div class="modal fade" id="review-history-modal" tabindex="-1" role="dialog" aria-labelledby="Label" aria-hidden="true">
     <div class="modal-dialog ">
         <div class="modal-content">
@@ -89,8 +90,13 @@
     function changemode(v){
         localStorage.setItem("question-bank", v);
     }
+    async function confimexam(url){
+        if(await showConfirm({ title:"Start the question set" })){
+            window.location.href=url;
+        }
+    }
 
-    function loadlessonreviews(url,i){
+    function loadlessonsetreviews(url,i){
         $('#attemt-list').html('')
         $.get(url,function(res){
             $.each(res.data,function(k,v){ 
@@ -98,7 +104,7 @@
                     <tr>
                         <td>${v.date}</td>
                         <td>${v.progress}%</td>
-                        <td><a type="button" href="${v.url}" class="btn btn-warning btn-sm">Preview</a> </td>
+                        <td><a type="button" href="${v.url}" class="btn btn-warning btn-sm">Review</a> </td>
                     </tr>
                 `)
             })
