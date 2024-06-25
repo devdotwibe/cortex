@@ -717,6 +717,9 @@ border-radius: 7px;
 .tabbody .question-item.status-not-answered{
   background-color: #a0a0a0;
 }
+.tabbody .question-item.status-not-read{
+  border:2px solid #a0a0a0;
+}
 .tabbody .question-item.status-flag{
   background-color: #1599f2;
 }
@@ -809,6 +812,38 @@ border-radius: 7px;
 .nav-status.status-inactive{
   background:#bcbabd;
   border:none;
+}
+.exam-result{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+.exam-result .exam-result-content {
+  width:400px
+}
+
+.exam-result .exam-result-content .exam-mark-title {
+   width:100%;
+  padding:20px;
+  background-color:#edf5f9;
+}
+
+.exam-result .exam-result-content .exam-mark-title  .title-2{
+  font-size:18px;
+  font-weight:800
+}
+.exam-result .exam-result-content .exam-mark-body{
+  padding:10px 50px;
+}
+
+.exam-result .exam-result-content .exam-mark-body .mark-label{
+  margin: 5px 10px;
+  display:flex;
+}
+.exam-result .exam-result-content .exam-mark-bottom .btn{
+  display:block;
+  margin: 10px 0;
 }
 
 

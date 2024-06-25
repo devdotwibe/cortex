@@ -46,11 +46,11 @@
                             <div class="col-md-12">
                                 <div class="note-row" >
                                     <div class="note-title">
-                                        <span>${v.title}</span>
+                                        <span>${v.title||""}</span>
                                     </div>
                                     <div class="note-container">
                                         <div id="note-${lesseonId}">
-                                            ${v.note}
+                                            ${v.note||""}
                                         </div>
                                         <div id="note-${lesseonId}-ans" class="form-group">
                                             <div class="form-data">
@@ -74,11 +74,11 @@
                             <div class="col-md-12">
                                 <div class="mcq-row" >
                                     <div class="mcq-title">
-                                        <span>${v.title}</span>
+                                        <span>${v.title||""}</span>
                                     </div>
                                     <div class="mcq-container">
                                         <div id="mcq-${lesseonId}">
-                                            ${v.note}
+                                            ${v.note||""}
                                         </div>
                                         <div id="mcq-${lesseonId}-ans" class="form-group">
                                             <div class="form-data" >
@@ -96,21 +96,24 @@
                             </div>
                         `).fadeIn();
                         $(`#mcq-${lesseonId}-list`).html('')
-                        $.each(v.answers,function(ai,av){
-                            const letter = String.fromCharCode(ai + 'A'.charCodeAt(0))
-                            $(`#mcq-${lesseonId}-list`).append(`
-                            <div class="form-check-ans">
-                                <span class="question-user-ans ${av.iscorrect?"correct":"wrong"}" data-ans="${av.slug}"></span>
-                                <div class="form-check">
-                                    <input type="radio" disabled name="answer" data-question="${v.slug}" id="user-answer-${lesseonId}-ans-item-${ai}" value="${av.slug}" class="form-check-input" ${av.user_answer?"checked":""}  >        
-                                    <label for="user-answer-${lesseonId}-ans-item-${ai}" >${ letter }. ${av.title}</label>
-                                </div>  
-                            </div>
-                            `)
-                            if(av.iscorrect){
-                                $(`#mcq-${lesseonId}-correct`).text(`: ${ letter } `)
-                            }
-                        }) 
+                        $.get("{{ route('question-bank.preview',$userExamReview->slug) }}",{question:v.slug},function(ans){
+                            $(`#mcq-${lesseonId}-list`).html('')
+                            $.each(ans,function(ai,av){
+                                const letter = String.fromCharCode(ai + 'A'.charCodeAt(0))
+                                $(`#mcq-${lesseonId}-list`).append(`
+                                <div class="form-check-ans">
+                                    <span class="question-user-ans ${av.iscorrect?"correct":"wrong"}" data-ans="${av.slug}"></span>
+                                    <div class="form-check">
+                                        <input type="radio" disabled name="answer" data-question="${v.slug}" id="user-answer-${lesseonId}-ans-item-${ai}" value="${av.slug}" class="form-check-input" ${av.user_answer?"checked":""}  >        
+                                        <label for="user-answer-${lesseonId}-ans-item-${ai}" >${ letter }. ${av.title}</label>
+                                    </div>  
+                                </div>
+                                `)
+                                if(av.iscorrect){
+                                    $(`#mcq-${lesseonId}-correct`).text(`: ${ letter } `)
+                                }
+                            }) 
+                        },'json')
                     }
                 }) 
                 if(res.total>1){

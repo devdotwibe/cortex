@@ -12,6 +12,7 @@ use App\Models\Setname;
 use App\Models\SubCategory;
 use App\Models\User;
 use App\Models\UserExamReview;
+use App\Models\UserReviewAnswer;
 use App\Models\UserReviewQuestion;
 use App\Trait\ResourceController;
 use Carbon\Carbon;
@@ -103,13 +104,10 @@ class ExamQuestionController extends Controller
         foreach (Question::where('exam_id',$exam->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->get() as $d) {
             $endtime+=intval(explode(' ',$d->duration)[0]);
             $user->setProgress("exam-{$exam->id}-topic-{$category->id}-lesson-{$subCategory->id}-set-{$setname->id}-answer-of-{$d->slug}",null);
-        } 
-        return view("user.question-bank.set",compact('category','exam','subCategory','user','setname','questioncount','endtime'));
-    }
-
-
-
-
+        }
+        $attemtcount=UserExamReview::where('exam_id',$exam->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->count()+1;
+        return view("user.question-bank.set",compact('category','exam','subCategory','user','setname','questioncount','endtime','attemtcount'));
+    } 
     public function preview(Request $request,UserExamReview $userExamReview){ 
         $category=Category::find($userExamReview->category_id);
         $subCategory=SubCategory::find($userExamReview->sub_category_id);
@@ -128,8 +126,12 @@ class ExamQuestionController extends Controller
          */
         $user=Auth::user(); 
 
-        if($request->ajax()){  
-            return UserReviewQuestion::with('answers')->whereIn('review_type',['mcq'])->where('user_exam_review_id',$userExamReview->id)->paginate(1);
+        if($request->ajax()){
+            if(!empty($request->question)){
+                $question=UserReviewQuestion::findSlug($request->question);
+                return UserReviewAnswer::where('user_review_question_id',$question->id)->get(['slug','title','user_answer','iscorrect']);
+            }
+            return UserReviewQuestion::whereIn('review_type',['mcq'])->where('user_exam_review_id',$userExamReview->id)->paginate(1,['title','note','slug']);
         }
         return view("user.question-bank.preview",compact('category','exam','subCategory','setname','user','userExamReview'));
     }
@@ -169,7 +171,7 @@ class ExamQuestionController extends Controller
             return Question::with('answers')->where('exam_id',$exam->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->paginate(1);
         }
         $questioncount=Question::where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->count();
-        return view("user.question-bank.lesson",compact('category','exam','subCategory','user','questioncount','setname'));
+        return view("user.question-bank.set",compact('category','exam','subCategory','user','questioncount','setname'));
     } 
     public function setsubmit(Request $request,Category $category,SubCategory $subCategory,Setname $setname){
         /**
@@ -218,7 +220,7 @@ class ExamQuestionController extends Controller
         $user->setProgress("exam-".$exam->id."-topic-".$category->id."-lesson-".$subCategory->id.'-set-'.$setname->id."-complete-review",'yes');
         dispatch(new SubmitReview($review)); 
         if($request->ajax()){
-            return  response()->json(["success"=>"Question set Submited"]);    
+            return  response()->json(["success"=>"Question set Submited","preview"=>route('question-bank.preview',$review->slug)]);    
         }
         return  redirect()->route('question-bank.show',['category'=>$category->slug])->with("success","Question set Submited");
     }
@@ -253,5 +255,30 @@ class ExamQuestionController extends Controller
             ]),
             'name'=>$subCategory->name
         ];
+    }
+
+    public function setverify(Request $request,Category $category,SubCategory $subCategory,Setname $setname){
+        $request->validate([
+            "question"=>'required'
+        ]);
+        /**
+        * @var User
+        */
+       $user=Auth::user();       
+       $exam=Exam::where("name",'question-bank')->first();
+       if(empty($exam)){
+           $exam=Exam::store([
+               "title"=>"Question Bank",
+               "name"=>"question-bank",
+           ]);
+           $exam=Exam::find( $exam->id );
+       } 
+        $question=Question::findSlug($request->question);
+        $ans=Answer::findSlug($request->answer);
+        if(empty($ans)||$ans->exam_id!=$exam->id||$ans->question_id!=$question->id||!$ans->iscorrect){
+            return response()->json(["iscorrect"=>false,'s'=>$ans]);
+        }else{
+            return response()->json(["iscorrect"=>true]);
+        }
     }
 }

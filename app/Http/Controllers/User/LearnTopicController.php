@@ -13,6 +13,7 @@ use App\Models\User;
 use App\Models\UserExamReview;
 use App\Models\UserReviewQuestion;
 use App\Models\Subscription;
+use App\Models\UserReviewAnswer;
 use App\Trait\ResourceController;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -66,16 +67,16 @@ class LearnTopicController extends Controller
          *  @var User
          */
         $user=Auth::user();
-        $subscription = Subscription::where('user_id', $user->id)
-            ->where('category_id', $category->id)
-            ->where('status', 'active')
-            ->first();
-        if($subscription){
-        return view("user.learn.show",compact('category','exam','lessons','user'));
-        }
-        else{
-            return redirect()->route('stripe.payment');
-        }
+        // $subscription = Subscription::where('user_id', $user->id)
+        //     ->where('category_id', $category->id)
+        //     ->where('status', 'active')
+        //     ->first();
+        // if($subscription){
+            return view("user.learn.show",compact('category','exam','lessons','user'));
+        // }
+        // else{
+        //     return redirect()->route('stripe.payment');
+        // }
     }
     public function lessonshow(Request $request,Category $category,SubCategory $subCategory){
 
@@ -131,7 +132,11 @@ class LearnTopicController extends Controller
         $user=Auth::user();
 
         if($request->ajax()){
-            return UserReviewQuestion::with('answers')->whereIn('review_type',['mcq','short_notes'])->where('user_exam_review_id',$userExamReview->id)->paginate(1);
+            if(!empty($request->question)){
+                $question=UserReviewQuestion::findSlug($request->question);
+                return UserReviewAnswer::where('user_review_question_id',$question->id)->get(['slug','title','user_answer','iscorrect','description']);
+            }
+            return UserReviewQuestion::whereIn('review_type',['mcq','short_notes'])->where('user_exam_review_id',$userExamReview->id)->paginate(1,['title','note','slug','review_type','user_answer','currect_answer','explanation']);
         }
         return view("user.learn.preview",compact('category','exam','subCategory','user','userExamReview'));
     }
