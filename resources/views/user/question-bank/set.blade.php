@@ -94,6 +94,61 @@
     </div> 
 </section>
 
+<section class="modal-expand" id="question-complete-page" style="display: none;">
+    <div class="container-wrap">
+        <div class="question-preview">  
+            <div class="question-preview-title">
+                <img src="{{asset("assets/images/congratulaton.svg")}}" alt="">
+                <h3> Congratulation on Completing the Set! </h3>
+            </div>
+            <div class="question-preview-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="exam-result">
+                            <div class="exam-result-content">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="exam-mark-title">
+                                            <div class="title-1">
+                                                <span >Your Mark</span>
+                                            </div>
+                                            <div class="title-2"  id="exam-mark-gained">
+                                                <span >0/{{$questioncount??0}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="exam-mark-body">
+                                            <div class="mark-label">
+                                                <span>Time taken :</span>
+                                                <span id="time-taken">00:00</span>
+                                            </div> 
+                                            <div class="mark-label">
+                                                <span>Attemt Number :</span>
+                                                <span>#{{$attemtcount}}</span>
+                                            </div> 
+                                            <div class="mark-label">
+                                                <span>Attemt Date :</span>
+                                                <span>{{date('d M Y')}}</span>
+                                            </div> 
+                                        </div> 
+                                    </div>
+                                </div>
+        
+                                <p>Next Step: Review and Improve</p>
+                                <div class="exam-mark-bottom">
+                                    <a class="btn btn-warning btn-lg" id="review-link" href="">Review Set</a>
+                                    <a href="{{route('question-bank.show',$category->slug)}}" class="btn btn-outline-dark btn-lg">Exit Set</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
 
 <section class="modal-expand" id="question-preview-page" style="display: none;">
     <div class="container-wrap">
@@ -199,7 +254,7 @@
                                         <div class="tabbody">
                                             <div class="question-list">
                                                 @for ($i = 1; $i <= ($questioncount??0); $i++)
-                                                    <div class="question-item not-read"  data-idx="{{$i}}">
+                                                    <div class="question-item status-not-read"  data-idx="{{$i}}">
                                                         <button class="item-group" onclick="loadlesson('{{ route('question-bank.set.show',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug,'page'=>$i]) }}')">
                                                             <img src="{{asset('assets/images/flaged.svg')}}" alt="all">
                                                             <span>{{$i}}</span> 
@@ -283,11 +338,13 @@
         var countownRunCallbackActive=null;
         var countownSlugActive=""; 
         var flagdx={};
+        var verifydx={};
         var cudx=1;
 
         var answeridx=[];
         var notansweridx=[]; 
         var timerActive=true;
+        var examActive=true;
         var timetaken=0;
         function toglepreviewpage(){
             timerActive=!timerActive;
@@ -308,7 +365,7 @@
             return result;
         }
         function countownRun(){
-            if(timerActive){
+            if(timerActive&&examActive){
                 if(countownRunCallbacks[currentSlug]){
                     countownRunCallbacks[currentSlug]()
                 }
@@ -341,17 +398,39 @@
                 return url; // Return null if no match found
             }
         } 
+        async function verifyquestion(question,ans){
+            const csrf= $('meta[name="csrf-token"]').attr('content'); 
+            var response=await fetch("{{route('question-bank.set.verify',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug])}}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrf,
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify({
+                    question:question,
+                    answer:ans
+                }),
+            }); 
+            const data = await response.json(); 
+            if(data.iscorrect){
+                verifydx[question]=true;
+            }else{
+                delete verifydx[question];
+            }
+        }
         function refreshstatus(idx,status){
             $(`.question-item[data-idx="${idx}"]`).removeClass('status-not-answered').removeClass('status-answered');
             $(`#show-all .question-item[data-idx="${idx}"]`).addClass(`status-${status}`);
             $(`#${status} .question-item[data-idx="${idx}"]`).addClass(`status-${status}`);
-            $(`#not-readed .question-item[data-idx="${idx}"]`).removeClass('not-read')
+            $(`#not-readed .question-item[data-idx="${idx}"]`).removeClass('status-not-read')
 
             $('#not-readed-nav').text(totalcount-(answeridx.length+notansweridx.length))
             $('#answered-nav').text(answeridx.length)
             $('#not-answered-nav').text(notansweridx.length)
         }
          function loadlesson(pageurl=null){ 
+            if(examActive){
             $.get(pageurl||"{{ route('question-bank.set.show',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug]) }}",function(res){
                 $('.pagination-arrow').hide();
                 $('#lesson-footer-pagination').html('')
@@ -505,6 +584,8 @@
                     value:progressurl
                 }),
             }); 
+                
+            }
          }
          async function updateprogress(callback){  
             try { 
@@ -580,77 +661,7 @@
                 const data = await response.json();
                 callback(data);
             }
-         }
-         function loadlessonreview(reviewurl){
-            $('#finish-exam-confirm').modal('hide')
-            $.get(reviewurl||"{{ route('question-bank.set.review',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug]) }}",function(res){
-                $('.pagination-arrow').hide();
-                $('#lesson-footer-pagination').html('')
-                const lesseonId=generateRandomId(10); 
-                $.each(res.data,function(k,v){  
-                        $('#lesson-questionlist-list').html(`
-                            <div class="col-md-12">
-                                <div class="mcq-row" >
-                                    <div class="mcq-title">
-                                        <span>${v.title}</span>
-                                    </div>
-                                    <div class="mcq-container">
-                                        <div id="mcq-${lesseonId}">
-                                            ${v.description}
-                                        </div>
-                                        <div id="mcq-${lesseonId}-ans" class="form-group">
-                                            <div class="form-data" >
-                                                <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list"> 
-                                                    
-                                                </div> 
-                                            </div>
-                                        </div>
-                                        <div id="mcq-${lesseonId}-explanation"> 
-                                            <label>Correct Answer <span id="mcq-${lesseonId}-correct"></span></label>
-                                            ${v.explanation||""}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        `).fadeIn();
-                        $(`#mcq-${lesseonId}-list`).html('')
-                        $.each(v.answers,function(ai,av){
-                            const letter = String.fromCharCode(ai + 'A'.charCodeAt(0))
-                            $(`#mcq-${lesseonId}-list`).append(`
-                            <div class="form-check-ans">
-                                <span class="question-user-ans ${av.iscorrect?"correct":"wrong"}" data-ans="${av.slug}"></span>
-                                <div class="form-check">
-                                    <input type="radio" disabled name="answer" data-question="${v.slug}" id="user-answer-${lesseonId}-ans-item-${ai}" value="${av.slug}" class="form-check-input"  >        
-                                    <label for="user-answer-${lesseonId}-ans-item-${ai}" >${ letter }. ${av.title}</label>
-                                </div>  
-                            </div>
-                            `)
-                            if(av.iscorrect){
-                                $(`#mcq-${lesseonId}-correct`).text(`: ${ letter } `)
-                            }
-                        })
-                        refreshquestionanswer(v.slug,function(data){
-                            $(`#mcq-${lesseonId}-list input[value="${data.value}"]`).prop("checked",true)
-                        }) 
-                }) 
-                if(res.total>1){
-                     $.each(res.links,function(k,v){
-                        if(v.active||!v.url){
-                            $('#lesson-footer-pagination').append(`
-                                <button class="btn btn-secondary ${v.active?"active":""}" disabled  >${v.label}</button>
-                            `)
-                        }else{
-                            $('#lesson-footer-pagination').append(`
-                                <button class="btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
-                            `)
-                        }
-                     })
-                }
- 
-                $('.lesson-end').show();
-            },'json')
-
-         }
+         } 
 
          async function lessonreviewconfirm(){
             const csrf= $('meta[name="csrf-token"]').attr('content'); 
@@ -673,13 +684,34 @@
                 if(res.success){
                     showToast(res.success, 'success')
                 }
-                loadlessonreview()
+                if(res.preview){
+                    $('#review-link').show().attr("href",res.preview)
+                }else{
+                    $('#review-link').hide()
+                }
+                timerActive=false;
+                examActive=false;
+                if(timed=="timed"){
+                    var d=timetaken;
+                    var m=Math.floor(d/60);
+                    var s=d-(m*60);
+                    $('#time-taken').text(`${d2s(m)}:${d2s(s)}`).parent().show()
+                }else{
+                    $('#time-taken').parent().hide()
+                }          
+                var psed=Object.keys(verifydx).length
+                $('#exam-mark-gained').html(`<span >${psed}/${totalcount}</span>`)      
+                $('.pagination-arrow').hide(); 
+                $('#question-preview-page').hide() 
+                $('#question-complete-page').fadeIn()
+                $('#lesson-questionlist-list').hide().html('') 
             },'json');
          }
          async function updateandsave(callback){ 
             if($('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length>0){
                 $('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]:checked').each(function(){
                     updatequestionanswer($(this).data('question'),$(this).val());
+                    verifyquestion($(this).data('question'),$(this).val());
                     if($(this).val()){
                         answeridx.push(cudx) 
                         answeridx = [...new Set(answeridx)]
@@ -692,32 +724,12 @@
                         refreshstatus(cudx,'not-answered');
                     }
                 })
-            }else if($('#lesson-questionlist-list .forms-inputs input[name="answer"]').length>0){
-                $('#lesson-questionlist-list .forms-inputs input[name="answer"]').each(function(){
-                    var qnswr=$(this).val()||""; 
-                    if(qnswr!=""){ 
-                        updatequestionanswer($(this).data('question'),$(this).val());
-                        answeridx.push(cudx) 
-                        answeridx = [...new Set(answeridx)]
-                        notansweridx=notansweridx.filter(item => item !== cudx)
-                        refreshstatus(cudx,'answered');
-                    }else{
-                        notansweridx.push(cudx) 
-                        notansweridx = [...new Set(notansweridx)]
-                        answeridx=answeridx.filter(item => item !== cudx)
-                        refreshstatus(cudx,'not-answered');
-                    }
-                })
-            }
+            } 
             updateprogress(callback) 
          }
           
-         $(function(){ 
-            @if($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$subCategory->id.'-set-'.$setname->id.'-complete-review',"no")=="pending")
-            loadlessonreview()
-            @else
-            loadlesson(progressurl)
-            @endif  
+         $(function(){  
+            loadlesson() 
             $('.lesson-left button.left-btn,.lesson-right button.right-btn').click(function(){   
                 const pageurl=$(this).data('pageurl');  
                 updateandsave(function(){

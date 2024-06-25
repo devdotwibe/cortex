@@ -17,6 +17,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class SubmitReview implements ShouldQueue
@@ -98,7 +99,7 @@ class SubmitReview implements ShouldQueue
                 default:
                     break;
             }
-            $question=UserReviewQuestion::store([
+            $revquestion=UserReviewQuestion::store([
                 'title'=>$learn->title, 
                 'user_exam_review_id'=>$this->review->id,
                 'review_type'=>$learn->learn_type,
@@ -111,7 +112,7 @@ class SubmitReview implements ShouldQueue
                 foreach($learn->learnanswers as $ans){
                     UserReviewAnswer::store([
                         'user_exam_review_id'=>$this->review->id,
-                        'user_review_question_id'=>$question->id,
+                        'user_review_question_id'=>$revquestion->id,
                         'title'=>$ans->title,
                         'iscorrect'=>$ans->iscorrect,
                         'user_answer'=>(($ans->slug==$user_answer)?true:false),
@@ -134,7 +135,7 @@ class SubmitReview implements ShouldQueue
               
             $user_answer=$user->progress("exam-".$exam->id."-topic-".$category->id."-lesson-".$subCategory->id."-set-".$setname->id."-answer-of-".$question->slug,"");
 
-            $question=UserReviewQuestion::store([
+            $revquestion=UserReviewQuestion::store([
                 'title'=>$question->title, 
                 'user_exam_review_id'=>$this->review->id,
                 'review_type'=>'mcq',
@@ -148,11 +149,11 @@ class SubmitReview implements ShouldQueue
             foreach($question->answers as $ans){
                 UserReviewAnswer::store([
                     'user_exam_review_id'=>$this->review->id,
-                    'user_review_question_id'=>$question->id,
+                    'user_review_question_id'=>$revquestion->id,
                     'title'=>$ans->title,
                     'iscorrect'=>$ans->iscorrect,
                     'user_answer'=>(($ans->slug==$user_answer)?true:false),
-                ]);
+                ]); 
             } 
             $user->setProgress("exam-".$exam->id."-topic-".$category->id."-lesson-".$subCategory->id."-set-".$setname->id."-answer-of-".$question->slug,null);
         }
