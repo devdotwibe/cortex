@@ -19,8 +19,13 @@
 @push('before-script')
 
 <script> 
-        function showConfirm(ctx={title:"Action required",message:"please confirm this action"}){ 
+        function showConfirm(ctx={title:"Action required",message:null}){ 
             $('#Lablel-{{$id}}').text(ctx.title);
+            if(ctx.message){
+                $('#message-{{$id}}').text(ctx.message)
+            }else{
+                $('#message-{{$id}}').text("")
+            }
             $('#modal-confirm-{{$id}}').modal('show');  
             return new Promise((resolve, reject) => { 
                 $('#modal-confirm-{{$id}}-yes').on('click',function(){

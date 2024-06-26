@@ -728,6 +728,14 @@
             updateprogress(callback) 
          }
           
+         async function exitconfirm(url){
+            if(await showConfirm({ 
+                title:"Are you sure do you want to exit?" ,
+                message: "If you exit in-between the exam, The answered questions will not save and you should need to start the exam from the beginning.",
+            })){
+                window.location.href=url;
+            }
+        }
          $(function(){  
             loadlesson() 
             $('.lesson-left button.left-btn,.lesson-right button.right-btn').click(function(){   
@@ -768,6 +776,12 @@
             if((localStorage.getItem("question-bank")||"timed")=="timed"){
                 setInterval(countownRun,1000)
             }
+
+            $('.exam-exit a').click(function(e){
+                e.preventDefault();
+                e.stopPropagation();
+                exitconfirm($(this).attr("href")); 
+            }) 
          })
     </script>
 @endpush
