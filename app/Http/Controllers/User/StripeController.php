@@ -52,7 +52,7 @@ class StripeController extends Controller
 
 
             // Create a PaymentIntent for the payment
-            $payment_intent =Stripe\PaymentIntent::create([
+            $payment_intent =PaymentIntent::create([
                 'amount' => 2000,
                 'currency' => 'usd',
                 'customer' => $stripeCustomer->id, // Use the customer ID saved in your database
