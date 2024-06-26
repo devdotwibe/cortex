@@ -82,7 +82,7 @@ class SubmitReview implements ShouldQueue
                         $vimeoid =$this->getVimeoId($vimeoid);
                     }
                     $lesseonId=Str::random(10);
-                    $note='<iframe src="https://player.vimeo.com/video/'.$vimeoid.'?byline=0&keyboard=0&dnt=1&h='.$lesseonId.'" width="100%" height="500" frameborder="0" title="'.$learn->title.'" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+                    $note='<iframe src="https://player.vimeo.com/video/'.$vimeoid.'?byline=0&keyboard=0&dnt=1&app_id='.$lesseonId.'" width="100%" height="500" frameborder="0"  allow="autoplay; fullscreen; picture-in-picture; clipboard-write" title="'.$learn->title.'" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
                     $currect_answer="Y";
                     $user_answer=$user->progress("exam-".$exam->id."-module-".$category->id."-lesson-".$subCategory->id."-answer-of-".$learn->slug,"N");
                     break;

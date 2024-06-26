@@ -108,7 +108,7 @@
                                     </div>
                                     <div class="video-container">
                                         <div id="vimo-videoframe-${lesseonId}">?
-                                            <iframe src="https://player.vimeo.com/video/${vimeoid}?byline=0&keyboard=0&dnt=1&h=${lesseonId}" width="100%" height="500" frameborder="0" title="${v.title}" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                                            <iframe src="https://player.vimeo.com/video/${vimeoid}?byline=0&keyboard=0&dnt=1&app_id=${lesseonId}" width="100%" height="500" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" title="${v.title}" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                                         </div>
                                         <div class="forms-inputs">
                                             <input type="hidden" name="answer" data-question="${v.slug}" value="Y"/>
