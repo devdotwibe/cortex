@@ -55,7 +55,7 @@ class StripeController extends Controller
             $subscription->user_id = $request->user()->id;
             $subscription->payment_id = $payment_intent->id;
             $subscription->customer_id =$stripeCustomer->id;
-            $subscription->amount =$payment_intent->amount;
+            $subscription->amount =$payment_intent->amount/100;
             $subscription->start_date = Carbon::now();
             $subscription->expiration_date= Carbon::now()->addYear()->month(5)->day(30);
             $subscription->save();
