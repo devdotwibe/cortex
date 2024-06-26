@@ -16,36 +16,19 @@ class StripeController extends Controller
     }
 
     public function handlePayment(Request $request)
-    {
-        // Set up Stripe PHP library with your secret key
+    { 
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
-
-        try {
-            // Check if customer already has a Stripe customer ID
-            if (!$request->user()->stripe_customer_id) {
-                // Create a new Stripe customer and attach payment method
+        try { 
+            if (!$request->user()->stripe_customer_id) { 
                 $stripeCustomer = Stripe\Customer::create([
                     'email' => $request->user()->email,
-                    'source' => $request->stripeToken, // Stripe token obtained from Stripe Elements
+                    'source' => $request->stripeToken,
                 ]);
-
-                // Save the customer ID to your user record in your database
                 $request->user()->update(['stripe_customer_id' => $stripeCustomer->id]);
-            } else {
-                // Retrieve the existing Stripe customer
-                $stripeCustomer = Stripe\Customer::retrieve($request->user()->stripe_customer_id);
-                // Attach the payment method (use the new Payment Method API for SCA-ready payments)
-                $paymentMethod = Stripe\PaymentMethod::create([
-                    'type' => 'card',
-                    'card' => [
-                        'token' => $request->stripeToken,
-                    ],
-                ]);
-
-                // Attach the payment method to the customer
-                $stripeCustomer->attachPaymentMethod($paymentMethod->id);
+            } else { 
+                $stripeCustomer = Stripe\Customer::retrieve($request->user()->stripe_customer_id);                 
+                Stripe\Customer::createSource($stripeCustomer->id ,["source"=>$request->stripeToken]); 
             }
-
             $payment_intent =Stripe\PaymentIntent::create([
                 'amount' => 2000,
                 'currency' => 'usd',
