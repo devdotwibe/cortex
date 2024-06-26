@@ -10,6 +10,7 @@ use App\Http\Controllers\User\MockExamController;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\TopicExamController;
 use App\Http\Controllers\User\StripeController;
+use App\Http\Controllers\User\StripeWebHookController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -80,6 +81,7 @@ Route::middleware('auth')->group(function(){
 
      Route::get('/subscribe',[StripeController::class,'subscribe'])->name('stripe.payment');
      Route::post('/subscription-handle', [StripeController::class, 'handlePayment'])->name('subscribe.handle');
+     Route::post('/stripe/webhook',[StripeWebHookController::class,'handlewebhook']);
 
 
     Route::prefix('question-bank')->name('question-bank.')->group(function () {
