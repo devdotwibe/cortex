@@ -18,15 +18,15 @@
         <div class="row">
             <x-ajax-table :coloumns='[
                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
-                ["th"=>"Question","name"=>"title","data"=>"title"], 
+                ["th"=>"Title","name"=>"title","data"=>"title"],
             ]' />
         </div>
     </div>
-</section> 
+</section>
 @endsection
 
 @push('footer-script')
     <script>
-         
+
     </script>
 @endpush

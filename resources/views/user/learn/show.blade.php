@@ -6,7 +6,7 @@
         <div class="lesson">
             <div class="lesson-title">
                 <h3><span>{{$exam->subtitle($category->id,"Module ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h3>
-            </div> 
+            </div>
             <div class="lesson-body">
                 <div class="row" id="lesson-list">
                     @forelse ($lessons as $k=> $item)
@@ -15,15 +15,14 @@
                             <div class="lesson-row">
                                 <div class="lesson-row-title">
                                     <span>Lesson {{$k+1}}</span>
-                                    <span> : </span>
-                                    <span>{{ $item->name }}</span>
+                                    <span>: {{ $item->name }} </span>
                                 </div>
-                                <div class="lesson-row-subtitle"> 
+                                <div class="lesson-row-subtitle">
                                     <span>{{round($user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$item->id,0),2)}}%</span>
                                 </div>
                             </div>
                         </a>
-                    </div>                     
+                    </div>
                     @empty
                     <div class="col-md-12">
                         <div class="empty-row">
@@ -31,8 +30,8 @@
                         </div>
                     </div>
                     @endforelse
-                </div>  
-            </div> 
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -46,7 +45,7 @@
                 <h5 class="modal-title">Lesson <span  id="review-history-label" ></span></h5>
                 <button type="button" class="close" data-bs-dismiss="modal"    aria-label="Close"><span  aria-hidden="true">&times;</span></button>
             </div>
-            <div class="modal-body"> 
+            <div class="modal-body">
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="table-outer">
@@ -59,24 +58,24 @@
                                     </tr>
                                 </thead>
                                 <tbody id="attemt-list">
-                                    
+
                                 </tbody>
                             </table>
-                        </div>                        
+                        </div>
                     </div>
                 </div>
-                <a type="button" href="" id="restart-btn"  class="btn btn-dark">Re-Start Lesson</a> 
+                <a type="button" href="" id="restart-btn"  class="btn btn-dark">Re-Start Lesson</a>
             </div>
         </div>
     </div>
 </div>
 @endpush
-@push('footer-script') 
-    <script> 
+@push('footer-script')
+    <script>
     function loadlessonreviews(url,i){
         $('#attemt-list').html('')
         $.get(url,function(res){
-            $.each(res.data,function(k,v){ 
+            $.each(res.data,function(k,v){
                 $('#attemt-list').append(`
                     <tr>
                         <td>${v.date}</td>

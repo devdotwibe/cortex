@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge"> 
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -21,14 +21,14 @@
     <link rel="shortcut icon" href="{{ asset("assets/images/favicon.png") }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/dashboard.css') }}">
-    <link rel="stylesheet" href="{{ asset("assets/css/datatables.min.css") }}" > 
-    <link rel="stylesheet" href="{{ asset("assets/css/select2.min.css") }}" > 
-    <link rel="stylesheet" href="{{ asset("assets/css/select2.min.css") }}" > 
+    <link rel="stylesheet" href="{{ asset("assets/css/datatables.min.css") }}" >
+    <link rel="stylesheet" href="{{ asset("assets/css/select2.min.css") }}" >
+    <link rel="stylesheet" href="{{ asset("assets/css/select2.min.css") }}" >
 
     @stack('style')
 
-    <script src="{{ asset('assets/js/jquery-3.7.0.min.js') }}"></script> 
-    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script> 
+    <script src="{{ asset('assets/js/jquery-3.7.0.min.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
 
     @stack('header-script')
 
@@ -39,13 +39,13 @@
         <div class="loading-container">
             <div class="loading-image"><img src="{{asset('assets/images/loader.svg')}}" alt=""></div>
             <span>Plese wait...</span>
-        </div>            
+        </div>
     </div>
     <nav class="navbar navbar-expand" >
-        <div class="container"> 
+        <div class="container">
             <a class="navbar-brand"  href="{{ url('/') }}">
                 <img src="{{ asset('assets/images/cortexlogo.svg') }}" alt="">
-            </a>    
+            </a>
             <ul class="navbar-nav ml-auto">
                 {{-- <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarNotification" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -69,17 +69,17 @@
                         <a class="dropdown-item" href="{{route('admin.logout')}}">Log Out </a>
                     </div>
                 </li>
-            </ul>   
+            </ul>
         </div>
     </nav>
-     
+
     <aside class="side_bar">
         <div class="side-nav-toggle">
             <button class="btn btn-close-toggle"><img src="{{asset("assets/images/close.svg")}}" alt="close"></button>
-        </div> 
+        </div>
         <div class="sidebar-content js-simplebar">
             <ul class="sidebar-nav">
-                <li class="side-item  active ">
+                <li class="side-item {{request()->is('admin/dashboard') ?'active':''}}">
                     <a href="{{route('admin.dashboard')}}">
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
@@ -90,7 +90,7 @@
                         Dashboard
                     </a>
                 </li>
-                <li class="side-item">
+                <li class="side-item {{request()->is('admin/user') ? 'active':''}}">
                     <a href="{{route("admin.user.index")}}">
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/Dashboard-wht.svg")}}"  alt="Users">
@@ -103,7 +103,7 @@
                 </li>
 
 
-                <li class="side-item">
+                <li class="side-item {{request()->is('admin/learn') ? 'active':''}}">
                     <a href="{{ route('admin.learn.index') }}">
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
@@ -115,7 +115,7 @@
                     </a>
                 </li>
 
-                <li class="side-item">
+                <li class="side-item {{request()->is('admin/options') ?'active':''}}">
                     <a href="{{ route('admin.options.index') }}">
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
@@ -126,7 +126,7 @@
                         Options
                     </a>
                 </li>
-                <li class="side-item">
+                <li class="side-item {{request()->is('admin/question-bank') ? 'active':''}}">
                     <a href="{{ route('admin.question-bank.index') }}">
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
@@ -136,7 +136,7 @@
                         </span>
                         Question Bank
                     </a>
-                </li> 
+                </li>
                 <li class="side-item side-dropdown ">
                     <a class="side-dropdown-toggle" >
                         <span class="side-icon" >
@@ -148,13 +148,13 @@
                         Exam Simulator
                     </a>
                     <ul class="side-dropdown-menu" >
-                        <li class="side-item "><a href="{{route('admin.topic-test.index')}}">Topic Test</a></li> 
-                        <li class="side-item "><a href="{{route('admin.exam.index')}}">Full Mock Exam</a></li> 
+                        <li class="side-item {{request()->is('admin/topic-test') ? 'active':''}} "><a href="{{route('admin.topic-test.index')}}">Topic Test</a></li>
+                        <li class="side-item {{request()->is('admin/exam') ? 'active':''}} "><a href="{{route('admin.exam.index')}}">Full Mock Exam</a></li>
                     </ul>
                 </li>
 
                 <li class="side-item logout">
-                    <a href="{{route('admin.logout')}}" class="log-out"> 
+                    <a href="{{route('admin.logout')}}" class="log-out">
                         <span class="side-icon">
                             <img src="{{asset("assets/images/log-out.svg")}}" alt="log-out">
                         </span>
@@ -190,7 +190,7 @@
         });
         function handleFileUpload(file){
             return new Promise((resolve, reject) => {
-                var formData = new FormData(); 
+                var formData = new FormData();
                 formData.append("file", file);
                 formData.append("foldername", "ckeditor");
                 var toastId = showToast('Uploading... 0%', 'info', false);
@@ -200,7 +200,7 @@
                     type : 'POST',
                     data : formData,
                     processData: false,
-                    contentType: false,                        
+                    contentType: false,
                     xhr: function() {
                         var xhr = new window.XMLHttpRequest();
                         xhr.upload.addEventListener('progress', function(event) {
@@ -221,7 +221,7 @@
                         updateToast(toastId, 'Upload failed.', 'danger');
                         // reject(errorMessage)
                         reject({code:xhr.status,status:xhr.statusText,error:xhr.responseText})
-                    }                      
+                    }
                 });
             });
         }
@@ -238,18 +238,18 @@
                     input.type = 'file';
                     input.onchange = function() {
                         var file = input.files[0];
-                        if (file) { 
-                            handleFileUpload(file).then(function(res) { 
+                        if (file) {
+                            handleFileUpload(file).then(function(res) {
                                 if(res.mime_type.startsWith('image/')){
                                     editor.insertHtml(`
                                     <figure class="image-area">
-                                        <img alt="" src="${res.url}" width="600" height="400"  /> 
+                                        <img alt="" src="${res.url}" width="600" height="400"  />
                                     </figure>
                                     `);
                                 }else if(res.mime_type.startsWith('video/')){
                                     editor.insertHtml(`
                                     <figure class="video-area">
-                                        <video alt="" controls src="${res.url}" type="${res.mime_type}" /> 
+                                        <video alt="" controls src="${res.url}" type="${res.mime_type}" />
                                     </figure>
                                     `);
                                 }else{
@@ -261,7 +261,7 @@
                                 }
 
                             })
-                            .catch(function(error) { 
+                            .catch(function(error) {
                                 console.error('Error uploading file:', error);
                             });;
                         }
@@ -271,8 +271,8 @@
             });
         }
     </script>
-    <script src="{{ asset('assets/js/datatables.min.js') }}"></script> 
-    <script src="{{ asset('assets/js/select2.min.js') }}"></script> 
+    <script src="{{ asset('assets/js/datatables.min.js') }}"></script>
+    <script src="{{ asset('assets/js/select2.min.js') }}"></script>
     <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
     <script src="{{ asset('assets/js/custom.js') }}"></script>
     @stack('footer-script')
