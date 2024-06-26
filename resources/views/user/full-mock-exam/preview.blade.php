@@ -1,5 +1,5 @@
 @extends('layouts.exam')
-@section('title', $exam->subtitle($category->id,"Topic ".($category->getIdx()+1)).':'.$category->name)
+@section('title', $exam->title)
 @section('content')
 <section class="exam-container">
     <div class="container-wrap">
@@ -8,7 +8,7 @@
                 <img src="{{asset("assets/images/exiticon.svg")}}" alt="exiticon">
             </a>
             <div class="lesson-title">
-                <h3><span>{{$exam->subtitle($category->id,"Topic ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h3>
+                <h3><span>{{$exam->title}}</span></h3>
             </div>
             <div class="lesson-body"> 
                 <div class="row" id="lesson-questionlist-list" style="display: none">

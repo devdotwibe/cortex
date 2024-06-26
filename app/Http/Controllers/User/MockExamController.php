@@ -9,6 +9,8 @@ use App\Models\Exam;
 use App\Models\Question;
 use App\Models\User;
 use App\Models\UserExamReview;
+use App\Models\UserReviewAnswer;
+use App\Models\UserReviewQuestion;
 use App\Trait\ResourceController;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -100,6 +102,21 @@ class MockExamController extends Controller
     }
 
 
+    public function preview(Request $request,UserExamReview $userExamReview){
+        $exam=Exam::find( $userExamReview->exam_id );
+        /**
+         * @var User
+         */
+        $user=Auth::user();
+        if($request->ajax()){
+            if(!empty($request->question)){
+                $question=UserReviewQuestion::findSlug($request->question);
+                return UserReviewAnswer::where('user_review_question_id',$question->id)->get(['slug','title','user_answer','iscorrect']);
+            }
+            return UserReviewQuestion::whereIn('review_type',['mcq'])->where('user_exam_review_id',$userExamReview->id)->paginate(1,['title','note','slug']);
+        }
+        return view("user.full-mock-exam.preview",compact('exam','user','userExamReview'));
+    }
     public function examhistory(Request $request,Exam $exam){
         /**
          * @var User
