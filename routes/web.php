@@ -92,20 +92,34 @@ Route::middleware('auth')->group(function(){
         Route::post('/{category}/{sub_category}/set/{setname}/submit',[ExamQuestionController::class,'setsubmit'])->name('set.submit');
         Route::post('/{category}/{sub_category}/set/{setname}/verify',[ExamQuestionController::class,'setverify'])->name('set.verify');
         Route::get('/{category}/{sub_category}/set/{setname}/review',[ExamQuestionController::class,'setreview'])->name('set.review');
-
         Route::get('/attempt/{user_exam_review}/preview',[ExamQuestionController::class,'preview'])->name('preview');
     });
 
+ 
 
-    Route::prefix('topic-test')->name('topic-test.')->group(function () {
+    Route::prefix('topic-test')->name('topic-test.')->group(function () { 
         Route::get('/',[TopicExamController::class,'index'])->name('index');
-        Route::get('/{category}',[TopicExamController::class,'show'])->name('show');
+        Route::get('/{category}',[TopicExamController::class,'show'])->name('show'); 
+        Route::get('/{category}/history',[TopicExamController::class,'topichistory'])->name('topic.history');
+        Route::post('/{category}/submit',[TopicExamController::class,'topicsubmit'])->name('topic.submit');
+        Route::post('/{category}/verify',[TopicExamController::class,'topicverify'])->name('topic.verify');
+        Route::get('/{category}/review',[TopicExamController::class,'topicreview'])->name('topic.review');
+        Route::get('/attempt/{user_exam_review}/preview',[TopicExamController::class,'preview'])->name('preview');
     });
 
     Route::prefix('full-mock-exam')->name('full-mock-exam.')->group(function () {
+        /*
         Route::get('/',[MockExamController::class,'index'])->name('index');
         Route::get('/{exam}',[MockExamController::class,'show'])->name('show');
         Route::get('/{exam}/question/{question}',[MockExamController::class,'question'])->name('question');
+        */
+        Route::get('/',[MockExamController::class,'index'])->name('index');
+        Route::get('/{exam}',[MockExamController::class,'show'])->name('show'); 
+        Route::get('/{exam}/history',[MockExamController::class,'topichistory'])->name('topic.history');
+        Route::post('/{exam}/submit',[MockExamController::class,'topicsubmit'])->name('topic.submit');
+        Route::post('/{exam}/verify',[MockExamController::class,'topicverify'])->name('topic.verify');
+        Route::get('/{exam}/review',[MockExamController::class,'topicreview'])->name('topic.review');
+        Route::get('/attempt/{user_exam_review}/preview',[MockExamController::class,'preview'])->name('preview');
     });
 
 });

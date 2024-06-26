@@ -48,8 +48,10 @@ class SubmitReview implements ShouldQueue
                 break;
             case 'question-bank':
                 $this->questionSetHandle();
+                break;        
+            case 'topic-test':
+                $this->topicTestHandle();
                 break;
-            
             default:
                 # code...
                 break;
@@ -131,7 +133,7 @@ class SubmitReview implements ShouldQueue
         $category=Category::find($this->review->category_id); 
         $subCategory=SubCategory::find($this->review->sub_category_id);
         $setname=Setname::find($this->review->sub_category_set);
-        foreach (Question::where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->get() as $k=> $question) {
+        foreach (Question::where('exam_id',$exam->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->get() as $k=> $question) {
               
             $user_answer=$user->progress("exam-".$exam->id."-topic-".$category->id."-lesson-".$subCategory->id."-set-".$setname->id."-answer-of-".$question->slug,"");
 
@@ -160,5 +162,40 @@ class SubmitReview implements ShouldQueue
         $user->setProgress("exam-".$exam->id."-topic-".$category->id."-lesson-".$subCategory->id."-set-".$setname->id."-complete-review",null);
         $user->setProgress("exam-".$exam->id."-topic-".$category->id."-lesson-".$subCategory->id."-set-".$setname->id."-progress-ids",null);
         $user->setProgress("exam-".$exam->id."-topic-".$category->id."-lesson-".$subCategory->id."-set-".$setname->id."-progress-url",null);
+    }
+
+    private function topicTestHandle(){
+        $user=User::find($this->review->user_id);
+        $exam=Exam::find($this->review->exam_id);
+        $category=Category::find($this->review->category_id);  
+        foreach (Question::where('exam_id',$exam->id)->where('category_id',$category->id)->get() as $k=> $question) {
+              
+            $user_answer=$user->progress("exam-".$exam->id."-topic-".$category->id."-answer-of-".$question->slug,"");
+
+            $revquestion=UserReviewQuestion::store([
+                'title'=>$question->title, 
+                'user_exam_review_id'=>$this->review->id,
+                'review_type'=>'mcq',
+                'note'=>$question->description, 
+                'explanation'=>"", //$question->explanation, 
+                'currect_answer'=>'', 
+                'user_answer'=>$user_answer,  
+            ]);
+            
+            
+            foreach($question->answers as $ans){
+                UserReviewAnswer::store([
+                    'user_exam_review_id'=>$this->review->id,
+                    'user_review_question_id'=>$revquestion->id,
+                    'title'=>$ans->title,
+                    'iscorrect'=>$ans->iscorrect,
+                    'user_answer'=>(($ans->slug==$user_answer)?true:false),
+                ]); 
+            } 
+            $user->setProgress("exam-".$exam->id."-topic-".$category->id."-answer-of-".$question->slug,null);
+        }
+        $user->setProgress("exam-".$exam->id."-topic-".$category->id."-complete-review",null);
+        $user->setProgress("exam-".$exam->id."-topic-".$category->id."-progress-ids",null);
+        $user->setProgress("exam-".$exam->id."-topic-".$category->id."-progress-url",null);
     }
 }

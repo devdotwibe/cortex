@@ -4,7 +4,7 @@
 <section class="exam-container">
     <div class="container-wrap">
         <div class="lesson">            
-            <a class="lesson-exit float-start" href="{{route('question-bank.show',$category->slug)}}">
+            <a class="lesson-exit float-start" href="{{route('topic-test.index')}}">
                 <img src="{{asset("assets/images/exiticon.svg")}}" alt="exiticon">
             </a>
             <div class="lesson-title">
@@ -36,7 +36,7 @@
             return result;
         }
         function loadlessonreview(reviewurl){ 
-            $.get(reviewurl||"{{ route('question-bank.preview',$userExamReview->slug) }}",function(res){
+            $.get(reviewurl||"{{ route('topic-test.preview',$userExamReview->slug) }}",function(res){
                 $('.pagination-arrow').hide();
                 $('#lesson-footer-pagination').html('')
                 const lesseonId=generateRandomId(10); 
@@ -66,7 +66,7 @@
                             </div>
                         </div>
                     `).fadeIn();
-                    $.get("{{ route('question-bank.preview',$userExamReview->slug) }}",{question:v.slug},function(ans){
+                    $.get("{{ route('topic-test.preview',$userExamReview->slug) }}",{question:v.slug},function(ans){
                         $(`#mcq-${lesseonId}-list`).html('')
                         $.each(ans,function(ai,av){
                             const letter = String.fromCharCode(ai + 'A'.charCodeAt(0))
