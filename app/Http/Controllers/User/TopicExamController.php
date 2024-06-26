@@ -156,7 +156,7 @@ class TopicExamController extends Controller
         $question=Question::findSlug($request->question);
         $ans=Answer::findSlug($request->answer);
         if(empty($ans)||$ans->exam_id!=$exam->id||$ans->question_id!=$question->id||!$ans->iscorrect){
-            return response()->json(["iscorrect"=>false,'s'=>$ans]);
+            return response()->json(["iscorrect"=>false]);
         }else{
             return response()->json(["iscorrect"=>true]);
         }

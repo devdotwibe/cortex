@@ -19,20 +19,15 @@ class StripeController extends Controller
 
     public function handlePayment(Request $request)
     {
-        // Set up Stripe PHP library with your secret key
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
-
         try {
-            // Check if customer already has a Stripe customer ID
             if (!$request->user()->stripe_customer_id) {
-                // Create a new Stripe customer and attach payment method
                 $stripeCustomer = Stripe\Customer::create([
                     'email' => $request->user()->email,
-                    'source' => $request->stripeToken, // Stripe token obtained from Stripe Elements
+                    'source' => $request->stripeToken,
                 ]);
-
-                // Save the customer ID to your user record in your database
                 $request->user()->update(['stripe_customer_id' => $stripeCustomer->id]);
+
             } else {
                 // Retrieve the existing Stripe customer
                 $stripeCustomer = Stripe\Customer::retrieve($request->user()->stripe_customer_id);
@@ -55,9 +50,10 @@ class StripeController extends Controller
                 }
             }
 
+
             // Create a PaymentIntent for the payment
-            $paymentIntent = PaymentIntent::create([
-                'amount' => 2000, // Amount in cents, e.g., $20.00
+            $payment_intent =Stripe\PaymentIntent::create([
+                'amount' => 2000,
                 'currency' => 'usd',
                 'customer' => $stripeCustomer->id, // Use the customer ID saved in your database
                 'payment_method' => isset($paymentMethod) ? $paymentMethod->id : $stripeCustomer->invoice_settings->default_payment_method,
@@ -69,9 +65,9 @@ class StripeController extends Controller
             // Create a subscription record in your database
             $subscription = new Subscription();
             $subscription->user_id = $request->user()->id;
-            $subscription->payment_id = $paymentIntent->id;
+            $subscription->payment_id = $payment_intent->id;
             $subscription->customer_id = $stripeCustomer->id;
-            $subscription->amount = $paymentIntent->amount / 100; // Convert amount back to dollars
+            $subscription->amount = $payment_intent->amount / 100; // Convert amount back to dollars
             $subscription->start_date = Carbon::now();
             $subscription->expiration_date = Carbon::now()->addYear()->month(5)->day(30);
             $subscription->save();
@@ -84,4 +80,5 @@ class StripeController extends Controller
             return redirect()->back()->with('error', 'Failed to add payment method: ' . $e->getMessage());
         }
     }
+
 }

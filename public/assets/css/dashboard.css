@@ -848,7 +848,25 @@ border-radius: 7px;
 .submit{
 	margin-top:7px;
 }
-
+.exam-list {
+  width:100%; 
+}
+.exam-list .exam-title {
+  display:flex;
+  width:100%;
+  margin:5px;
+  border:1px solid #d9d9d9;
+  border-radius:10px;
+  padding: 15px 10px;
+}
+.exam-list .exam-title h3{
+  width:100%;
+  float:left;
+}
+.exam-list .exam-title .action-btn{
+  width:max-content;
+  float:right;
+}
 
 
 
