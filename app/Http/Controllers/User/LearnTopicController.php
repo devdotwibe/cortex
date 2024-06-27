@@ -67,16 +67,16 @@ class LearnTopicController extends Controller
          *  @var User
          */
         $user=Auth::user();
-        // $subscription = Subscription::where('user_id', $user->id)
-        //     ->where('category_id', $category->id)
-        //     ->where('status', 'active')
-        //     ->first();
-        // if($subscription){
+         $subscription = Subscription::where('user_id', $user->id)
+            ->where('category_id', $category->id)
+             ->where('status', 'active')
+             ->first();
+         if($subscription){
             return view("user.learn.show",compact('category','exam','lessons','user'));
-        // }
-        // else{
-        //     return redirect()->route('stripe.payment');
-        // }
+         }
+         else{
+            return redirect()->route('stripe.payment');
+         }
     }
     public function lessonshow(Request $request,Category $category,SubCategory $subCategory){
 
