@@ -25,7 +25,7 @@ class TopicExamController extends Controller
         self::reset();
         self::$model = Category::class; 
 
-        $categorys=$this->buildResult();
+
         $exam=Exam::where("name",'topic-test')->first();
         if(empty($exam)){
             $exam=Exam::store([
@@ -34,6 +34,10 @@ class TopicExamController extends Controller
             ]);
             $exam=Exam::find( $exam->id );
         }
+        $categorys=$this->where(function($qry)use($exam){
+            $qry->whereIn("id",Question::where('exam_id',$exam->id)->select('category_id'));
+        })->buildResult();
+        
         /**
          *  @var User
          */

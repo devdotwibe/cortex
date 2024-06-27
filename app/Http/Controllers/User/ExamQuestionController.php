@@ -27,7 +27,6 @@ class ExamQuestionController extends Controller
         self::reset();
         self::$model = Category::class; 
 
-        $categorys=$this->buildResult();
         $exam=Exam::where("name",'question-bank')->first();
         if(empty($exam)){
             $exam=Exam::store([
@@ -36,6 +35,11 @@ class ExamQuestionController extends Controller
             ]);
             $exam=Exam::find( $exam->id );
         }
+
+        $categorys=$this->whereHas('subcategories',function($qry)use($exam){
+            $qry->whereIn("id",Question::where('exam_id',$exam->id)->select('sub_category_id'));
+        })->buildResult();
+        
         /**
          *  @var User
          */
@@ -44,7 +48,7 @@ class ExamQuestionController extends Controller
     }
 
     public function show(Request $request,Category $category){
-        $lessons=SubCategory::where('category_id',$category->id)->get();
+
         $exam=Exam::where("name",'question-bank')->first();
         if(empty($exam)){
             $exam=Exam::store([
@@ -53,6 +57,10 @@ class ExamQuestionController extends Controller
             ]);
             $exam=Exam::find( $exam->id );
         } 
+
+        $lessons=SubCategory::where('category_id',$category->id)->whereHas('setname',function($qry)use($exam){
+            $qry->whereIn("id",Question::where('exam_id',$exam->id)->select('sub_category_set'));
+        })->get();
 
         /**
          *  @var User

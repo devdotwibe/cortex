@@ -19,6 +19,7 @@ trait ResourceController
 
     protected static $actions=[];
     protected static $whereCondition=[];
+    protected static $whereHasCondition=[];
     protected static $defaultActions=['view','edit','delete'];
 
     public static function reset(){
@@ -29,6 +30,7 @@ trait ResourceController
 
      $actions=[];
      $whereCondition=[];
+     $whereHasCondition=[];
     }
     public function addAction(callable $action){
         self::$actions[]=$action;
@@ -38,10 +40,21 @@ trait ResourceController
         self::$whereCondition[]=$condition;
         return $this;
     }
+    public function whereHas(...$condition){
+        self::$whereHasCondition[]=$condition;
+        return $this;
+    }
     public function buildSelectOption($searchfield="name",$limit=12){
         $query=app(self::$model)->query();
         foreach(self::$whereCondition as $condition){
             $query->where(...$condition);
+        }
+        foreach(self::$whereHasCondition as $condition){
+            if(count($condition)==1){
+                $query->has($condition[0]);
+            }else{
+                $query->whereHas(...$condition);
+            }
         }
         if(!empty(request("term"))){
             $query->where($searchfield,'like',"%".(request("term"))."%");
@@ -66,12 +79,26 @@ trait ResourceController
         foreach(self::$whereCondition as $condition){
             $query->where($condition[0]??"",$condition[1]??null);
         }
+        foreach(self::$whereHasCondition as $condition){
+            if(count($condition)==1){
+                $query->has($condition[0]);
+            }else{
+                $query->whereHas(...$condition);
+            }
+        }
         return $query->paginate($limit);
     }
     public function buildResult($limit=12){
         $query=app(self::$model)->query();
         foreach(self::$whereCondition as $condition){
             $query->where($condition[0]??"",$condition[1]??null);
+        }
+        foreach(self::$whereHasCondition as $condition){
+            if(count($condition)==1){
+                $query->has($condition[0]);
+            }else{
+                $query->whereHas(...$condition);
+            }
         }
         return $query->get();
     }
@@ -81,6 +108,13 @@ trait ResourceController
         $query=app(self::$model)->query();
         foreach(self::$whereCondition as $condition){
             $query->where($condition[0]??"",$condition[1]??null);
+        }
+        foreach(self::$whereHasCondition as $condition){
+            if(count($condition)==1){
+                $query->has($condition[0]);
+            }else{
+                $query->whereHas(...$condition);
+            }
         }
         $table=DataTables::of($query);
         $table->addColumn('selectbox',function($data){
@@ -146,6 +180,13 @@ trait ResourceController
         $query=app(self::$model)->query();
         foreach(self::$whereCondition as $condition){
             $query->where($condition[0]??"",$condition[1]??null);
+        }
+        foreach(self::$whereHasCondition as $condition){
+            if(count($condition)==1){
+                $query->has($condition[0]);
+            }else{
+                $query->whereHas(...$condition);
+            }
         }
         return $query->count();
     }

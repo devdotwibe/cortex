@@ -32,9 +32,7 @@ class LearnTopicController extends Controller
     public function index(Request $request){
         self::reset();
         self::$model = Category::class;
-
-        $categorys=$this->buildResult();
-
+ 
         $exam=Exam::where("name",'learn')->first();
         if(empty($exam)){
             $exam=Exam::store([
@@ -44,6 +42,10 @@ class LearnTopicController extends Controller
             $exam=Exam::find( $exam->id );
         }
 
+        $categorys=$this->whereHas('subcategories',function($qry){
+            $qry->whereIn("id",Learn::select('sub_category_id'));
+        })->buildResult();
+        
         /**
          *  @var User
          */
@@ -53,7 +55,9 @@ class LearnTopicController extends Controller
 
     }
     public function show(Request $request,Category $category){
-        $lessons=SubCategory::where('category_id',$category->id)->get();
+        $lessons=SubCategory::where('category_id',$category->id)->where(function($qry){
+            $qry->whereIn("id",Learn::select('sub_category_id'));
+        })->get();
         $exam=Exam::where("name",'learn')->first();
         if(empty($exam)){
             $exam=Exam::store([
