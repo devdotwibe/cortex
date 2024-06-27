@@ -154,14 +154,7 @@
 
 
                                             </div>
-
-                                            <div class="mb-3">
-
-                                                    <a  onclick="Closeset()" class="btn btn-secondary">Cancel</a>
-
-                                                    <button type="submit" class="btn btn-dark">Save</button>
-
-
+ 
                                             <div class="mb-3">
 
                                                     <a  onclick="CloseSet()" class="btn btn-secondary">Cancel</a>
