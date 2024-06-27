@@ -5,7 +5,7 @@
     <div class="header_wrapp">
         <div class="header_title">
             <h2>Options</h2>
-        </div> 
+        </div>
     </div>
 </section>
 <section class="invite-wrap mt-2">
@@ -16,14 +16,14 @@
             <x-ajax-table tableid="module" ajaxcreate="true" title="Add Category" :createurl="route('admin.options.store')" :coloumns='[
                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
                 ["th"=>"Category","name"=>"name","data"=>"name"],
-               
+
             ]'
             btnsubmit="Add" onclick="CloseModal()"
             :fields='[
                         ["name"=>"name","label"=>"Category" ,"placeholder"=>"Enter Category Name" ,"size"=>8],
-                        
-                    ]' 
-            
+
+                    ]'
+
             />
 
     </div>
@@ -52,57 +52,57 @@
 
                         <div class="modal-body">
 
-                            <div class="row"> 
+                            <div class="row">
                                 <div class="card">
                                     <div class="card-body">
                                         <form action="#" class="form" id="table-form-sub" method="post">
-                                            @csrf 
-                            
+                                            @csrf
+
                                             <div class="row">
-                                               
+
                                                     <div class="col-md-8">
                                                         <div class="form-group">
                                                             <div class="form-data">
-                                                                <div class="forms-inputs mb-4"> 
+                                                                <div class="forms-inputs mb-4">
 
                                                                     <label for="sub_name">Sub Category</label>
-                                                                    
-                                                                            <input type="text" name="name" id="sub_name" class="form-control">        
-                                                                   
-                                                                    
+
+                                                                            <input type="text" name="name" id="sub_name" class="form-control">
+
+
                                                                     <div class="invalid-feedback" id="name-error"></div>
-                                                                   
+
                                                                 </div>
                                                             </div>
-                                                        </div>    
-                                                    </div> 
-                                               
-                                                 
+                                                        </div>
+                                                    </div>
+
+
                                             </div>
-                            
-                                            <div class="mb-3"> 
-                                                                 
+
+                                            <div class="mb-3">
+
                                                     <a  onclick="CloseSub()" class="btn btn-secondary">Cancel</a>
-                    
-                                                    <button type="submit" class="btn btn-dark">Save</button> 
-                            
+
+                                                    <button type="submit" class="btn btn-dark">Save</button>
+
                                             </div>
                                         </form>
                                     </div>
-                                </div> 
-                            </div> 
+                                </div>
+                            </div>
 
 
                             <x-ajax-table tableid="sub_category" beforeajax='beforeajaxcallback' :url="route('admin.subcategory_table.show')"  :coloumns='[
                                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
                                 ["th"=>"Sub Category","name"=>"name","data"=>"name"],
-                              
+
                             ]' />
-                                
+
                         </div>
 
-                      
-                            
+
+
                     </div>
 
             </div>
@@ -126,57 +126,57 @@
 
                         <div class="modal-body">
 
-                            <div class="row"> 
+                            <div class="row">
                                 <div class="card">
                                     <div class="card-body">
                                         <form action="#" class="form" id="table-form-addset" method="post">
-                                            @csrf 
-                            
+                                            @csrf
+
                                             <div class="row">
-                                               
+
                                                     <div class="col-md-8">
                                                         <div class="form-group">
                                                             <div class="form-data">
-                                                                <div class="forms-inputs mb-4"> 
+                                                                <div class="forms-inputs mb-4">
 
                                                                     <label for="set_name">Add Set Name</label>
-                                                                    
-                                                                            <input type="text" name="name" id="set_name" class="form-control">        
-                                                                   
-                                                                    
+
+                                                                            <input type="text" name="name" id="set_name" class="form-control">
+
+
                                                                     <div class="invalid-feedback" id="set_name-error"></div>
-                                                                   
+
                                                                 </div>
                                                             </div>
-                                                        </div>    
-                                                    </div> 
-                                               
-                                                 
+                                                        </div>
+                                                    </div>
+
+
                                             </div>
-                            
-                                            <div class="mb-3"> 
-                                                                 
+
+                                            <div class="mb-3">
+
                                                     <a  onclick="Closeset()" class="btn btn-secondary">Cancel</a>
-                    
-                                                    <button type="submit" class="btn btn-dark">Save</button> 
-                            
+
+                                                    <button type="submit" class="btn btn-dark">Save</button>
+
                                             </div>
                                         </form>
                                     </div>
-                                </div> 
-                            </div> 
+                                </div>
+                            </div>
 
 
                             <x-ajax-table tableid="addset" beforeajax='beforeajaxcallsub' :url="route('admin.set_table.show')" :coloumns='[
                                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
                                 ["th"=>"Set Name","name"=>"name","data"=>"name"],
-                              
+
                             ]' />
-                                
+
                         </div>
 
-                      
-                            
+
+
                     </div>
 
             </div>
@@ -200,65 +200,65 @@
 
                         <div class="modal-body">
 
-                            <div class="row"> 
+                            <div class="row">
                                 <div class="card">
                                     <div class="card-body">
                                         <form action="#" class="form" id="table-form-edit-common" method="post">
-                                            @csrf 
+                                            @csrf
 
                                         @method('put')
-                            
+
                                             <div class="row">
-                                               
+
                                                     <div class="col-md-8">
                                                         <div class="form-group">
                                                             <div class="form-data">
-                                                                <div class="forms-inputs mb-4"> 
+                                                                <div class="forms-inputs mb-4">
 
                                                                     <label for="common_name" id="common_label"></label>
-                                                                    
-                                                                            <input type="text" name="name" id="common_name" class="form-control">        
-                                                                   
-                                                                    
+
+                                                                            <input type="text" name="name" id="common_name" class="form-control">
+
+
                                                                     <div class="invalid-feedback" id="common_name-error"></div>
-                                                                   
+
                                                                 </div>
                                                             </div>
-                                                        </div>    
-                                                    </div> 
-                                               
-                                                 
+                                                        </div>
+                                                    </div>
+
+
                                             </div>
-                            
-                                            <div class="mb-3"> 
-                                                                 
+
+                                            <div class="mb-3">
+
                                                     <a  onclick="CloseCommon()" class="btn btn-secondary">Cancel</a>
-                    
-                                                    <button type="submit" class="btn btn-dark">Save</button> 
-                            
+
+                                                    <button type="submit" class="btn btn-dark">Save</button>
+
                                             </div>
                                         </form>
                                     </div>
-                                </div> 
-                            </div> 
-                                
+                                </div>
+                            </div>
+
                         </div>
-                            
+
                     </div>
 
             </div>
         </div>
     </div>
-    
+
 @endpush
 
 @push('footer-script')
     <script>
-         
+
 
         function AddSubject()
             {
-              
+
                 $('#table-module-static').modal('show');
 
                 $('.invalid-feedback').text('');
@@ -290,7 +290,7 @@
             }
         }
 
-    
+
         function CloseSub()
         {
             $('#table-sub_category-create').modal('hide');
@@ -319,12 +319,12 @@
             return data;
         }
 
-        
 
-        
+
+
             function EditSub (url,slug,type)
             {
-              
+
                 $('#table-form-edit-common').attr('action',url);
 
                 var route ="{{ route('admin.get_edit_details') }}";
@@ -338,10 +338,10 @@
                             type: type,
 
                         },
-                        
+
                         success: function(response) {
 
-                           
+
 
                             if(type =='category')
                             {
@@ -365,7 +365,7 @@
                                 $('#common_button').data('button','subcategory');
                             }
                             else
-                            { 
+                            {
                                 $('#table-addset-create').modal('hide');
 
                                 $('#table_common_edit_Label').text("Edit Set Name");
@@ -375,7 +375,7 @@
                                 $('#common_button').data('button','set');
 
                             }
-                            
+
 
                             $('#table-common-edit').modal('show');
 
@@ -390,7 +390,7 @@
                             var errors = xhr.responseJSON.errors;
 
                             console.log(errors);
-                    
+
                         }
                     });
 
@@ -398,7 +398,7 @@
 
         function SubCat(url,slug)
             {
-              
+
                 $('#table-sub_category-create').modal('show');
 
                 $('.invalid-feedback').text('');
@@ -431,7 +431,7 @@
                         url: $(this).attr('action'),
                         method: $(this).attr('method'),
                         data: $(this).serialize(),
-                        
+
                         success: function(response) {
 
                             $('#table-common-edit').modal('hide');
@@ -442,7 +442,7 @@
                             }
                             else if(response.type == 'subcategory')
                             {
-                                $('#table-sub_category-create').modal('show'); 
+                                $('#table-sub_category-create').modal('show');
 
                                 $('#table-sub_category').DataTable().ajax.reload();
                             }
@@ -464,7 +464,7 @@
                         error: function(xhr) {
 
                             var errors = xhr.responseJSON.errors;
-                            
+
                             $.each(errors, function(key, value) {
 
                                 $('#common_name-error').text(value[0]).show();
@@ -476,7 +476,7 @@
                 });
             });
 
-            
+
 
             $(document).ready(function() {
 
@@ -487,7 +487,7 @@
                         url: $(this).attr('action'),
                         method: $(this).attr('method'),
                         data: $(this).serialize(),
-                        
+
                         success: function(response) {
 
                             $('#table-sub_category-create').modal('show');
@@ -502,7 +502,7 @@
                         error: function(xhr) {
 
                             var errors = xhr.responseJSON.errors;
-                            
+
                             $.each(errors, function(key, value) {
 
                                 $('#' + key + '-error').text(value[0]).show();
@@ -513,8 +513,8 @@
                     });
                 });
                 });
-        
-    
+
+
             $(document).ready(function() {
 
                 $('#table-form-addset').on('submit', function(e) {
@@ -524,7 +524,7 @@
                         url: $(this).attr('action'),
                         method: $(this).attr('method'),
                         data: $(this).serialize(),
-                        
+
                         success: function(response) {
 
                             $('#table-addset-create').modal('show');
@@ -539,7 +539,7 @@
                         error: function(xhr) {
 
                             var errors = xhr.responseJSON.errors;
-                            
+
                             $.each(errors, function(key, value) {
 
                                 $('#' + key + 'set_name-error').text(value[0]).show();
@@ -551,7 +551,7 @@
                 });
             });
 
-            
+
     </script>
 
 @endpush
