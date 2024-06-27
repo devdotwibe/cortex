@@ -270,6 +270,9 @@
                 }
             });
         }
+        $(document).on('hidden.bs.modal','.modal',function(){
+            $(this).find('form').trigger("reset");
+        })
     </script>
     <script src="{{ asset('assets/js/datatables.min.js') }}"></script>
     <script src="{{ asset('assets/js/select2.min.js') }}"></script>

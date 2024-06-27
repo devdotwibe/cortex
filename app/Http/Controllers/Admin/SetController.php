@@ -59,29 +59,47 @@ class SetController extends Controller
 
                     '<a onclick="EditSub(\''.route('admin.set.update', $data->slug).'\', \''.$data->slug.'\' , \'set\')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>';;
 
-                    })->buildTable();
+                    })->addColumn('visibility',function($data){
+                        return '                
+                            <div class="form-check ">
+                                <input type="checkbox"  class="user-visibility form-check-box" name="visibility" value="'.($data->id).'" '.($data->visible_status=="show"?"checked":"").' onchange="subcatsetvisiblechangerefresh('."'".route("admin.set.visibility",$data->slug)."'".')" > 
+                            </div>
+                        ';
+                    })->buildTable(['visibility']);
             }
             else
             {
-                return $this->buildTable();
+                return $this->addColumn('visibility',function($data){
+                    return '                
+                        <div class="form-check ">
+                            <input type="checkbox"  class="user-visibility form-check-box" name="visibility" value="'.($data->id).'" '.($data->visible_status=="show"?"checked":"").' onchange="subcatsetvisiblechangerefresh('."'".route("admin.set.visibility",$data->slug)."'".')" > 
+                        </div>
+                    ';
+                })->buildTable(['visibility']);
             }
            
         }
 
     }
 
+    public function visibility(Request $request,Setname $setname){
+        $setname->update(['visible_status'=>($setname->visible_status??"")=="show"?"hide":"show"]);        
+        if($request->ajax()){
+            return response()->json(["success"=>"Set visibility change success"]);
+        }        
+        return redirect()->route('admin.options.index')->with("success","Set visibility change success");
+    }
 
     function update(Request $request, $slug)
     {
 
-        $set = SubCategory::findSlug($slug);
+        $set = Setname::findSlug($slug);
 
         $edit_data = $request->validate([
 
             "name" => "required|unique:setnames,name,".$set->id,
         ]);
 
-        $set = Setname::findSlug($slug);
 
         if(!empty($set))
         {

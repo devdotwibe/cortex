@@ -16,9 +16,13 @@
             <x-ajax-table tableid="module" ajaxcreate="true" title="Add Category" :createurl="route('admin.options.store')" :coloumns='[
                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
                 ["th"=>"Category","name"=>"name","data"=>"name"],
+<<<<<<< HEAD
 
+=======
+                ["th"=>"Visible","name"=>"visible_status","data"=>"visibility"],
+>>>>>>> 701b5031bdf8a1d0d81199f65e41670cb2567b1b
             ]'
-            btnsubmit="Add" onclick="CloseModal()"
+            btnsubmit="Add" onclick="CloseModal()" tableinit="cattableinit"
             :fields='[
                         ["name"=>"name","label"=>"Category" ,"placeholder"=>"Enter Category Name" ,"size"=>8],
 
@@ -93,10 +97,14 @@
                             </div>
 
 
-                            <x-ajax-table tableid="sub_category" beforeajax='beforeajaxcallback' :url="route('admin.subcategory_table.show')"  :coloumns='[
+                            <x-ajax-table tableid="sub_category" beforeajax='beforeajaxcallback' :url="route('admin.subcategory_table.show')" tableinit="subcattableinit" :coloumns='[
                                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
                                 ["th"=>"Sub Category","name"=>"name","data"=>"name"],
+<<<<<<< HEAD
 
+=======
+                                ["th"=>"Visible","name"=>"visible_status","data"=>"visibility"],
+>>>>>>> 701b5031bdf8a1d0d81199f65e41670cb2567b1b
                             ]' />
 
                         </div>
@@ -153,6 +161,7 @@
 
 
                                             </div>
+<<<<<<< HEAD
 
                                             <div class="mb-3">
 
@@ -160,6 +169,15 @@
 
                                                     <button type="submit" class="btn btn-dark">Save</button>
 
+=======
+
+                                            <div class="mb-3">
+
+                                                    <a  onclick="CloseSet()" class="btn btn-secondary">Cancel</a>
+
+                                                    <button type="submit" class="btn btn-dark">Save</button>
+
+>>>>>>> 701b5031bdf8a1d0d81199f65e41670cb2567b1b
                                             </div>
                                         </form>
                                     </div>
@@ -167,10 +185,15 @@
                             </div>
 
 
-                            <x-ajax-table tableid="addset" beforeajax='beforeajaxcallsub' :url="route('admin.set_table.show')" :coloumns='[
+                            <x-ajax-table tableid="addset" beforeajax='beforeajaxcallsub' :url="route('admin.set_table.show')" tableinit="subcatsettableinit"  :coloumns='[
                                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
                                 ["th"=>"Set Name","name"=>"name","data"=>"name"],
+<<<<<<< HEAD
 
+=======
+                                ["th"=>"Visible","name"=>"visible_status","data"=>"visibility"],
+
+>>>>>>> 701b5031bdf8a1d0d81199f65e41670cb2567b1b
                             ]' />
 
                         </div>
@@ -255,7 +278,40 @@
 @push('footer-script')
     <script>
 
+         var cattable=null;
+         var subcattable=null;
+         var subcatsettable=null;
+        function cattableinit(table){
+            cattable=table
+        }
+        function subcattableinit(table){
+            subcattable=table
+        }
+        function subcatsettableinit(table){
+            subcatsettable=table
+        }
+        function visiblechangerefresh(url){
+            $.get(url,function(){
+                if(cattable!=null){
+                    cattable.ajax.reload()
+                }
+            },'json')
+        }
+        function subcatvisiblechangerefresh(url){
+            $.get(url,function(){
+                if(subcattable!=null){
+                    subcattable.ajax.reload()
+                }
+            },'json')
+        }
 
+        function subcatsetvisiblechangerefresh(url){
+            $.get(url,function(){
+                if(subcatsettable!=null){
+                    subcatsettable.ajax.reload()
+                }
+            },'json')
+        }
         function AddSubject()
             {
 

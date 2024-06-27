@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\VisibleStatus;
 use App\Trait\ResourceModel;
+use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+#[ScopedBy([VisibleStatus::class])]
 class Category extends Model
 {
     use HasFactory,ResourceModel;
@@ -13,6 +16,7 @@ class Category extends Model
     protected $fillable = [
         'slug',
         'name',
+        'visible_status'
     ];
 
     public function subcategories()

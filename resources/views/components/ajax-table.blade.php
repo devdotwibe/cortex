@@ -4,7 +4,7 @@
     @csrf
 @endif
 <div class="table-outer table-{{ $tableid }}-outer">
-    <table class="table" id="table-{{ $tableid }}">
+    <table class="table" id="table-{{ $tableid }}" style="width: 100%">
         <thead>
             <tr>
                 @if ($bulkaction)
@@ -259,7 +259,7 @@
                 })
                 return false;
             })
-            $('#table-{{ $tableid }}').DataTable({
+            table_{{ $tableid }}=$('#table-{{ $tableid }}').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: {
@@ -298,6 +298,9 @@
                         $('#table-{{ $tableid }}-bulk-box').hide()
                         $('#table-{{ $tableid }}_wrapper .selectbox-box').hide()
                     }
+                    @if(!empty($tableinit))
+                        {{$tableinit}}(table_{{ $tableid }},info,settings)
+                    @endif
                 },
                 drawCallback: function() {
                     var info = this.api().page.info();
