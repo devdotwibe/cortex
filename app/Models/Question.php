@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\VisibleStatus;
 use App\Trait\ResourceModel;
+use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+#[ScopedBy([VisibleStatus::class])]
 class Question extends Model
 {
     use HasFactory,ResourceModel;
@@ -18,7 +21,8 @@ class Question extends Model
         'sub_category_id', 
         'sub_category_set',
         'slug',
-        'explanation'
+        'explanation',
+        'visible_status'
     ];
     public function category(){
         return $this->belongsTo(Category::class);

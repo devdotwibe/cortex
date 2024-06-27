@@ -60,8 +60,14 @@ class LearnController extends Controller
                         <img src="'.asset("assets/images/delete.svg").'" alt="">
                     </a> 
                     ';
+                })->addColumn('visibility',function($data){
+                    return '                
+                        <div class="form-check ">
+                            <input type="checkbox"  class="user-visibility form-check-box" name="visibility" value="'.($data->id).'" '.($data->visible_status=="show"?"checked":"").' onchange="visiblechangerefresh('."'".route("admin.learn.visibility",$data->slug)."'".')" > 
+                        </div>
+                    ';
                 })
-                ->buildTable(['title']);  
+                ->buildTable(['title','visibility']);  
         } 
         
         $exam=Exam::where("name",'learn')->first();
@@ -296,6 +302,14 @@ class LearnController extends Controller
             $redirect=$request->redirect??route('admin.learn.index');
             return redirect($redirect)->with("success","Learn has been successfully deleted");
         }
+
+    public function visibility(Request $request,Learn $learn){
+        $learn->update(['visible_status'=>($learn->visible_status??"")=="show"?"hide":"show"]);        
+        if($request->ajax()){
+            return response()->json(["success"=>"Learn visibility change success"]);
+        }        
+        return redirect()->route('admin.options.index')->with("success","Learn visibility change success");
+    }
 
 }
 

@@ -58,7 +58,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::post('/{category}/store',[TopicTestController::class,'store'])->name('store');
         });
         Route::resource("/question",QuestionController::class);
-
+        Route::get('/question/{question}/visibility',[QuestionController::class,'visibility'])->name('question.visibility');
         // Route::resource("/learn",LearnController::class);
 
         Route::prefix('learn')->name('learn.')->group(function () {
@@ -69,6 +69,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::post('/{category}/store',[LearnController::class,'store'])->name('store');
             Route::put('/{category}/{learn}/update',[LearnController::class,'update'])->name('update');
 
+            Route::get('/{learn}/visibility',[LearnController::class,'visibility'])->name('visibility');
             Route::delete('/{category}/{learn}',[LearnController::class,'destroy'])->name('destroy');
         });
 

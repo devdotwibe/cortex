@@ -173,6 +173,15 @@ class QuestionController extends Controller
         $redirect=$request->redirect??route('admin.question.index');
         return redirect($redirect)->with("success","Question has been successfully updated");
     }
+
+    public function visibility(Request $request,Question $question){
+        $question->update(['visible_status'=>($question->visible_status??"")=="show"?"hide":"show"]);        
+        if($request->ajax()){
+            return response()->json(["success"=>"Question visibility change success"]);
+        }        
+        return redirect()->route('admin.options.index')->with("success","Question visibility change success");
+    }
+    
     public function destroy(Request $request,Question $question){ 
         Answer::where("question_id",$question->id)->delete();
         $question->delete();

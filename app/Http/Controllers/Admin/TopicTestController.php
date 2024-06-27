@@ -55,8 +55,14 @@ class TopicTestController extends Controller
                         <img src="'.asset("assets/images/edit.svg").'" alt="">
                     </a>
                     ';
+                })->addColumn('visibility',function($data){
+                    return '                
+                        <div class="form-check ">
+                            <input type="checkbox"  class="user-visibility form-check-box" name="visibility" value="'.($data->id).'" '.($data->visible_status=="show"?"checked":"").' onchange="visiblechangerefresh('."'".route("admin.question.visibility",$data->slug)."'".')" > 
+                        </div>
+                    ';
                 })
-                ->buildTable(['description']);
+                ->buildTable(['description','visibility']);
         } 
         return view("admin.topic-test.show",compact('category','exam'));
     }

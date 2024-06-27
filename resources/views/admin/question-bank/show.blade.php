@@ -30,7 +30,9 @@
             <x-ajax-table tableid="categoryquestiontable" beforeajax="tablefilter" :coloumns='[
                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
                 ["th"=>"Question","name"=>"description","data"=>"description"], 
-            ]' />
+                ["th" => "Visible", "name" => "visible_status", "data" => "visibility"],
+            ]' 
+            tableinit="questiontableinit" />
         </div>
     </div>
 </section> 
@@ -38,6 +40,18 @@
 
 @push('footer-script')
     <script>
+        var questiontable = null;
+        function questiontableinit(table) {
+            questiontable = table
+        }
+
+        function visiblechangerefresh(url) {
+            $.get(url, function() {
+                if (questiontable != null) {
+                    questiontable.ajax.reload()
+                }
+            }, 'json')
+        }
         function tablefilter(data){
             data.sub_category_id=$("#subcategory").val();
             data.sub_category_set=$("#subcategoryset").val()

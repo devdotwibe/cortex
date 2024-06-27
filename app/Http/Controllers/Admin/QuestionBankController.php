@@ -73,8 +73,14 @@ class QuestionBankController extends Controller
                     ';
                 })->addColumn('subcategoryname',function($data){
                     return optional($data->subCategory)->name;
+                })->addColumn('visibility',function($data){
+                    return '                
+                        <div class="form-check ">
+                            <input type="checkbox"  class="user-visibility form-check-box" name="visibility" value="'.($data->id).'" '.($data->visible_status=="show"?"checked":"").' onchange="visiblechangerefresh('."'".route("admin.question.visibility",$data->slug)."'".')" > 
+                        </div>
+                    ';
                 })
-                ->buildTable(['description']);
+                ->buildTable(['description','visibility']);
         } 
         return view("admin.question-bank.show",compact('category','exam'));
     }
