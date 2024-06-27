@@ -81,6 +81,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::put('/{category}',[CategoryController::class,'update'])->name('update');
             Route::get('/{category}',[CategoryController::class,'show'])->name('show');
             Route::delete('/{category}',[CategoryController::class,'destroy'])->name('destroy');
+            Route::get('/{category}/visibility',[CategoryController::class,'visibility'])->name('visibility');
         });
 
         Route::post('/add-subcatecory/{slug}',[CategoryController::class,'add_subcatecory'])->name('add_subcatecory');
@@ -98,6 +99,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::put('/{subcategory}',[SubCategoryController::class,'update'])->name('update');
             Route::get('/{subcategory}',[SubCategoryController::class,'show'])->name('show');
             Route::delete('/{subcategory}',[SubCategoryController::class,'destroy'])->name('destroy');
+            Route::get('/{subcategory}/visibility',[SubCategoryController::class,'visibility'])->name('visibility');
         });
 
         Route::get('/view-subcatecory',[SubCategoryController::class,'subcategory_table'])->name('subcategory_table.show');
@@ -112,6 +114,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::put('/{set}',[SetController::class,'update'])->name('update');
             Route::get('/{set}',[SetController::class,'show'])->name('show');
             Route::delete('/{set}',[SetController::class,'destroy'])->name('destroy');
+            Route::get('/{setname}/visibility',[SetController::class,'visibility'])->name('visibility');
         });
 
         Route::get('/set/view',[SetController::class,'set_table_show'])->name('set_table.show');

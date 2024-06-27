@@ -56,7 +56,13 @@ class SubCategoryController extends Controller
 
                     }
         
-                    }) ->buildTable();
+                    })->addColumn('visibility',function($data){
+                        return '                
+                            <div class="form-check ">
+                                <input type="checkbox"  class="user-visibility form-check-box" name="visibility" value="'.($data->id).'" '.($data->visible_status=="show"?"checked":"").' onchange="subcatvisiblechangerefresh('."'".route("admin.subcategory.visibility",$data->slug)."'".')" > 
+                            </div>
+                        ';
+                    })->buildTable(['visibility']);
 
              
 
@@ -65,7 +71,13 @@ class SubCategoryController extends Controller
             }
             else
             {
-                return $this->buildTable();
+                return $this->addColumn('visibility',function($data){
+                    return '                
+                        <div class="form-check ">
+                            <input type="checkbox"  class="user-visibility form-check-box" name="visibility" value="'.($data->id).'" '.($data->visible_status=="show"?"checked":"").' onchange="subcatvisiblechangerefresh('."'".route("admin.subcategory.visibility",$data->slug)."'".')" > 
+                        </div>
+                    ';
+                })->buildTable();
             }
            
         }
@@ -104,6 +116,13 @@ class SubCategoryController extends Controller
             return response()->json(["success"=>"Subcategory deleted success"]);
         }        
         return redirect()->route('admin.options.index')->with("success","SubCategory deleted success");
+    }
+    public function visibility(Request $request,SubCategory $subcategory){
+        $subcategory->update(['visible_status'=>($subcategory->visible_status??"")=="show"?"hide":"show"]);        
+        if($request->ajax()){
+            return response()->json(["success"=>"SubCategory visibility change success"]);
+        }        
+        return redirect()->route('admin.options.index')->with("success","SubCategory visibility change success");
     }
 
 }

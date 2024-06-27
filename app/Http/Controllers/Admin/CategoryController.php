@@ -27,35 +27,32 @@ class CategoryController extends Controller
     {
         if($request->ajax()){
 
-            return $this->addAction(function($data){
-
-                if(!empty($data->subcategories) && count($data->subcategories) > 0)
-                {
-                    return '<a onclick="SubCat(\''.route('admin.add_subcatecory', $data->slug).'\', \''.$data->slug.'\')" class="btn btn-icons view_btn">+</a>'.
-
-                     '<a onclick="EditSub(\''.route('admin.options.update', $data->slug).'\', \''.$data->slug.'\' , \'category\')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>';
-
-                }
-                else
-                {
-                    return '<a onclick="SubCat(\''.route('admin.add_subcatecory', $data->slug).'\', \''.$data->slug.'\')" class="btn btn-icons view_btn">+</a>'.
-
-                    '<a onclick="EditSub(\''.route('admin.options.update', $data->slug).'\', \''.$data->slug.'\' , \'category\')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>'.
-
-                     '<a  class="btn btn-icons dlt_btn" data-delete="'.route("admin.options.destroy",$data->slug).'" >
-                                    <img src="'.asset("assets/images/delete.svg").'" alt="">
-                                </a> ';
-
-                }
-
-            })->buildTable();
+            return $this->addAction(function($data){ 
+                $action= ' 
+                    <a onclick="SubCat(\''.route('admin.add_subcatecory', $data->slug).'\', \''.$data->slug.'\')" class="btn btn-icons view_btn">+</a>
+                    <a onclick="EditSub(\''.route('admin.options.update', $data->slug).'\', \''.$data->slug.'\' , \'category\')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>
+                ';
+                if(empty($data->subcategories) || count($data->subcategories) == 0)
+                { 
+                    $action.=  '<a  class="btn btn-icons dlt_btn" data-delete="'.route("admin.options.destroy",$data->slug).'" >
+                            <img src="'.asset("assets/images/delete.svg").'" alt="">
+                        </a> '; 
+                } 
+                return $action;
+            })->addColumn('visibility',function($data){
+                return '                
+                    <div class="form-check ">
+                        <input type="checkbox"  class="user-visibility form-check-box" name="visibility" value="'.($data->id).'" '.($data->visible_status=="show"?"checked":"").' onchange="visiblechangerefresh('."'".route("admin.options.visibility",$data->slug)."'".')" > 
+                    </div>
+                ';
+            })->buildTable(['visibility']);
         }
 
         // $category = Category::with('subcategories')->where('id',$id)->first();
 
         return view('admin.options.index');
     }
-
+    
 
     function store(Request $request)
     {
@@ -102,6 +99,14 @@ class CategoryController extends Controller
         return view("admin.options.show",compact('option'));
 
     }
+    public function visibility(Request $request,Category $category){
+        $category->update(['visible_status'=>($category->visible_status??"")=="show"?"hide":"show"]);        
+        if($request->ajax()){
+            return response()->json(["success"=>"Category visibility change success"]);
+        }        
+        return redirect()->route('admin.options.index')->with("success","Category visibility change success");
+    }
+    
 
     public function destroy(Request $request,Category $category)
     { 
