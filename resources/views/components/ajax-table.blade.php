@@ -47,7 +47,7 @@
 
 
 @push('modals')
-
+{{-- 
     @if ($ajaxcreate??false)
         
 
@@ -122,7 +122,7 @@
                 </div>
             </div>
         </div>
-    @endif
+    @endif --}}
 
     <div class="modal fade" id="table-{{ $tableid }}-delete" tabindex="-1" role="dialog"
         aria-labelledby="{{ $tableid }}Label" aria-hidden="true">
@@ -150,77 +150,68 @@
 @push('footer-script')
    
     <script>
-
-        function DeleteClose(modal)
-        {
-            console.log(modal);
-            $('#table-'+modal+'-delete').modal('hide');
-
-            $('#table-'+modal+'-create').modal('show');
-        }
-
+ 
         $(document).ready(function() {
 
-        $('#table-{{ $tableid }}-bulk-action-form').submit(function(e){
-            e.preventDefault();
-            $.post($(this).attr('action'),$(this).serialize(),function(res){
-                showToast(res.success??'Records has been successfully deleted', 'success');
-                $('#table-{{ $tableid }}').DataTable().ajax.reload();
-            },'json').fail(function(){
-                showToast('Bulk action failed', 'danger');
-            })
-        })
-        $('#table-{{ $tableid }}-form-create').on('submit', function(e) {
-            e.preventDefault();
-
-            $.ajax({
-                url: $(this).attr('action'),
-                method: $(this).attr('method'),
-                data: $(this).serialize(),
-                
-                success: function(response) {
-
-                    
-                    $('#table-{{ $tableid }}-create').modal('hide');
-
-                    $('#table-{{ $tableid }}-static').modal('hide');
-
+            $('#table-{{ $tableid }}-bulk-action-form').submit(function(e){
+                e.preventDefault();
+                $.post($(this).attr('action'),$(this).serialize(),function(res){
+                    showToast(res.success??'Records has been successfully deleted', 'success');
                     $('#table-{{ $tableid }}').DataTable().ajax.reload();
-                    showToast('Record has been successfully created', 'success');
+                },'json').fail(function(){
+                    showToast('Bulk action failed', 'danger');
+                })
+            })
+            /*
+            $('#table-{{ $tableid }}-form-create').on('submit', function(e) {
+                e.preventDefault();
 
-                    $('.invalid-feedback').text('');
-
-                    $('#{{$item->name}}-table-{{ $tableid }}-form-create').val('');
-                },
-
-                error: function(xhr) {
-
-                    var errors = xhr.responseJSON.errors;
+                $.ajax({
+                    url: $(this).attr('action'),
+                    method: $(this).attr('method'),
+                    data: $(this).serialize(),
                     
-                    $.each(errors, function(key, value) {
+                    success: function(response) {
 
-                        $('#' + key + '-error-table-{{ $tableid }}-form-create').text(value[0]).show();
+                        
+                        $('#table-{{ $tableid }}-create').modal('hide');
 
-                    });
+                        $('#table-{{ $tableid }}-static').modal('hide');
 
-                }
+                        $('#table-{{ $tableid }}').DataTable().ajax.reload();
+                        showToast('Record has been successfully created', 'success');
+
+                        $('.invalid-feedback').text('');
+
+                        $('#{{$item->name}}-table-{{ $tableid }}-form-create').val('');
+                    },
+
+                    error: function(xhr) {
+
+                        var errors = xhr.responseJSON.errors;
+                        
+                        $.each(errors, function(key, value) {
+
+                            $('#' + key + '-error-table-{{ $tableid }}-form-create').text(value[0]).show();
+
+                        });
+
+                    }
+                });
             });
-        });
+            */
         });
 
 
         
         $(function() {
             $(document).on('click','#table-{{ $tableid }} .dlt_btn',function(e){
+                @if(!empty($deletecallbackbefore))
+                    {{$deletecallbackbefore}}()
+                @endif
                 var url = $(this).data("delete");
-                $("#table-{{ $tableid }}-delete-form").attr("action",url);
-
-                $('#table-{{ $tableid }}-create').modal('hide');
-
-                $('#table-{{ $tableid }}-delete').modal('show');
-
-                // console.log('#table-{{ $tableid }}');
-
+                $("#table-{{ $tableid }}-delete-form").attr("action",url);  
+                $('#table-{{ $tableid }}-delete').modal('show'); 
             }) 
             $('#table-{{ $tableid }}-bulk').change(function(){
                 if($('#table-{{ $tableid }}-bulk').is(":checked")){
@@ -246,16 +237,13 @@
             })
             $('#table-{{ $tableid }}-delete-form').submit(function(e){
                 e.preventDefault();
-                $.post($(this).attr("action"),$(this).serialize(),function(res){
-
-                    $('#table-{{ $tableid }}-delete').modal('hide');
-
-                    $('#table-{{ $tableid }}-create').modal('show');
-
-                    $('#table-{{ $tableid }}').DataTable().ajax.reload();
-
-                    showToast('Record has been successfully deleted', 'success')
-  
+                $.post($(this).attr("action"),$(this).serialize(),function(res){ 
+                    $('#table-{{ $tableid }}-delete').modal('hide');  
+                    $('#table-{{ $tableid }}').DataTable().ajax.reload(); 
+                    showToast('Record has been successfully deleted', 'success')  
+                    @if(!empty($deletecallbackafter))
+                        {{$deletecallbackafter}}()
+                    @endif
                 })
                 return false;
             })
@@ -299,7 +287,7 @@
                         $('#table-{{ $tableid }}_wrapper .selectbox-box').hide()
                     }
                     @if(!empty($tableinit))
-                        {{$tableinit}}(table_{{ $tableid }},info,settings)
+                        {{$tableinit}}(table_{{ $tableid }},info,settings,'table-{{ $tableid }}')
                     @endif
                 },
                 drawCallback: function() {

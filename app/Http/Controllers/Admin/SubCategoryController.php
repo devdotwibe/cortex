@@ -38,17 +38,17 @@ class SubCategoryController extends Controller
                     if(!empty($data->setname) && count($data->setname) > 0)
                     {
 
-                    return '<a onclick="AddSet(\''.route('admin.set.set_store', $data->slug).'\', \''.$data->slug.'\')" class="btn btn-icons view_btn">+</a>'.
+                    return '<a onclick="subcategorysetlist(\''.route('admin.set.set_store', $data->slug).'\', \''.$data->slug.'\')" class="btn btn-icons view_btn">+</a>'.
 
-                    '<a onclick="EditSub(\''.route('admin.subcategory.update', $data->slug).'\', \''.$data->slug.'\' , \'subcategory\')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>';
+                    '<a onclick="updatesubcategory(\''.route('admin.subcategory.edit', $data->slug).'\', \''.$data->slug.'\' , \'subcategory\')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>';
 
                     }
                     else
                     {
 
-                        return '<a onclick="AddSet(\''.route('admin.set.set_store', $data->slug).'\', \''.$data->slug.'\')" class="btn btn-icons view_btn">+</a>'.
+                        return '<a onclick="subcategorysetlist(\''.route('admin.set.set_store', $data->slug).'\', \''.$data->slug.'\')" class="btn btn-icons view_btn">+</a>'.
 
-                        '<a onclick="EditSub(\''.route('admin.subcategory.update', $data->slug).'\', \''.$data->slug.'\' , \'subcategory\')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>'.
+                        '<a onclick="updatesubcategory(\''.route('admin.subcategory.edit', $data->slug).'\', \''.$data->slug.'\' , \'subcategory\')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>'.
 
                         '<a  class="btn btn-icons dlt_btn" data-delete="'.route("admin.subcategory.destroy",$data->slug).'">
                         <img src="'.asset("assets/images/delete.svg").'" alt="">
@@ -84,6 +84,12 @@ class SubCategoryController extends Controller
         
     }
 
+    public function edit(Request $request,SubCategory $subCategory){
+        if($request->ajax()){
+            $subCategory->updateUrl=route('admin.subcategory.update', $subCategory->slug);
+            return response()->json($subCategory);
+        }
+    }
 
     function update(Request $request, SubCategory $subCategory)
     {  

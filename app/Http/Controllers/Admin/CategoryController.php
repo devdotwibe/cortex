@@ -29,7 +29,7 @@ class CategoryController extends Controller
 
             return $this->addAction(function($data){ 
                 $action= ' 
-                    <a onclick="SubCat(\''.route('admin.add_subcatecory', $data->slug).'\', \''.$data->slug.'\')" class="btn btn-icons view_btn">+</a>
+                    <a onclick="subcategorylist(\''.route('admin.add_subcatecory', $data->slug).'\', \''.$data->slug.'\')" class="btn btn-icons view_btn">+</a>
                     <a onclick="updatecategory('."'".route('admin.options.edit', $data->slug)."'".')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>
                 ';
                 if(empty($data->subcategories) || count($data->subcategories) == 0)
@@ -129,22 +129,13 @@ class CategoryController extends Controller
 
     
     function add_subcatecory(Request $request,Category $category)
-    {
-        
+    {        
         $sub_data = $request->validate([
-
            "name" => "required|unique:sub_categories,name,NULL,id,category_id,".$category->id,
         ]);
-
-
         $sub_data['category_id'] = $category->id;
-        
-        $sub = new SubCategory;
-
-        $sub->store($sub_data);
-        
+        SubCategory::store($sub_data);        
         return response()->json(['success' => 'Sub Category Added Successfully']);
-
     }
 
    
