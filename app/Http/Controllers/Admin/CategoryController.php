@@ -29,8 +29,8 @@ class CategoryController extends Controller
 
             return $this->addAction(function($data){ 
                 $action= ' 
-                    <a onclick="SubCat(\''.route('admin.add_subcatecory', $data->slug).'\', \''.$data->slug.'\')" class="btn btn-icons view_btn">+</a>
-                    <a onclick="EditSub(\''.route('admin.options.update', $data->slug).'\', \''.$data->slug.'\' , \'category\')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>
+                    <a onclick="subcategorylist(\''.route('admin.add_subcatecory', $data->slug).'\', \''.$data->slug.'\')" class="btn btn-icons view_btn">+</a>
+                    <a onclick="updatecategory('."'".route('admin.options.edit', $data->slug)."'".')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>
                 ';
                 if(empty($data->subcategories) || count($data->subcategories) == 0)
                 { 
@@ -92,6 +92,12 @@ class CategoryController extends Controller
         
         }
 
+    public function edit(Request $request,Category $category){
+        if($request->ajax()){
+            $category->updateUrl=route('admin.options.update', $category->slug);
+            return response()->json($category);
+        }
+    }
     public function show(Request $request,Category $option){
 
         // dd($learn->slug);
@@ -122,24 +128,14 @@ class CategoryController extends Controller
     }
 
     
-    function add_subcatecory(Request $request,$slug)
-    {
-       
+    function add_subcatecory(Request $request,Category $category)
+    {        
         $sub_data = $request->validate([
-
-           "name" => "required|unique:sub_categories,name",
+           "name" => "required|unique:sub_categories,name,NULL,id,category_id,".$category->id,
         ]);
-
-        $option = Category::where('slug',$slug)->first();
-
-        $sub_data['category_id'] = $option->id;
-        
-        $sub = new SubCategory;
-
-        $sub->store($sub_data);
-        
+        $sub_data['category_id'] = $category->id;
+        SubCategory::store($sub_data);        
         return response()->json(['success' => 'Sub Category Added Successfully']);
-
     }
 
    

@@ -24,12 +24,14 @@ class AjaxTable extends Component
     public $bulkaction;
     public $bulkactionlink;
     public $tableinit;
+    public $deletecallbackbefore;
+    public $deletecallbackafter;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($coloumns,$url=null,$fields=null,$tableid=null,$ajaxcreate=null,$createurl=null,$cancel=null,$btnsubmit=null,$onclick=null,$beforeajax=null,$bulkaction=false,$bulkactionlink=null,$tableinit=null)
+    public function __construct($coloumns,$url=null,$fields=null,$tableid=null,$ajaxcreate=null,$createurl=null,$cancel=null,$btnsubmit=null,$onclick=null,$beforeajax=null,$bulkaction=false,$bulkactionlink=null,$tableinit=null,$deletecallbackbefore=null,$deletecallbackafter=null)
     {
         $this->coloumns = json_decode(json_encode($coloumns),false); 
         $this->url = $url??url()->current();
@@ -44,6 +46,8 @@ class AjaxTable extends Component
         $this->bulkaction = $bulkaction;
         $this->bulkactionlink = $bulkactionlink;
         $this->tableinit = $tableinit;
+        $this->deletecallbackbefore=$deletecallbackbefore;
+        $this->deletecallbackafter=$deletecallbackafter;
     }
 
     /**

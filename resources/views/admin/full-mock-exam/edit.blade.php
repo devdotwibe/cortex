@@ -27,7 +27,8 @@
             ["name"=>"duration" ,"label"=>"Duration","placeholder"=>"duration in Minutes","type"=>"select","size"=>4,"value"=>$question->duration,"valuetext"=>$question->duration,"options"=>array_map(function($num){ return [ "value"=>"$num minute","text"=>"$num minute" ]; },range(1,10))],
              
             ["name"=>"description","label"=>"Question","size"=>12,"type"=>"editor","value"=>$question->description], 
-            ["name"=>"answer","label"=>"answer" ,"type"=>"choice" ,"size"=>6,"value"=>$choices ]
+            ["name"=>"answer","label"=>"answer" ,"type"=>"choice" ,"size"=>6,"value"=>$choices ],
+            ["name"=>"explanation","label"=>"Explanation","size"=>12,"type"=>"editor" ,"value"=>$question->explanation],
         ]' /> 
     </div>
 </section> 

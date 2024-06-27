@@ -85,7 +85,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::get('/{category}/visibility',[CategoryController::class,'visibility'])->name('visibility');
         });
 
-        Route::post('/add-subcatecory/{slug}',[CategoryController::class,'add_subcatecory'])->name('add_subcatecory');
+        Route::post('/add-subcatecory/{category}',[CategoryController::class,'add_subcatecory'])->name('add_subcatecory');
 
         Route::get('/get-category',[CategoryController::class,'get_edit_details'])->name('get_edit_details');
 
@@ -96,11 +96,11 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::get('/',[SubCategoryController::class,'index'])->name('index');
             Route::get('/create',[SubCategoryController::class,'create'])->name('create');
             Route::post('/',[SubCategoryController::class,'store'])->name('store');
-            Route::get('/{subcategory}/edit',[SubCategoryController::class,'edit'])->name('edit');
-            Route::put('/{subcategory}',[SubCategoryController::class,'update'])->name('update');
-            Route::get('/{subcategory}',[SubCategoryController::class,'show'])->name('show');
-            Route::delete('/{subcategory}',[SubCategoryController::class,'destroy'])->name('destroy');
-            Route::get('/{subcategory}/visibility',[SubCategoryController::class,'visibility'])->name('visibility');
+            Route::get('/{sub_category}/edit',[SubCategoryController::class,'edit'])->name('edit');
+            Route::put('/{sub_category}',[SubCategoryController::class,'update'])->name('update');
+            Route::get('/{sub_category}',[SubCategoryController::class,'show'])->name('show');
+            Route::delete('/{sub_category}',[SubCategoryController::class,'destroy'])->name('destroy');
+            Route::get('/{sub_category}/visibility',[SubCategoryController::class,'visibility'])->name('visibility');
         });
 
         Route::get('/view-subcatecory',[SubCategoryController::class,'subcategory_table'])->name('subcategory_table.show');
@@ -111,10 +111,10 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::get('/',[SetController::class,'index'])->name('index');
             Route::get('/create',[SetController::class,'create'])->name('create');
             Route::post('/',[SetController::class,'store'])->name('store');
-            Route::get('/{set}/edit',[SetController::class,'edit'])->name('edit');
-            Route::put('/{set}',[SetController::class,'update'])->name('update');
-            Route::get('/{set}',[SetController::class,'show'])->name('show');
-            Route::delete('/{set}',[SetController::class,'destroy'])->name('destroy');
+            Route::get('/{setname}/edit',[SetController::class,'edit'])->name('edit');
+            Route::put('/{setname}',[SetController::class,'update'])->name('update');
+            Route::get('/{setname}',[SetController::class,'show'])->name('show');
+            Route::delete('/{setname}',[SetController::class,'destroy'])->name('destroy');
             Route::get('/{setname}/visibility',[SetController::class,'visibility'])->name('visibility');
         });
 

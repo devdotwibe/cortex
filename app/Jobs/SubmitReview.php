@@ -144,7 +144,7 @@ class SubmitReview implements ShouldQueue
                 'user_exam_review_id'=>$this->review->id,
                 'review_type'=>'mcq',
                 'note'=>$question->description, 
-                'explanation'=>"", //$question->explanation, 
+                'explanation'=>$question->explanation, 
                 'currect_answer'=>'', 
                 'user_answer'=>$user_answer,  
             ]);
@@ -179,7 +179,7 @@ class SubmitReview implements ShouldQueue
                 'user_exam_review_id'=>$this->review->id,
                 'review_type'=>'mcq',
                 'note'=>$question->description, 
-                'explanation'=>"", //$question->explanation, 
+                'explanation'=>$question->explanation, 
                 'currect_answer'=>'', 
                 'user_answer'=>$user_answer,  
             ]);
@@ -212,7 +212,7 @@ class SubmitReview implements ShouldQueue
                 'user_exam_review_id'=>$this->review->id,
                 'review_type'=>'mcq',
                 'note'=>$question->description, 
-                'explanation'=>"", //$question->explanation, 
+                'explanation'=>$question->explanation, 
                 'currect_answer'=>'', 
                 'user_answer'=>$user_answer,  
             ]);
