@@ -85,23 +85,15 @@ class SubCategoryController extends Controller
     }
 
 
-    function update(Request $request, $slug)
-    {
-
-        $sub = SubCategory::findSlug($slug);
-
+    function update(Request $request, SubCategory $subCategory)
+    {  
         $edit_data = $request->validate([
 
-            "name" => "required|unique:sub_categories,name,".$sub->id,
+            "name" => "required|unique:sub_categories,name,".$subCategory->id.",id,category_id,".$subCategory->category_id,
         ]);
-
-        $sub = SubCategory::findSlug($slug);
-
-        if(!empty($sub))
-        {
-           $sub->update($edit_data);
-
-        }
+  
+        $subCategory->update($edit_data);
+ 
 
         return response()->json(['success',"Sub Category Updated Successfully",'type'=>'subcategory']);
     

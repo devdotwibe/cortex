@@ -122,17 +122,16 @@ class CategoryController extends Controller
     }
 
     
-    function add_subcatecory(Request $request,$slug)
+    function add_subcatecory(Request $request,Category $category)
     {
-       
+        
         $sub_data = $request->validate([
 
-           "name" => "required|unique:sub_categories,name",
+           "name" => "required|unique:sub_categories,name,NULL,id,category_id,".$category->id,
         ]);
 
-        $option = Category::where('slug',$slug)->first();
 
-        $sub_data['category_id'] = $option->id;
+        $sub_data['category_id'] = $category->id;
         
         $sub = new SubCategory;
 
