@@ -10,21 +10,46 @@
 </section>
 <section class="invite-wrap mt-2">
     <div class="container">
+            <div class="container-wrap">
+                <div class="row"> 
+                    <div class="card">
+                        <div class="card-body">
+                            <form  class="form" id="table-category-form-create" data-save="create" data-action="{{route('admin.options.store')}}" >
+                                @csrf                
+                                <div class="row"> 
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="form-data">
+                                                <div class="forms-inputs mb-4"> 
+                                                    <label for="name-table-category-form-create">Category Name</label>
+                                                    <input type="search" name="name" id="name-table-category-form-create" class="form-control "  >
+                                                    <div class="invalid-feedback" id="name-error-table-category-form-create"></div>
+                                                </div>
+                                            </div>
+                                        </div>    
+                                    </div>
+                                    <div class="col-md-4 pt-4">  
+                                        <button type="submit" class="btn btn-dark" id="table-category-form-submit"> Add + </button>  
+                                        <button type="button" class="btn btn-secondary" style="display: none" id="table-category-form-clear" >Cancel</button>               
+                                    </div>
+                                </div> 
+                            </form>
+                            <x-ajax-table tableid="module" title="Add Category" :coloumns='[
+                                ["th"=>"Date","name"=>"created_at","data"=>"date"],
+                                ["th"=>"Category","name"=>"name","data"=>"name"],
+                                ["th"=>"Visible","name"=>"visible_status","data"=>"visibility"],
+                            ]'
+                            btnsubmit="Add" onclick="CloseModal()" tableinit="cattableinit"
+                            :fields='[
+                                        ["name"=>"name","label"=>"Category" ,"placeholder"=>"Enter Category Name" ,"size"=>8],
 
-        <button class="btn btn-success" onclick="AddSubject()">Add Category+</button>
+                                    ]'
 
-            <x-ajax-table tableid="module" ajaxcreate="true" title="Add Category" :createurl="route('admin.options.store')" :coloumns='[
-                ["th"=>"Date","name"=>"created_at","data"=>"date"],
-                ["th"=>"Category","name"=>"name","data"=>"name"],
-                ["th"=>"Visible","name"=>"visible_status","data"=>"visibility"],
-            ]'
-            btnsubmit="Add" onclick="CloseModal()" tableinit="cattableinit"
-            :fields='[
-                        ["name"=>"name","label"=>"Category" ,"placeholder"=>"Enter Category Name" ,"size"=>8],
-
-                    ]'
-
-            />
+                            />
+                        </div>
+                    </div> 
+                </div> 
+            </div> 
 
     </div>
 
@@ -511,9 +536,65 @@
                 });
             });
 
-
+            
+            function updatecategory(url){
+                $.get(url,function(res){
+                    $('#name-error-table-category-form-create').text("")
+                    $('#name-table-category-form-create').val(res.name).removeClass("is-invalid")
+                    $('#table-category-form-create').data('save',"update")
+                    $('#table-category-form-create').data('action',res.updateUrl)
+                    $('#table-category-form-clear').show()
+                    $('#table-category-form-submit').text(' update ')
+                },'json') 
+            }
+            function clearcategory(){
+                $('#name-error-table-category-form-create').text("")
+                $('#name-table-category-form-create').val('').removeClass("is-invalid")
+                $('#table-category-form-create').data('save',"create")
+                $('#table-category-form-create').data('action',"{{route('admin.options.store')}}")
+                $('#table-category-form-clear').hide()
+                $('#table-category-form-submit').text(' Add + ')
+            }
 
             $(document).ready(function() {
+                $('#table-category-form-clear').click(clearcategory);
+                $('#table-category-form-create').on('submit', function(e) {
+                    e.preventDefault();
+                    $('#name-error-table-category-form-create').text("")
+                    $('#name-table-category-form-create').removeClass("is-invalid")
+                    if($(this).data('save')=="create"){
+                        $.post($(this).data('action'),{name:$('#name-table-category-form-create').val()},function(res){
+                            cattable.ajax.reload()
+                            clearcategory()
+                        }).fail(function(xhr){
+                            try {
+                                var errors = xhr.responseJSON.errors;
+                                $('#name-error-table-category-form-create').text(errors.name[0])
+                                $('#name-table-category-form-create').addClass("is-invalid")                                
+                            } catch (error) {
+                                
+                            }                            
+                             
+                        })
+                    }else if($(this).data('save')=="update"){
+                        $.post($(this).data('action'),{_method:"PUT",name:$('#name-table-category-form-create').val()},function(res){
+                            cattable.ajax.reload()
+                            clearcategory()
+                        }).fail(function(xhr){
+                            try {
+                                var errors = xhr.responseJSON.errors;
+                                $('#name-error-table-category-form-create').text(errors.name[0])
+                                $('#name-table-category-form-create').addClass("is-invalid")                                
+                            } catch (error) {
+                                
+                            }                            
+                             
+                        })
+                    }else{
+                        $('#name-error-table-category-form-create').text("Invalid form")
+                        $('#name-table-category-form-create').addClass("is-invalid")
+                    }
+                }) 
 
                 $('#table-form-sub').on('submit', function(e) {
                     e.preventDefault();
