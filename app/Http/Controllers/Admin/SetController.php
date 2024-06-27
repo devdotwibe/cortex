@@ -21,12 +21,12 @@ class SetController extends Controller
     function set_store(Request $request,$slug)
     {
        
+        $sub = SubCategory::where('slug',$slug)->first();
         $set_data = $request->validate([
 
-            "name" => "required|unique:setnames,name",
+            "name" => "required|unique:setnames,name,NULL,id,sub_category_id,".$sub->id,
         ]);
 
-        $sub = SubCategory::where('slug',$slug)->first();
 
         $set_data['sub_category_id'] = $sub->id;
 
@@ -101,7 +101,7 @@ class SetController extends Controller
 
         $edit_data = $request->validate([
 
-            "name" => "required|unique:setnames,name,".$set->id,
+            "name" => "required|unique:setnames,name,".$set->id.",id,sub_category_id,".$set->sub_category_id,
         ]);
 
 
