@@ -19,7 +19,8 @@
             ["name"=>"sub_category_set" ,"label"=>"Set","ajaxurl"=>route("admin.question-bank.create",$category->slug),"type"=>"select","parent"=>"sub_category_id","size"=>4],
             ["name"=>"duration" ,"label"=>"Duration","placeholder"=>"duration in Minutes","type"=>"select","size"=>4,"options"=>array_map(function($num){ return [ "value"=>"$num minute","text"=>"$num minute" ]; },range(1,10))],
             ["name"=>"description","label"=>"Question","size"=>12,"type"=>"editor"], 
-            ["name"=>"answer","label"=>"answer" ,"type"=>"choice" ,"size"=>6]
+            ["name"=>"answer","label"=>"answer" ,"type"=>"choice" ,"size"=>6],
+            ["name"=>"explanation","label"=>"Explanation","size"=>12,"type"=>"editor" ],
         ]' /> 
     </div>
 </section> 

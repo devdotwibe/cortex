@@ -17,7 +17,8 @@ class Question extends Model
         'category_id', 
         'sub_category_id', 
         'sub_category_set',
-        'slug'
+        'slug',
+        'explanation'
     ];
     public function category(){
         return $this->belongsTo(Category::class);
