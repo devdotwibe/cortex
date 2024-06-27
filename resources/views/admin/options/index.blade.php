@@ -16,11 +16,7 @@
             <x-ajax-table tableid="module" ajaxcreate="true" title="Add Category" :createurl="route('admin.options.store')" :coloumns='[
                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
                 ["th"=>"Category","name"=>"name","data"=>"name"],
-<<<<<<< HEAD
-
-=======
                 ["th"=>"Visible","name"=>"visible_status","data"=>"visibility"],
->>>>>>> 701b5031bdf8a1d0d81199f65e41670cb2567b1b
             ]'
             btnsubmit="Add" onclick="CloseModal()" tableinit="cattableinit"
             :fields='[
@@ -100,11 +96,8 @@
                             <x-ajax-table tableid="sub_category" beforeajax='beforeajaxcallback' :url="route('admin.subcategory_table.show')" tableinit="subcattableinit" :coloumns='[
                                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
                                 ["th"=>"Sub Category","name"=>"name","data"=>"name"],
-<<<<<<< HEAD
-
-=======
                                 ["th"=>"Visible","name"=>"visible_status","data"=>"visibility"],
->>>>>>> 701b5031bdf8a1d0d81199f65e41670cb2567b1b
+
                             ]' />
 
                         </div>
@@ -161,7 +154,6 @@
 
 
                                             </div>
-<<<<<<< HEAD
 
                                             <div class="mb-3">
 
@@ -169,7 +161,6 @@
 
                                                     <button type="submit" class="btn btn-dark">Save</button>
 
-=======
 
                                             <div class="mb-3">
 
@@ -177,7 +168,6 @@
 
                                                     <button type="submit" class="btn btn-dark">Save</button>
 
->>>>>>> 701b5031bdf8a1d0d81199f65e41670cb2567b1b
                                             </div>
                                         </form>
                                     </div>
@@ -188,12 +178,8 @@
                             <x-ajax-table tableid="addset" beforeajax='beforeajaxcallsub' :url="route('admin.set_table.show')" tableinit="subcatsettableinit"  :coloumns='[
                                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
                                 ["th"=>"Set Name","name"=>"name","data"=>"name"],
-<<<<<<< HEAD
-
-=======
                                 ["th"=>"Visible","name"=>"visible_status","data"=>"visibility"],
 
->>>>>>> 701b5031bdf8a1d0d81199f65e41670cb2567b1b
                             ]' />
 
                         </div>
