@@ -261,18 +261,18 @@
             $('#table-subcategory-form-submit').text(' Add + ')
         }
         function closesubcategorysetlist(){
-            $('#sub-category-set-modal-content').hide();
-            $('#sub-category-modal-content').fadeIn();
-            subcattable.ajax.reload() 
+            // $('#sub-category-set-modal-content').hide();
+            // $('#sub-category-modal-content').fadeIn();
+            // subcattable.ajax.reload() 
         }
 
         function subcategorysetlist(url, slug) {
-            activedata['subcategory'] = slug; 
-            $('#table-subcategoryset-form-create').data('createurl', url);
-            clearsubcategoryset();
-            $('#sub-category-modal-content').hide();
-            $('#sub-category-set-modal-content').fadeIn();
-            subcatsettable.ajax.reload() 
+            // activedata['subcategory'] = slug; 
+            // $('#table-subcategoryset-form-create').data('createurl', url);
+            // clearsubcategoryset();
+            // $('#sub-category-modal-content').hide();
+            // $('#sub-category-set-modal-content').fadeIn();
+            // subcatsettable.ajax.reload() 
         }
 
         function updatesubcategoryset(url) {
