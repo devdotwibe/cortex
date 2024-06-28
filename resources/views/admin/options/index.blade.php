@@ -104,7 +104,7 @@
                         ]" /> 
                 </div> 
             </div>
-            <div class="modal-content" id="sub-category-set-modal-content" style="display:none">
+            {{-- <div class="modal-content" id="sub-category-set-modal-content" style="display:none">
                 <div class="modal-header">
                     <h5 class="modal-title" id="sub-category-set-createLabel">Add Set</h5>
                     <button type="button" class="close" onclick="closesubcategorysetlist()"  >
@@ -144,7 +144,7 @@
                             ['th' => 'Visible', 'name' => 'visible_status', 'data' => 'visibility'],
                         ]" />
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 
