@@ -519,7 +519,8 @@
                                                     }else{
                                                         $('.unfinish-message').hide().find('.unfinish-count').text(0)
                                                     }
-                                                    $('#finish-exam-confirm').modal('show')
+                                                    lessonreviewconfirm()
+                                                    // $('#finish-exam-confirm').modal('show')
                                                 })
                                             } 
                                             countownSlugActive="";
