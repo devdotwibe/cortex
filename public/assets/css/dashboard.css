@@ -673,7 +673,7 @@ border-radius: 7px;
   left:0;
   width: -webkit-fill-available;
   height:max-content;
-  background:none;
+  background:#f0f6fa;
   z-index:11;
 }
 
