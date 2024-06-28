@@ -188,7 +188,7 @@
                                     <h3>${v.name}</h3>
                                 </div>
                                 <div class="category-action"> 
-                                    <button class="btn btn-dark btn-sm" onclick="subcategorysetlist('${v.subsetUrl}','${v.slug}')" ><img src="{{asset('assets/images/plus.svg')}}"></button>
+                                    <button class="btn btn-dark btn-sm" onclick="subcategorysetlist('${v.subsetUrl}','${v.slug}','${v.setUrl}')" ><img src="{{asset('assets/images/plus.svg')}}"></button>
                                 </div>
                             </div>
                             <div class="category" id="category-content-set-${v.slug}">
@@ -197,16 +197,30 @@
                     </div>    
                 </div> 
                 `)
-                $.each(v.setList,function(ik,iv){
-                    $(`#category-content-set-${v.slug}`).append(`
-                     <div class="category-title"> 
-                        <a href="${iv.questionsUrl}"><span>${iv.name}</span></a>
-                     </div>
-                    `)
-                })
+                setlistrefresh(v.setUrl,v.slug);
+                // $.each(v.setList,function(ik,iv){
+                //     $(`#category-content-set-${v.slug}`).append(`
+                //      <div class="category-title"> 
+                //         <a href="${iv.questionsUrl}"><span>${iv.name}</span></a>
+                //      </div>
+                //     `)
+                // })
             })
             pagetoggle()
         },'json')
+    }
+    function setlistrefresh(url,slug){
+        $.get(url,function(res){
+            var str="";
+            $.each(res,function(ik,iv){
+                str+=`
+                    <div class="category-title"> 
+                    <a href="${iv.questionsUrl}"><span>${iv.name}</span></a>
+                    </div>
+                `;
+            })
+            $(`#category-content-set-${slug}`).html(str)
+        })
     }
     function editsubtitle(event,element){
         event.preventDefault()
@@ -219,8 +233,9 @@
 
 
 
-    function subcategorysetlist(url, slug) {
+    function subcategorysetlist(url, slug,seturl) {
         activedata['subcategory'] = slug; 
+        activedata['subcategoryseturl'] = seturl; 
         $('#table-subcategoryset-form-create').data('createurl', url);
         clearsubcategoryset();
         $('#sub-category-create-modal').modal('show');
@@ -268,7 +283,11 @@
             })
         })
 
-
+        $('#sub-category-create-modal').on('hidden.bs.modal', function (e) {
+            if(activedata['subcategory']&&activedata['subcategoryseturl']){
+                setlistrefresh(activedata['subcategoryseturl'],activedata['subcategory']);
+            }
+        })
         $('#table-subcategoryset-form-clear').click(clearsubcategoryset);
         $('#table-subcategoryset-form-create').on('submit', function(e) {
             e.preventDefault();

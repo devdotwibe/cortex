@@ -58,6 +58,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::get('/{setname}/{question}/edit',[QuestionBankController::class,'edit'])->name('edit');
             Route::post('/{setname}/store',[QuestionBankController::class,'store'])->name('store');
             Route::get('/{category}/subcategory',[QuestionBankController::class,'subcategory'])->name('subcategory');
+            Route::get('/{sub_category}/set',[QuestionBankController::class,'subcategoryset'])->name('subcategoryset');
         });
 
         Route::prefix('topic-test')->name('topic-test.')->group(function () {

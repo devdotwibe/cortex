@@ -116,16 +116,24 @@ class QuestionBankController extends Controller
     public function subcategory(Request $request,Category $category){ 
         $subcategory=[];
         foreach ($category->subcategories as $row) {
-            $sets=[];
-            foreach ($row->setname as $set) {
-                $set->questionsUrl=route('admin.question-bank.show',$set->slug);
-                $sets[]=$set;
-            }
+            // $sets=[];
+            // foreach ($row->setname as $set) {
+            //     $set->questionsUrl=route('admin.question-bank.show',$set->slug);
+            //     $sets[]=$set;
+            // }
             $row->subsetUrl=route('admin.set.set_store', $row->slug);
-            $row->setList=$sets;
+            $row->setUrl=route('admin.question-bank.subcategoryset',$row->slug);
             $subcategory[]=$row;
         }
         return $subcategory;
+    } 
+    public function subcategoryset(Request $request,SubCategory $subCategory){ 
+        $sets=[];
+        foreach ($subCategory->setname as $row) {            
+            $row->questionsUrl=route('admin.question-bank.show',$row->slug);
+            $sets[]=$row; 
+        }
+        return $sets;
     } 
     
 }
