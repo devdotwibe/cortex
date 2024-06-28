@@ -40,7 +40,7 @@
         </div>
         
     </div>
-    <div class="container-wrap">
+    <div class="container-wrap" id="question-answer-page">
         <div class="lesson">  
             <div class="lesson-title">
                 <h3><span>{{$exam->subtitle($category->id,"Topic ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h3>
@@ -316,7 +316,8 @@
         var timetaken=0;
         function toglepreviewpage(){
             timerActive=!timerActive;
-            $('#question-preview-page').fadeToggle()
+            $('#question-preview-page').slideToggle()
+            $('#question-answer-page').fadeToggle()
         }
         function d2s(number){
             return (number??0).toLocaleString('en-US', { minimumIntegerDigits: 2 })
@@ -382,6 +383,7 @@
                 $('#lesson-footer-pagination').html('')
                 timerActive=true;
                 $('#question-preview-page').fadeOut()
+                $('#question-answer-page').fadeIn()
                 const lesseonId=generateRandomId(10);  
                 cudx=res.current_page;
                 notansweridx.push(cudx) 
@@ -594,7 +596,8 @@
                 var psed=Object.keys(verifydx).length
                 $('#exam-mark-gained').html(`<span >${psed}/${totalcount}</span>`)      
                 $('.pagination-arrow').hide(); 
-                $('#question-preview-page').hide() 
+                $('#question-preview-page').hide()
+                $('#question-answer-page').show()
                 $('#question-complete-page').fadeIn()
                 $('#lesson-questionlist-list').hide().html('') 
             },'json');
