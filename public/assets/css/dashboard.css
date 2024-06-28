@@ -672,8 +672,8 @@ border-radius: 7px;
   top:150px;
   left:0;
   width: -webkit-fill-available;
-  height:500px;
-  background:#f0f6fa;
+  height:max-content;
+  background:none;
   z-index:11;
 }
 
