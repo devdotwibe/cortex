@@ -53,7 +53,7 @@
         </div>
         
     </div>
-    <div class="container-wrap">
+    <div class="container-wrap" id="question-answer-page">
         <div class="lesson">  
             <div class="question-time">
                 <div class="timer"> 
@@ -347,8 +347,9 @@
         var examActive=true;
         var timetaken=0;
         function toglepreviewpage(){
-            timerActive=!timerActive;
-            $('#question-preview-page').fadeToggle()
+            timerActive=!timerActive; 
+            $('#question-preview-page').slideToggle()
+            $('#question-answer-page').fadeToggle()
         }
         function d2s(number){
             return (number??0).toLocaleString('en-US', { minimumIntegerDigits: 2 })
