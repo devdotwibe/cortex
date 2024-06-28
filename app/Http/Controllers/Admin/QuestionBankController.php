@@ -19,7 +19,7 @@ class QuestionBankController extends Controller
     public function index(Request $request){
         self::reset();
         self::$model = Category::class;
-        self::$routeName = "admin.question-bank-new"; 
+        self::$routeName = "admin.question-bank"; 
         $categorys=$this->buildResult();
 
         $exam=Exam::where("name",'question-bank')->first();
@@ -31,7 +31,7 @@ class QuestionBankController extends Controller
             $exam=Exam::find( $exam->id );
         }
 
-        return view("admin.question-bank-new.index",compact('categorys','exam'));
+        return view("admin.question-bank.index",compact('categorys','exam'));
     }
     public function subtitle(Request $request){
         $data=$request->validate([
@@ -65,7 +65,7 @@ class QuestionBankController extends Controller
         if($request->ajax()){  
             return  $this->where('exam_id',$exam->id)->where('category_id',$setname->category_id)->where('sub_category_id',$setname->sub_category_id)->where('sub_category_set',$setname->id)->addAction(function($data)use($setname){
                     return '
-                    <a href="'.route("admin.question-bank-new.edit",["setname"=>$setname->slug,"question"=>$data->slug]).'" class="btn btn-icons edit_btn">
+                    <a href="'.route("admin.question-bank.edit",["setname"=>$setname->slug,"question"=>$data->slug]).'" class="btn btn-icons edit_btn">
                         <img src="'.asset("assets/images/edit.svg").'" alt="">
                     </a>
                     ';
@@ -80,7 +80,7 @@ class QuestionBankController extends Controller
         } 
         $category=Category::find($setname->category_id);
         $subcategory=SubCategory::find($setname->sub_category_id);
-        return view("admin.question-bank-new.show",compact('category','subcategory','setname','exam'));
+        return view("admin.question-bank.show",compact('category','subcategory','setname','exam'));
     }
     public function create(Request $request,Setname $setname){ 
         
@@ -94,7 +94,7 @@ class QuestionBankController extends Controller
         }        
         $category=Category::find($setname->category_id);
         $subcategory=SubCategory::find($setname->sub_category_id);
-        return view("admin.question-bank-new.create",compact('category','subcategory','setname','exam'));
+        return view("admin.question-bank.create",compact('category','subcategory','setname','exam'));
     } 
 
     public function edit(Request $request,Setname $setname,Question $question){  
@@ -109,7 +109,7 @@ class QuestionBankController extends Controller
         $category=Category::find($setname->category_id);
         $subcategory=SubCategory::find($setname->sub_category_id);
         
-        return view("admin.question-bank-new.edit",compact('category','subcategory','setname','exam','question'));
+        return view("admin.question-bank.edit",compact('category','subcategory','setname','exam','question'));
     }
 
 
@@ -118,7 +118,7 @@ class QuestionBankController extends Controller
         foreach ($category->subcategories as $row) {
             $sets=[];
             foreach ($row->setname as $set) {
-                $set->questionsUrl=route('admin.question-bank-new.show',$set->slug);
+                $set->questionsUrl=route('admin.question-bank.show',$set->slug);
                 $sets[]=$set;
             }
             $row->subsetUrl=route('admin.set.set_store', $row->slug);
