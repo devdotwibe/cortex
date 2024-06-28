@@ -28,7 +28,7 @@ class QuestionController extends Controller
                     "sub_category_set"=>['required'],
                     "description"=>['required'],
                     "duration"=>["required"],
-                    "answer.*"=>["required"],
+                    "answer.*"=>["required",'string','max:150'],
                 ],[
                     'answer.*.required'=>['The answer field is required.']
                 ]);
@@ -40,7 +40,7 @@ class QuestionController extends Controller
                     "category_id"=>['required'],
                     "description"=>['required'],
                     "duration"=>["required"],
-                    "answer.*"=>["required"],
+                    "answer.*"=>["required",'string','max:150'],
                 ],[
                     'answer.*.required'=>['The answer field is required.']
                 ]);
@@ -53,7 +53,7 @@ class QuestionController extends Controller
                     "sub_category_id"=>['required'],
                     "description"=>['required'],
                     "duration"=>["required"],
-                    "answer.*"=>["required"],
+                    "answer.*"=>["required",'string','max:150'],
                 ],[
                     'answer.*.required'=>['The answer field is required.']
                 ]);
@@ -67,7 +67,7 @@ class QuestionController extends Controller
                     "sub_category_set"=>['nullable'],
                     "description"=>['required'],
                     "duration"=>["required"],
-                    "answer.*"=>["required"],
+                    "answer.*"=>["required",'string','max:150'],
                 ],[
                     'answer.*.required'=>['The answer field is required.']
                 ]);
@@ -96,7 +96,7 @@ class QuestionController extends Controller
                     "sub_category_set"=>['required'],
                     "description"=>['required'],
                     "duration"=>["required"],
-                    "answer.*"=>["required"],
+                    "answer.*"=>["required",'string','max:150'],
                     "explanation"=>['nullable'],
                 ],[
                     'answer.*.required'=>['The answer field is required.']
@@ -108,7 +108,7 @@ class QuestionController extends Controller
                     "category_id"=>['required'],
                     "description"=>['required'],
                     "duration"=>["required"],
-                    "answer.*"=>["required"],
+                    "answer.*"=>["required",'string','max:150'],
                     "explanation"=>['nullable'],
                 ],[
                     'answer.*.required'=>['The answer field is required.']
@@ -121,7 +121,7 @@ class QuestionController extends Controller
                     "sub_category_id"=>['required'],
                     "description"=>['required'],
                     "duration"=>["required"],
-                    "answer.*"=>["required"],
+                    "answer.*"=>["required",'string','max:150'],
                     "explanation"=>['nullable'],
                 ],[
                     'answer.*.required'=>['The answer field is required.']
@@ -135,7 +135,7 @@ class QuestionController extends Controller
                     "sub_category_set"=>['nullable'],
                     "description"=>['required'],
                     "duration"=>["required"],
-                    "answer.*"=>["required"],
+                    "answer.*"=>["required",'string','max:150'],
                     "explanation"=>['nullable'],
                 ],[
                     'answer.*.required'=>['The answer field is required.']
