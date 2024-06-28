@@ -237,8 +237,7 @@
             activedata['category'] = slug; 
             $('#table-subcategory-form-create').data('createurl', url);
             clearsubcategory();
-            $('#sub-category-create-modal').modal('show');
-            subcattable.ajax.reload() 
+            $('#sub-category-create-modal').modal('show'); 
         }
 
         function updatesubcategory(url) {
@@ -341,6 +340,9 @@
                 }
             })
 
+            $('#sub-category-create-modal').on('shown.bs.modal', function (e) {  
+                subcattable.ajax.reload() 
+            })
             $('#table-subcategory-form-clear').click(clearsubcategory);
             $('#table-subcategory-form-create').on('submit', function(e) {
                 e.preventDefault();
