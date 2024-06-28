@@ -436,7 +436,8 @@
                 $('.pagination-arrow').hide();
                 $('#lesson-footer-pagination').html('')
                 timerActive=true;
-                $('#question-preview-page').fadeOut()
+                $('#question-preview-page').slideOut()
+                $('#question-answer-page').fadeIn()
                 const lesseonId=generateRandomId(10);  
                 cudx=res.current_page;
                 notansweridx.push(cudx) 
@@ -704,6 +705,7 @@
                 $('#exam-mark-gained').html(`<span >${psed}/${totalcount}</span>`)      
                 $('.pagination-arrow').hide(); 
                 $('#question-preview-page').hide() 
+                $('#question-answer-page').show()
                 $('#question-complete-page').fadeIn()
                 $('#lesson-questionlist-list').hide().html('') 
             },'json');
