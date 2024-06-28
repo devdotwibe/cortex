@@ -12,7 +12,7 @@
     <div class="container">
         <div class="row">
             @foreach ($categorys as $k=>$item)
-            <div class="col-md-6">
+            <div class="col-md-6 pt-4">
 
                 <a href="{{route('admin.topic-test.show',$item->slug)}}">
                     <div class="card">
