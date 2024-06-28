@@ -27,8 +27,9 @@ class QuestionController extends Controller
                     "sub_category_id"=>['required'],
                     "sub_category_set"=>['required'],
                     "description"=>['required'],
-                    "duration"=>["required"],
+                    // "duration"=>["required"],
                     "answer.*"=>["required",'string','max:150'],
+                    "explanation"=>['nullable'],
                 ],[
                     'answer.*.required'=>['The answer field is required.']
                 ]);
@@ -95,7 +96,7 @@ class QuestionController extends Controller
                     "sub_category_id"=>['required'],
                     "sub_category_set"=>['required'],
                     "description"=>['required'],
-                    "duration"=>["required"],
+                    //"duration"=>["required"],
                     "answer.*"=>["required",'string','max:150'],
                     "explanation"=>['nullable'],
                 ],[

@@ -62,12 +62,24 @@
                                         <label>Correct Answer <span id="mcq-${lesseonId}-correct"></span></label>
                                         ${v.explanation||''}
                                     </div>
+
+                                    <div id="mcq-${lesseonId}-ans-progress" class="form-group">
+                                        <div class="form-data" >
+                                            <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list-progress"> 
+                                                
+                                            </div> 
+                                        </div>
+                                        <div>
+                                            <p>You spent {number} seconds on this question. The average student spent {number} seconds on this question<p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     `).fadeIn();
                     $.get("{{ route('question-bank.preview',$userExamReview->slug) }}",{question:v.slug},function(ans){
                         $(`#mcq-${lesseonId}-list`).html('')
+                        $(`#mcq-${lesseonId}-list-progress`).html('')
                         $.each(ans,function(ai,av){
                             const letter = String.fromCharCode(ai + 'A'.charCodeAt(0))
                             $(`#mcq-${lesseonId}-list`).append(`

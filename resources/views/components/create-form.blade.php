@@ -70,6 +70,9 @@
                                     <div class="forms-inputs mb-4"> 
                                         <label for="{{$item->name}}-{{$frmID}}">{{ucfirst($item->label??$item->name)}}</label>
                                         @switch($item->type??"text")
+                                            @case('maskinput')
+                                                <input type="text" name="{{$item->name}}" id="{{$item->name}}-{{$frmID}}" value="{{old($item->name)}}" class="form-control maskinput @error($item->name) is-invalid @enderror " placeholder="{{ucfirst($item->placeholder??$item->name)}}" aria-placeholder="{{ucfirst($item->placeholder??$item->name)}}" @if(isset($item->options)) @foreach ($item->options as $opk=> $opt) data-{{$opk}}="{{$opt}}" @endforeach  @endif >
+                                                @break
                                             @case('editor')
                                                 <textarea name="{{$item->name}}" id="{{$item->name}}-{{$frmID}}"  class="form-control texteditor @error($item->name) is-invalid @enderror "  rows="5">{{old($item->name)}}</textarea>
                                                 @break
@@ -89,8 +92,8 @@
                                                     @endif
                                                 </select>                                                
                                                 @break
-                                            @default
-                                                <input type="{{$item->type??"text"}}" name="{{$item->name}}" id="{{$item->name}}-{{$frmID}}" value="{{old($item->name)}}" class="form-control  @error($item->name) is-invalid @enderror " placeholder="{{ucfirst($item->placeholder??$item->name)}}" aria-placeholder="{{ucfirst($item->placeholder??$item->name)}}" >        
+                                            @default 
+                                            <input type="{{$item->type??"text"}}" name="{{$item->name}}" id="{{$item->name}}-{{$frmID}}" value="{{old($item->name)}}" class="form-control  @error($item->name) is-invalid @enderror " placeholder="{{ucfirst($item->placeholder??$item->name)}}" aria-placeholder="{{ucfirst($item->placeholder??$item->name)}}" >
                                         @endswitch
                                         
                                         @error($item->name)
@@ -200,6 +203,15 @@
                         }
                     }
                 })
+            })
+            $('#{{$frmID}} .maskinput').each(function(){
+                var mask = $(this).data('mask');
+                var placeholder = $(this).data('placeholder')||" ";
+                $(this).inputmask({
+                    placeholder:placeholder,
+                    regex: mask,  
+                    showMaskOnFocus: false
+                });
             })
         })
 

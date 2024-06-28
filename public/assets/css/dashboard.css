@@ -280,9 +280,10 @@ main{ margin-top: 80px;}
 .category{
   width: 100%;
   display: flex;
+  align-items: center;
 }
 .category .category-image {
-  width: 25%;
+  width: 50px;
   transition: all .25s ease-in-out;
 }
 .category .category-content {
@@ -290,6 +291,13 @@ main{ margin-top: 80px;}
   transition: all .25s ease-in-out;
 }
 .category .category-content h3 { font-size: 18px; font-weight: 600; color: #000; display: block;}
+.category .category-title {
+  width:max-content;
+  padding:5px 8px;
+  margin:5px;
+  border:1px solid #d2d1d3;
+  border-radius:5px;
+}
 .choice{
   background-color: #6c757d;
   margin-top: 20px;
@@ -876,6 +884,12 @@ border-radius: 7px;
   text-overflow: ellipsis;
   max-height: calc(3 * 1.2em);
   line-height: 1.2em; 
+}
+.maskinput{
+  text-align: center;
+}
+.header_nav .header_wrapp .header_title {
+  display: flex;
 }
 
 

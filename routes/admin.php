@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\FullMockExamController;
 use App\Http\Controllers\Admin\LearnController;
 use App\Http\Controllers\Admin\MainController as AdminMainController;
 use App\Http\Controllers\Admin\QuestionBankController;
+use App\Http\Controllers\Admin\QuestionBankControllerNew;
 use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\SetController;
 use App\Http\Controllers\Admin\SubCategoryController;
@@ -40,13 +41,23 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::get('/{exam}/question/{question}/edit',[FullMockExamController::class,'edit'])->name('edit');
             Route::post('/{exam}/store',[FullMockExamController::class,'store'])->name('store');
         });
+        // Route::prefix('question-bank-old')->name('question-bank-old.')->group(function () {
+        //     Route::get('/',[QuestionBankControllerOld::class,'index'])->name('index');
+        //     Route::post('/subtitle',[QuestionBankControllerOld::class,'subtitle'])->name('subtitle');
+        //     Route::get('/{category}',[QuestionBankControllerOld::class,'show'])->name('show');
+        //     Route::get('/{category}/create',[QuestionBankControllerOld::class,'create'])->name('create');
+        //     Route::get('/{category}/{question}/edit',[QuestionBankControllerOld::class,'edit'])->name('edit');
+        //     Route::post('/{category}/store',[QuestionBankControllerOld::class,'store'])->name('store');
+        // });
+
         Route::prefix('question-bank')->name('question-bank.')->group(function () {
             Route::get('/',[QuestionBankController::class,'index'])->name('index');
             Route::post('/subtitle',[QuestionBankController::class,'subtitle'])->name('subtitle');
-            Route::get('/{category}',[QuestionBankController::class,'show'])->name('show');
-            Route::get('/{category}/create',[QuestionBankController::class,'create'])->name('create');
-            Route::get('/{category}/{question}/edit',[QuestionBankController::class,'edit'])->name('edit');
-            Route::post('/{category}/store',[QuestionBankController::class,'store'])->name('store');
+            Route::get('/{setname}',[QuestionBankController::class,'show'])->name('show');
+            Route::get('/{setname}/create',[QuestionBankController::class,'create'])->name('create');
+            Route::get('/{setname}/{question}/edit',[QuestionBankController::class,'edit'])->name('edit');
+            Route::post('/{setname}/store',[QuestionBankController::class,'store'])->name('store');
+            Route::get('/{category}/subcategory',[QuestionBankController::class,'subcategory'])->name('subcategory');
         });
 
         Route::prefix('topic-test')->name('topic-test.')->group(function () {

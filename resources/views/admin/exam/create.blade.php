@@ -10,9 +10,10 @@
 </section>
 <section class="invite-wrap mt-2">
     <div class="container">
-        <x-create-form name="admin.exam" btnsubmit="Save" :fields='[
-            ["name"=>"title","size"=>12],  
-        ]' /> 
+        <x-create-form name="admin.exam"   btnsubmit="Save" :fields='[
+            ["name"=>"title","size"=>9],  
+            ["name"=>"time_of_exam","label"=>"Time Of Exam ","placeholder"=>"Time Of Exam ( Hr : Min )","size"=>3,"type"=>"maskinput","options"=>["placeholder"=>"HH : mm","mask"=>"^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$"]],
+        ]' />
         {{-- <x-create-form name="admin.exam" btnsubmit="Save" :fields='[
             ["name"=>"title","size"=>8], 
             ["name"=>"price","size"=>3],

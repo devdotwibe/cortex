@@ -38,7 +38,7 @@ class SubCategoryController extends Controller
                     if(!empty($data->setname) && count($data->setname) > 0)
                     {
 
-                    return '<a onclick="subcategorysetlist(\''.route('admin.set.set_store', $data->slug).'\', \''.$data->slug.'\')" class="btn btn-icons view_btn">+</a>'.
+                    return '<!--<a onclick="subcategorysetlist(\''.route('admin.set.set_store', $data->slug).'\', \''.$data->slug.'\')" class="btn btn-icons view_btn">+</a>-->'.
 
                     '<a onclick="updatesubcategory(\''.route('admin.subcategory.edit', $data->slug).'\', \''.$data->slug.'\' , \'subcategory\')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>';
 
@@ -46,7 +46,7 @@ class SubCategoryController extends Controller
                     else
                     {
 
-                        return '<a onclick="subcategorysetlist(\''.route('admin.set.set_store', $data->slug).'\', \''.$data->slug.'\')" class="btn btn-icons view_btn">+</a>'.
+                        return '<!--<a onclick="subcategorysetlist(\''.route('admin.set.set_store', $data->slug).'\', \''.$data->slug.'\')" class="btn btn-icons view_btn">+</a>-->'.
 
                         '<a onclick="updatesubcategory(\''.route('admin.subcategory.edit', $data->slug).'\', \''.$data->slug.'\' , \'subcategory\')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>'.
 
