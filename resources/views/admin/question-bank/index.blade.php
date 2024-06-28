@@ -112,7 +112,7 @@
                             <div class="form-group">
                                 <div class="form-data">
                                     <div class="forms-inputs mb-4"> 
-                                        <label for="time_of_exam-table-subcategoryset-form-create">Set Time Of Exam</label>
+                                        <label for="time_of_exam-table-subcategoryset-form-create">Exam Duration (HH:MM)</label>
                                         <input type="search" name="time_of_exam" id="time_of_exam-table-subcategoryset-form-create" class="form-control "  >
                                         <div class="invalid-feedback" id="time_of_exam-error-table-subcategoryset-form-create"></div>
                                     </div>
@@ -134,7 +134,7 @@
                     :coloumns="[
                         ['th' => 'Date', 'name' => 'created_at', 'data' => 'date'],
                         ['th' => 'Set Name', 'name' => 'name', 'data' => 'name'],
-                        ['th' => 'Time Of Exam', 'name' => 'time_of_exam', 'data' => 'time_of_exam'],
+                        ['th' => 'Exam Duration (HH:MM)', 'name' => 'time_of_exam', 'data' => 'time_of_exam'],
                         ['th' => 'Visible', 'name' => 'visible_status', 'data' => 'visibility'],
                     ]" />
             </div>
