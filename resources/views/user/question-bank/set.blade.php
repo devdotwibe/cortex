@@ -436,7 +436,7 @@
                 $('.pagination-arrow').hide();
                 $('#lesson-footer-pagination').html('')
                 timerActive=true;
-                $('#question-preview-page').slideOut()
+                $('#question-preview-page').fadeOut()
                 $('#question-answer-page').fadeIn()
                 const lesseonId=generateRandomId(10);  
                 cudx=res.current_page;
