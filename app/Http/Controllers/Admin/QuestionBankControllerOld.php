@@ -12,7 +12,7 @@ use App\Models\SubCategory;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
 
-class QuestionBankController extends Controller
+class QuestionBankControllerOld extends Controller
 {
    
     use ResourceController; 
