@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\TopicTestController;
 use App\Http\Controllers\Admin\UploadController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\SettingsController;
 use Illuminate\Support\Facades\Route;
 
 Route::name('admin.')->prefix('admin')->group(function(){
@@ -138,6 +139,11 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
 
 
+
+    });
+    Route::prefix('settings')->name('settings.')->group(function () {
+        Route::get('/',[SettingsController::class,'index'])->name('index');
+        Route::post('/store',[SettingsController::class,'store'])->name('store');
 
     });
 

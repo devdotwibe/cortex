@@ -126,6 +126,17 @@
                         Options
                     </a>
                 </li>
+                <li class="side-item {{request()->is('admin/settings') ?'active':''}}">
+                    <a href="{{ route('admin.settings.index') }}">
+                        <span class="side-icon" >
+                            <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
+                        </span>
+                        <span class="active-icon">
+                            <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Dashboard">
+                        </span>
+                        Settings
+                    </a>
+                </li>
                 {{-- <li class="side-item {{request()->is('admin/question-bank-old') ? 'active':''}}">
                     <a href="{{ route('admin.question-bank-old.index') }}">
                         <span class="side-icon" >

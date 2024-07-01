@@ -76,7 +76,7 @@ class StripeController extends Controller
             $subscription->save();
 
             // Redirect to a success page or return a success response
-            return redirect()->route('stripe.payment')->with('success', 'Payment method added successfully.');
+            return redirect()->route('learn.index')->with('success', 'Payment method added successfully.');
 
         } catch (\Exception $e) {
             // Handle Stripe API errors
