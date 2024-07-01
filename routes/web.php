@@ -107,6 +107,7 @@ Route::middleware('auth')->group(function(){
         Route::post('/{category}/verify',[TopicExamController::class,'topicverify'])->name('topic.verify');
         Route::get('/{category}/review',[TopicExamController::class,'topicreview'])->name('topic.review');
         Route::get('/attempt/{user_exam_review}/preview',[TopicExamController::class,'preview'])->name('preview');
+        Route::get('/{category}/complete',[TopicExamController::class,'topiccomplete'])->name('complete');
     });
 
     Route::prefix('full-mock-exam')->name('full-mock-exam.')->group(function () {
@@ -122,6 +123,7 @@ Route::middleware('auth')->group(function(){
         Route::post('/{exam}/verify',[MockExamController::class,'examverify'])->name('verify');
         Route::get('/{exam}/review',[MockExamController::class,'examreview'])->name('review');
         Route::get('/attempt/{user_exam_review}/preview',[MockExamController::class,'preview'])->name('preview');
+        Route::get('/{exam}/complete',[MockExamController::class,'examcomplete'])->name('complete');
     });
 
 });

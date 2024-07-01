@@ -8,11 +8,24 @@
                 <div class="progress-main">
 
                     <div class="exam-exit ">
-                        <a   href="{{route('topic-test.index')}}">
+                        <a   href="{{route('topic-test.show',$category->slug)}}">
                             <img src="{{asset("assets/images/exiticon-wht.svg")}}" alt="exiticon">
                         </a>
                     </div>
-                     
+                    <div class="timer exam-timer">
+                        <div class="minute">
+                            <span class="runner">00</span>
+                            <span>Mins</span>
+                        </div>
+                        <div class="seperator">
+                            <span>:</span>
+                            <span></span>
+                        </div>
+                        <div class="second">
+                            <span class="runner">00</span>
+                            <span>Seconds</span>
+                        </div>
+                    </div> 
                 </div>
             </div>
             <div class="exam-center exam-progress-inner-item">
@@ -67,58 +80,7 @@
         </div>  
     </div> 
 </section>
-
-<section class="modal-expand" id="question-complete-page" style="display: none;">
-    <div class="container-wrap">
-        <div class="question-preview">  
-            <div class="question-preview-title">
-                <img src="{{asset("assets/images/congratulaton.svg")}}" alt="">
-                <h3> Congratulation on Completing the Set! </h3>
-            </div>
-            <div class="question-preview-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="exam-result">
-                            <div class="exam-result-content">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="exam-mark-title">
-                                            <div class="title-1">
-                                                <span >Your Mark</span>
-                                            </div>
-                                            <div class="title-2"  id="exam-mark-gained">
-                                                <span >0/{{$questioncount??0}}</span>
-                                            </div>
-                                        </div>
-                                        <div class="exam-mark-body"> 
-                                            <div class="mark-label">
-                                                <span>Attemt Number :</span>
-                                                <span>#{{$attemtcount}}</span>
-                                            </div> 
-                                            <div class="mark-label">
-                                                <span>Attemt Date :</span>
-                                                <span>{{date('d M Y')}}</span>
-                                            </div> 
-                                        </div> 
-                                    </div>
-                                </div>
-        
-                                <p>Next Step: Review and Improve</p>
-                                <div class="exam-mark-bottom">
-                                    <a class="btn btn-warning btn-lg" id="review-link" href="">Review Set</a>
-                                    <a href="{{route('topic-test.index')}}" class="btn btn-outline-dark btn-lg">Exit Set</a>
-                                </div>
-                            </div>
-                        </div>
-                        
-
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</section>
+ 
 
 <section class="modal-expand" id="question-preview-page" style="display: none;">
     <div class="container-wrap">
@@ -269,6 +231,16 @@
         </div>
     </div>
 </section>
+<div style="display: none;opacity: 0;">
+    <form action="{{route('topic-test.topic.submit',['category'=>$category->slug])}}" method="post" id="finish-exam-confirmed-form">
+        @csrf
+        <input type="hidden" name="timed" id="finish-exam-confirmed-form-timed" value="" >
+        <input type="hidden" name="timetaken" id="finish-exam-confirmed-form-timetaken" value="" >
+        <input type="hidden" name="flags" id="finish-exam-confirmed-form-flags" value="" >
+        <input type="hidden" name="times" id="finish-exam-confirmed-form-times" value="" >
+        <input type="hidden" name="passed" id="finish-exam-confirmed-form-passed" value="" > 
+    </form>
+</div>
 
 @endsection
 
@@ -302,8 +274,10 @@
         
         var timercurrent={};
         var flagcurrent={};
-        var endTime={{$endtime}}*60; 
-        var currentSlug=""; 
+        var endTime={{$endtime}}*60;
+        var countownRunCallbacks={};
+        var currentSlug="";
+        var countownRunCallbackActive=null;
         var countownSlugActive=""; 
         var flagdx={};
         var verifydx={};
@@ -315,7 +289,7 @@
         var examActive=true;
         var timetaken=0;
         function toglepreviewpage(){
-            timerActive=!timerActive;
+            timerActive=!timerActive; 
             $('#question-preview-page').slideToggle()
             $('#question-answer-page').fadeToggle()
         }
@@ -332,6 +306,46 @@
             }
 
             return result;
+        }
+        function countownRun(){
+            if(timerActive&&examActive){ 
+                if(endTime>0){ 
+                    var d=endTime;
+                    var m=Math.floor(d/60);
+                    var s=d-(m*60);
+                    $('.exam-timer .minute .runner').text(d2s(m))
+                    $('.exam-timer .second .runner').text(d2s(s))
+                    if(endTime<=240&&endTime>=230){
+                        $('.exam-timer').addClass('time-up');
+                    }else if(endTime<=10){
+                        $('.exam-timer').addClass('time-up');
+                    }else{
+                        $('.exam-timer').removeClass('time-up');  
+                    }
+                    endTime--;
+                    timetaken++;
+                    timercurrent[currentSlug]=(timercurrent[currentSlug]||0)+1;
+                } else{
+                    $('.exam-timer .minute .runner').text(d2s(0))
+                    $('.exam-timer .second .runner').text(d2s(0))
+                    $('.exam-timer').addClass('time-up')
+                    examActive=false 
+                    updateandsave(function(){
+                        var unfinishcount=totalcount-questionids.length; 
+                        if(unfinishcount>0){
+                            $('.unfinish-message').show().find('.unfinish-count').text(unfinishcount)
+                        }else{
+                            $('.unfinish-message').hide().find('.unfinish-count').text(0)
+                        }
+                        lessonreviewconfirm() 
+                    })   
+                    if($('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length>0){
+                        $('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').prop('disabled',true)
+                    }else{
+                        $('#lesson-questionlist-list .forms-inputs input[name="answer"]').prop('readonly',true)
+                    } 
+                }
+            }            
         } 
         function getVimeoId(url) {
             // Regular expression to match Vimeo URL format
@@ -347,7 +361,7 @@
         } 
         async function verifyquestion(question,ans){
             const csrf= $('meta[name="csrf-token"]').attr('content'); 
-            var response=await fetch("{{route('topic-test.topic.verify',$category->slug)}}", {
+            var response=await fetch("{{route('topic-test.topic.verify',['category'=>$category->slug])}}", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -377,8 +391,8 @@
             $('#not-answered-nav').text(notansweridx.length)
         }
          function loadlesson(pageurl=null){ 
-            if(examActive){
-            $.get(pageurl||"{{ route('topic-test.show',$category->slug) }}",function(res){
+             
+            $.get(pageurl||"{{ route('topic-test.show',['category'=>$category->slug]) }}",function(res){
                 $('.pagination-arrow').hide();
                 $('#lesson-footer-pagination').html('')
                 timerActive=true;
@@ -419,13 +433,11 @@
                                 </div>
                             </div>
                         `).fadeIn();
-                        if(!timercurrent[v.slug]){
-                            // var currentdate=new Date();
-                            // currentdate.setMinutes(currentdate.getMinutes()+parseInt(v.duration));
-                            timercurrent[v.slug]=parseInt(v.duration)*60;//Math.floor(currentdate.getTime() /1000)
-                        }
-                        
-                        $.get(pageurl||"{{ route('topic-test.show',$category->slug) }}",{question:v.slug},function(ans){
+                        if(!timercurrent[v.slug]){ 
+                            timercurrent[v.slug]=0; 
+                        } 
+                        currentSlug=v.slug;
+                        $.get(pageurl||"{{ route('topic-test.show',['category'=>$category->slug]) }}",{question:v.slug},function(ans){
                             $(`#mcq-${lesseonId}-list`).html('')
                             $.each(ans,function(ai,av){
                                 $(`#mcq-${lesseonId}-list`).append(`
@@ -443,8 +455,7 @@
                                     notansweridx=notansweridx.filter(item => item !== cudx)
                                     refreshstatus(cudx,'answered');
                                 }
-                            })
-                             
+                            }) 
                         },'json').fail(function(xhr,status,error){
                             showToast("Error: " + error, 'danger'); 
                         }) 
@@ -478,8 +489,7 @@
                     value:progressurl
                 }),
             }); 
-                
-            }
+                 
          }
          async function updateprogress(callback){  
             try { 
@@ -572,35 +582,16 @@
                     value:'pending'
                 }),
             }); 
-            $('#finish-exam-confirm').modal('hide')
-            var timed=localStorage.getItem("question-bank")||"timed";
-            $.post('{{route('topic-test.topic.submit',$category->slug)}}',{timed:timed,timetaken:timetaken,flags:flagcurrent,times:timercurrent},function(res){
-                if(res.success){
-                    showToast(res.success, 'success')
-                }
-                if(res.preview){
-                    $('#review-link').show().attr("href",res.preview)
-                }else{
-                    $('#review-link').hide()
-                }
-                timerActive=false;
-                examActive=false;
-                if(timed=="timed"){
-                    var d=timetaken;
-                    var m=Math.floor(d/60);
-                    var s=d-(m*60);
-                    $('#time-taken').text(`${d2s(m)}:${d2s(s)}`).parent().show()
-                }else{
-                    $('#time-taken').parent().hide()
-                }          
-                var psed=Object.keys(verifydx).length
-                $('#exam-mark-gained').html(`<span >${psed}/${totalcount}</span>`)      
-                $('.pagination-arrow').hide(); 
-                $('#question-preview-page').hide()
-                $('#question-answer-page').show()
-                $('#question-complete-page').fadeIn()
-                $('#lesson-questionlist-list').hide().html('') 
-            },'json');
+            $('#finish-exam-confirm').modal('hide') 
+            var timed="timed";             
+            $('#finish-exam-confirmed-form-timed').val(timed)
+            $('#finish-exam-confirmed-form-timetaken').val(timetaken)
+            $('#finish-exam-confirmed-form-flags').val(JSON.stringify(flagcurrent))
+            $('#finish-exam-confirmed-form-times').val(JSON.stringify(timercurrent))
+            $('#finish-exam-confirmed-form-passed').val(Object.keys(verifydx).length); 
+            $('#finish-exam-confirmed-form').submit();
+            timerActive=false;
+            examActive=false; 
          }
          async function updateandsave(callback){ 
             if($('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length>0){
@@ -623,9 +614,18 @@
             updateprogress(callback) 
          }
           
+         async function exitconfirm(url){
+            if(await showConfirm({ 
+                title:"Are you sure do you want to exit?" ,
+                message: "If you exit in-between the exam, The answered questions will not save and you should need to start the exam from the beginning.",
+            })){
+                window.location.href=url;
+            }
+        }
          $(function(){  
             loadlesson() 
             $('.lesson-left button.left-btn,.lesson-right button.right-btn').click(function(){   
+                console.log('oooooo')
                 const pageurl=$(this).data('pageurl');  
                 updateandsave(function(){
                     loadlesson(pageurl)
@@ -643,14 +643,6 @@
                     $('#finish-exam-confirm').modal('show')
                 })
             });
-            async function exitconfirm(url){
-                if(await showConfirm({ 
-                    title:"Are you sure do you want to exit?" ,
-                    message: "If you exit in-between the exam, The answered questions will not save and you should need to start the exam from the beginning.",
-                })){
-                    window.location.href=url;
-                }
-            }
             $('#bookmark-current').click(function(){
                 if(flagdx[cudx]){
                     flagdx[cudx]=false;
@@ -665,15 +657,20 @@
                     $(`#show-all .question-item[data-idx="${cudx}"]`).addClass('status-flag')
                     $(`#flagged .question-item[data-idx="${cudx}"]`).addClass('status-flag')
                 } 
+                var lenflag=0;
+                $.each(flagdx,(k,v)=>v?lenflag++:null);
 
-                $('#flagged-nav').text(Object.keys(flagdx).length)
-
-                $('.exam-exit a').click(function(e){
-                    e.preventDefault();
-                    e.stopPropagation();
-                    exitconfirm($(this).attr("href")); 
-                }) 
+                $('#flagged-nav').text(lenflag)
             })  
+            $('.timer').show()
+           
+            setInterval(countownRun,1000)
+
+            $('.exam-exit a').click(function(e){
+                e.preventDefault();
+                e.stopPropagation();
+                exitconfirm($(this).attr("href")); 
+            }) 
          })
     </script>
 @endpush

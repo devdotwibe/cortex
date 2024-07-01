@@ -4,7 +4,7 @@
 <section class="exam-container">
     <div class="container-wrap">
         <div class="lesson">            
-            <a class="lesson-exit float-start" href="{{route('topic-test.index')}}">
+            <a class="lesson-exit float-start" href="{{route('full-mock-exam.index')}}">
                 <img src="{{asset("assets/images/exiticon.svg")}}" alt="exiticon">
             </a>
             <div class="lesson-title">
@@ -36,7 +36,7 @@
             return result;
         }
         function loadlessonreview(reviewurl){ 
-            $.get(reviewurl||"{{ route('topic-test.preview',$userExamReview->slug) }}",function(res){
+            $.get(reviewurl||"{{ route('full-mock-exam.preview',$userExamReview->slug) }}",function(res){
                 $('.pagination-arrow').hide();
                 $('#lesson-footer-pagination').html('')
                 const lesseonId=generateRandomId(10); 
@@ -62,12 +62,24 @@
                                         <label>Correct Answer <span id="mcq-${lesseonId}-correct"></span></label>
                                         ${v.explanation||''}
                                     </div>
+
+                                    <div id="mcq-${lesseonId}-ans-progress" class="form-group">
+                                        <div class="form-data" >
+                                            <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list-progress"> 
+                                                
+                                            </div> 
+                                        </div>
+                                        <div>
+                                            <p>You spent ${v.time_taken||0} seconds on this question. The average student spent ${v.total_user_taken_time||0} seconds on this question<p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     `).fadeIn();
-                    $.get("{{ route('topic-test.preview',$userExamReview->slug) }}",{question:v.slug},function(ans){
+                    $.get("{{ route('full-mock-exam.preview',$userExamReview->slug) }}",{question:v.slug},function(ans){
                         $(`#mcq-${lesseonId}-list`).html('')
+                        $(`#mcq-${lesseonId}-list-progress`).html('')
                         $.each(ans,function(ai,av){
                             const letter = String.fromCharCode(ai + 'A'.charCodeAt(0))
                             $(`#mcq-${lesseonId}-list`).append(`
@@ -78,6 +90,14 @@
                                     <label for="user-answer-${lesseonId}-ans-item-${ai}" >${ letter }. ${av.title}</label>
                                 </div>  
                             </div>
+                            `)
+                            $(`#mcq-${lesseonId}-list-progress`).append(`
+                                <div class="form-progress-ans ans-${av.user_answer?"select":"no-select"}"> 
+                                    <div class="form-progress">       
+                                        <label for="user-answer-${lesseonId}-ans-progress-item-${ai}" >${ letter }</label>
+                                        <progress id="user-answer-${lesseonId}-ans-progress-item-${ai}" max="100" value="${av.total_user_answered||0}"/>
+                                    </div>  
+                                </div>
                             `)
                             if(av.iscorrect){
                                 $(`#mcq-${lesseonId}-correct`).text(`: ${ letter } `)
