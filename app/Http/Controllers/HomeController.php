@@ -18,7 +18,7 @@ use Illuminate\Validation\ValidationException;
 
 class HomeController extends Controller
 {
-    use ResourceController; 
+    use ResourceController;
     public function index(Request $request){
         return view("welcome");
     }
@@ -34,13 +34,13 @@ class HomeController extends Controller
         if (Auth::attempt($credentials))
         {
             RateLimiter::clear($this->throttleKey($request));
-            $request->session()->regenerate();  
+            $request->session()->regenerate();
             return redirect()->intended('/dashboard');
         }
         if (Auth::guard('admin')->attempt($credentials))
         {
             RateLimiter::clear($this->throttleKey($request));
-            $request->session()->regenerate();  
+            $request->session()->regenerate();
             return redirect()->intended('/admin/dashboard');
         }
         RateLimiter::hit($this->throttleKey($request));
@@ -52,13 +52,13 @@ class HomeController extends Controller
     public function register(Request $request){
         return view("auth.register");
     }
-    
+
     public function registerSubmit(Request $request){
         $userdata=$request->validate([
             "first_name"=>["required",'string','min:3','max:250'],
             "last_name"=>["required",'string','min:3','max:250'],
             "email"=>["required",'email:rfc,dns','unique:users','unique:admins','max:250'],
-            "phone"=>["required",'string','min:3','max:250'],
+            "schooling_year"=>["required",'string','min:3','max:250'],
             "password"=>["required",'string','min:6','max:250'],
             "re_password" => ["required","same:password"]
         ]);
@@ -72,11 +72,11 @@ class HomeController extends Controller
     public function verifyemail($id,$hash){
         $user=User::find($id);
         if($hash==sha1($user->email)&&!$user->hasVerifiedEmail()){
-            $user->markEmailAsVerified(); 
+            $user->markEmailAsVerified();
             event(new Verified($user));
         }
     }
-    
+
 
 
 
