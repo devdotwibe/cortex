@@ -109,8 +109,12 @@ class ExamQuestionController extends Controller
         }
         $questioncount=Question::where('exam_id',$exam->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->count();
         $endtime=0;
+        $times=explode(':',$setname->time_of_exam);
+        if(count($times)>0){
+            $endtime+=intval(trim($times[0]??"0"))*60;
+            $endtime+=intval(trim($times[1]??"0"));
+        }
         foreach (Question::where('exam_id',$exam->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->get() as $d) {
-            $endtime+=intval(explode(' ',$d->duration)[0]);
             $user->setProgress("exam-{$exam->id}-topic-{$category->id}-lesson-{$subCategory->id}-set-{$setname->id}-answer-of-{$d->slug}",null);
         }
         $attemtcount=UserExamReview::where('exam_id',$exam->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->count()+1;

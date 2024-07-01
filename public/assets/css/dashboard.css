@@ -667,7 +667,7 @@ border-radius: 7px;
       transform: scale(1);
   }
 }
-.question-time.time-up {
+.time-up {
   background-color: red;
   animation: heartbeat 1s infinite;
   text-align: center;
@@ -684,7 +684,9 @@ border-radius: 7px;
   background:#f0f6fa;
   z-index:11;
 }
-
+.modal-expand.result {
+  top:90px;
+}
 .modal-expand .container-wrap {
   width: -webkit-fill-available;
   float: left;
