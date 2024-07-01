@@ -83,5 +83,8 @@ class StripeController extends Controller
             return redirect()->back()->with('error', 'Failed to add payment method: ' . $e->getMessage());
         }
     }
+    public function stripeinformation(){
+        return view('stripe.information');
+    }
 
 }

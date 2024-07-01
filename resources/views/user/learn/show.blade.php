@@ -115,7 +115,7 @@
 <script src="https://js.stripe.com/v3/"></script>
 <script>
         function stripemodal() {
-         $('#subscribeModal').modal('toggle');
+         $('#subscribeModal').modal('show');
         }
         function closestripe() {
          $('#subscribeModal').modal('hide');

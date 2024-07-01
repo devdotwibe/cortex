@@ -82,6 +82,7 @@ Route::middleware('auth')->group(function(){
      Route::get('/subscribe',[StripeController::class,'subscribe'])->name('stripe.payment');
      Route::post('/subscription-handle', [StripeController::class, 'handlePayment'])->name('subscribe.handle');
      Route::post('/stripe/webhook',[StripeWebHookController::class,'handlewebhook']);
+     Route::get('/stripe/information',[StripeController::class,'stripeinformation'])->name('stripe.information');
 
 
     Route::prefix('question-bank')->name('question-bank.')->group(function () {
@@ -95,11 +96,11 @@ Route::middleware('auth')->group(function(){
         Route::get('/attempt/{user_exam_review}/preview',[ExamQuestionController::class,'preview'])->name('preview');
     });
 
- 
 
-    Route::prefix('topic-test')->name('topic-test.')->group(function () { 
+
+    Route::prefix('topic-test')->name('topic-test.')->group(function () {
         Route::get('/',[TopicExamController::class,'index'])->name('index');
-        Route::get('/{category}',[TopicExamController::class,'show'])->name('show'); 
+        Route::get('/{category}',[TopicExamController::class,'show'])->name('show');
         Route::get('/{category}/history',[TopicExamController::class,'topichistory'])->name('topic.history');
         Route::post('/{category}/submit',[TopicExamController::class,'topicsubmit'])->name('topic.submit');
         Route::post('/{category}/verify',[TopicExamController::class,'topicverify'])->name('topic.verify');
@@ -114,7 +115,7 @@ Route::middleware('auth')->group(function(){
             Route::get('/{exam}/question/{question}',[MockExamController::class,'question'])->name('question');
         */
         Route::get('/',[MockExamController::class,'index'])->name('index');
-        Route::get('/{exam}',[MockExamController::class,'show'])->name('show'); 
+        Route::get('/{exam}',[MockExamController::class,'show'])->name('show');
         Route::get('/{exam}/history',[MockExamController::class,'examhistory'])->name('history');
         Route::post('/{exam}/submit',[MockExamController::class,'examsubmit'])->name('submit');
         Route::post('/{exam}/verify',[MockExamController::class,'examverify'])->name('verify');
