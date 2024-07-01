@@ -10,11 +10,16 @@
             <div class="filter-group">
                 <label for="subcategory">Sub Category</label>
                 <select name="subcategory" class="form-control" id="subcategory" data-placeholder="Sub Category" ></select>
-            </div> 
+            </div>
+
+            <div class="filter-group">
+                <label for="subcategoryset">Set</label>
+                <select name="subcategoryset" class="form-control" id="subcategoryset" data-placeholder="Sub Category Set" ></select>
+            </div>
         </div>
         <div class="header_right">
             <ul class="nav_bar">
-                <li class="nav_item"><a href="{{route('admin.topic-test.create',$category->slug)}}" class="nav_link btn">New Questions</a></li>
+                <li class="nav_item"><a href="{{route('admin.question-bank.create',$category->slug)}}" class="nav_link btn">New Questions</a></li>
             </ul>
         </div>
     </div>
@@ -22,10 +27,10 @@
 <section class="content_section">
     <div class="container">
         <div class="row">
-            <x-ajax-table  tableid="categoryquestiontable" beforeajax="tablefilter"  :coloumns='[
+            <x-ajax-table tableid="categoryquestiontable" beforeajax="tablefilter" :coloumns='[
                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
-                ["th"=>"Question","name"=>"description","data"=>"description"],
-                ["th" => "Visible", "name" => "visible_status", "data" => "visibility"], 
+                ["th"=>"Question","name"=>"description","data"=>"description"], 
+                ["th" => "Visible", "name" => "visible_status", "data" => "visibility"],
             ]' 
             tableinit="questiontableinit" />
         </div>

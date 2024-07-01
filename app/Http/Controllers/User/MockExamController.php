@@ -25,7 +25,9 @@ class MockExamController extends Controller
         self::reset();
         self::$model = Exam::class; 
 
-        $exams=$this->where("name",'full-mock-exam')->buildPagination();
+        $exams=$this->where("name",'full-mock-exam')->where(function($qry){
+            $qry->whereIn("id",Question::select('exam_id'));
+        })->buildPagination();
          
         /**
          *  @var User

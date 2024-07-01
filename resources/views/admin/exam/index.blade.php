@@ -68,6 +68,7 @@
             <x-ajax-table :coloumns='[
                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
                 ["th"=>"Title","name"=>"title","data"=>"title"], 
+                ["th"=>"Time Of Exam","name"=>"time_of_exam","data"=>"time_of_exam"], 
             ]' />
         </div>
     </div>

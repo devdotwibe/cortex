@@ -104,7 +104,7 @@
                         ]" /> 
                 </div> 
             </div>
-            <div class="modal-content" id="sub-category-set-modal-content" style="display:none">
+            {{-- <div class="modal-content" id="sub-category-set-modal-content" style="display:none">
                 <div class="modal-header">
                     <h5 class="modal-title" id="sub-category-set-createLabel">Add Set</h5>
                     <button type="button" class="close" onclick="closesubcategorysetlist()"  >
@@ -144,7 +144,7 @@
                             ['th' => 'Visible', 'name' => 'visible_status', 'data' => 'visibility'],
                         ]" />
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 
@@ -261,18 +261,18 @@
             $('#table-subcategory-form-submit').text(' Add + ')
         }
         function closesubcategorysetlist(){
-            $('#sub-category-set-modal-content').hide();
-            $('#sub-category-modal-content').fadeIn();
-            subcattable.ajax.reload() 
+            // $('#sub-category-set-modal-content').hide();
+            // $('#sub-category-modal-content').fadeIn();
+            // subcattable.ajax.reload() 
         }
 
         function subcategorysetlist(url, slug) {
-            activedata['subcategory'] = slug; 
-            $('#table-subcategoryset-form-create').data('createurl', url);
-            clearsubcategoryset();
-            $('#sub-category-modal-content').hide();
-            $('#sub-category-set-modal-content').fadeIn();
-            subcatsettable.ajax.reload() 
+            // activedata['subcategory'] = slug; 
+            // $('#table-subcategoryset-form-create').data('createurl', url);
+            // clearsubcategoryset();
+            // $('#sub-category-modal-content').hide();
+            // $('#sub-category-set-modal-content').fadeIn();
+            // subcatsettable.ajax.reload() 
         }
 
         function updatesubcategoryset(url) {

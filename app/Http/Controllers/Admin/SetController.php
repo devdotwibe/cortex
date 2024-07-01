@@ -23,8 +23,8 @@ class SetController extends Controller
        
         $sub = SubCategory::where('slug',$slug)->first();
         $set_data = $request->validate([
-
             "name" => "required|unique:setnames,name,NULL,id,sub_category_id,".$sub->id,
+            'time_of_exam'=>"required"
         ]);
 
 
@@ -100,8 +100,8 @@ class SetController extends Controller
         $set = Setname::findSlug($slug);
 
         $edit_data = $request->validate([
-
             "name" => "required|unique:setnames,name,".$set->id.",id,sub_category_id,".$set->sub_category_id,
+            'time_of_exam'=>"required"
         ]);
 
 

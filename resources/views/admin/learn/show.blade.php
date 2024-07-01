@@ -19,7 +19,9 @@
             <x-ajax-table :coloumns='[
                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
                 ["th"=>"Title","name"=>"title","data"=>"title"],
-            ]' />
+                ["th" => "Visible", "name" => "visible_status", "data" => "visibility"],
+            ]' 
+            tableinit="questiontableinit" />
         </div>
     </div>
 </section>
@@ -27,6 +29,16 @@
 
 @push('footer-script')
     <script>
-
+        var questiontable = null;
+        function questiontableinit(table) {
+            questiontable = table
+        }
+        function visiblechangerefresh(url) {
+            $.get(url, function() {
+                if (questiontable != null) {
+                    questiontable.ajax.reload()
+                }
+            }, 'json')
+        }
     </script>
 @endpush

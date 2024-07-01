@@ -12,115 +12,96 @@ class SubCategoryController extends Controller
 {
 
     use ResourceController;
-    function __construct()
+    public function __construct()
     {
-        self::$model=SubCategory::class;
-        self::$routeName="admin.subcategory";
-        self::$defaultActions=[''];
+        self::$model = SubCategory::class;
+        self::$routeName = "admin.subcategory";
+        self::$defaultActions = [''];
 
     }
 
-    
-    function subcategory_table(Request $request)
-
+    public function subcategory_table(Request $request)
     {
-        if($request->ajax()){
+        if ($request->ajax()) {
+ 
+                if(!empty($request->category)){
+                    $category = Category::findSlug($request->category);
+                    $this->where('category_id', $category->id);
+                }else{
+                    $this->where('id', 0);
+                }
 
-            if(!empty($request->category))
-            {
-                
-                $category = Category::findSlug($request->category);
+                return  $this->addAction(function ($data) {
 
-               
-                    return $this->where('category_id',$category->id)
-                ->addAction(function($data){
+                        if (!empty($data->setname) && count($data->setname) > 0) {
 
-                    if(!empty($data->setname) && count($data->setname) > 0)
-                    {
+                            return '<!--<a onclick="subcategorysetlist(\'' . route('admin.set.set_store', $data->slug) . '\', \'' . $data->slug . '\')" class="btn btn-icons view_btn">+</a>-->' .
 
-                    return '<a onclick="subcategorysetlist(\''.route('admin.set.set_store', $data->slug).'\', \''.$data->slug.'\')" class="btn btn-icons view_btn">+</a>'.
+                            '<a onclick="updatesubcategory(\'' . route('admin.subcategory.edit', $data->slug) . '\', \'' . $data->slug . '\' , \'subcategory\')"  class="btn btn-icons edit_btn"><img src="' . asset("assets/images/edit.svg") . '" alt=""></a>';
 
-                    '<a onclick="updatesubcategory(\''.route('admin.subcategory.edit', $data->slug).'\', \''.$data->slug.'\' , \'subcategory\')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>';
+                        } else {
 
-                    }
-                    else
-                    {
+                            return '<!--<a onclick="subcategorysetlist(\'' . route('admin.set.set_store', $data->slug) . '\', \'' . $data->slug . '\')" class="btn btn-icons view_btn">+</a>-->' .
 
-                        return '<a onclick="subcategorysetlist(\''.route('admin.set.set_store', $data->slug).'\', \''.$data->slug.'\')" class="btn btn-icons view_btn">+</a>'.
+                            '<a onclick="updatesubcategory(\'' . route('admin.subcategory.edit', $data->slug) . '\', \'' . $data->slug . '\' , \'subcategory\')"  class="btn btn-icons edit_btn"><img src="' . asset("assets/images/edit.svg") . '" alt=""></a>' .
 
-                        '<a onclick="updatesubcategory(\''.route('admin.subcategory.edit', $data->slug).'\', \''.$data->slug.'\' , \'subcategory\')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>'.
-
-                        '<a  class="btn btn-icons dlt_btn" data-delete="'.route("admin.subcategory.destroy",$data->slug).'">
-                        <img src="'.asset("assets/images/delete.svg").'" alt="">
+                            '<a  class="btn btn-icons dlt_btn" data-delete="' . route("admin.subcategory.destroy", $data->slug) . '">
+                        <img src="' . asset("assets/images/delete.svg") . '" alt="">
                         </a> ';
 
-                    }
-        
-                    })->addColumn('visibility',function($data){
-                        return '                
+                        }
+
+                    })->addColumn('visibility', function ($data) {
+                    return '
                             <div class="form-check ">
-                                <input type="checkbox"  class="user-visibility form-check-box" name="visibility" value="'.($data->id).'" '.($data->visible_status=="show"?"checked":"").' onchange="subcatvisiblechangerefresh('."'".route("admin.subcategory.visibility",$data->slug)."'".')" > 
+                                <input type="checkbox"  class="user-visibility form-check-box" name="visibility" value="' . ($data->id) . '" ' . ($data->visible_status == "show" ? "checked" : "") . ' onchange="subcatvisiblechangerefresh(' . "'" . route("admin.subcategory.visibility", $data->slug) . "'" . ')" >
                             </div>
                         ';
-                    })->buildTable(['visibility']);
+                })->buildTable(['visibility']);
+ 
 
-             
-
-                
-                   
-            }
-            else
-            {
-                return $this->addColumn('visibility',function($data){
-                    return '                
-                        <div class="form-check ">
-                            <input type="checkbox"  class="user-visibility form-check-box" name="visibility" value="'.($data->id).'" '.($data->visible_status=="show"?"checked":"").' onchange="subcatvisiblechangerefresh('."'".route("admin.subcategory.visibility",$data->slug)."'".')" > 
-                        </div>
-                    ';
-                })->buildTable();
-            }
-           
         }
-        
+
     }
 
-    public function edit(Request $request,SubCategory $subCategory){
-        if($request->ajax()){
-            $subCategory->updateUrl=route('admin.subcategory.update', $subCategory->slug);
+    public function edit(Request $request, SubCategory $subCategory)
+    {
+        if ($request->ajax()) {
+            $subCategory->updateUrl = route('admin.subcategory.update', $subCategory->slug);
             return response()->json($subCategory);
         }
     }
 
-    function update(Request $request, SubCategory $subCategory)
-    {  
+    public function update(Request $request, SubCategory $subCategory)
+    {
         $edit_data = $request->validate([
 
-            "name" => "required|unique:sub_categories,name,".$subCategory->id.",id,category_id,".$subCategory->category_id,
+            "name" => "required|unique:sub_categories,name," . $subCategory->id . ",id,category_id," . $subCategory->category_id,
         ]);
-  
-        $subCategory->update($edit_data);
- 
 
-        return response()->json(['success',"Sub Category Updated Successfully",'type'=>'subcategory']);
-    
+        $subCategory->update($edit_data);
+
+        return response()->json(['success', "Sub Category Updated Successfully", 'type' => 'subcategory']);
+
     }
 
-    public function destroy(Request $request,SubCategory $subcategory)
-    { 
-        
+    public function destroy(Request $request, SubCategory $subcategory)
+    {
+
         $subcategory->delete();
 
-        if($request->ajax()){
-            return response()->json(["success"=>"Subcategory deleted success"]);
-        }        
-        return redirect()->route('admin.options.index')->with("success","SubCategory deleted success");
+        if ($request->ajax()) {
+            return response()->json(["success" => "Subcategory deleted success"]);
+        }
+        return redirect()->route('admin.options.index')->with("success", "SubCategory deleted success");
     }
-    public function visibility(Request $request,SubCategory $subcategory){
-        $subcategory->update(['visible_status'=>($subcategory->visible_status??"")=="show"?"hide":"show"]);        
-        if($request->ajax()){
-            return response()->json(["success"=>"SubCategory visibility change success"]);
-        }        
-        return redirect()->route('admin.options.index')->with("success","SubCategory visibility change success");
+    public function visibility(Request $request, SubCategory $subcategory)
+    {
+        $subcategory->update(['visible_status' => ($subcategory->visible_status ?? "") == "show" ? "hide" : "show"]);
+        if ($request->ajax()) {
+            return response()->json(["success" => "SubCategory visibility change success"]);
+        }
+        return redirect()->route('admin.options.index')->with("success", "SubCategory visibility change success");
     }
 
 }

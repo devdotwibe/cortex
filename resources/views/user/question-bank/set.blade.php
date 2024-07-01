@@ -53,7 +53,7 @@
         </div>
         
     </div>
-    <div class="container-wrap">
+    <div class="container-wrap" id="question-answer-page">
         <div class="lesson">  
             <div class="question-time">
                 <div class="timer"> 
@@ -347,8 +347,9 @@
         var examActive=true;
         var timetaken=0;
         function toglepreviewpage(){
-            timerActive=!timerActive;
-            $('#question-preview-page').fadeToggle()
+            timerActive=!timerActive; 
+            $('#question-preview-page').slideToggle()
+            $('#question-answer-page').fadeToggle()
         }
         function d2s(number){
             return (number??0).toLocaleString('en-US', { minimumIntegerDigits: 2 })
@@ -436,6 +437,7 @@
                 $('#lesson-footer-pagination').html('')
                 timerActive=true;
                 $('#question-preview-page').fadeOut()
+                $('#question-answer-page').fadeIn()
                 const lesseonId=generateRandomId(10);  
                 cudx=res.current_page;
                 notansweridx.push(cudx) 
@@ -517,7 +519,8 @@
                                                     }else{
                                                         $('.unfinish-message').hide().find('.unfinish-count').text(0)
                                                     }
-                                                    $('#finish-exam-confirm').modal('show')
+                                                    lessonreviewconfirm()
+                                                    // $('#finish-exam-confirm').modal('show')
                                                 })
                                             } 
                                             countownSlugActive="";
@@ -703,6 +706,7 @@
                 $('#exam-mark-gained').html(`<span >${psed}/${totalcount}</span>`)      
                 $('.pagination-arrow').hide(); 
                 $('#question-preview-page').hide() 
+                $('#question-answer-page').show()
                 $('#question-complete-page').fadeIn()
                 $('#lesson-questionlist-list').hide().html('') 
             },'json');

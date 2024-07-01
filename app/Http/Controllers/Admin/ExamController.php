@@ -36,7 +36,8 @@ class ExamController extends Controller
     }
     public function store(Request $request){
         $examdat=$request->validate([
-            "title"=>"required"
+            "title"=>"required",
+            "time_of_exam"=>"required"
         ]);
         $examdat['name']="full-mock-exam";
         $exam=Exam::store($examdat);        
@@ -66,7 +67,8 @@ class ExamController extends Controller
     }
     public function update(Request $request,Exam $exam){
         $examdat=$request->validate([
-            "title"=>"required"
+            "title"=>"required",
+            "time_of_exam"=>"required"
         ]);
         $exam->update($examdat);
         

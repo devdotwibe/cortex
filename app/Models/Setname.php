@@ -18,7 +18,8 @@ class Setname extends Model
         'name',
         'sub_category_id',
         'category_id',
-        'visible_status'
+        'visible_status',
+        'time_of_exam'
     ];
 
     public function subcategory()

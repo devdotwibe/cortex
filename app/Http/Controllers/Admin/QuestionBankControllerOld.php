@@ -5,56 +5,74 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Exam;
+use App\Models\ExamCategoryTitle;
 use App\Models\Question;
 use App\Models\Setname;
 use App\Models\SubCategory;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
 
-class TopicTestController extends Controller
+class QuestionBankControllerOld extends Controller
 {
-    
+   
     use ResourceController; 
     public function index(Request $request){
         self::reset();
         self::$model = Category::class;
-        self::$routeName = "admin.topic-test"; 
+        self::$routeName = "admin.question-bank"; 
         $categorys=$this->buildResult();
-        $exam=Exam::where("name",'topic-test')->first();
+        $exam=Exam::where("name",'question-bank')->first();
         if(empty($exam)){
             $exam=Exam::store([
-                "title"=>"Topic Test",
-                "name"=>"topic-test",
+                "title"=>"Question Bank",
+                "name"=>"question-bank",
             ]);
             $exam=Exam::find( $exam->id );
         }
-        return view("admin.topic-test.index",compact('categorys','exam'));
+        return view("admin.question-bank.index",compact('categorys','exam'));
+    }
+    public function subtitle(Request $request){
+        $data=$request->validate([
+            "exam_id"=>['required'],
+            "category_id"=>['required'],
+            "title"=>['required'],
+        ]);
+        $categorytitle=ExamCategoryTitle::where('exam_id',$data['exam_id'])->where('category_id',$data['category_id'])->first();
+        if(empty($categorytitle)){
+            $categorytitle=ExamCategoryTitle::store($data);
+        }else{
+            $categorytitle->update($data);
+        }
+        return $data;
     }
     public function show(Request $request,Category $category){
         self::reset();
         self::$model = Question::class;
         self::$routeName = "admin.question"; 
         self::$defaultActions=["delete"];
-        $exam=Exam::where("name",'topic-test')->first();
+        $exam=Exam::where("name",'question-bank')->first();
         if(empty($exam)){
             $exam=Exam::store([
-                "title"=>"Topic Test",
-                "name"=>"topic-test",
+                "title"=>"Question Bank",
+                "name"=>"question-bank",
             ]);
             $exam=Exam::find( $exam->id );
         }
-        if($request->ajax()){
+        if($request->ajax()){ 
             if(!empty($request->sub_category_id)){
                 $this->where('sub_category_id',$request->sub_category_id);
             }
-            return $this->where('exam_id',$exam->id)
-                ->where('category_id',$category->id)
-                ->addAction(function($data)use($category){
+            if(!empty($request->sub_category_set)){
+                $this->where('sub_category_set',$request->sub_category_set);
+            }
+            return  $this->where('exam_id',$exam->id)->where('category_id',$category->id)->addAction(function($data)use($category){
                     return '
-                    <a href="'.route("admin.topic-test.edit",["category"=>$category->slug,"question"=>$data->slug]).'" class="btn btn-icons edit_btn">
+                    <a href="'.route("admin.question-bank.edit",["category"=>$category->slug,"question"=>$data->slug]).'" class="btn btn-icons edit_btn">
                         <img src="'.asset("assets/images/edit.svg").'" alt="">
                     </a>
                     ';
+                })->addColumn('subcategoryname',function($data){
+                    return optional($data->subCategory)->name;
                 })->addColumn('visibility',function($data){
                     return '                
                         <div class="form-check ">
@@ -64,7 +82,7 @@ class TopicTestController extends Controller
                 })
                 ->buildTable(['description','visibility']);
         } 
-        return view("admin.topic-test.show",compact('category','exam'));
+        return view("admin.question-bank.show",compact('category','exam'));
     }
     public function create(Request $request,Category $category){ 
         if($request->ajax()){
@@ -79,15 +97,15 @@ class TopicTestController extends Controller
                 return $this->where('category_id',$category->id)->buildSelectOption();
             }
         } 
-        $exam=Exam::where("name",'topic-test')->first();
+        $exam=Exam::where("name",'question-bank')->first();
         if(empty($exam)){
             $exam=Exam::store([
-                "title"=>"Topic Test",
-                "name"=>"topic-test",
+                "title"=>"Question Bank",
+                "name"=>"question-bank",
             ]);
             $exam=Exam::find( $exam->id );
         } 
-        return view("admin.topic-test.create",compact('category','exam'));
+        return view("admin.question-bank.create",compact('category','exam'));
     } 
 
     public function edit(Request $request,Category $category,Question $question){ 
@@ -103,14 +121,15 @@ class TopicTestController extends Controller
                 return $this->where('category_id',$category->id)->buildSelectOption();
             }
         } 
-        $exam=Exam::where("name",'topic-test')->first();
+        $exam=Exam::where("name",'question-bank')->first();
         if(empty($exam)){
             $exam=Exam::store([
-                "title"=>"Topic Test",
-                "name"=>"topic-test",
+                "title"=>"Question Bank",
+                "name"=>"question-bank",
             ]);
             $exam=Exam::find( $exam->id );
         } 
-        return view("admin.topic-test.edit",compact('category','exam','question'));
+        return view("admin.question-bank.edit",compact('category','exam','question'));
     }
+    
 }

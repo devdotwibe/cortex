@@ -27,8 +27,9 @@ class QuestionController extends Controller
                     "sub_category_id"=>['required'],
                     "sub_category_set"=>['required'],
                     "description"=>['required'],
-                    "duration"=>["required"],
-                    "answer.*"=>["required"],
+                    // "duration"=>["required"],
+                    "answer.*"=>["required",'string','max:150'],
+                    "explanation"=>['nullable'],
                 ],[
                     'answer.*.required'=>['The answer field is required.']
                 ]);
@@ -40,7 +41,7 @@ class QuestionController extends Controller
                     "category_id"=>['required'],
                     "description"=>['required'],
                     "duration"=>["required"],
-                    "answer.*"=>["required"],
+                    "answer.*"=>["required",'string','max:150'],
                 ],[
                     'answer.*.required'=>['The answer field is required.']
                 ]);
@@ -53,7 +54,7 @@ class QuestionController extends Controller
                     "sub_category_id"=>['required'],
                     "description"=>['required'],
                     "duration"=>["required"],
-                    "answer.*"=>["required"],
+                    "answer.*"=>["required",'string','max:150'],
                 ],[
                     'answer.*.required'=>['The answer field is required.']
                 ]);
@@ -67,7 +68,7 @@ class QuestionController extends Controller
                     "sub_category_set"=>['nullable'],
                     "description"=>['required'],
                     "duration"=>["required"],
-                    "answer.*"=>["required"],
+                    "answer.*"=>["required",'string','max:150'],
                 ],[
                     'answer.*.required'=>['The answer field is required.']
                 ]);
@@ -95,8 +96,8 @@ class QuestionController extends Controller
                     "sub_category_id"=>['required'],
                     "sub_category_set"=>['required'],
                     "description"=>['required'],
-                    "duration"=>["required"],
-                    "answer.*"=>["required"],
+                    //"duration"=>["required"],
+                    "answer.*"=>["required",'string','max:150'],
                     "explanation"=>['nullable'],
                 ],[
                     'answer.*.required'=>['The answer field is required.']
@@ -108,7 +109,7 @@ class QuestionController extends Controller
                     "category_id"=>['required'],
                     "description"=>['required'],
                     "duration"=>["required"],
-                    "answer.*"=>["required"],
+                    "answer.*"=>["required",'string','max:150'],
                     "explanation"=>['nullable'],
                 ],[
                     'answer.*.required'=>['The answer field is required.']
@@ -121,7 +122,7 @@ class QuestionController extends Controller
                     "sub_category_id"=>['required'],
                     "description"=>['required'],
                     "duration"=>["required"],
-                    "answer.*"=>["required"],
+                    "answer.*"=>["required",'string','max:150'],
                     "explanation"=>['nullable'],
                 ],[
                     'answer.*.required'=>['The answer field is required.']
@@ -135,7 +136,7 @@ class QuestionController extends Controller
                     "sub_category_set"=>['nullable'],
                     "description"=>['required'],
                     "duration"=>["required"],
-                    "answer.*"=>["required"],
+                    "answer.*"=>["required",'string','max:150'],
                     "explanation"=>['nullable'],
                 ],[
                     'answer.*.required'=>['The answer field is required.']
@@ -173,6 +174,15 @@ class QuestionController extends Controller
         $redirect=$request->redirect??route('admin.question.index');
         return redirect($redirect)->with("success","Question has been successfully updated");
     }
+
+    public function visibility(Request $request,Question $question){
+        $question->update(['visible_status'=>($question->visible_status??"")=="show"?"hide":"show"]);        
+        if($request->ajax()){
+            return response()->json(["success"=>"Question visibility change success"]);
+        }        
+        return redirect()->route('admin.options.index')->with("success","Question visibility change success");
+    }
+    
     public function destroy(Request $request,Question $question){ 
         Answer::where("question_id",$question->id)->delete();
         $question->delete();

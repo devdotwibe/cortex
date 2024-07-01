@@ -126,6 +126,18 @@
                         Options
                     </a>
                 </li>
+                {{-- <li class="side-item {{request()->is('admin/question-bank-old') ? 'active':''}}">
+                    <a href="{{ route('admin.question-bank-old.index') }}">
+                        <span class="side-icon" >
+                            <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
+                        </span>
+                        <span class="active-icon">
+                            <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Dashboard">
+                        </span>
+                        Question Bank Old
+                    </a>
+                </li> --}}
+
                 <li class="side-item {{request()->is('admin/question-bank') ? 'active':''}}">
                     <a href="{{ route('admin.question-bank.index') }}">
                         <span class="side-icon" >
@@ -277,6 +289,7 @@
     <script src="{{ asset('assets/js/datatables.min.js') }}"></script>
     <script src="{{ asset('assets/js/select2.min.js') }}"></script>
     <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.inputmask.min.js') }}"></script>
     <script src="{{ asset('assets/js/custom.js') }}"></script>
     @stack('footer-script')
 </body>
