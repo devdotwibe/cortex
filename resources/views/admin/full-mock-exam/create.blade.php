@@ -15,7 +15,8 @@
             ["name"=>"exam_type", "value"=>"full-mock-exam","type"=>"hidden"],
             ["name"=>"redirect", "value"=>route("admin.full-mock-exam.index",$exam->slug),"type"=>"hidden"],
             ["name"=>"category_id" ,"label"=>"Category","ajaxurl"=>route("admin.full-mock-exam.create",$exam->slug),"type"=>"select","size"=>4],
-            ["name"=>"duration" ,"label"=>"Duration","placeholder"=>"duration in Minutes","type"=>"select","size"=>4,"options"=>array_map(function($num){ return [ "value"=>"$num minute","text"=>"$num minute" ]; },range(1,10))],
+            
+            
             ["name"=>"description","label"=>"Question","size"=>12,"type"=>"editor"], 
             ["name"=>"answer","label"=>"answer" ,"type"=>"choice" ,"size"=>6],
             ["name"=>"explanation","label"=>"Explanation","size"=>12,"type"=>"editor" ],

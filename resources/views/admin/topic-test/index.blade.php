@@ -40,25 +40,25 @@
 
 @push('modals')    
 
-<div class="modal fade" id="question-bank-subtitle" tabindex="-1" role="dialog" aria-labelledby="question-bank-subtitleLabel" aria-hidden="true">
+<div class="modal fade" id="topic-test-subtitle" tabindex="-1" role="dialog" aria-labelledby="topic-test-subtitleLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
 
             <div class="modal-header">
-                <h5 class="modal-title" id="question-bank-subtitleLablel"></h5>
+                <h5 class="modal-title" id="topic-test-subtitleLablel"></h5>
                 <button type="button" class="close"  data-bs-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-                <form action="{{route('admin.question-bank.subtitle')}}"  id="question-bank-subtitle-form" method="post">
+                <form action="{{route('admin.topic-test.subtitle')}}"  id="topic-test-subtitle-form" method="post">
                     @csrf
-                    <input type="hidden" name="category_id" id="question-bank-category-id" value="">
+                    <input type="hidden" name="category_id" id="topic-test-category-id" value="">
                     <input type="hidden" name="exam_id" value="{{$exam->id}}">                    
                      <div class="form-group">
                         <div class="form-data">
                             <div class="forms-inputs mb-4">
-                                <label for="question-bank-category-title">Sub Title</label>
-                                <input type="text" name="title" id="question-bank-category-title" value="" class="form-control " placeholder="Sub Title" aria-placeholder="Sub Title" >        
+                                <label for="topic-test-category-title">Sub Title</label>
+                                <input type="text" name="title" id="topic-test-category-title" value="" class="form-control " placeholder="Sub Title" aria-placeholder="Sub Title" >        
                                 <div class="invalid-feedback">The field is required</div>
                             </div>
                         </div>                        
@@ -77,24 +77,24 @@
     <script>
          function editsubtitle(event,element){
             event.preventDefault()
-            $('#question-bank-subtitleLablel').text($(element).data('title'))
-            $('#question-bank-category-title').val($(element).data('subtitle')).removeClass('is-invalid')
-            $('#question-bank-category-id').val($(element).data('category'))
-            $('#question-bank-subtitle').modal('show')
+            $('#topic-test-subtitleLablel').text($(element).data('title'))
+            $('#topic-test-category-title').val($(element).data('subtitle')).removeClass('is-invalid')
+            $('#topic-test-category-id').val($(element).data('category'))
+            $('#topic-test-subtitle').modal('show')
          }
          $(function(){
-            $('#question-bank-subtitle-form').submit(function(e){
+            $('#topic-test-subtitle-form').submit(function(e){
                 e.preventDefault();
                 var form=this;
-                $('#question-bank-category-title').removeClass('is-invalid')
-                $.post('{{route('admin.question-bank.subtitle')}}',$(form).serialize(),function(res){
+                $('#topic-test-category-title').removeClass('is-invalid')
+                $.post('{{route('admin.topic-test.subtitle')}}',$(form).serialize(),function(res){
                     form.reset()
                     $('#category-content-subtitle-'+res.category_id).text(res.title)
                     $('#category-content-subtitle-edit-'+res.category_id).data('subtitle',res.title)
-                    $('#question-bank-subtitle').modal('hide')
+                    $('#topic-test-subtitle').modal('hide')
                     showToast('Subtitle has been successfully updated', 'success');
                 },'json').fail(function(){
-                    $('#question-bank-category-title').addClass('is-invalid')
+                    $('#topic-test-category-title').addClass('is-invalid')
                 }).always(function(){
 
                 })

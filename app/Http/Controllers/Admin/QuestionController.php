@@ -40,7 +40,7 @@ class QuestionController extends Controller
                     "exam_id"=>['required'],
                     "category_id"=>['required'],
                     "description"=>['required'],
-                    "duration"=>["required"],
+                    // "duration"=>["required"],
                     "answer.*"=>["required",'string','max:150'],
                 ],[
                     'answer.*.required'=>['The answer field is required.']
@@ -53,7 +53,7 @@ class QuestionController extends Controller
                     "category_id"=>['required'],
                     "sub_category_id"=>['required'],
                     "description"=>['required'],
-                    "duration"=>["required"],
+                    // "duration"=>["required"],
                     "answer.*"=>["required",'string','max:150'],
                 ],[
                     'answer.*.required'=>['The answer field is required.']
@@ -108,7 +108,7 @@ class QuestionController extends Controller
                 $questiondat=$request->validate([ 
                     "category_id"=>['required'],
                     "description"=>['required'],
-                    "duration"=>["required"],
+                    // "duration"=>["required"],
                     "answer.*"=>["required",'string','max:150'],
                     "explanation"=>['nullable'],
                 ],[
@@ -121,7 +121,7 @@ class QuestionController extends Controller
                     "category_id"=>['required'],
                     "sub_category_id"=>['required'],
                     "description"=>['required'],
-                    "duration"=>["required"],
+                    // "duration"=>["required"],
                     "answer.*"=>["required",'string','max:150'],
                     "explanation"=>['nullable'],
                 ],[

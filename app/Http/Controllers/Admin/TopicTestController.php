@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Exam;
+use App\Models\ExamCategoryTitle;
 use App\Models\Question;
 use App\Models\Setname;
 use App\Models\SubCategory;
@@ -112,5 +113,34 @@ class TopicTestController extends Controller
             $exam=Exam::find( $exam->id );
         } 
         return view("admin.topic-test.edit",compact('category','exam','question'));
+    }
+    public function subtitle(Request $request){
+        $data=$request->validate([
+            "exam_id"=>['required'],
+            "category_id"=>['required'],
+            "title"=>['required'],
+        ]);
+        $categorytitle=ExamCategoryTitle::where('exam_id',$data['exam_id'])->where('category_id',$data['category_id'])->first();
+        if(empty($categorytitle)){
+            $categorytitle=ExamCategoryTitle::store($data);
+        }else{
+            $categorytitle->update($data);
+        }
+        return $data;
+    }
+    public function updatetime(Request $request,Category $category){
+        $data=$request->validate([
+            'time_of_exam'=>"required"
+        ]);
+        $exam=Exam::where("name",'topic-test')->first();
+        if(empty($exam)){
+            $exam=Exam::store([
+                "title"=>"Topic Test",
+                "name"=>"topic-test",
+            ]);
+            $exam=Exam::find( $exam->id );
+        } 
+        $category->update($data); 
+        return redirect()->back()->with("success","Topic Test Time has been successfully updated");
     }
 }

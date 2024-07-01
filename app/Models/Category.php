@@ -16,7 +16,8 @@ class Category extends Model
     protected $fillable = [
         'slug',
         'name',
-        'visible_status'
+        'visible_status',
+        'time_of_exam'
     ];
 
     public function subcategories()
