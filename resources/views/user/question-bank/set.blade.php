@@ -81,7 +81,7 @@
     </div> 
 </section>
 
-<section class="modal-expand" id="question-complete-page" style="display: none;">
+<section class="modal-expand modal-expand-result" id="question-complete-page" style="display: none;">
     <div class="container-wrap">
         <div class="question-preview">  
             <div class="question-preview-title">

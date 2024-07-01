@@ -684,7 +684,7 @@ border-radius: 7px;
   background:#f0f6fa;
   z-index:11;
 }
-.modal-expand.result {
+.modal-expand.modal-expand-result {
   top:90px;
 }
 .modal-expand .container-wrap {
