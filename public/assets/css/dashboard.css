@@ -667,7 +667,7 @@ border-radius: 7px;
       transform: scale(1);
   }
 }
-.question-time.time-up {
+.time-up {
   background-color: red;
   animation: heartbeat 1s infinite;
   text-align: center;
@@ -684,7 +684,9 @@ border-radius: 7px;
   background:#f0f6fa;
   z-index:11;
 }
-
+.modal-expand.modal-expand-result {
+  top:90px;
+}
 .modal-expand .container-wrap {
   width: -webkit-fill-available;
   float: left;
@@ -884,7 +886,6 @@ border-radius: 7px;
     margin-top:6px;
 }
 
-
 .table-outer table tbody tr td p { 
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -900,6 +901,37 @@ border-radius: 7px;
 .header_nav .header_wrapp .header_title {
   display: flex;
 }
+.form-progress-ans {
+  width:100%; 
+}
+
+.form-progress-ans .form-progress {
+  width:100%;
+  margin:5px 15px;
+  display:flex;
+  align-items:center; 
+}
+.form-progress-ans .form-progress label{
+  width:max-content;
+  font-weight:500;
+}
+.form-progress-ans .form-progress progress{
+  width:max-content;
+  min-width:400px; 
+  margin: 0 5px;
+  height:10px
+}
+.form-progress-ans .form-progress progress::-webkit-progress-bar {
+  background-color: #ffffff;  
+}
+.form-progress-ans .form-progress progress::-webkit-progress-value {
+  background-color: #e0e0e0;  
+}
+.form-progress-ans.ans-select .form-progress progress::-webkit-progress-value {
+  background-color: #4caf50;  
+}
+
+
 
 
 

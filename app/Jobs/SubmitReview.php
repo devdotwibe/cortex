@@ -110,7 +110,10 @@ class SubmitReview implements ShouldQueue
                 'note'=>$note, 
                 'explanation'=>$learn->explanation, 
                 'currect_answer'=>$currect_answer, 
-                'user_answer'=>$user_answer,  
+                'user_answer'=>$user_answer, 
+                'exam_id'=> $this->review->exam_id,
+                'question_id'=> $learn->id,
+                'user_id'=>$this->review->user_id,
             ]);
             if($learn->learn_type=='mcq'){
                 foreach($learn->learnanswers as $ans){
@@ -120,6 +123,10 @@ class SubmitReview implements ShouldQueue
                         'title'=>$ans->title,
                         'iscorrect'=>$ans->iscorrect,
                         'user_answer'=>(($ans->slug==$user_answer)?true:false),
+                        'exam_id'=> $this->review->exam_id,
+                        'question_id'=> $learn->id,
+                        'answer_id'=> $ans->id,
+                        'user_id'=>$this->review->user_id,
                     ]);
                 }
             }
@@ -135,6 +142,8 @@ class SubmitReview implements ShouldQueue
         $category=Category::find($this->review->category_id); 
         $subCategory=SubCategory::find($this->review->sub_category_id);
         $setname=Setname::find($this->review->sub_category_set);
+        $takentime=json_decode($user->progress("exam-review-".$this->review->id."-times",'[]'),true); 
+        $takentimereview=[];
         foreach (Question::where('exam_id',$exam->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->get() as $k=> $question) {
               
             $user_answer=$user->progress("exam-".$exam->id."-topic-".$category->id."-lesson-".$subCategory->id."-set-".$setname->id."-answer-of-".$question->slug,"");
@@ -147,8 +156,13 @@ class SubmitReview implements ShouldQueue
                 'explanation'=>$question->explanation, 
                 'currect_answer'=>'', 
                 'user_answer'=>$user_answer,  
+                'exam_id'=> $this->review->exam_id,
+                'question_id'=> $question->id,
+                'user_id'=>$this->review->user_id,
+                'time_taken'=>$takentime[$question->slug]??0
             ]);
             
+            $takentimereview[$revquestion->slug]=$takentime[$question->slug]??0;
             
             foreach($question->answers as $ans){
                 UserReviewAnswer::store([
@@ -157,19 +171,28 @@ class SubmitReview implements ShouldQueue
                     'title'=>$ans->title,
                     'iscorrect'=>$ans->iscorrect,
                     'user_answer'=>(($ans->slug==$user_answer)?true:false),
+                    'exam_id'=> $this->review->exam_id,
+                    'question_id'=> $question->id,
+                    'answer_id'=> $ans->id,
+                    'user_id'=>$this->review->user_id,
                 ]); 
             } 
             $user->setProgress("exam-".$exam->id."-topic-".$category->id."-lesson-".$subCategory->id."-set-".$setname->id."-answer-of-".$question->slug,null);
         }
+        $user->setProgress("exam-reviewed-".$this->review->id."-times",json_encode($takentimereview));
+        
         $user->setProgress("exam-".$exam->id."-topic-".$category->id."-lesson-".$subCategory->id."-set-".$setname->id."-complete-review",null);
         $user->setProgress("exam-".$exam->id."-topic-".$category->id."-lesson-".$subCategory->id."-set-".$setname->id."-progress-ids",null);
         $user->setProgress("exam-".$exam->id."-topic-".$category->id."-lesson-".$subCategory->id."-set-".$setname->id."-progress-url",null);
+        
     }
 
     private function topicTestHandle(){
         $user=User::find($this->review->user_id);
         $exam=Exam::find($this->review->exam_id);
         $category=Category::find($this->review->category_id);  
+        $takentime=json_decode($user->progress("exam-review-".$this->review->id."-times",'[]'),true);
+        $takentimereview=[];
         foreach (Question::where('exam_id',$exam->id)->where('category_id',$category->id)->get() as $k=> $question) {
               
             $user_answer=$user->progress("exam-".$exam->id."-topic-".$category->id."-answer-of-".$question->slug,"");
@@ -182,8 +205,13 @@ class SubmitReview implements ShouldQueue
                 'explanation'=>$question->explanation, 
                 'currect_answer'=>'', 
                 'user_answer'=>$user_answer,  
+                'exam_id'=> $this->review->exam_id,
+                'question_id'=> $question->id,
+                'user_id'=>$this->review->user_id,
+                'time_taken'=>$takentime[$question->slug]??0
             ]);
             
+            $takentimereview[$revquestion->slug]=$takentime[$question->slug]??0;
             
             foreach($question->answers as $ans){
                 UserReviewAnswer::store([
@@ -192,10 +220,16 @@ class SubmitReview implements ShouldQueue
                     'title'=>$ans->title,
                     'iscorrect'=>$ans->iscorrect,
                     'user_answer'=>(($ans->slug==$user_answer)?true:false),
+                    'exam_id'=> $this->review->exam_id,
+                    'question_id'=> $question->id,
+                    'answer_id'=> $ans->id,
+                    'user_id'=>$this->review->user_id,
                 ]); 
             } 
             $user->setProgress("exam-".$exam->id."-topic-".$category->id."-answer-of-".$question->slug,null);
         }
+        $user->setProgress("exam-reviewed-".$this->review->id."-times",json_encode($takentimereview));
+
         $user->setProgress("exam-".$exam->id."-topic-".$category->id."-complete-review",null);
         $user->setProgress("exam-".$exam->id."-topic-".$category->id."-progress-ids",null);
         $user->setProgress("exam-".$exam->id."-topic-".$category->id."-progress-url",null);
@@ -203,10 +237,12 @@ class SubmitReview implements ShouldQueue
     private function fullMockExamHandle(){
         $user=User::find($this->review->user_id);
         $exam=Exam::find($this->review->exam_id);   
+        $takentime=json_decode($user->progress("exam-review-".$this->review->id."-times",'[]'),true);
+        $takentimereview=[];
         foreach (Question::where('exam_id',$exam->id)->get() as $k=> $question) {
               
             $user_answer=$user->progress("exam-".$exam->id."-answer-of-".$question->slug,"");
-
+            
             $revquestion=UserReviewQuestion::store([
                 'title'=>$question->title, 
                 'user_exam_review_id'=>$this->review->id,
@@ -215,8 +251,12 @@ class SubmitReview implements ShouldQueue
                 'explanation'=>$question->explanation, 
                 'currect_answer'=>'', 
                 'user_answer'=>$user_answer,  
+                'exam_id'=> $this->review->exam_id,
+                'question_id'=> $question->id,
+                'user_id'=>$this->review->user_id,
+                'time_taken'=>$takentime[$question->slug]??0
             ]);
-            
+            $takentimereview[$revquestion->slug]=$takentime[$question->slug]??0;
             
             foreach($question->answers as $ans){
                 UserReviewAnswer::store([
@@ -225,10 +265,16 @@ class SubmitReview implements ShouldQueue
                     'title'=>$ans->title,
                     'iscorrect'=>$ans->iscorrect,
                     'user_answer'=>(($ans->slug==$user_answer)?true:false),
+                    'exam_id'=> $this->review->exam_id,
+                    'question_id'=> $question->id,
+                    'answer_id'=> $ans->id,
+                    'user_id'=>$this->review->user_id,
                 ]); 
             } 
             $user->setProgress("exam-".$exam->id."-answer-of-".$question->slug,null);
         }
+        $user->setProgress("exam-reviewed-".$this->review->id."-times",json_encode($takentimereview));
+
         $user->setProgress("exam-".$exam->id."-complete-review",null);
         $user->setProgress("exam-".$exam->id."-progress-ids",null);
         $user->setProgress("exam-".$exam->id."-progress-url",null);
