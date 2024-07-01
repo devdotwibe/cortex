@@ -73,6 +73,7 @@ class LearnTopicController extends Controller
         $user=Auth::user();
         $subscription = Subscription::where('user_id', $user->id)
             ->where('status', 'active')
+            ->orderBy('id','desc')
             ->first();
            $firstlesson = $lessons->first();
            $hasFreeAccess = $user->hasSubscriptionForCategory($category->id);
