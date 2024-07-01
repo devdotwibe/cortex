@@ -68,6 +68,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::get('/{category}/create',[TopicTestController::class,'create'])->name('create');
             Route::get('/{category}/{question}/edit',[TopicTestController::class,'edit'])->name('edit');
             Route::post('/{category}/store',[TopicTestController::class,'store'])->name('store');
+            Route::post('/{category}/updatetime',[TopicTestController::class,'updatetime'])->name('updatetime');
         });
         Route::resource("/question",QuestionController::class);
         Route::get('/question/{question}/visibility',[QuestionController::class,'visibility'])->name('question.visibility');
