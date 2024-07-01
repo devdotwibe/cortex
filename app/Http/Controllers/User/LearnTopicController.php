@@ -71,10 +71,13 @@ class LearnTopicController extends Controller
             ->where('category_id', $category->id)
             ->where('status', 'active')
             ->first();
-        if($subscription){
-            return view("user.learn.show",compact('category','exam','lessons','user'));
-        }
-        else{
+           $firstlesson = $lessons->first();
+           $hasFreeAccess = $user->hasSubscriptionForCategory($category->id);
+          if ($firstlesson && $hasFreeAccess){
+            return view("user.learn.show",compact('category','exam','lessons','user','firstlesson'));
+          }
+
+         else{
             return redirect()->route('stripe.payment');
         }
     }

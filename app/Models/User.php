@@ -25,7 +25,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'first_name',
         'last_name',
         'email',
-        'phone',
+        'schooling_year',
         'password',
     ];
 
@@ -51,7 +51,7 @@ class User extends Authenticatable implements MustVerifyEmail
             'password' => 'hashed',
         ];
     }
- 
+
     public function progress($name,$default=null){
         return optional($this->userProgress()->where("name",$name)->first())->value??$default;
     }
@@ -67,7 +67,7 @@ class User extends Authenticatable implements MustVerifyEmail
                     'value'=>$value,
                 ]);
             }else{
-                $progress->update([ 
+                $progress->update([
                     'value'=>$value,
                 ]);
             }
@@ -80,4 +80,17 @@ class User extends Authenticatable implements MustVerifyEmail
     public function userExamReview(){
         return $this->hasMany(UserExamReview::class);
     }
+    public function subscription(){
+        return $this->hasMany(Subscription::class);
+    }
+    public function hasSubscriptionForCategory($categoryId)
+{
+    $subscription = $this->subscription()->where('category_id', $categoryId)->where('status', 'active')->first();
+    // Check if the user has a subscription for the given category
+    $firstCategoryFree = $categoryId === 1; // Adjust this condition based on your logic
+
+    // Check if the user has a subscription for this category or if it's the first category (make it free)
+    return $subscription || $firstCategoryFree;
+}
+
 }

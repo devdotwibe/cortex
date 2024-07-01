@@ -4,8 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\UserExamReview;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
+use App\Models\Subcategory;
+use App\Models\Category;
+use App\Models\Setname;
 
 class UserController extends Controller
 {
@@ -18,7 +22,7 @@ class UserController extends Controller
     public function index(Request $request){
         if($request->ajax()){
             return $this->addAction(function($data){
-                return '                 
+                return '
                     <a onclick="resetpassword('."'".route("admin.user.resetpassword",$data->slug)."'".')" class="btn btn-icons reset_btn">
                         <img src="'.asset("assets/images/lock.svg").'" alt="">
                     </a>
@@ -42,7 +46,8 @@ class UserController extends Controller
         return redirect()->route('admin.user.index')->with("success","Users deleted success");
     }
     public function show(Request $request,User $user){
-        return view("admin.user.show",compact('user'));
+        $subscription = $user->subscription()->latest('id')->first();
+        return view("admin.user.show",compact('user','subscription'));
     }
     public function edit(Request $request,User $user){
         return view("admin.user.edit",compact('user'));
@@ -77,12 +82,47 @@ class UserController extends Controller
 
         return redirect()->route('admin.user.index')->with("success","User updated success");
     }
-    
-    public function destroy(Request $request,User $user){ 
+
+    public function destroy(Request $request,User $user){
         $user->delete();
         if($request->ajax()){
             return response()->json(["success"=>"User deleted success"]);
         }
         return redirect()->route('admin.user.index')->with("success","User deleted success");
+    }
+    public function getdata(Request $request)
+    {
+        self::$model = UserExamReview::class;
+
+        if ($request->ajax()) {
+            return $this->addAction(function($data) {
+                $title="";
+                switch ($data->name) {
+                    case 'learn':
+                            $category = Category::find($data->category_id);
+                            $subcategory = SubCategory::find($data->sub_category_id);
+                            $title="{$category->name}-{$subcategory->name}" ;
+                            break;
+
+                    case 'question-bank':
+                            $category = Category::find($data->category_id);
+                            $subcategory = SubCategory::find($data->sub_category_id);
+                            $subcategorySet = SubCategory::find($data->sub_category_set);
+                            $title="{$category->name}-{$subcategory->name} - {$subcategorySet->name}" ;
+                            break;
+
+                    case 'topic-test':
+                            $category = Category::find($data->category_id);
+                            $title = $category->name;
+                            break;
+
+                    case 'full-mock-exam':
+                        $title = $data->title;
+                   }
+                return $title;
+            })->buildTable(); // Example method to build and return table data
+        }
+
+        return response()->json(['error' => 'Invalid request'], 400);
     }
 }

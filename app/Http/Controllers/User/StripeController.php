@@ -14,7 +14,9 @@ class StripeController extends Controller
 {
     public function subscribe(Request $request)
     {
-        return view("stripe.subscribe");
+        $amount=2000;
+        $expires_on=Carbon::now()->addYear()->month(5)->day(30)->format('F j, Y');
+        return view("stripe.subscribe",compact('amount','expires_on'));
     }
 
     public function handlePayment(Request $request)
@@ -48,6 +50,7 @@ class StripeController extends Controller
                     // Attach the payment method to the customer
                     $stripeCustomer->payment_methods->attach($paymentMethod->id);
                 }
+
             }
 
 

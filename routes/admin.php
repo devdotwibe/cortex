@@ -30,7 +30,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::resource("/user",UserController::class);
         Route::post('/user/{user}/resetpassword',[UserController::class,'resetpassword'])->name('user.resetpassword');
         Route::post('/user/bulk/action',[UserController::class,'bulkaction'])->name('user.bulkaction');
-        Route::post('/user/getdata',[UserController::class,'getdata'])->name('user.students');
+        Route::get('/user/{user}/getdata',[UserController::class,'getdata'])->name('user.students');
         Route::resource("/exam",ExamController::class);
 
         Route::prefix('full-mock-exam')->name('full-mock-exam.')->group(function () {

@@ -9,6 +9,8 @@
             <div class="card">
                 <div class="card-body">
                     <h2 class="card-title">Subscribe</h2>
+                    <p>Amount: ${{ number_format($amount / 100, 2) }}</p>
+                    <p>Expires on : {{$expires_on}}</p>
                     <form action="{{ route('subscribe.handle') }}" method="post" id="payment-form">
                         @csrf
                         <div class="form-group">

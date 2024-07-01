@@ -849,7 +849,7 @@ border-radius: 7px;
 	margin-top:7px;
 }
 .exam-list {
-  width:100%; 
+  width:100%;
 }
 .exam-list .exam-title {
   display:flex;
@@ -867,6 +867,15 @@ border-radius: 7px;
   width:max-content;
   float:right;
 }
+.subscription-info {
+    font-weight:bold;
+    margin-top:10px;
+}
+.subscription-heading {
+    font-weight:bold;
+    margin-top:6px;
+}
+
 
 
 

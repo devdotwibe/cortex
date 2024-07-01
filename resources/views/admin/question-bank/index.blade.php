@@ -5,7 +5,7 @@
     <div class="header_wrapp">
         <div class="header_title">
             <h2>Question Bank</h2>
-        </div> 
+        </div>
     </div>
 </section>
 <section class="content_section">
@@ -27,17 +27,17 @@
                                 </div>
                             </div>
                         </div>
-                    </div>        
+                    </div>
                 </a>
-                
+
             </div>
-            @endforeach  
+            @endforeach
         </div>
     </div>
-</section> 
+</section>
 @endsection
 
-@push('modals')    
+@push('modals')
 
 <div class="modal fade" id="question-bank-subtitle" tabindex="-1" role="dialog" aria-labelledby="question-bank-subtitleLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -52,15 +52,15 @@
                 <form action="{{route('admin.question-bank.subtitle')}}"  id="question-bank-subtitle-form" method="post">
                     @csrf
                     <input type="hidden" name="category_id" id="question-bank-category-id" value="">
-                    <input type="hidden" name="exam_id" value="{{$exam->id}}">                    
+                    <input type="hidden" name="exam_id" value="{{$exam->id}}">
                      <div class="form-group">
                         <div class="form-data">
                             <div class="forms-inputs mb-4">
                                 <label for="question-bank-category-title">Sub Title</label>
-                                <input type="text" name="title" id="question-bank-category-title" value="" class="form-control " placeholder="Sub Title" aria-placeholder="Sub Title" >        
+                                <input type="text" name="title" id="question-bank-category-title" value="" class="form-control " placeholder="Sub Title" aria-placeholder="Sub Title" >
                                 <div class="invalid-feedback">The field is required</div>
                             </div>
-                        </div>                        
+                        </div>
                      </div>
                     <button type="button" data-bs-dismiss="modal" class="btn btn-secondary mr-1">Cancel</button>
                     <button type="submit" class="btn btn-dark ml-1">Save</button>
