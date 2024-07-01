@@ -286,6 +286,16 @@
         </div>
     </div>
 </section>
+<div style="display: none;opacity: 0;">
+    <form action="{{route('question-bank.set.submit',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug])}}" method="post" id="finish-exam-confirmed-form">
+        @csrf
+        <input type="hidden" name="timed" id="finish-exam-confirmed-form-timed" value="" >
+        <input type="hidden" name="timetaken" id="finish-exam-confirmed-form-timetaken" value="" >
+        <input type="hidden" name="flags" id="finish-exam-confirmed-form-flags" value="" >
+        <input type="hidden" name="times" id="finish-exam-confirmed-form-times" value="" >
+        <input type="hidden" name="passed" id="finish-exam-confirmed-form-passed" value="" > 
+    </form>
+</div>
 
 @endsection
 
@@ -353,13 +363,7 @@
             return result;
         }
         function countownRun(){
-            if(timerActive&&examActive){
-                if(countownRunCallbacks[currentSlug]){
-                    countownRunCallbacks[currentSlug]()
-                }
-                if(countownRunCallbackActive&&countownSlugActive!=currentSlug){
-                    countownRunCallbackActive()
-                } 
+            if(timerActive&&examActive){ 
                 if(endTime>0){ 
                     var d=endTime;
                     var m=Math.floor(d/60);
@@ -375,24 +379,27 @@
                     }
                     endTime--;
                     timetaken++;
+                    timercurrent[currentSlug]=(timercurrent[currentSlug]||0)+1;
                 } else{
                     $('.exam-timer .minute .runner').text(d2s(0))
                     $('.exam-timer .second .runner').text(d2s(0))
                     $('.exam-timer').addClass('time-up')
                     examActive=false
-                    updateandsave(function(){
-                        var unfinishcount=totalcount-questionids.length; 
-                        if(unfinishcount>0){
-                            $('.unfinish-message').show().find('.unfinish-count').text(unfinishcount)
+                    if((localStorage.getItem("question-bank")||"timed")=="timed"){ 
+                        updateandsave(function(){
+                            var unfinishcount=totalcount-questionids.length; 
+                            if(unfinishcount>0){
+                                $('.unfinish-message').show().find('.unfinish-count').text(unfinishcount)
+                            }else{
+                                $('.unfinish-message').hide().find('.unfinish-count').text(0)
+                            }
+                            lessonreviewconfirm() 
+                        })   
+                        if($('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length>0){
+                            $('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').prop('disabled',true)
                         }else{
-                            $('.unfinish-message').hide().find('.unfinish-count').text(0)
+                            $('#lesson-questionlist-list .forms-inputs input[name="answer"]').prop('readonly',true)
                         }
-                        lessonreviewconfirm() 
-                    })   
-                    if($('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length>0){
-                        $('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').prop('disabled',true)
-                    }else{
-                        $('#lesson-questionlist-list .forms-inputs input[name="answer"]').prop('readonly',true)
                     }
                 }
             }            
@@ -441,7 +448,7 @@
             $('#not-answered-nav').text(notansweridx.length)
         }
          function loadlesson(pageurl=null){ 
-            if(examActive){
+             
             $.get(pageurl||"{{ route('question-bank.set.show',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug]) }}",function(res){
                 $('.pagination-arrow').hide();
                 $('#lesson-footer-pagination').html('')
@@ -483,12 +490,10 @@
                                 </div>
                             </div>
                         `).fadeIn();
-                        if(!timercurrent[v.slug]){
-                            // var currentdate=new Date();
-                            // currentdate.setMinutes(currentdate.getMinutes()+parseInt(v.duration));
-                            timercurrent[v.slug]=parseInt(v.duration)*60;//Math.floor(currentdate.getTime() /1000)
-                        }
-                        
+                        if(!timercurrent[v.slug]){ 
+                            timercurrent[v.slug]=0; 
+                        } 
+                        currentSlug=v.slug;
                         $.get(pageurl||"{{ route('question-bank.set.show',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug]) }}",{question:v.slug},function(ans){
                             $(`#mcq-${lesseonId}-list`).html('')
                             $.each(ans,function(ai,av){
@@ -541,8 +546,7 @@
                     value:progressurl
                 }),
             }); 
-                
-            }
+                 
          }
          async function updateprogress(callback){  
             try { 
@@ -636,35 +640,15 @@
                 }),
             }); 
             $('#finish-exam-confirm').modal('hide') 
-            var timed=localStorage.getItem("question-bank")||"timed";
-            $.post('{{route('question-bank.set.submit',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug])}}',{timed:timed,timetaken:timetaken,flags:flagcurrent,times:timercurrent},function(res){
-                if(res.success){
-                    showToast(res.success, 'success')
-                }
-                if(res.preview){
-                    $('#review-link').show().attr("href",res.preview)
-                }else{
-                    $('#review-link').hide()
-                }
-                timerActive=false;
-                examActive=false;
-                if(timed=="timed"){
-                    var d=timetaken;
-                    var m=Math.floor(d/60);
-                    var s=d-(m*60);
-                    $('#time-taken').text(`${d2s(m)}:${d2s(s)}`).parent().show()
-                }else{
-                    $('#time-taken').parent().hide()
-                }          
-                var psed=Object.keys(verifydx).length
-                $('#exam-mark-gained').html(`<span >${psed}/${totalcount}</span>`)      
-                $('.pagination-arrow').hide(); 
-                $('#question-preview-page').hide() 
-                $('.exam-container').hide();
-                $('#question-answer-page').show()
-                $('#question-complete-page').fadeIn()
-                $('#lesson-questionlist-list').hide().html('') 
-            },'json');
+            var timed=localStorage.getItem("question-bank")||"timed";             
+            $('#finish-exam-confirmed-form-timed').val(timed)
+            $('#finish-exam-confirmed-form-timetaken').val(timetaken)
+            $('#finish-exam-confirmed-form-flags').val(JSON.stringify(flagcurrent))
+            $('#finish-exam-confirmed-form-times').val(JSON.stringify(timercurrent))
+            $('#finish-exam-confirmed-form-passed').val(Object.keys(verifydx).length); 
+            $('#finish-exam-confirmed-form').submit();
+            timerActive=false;
+            examActive=false; 
          }
          async function updateandsave(callback){ 
             if($('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length>0){
@@ -698,6 +682,7 @@
          $(function(){  
             loadlesson() 
             $('.lesson-left button.left-btn,.lesson-right button.right-btn').click(function(){   
+                console.log('oooooo')
                 const pageurl=$(this).data('pageurl');  
                 updateandsave(function(){
                     loadlesson(pageurl)
@@ -734,12 +719,12 @@
 
                 $('#flagged-nav').text(lenflag)
             }) 
-            if((localStorage.getItem("question-bank")||"timed")=="timed"){
-                setInterval(countownRun,1000) 
+            if((localStorage.getItem("question-bank")||"timed")=="timed"){ 
                 $('.timer').show()
             }else{
                 $('.timer').hide()
             }
+            setInterval(countownRun,1000)
 
             $('.exam-exit a').click(function(e){
                 e.preventDefault();

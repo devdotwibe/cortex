@@ -19,8 +19,20 @@ class UserReviewQuestion extends Model
         'user_answer', 
         'duration',
         'takenduration',
-        'slug'
+        'slug',
+        'exam_id',
+        'question_id',
+        'user_id',
+        'time_taken'
     ];
+    protected $hidden = ['user_id', 'id','exam_id','question_id','user_exam_review_id'];
+
+    protected $appends=[
+        'total_user_taken_time', 
+    ]; 
+    public function getTotalUserTakenTimeAttribute(){
+        return round(UserReviewQuestion::where('exam_id',$this->exam_id)->where('question_id',$this->question_id)->average('time_taken'),2);
+    }
     public function answers(){
         return $this->hasMany(UserReviewAnswer::class);
     }

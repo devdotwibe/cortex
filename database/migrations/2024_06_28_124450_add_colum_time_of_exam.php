@@ -28,7 +28,13 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('setnames', function (Blueprint $table) {
-            //
+            $table->dropColumn('time_of_exam');
+        });
+        Schema::table('sub_categories', function (Blueprint $table) {
+            $table->dropColumn('time_of_exam');
+        });
+        Schema::table('categories', function (Blueprint $table) {
+            $table->dropColumn('time_of_exam');
         });
     }
 };

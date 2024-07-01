@@ -94,6 +94,7 @@ Route::middleware('auth')->group(function(){
         Route::post('/{category}/{sub_category}/set/{setname}/verify',[ExamQuestionController::class,'setverify'])->name('set.verify');
         Route::get('/{category}/{sub_category}/set/{setname}/review',[ExamQuestionController::class,'setreview'])->name('set.review');
         Route::get('/attempt/{user_exam_review}/preview',[ExamQuestionController::class,'preview'])->name('preview');
+        Route::get('/{category}/set/complete',[ExamQuestionController::class,'setcomplete'])->name('set.complete');
     });
 
 

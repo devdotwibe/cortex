@@ -16,6 +16,21 @@ class UserReviewAnswer extends Model
         'user_review_question_id', 
         'iscorrect', 
         'user_answer',
-        'slug'
+        'slug',
+        'exam_id',
+        'question_id',
+        'answer_id',
+        'user_id'
     ];
+    protected $hidden = ['user_id', 'id','exam_id','question_id','answer_id','user_exam_review_id','user_review_question_id'];
+
+    protected $appends=[
+        'total_user_answered'
+    ];
+    public function getTotalUserAnsweredAttribute()
+    { 
+        $ansthis=UserReviewAnswer::where('exam_id',$this->exam_id)->where('question_id',$this->question_id)->where('answer_id',$this->answer_id)->where('user_answer',true)->count();
+        $ansthisall=UserReviewAnswer::where('exam_id',$this->exam_id)->where('question_id',$this->question_id)->where('user_answer',true)->count();
+        return ($ansthis*100)/ $ansthisall;
+    }
 }

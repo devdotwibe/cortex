@@ -24,6 +24,7 @@
 @push('footer-script') 
 
 <script>
+        var timelist=@json(json_decode($user->progress("exam-reviewed-".$userExamReview->id."-times",'[]')));
         function generateRandomId(length) {
             const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
             let result = '';
@@ -70,7 +71,7 @@
                                             </div> 
                                         </div>
                                         <div>
-                                            <p>You spent {number} seconds on this question. The average student spent {number} seconds on this question<p>
+                                            <p>You spent ${v.time_taken||0} seconds on this question. The average student spent ${v.total_user_taken_time||0} seconds on this question<p>
                                         </div>
                                     </div>
                                 </div>
@@ -90,6 +91,14 @@
                                     <label for="user-answer-${lesseonId}-ans-item-${ai}" >${ letter }. ${av.title}</label>
                                 </div>  
                             </div>
+                            `)
+                            $(`#mcq-${lesseonId}-list-progress`).append(`
+                                <div class="form-progress-ans ans-${av.user_answer?"select":"no-select"}"> 
+                                    <div class="form-progress">       
+                                        <label for="user-answer-${lesseonId}-ans-progress-item-${ai}" >${ letter }</label>
+                                        <progress id="user-answer-${lesseonId}-ans-progress-item-${ai}" max="100" value="${av.total_user_answered||0}"/>
+                                    </div>  
+                                </div>
                             `)
                             if(av.iscorrect){
                                 $(`#mcq-${lesseonId}-correct`).text(`: ${ letter } `)
