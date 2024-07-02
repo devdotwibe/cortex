@@ -180,7 +180,7 @@ class QuestionController extends Controller
         if($request->ajax()){
             return response()->json(["success"=>"Question visibility change success"]);
         }        
-        return redirect()->route('admin.options.index')->with("success","Question visibility change success");
+        return redirect()->route('admin.category.index')->with("success","Question visibility change success");
     }
     
     public function destroy(Request $request,Question $question){ 

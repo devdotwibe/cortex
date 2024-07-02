@@ -85,7 +85,7 @@ class SetController extends Controller
         if($request->ajax()){
             return response()->json(["success"=>"Set visibility change success"]);
         }        
-        return redirect()->route('admin.options.index')->with("success","Set visibility change success");
+        return redirect()->route('admin.category.index')->with("success","Set visibility change success");
     }
 
     public function edit(Request $request,Setname $setname){
@@ -122,7 +122,7 @@ class SetController extends Controller
         if($request->ajax()){
             return response()->json(["success"=>"Set Name deleted success"]);
         }        
-        return redirect()->route('admin.options.index')->with("success","Set Name deleted success");
+        return redirect()->route('admin.category.index')->with("success","Set Name deleted success");
     }
 
 

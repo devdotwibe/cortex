@@ -85,23 +85,23 @@ class SubCategoryController extends Controller
 
     }
 
-    public function destroy(Request $request, SubCategory $subcategory)
+    public function destroy(Request $request, SubCategory $subCategory)
     {
 
-        $subcategory->delete();
+        $subCategory->delete();
 
         if ($request->ajax()) {
             return response()->json(["success" => "Subcategory deleted success"]);
         }
-        return redirect()->route('admin.options.index')->with("success", "SubCategory deleted success");
+        return redirect()->route('admin.category.index')->with("success", "SubCategory deleted success");
     }
-    public function visibility(Request $request, SubCategory $subcategory)
+    public function visibility(Request $request, SubCategory $subCategory)
     {
-        $subcategory->update(['visible_status' => ($subcategory->visible_status ?? "") == "show" ? "hide" : "show"]);
+        $subCategory->update(['visible_status' => ($subCategory->visible_status ?? "") == "show" ? "hide" : "show"]);
         if ($request->ajax()) {
             return response()->json(["success" => "SubCategory visibility change success"]);
         }
-        return redirect()->route('admin.options.index')->with("success", "SubCategory visibility change success");
+        return redirect()->route('admin.category.index')->with("success", "SubCategory visibility change success");
     }
 
 }

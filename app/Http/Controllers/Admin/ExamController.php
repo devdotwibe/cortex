@@ -65,13 +65,15 @@ class ExamController extends Controller
     public function edit(Request $request,Exam $exam){
         return view("admin.exam.edit",compact('exam'));
     }
+    public function examoptions(Request $request){
+        return view("admin.exam.option");
+    }
     public function update(Request $request,Exam $exam){
         $examdat=$request->validate([
             "title"=>"required",
             "time_of_exam"=>"required"
         ]);
-        $exam->update($examdat);
-        
+        $exam->update($examdat);        
         return redirect()->route('admin.exam.index')->with("success","Exam updated success");
     }
 

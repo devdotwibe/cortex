@@ -1,10 +1,10 @@
 @extends('layouts.admin')
-@section('title', 'Options')
+@section('title', 'Category')
 @section('content')
     <section class="header_nav">
         <div class="header_wrapp">
             <div class="header_title">
-                <h2>Options</h2>
+                <h2>Category</h2>
             </div>
         </div>
     </section>
@@ -15,7 +15,7 @@
                     <div class="card">
                         <div class="card-body">
                             <form class="form" id="table-category-form-create" data-save="create"
-                                data-action="{{ route('admin.options.store') }}">
+                                data-action="{{ route('admin.category.store') }}">
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-4">
@@ -228,7 +228,7 @@
             $('#name-error-table-category-form-create').text("")
             $('#name-table-category-form-create').val('').removeClass("is-invalid")
             $('#table-category-form-create').data('save', "create")
-            $('#table-category-form-create').data('action', "{{ route('admin.options.store') }}")
+            $('#table-category-form-create').data('action', "{{ route('admin.category.store') }}")
             $('#table-category-form-clear').hide()
             $('#table-category-form-submit').text(' Add + ')
         }

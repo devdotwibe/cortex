@@ -17,7 +17,7 @@ class CategoryController extends Controller
     function __construct()
     {
         self::$model=Category::class;
-        self::$routeName="admin.options";
+        self::$routeName="admin.category";
         self::$defaultActions=[''];
 
     }
@@ -30,11 +30,11 @@ class CategoryController extends Controller
             return $this->addAction(function($data){ 
                 $action= ' 
                     <a onclick="subcategorylist(\''.route('admin.add_subcatecory', $data->slug).'\', \''.$data->slug.'\')" class="btn btn-icons view_btn">+</a>
-                    <a onclick="updatecategory('."'".route('admin.options.edit', $data->slug)."'".')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>
+                    <a onclick="updatecategory('."'".route('admin.category.edit', $data->slug)."'".')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>
                 ';
                 if(empty($data->subcategories) || count($data->subcategories) == 0)
                 { 
-                    $action.=  '<a  class="btn btn-icons dlt_btn" data-delete="'.route("admin.options.destroy",$data->slug).'" >
+                    $action.=  '<a  class="btn btn-icons dlt_btn" data-delete="'.route("admin.category.destroy",$data->slug).'" >
                             <img src="'.asset("assets/images/delete.svg").'" alt="">
                         </a> '; 
                 } 
@@ -42,7 +42,7 @@ class CategoryController extends Controller
             })->addColumn('visibility',function($data){
                 return '                
                     <div class="form-check ">
-                        <input type="checkbox"  class="user-visibility form-check-box" name="visibility" value="'.($data->id).'" '.($data->visible_status=="show"?"checked":"").' onchange="visiblechangerefresh('."'".route("admin.options.visibility",$data->slug)."'".')" > 
+                        <input type="checkbox"  class="user-visibility form-check-box" name="visibility" value="'.($data->id).'" '.($data->visible_status=="show"?"checked":"").' onchange="visiblechangerefresh('."'".route("admin.category.visibility",$data->slug)."'".')" > 
                     </div>
                 ';
             })->buildTable(['visibility']);
@@ -50,7 +50,7 @@ class CategoryController extends Controller
 
         // $category = Category::with('subcategories')->where('id',$id)->first();
 
-        return view('admin.options.index');
+        return view('admin.category.index');
     }
     
 
@@ -94,7 +94,7 @@ class CategoryController extends Controller
 
     public function edit(Request $request,Category $category){
         if($request->ajax()){
-            $category->updateUrl=route('admin.options.update', $category->slug);
+            $category->updateUrl=route('admin.category.update', $category->slug);
             return response()->json($category);
         }
     }
@@ -102,7 +102,7 @@ class CategoryController extends Controller
 
         // dd($learn->slug);
         
-        return view("admin.options.show",compact('option'));
+        return view("admin.category.show",compact('option'));
 
     }
     public function visibility(Request $request,Category $category){
@@ -110,7 +110,7 @@ class CategoryController extends Controller
         if($request->ajax()){
             return response()->json(["success"=>"Category visibility change success"]);
         }        
-        return redirect()->route('admin.options.index')->with("success","Category visibility change success");
+        return redirect()->route('admin.category.index')->with("success","Category visibility change success");
     }
     
 
@@ -124,7 +124,7 @@ class CategoryController extends Controller
         if($request->ajax()){
             return response()->json(["success"=>"Category deleted success"]);
         }        
-        return redirect()->route('admin.options.index')->with("success","Category deleted success");
+        return redirect()->route('admin.category.index')->with("success","Category deleted success");
     }
 
     
