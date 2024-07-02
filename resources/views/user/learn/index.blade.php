@@ -108,11 +108,12 @@
 <script src="https://js.stripe.com/v3/"></script>
 <script>
     $(document).ready(function () {
-        @if(session('showStripePopup')){
+        // Show subscribeModal only if session variable indicates it should be shown
+        @if(session('showStripePopup'))
         $('#subscribeModal').modal('show');
-        }
+        $('#subscribeModal').modal('hide');
+        @endif
     });
-    @endif
 
     function closestripe() {
         $('#subscribeModal').modal('hide');

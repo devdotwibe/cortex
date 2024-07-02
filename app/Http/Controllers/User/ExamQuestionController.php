@@ -21,11 +21,11 @@ use Illuminate\Support\Facades\Auth;
 
 class ExamQuestionController extends Controller
 {
-    use ResourceController; 
- 
+    use ResourceController;
+
     public function index(Request $request){
         self::reset();
-        self::$model = Category::class; 
+        self::$model = Category::class;
 
         $exam=Exam::where("name",'question-bank')->first();
         if(empty($exam)){
@@ -39,11 +39,12 @@ class ExamQuestionController extends Controller
         $categorys=$this->whereHas('subcategories',function($qry)use($exam){
             $qry->whereIn("id",Question::where('exam_id',$exam->id)->select('sub_category_id'));
         })->buildResult();
-        
+
         /**
          *  @var User
          */
         $user=Auth::user();
+        print_R($categorys);print_r($exam);print_r($user);exit();
         return view("user.question-bank.index",compact('categorys','exam','user'));
     }
 
@@ -56,7 +57,7 @@ class ExamQuestionController extends Controller
                 "name"=>"question-bank",
             ]);
             $exam=Exam::find( $exam->id );
-        } 
+        }
 
         $lessons=SubCategory::where('category_id',$category->id)->whereHas('setname',function($qry)use($exam){
             $qry->whereIn("id",Question::where('exam_id',$exam->id)->select('sub_category_set'));
@@ -65,9 +66,9 @@ class ExamQuestionController extends Controller
         /**
          *  @var User
          */
-        $user=Auth::user(); 
+        $user=Auth::user();
         return view("user.question-bank.show",compact('category','exam','lessons','user'));
-    } 
+    }
     public function setshow(Request $request,Category $category,SubCategory $subCategory,Setname $setname){
 
         $exam=Exam::where("name",'question-bank')->first();
@@ -77,13 +78,13 @@ class ExamQuestionController extends Controller
                 "name"=>"question-bank",
             ]);
             $exam=Exam::find( $exam->id );
-        } 
+        }
 
         /**
          * @var User
          */
-        $user=Auth::user(); 
-        if($request->ajax()){            
+        $user=Auth::user();
+        if($request->ajax()){
             if($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$subCategory->id.'-set-'.$setname->id.'-complete-date',"")==""){
                 $lessons=SubCategory::where('category_id',$category->id)->get();
                 $lessencount=count($lessons);
@@ -99,8 +100,8 @@ class ExamQuestionController extends Controller
                     $totalprogres+=$catprogres;
                 }
                 $user->setProgress('exam-'.$exam->id.'-topic-'.$category->id,$totalprogres/$lessencount);
-            } 
-            
+            }
+
             if(!empty($request->question)){
                 $question=Question::findSlug($request->question);
                 return Answer::where('question_id',$question->id)->get(['slug','title']);
@@ -119,8 +120,8 @@ class ExamQuestionController extends Controller
         }
         $attemtcount=UserExamReview::where('exam_id',$exam->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->count()+1;
         return view("user.question-bank.set",compact('category','exam','subCategory','user','setname','questioncount','endtime','attemtcount'));
-    } 
-    public function preview(Request $request,UserExamReview $userExamReview){ 
+    }
+    public function preview(Request $request,UserExamReview $userExamReview){
         $category=Category::find($userExamReview->category_id);
         $subCategory=SubCategory::find($userExamReview->sub_category_id);
         $setname=Setname::find($userExamReview->sub_category_set);
@@ -132,11 +133,11 @@ class ExamQuestionController extends Controller
                 "name"=>"question-bank",
             ]);
             $exam=Exam::find( $exam->id );
-        } 
+        }
         /**
          * @var User
          */
-        $user=Auth::user(); 
+        $user=Auth::user();
 
         if($request->ajax()){
             if(!empty($request->question)){
@@ -147,7 +148,7 @@ class ExamQuestionController extends Controller
         }
         return view("user.question-bank.preview",compact('category','exam','subCategory','setname','user','userExamReview'));
     }
-    
+
     public function setreview(Request $request,Category $category,SubCategory $subCategory,Setname $setname){
 
         $exam=Exam::where("name",'question-bank')->first();
@@ -157,11 +158,11 @@ class ExamQuestionController extends Controller
                 "name"=>"question-bank",
             ]);
             $exam=Exam::find( $exam->id );
-        } 
+        }
         /**
          * @var User
          */
-        $user=Auth::user(); 
+        $user=Auth::user();
         if($request->ajax()){
             if($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$subCategory->id.'-set-'.$setname->id.'-complete-date',"")==""){
                 $lessons=SubCategory::where('category_id',$category->id)->get();
@@ -178,18 +179,18 @@ class ExamQuestionController extends Controller
                     $totalprogres+=$catprogres;
                 }
                 $user->setProgress('exam-'.$exam->id.'-topic-'.$category->id,$totalprogres/$lessencount);
-            } 
+            }
 
             return Question::with('answers')->where('exam_id',$exam->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->paginate(1);
         }
         $questioncount=Question::where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->count();
         return view("user.question-bank.set",compact('category','exam','subCategory','user','questioncount','setname'));
-    } 
+    }
     public function setsubmit(Request $request,Category $category,SubCategory $subCategory,Setname $setname){
         /**
          * @var User
          */
-        $user=Auth::user();        
+        $user=Auth::user();
         $exam=Exam::where("name",'question-bank')->first();
         if(empty($exam)){
             $exam=Exam::store([
@@ -197,7 +198,7 @@ class ExamQuestionController extends Controller
                 "name"=>"question-bank",
             ]);
             $exam=Exam::find( $exam->id );
-        } 
+        }
         $review=UserExamReview::store([
             "title"=>"Question Bank",
             "name"=>"question-bank",
@@ -205,9 +206,9 @@ class ExamQuestionController extends Controller
             "user_id"=>$user->id,
             "exam_id"=>$exam->id,
             "category_id"=>$category->id,
-            "sub_category_id"=>$subCategory->id, 
-            "sub_category_set"=>$setname->id,            
-        ]); 
+            "sub_category_id"=>$subCategory->id,
+            "sub_category_set"=>$setname->id,
+        ]);
         $user->setProgress("exam-review-".$review->id."-timed",$request->input("timed",'timed'));
         $user->setProgress("exam-review-".$review->id."-timetaken",$request->input("timetaken",'0'));
         $user->setProgress("exam-review-".$review->id."-flags",$request->input("flags",'[]'));
@@ -231,9 +232,9 @@ class ExamQuestionController extends Controller
             $user->setProgress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$subCategory->id.'-set-'.$setname->id.'-complete-date',date('Y-m-d H:i:s'));
         }
         $user->setProgress("exam-".$exam->id."-topic-".$category->id."-lesson-".$subCategory->id.'-set-'.$setname->id."-complete-review",'yes');
-        dispatch(new SubmitReview($review)); 
+        dispatch(new SubmitReview($review));
         if($request->ajax()){
-            return  response()->json(["success"=>"Question set Submited","preview"=>route('question-bank.preview',$review->slug)]);    
+            return  response()->json(["success"=>"Question set Submited","preview"=>route('question-bank.preview',$review->slug)]);
         }
         return  redirect()->route('question-bank.set.complete',['category'=>$category->slug])->with("success","Question set Submited")->with("review",$review->id);
     }
@@ -242,8 +243,8 @@ class ExamQuestionController extends Controller
         /**
          * @var User
          */
-        $user=Auth::user();  
-              
+        $user=Auth::user();
+
         $exam=Exam::where("name",'question-bank')->first();
         if(empty($exam)){
             $exam=Exam::store([
@@ -251,13 +252,13 @@ class ExamQuestionController extends Controller
                 "name"=>"question-bank",
             ]);
             $exam=Exam::find( $exam->id );
-        } 
+        }
 
         if(!empty($review)){
             $user->progress("exam-review-".$review->id."-timed",'timed');
-            $tmtk=intval($user->progress("exam-review-".$review->id."-timetaken",0)); 
+            $tmtk=intval($user->progress("exam-review-".$review->id."-timetaken",0));
             $passed=$user->progress("exam-review-".$review->id."-passed",0);
-            
+
             $m=sprintf("%02d",intval($tmtk/60));
             $s=sprintf("%02d",intval($tmtk%60));
 
@@ -273,7 +274,7 @@ class ExamQuestionController extends Controller
         /**
          * @var User
          */
-        $user=Auth::user();       
+        $user=Auth::user();
         $exam=Exam::where("name",'question-bank')->first();
         if(empty($exam)){
             $exam=Exam::store([
@@ -281,7 +282,7 @@ class ExamQuestionController extends Controller
                 "name"=>"question-bank",
             ]);
             $exam=Exam::find( $exam->id );
-        } 
+        }
         $data=[];
         foreach(UserExamReview::where('user_id',$user->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->where('exam_id',$exam->id)->get() as  $row){
             $data[]=[
@@ -309,7 +310,7 @@ class ExamQuestionController extends Controller
         /**
         * @var User
         */
-       $user=Auth::user();       
+       $user=Auth::user();
        $exam=Exam::where("name",'question-bank')->first();
        if(empty($exam)){
            $exam=Exam::store([
@@ -317,7 +318,7 @@ class ExamQuestionController extends Controller
                "name"=>"question-bank",
            ]);
            $exam=Exam::find( $exam->id );
-       } 
+       }
         $question=Question::findSlug($request->question);
         $ans=Answer::findSlug($request->answer);
         if(empty($ans)||$ans->exam_id!=$exam->id||$ans->question_id!=$question->id||!$ans->iscorrect){
