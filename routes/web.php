@@ -118,6 +118,7 @@ Route::middleware('auth')->group(function(){
         */
         Route::get('/',[MockExamController::class,'index'])->name('index');
         Route::get('/{exam}',[MockExamController::class,'show'])->name('show');
+        Route::get('/{exam}/attempt',[MockExamController::class,'confirmshow'])->name('confirmshow');
         Route::get('/{exam}/history',[MockExamController::class,'examhistory'])->name('history');
         Route::post('/{exam}/submit',[MockExamController::class,'examsubmit'])->name('submit');
         Route::post('/{exam}/verify',[MockExamController::class,'examverify'])->name('verify');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Exam;
 use App\Models\Question;
+use App\Support\Helpers\OptionHelper;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
 use Stripe\Stripe;
@@ -67,6 +68,13 @@ class ExamController extends Controller
     }
     public function examoptions(Request $request){
         return view("admin.exam.option");
+    }
+    public function examoptionssave(Request $request){
+        $request->validate([
+            'description'=>'required'
+        ]);
+        OptionHelper::setData("exam_simulator_description", $request->description);
+        return redirect()->back()->with("success","Exam Simulator Description Updated");
     }
     public function update(Request $request,Exam $exam){
         $examdat=$request->validate([

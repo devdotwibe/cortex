@@ -35,6 +35,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::get('/user/{user}/getdata',[UserController::class,'getdata'])->name('user.students');
         Route::resource("/exam",ExamController::class);
         Route::get('/full-mock-exam-options',[ExamController::class,'examoptions'])->name('exam.options');
+        Route::post('/full-mock-exam-options',[ExamController::class,'examoptionssave']);
 
         Route::prefix('full-mock-exam')->name('full-mock-exam.')->group(function () {
             Route::get('/{exam}',[FullMockExamController::class,'index'])->name('index');

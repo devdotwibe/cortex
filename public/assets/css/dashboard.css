@@ -934,7 +934,25 @@ border-radius: 7px;
   width:100%;
   height:40px
 }
-
+.summery-wrap {
+  display:flex;
+  flex-wrap:wrap;
+  width: -webkit-fill-available;
+  height:max-content;
+  min-height:350px;
+  margin:30px 150px;
+  background:white;
+  padding:30px 110px;
+  border:1px solid #fafafa;
+  border-radius:15px;
+}
+.summery-wrap .summery-content{
+  color:black; 
+  width:100%;
+}
+.summery-wrap .summery-action{ 
+  width:100%;
+}
 
 
 

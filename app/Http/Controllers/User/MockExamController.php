@@ -35,8 +35,7 @@ class MockExamController extends Controller
         $user=Auth::user();
         return view("user.full-mock-exam.index",compact('exams','user'));
     } 
-
-    public function show(Request $request,Exam $exam){ 
+    public function show(Request $request,Exam $exam){
         /**
          * @var User
          */
@@ -50,11 +49,41 @@ class MockExamController extends Controller
         }
         $questioncount=Question::where('exam_id',$exam->id)->count();
         $endtime=0;
-        foreach (Question::where('exam_id',$exam->id)->get() as $d) {
-            $endtime+=intval(explode(' ',$d->duration)[0]);
+        $times=explode(':',$exam->time_of_exam);
+        if(count($times)>0){
+            $endtime+=intval(trim($times[0]??"0"))*60;
+            $endtime+=intval(trim($times[1]??"0"));
+        }
+        foreach (Question::where('exam_id',$exam->id)->get() as $d) { 
             $user->setProgress("exam-{$exam->id}-answer-of-{$d->slug}",null);
         }
+        $user->setProgress('exam-'.$exam->id.'-progress-url',null);
         $attemtcount=UserExamReview::where('exam_id',$exam->id)->count()+1;
+         
+        return view("user.full-mock-exam.summery",compact('exam','user','questioncount','endtime','attemtcount'));
+    }
+    public function confirmshow(Request $request,Exam $exam){ 
+        
+        /**
+         * @var User
+         */
+        $user=Auth::user(); 
+        if($request->ajax()){ 
+            if(!empty($request->question)){
+                $question=Question::findSlug($request->question);
+                return Answer::where('question_id',$question->id)->get(['slug','title']);
+            }
+            return Question::where('exam_id',$exam->id)->paginate(1,['slug','title','description','duration']);
+        }
+        $questioncount=Question::where('exam_id',$exam->id)->count();
+        $endtime=0;
+        $times=explode(':',$exam->time_of_exam);
+        if(count($times)>0){
+            $endtime+=intval(trim($times[0]??"0"))*60;
+            $endtime+=intval(trim($times[1]??"0"));
+        } 
+        $attemtcount=UserExamReview::where('exam_id',$exam->id)->count()+1;
+         
         return view("user.full-mock-exam.show",compact('exam','user','questioncount','endtime','attemtcount'));
     } 
 
