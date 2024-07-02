@@ -930,6 +930,12 @@ border-radius: 7px;
 .form-progress-ans.ans-select .form-progress progress::-webkit-progress-value {
   background-color: #4caf50;  
 }
+.form-control.field-view {
+  width:100%;
+  height:40px
+}
+
+
 
 
 

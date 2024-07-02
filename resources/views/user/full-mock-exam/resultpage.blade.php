@@ -1,5 +1,5 @@
 @extends('layouts.exam')
-@section('title', 'Congratulation on Completing the Set!')
+@section('title', 'Congratulation on Completing the Exam!')
 @section('content')  
 
 <section class="modal-expand modal-expand-result" id="question-complete-page" >
@@ -7,7 +7,7 @@
         <div class="question-preview">  
             <div class="question-preview-title">
                 <img src="{{asset("assets/images/congratulaton.svg")}}" alt="">
-                <h3> Congratulation on Completing the Set! </h3>
+                <h3> Congratulation on Completing the Exam! </h3>
             </div>
             <div class="question-preview-body">
                 <div class="row">
@@ -25,12 +25,10 @@
                                             </div>
                                         </div>
                                         <div class="exam-mark-body">
-                                            @if ($timed=="timed")
                                             <div class="mark-label">
                                                 <span>Time taken :</span>
                                                 <span id="time-taken">{{$attemttime}}</span>
-                                            </div>                                                 
-                                            @endif
+                                            </div> 
                                             <div class="mark-label">
                                                 <span>Attemt Number :</span>
                                                 <span>#{{$attemtcount}}</span>
@@ -45,8 +43,8 @@
         
                                 <p>Next Step: Review and Improve</p>
                                 <div class="exam-mark-bottom">
-                                    <a class="btn btn-warning btn-lg" id="review-link" href="{{route('question-bank.preview',$review->slug)}}">Review Set</a>
-                                    <a href="{{route('question-bank.show',$category->slug)}}" class="btn btn-outline-dark btn-lg">Exit Set</a>
+                                    <a class="btn btn-warning btn-lg" id="review-link" href="{{route('full-mock-exam.preview',$review->slug)}}">Review Set</a>
+                                    <a href="{{route('full-mock-exam.index')}}" class="btn btn-outline-dark btn-lg">Exit Set</a>
                                 </div>
                             </div>
                         </div>

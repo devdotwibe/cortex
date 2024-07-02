@@ -115,8 +115,8 @@
                     </a>
                 </li>
 
-                <li class="side-item {{request()->is('admin/options') ?'active':''}}">
-                    <a href="{{ route('admin.options.index') }}">
+                <li class="side-item side-dropdown ">
+                    <a class="side-dropdown-toggle" >
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
                         </span>
@@ -125,7 +125,11 @@
                         </span>
                         Options
                     </a>
-                </li>
+                    <ul class="side-dropdown-menu" >
+                        <li class="side-item {{request()->is('admin/category') ?'active':''}} "><a href="{{ route('admin.category.index') }}">Category</a></li>
+                        <li class="side-item {{request()->is('admin/exam') ? 'active':''}} "><a href="{{route('admin.exam.options')}}">Full Mock Exam</a></li>
+                    </ul>
+                </li> 
                 <li class="side-item {{request()->is('admin/settings') ?'active':''}}">
                     <a href="{{ route('admin.settings.index') }}">
                         <span class="side-icon" >

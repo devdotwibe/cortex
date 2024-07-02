@@ -99,10 +99,11 @@ class TopicExamController extends Controller
             "exam_id"=>$exam->id,
             "category_id"=>$category->id,         
         ]); 
-        $user->setProgress("exam-review-".$review->id."-timed","untimed");
-        $user->setProgress("exam-review-".$review->id."-timetaken",$request->input("timetaken",''));
-        $user->setProgress("exam-review-".$review->id."-flags",json_encode($request->input("flags",[])));
-        $user->setProgress("exam-review-".$review->id."-times",json_encode($request->input("times",[])));
+        $user->setProgress("exam-review-".$review->id."-timed",'timed');
+        $user->setProgress("exam-review-".$review->id."-timetaken",$request->input("timetaken",'0'));
+        $user->setProgress("exam-review-".$review->id."-flags",$request->input("flags",'[]'));
+        $user->setProgress("exam-review-".$review->id."-times",$request->input("times",'[]'));
+        $user->setProgress("exam-review-".$review->id."-passed",$request->input("passed",'0'));
          
         if($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-complete-date',"")==""){
             $user->setProgress('exam-'.$exam->id.'-topic-'.$category->id.'-complete-date',date('Y-m-d H:i:s'));
@@ -112,7 +113,40 @@ class TopicExamController extends Controller
         if($request->ajax()){
             return  response()->json(["success"=>"Topic Test Submited","preview"=>route('topic-test.preview',$review->slug)]);    
         }
-        return  redirect()->route('topic-test.index')->with("success","Topic Test Submited");
+        return  redirect()->route('topic-test.complete',["category"=>$category->slug])->with("success","Topic Test Submited")->with("review",$review->id);
+    }
+
+    public function topiccomplete(Request $request,Category $category){
+        $review=UserExamReview::find(session('review',0));
+        /**
+         * @var User
+         */
+        $user=Auth::user();  
+              
+        $exam=Exam::where("name",'topic-test')->first();
+        if(empty($exam)){
+            $exam=Exam::store([
+                "title"=>"Topic Test",
+                "name"=>"topic-test",
+            ]);
+            $exam=Exam::find( $exam->id );
+        }
+
+        if(!empty($review)){
+            $user->progress("exam-review-".$review->id."-timed",'timed');
+            $tmtk=intval($user->progress("exam-review-".$review->id."-timetaken",0)); 
+            $passed=$user->progress("exam-review-".$review->id."-passed",0);
+            
+            $m=sprintf("%02d",intval($tmtk/60));
+            $s=sprintf("%02d",intval($tmtk%60));
+
+            $attemttime="$m:$s";
+            $questioncount=Question::where('exam_id',$exam->id)->where('category_id',$category->id)->count();
+            $attemtcount=UserExamReview::where('exam_id',$exam->id)->where('category_id',$category->id)->count();
+            return view('user.topic-test.resultpage',compact('category','review','passed','attemttime','questioncount','attemtcount'));
+        }else{
+            return redirect()->route('topic-test.index');
+        }
     }
 
     public function preview(Request $request,UserExamReview $userExamReview){ 
@@ -134,9 +168,9 @@ class TopicExamController extends Controller
         if($request->ajax()){
             if(!empty($request->question)){
                 $question=UserReviewQuestion::findSlug($request->question);
-                return UserReviewAnswer::where('user_review_question_id',$question->id)->get(['slug','title','user_answer','iscorrect']);
+                return UserReviewAnswer::where('user_review_question_id',$question->id)->get();
             }
-            return UserReviewQuestion::whereIn('review_type',['mcq'])->where('user_exam_review_id',$userExamReview->id)->paginate(1,['title','note','slug','explanation']);
+            return UserReviewQuestion::whereIn('review_type',['mcq'])->where('user_exam_review_id',$userExamReview->id)->paginate(1);
         }
         return view("user.topic-test.preview",compact('category','exam','user','userExamReview'));
     }

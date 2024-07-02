@@ -308,7 +308,7 @@ class LearnController extends Controller
         if($request->ajax()){
             return response()->json(["success"=>"Learn visibility change success"]);
         }        
-        return redirect()->route('admin.options.index')->with("success","Learn visibility change success");
+        return redirect()->route('admin.learn.index')->with("success","Learn visibility change success");
     }
 
 }

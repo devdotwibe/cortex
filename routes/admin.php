@@ -34,6 +34,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::post('/user/bulk/action',[UserController::class,'bulkaction'])->name('user.bulkaction');
         Route::get('/user/{user}/getdata',[UserController::class,'getdata'])->name('user.students');
         Route::resource("/exam",ExamController::class);
+        Route::get('/full-mock-exam-options',[ExamController::class,'examoptions'])->name('exam.options');
 
         Route::prefix('full-mock-exam')->name('full-mock-exam.')->group(function () {
             Route::get('/{exam}',[FullMockExamController::class,'index'])->name('index');
@@ -89,7 +90,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
         // Route::resource("/options",CategoryController::class);
 
-        Route::prefix('options')->name('options.')->group(function () {
+        Route::prefix('category')->name('category.')->group(function () {
             Route::get('/',[CategoryController::class,'index'])->name('index');
             Route::get('/create',[CategoryController::class,'create'])->name('create');
             Route::post('/',[CategoryController::class,'store'])->name('store');

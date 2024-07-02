@@ -8,9 +8,23 @@
                 <div class="progress-main">
 
                     <div class="exam-exit ">
-                        <a   href="{{route('full-mock-exam.index')}}">
+                        <a href="{{route('full-mock-exam.index')}}">
                             <img src="{{asset("assets/images/exiticon-wht.svg")}}" alt="exiticon">
                         </a>
+                    </div>
+                    <div class="timer exam-timer">
+                        <div class="minute">
+                            <span class="runner">00</span>
+                            <span>Mins</span>
+                        </div>
+                        <div class="seperator">
+                            <span>:</span>
+                            <span></span>
+                        </div>
+                        <div class="second">
+                            <span class="runner">00</span>
+                            <span>Seconds</span>
+                        </div>
                     </div> 
                 </div>
             </div>
@@ -40,7 +54,7 @@
         
     </div>
     <div class="container-wrap" id="question-answer-page">
-        <div class="lesson">   
+        <div class="lesson">  
             <div class="lesson-title">
                 <h3><span>{{$exam->title}}</span></h3>
             </div>
@@ -66,62 +80,7 @@
         </div>  
     </div> 
 </section>
-
-<section class="modal-expand" id="question-complete-page" style="display: none;">
-    <div class="container-wrap">
-        <div class="question-preview">  
-            <div class="question-preview-title">
-                <img src="{{asset("assets/images/congratulaton.svg")}}" alt="">
-                <h3> Congratulation on Completing the Set! </h3>
-            </div>
-            <div class="question-preview-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="exam-result">
-                            <div class="exam-result-content">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="exam-mark-title">
-                                            <div class="title-1">
-                                                <span >Your Mark</span>
-                                            </div>
-                                            <div class="title-2"  id="exam-mark-gained">
-                                                <span >0/{{$questioncount??0}}</span>
-                                            </div>
-                                        </div>
-                                        <div class="exam-mark-body">
-                                            <div class="mark-label">
-                                                <span>Time taken :</span>
-                                                <span id="time-taken">00:00</span>
-                                            </div> 
-                                            <div class="mark-label">
-                                                <span>Attemt Number :</span>
-                                                <span>#{{$attemtcount}}</span>
-                                            </div> 
-                                            <div class="mark-label">
-                                                <span>Attemt Date :</span>
-                                                <span>{{date('d M Y')}}</span>
-                                            </div> 
-                                        </div> 
-                                    </div>
-                                </div>
-        
-                                <p>Next Step: Review and Improve</p>
-                                <div class="exam-mark-bottom">
-                                    <a class="btn btn-warning btn-lg" id="review-link" href="">Review Set</a>
-                                    <a href="{{route('full-mock-exam.index')}}" class="btn btn-outline-dark btn-lg">Exit Set</a>
-                                </div>
-                            </div>
-                        </div>
-                        
-
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</section>
+ 
 
 <section class="modal-expand" id="question-preview-page" style="display: none;">
     <div class="container-wrap">
@@ -272,6 +231,16 @@
         </div>
     </div>
 </section>
+<div style="display: none;opacity: 0;">
+    <form action="{{route('full-mock-exam.submit',['exam'=>$exam->slug])}}" method="post" id="finish-exam-confirmed-form">
+        @csrf
+        <input type="hidden" name="timed" id="finish-exam-confirmed-form-timed" value="" >
+        <input type="hidden" name="timetaken" id="finish-exam-confirmed-form-timetaken" value="" >
+        <input type="hidden" name="flags" id="finish-exam-confirmed-form-flags" value="" >
+        <input type="hidden" name="times" id="finish-exam-confirmed-form-times" value="" >
+        <input type="hidden" name="passed" id="finish-exam-confirmed-form-passed" value="" > 
+    </form>
+</div>
 
 @endsection
 
@@ -297,386 +266,411 @@
 
 @push('footer-script') 
 
-    <script>  
+    <script> 
          
-         var totalcount={{$questioncount??0}};
-         var questionids=[];
-         var progressurl="";
-         
-         var timercurrent={};
-         var flagcurrent={};
-         var endTime={{$endtime}}*60; 
-         var currentSlug=""; 
-         var countownSlugActive=""; 
-         var flagdx={};
-         var verifydx={};
-         var cudx=1;
- 
-         var answeridx=[];
-         var notansweridx=[]; 
-         var timerActive=true;
-         var examActive=true;
-         var timetaken=0;
-         function toglepreviewpage(){
-             timerActive=!timerActive;
+        var totalcount={{$questioncount??0}};
+        var questionids=[];
+        var progressurl="";
+        
+        var timercurrent={};
+        var flagcurrent={};
+        var endTime={{$endtime}}*60;
+        var countownRunCallbacks={};
+        var currentSlug="";
+        var countownRunCallbackActive=null;
+        var countownSlugActive=""; 
+        var flagdx={};
+        var verifydx={};
+        var cudx=1;
+
+        var answeridx=[];
+        var notansweridx=[]; 
+        var timerActive=true;
+        var examActive=true;
+        var timetaken=0;
+        function toglepreviewpage(){
+            timerActive=!timerActive; 
             $('#question-preview-page').slideToggle()
             $('#question-answer-page').fadeToggle()
-         }
-         function d2s(number){
-             return (number??0).toLocaleString('en-US', { minimumIntegerDigits: 2 })
-         }
-         function generateRandomId(length) {
-             const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-             let result = '';
-             const charactersLength = characters.length;
- 
-             for (let i = 0; i < length; i++) {
-                 result += characters.charAt(Math.floor(Math.random() * charactersLength));
-             }
- 
-             return result;
-         } 
-         function getVimeoId(url) {
-             // Regular expression to match Vimeo URL format
-             const regex = /vimeo\.com\/(?:video\/|)(\d+)/;
-             // Extract video ID using match function
-             const match = url.match(regex);
+        }
+        function d2s(number){
+            return (number??0).toLocaleString('en-US', { minimumIntegerDigits: 2 })
+        }
+        function generateRandomId(length) {
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let result = '';
+            const charactersLength = characters.length;
+
+            for (let i = 0; i < length; i++) {
+                result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            }
+
+            return result;
+        }
+        function countownRun(){
+            if(timerActive&&examActive){ 
+                if(endTime>0){ 
+                    var d=endTime;
+                    var m=Math.floor(d/60);
+                    var s=d-(m*60);
+                    $('.exam-timer .minute .runner').text(d2s(m))
+                    $('.exam-timer .second .runner').text(d2s(s))
+                    if(endTime<=240&&endTime>=230){
+                        $('.exam-timer').addClass('time-up');
+                    }else if(endTime<=10){
+                        $('.exam-timer').addClass('time-up');
+                    }else{
+                        $('.exam-timer').removeClass('time-up');  
+                    }
+                    endTime--;
+                    timetaken++;
+                    timercurrent[currentSlug]=(timercurrent[currentSlug]||0)+1;
+                } else{
+                    $('.exam-timer .minute .runner').text(d2s(0))
+                    $('.exam-timer .second .runner').text(d2s(0))
+                    $('.exam-timer').addClass('time-up')
+                    examActive=false 
+                    updateandsave(function(){
+                        var unfinishcount=totalcount-questionids.length; 
+                        if(unfinishcount>0){
+                            $('.unfinish-message').show().find('.unfinish-count').text(unfinishcount)
+                        }else{
+                            $('.unfinish-message').hide().find('.unfinish-count').text(0)
+                        }
+                        lessonreviewconfirm() 
+                    })   
+                    if($('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length>0){
+                        $('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').prop('disabled',true)
+                    }else{
+                        $('#lesson-questionlist-list .forms-inputs input[name="answer"]').prop('readonly',true)
+                    } 
+                }
+            }            
+        } 
+        function getVimeoId(url) {
+            // Regular expression to match Vimeo URL format
+            const regex = /vimeo\.com\/(?:video\/|)(\d+)/;
+            // Extract video ID using match function
+            const match = url.match(regex);
+            
+            if (match) {
+                return match[1]; // Return the captured video ID
+            } else {
+                return url; // Return null if no match found
+            }
+        } 
+        async function verifyquestion(question,ans){
+            const csrf= $('meta[name="csrf-token"]').attr('content'); 
+            var response=await fetch("{{route('full-mock-exam.verify',['exam'=>$exam->slug])}}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrf,
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify({
+                    question:question,
+                    answer:ans
+                }),
+            }); 
+            const data = await response.json(); 
+            if(data.iscorrect){
+                verifydx[question]=true;
+            }else{
+                delete verifydx[question];
+            }
+        }
+        function refreshstatus(idx,status){
+            $(`.question-item[data-idx="${idx}"]`).removeClass('status-not-answered').removeClass('status-answered');
+            $(`#show-all .question-item[data-idx="${idx}"]`).addClass(`status-${status}`);
+            $(`#${status} .question-item[data-idx="${idx}"]`).addClass(`status-${status}`);
+            $(`#not-readed .question-item[data-idx="${idx}"]`).removeClass('status-not-read')
+
+            $('#not-readed-nav').text(totalcount-(answeridx.length+notansweridx.length))
+            $('#answered-nav').text(answeridx.length)
+            $('#not-answered-nav').text(notansweridx.length)
+        }
+         function loadlesson(pageurl=null){ 
              
-             if (match) {
-                 return match[1]; // Return the captured video ID
-             } else {
-                 return url; // Return null if no match found
-             }
-         } 
-         async function verifyquestion(question,ans){
-             const csrf= $('meta[name="csrf-token"]').attr('content'); 
-             var response=await fetch("{{route('full-mock-exam.verify',$exam->slug)}}", {
-                 method: 'POST',
-                 headers: {
-                     'Content-Type': 'application/json',
-                     'X-CSRF-TOKEN': csrf,
-                     'X-Requested-With': 'XMLHttpRequest'
-                 },
-                 body: JSON.stringify({
-                     question:question,
-                     answer:ans
-                 }),
-             }); 
-             const data = await response.json(); 
-             if(data.iscorrect){
-                 verifydx[question]=true;
-             }else{
-                 delete verifydx[question];
-             }
-         }
-         function refreshstatus(idx,status){
-             $(`.question-item[data-idx="${idx}"]`).removeClass('status-not-answered').removeClass('status-answered');
-             $(`#show-all .question-item[data-idx="${idx}"]`).addClass(`status-${status}`);
-             $(`#${status} .question-item[data-idx="${idx}"]`).addClass(`status-${status}`);
-             $(`#not-readed .question-item[data-idx="${idx}"]`).removeClass('status-not-read')
- 
-             $('#not-readed-nav').text(totalcount-(answeridx.length+notansweridx.length))
-             $('#answered-nav').text(answeridx.length)
-             $('#not-answered-nav').text(notansweridx.length)
-         }
-          function loadlesson(pageurl=null){ 
-             if(examActive){
-             $.get(pageurl||"{{ route('full-mock-exam.show',$exam->slug) }}",function(res){
-                 $('.pagination-arrow').hide();
-                 $('#lesson-footer-pagination').html('')
-                 timerActive=true;
+            $.get(pageurl||"{{ route('full-mock-exam.show',['exam'=>$exam->slug]) }}",function(res){
+                $('.pagination-arrow').hide();
+                $('#lesson-footer-pagination').html('')
+                timerActive=true;
                 $('#question-preview-page').fadeOut()
                 $('#question-answer-page').fadeIn()
-                 const lesseonId=generateRandomId(10);  
-                 cudx=res.current_page;
-                 notansweridx.push(cudx) 
-                 notansweridx = [...new Set(notansweridx)]
-                 answeridx=answeridx.filter(item => item !== cudx)
-                 refreshstatus(cudx,'not-answered');
-                 if(flagdx[cudx]){
-                     $("#bookmark-current").addClass('active');
-                 }else{
-                     $("#bookmark-current").removeClass('active');
-                 }
-                 $.each(res.data,function(k,v){ 
-                         $('#lesson-questionlist-list').html(`
-                             <div class="col-md-12">
-                                 <div class="mcq-row" >
-                                     <div class="mcq-title">
-                                         <span>${v.title||""}</span>
-                                     </div>
-                                     <div class="mcq-container">
-                                         <div id="mcq-${lesseonId}" class="mcq-description">
-                                             ${v.description}
-                                         </div>
-                                         <div class="mcq-answer">
-                                             <div id="mcq-${lesseonId}-ans" class="form-group" >
-                                                 <div class="form-data" >
-                                                     <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list"> 
-                                                         
-                                                     </div> 
-                                                 </div>
-                                             </div>
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
-                         `).fadeIn();
-                         if(!timercurrent[v.slug]){
-                             // var currentdate=new Date();
-                             // currentdate.setMinutes(currentdate.getMinutes()+parseInt(v.duration));
-                             timercurrent[v.slug]=parseInt(v.duration)*60;//Math.floor(currentdate.getTime() /1000)
-                         }
-                         
-                         $.get(pageurl||"{{ route('full-mock-exam.show',$exam->slug) }}",{question:v.slug},function(ans){
-                             $(`#mcq-${lesseonId}-list`).html('')
-                             $.each(ans,function(ai,av){
-                                 $(`#mcq-${lesseonId}-list`).append(`
-                                     <div class="form-check">
-                                         <input type="radio" name="answer" data-page="${cudx}" data-question="${v.slug}" id="user-answer-${lesseonId}-ans-item-${ai}" value="${av.slug}" class="form-check-input"  >        
-                                         <label for="user-answer-${lesseonId}-ans-item-${ai}" >${av.title}</label>
-                                     </div>  
-                                 `)
-                             })
-                             refreshquestionanswer(v.slug,function(data){
-                                 $(`#mcq-${lesseonId}-list input[value="${data.value}"]`).prop("checked",true)
-                                 if(data.value){
-                                     answeridx.push(cudx) 
-                                     answeridx = [...new Set(answeridx)]
-                                     notansweridx=notansweridx.filter(item => item !== cudx)
-                                     refreshstatus(cudx,'answered');
-                                 }
-                             })
-                              
-                         },'json').fail(function(xhr,status,error){
-                             showToast("Error: " + error, 'danger'); 
-                         }) 
-                 }) 
-                 if(res.next_page_url){ 
-                     $('.lesson-right').show().find('button.right-btn').data('pageurl',res.next_page_url);
-                 }else{
-                     $('.lesson-finish').show();
-                 }
-                 if(res.prev_page_url){
-                     $('.lesson-left').show().find('button.left-btn').data('pageurl',res.prev_page_url);
-                 }  
-                 $('#menu-text').text(`Question ${res.current_page} of ${res.total}`)
-                  
- 
-             },'json').fail(function(xhr,status,error){
-                 showToast("Error: " + error, 'danger'); 
-             })
- 
-             const csrf= $('meta[name="csrf-token"]').attr('content'); 
-             progressurl=pageurl; 
-             fetch("{{route('progress')}}", {
-                 method: 'POST',
-                 headers: {
-                     'Content-Type': 'application/json',
-                     'X-CSRF-TOKEN': csrf,
-                     'X-Requested-With': 'XMLHttpRequest'
-                 },
-                 body: JSON.stringify({
-                     name:"exam-{{$exam->id}}-progress-url",
-                     value:progressurl
-                 }),
-             }); 
-                 
-             }
-          }
-          async function updateprogress(callback){  
-             try { 
-                 const csrf= $('meta[name="csrf-token"]').attr('content');  
-                 var currentprogress=(questionids.length*100/totalcount)
-                 const response1 = await fetch("{{route('progress')}}", {
-                     method: 'POST',
-                     headers: {
-                         'Content-Type': 'application/json',
-                         'X-CSRF-TOKEN': csrf,
-                         'X-Requested-With': 'XMLHttpRequest'
-                     },
-                     body: JSON.stringify({
-                         name:"exam-{{$exam->id}}-progress-ids",
-                         value:JSON.stringify(questionids)
-                     }),
-                 });  
- 
-                 const response2 = await fetch("{{route('progress')}}", {
-                     method: 'POST',
-                     headers: {
-                         'Content-Type': 'application/json',
-                         'X-CSRF-TOKEN': csrf,
-                         'X-Requested-With': 'XMLHttpRequest'
-                     },
-                     body: JSON.stringify({
-                         name:"exam-{{$exam->id}}",
-                         value:currentprogress
-                     }),
-                 }); 
-                 if (!response2.ok) {
-                     showToast("Error: " + response2.status, 'danger'); 
-                 }  
-                 callback()
-             } catch (error) { 
-                 showToast("Error: " + error, 'danger'); 
-             }
-          }
-          async function updatequestionanswer(question,ans){
-             questionids.push(question);
-             questionids=questionids.filter(function(value, index, array){
-                 return array.indexOf(value) === index;
-             })
-             const csrf= $('meta[name="csrf-token"]').attr('content'); 
-             const response = await fetch("{{route('progress')}}", {
-                 method: 'POST',
-                 headers: {
-                     'Content-Type': 'application/json',
-                     'X-CSRF-TOKEN': csrf,
-                     'X-Requested-With': 'XMLHttpRequest'
-                 },
-                 body: JSON.stringify({
-                     name:"exam-{{$exam->id}}-answer-of-"+question,
-                     value:ans
-                 }),
-             }); 
-          }
-          async function refreshquestionanswer(question,callback){
-             const csrf= $('meta[name="csrf-token"]').attr('content'); 
-             const response = await fetch("{{route('getprogress')}}", {
-                 method: 'POST',
-                 headers: {
-                     'Content-Type': 'application/json',
-                     'X-CSRF-TOKEN': csrf,
-                     'X-Requested-With': 'XMLHttpRequest'
-                 },
-                 body: JSON.stringify({
-                     name:"exam-{{$exam->id}}-answer-of-"+question,
-                     value:''
-                 }),
-             }); 
-             if (response.ok) {
-                 const data = await response.json();
-                 callback(data);
-             }
-          } 
- 
-          async function lessonreviewconfirm(){
-             const csrf= $('meta[name="csrf-token"]').attr('content'); 
-             // currentprogress=(questionids.length*100/totalcount)
-             await fetch("{{route('progress')}}", {
-                 method: 'POST',
-                 headers: {
-                     'Content-Type': 'application/json',
-                     'X-CSRF-TOKEN': csrf,
-                     'X-Requested-With': 'XMLHttpRequest'
-                 },
-                 body: JSON.stringify({
-                     name:"exam-{{$exam->id}}-complete-review",
-                     value:'pending'
-                 }),
-             }); 
-             $('#finish-exam-confirm').modal('hide')
-             var timed=localStorage.getItem("question-bank")||"timed";
-             $.post('{{route('full-mock-exam.submit',$exam->slug)}}',{timed:timed,timetaken:timetaken,flags:flagcurrent,times:timercurrent},function(res){
-                 if(res.success){
-                     showToast(res.success, 'success')
-                 }
-                 if(res.preview){
-                     $('#review-link').show().attr("href",res.preview)
-                 }else{
-                     $('#review-link').hide()
-                 }
-                 timerActive=false;
-                 examActive=false;
-                 if(timed=="timed"){
-                     var d=timetaken;
-                     var m=Math.floor(d/60);
-                     var s=d-(m*60);
-                     $('#time-taken').text(`${d2s(m)}:${d2s(s)}`).parent().show()
-                 }else{
-                     $('#time-taken').parent().hide()
-                 }          
-                 var psed=Object.keys(verifydx).length
-                 $('#exam-mark-gained').html(`<span >${psed}/${totalcount}</span>`)      
-                 $('.pagination-arrow').hide(); 
-                 $('#question-preview-page').hide()  
-                $('#question-answer-page').show()
-                 $('#question-complete-page').fadeIn()
-                 $('#lesson-questionlist-list').hide().html('') 
-             },'json');
-          }
-          async function updateandsave(callback){ 
-             if($('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length>0){
-                 $('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]:checked').each(function(){
-                     updatequestionanswer($(this).data('question'),$(this).val());
-                     verifyquestion($(this).data('question'),$(this).val());
-                     if($(this).val()){
-                         answeridx.push(cudx) 
-                         answeridx = [...new Set(answeridx)]
-                         notansweridx=notansweridx.filter(item => item !== cudx)
-                         refreshstatus(cudx,'answered');
-                     }else{
-                         notansweridx.push(cudx) 
-                         notansweridx = [...new Set(notansweridx)]
-                         answeridx=answeridx.filter(item => item !== cudx)
-                         refreshstatus(cudx,'not-answered');
-                     }
-                 })
-             } 
-             updateprogress(callback) 
-          }
-           
-         async function exitconfirm(url){
-                if(await showConfirm({ 
-                    title:"Are you sure do you want to exit?" ,
-                    message: "If you exit in-between the exam, The answered questions will not save and you should need to start the exam from the beginning.",
-                })){
-                    window.location.href=url;
+                const lesseonId=generateRandomId(10);  
+                cudx=res.current_page;
+                notansweridx.push(cudx) 
+                notansweridx = [...new Set(notansweridx)]
+                answeridx=answeridx.filter(item => item !== cudx)
+                refreshstatus(cudx,'not-answered');
+                if(flagdx[cudx]){
+                    $("#bookmark-current").addClass('active');
+                }else{
+                    $("#bookmark-current").removeClass('active');
                 }
+                $.each(res.data,function(k,v){ 
+                        $('#lesson-questionlist-list').html(`
+                            <div class="col-md-12">
+                                <div class="mcq-row" >
+                                    <div class="mcq-title">
+                                        <span>${v.title||""}</span>
+                                    </div>
+                                    <div class="mcq-container">
+                                        <div id="mcq-${lesseonId}" class="mcq-description">
+                                            ${v.description}
+                                        </div>
+                                        <div class="mcq-answer">
+                                            <div id="mcq-${lesseonId}-ans" class="form-group" >
+                                                <div class="form-data" >
+                                                    <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list"> 
+                                                        
+                                                    </div> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `).fadeIn();
+                        if(!timercurrent[v.slug]){ 
+                            timercurrent[v.slug]=0; 
+                        } 
+                        currentSlug=v.slug;
+                        $.get(pageurl||"{{ route('full-mock-exam.show',['exam'=>$exam->slug]) }}",{question:v.slug},function(ans){
+                            $(`#mcq-${lesseonId}-list`).html('')
+                            $.each(ans,function(ai,av){
+                                $(`#mcq-${lesseonId}-list`).append(`
+                                    <div class="form-check">
+                                        <input type="radio" name="answer" data-page="${cudx}" data-question="${v.slug}" id="user-answer-${lesseonId}-ans-item-${ai}" value="${av.slug}" class="form-check-input"  >        
+                                        <label for="user-answer-${lesseonId}-ans-item-${ai}" >${av.title}</label>
+                                    </div>  
+                                `)
+                            })
+                            refreshquestionanswer(v.slug,function(data){
+                                $(`#mcq-${lesseonId}-list input[value="${data.value}"]`).prop("checked",true)
+                                if(data.value){
+                                    answeridx.push(cudx) 
+                                    answeridx = [...new Set(answeridx)]
+                                    notansweridx=notansweridx.filter(item => item !== cudx)
+                                    refreshstatus(cudx,'answered');
+                                }
+                            }) 
+                        },'json').fail(function(xhr,status,error){
+                            showToast("Error: " + error, 'danger'); 
+                        }) 
+                }) 
+                if(res.next_page_url){ 
+                    $('.lesson-right').show().find('button.right-btn').data('pageurl',res.next_page_url);
+                }else{
+                    $('.lesson-finish').show();
+                }
+                if(res.prev_page_url){
+                    $('.lesson-left').show().find('button.left-btn').data('pageurl',res.prev_page_url);
+                }  
+                $('#menu-text').text(`Question ${res.current_page} of ${res.total}`)
+                 
+
+            },'json').fail(function(xhr,status,error){
+                showToast("Error: " + error, 'danger'); 
+            })
+
+            const csrf= $('meta[name="csrf-token"]').attr('content'); 
+            progressurl=pageurl; 
+            fetch("{{route('progress')}}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrf,
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify({
+                    name:"exam-{{$exam->id}}-progress-url",
+                    value:progressurl
+                }),
+            }); 
+                 
+         }
+         async function updateprogress(callback){  
+            try { 
+                const csrf= $('meta[name="csrf-token"]').attr('content');  
+                var currentprogress=(questionids.length*100/totalcount)
+                const response1 = await fetch("{{route('progress')}}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrf,
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: JSON.stringify({
+                        name:"exam-{{$exam->id}}-progress-ids",
+                        value:JSON.stringify(questionids)
+                    }),
+                });  
+
+                const response2 = await fetch("{{route('progress')}}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrf,
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: JSON.stringify({
+                        name:"exam-{{$exam->id}}",
+                        value:currentprogress
+                    }),
+                }); 
+                if (!response2.ok) {
+                    showToast("Error: " + response2.status, 'danger'); 
+                }  
+                callback()
+            } catch (error) { 
+                showToast("Error: " + error, 'danger'); 
             }
-          $(function(){  
-             loadlesson() 
-             $('.lesson-left button.left-btn,.lesson-right button.right-btn').click(function(){   
-                 const pageurl=$(this).data('pageurl');  
-                 updateandsave(function(){
-                     loadlesson(pageurl)
-                 })
-             });  
- 
-             $('.lesson-finish button.finish-btn').click(function(){  
-                 updateandsave(function(){
-                     var unfinishcount=totalcount-questionids.length; 
-                     if(unfinishcount>0){
-                         $('.unfinish-message').show().find('.unfinish-count').text(unfinishcount)
-                     }else{
-                         $('.unfinish-message').hide().find('.unfinish-count').text(0)
-                     }  
-                     $('#finish-exam-confirm').modal('show')
-                 })
-             });
-             $('#bookmark-current').click(function(){
-                 if(flagdx[cudx]){
-                     flagdx[cudx]=false;
-                     flagcurrent[currentSlug]=true;
-                     $("#bookmark-current").removeClass('active');
-                     $(`#show-all .question-item[data-idx="${cudx}"]`).removeClass('status-flag')
-                     $(`#flagged .question-item[data-idx="${cudx}"]`).removeClass('status-flag')
-                 }else{
-                     flagdx[cudx]=true;
-                     flagcurrent[currentSlug]=true;
-                     $("#bookmark-current").addClass('active')
-                     $(`#show-all .question-item[data-idx="${cudx}"]`).addClass('status-flag')
-                     $(`#flagged .question-item[data-idx="${cudx}"]`).addClass('status-flag')
-                 } 
- 
-                 $('#flagged-nav').text(Object.keys(flagdx).length)
-             })  
+         }
+         async function updatequestionanswer(question,ans){
+            questionids.push(question);
+            questionids=questionids.filter(function(value, index, array){
+                return array.indexOf(value) === index;
+            })
+            const csrf= $('meta[name="csrf-token"]').attr('content'); 
+            const response = await fetch("{{route('progress')}}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrf,
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify({
+                    name:"exam-{{$exam->id}}-answer-of-"+question,
+                    value:ans
+                }),
+            }); 
+         }
+         async function refreshquestionanswer(question,callback){
+            const csrf= $('meta[name="csrf-token"]').attr('content'); 
+            const response = await fetch("{{route('getprogress')}}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrf,
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify({
+                    name:"exam-{{$exam->id}}-answer-of-"+question,
+                    value:''
+                }),
+            }); 
+            if (response.ok) {
+                const data = await response.json();
+                callback(data);
+            }
+         } 
+
+         async function lessonreviewconfirm(){
+            const csrf= $('meta[name="csrf-token"]').attr('content'); 
+            // currentprogress=(questionids.length*100/totalcount)
+            await fetch("{{route('progress')}}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrf,
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify({
+                    name:"exam-{{$exam->id}}-complete-review",
+                    value:'pending'
+                }),
+            }); 
+            $('#finish-exam-confirm').modal('hide') 
+            var timed="timed";             
+            $('#finish-exam-confirmed-form-timed').val(timed)
+            $('#finish-exam-confirmed-form-timetaken').val(timetaken)
+            $('#finish-exam-confirmed-form-flags').val(JSON.stringify(flagcurrent))
+            $('#finish-exam-confirmed-form-times').val(JSON.stringify(timercurrent))
+            $('#finish-exam-confirmed-form-passed').val(Object.keys(verifydx).length); 
+            $('#finish-exam-confirmed-form').submit();
+            timerActive=false;
+            examActive=false; 
+         }
+         async function updateandsave(callback){ 
+            if($('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length>0){
+                $('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]:checked').each(function(){
+                    updatequestionanswer($(this).data('question'),$(this).val());
+                    verifyquestion($(this).data('question'),$(this).val());
+                    if($(this).val()){
+                        answeridx.push(cudx) 
+                        answeridx = [...new Set(answeridx)]
+                        notansweridx=notansweridx.filter(item => item !== cudx)
+                        refreshstatus(cudx,'answered');
+                    }else{
+                        notansweridx.push(cudx) 
+                        notansweridx = [...new Set(notansweridx)]
+                        answeridx=answeridx.filter(item => item !== cudx)
+                        refreshstatus(cudx,'not-answered');
+                    }
+                })
+            } 
+            updateprogress(callback) 
+         }
+          
+         async function exitconfirm(url){
+            if(await showConfirm({ 
+                title:"Are you sure do you want to exit?" ,
+                message: "If you exit in-between the exam, The answered questions will not save and you should need to start the exam from the beginning.",
+            })){
+                window.location.href=url;
+            }
+        }
+         $(function(){  
+            loadlesson() 
+            $('.lesson-left button.left-btn,.lesson-right button.right-btn').click(function(){   
+                console.log('oooooo')
+                const pageurl=$(this).data('pageurl');  
+                updateandsave(function(){
+                    loadlesson(pageurl)
+                })
+            });  
+
+            $('.lesson-finish button.finish-btn').click(function(){  
+                updateandsave(function(){
+                    var unfinishcount=totalcount-questionids.length; 
+                    if(unfinishcount>0){
+                        $('.unfinish-message').show().find('.unfinish-count').text(unfinishcount)
+                    }else{
+                        $('.unfinish-message').hide().find('.unfinish-count').text(0)
+                    }  
+                    $('#finish-exam-confirm').modal('show')
+                })
+            });
+            $('#bookmark-current').click(function(){
+                if(flagdx[cudx]){
+                    flagdx[cudx]=false;
+                    flagcurrent[currentSlug]=true;
+                    $("#bookmark-current").removeClass('active');
+                    $(`#show-all .question-item[data-idx="${cudx}"]`).removeClass('status-flag')
+                    $(`#flagged .question-item[data-idx="${cudx}"]`).removeClass('status-flag')
+                }else{
+                    flagdx[cudx]=true;
+                    flagcurrent[currentSlug]=true;
+                    $("#bookmark-current").addClass('active')
+                    $(`#show-all .question-item[data-idx="${cudx}"]`).addClass('status-flag')
+                    $(`#flagged .question-item[data-idx="${cudx}"]`).addClass('status-flag')
+                } 
+                var lenflag=0;
+                $.each(flagdx,(k,v)=>v?lenflag++:null);
+
+                $('#flagged-nav').text(lenflag)
+            })  
+            $('.timer').show()
+           
+            setInterval(countownRun,1000)
 
             $('.exam-exit a').click(function(e){
                 e.preventDefault();
                 e.stopPropagation();
                 exitconfirm($(this).attr("href")); 
             }) 
-          })
-     </script>
+         })
+    </script>
 @endpush

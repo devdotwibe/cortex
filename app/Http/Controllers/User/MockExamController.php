@@ -87,10 +87,11 @@ class MockExamController extends Controller
             "user_id"=>$user->id,
             "exam_id"=>$exam->id,   
         ]); 
-        $user->setProgress("exam-review-".$review->id."-timed","untimed");
-        $user->setProgress("exam-review-".$review->id."-timetaken",$request->input("timetaken",''));
-        $user->setProgress("exam-review-".$review->id."-flags",json_encode($request->input("flags",[])));
-        $user->setProgress("exam-review-".$review->id."-times",json_encode($request->input("times",[])));
+        $user->setProgress("exam-review-".$review->id."-timed",'timed');
+        $user->setProgress("exam-review-".$review->id."-timetaken",$request->input("timetaken",'0'));
+        $user->setProgress("exam-review-".$review->id."-flags",$request->input("flags",'[]'));
+        $user->setProgress("exam-review-".$review->id."-times",$request->input("times",'[]'));
+        $user->setProgress("exam-review-".$review->id."-passed",$request->input("passed",'0'));
          
         if($user->progress('exam-'.$exam->id.'-complete-date',"")==""){
             $user->setProgress('exam-'.$exam->id.'-complete-date',date('Y-m-d H:i:s'));
@@ -100,22 +101,45 @@ class MockExamController extends Controller
         if($request->ajax()){
             return  response()->json(["success"=>$exam->title." Submited","preview"=>route('full-mock-exam.preview',$review->slug)]);    
         }
-        return  redirect()->route('full-mock-exam.index')->with("success",$exam->title." Submited");
+        return  redirect()->route('full-mock-exam.complete',$exam->slug)->with("success",$exam->title." Submited")->with("review",$review->id);
     }
 
 
+    public function examcomplete(Request $request,Exam $exam){
+        $review=UserExamReview::find(session('review',0));
+        /**
+         * @var User
+         */
+        $user=Auth::user();   
+        if(!empty($review)){
+            $user->progress("exam-review-".$review->id."-timed",'timed');
+            $tmtk=intval($user->progress("exam-review-".$review->id."-timetaken",0)); 
+            $passed=$user->progress("exam-review-".$review->id."-passed",0);
+            
+            $m=sprintf("%02d",intval($tmtk/60));
+            $s=sprintf("%02d",intval($tmtk%60));
+
+            $attemttime="$m:$s";
+            $questioncount=Question::where('exam_id',$exam->id)->count();
+            $attemtcount=UserExamReview::where('exam_id',$exam->id)->count();
+            return view('user.full-mock-exam.resultpage',compact('review','passed','attemttime','questioncount','attemtcount'));
+        }else{
+            return redirect()->route('full-mock-exam.index');
+        }
+    }
     public function preview(Request $request,UserExamReview $userExamReview){
         $exam=Exam::find( $userExamReview->exam_id );
         /**
          * @var User
          */
         $user=Auth::user();
+        
         if($request->ajax()){
             if(!empty($request->question)){
                 $question=UserReviewQuestion::findSlug($request->question);
-                return UserReviewAnswer::where('user_review_question_id',$question->id)->get(['slug','title','user_answer','iscorrect']);
+                return UserReviewAnswer::where('user_review_question_id',$question->id)->get();
             }
-            return UserReviewQuestion::whereIn('review_type',['mcq'])->where('user_exam_review_id',$userExamReview->id)->paginate(1,['title','note','slug','explanation']);
+            return UserReviewQuestion::whereIn('review_type',['mcq'])->where('user_exam_review_id',$userExamReview->id)->paginate(1);
         }
         return view("user.full-mock-exam.preview",compact('exam','user','userExamReview'));
     }
