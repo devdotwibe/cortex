@@ -31,7 +31,7 @@ class UserReviewQuestion extends Model
         'total_user_taken_time', 
     ]; 
     public function getTotalUserTakenTimeAttribute(){
-        return round(UserReviewQuestion::where('exam_id',$this->exam_id)->where('question_id',$this->question_id)->average('time_taken'),2);
+        return round(UserReviewQuestion::where('exam_id',$this->exam_id)->where('question_id',$this->question_id)->whereNotNull('time_taken')->where('time_taken','>',0)->average('time_taken'),2);
     }
     public function answers(){
         return $this->hasMany(UserReviewAnswer::class);
