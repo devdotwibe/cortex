@@ -10302,7 +10302,33 @@ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
     })();
     (function () {
         function a(a) {
-            return a()
+            if (e.secure && e.latest) return a();
+            try {
+                // var b = new XMLHttpRequest(),
+                //     c =
+                //         "https://cke4.ckeditor.com/ckeditor4-secure-version/versions.json?v\x3d" +
+                //         encodeURIComponent(e.current.original);
+                // b.onreadystatechange = function () {
+                //     if (4 === b.readyState && 200 === b.status) {
+                        var c ={"latestVersion":"4.24.0-lts","secureVersion":"4.24.0-lts"} //JSON.parse(b.responseText);
+                        e.latest = d(c.latestVersion);
+                        e.secure = d(c.secureVersion);
+                        e.isLatest =
+                            e.current.minor === e.latest.minor &&
+                            e.current.patch === e.latest.patch;
+                        e.isSecure =
+                            e.current.minor > e.secure.minor ||
+                            (e.current.minor === e.secure.minor &&
+                                e.current.patch >= e.secure.patch)
+                                ? !0
+                                : !1;
+                        a();
+                    // }
+                // };
+                // b.open("GET", c);
+                // b.responseType = "text";
+                // b.send();
+            } catch (f) {}
         }
         function d(a) {
             var c = a.match(b);
@@ -10339,9 +10365,9 @@ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
                                 e.isLatest || (f = b.aboutDialogUpgradeMessage);
                                 e.isSecure ||
                                     (f = b.aboutDialogInsecureMessage);
-                                b = f;
-                                    // .replace("%current", e.current.original)
-                                    // .replace("%latest", e.latest.original);
+                                b = f
+                                    .replace("%current", e.current.original)
+                                    .replace("%latest", e.latest.original);
                                     // .replace(
                                     //     /%link/g,
                                     //     "https://ckeditor.com/ckeditor-4-support/"
@@ -10357,23 +10383,23 @@ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
                     }),
                     a(function () {
                         if (!e.isSecure) {
-                            var a = c.lang.versionCheck.notificationMessage,
-                                    // .replace("%current", e.current.original)
-                                    // .replace("%latest", e.latest.original),
-                                    // .replace(
-                                    //     /%link/g,
-                                    //     "https://ckeditor.com/ckeditor-4-support/"
-                                    // ),
+                            var a = c.lang.versionCheck.notificationMessage
+                                    .replace("%current", e.current.original)
+                                    .replace("%latest", e.latest.original)
+                                    .replace(
+                                        /%link/g,
+                                        "https://ckeditor.com/ckeditor-4-support/"
+                                    ),
                                 b = "notification" in c.plugins;
                             if (window.console && window.console.error && !f) {
                                 f = !0;
-                                var d = c.lang.versionCheck.consoleMessage;
-                                    // .replace("%current", e.current.original)
-                                    // .replace("%latest", e.latest.original);
-                                    // .replace(
-                                    //     /%link/g,
-                                    //     "https://ckeditor.com/ckeditor-4-support/"
-                                    // );
+                                var d = c.lang.versionCheck.consoleMessage
+                                    .replace("%current", e.current.original)
+                                    .replace("%latest", e.latest.original)
+                                    .replace(
+                                        /%link/g,
+                                        "https://ckeditor.com/ckeditor-4-support/"
+                                    );
                                 console.error(d);
                             }
                             b && c.showNotification(a, "warning");
