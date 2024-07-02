@@ -10310,7 +10310,7 @@ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
                 //         encodeURIComponent(e.current.original);
                 // b.onreadystatechange = function () {
                 //     if (4 === b.readyState && 200 === b.status) {
-                        var c ={"latestVersion":"4.24.0-lts","secureVersion":"4.24.0-lts"} //JSON.parse(b.responseText);
+                        var c ={"latestVersion":"4.22.1","secureVersion":"4.22.1"} //JSON.parse(b.responseText);
                         e.latest = d(c.latestVersion);
                         e.secure = d(c.secureVersion);
                         e.isLatest =
