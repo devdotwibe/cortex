@@ -10339,9 +10339,9 @@ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
                                 e.isLatest || (f = b.aboutDialogUpgradeMessage);
                                 e.isSecure ||
                                     (f = b.aboutDialogInsecureMessage);
-                                b = f
-                                    .replace("%current", e.current.original)
-                                    .replace("%latest", e.latest.original);
+                                b = f;
+                                    // .replace("%current", e.current.original)
+                                    // .replace("%latest", e.latest.original);
                                     // .replace(
                                     //     /%link/g,
                                     //     "https://ckeditor.com/ckeditor-4-support/"
@@ -10357,9 +10357,9 @@ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
                     }),
                     a(function () {
                         if (!e.isSecure) {
-                            var a = c.lang.versionCheck.notificationMessage
-                                    .replace("%current", e.current.original)
-                                    .replace("%latest", e.latest.original),
+                            var a = c.lang.versionCheck.notificationMessage,
+                                    // .replace("%current", e.current.original)
+                                    // .replace("%latest", e.latest.original),
                                     // .replace(
                                     //     /%link/g,
                                     //     "https://ckeditor.com/ckeditor-4-support/"
@@ -10367,9 +10367,9 @@ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
                                 b = "notification" in c.plugins;
                             if (window.console && window.console.error && !f) {
                                 f = !0;
-                                var d = c.lang.versionCheck.consoleMessage
-                                    .replace("%current", e.current.original)
-                                    .replace("%latest", e.latest.original);
+                                var d = c.lang.versionCheck.consoleMessage;
+                                    // .replace("%current", e.current.original)
+                                    // .replace("%latest", e.latest.original);
                                     // .replace(
                                     //     /%link/g,
                                     //     "https://ckeditor.com/ckeditor-4-support/"
