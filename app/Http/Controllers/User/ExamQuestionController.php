@@ -43,8 +43,7 @@ class ExamQuestionController extends Controller
         /**
          *  @var User
          */
-        $user=Auth::user();
-        print_R($categorys);print_r($exam);print_r($user);exit();
+        $user=Auth::user(); 
         return view("user.question-bank.index",compact('categorys','exam','user'));
     }
 
