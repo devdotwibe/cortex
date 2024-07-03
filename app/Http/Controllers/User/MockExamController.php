@@ -15,6 +15,7 @@ use App\Trait\ResourceController;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\Facades\DataTables;
 
 class MockExamController extends Controller
 {
@@ -177,20 +178,35 @@ class MockExamController extends Controller
          * @var User
          */
         $user=Auth::user();
-        $data=[];
-        foreach(UserExamReview::where('user_id',$user->id)->where('exam_id',$exam->id)->get() as  $row){
-            $data[]=[
-                'slug'=>$row->slug,
-                'date'=>Carbon::parse($row->created_at)->format('Y-m-d h:i a'),
-                'progress'=>$row->progress,
-                'url'=>route('full-mock-exam.preview',$row->slug),
-            ];
-        }
-        return [
-            'data'=>$data,
-            'url'=>route('full-mock-exam.show',$exam->slug),
-            'name'=>$exam->name
-        ];
+        // $data=[];
+        // foreach(UserExamReview::where('user_id',$user->id)->where('exam_id',$exam->id)->get() as  $row){
+        //     $data[]=[
+        //         'slug'=>$row->slug,
+        //         'date'=>Carbon::parse($row->created_at)->format('Y-m-d h:i a'),
+        //         'progress'=>$row->progress,
+        //         'url'=>route('full-mock-exam.preview',$row->slug),
+        //     ];
+        // }
+        // return [
+        //     'data'=>$data,
+        //     'url'=>route('full-mock-exam.show',$exam->slug),
+        //     'name'=>$exam->name
+        // ];
+        return DataTables::of(UserExamReview::where('user_id',$user->id)->where('exam_id',$exam->id)->select('slug','created_at','progress'))
+            ->addColumn('progress',function($data){
+                return $data->progress."%";
+            })
+            ->addColumn('date',function($data){
+                return Carbon::parse($data->created_at)->format('Y-m-d h:i a');
+            })
+            ->addColumn('action',function($data){
+                return '<a type="button" href="'.route('full-mock-exam.preview',$data->slug).'" class="btn btn-warning btn-sm">Review</a>';
+            })
+            ->rawColumns(['action'])
+            ->with('url',route('full-mock-exam.show',$exam->slug))
+            ->with('name',$exam->title)
+            ->addIndexColumn()
+            ->make(true);
     }
     
 }
