@@ -18,6 +18,7 @@ use App\Trait\ResourceController;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\Facades\DataTables;
 
 class ExamQuestionController extends Controller
 {
@@ -282,24 +283,43 @@ class ExamQuestionController extends Controller
             ]);
             $exam=Exam::find( $exam->id );
         }
-        $data=[];
-        foreach(UserExamReview::where('user_id',$user->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->where('exam_id',$exam->id)->get() as  $row){
-            $data[]=[
-                'slug'=>$row->slug,
-                'date'=>Carbon::parse($row->created_at)->format('Y-m-d h:i a'),
-                'progress'=>$row->progress,
-                'url'=>route('question-bank.preview',$row->slug),
-            ];
-        }
-        return [
-            'data'=>$data,
-            'url'=>route('question-bank.set.show',[
+        // $data=[];
+        // foreach(UserExamReview::where('user_id',$user->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->where('exam_id',$exam->id)->get() as  $row){
+        //     $data[]=[
+        //         'slug'=>$row->slug,
+        //         'date'=>Carbon::parse($row->created_at)->format('Y-m-d h:i a'),
+        //         'progress'=>$row->progress,
+        //         'url'=>route('question-bank.preview',$row->slug),
+        //     ];
+        // }
+        // return [
+        //     'data'=>$data,
+        //     'url'=>route('question-bank.set.show',[
+        //         'category'=>$category->slug,
+        //         'sub_category'=>$subCategory->slug,
+        //         'setname'=>$setname->slug
+        //     ]),
+        //     'name'=>$subCategory->name
+        // ];
+        return DataTables::of(UserExamReview::where('user_id',$user->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->where('exam_id',$exam->id)->select('slug','created_at','progress'))
+            ->addColumn('progress',function($data){
+                return $data->progress."%";
+            })
+            ->addColumn('date',function($data){
+                return Carbon::parse($data->created_at)->format('Y-m-d h:i a');
+            })
+            ->addColumn('action',function($data){
+                return '<a type="button" href="'.route('question-bank.preview',$data->slug).'" class="btn btn-warning btn-sm">Review</a>';
+            })
+            ->rawColumns(['action'])
+            ->with('url',route('question-bank.set.show',[
                 'category'=>$category->slug,
                 'sub_category'=>$subCategory->slug,
                 'setname'=>$setname->slug
-            ]),
-            'name'=>$subCategory->name
-        ];
+            ]))
+            ->with('name',$subCategory->name)
+            ->addIndexColumn()
+            ->make(true);
     }
 
     public function setverify(Request $request,Category $category,SubCategory $subCategory,Setname $setname){

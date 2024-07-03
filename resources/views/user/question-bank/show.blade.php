@@ -62,19 +62,8 @@
             <div class="modal-body"> 
                 <div class="row">
                     <div class="col-xs-12">
-                        <div class="table-outer">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>Progress</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody id="attemt-list">
-                                    
-                                </tbody>
-                            </table>
+                        <div class="table-outer" id="attemt-list">
+                             
                         </div>                        
                     </div>
                 </div>
@@ -97,21 +86,106 @@
     }
 
     function loadlessonsetreviews(url){
-        $('#attemt-list').html('')
-        $.get(url,function(res){
-            $.each(res.data,function(k,v){ 
-                $('#attemt-list').append(`
+        $('#attemt-list').html(`
+            <table id="attemt-list-table" style="width:100%">
+                <thead>
                     <tr>
-                        <td>${v.date}</td>
-                        <td>${v.progress}%</td>
-                        <td><a type="button" href="${v.url}" class="btn btn-warning btn-sm">Review</a> </td>
+                        <th>Sl.No</th>
+                        <th>Date</th>
+                        <th>Progress</th>
+                        <th></th>
                     </tr>
-                `)
-            })
-            $('#restart-btn').attr('href',res.url);
-            $('#review-history-label').html(` ${res.name} `)
+                </thead>
+                <tbody >
+
+                </tbody>
+            </table>
+            `)
             $('#review-history-modal').modal('show')
-        },'json')
+            $('#attemt-list-table').DataTable({
+                processing: true,
+                serverSide: true,
+                searching: false,
+                bFilter: false,                
+                ajax: {
+                    url:url
+                },
+                order: [
+                    [0, 'DESC']
+                ],
+                initComplete: function() {
+                    var info = this.api().page.info(); 
+                    var json = this.api().ajax.json();
+                    $('#restart-btn').attr('href', json.url);
+                    $('#review-history-label').html(` ${json.name} `)
+                    if (info.pages > 1) {
+                        $("#attemt-list-table_wrapper .pagination").show();
+                    } else {
+                        $("#attemt-list-table_wrapper .pagination").hide();
+                    }
+                    if (info.recordsTotal > 0) {
+                        $("#attemt-list-table_wrapper #attemt-list-table_info").show();
+                    } else {
+                        $("#attemt-list-table_wrapper #attemt-list-table_info").hide();
+                    } 
+                },
+                drawCallback: function() {
+                    var info = this.api().page.info();
+                    var json = this.api().ajax.json();
+                    $('#restart-btn').attr('href', json.url);
+                    $('#review-history-label').html(` ${json.name} `)
+                    if (info.pages > 1) {
+                        $("#attemt-list-table_wrapper .pagination").show();
+                    } else {
+                        $("#attemt-list-table_wrapper .pagination").hide();
+                    }
+                    if (info.recordsTotal > 0) {
+                        $("#attemt-list-table_wrapper #attemt-list-table_info").show();
+                    } else {
+                        $("#attemt-list-table_wrapper #attemt-list-table_info").hide();
+                    } 
+                },
+                columns: [ 
+
+                    {
+                        data: 'DT_RowIndex',
+                        name: 'id',
+                        orderable: true,
+                        searchable: false,
+                    },
+                    {
+                        data: 'date',
+                        name: 'created_at',
+                        orderable: true,
+                        searchable: false,
+                    },
+                    {
+                        data: 'progress',
+                        name: 'progress',
+                        orderable: true,
+                        searchable: false,
+                    },
+                    {
+                        data: 'action', 
+                        orderable: false,
+                        searchable: false, 
+                    },
+                ],
+            })
+        // $.get(url,function(res){
+        //     $.each(res.data,function(k,v){ 
+        //         $('#attemt-list').append(`
+        //             <tr>
+        //                 <td>${v.date}</td>
+        //                 <td>${v.progress}%</td>
+        //                 <td><a type="button" href="${v.url}" class="btn btn-warning btn-sm">Review</a> </td>
+        //             </tr>
+        //         `)
+        //     })
+        //     $('#restart-btn').attr('href',res.url);
+        //     $('#review-history-label').html(` ${res.name} `)
+        //     $('#review-history-modal').modal('show')
+        // },'json')
     }
     </script>
 @endpush
