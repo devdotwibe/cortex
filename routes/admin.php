@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ExamController;
 use App\Http\Controllers\Admin\FullMockExamController;
 use App\Http\Controllers\Admin\LearnController;
+use App\Http\Controllers\Admin\LiveClassController;
 use App\Http\Controllers\Admin\MainController as AdminMainController;
 use App\Http\Controllers\Admin\QuestionBankController;
 use App\Http\Controllers\Admin\QuestionBankControllerNew;
@@ -139,6 +140,13 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
         Route::post('/set/store/{slug}',[SetController::class,'set_store'])->name('set.set_store');
 
+        Route::prefix('live-class')->name('live-class.')->group(function () {
+
+            Route::get('/',[LiveClassController::class,'index'])->name('index');
+
+            Route::post('/',[LiveClassController::class,'store'])->name('store');
+          
+        });
 
 
 
