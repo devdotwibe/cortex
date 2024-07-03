@@ -16,49 +16,54 @@
 
                         <div class="card">
 
-                            <div class="card-body">
+                            <a href="{{ route('admin.live-class.private_class_create') }}">
 
-                                <div class="category">
+                                <div class="card-body">
 
-                                    <div class="card-box" id="card_box_1">
+                                    <div class="category">
 
-                                        <a onclick="CardBoxOpen(this)" class="btn-live-class"> <h5><img src="{{asset('assets/images/pen.png')}}" width="15" alt=""></h5></a>
+                                        <div class="card-box" id="card_box_1">
 
-                                        <div class="category-image">
+                                            <button onclick="CardBoxOpen(event)" class="btn-live-class"> <h5><img src="{{asset('assets/images/pen.png')}}" width="15" alt=""></h5></button>
 
-                                            @if(!empty($live_class->class_image_1))
+                                            <button onclick="AddCardDetail(event)" class="btn btn-dark"> <h5>Add +</h5></button>
 
-                                                <img src="{{ url('d0/' . $live_class->class_image_1) }}">
-                                            @else
+                                            <div class="category-image">
 
-                                                <img src="{{asset("assets/images/User-red.png")}}">
+                                                @if(!empty($live_class->class_image_1))
 
-                                            @endif
-                                        
-                                        </div>
-
-                                        <div class="category-content">
-
-                                            <h3> @if(!empty($live_class->class_title_1)) {{ $live_class->class_title_1 }} @else Private Class Room @endif</h3>
-
-                                            <p>
-                                                @if(!empty($live_class->class_description_1))
-
-                                                {{ $live_class->class_description_1 }}
-
+                                                    <img src="{{ url('d0/' . $live_class->class_image_1) }}">
                                                 @else
-                                                Receive a personalised learning experience with regular feedback by entrolling with our tutors Desinged for Year 5 students
-                                                
+
+                                                    <img src="{{asset("assets/images/User-red.png")}}">
+
                                                 @endif
-                                            </p>
+                                            
+                                            </div>
+
+                                            <div class="category-content">
+
+                                                <h3> @if(!empty($live_class->class_title_1)) {{ $live_class->class_title_1 }} @else Private Class Room @endif</h3>
+
+                                                <p>
+                                                    @if(!empty($live_class->class_description_1))
+
+                                                    {{ $live_class->class_description_1 }}
+
+                                                    @else
+                                                    Receive a personalised learning experience with regular feedback by entrolling with our tutors Desinged for Year 5 students
+                                                    
+                                                    @endif
+                                                </p>
+
+                                            </div>
 
                                         </div>
 
                                     </div>
 
                                 </div>
-
-                            </div>
+                            </a>
 
                         </div>
 
@@ -74,7 +79,9 @@
 
                                 <div class="card-box" id="card_box_1">
 
-                                    <a onclick="CardBoxOpenTwo(this)" class="btn-live-class"> <h5><img src="{{asset('assets/images/pen.png')}}" width="15" alt=""></h5></a>
+                                    <button onclick="CardBoxOpenTwo(event)" class="btn-live-class"> <h5><img src="{{asset('assets/images/pen.png')}}" width="15" alt=""></h5></button>
+
+                                    <button onclick="AddCardDetail2(event)" class="btn btn-dark"> <h5>Add +</h5></button>
 
                                     <div class="category-image">
 
@@ -282,20 +289,96 @@
 @endsection
 
 
+@push('modals')
+
+<div class="modal fade" id="live-private-modal" tabindex="-1" role="dialog" aria-labelledby="live-class-modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="question-bank-subtitleLablel"></h5>
+                <button type="button" class="close"  data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="container">
+                    <x-general-form :url="route('admin.live-class.private_class')"   btnsubmit="Save" :fields='[ 
+                        ["name"=>"private_class","label"=>"Description","placeholder"=>"Description","size"=>12,"type"=>"editor","value"=>"$live_class->private_class"],
+                    ]' />
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="live-intensive-modal" tabindex="-1" role="dialog" aria-labelledby="live-class-modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="question-bank-subtitleLablel"></h5>
+                <button type="button" class="close"  data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="container">
+                    <x-general-form :url="route('admin.live-class.intensive_class')"   btnsubmit="Save" :fields='[ 
+                        ["name"=>"intensive_class","label"=>"Description","placeholder"=>"Description","size"=>12,"type"=>"editor","value"=>"$live_class->intensive_class"],
+                    ]' />
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@endpush
 
 @push('footer-script')
    
 <script>
 
-        function CardBoxOpen(id)
+$(document).ready(function() {
+
+@error('intensive_class')
+
+    AddCardDetail2(event);
+
+@enderror
+
+@error('private_class')
+
+    AddCardDetail(event);
+    
+@enderror
+
+});
+
+</script>
+
+<script>
+
+
+        function CardBoxOpen(event)
         {
+            event.preventDefault();
+            event.stopPropagation();
+
             $('#card_box_form_1').fadeToggle();
 
             $('#card_box_form_2').hide();
         }
 
-        function CardBoxOpenTwo(id)
+        function CardBoxOpenTwo(event)
         {
+            event.preventDefault();
+            event.stopPropagation();
+
             $('#card_box_form_2').fadeToggle();
 
             $('#card_box_form_1').hide();
@@ -343,6 +426,23 @@
 
             $('#card_image_upload_2').show();
         }
+
+        function AddCardDetail(event)
+        {
+            event.preventDefault();
+            event.stopPropagation();
+            
+            $('#live-private-modal').modal('show');
+        }
+
+        function AddCardDetail2(event)
+        {
+            event.preventDefault();
+            event.stopPropagation();
+
+            $('#live-intensive-modal').modal('show');
+        }
+
 
 </script>
 

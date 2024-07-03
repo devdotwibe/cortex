@@ -17,13 +17,36 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="category">
+
                                     <div class="category-image">
-                                        <img src="{{ asset("assets/images/User-red.png") }}">
+
+                                        @if(!empty($live_class->class_image_1))
+
+                                            <img src="{{ url('d0/' . $live_class->class_image_1) }}">
+
+                                        @else
+
+                                            <img src="{{asset("assets/images/User-red.png")}}">
+
+                                        @endif
+
                                     </div>
+
                                     <div class="category-content">
                                     
-                                        <h3>Private ClassRoom</h3>
+                                        <h3>@if(!empty($live_class->class_title_1)) {{ $live_class->class_title_1 }} @else Private Class Room @endif</h3>
                                     
+                                        <p>
+                                            @if(!empty($live_class->class_description_1))
+
+                                            {{ $live_class->   }}
+
+                                            @else
+                                            Receive a personalised learning experience with regular feedback by entrolling with our tutors Desinged for Year 5 students
+                                            
+                                            @endif
+                                        </p>
+
                                     </div>
                                 </div>
                             </div>
@@ -37,11 +60,32 @@
                         <div class="card-body">
                             <div class="category">
                                 <div class="category-image">
-                                    <img src="{{ asset("assets/images/User-red.png") }}">
+
+                                     @if(!empty($live_class->class_image_2))
+
+                                            <img src="{{ url('d0/' . $live_class->class_image_2) }}">
+
+                                        @else
+
+                                            <img src="{{asset("assets/images/User-red.png")}}">
+
+                                        @endif
+
                                 </div>
                                 <div class="category-content">
                                 
-                                    <h3> Intensive Workshop</h3>
+                                    <h3> @if(!empty($live_class->class_title_2)) {{ $live_class->class_title_2 }} @else Intensive Workshop  @endif</h3>
+
+                                    <p>
+                                        @if(!empty($live_class->class_description_2))
+
+                                        {{ $live_class->class_description_2 }}
+
+                                        @else
+                                        These open group sessions condense the entire Thinking Skills curriculum into ten intensive lessions Designed for Year 6 students 
+                                        
+                                        @endif
+                                    </p>
                                 
                                 </div>
                             </div>

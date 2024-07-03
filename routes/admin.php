@@ -145,7 +145,13 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::get('/',[LiveClassController::class,'index'])->name('index');
 
             Route::post('/',[LiveClassController::class,'store'])->name('store');
-          
+
+            Route::post('/private/class',[LiveClassController::class,'private_class'])->name('private_class');
+
+            Route::get('/private/class',[LiveClassController::class,'private_class_create'])->name('private_class_create');
+
+            Route::post('/intensive/class',[LiveClassController::class,'intensive_class'])->name('intensive_class');
+            
         });
 
 
