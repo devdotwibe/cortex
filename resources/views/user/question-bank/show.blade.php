@@ -64,7 +64,7 @@
                     <div class="col-xs-12">
                         <div class="table-outer" id="attemt-list">
                              
-                        </div>                        
+                        </div>
                     </div>
                 </div>
                 <a type="button" href="" id="restart-btn"  class="btn btn-dark">Re-Start Set</a> 
