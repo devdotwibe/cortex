@@ -675,6 +675,7 @@
             $('.exam-exit a').click(function(e){
                 e.preventDefault();
                 e.stopPropagation();
+                localStorage.removeItem("full-mock-exam-summery")
                 exitconfirm($(this).attr("href")); 
             }) 
          })

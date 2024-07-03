@@ -103,6 +103,7 @@ Route::middleware('auth')->group(function(){
     Route::prefix('topic-test')->name('topic-test.')->group(function () {
         Route::get('/',[TopicExamController::class,'index'])->name('index');
         Route::get('/{category}',[TopicExamController::class,'show'])->name('show');
+        Route::get('/{category}/attempt',[TopicExamController::class,'confirmshow'])->name('confirmshow');
         Route::get('/{category}/history',[TopicExamController::class,'topichistory'])->name('topic.history');
         Route::post('/{category}/submit',[TopicExamController::class,'topicsubmit'])->name('topic.submit');
         Route::post('/{category}/verify',[TopicExamController::class,'topicverify'])->name('topic.verify');

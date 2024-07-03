@@ -40,14 +40,7 @@ class MockExamController extends Controller
         /**
          * @var User
          */
-        $user=Auth::user(); 
-        if($request->ajax()){ 
-            if(!empty($request->question)){
-                $question=Question::findSlug($request->question);
-                return Answer::where('question_id',$question->id)->get(['slug','title']);
-            }
-            return Question::where('exam_id',$exam->id)->paginate(1,['slug','title','description','duration']);
-        }
+        $user=Auth::user();  
         $questioncount=Question::where('exam_id',$exam->id)->count();
         $endtime=0;
         $times=explode(':',$exam->time_of_exam);

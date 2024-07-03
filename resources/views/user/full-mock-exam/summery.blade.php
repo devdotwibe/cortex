@@ -3,6 +3,9 @@
 @section('content')
 <section class="exam-container">
     <div class="summery-wrap"> 
+        <div class="summery-title">
+            {{$exam->title}}
+        </div>
         <div class="summery-content">
             {!! get_option("exam_simulator_description") !!}
         </div>

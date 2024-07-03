@@ -8,7 +8,7 @@
                 <div class="progress-main">
 
                     <div class="exam-exit ">
-                        <a   href="{{route('topic-test.show',$category->slug)}}">
+                        <a   href="{{route('topic-test.index')}}">
                             <img src="{{asset("assets/images/exiticon-wht.svg")}}" alt="exiticon">
                         </a>
                     </div>
@@ -120,7 +120,7 @@
                                             <div class="question-list">
                                                 @for ($i = 1; $i <= ($questioncount??0); $i++)
                                                     <div class="question-item" data-idx="{{$i}}">
-                                                        <button class="item-group" onclick="loadlesson('{{ route('topic-test.show',['category'=>$category->slug,'page'=>$i]) }}')">
+                                                        <button class="item-group" onclick="loadlesson('{{ route('topic-test.confirmshow',['category'=>$category->slug,'page'=>$i]) }}')">
                                                             <img src="{{asset('assets/images/flaged.svg')}}" alt="all">
                                                             <span>{{$i}}</span> 
                                                         </button>
@@ -142,7 +142,7 @@
                                             <div class="question-list">
                                                 @for ($i = 1; $i <= ($questioncount??0); $i++)
                                                     <div class="question-item" data-idx="{{$i}}">
-                                                        <button class="item-group" onclick="loadlesson('{{ route('topic-test.show',['category'=>$category->slug,'page'=>$i]) }}')">
+                                                        <button class="item-group" onclick="loadlesson('{{ route('topic-test.confirmshow',['category'=>$category->slug,'page'=>$i]) }}')">
                                                             <img src="{{asset('assets/images/flaged.svg')}}" alt="all">
                                                             <span>{{$i}}</span>
                                                         </button>
@@ -164,7 +164,7 @@
                                             <div class="question-list">
                                                 @for ($i = 1; $i <= ($questioncount??0); $i++)
                                                     <div class="question-item" data-idx="{{$i}}">
-                                                        <button class="item-group" onclick="loadlesson('{{ route('topic-test.show',['category'=>$category->slug,'page'=>$i]) }}')">
+                                                        <button class="item-group" onclick="loadlesson('{{ route('topic-test.confirmshow',['category'=>$category->slug,'page'=>$i]) }}')">
                                                             <img src="{{asset('assets/images/flaged.svg')}}" alt="all">
                                                             <span>{{$i}}</span> 
                                                         </button>
@@ -187,7 +187,7 @@
                                             <div class="question-list">
                                                 @for ($i = 1; $i <= ($questioncount??0); $i++)
                                                     <div class="question-item status-not-read"  data-idx="{{$i}}">
-                                                        <button class="item-group" onclick="loadlesson('{{ route('topic-test.show',['category'=>$category->slug,'page'=>$i]) }}')">
+                                                        <button class="item-group" onclick="loadlesson('{{ route('topic-test.confirmshow',['category'=>$category->slug,'page'=>$i]) }}')">
                                                             <img src="{{asset('assets/images/flaged.svg')}}" alt="all">
                                                             <span>{{$i}}</span> 
                                                         </button>
@@ -209,7 +209,7 @@
                                             <div class="question-list">
                                                 @for ($i = 1; $i <= ($questioncount??0); $i++)
                                                     <div class="question-item" data-idx="{{$i}}">
-                                                        <button class="item-group" onclick="loadlesson('{{ route('topic-test.show',['category'=>$category->slug,'page'=>$i]) }}')">
+                                                        <button class="item-group" onclick="loadlesson('{{ route('topic-test.confirmshow',['category'=>$category->slug,'page'=>$i]) }}')">
                                                              
                                                                 <img src="{{asset('assets/images/flaged.svg')}}" alt="all">
                                                                 <span>{{$i}}</span>
@@ -235,7 +235,7 @@
     <form action="{{route('topic-test.topic.submit',['category'=>$category->slug])}}" method="post" id="finish-exam-confirmed-form">
         @csrf
         <input type="hidden" name="timed" id="finish-exam-confirmed-form-timed" value="" >
-        <input type="hidden" name="timetaken" id="finish-exam-confirmed-form-timetaken" value="" >
+        <input type="hidden" name="summery.timetaken" id="finish-exam-confirmed-form-summery.timetaken" value="" >
         <input type="hidden" name="flags" id="finish-exam-confirmed-form-flags" value="" >
         <input type="hidden" name="times" id="finish-exam-confirmed-form-times" value="" >
         <input type="hidden" name="passed" id="finish-exam-confirmed-form-passed" value="" > 
@@ -267,31 +267,22 @@
 @push('footer-script') 
 
     <script> 
-         
-        var totalcount={{$questioncount??0}};
-        var questionids=[];
-        var progressurl="";
-        
-        var timercurrent={};
-        var flagcurrent={};
-        var endTime={{$endtime}}*60;
-        var countownRunCallbacks={};
-        var currentSlug="";
-        var countownRunCallbackActive=null;
-        var countownSlugActive=""; 
-        var flagdx={};
-        var verifydx={};
-        var cudx=1;
-
-        var answeridx=[];
-        var notansweridx=[]; 
-        var timerActive=true;
-        var examActive=true;
-        var timetaken=0;
+        var progressurl="{{$user->progress("exam-{$exam->id}-topic-{$category->id}-progress-url","")}}";
+        let storage = JSON.parse(localStorage.getItem("topic-test-summery"))||{};
+        let summery = new Proxy({...storage,save:function(target){ localStorage.setItem("topic-test-summery",JSON.stringify(summery));return true; } }, {
+            get: function(target, propertyName) {
+                return target[propertyName] || null;
+            },
+            set: function(target, propertyName, value) {
+                target[propertyName] = value; 
+                return true;
+            }
+        });    
         function toglepreviewpage(){
-            timerActive=!timerActive; 
+            summery.timerActive=!summery.timerActive; 
             $('#question-preview-page').slideToggle()
             $('#question-answer-page').fadeToggle()
+            summery.save()
         }
         function d2s(number){
             return (number??0).toLocaleString('en-US', { minimumIntegerDigits: 2 })
@@ -308,30 +299,32 @@
             return result;
         }
         function countownRun(){
-            if(timerActive&&examActive){ 
-                if(endTime>0){ 
-                    var d=endTime;
+            if(summery.timerActive&&summery.examActive){ 
+                if(summery.endTime>0){ 
+                    var d=summery.endTime;
                     var m=Math.floor(d/60);
                     var s=d-(m*60);
                     $('.exam-timer .minute .runner').text(d2s(m))
                     $('.exam-timer .second .runner').text(d2s(s))
-                    if(endTime<=240&&endTime>=230){
+                    if(summery.endTime<=240&&summery.endTime>=230){
                         $('.exam-timer').addClass('time-up');
-                    }else if(endTime<=10){
+                    }else if(summery.endTime<=10){
                         $('.exam-timer').addClass('time-up');
                     }else{
                         $('.exam-timer').removeClass('time-up');  
                     }
-                    endTime--;
-                    timetaken++;
-                    timercurrent[currentSlug]=(timercurrent[currentSlug]||0)+1;
+                    summery.endTime--;
+                    summery.timetaken++;
+                    summery.timercurrent[summery.currentSlug]=(summery.timercurrent[summery.currentSlug]||0)+1;
+                    summery.save()
                 } else{
                     $('.exam-timer .minute .runner').text(d2s(0))
                     $('.exam-timer .second .runner').text(d2s(0))
                     $('.exam-timer').addClass('time-up')
-                    examActive=false 
+                    summery.examActive=false 
+                    summery.save()
                     updateandsave(function(){
-                        var unfinishcount=totalcount-questionids.length; 
+                        var unfinishcount=summery.totalcount-summery.questionids.length; 
                         if(unfinishcount>0){
                             $('.unfinish-message').show().find('.unfinish-count').text(unfinishcount)
                         }else{
@@ -375,10 +368,11 @@
             }); 
             const data = await response.json(); 
             if(data.iscorrect){
-                verifydx[question]=true;
+                summery.verifydx[question]=true;
             }else{
-                delete verifydx[question];
+                delete summery.verifydx[question];
             }
+            summery.save()
         }
         function refreshstatus(idx,status){
             $(`.question-item[data-idx="${idx}"]`).removeClass('status-not-answered').removeClass('status-answered');
@@ -386,29 +380,30 @@
             $(`#${status} .question-item[data-idx="${idx}"]`).addClass(`status-${status}`);
             $(`#not-readed .question-item[data-idx="${idx}"]`).removeClass('status-not-read')
 
-            $('#not-readed-nav').text(totalcount-(answeridx.length+notansweridx.length))
-            $('#answered-nav').text(answeridx.length)
-            $('#not-answered-nav').text(notansweridx.length)
+            $('#not-readed-nav').text(summery.totalcount-(summery.answeridx.length+summery.notansweridx.length))
+            $('#answered-nav').text(summery.answeridx.length)
+            $('#not-answered-nav').text(summery.notansweridx.length)
         }
          function loadlesson(pageurl=null){ 
              
-            $.get(pageurl||"{{ route('topic-test.show',['category'=>$category->slug]) }}",function(res){
+            $.get(pageurl||"{{ route('topic-test.confirmshow',['category'=>$category->slug]) }}",function(res){
                 $('.pagination-arrow').hide();
                 $('#lesson-footer-pagination').html('')
-                timerActive=true;
+                summery.timerActive=true;
                 $('#question-preview-page').fadeOut()
                 $('#question-answer-page').fadeIn()
                 const lesseonId=generateRandomId(10);  
-                cudx=res.current_page;
-                notansweridx.push(cudx) 
-                notansweridx = [...new Set(notansweridx)]
-                answeridx=answeridx.filter(item => item !== cudx)
-                refreshstatus(cudx,'not-answered');
-                if(flagdx[cudx]){
+                summery.cudx=res.current_page;
+                summery.notansweridx.push(summery.cudx) 
+                summery.notansweridx = [...new Set(summery.notansweridx)]
+                summery.answeridx=summery.answeridx.filter(item => item !== summery.cudx)
+                refreshstatus(summery.cudx,'not-answered');
+                if(summery.flagdx[summery.cudx]){
                     $("#bookmark-current").addClass('active');
                 }else{
                     $("#bookmark-current").removeClass('active');
                 }
+                summery.save()
                 $.each(res.data,function(k,v){ 
                         $('#lesson-questionlist-list').html(`
                             <div class="col-md-12">
@@ -433,16 +428,17 @@
                                 </div>
                             </div>
                         `).fadeIn();
-                        if(!timercurrent[v.slug]){ 
-                            timercurrent[v.slug]=0; 
+                        if(!summery.timercurrent[v.slug]){ 
+                            summery.timercurrent[v.slug]=0; 
                         } 
-                        currentSlug=v.slug;
-                        $.get(pageurl||"{{ route('topic-test.show',['category'=>$category->slug]) }}",{question:v.slug},function(ans){
+                        summery.currentSlug=v.slug;
+                        summery.save()
+                        $.get(pageurl||"{{ route('topic-test.confirmshow',['category'=>$category->slug]) }}",{question:v.slug},function(ans){
                             $(`#mcq-${lesseonId}-list`).html('')
                             $.each(ans,function(ai,av){
                                 $(`#mcq-${lesseonId}-list`).append(`
                                     <div class="form-check">
-                                        <input type="radio" name="answer" data-page="${cudx}" data-question="${v.slug}" id="user-answer-${lesseonId}-ans-item-${ai}" value="${av.slug}" class="form-check-input"  >        
+                                        <input type="radio" name="answer" data-page="${summery.cudx}" data-question="${v.slug}" id="user-answer-${lesseonId}-ans-item-${ai}" value="${av.slug}" class="form-check-input"  >        
                                         <label for="user-answer-${lesseonId}-ans-item-${ai}" >${av.title}</label>
                                     </div>  
                                 `)
@@ -450,10 +446,11 @@
                             refreshquestionanswer(v.slug,function(data){
                                 $(`#mcq-${lesseonId}-list input[value="${data.value}"]`).prop("checked",true)
                                 if(data.value){
-                                    answeridx.push(cudx) 
-                                    answeridx = [...new Set(answeridx)]
-                                    notansweridx=notansweridx.filter(item => item !== cudx)
-                                    refreshstatus(cudx,'answered');
+                                    summery.answeridx.push(summery.cudx) 
+                                    summery.answeridx = [...new Set(summery.answeridx)]
+                                    summery.notansweridx=summery.notansweridx.filter(item => item !== summery.cudx)
+                                    refreshstatus(summery.cudx,'answered');
+                                    summery.save()
                                 }
                             }) 
                         },'json').fail(function(xhr,status,error){
@@ -494,7 +491,7 @@
          async function updateprogress(callback){  
             try { 
                 const csrf= $('meta[name="csrf-token"]').attr('content');  
-                var currentprogress=(questionids.length*100/totalcount)
+                var currentprogress=(summery.questionids.length*100/summery.totalcount)
                 const response1 = await fetch("{{route('progress')}}", {
                     method: 'POST',
                     headers: {
@@ -504,7 +501,7 @@
                     },
                     body: JSON.stringify({
                         name:"exam-{{$exam->id}}-topic-{{$category->id}}-progress-ids",
-                        value:JSON.stringify(questionids)
+                        value:JSON.stringify(summery.questionids)
                     }),
                 });  
 
@@ -529,8 +526,8 @@
             }
          }
          async function updatequestionanswer(question,ans){
-            questionids.push(question);
-            questionids=questionids.filter(function(value, index, array){
+            summery.questionids.push(question);
+            summery.questionids=summery.questionids.filter(function(value, index, array){
                 return array.indexOf(value) === index;
             })
             const csrf= $('meta[name="csrf-token"]').attr('content'); 
@@ -569,7 +566,7 @@
 
          async function lessonreviewconfirm(){
             const csrf= $('meta[name="csrf-token"]').attr('content'); 
-            // currentprogress=(questionids.length*100/totalcount)
+            // currentprogress=(summery.questionids.length*100/summery.totalcount)
             await fetch("{{route('progress')}}", {
                 method: 'POST',
                 headers: {
@@ -585,13 +582,14 @@
             $('#finish-exam-confirm').modal('hide') 
             var timed="timed";             
             $('#finish-exam-confirmed-form-timed').val(timed)
-            $('#finish-exam-confirmed-form-timetaken').val(timetaken)
-            $('#finish-exam-confirmed-form-flags').val(JSON.stringify(flagcurrent))
-            $('#finish-exam-confirmed-form-times').val(JSON.stringify(timercurrent))
-            $('#finish-exam-confirmed-form-passed').val(Object.keys(verifydx).length); 
+            $('#finish-exam-confirmed-form-summery.timetaken').val(summery.timetaken)
+            $('#finish-exam-confirmed-form-flags').val(JSON.stringify(summery.flagcurrent))
+            $('#finish-exam-confirmed-form-times').val(JSON.stringify(summery.timercurrent))
+            $('#finish-exam-confirmed-form-passed').val(Object.keys(summery.verifydx).length); 
             $('#finish-exam-confirmed-form').submit();
-            timerActive=false;
-            examActive=false; 
+            summery.timerActive=false;
+            summery.examActive=false; 
+            summery.save()
          }
          async function updateandsave(callback){ 
             if($('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length>0){
@@ -599,16 +597,17 @@
                     updatequestionanswer($(this).data('question'),$(this).val());
                     verifyquestion($(this).data('question'),$(this).val());
                     if($(this).val()){
-                        answeridx.push(cudx) 
-                        answeridx = [...new Set(answeridx)]
-                        notansweridx=notansweridx.filter(item => item !== cudx)
-                        refreshstatus(cudx,'answered');
+                        summery.answeridx.push(summery.cudx) 
+                        summery.answeridx = [...new Set(summery.answeridx)]
+                        summery.notansweridx=summery.notansweridx.filter(item => item !== summery.cudx)
+                        refreshstatus(summery.cudx,'answered');
                     }else{
-                        notansweridx.push(cudx) 
-                        notansweridx = [...new Set(notansweridx)]
-                        answeridx=answeridx.filter(item => item !== cudx)
-                        refreshstatus(cudx,'not-answered');
+                        summery.notansweridx.push(summery.cudx) 
+                        summery.notansweridx = [...new Set(summery.notansweridx)]
+                        summery.answeridx=summery.answeridx.filter(item => item !== summery.cudx)
+                        refreshstatus(summery.cudx,'not-answered');
                     }
+                    summery.save()
                 })
             } 
             updateprogress(callback) 
@@ -623,7 +622,7 @@
             }
         }
          $(function(){  
-            loadlesson() 
+            loadlesson(progressurl) 
             $('.lesson-left button.left-btn,.lesson-right button.right-btn').click(function(){   
                 console.log('oooooo')
                 const pageurl=$(this).data('pageurl');  
@@ -634,7 +633,7 @@
 
             $('.lesson-finish button.finish-btn').click(function(){  
                 updateandsave(function(){
-                    var unfinishcount=totalcount-questionids.length; 
+                    var unfinishcount=summery.totalcount-summery.questionids.length; 
                     if(unfinishcount>0){
                         $('.unfinish-message').show().find('.unfinish-count').text(unfinishcount)
                     }else{
@@ -644,31 +643,31 @@
                 })
             });
             $('#bookmark-current').click(function(){
-                if(flagdx[cudx]){
-                    flagdx[cudx]=false;
-                    flagcurrent[currentSlug]=true;
+                if(summery.flagdx[summery.cudx]){
+                    summery.flagdx[summery.cudx]=false;
+                    summery.flagcurrent[summery.currentSlug]=true;
                     $("#bookmark-current").removeClass('active');
-                    $(`#show-all .question-item[data-idx="${cudx}"]`).removeClass('status-flag')
-                    $(`#flagged .question-item[data-idx="${cudx}"]`).removeClass('status-flag')
+                    $(`#show-all .question-item[data-idx="${summery.cudx}"]`).removeClass('status-flag')
+                    $(`#flagged .question-item[data-idx="${summery.cudx}"]`).removeClass('status-flag')
                 }else{
-                    flagdx[cudx]=true;
-                    flagcurrent[currentSlug]=true;
+                    summery.flagdx[summery.cudx]=true;
+                    summery.flagcurrent[summery.currentSlug]=true;
                     $("#bookmark-current").addClass('active')
-                    $(`#show-all .question-item[data-idx="${cudx}"]`).addClass('status-flag')
-                    $(`#flagged .question-item[data-idx="${cudx}"]`).addClass('status-flag')
+                    $(`#show-all .question-item[data-idx="${summery.cudx}"]`).addClass('status-flag')
+                    $(`#flagged .question-item[data-idx="${summery.cudx}"]`).addClass('status-flag')
                 } 
                 var lenflag=0;
-                $.each(flagdx,(k,v)=>v?lenflag++:null);
-
+                $.each(summery.flagdx,(k,v)=>v?lenflag++:null);
                 $('#flagged-nav').text(lenflag)
+                summery.save()
             })  
             $('.timer').show()
            
             setInterval(countownRun,1000)
-
             $('.exam-exit a').click(function(e){
                 e.preventDefault();
-                e.stopPropagation();
+                e.stopPropagation(); 
+                localStorage.removeItem("topic-test-summery")
                 exitconfirm($(this).attr("href")); 
             }) 
          })

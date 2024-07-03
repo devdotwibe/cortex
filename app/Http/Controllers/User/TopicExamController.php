@@ -59,15 +59,7 @@ class TopicExamController extends Controller
         /**
          * @var User
          */
-        $user=Auth::user(); 
-        if($request->ajax()){      
-            
-            if(!empty($request->question)){
-                $question=Question::findSlug($request->question);
-                return Answer::where('question_id',$question->id)->get(['slug','title']);
-            }
-            return Question::where('exam_id',$exam->id)->where('category_id',$category->id)->paginate(1,['slug','title','description','duration']);
-        }
+        $user=Auth::user();  
         $questioncount=Question::where('exam_id',$exam->id)->where('category_id',$category->id)->count();
         $endtime=0;
         $times=explode(':',$category->time_of_exam);
@@ -78,11 +70,45 @@ class TopicExamController extends Controller
         foreach (Question::where('exam_id',$exam->id)->where('category_id',$category->id)->get() as $d) {
             $user->setProgress("exam-{$exam->id}-topic-{$category->id}-answer-of-{$d->slug}",null);
         }
+        $user->setProgress("exam-{$exam->id}-topic-{$category->id}-progress-url",null);
         $attemtcount=UserExamReview::where('exam_id',$exam->id)->where('category_id',$category->id)->count()+1;
-        return view("user.topic-test.show",compact('category','exam','user','questioncount','endtime','attemtcount'));
+        return view("user.topic-test.summery",compact('category','exam','user','questioncount','endtime','attemtcount'));
     } 
     
 
+    public function confirmshow(Request $request,Category $category){
+
+        $exam=Exam::where("name",'topic-test')->first();
+        if(empty($exam)){
+            $exam=Exam::store([
+                "title"=>"Topic Test",
+                "name"=>"topic-test",
+            ]);
+            $exam=Exam::find( $exam->id );
+        }
+
+        /**
+         * @var User
+         */
+        $user=Auth::user(); 
+        if($request->ajax()){      
+            
+            if(!empty($request->question)){
+                $question=Question::findSlug($request->question);
+                return Answer::where('question_id',$question->id)->get(['slug','title']);
+            }
+            return Question::where('exam_id',$exam->id)->where('category_id',$category->id)->paginate(1,['slug','title','description','duration']);
+        }  
+        $questioncount=Question::where('exam_id',$exam->id)->where('category_id',$category->id)->count();
+        $endtime=0;
+        $times=explode(':',$category->time_of_exam);
+        if(count($times)>0){
+            $endtime+=intval(trim($times[0]??"0"))*60;
+            $endtime+=intval(trim($times[1]??"0"));
+        }
+        $attemtcount=UserExamReview::where('exam_id',$exam->id)->where('category_id',$category->id)->count()+1;
+        return view("user.topic-test.show",compact('category','exam','user','questioncount','endtime','attemtcount'));
+    } 
     public function topicsubmit(Request $request,Category $category){
         /**
          * @var User
