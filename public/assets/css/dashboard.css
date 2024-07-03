@@ -953,9 +953,47 @@ border-radius: 7px;
 .summery-wrap .summery-action{ 
   width:100%;
 }
-
-
-
+.exam-overview {
+  width:100%;
+  height:100%;
+  display:flex;
+}
+.exam-overview .vl{
+  width:1px;
+  border-left: 1px solid #dfdfdf;
+  height:100%;
+}
+.exam-overview .exam-overview-content{
+  width:100%;
+  height:100%;
+  margin:5px 10px;
+}
+.exam-overview .exam-overview-content .overview-title h3 {
+  font-size:18px;
+  font-weight:500;    
+  margin:5px 10px;
+}
+.overview-table {
+    width:-webkit-fill-available; 
+    margin: 5px 15px;
+    padding:5px;
+}
+.overview-table table thead th,.overview-table table tbody th{
+    width:max-content;  
+    border:1px solid rgb(0 0 0 / 10%); 
+    background:#dfdfdf;
+    color:black;
+    font-size:16px;
+    font-weight:450;
+} 
+.overview-table table tbody td{
+    width:max-content;  
+    border:1px solid rgb(0 0 0 / 10%); 
+    background:#fff;
+    color:black;
+    font-size:16px;
+    font-weight:450;
+}
 
 
 

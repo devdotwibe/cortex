@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Jobs\SubmitReview;
 use App\Models\Answer;
+use App\Models\Category;
 use App\Models\Exam;
 use App\Models\Question;
 use App\Models\User;
@@ -15,6 +16,7 @@ use App\Trait\ResourceController;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Yajra\DataTables\Facades\DataTables;
 
 class MockExamController extends Controller
@@ -129,12 +131,13 @@ class MockExamController extends Controller
 
 
     public function examcomplete(Request $request,Exam $exam){
-        $review=UserExamReview::find(session('review',0));
+        $review=UserExamReview::find(session('review')??session("reviewID",0));
         /**
          * @var User
          */
         $user=Auth::user();   
         if(!empty($review)){
+            Session::put("reviewID",$review->id);
             $user->progress("exam-review-".$review->id."-timed",'timed');
             $tmtk=intval($user->progress("exam-review-".$review->id."-timetaken",0)); 
             $passed=$user->progress("exam-review-".$review->id."-passed",0);
@@ -145,7 +148,8 @@ class MockExamController extends Controller
             $attemttime="$m:$s";
             $questioncount=Question::where('exam_id',$exam->id)->count();
             $attemtcount=UserExamReview::where('exam_id',$exam->id)->count();
-            return view('user.full-mock-exam.resultpage',compact('review','passed','attemttime','questioncount','attemtcount'));
+            $category=Category::whereIn('id',Question::where('exam_id',$exam->id)->select('category_id'))->get();
+            return view('user.full-mock-exam.resultpage',compact('exam','category','review','passed','attemttime','questioncount','attemtcount'));
         }else{
             return redirect()->route('full-mock-exam.index');
         }
