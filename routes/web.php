@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\User\ExamQuestionController;
 use App\Http\Controllers\User\LearnTopicController;
+use App\Http\Controllers\User\LiveClassController;
 use App\Http\Controllers\User\MainController as UserMainController;
 use App\Http\Controllers\User\MockExamController;
 use App\Http\Controllers\User\ProfileController;
@@ -125,6 +126,13 @@ Route::middleware('auth')->group(function(){
         Route::get('/{exam}/review',[MockExamController::class,'examreview'])->name('review');
         Route::get('/attempt/{user_exam_review}/preview',[MockExamController::class,'preview'])->name('preview');
         Route::get('/{exam}/complete',[MockExamController::class,'examcomplete'])->name('complete');
+    });
+
+    Route::prefix('live-class')->name('live-class.')->group(function () {
+     
+        Route::get('/',[LiveClassController::class,'index'])->name('index');
+        Route::get('/{live}',[LiveClassController::class,'show'])->name('show');
+      
     });
 
 });

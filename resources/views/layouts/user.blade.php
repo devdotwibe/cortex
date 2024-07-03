@@ -127,6 +127,18 @@
                     </ul>
                 </li>
 
+                <li class="side-item {{request()->is('live-class') ? 'active':''}}">
+                    <a href="{{ route('live-class.index') }}">
+                        <span class="side-icon" >
+                            <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
+                        </span>
+                        <span class="active-icon">
+                            <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Dashboard">
+                        </span>
+                        Live Teaching
+                    </a>
+                </li>
+
                 <li class="side-item logout">
                     <a href="{{route('logout')}}" class="log-out">
                         <span class="side-icon">
