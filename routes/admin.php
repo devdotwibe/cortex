@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ClassDetailController;
 use App\Http\Controllers\Admin\ExamController;
 use App\Http\Controllers\Admin\FullMockExamController;
 use App\Http\Controllers\Admin\LearnController;
@@ -192,6 +193,20 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::get('/show/home-work',[TermController::class,'show_table_home_work'])->name('show_table_home_work');
 
             Route::get('/show/lesson-recording',[TermController::class,'show_table_lesson_recording'])->name('show_table_lesson_recording');
+            
+            Route::get('/class-detail',[TermController::class,'class_detail'])->name('class_detail');
+
+            Route::get('/lesson-material',[TermController::class,'lesson_material'])->name('lesson_material');
+            Route::get('/home-work',[TermController::class,'home_work'])->name('home_work');
+            Route::get('/lesson-recording',[TermController::class,'lesson_recording'])->name('lesson_recording');
+            
+        });
+
+        Route::prefix('class-detail')->name('class-detail.')->group(function () {
+
+            Route::get('/{slug}',[ClassDetailController::class,'show'])->name('show');
+
+            Route::post('/',[ClassDetailController::class,'store'])->name('store');
             
         });
 

@@ -20,7 +20,8 @@
            
             <div class="col-md-6 pt-4">
 
-                <a href="">
+                <a  onclick="loadclassdetail('{{route('admin.term.class_detail')}}')">
+
                     <div class="card">
                         <div class="card-body">
                             <div class="category">
@@ -37,6 +38,11 @@
 
                                 </div>
                             </div>
+
+                            <div class="category" id="category-content-class-detail">
+
+                            </div>
+
                         </div>
                     </div>
                 </a>
@@ -44,7 +50,8 @@
 
             <div class="col-md-6 pt-4">
 
-                <a href="">
+                <a  onclick="loadlessonmaterial('{{route('admin.term.lesson_material')}}')">
+
                     <div class="card">
                         <div class="card-body">
                             <div class="category">
@@ -60,6 +67,11 @@
                                     <button class="btn btn-dark btn-sm" onclick="AddTerm(event,'lesson_material')" type="button"> <img src="{{asset('assets/images/plus.svg')}}"  alt=""></button>
                                 </div>
                             </div>
+
+                            <div class="category" id="category-content-lesson-material">
+
+                            </div>
+
                         </div>
                     </div>
                 </a>
@@ -68,7 +80,8 @@
 
             <div class="col-md-6 pt-4">
 
-                <a href="">
+                <a  onclick="loadhomework('{{route('admin.term.home_work')}}')">
+
                     <div class="card">
                         <div class="card-body">
                             <div class="category">
@@ -84,6 +97,11 @@
                                     <button class="btn btn-dark btn-sm" onclick="AddTerm(event,'home_work')" type="button"> <img src="{{asset('assets/images/plus.svg')}}"  alt=""></button>
                                 </div>
                             </div>
+
+                            <div class="category" id="category-content-home-work">
+
+                            </div>
+
                         </div>
                     </div>
                 </a>
@@ -92,7 +110,8 @@
 
             <div class="col-md-6 pt-4">
 
-                <a href="">
+                <a  onclick="loadlessonrecord('{{route('admin.term.lesson_recording')}}')">
+
                     <div class="card">
                         <div class="card-body">
                             <div class="category">
@@ -108,6 +127,11 @@
                                     <button class="btn btn-dark btn-sm" onclick="AddTerm(event,'lesson_recording')" type="button"> <img src="{{asset('assets/images/plus.svg')}}"  alt=""></button>
                                 </div>
                             </div>
+
+                            <div class="category" id="category-content-lesson-recording">
+
+                            </div>
+
                         </div>
                     </div>
                 </a>
@@ -119,6 +143,17 @@
         </div>
     </div>
 </section>
+
+
+<section class="content_section" id="subcategory-content-section" style="display: none">
+    <div class="container">
+        <div class="row" id="subcategory-list">
+
+        </div>
+    </div>
+</section>
+
+
 @endsection
 
 @push('modals')
@@ -329,6 +364,24 @@
 
                         $('#table-' + term_type).DataTable().ajax.reload();
 
+                        if(term_type=='class_detail')
+                        {
+                            loadclassdetail('{{route('admin.term.class_detail')}}');
+                        }
+                        else if(term_type=='lesson_material')
+                        {
+                            loadlessonmaterial('{{route('admin.term.lesson_material')}}');
+                        }
+                        else if(term_type=='home_work')
+                        {
+                            loadhomework('{{route('admin.term.home_work')}}');
+                        }
+                        else if(term_type=='lesson_recording')
+                        {
+                            loadlessonrecord('{{route('admin.term.lesson_recording')}}');
+                        }
+                        
+
                     },
                     error: function(response) {
                        
@@ -346,4 +399,106 @@
         });
         
     </script>
+
+    <script>
+
+        function loadclassdetail(url){
+                $.get(url,function(res){
+                    $.each(res,function(k,v){
+
+                        var str="";
+
+                        $.each(res,function(k,v){
+                            str+=`
+                                <div class="category-title">
+                                <a href="${v.inner_url}"><span>${v.term_name}</span></a>
+                                </div>
+                            `;
+                        })
+                        $('#category-content-class-detail').html(str);
+
+                    })
+                    // pagetoggle()
+                },'json')
+            }
+            
+            function loadlessonmaterial(url){
+                $.get(url,function(res){
+                    $.each(res,function(k,v){
+
+                        var str="";
+
+                        $.each(res,function(k,v){
+                            str+=`
+                                <div class="category-title">
+                                <a href="${v.inner_url}"><span>${v.term_name}</span></a>
+                                </div>
+                            `;
+                        })
+                        $('#category-content-lesson-material').html(str);
+
+                    })
+                    // pagetoggle()
+                },'json')
+            }
+
+            function loadhomework(url){
+                $.get(url,function(res){
+                    $.each(res,function(k,v){
+
+                        var str="";
+
+                        $.each(res,function(k,v){
+                            str+=`
+                                <div class="category-title">
+                                <a href="${v.inner_url}"><span>${v.term_name}</span></a>
+                                </div>
+                            `;
+                        })
+                        $('#category-content-home-work').html(str);
+
+                    })
+                    // pagetoggle()
+                },'json')
+            }
+
+            function loadlessonrecord(url){
+                $.get(url,function(res){
+                    $.each(res,function(k,v){
+
+                        var str="";
+
+                        $.each(res,function(k,v){
+                            str+=`
+                                <div class="category-title">
+                                <a href="${v.inner_url}"><span>${v.term_name}</span></a>
+                                </div>
+                            `;
+                        })
+                        $('#category-content-lesson-recording').html(str);
+
+                    })
+                    // pagetoggle()
+                },'json')
+            }
+
+        // function pagetoggle(){
+        //     $('#category-content-section,#subcategory-content-section').slideToggle()
+        //     $('#back-btn').fadeToggle()
+        // }
+        $(document).ready(function() {
+
+            loadclassdetail('{{route('admin.term.class_detail')}}');
+
+            loadlessonmaterial('{{route('admin.term.lesson_material')}}');
+
+            loadhomework('{{route('admin.term.home_work')}}');
+
+            loadlessonrecord('{{route('admin.term.lesson_recording')}}');
+
+        });
+
+
+    </script>
+
 @endpush

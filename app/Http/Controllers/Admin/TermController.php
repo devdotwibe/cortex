@@ -159,7 +159,7 @@ class TermController extends Controller
 
             return $this->addAction(function($data){ 
                 $action= ' 
-                    <a onclick="update_term(\''.route('admin.add_subcatecory', $data->slug).'\', \''.$data->slug.'\')" class="btn btn-icons view_btn">+</a>
+                   
                     <a onclick="update_term('."'".route('admin.term.edit_class', $data->slug)."'".')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>
                 ';
 
@@ -192,7 +192,7 @@ class TermController extends Controller
 
             return $this->addAction(function($data){ 
                 $action= ' 
-                    <a onclick="update_term(\''.route('admin.add_subcatecory', $data->slug).'\', \''.$data->slug.'\')" class="btn btn-icons view_btn">+</a>
+                   
                     <a onclick="update_term('."'".route('admin.term.edit_lesson_material', $data->slug)."'".')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>
                 ';
 
@@ -224,7 +224,7 @@ class TermController extends Controller
 
             return $this->addAction(function($data){ 
                 $action= ' 
-                    <a onclick="subcategorylist(\''.route('admin.add_subcatecory', $data->slug).'\', \''.$data->slug.'\')" class="btn btn-icons view_btn">+</a>
+                    
                     <a onclick="update_term('."'".route('admin.term.edit_home_work', $data->slug)."'".')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>
                 ';
 
@@ -257,7 +257,7 @@ class TermController extends Controller
 
             return $this->addAction(function($data){ 
                 $action= ' 
-                    <a onclick="subcategorylist(\''.route('admin.add_subcatecory', $data->slug).'\', \''.$data->slug.'\')" class="btn btn-icons view_btn">+</a>
+                    
                     <a onclick="update_term('."'".route('admin.term.edit_lesson_recording', $data->slug)."'".')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>
                 ';
 
@@ -407,5 +407,65 @@ class TermController extends Controller
         return response()->json(['success',"Term Name Updated Successfully"]);
     }
 
+
+    public function class_detail(Request $request){ 
+
+        $term_names=[];
+
+        $Class_detail = ClassDetail::get();
+
+        foreach ($Class_detail as $row) {
+           
+            $row->inner_url=route('admin.class-detail.show', $row->slug);
+            
+            $term_names[]=$row;
+        }
+        return $term_names;
+    } 
+
+    public function lesson_material(Request $request){ 
+
+        $term_names=[];
+
+        $LessonMaterial = LessonMaterial::get();
+
+        foreach ($LessonMaterial as $row) {
+          
+            $row->inner_url=route('admin.term.store', $row->slug);
+           
+            $term_names[]=$row;
+        }
+        return $term_names;
+    } 
+
+    public function home_work(Request $request){ 
+
+        $term_names=[];
+
+        $HomeWork = HomeWork::get();
+
+        foreach ($HomeWork as $row) {
+          
+            $row->inner_url=route('admin.term.store', $row->slug);
+           
+            $term_names[]=$row;
+        }
+        return $term_names;
+    } 
+
+    public function lesson_recording(Request $request){ 
+
+        $term_names=[];
+
+        $Lesson_Recording = LessonRecording::get();
+
+        foreach ($Lesson_Recording as $row) {
+          
+            $row->inner_url=route('admin.term.store', $row->slug);
+           
+            $term_names[]=$row;
+        }
+        return $term_names;
+    } 
 
 }
