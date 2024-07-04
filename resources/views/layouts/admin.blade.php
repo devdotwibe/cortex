@@ -127,7 +127,7 @@
                     </a>
                     <ul class="side-dropdown-menu" >
                         <li class="side-item {{request()->is('admin/category') ?'active':''}} "><a href="{{ route('admin.category.index') }}">Category</a></li>
-                        <li class="side-item {{request()->is('admin/exam') ? 'active':''}} "><a href="{{route('admin.exam.options')}}">Full Mock Exam</a></li>
+                        <li class="side-item {{request()->is('admin/exam') ? 'active':''}} "><a href="{{route('admin.exam.options')}}">Exam Simulator</a></li>
                     </ul>
                 </li> 
                 <li class="side-item {{request()->is('admin/settings') ?'active':''}}">
