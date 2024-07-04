@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Support\Helpers\OptionHelper;
 use App\Support\Plugin\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -42,7 +43,7 @@ class StripePaymentController extends Controller
             $payment =Payment::stripe()->paymentLinks->create([
                 'line_items' => [
                 [
-                    'price' => 'price_1MoC3TLkdIwHu7ixcIbKelAC',
+                    'price' => OptionHelper::getData('stripe.workshop.payment.amount',''),
                     'quantity' => 1,
                 ],
                 ],
