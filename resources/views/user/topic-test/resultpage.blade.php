@@ -4,26 +4,14 @@
 
 <section class="modal-expand modal-expand-result" id="question-complete-page" >
     <div class="container-wrap">
-        <div class="question-preview">  
-            <div class="question-preview-title">
-                <img src="{{asset("assets/images/congratulaton.svg")}}" alt="">
-                <h3> Congratulation on Completing the Topic! </h3>
-            </div>
+        <div class="question-preview">   
             <div class="question-preview-body">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-3">
                         <div class="exam-result">
                             <div class="exam-result-content">
                                 <div class="card">
-                                    <div class="card-body">
-                                        <div class="exam-mark-title">
-                                            <div class="title-1">
-                                                <span >Your Mark</span>
-                                            </div>
-                                            <div class="title-2"  id="exam-mark-gained">
-                                                <span >{{$passed}}/{{$questioncount??0}}</span>
-                                            </div>
-                                        </div>
+                                    <div class="card-body"> 
                                         <div class="exam-mark-body">
                                             <div class="mark-label">
                                                 <span>Time taken :</span>
@@ -51,6 +39,63 @@
                         
 
                     </div>
+                    <div class="col-md-9">
+                        <div class="exam-overview">
+                            <div class="vl"></div>
+                            <div class="exam-overview-content">
+                                <div class="overview-title">
+                                    <h3>Result Overview</h3>
+                                </div>
+                                <div class="overview-table ">
+                                    <table class="table table-bordered" style="width: 100%">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Overall</th>
+                                                @foreach ($categorylist as $item)
+                                                <th>{{ucfirst($item->name)}}</th>                                                     
+                                                @endforeach
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th>Marks</th>
+                                                <td>{{$passed}}/{{$questioncount}}</td>
+                                                @foreach ($categorylist as $item)
+                                                <td>{{$review->categoryMark($item->id)}}/{{$review->categoryCount($item->id)}}</td>
+                                                @endforeach 
+                                            </tr>
+                                            <tr>
+                                                <th>Average</th>
+                                                <td>{{$exam->avgMark()}}</td>
+                                                @foreach ($categorylist as $item)
+                                                <td></td>
+                                                @endforeach 
+                                            </tr>
+                                            <tr>
+                                                <th>Average Time <br>Per Question</th>
+                                                <td>{{$review->avgTime()}}</td>
+                                                @foreach ($categorylist as $item)
+                                                <td>{{$review->avgTime($item->id)}}</td>                                                   
+                                                @endforeach 
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="overview-title">
+                                    <h5>Ranking</h5>
+                                    <h3>Top {{50}}%</h3>
+                                </div>
+                                <div class="overview-graph">
+                                    <div class="overview-graph-body">
+                                        <div class="overview-graph-inner"> 
+                                            <canvas id="myChart" class="overview-graph-bar" width="100%" ></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -61,9 +106,42 @@
 @endsection
  
 
-@push('footer-script') 
 
+@push('footer-script')  
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script> 
-          
+        $(document).ready(function() {
+
+            const ctx = document.getElementById('myChart').getContext('2d');
+            const progressBar = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: @json($chartlabel),
+                    datasets: [{
+                        label: 'Students',
+                        data:@json($chartdata),
+                        backgroundColor: @json($chartbackgroundColor),  
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            display: false,
+                        }, 
+                        x: {  
+                            grid: {
+                                display: false
+                            }, 
+                        },  
+                    },
+                    plugins: { 
+                        legend: {
+                            display: false 
+                        }
+                    }
+                },
+            });
+        })
     </script>
 @endpush
