@@ -166,6 +166,7 @@
 
                     <x-ajax-table
                 
+                        popupid="private-class-modal"
                         tableid="class_detail"
                         :url="route('admin.term.show_table')"
                         :coloumns="[
@@ -179,6 +180,7 @@
 
                     <x-ajax-table
                     
+                        popupid="private-class-modal"
                         tableid='lesson_material'
                         :url="route('admin.term.show_table_lesson_material')"
                         :coloumns="[
@@ -192,6 +194,7 @@
 
                     <x-ajax-table
                     
+                        popupid="private-class-modal"
                         tableid='home_work'
                         :url="route('admin.term.show_table_home_work')"
                         :coloumns="[
@@ -205,6 +208,7 @@
 
                     <x-ajax-table
                     
+                        popupid="private-class-modal"
                         tableid='lesson_recording'
 
                         :url="route('admin.term.show_table_lesson_recording')"

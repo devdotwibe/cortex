@@ -12,6 +12,7 @@ class AjaxTable extends Component
     public $coloumns;
     public $url;
     public $tableid;
+    public $popupid;
     public $ajaxcreate;
     public $createurl;
     public $fields;
@@ -31,7 +32,7 @@ class AjaxTable extends Component
      *
      * @return void
      */
-    public function __construct($coloumns,$url=null,$fields=null,$tableid=null,$ajaxcreate=null,$createurl=null,$cancel=null,$btnsubmit=null,$onclick=null,$beforeajax=null,$bulkaction=false,$bulkactionlink=null,$tableinit=null,$deletecallbackbefore=null,$deletecallbackafter=null)
+    public function __construct($coloumns,$url=null,$fields=null,$tableid=null,$popupid=null,$ajaxcreate=null,$createurl=null,$cancel=null,$btnsubmit=null,$onclick=null,$beforeajax=null,$bulkaction=false,$bulkactionlink=null,$tableinit=null,$deletecallbackbefore=null,$deletecallbackafter=null)
     {
         $this->coloumns = json_decode(json_encode($coloumns),false); 
         $this->url = $url??url()->current();
@@ -39,6 +40,7 @@ class AjaxTable extends Component
         $this->createurl = $createurl;
         $this->fields = json_decode(json_encode($fields),false); 
         $this->tableid = $tableid??"tb".Str::random(5).time();
+        $this->popupid = $popupid??null;
         $this->btnsubmit = $btnsubmit??"Save";
         $this->cancel = $cancel;
         $this->onclick = $onclick;

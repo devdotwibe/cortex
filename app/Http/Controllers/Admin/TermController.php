@@ -113,12 +113,12 @@ class TermController extends Controller
         return redirect()->route('admin.term.index')->with("success","Term deleted success");
     }
 
-    public function destroy__lesson_material(Request $request,$term_name)
+    public function destroy_lesson_material(Request $request,$term_name)
     { 
         
-        $Class_detail = ClassDetail::findSlug($term_name);
+        $LessonMaterial = LessonMaterial::findSlug($term_name);
 
-        $Class_detail->delete();
+        $LessonMaterial->delete();
 
         if($request->ajax()){
             return response()->json(["success"=>"Category deleted success"]);
@@ -129,9 +129,9 @@ class TermController extends Controller
     public function destroy_home_work(Request $request,$term_name)
     { 
         
-        $Class_detail = ClassDetail::findSlug($term_name);
+        $HomeWork = HomeWork::findSlug($term_name);
 
-        $Class_detail->delete();
+        $HomeWork->delete();
 
         if($request->ajax()){
             return response()->json(["success"=>"Category deleted success"]);
@@ -142,11 +142,12 @@ class TermController extends Controller
     public function destroy_lesson_recording(Request $request,$term_name)
     { 
         
-        $Class_detail = ClassDetail::findSlug($term_name);
+        $Lesson_Recording = LessonRecording::findSlug($term_name);
 
-        $Class_detail->delete();
+        $Lesson_Recording->delete();
 
         if($request->ajax()){
+            
             return response()->json(["success"=>"Category deleted success"]);
         }        
         return redirect()->route('admin.term.index')->with("success","Term deleted success");
@@ -191,9 +192,17 @@ class TermController extends Controller
 
             return $this->addAction(function($data){ 
                 $action= ' 
-                    <a onclick="subcategorylist(\''.route('admin.add_subcatecory', $data->slug).'\', \''.$data->slug.'\')" class="btn btn-icons view_btn">+</a>
+                    <a onclick="update_term(\''.route('admin.add_subcatecory', $data->slug).'\', \''.$data->slug.'\')" class="btn btn-icons view_btn">+</a>
                     <a onclick="update_term('."'".route('admin.term.edit_lesson_material', $data->slug)."'".')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>
                 ';
+
+                // if(empty($data->subcategories) || count($data->subcategories) == 0)
+                // { 
+                    $action.=  '<a  class="btn btn-icons dlt_btn" data-delete="'.route("admin.term.destroy_lesson_material",$data->slug).'" >
+                            <img src="'.asset("assets/images/delete.svg").'" alt="">
+                        </a> '; 
+                // } 
+          
                 return $action;
             })->buildTable();
         }
@@ -218,6 +227,14 @@ class TermController extends Controller
                     <a onclick="subcategorylist(\''.route('admin.add_subcatecory', $data->slug).'\', \''.$data->slug.'\')" class="btn btn-icons view_btn">+</a>
                     <a onclick="update_term('."'".route('admin.term.edit_home_work', $data->slug)."'".')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>
                 ';
+
+                 // if(empty($data->subcategories) || count($data->subcategories) == 0)
+                // { 
+                    $action.=  '<a  class="btn btn-icons dlt_btn" data-delete="'.route("admin.term.destroy_home_work",$data->slug).'" >
+                            <img src="'.asset("assets/images/delete.svg").'" alt="">
+                        </a> '; 
+                // } 
+
                 return $action;
             })->buildTable();
         }
@@ -243,6 +260,13 @@ class TermController extends Controller
                     <a onclick="subcategorylist(\''.route('admin.add_subcatecory', $data->slug).'\', \''.$data->slug.'\')" class="btn btn-icons view_btn">+</a>
                     <a onclick="update_term('."'".route('admin.term.edit_lesson_recording', $data->slug)."'".')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>
                 ';
+
+                   // if(empty($data->subcategories) || count($data->subcategories) == 0)
+                // { 
+                    $action.=  '<a  class="btn btn-icons dlt_btn" data-delete="'.route("admin.term.destroy_lesson_recording",$data->slug).'" >
+                            <img src="'.asset("assets/images/delete.svg").'" alt="">
+                        </a> '; 
+                // } 
                 return $action;
             })->buildTable();
         }

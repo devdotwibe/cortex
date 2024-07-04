@@ -161,6 +161,14 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
             Route::post('/',[TermController::class,'store'])->name('store');
 
+            Route::delete('/{term_name}/destory-class',[TermController::class,'destroy_class_detail'])->name('destroy_class_detail');
+
+            Route::delete('/{term_name}/destory-lesson-material',[TermController::class,'destroy_lesson_material'])->name('destroy_lesson_material');
+
+            Route::delete('/{term_name}/destory-home-work',[TermController::class,'destroy_home_work'])->name('destroy_home_work');
+
+            Route::delete('/{term_name}/destory-lesson-recording',[TermController::class,'destroy_lesson_recording'])->name('destroy_lesson_recording');
+
             Route::get('/{term_name}/edit-class',[TermController::class,'edit_class'])->name('edit_class');
 
             Route::get('/{term_name}/edit-lesson-material',[TermController::class,'edit_lesson_material'])->name('edit_lesson_material');
