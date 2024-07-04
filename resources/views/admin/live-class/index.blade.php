@@ -400,13 +400,13 @@
         function CardBoxOneToggle(event) {
             event.preventDefault();
             event.stopPropagation();
-            $('#card_box_form_1,#card_box_1').fadeToggle(); 
+            $('#card_box_form_1,#card_box_1').slideToggle(); 
         }
 
         function CardBoxTwoToggle(event) {
             event.preventDefault();
             event.stopPropagation();
-            $('#card_box_form_2,#card_box_2').fadeToggle(); 
+            $('#card_box_form_2,#card_box_2').slideToggle(); 
         }  
 
         function EditImage1() {
