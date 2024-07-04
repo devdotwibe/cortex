@@ -31,7 +31,7 @@
                                                     <div class="form-group">
                                                         <div class="form-data">
                                                             <div class="forms-inputs mb-4"> 
-                                                                <input type="search" name="amount" class="form-control @error('amount') is-invalid @enderror" placeholder="Workshop Amount" value="{{old('amount',get_option('stripe.workshop.payment.amount-price',''))}}">
+                                                                <input type="text" name="amount" class="form-control @error('amount') is-invalid @enderror" placeholder="Workshop Amount" value="{{old('amount',get_option('stripe.workshop.payment.amount-price',''))}}">
                                                                 @error('amount')
                                                                 <div class="invalid-feedback"  ></div>                                                                    
                                                                 @enderror
