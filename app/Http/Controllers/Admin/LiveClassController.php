@@ -24,6 +24,7 @@ class LiveClassController extends Controller
         if(empty( $live_class))
         {
             $live_class = new LiveClassPage;
+            
         }
 
         if(!empty($request->class_title_1))

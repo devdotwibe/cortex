@@ -30,6 +30,19 @@ trait ResourceModel
     public function getIdx(){
         return self::where('id', '<', $this->id)->count();
     } 
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($item) {
+          
+            if (empty($item->slug)) {
+                $item->slug = md5(Str::random(16).time()); 
+            }
+        });
+    }
+
     // public function getKeyName(){
     //     return 'slug';
     // } 
