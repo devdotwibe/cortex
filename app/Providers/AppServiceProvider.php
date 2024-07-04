@@ -26,6 +26,10 @@ class AppServiceProvider extends ServiceProvider
                 eval("function {$alias}(...\$args) { return {$method[0]}::{$method[1]}(...\$args); }");
             }
         }
+
+        $this->mergeConfigFrom(
+            base_path('config/stripe.php'), 'stripe'
+        );
     }
 
     /**

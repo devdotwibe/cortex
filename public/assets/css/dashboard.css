@@ -994,11 +994,24 @@ border-radius: 7px;
     font-size:16px;
     font-weight:450;
 }
-.workshop-wrap {
+.workshop-wrap ,.payment-wrap{
   background:#FFFFFF;
   padding:10px 20px; 
   box-shadow:4px 0px 16px 0px #0000000A;
   border-radius:10px;
+}
+.payment-title {
+  font-size:18px;
+  font-weight:500;
+  margin: 5px 0;
+}
+.amout-item{
+  margin: 5px 10px;
+  padding: 5px 0;
+}
+.amout-item .amout-item-title {
+  font-size:14;
+  font-weight:400;
 }
 
 

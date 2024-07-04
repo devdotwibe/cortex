@@ -47,7 +47,7 @@ Route::get('/',[HomeController::class,'index']);
 Route::get('d0/{avathar}/{name}', [DocumentController::class, 'getuploadedFiles'])->name('file.view');
 Route::get('/d0/{avathar}/{name}/download', [DocumentController::class, 'downloaduploadedFiles'])->name('file.download');
 
-Route::middleware('guest')->group(function(){
+Route::middleware('guest:web,admin')->group(function(){
     Route::get('/login', [HomeController::class,'login'])->name('login');
     Route::post('/login', [HomeController::class,'loginSubmit']);
     Route::get('/register', [HomeController::class,'register'])->name('register');
