@@ -31,7 +31,8 @@ class StripePaymentController extends Controller
                     'name'=>$user->name,
                     'email'=>$user->email,
                 ]);
-                $customerId=$customer->id;
+                $user->stripe_id=$customer->id;
+                $user->save();
             } 
             catch (\Throwable $th) {
                 return redirect()->back()->with('error',$th->getMessage());
@@ -45,7 +46,7 @@ class StripePaymentController extends Controller
                     'quantity' => 1,
                 ],
                 ],
-                'customer' => $customerId,
+                // 'customer' => $customerId,
                 'after_completion' => [
                     'type' => 'redirect',
                     'redirect' => ['url' => route('live-class.workshop',$user->slug)],
