@@ -106,7 +106,7 @@ class TopicExamController extends Controller
             $endtime+=intval(trim($times[0]??"0"))*60;
             $endtime+=intval(trim($times[1]??"0"));
         }
-        $attemtcount=UserExamReview::where('exam_id',$exam->id)->where('category_id',$category->id)->count()+1;
+        $attemtcount=UserExamReview::where('exam_id',$exam->id)->where('category_id',$category->id)->count()+1; 
         return view("user.topic-test.show",compact('category','exam','user','questioncount','endtime','attemtcount'));
     } 
     public function topicsubmit(Request $request,Category $category){
@@ -173,8 +173,17 @@ class TopicExamController extends Controller
 
             $attemttime="$m:$s";
             $questioncount=Question::where('exam_id',$exam->id)->where('category_id',$category->id)->count();
+            $chartlabel=[];
+            $chartbackgroundColor=[];
+            $chartdata=[];
+            foreach (Question::where('exam_id',$exam->id)->where('category_id',$category->id)->get() as $k=>$row) { 
+                $chartlabel[]=strval($k+1);
+                $chartbackgroundColor[]='#dfdfdf';
+                $chartdata[]=UserReviewAnswer::where('exam_id',$exam->id)->where('question_id',$row->id)->where('iscorrect',true)->where('user_answer',true)->count();
+            } 
             $attemtcount=UserExamReview::where('exam_id',$exam->id)->where('category_id',$category->id)->count();
-            return view('user.topic-test.resultpage',compact('category','review','passed','attemttime','questioncount','attemtcount'));
+            $categorylist=Category::whereIn('id',Question::where('exam_id',$exam->id)->where('category_id',$category->id)->select('category_id'))->get();
+            return view('user.topic-test.resultpage',compact('chartdata','chartbackgroundColor','chartlabel','exam','category','categorylist','review','passed','attemttime','questioncount','attemtcount'));
         }else{
             return redirect()->route('topic-test.index');
         }

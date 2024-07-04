@@ -112,19 +112,11 @@
             const progressBar = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ['1',"2","3","4","5","6","7"],
+                    labels: @json($chartlabel),
                     datasets: [{
-                        label: 'My First Dataset',
-                        data: [65, 59, 80, 81, 56, 55, 40],
-                        backgroundColor: [
-                            '#dfdfdf',
-                            '#dfdfdf',
-                            '#dfdfdf',
-                            '#dfdfdf',
-                            '#dfdfdf',
-                            '#dfdfdf',
-                            '#dfdfdf'
-                        ],  
+                        label: 'Students',
+                        data:@json($chartdata),
+                        backgroundColor: @json($chartbackgroundColor),  
                     }]
                 },
                 options: {
@@ -133,11 +125,16 @@
                             beginAtZero: true,
                             display: false,
                         }, 
-                        x: { 
+                        x: {  
                             grid: {
                                 display: false
-                            }
+                            }, 
                         },  
+                    },
+                    plugins: { 
+                        legend: {
+                            display: false 
+                        }
                     }
                 },
             });

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Trait\ResourceModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class UserReviewQuestion extends Model
 {
@@ -31,7 +32,7 @@ class UserReviewQuestion extends Model
         'total_user_taken_time', 
     ]; 
     public function getTotalUserTakenTimeAttribute(){
-        return round(UserReviewQuestion::where('exam_id',$this->exam_id)->where('question_id',$this->question_id)->whereNotNull('time_taken')->where('time_taken','>',0)->average('time_taken'),2);
+        return round(UserReviewQuestion::whereIn('user_exam_review_id',UserExamReview::where('exam_id',$this->exam_id)->groupBy('user_id')->select(DB::raw('MAX(id)')))->where('exam_id',$this->exam_id)->where('question_id',$this->question_id)->whereNotNull('time_taken')->where('time_taken','>',0)->average('time_taken'),2);
     }
     public function answers(){
         return $this->hasMany(UserReviewAnswer::class);
