@@ -326,7 +326,7 @@
 
                 <div class="container">
                     <x-general-form :url="route('admin.live-class.intensive_class')"   btnsubmit="Save" :fields='[ 
-                        ["name"=>"intensive_class","label"=>"Description","placeholder"=>"Description","size"=>12,"type"=>"editor","value"=>"$live_class->intensive_class"],
+                        ["name"=>"intensive_class","label"=>"Description","placeholder"=>"Description","size"=>12,"type"=>"editor","value"=>$live_class->intensive_class??""],
                     ]' />
                 </div>
 
