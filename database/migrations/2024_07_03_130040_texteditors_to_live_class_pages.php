@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::table('live_class_pages', function (Blueprint $table) {
 
-            $table->text('private_class')->nullbale();
+            $table->text('private_class')->nullable();
 
-            $table->text('intensive_class')->nullbale();
+            $table->text('intensive_class')->nullable();
 
         });
     }
@@ -26,7 +26,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('live_class_pages', function (Blueprint $table) {
-            //
+            $table->dropColumn(['private_class','intensive_class']);
         });
     }
 };

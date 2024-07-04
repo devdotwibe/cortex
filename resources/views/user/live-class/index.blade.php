@@ -58,37 +58,39 @@
                 
                     <div class="card">
                         <div class="card-body">
-                            <div class="category">
-                                <div class="category-image">
+                            <a href="{{route('live-class.workshop',$user->slug)}}">
+                                <div class="category">
+                                    <div class="category-image">
 
-                                     @if(!empty($live_class->class_image_2))
+                                        @if(!empty($live_class->class_image_2))
 
-                                            <img src="{{ url('d0/' . $live_class->class_image_2) }}">
+                                                <img src="{{ url('d0/' . $live_class->class_image_2) }}">
 
-                                        @else
+                                            @else
 
-                                            <img src="{{asset("assets/images/User-red.png")}}">
+                                                <img src="{{asset("assets/images/User-red.png")}}">
 
-                                        @endif
+                                            @endif
 
+                                    </div>
+                                    <div class="category-content">
+                                    
+                                        <h3> @if(!empty($live_class->class_title_2)) {{ $live_class->class_title_2 }} @else Intensive Workshop  @endif</h3>
+
+                                        <p>
+                                            @if(!empty($live_class->class_description_2))
+
+                                            {{ $live_class->class_description_2 }}
+
+                                            @else
+                                            These open group sessions condense the entire Thinking Skills curriculum into ten intensive lessions Designed for Year 6 students 
+                                            
+                                            @endif
+                                        </p>
+                                    
+                                    </div>
                                 </div>
-                                <div class="category-content">
-                                
-                                    <h3> @if(!empty($live_class->class_title_2)) {{ $live_class->class_title_2 }} @else Intensive Workshop  @endif</h3>
-
-                                    <p>
-                                        @if(!empty($live_class->class_description_2))
-
-                                        {{ $live_class->class_description_2 }}
-
-                                        @else
-                                        These open group sessions condense the entire Thinking Skills curriculum into ten intensive lessions Designed for Year 6 students 
-                                        
-                                        @endif
-                                    </p>
-                                
-                                </div>
-                            </div>
+                            </a>
                         </div>
                     </div>
                 </a>

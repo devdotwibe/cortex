@@ -994,7 +994,12 @@ border-radius: 7px;
     font-size:16px;
     font-weight:450;
 }
-
+.workshop-wrap {
+  background:#FFFFFF;
+  padding:10px 20px; 
+  box-shadow:4px 0px 16px 0px #0000000A;
+  border-radius:10px;
+}
 
 
 
