@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\TopicTestController;
 use App\Http\Controllers\Admin\UploadController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\SettingsController;
+use App\Http\Controllers\Admin\TermController;
 use Illuminate\Support\Facades\Route;
 
 Route::name('admin.')->prefix('admin')->group(function(){
@@ -151,6 +152,17 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::get('/private/class',[LiveClassController::class,'private_class_create'])->name('private_class_create');
 
             Route::post('/intensive/class',[LiveClassController::class,'intensive_class'])->name('intensive_class');
+            
+        });
+
+        Route::prefix('term')->name('term.')->group(function () {
+
+            Route::get('/',[TermController::class,'index'])->name('index');
+
+            Route::post('/',[TermController::class,'store'])->name('store');
+
+            Route::get('/show/table',[TermController::class,'show_table'])->name('show_table');
+            
             
         });
 

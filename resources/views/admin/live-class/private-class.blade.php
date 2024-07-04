@@ -33,7 +33,8 @@
                                 </div>
                                 <div class="category-action">
 
-                                    <button class="btn btn-dark btn-sm" type="button"> <img src="{{asset('assets/images/plus.svg')}}"  alt=""></button>
+                                    <button class="btn btn-dark btn-sm" onclick="AddTerm(event,'class_detail')" type="button"> <img src="{{asset('assets/images/plus.svg')}}"  alt=""></button>
+
                                 </div>
                             </div>
                         </div>
@@ -56,7 +57,7 @@
                                 </div>
                                 <div class="category-action">
 
-                                    <button class="btn btn-dark btn-sm" type="button"> <img src="{{asset('assets/images/plus.svg')}}"  alt=""></button>
+                                    <button class="btn btn-dark btn-sm" onclick="AddTerm(event,'lesson_material')" type="button"> <img src="{{asset('assets/images/plus.svg')}}"  alt=""></button>
                                 </div>
                             </div>
                         </div>
@@ -80,7 +81,7 @@
                                 </div>
                                 <div class="category-action">
 
-                                    <button class="btn btn-dark btn-sm" type="button"> <img src="{{asset('assets/images/plus.svg')}}"  alt=""></button>
+                                    <button class="btn btn-dark btn-sm" onclick="AddTerm(event,'home_work')" type="button"> <img src="{{asset('assets/images/plus.svg')}}"  alt=""></button>
                                 </div>
                             </div>
                         </div>
@@ -104,13 +105,13 @@
                                 </div>
                                 <div class="category-action">
 
-                                    <button class="btn btn-dark btn-sm" type="button"> <img src="{{asset('assets/images/plus.svg')}}"  alt=""></button>
+                                    <button class="btn btn-dark btn-sm" onclick="AddTerm(event,'lesson_recording')" type="button"> <img src="{{asset('assets/images/plus.svg')}}"  alt=""></button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </a>
-                
+
             </div>
 
             </div>
@@ -122,40 +123,113 @@
 
 @push('modals')
 
-<div class="modal fade" id="question-bank-subtitle" tabindex="-1" role="dialog" aria-labelledby="question-bank-subtitleLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
+<div class="modal fade bd-example-modal-lg" id="private-class-modal" tabindex="-1" role="dialog" aria-labelledby="private-classLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" >
             <div class="modal-header">
-                <h5 class="modal-title" id="question-bank-subtitleLablel"></h5>
-                <button type="button" class="close"  data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" id="sub-category-set-createLabel">Add Term</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" >
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
-                <form action="{{route('admin.question-bank.subtitle')}}"  id="question-bank-subtitle-form" method="post">
+
+                <form  class="form" id="term_form" data-save="create" data-action="{{ route('admin.term.store') }}" data-createurl="" >
                     @csrf
-                    <input type="hidden" name="category_id" id="question-bank-category-id" value="">
-                    <input type="hidden" name="exam_id" value="">
-                     <div class="form-group">
-                        <div class="form-data">
-                            <div class="forms-inputs mb-4">
-                                <label for="question-bank-category-title">Sub Title</label>
-                                <input type="text" name="title" id="question-bank-category-title" value="" class="form-control " placeholder="Sub Title" aria-placeholder="Sub Title" >
-                                <div class="invalid-feedback">The field is required</div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="form-data">
+                                    <div class="forms-inputs mb-4">
+                                        <label for="term_label">Term Name</label>
+
+                                        <input type="text" name="term_name" id="term_label" class="form-control " >
+
+                                        <input type="hidden" name="term_type" id="term_type_form" class="form-control " >
+
+                                        <div class="invalid-feedback" id="term-errror"></div>
+
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                     </div>
-                    <button type="button" data-bs-dismiss="modal" class="btn btn-secondary mr-1">Cancel</button>
-                    <button type="submit" class="btn btn-dark ml-1">Save</button>
-                </form>
-            </div>
+                    
+                        <div class="col-md-4 pt-4">
+                            <button type="submit" class="btn btn-dark" id="table-subcategoryset-form-submit"> Add + </button>
+                            <button type="button" class="btn btn-secondary" style="display: none" id="table-subcategoryset-form-clear" >Cancel</button>
+                        </div>
+                    </div>
 
+                </form>
+
+                <x-ajax-table
+                
+                    :url="route('admin.term.show_table')"
+                    :coloumns="[
+                        ['th' => 'Date', 'name' => 'created_at', 'data' => 'date'],
+                        ['th' => 'Term Name', 'name' => 'term_name', 'data' => 'term_name'],
+                    ]" />
+            </div>
         </div>
     </div>
 </div>
+
+
 @endpush
 
 @push('footer-script')
     <script>
+
+        function AddTerm(event,term)
+        {
+            event.preventDefault();
+            event.stopPropagation();
+
+            $('#term_type_form').val(term);
+
+            $('#private-class-modal').modal('show');
+
+        }
+
+        
+        $(document).ready(function() {
+
+            $('#term_form').on('submit', function(event) {
+
+                event.preventDefault(); 
+                
+                var form = $(this);
+                var url = form.data('action');
+                var formData = new FormData(this);
+
+                $.ajax({
+                    url: url,
+
+                    type: 'POST',
+
+                    data: formData,
+
+                    processData: false,
+                    contentType: false,
+                  
+                    success: function(response) {
+                      
+                        form.trigger('reset');
+                    },
+                    error: function(response) {
+                       
+                        var errors = response.responseJSON.errors;
+                        if (errors.term_name) {
+                            $('#term-errror').text(errors.term_name[0]).show();
+                        }
+                    }
+                });
+            });
+
+            $('#term_label').on('focus', function() {
+                $('#term-errror').hide().text('');
+            });
+        });
         
     </script>
 @endpush
