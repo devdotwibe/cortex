@@ -161,6 +161,22 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
             Route::post('/',[TermController::class,'store'])->name('store');
 
+            Route::get('/{term_name}/edit-class',[TermController::class,'edit_class'])->name('edit_class');
+
+            Route::get('/{term_name}/edit-lesson-material',[TermController::class,'edit_lesson_material'])->name('edit_lesson_material');
+
+            Route::get('/{term_name}/edit-home-work',[TermController::class,'edit_home_work'])->name('edit_home_work');
+
+            Route::get('/{term_name}/edit-lesson-recording',[TermController::class,'edit_lesson_recording'])->name('edit_lesson_recording');
+
+            Route::post('/{term_name}/update-class',[TermController::class,'update_class_detail'])->name('update_class_detail');
+            
+            Route::post('/{term_name}/update-lesson-material',[TermController::class,'update_lesson_material'])->name('update_lesson_material');
+
+            Route::post('/{term_name}/update-home-work',[TermController::class,'update_home_work'])->name('update_home_work');
+
+            Route::post('/{term_name}/update-lesson-recording',[TermController::class,'update_lesson_recording'])->name('update_lesson_recording');
+
             Route::get('/show/class-details',[TermController::class,'show_table'])->name('show_table');
 
             Route::get('/show/lesson-material',[TermController::class,'show_table_lesson_material'])->name('show_table_lesson_material');
@@ -168,7 +184,6 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::get('/show/home-work',[TermController::class,'show_table_home_work'])->name('show_table_home_work');
 
             Route::get('/show/lesson-recording',[TermController::class,'show_table_lesson_recording'])->name('show_table_lesson_recording');
-            
             
         });
 

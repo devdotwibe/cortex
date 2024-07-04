@@ -134,7 +134,7 @@
             </div>
             <div class="modal-body">
 
-                <form  class="form" id="term_form" data-save="create" data-action="{{ route('admin.term.store') }}" data-createurl="" >
+                <form  class="form" id="term_form" data-save="create" data-action-save="" data-action="{{ route('admin.term.store') }}" data-createurl="" >
                     @csrf
                     <div class="row">
                         <div class="col-md-4">
@@ -165,7 +165,8 @@
                 <div id="class_detail" class="table-term-ajax" style="display: none">
 
                     <x-ajax-table
-                    
+                
+                        tableid="class_detail"
                         :url="route('admin.term.show_table')"
                         :coloumns="[
                             ['th' => 'Date', 'name' => 'created_at', 'data' => 'date'],
@@ -178,6 +179,7 @@
 
                     <x-ajax-table
                     
+                        tableid='lesson_material'
                         :url="route('admin.term.show_table_lesson_material')"
                         :coloumns="[
                             ['th' => 'Date', 'name' => 'created_at', 'data' => 'date'],
@@ -190,6 +192,7 @@
 
                     <x-ajax-table
                     
+                        tableid='home_work'
                         :url="route('admin.term.show_table_home_work')"
                         :coloumns="[
                             ['th' => 'Date', 'name' => 'created_at', 'data' => 'date'],
@@ -202,6 +205,8 @@
 
                     <x-ajax-table
                     
+                        tableid='lesson_recording'
+
                         :url="route('admin.term.show_table_lesson_recording')"
                         :coloumns="[
                             ['th' => 'Date', 'name' => 'created_at', 'data' => 'date'],
@@ -221,6 +226,47 @@
 @push('footer-script')
     <script>
 
+        function update_term(url) {
+
+            $.get(url, function(res) {
+                $('#term_label').val("");
+                // $('#term_type_form').text("");
+
+                $('#term_label').val(res.term_name);
+
+                $('#term-errror').text('').removeClass("is-invalid");
+
+                 var oldurl = $('#term_form').data('action');
+
+                 $('#term_form').data('action-save', oldurl);
+
+                $('#term_form').data('action', res.updateUrl);
+
+                $('#table-subcategoryset-form-clear').show();
+                $('#table-subcategoryset-form-submit').text(' Update ');
+
+                $('#sub-category-set-createLabel').text('Update Term');
+
+            }, 'json')
+        }
+
+
+        $('#table-subcategoryset-form-clear').click(function() {
+
+            var new_url = "{{ route('admin.term.store') }}";
+
+            $('#term_form').data('action', new_url);
+
+            $('#table-subcategoryset-form-clear').hide();
+
+            $('#table-subcategoryset-form-submit').text('Add +');
+
+            $('#sub-category-set-createLabel').text('Add Term');
+
+            $('#term_label').val("");
+
+        });
+
         function AddTerm(event,term)
         {
             event.preventDefault();
@@ -233,6 +279,14 @@
             $('.table-term-ajax').hide();
 
             $('#'+term).show();
+
+            $('#table-subcategoryset-form-clear').hide();
+
+            $('#table-subcategoryset-form-submit').text('Add +');
+
+            $('#sub-category-set-createLabel').text('Add Term');
+
+            $('#term_label').val("");
 
         }
 
@@ -247,6 +301,8 @@
                 var url = form.data('action');
                 var formData = new FormData(this);
 
+                var term_type = $('#term_type_form').val();
+
                 $.ajax({
                     url: url,
 
@@ -259,7 +315,16 @@
                   
                     success: function(response) {
                       
+                        $('#table-subcategoryset-form-clear').hide();
+
+                        $('#table-subcategoryset-form-submit').text('Add +');
+
+                        $('#sub-category-set-createLabel').text('Add Term');
+
                         form.trigger('reset');
+
+                        $('#table-' + term_type).DataTable().ajax.reload();
+
                     },
                     error: function(response) {
                        
