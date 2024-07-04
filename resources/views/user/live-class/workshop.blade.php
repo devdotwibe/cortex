@@ -19,7 +19,7 @@
                     @if ($user->progress('intensive-workshop-payment','')=="paid")
                         
                     @else
-                    <button class="btn btn-dark m-2">Register</button>
+                    <button class="btn btn-dark m-2" data-bs-toggle="modal" data-bs-target="#intensive-workshop-payment-modal" >Register</button>
                     @endif
                 </div>
             </div>
@@ -27,3 +27,26 @@
     </div>
 </section>
 @endsection
+
+@push('modals')
+    @if ($user->progress('intensive-workshop-payment','')!="paid")
+    <div class="modal fade" id="intensive-workshop-payment-modal" tabindex="-1" role="dialog"  aria-labelledby="intensive-workshop-paymentLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="intensive-workshop-paymentLablel">Live Class</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{route('payment.workshop')}}"  id="intensive-workshop-payment-form" >
+                            <p>The Live Class - {{($live_class->class_title_2??' Intensive Workshop ')}} Register Peyment required </p>
+                            <button type="button" data-bs-dismiss="modal"  class="btn btn-secondary">Cancel</button>
+                            <button type="submit" class="btn btn-dark">Paynow {{ get_option('stripe.workshop.payment.amount-price','') }} </button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    @endif
+@endpush

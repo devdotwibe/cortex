@@ -11,6 +11,7 @@ use App\Http\Controllers\User\MockExamController;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\TopicExamController;
 use App\Http\Controllers\User\StripeController;
+use App\Http\Controllers\User\StripePaymentController;
 use App\Http\Controllers\User\StripeWebHookController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
@@ -85,6 +86,9 @@ Route::middleware('auth')->group(function(){
      Route::post('/stripe/webhook',[StripeWebHookController::class,'handlewebhook']);
      Route::get('/stripe/information',[StripeController::class,'stripeinformation'])->name('stripe.information');
 
+    Route::prefix('payment')->name('payment.')->group(function () {
+        Route::get('/workshop',[StripePaymentController::class,'workshop'])->name('workshop');
+    });
 
     Route::prefix('question-bank')->name('question-bank.')->group(function () {
         Route::get('/',[ExamQuestionController::class,'index'])->name('index');
@@ -137,6 +141,5 @@ Route::middleware('auth')->group(function(){
       
     });
 
-});
-
+}); 
 Route::middleware('signed')->get('email/{id}/{hash}/verify', [HomeController::class,'verifyemail'])->name('verification.verify');
