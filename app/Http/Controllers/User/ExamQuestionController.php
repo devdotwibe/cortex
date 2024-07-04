@@ -118,7 +118,7 @@ class ExamQuestionController extends Controller
         foreach (Question::where('exam_id',$exam->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->get() as $d) {
             $user->setProgress("exam-{$exam->id}-topic-{$category->id}-lesson-{$subCategory->id}-set-{$setname->id}-answer-of-{$d->slug}",null);
         }
-        $attemtcount=UserExamReview::where('exam_id',$exam->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->count()+1;
+        $attemtcount=UserExamReview::where('exam_id',$exam->id)->where('user_id',$user->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->count()+1;
         return view("user.question-bank.set",compact('category','exam','subCategory','user','setname','questioncount','endtime','attemtcount'));
     }
     public function preview(Request $request,UserExamReview $userExamReview){
@@ -144,7 +144,7 @@ class ExamQuestionController extends Controller
                 $question=UserReviewQuestion::findSlug($request->question);
                 return UserReviewAnswer::where('user_review_question_id',$question->id)->get();
             }
-            return UserReviewQuestion::whereIn('review_type',['mcq'])->where('user_exam_review_id',$userExamReview->id)->paginate(1);
+            return UserReviewQuestion::whereIn('review_type',['mcq'])->where('user_id',$user->id)->where('user_exam_review_id',$userExamReview->id)->paginate(1);
         }
         return view("user.question-bank.preview",compact('category','exam','subCategory','setname','user','userExamReview'));
     }
@@ -264,7 +264,7 @@ class ExamQuestionController extends Controller
 
             $attemttime="$m:$s";
             $questioncount=Question::where('exam_id',$exam->id)->where('category_id',$category->id)->where('sub_category_id',$review->sub_category_id)->where('sub_category_set',$review->sub_category_set)->count();
-            $attemtcount=UserExamReview::where('exam_id',$exam->id)->where('category_id',$category->id)->where('sub_category_id',$review->sub_category_id)->where('sub_category_set',$review->sub_category_set)->count();
+            $attemtcount=UserExamReview::where('exam_id',$exam->id)->where('user_id',$user->id)->where('category_id',$category->id)->where('sub_category_id',$review->sub_category_id)->where('sub_category_set',$review->sub_category_set)->count();
             return view('user.question-bank.resultpage',compact('category','review','passed','attemttime','questioncount','attemtcount','timed'));
         }else{
             return redirect()->route('question-bank.show',['category'=>$category->slug]);
