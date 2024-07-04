@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('lesson_materials', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string("slug");
             $table->string('term_name')->nullable();
         });
     }

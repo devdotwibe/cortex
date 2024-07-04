@@ -162,13 +162,54 @@
 
                 </form>
 
-                <x-ajax-table
-                
-                    :url="route('admin.term.show_table')"
-                    :coloumns="[
-                        ['th' => 'Date', 'name' => 'created_at', 'data' => 'date'],
-                        ['th' => 'Term Name', 'name' => 'term_name', 'data' => 'term_name'],
-                    ]" />
+                <div id="class_detail" class="table-term-ajax" style="display: none">
+
+                    <x-ajax-table
+                    
+                        :url="route('admin.term.show_table')"
+                        :coloumns="[
+                            ['th' => 'Date', 'name' => 'created_at', 'data' => 'date'],
+                            ['th' => 'Term Name', 'name' => 'term_name', 'data' => 'term_name'],
+                        ]" />
+                        
+                </div>
+
+                <div id="lesson_material" class="table-term-ajax" style="display: none">
+
+                    <x-ajax-table
+                    
+                        :url="route('admin.term.show_table_lesson_material')"
+                        :coloumns="[
+                            ['th' => 'Date', 'name' => 'created_at', 'data' => 'date'],
+                            ['th' => 'Term Name', 'name' => 'term_name', 'data' => 'term_name'],
+                        ]" />
+                        
+                </div>
+
+                <div id="home_work" class="table-term-ajax" style="display: none">
+
+                    <x-ajax-table
+                    
+                        :url="route('admin.term.show_table_home_work')"
+                        :coloumns="[
+                            ['th' => 'Date', 'name' => 'created_at', 'data' => 'date'],
+                            ['th' => 'Term Name', 'name' => 'term_name', 'data' => 'term_name'],
+                        ]" />
+                        
+                </div>
+
+                <div id="lesson_recording" class="table-term-ajax" style="display: none">
+
+                    <x-ajax-table
+                    
+                        :url="route('admin.term.show_table_lesson_recording')"
+                        :coloumns="[
+                            ['th' => 'Date', 'name' => 'created_at', 'data' => 'date'],
+                            ['th' => 'Term Name', 'name' => 'term_name', 'data' => 'term_name'],
+                        ]" />
+                        
+                </div>
+
             </div>
         </div>
     </div>
@@ -188,6 +229,10 @@
             $('#term_type_form').val(term);
 
             $('#private-class-modal').modal('show');
+
+            $('.table-term-ajax').hide();
+
+            $('#'+term).show();
 
         }
 

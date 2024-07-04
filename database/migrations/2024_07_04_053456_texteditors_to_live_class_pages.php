@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('class_details', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('live_class_pages', function (Blueprint $table) {
             $table->string("slug");
-            $table->string('term_name')->nullable();
         });
     }
 
@@ -24,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('class_details');
+        Schema::table('live_class_pages', function (Blueprint $table) {
+            $table->dropColumn('slug');
+        });
     }
 };

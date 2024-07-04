@@ -161,7 +161,13 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
             Route::post('/',[TermController::class,'store'])->name('store');
 
-            Route::get('/show/table',[TermController::class,'show_table'])->name('show_table');
+            Route::get('/show/class-details',[TermController::class,'show_table'])->name('show_table');
+
+            Route::get('/show/lesson-material',[TermController::class,'show_table_lesson_material'])->name('show_table_lesson_material');
+
+            Route::get('/show/home-work',[TermController::class,'show_table_home_work'])->name('show_table_home_work');
+
+            Route::get('/show/lesson-recording',[TermController::class,'show_table_lesson_recording'])->name('show_table_lesson_recording');
             
             
         });

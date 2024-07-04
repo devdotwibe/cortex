@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('home_works', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string("slug");
             $table->string('term_name')->nullable();
         });
     }
