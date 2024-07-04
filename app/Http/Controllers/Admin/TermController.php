@@ -113,7 +113,7 @@ class TermController extends Controller
         return redirect()->route('admin.term.index')->with("success","Term deleted success");
     }
 
-    public function destroy_class_detail(Request $request,$term_name)
+    public function destroy__lesson_material(Request $request,$term_name)
     { 
         
         $Class_detail = ClassDetail::findSlug($term_name);
@@ -126,7 +126,7 @@ class TermController extends Controller
         return redirect()->route('admin.term.index')->with("success","Term deleted success");
     }
 
-    public function destroy_class_detail(Request $request,$term_name)
+    public function destroy_home_work(Request $request,$term_name)
     { 
         
         $Class_detail = ClassDetail::findSlug($term_name);
@@ -139,7 +139,7 @@ class TermController extends Controller
         return redirect()->route('admin.term.index')->with("success","Term deleted success");
     }
 
-    public function destroy_class_detail(Request $request,$term_name)
+    public function destroy_lesson_recording(Request $request,$term_name)
     { 
         
         $Class_detail = ClassDetail::findSlug($term_name);
