@@ -210,6 +210,13 @@
                     {{$deletecallbackbefore}}()
                 @endif
                 var url = $(this).data("delete");
+
+                @if(!empty($popupid))
+
+                $('#{{ $popupid }}').modal('hide');
+
+                @endif
+
                 $("#table-{{ $tableid }}-delete-form").attr("action",url);  
                 $('#table-{{ $tableid }}-delete').modal('show'); 
             }) 
@@ -243,6 +250,12 @@
                     showToast('Record has been successfully deleted', 'success')  
                     @if(!empty($deletecallbackafter))
                         {{$deletecallbackafter}}()
+                    @endif
+
+                    @if(!empty($popupid))
+
+                    $('#{{ $popupid }}').modal('show');
+
                     @endif
                 })
                 return false;
