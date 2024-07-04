@@ -16,6 +16,7 @@ use App\Trait\ResourceController;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
 class TopicExamController extends Controller
@@ -71,7 +72,7 @@ class TopicExamController extends Controller
             $user->setProgress("exam-{$exam->id}-topic-{$category->id}-answer-of-{$d->slug}",null);
         }
         $user->setProgress("exam-{$exam->id}-topic-{$category->id}-progress-url",null);
-        $attemtcount=UserExamReview::where('exam_id',$exam->id)->where('category_id',$category->id)->count()+1;
+        $attemtcount=UserExamReview::where('exam_id',$exam->id)->where('user_id',$user->id)->where('category_id',$category->id)->count()+1;
         return view("user.topic-test.summery",compact('category','exam','user','questioncount','endtime','attemtcount'));
     } 
     
@@ -106,7 +107,7 @@ class TopicExamController extends Controller
             $endtime+=intval(trim($times[0]??"0"))*60;
             $endtime+=intval(trim($times[1]??"0"));
         }
-        $attemtcount=UserExamReview::where('exam_id',$exam->id)->where('category_id',$category->id)->count()+1; 
+        $attemtcount=UserExamReview::where('exam_id',$exam->id)->where('user_id',$user->id)->where('category_id',$category->id)->count()+1; 
         return view("user.topic-test.show",compact('category','exam','user','questioncount','endtime','attemtcount'));
     } 
     public function topicsubmit(Request $request,Category $category){
@@ -179,9 +180,9 @@ class TopicExamController extends Controller
             foreach (Question::where('exam_id',$exam->id)->where('category_id',$category->id)->get() as $k=>$row) { 
                 $chartlabel[]=strval($k+1);
                 $chartbackgroundColor[]='#dfdfdf';
-                $chartdata[]=UserReviewAnswer::where('exam_id',$exam->id)->where('question_id',$row->id)->where('iscorrect',true)->where('user_answer',true)->count();
+                $chartdata[]=UserReviewAnswer::whereIn('user_exam_review_id',UserExamReview::where('exam_id',$exam->id)->groupBy('user_id')->select(DB::raw('MAX(id)')))->where('exam_id',$exam->id)->where('question_id',$row->id)->where('iscorrect',true)->where('user_answer',true)->count();
             } 
-            $attemtcount=UserExamReview::where('exam_id',$exam->id)->where('category_id',$category->id)->count();
+            $attemtcount=UserExamReview::where('exam_id',$exam->id)->where('user_id',$user->id)->where('category_id',$category->id)->count();
             $categorylist=Category::whereIn('id',Question::where('exam_id',$exam->id)->where('category_id',$category->id)->select('category_id'))->get();
             return view('user.topic-test.resultpage',compact('chartdata','chartbackgroundColor','chartlabel','exam','category','categorylist','review','passed','attemttime','questioncount','attemtcount'));
         }else{
@@ -210,7 +211,7 @@ class TopicExamController extends Controller
                 $question=UserReviewQuestion::findSlug($request->question);
                 return UserReviewAnswer::where('user_review_question_id',$question->id)->get();
             }
-            return UserReviewQuestion::whereIn('review_type',['mcq'])->where('user_exam_review_id',$userExamReview->id)->paginate(1);
+            return UserReviewQuestion::whereIn('review_type',['mcq'])->where('user_exam_review_id',$userExamReview->id)->where('user_id',$user->id)->paginate(1);
         }
         return view("user.topic-test.preview",compact('category','exam','user','userExamReview'));
     }
