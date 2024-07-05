@@ -114,6 +114,12 @@
                         <a href="{{ $cancel }}"  class="btn btn-secondary">Cancel</a>
                     @endif
 
+                    @if(!empty($onclick))
+
+                        <a onclick="{{ $onclick }}"  class="btn btn-secondary">Cancel</a>
+
+                    @endif
+
                      <button type="submit" class="btn btn-dark">{{$btnsubmit}}</button> 
                 </div>
             </form>

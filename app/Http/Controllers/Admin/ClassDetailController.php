@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\ClassDetail;
+use App\Models\SubClassDetail;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,7 @@ class ClassDetailController extends Controller
     use ResourceController;
     function __construct()
     {
-        self::$model=ClassDetail::class;
+        self::$model=SubClassDetail::class;
         self::$routeName="admin.class-detail";
         self::$defaultActions=[''];
 
@@ -24,29 +25,109 @@ class ClassDetailController extends Controller
         
         $class_detail = ClassDetail::findSlug($slug);
 
-        // if($request->ajax()){  
+        if($request->ajax()){  
 
-        //     return  $this->where('exam_id',$exam->id)->where('category_id',$setname->category_id)->where('sub_category_id',$setname->sub_category_id)->where('sub_category_set',$setname->id)->addAction(function($data)use($setname){
-        //             return '
-        //             <a href="'.route("admin.question-bank.edit",["setname"=>$setname->slug,"question"=>$data->slug]).'" class="btn btn-icons edit_btn">
-        //                 <img src="'.asset("assets/images/edit.svg").'" alt="">
-        //             </a>
-        //             ';
-        //         })->addColumn('visibility',function($data){
-        //             return '                
-        //                 <div class="form-check ">
-        //                     <input type="checkbox"  class="user-visibility form-check-box" name="visibility" value="'.($data->id).'" '.($data->visible_status=="show"?"checked":"").' onchange="visiblechangerefresh('."'".route("admin.question.visibility",$data->slug)."'".')" > 
-        //                 </div>
-        //             ';
-        //         })
-        //         ->buildTable(['description','visibility']);
-        // } 
+            return  $this->where('class_detail_id',$class_detail->id)
 
-        // $category=Category::find($setname->category_id);
-        // $subcategory=SubCategory::find($setname->sub_category_id);
+            ->addAction(function($data){ 
+
+                $action= ' 
+                        <a onclick="update_sub_class('."'".route('admin.class-detail.edit_sub_class', $data->slug)."'".')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>
+                    ';
+
+                    // if(empty($data->subcategories) || count($data->subcategories) == 0)
+                    // { 
+                        $action.=  '<a  class="btn btn-icons dlt_btn" data-delete="'.route("admin.class-detail.destroy_sub_class",$data->slug).'" >
+                                <img src="'.asset("assets/images/delete.svg").'" alt="">
+                            </a> '; 
+                    // } 
+            
+                    return $action;
+                })
+
+                ->buildTable();
+        } 
+
 
         return view('admin.class-detail.view',compact('class_detail'));
     }
 
+    public function store(Request $request)
+    { 
+        
+        $request->validate([
+
+            "meeting_id" => "required",
+            "passcode" => "required",
+            "zoom_link" => "required",
+        ]);
+
+        $sub_class_detail = new SubClassDetail;
+
+        $sub_class_detail->meeting_id = $request->meeting_id;
+        $sub_class_detail->passcode = $request->passcode;
+        $sub_class_detail->zoom_link = $request->zoom_link;
+
+        $sub_class_detail->class_detail_id = $request->class_detail_id;
+
+        $sub_class_detail->save();
+
+        return response()->json(['success' => 'Sub Class Details Added Successfully']);
+
+    }
+
+
+    public function destroy_sub_class(Request $request,$subclass)
+    { 
+        
+        $sub_detail = SubClassDetail::findSlug($subclass);
+
+        $sub_detail->delete();
+
+        if($request->ajax()){
+            return response()->json(["success"=>"Sub Class Details deleted success"]);
+        }        
+        return redirect()->back();
+    }
+
+    public function edit_sub_class(Request $request,$subclass){
+
+        $sub_detail = SubClassDetail::findSlug($subclass);
+
+        if($request->ajax()){
+
+            $sub_detail->updateUrl=route('admin.class-detail.update_sub_class', $sub_detail->slug);
+
+            return response()->json($sub_detail);
+        }
+
+        return redirect()->back();
+    }
+
+    function update_sub_class(Request $request, $subclass)
+    {
+
+        $sub_detail = SubClassDetail::findSlug($subclass);
+
+        $request->validate([
+
+            "meeting_id" => "required",
+            "passcode" => "required",
+            "zoom_link" => "required",
+        ]);
+
+        if(!empty($sub_detail))
+        {
+           $sub_detail->meeting_id = $request->meeting_id;
+
+           $sub_detail->passcode = $request->passcode;
+           $sub_detail->zoom_link = $request->zoom_link;
+
+           $sub_detail->save();
+
+        }
+
+        return response()->json(['success'=>"Sub Class Details Updated Successfully"]);
+    }
 
 }
