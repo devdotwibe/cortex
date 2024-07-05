@@ -50,7 +50,7 @@ Route::get('/d0/{avathar}/{name}/download', [DocumentController::class, 'downloa
 
 Route::prefix('stripe')->name('stripe.')->group(function () {
     Route::post('/webhook',[StripeWebHookController::class,'handlewebhook']);
-    Route::post('/workshop/{user}/payment/{payment}',[StripePaymentController::class,'workshop_payment'])->name('payment.workshop');
+    Route::get('/workshop/{user}/payment/{payment}',[StripePaymentController::class,'workshop_payment'])->name('payment.workshop');
 });
 
 Route::middleware('guest:web,admin')->group(function(){
