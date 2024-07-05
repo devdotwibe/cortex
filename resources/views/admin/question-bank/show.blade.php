@@ -10,7 +10,7 @@
         <div class="header_right">
             <ul class="nav_bar">
                 <li class="nav_item"><a href="{{route('admin.question-bank.create',$setname->slug)}}" class="nav_link btn">New Questions</a></li>
-                <li class="nav_item"><a href="{{route('admin.question-bank.create',$setname->slug)}}" class="nav_link btn">Import</a></li>
+                {{-- <li class="nav_item"><a  class="nav_link btn">Import</a></li> --}}
             </ul>
         </div>
     </div>
@@ -28,6 +28,31 @@
     </div>
 </section> 
 @endsection
+
+@push('modals')
+    <div class="modal fade" id="import-question-modal" tabindex="-1" role="dialog" aria-labelledby="Label"
+        aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><span id="import-question-label"></span></h5>
+                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="table-outer" id="attemt-list">
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <a type="button" href="" id="restart-btn" class="btn btn-dark">Re-Start Full Mock Exam</a>
+                </div>
+            </div>
+        </div>
+    </div>
+@endpush
+
 
 @push('footer-script')
     <script>
