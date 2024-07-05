@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\PaymentTransation;
 use App\Models\User;
 use App\Support\Helpers\OptionHelper;
 use App\Support\Plugin\Payment;
@@ -62,9 +63,13 @@ class StripePaymentController extends Controller
     public function workshop_payment(Request $request,User $user,$payment){
         $payment=Payment::stripe()->checkout->sessions->retrieve($payment); 
         $user->setProgress('intensive-workshop-payment-session',$payment->id); 
+        $user->setProgress('intensive-workshop-payment-transation',$payment->payment_intent); 
         if($payment->payment_status=="paid"){
             $user->setProgress('intensive-workshop-payment','paid');
         }
+        $intent=Payment::stripe()->paymentIntents->retrieve($payment->payment_intent);
+        print_r($intent);
+        // $transation=new PaymentTransation;
         
     }
 }
