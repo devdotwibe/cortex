@@ -17,6 +17,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Yajra\DataTables\Facades\DataTables;
 
 class TopicExamController extends Controller
@@ -149,7 +150,7 @@ class TopicExamController extends Controller
     }
 
     public function topiccomplete(Request $request,Category $category){
-        $review=UserExamReview::find(session('review',0));
+        $review=UserExamReview::find(session('review')??session('reviewId',0));
         /**
          * @var User
          */
@@ -157,6 +158,7 @@ class TopicExamController extends Controller
               
         $exam=Exam::where("name",'topic-test')->first();
         if(empty($exam)){
+            Session::put('reviewId',$review->id);
             $exam=Exam::store([
                 "title"=>"Topic Test",
                 "name"=>"topic-test",
