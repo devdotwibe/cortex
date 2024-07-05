@@ -69,7 +69,7 @@ class StripePaymentController extends Controller
             $intent=Payment::stripe()->paymentIntents->retrieve($payment->payment_intent);
 
             $transation=new PaymentTransation;
-            $transation->type='workshop';
+            $transation->stype='workshop';
             $transation->user_id=$user->id;
             $transation->slug=$payment->payment_intent; 
             $transation->amount=$intent->amount/100; 
@@ -80,7 +80,7 @@ class StripePaymentController extends Controller
             return redirect()->route('live-class.workshop',$user->slug)->with('success',"Workshop payment has success");
         }else{
             $transation=new PaymentTransation;
-            $transation->type='workshop';
+            $transation->stype='workshop';
             $transation->user_id=$user->id;
             $transation->slug=$payment->payment_intent??$payment->id;
             $transation->save();
