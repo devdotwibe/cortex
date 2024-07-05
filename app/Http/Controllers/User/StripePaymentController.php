@@ -53,8 +53,8 @@ class StripePaymentController extends Controller
                     'redirect' => ['url' => route('live-class.workshop',$user->slug)],
                 ],
             ]);
-            $user->progress('intensive-workshop-payment-id',$payment->id);
-            $user->progress('intensive-workshop-payment','pending');
+            $user->setProgress('intensive-workshop-payment-id',$payment->id);
+            $user->setProgress('intensive-workshop-payment','pending');
             return redirect($payment->url);
         } catch (\Throwable $th) {
             return redirect()->back()->with('error',$th->getMessage());
