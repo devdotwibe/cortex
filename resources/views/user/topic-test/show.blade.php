@@ -235,7 +235,7 @@
     <form action="{{route('topic-test.topic.submit',['category'=>$category->slug])}}" method="post" id="finish-exam-confirmed-form">
         @csrf
         <input type="hidden" name="timed" id="finish-exam-confirmed-form-timed" value="" >
-        <input type="hidden" name="summery.timetaken" id="finish-exam-confirmed-form-summery.timetaken" value="" >
+        <input type="hidden" name="timetaken" id="finish-exam-confirmed-form-timetaken" value="" >
         <input type="hidden" name="flags" id="finish-exam-confirmed-form-flags" value="" >
         <input type="hidden" name="times" id="finish-exam-confirmed-form-times" value="" >
         <input type="hidden" name="passed" id="finish-exam-confirmed-form-passed" value="" > 
@@ -582,7 +582,7 @@
             $('#finish-exam-confirm').modal('hide') 
             var timed="timed";             
             $('#finish-exam-confirmed-form-timed').val(timed)
-            $('#finish-exam-confirmed-form-summery.timetaken').val(summery.timetaken)
+            $('#finish-exam-confirmed-form-timetaken').val(summery.timetaken)
             $('#finish-exam-confirmed-form-flags').val(JSON.stringify(summery.flagcurrent))
             $('#finish-exam-confirmed-form-times').val(JSON.stringify(summery.timercurrent))
             $('#finish-exam-confirmed-form-passed').val(Object.keys(summery.verifydx).length); 
