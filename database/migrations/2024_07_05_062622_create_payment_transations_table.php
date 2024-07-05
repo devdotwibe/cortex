@@ -14,6 +14,11 @@ return new class extends Migration
         Schema::create('payment_transations', function (Blueprint $table) {
             $table->id();
             $table->string('slug')->unique();
+            $table->string('stype')->default('subscribe');
+            $table->integer('user_id')->nullable();
+            $table->string('status')->default('pending');
+            $table->text('content')->nullable();
+            $table->text('amount')->default('0'); 
             $table->timestamps();
         });
     }
