@@ -5,9 +5,9 @@ use App\Http\Controllers\Admin\ClassDetailController;
 use App\Http\Controllers\Admin\ExamController;
 use App\Http\Controllers\Admin\FullMockExamController;
 use App\Http\Controllers\Admin\LearnController;
+use App\Http\Controllers\Admin\LessonMaterialController;
 use App\Http\Controllers\Admin\LiveClassController;
 use App\Http\Controllers\Admin\MainController as AdminMainController;
-use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\QuestionBankController;
 use App\Http\Controllers\Admin\QuestionBankControllerNew;
 use App\Http\Controllers\Admin\QuestionController;
@@ -21,7 +21,7 @@ use App\Http\Controllers\Admin\TermController;
 use Illuminate\Support\Facades\Route;
 
 Route::name('admin.')->prefix('admin')->group(function(){
-    Route::middleware('guest:web,admin')->group(function(){
+    Route::middleware('guest:admin')->group(function(){
         Route::get('/login', [AdminMainController::class,'login'])->name('login');
         Route::post('/login', [AdminMainController::class,'loginSubmit']);
     });
@@ -40,8 +40,6 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::resource("/exam",ExamController::class);
         Route::get('/full-mock-exam-options',[ExamController::class,'examoptions'])->name('exam.options');
         Route::post('/full-mock-exam-options',[ExamController::class,'examoptionssave']);
-
-        Route::resource("/payment",PaymentController::class);
 
         Route::prefix('full-mock-exam')->name('full-mock-exam.')->group(function () {
             Route::get('/{exam}',[FullMockExamController::class,'index'])->name('index');
@@ -211,9 +209,29 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
             Route::post('/',[ClassDetailController::class,'store'])->name('store');
             
+            Route::delete('/{subclass}/destory-sub-class',[ClassDetailController::class,'destroy_sub_class'])->name('destroy_sub_class');
+            
+            Route::get('/{subclass}/edit-sub-class',[ClassDetailController::class,'edit_sub_class'])->name('edit_sub_class');
+            
+            Route::post('/{subclass}/update-sub-class',[ClassDetailController::class,'update_sub_class'])->name('update_sub_class');
+            
         });
 
+        Route::prefix('lesson-material')->name('lesson-material.')->group(function () {
 
+            Route::get('/{slug}',[LessonMaterialController::class,'show'])->name('show');
+
+            Route::post('/',[LessonMaterialController::class,'store'])->name('store');
+            
+            Route::delete('/{lesson}/destory-lesson-material',[LessonMaterialController::class,'destroy_lesson_material'])->name('destroy_lesson_material');
+            
+            Route::get('/{subclass}/edit-sub-class',[ClassDetailController::class,'edit_sub_class'])->name('edit_sub_class');
+            
+            Route::post('/{subclass}/update-sub-class',[ClassDetailController::class,'update_sub_class'])->name('update_sub_class');
+            
+        });
+
+        
 
     });
     Route::prefix('settings')->name('settings.')->group(function () {
