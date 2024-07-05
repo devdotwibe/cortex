@@ -71,7 +71,7 @@
                                             </tr>
                                             <tr>
                                                 <th>Average</th>
-                                                <td>{{$exam->avgMark()}}</td>
+                                                <td>{{$exam->avgMark($category->id)}}</td>
                                                 @foreach ($categorylist as $item)
                                                 <td></td>
                                                 @endforeach 
