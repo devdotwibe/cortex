@@ -51,8 +51,7 @@ class QuestionController extends Controller
             case 'topic-test':
                 $questiondat=$request->validate([
                     "exam_id"=>['required'],
-                    "category_id"=>['required'],
-                    "sub_category_id"=>['required'],
+                    "category_id"=>['required'], 
                     "description"=>['required'],
                     // "duration"=>["required"],
                     "answer.*"=>["required",'string','max:150'],
@@ -120,8 +119,7 @@ class QuestionController extends Controller
 
             case 'topic-test':
                 $questiondat=$request->validate([ 
-                    "category_id"=>['required'],
-                    "sub_category_id"=>['required'],
+                    "category_id"=>['required'], 
                     "description"=>['required'],
                     // "duration"=>["required"],
                     "answer.*"=>["required",'string','max:150'],
