@@ -157,7 +157,6 @@ class TopicExamController extends Controller
               
         $exam=Exam::where("name",'topic-test')->first();
         if(empty($exam)){
-            Session::put('reviewId',$review->id);
             $exam=Exam::store([
                 "title"=>"Topic Test",
                 "name"=>"topic-test",
@@ -166,6 +165,7 @@ class TopicExamController extends Controller
         }
 
         if(!empty($review)){
+            Session::put('reviewId',$review->id);
             $user->progress("exam-review-".$review->id."-timed",'timed');
             $tmtk=intval($user->progress("exam-review-".$review->id."-timetaken",0)); 
             $passed=$user->progress("exam-review-".$review->id."-passed",0);
