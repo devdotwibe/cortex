@@ -17,29 +17,29 @@ class StripePaymentController extends Controller
          * @var User
          */
         $user=Auth::user();
-        $customerId=null;
-        if(!empty($user->stripe_id)){
-            try {
-              $customer= Payment::stripe()->customers->retrieve($user->stripe_id);
-              $customerId=$customer->id;
-            } 
-            catch (\Throwable $th) {
-                //throw $th;
-            }
-        }
-        if(empty($customerId)){
-            try {
-                $customer= Payment::stripe()->customers->create([
-                    'name'=>$user->name,
-                    'email'=>$user->email,
-                ]);
-                $user->stripe_id=$customer->id;
-                $user->save();
-            } 
-            catch (\Throwable $th) {
-                return redirect()->back()->with('error',$th->getMessage());
-            }
-        }
+        // $customerId=null;
+        // if(!empty($user->stripe_id)){
+        //     try {
+        //       $customer= Payment::stripe()->customers->retrieve($user->stripe_id);
+        //       $customerId=$customer->id;
+        //     } 
+        //     catch (\Throwable $th) {
+        //         //throw $th;
+        //     }
+        // }
+        // if(empty($customerId)){
+        //     try {
+        //         $customer= Payment::stripe()->customers->create([
+        //             'name'=>$user->name,
+        //             'email'=>$user->email,
+        //         ]);
+        //         $user->stripe_id=$customer->id;
+        //         $user->save();
+        //     } 
+        //     catch (\Throwable $th) {
+        //         return redirect()->back()->with('error',$th->getMessage());
+        //     }
+        // }
         try {  
             $payment =Payment::stripe()->paymentLinks->create([
                 'line_items' => [
@@ -63,13 +63,33 @@ class StripePaymentController extends Controller
     public function workshop_payment(Request $request,User $user,$payment){
         $payment=Payment::stripe()->checkout->sessions->retrieve($payment); 
         $user->setProgress('intensive-workshop-payment-session',$payment->id); 
-        $user->setProgress('intensive-workshop-payment-transation',$payment->payment_intent); 
+        $user->setProgress('intensive-workshop-payment-transation',$payment->payment_intent);  
         if($payment->payment_status=="paid"){
             $user->setProgress('intensive-workshop-payment','paid');
+            $intent=Payment::stripe()->paymentIntents->retrieve($payment->payment_intent);
+
+            $transation=new PaymentTransation;
+            $transation->type='workshop';
+            $transation->user_id=$user->id;
+            $transation->slug=$payment->payment_intent; 
+            $transation->amount=$intent->amount/100; 
+            $transation->status="paid";
+            $transation->content="Amount : ".($intent->amount/100)." \n Amount Recive: ".($intent->amount_received/100)."  ";
+
+            $transation->save();
+            return redirect()->route('live-class.workshop',$user->slug)->with('success',"Workshop payment has success");
+        }else{
+            $transation=new PaymentTransation;
+            $transation->type='workshop';
+            $transation->user_id=$user->id;
+            $transation->slug=$payment->payment_intent??$payment->id;
+            $transation->save();
+            if($payment->status=="open"){
+                return redirect()->route('live-class.workshop',$user->slug)->with('error',"Workshop payment in-complete");
+            }else{
+                return redirect()->route('live-class.workshop',$user->slug)->with('error',"Workshop payment Failed");
+            }
         }
-        $intent=Payment::stripe()->paymentIntents->retrieve($payment->payment_intent);
-        print_r($intent);
-        // $transation=new PaymentTransation;
-        
+
     }
 }
