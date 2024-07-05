@@ -178,8 +178,8 @@ class TopicExamController extends Controller
             $chartlabel=[];
             $chartbackgroundColor=[];
             $chartdata=[]; 
-            foreach (UserReviewAnswer::select('mark',DB::raw('count(mark) as marked_users'))->fromSub(function ($query)use($exam){
-                $query->from('user_review_answers')->whereIn('user_exam_review_id',UserExamReview::where('exam_id',$exam->id)->groupBy('user_id')->select(DB::raw('MAX(id)')))
+            foreach (UserReviewAnswer::select('mark',DB::raw('count(mark) as marked_users'))->fromSub(function ($query)use($exam,$category){
+                $query->from('user_review_answers')->whereIn('user_exam_review_id',UserExamReview::where('exam_id',$exam->id)->where('category_id',$category->id)->groupBy('user_id')->select(DB::raw('MAX(id)')))
                 ->where('exam_id',$exam->id)->where('iscorrect',true)->where('user_answer',true)->groupBy('user_id')
                 ->select(DB::raw('count(user_id) as mark'));
         }, 'subquery')->groupBy('mark')->get() as  $row) { 

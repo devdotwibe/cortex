@@ -16,6 +16,7 @@ use App\Trait\ResourceController;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -149,11 +150,16 @@ class MockExamController extends Controller
             $chartlabel=[];
             $chartbackgroundColor=[];
             $chartdata=[];
-            foreach (Question::where('exam_id',$exam->id)->get() as $k=>$row) { 
-                $chartlabel[]=strval($k+1);
-                $chartbackgroundColor[]='#dfdfdf';
-                $chartdata[]=UserReviewAnswer::where('exam_id',$exam->id)->where('question_id',$row->id)->where('iscorrect',true)->where('user_answer',true)->count();
-            }
+            
+            foreach (UserReviewAnswer::select('mark',DB::raw('count(mark) as marked_users'))->fromSub(function ($query)use($exam){
+                $query->from('user_review_answers')->whereIn('user_exam_review_id',UserExamReview::where('exam_id',$exam->id)->groupBy('user_id')->select(DB::raw('MAX(id)')))
+                ->where('exam_id',$exam->id)->where('iscorrect',true)->where('user_answer',true)->groupBy('user_id')
+                ->select(DB::raw('count(user_id) as mark'));
+        }, 'subquery')->groupBy('mark')->get() as  $row) { 
+                $chartlabel[]=strval($row->mark);
+                $chartbackgroundColor[]=$passed==$row->mark? "#ef9b10" : '#dfdfdf';
+                $chartdata[]=$row->marked_users;
+            } 
             $attemtcount=UserExamReview::where('exam_id',$exam->id)->where('user_id',$user->id)->count();
             $category=Category::whereIn('id',Question::where('exam_id',$exam->id)->select('category_id'))->get();
             return view('user.full-mock-exam.resultpage',compact('chartdata','chartbackgroundColor','chartlabel','exam','category','review','passed','attemttime','questioncount','attemtcount'));
