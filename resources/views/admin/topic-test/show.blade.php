@@ -5,13 +5,7 @@
         <div class="header_wrapp">
             <div class="header_title">
                 <h2>{{ $category->name }} - Questions</h2>
-            </div>
-            <div class="header_content">
-                <div class="filter-group">
-                    <label for="subcategory">Sub Category</label>
-                    <select name="subcategory" class="form-control" id="subcategory" data-placeholder="Sub Category"></select>
-                </div>
-            </div>
+            </div> 
             <div class="header_right">
                 <ul class="nav_bar">
                     <li class="nav_item"><a href="{{ route('admin.topic-test.create', $category->slug) }}"
@@ -47,11 +41,11 @@
                             </form>
                         </div>
 
-                        <x-ajax-table tableid="categoryquestiontable" beforeajax="tablefilter" :coloumns="[
+                        <x-ajax-table tableid="categoryquestiontable"   :coloumns="[
                             ['th' => 'Date', 'name' => 'created_at', 'data' => 'date'],
                             ['th' => 'Question', 'name' => 'description', 'data' => 'description'],
                             ['th' => 'Visible', 'name' => 'visible_status', 'data' => 'visibility'],
-                        ]"  tableinit="questiontableinit" />
+                        ]"  />
                     </div>
                 </div>
             </div>
@@ -60,65 +54,9 @@
 @endsection
 
 @push('footer-script')
-    <script>
-        var questiontable = null;
-
-        function questiontableinit(table) {
-            questiontable = table
-        }
-
-        function visiblechangerefresh(url) {
-            $.get(url, function() {
-                if (questiontable != null) {
-                    questiontable.ajax.reload()
-                }
-            }, 'json')
-        }
-
-        function tablefilter(data) {
-            data.sub_category_id = $("#subcategory").val();
-            data.sub_category_set = $("#subcategoryset").val()
-            return data;
-        }
-        $(function() {
-            $("#subcategory").select2({
-                allowClear: true,
-                ajax: {
-                    url: "{{ route('admin.question-bank.create', $category->slug) }}",
-                    data: function(params) {
-                        params.parent_id = 0
-                        params.name = "sub_category_id";
-                        return params;
-                    }
-                }
-            }).change(function() {
-                $('#subcategoryset').val('').select2({
-                    allowClear: true,
-                    ajax: {
-                        url: "{{ route('admin.question-bank.create', $category->slug) }}",
-                        data: function(params) {
-                            params.parent_id = $("#subcategory").val()
-                            params.name = "sub_category_set";
-                            return params;
-                        }
-                    }
-                })
-                $('#table-categoryquestiontable').DataTable().ajax.reload()
-            })
-
-            $("#subcategoryset").select2({
-                allowClear: true,
-                ajax: {
-                    url: "{{ route('admin.question-bank.create', $category->slug) }}",
-                    data: function(params) {
-                        params.parent_id = $("#subcategory").val()
-                        params.name = "sub_category_set";
-                        return params;
-                    }
-                }
-            }).change(function() {
-                $('#table-categoryquestiontable').DataTable().ajax.reload()
-            })
+    <script> 
+ 
+        $(function() { 
 
 
             $('#time_of_exam-table-category-form-create').each(function(){
