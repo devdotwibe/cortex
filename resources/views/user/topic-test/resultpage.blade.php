@@ -62,7 +62,11 @@
                                                 <th>Marks</th>
                                                 <td>{{$passed}}/{{$questioncount}}</td>
                                                 @foreach ($categorylist as $item)
-                                                <td>{{$review->categoryMark($item->id)}}/{{$review->categoryCount($item->id)}}</td>
+                                                    @if ($review->categoryCount($item->id)>0)
+                                                    <td>{{$review->categoryMark($item->id)}}/{{$review->categoryCount($item->id)}}</td>
+                                                    @else
+                                                    <td></td>
+                                                    @endif
                                                 @endforeach 
                                             </tr>
                                             <tr>
@@ -76,7 +80,11 @@
                                                 <th>Average Time <br>Per Question</th>
                                                 <td>{{$review->avgTime()}}</td>
                                                 @foreach ($categorylist as $item)
-                                                <td>{{$review->avgTime($item->id)}}</td>                                                   
+                                                    @if ($review->avgTime($item->id)>0)
+                                                        <td>{{$review->avgTime($item->id)}}</td>
+                                                    @else
+                                                        <td></td>
+                                                    @endif                                                                                                   
                                                 @endforeach 
                                             </tr>
                                         </tbody>

@@ -161,7 +161,7 @@ class MockExamController extends Controller
                 $chartdata[]=$row->marked_users;
             } 
             $attemtcount=UserExamReview::where('exam_id',$exam->id)->where('user_id',$user->id)->count();
-            $category=Category::whereIn('id',Question::where('exam_id',$exam->id)->select('category_id'))->get();
+            $category=Category::all();
             return view('user.full-mock-exam.resultpage',compact('chartdata','chartbackgroundColor','chartlabel','exam','category','review','passed','attemttime','questioncount','attemtcount'));
         }else{
             return redirect()->route('full-mock-exam.index');

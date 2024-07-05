@@ -187,7 +187,7 @@ class TopicExamController extends Controller
                 $chartdata[]=$row->marked_users;
             } 
             $attemtcount=UserExamReview::where('exam_id',$exam->id)->where('user_id',$user->id)->where('category_id',$category->id)->count();
-            $categorylist=Category::whereIn('id',Question::where('exam_id',$exam->id)->where('category_id',$category->id)->select('category_id'))->get();
+            $categorylist=Category::all();
             return view('user.topic-test.resultpage',compact('chartdata','chartbackgroundColor','chartlabel','exam','category','categorylist','review','passed','attemttime','questioncount','attemtcount'));
         }else{
             return redirect()->route('topic-test.index');

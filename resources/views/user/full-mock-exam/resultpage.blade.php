@@ -59,8 +59,12 @@
                                                 <th>Marks</th>
                                                 <td>{{$passed}}/{{$questioncount}}</td>
                                                 @foreach ($category as $item)
-                                                <td>{{$review->categoryMark($item->id)}}/{{$review->categoryCount($item->id)}}</td>
-                                                @endforeach 
+                                                    @if ($review->categoryCount($item->id)>0)
+                                                    <td>{{$review->categoryMark($item->id)}}/{{$review->categoryCount($item->id)}}</td>
+                                                    @else
+                                                    <td></td>
+                                                @endif
+                                            @endforeach 
                                             </tr>
                                             <tr>
                                                 <th>Average</th>
@@ -71,9 +75,13 @@
                                             </tr>
                                             <tr>
                                                 <th>Average Time <br>Per Question</th>
-                                                <td>{{$review->avgTime()}}</td>
+                                                <td>{{$review->avgTime()}}</td>                                                
                                                 @foreach ($category as $item)
-                                                <td>{{$review->avgTime($item->id)}}</td>                                                   
+                                                    @if ($review->avgTime($item->id)>0)
+                                                        <td>{{$review->avgTime($item->id)}}</td>
+                                                    @else
+                                                        <td></td>
+                                                    @endif                                                                                                   
                                                 @endforeach 
                                             </tr>
                                         </tbody>
