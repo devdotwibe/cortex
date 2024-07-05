@@ -40,7 +40,7 @@ class StripePaymentController extends Controller
             }
         }
         try { 
-            $session="{"."CHECKOUT_SESSION_ID"."}";
+            $session="\{"."CHECKOUT_SESSION_ID"."\}";
             $payment =Payment::stripe()->paymentLinks->create([
                 'line_items' => [
                 [
