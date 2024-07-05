@@ -74,10 +74,9 @@ class StripePaymentController extends Controller
             $transation->slug=$payment->payment_intent; 
             $transation->amount=$intent->amount/100; 
             $transation->status="paid";
-            $transation->content="Amount : ".($intent->amount/100)." \n Amount Recive: ".($intent->amount_received/100)."  ";
-
+            $transation->content="Workshop payment \n Amount : ".($intent->amount/100)." \n Amount Recive: ".($intent->amount_received/100)."  ";
             $transation->save();
-            return redirect()->route('live-class.workshop',$user->slug)->with('success',"Workshop payment has success");
+            return redirect()->route('live-class.workshop.form',$user->slug)->with('success',"Workshop payment has success");
         }else{
             $transation=new PaymentTransation;
             $transation->stype='workshop';
