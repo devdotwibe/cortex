@@ -178,11 +178,23 @@ class TopicExamController extends Controller
             $chartlabel=[];
             $chartbackgroundColor=[];
             $chartdata=[];
-            foreach (Question::where('exam_id',$exam->id)->where('category_id',$category->id)->get() as $k=>$row) { 
-                $chartlabel[]=strval($k+1);
-                $chartbackgroundColor[]='#dfdfdf';
-                $chartdata[]=UserReviewAnswer::whereIn('user_exam_review_id',UserExamReview::where('exam_id',$exam->id)->groupBy('user_id')->select(DB::raw('MAX(id)')))->where('exam_id',$exam->id)->where('question_id',$row->id)->where('iscorrect',true)->where('user_answer',true)->count();
-            } 
+            // for ($i=1; $i <=$questioncount ; $i++) { 
+            //     $chartlabel[]=strval($i);
+            //     $chartbackgroundColor[]=$passed==$i? "#ef9b10" : '#dfdfdf';
+            //     $chartdata[]=1
+            // }
+            $marklist= UserReviewAnswer::select('mark',DB::raw('count(mark) as marked_users'))->fromSub(function ($query)use($exam){
+            
+            $query->from('user_review_answers')->whereIn('user_exam_review_id',UserExamReview::where('exam_id',$exam->id)->groupBy('user_id')->select(DB::raw('MAX(id)')))
+                    ->where('exam_id',$exam->id)->where('iscorrect',true)->where('user_answer',true)->groupBy('user_id')
+                    ->select(DB::raw('count(user_id) as mark'));
+            }, 'subquery')->groupBy('mark')->get();
+            print_r($marklist);exit;
+            // foreach (Question::where('exam_id',$exam->id)->where('category_id',$category->id)->get() as $k=>$row) { 
+            //     $chartlabel[]=strval($i);
+            //     $chartbackgroundColor[]=$passed==$i? "#ef9b10" : '#dfdfdf';
+            //     $chartdata[]=UserReviewAnswer::whereIn('user_exam_review_id',UserExamReview::where('exam_id',$exam->id)->groupBy('user_id')->select(DB::raw('MAX(id)')))->where('exam_id',$exam->id)->where('question_id',$row->id)->where('iscorrect',true)->where('user_answer',true)->count();
+            // } 
             $attemtcount=UserExamReview::where('exam_id',$exam->id)->where('user_id',$user->id)->where('category_id',$category->id)->count();
             $categorylist=Category::whereIn('id',Question::where('exam_id',$exam->id)->where('category_id',$category->id)->select('category_id'))->get();
             return view('user.topic-test.resultpage',compact('chartdata','chartbackgroundColor','chartlabel','exam','category','categorylist','review','passed','attemttime','questioncount','attemtcount'));
