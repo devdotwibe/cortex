@@ -7,7 +7,7 @@ use App\Models\User;
 use App\Support\Helpers\OptionHelper;
 use App\Support\Plugin\Payment;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth; 
 
 class StripePaymentController extends Controller
 {
@@ -50,7 +50,7 @@ class StripePaymentController extends Controller
                 // 'customer' => $customerId,
                 'after_completion' => [
                     'type' => 'redirect',
-                    'redirect' => ['url' => route('live-class.workshop',$user->slug)],
+                    'redirect' => ['url' => route('stripe.payment.workshop',["user"=>$user->slug,"payment"=>"{CHECKOUT_SESSION_ID}"])],
                 ],
             ]);
             $user->setProgress('intensive-workshop-payment-id',$payment->id);
@@ -59,5 +59,8 @@ class StripePaymentController extends Controller
         } catch (\Throwable $th) {
             return redirect()->back()->with('error',$th->getMessage());
         }
+    }
+    public function workshop_payment(Request $request,User $user,$payment){
+
     }
 }
