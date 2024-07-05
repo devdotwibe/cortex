@@ -50,7 +50,7 @@ class StripePaymentController extends Controller
                 // 'customer' => $customerId,
                 'after_completion' => [
                     'type' => 'redirect',
-                    'redirect' => ['url' => route('stripe.payment.workshop',["user"=>$user->slug,"payment"=>"{CHECKOUT_SESSION_ID}"])],
+                    'redirect' => ['url' => route('stripe.payment.workshop',["user"=>$user->slug,"payment"=>'{CHECKOUT_SESSION_ID}'])],
                 ],
             ]);
             $user->setProgress('intensive-workshop-payment-id',$payment->id);
