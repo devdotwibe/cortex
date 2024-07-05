@@ -149,7 +149,7 @@ class TopicExamController extends Controller
     }
 
     public function topiccomplete(Request $request,Category $category){
-        $review=UserExamReview::find(session('review')??session('reviewId',0));
+        $review=UserExamReview::find(session('review'));
         /**
          * @var User
          */
@@ -164,8 +164,7 @@ class TopicExamController extends Controller
             $exam=Exam::find( $exam->id );
         }
 
-        if(!empty($review)){
-            Session::put('reviewId',$review->id);
+        if(!empty($review)){ 
             $user->progress("exam-review-".$review->id."-timed",'timed');
             $tmtk=intval($user->progress("exam-review-".$review->id."-timetaken",0)); 
             $passed=$user->progress("exam-review-".$review->id."-passed",0);
