@@ -14,6 +14,9 @@
                                     <h3>{{$exam->title}}</h3>
                                 </div>
                                 <div class="exam-mark-body">
+                                    <div class="mark-title">
+                                        <h3>Attempt details</h3>
+                                    </div>
                                     <div class="mark-label">
                                         <span>Time taken :</span>
                                         <span id="time-taken">{{$attemttime}}</span>
