@@ -46,11 +46,10 @@ class StripePaymentController extends Controller
                     'price' => OptionHelper::getData('stripe.workshop.payment.amount',''),
                     'quantity' => 1,
                 ],
-                ],
-                // 'customer' => $customerId,
+                ], 
                 'after_completion' => [
                     'type' => 'redirect',
-                    'redirect' => ['url' => route('stripe.payment.workshop',["user"=>$user->slug,"payment"=>'{CHECKOUT_SESSION_ID}'])],
+                    'redirect' => ['url' => route('stripe.payment.workshop',["user"=>$user->slug,"payment"=>`{CHECKOUT_SESSION_ID}`])],
                 ],
             ]);
             $user->setProgress('intensive-workshop-payment-id',$payment->id);
