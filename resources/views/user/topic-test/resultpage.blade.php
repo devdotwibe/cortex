@@ -84,7 +84,7 @@
                                 </div>
                                 <div class="overview-title">
                                     <h5>Ranking</h5>
-                                    <h3>Top {{50}}%</h3>
+                                    <h3>Top {{round($passed*100/$questioncount,2)}}%</h3>
                                 </div>
                                 <div class="overview-graph">
                                     <div class="overview-graph-body">
