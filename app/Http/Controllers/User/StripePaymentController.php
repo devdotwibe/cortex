@@ -60,8 +60,11 @@ class StripePaymentController extends Controller
         }
     }
     public function workshop_payment(Request $request,User $user,$payment){
-        $payment=Payment::stripe()->checkout->sessions->retrieve($payment);
-        print_r($payment);
+        $payment=Payment::stripe()->checkout->sessions->retrieve($payment); 
+        $user->setProgress('intensive-workshop-payment-session',$payment->id); 
+        if($payment->payment_status=="paid"){
+            $user->setProgress('intensive-workshop-payment','paid');
+        }
         
     }
 }
