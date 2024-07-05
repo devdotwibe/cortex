@@ -42,6 +42,7 @@ class QuestionController extends Controller
                     "description"=>['required'],
                     // "duration"=>["required"],
                     "answer.*"=>["required",'string','max:150'],
+                    "explanation"=>['nullable'],
                 ],[
                     'answer.*.required'=>['The answer field is required.']
                 ]);
@@ -55,6 +56,7 @@ class QuestionController extends Controller
                     "description"=>['required'],
                     // "duration"=>["required"],
                     "answer.*"=>["required",'string','max:150'],
+                    "explanation"=>['nullable'],
                 ],[
                     'answer.*.required'=>['The answer field is required.']
                 ]);
