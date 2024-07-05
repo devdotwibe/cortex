@@ -28,7 +28,6 @@ class TopicExamController extends Controller
         self::reset();
         self::$model = Category::class; 
 
-        Session::put('reviewId','1');
         $exam=Exam::where("name",'topic-test')->first();
         if(empty($exam)){
             $exam=Exam::store([
