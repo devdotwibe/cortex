@@ -39,8 +39,7 @@ class StripePaymentController extends Controller
                 return redirect()->back()->with('error',$th->getMessage());
             }
         }
-        try { 
-            $session="\{"."CHECKOUT_SESSION_ID"."\}";
+        try {  
             $payment =Payment::stripe()->paymentLinks->create([
                 'line_items' => [
                 [
@@ -50,7 +49,7 @@ class StripePaymentController extends Controller
                 ], 
                 'after_completion' => [
                     'type' => 'redirect',
-                    'redirect' => ['url' => route('stripe.payment.workshop',["user"=>$user->slug,"payment"=>$session])],
+                    'redirect' => ['url' => route('stripe.payment.workshop',["user"=>$user->slug,"payment"=>"{CHECKOUT_SESSION_ID}"])],
                 ],
             ]);
             $user->setProgress('intensive-workshop-payment-id',$payment->id);
