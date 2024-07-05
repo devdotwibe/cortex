@@ -7,8 +7,7 @@ use App\Models\User;
 use App\Support\Helpers\OptionHelper;
 use App\Support\Plugin\Payment;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Stripe\Checkout\Session;
+use Illuminate\Support\Facades\Auth; 
 
 class StripePaymentController extends Controller
 {
@@ -60,7 +59,9 @@ class StripePaymentController extends Controller
             return redirect()->back()->with('error',$th->getMessage());
         }
     }
-    public function workshop_payment(Request $request,User $user,Session $payment){
+    public function workshop_payment(Request $request,User $user,$payment){
+        $payment=Payment::stripe()->checkout->sessions->retrieve($payment);
         print_r($payment);
+        
     }
 }
