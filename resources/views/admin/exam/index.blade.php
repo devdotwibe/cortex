@@ -62,7 +62,7 @@
         </div>
     </div>
 </section> --}}
-<section class="table-section">
+<section class="content_section">
     <div class="container">
         <div class="row">
             <x-ajax-table :coloumns='[
