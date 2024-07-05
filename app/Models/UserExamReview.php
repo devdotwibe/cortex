@@ -31,6 +31,6 @@ class UserExamReview extends Model
         if(!empty($id)){
             $qst->whereIn('question_id',Question::where("category_id",$id)->where('exam_id',$this->exam_id)->select('id'));
         }
-        return round($qst->whereNotNull('time_taken')->where('time_taken','>',0)->average('time_taken'),2);
+        return round($qst->whereNotNull('time_taken')->where('time_taken','>=',0)->average('time_taken'),2);
     }
 }
