@@ -19,7 +19,6 @@
                     @if ($user->progress('intensive-workshop-payment','')=="paid")
                         
                     @else
-                    {{ route('stripe.payment.workshop',["user"=>$user->slug,"payment"=>"{CHECKOUT_SESSION_ID}"]) }}
                     <button class="btn btn-dark m-2" data-bs-toggle="modal" data-bs-target="#intensive-workshop-payment-modal" >Register</button>
                     @endif
                 </div>
