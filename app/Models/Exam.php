@@ -46,8 +46,8 @@ class Exam extends Model
             $qstcnt=Question::where('exam_id',$this->id)->count();
             return round($anscnt/$exmcnt,2)."/$qstcnt ";
         }else{
-            $anscnt=UserReviewAnswer::whereIn('user_exam_review_id',UserExamReview::where('exam_id',$this->id)->groupBy('user_id')->select(DB::raw('MAX(id)')))->where('exam_id',$this->id)->whereIn('question_id',Question::where('exam_id',$this->id)->where("category_id",$id)->select('id'))->where('iscorrect',true)->where('user_answer',true)->count();
-            $exmcnt=UserExamReview::whereIn('id',UserExamReview::where('exam_id',$this->id)->groupBy('user_id')->select(DB::raw('MAX(id)')))->where('exam_id',$this->id)->where("category_id",$id)->count();
+            $anscnt=UserReviewAnswer::whereIn('user_exam_review_id',UserExamReview::where('exam_id',$this->id)->where("category_id",$id)->groupBy('user_id')->select(DB::raw('MAX(id)')))->where('exam_id',$this->id)->whereIn('question_id',Question::where('exam_id',$this->id)->where("category_id",$id)->select('id'))->where('iscorrect',true)->where('user_answer',true)->count();
+            $exmcnt=UserExamReview::whereIn('id',UserExamReview::where('exam_id',$this->id)->where("category_id",$id)->groupBy('user_id')->select(DB::raw('MAX(id)')))->where('exam_id',$this->id)->where("category_id",$id)->count();
             $qstcnt=Question::where('exam_id',$this->id)->where("category_id",$id)->count();
             return round($anscnt/$exmcnt,2)."/$qstcnt ";
         }
