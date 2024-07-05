@@ -16,13 +16,15 @@ class GeneralForm extends Component
     public $fields;
     public $btnsubmit;
     public $cancel;
+    public $onclick;
  /**
      * Create a new component instance.
      */
-    public function __construct($fields,$url,$cancel=null, $frmID=null,$btnsubmit=null)
+    public function __construct($fields,$url,$cancel=null, $onclick=null,$frmID=null,$btnsubmit=null)
     {
         $this->url = $url;
         $this->cancel = $cancel;
+        $this->onclick = $onclick;
         $this->fields = json_decode(json_encode($fields),false); 
         $this->frmID = $frmID??"frm".Str::random(5).time(); 
         $this->btnsubmit = $btnsubmit??"Save";
