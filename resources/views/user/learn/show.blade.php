@@ -11,7 +11,7 @@
                 <div class="row" id="lesson-list">
                     @forelse ($lessons as $k => $item)
                     <div class="col-md-6">
-                        @if ($firstlesson->name ==$item->name)
+                        {{-- @if ($firstlesson->name ==$item->name) --}}
                             <a @if ($user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$item->id.'-complete-review',"no") == "yes")
                                    href="{{ route('learn.lesson.show', ["category" => $category->slug, "sub_category" => $item->slug]) }}"
                                @elseif ($user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$item->id.'-complete-date',"") == "")
@@ -19,9 +19,9 @@
                                @else
                                    href="#" onclick="loadlessonreviews('{{ route("learn.lesson.history", ["category" => $category->slug, "sub_category" => $item->slug]) }}', {{$k+1}}); return false;"
                                @endif>
-                        @else
+                        {{-- @else
                         <a href ="#" onclick="stripemodal(); return false;" data-toggle="modal" data-target="#subscribeModal">
-                        @endif
+                        @endif --}}
 
                         <div class="lesson-row">
                             <div class="lesson-row-title">

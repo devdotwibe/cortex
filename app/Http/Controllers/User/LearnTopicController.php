@@ -71,20 +71,20 @@ class LearnTopicController extends Controller
          *  @var User
          */
         $user=Auth::user();
-        $subscription = Subscription::where('user_id', $user->id)
-            ->where('status', 'active')
-            ->orderBy('id','desc')
-            ->first();
-           $firstlesson = $lessons->first();
-           $hasFreeAccess = $user->hasSubscriptionForCategory($category->id);
+        // $subscription = Subscription::where('user_id', $user->id)
+        //     ->where('status', 'active')
+        //     ->orderBy('id','desc')
+        //     ->first();
+        //    $firstlesson = $lessons->first();
+        //    $hasFreeAccess = $user->hasSubscriptionForCategory($category->id);
            $settings = Settings::first();
-          if ($firstlesson && $hasFreeAccess){
-            return view("user.learn.show",compact('category','exam','lessons','user','firstlesson','subscription'));
-          }
+        //   if ($firstlesson && $hasFreeAccess){
+            return view("user.learn.show",compact('category','exam','lessons','user'));
+        //   }
 
-         else{
-            return redirect()->route('learn.index')->with('showStripePopup', true)->with('settings',$settings->amount);
-        }
+        //  else{
+        //     return redirect()->route('learn.index')->with('showStripePopup', true)->with('settings',$settings->amount);
+        // }
     }
     public function lessonshow(Request $request,Category $category,SubCategory $subCategory){
 

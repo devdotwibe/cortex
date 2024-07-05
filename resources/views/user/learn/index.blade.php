@@ -13,9 +13,9 @@
         <div class="row">
             @foreach ($categorys as $k => $item)
             <div class="col-md-6">
-                @if($k == 1)
+                {{-- @if($k == 1)
                 <a href="#" onclick="ShowPaymentModal();" data-toggle="modal" data-target="#subscribeModal">
-                @endif
+                @endif --}}
                 <a href="{{ route('learn.show', $item->slug) }}">
                     <div class="card">
                         <div class="card-body">
