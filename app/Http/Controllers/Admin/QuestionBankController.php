@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\ImportQuestions;
 use App\Models\Category;
 use App\Models\Exam;
 use App\Models\ExamCategoryTitle;
@@ -11,6 +12,7 @@ use App\Models\Setname;
 use App\Models\SubCategory;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class QuestionBankController extends Controller
 {
@@ -134,6 +136,41 @@ class QuestionBankController extends Controller
             $sets[]=$row; 
         }
         return $sets;
+    } 
+    public function importquestion(Request $request,Setname $setname){ 
+        $request->validate([
+            'import_fields'=>['required'],
+            'import_fields.*'=>['required'],
+            'import_datas'=>['required','file','mimes:json']
+        ]);
+ 
+        $file = $request->file('import_datas');
+        $name = $file->hashName();
+        Storage::put("importfile", $file);
+        
+        $exam=Exam::where("name",'question-bank')->first();
+        if(empty($exam)){
+            $exam=Exam::store([
+                "title"=>"Question Bank",
+                "name"=>"question-bank",
+            ]);
+            $exam=Exam::find( $exam->id );
+        }        
+        $category=Category::find($setname->category_id);
+        $subcategory=SubCategory::find($setname->sub_category_id); 
+        
+        dispatch(new ImportQuestions(
+            filename:$name,
+            exam:$exam,
+            category:$category,
+            subCategory:$subcategory,
+            setname:$setname,
+            fields:$request->import_fields
+        ));
+
+        return response()->json([
+            'success'=>"Import started"
+        ]);
     } 
     
 }

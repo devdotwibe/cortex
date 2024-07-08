@@ -10,8 +10,24 @@
         <div class="header_right">
             <ul class="nav_bar">
                 <li class="nav_item"><a href="{{route('admin.question-bank.create',$setname->slug)}}" class="nav_link btn">New Questions</a></li>
-                {{-- <li class="nav_item"><a  class="nav_link btn">Import</a></li> --}}
-            </ul>
+                <li class="nav_item import-upload-btn" @if(get_option('question-bank-import-question','')=="started") style="display: none" @endif>
+                    <x-ajax-import 
+                        :url="route('admin.question-bank.import',$setname->slug)" 
+                        :fields='[
+                        ["name"=>"slug","label"=>"ID/Slug"], 
+                        ["name"=>"description","label"=>"Question"], 
+                        ["name"=>"answer","label"=>"Answer"],
+                        ["name"=>"iscorrect","label"=>"Is Correct(Y or N)"],
+                        ["name"=>"explanation","label"=>"Explanation"],
+                    ]' onupdate="importupdate" ></x-ajax-import>
+                </li> 
+                <li class="nav_item import-cancel-btn" @if(get_option('question-bank-import-question','')!=="started") style="display: none" @endif >
+                    <a href="{{route('admin.uploadcancel','question-bank-import-question')}}">
+                        <p id="import-cancel-btn-text">0 % Complete</p>
+                        <span class="btn btn-danger">Cancel</span>
+                    </a>
+                </li>
+            </ul> 
         </div>
     </div>
 </section>
@@ -57,6 +73,8 @@
 @push('footer-script')
     <script>
         var questiontable = null;
+        const eventSource = null;
+        var isrefresh=false;
         function questiontableinit(table) {
             questiontable = table
         }
@@ -68,5 +86,76 @@
                 }
             }, 'json')
         } 
+        function importupdate(){
+            isrefresh=true;
+        }
+        async function loadstatus(){
+            let response=await fetch("{{route('admin.uploadstatus','question-bank-import-question')}}",{
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+            })
+            const message = await response.json();  
+            if(message.status=="complete"||message.import=="end"||message.import==""||message.import=="stop"){
+                $('.import-upload-btn').show();
+                $('.import-cancel-btn').hide()
+                if(isrefresh){
+                    questiontable.ajax.reload()
+                    isrefresh=false;
+                }
+            }else{
+                $('.import-upload-btn').hide();
+                $('.import-cancel-btn').show()
+                $('#import-cancel-btn-text').text(message.completed+"% complete");
+            }
+            setTimeout(() => {
+                loadstatus();
+            }, 1000);
+        }
+        $(function(){
+            loadstatus();
+        })
     </script>
+    {{-- <script>
+        async function loadstatus(){
+            
+            if(eventSource==null){
+                eventSource = new EventSource('{{route('admin.uploadstatus','question-bank-import-question')}}');
+                eventSource.onopen = function() {
+                    console.log("connected",new Date())
+                }
+                eventSource.onmessage = function(event) { 
+                    console.log("message",new Date())
+                    if(typeof event.data=="string"){
+                        var message=JSON.parse(event.data);
+                    }else{
+                        var message=event.data;
+                    }
+
+                    if(message.import=="end"){
+                        questiontable.ajax.reload()
+                    }
+                    if(message.status=="complete"||message.import=="end"||message.import==""){
+                        $('.import-upload-btn').show();
+                        $('.import-cancel-btn').hide()
+                    }else{
+                        $('.import-upload-btn').hide();
+                        $('.import-cancel-btn').show()
+                        $('#import-cancel-btn-text').text(message.completed+"% complete");
+                    }
+                    
+                };
+                eventSource.onerror = function(error) {
+                    eventSource.close();
+                    eventSource=null;
+                };
+            }            
+        }
+        $(function(){
+            loadstatus();
+        })
+    </script> --}}
 @endpush

@@ -30,6 +30,9 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
         Route::post("/upload",[UploadController::class,'uploadFile'])->name("upload");
 
+        Route::get('/upload/{tag}/status',[AdminMainController::class,'uploadstatus'])->name('uploadstatus');
+        Route::get('/upload/{tag}/cancel',[AdminMainController::class,'uploadcancel'])->name('uploadcancel');
+
         Route::get('/',[AdminMainController::class,'index']);
         Route::get('/dashboard',[AdminMainController::class,'index'])->name('dashboard');
         Route::get('/logout',[AdminMainController::class,'logout'])->name('logout');
@@ -69,6 +72,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::post('/{setname}/store',[QuestionBankController::class,'store'])->name('store');
             Route::get('/{category}/subcategory',[QuestionBankController::class,'subcategory'])->name('subcategory');
             Route::get('/{sub_category}/set',[QuestionBankController::class,'subcategoryset'])->name('subcategoryset');
+            Route::post('/{setname}/import',[QuestionBankController::class,'importquestion'])->name('import');
         });
 
         Route::prefix('topic-test')->name('topic-test.')->group(function () {

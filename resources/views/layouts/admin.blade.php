@@ -319,6 +319,9 @@
     <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
     <script src="{{ asset('assets/js/jquery.inputmask.min.js') }}"></script>
     <script src="{{ asset('assets/js/custom.js') }}"></script>
+
+    <script lang="javascript" src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+    
     @stack('footer-script')
 </body>
 

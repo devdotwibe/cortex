@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Support\Helpers\OptionHelper;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -44,8 +45,33 @@ class MainController extends Controller
         return redirect()->route('admin.login');
     }
 
-
-
+    public function uploadstatus(Request $request,$tag){ 
+        // return response()->stream(function()use($tag) {
+        //     while (OptionHelper::getData("$tag","")!="") { 
+        //         echo "data: " . json_encode([
+        //             'status'=>OptionHelper::getData("$tag-status","complete"),
+        //             'completed'=>OptionHelper::getData("$tag-completed","100"),
+        //             'import'=>OptionHelper::getData("$tag",""),
+        //         ]) . "\n\n";
+        //         ob_flush();
+        //         flush();
+        //         sleep(1);
+        //     }
+        // }, 200, [
+        //     'Content-Type' => 'text/event-stream',
+        //     'Cache-Control' => 'no-cache',
+        //     'Connection' => 'keep-alive',
+        // ]); 
+        return response()->json([
+            'status'=>OptionHelper::getData("$tag-status")??"complete",
+            'completed'=>OptionHelper::getData("$tag-completed")??"100",
+            'import'=>OptionHelper::getData("$tag")??"",
+        ]);
+    } 
+    public function uploadcancel(Request $request,$tag){ 
+        OptionHelper::setData("$tag","stop"); 
+        return redirect()->back()->with('success','Import Cancelled');
+    }
 
 
 
