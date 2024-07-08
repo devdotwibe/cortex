@@ -1000,12 +1000,6 @@ border-radius: 7px;
   box-shadow:4px 0px 16px 0px #0000000A;
   border-radius:10px;
 }
-.workshop-wrap .workshop-content{
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-}
 .payment-title {
   font-size:18px;
   font-weight:500;
