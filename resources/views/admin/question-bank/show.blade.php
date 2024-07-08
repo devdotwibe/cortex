@@ -13,11 +13,13 @@
                 <li class="nav_item import-upload-btn" @if(get_option('question-bank-import-question','')=="started") style="display: none" @endif>
                     <x-ajax-import 
                         :url="route('admin.question-bank.import',$setname->slug)" 
-                        :fields='[
-                        ["name"=>"slug","label"=>"ID/Slug"], 
+                        :fields='[ 
                         ["name"=>"description","label"=>"Question"], 
-                        ["name"=>"answer","label"=>"Answer"],
-                        ["name"=>"iscorrect","label"=>"Is Correct(Y or N)"],
+                        ["name"=>"answer_1","label"=>"Option A"],
+                        ["name"=>"answer_2","label"=>"Option B"],
+                        ["name"=>"answer_3","label"=>"Option C"],
+                        ["name"=>"answer_4","label"=>"Option D"],
+                        ["name"=>"iscorrect","label"=>"Correct Answer"],
                         ["name"=>"explanation","label"=>"Explanation"],
                     ]' onupdate="importupdate" ></x-ajax-import>
                 </li> 

@@ -84,24 +84,38 @@ class ImportQuestions implements ShouldQueue
             if(OptionHelper::getData("{$this->exam->name}-import-question","")=="stop"){
                 break;
             }
-            $row=$datalist[$i];
-            $question=Question::findSlug($row[$this->fields['slug']]);
-            if(empty($question)){
-                $question=new Question;
-                $question->slug=$row[$this->fields['slug']];
-                $question->exam_id=$this->exam->id;
-                $question->category_id=$this->category->id;
-                $question->sub_category_id=optional($this->subCategory)->id;
-                $question->sub_category_set=optional($this->setname)->id;
-                $question->description=$row[$this->fields['description']];
-                $question->explanation=$row[$this->fields['explanation']];
-                $question->save();                
-            }
+            $row=$datalist[$i];  
+            $question=Question::store([
+                "exam_id"=>$this->exam->id,
+                "category_id"=>$this->category->id,
+                "sub_category_id"=>optional($this->subCategory)->id,
+                "sub_category_set"=>optional($this->setname)->id,
+                "description"=>$row[$this->fields['description']],
+                "explanation"=>$row[$this->fields['explanation']]
+            ]); 
             Answer::store([
                 "exam_id"=>$question->exam_id,
                 "question_id"=>$question->id,
-                "iscorrect"=>in_array($row[$this->fields['iscorrect']]??"",['true',true,1,'Y','Yes','YES'])?true:false,
-                "title"=>$row[$this->fields['answer']]
+                "iscorrect"=>($row[$this->fields['iscorrect']]??"")=="A"?true:false,
+                "title"=>$row[$this->fields['answer_1']]
+            ]);
+            Answer::store([
+                "exam_id"=>$question->exam_id,
+                "question_id"=>$question->id,
+                "iscorrect"=>($row[$this->fields['iscorrect']]??"")=="B"?true:false,
+                "title"=>$row[$this->fields['answer_2']]
+            ]);
+            Answer::store([
+                "exam_id"=>$question->exam_id,
+                "question_id"=>$question->id,
+                "iscorrect"=>($row[$this->fields['iscorrect']]??"")=="C"?true:false,
+                "title"=>$row[$this->fields['answer_3']]
+            ]);
+            Answer::store([
+                "exam_id"=>$question->exam_id,
+                "question_id"=>$question->id,
+                "iscorrect"=>($row[$this->fields['iscorrect']]??"")=="D"?true:false,
+                "title"=>$row[$this->fields['answer_4']]
             ]);
             $i++;
             OptionHelper::setData("{$this->exam->name}-import-question-completed",round($i*100/$count,2));
