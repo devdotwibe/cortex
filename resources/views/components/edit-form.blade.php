@@ -195,6 +195,7 @@
             
             `)    
             chcnt++;
+            $(`#${name}-{{$frmID}}-chcnt-${chcnt}`).focus()
         }
         $(function(){
             $("#{{$frmID}} .select2").each(function(){
