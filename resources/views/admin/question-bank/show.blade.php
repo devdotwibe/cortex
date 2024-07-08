@@ -90,6 +90,7 @@
         } 
         function importupdate(){
             isrefresh=true;
+            questiontable.ajax.reload()
         }
         async function loadstatus(){
             let response=await fetch("{{route('admin.uploadstatus','question-bank-import-question')}}",{
@@ -118,7 +119,7 @@
             }, 1000);
         }
         $(function(){
-            loadstatus();
+            // loadstatus();
         })
     </script>
     {{-- <script>
