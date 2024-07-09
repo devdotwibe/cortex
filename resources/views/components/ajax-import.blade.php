@@ -86,7 +86,7 @@
             //         $(this).html(options)
             //     }
             // })
-            $('.import-{{ $id }}-fields option').each(function(el) {
+            $('.import-{{ $id }}-fields option').each(function(ky,el) {
                 if ($.inArray(el.value, selected_val) == -1) {
                     $(el).removeClass('selected')
                 }else{
