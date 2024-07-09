@@ -145,6 +145,8 @@ Route::middleware('auth')->group(function(){
         Route::get('/{live}/workshop/form',[LiveClassController::class,'workshopform'])->name('workshop.form');
         Route::get('/{live}/private-class',[LiveClassController::class,'privateclass'])->name('privateclass');
         Route::get('/{live}/private-class/form',[LiveClassController::class,'privateclassform'])->name('privateclass.form');
+        Route::get('/{live}/private-class/room',[LiveClassController::class,'privateclassroom'])->name('privateclass.room');
+        Route::get('/{live}/private-class/details',[LiveClassController::class,'privateclassdetails'])->name('privateclass.details');
       
     });
 

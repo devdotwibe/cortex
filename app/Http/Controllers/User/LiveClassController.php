@@ -59,4 +59,13 @@ class LiveClassController extends Controller
         $live_class =  LiveClassPage::first();  
         return view('user.live-class.privateform',compact('user','live_class')); 
     }
+ 
+    public function privateclassroom(Request  $request){
+        /**
+         * @var User
+         */
+        $user=Auth::user();
+        $live_class =  LiveClassPage::first();  
+        return view('user.live-class.privateclass',compact('user','live_class')); 
+    }
 }

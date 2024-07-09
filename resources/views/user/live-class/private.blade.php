@@ -16,7 +16,8 @@
                     {!! $live_class->private_class??""!!}
                 </div>
                 <div class="workshop-action"> 
-                    <a class="btn btn-dark m-2" href="{{route('live-class.privateclass.form',$user->slug)}}">Register</a>
+                    <a class="btn btn-outline-warning m-2" href="{{route('live-class.privateclass.form',$user->slug)}}">Register</a>
+                    <a class="btn btn-warning m-2" href="{{route('live-class.privateclass.room',$user->slug)}}">Enter</a>
                 </div>
             </div>
         </div>
