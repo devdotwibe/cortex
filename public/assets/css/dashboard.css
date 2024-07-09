@@ -1013,6 +1013,10 @@ border-radius: 7px;
   font-size:14;
   font-weight:400;
 }
+.process-header .form-data select option.selected { 
+  color:black;
+  background:#afafaf
+}
 
 
 
