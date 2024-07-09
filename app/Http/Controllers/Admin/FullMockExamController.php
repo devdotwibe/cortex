@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\ImportQuestions;
 use App\Models\Category;
 use App\Models\Exam;
 use App\Models\Question;
 use App\Models\SubCategory;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class FullMockExamController extends Controller
 {
@@ -73,4 +75,27 @@ class FullMockExamController extends Controller
         }  
         return view("admin.full-mock-exam.edit",compact('exam','question'));
     }
+
+
+    public function importquestion(Request $request,Exam $exam){ 
+        $request->validate([
+            'import_fields'=>['required'],
+            'import_fields.*'=>['required'],
+            'import_datas'=>['required','file','mimes:json']
+        ]);
+ 
+        $file = $request->file('import_datas');
+        $name = $file->hashName();
+        Storage::put("importfile", $file); 
+          
+        dispatch(new ImportQuestions(
+            filename:$name,
+            exam:$exam, 
+            fields:$request->import_fields
+        ));
+
+        return response()->json([
+            'success'=>"Import started"
+        ]);
+    } 
 }

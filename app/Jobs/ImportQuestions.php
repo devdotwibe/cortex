@@ -33,7 +33,7 @@ class ImportQuestions implements ShouldQueue
     /**
      * Category variable
      *
-     * @var Category
+     * @var Category|null
      */
     protected $category;
 
@@ -56,12 +56,12 @@ class ImportQuestions implements ShouldQueue
      * Summary of __construct
      * @param string $filename
      * @param Exam $exam
-     * @param Category $category
+     * @param Category|null $category
      * @param SubCategory|null $subCategory
      * @param Setname|null $setname
      * @param array|null $fields
      */
-    public function __construct($filename,$exam,$category,$subCategory=null,$setname=null,$fields=[])
+    public function __construct($filename,$exam,$category=null,$subCategory=null,$setname=null,$fields=[])
     {
         $this->filename=$filename;
         $this->exam=$exam;
@@ -85,14 +85,27 @@ class ImportQuestions implements ShouldQueue
                 break;
             }
             $row=$datalist[$i];  
-            $question=Question::store([
-                "exam_id"=>$this->exam->id,
-                "category_id"=>$this->category->id,
-                "sub_category_id"=>optional($this->subCategory)->id,
-                "sub_category_set"=>optional($this->setname)->id,
-                "description"=>$row[$this->fields['description']],
-                "explanation"=>$row[$this->fields['explanation']]
-            ]); 
+            if($this->exam->name=="full-mock-exam"){
+
+                $question=Question::store([
+                    "exam_id"=>$this->exam->id,
+                    "category_id"=>$row[$this->fields['category']],
+                    "sub_category_id"=>optional($this->subCategory)->id,
+                    "sub_category_set"=>optional($this->setname)->id,
+                    "description"=>$row[$this->fields['description']],
+                    "explanation"=>$row[$this->fields['explanation']]
+                ]);
+            } else{
+
+                $question=Question::store([
+                    "exam_id"=>$this->exam->id,
+                    "category_id"=>optional($this->category)->id,
+                    "sub_category_id"=>optional($this->subCategory)->id,
+                    "sub_category_set"=>optional($this->setname)->id,
+                    "description"=>$row[$this->fields['description']],
+                    "explanation"=>$row[$this->fields['explanation']]
+                ]);
+            }
             Answer::store([
                 "exam_id"=>$question->exam_id,
                 "question_id"=>$question->id,

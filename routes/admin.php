@@ -53,6 +53,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::get('/{exam}/create',[FullMockExamController::class,'create'])->name('create');
             Route::get('/{exam}/question/{question}/edit',[FullMockExamController::class,'edit'])->name('edit');
             Route::post('/{exam}/store',[FullMockExamController::class,'store'])->name('store');
+            Route::post('/{exam}/import',[FullMockExamController::class,'importquestion'])->name('import');
         });
         // Route::prefix('question-bank-old')->name('question-bank-old.')->group(function () {
         //     Route::get('/',[QuestionBankControllerOld::class,'index'])->name('index');
