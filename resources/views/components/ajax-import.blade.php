@@ -67,26 +67,33 @@
 @push('footer-script')
     <script>
         let import_{{ $id }}_data = [];
-        // $('.import-{{ $id }}-fields').change(function(e) {
-        //     selected_val = [];
-        //     $('.import-{{ $id }}-fields').each(function(el) {
-        //         if ($(this).val() != "") {
-        //             selected_val.push($(this).val());
-        //         }
-        //     })
+        $('.import-{{ $id }}-fields').change(function(e) {
+            selected_val = [];
+            $('.import-{{ $id }}-fields').each(function(el) {
+                if ($(this).val() != "") {
+                    selected_val.push($(this).val());
+                }
+            })
 
-        //     options = "<option value=''>--Select--</option>";
-        //     $.each(field_keys, function(skey, sop) {
-        //         if ($.inArray(sop, selected_val) == -1) {
-        //             options += "<option value='" + sop + "'>" + sop + "</option>"
-        //         }
-        //     })
-        //     $('.import-{{ $id }}-fields').each(function(el) {
-        //         if ($(this).val() == "") {
-        //             $(this).html(options)
-        //         }
-        //     })
-        // })
+            // options = "<option value=''>--Select--</option>";
+            // $.each(field_keys, function(skey, sop) {
+            //     if ($.inArray(sop, selected_val) == -1) {
+            //         options += "<option value='" + sop + "'>" + sop + "</option>"
+            //     }
+            // })
+            // $('.import-{{ $id }}-fields').each(function(el) {
+            //     if ($(this).val() == "") {
+            //         $(this).html(options)
+            //     }
+            // })
+            $('.import-{{ $id }}-fields option').each(function(el) {
+                if ($.inArray(sop.value, selected_val) == -1) {
+                    $(el).removeClass('selected')
+                }else{
+                    $(el).addClass('selected')
+                }
+            })
+        })
         $('#import-{{ $id }}-file').change(function(e) {
             import_{{ $id }}_data = [];
             file = e.target.files[0];
