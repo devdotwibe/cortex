@@ -62,7 +62,7 @@
                                     @enderror
                                 </div>
                                 <div class="mb-3">
-                                    <button type="submit" class="btn btn-dark w-100">Login</button>
+                                    <button type="submit" class="btn btn-dark w-100">Register</button>
                                 </div>
                             </div>
                         </div>
