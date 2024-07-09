@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\ImportQuestions;
 use App\Models\Category;
 use App\Models\Exam;
 use App\Models\ExamCategoryTitle;
@@ -11,6 +12,7 @@ use App\Models\Setname;
 use App\Models\SubCategory;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class TopicTestController extends Controller
 {
@@ -143,4 +145,37 @@ class TopicTestController extends Controller
         $category->update($data); 
         return redirect()->back()->with("success","Topic Test Time has been successfully updated");
     }
+
+
+    public function importquestion(Request $request,Category $category){ 
+        $request->validate([
+            'import_fields'=>['required'],
+            'import_fields.*'=>['required'],
+            'import_datas'=>['required','file','mimes:json']
+        ]);
+ 
+        $file = $request->file('import_datas');
+        $name = $file->hashName();
+        Storage::put("importfile", $file); 
+        
+        $exam=Exam::where("name",'topic-test')->first();
+        if(empty($exam)){
+            $exam=Exam::store([
+                "title"=>"Topic Test",
+                "name"=>"topic-test",
+            ]);
+            $exam=Exam::find( $exam->id );
+        } 
+        
+        dispatch(new ImportQuestions(
+            filename:$name,
+            exam:$exam,
+            category:$category, 
+            fields:$request->import_fields
+        ));
+
+        return response()->json([
+            'success'=>"Import started"
+        ]);
+    } 
 }

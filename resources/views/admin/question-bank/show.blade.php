@@ -75,8 +75,8 @@
 @push('footer-script')
     <script>
         var questiontable = null;
-        const eventSource = null;
-        var isrefresh=false;
+        // const eventSource = null;
+        // var isrefresh=false;
         function questiontableinit(table) {
             questiontable = table
         }
@@ -89,35 +89,35 @@
             }, 'json')
         } 
         function importupdate(){
-            isrefresh=true;
+            // isrefresh=true;
             questiontable.ajax.reload()
         }
-        async function loadstatus(){
-            let response=await fetch("{{route('admin.uploadstatus','question-bank-import-question')}}",{
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                    'X-Requested-With': 'XMLHttpRequest'
-                },
-            })
-            const message = await response.json();  
-            if(message.status=="complete"||message.import=="end"||message.import==""||message.import=="stop"){
-                $('.import-upload-btn').show();
-                $('.import-cancel-btn').hide()
-                if(isrefresh){
-                    questiontable.ajax.reload()
-                    isrefresh=false;
-                }
-            }else{
-                $('.import-upload-btn').hide();
-                $('.import-cancel-btn').show()
-                $('#import-cancel-btn-text').text(message.completed+"% complete");
-            }
-            setTimeout(() => {
-                loadstatus();
-            }, 1000);
-        }
+        // async function loadstatus(){
+        //     let response=await fetch("{{route('admin.uploadstatus','question-bank-import-question')}}",{
+        //         method: 'GET',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+        //             'X-Requested-With': 'XMLHttpRequest'
+        //         },
+        //     })
+        //     const message = await response.json();  
+        //     if(message.status=="complete"||message.import=="end"||message.import==""||message.import=="stop"){
+        //         $('.import-upload-btn').show();
+        //         $('.import-cancel-btn').hide()
+        //         if(isrefresh){
+        //             questiontable.ajax.reload()
+        //             isrefresh=false;
+        //         }
+        //     }else{
+        //         $('.import-upload-btn').hide();
+        //         $('.import-cancel-btn').show()
+        //         $('#import-cancel-btn-text').text(message.completed+"% complete");
+        //     }
+        //     setTimeout(() => {
+        //         loadstatus();
+        //     }, 1000);
+        // }
         $(function(){
             // loadstatus();
         })

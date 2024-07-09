@@ -10,6 +10,25 @@
                 <ul class="nav_bar">
                     <li class="nav_item"><a href="{{ route('admin.topic-test.create', $category->slug) }}"
                             class="nav_link btn">New Questions</a></li>
+                    <li class="nav_item import-upload-btn" @if(get_option('topic-test-import-question','')=="started") style="display: none" @endif>
+                        <x-ajax-import 
+                            :url="route('admin.topic-test.import',$category->slug)" 
+                            :fields='[ 
+                            ["name"=>"description","label"=>"Question"], 
+                            ["name"=>"answer_1","label"=>"Option A"],
+                            ["name"=>"answer_2","label"=>"Option B"],
+                            ["name"=>"answer_3","label"=>"Option C"],
+                            ["name"=>"answer_4","label"=>"Option D"],
+                            ["name"=>"iscorrect","label"=>"Correct Answer"],
+                            ["name"=>"explanation","label"=>"Explanation"],
+                        ]' onupdate="importupdate" ></x-ajax-import>
+                    </li> 
+                    <li class="nav_item import-cancel-btn" @if(get_option('topic-test-import-question','')!=="started") style="display: none" @endif >
+                        <a href="{{route('admin.uploadcancel','topic-test-import-question')}}">
+                            <p id="import-cancel-btn-text">0 % Complete</p>
+                            <span class="btn btn-danger">Cancel</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -45,7 +64,7 @@
                             ['th' => 'Date', 'name' => 'created_at', 'data' => 'date'],
                             ['th' => 'Question', 'name' => 'description', 'data' => 'description'],
                             ['th' => 'Visible', 'name' => 'visible_status', 'data' => 'visibility'],
-                        ]"  />
+                        ]" tableinit="questiontableinit" />
                     </div>
                 </div>
             </div>
@@ -56,6 +75,21 @@
 @push('footer-script')
     <script> 
  
+        var questiontable = null;
+        function importupdate(){ 
+            questiontable.ajax.reload()
+        }
+        function questiontableinit(table) {
+            questiontable = table
+        }
+
+        function visiblechangerefresh(url) {
+            $.get(url, function() {
+                if (questiontable != null) {
+                    questiontable.ajax.reload()
+                }
+            }, 'json')
+        } 
         $(function() { 
 
 
