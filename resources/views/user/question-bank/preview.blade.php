@@ -93,7 +93,7 @@
                             </div>
                             `)
                             $(`#mcq-${lesseonId}-list-progress`).append(`
-                                <div class="form-progress-ans ans-${av.user_answer?"select":"no-select"}"> 
+                                <div class="form-progress-ans ans-${av.iscorrect?"select":"no-select"}"> 
                                     <div class="form-progress">       
                                         <label for="user-answer-${lesseonId}-ans-progress-item-${ai}" >${ letter }</label>
                                         <progress id="user-answer-${lesseonId}-ans-progress-item-${ai}" max="100" value="${av.total_user_answered||0}"/>
