@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\ClassDetail;
 use App\Models\LiveClassPage;
+use App\Models\SubClassDetail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -67,5 +69,23 @@ class LiveClassController extends Controller
         $user=Auth::user();
         $live_class =  LiveClassPage::first();  
         return view('user.live-class.privateclass',compact('user','live_class')); 
+    }
+    public function privateclassdetails(Request  $request){
+        /**
+         * @var User
+         */
+        $user=Auth::user();
+        $live_class =  LiveClassPage::first();  
+        $classdetail = ClassDetail::all();
+        return view('user.live-class.class-detail',compact('user','live_class','classdetail')); 
+    }
+    public function privateclassterm(Request  $request,$live,ClassDetail $classDetail){
+        /**
+         * @var User
+         */
+        $user=Auth::user();
+        $live_class =  LiveClassPage::first();  
+        $terms = SubClassDetail::where('class_detail_id',$classDetail->id)->paginate();
+        return view('user.live-class.class-detail-term',compact('user','live_class','classDetail','terms')); 
     }
 }

@@ -17,19 +17,11 @@
                         <div class="card-body">
                             <a href="{{ route('live-class.privateclass.details', $user->slug) }}">
                                 <div class="category">
-
                                     <div class="category-image">
-
                                         <img src="{{ asset('assets/images/User-red.png') }}">
-
                                     </div>
-
                                     <div class="category-content">
-
-                                        <h3>Class Details</h3>
-
-                                        <p>   </p>
-
+                                        <h3>Class Details</h3> 
                                     </div>
                                 </div>
                             </a>
@@ -41,19 +33,11 @@
                         <div class="card-body">
                             <a href="{{ route('live-class.privateclass', $user->slug) }}">
                                 <div class="category">
-
                                     <div class="category-image">
-
                                         <img src="{{ asset('assets/images/User-red.png') }}">
-
                                     </div>
-
                                     <div class="category-content">
-
                                         <h3>Lesson Material</h3>
-
-                                        <p>   </p>
-
                                     </div>
                                 </div>
                             </a>
