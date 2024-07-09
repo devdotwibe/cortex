@@ -16,39 +16,41 @@
 
                         <div class="card">
                             <div class="card-body">
-                                <div class="category">
+                                <a href="{{route('live-class.privateclass',$user->slug)}}">
+                                    <div class="category">
 
-                                    <div class="category-image">
+                                        <div class="category-image">
 
-                                        @if(!empty($live_class->class_image_1))
+                                            @if(!empty($live_class->class_image_1))
 
-                                            <img src="{{ url('d0/' . $live_class->class_image_1) }}">
-
-                                        @else
-
-                                            <img src="{{asset("assets/images/User-red.png")}}">
-
-                                        @endif
-
-                                    </div>
-
-                                    <div class="category-content">
-                                    
-                                        <h3>@if(!empty($live_class->class_title_1)) {{ $live_class->class_title_1 }} @else Private Class Room @endif</h3>
-                                    
-                                        <p>
-                                            @if(!empty($live_class->class_description_1))
-
-                                            {{ $live_class->class_description_1   }}
+                                                <img src="{{ url('d0/' . $live_class->class_image_1) }}">
 
                                             @else
-                                            Receive a personalised learning experience with regular feedback by entrolling with our tutors Desinged for Year 5 students
-                                            
-                                            @endif
-                                        </p>
 
+                                                <img src="{{asset("assets/images/User-red.png")}}">
+
+                                            @endif
+
+                                        </div>
+
+                                        <div class="category-content">
+                                        
+                                            <h3>@if(!empty($live_class->class_title_1)) {{ $live_class->class_title_1 }} @else Private Class Room @endif</h3>
+                                        
+                                            <p>
+                                                @if(!empty($live_class->class_description_1))
+
+                                                {{ $live_class->class_description_1   }}
+
+                                                @else
+                                                Receive a personalised learning experience with regular feedback by entrolling with our tutors Desinged for Year 5 students
+                                                
+                                                @endif
+                                            </p>
+
+                                        </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                         </div>
                     </a>

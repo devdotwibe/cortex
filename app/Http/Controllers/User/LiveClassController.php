@@ -42,4 +42,21 @@ class LiveClassController extends Controller
         }
     }
 
+    public function privateclass(Request  $request){
+        /**
+         * @var User
+         */
+        $user=Auth::user();
+        $live_class =  LiveClassPage::first(); 
+        return view('user.live-class.private',compact('user','live_class'));
+    }
+ 
+    public function privateclassform(Request  $request){
+        /**
+         * @var User
+         */
+        $user=Auth::user();
+        $live_class =  LiveClassPage::first();  
+        return view('user.live-class.privateform',compact('user','live_class')); 
+    }
 }
