@@ -92,6 +92,7 @@
                 }else{
                     $(el).addClass('selected')
                 }
+                console.log(el)
             })
         })
         $('#import-{{ $id }}-file').change(function(e) {
