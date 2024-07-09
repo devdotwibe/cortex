@@ -87,7 +87,7 @@
             //     }
             // })
             $('.import-{{ $id }}-fields option').each(function(el) {
-                if ($.inArray(sop.value, selected_val) == -1) {
+                if ($.inArray(el.value, selected_val) == -1) {
                     $(el).removeClass('selected')
                 }else{
                     $(el).addClass('selected')
