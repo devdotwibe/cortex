@@ -132,6 +132,7 @@
     </div>
 </div>
 
+@endpush
 
 
 @push('footer-script')
