@@ -137,7 +137,7 @@ class LiveClassController extends Controller
             return response()->json([
                 "hash"=>$key,
                 'path'=>$path,
-                "data"=>ImageHelper::decryptData(file_get_contents($path),$key)
+                "data"=>file_get_contents($path)
             ]);
         }
         $pdfmap['url']=route('live-class.privateclass.lessonpdf', ["live" =>$user->slug,"sub_lesson_material"=>$subLessonMaterial->slug ]);
