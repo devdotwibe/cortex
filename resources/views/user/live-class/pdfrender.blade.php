@@ -61,7 +61,7 @@
         $(function(){
             renderPdf()
             $.each(imgdata,function(k,v){
-            
+                loaddata(k,v.url)
             })
         })
     </script>
