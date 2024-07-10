@@ -73,15 +73,12 @@
                 if(element.render){
                     const encoder = new TextEncoder();
                     const uint8Array = encoder.encode(element.render); 
-                    if (uint8Array.length % 4 !== 0) {  
-                        ctx.putImageData(new Uint8ClampedArray(new Uint8Array([
-                            // Binary image data here
-                            // Example: RGBA data for a 2x2 image
-                            255, 0, 0, 255,  // Red pixel
-                            0, 255, 0, 255,  // Green pixel
-                            0, 0, 255, 255,  // Blue pixel
-                            255, 255, 0, 255 // Yellow pixel
-                        ])),0,index*element.height)  
+                    if (uint8Array.length % 4 !== 0) { 
+                        let da=[];
+                        for (let dx = 0; dx < (uint8Array.length % 4); dx++) { 
+                            da[]=0;
+                        } 
+                        uint8Array=new Uint8Array([...da,...uint8Array])  
                         continue;
                     }
                     let imageData = new ImageData(new Uint8ClampedArray(uint8Array), element.width-1, element.height-1);
