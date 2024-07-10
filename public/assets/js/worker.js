@@ -10,7 +10,7 @@ async function decryptData(encryptedData, key) {
     let decryptedText = new TextDecoder().decode(decryptedData);
     return decryptedText;
 }  
-async function parsePage(index,data,url){
+async function parsePage(data,url){
     var page = '';
     console.log(data)
     for (let p = 0; p < data.data.length; p++) { 
