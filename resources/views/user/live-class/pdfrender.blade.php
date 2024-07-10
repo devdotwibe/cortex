@@ -33,9 +33,10 @@
 @push('footer-script')
     <script>
         var imgdata = @json($imgdata);
-        var canvas = document.getElementById('image-render');         
+        var canvas = document.getElementById('image-render');
+        var scale = 500/800;
         pdfwidth=$('#lesson-pdf-body').width()
-        pdfheight=($('#lesson-pdf-body').width()/500)*pdfwidth
+        pdfheight= pdfwidth/scale
         canvas.width=pdfwidth;
         canvas.height=pdfheight*imgdata.length; 
         var ctx = canvas.getContext('2d');
