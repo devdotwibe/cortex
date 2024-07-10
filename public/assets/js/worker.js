@@ -24,7 +24,7 @@ parsePage=async function(index,data,url){
         // page += await decryptData(part.data,part.hash);
         page += atob(part.data);
     }
-    this.postMessage({ 
+    postMessage({ 
         action: 'page', 
         data: {
             index:index,

@@ -43,8 +43,7 @@
             const { action, data } = e.data;
              if (action=="page") {
                 pdfdata.data[data.index].render=data.render;
-             }
-             console.log('***',data)
+             } 
         };
         async function loadpdfdata(){
             // const response = await fetch('{{asset("assets/images/loader.svg")}}');
@@ -69,7 +68,8 @@
                     const encoder = new TextEncoder();
                     const uint8Array = encoder.encode(element.render);
                     imgdata.data=uint8Array;
-                    ctx.putImageData(imgdata,0,index*element.height)                  
+                    ctx.putImageData(imgdata,0,index*element.height)   
+                    console.log(element)               
                 }
             }  
             requestAnimationFrame(renderPdf);
