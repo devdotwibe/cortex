@@ -1,6 +1,7 @@
 async function decryptData(encryptedData, key) { 
     let encryptedBinary = atob(encryptedData); 
     let iv = encryptedBinary.slice(0, 16);
+    console.log(typeof iv ,iv)
     let encryptedText = encryptedBinary.slice(16); 
     let keyBuffer = new TextEncoder().encode(key);
     let keyArray = await crypto.subtle.importKey('raw', keyBuffer, { name: 'AES-CBC',length: 256 }, false,['encrypt', 'decrypt']); 
