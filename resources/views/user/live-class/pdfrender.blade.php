@@ -44,17 +44,16 @@
              if (action=="render") {
                 pdfdata.data[data.index].render=data.render;
              }
+             console.log('***',action)
         };
         async function loadpdfdata(){
-            const response = await fetch('{{asset("assets/images/loader.svg")}}');
-            const buffer = await response.arrayBuffer();
-            const img = await new Uint8Array(buffer)
-            for (let index = 0; index < pdfdata.data.length; index++) {
-                pdfdata.data[index].render=img;
-            }
-            console.log('***')
+            // const response = await fetch('{{asset("assets/images/loader.svg")}}');
+            // const buffer = await response.arrayBuffer();
+            // const img = await new Uint8Array(buffer)
+            // for (let index = 0; index < pdfdata.data.length; index++) {
+            //     pdfdata.data[index].render=img;
+            // } 
             renderPdf() 
-            console.log('***')
             worker.postMessage({ action: 'render', data: pdfdata })
         }
         $(function(){
