@@ -146,12 +146,15 @@ class LiveClassController extends Controller
             $count= $imginfo->getNumberImages();
         
             $imagic = new \Imagick();
+            $imagic->setResolution(570, 800);
             $imagic->readImage($filepath);
+            
             $imgdata=[]; 
             $hash=md5("$filepath/render".time());
             foreach ($imagic as $pageIndex => $page) {
                 $bytefile=sprintf("$hash-%02d.jpg",$pageIndex);
                 $page->setImageFormat('jpeg');   
+                $page->setCompressionQuality(99);
                 $imagic->writeImage("$cachepath/$bytefile");
                 $width = $page->getImageWidth();
                 $height = $page->getImageHeight();
@@ -163,6 +166,8 @@ class LiveClassController extends Controller
                     'url'=> route("live-class.privateclass.lessonpdf.load",['live' => $user->slug, 'sub_lesson_material' => $subLessonMaterial->slug,"file"=>$bytefile])
                 ];
             }
+            $imagic->clear();  
+            $imagic->destroy(); 
             file_put_contents("$cachepath/render.map.json",json_encode($imgdata));
         }else{
             $imgdata=json_decode(file_get_contents("$cachepath/render.map.json"),true); 
