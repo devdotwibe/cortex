@@ -42,8 +42,14 @@
         worker.onmessage =function(e){ 
             const { action, data } = e.data;
              if (action=="page") {
-                pdfdata.data[data.index].render=atob(data.render);
                 console.log(typeof data.render)
+                var dd=data.render.split("##**##")
+                for (let index = 0; index < dd.length; index++) {
+                    const ee = dd[index];
+                    if(ee){
+                        pdfdata.data[data.index].render=atob(ee);
+                    }                                        
+                }
              } 
         };
         async function loadpdfdata(){
