@@ -9,7 +9,7 @@ async function decryptData(encryptedData, key) {
     let decryptedData = await crypto.subtle.decrypt({ name: 'AES-CBC', iv: ivBuffer }, keyArray, encryptedDataBuffer);
     let decryptedText = new TextDecoder().decode(decryptedData);
     return decryptedText;
-}  
+};
 async function parsePage(index,data,url){
     var page = '';
     for (let p = 0; p < data.data.length; p++) { 
@@ -32,8 +32,8 @@ async function parsePage(index,data,url){
             render: uint8Array
         }
     });
-}
-onmessage=function(e){
+};
+this.onmessage=function(e){
     const { action, data } = e.data 
     if (action === 'render') { 
         var pdf = data;
