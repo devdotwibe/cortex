@@ -139,29 +139,33 @@ class LiveClassController extends Controller
         //         "data"=>file_get_contents($path)
         //     ]);
         // }
-
-        $imginfo = new \Imagick();
-        $imginfo->pingImage($filepath);    
-    
-        $count= $imginfo->getNumberImages();
-    
-        $imagic = new \Imagick();
-        $imagic->readImage($filepath);
-        $imgdata=[]; 
-        $hash=md5("$filepath/render".time());
-        foreach ($imagic as $pageIndex => $page) {
-            $bytefile=sprintf("$hash-%02d.jpg",$pageIndex);
-            $page->setImageFormat('jpeg');   
-            $imagic->writeImage("$cachepath/$bytefile");
-            $width = $page->getImageWidth();
-            $height = $page->getImageHeight();
-            $imgdata[] = [
-                'page' => $pageIndex + 1, 
-                'width' => $width,
-                'height' => $height,
-                "data" => $bytefile,
-                'url'=> route("live-class.privateclass.lessonpdf.load",['live' => $user->slug, 'sub_lesson_material' => $subLessonMaterial->slug,"file"=>$bytefile])
-            ];
+        if(!File::exists("$cachepath/render.map.json")){
+            $imginfo = new \Imagick();
+            $imginfo->pingImage($filepath);    
+        
+            $count= $imginfo->getNumberImages();
+        
+            $imagic = new \Imagick();
+            $imagic->readImage($filepath);
+            $imgdata=[]; 
+            $hash=md5("$filepath/render".time());
+            foreach ($imagic as $pageIndex => $page) {
+                $bytefile=sprintf("$hash-%02d.jpg",$pageIndex);
+                $page->setImageFormat('jpeg');   
+                $imagic->writeImage("$cachepath/$bytefile");
+                $width = $page->getImageWidth();
+                $height = $page->getImageHeight();
+                $imgdata[] = [
+                    'page' => $pageIndex + 1, 
+                    'width' => $width,
+                    'height' => $height,
+                    "data" => $bytefile,
+                    'url'=> route("live-class.privateclass.lessonpdf.load",['live' => $user->slug, 'sub_lesson_material' => $subLessonMaterial->slug,"file"=>$bytefile])
+                ];
+            }
+            file_put_contents("$cachepath/render.map.json",json_encode($imgdata));
+        }else{
+            $imgdata=json_decode(file_get_contents("$cachepath/render.map.json"),true); 
         }
         // $pdfmap['url']=route('live-class.privateclass.lessonpdf', ["live" =>$user->slug,"sub_lesson_material"=>$subLessonMaterial->slug ]);
         return view('user.live-class.pdfrender',compact('user','live_class','subLessonMaterial','lessonMaterial','imgdata')); 
