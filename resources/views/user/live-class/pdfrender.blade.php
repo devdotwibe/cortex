@@ -52,16 +52,15 @@
                 // ctx.putImageData(imageData, 0, index*element.height);
             }  
             requestAnimationFrame(renderPdf);
-        }
-        async function loaddata(k,url){
-            const response=await fetch(url);
-            const blondata = await response.blob();
-            imgdata[k].render= createImageBitmap(blondata)
-        }
+        } 
         $(function(){
             renderPdf()
-            $.each(imgdata,function(k,v){
-                loaddata(k,v.url)
+            $.each(imgdata,function(k,v){ 
+                const image = new Image(); 
+                image.onload = function() {
+                    imgdata[k].render=image
+                };
+                image.src = v.url;
             })
         })
     </script>
