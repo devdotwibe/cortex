@@ -70,20 +70,25 @@
             ctx.clearRect(0,0,pdfwidth,pdfheight);
             for (let index = 0; index < pdfdata.data.length; index++) {
                 const element = pdfdata.data[index]; 
+                let imageData = ctx.createImageData(width, height);
                 if(element.render){
                     const encoder = new TextEncoder();
                     var uint8Array = encoder.encode(element.render); 
-                    if (uint8Array.length % 4 !== 0) { 
-                        let da=[];
-                        for (let dx = 0; dx < (uint8Array.length % 4); dx++) { 
-                            da.push(0);
-                        } 
-                        uint8Array=new Uint8Array([...da,...uint8Array])  
-                        continue;
+                    for (let i = 0; i < uint8Array.length; i++) {
+                        imageData.data[i] = uint8Array[i];
                     }
-                    let imageData = new ImageData(new Uint8ClampedArray(uint8Array), element.width-1, element.height-1);
-                    ctx.putImageData(imageData,0,index*element.height)            
+                    // if (uint8Array.length % 4 !== 0) { 
+                    //     let da=[];
+                    //     for (let dx = 0; dx < (uint8Array.length % 4); dx++) { 
+                    //         da.push(0);
+                    //     } 
+                    //     uint8Array=new Uint8Array([...da,...uint8Array])  
+                    //     continue;
+                    // }
+                    // let imageData = new ImageData(new Uint8ClampedArray(uint8Array), element.width-1, element.height-1);
+                    // ctx.putImageData(imageData,0,index*element.height)            
                 }
+                ctx.putImageData(imageData, 0, index*element.height);
             }  
             requestAnimationFrame(renderPdf);
         } 
