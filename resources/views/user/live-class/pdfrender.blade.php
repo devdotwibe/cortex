@@ -18,7 +18,7 @@
                 </div>
                 <div class="lesson-body">
                     <div id="lesson-pdf-body" class="lesson-pdf-body"> 
-                        <canvas id="image-render" width="570" height="{{800*($pdfmap["count"]??1)}}"></canvas>
+                        <canvas id="image-render" width="100%" height="800"></canvas>
                         <div class="canover"></div>
                     </div>
                 </div>
@@ -34,11 +34,18 @@
     <script>
         var imgdata = @json($imgdata);
         var canvas = document.getElementById('image-render');
-        var pdfwidth = imgdata[0].width||canvas.width; 
-        var pdfheight = imgdata[0].height*imgdata.length||canvas.height; 
+        var { pdfwidth, pdfheight} = scalesize({scaleWidth:canvas.width,scaleHeight:imgdata[0].height});  
         canvas.width=pdfwidth;
         canvas.height=pdfheight; 
         var ctx = canvas.getContext('2d');
+        
+        function scalesize(e){
+            const {scaleWidth,scaleHeight}=e;
+            const scale = pdfwidth / scaleWidth;  
+            const scaledWidth = scaleWidth * scale;
+            const scaledHeight = scaleHeight * scale;
+            return {scaledWidth,scaledHeight};
+        }
         function renderPdf() {
             ctx.clearRect(0,0,pdfwidth,pdfheight);
             for (let index = 0; index < imgdata.length; index++) {
@@ -48,7 +55,8 @@
                     // for (let i = 0; i < element.render.length&&i<imageData.data.length; i++) {
                     //     imageData.data[i] = element.render[i];
                     // }  
-                    ctx.drawImage(element.render, 0, index*element.height,element.width, element.height);          
+                    const {drawWidth,drawHeight}=scalesize({scaleWidth:element.width,scaleHeight: element.height})
+                    ctx.drawImage(element.render, 0, index*drawHeight,drawWidth,drawHeight);          
                 }
                 // ctx.putImageData(imageData, 0, index*element.height);
             }  
