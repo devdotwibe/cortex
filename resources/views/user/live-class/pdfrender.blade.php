@@ -36,8 +36,8 @@
         var canvas = document.getElementById('image-render');
         // let { scaledWidth, pdfheight} = scalesize({scaleWidth:canvas.width,scaleHeight:imgdata[0].height});  
         // console.log(pdfwidth,pdfheight)
-        canvas.width=500;
-        canvas.height=800; 
+        // canvas.width=500;
+        // canvas.height=800; 
         var ctx = canvas.getContext('2d');
         
         function scalesize(e){
