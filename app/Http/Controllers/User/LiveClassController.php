@@ -123,12 +123,15 @@ class LiveClassController extends Controller
         $cachepath=Storage::disk('private')->path('cache/'.md5($subLessonMaterial->pdf_file));
         $filepath=Storage::disk('private')->path($subLessonMaterial->pdf_file);
         File::ensureDirectoryExists($cachepath);
-        if(!File::exists("$cachepath/render.map.json")){
-            $map=ImageHelper::convertPdfToImage($filepath,$cachepath);
-            file_put_contents("$cachepath/render.map.json",json_encode($map));
-        }
+        // if(!File::exists("$cachepath/render.map.json")){
+        //     $pdfmap=ImageHelper::convertPdfToImage($filepath,$cachepath);
+        //     file_put_contents("$cachepath/render.map.json",json_encode($pdfmap));
+        // }else{
+            $pdfmap=file_get_contents("$cachepath/render.map.json");
+        // }
         // if($request->ajax()){
         // }
+        print_r($pdfmap);
         // return view('user.live-class.pdfrender',compact('user','live_class','subLessonMaterial','lessonMaterial')); 
     }
     
