@@ -24,9 +24,9 @@ class ImageHelper
             
             $bydata=[];
             foreach ($parts as $index => $part) {
-                $bytefile=sprintf("$cachepath/$hash-%02d-%02d.imc",$pageIndex,$index);
+                $bytefile=sprintf("$hash-%02d-%02d.imc",$pageIndex,$index);
                 $bydata[$index] = self::encryptData($bytefile,$hash);
-                file_put_contents($bytefile,self::encryptData($part,$hash));
+                file_put_contents("$cachepath/$bytefile",self::encryptData($part,$hash));
             }
     
     
