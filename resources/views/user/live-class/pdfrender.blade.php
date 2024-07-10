@@ -9,6 +9,7 @@
                     <img src="{{ asset('assets/images/exiticon.svg') }}" alt="exiticon">
                 </a>
                 <div class="lesson-title">
+                    <button class="btn btn-danger btn-sm float-end" onclick="printdata()">Print</button>
                     <h3><span>{{ ucfirst($subLessonMaterial->pdf_name) }}</h3>
                 </div>
                 <div class="lesson-body">
@@ -57,6 +58,20 @@
                 imgdata[k].render=image
             };
             image.src = v.url;
+        }
+        function printdata(){
+            var windowContent = '<!DOCTYPE html>';
+            windowContent += '<html>';
+            windowContent += '<head><title>{{ucfirst($subLessonMaterial->pdf_name)}}</title></head>';
+            windowContent += '<body>';
+            windowContent += '<img src="' + canvas.toDataURL() + '" onload="window.print();window.close()" />';
+            windowContent += '</body>';
+            windowContent += '</html>';
+
+            var printWin = window.open('', '', 'width=800,height=600');
+            printWin.document.open();
+            printWin.document.write(windowContent);
+            printWin.document.close();
         }
         $(function(){
             renderPdf()
