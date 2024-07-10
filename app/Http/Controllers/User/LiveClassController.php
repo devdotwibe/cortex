@@ -136,6 +136,7 @@ class LiveClassController extends Controller
             $path=ImageHelper::decryptData($pdfmap["data"][$page]["data"][$part],$key);
             return response()->json([
                 "hash"=>$key,
+                'path'=>$path,
                 "data"=>ImageHelper::decryptData(file_get_contents($path),$key)
             ]);
         }
