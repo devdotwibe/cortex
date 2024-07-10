@@ -66,6 +66,10 @@
                 if(element.render){
                     const encoder = new TextEncoder();
                     const uint8Array = encoder.encode(element.render); 
+                    if (uint8Array.length % 4 !== 0) {
+                        console.log(index,"The input data length is not a multiple of 4.");
+                        continue;
+                    }
                     let imageData = new ImageData(new Uint8ClampedArray(uint8Array), element.width-1, element.height-1);
                     ctx.putImageData(imageData,0,index*element.height)            
                 }
