@@ -35,16 +35,11 @@
         var imgdata = @json($imgdata);
         var canvas = document.getElementById('image-render');         
         pdfwidth=$('#lesson-pdf-body').width()
-        pdfheight=scalesize(pdfwidth)
+        pdfheight=(500/800)*$('#lesson-pdf-body').width()
         canvas.width=pdfwidth;
         canvas.height=pdfheight*imgdata.length; 
         var ctx = canvas.getContext('2d');
-        
-        function scalesize(size){ 
-            const scale = 500 / 800;  
-            const scaledSize = size * scale; 
-            return scaledSize;
-        }
+         
         function renderPdf() {
             ctx.clearRect(0,0,canvas.width,canvas.height);
             for (let index = 0; index < imgdata.length; index++) {
