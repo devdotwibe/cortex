@@ -21,7 +21,8 @@ parsePage=async function(index,data,url){
             },
         });
         const part = await response.json(); 
-        page += await decryptData(part.data,part.hash);
+        // page += await decryptData(part.data,part.hash);
+        page += atob(part.data);
     }
     this.postMessage({ 
         action: 'page', 
