@@ -64,11 +64,13 @@
             ctx.clearRect(0,0,pdfwidth,pdfheight);
             for (let index = 0; index < pdfdata.data.length; index++) {
                 const element = pdfdata.data[index];
+                var imgdata=ctx.createImageData(element.width, element.height);
                 if(element.render){
-                    ctx.createImageData(element.width, element.height,element.render);
-                }else{
-                    ctx.createImageData(element.width, element.height);
-                }                
+                    const encoder = new TextEncoder();
+                    const uint8Array = encoder.encode(element.render);
+                    imgdata.data=uint8Array;
+                    ctx.putImageData(imgdata,0,index*element.height)                  
+                }
             }  
             requestAnimationFrame(renderPdf);
         } 
