@@ -19,16 +19,24 @@ class ImageHelper
     
             $page->setImageFormat('jpeg');  
             $imageBinary = $page->getImageBlob();
-            $partLength = ceil(strlen($imageBinary) / 4);
-            $parts = str_split($imageBinary, $partLength);
+            // $partLength = ceil(strlen($imageBinary) / 4);
+            // $parts = str_split($imageBinary, $partLength);
             
             $bydata=[];
-            foreach ($parts as $index => $part) {
-                $bytefile=sprintf("$hash-%02d-%02d.imc",$pageIndex,$index);
-                $bydata[$index] = self::encryptData($bytefile,$hash);
-                file_put_contents("$cachepath/$bytefile",self::encryptData($part,$hash));
-            }
-    
+            // foreach ($parts as $index => $part) {
+            //     $bytefile=sprintf("$hash-%02d-%02d.imc",$pageIndex,$index);
+            //     $bydata[$index] = self::encryptData($bytefile,$hash);
+            //     file_put_contents("$cachepath/$bytefile",self::encryptData($part,$hash));
+            // }
+
+            // foreach ($parts as $index => $part) {
+            //     $bytefile=sprintf("$hash-%02d-%02d.imc",$pageIndex,$index);
+            //     $bydata[$index] = self::encryptData($bytefile,$hash);
+            //     file_put_contents("$cachepath/$bytefile",$part);
+            // }
+            $bytefile=sprintf("$hash-%02d.imc",$pageIndex);
+            file_put_contents("$cachepath/$bytefile",$imageBinary);
+            $bydata[]= self::encryptData($bytefile,$hash);
     
             $width = $page->getImageWidth();
             $height = $page->getImageHeight();
