@@ -27,10 +27,8 @@ parsePage=async function(index,data,url){
                 'X-Requested-With': 'XMLHttpRequest'
             },
         });
-        const part = await response.json();
-        await decryptData(data.data[p],part.hash);
-        // const body = await decryptData(part.data,part.hash);
-        // page +=
+        const part = await response.json(); 
+        page += await decryptData(part.data,part.hash);;
     }
     this.postMessage({ 
         action: 'page', 
