@@ -64,11 +64,11 @@
             windowContent += '<html>';
             windowContent += '<head><title>{{ucfirst($subLessonMaterial->pdf_name)}}</title></head>';
             windowContent += '<body>';
-            windowContent += '<img src="' + canvas.toDataURL() + '" onload="window.print();window.close()" />';
+            windowContent += '<img src="' + canvas.toDataURL() + '" onload="window.print();window.close()"  />';
             windowContent += '</body>';
             windowContent += '</html>';
 
-            var printWin = window.open('', '', 'width=800,height=600');
+            var printWin = window.open('', '', 'width=500,height=800');
             printWin.document.open();
             printWin.document.write(windowContent);
             printWin.document.close();
