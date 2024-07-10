@@ -20,7 +20,7 @@ async function parsePage(index,data,url){
     const encoder = new TextEncoder();
     const uint8Array = encoder.encode(page);
     postMessage({ 
-        action: 'render', 
+        action: 'page', 
         data: {
             index:index,
             render: uint8Array

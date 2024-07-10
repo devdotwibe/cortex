@@ -41,7 +41,7 @@
         const worker = new Worker('{{asset("assets/js/worker.js")}}');
         worker.onmessage =function(e){ 
             const { action, data } = e.data;
-             if (action=="render") {
+             if (action=="page") {
                 pdfdata.data[data.index].render=data.render;
              }
              console.log('***',action)
