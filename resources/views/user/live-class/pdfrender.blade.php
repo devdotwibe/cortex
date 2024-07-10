@@ -18,7 +18,7 @@
                 </div>
                 <div class="lesson-body">
                     <div id="lesson-pdf-body" class="lesson-pdf-body"> 
-                        <canvas id="image-render" width="100%" height="800"></canvas>
+                        <canvas id="image-render" width="500" height="800"></canvas>
                         <div class="canover"></div>
                     </div>
                 </div>
@@ -34,31 +34,28 @@
     <script>
         var imgdata = @json($imgdata);
         var canvas = document.getElementById('image-render');
-        // let { scaledWidth, pdfheight} = scalesize({scaleWidth:canvas.width,scaleHeight:imgdata[0].height});  
-        // console.log(pdfwidth,pdfheight)
-        pdfwidth=canvas.width
-        // canvas.width=500;
-        // canvas.height=800; 
+        let scalesize = scalesize({scaleWidth:,scaleHeight:imgdata[0].height});         
+        pdfwidth=$('#lesson-pdf-body').width()
+        pdfheight=scalesize(pdfwidth)
+        canvas.width=pdfwidth;
+        canvas.height=pdfheight*imgdata.length; 
         var ctx = canvas.getContext('2d');
         
-        function scalesize(e){
-            const {scaleWidth,scaleHeight}=e;
-            const scale = pdfwidth / scaleWidth;  
-            const scaledWidth = scaleWidth * scale;
-            const scaledHeight = scaleHeight * scale;
-            return {scaledWidth,scaledHeight};
+        function scalesize(size){ 
+            const scale = 500 / 800;  
+            const scaledSize = size * scale; 
+            return scaledSize;
         }
         function renderPdf() {
-            ctx.clearRect(0,0,pdfwidth,pdfheight);
+            ctx.clearRect(0,0,canvas.width,canvas.height);
             for (let index = 0; index < imgdata.length; index++) {
                 const element = imgdata[index]; 
                 // let imageData = ctx.createImageData(element.width, element.height);
                 if(element.render){   
                     // for (let i = 0; i < element.render.length&&i<imageData.data.length; i++) {
                     //     imageData.data[i] = element.render[i];
-                    // }  
-                    const {drawWidth,drawHeight}=scalesize({scaleWidth:element.width,scaleHeight: element.height})
-                    ctx.drawImage(element.render, 0, index*drawHeight,drawWidth,drawHeight);          
+                    // }   
+                    ctx.drawImage(element.render, 0, index*pdfheight,pdfwidth,pdfheight);          
                 }
                 // ctx.putImageData(imageData, 0, index*element.height);
             }  
