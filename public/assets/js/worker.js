@@ -17,6 +17,15 @@ async function parsePage(index,data,url){
         const part = await response.json();
         page += await decryptData(part.data,part.hash);
     }
+    const encoder = new TextEncoder();
+    const uint8Array = encoder.encode(page);
+    postMessage({ 
+        action: 'render', 
+        data: {
+            index:index,
+            render: uint8Array
+        }
+    });
 }
 function onmessage(e){
     const { action, data } = e.data 
