@@ -37,6 +37,7 @@
         var pdfheight = imgdata[0].height||canvas.height; 
         canvas.width=pdfwidth;
         canvas.height=pdfheight; 
+        var ctx = canvas.getContext('2d');
         function renderPdf() {
             ctx.clearRect(0,0,pdfwidth,pdfheight);
             for (let index = 0; index < imgdata.length; index++) {
