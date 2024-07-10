@@ -57,4 +57,12 @@ class ImageHelper
         $encoded = base64_encode($iv . $encrypted); 
         return $encoded;
     }
+    public static function decryptData($encoded, $key) { 
+        $key = substr(hash('sha256', $key, true), 0, 32); 
+        $decoded = base64_decode($encoded); 
+        $iv = substr($decoded, 0, 16);
+        $encrypted = substr($decoded, 16); 
+        $decrypted = openssl_decrypt($encrypted, 'AES-256-CBC', $key, OPENSSL_RAW_DATA, $iv); 
+        return $decrypted;
+    }
 }

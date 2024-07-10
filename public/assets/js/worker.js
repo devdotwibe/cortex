@@ -10,12 +10,20 @@ async function decryptData(encryptedData, key) {
     let decryptedText = new TextDecoder().decode(decryptedData);
     return decryptedText;
 }  
+async function parsePage(index,data,url){
+    var page = '';
+    for (let p = 0; p < data.length; p++) { 
+        const response = await fetch(`${url}?page=${index}&part=${p}`);
+        const part = await response.json();
+        page += await decryptData(part.data,part.hash);
+    }
+}
 function onmessage({ action, data }){ 
     if (action === 'processImage') { 
         var pdf = data;
         for (let index = 0; index < pdf.data.length; index++) {
             const element = pdf.data[index];
-            
+            parsePage(index,element,pdf.url)
         }
     }
 };

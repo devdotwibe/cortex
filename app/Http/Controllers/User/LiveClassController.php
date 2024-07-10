@@ -128,9 +128,18 @@ class LiveClassController extends Controller
             file_put_contents("$cachepath/render.map.json",json_encode($pdfmap));
         }else{
             $pdfmap=json_decode(file_get_contents("$cachepath/render.map.json"),true); 
-        }
+        } 
         if($request->ajax()){
+            $key =$pdfmap['hash'];
+            $part=$request->part??0;
+            $page=$request->page??0;
+            $path=ImageHelper::decryptData($pdfmap["data"][$page]["data"][$part],$key);
+            return response()->json([
+                "hash"=>$key,
+                "data"=>file_get_contents($path)
+            ]);
         }
+        $pdfmap['url']=route('live-class.privateclass.lessonpdf', ["live" =>$user->slug,"sub_lesson_material"=>$subLessonMaterial->slug ]);
         return view('user.live-class.pdfrender',compact('user','live_class','subLessonMaterial','lessonMaterial','pdfmap')); 
     }
     

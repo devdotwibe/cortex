@@ -45,13 +45,13 @@
              }
         };
         async function loadpdfdata(){
-            renderPdf() 
             const response = await fetch('{{asset("assets/images/loader.svg")}}');
             const buffer = await response.arrayBuffer();
             const img = await new Uint8Array(buffer)
             for (let index = 0; index < pdfdata.data.length; index++) {
                 pdfdata.data[index].render=img;
             }
+            renderPdf() 
             worker.postMessage({ action: 'render', data: pdfdata })
         }
         $(function(){
@@ -62,11 +62,11 @@
             ctx.clearRect(0,0,pdfwidth,pdfheight);
             for (let index = 0; index < pdfdata.data.length; index++) {
                 const element = pdfdata.data[index];
-                if(element.render){
+                // if(element.render){
                     ctx.createImageData(element.width, element.height,element.render);
-                }else{
-                    ctx.createImageData(element.width, element.height);
-                }                
+                // }else{
+                //     ctx.createImageData(element.width, element.height);
+                // }                
             }  
             requestAnimationFrame(renderPdf);
         } 
