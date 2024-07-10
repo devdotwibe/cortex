@@ -44,7 +44,7 @@
              if (action=="page") {
                 pdfdata.data[data.index].render=data.render;
              }
-             console.log('***',action)
+             console.log('***',data)
         };
         async function loadpdfdata(){
             // const response = await fetch('{{asset("assets/images/loader.svg")}}');
