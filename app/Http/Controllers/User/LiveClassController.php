@@ -146,7 +146,7 @@ class LiveClassController extends Controller
             $count= $imginfo->getNumberImages();
         
             $imagic = new \Imagick();
-            $imagic->setResolution(570, 800);
+            $imagic->setResolution(57, 80);
             $imagic->readImage($filepath);
             
             $imgdata=[]; 
