@@ -42,7 +42,7 @@
         worker.onmessage =function(e){ 
             const { action, data } = e.data;
              if (action=="page") {
-                pdfdata.data[data.index].render=data.render;
+                pdfdata.data[data.index].render=atob(data.render);
                 console.log(data.render,typeof data.render)
              } 
         };
