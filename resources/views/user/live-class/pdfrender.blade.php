@@ -76,7 +76,7 @@
                     if (uint8Array.length % 4 !== 0) { 
                         let da=[];
                         for (let dx = 0; dx < (uint8Array.length % 4); dx++) { 
-                            da[]=0;
+                            da.push(0);
                         } 
                         uint8Array=new Uint8Array([...da,...uint8Array])  
                         continue;
