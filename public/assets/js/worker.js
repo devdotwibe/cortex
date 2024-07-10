@@ -22,7 +22,7 @@ parsePage=async function(index,data,url){
         });
         const part = await response.json(); 
         // page += await decryptData(part.data,part.hash);
-        page = `${page}##**##${part.data}`;
+        page += atob(part.data);
     }
     postMessage({ 
         action: 'page', 
