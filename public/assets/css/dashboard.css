@@ -1017,7 +1017,9 @@ border-radius: 7px;
   color:black;
   background:#afafaf
 }
-
+.lesson-pdf-body canvas {
+  border: 1px solid black;
+}
 
 
 
