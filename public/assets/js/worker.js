@@ -29,7 +29,7 @@ async function parsePage(index,data,url){
 }
 function onmessage(e){
     const { action, data } = e.data 
-    if (action === 'processImage') { 
+    if (action === 'render') { 
         var pdf = data;
         for (let index = 0; index < pdf.data.length; index++) {
             const element = pdf.data[index];
