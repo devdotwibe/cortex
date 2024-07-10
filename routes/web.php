@@ -149,6 +149,7 @@ Route::middleware('auth')->group(function(){
         Route::get('/{live}/private-class/lesson',[LiveClassController::class,'privateclasslesson'])->name('privateclass.lesson');
         Route::get('/{live}/private-class/lesson/{lesson_material}/show',[LiveClassController::class,'privateclasslessonshow'])->name('privateclass.lessonshow');
         Route::get('/{live}/private-class/lesson/{sub_lesson_material}.pdf',[LiveClassController::class,'privateclasslessonpdf'])->name('privateclass.lessonpdf');
+        Route::get('/{live}/private-class/lesson/{sub_lesson_material}/load/{file}',[LiveClassController::class,'privateclasslessonpdfload'])->name('privateclass.lessonpdf.load');
     });
 }); 
 Route::middleware('signed')->get('email/{id}/{hash}/verify', [HomeController::class,'verifyemail'])->name('verification.verify');

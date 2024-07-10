@@ -18,6 +18,9 @@
                 </div>
                 <div class="lesson-body">
                     <div id="lesson-pdf-body" class="lesson-pdf-body">
+                        @foreach ($imgdata as $item)
+                            <img src="{{route("live-class.privateclass.lessonpdf.load",['live' => $user->slug, 'sub_lesson_material' => $subLessonMaterial->slug,"file"=>$item["data"]])}}" width="{{$item["width"]}}" height="{{$item["height"]}}" alt="">
+                        @endforeach
                         <canvas id="image-render" width="570" height="{{800*($pdfmap["count"]??1)}}"></canvas>
                     </div>
                 </div>
@@ -30,7 +33,7 @@
 @endsection
 
 @push('footer-script')
-    <script> 
+    {{-- <script> 
         var pdfdata = @json($pdfmap);
         var canvas = document.getElementById('image-render');
         var pdfwidth = pdfdata.data[0].width||canvas.width; 
@@ -39,6 +42,7 @@
         canvas.height=pdfheight; 
         var defaultimg = new Uint8Array([]);
         var ctx = canvas.getContext('2d');
+        
         const worker = new Worker('{{asset("assets/js/worker.js")}}');
         worker.onmessage =function(e){ 
             const { action, data } = e.data;
@@ -49,13 +53,13 @@
         };
         async function loadpdfdata(){
             renderPdf() 
-            const response = await fetch('{{asset("assets/images/loader.svg")}}');
-            const buffer = await response.arrayBuffer();
-            defaultimg = await new Uint8Array(buffer)
-            // for (let index = 0; index < pdfdata.data.length; index++) {
-            //     pdfdata.data[index].render=img;
-            // } 
-            // worker.postMessage({ action: 'render', data: pdfdata })
+            // const response = await fetch('{{asset("assets/images/loader.svg")}}');
+            // const buffer = await response.arrayBuffer();
+            // defaultimg = await new Uint8Array(buffer)
+            // // for (let index = 0; index < pdfdata.data.length; index++) {
+            // //     pdfdata.data[index].render=img;
+            // // } 
+            // // worker.postMessage({ action: 'render', data: pdfdata })
         }
         $(function(){
             loadpdfdata()
@@ -66,26 +70,14 @@
             for (let index = 0; index < pdfdata.data.length; index++) {
                 const element = pdfdata.data[index]; 
                 let imageData = ctx.createImageData(element.width, element.height);
-                if(element.render){
-                    // const encoder = new TextEncoder();
-                    // var uint8Array = encoder.encode(element.render); 
-                    for (let i = 0; i < defaultimg.length&&i<imageData.data.length; i++) {
-                        imageData.data[i] = defaultimg[i];
-                    }
-                    // if (uint8Array.length % 4 !== 0) { 
-                    //     let da=[];
-                    //     for (let dx = 0; dx < (uint8Array.length % 4); dx++) { 
-                    //         da.push(0);
-                    //     } 
-                    //     uint8Array=new Uint8Array([...da,...uint8Array])  
-                    //     continue;
-                    // }
-                    // let imageData = new ImageData(new Uint8ClampedArray(uint8Array), element.width-1, element.height-1);
-                    // ctx.putImageData(imageData,0,index*element.height)            
+                if(element.render){   
+                    for (let i = 0; i < element.render.length&&i<imageData.data.length; i++) {
+                        imageData.data[i] = element.render[i];
+                    }            
                 }
                 ctx.putImageData(imageData, 0, index*element.height);
             }  
             requestAnimationFrame(renderPdf);
         } 
-    </script>
+    </script> --}}
 @endpush
