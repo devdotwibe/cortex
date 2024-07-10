@@ -12,7 +12,6 @@ async function decryptData(encryptedData, key) {
 }  
 async function parsePage(data,url){
     var page = '';
-    console.log(data)
     for (let p = 0; p < data.data.length; p++) { 
         const response = await fetch(`${url}?page=${data.page}&part=${p}`,{
             method: 'GET',
@@ -22,6 +21,7 @@ async function parsePage(data,url){
             },
         });
         const part = await response.json();
+        console.log(part)
         page += await decryptData(part.data,part.hash);
     }
     const encoder = new TextEncoder();
