@@ -21,9 +21,9 @@ async function parsePage(index,data,url){
             },
         });
         const part = await response.json();
-        page +=await decryptData(part.data,part.hash);
+        page +=part.data// await decryptData(part.data,part.hash);
     }
-    postMessage({ 
+    this.postMessage({ 
         action: 'page', 
         data: {
             index:index,
