@@ -151,8 +151,7 @@ class LiveClassController extends Controller
         $hash=md5("$filepath/render".time());
         foreach ($imagic as $pageIndex => $page) {
             $bytefile=sprintf("$hash-%02d.jpg",$pageIndex);
-            $page->setImageFormat('jpeg');  
-            // $imageBinary = $page->getImageBlob();
+            $page->setImageFormat('jpeg');   
             $imagic->writeImage("$cachepath/$bytefile");
             $width = $page->getImageWidth();
             $height = $page->getImageHeight();
@@ -160,7 +159,8 @@ class LiveClassController extends Controller
                 'page' => $pageIndex + 1, 
                 'width' => $width,
                 'height' => $height,
-                "data" => $bytefile
+                "data" => $bytefile,
+                'url'=> route("live-class.privateclass.lessonpdf.load",['live' => $user->slug, 'sub_lesson_material' => $subLessonMaterial->slug,"file"=>$bytefile])
             ];
         }
         // $pdfmap['url']=route('live-class.privateclass.lessonpdf', ["live" =>$user->slug,"sub_lesson_material"=>$subLessonMaterial->slug ]);

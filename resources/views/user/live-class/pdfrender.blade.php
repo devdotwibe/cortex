@@ -17,10 +17,7 @@
                     <h3><span>{{ ucfirst($subLessonMaterial->pdf_name) }}</h3>
                 </div>
                 <div class="lesson-body">
-                    <div id="lesson-pdf-body" class="lesson-pdf-body">
-                        @foreach ($imgdata as $item)
-                            <img src="{{route("live-class.privateclass.lessonpdf.load",['live' => $user->slug, 'sub_lesson_material' => $subLessonMaterial->slug,"file"=>$item["data"]])}}" width="{{$item["width"]}}" height="{{$item["height"]}}" alt="">
-                        @endforeach
+                    <div id="lesson-pdf-body" class="lesson-pdf-body"> 
                         <canvas id="image-render" width="570" height="{{800*($pdfmap["count"]??1)}}"></canvas>
                     </div>
                 </div>
@@ -33,6 +30,40 @@
 @endsection
 
 @push('footer-script')
+    <script>
+        var imgdata = @json($imgdata);
+        var canvas = document.getElementById('image-render');
+        var pdfwidth = imgdata[0].width||canvas.width; 
+        var pdfheight = imgdata[0].height||canvas.height; 
+        canvas.width=pdfwidth;
+        canvas.height=pdfheight; 
+        function renderPdf() {
+            ctx.clearRect(0,0,pdfwidth,pdfheight);
+            for (let index = 0; index < imgdata.length; index++) {
+                const element = imgdata[index]; 
+                // let imageData = ctx.createImageData(element.width, element.height);
+                if(element.render){   
+                    // for (let i = 0; i < element.render.length&&i<imageData.data.length; i++) {
+                    //     imageData.data[i] = element.render[i];
+                    // }  
+                    ctx.drawImage(element.render, 0, index*element.height,element.width, element.height);          
+                }
+                // ctx.putImageData(imageData, 0, index*element.height);
+            }  
+            requestAnimationFrame(renderPdf);
+        }
+        async function loaddata(k,url){
+            const response=await fetch(url);
+            const blondata = await response.blob();
+            imgdata[k].render= createImageBitmap(blondata)
+        }
+        $(function(){
+            renderPdf()
+            $.each(imgdata,function(k,v){
+            
+            })
+        })
+    </script>
     {{-- <script> 
         var pdfdata = @json($pdfmap);
         var canvas = document.getElementById('image-render');
