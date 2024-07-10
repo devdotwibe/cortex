@@ -20,8 +20,7 @@ async function parsePage(index,data,url){
                 'X-Requested-With': 'XMLHttpRequest'
             },
         });
-        const part = await response.json();
-        console.log(part)
+        const part = await response.json(); 
         page += await decryptData(part.data,part.hash);
     }
     const encoder = new TextEncoder();
