@@ -52,9 +52,9 @@
             const response = await fetch('{{asset("assets/images/loader.svg")}}');
             const buffer = await response.arrayBuffer();
             defaultimg = await new Uint8Array(buffer)
-            for (let index = 0; index < pdfdata.data.length; index++) {
-                pdfdata.data[index].render=img;
-            } 
+            // for (let index = 0; index < pdfdata.data.length; index++) {
+            //     pdfdata.data[index].render=img;
+            // } 
             // worker.postMessage({ action: 'render', data: pdfdata })
         }
         $(function(){
@@ -67,10 +67,10 @@
                 const element = pdfdata.data[index]; 
                 let imageData = ctx.createImageData(element.width, element.height);
                 if(element.render){
-                    const encoder = new TextEncoder();
-                    var uint8Array = encoder.encode(element.render); 
-                    for (let i = 0; i < uint8Array.length&&i<imageData.data.length; i++) {
-                        imageData.data[i] = uint8Array[i];
+                    // const encoder = new TextEncoder();
+                    // var uint8Array = encoder.encode(element.render); 
+                    for (let i = 0; i < defaultimg.length&&i<imageData.data.length; i++) {
+                        imageData.data[i] = defaultimg[i];
                     }
                     // if (uint8Array.length % 4 !== 0) { 
                     //     let da=[];
