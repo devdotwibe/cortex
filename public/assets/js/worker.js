@@ -22,7 +22,7 @@ async function parsePage(index,data,url){
         });
         const part = await response.json();
         console.log(part)
-        page +=part.data// await decryptData(part.data,part.hash);
+        page += await decryptData(part.data,part.hash);
     }
     const encoder = new TextEncoder();
     const uint8Array = encoder.encode(page);
