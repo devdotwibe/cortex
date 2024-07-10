@@ -35,7 +35,7 @@
         var imgdata = @json($imgdata);
         var canvas = document.getElementById('image-render');         
         pdfwidth=$('#lesson-pdf-body').width()
-        pdfheight=(500/$('#lesson-pdf-body').width())*pdfwidth
+        pdfheight=($('#lesson-pdf-body').width()/500)*pdfwidth
         canvas.width=pdfwidth;
         canvas.height=pdfheight*imgdata.length; 
         var ctx = canvas.getContext('2d');
