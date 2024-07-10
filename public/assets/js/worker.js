@@ -30,7 +30,7 @@ async function parsePage(index,data,url){
         action: 'page', 
         data: {
             index:index,
-            render: uint8Array
+            render: page
         }
     });
 };
