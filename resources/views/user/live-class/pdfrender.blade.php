@@ -40,7 +40,7 @@
         var ctx = canvas.getContext('2d');
         function renderPdf() {
             ctx.clearRect(0,0,pdfwidth,pdfheight);
-            for (let index = 1; index < imgdata.length; index++) {
+            for (let index = 0; index < imgdata.length; index++) {
                 const element = imgdata[index]; 
                 // let imageData = ctx.createImageData(element.width, element.height);
                 if(element.render){   
@@ -53,14 +53,17 @@
             }  
             requestAnimationFrame(renderPdf);
         } 
+        function loadimage(k,v){
+            const image = new Image(); 
+            image.onload = function() {
+                imgdata[k].render=image
+            };
+            image.src = v.url;
+        }
         $(function(){
             renderPdf()
             $.each(imgdata,function(k,v){ 
-                const image = new Image(); 
-                image.onload = function() {
-                    imgdata[k].render=image
-                };
-                image.src = v.url;
+                loadimage(k,v)
             })
         })
     </script>
