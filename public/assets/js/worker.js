@@ -5,8 +5,8 @@ decryptData=async function(encryptedData, key) {
     let keyBuffer = new TextEncoder().encode(key);
     let keyArray = await crypto.subtle.importKey('raw', keyBuffer, { name: 'AES-CBC',length: 256 }, false,['encrypt', 'decrypt']); 
     let ivBuffer = new Uint8Array(Array.prototype.map.call(iv, function(c) { return c.charCodeAt(0); }));
-    console.log('s')
     let encryptedDataBuffer = new Uint8Array(Array.prototype.map.call(encryptedText, function(c) { return c.charCodeAt(0); }));
+    console.log('s')
     let decryptedData = await crypto.subtle.decrypt({ name: 'AES-CBC', iv: ivBuffer }, keyArray, encryptedDataBuffer);
     let decryptedText = new TextDecoder().decode(decryptedData);
     return decryptedText;
