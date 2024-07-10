@@ -43,7 +43,7 @@
             const { action, data } = e.data;
              if (action=="page") {
                 pdfdata.data[data.index].render=atob(data.render);
-                console.log(data.render,typeof data.render)
+                console.log(typeof data.render)
              } 
         };
         async function loadpdfdata(){
