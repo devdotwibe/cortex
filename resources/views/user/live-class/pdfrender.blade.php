@@ -37,6 +37,7 @@
         var pdfheight = pdfdata.data[0].height*pdfdata.count||canvas.height; 
         canvas.width=pdfwidth;
         canvas.height=pdfheight; 
+        var defaultimg = new Uint8Array([]);
         var ctx = canvas.getContext('2d');
         const worker = new Worker('{{asset("assets/js/worker.js")}}');
         worker.onmessage =function(e){ 
@@ -47,14 +48,14 @@
              } 
         };
         async function loadpdfdata(){
-            // const response = await fetch('{{asset("assets/images/loader.svg")}}');
-            // const buffer = await response.arrayBuffer();
-            // const img = await new Uint8Array(buffer)
-            // for (let index = 0; index < pdfdata.data.length; index++) {
-            //     pdfdata.data[index].render=img;
-            // } 
             renderPdf() 
-            worker.postMessage({ action: 'render', data: pdfdata })
+            const response = await fetch('{{asset("assets/images/loader.svg")}}');
+            const buffer = await response.arrayBuffer();
+            defaultimg = await new Uint8Array(buffer)
+            for (let index = 0; index < pdfdata.data.length; index++) {
+                pdfdata.data[index].render=img;
+            } 
+            // worker.postMessage({ action: 'render', data: pdfdata })
         }
         $(function(){
             loadpdfdata()
