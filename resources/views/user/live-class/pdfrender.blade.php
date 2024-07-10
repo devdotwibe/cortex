@@ -39,7 +39,8 @@
         canvas.height=pdfheight; 
         var ctx = canvas.getContext('2d');
         const worker = new Worker('{{asset("assets/js/worker.js")}}');
-        worker.onmessage =({ action, data } ) => { 
+        worker.onmessage =function(e){ 
+            const { action, data } = e.data;
              if (action=="render") {
                 pdfdata.data[data.index].render=data.render;
              }
