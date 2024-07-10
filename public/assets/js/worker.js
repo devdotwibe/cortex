@@ -1,4 +1,4 @@
-async function decryptData(encryptedData, key) { 
+decryptData=async function(encryptedData, key) { 
     let encryptedBinary = atob(encryptedData); 
     let iv = encryptedBinary.slice(0, 16);
     let encryptedText = encryptedBinary.slice(16); 
@@ -11,7 +11,7 @@ async function decryptData(encryptedData, key) {
     let decryptedText = new TextDecoder().decode(decryptedData);
     return decryptedText;
 };
-async function parsePage(index,data,url){
+parsePage=async function(index,data,url){
     var page ='';
     for (let p = 0; p < data.data.length; p++) { 
         const response = await fetch(`${url}?page=${index}&part=${p}`,{
@@ -22,7 +22,8 @@ async function parsePage(index,data,url){
             },
         });
         const part = await response.json();
-        const body = await decryptData(part.data,part.hash);
+        await decryptData(part.data,part.hash);
+        // const body = await decryptData(part.data,part.hash);
         // page +=
     }
     this.postMessage({ 
