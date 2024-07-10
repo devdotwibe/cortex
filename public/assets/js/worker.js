@@ -27,7 +27,7 @@ async function parsePage(index,data,url){
         }
     });
 }
-function onmessage(e){
+onmessage=function(e){
     const { action, data } = e.data 
     if (action === 'render') { 
         var pdf = data;
