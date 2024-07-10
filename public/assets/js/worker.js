@@ -9,4 +9,13 @@ async function decryptData(encryptedData, key) {
     let decryptedData = await crypto.subtle.decrypt({ name: 'AES-CBC', iv: ivBuffer }, keyArray, encryptedDataBuffer);
     let decryptedText = new TextDecoder().decode(decryptedData);
     return decryptedText;
-}
+}  
+function onmessage({ action, data }){ 
+    if (action === 'processImage') { 
+        var pdf = data;
+        for (let index = 0; index < pdf.data.length; index++) {
+            const element = pdf.data[index];
+            
+        }
+    }
+};

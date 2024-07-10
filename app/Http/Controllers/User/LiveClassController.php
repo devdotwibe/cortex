@@ -127,12 +127,11 @@ class LiveClassController extends Controller
             $pdfmap=ImageHelper::convertPdfToImage($filepath,$cachepath);
             file_put_contents("$cachepath/render.map.json",json_encode($pdfmap));
         }else{
-            $pdfmap=file_get_contents("$cachepath/render.map.json");
-            print_r($pdfmap);
+            $pdfmap=json_decode(file_get_contents("$cachepath/render.map.json"),true); 
         }
-        // if($request->ajax()){
-        // }
-        // return view('user.live-class.pdfrender',compact('user','live_class','subLessonMaterial','lessonMaterial')); 
+        if($request->ajax()){
+        }
+        return view('user.live-class.pdfrender',compact('user','live_class','subLessonMaterial','lessonMaterial','pdfmap')); 
     }
     
 }
