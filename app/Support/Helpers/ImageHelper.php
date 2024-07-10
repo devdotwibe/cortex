@@ -36,7 +36,7 @@ class ImageHelper
             // }
             $bytefile=sprintf("$hash-%02d.imc",$pageIndex);
             file_put_contents("$cachepath/$bytefile",$imageBinary);
-            $bydata[]= self::encryptData($bytefile,$hash);
+            $bydata[]= $bytefile;
     
             $width = $page->getImageWidth();
             $height = $page->getImageHeight();
