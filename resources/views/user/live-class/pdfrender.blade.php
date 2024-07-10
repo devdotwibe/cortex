@@ -35,6 +35,7 @@
         var imgdata = @json($imgdata);
         var canvas = document.getElementById('image-render');
         var { pdfwidth, pdfheight} = scalesize({scaleWidth:canvas.width,scaleHeight:imgdata[0].height});  
+        console.log(pdfwidth,pdfheight)
         canvas.width=pdfwidth;
         canvas.height=pdfheight; 
         var ctx = canvas.getContext('2d');
