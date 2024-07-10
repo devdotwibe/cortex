@@ -46,7 +46,7 @@
         };
         async function loadpdfdata(){
             renderPdf() 
-            const responce = await fetch('{{asset("assets/images/loader.svg")}}');
+            const response = await fetch('{{asset("assets/images/loader.svg")}}');
             const buffer = await response.arrayBuffer();
             const img = await new Uint8Array(buffer)
             for (let index = 0; index < pdfdata.data.length; index++) {
