@@ -18,7 +18,8 @@ async function parsePage(index,data,url){
         page += await decryptData(part.data,part.hash);
     }
 }
-function onmessage({ action, data }){ 
+function onmessage(e){
+    const { action, data } = e.data 
     if (action === 'processImage') { 
         var pdf = data;
         for (let index = 0; index < pdf.data.length; index++) {
