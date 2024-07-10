@@ -70,11 +70,11 @@
             ctx.clearRect(0,0,pdfwidth,pdfheight);
             for (let index = 0; index < pdfdata.data.length; index++) {
                 const element = pdfdata.data[index]; 
-                let imageData = ctx.createImageData(width, height);
+                let imageData = ctx.createImageData(element.width, element.height);
                 if(element.render){
                     const encoder = new TextEncoder();
                     var uint8Array = encoder.encode(element.render); 
-                    for (let i = 0; i < uint8Array.length; i++) {
+                    for (let i = 0; i < uint8Array.length&&i<imageData.data.length; i++) {
                         imageData.data[i] = uint8Array[i];
                     }
                     // if (uint8Array.length % 4 !== 0) { 
