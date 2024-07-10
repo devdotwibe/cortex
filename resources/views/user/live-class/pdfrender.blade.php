@@ -66,8 +66,8 @@
                 if(element.render){
                     const encoder = new TextEncoder();
                     const uint8Array = encoder.encode(element.render); 
-                    let imageData = new ImageData(new Uint8ClampedArray(uint8Array), element.width, element.height);
-                    ctx.putImageData(imageData,0,0)            
+                    let imageData = new ImageData(new Uint8ClampedArray(uint8Array), element.width-1, element.height-1);
+                    ctx.putImageData(imageData,0,index*element.height)            
                 }
             }  
             requestAnimationFrame(renderPdf);
