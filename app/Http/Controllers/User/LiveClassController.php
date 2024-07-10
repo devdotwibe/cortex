@@ -4,11 +4,16 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\ClassDetail;
+use App\Models\LessonMaterial;
 use App\Models\LiveClassPage;
 use App\Models\SubClassDetail;
+use App\Models\SubLessonMaterial;
 use App\Models\User;
+use App\Support\Helpers\ImageHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class LiveClassController extends Controller
 {
@@ -88,4 +93,44 @@ class LiveClassController extends Controller
         $terms = SubClassDetail::where('class_detail_id',$classDetail->id)->paginate();
         return view('user.live-class.class-detail-term',compact('user','live_class','classDetail','terms')); 
     }
+
+    public function privateclasslesson(Request  $request){
+        /**
+         * @var User
+         */
+        $user=Auth::user();
+        $live_class =  LiveClassPage::first();  
+        $lessons = LessonMaterial::all();
+        return view('user.live-class.lesson-detail',compact('user','live_class','lessons')); 
+    }
+    public function privateclasslessonshow(Request  $request,$live,LessonMaterial $lessonMaterial){
+        /**
+         * @var User
+         */
+        $user=Auth::user();
+        $live_class =  LiveClassPage::first();  
+        $lessons = SubLessonMaterial::where('lesson_material_id',$lessonMaterial->id)->paginate();
+        return view('user.live-class.lesson',compact('user','live_class','lessonMaterial','lessons')); 
+    }
+    
+    public function privateclasslessonpdf(Request  $request,$live,SubLessonMaterial $subLessonMaterial){
+        phpinfo();exit;
+        /**
+         * @var User
+         */
+        $user=Auth::user();
+        $live_class =  LiveClassPage::first();   
+        $lessonMaterial=LessonMaterial::find($subLessonMaterial->lesson_material_id);
+        $cachepath=Storage::disk('private')->path('cache/'.md5($subLessonMaterial->pdf_file));
+        $filepath=Storage::disk('private')->path($subLessonMaterial->pdf_file);
+        File::ensureDirectoryExists($cachepath);
+        if(!File::exists("$cachepath/render.map.json")){
+            $map=ImageHelper::convertPdfToImage($filepath,$cachepath);
+            file_put_contents("$cachepath/render.map.json",json_encode($map));
+        }
+        // if($request->ajax()){
+        // }
+        // return view('user.live-class.pdfrender',compact('user','live_class','subLessonMaterial','lessonMaterial')); 
+    }
+    
 }

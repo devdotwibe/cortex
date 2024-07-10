@@ -79,7 +79,7 @@ class LessonMaterialController extends Controller
 
             $imageName = $avathar . "/" . $file->hashName();
 
-            Storage::put("{$avathar}", $file);
+            Storage::disk('private')->put("{$avathar}", $file);
 
             $sub_lesson->pdf_file = $imageName;
         
