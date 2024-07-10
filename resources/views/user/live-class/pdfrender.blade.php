@@ -69,7 +69,7 @@
                     const uint8Array = encoder.encode(element.render);
                     imgdata.data=uint8Array;
                     ctx.putImageData(imgdata,0,index*element.height)   
-                    console.log(element)               
+                    console.log(uint8Array)               
                 }
             }  
             requestAnimationFrame(renderPdf);
