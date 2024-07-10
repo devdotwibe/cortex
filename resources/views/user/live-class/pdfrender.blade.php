@@ -33,8 +33,7 @@
 @push('footer-script')
     <script>
         var imgdata = @json($imgdata);
-        var canvas = document.getElementById('image-render');
-        let scalesize = scalesize({scaleWidth:,scaleHeight:imgdata[0].height});         
+        var canvas = document.getElementById('image-render');         
         pdfwidth=$('#lesson-pdf-body').width()
         pdfheight=scalesize(pdfwidth)
         canvas.width=pdfwidth;
