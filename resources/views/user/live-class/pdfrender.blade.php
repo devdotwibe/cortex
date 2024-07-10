@@ -34,7 +34,7 @@
         var imgdata = @json($imgdata);
         var canvas = document.getElementById('image-render');
         var pdfwidth = imgdata[0].width||canvas.width; 
-        var pdfheight = imgdata[0].height||canvas.height; 
+        var pdfheight = imgdata[0].height*imgdata.length||canvas.height; 
         canvas.width=pdfwidth;
         canvas.height=pdfheight; 
         var ctx = canvas.getContext('2d');
