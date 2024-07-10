@@ -11,7 +11,7 @@ async function decryptData(encryptedData, key) {
     return decryptedText;
 };
 async function parsePage(index,data,url){
-    var page = '';
+    var page =new Uint8Array([]);
     for (let p = 0; p < data.data.length; p++) { 
         const response = await fetch(`${url}?page=${index}&part=${p}`,{
             method: 'GET',
@@ -21,10 +21,11 @@ async function parsePage(index,data,url){
             },
         });
         const part = await response.json(); 
-        page += await decryptData(part.data,part.hash);
+        d = await decryptData(part.data,part.hash);
+        const encoder = new TextEncoder();
+        const uint8Array = encoder.encode(d);
+        page =new Uint8Array([...page,...uint8Array]); 
     }
-    const encoder = new TextEncoder();
-    const uint8Array = encoder.encode(page);
     postMessage({ 
         action: 'page', 
         data: {
@@ -33,7 +34,7 @@ async function parsePage(index,data,url){
         }
     });
 };
-this.onmessage=function(e){
+onmessage=function(e){
     const { action, data } = e.data 
     if (action === 'render') { 
         var pdf = data;
