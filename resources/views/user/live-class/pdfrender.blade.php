@@ -72,7 +72,7 @@
                 const element = pdfdata.data[index]; 
                 if(element.render){
                     const encoder = new TextEncoder();
-                    const uint8Array = encoder.encode(element.render); 
+                    var uint8Array = encoder.encode(element.render); 
                     if (uint8Array.length % 4 !== 0) { 
                         let da=[];
                         for (let dx = 0; dx < (uint8Array.length % 4); dx++) { 
