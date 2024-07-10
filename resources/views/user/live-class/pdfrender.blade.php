@@ -62,14 +62,12 @@
         function renderPdf() {
             ctx.clearRect(0,0,pdfwidth,pdfheight);
             for (let index = 0; index < pdfdata.data.length; index++) {
-                const element = pdfdata.data[index];
-                var imgdata=ctx.createImageData(element.width, element.height);
+                const element = pdfdata.data[index]; 
                 if(element.render){
                     const encoder = new TextEncoder();
-                    const uint8Array = encoder.encode(element.render);
-                    imgdata.data=uint8Array;
-                    ctx.putImageData(imgdata,0,index*element.height)   
-                    console.log(uint8Array)               
+                    const uint8Array = encoder.encode(element.render); 
+                    let imageData = new ImageData(new Uint8ClampedArray(uint8Array), element.width, element.height);
+                    ctx.putImageData(imageData,0,0)            
                 }
             }  
             requestAnimationFrame(renderPdf);
