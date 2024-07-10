@@ -10,10 +10,10 @@ async function decryptData(encryptedData, key) {
     let decryptedText = new TextDecoder().decode(decryptedData);
     return decryptedText;
 }  
-async function parsePage(data,url){
+async function parsePage(index,data,url){
     var page = '';
     for (let p = 0; p < data.data.length; p++) { 
-        const response = await fetch(`${url}?page=${data.page}&part=${p}`,{
+        const response = await fetch(`${url}?page=${index}&part=${p}`,{
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json', 
@@ -40,7 +40,7 @@ onmessage=function(e){
         var pdf = data;
         for (let index = 0; index < pdf.data.length; index++) {
             const element = pdf.data[index];
-            parsePage(element,pdf.url)
+            parsePage(index,element,pdf.url)
         }
     }
 };

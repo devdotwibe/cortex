@@ -132,8 +132,8 @@ class LiveClassController extends Controller
         if($request->ajax()){
             $key =$pdfmap['hash'];
             $part=$request->part??0;
-            $page=$request->page??1;
-            $path=ImageHelper::decryptData($pdfmap["data"][$page-1]["data"][$part],$key);
+            $page=$request->page??0;
+            $path=ImageHelper::decryptData($pdfmap["data"][$page]["data"][$part],$key);
             return response()->json([
                 "hash"=>$key,
                 "data"=>ImageHelper::decryptData(file_get_contents($path),$key)
