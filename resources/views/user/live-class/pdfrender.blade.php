@@ -19,6 +19,7 @@
                 <div class="lesson-body">
                     <div id="lesson-pdf-body" class="lesson-pdf-body"> 
                         <canvas id="image-render" width="570" height="{{800*($pdfmap["count"]??1)}}"></canvas>
+                        <div class="canover"></div>
                     </div>
                 </div>
                 <div class="lesson-footer" id="lesson-footer-pagination">
