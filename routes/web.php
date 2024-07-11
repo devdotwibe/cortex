@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\User\PrivateClassHomeWorkController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\User\ExamQuestionController;
 use App\Http\Controllers\User\LearnTopicController;
@@ -150,6 +151,10 @@ Route::middleware(['auth','isUser'])->group(function(){
         Route::get('/{live}/private-class/lesson/{lesson_material}/show',[LiveClassController::class,'privateclasslessonshow'])->name('privateclass.lessonshow');
         Route::get('/{live}/private-class/lesson/{sub_lesson_material}.pdf',[LiveClassController::class,'privateclasslessonpdf'])->name('privateclass.lessonpdf');
         Route::get('/{live}/private-class/lesson/{sub_lesson_material}/load/{file}',[LiveClassController::class,'privateclasslessonpdfload'])->name('privateclass.lessonpdf.load');
+    });
+    Route::prefix('home-work')->name('home-work.')->group(function () {
+        Route::get('/',[PrivateClassHomeWorkController::class,'index'])->name('index');
+        Route::get('/{home_work}',[PrivateClassHomeWorkController::class,'show'])->name('show');
     });
 }); 
 Route::middleware('signed')->get('email/{id}/{hash}/verify', [HomeController::class,'verifyemail'])->name('verification.verify');

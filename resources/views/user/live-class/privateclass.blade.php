@@ -48,7 +48,7 @@
                 <div class="col-md-6">
                     <div class="card mb-3">
                         <div class="card-body">
-                            <a href="">
+                            <a href="{{route('home-work.index')}}">
                                 <div class="category">
 
                                     <div class="category-image">
