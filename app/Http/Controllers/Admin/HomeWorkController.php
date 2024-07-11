@@ -60,11 +60,24 @@ class HomeWorkController extends Controller
         $redirect=$request->redirect??route('admin.home-work.show',$homeWork->slug);
         return redirect($redirect)->with("success","Question has been successfully created");
     }
+    public function storebooklet(Request $request){
+        $data=$request->validate([
+            'home_work'=>['required'],
+            'title'=>['required'], 
+        ]);
+        $homeWork=HomeWork::findSlug($data['home_work']);
+        $data['home_work_id']=$homeWork->id;
+        HomeWorkBook::store($data);
+        if($request->ajax()){
+            return response()->json(["success"=>"Week Booklet has been successfully created"]);
+        }        
+        return redirect()->route('admin.live-class.private_class_create')->with("success","Week Booklet has been successfully created");
+    }
     public function questionvisibility(Request $request,HomeWork $homeWork,HomeWorkQuestion $homeWorkQuestion){
         $homeWorkQuestion->update(['visible_status'=>($homeWorkQuestion->visible_status??"")=="show"?"hide":"show"]);        
         if($request->ajax()){
-            return response()->json(["success"=>"Learn visibility change success"]);
+            return response()->json(["success"=>" Question visibility change success"]);
         }        
-        return redirect()->route('admin.home-work.show',$homeWork->slug)->with("success","Learn visibility change success");
+        return redirect()->route('admin.home-work.show',$homeWork->slug)->with("success"," Question visibility change success");
     }
 }

@@ -264,17 +264,17 @@
             </div>
             <div class="modal-body">
 
-                <form  class="form" id="booklet_form" data-save="create" data-action-save="{{ route('admin.home-work.storebooklet') }}" data-action="{{ route('admin.home-work.storebooklet') }}" data-createurl="{{ route('admin.home-work.storebooklet') }}" >
+                <form  class="form" id="booklet-form-create" data-save="create" data-action-save="{{ route('admin.home-work.storebooklet') }}" data-action="{{ route('admin.home-work.storebooklet') }}" data-createurl="{{ route('admin.home-work.storebooklet') }}" >
                     @csrf
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <div class="form-data">
                                     <div class="forms-inputs mb-4">
-                                        <label for="booklet-title">Week Booklet Title</label>
-                                        <input type="text" name="title" id="booklet-title" class="form-control " >
-                                        <input type="hidden" name="home_work_id" id="week_booklet_parent" value="" >
-                                        <div class="invalid-feedback" id="booklet-title-errror"></div>
+                                        <label for="name-booklet-form-create">Week Booklet Title</label>
+                                        <input type="text" name="title" id="name-booklet-form-create" class="form-control " >
+                                        <input type="hidden" name="home_work" id="week_booklet_parent" value="" >
+                                        <div class="invalid-feedback" id="name-error-booklet-form-create"></div>
                                     </div>
                                 </div>
                             </div>
@@ -290,8 +290,10 @@
                 <div class="table-booklet-ajax"  >
 
                     <x-ajax-table 
-                        popupid="private-class-modal"
-                        tableid='week_booklet' 
+                        deletecallbackbefore='deletecallbackbefore' 
+                        deletecallbackafter='deletecallbackafter' 
+                        tableinit="booklettableinit" 
+                        beforeajax="booklettablebeforeajax"
                         :url="route('admin.term.show_table_week_booklet')"
                         :coloumns="[
                             ['th' => 'Date', 'name' => 'created_at', 'data' => 'date'],
@@ -309,7 +311,7 @@
 
 @push('footer-script')
     <script>
-
+        let booklettable=null;
         function update_term(url) {
 
             $.get(url, function(res) {
@@ -375,14 +377,106 @@
             $('#term_label').val("");
 
         }
+
+        function deletecallbackbefore(){ 
+            $('#private-class-modal').modal('hide');
+        }
+        function deletecallbackafter(){
+            $('#private-class-modal').modal('show');
+        }
         function weekbooklet(event,slug)
         {
             $('#week_booklet_parent').val(slug) 
+            booklettable.ajax.reload()
             weekbooklettoggle()
         }
         function weekbooklettoggle(){
             $('#private-class-booklet-modal-content,#private-class-modal-content').slideToggle()
         }
+        function booklettablebeforeajax(data) {
+            data.home_work = $('#week_booklet_parent').val() || "";
+            return data;
+        }
+
+        function booklettableinit(table) {
+            booklettable = table
+        }
+        function visiblechangerefresh(url) {
+            $.get(url, function() {
+                if (booklettable != null) {
+                    booklettable.ajax.reload()
+                }
+            }, 'json')
+        }
+
+        function updatebooklet(url) {
+            $.get(url, function(res) {
+                $('#name-error-booklet-form-create').text("")
+                $('#name-booklet-form-create').val(res.name).removeClass("is-invalid")
+                $('#booklet-form-create').data('save', "update")
+                $('#booklet-form-create').data('action', res.updateUrl)
+                $('#booklet-form-clear').show()
+                $('#booklet-form-submit').text(' Update ')
+            }, 'json')
+        }
+
+        function clearbooklet() {
+            $('#name-error-booklet-form-create').text("")
+            $('#name-booklet-form-create').val('').removeClass("is-invalid")
+            $('#booklet-form-create').data('save', "create")
+            $('#booklet-form-create').data('action', "{{ route('admin.home-work.storebooklet') }}")
+            $('#booklet-form-clear').hide()
+            $('#booklet-form-submit').text(' Add + ')
+        }
+
+        $(function(){
+            $('#booklet-form-clear').click(clearbooklet);
+            $('#booklet-form-create').on('submit', function(e) {
+                e.preventDefault();
+                $('#name-error-booklet-form-create').text("")
+                $('#name-booklet-form-create').removeClass("is-invalid")
+                if ($(this).data('save') == "create") {
+                    $.post($(this).data('action'), {
+                        title: $('#name-booklet-form-create').val(),
+                        home_work:$('#week_booklet_parent').val()
+                    }, function(res) {
+                        booklettable.ajax.reload()
+                        clearbooklet()
+                        showToast(res.success??'Week Booklet has been successfully added', 'success');
+                    }).fail(function(xhr) {
+                        try {
+                            var errors = xhr.responseJSON.errors;
+                            $('#name-error-booklet-form-create').text(errors.name[0])
+                            $('#name-booklet-form-create').addClass("is-invalid")
+                        } catch (error) {
+
+                        }
+
+                    })
+                } else if ($(this).data('save') == "update") {
+                    $.post($(this).data('action'), {
+                        _method: "PUT",
+                        title: $('#name-booklet-form-create').val()
+                    }, function(res) {
+                        booklettable.ajax.reload()
+                        clearbooklet()
+                        showToast(res.success??'Week Booklet has been successfully updated', 'success');
+                    }).fail(function(xhr) {
+                        try {
+                            var errors = xhr.responseJSON.errors;
+                            $('#name-error-booklet-form-create').text(errors.name[0])
+                            $('#name-booklet-form-create').addClass("is-invalid")
+                        } catch (error) {
+
+                        }
+
+                    })
+                } else {
+                    $('#name-error-booklet-form-create').text("Invalid form")
+                    $('#name-booklet-form-create').addClass("is-invalid")
+                }
+            })
+        })
         
         $(document).ready(function() {
 
