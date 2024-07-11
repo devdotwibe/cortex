@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\ClassDetail;
 use App\Models\HomeWork;
+use App\Models\HomeWorkBook;
 use App\Models\LessonMaterial;
 use App\Models\LessonRecording;
 use App\Models\LiveClassPage;
@@ -92,12 +93,12 @@ class TermController extends Controller
             
             return response()->json(['success' => 'Term Added Successfully']);
 
-        }
+        } 
         else
         {
             return response()->json(['error' => 'Failled']);
         }
-      
+        
     }
 
     public function destroy_class_detail(Request $request,$term_name)
@@ -223,18 +224,11 @@ class TermController extends Controller
         if($request->ajax()){
 
             return $this->addAction(function($data){ 
-                $action= ' 
-                    
+                $action= '
+                    <a onclick="weekbooklet(event,\''.$data->slug.'\')" class="btn btn-icons view_btn">+</a>
                     <a onclick="update_term('."'".route('admin.term.edit_home_work', $data->slug)."'".')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>
+                    <a class="btn btn-icons dlt_btn" data-delete="'.route("admin.term.destroy_home_work",$data->slug).'" ><img src="'.asset("assets/images/delete.svg").'" alt=""></a> 
                 ';
-
-                 // if(empty($data->subcategories) || count($data->subcategories) == 0)
-                // { 
-                    $action.=  '<a  class="btn btn-icons dlt_btn" data-delete="'.route("admin.term.destroy_home_work",$data->slug).'" >
-                            <img src="'.asset("assets/images/delete.svg").'" alt="">
-                        </a> '; 
-                // } 
-
                 return $action;
             })->buildTable();
         }
@@ -244,7 +238,25 @@ class TermController extends Controller
         return view('admin.live-class.private-class',compact('live_class'));
 
     }
+    public function show_table_week_booklet(Request $request){
 
+        self::reset();
+
+        self::$model = HomeWorkBook::class;
+        self::$routeName="admin.term";
+
+        if($request->ajax()){
+
+            return $this->addAction(function($data){ 
+                $action= ' 
+                    <a onclick="update_term('."'".route('admin.term.edit_home_work', $data->slug)."'".')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>
+                    <a class="btn btn-icons dlt_btn" data-delete="'.route("admin.term.destroy_home_work",$data->slug).'" ><img src="'.asset("assets/images/delete.svg").'" alt=""></a> 
+                ';
+                return $action;
+            })->buildTable();
+        }
+
+    }
     public function show_table_lesson_recording(Request $request)
     {
 

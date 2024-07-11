@@ -160,7 +160,7 @@
 
 <div class="modal fade bd-example-modal-lg" id="private-class-modal" tabindex="-1" role="dialog" aria-labelledby="private-classLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content" >
+        <div class="modal-content" id="private-class-modal-content" >
             <div class="modal-header">
                 <h5 class="modal-title" id="sub-category-set-createLabel">Add Term</h5>
                 <button type="button" class="close" data-bs-dismiss="modal" >
@@ -193,8 +193,7 @@
                             <button type="submit" class="btn btn-dark" id="table-subcategoryset-form-submit"> Add + </button>
                             <button type="button" class="btn btn-secondary" style="display: none" id="table-subcategoryset-form-clear" >Cancel</button>
                         </div>
-                    </div>
-
+                    </div> 
                 </form>
 
                 <div id="class_detail" class="table-term-ajax" style="display: none">
@@ -256,6 +255,52 @@
 
             </div>
         </div>
+        <div class="modal-content" id="private-class-booklet-modal-content" style="display: none" >
+            <div class="modal-header">
+                <h5 class="modal-title" id="sub-category-set-createLabel">Add Week Booklet</h5>
+                <button type="button" class="close"  onclick="weekbooklettoggle()" >
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form  class="form" id="booklet_form" data-save="create" data-action-save="{{ route('admin.home-work.storebooklet') }}" data-action="{{ route('admin.home-work.storebooklet') }}" data-createurl="{{ route('admin.home-work.storebooklet') }}" >
+                    @csrf
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="form-data">
+                                    <div class="forms-inputs mb-4">
+                                        <label for="booklet-title">Week Booklet Title</label>
+                                        <input type="text" name="title" id="booklet-title" class="form-control " >
+                                        <input type="hidden" name="home_work_id" id="week_booklet_parent" value="" >
+                                        <div class="invalid-feedback" id="booklet-title-errror"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="col-md-4 pt-4">
+                            <button type="submit" class="btn btn-dark" id="booklet-form-submit"> Add + </button>
+                            <button type="button" class="btn btn-secondary" style="display: none" id="booklet-form-clear" >Cancel</button>
+                        </div>
+                    </div> 
+                </form>
+
+                <div class="table-booklet-ajax"  >
+
+                    <x-ajax-table 
+                        popupid="private-class-modal"
+                        tableid='week_booklet' 
+                        :url="route('admin.term.show_table_week_booklet')"
+                        :coloumns="[
+                            ['th' => 'Date', 'name' => 'created_at', 'data' => 'date'],
+                            ['th' => 'Title', 'name' => 'title', 'data' => 'title'],
+                        ]" />
+                        
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -310,6 +355,8 @@
         {
             event.preventDefault();
             event.stopPropagation();
+            $('#private-class-booklet-modal-content').hide()
+            $('#private-class-modal-content').show()
 
             $('#term_type_form').val(term);
 
@@ -328,7 +375,14 @@
             $('#term_label').val("");
 
         }
-
+        function weekbooklet(event,slug)
+        {
+            $('#week_booklet_parent').val(slug) 
+            weekbooklettoggle()
+        }
+        function weekbooklettoggle(){
+            $('#private-class-booklet-modal-content,#private-class-modal-content').slideToggle()
+        }
         
         $(document).ready(function() {
 

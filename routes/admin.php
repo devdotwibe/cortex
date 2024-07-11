@@ -203,6 +203,8 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
             Route::get('/show/home-work',[TermController::class,'show_table_home_work'])->name('show_table_home_work');
 
+            Route::get('/show/home-work-booklet',[TermController::class,'show_table_week_booklet'])->name('show_table_week_booklet');
+
             Route::get('/show/lesson-recording',[TermController::class,'show_table_lesson_recording'])->name('show_table_lesson_recording');
             
             Route::get('/class-detail',[TermController::class,'class_detail'])->name('class_detail');
@@ -246,6 +248,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::get('/{home_work}/question/create',[HomeWorkController::class,'create'])->name('create');
             Route::post('/{home_work}/question/create',[HomeWorkController::class,'store'])->name('store');
             Route::delete('/{home_work}/question',[HomeWorkController::class,'destroy'])->name('destroy');
+            Route::post('/home-work-booklet/create',[HomeWorkController::class,'storebooklet'])->name('storebooklet');
         });
     });
     Route::prefix('settings')->name('settings.')->group(function () {

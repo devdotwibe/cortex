@@ -15,12 +15,11 @@
         <x-create-form 
             name="admin.home-work" 
             :params='[
-                "home_work"=>$homeWork->id
+                "home_work"=>$homeWork->slug
             ]' 
             :cancel="route('admin.home-work.show',$homeWork->slug)"  
             btnsubmit="Save" 
-            :fields='[
-                ["name"=>"home_work_id", "value"=>$homeWork->id,"type"=>"hidden"],  
+            :fields='[  
                 ["name"=>"redirect", "value"=>route("admin.home-work.show",$homeWork->slug),"type"=>"hidden"],
                 ["name"=>"home_work_book_id" ,"label"=>"Week Booklet","ajaxurl"=>route("admin.home-work.create",$homeWork->slug),"type"=>"select","size"=>4],
                 

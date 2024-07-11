@@ -44,6 +44,22 @@ class HomeWorkController extends Controller
         }  
         return view('admin.home-work.create',compact('homeWork'));
     }
+    public function store(Request $request,HomeWork $homeWork){
+        $data=$request->validate([
+            'home_work_book_id'=>['required'],
+            'description'=>['required'],
+            'answer'=>['required'],
+            'answer.*'=>['required'],
+            'explanation'=>['required']
+        ],[
+            'answer.*.required'=>['The answer field is required.']
+        ]);
+        $data['home_work_id']=$homeWork->id;
+        $data=HomeWorkQuestion::store($data);
+
+        $redirect=$request->redirect??route('admin.home-work.show',$homeWork->slug);
+        return redirect($redirect)->with("success","Question has been successfully created");
+    }
     public function questionvisibility(Request $request,HomeWork $homeWork,HomeWorkQuestion $homeWorkQuestion){
         $homeWorkQuestion->update(['visible_status'=>($homeWorkQuestion->visible_status??"")=="show"?"hide":"show"]);        
         if($request->ajax()){
