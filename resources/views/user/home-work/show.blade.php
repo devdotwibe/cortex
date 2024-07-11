@@ -17,7 +17,7 @@
             <div class="col-md-6">
                 <div class="card mb-3">
                     <div class="card-body">
-                        <a href="">
+                        <a  onclick="confimbooklet('{{route('home-work.booklet',['home_work'=>$homeWork->slug,'home_work_book'=>$item->slug])}}','{{$item->title}}')">
                             <div class="category">
                                 <div class="category-content"> 
                                     <h4>{{$item->title}}</h4> 
@@ -35,3 +35,15 @@
     </div>
 </section>
 @endsection
+
+@push('footer-script')
+    <script>
+        async function confimbooklet(url, title) {
+            if (await showConfirm({
+                    title: "Start the " + title
+                })) {
+                window.location.href = url;
+            }
+        }
+    </script>
+@endpush

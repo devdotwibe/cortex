@@ -17,4 +17,7 @@ class PrivateClassHomeWorkController extends Controller
         $booklets=HomeWorkBook::where('home_work_id',$homeWork->id)->get();
         return view('user.home-work.show',compact('homeWork','booklets'));
     }
+    public function booklet(Request $request,HomeWork $homeWork,HomeWorkBook $homeWorkBook){ 
+        return view('user.home-work.booklet',compact('homeWork','homeWorkBook'));
+    }
 }
