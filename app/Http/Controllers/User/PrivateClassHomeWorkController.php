@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\HomeWork;
 use App\Models\HomeWorkBook;
+use App\Models\HomeWorkQuestion;
 use Illuminate\Http\Request;
 
 class PrivateClassHomeWorkController extends Controller
@@ -18,6 +19,7 @@ class PrivateClassHomeWorkController extends Controller
         return view('user.home-work.show',compact('homeWork','booklets'));
     }
     public function booklet(Request $request,HomeWork $homeWork,HomeWorkBook $homeWorkBook){ 
-        return view('user.home-work.booklet',compact('homeWork','homeWorkBook'));
+        $questioncount=HomeWorkQuestion::where('home_work_id',$homeWork->id)->where('home_work_book_id',$homeWorkBook->id)->count();
+        return view('user.home-work.booklet',compact('homeWork','homeWorkBook','questioncount'));
     }
 }
