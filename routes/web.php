@@ -66,7 +66,7 @@ Route::middleware('guest:web,admin')->group(function(){
     Route::post('/password-change/{token}', [HomeController::class,'updatepassword']);
 
 });
-Route::middleware('auth')->group(function(){
+Route::middleware(['auth','IsUser'])->group(function(){
     Route::get('/dashboard',[UserMainController::class,'index'])->name('dashboard');
     Route::post('/progress',[UserMainController::class,'progress'])->name('progress');
     Route::post('/getprogress',[UserMainController::class,'getprogress'])->name('getprogress');

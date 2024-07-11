@@ -14,7 +14,7 @@ class VisibleStatus implements Scope
      */
     public function apply(Builder $builder, Model $model): void
     {
-        if(!Auth::guard('admin')->check()){
+        if(!Auth::guard('admin')->check()||session('is.logined.as','admin')=="user"){
             $builder->where('visible_status','show');
         }
     }

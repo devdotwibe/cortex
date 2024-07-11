@@ -14,6 +14,10 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->validateCsrfTokens(except: [
             'stripe/*',
         ]);
+        $middleware->alias([
+            'isAdmin' => \App\Http\Middleware\IsAdmin::class,
+            'isUser' => \App\Http\Middleware\IsUser::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

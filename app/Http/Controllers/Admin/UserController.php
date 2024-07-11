@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\Subcategory;
 use App\Models\Category;
 use App\Models\Setname;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -54,6 +55,10 @@ class UserController extends Controller
     }
     public function edit(Request $request,User $user){
         return view("admin.user.edit",compact('user'));
+    }
+    public function userspectate(Request $request,User $user){
+        Auth::login($user);
+        return redirect('/dashboard');
     }
     public function resetpassword(Request $request,User $user){
         $data=$request->validate([

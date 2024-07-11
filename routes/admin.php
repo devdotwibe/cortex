@@ -27,7 +27,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::get('/login', [AdminMainController::class,'login'])->name('login');
         Route::post('/login', [AdminMainController::class,'loginSubmit']);
     });
-    Route::middleware('auth:admin')->group(function(){
+    Route::middleware(['auth:admin','isAdmin'])->group(function(){
 
         Route::post("/upload",[UploadController::class,'uploadFile'])->name("upload");
 
@@ -42,6 +42,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::post('/user/{user}/resetpassword',[UserController::class,'resetpassword'])->name('user.resetpassword');
         Route::post('/user/bulk/action',[UserController::class,'bulkaction'])->name('user.bulkaction');
         Route::get('/user/{user}/getdata',[UserController::class,'getdata'])->name('user.students');
+        Route::get('/user/{user}/spectate',[UserController::class,'userspectate'])->name('user.spectate');
         Route::resource("/exam",ExamController::class);
         Route::get('/full-mock-exam-options',[ExamController::class,'examoptions'])->name('exam.options');
         Route::post('/full-mock-exam-options',[ExamController::class,'examoptionssave']);
