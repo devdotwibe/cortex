@@ -60,6 +60,13 @@ class HomeWorkController extends Controller
         $redirect=$request->redirect??route('admin.home-work.show',$homeWork->slug);
         return redirect($redirect)->with("success","Question has been successfully created");
     }
+    public function destroy(Request $request,HomeWork $homeWork,HomeWorkQuestion $homeWorkQuestion){
+        $homeWorkQuestion->delete();
+        if($request->ajax()){
+            return response()->json(["success"=>"Question has been deleted"]);
+        }        
+        return redirect()->route('admin.home-work.show',$homeWork->slug)->with("success","Question has been deleted");
+    }
     public function storebooklet(Request $request){
         $data=$request->validate([
             'home_work'=>['required'],
