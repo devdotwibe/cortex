@@ -90,7 +90,7 @@
                         Dashboard
                     </a>
                 </li>
-
+                @guest('admin')
                 <li class="side-item {{request()->is('learn') ? 'active' :''}}">
                     <a href="{{ route('learn.index') }}">
                         <span class="side-icon" >
@@ -101,7 +101,8 @@
                         </span>
                         Learn
                     </a>
-                </li>
+                </li>                    
+                @endguest
                 <li class="side-item {{request()->is('question-bank') ? 'active':''}}">
                     <a href="{{ route('question-bank.index') }}">
                         <span class="side-icon" >
