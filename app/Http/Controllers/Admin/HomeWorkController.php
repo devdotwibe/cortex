@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller; 
 use App\Models\HomeWork;
+use App\Models\HomeWorkAnswer;
 use App\Models\HomeWorkBook;
 use App\Models\HomeWorkQuestion;
 use App\Trait\ResourceController;
@@ -16,7 +17,7 @@ class HomeWorkController extends Controller
         self::reset();
         self::$model = HomeWorkQuestion::class;
         self::$routeName = "admin.home-work"; 
-        self::$defaultActions=["delete"]; 
+        self::$defaultActions=['']; 
         if($request->ajax()){
             return $this->where('home_work_id',$homeWork->id) 
                 ->addAction(function($data)use($homeWork){
@@ -24,6 +25,9 @@ class HomeWorkController extends Controller
                     <a href="'.route("admin.home-work.edit",["home_work"=>$homeWork->slug,"home_work_question"=>$data->slug]).'" class="btn btn-icons edit_btn">
                         <img src="'.asset("assets/images/edit.svg").'" alt="">
                     </a>
+                     <a  class="btn btn-icons dlt_btn" data-delete="'.route("admin.home-work.destroy",["home_work"=>$homeWork->slug,"home_work_question"=>$data->slug]).'">
+                        <img src="'.asset("assets/images/delete.svg").'" alt="">
+                    </a> 
                     ';
                 })->addColumn('visibility',function($data)use($homeWork){
                     return '                
@@ -44,6 +48,56 @@ class HomeWorkController extends Controller
         }  
         return view('admin.home-work.create',compact('homeWork'));
     }
+    public function edit(Request $request,HomeWork $homeWork,HomeWorkQuestion $homeWorkQuestion){
+        if($request->ajax()){
+            self::reset();
+            self::$model = HomeWorkBook::class; 
+            return $this->where('home_work_id',$homeWork->id)->buildSelectOption('title');
+        }  
+        return view('admin.home-work.edit',compact('homeWork','homeWorkQuestion'));
+    }
+    public function update(Request $request,HomeWork $homeWork,HomeWorkQuestion $homeWorkQuestion){
+        $data=$request->validate([
+            'home_work_book_id'=>['required'],
+            'description'=>['required'],
+            'answer'=>['required'],
+            'answer.*'=>['required'],
+            'explanation'=>['required']
+        ],[
+            'answer.*.required'=>['The answer field is required.']
+        ]);
+        $data['home_work_id']=$homeWork->id;
+        $homeWorkQuestion->update($data);
+        $ansIds=[]; 
+        foreach($request->answer as $k =>$ans){
+            $answer=null;
+            if(!empty($request->choice_answer_id[$k]??"")){
+                $answer=HomeWorkAnswer::find($request->choice_answer_id[$k]??"");
+            }
+            if(empty($answer)){
+                $answer=HomeWorkAnswer::store([
+                    "home_work_id"=>$homeWork->id,
+                    "home_work_book_id"=>$homeWorkQuestion->home_work_book_id,
+                    "home_work_question_id"=>$homeWorkQuestion->id,
+                    "iscorrect"=>$k==($request->choice_answer??0)?true:false,
+                    "title"=>$ans
+                ]);
+
+            }else{
+                $answer->update([
+                    "home_work_id"=>$homeWork->id,
+                    "home_work_book_id"=>$homeWorkQuestion->home_work_book_id,
+                    "home_work_question_id"=>$homeWorkQuestion->id,
+                    "iscorrect"=>$k==($request->choice_answer??0)?true:false,
+                    "title"=>$ans
+                ]);
+            }
+            $ansIds[]=$answer->id;
+        }
+        HomeWorkAnswer::where('home_work_question_id',$homeWorkQuestion->id)->whereNotIn('id',$ansIds)->delete();
+        $redirect=$request->redirect??route('admin.home-work.show',$homeWork->slug);
+        return redirect($redirect)->with("success","Question has been successfully updated");
+    }
     public function store(Request $request,HomeWork $homeWork){
         $data=$request->validate([
             'home_work_book_id'=>['required'],
@@ -55,8 +109,16 @@ class HomeWorkController extends Controller
             'answer.*.required'=>['The answer field is required.']
         ]);
         $data['home_work_id']=$homeWork->id;
-        $data=HomeWorkQuestion::store($data);
-
+        $question=HomeWorkQuestion::store($data);
+        foreach($request->answer as $k =>$ans){
+            HomeWorkAnswer::store([
+                "home_work_id"=>$homeWork->id,
+                "home_work_book_id"=>$question->home_work_book_id,
+                "home_work_question_id"=>$question->id,
+                "iscorrect"=>$k==($request->choice_answer??0)?true:false,
+                "title"=>$ans
+            ]);
+        }
         $redirect=$request->redirect??route('admin.home-work.show',$homeWork->slug);
         return redirect($redirect)->with("success","Question has been successfully created");
     }

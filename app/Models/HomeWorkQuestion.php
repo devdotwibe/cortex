@@ -19,4 +19,10 @@ class HomeWorkQuestion extends Model
         'home_work_id', 
         'home_work_book_id',
     ];
+    public function homeWorkBook(){
+        return $this->belongsTo(HomeWorkBook::class);
+    }
+    public function answers(){
+        return $this->hasMany(HomeWorkAnswer::class);
+    }
 }

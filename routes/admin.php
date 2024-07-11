@@ -244,11 +244,12 @@ Route::name('admin.')->prefix('admin')->group(function(){
             
         });
         Route::prefix('home-work')->name('home-work.')->group(function () {
-            Route::get('/{home_work}',[HomeWorkController::class,'show'])->name('show');
-            Route::get('/{home_work}/question/{home_work_question}/edit',[HomeWorkController::class,'edit'])->name('edit');
+            Route::get('/{home_work}',[HomeWorkController::class,'show'])->name('show'); 
             Route::get('/{home_work}/question/create',[HomeWorkController::class,'create'])->name('create');
             Route::post('/{home_work}/question/create',[HomeWorkController::class,'store'])->name('store');
-            Route::delete('/{home_work}/question',[HomeWorkController::class,'destroy'])->name('destroy');
+            Route::get('/{home_work}/question/{home_work_question}/edit',[HomeWorkController::class,'edit'])->name('edit');
+            Route::put('/{home_work}/question/{home_work_question}/edit',[HomeWorkController::class,'update'])->name('update');
+            Route::delete('/{home_work}/question/{home_work_question}/destroy',[HomeWorkController::class,'destroy'])->name('destroy');
             Route::get('/{home_work}/question/{home_work_question}/visibility',[HomeWorkController::class,'questionvisibility'])->name('visibility');
 
             Route::post('/home-work/booklet/create',[HomeWorkController::class,'storebooklet'])->name('storebooklet');
