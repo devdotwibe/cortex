@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ClassDetailController;
 use App\Http\Controllers\Admin\ExamController;
 use App\Http\Controllers\Admin\FullMockExamController;
+use App\Http\Controllers\Admin\HomeWorkController;
 use App\Http\Controllers\Admin\LearnController;
 use App\Http\Controllers\Admin\LessonMaterialController;
 use App\Http\Controllers\Admin\LiveClassController;
@@ -239,9 +240,13 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::post('/{subclass}/update-sub-class',[ClassDetailController::class,'update_sub_class'])->name('update_sub_class');
             
         });
-
-        
-
+        Route::prefix('home-work')->name('home-work.')->group(function () {
+            Route::get('/{home_work}',[HomeWorkController::class,'show'])->name('show');
+            Route::get('/{home_work}/question/{home_work_question}/edit',[HomeWorkController::class,'edit'])->name('edit');
+            Route::get('/{home_work}/question/create',[HomeWorkController::class,'create'])->name('create');
+            Route::post('/{home_work}/question/create',[HomeWorkController::class,'store'])->name('store');
+            Route::delete('/{home_work}/question',[HomeWorkController::class,'destroy'])->name('destroy');
+        });
     });
     Route::prefix('settings')->name('settings.')->group(function () {
         Route::get('/',[SettingsController::class,'index'])->name('index');
