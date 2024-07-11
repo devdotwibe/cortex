@@ -10,18 +10,14 @@
             <div class="lesson-body">
                 <div class="row" id="lesson-list">
                     @forelse ($lessons as $k => $item)
-                    <div class="col-md-6">
-                        {{-- @if ($firstlesson->name ==$item->name) --}}
-                            <a @if ($user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$item->id.'-complete-review',"no") == "yes")
-                                   href="{{ route('learn.lesson.show', ["category" => $category->slug, "sub_category" => $item->slug]) }}"
-                               @elseif ($user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$item->id.'-complete-date',"") == "")
-                                   href="{{ route('learn.lesson.show', ["category" => $category->slug, "sub_category" => $item->slug]) }}"
+                    <div class="col-md-6"> 
+                            <a @if ($user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$item->id.'-complete-review',"no") == "yes") 
+                                
+                                @elseif ($user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$item->id.'-complete-date',"") == "")
+                                @guest('admin')   href="{{ route('learn.lesson.show', ["category" => $category->slug, "sub_category" => $item->slug]) }}" @endguest
                                @else
                                    href="#" onclick="loadlessonreviews('{{ route("learn.lesson.history", ["category" => $category->slug, "sub_category" => $item->slug]) }}', {{$k+1}}); return false;"
-                               @endif>
-                        {{-- @else
-                        <a href ="#" onclick="stripemodal(); return false;" data-toggle="modal" data-target="#subscribeModal">
-                        @endif --}}
+                               @endif> 
 
                         <div class="lesson-row">
                             <div class="lesson-row-title">
@@ -78,7 +74,7 @@
                         </div>
                     </div>
                 </div>
-                <a type="button" href="" id="restart-btn" class="btn btn-dark">Re-Start Lesson</a>
+                @guest('admin') <a type="button" href="" id="restart-btn" class="btn btn-dark">Re-Start Lesson</a> @endguest
             </div>
         </div>
     </div>
