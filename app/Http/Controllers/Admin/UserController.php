@@ -24,7 +24,7 @@ class UserController extends Controller
         if($request->ajax()){
             return $this->addAction(function($data){
                 return '
-                    <a href="'.route("admin.user.spectate",$data->slug).'" class="btn btn-icons spectate_btn">
+                    <a href="'.route("admin.user.spectate",$data->slug).'" target="_blank" rel="noreferrer" class="btn btn-icons spectate_btn">
                         <img src="'.asset("assets/images/spectate.svg").'" alt="">
                     </a>
                     <a onclick="resetpassword('."'".route("admin.user.resetpassword",$data->slug)."'".')" class="btn btn-icons reset_btn">
@@ -57,7 +57,7 @@ class UserController extends Controller
         return view("admin.user.edit",compact('user'));
     }
     public function userspectate(Request $request,User $user){
-        Auth::login($user);
+        Auth::guard('web')->login($user);
         return redirect('/dashboard');
     }
     public function resetpassword(Request $request,User $user){
