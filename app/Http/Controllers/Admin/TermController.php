@@ -243,14 +243,13 @@ class TermController extends Controller
         self::reset();
 
         self::$model = HomeWorkBook::class;
-        self::$routeName="admin.term";
 
         if($request->ajax()){
 
             return $this->addAction(function($data){ 
                 $action= ' 
-                    <a onclick="update_term('."'".route('admin.term.edit_home_work', $data->slug)."'".')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>
-                    <a class="btn btn-icons dlt_btn" data-delete="'.route("admin.term.destroy_home_work",$data->slug).'" ><img src="'.asset("assets/images/delete.svg").'" alt=""></a> 
+                    <a onclick="updatebooklet('."'".route('admin.home-work.showbooklet', $data->slug)."'".')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>
+                    <a class="btn btn-icons dlt_btn" data-delete="'.route("admin.home-work.destroybooklet",$data->slug).'" ><img src="'.asset("assets/images/delete.svg").'" alt=""></a> 
                 ';
                 return $action;
             })->buildTable();

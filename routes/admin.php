@@ -249,7 +249,12 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::get('/{home_work}/question/create',[HomeWorkController::class,'create'])->name('create');
             Route::post('/{home_work}/question/create',[HomeWorkController::class,'store'])->name('store');
             Route::delete('/{home_work}/question',[HomeWorkController::class,'destroy'])->name('destroy');
-            Route::post('/home-work-booklet/create',[HomeWorkController::class,'storebooklet'])->name('storebooklet');
+            Route::get('/{home_work}/question/{home_work_question}/visibility',[HomeWorkController::class,'questionvisibility'])->name('visibility');
+
+            Route::post('/home-work/booklet/create',[HomeWorkController::class,'storebooklet'])->name('storebooklet');
+            Route::get('/home-work/booklet/{home_work_book}/show',[HomeWorkController::class,'showbooklet'])->name('showbooklet');
+            Route::put('/home-work/booklet/{home_work_book}/update',[HomeWorkController::class,'updatebooklet'])->name('updatebooklet');
+            Route::delete('/home-work/booklet/{home_work_book}/destroy',[HomeWorkController::class,'destroybooklet'])->name('destroybooklet');
         });
     });
     Route::prefix('settings')->name('settings.')->group(function () {

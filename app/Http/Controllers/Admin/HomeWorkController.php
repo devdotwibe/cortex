@@ -21,14 +21,14 @@ class HomeWorkController extends Controller
             return $this->where('home_work_id',$homeWork->id) 
                 ->addAction(function($data)use($homeWork){
                     return '
-                    <a href="'.route("admin.home-work.edit",["home_work"=>$homeWork->slug,"question"=>$data->slug]).'" class="btn btn-icons edit_btn">
+                    <a href="'.route("admin.home-work.edit",["home_work"=>$homeWork->slug,"home_work_question"=>$data->slug]).'" class="btn btn-icons edit_btn">
                         <img src="'.asset("assets/images/edit.svg").'" alt="">
                     </a>
                     ';
                 })->addColumn('visibility',function($data)use($homeWork){
                     return '                
                         <div class="form-check ">
-                            <input type="checkbox"  class="user-visibility form-check-box" name="visibility" value="'.($data->id).'" '.($data->visible_status=="show"?"checked":"").' onchange="visiblechangerefresh('."'".route("admin.home-work.visibility",$data->slug)."'".')" > 
+                            <input type="checkbox"  class="user-visibility form-check-box" name="visibility" value="'.($data->id).'" '.($data->visible_status=="show"?"checked":"").' onchange="visiblechangerefresh('."'".route("admin.home-work.visibility",["home_work"=>$homeWork->slug,"home_work_question"=>$data->slug])."'".')" > 
                         </div>
                     '; 
                 })
@@ -40,7 +40,7 @@ class HomeWorkController extends Controller
         if($request->ajax()){
             self::reset();
             self::$model = HomeWorkBook::class; 
-            return $this->where('home_work_id',$homeWork->id)->buildSelectOption();
+            return $this->where('home_work_id',$homeWork->id)->buildSelectOption('title');
         }  
         return view('admin.home-work.create',compact('homeWork'));
     }
@@ -72,6 +72,27 @@ class HomeWorkController extends Controller
             return response()->json(["success"=>"Week Booklet has been successfully created"]);
         }        
         return redirect()->route('admin.live-class.private_class_create')->with("success","Week Booklet has been successfully created");
+    }
+    public function updatebooklet(Request $request,HomeWorkBook $homeWorkBook){
+        $data=$request->validate([ 
+            'title'=>['required'], 
+        ]); 
+        $homeWorkBook->update($data);
+        if($request->ajax()){
+            return response()->json(["success"=>"Week Booklet has been successfully created"]);
+        }        
+        return redirect()->route('admin.live-class.private_class_create')->with("success","Week Booklet has been successfully created");
+    }
+    public function showbooklet(Request $request,HomeWorkBook $homeWorkBook){
+        $homeWorkBook->updateUrl=route('admin.home-work.updatebooklet',$homeWorkBook->slug);
+        return $homeWorkBook;
+    }
+    public function destroybooklet(Request $request,HomeWorkBook $homeWorkBook){
+        $homeWorkBook->delete();
+        if($request->ajax()){
+            return response()->json(["success"=>"{$homeWorkBook->title} has been deleted"]);
+        }        
+        return redirect()->route('admin.live-class.private_class_create')->with("success","{$homeWorkBook->title} has been deleted");
     }
     public function questionvisibility(Request $request,HomeWork $homeWork,HomeWorkQuestion $homeWorkQuestion){
         $homeWorkQuestion->update(['visible_status'=>($homeWorkQuestion->visible_status??"")=="show"?"hide":"show"]);        

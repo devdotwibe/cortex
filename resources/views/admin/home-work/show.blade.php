@@ -39,5 +39,13 @@
         function questiontableinit(table) {
             questiontable = table
         }
+
+        function visiblechangerefresh(url) {
+            $.get(url, function() {
+                if (questiontable != null) {
+                    questiontable.ajax.reload()
+                }
+            }, 'json')
+        }
     </script>
 @endpush
