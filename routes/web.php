@@ -3,7 +3,7 @@
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\User\PrivateClassHomeWorkController;
-use App\Http\Controllers\UploadController;
+
 use App\Http\Controllers\User\ExamQuestionController;
 use App\Http\Controllers\User\LearnTopicController;
 use App\Http\Controllers\User\LiveClassController;
@@ -121,12 +121,7 @@ Route::middleware(['auth','isUser'])->group(function(){
         Route::get('/{category}/complete',[TopicExamController::class,'topiccomplete'])->name('complete');
     });
 
-    Route::prefix('full-mock-exam')->name('full-mock-exam.')->group(function () {
-        /*
-            Route::get('/',[MockExamController::class,'index'])->name('index');
-            Route::get('/{exam}',[MockExamController::class,'show'])->name('show');
-            Route::get('/{exam}/question/{question}',[MockExamController::class,'question'])->name('question');
-        */
+    Route::prefix('full-mock-exam')->name('full-mock-exam.')->group(function () { 
         Route::get('/',[MockExamController::class,'index'])->name('index');
         Route::get('/{exam}',[MockExamController::class,'show'])->name('show');
         Route::get('/{exam}/attempt',[MockExamController::class,'confirmshow'])->name('confirmshow');
