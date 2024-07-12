@@ -73,7 +73,7 @@ class LiveClassController extends Controller
             'full_name'=>['required','string','max:255'],
             'parent_name'=>['required','string','max:255'],
             'phone'=>['required'],
-            'timeslot'=>['required','array','min:2']
+            'timeslot'=>['required','array','min:1']
         ]);
         /**
          * @var User

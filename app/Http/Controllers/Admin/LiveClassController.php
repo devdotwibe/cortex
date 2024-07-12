@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\LiveClassPage;
+use App\Models\PrivateClass;
+use App\Trait\ResourceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class LiveClassController extends Controller
 {
+    use ResourceController;
     public function index()
     {
 
@@ -138,6 +141,19 @@ class LiveClassController extends Controller
         $live_class =  LiveClassPage::first();
 
         return view('admin.live-class.private-class',compact('live_class'));
+    }
+    public function private_class_request(Request $request){
+        if($request->ajax()){
+            self::reset();
+            self::$model=PrivateClass::class;
+            self::$defaultActions=[''];
+            return $this->addAction(function($data){
+                return '';
+            })->buildTable();
+        }
+        $live_class =  LiveClassPage::first();
+        return view('admin.live-class.private-class-request',compact('live_class'));
+
     }
 
 }

@@ -160,6 +160,8 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::get('/',[LiveClassController::class,'index'])->name('index');
 
             Route::post('/',[LiveClassController::class,'store'])->name('store');
+            
+            Route::get('/private/class/requests',[LiveClassController::class,'private_class_request'])->name('private_class_request');
 
             Route::post('/private/class',[LiveClassController::class,'private_class'])->name('private_class');
 
