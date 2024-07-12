@@ -24,7 +24,7 @@
                                     <h4>{{$item->title}}</h4> 
                                 </div>
                                 <div class="category-image">
-                                    <img src="{{ asset('assets/images/file-text.svg') }}">
+                                    <img src="{{ asset('assets/images/video-clip.svg') }}">
                                 </div> 
                             </div>
                         </a>
@@ -43,6 +43,7 @@
             <div class="col-md-12">
                 <div class="card mb-3">
                     <div class="card-body">  
+                        <button type="button" class="close float-end m-3" onclick="closevideo()" aria-label="Close"><span  aria-hidden="true">&times;</span></button>
                         <div class="video-content-body" id="video-content-body">
 
                         </div>
@@ -81,7 +82,7 @@
         }
         function getYoutubeId(url) {
             // Regular expression to match Vimeo URL format
-            const regex = /youtube\.com\/(?:video\/|)(\d+)/;
+            const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
             // Extract video ID using match function
             const match = url.match(regex);
 
@@ -98,6 +99,7 @@
                 videocontent =getYoutubeId(videocontent);
                 $('#video-content-body').html(`
                 <div class="video-row" >
+
                     <div class="video-title">
                         <span>${title}</span>
                     </div>
@@ -130,17 +132,19 @@
                         <span>${title}</span>
                     </div>
                     <div class="video-container">
-                        <div id="vimo-videoframe-${lesseonId}">?
-                            <iframe src="https://player.vimeo.com/video/${videocontent}?byline=0&keyboard=0&dnt=1&app_id=${lesseonId}" width="100%" height="500" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" title="${title}" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                        <div id="vimo-videoframe-${lesseonId}">
+                            <iframe src="${videocontent}?byline=0&keyboard=0&dnt=1&app_id=${lesseonId}" width="100%" height="500" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" title="${title}" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                         </div> 
                     </div>
                 </div>
                 `)
             }
-            togglevideo()
-        }
-        function togglevideo(){
             $('#main-content,#video-content').slideToggle();
         }
+        function closevideo(){
+            $('#main-content,#video-content').slideToggle("slow","swing", function(){
+                $('#video-content-body').html('')
+            }); 
+        } 
     </script>
 @endpush
