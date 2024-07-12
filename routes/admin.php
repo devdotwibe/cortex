@@ -160,7 +160,10 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::get('/',[LiveClassController::class,'index'])->name('index');
 
             Route::post('/',[LiveClassController::class,'store'])->name('store');
-            Route::delete('/private/class/{private_class}/requests',[LiveClassController::class,'private_class_request_destroy'])->name('requests.destroy');
+            Route::get('/private/class/{private_class}/requests/accept',[LiveClassController::class,'private_class_request_accept'])->name('request.accept');
+            Route::get('/private/class/{private_class}/requests/reject',[LiveClassController::class,'private_class_request_reject'])->name('request.reject');
+            
+            Route::delete('/private/class/{private_class}/requests',[LiveClassController::class,'private_class_request_destroy'])->name('request.destroy');
             Route::get('/private/class/requests',[LiveClassController::class,'private_class_request'])->name('private_class_request');
 
             Route::post('/private/class',[LiveClassController::class,'private_class'])->name('private_class');

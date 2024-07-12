@@ -18,8 +18,8 @@
                 <div class="workshop-action"> 
                     @if (empty($user->privateClass))
                     <a class="btn btn-outline-warning m-2" href="{{route('live-class.privateclass.form',$user->slug)}}">Register</a>
-                    {{-- @elseif($user->privateClass->status!="approved")
-                    <span class="btn btn-outline-warning">{{ucfirst($user->privateClass->status)}}</span> --}}
+                    @elseif($user->privateClass->status!="approved")
+                    <span class="btn btn-outline-warning">{{ucfirst($user->privateClass->status)}}</span>
                     @else
                     <a class="btn btn-warning m-2" href="{{route('live-class.privateclass.room',$user->slug)}}">Enter</a>
                     @endif 

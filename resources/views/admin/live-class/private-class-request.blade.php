@@ -21,8 +21,12 @@
         <div class="row">
             <x-ajax-table :coloumns='[
                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
-                ["th"=>"Full Name","name"=>"full_name","data"=>"full_name"],
                 ["th"=>"Email","name"=>"email","data"=>"email"],
+                ["th"=>"Full Name","name"=>"full_name","data"=>"full_name"],
+                ["th"=>"Parent Name","name"=>"parent_name","data"=>"parent_name"],
+                ["th"=>"Phone","name"=>"phone","data"=>"phone"],
+                ["th"=>"Timeslot","name"=>"timeslot","data"=>"timeslottext"],
+                ["th"=>"Status","name"=>"status","data"=>"status"],
             ]' />
         </div>
     </div>
