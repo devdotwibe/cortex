@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ClassDetail;
 use App\Models\LessonMaterial;
 use App\Models\LiveClassPage;
+use App\Models\PrivateClass;
 use App\Models\SubClassDetail;
 use App\Models\SubLessonMaterial;
 use App\Models\User;
@@ -65,6 +66,27 @@ class LiveClassController extends Controller
         $user=Auth::user();
         $live_class =  LiveClassPage::first();  
         return view('user.live-class.privateform',compact('user','live_class')); 
+    }
+    public function privateclassformsubmit(Request  $request){ 
+        $data=$request->validate([
+            'email'=>['required','email:rfc,dns','unique:private_classes','max:250'],
+            'full_name'=>['required','string','max:255'],
+            'parent_name'=>['required','string','max:255'],
+            'phone'=>['required'],
+            'timeslot'=>['required','array','min:2']
+        ]);
+        /**
+         * @var User
+         */
+        $user=Auth::user();
+        $live_class =  LiveClassPage::first();  
+
+        $data['user_id']=$user->id;
+
+        PrivateClass::store($data); 
+
+        return redirect()->route('live-class.privateclass', $user->slug)->with('success','Class Requiested Succesfully');
+
     }
  
     public function privateclassroom(Request  $request){

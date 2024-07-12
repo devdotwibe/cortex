@@ -70,6 +70,19 @@
                                     <div class="forms-inputs mb-4"> 
                                         <label for="{{$item->name}}-{{$frmID}}">{{ucfirst($item->label??$item->name)}}</label>
                                         @switch($item->type??"text")
+                                            @case('checkboxgroup')
+                                                    <div class="check-group form-control @error($item->name) is-invalid  @enderror">
+                                                        @if(isset($item->options)) 
+                                                            @foreach ($item->options as $opk=> $opt) 
+                                                                <div class="form-check">
+                                                                    <input type="checkbox" name="{{$item->name}}[]" class="form-check-input"  id="check-group-{{$item->name}}-{{$frmID}}-{{$opk}}" value="{{$opt->value??""}}" @checked(in_array($opt->value,old($item->name,[])))>
+                                                                    <label for="check-group-{{$item->name}}-{{$frmID}}-{{$opk}}">{{$opt->text}}</label>
+                                                                </div>                                                            
+                                                            @endforeach
+                                                        @endif
+                                                    </div>
+                                                    
+                                                    @break
                                             @case('maskinput')
                                                 <input type="text" name="{{$item->name}}" id="{{$item->name}}-{{$frmID}}" value="{{old($item->name,$item->value??"")}}" class="form-control maskinput @error($item->name) is-invalid @enderror " placeholder="{{ucfirst($item->placeholder??$item->name)}}" aria-placeholder="{{ucfirst($item->placeholder??$item->name)}}" @if(isset($item->options)) @foreach ($item->options as $opk=> $opt) data-{{$opk}}="{{$opt}}" @endforeach  @endif >
                                                 @break
@@ -84,7 +97,7 @@
                                                 <select name="{{$item->name}}" @isset($item->event) @foreach ($item->event as $e=>$cbk) on{{ucfirst($e)}}='{{$cbk}}(this)' @endforeach @endisset   @isset($item->child) data-child="{{$item->child}}" @endisset @isset($item->parent) data-parent="{{$item->parent}}" @endisset data-value="{{old($item->name,$item->value??"")}}" id="{{$item->name}}-{{$frmID}}" @if(isset($item->ajaxurl)) data-ajaxurl="{{$item->ajaxurl}}" data-ajax--cache="true" @endif  class="form-control select2 @if(isset($item->ajaxurl)) ajax @endif @error($item->name) is-invalid @enderror " data-placeholder="{{ucfirst($item->label??$item->name)}}" placeholder="{{ucfirst($item->label??$item->name)}}" >
                                                     @if(isset($item->options)) 
                                                         @foreach ($item->options as $opt)
-                                                        <option value="{{$opt->value,$item->value??""}}"  >{{$opt->text}}</option>                                                            
+                                                        <option value="{{$opt->value}}"  >{{$opt->text}}</option>                                                            
                                                         @endforeach
                                                     @endif
                                                     @if(!empty(old($item->name,$item->value??"")))

@@ -74,6 +74,9 @@ class User extends Authenticatable implements MustVerifyEmail
             }
         }
     }
+    public function privateClass(){
+        return $this->belongsTo(PrivateClass::class,'id','user_id');
+    }
 
     public function userProgress(){
         return $this->hasMany(UserProgress::class);
