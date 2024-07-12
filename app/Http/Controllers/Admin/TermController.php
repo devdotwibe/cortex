@@ -245,6 +245,9 @@ class TermController extends Controller
         self::$model = HomeWorkBook::class;
 
         if($request->ajax()){
+            if(!empty($request->home_work)){
+                $this->where('home_work_id',$request->home_work);
+            }
 
             return $this->addAction(function($data){ 
                 $action= ' 
