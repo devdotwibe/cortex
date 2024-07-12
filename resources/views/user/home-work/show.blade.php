@@ -42,6 +42,7 @@
             if (await showConfirm({
                     title: "Start the " + title
                 })) {
+                localStorage.removeItem("home-work-booklet")
                 window.location.href = url;
             }
         }

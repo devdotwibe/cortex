@@ -259,20 +259,20 @@
         var progressurl="{{$user->progress('home-work-'.$homeWork->id.'-booklet-'.$homeWorkBook->id.'-progress-url','')}}"; 
         let storage = JSON.parse(localStorage.getItem("home-work-booklet"))||{
             totalcount:{{$questioncount??0}},
-            questionids:[];,
+            questionids:[],
             timercurrent:{},
-            flagcurrent:{};,
-            currentSlug:"";,
+            flagcurrent:{},
+            currentSlug:"",
             flagdx:{},
             verifydx:{},
             cudx:1,
             answeridx:[],
-            notansweridx:[];,
+            notansweridx:[],
             timerActive:true,
             examActive:true,
             timetaken:0,
         };
-        let summery = new Proxy({save:function(target){ localStorage.setItem("home-work-booklet",JSON.stringify(summery));return true; } }, {
+        let summery = new Proxy({...storage,save:function(target){ localStorage.setItem("home-work-booklet",JSON.stringify(summery));return true; } }, {
             get: function(target, propertyName) {
                 return target[propertyName] || null;
             },
@@ -280,8 +280,7 @@
                 target[propertyName] = value; 
                 return true;
             }
-        }); 
-        summery.save();
+        });  
         function refreshpreviewstate(){
             
         }
