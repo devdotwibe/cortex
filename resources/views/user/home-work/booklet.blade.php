@@ -109,7 +109,7 @@
                                             <div class="question-list">
                                                 @for ($i = 1; $i <= ($questioncount??0); $i++)
                                                     <div class="question-item" data-idx="{{$i}}">
-                                                        <button class="item-group" onclick="loadlesson('{{ route('full-mock-exam.confirmshow',['exam'=>$exam->slug,'page'=>$i]) }}')">
+                                                        <button class="item-group" onclick="loadlesson('{{ route('home-work.booklet',['home_work'=>$homeWork->slug,'home_work_book'=>$homeWorkBook->slug,'page'=>$i]) }}')">
                                                             <img src="{{asset('assets/images/flaged.svg')}}" alt="all">
                                                             <span>{{$i}}</span> 
                                                         </button>
@@ -131,7 +131,7 @@
                                             <div class="question-list">
                                                 @for ($i = 1; $i <= ($questioncount??0); $i++)
                                                     <div class="question-item" data-idx="{{$i}}">
-                                                        <button class="item-group" onclick="loadlesson('{{ route('full-mock-exam.confirmshow',['exam'=>$exam->slug,'page'=>$i]) }}')">
+                                                        <button class="item-group" onclick="loadlesson('{{ route('home-work.booklet',['home_work'=>$homeWork->slug,'home_work_book'=>$homeWorkBook->slug,'page'=>$i]) }}')">
                                                             <img src="{{asset('assets/images/flaged.svg')}}" alt="all">
                                                             <span>{{$i}}</span>
                                                         </button>
@@ -153,7 +153,7 @@
                                             <div class="question-list">
                                                 @for ($i = 1; $i <= ($questioncount??0); $i++)
                                                     <div class="question-item" data-idx="{{$i}}">
-                                                        <button class="item-group" onclick="loadlesson('{{ route('full-mock-exam.confirmshow',['exam'=>$exam->slug,'page'=>$i]) }}')">
+                                                        <button class="item-group" onclick="loadlesson('{{ route('home-work.booklet',['home_work'=>$homeWork->slug,'home_work_book'=>$homeWorkBook->slug,'page'=>$i]) }}')">
                                                             <img src="{{asset('assets/images/flaged.svg')}}" alt="all">
                                                             <span>{{$i}}</span> 
                                                         </button>
@@ -176,7 +176,7 @@
                                             <div class="question-list">
                                                 @for ($i = 1; $i <= ($questioncount??0); $i++)
                                                     <div class="question-item status-not-read"  data-idx="{{$i}}">
-                                                        <button class="item-group" onclick="loadlesson('{{ route('full-mock-exam.confirmshow',['exam'=>$exam->slug,'page'=>$i]) }}')">
+                                                        <button class="item-group" onclick="loadlesson('{{ route('home-work.booklet',['home_work'=>$homeWork->slug,'home_work_book'=>$homeWorkBook->slug,'page'=>$i]) }}')">
                                                             <img src="{{asset('assets/images/flaged.svg')}}" alt="all">
                                                             <span>{{$i}}</span> 
                                                         </button>
@@ -198,7 +198,7 @@
                                             <div class="question-list">
                                                 @for ($i = 1; $i <= ($questioncount??0); $i++)
                                                     <div class="question-item" data-idx="{{$i}}">
-                                                        <button class="item-group" onclick="loadlesson('{{ route('full-mock-exam.confirmshow',['exam'=>$exam->slug,'page'=>$i]) }}')">
+                                                        <button class="item-group" onclick="loadlesson('{{ route('home-work.booklet',['home_work'=>$homeWork->slug,'home_work_book'=>$homeWorkBook->slug,'page'=>$i]) }}')">
                                                              
                                                                 <img src="{{asset('assets/images/flaged.svg')}}" alt="all">
                                                                 <span>{{$i}}</span>
@@ -220,4 +220,427 @@
         </div>
     </div>
 </section>
+
+<div style="display: none;opacity: 0;">
+    <form action="{{route('home-work.booklet.submit',['home_work'=>$homeWork->slug,'home_work_book'=>$homeWorkBook->slug])}}" method="post" id="finish-exam-confirmed-form">
+        @csrf
+        <input type="hidden" name="timed" id="finish-exam-confirmed-form-timed" value="" >
+        <input type="hidden" name="timetaken" id="finish-exam-confirmed-form-timetaken" value="" >
+        <input type="hidden" name="flags" id="finish-exam-confirmed-form-flags" value="" >
+        <input type="hidden" name="times" id="finish-exam-confirmed-form-times" value="" >
+        <input type="hidden" name="passed" id="finish-exam-confirmed-form-passed" value="" > 
+    </form>
+</div>
 @endsection
+
+@push('modals')
+<div class="modal fade" id="finish-exam-confirm" tabindex="-1" role="dialog" aria-labelledby="Label" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="Lablel">Submit Assessment</h5>
+                <button type="button" class="close" data-bs-dismiss="modal"    aria-label="Close"><span  aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body"> 
+                <p>Do you want to submit this assessment ?</p>
+                <p style="display:none" class="unfinish-message"> You still have <span class="unfinish-count">0</span> unfinished questions. </p>
+                <button type="button" onclick="lessonreviewconfirm()" class="btn btn-dark">Yes</button>
+                <button type="button"  data-bs-dismiss="modal"  class="btn btn-secondary">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+@endpush
+
+@push('footer-script') 
+
+    <script>  
+        var progressurl="{{$user->progress('home-work-'.$homeWork->id.'-booklet-'.$homeWorkBook->id.'-progress-url','')}}"; 
+        let storage = JSON.parse(localStorage.getItem("home-work-booklet"))||{
+            totalcount:{{$questioncount??0}},
+            questionids:[];,
+            timercurrent:{},
+            flagcurrent:{};,
+            currentSlug:"";,
+            flagdx:{},
+            verifydx:{},
+            cudx:1,
+            answeridx:[],
+            notansweridx:[];,
+            timerActive:true,
+            examActive:true,
+            timetaken:0,
+        };
+        let summery = new Proxy({save:function(target){ localStorage.setItem("home-work-booklet",JSON.stringify(summery));return true; } }, {
+            get: function(target, propertyName) {
+                return target[propertyName] || null;
+            },
+            set: function(target, propertyName, value) {
+                target[propertyName] = value; 
+                return true;
+            }
+        }); 
+        summery.save();
+        function refreshpreviewstate(){
+            
+        }
+        function toglepreviewpage(){
+            summery.timerActive=!summery.timerActive; 
+            $('#question-preview-page').slideToggle()
+            $('#question-answer-page').fadeToggle()
+            summery.save();
+        }
+        function d2s(number){
+            return (number??0).toLocaleString('en-US', { minimumIntegerDigits: 2 })
+        }
+        function generateRandomId(length) {
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let result = '';
+            const charactersLength = characters.length;
+
+            for (let i = 0; i < length; i++) {
+                result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            }
+
+            return result;
+        }
+         
+        function getVimeoId(url) {
+            // Regular expression to match Vimeo URL format
+            const regex = /vimeo\.com\/(?:video\/|)(\d+)/;
+            // Extract video ID using match function
+            const match = url.match(regex);
+            
+            if (match) {
+                return match[1]; // Return the captured video ID
+            } else {
+                return url; // Return null if no match found
+            }
+        } 
+        async function verifyquestion(question,ans){
+            const csrf= $('meta[name="csrf-token"]').attr('content'); 
+            var response=await fetch("{{route('home-work.booklet.verify',['home_work'=>$homeWork->slug,'home_work_book'=>$homeWorkBook->slug])}}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrf,
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify({
+                    question:question,
+                    answer:ans
+                }),
+            }); 
+            const data = await response.json(); 
+            if(data.iscorrect){
+                summery.verifydx[question]=true;
+            }else{
+                delete summery.verifydx[question];
+            }
+            summery.save();
+        }
+        function refreshstatus(idx,status){
+            $(`.question-item[data-idx="${idx}"]`).removeClass('status-not-answered').removeClass('status-answered');
+            $(`#show-all .question-item[data-idx="${idx}"]`).addClass(`status-${status}`);
+            $(`#${status} .question-item[data-idx="${idx}"]`).addClass(`status-${status}`);
+            $(`#not-readed .question-item[data-idx="${idx}"]`).removeClass('status-not-read')
+
+            $('#not-readed-nav').text(summery.totalcount-(summery.answeridx.length+summery.notansweridx.length))
+            $('#answered-nav').text(summery.answeridx.length)
+            $('#not-answered-nav').text(summery.notansweridx.length)
+        }
+         function loadlesson(pageurl=null){ 
+             
+            $.get(pageurl||"{{ route('home-work.booklet',['home_work'=>$homeWork->slug,'home_work_book'=>$homeWorkBook->slug]) }}",function(res){
+                $('.pagination-arrow').hide();
+                $('#lesson-footer-pagination').html('')
+                summery.timerActive=true;
+                $('#question-preview-page').fadeOut()
+                $('#question-answer-page').fadeIn()
+                const lesseonId=generateRandomId(10);  
+                summery.cudx=res.current_page;
+                summery.notansweridx.push(summery.cudx) 
+                summery.notansweridx = [...new Set(summery.notansweridx)]
+                summery.answeridx=summery.answeridx.filter(item => item !== summery.cudx)
+                refreshstatus(summery.cudx,'not-answered');
+                if(summery.flagdx[summery.cudx]){
+                    $("#bookmark-current").addClass('active');
+                }else{
+                    $("#bookmark-current").removeClass('active');
+                }
+                summery.save()
+                $.each(res.data,function(k,v){ 
+                        $('#lesson-questionlist-list').html(`
+                            <div class="col-md-12">
+                                <div class="mcq-row" >
+                                    <div class="mcq-title">
+                                        <span>${v.title||""}</span>
+                                    </div>
+                                    <div class="mcq-container">
+                                        <div id="mcq-${lesseonId}" class="mcq-description">
+                                            ${v.description}
+                                        </div>
+                                        <div class="mcq-answer">
+                                            <div id="mcq-${lesseonId}-ans" class="form-group" >
+                                                <div class="form-data" >
+                                                    <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list"> 
+                                                        
+                                                    </div> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `).fadeIn();
+                        if(!summery.timercurrent[v.slug]){ 
+                            summery.timercurrent[v.slug]=0; 
+                        } 
+                        summery.currentSlug=v.slug;
+                        summery.save()
+                        $.get(pageurl||"{{ route('home-work.booklet',['home_work'=>$homeWork->slug,'home_work_book'=>$homeWorkBook->slug]) }}",{question:v.slug},function(ans){
+                            $(`#mcq-${lesseonId}-list`).html('')
+                            $.each(ans,function(ai,av){
+                                $(`#mcq-${lesseonId}-list`).append(`
+                                    <div class="form-check">
+                                        <input type="radio" name="answer" data-page="${summery.cudx}" data-question="${v.slug}" id="user-answer-${lesseonId}-ans-item-${ai}" value="${av.slug}" class="form-check-input"  >        
+                                        <label for="user-answer-${lesseonId}-ans-item-${ai}" >${av.title}</label>
+                                    </div>  
+                                `)
+                            })
+                            refreshquestionanswer(v.slug,function(data){
+                                $(`#mcq-${lesseonId}-list input[value="${data.value}"]`).prop("checked",true)
+                                if(data.value){
+                                    summery.answeridx.push(summery.cudx) 
+                                    summery.answeridx = [...new Set(summery.answeridx)]
+                                    summery.notansweridx=summery.notansweridx.filter(item => item !== summery.cudx)
+                                    summery.save();
+                                    refreshstatus(summery.cudx,'answered');
+                                }
+                            }) 
+                        },'json').fail(function(xhr,status,error){
+                            showToast("Error: " + error, 'danger'); 
+                        }) 
+                }) 
+                if(res.next_page_url){ 
+                    $('.lesson-right').show().find('button.right-btn').data('pageurl',res.next_page_url);
+                }else{
+                    $('.lesson-finish').show();
+                }
+                if(res.prev_page_url){
+                    $('.lesson-left').show().find('button.left-btn').data('pageurl',res.prev_page_url);
+                }  
+                $('#menu-text').text(`Question ${res.current_page} of ${res.total}`)
+                 
+
+            },'json').fail(function(xhr,status,error){
+                showToast("Error: " + error, 'danger'); 
+            })
+
+            const csrf= $('meta[name="csrf-token"]').attr('content'); 
+            progressurl=pageurl; 
+            fetch("{{route('progress')}}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrf,
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify({
+                    name:"home-work-{{$homeWork->id}}-booklet-{{$homeWorkBook->id}}-progress-url",
+                    value:progressurl
+                }),
+            }); 
+                 
+         }
+         async function updateprogress(callback){  
+            try { 
+                const csrf= $('meta[name="csrf-token"]').attr('content');  
+                var currentprogress=(summery.questionids.length*100/summery.totalcount)
+                const response1 = await fetch("{{route('progress')}}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrf,
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: JSON.stringify({
+                        name:"home-work-{{$homeWork->id}}-booklet-{{$homeWorkBook->id}}-progress-ids",
+                        value:JSON.stringify(summery.questionids)
+                    }),
+                });  
+
+                const response2 = await fetch("{{route('progress')}}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrf,
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: JSON.stringify({
+                        name:"home-work-{{$homeWork->id}}-booklet-{{$homeWorkBook->id}}",
+                        value:currentprogress
+                    }),
+                }); 
+                if (!response2.ok) {
+                    showToast("Error: " + response2.status, 'danger'); 
+                }  
+                callback()
+            } catch (error) { 
+                showToast("Error: " + error, 'danger'); 
+            }
+         }
+         async function updatequestionanswer(question,ans){
+            summery.questionids.push(question);
+            summery.questionids=summery.questionids.filter(function(value, index, array){
+                return array.indexOf(value) === index;
+            })
+            summery.save()
+            const csrf= $('meta[name="csrf-token"]').attr('content'); 
+            const response = await fetch("{{route('progress')}}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrf,
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify({
+                    name:"home-work-{{$homeWork->id}}-booklet-{{$homeWorkBook->id}}-answer-of-"+question,
+                    value:ans
+                }),
+            }); 
+         }
+         async function refreshquestionanswer(question,callback){
+            const csrf= $('meta[name="csrf-token"]').attr('content'); 
+            const response = await fetch("{{route('getprogress')}}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrf,
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify({
+                    name:"home-work-{{$homeWork->id}}-booklet-{{$homeWorkBook->id}}-answer-of-"+question,
+                    value:''
+                }),
+            }); 
+            if (response.ok) {
+                const data = await response.json();
+                callback(data);
+            }
+         } 
+
+         async function lessonreviewconfirm(){
+            const csrf= $('meta[name="csrf-token"]').attr('content'); 
+            // currentprogress=(summery.questionids.length*100/summery.totalcount)
+            await fetch("{{route('progress')}}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrf,
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify({
+                    name:"home-work-{{$homeWork->id}}-booklet-{{$homeWorkBook->id}}-complete-review",
+                    value:'pending'
+                }),
+            }); 
+            $('#finish-exam-confirm').modal('hide') 
+            var timed="untimed";             
+            $('#finish-exam-confirmed-form-timed').val(timed)
+            $('#finish-exam-confirmed-form-timetaken').val(summery.timetaken)
+            $('#finish-exam-confirmed-form-flags').val(JSON.stringify(summery.flagcurrent))
+            $('#finish-exam-confirmed-form-times').val(JSON.stringify(summery.timercurrent))
+            $('#finish-exam-confirmed-form-passed').val(Object.keys(summery.verifydx).length); 
+            $('#finish-exam-confirmed-form').submit();
+            summery.timerActive=false;
+            summery.examActive=false;
+            summery.save() 
+         }
+         async function updateandsave(callback){ 
+            if($('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length>0){
+                $('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]:checked').each(function(){
+                    updatequestionanswer($(this).data('question'),$(this).val());
+                    verifyquestion($(this).data('question'),$(this).val());
+                    if($(this).val()){
+                        summery.answeridx.push(summery.cudx) 
+                        summery.answeridx = [...new Set(summery.answeridx)]
+                        summery.notansweridx=summery.notansweridx.filter(item => item !== summery.cudx)
+                        summery.save();
+                        refreshstatus(summery.cudx,'answered');
+                    }else{
+                        summery.notansweridx.push(summery.cudx) 
+                        summery.notansweridx = [...new Set(summery.notansweridx)]
+                        summery.answeridx=summery.answeridx.filter(item => item !== summery.cudx)
+                        summery.save();
+                        refreshstatus(summery.cudx,'not-answered');
+                    }
+                })
+            } 
+            updateprogress(callback) 
+         }
+          
+         async function exitconfirm(url){
+            if(await showConfirm({ 
+                title:"Are you sure do you want to exit?" ,
+                message: "If you exit in-between the exam, The answered questions will not save and you should need to start the exam from the beginning.",
+            })){
+                window.location.href=url;
+            }
+        }
+         $(function(){  
+            refreshpreviewstate()
+            loadlesson(progressurl) 
+            $('.lesson-left button.left-btn,.lesson-right button.right-btn').click(function(){  
+                const pageurl=$(this).data('pageurl');  
+                updateandsave(function(){
+                    loadlesson(pageurl)
+                })
+            });  
+
+            $('.lesson-finish button.finish-btn').click(function(){  
+                updateandsave(function(){
+                    var unfinishcount=summery.totalcount-summery.questionids.length; 
+                    if(unfinishcount>0){
+                        $('.unfinish-message').show().find('.unfinish-count').text(unfinishcount)
+                    }else{
+                        $('.unfinish-message').hide().find('.unfinish-count').text(0)
+                    }  
+                    $('#finish-exam-confirm').modal('show')
+                })
+            });
+            $('#bookmark-current').click(function(){
+                if(summery.flagdx[summery.cudx]){
+                    summery.flagdx[summery.cudx]=false;
+                    summery.flagcurrent[summery.currentSlug]=true;
+                    summery.save();
+                    $("#bookmark-current").removeClass('active');
+                    $(`#show-all .question-item[data-idx="${summery.cudx}"]`).removeClass('status-flag')
+                    $(`#flagged .question-item[data-idx="${summery.cudx}"]`).removeClass('status-flag')
+                }else{
+                    summery.flagdx[summery.cudx]=true;
+                    summery.flagcurrent[summery.currentSlug]=true;
+                    summery.save();
+                    $("#bookmark-current").addClass('active')
+                    $(`#show-all .question-item[data-idx="${summery.cudx}"]`).addClass('status-flag')
+                    $(`#flagged .question-item[data-idx="${summery.cudx}"]`).addClass('status-flag')
+                } 
+                var lenflag=0;
+                $.each(summery.flagdx,(k,v)=>v?lenflag++:null);
+
+                $('#flagged-nav').text(lenflag)
+            })  
+            $('.timer').show()
+           
+            // setInterval(countownRun,1000)
+
+            $('.exam-exit a').click(function(e){
+                e.preventDefault();
+                e.stopPropagation();
+                localStorage.removeItem("home-work-booklet")
+                exitconfirm($(this).attr("href")); 
+            }) 
+         })
+    </script>
+@endpush
