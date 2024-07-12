@@ -246,7 +246,8 @@ class TermController extends Controller
 
         if($request->ajax()){
             if(!empty($request->home_work)){
-                $this->where('home_work_id',$request->home_work);
+                $homeWork=HomeWork::findSlug($request->home_work);
+                $this->where('home_work_id',$homeWork->id);
             }
 
             return $this->addAction(function($data){ 

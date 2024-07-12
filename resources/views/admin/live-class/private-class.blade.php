@@ -387,8 +387,8 @@
         function weekbooklet(event,slug)
         {
             $('#week_booklet_parent').val(slug) 
-            booklettable.ajax.reload()
             weekbooklettoggle()
+            booklettable.ajax.reload()
         }
         function weekbooklettoggle(){
             $('#private-class-booklet-modal-content,#private-class-modal-content').slideToggle()
