@@ -95,7 +95,7 @@
         function loadvideowrap(url,title){
             var videocontent = `${url}`;
             const lesseonId=generateRandomId(10);
-            if (videocontent.includes('youtube.com')) {
+            if (videocontent.includes('youtube.com')||videocontent.match(/^[a-zA-Z0-9_-]{11}$/)) {
                 videocontent =getYoutubeId(videocontent);
                 $('#video-content-body').html(`
                 <div class="video-row" >
@@ -110,7 +110,7 @@
                     </div>
                 </div>
                 `)
-            }else if (videocontent.includes('vimeo.com')) {
+            }else if (videocontent.includes('vimeo.com')||videocontent.match(/^\d{8,10}$/)) {
                 videocontent =getVimeoId(videocontent);
                 $('#video-content-body').html(`
                 <div class="video-row" >
@@ -125,7 +125,7 @@
                 </div>
                 `)
             }else{
-
+                
                 $('#video-content-body').html(`
                 <div class="video-row" >
                     <div class="video-title">
@@ -133,7 +133,7 @@
                     </div>
                     <div class="video-container">
                         <div id="vimo-videoframe-${lesseonId}">
-                            <iframe src="${videocontent}?byline=0&keyboard=0&dnt=1&app_id=${lesseonId}" width="100%" height="500" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" title="${title}" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                            <iframe src="${videocontent}" width="100%" height="500" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" title="${title}" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                         </div> 
                     </div>
                 </div>
