@@ -151,8 +151,10 @@ Route::middleware(['auth','isUser'])->group(function(){
         Route::get('/',[PrivateClassHomeWorkController::class,'index'])->name('index');
         Route::get('/{home_work}',[PrivateClassHomeWorkController::class,'show'])->name('show');
         Route::get('/{home_work}/booklet/{home_work_book}',[PrivateClassHomeWorkController::class,'booklet'])->name('booklet');
+        Route::get('/{home_work}/booklet/{home_work_book}/history',[PrivateClassHomeWorkController::class,'booklethistory'])->name('history');
         Route::post('/{home_work}/booklet/{home_work_book}/verify',[PrivateClassHomeWorkController::class,'bookletverify'])->name('booklet.verify');
         Route::post('/{home_work}/booklet/{home_work_book}/submit',[PrivateClassHomeWorkController::class,'bookletsubmit'])->name('booklet.submit');
+        Route::get('/attempt/booklet/{home_work_review}/preview',[PrivateClassHomeWorkController::class,'preview'])->name('preview');
     });
 }); 
 Route::middleware('signed')->get('email/{id}/{hash}/verify', [HomeController::class,'verifyemail'])->name('verification.verify');

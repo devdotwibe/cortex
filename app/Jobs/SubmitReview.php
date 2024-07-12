@@ -28,9 +28,11 @@ class SubmitReview implements ShouldQueue
      *
      * @var UserExamReview
      */
-    protected $review;
+    protected $review; 
+
     /**
-     * Create a new job instance.
+     * Summary of __construct
+     * @param UserExamReview $review
      */
     public function __construct($review)
     {
