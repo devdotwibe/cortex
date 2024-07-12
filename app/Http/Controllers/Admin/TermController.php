@@ -476,7 +476,7 @@ class TermController extends Controller
 
         foreach ($Lesson_Recording as $row) {
           
-            $row->inner_url=route('admin.term.store', $row->slug);
+            $row->inner_url=route('admin.lesson-record.show', $row->slug);
            
             $term_names[]=$row;
         }

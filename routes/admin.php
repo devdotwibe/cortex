@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\FullMockExamController;
 use App\Http\Controllers\Admin\HomeWorkController;
 use App\Http\Controllers\Admin\LearnController;
 use App\Http\Controllers\Admin\LessonMaterialController;
+use App\Http\Controllers\Admin\LessonRecordController;
 use App\Http\Controllers\Admin\LiveClassController;
 use App\Http\Controllers\Admin\MainController as AdminMainController;
 use App\Http\Controllers\Admin\PaymentController;
@@ -256,6 +257,15 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::get('/home-work/booklet/{home_work_book}/show',[HomeWorkController::class,'showbooklet'])->name('showbooklet');
             Route::put('/home-work/booklet/{home_work_book}/update',[HomeWorkController::class,'updatebooklet'])->name('updatebooklet');
             Route::delete('/home-work/booklet/{home_work_book}/destroy',[HomeWorkController::class,'destroybooklet'])->name('destroybooklet');
+        });
+        Route::prefix('lesson-record')->name('lesson-record.')->group(function () {
+            Route::get('/{lesson_recording}',[LessonRecordController::class,'show'])->name('show');
+            Route::get('/{lesson_recording}/video/create',[LessonRecordController::class,'create'])->name('create');
+            Route::post('/{lesson_recording}/video/create',[LessonRecordController::class,'store'])->name('store');
+            Route::get('/{lesson_recording}/video/{record_video}/edit',[LessonRecordController::class,'edit'])->name('edit');
+            Route::put('/{lesson_recording}/video/{record_video}/edit',[LessonRecordController::class,'update'])->name('update');
+            Route::delete('/{lesson_recording}/video/{record_video}/destroy',[LessonRecordController::class,'destroy'])->name('destroy');
+            Route::get('/{lesson_recording}/video/{record_video}/visibility',[LessonRecordController::class,'visibility'])->name('visibility');
         });
     });
     Route::prefix('settings')->name('settings.')->group(function () {
