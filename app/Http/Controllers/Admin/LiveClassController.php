@@ -148,12 +148,30 @@ class LiveClassController extends Controller
             self::$model=PrivateClass::class;
             self::$defaultActions=[''];
             return $this->addAction(function($data){
-                return '';
+                $action="";
+                if($data->status=="pending"){
+                    $action.='
+                    ';
+                }
+                $action.='
+                 <a  class="btn btn-icons dlt_btn" data-delete="'.route("live-class.request.destroy",$data->slug).'">
+                    <img src="'.asset("assets/images/delete.svg").'" alt="">
+                </a> 
+                ';
+                return $action;
             })->buildTable();
         }
         $live_class =  LiveClassPage::first();
         return view('admin.live-class.private-class-request',compact('live_class'));
 
+    }
+    public function private_class_request_destroy(Request $request,PrivateClass $privateClass){
+        $privateClass->delete();
+
+        if($request->ajax()){
+            return response()->json(["success"=>"Request has been successfully deleted"]);
+        }  
+        return redirect()->back()->with('success','Request has been successfully deleted');
     }
 
 }
