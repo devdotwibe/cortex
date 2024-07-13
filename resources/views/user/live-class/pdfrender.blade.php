@@ -82,35 +82,6 @@
     </script>
 
 
-<script language="VBScript">
-   Dim strComputer, i
-    Dim objWMIService, colInstalledPrinters
- 
-    If WScript.Arguments.Count = 0 Then
-        WSCript.Echo "No Server/computer name specified…"
-        WScript.Echo "Syntax: CScript PrinertList.vbs <ComputerName>" & vbCrLf
-        WSCript.Echo "Example: CScript PrinterList PrintServer1"
-        WScript.Quit
-    End If
-
-    strComputer = WScript.Arguments(0)
-
-    Set objWMIService = GetObject("winmgmts:" _ & "{impersonationLevel=impersonate}!" & strComputer & "rootcimv2")
-    Set colInstalledPrinters =  objWMIService.ExecQuery _
-        ("Select * from Win32_PrinterDriver")
-
-    i = 1
-
-    WScript.Echo strComputer & ": Installed Printer Drivers…"
-    WScript.Echo "———————————————————-"
-    For each objPrinter in colInstalledPrinters
-        Wscript.Echo i & ": " & objPrinter.Name
-        i = i + 1
-    Next
-
-    Set colInstalledPrinters = Nothing
-    Set objWMIService = Nothing
-</script>
     
     {{-- <script> 
         var pdfdata = @json($pdfmap);
