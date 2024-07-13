@@ -89,51 +89,51 @@ class LiveClassController extends Controller
     }
 
     public function private_class(Request $request)
+    {
+        $request->validate([
+
+            "private_class" => "required",
+        ]);
+
+
+        $live_class = LiveClassPage::first();
+
+        if(empty( $live_class))
         {
-            $request->validate([
-
-                "private_class" => "required",
-            ]);
-
-
-            $live_class = LiveClassPage::first();
-
-            if(empty( $live_class))
-            {
-                $live_class = new LiveClassPage;
-            }
-
-            $live_class->private_class = $request->private_class;
-
-            $live_class->save();
-
-            return redirect()->back()->with('success','Updated Successfully');
-
+            $live_class = new LiveClassPage;
         }
 
+        $live_class->private_class = $request->private_class;
 
-        public function intensive_class(Request $request)
+        $live_class->save();
+
+        return redirect()->back()->with('success','Updated Successfully');
+
+    }
+
+
+    public function intensive_class(Request $request)
+    {
+        $request->validate([
+
+            "intensive_class" => "required",
+        ]);
+
+
+        $live_class = LiveClassPage::first();
+
+        if(empty( $live_class))
         {
-            $request->validate([
-
-                "intensive_class" => "required",
-            ]);
-
-
-            $live_class = LiveClassPage::first();
-
-            if(empty( $live_class))
-            {
-                $live_class = new LiveClassPage;
-            }
-
-            $live_class->intensive_class = $request->intensive_class;
-           
-            $live_class->save();
-
-            return redirect()->back()->with('success','Updated Successfully');
-
+            $live_class = new LiveClassPage;
         }
+
+        $live_class->intensive_class = $request->intensive_class;
+        
+        $live_class->save();
+
+        return redirect()->back()->with('success','Updated Successfully');
+
+    }
 
     public function private_class_create()
     {
