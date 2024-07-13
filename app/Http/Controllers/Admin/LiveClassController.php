@@ -151,8 +151,8 @@ class LiveClassController extends Controller
                 $action="";
                 if($data->status=="pending"){
                     $action.='
-                    <a  class="btn btn-danger btn-sm" href="'.route("admin.live-class.request.accept",$data->slug).'" > Reject </a> 
-                    <a  class="btn btn-success btn-sm" href="'.route("admin.live-class.request.reject",$data->slug).'" > Accept </a> 
+                    <a  class="btn btn-danger btn-sm" href="'.route("admin.live-class.request.reject",$data->slug).'" > Reject </a> 
+                    <a  class="btn btn-success btn-sm" href="'.route("admin.live-class.request.accept",$data->slug).'" > Accept </a> 
                     ';
                 }
                 if($data->status=="approved"){
