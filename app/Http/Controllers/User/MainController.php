@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,6 +17,9 @@ class MainController extends Controller
         $request->validate([
             "name"=>['required']
         ]);
+        /**
+         *  @var User
+         */
         $user=Auth::user();
         $user->setProgress($request->input('name'),$request->input('value'));
     }
@@ -23,6 +27,9 @@ class MainController extends Controller
         $request->validate([
             "name"=>['required']
         ]);
+        /**
+         *  @var User
+         */
         $user=Auth::user();
         return [
             "name"=>$request->input('name'),
