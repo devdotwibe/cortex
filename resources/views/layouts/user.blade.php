@@ -141,6 +141,18 @@
                         Live Teaching
                     </a>
                 </li>
+
+                <li class="side-item {{request()->is('community') ? 'active':''}}">
+                    <a href="{{ route('community.index') }}">
+                        <span class="side-icon" >
+                            <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
+                        </span>
+                        <span class="active-icon">
+                            <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Dashboard">
+                        </span>
+                        Community
+                    </a>
+                </li>
                 @guest('admin') 
                 <li class="side-item logout">
                     <a href="{{route('logout')}}" class="log-out">
@@ -263,6 +275,7 @@
     </script>
     <script src="{{ asset('assets/js/datatables.min.js') }}"></script>
     <script src="{{ asset('assets/js/custom.js') }}"></script>
+    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
     @stack('footer-script')
 </body>
 

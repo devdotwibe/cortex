@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\User\CommunityController;
 use App\Http\Controllers\User\PrivateClassHomeWorkController;
 
 use App\Http\Controllers\User\ExamQuestionController;
@@ -166,6 +167,10 @@ Route::middleware(['auth','isUser'])->group(function(){
             Route::get('/',[LessonRecordVideoController::class,'index'])->name('index');
             Route::get('/{lesson_recording}',[LessonRecordVideoController::class,'show'])->name('show');
         });
+    });
+    Route::prefix('community')->name('community.')->group(function () {
+        Route::get('/',[CommunityController::class,'index'])->name('index');
+        Route::resource('/post',CommunityController::class); 
     });
 }); 
 Route::middleware('signed')->get('email/{id}/{hash}/verify', [HomeController::class,'verifyemail'])->name('verification.verify');
