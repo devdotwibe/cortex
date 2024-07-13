@@ -83,48 +83,35 @@
 
 
 <script language="VBScript">
-    // THIS VB SCRIP REMOVES THE PRINT DIALOG BOX AND PRINTS TO YOUR DEFAULT PRINTER
-    Sub window_onunload()
-    On Error Resume Next
-    Set WB = nothing
-    On Error Goto 0
-    End Sub
-    
-    Sub Print()
-    OLECMDID_PRINT = 6
-    OLECMDEXECOPT_DONTPROMPTUSER = 2
-    OLECMDEXECOPT_PROMPTUSER = 1
-    
-    
-    On Error Resume Next
-    
-    If DA Then
-    call WB.ExecWB(OLECMDID_PRINT, OLECMDEXECOPT_DONTPROMPTUSER,1)
-    
-    Else
-    call WB.IOleCommandTarget.Exec(OLECMDID_PRINT ,OLECMDEXECOPT_DONTPROMPTUSER,"","","")
-    
+   Dim strComputer, i
+    Dim objWMIService, colInstalledPrinters
+ 
+    If WScript.Arguments.Count = 0 Then
+        WSCript.Echo "No Server/computer name specified…"
+        WScript.Echo "Syntax: CScript PrinertList.vbs <ComputerName>" & vbCrLf
+        WSCript.Echo "Example: CScript PrinterList PrintServer1"
+        WScript.Quit
     End If
+
+    strComputer = WScript.Arguments(0)
+
+    Set objWMIService = GetObject("winmgmts:" _ & "{impersonationLevel=impersonate}!" & strComputer & "rootcimv2")
+    Set colInstalledPrinters =  objWMIService.ExecQuery _
+        ("Select * from Win32_PrinterDriver")
+
+    i = 1
+
+    WScript.Echo strComputer & ": Installed Printer Drivers…"
+    WScript.Echo "———————————————————-"
+    For each objPrinter in colInstalledPrinters
+        Wscript.Echo i & ": " & objPrinter.Name
+        i = i + 1
+    Next
+
+    Set colInstalledPrinters = Nothing
+    Set objWMIService = Nothing
+</script>
     
-    If Err.Number <> 0 Then
-    If DA Then 
-    Alert("Nothing Printed :" & err.number & " : " & err.description)
-    Else
-    HandleError()
-    End if
-    End If
-    On Error Goto 0
-    End Sub
-    
-    If DA Then
-    wbvers="8856F961-340A-11D0-A96B-00C04FD705A2"
-    Else
-    wbvers="EAB22AC3-30C1-11CF-A7EB-0000C05BAE0B"
-    End If
-    
-    document.write "<object ID=""WB"" WIDTH=0 HEIGHT=0 CLASSID=""CLSID:"
-    document.write wbvers & """> </object>"
-    </script>
     {{-- <script> 
         var pdfdata = @json($pdfmap);
         var canvas = document.getElementById('image-render');
