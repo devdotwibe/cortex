@@ -507,6 +507,10 @@
                   
                     success: function(response) {
                       
+
+                        var new_url = "{{ route('admin.term.store') }}";
+
+                        $('#term_form').data('action', new_url);
                         $('#table-subcategoryset-form-clear').hide();
 
                         $('#table-subcategoryset-form-submit').text('Add +');
