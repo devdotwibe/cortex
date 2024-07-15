@@ -12,15 +12,41 @@
 <section class="content_section">
     <div class="container">
         <div class="row">
-            @foreach ($terms as  $k=>$item)
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="card mb-3">
                     <div class="card-body">
                          
                             <div class="category"> 
                                 <div class="category-content"> 
                                     <div class="class-term-list">
-                                        <div class="class-term">
+                                        @foreach ($sloteterms as  $k=>$item)
+                                        <div class="class-term" >
+                                            <div class="class-term-label">
+                                                <span>{{$item['slot']}} </span>  
+                                            </div>
+                                            <div class="class-term-content">
+                                                <div class="zoom-list">
+                                                    @foreach ($item['list'] as $slot)
+                                                        <div class="zoom-item">
+                                                            <div class="zoom-id">
+                                                                <span class="zoom-label">Meeting ID </span>
+                                                                <span class="zoom-content"> : {{$item->meeting_id}}</span>
+                                                            </div>
+                                                            <div class="zoom-id">
+                                                                <span class="zoom-label">Passcode</span>
+                                                                <span class="zoom-content"> : {{$item->passcode}}</span>
+                                                            </div>
+                                                            <div class="zoom-id">
+                                                                <span class="zoom-label">Zoom Link </span>
+                                                                <span class="zoom-content"> : <a href="{{$item->zoom_link}}" target="_blank" rel="noopener noreferrer">{{$item->zoom_link}}</a></span>
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        </div>           
+                                        @endforeach
+                                        {{-- <div >
                                             <div class="class-term-label">
                                                 <span>Time Slot </span>  
                                             </div>                                        
@@ -54,15 +80,14 @@
                                             <div class="class-term-content">
                                                 <span> : <a href="{{$item->zoom_link}}" target="_blank" rel="noopener noreferrer">{{$item->zoom_link}}</a> </span>
                                             </div>    
-                                        </div>
+                                        </div> --}}
                                     </div>                                    
                                     
                                 </div>
                             </div> 
                     </div>
                 </div>
-            </div>                
-            @endforeach
+            </div>     
         </div>
     </div>
 </section>

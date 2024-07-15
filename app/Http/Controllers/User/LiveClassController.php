@@ -112,8 +112,15 @@ class LiveClassController extends Controller
          */
         $user=Auth::user();
         $live_class =  LiveClassPage::first();  
-        $terms = SubClassDetail::where('class_detail_id',$classDetail->id)->paginate();
-        return view('user.live-class.class-detail-term',compact('user','live_class','classDetail','terms')); 
+        $sloteterms=[];
+        foreach($user->privateClass->timeslot??[] as $s){
+            $sloteterms=[
+                'slot'=>$s,
+                'list'=>SubClassDetail::where('class_detail_id',$classDetail->id)->whereJsonContains('timeslot',$s)->get()
+            ];
+        }
+         
+        return view('user.live-class.class-detail-term',compact('user','live_class','classDetail','sloteterms')); 
     }
 
     public function privateclasslesson(Request  $request){
