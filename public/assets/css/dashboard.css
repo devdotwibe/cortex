@@ -1118,7 +1118,11 @@ section.post-section .post-item .post-actions a.post-action-btn span{
   font-weight:500;
   color:#010101;
 }  
-
+.class-term .class-term-content .zoom-list .zoom-item .zoom-link a{
+  color:#010101;
+  font-size:18px;
+  font-weight:500;
+}
 
 
 
