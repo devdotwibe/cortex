@@ -17,10 +17,7 @@
                 <div class="card mb-3">
                     <div class="card-body">
                          
-                            <div class="category">
-                                <div class="category-image">
-                                    <img src="{{ asset('assets/images/User-red.png') }}">
-                                </div> 
+                            <div class="category"> 
                                 <div class="category-content"> 
                                     <div class="class-term">
                                         <span>Meeting ID : {{$item->meeting_id}}</span>
