@@ -21,9 +21,19 @@ class HasAvailablePrivateClass
          *  @var User
          */
         $user=Auth::user();
-        if((optional($user->privateClass)->status??"")=="approved"&&(optional($user->privateClass)->is_valid??false)){
-            return $next($request);
+        $status=optional($user->privateClass)->status??"";
+        if($status=="approved"){
+            if((optional($user->privateClass)->is_valid??false)){
+                return $next($request);
+            }else{
+                return redirect()->back()->with('error',"Your Private Class is temporarily deactivated by admin. For further details please contact admin@cortex.com");
+            }
+        }elseif($status=="rejected"){
+            return redirect()->back()->with('error',"Your account is rejected by the admin, To know more please contact admin@cortex.com");
         }
-        return redirect()->back()->with('error',"Private Class Not-Available");
+        else{
+            return redirect()->back()->with('error',"Your account is under verification, verification may take 24 hours, please wait.");
+        }
+
     }
 }
