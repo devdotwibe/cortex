@@ -24,7 +24,8 @@
                                             <div class="class-term-label">
                                                 <span>Time Slot </span>  
                                             </div>                                        
-                                            <div class="class-term-content"> 
+                                            <div class="class-term-content">
+                                                <span> : </span>
                                                 <ul>
                                                     @foreach ($item->timeslot??[] as $slt) <li> <span>{{$slt}}</span> </li> @endforeach
                                                 </ul>
@@ -35,7 +36,7 @@
                                                 <span>Meeting ID </span>
                                             </div>
                                             <div class="class-term-content">
-                                                <span>  {{$item->meeting_id}}</span>
+                                                <span> : {{$item->meeting_id}}</span>
                                             </div>    
                                         </div>
                                         <div class="class-term">
@@ -43,7 +44,7 @@
                                                 <span>Passcode </span>
                                             </div>
                                             <div class="class-term-content">
-                                                <span>  {{$item->passcode}}</span>
+                                                <span> : {{$item->passcode}}</span>
                                             </div>    
                                         </div>
                                         <div class="class-term">
@@ -51,7 +52,7 @@
                                                 <span>Zoom Link  </span>
                                             </div>
                                             <div class="class-term-content">
-                                                <span>  <a href="{{$item->zoom_link}}" target="_blank" rel="noopener noreferrer">{{$item->zoom_link}}</a> </span>
+                                                <span> : <a href="{{$item->zoom_link}}" target="_blank" rel="noopener noreferrer">{{$item->zoom_link}}</a> </span>
                                             </div>    
                                         </div>
                                     </div>                                    
