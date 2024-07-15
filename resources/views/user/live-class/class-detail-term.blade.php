@@ -30,15 +30,15 @@
                                                         <div class="zoom-item">
                                                             <div class="zoom-id">
                                                                 <span class="zoom-label">Meeting ID </span>
-                                                                <span class="zoom-content"> : {{$item->meeting_id}}</span>
+                                                                <span class="zoom-content"> : {{$slot->meeting_id}}</span>
                                                             </div>
                                                             <div class="zoom-id">
                                                                 <span class="zoom-label">Passcode</span>
-                                                                <span class="zoom-content"> : {{$item->passcode}}</span>
+                                                                <span class="zoom-content"> : {{$slot->passcode}}</span>
                                                             </div>
                                                             <div class="zoom-id">
                                                                 <span class="zoom-label">Zoom Link </span>
-                                                                <span class="zoom-content"> : <a href="{{$item->zoom_link}}" target="_blank" rel="noopener noreferrer">{{$item->zoom_link}}</a></span>
+                                                                <span class="zoom-content"> : <a href="{{$slot->zoom_link}}" target="_blank" rel="noopener noreferrer">{{$slot->zoom_link}}</a></span>
                                                             </div>
                                                         </div>
                                                     @endforeach
