@@ -166,7 +166,7 @@ class LiveClassController extends Controller
             })->addColumn('statushtml',function($data){
                 switch ($data->status) {
                     case 'approved':
-                        return ''; 
+                        return '<input type="checkbox" data-toggle="switchbutton" checked data-onlabel="Ready" data-offlabel="Not Ready" data-onstyle="success" data-offstyle="danger">'; 
                     case 'pending';
                         return '<span class="badge text-bg-warning">'.ucfirst($data->status).'</span>';
                     case 'rejected';
