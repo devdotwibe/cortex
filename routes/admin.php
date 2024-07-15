@@ -165,6 +165,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
             
             Route::delete('/private/class/{private_class}/requests',[LiveClassController::class,'private_class_request_destroy'])->name('request.destroy');
             Route::get('/private/class/requests',[LiveClassController::class,'private_class_request'])->name('private_class_request');
+            Route::get('/private/class/requests/export',[LiveClassController::class,'private_class_request_export'])->name('private_class_request_export');
 
             Route::post('/private/class',[LiveClassController::class,'private_class'])->name('private_class');
 

@@ -7,6 +7,7 @@ use App\Models\LiveClassPage;
 use App\Models\PrivateClass;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class LiveClassController extends Controller
@@ -179,6 +180,11 @@ class LiveClassController extends Controller
         $live_class =  LiveClassPage::first();
         return view('admin.live-class.private-class-request',compact('live_class'));
 
+    }
+    public function private_class_request_export(Request $request){
+        if($request->ajax()){ 
+            return PrivateClass::select('`email` as `Email`','`full_name` as `Full Name`','`parent_name` as `Parent Name`','`phone as `Phone`',DB::raw("REPLACE(REPLACE(JSON_EXTRACT(timeslot, '$'), '\"', ''), '[', '') as `Available Timeslote`"),'`status` as `Status`')->get();
+        }
     }
     public function private_class_request_accept(Request $request,PrivateClass $privateClass){
         $privateClass->update(['status'=>"approved"]);
