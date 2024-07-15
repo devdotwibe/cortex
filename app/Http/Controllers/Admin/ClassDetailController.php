@@ -69,7 +69,7 @@ class ClassDetailController extends Controller
         $sub_class_detail->zoom_link = $request->zoom_link;
 
         $sub_class_detail->class_detail_id = $request->class_detail_id;
-        $sub_class_detail->timeslote = $request->input('timeslote',[]);
+        $sub_class_detail->timeslot = $request->input('timeslote',[]);
 
         $sub_class_detail->save();
 
@@ -123,7 +123,7 @@ class ClassDetailController extends Controller
 
            $sub_detail->passcode = $request->passcode;
            $sub_detail->zoom_link = $request->zoom_link;
-           $sub_detail->timeslote = $request->input('timeslote',[]);
+           $sub_detail->timeslot = $request->input('timeslote',[]);
 
            $sub_detail->save();
 
