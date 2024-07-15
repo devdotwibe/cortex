@@ -30,7 +30,7 @@
                             <div class="lesson-row-sets"> 
                                 @foreach ($item->setname as $set)
                                     <div class="sets-item">
-                                        <a @if($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$item->id.'-set-'.$set->id.'-complete-review',"no")=="yes") @elseif($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$item->id.'-set-'.$set->id.'-complete-date',"")=="") onclick="confimexam('{{route('question-bank.set.show',['category'=>$category->slug,'sub_category'=>$item->slug,'setname'=>$set->slug])}}')" @else onclick="loadlessonsetreviews('{{route('question-bank.set.history',['category'=>$category->slug,'sub_category'=>$item->slug,'setname'=>$set->slug])}}')" @endif ><span class="sets-title">{{$set->name}}</span></a>
+                                        <a @if($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$item->id.'-set-'.$set->id.'-complete-review',"no")=="yes") @elseif($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$item->id.'-set-'.$set->id.'-complete-date',"")=="")  @guest('admin') onclick="confimexam('{{route('question-bank.set.show',['category'=>$category->slug,'sub_category'=>$item->slug,'setname'=>$set->slug])}}')" @endguest @else onclick="loadlessonsetreviews('{{route('question-bank.set.history',['category'=>$category->slug,'sub_category'=>$item->slug,'setname'=>$set->slug])}}')" @endif ><span class="sets-title">{{$set->name}}</span></a>
                                     </div>                                    
                                 @endforeach
                             </div> 
@@ -67,7 +67,7 @@
                         </div>
                     </div>
                 </div>
-                <a type="button" href="" id="restart-btn"  class="btn btn-dark">Re-Start Set</a> 
+                @guest('admin')  <a type="button" href="" id="restart-btn"  class="btn btn-dark">Re-Start Set</a> @endguest
             </div>
         </div>
     </div>
