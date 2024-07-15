@@ -33,7 +33,7 @@ class LessonMaterialController extends Controller
             ->addAction(function($data){ 
 
                 $action= ' 
-                        <a onclick="update_lesson_material('."'".route('admin.class-detail.edit_sub_class', $data->slug)."'".')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>
+                        <a onclick="update_lesson_material('."'".route('admin.lesson-material.edit_sub_class', $data->slug)."'".')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>
                     ';
 
                     // if(empty($data->subcategories) || count($data->subcategories) == 0)
@@ -94,12 +94,10 @@ class LessonMaterialController extends Controller
     }
 
 
-    public function destroy_lesson_material(Request $request,$lesson)
-    { 
-        
-        $sub_lesson = SubLessonMaterial::findSlug($lesson);
+    public function destroy_lesson_material(Request $request,SubLessonMaterial $subLessonMaterial)
+    {  
 
-        $sub_lesson->delete();
+        $subLessonMaterial->delete();
 
         if($request->ajax()){
             return response()->json(["success"=>"Sub Lesson Material Details deleted success"]);
@@ -113,7 +111,7 @@ class LessonMaterialController extends Controller
 
         if($request->ajax()){
 
-            $sub_detail->updateUrl=route('admin.class-detail.update_sub_class', $sub_detail->slug);
+            $sub_detail->updateUrl=route('admin.lesson-material.update_sub_class', $sub_detail->slug);
 
             return response()->json($sub_detail);
         }
@@ -124,25 +122,37 @@ class LessonMaterialController extends Controller
     function update_sub_class(Request $request, $subclass)
     {
 
-        $sub_detail = SubLessonMaterial::findSlug($subclass);
+        $sub_lesson = SubLessonMaterial::findSlug($subclass);
 
         $request->validate([
 
-            "meeting_id" => "required",
-            "passcode" => "required",
-            "zoom_link" => "required",
+            "pdf_name" => "required", 
+
         ]);
+ 
+        $sub_lesson->pdf_name = $request->pdf_name;
+       
+        
+        if (!empty($request->pdf_file)&&$request->hasFile('pdf_file')) {
 
-        if(!empty($sub_detail))
-        {
-           $sub_detail->meeting_id = $request->meeting_id;
+            $imageName = "";
 
-           $sub_detail->passcode = $request->passcode;
-           $sub_detail->zoom_link = $request->zoom_link;
+            $avathar = "Lesson-Materials";
 
-           $sub_detail->save();
+            $file = $request->file('pdf_file');
 
+            $imageName = $avathar . "/" . $file->hashName();
+
+            Storage::disk('private')->put("{$avathar}", $file);
+
+            $sub_lesson->pdf_file = $imageName;
+        
         }
+
+        $sub_lesson->lesson_material_id = $request->lesson_material_id;
+
+        $sub_lesson->save();
+
 
         return response()->json(['success'=>"Sub Class Details Updated Successfully"]);
     }

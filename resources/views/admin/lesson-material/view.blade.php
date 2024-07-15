@@ -85,26 +85,26 @@
 
         function update_lesson_material(url) {
 
-        $.get(url, function(res) {
+            $.get(url, function(res) {
 
-            $('#pdf_name').val("");
-            $('#pdf_file').val("");
-            // $('#term_type_form').text("");
+                $('#pdf_name').val("");
+                $('#pdf_file').val("");
+                // $('#term_type_form').text("");
 
-            $('#pdf_name').val(res.pdf_name);
-            $('#pdf_file').val(res.pdf_file);
+                $('#pdf_name').val(res.pdf_name);
+                // $('#pdf_file').val(res.pdf_file);
 
-            $('#error-pdf_name').text('').hide();
-            $('#error-pdf_file').text('').hide();
+                $('#error-pdf_name').text('').hide();
+                $('#error-pdf_file').text('').hide();
 
 
-            $('#lesson_material_form').attr('action',res.updateUrl);
+                $('#lesson_material_form').attr('action',res.updateUrl);
 
-            $('#lesson_material_btn').text('Update');
+                $('#lesson_material_btn').text('Update');
 
-            $('#lesson-material-modal').modal('show');
+                $('#lesson-material-modal').modal('show');
 
-        }, 'json')
+            }, 'json')
         }
 
         function DeleteClose()
