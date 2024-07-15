@@ -123,7 +123,7 @@
 
             $('.timeslote').each(function(){
                 if ((res.timeslot||[]).indexOf($(this).val()) !== -1) {
-                    $(this).prop('checked',checked)
+                    $(this).prop('checked',true)
                 }
             })
 
