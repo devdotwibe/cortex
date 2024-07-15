@@ -20,7 +20,7 @@
                         @if ($user->progress("home-work-{$homeWork->id}-booklet-{$item->id}-complete-review", 'no') == 'yes')
 
                         @elseif($user->progress("home-work-{$homeWork->id}-booklet-{$item->id}-complete-date", '') == '')
-                        <a  onclick="confimbooklet('{{route('home-work.booklet',['home_work'=>$homeWork->slug,'home_work_book'=>$item->slug])}}','{{$item->title}}')">
+                        @guest('admin')  <a  onclick="confimbooklet('{{route('home-work.booklet',['home_work'=>$homeWork->slug,'home_work_book'=>$item->slug])}}','{{$item->title}}')"> @endguest
                         @else
                         <a  onclick="loadbooklethistory('{{route('home-work.history',['home_work'=>$homeWork->slug,'home_work_book'=>$item->slug])}}','{{$item->title}}')">
                         @endif
@@ -60,7 +60,7 @@
                             </div>
                         </div>
                     </div>
-                    <a type="button" href="" id="restart-btn" class="btn btn-dark">Re-Start Booklet</a>
+                    @guest('admin') <a type="button" href="" id="restart-btn" class="btn btn-dark">Re-Start Booklet</a> @endguest
                 </div>
             </div>
         </div>
