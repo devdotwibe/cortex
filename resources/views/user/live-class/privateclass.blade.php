@@ -18,7 +18,7 @@
                             <a href="{{ route('live-class.privateclass.details', $user->slug) }}">
                                 <div class="category">
                                     <div class="category-image">
-                                        <img src="{{ asset('assets/images/User-red.png') }}">
+                                        <img src="{{ asset('assets/images/class.svg') }}">
                                     </div>
                                     <div class="category-content">
                                         <h3>Class Details</h3> 
@@ -34,7 +34,7 @@
                             <a href="{{ route('live-class.privateclass.lesson', $user->slug) }}">
                                 <div class="category">
                                     <div class="category-image">
-                                        <img src="{{ asset('assets/images/User-red.png') }}">
+                                        <img src="{{ asset('assets/images/lessonmaterial.svg') }}">
                                     </div>
                                     <div class="category-content">
                                         <h3>Lesson Material</h3>
@@ -53,7 +53,7 @@
 
                                     <div class="category-image">
 
-                                        <img src="{{ asset('assets/images/User-red.png') }}">
+                                        <img src="{{ asset('assets/images/homework.svg') }}">
 
                                     </div>
 
@@ -78,7 +78,7 @@
 
                                     <div class="category-image">
 
-                                        <img src="{{ asset('assets/images/User-red.png') }}">
+                                        <img src="{{ asset('assets/images/recording.svg') }}">
 
                                     </div>
 

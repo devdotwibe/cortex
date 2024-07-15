@@ -31,7 +31,7 @@
                         <div class="card-body">
                             <div class="category">
                                 <div class="category-image">
-                                    <img src="{{asset("assets/images/User-red.png")}}">
+                                    <img src="{{asset("assets/images/class.svg")}}">
                                 </div>
                                 <div class="category-content">
                                     {{-- <h5><span >  </span> <img src="{{asset('assets/images/pen.png')}}" width="15" alt=""></h5> --}}
@@ -61,7 +61,7 @@
                         <div class="card-body">
                             <div class="category">
                                 <div class="category-image">
-                                    <img src="{{asset("assets/images/User-red.png")}}">
+                                    <img src="{{asset("assets/images/lessonmaterial.svg")}}">
                                 </div>
                                 <div class="category-content">
                                     {{-- <h5><span >  </span> <img src="{{asset('assets/images/pen.png')}}" width="15" alt=""></h5> --}}
@@ -91,7 +91,7 @@
                         <div class="card-body">
                             <div class="category">
                                 <div class="category-image">
-                                    <img src="{{asset("assets/images/User-red.png")}}">
+                                    <img src="{{asset("assets/images/homework.svg")}}">
                                 </div>
                                 <div class="category-content">
                                     {{-- <h5><span >  </span> <img src="{{asset('assets/images/pen.png')}}" width="15" alt=""></h5> --}}
@@ -121,7 +121,7 @@
                         <div class="card-body">
                             <div class="category">
                                 <div class="category-image">
-                                    <img src="{{asset("assets/images/User-red.png")}}">
+                                    <img src="{{asset("assets/images/recording.svg")}}">
                                 </div>
                                 <div class="category-content">
                                     {{-- <h5><span >  </span> <img src="{{asset('assets/images/pen.png')}}" width="15" alt=""></h5> --}}
