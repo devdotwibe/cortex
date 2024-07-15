@@ -183,7 +183,7 @@ class LiveClassController extends Controller
     }
     public function private_class_request_export(Request $request){
         if($request->ajax()){ 
-            return PrivateClass::select('`email` as `Email`','`full_name` as `Full Name`','`parent_name` as `Parent Name`','`phone as `Phone`',DB::raw("REPLACE(REPLACE(JSON_EXTRACT(timeslot, '$'), '\"', ''), '[', '') as `Available Timeslote`"),'`status` as `Status`')->get();
+            return PrivateClass::select('email as `Email`','full_name as `Full Name`','parent_name as `Parent Name`','phone as `Phone`',DB::raw("REPLACE(REPLACE(JSON_EXTRACT(timeslot, '$'), '\"', ''), '[', '') as `Available Timeslote`"),'status as `Status`')->get();
         }
     }
     public function private_class_request_accept(Request $request,PrivateClass $privateClass){
