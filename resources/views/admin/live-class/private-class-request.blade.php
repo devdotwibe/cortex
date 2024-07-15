@@ -58,7 +58,7 @@
         const data = await responce.json();
         var wb = XLSX.utils.book_new();
         wb.Props = {
-            Title: $('title').text(),
+            Title: "private-class-form-request",
             Subject: "Users Request",
             Author: "{{config('app.name')}}",
             CreatedDate: new Date()
@@ -69,10 +69,10 @@
         if(exportType=="Export Excel")
         {
             var wbout = XLSX.write(wb, {bookType:'xlsx',  type: 'binary'});
-            var file = new File([s2ab(wbout)], $('title').text()+".xlsx", {type: "application/octet-stream"});
+            var file = new File([s2ab(wbout)], "private-class-form-request.xlsx", {type: "application/octet-stream"});
         }else{
             var wbout = XLSX.write(wb, {bookType:'csv',  type: 'binary'});
-            var file = new File([s2ab(wbout)], $('title').text()+".csv", {type: "application/vnd.ms-excel"});
+            var file = new File([s2ab(wbout)], "private-class-form-request.csv", {type: "application/vnd.ms-excel"});
         }
         const link = document.createElement('a')
         const url = URL.createObjectURL(file)
