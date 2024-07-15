@@ -23,7 +23,7 @@
                 ["name"=>"redirect", "value"=>route("admin.lesson-record.show",$lessonRecording->slug),"type"=>"hidden"],
  
                 ["name"=>"title","label"=>"Title","size"=>6,"type"=>"text"],  
-                ["name"=>"source_video","label"=>"Video","placeholder"=>"Video","size"=>6,"type"=>"text"],  
+                ["name"=>"source_video","label"=>"Video - (Vimeo ID or Link ,Youtube ID or Link ,Video clowd Link)","placeholder"=>"Video","size"=>6,"type"=>"text"],  
             ]' 
         />  
     </div>
