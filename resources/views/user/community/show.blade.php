@@ -12,8 +12,8 @@
         </div> 
         <div class="header_right">
             <ul class="nav_bar">
-                <li class="nav_item"><a href="{{route('community.post.edit',$post->slug)}}" class="nav_link btn">Edit Post</a></li>
                 @if ($post->user_id==$user->id)
+                <li class="nav_item"><a href="{{route('community.post.edit',$post->slug)}}" class="nav_link btn">Edit Post</a></li>
                 <li class="nav_item"><a data-bs-toggle="modal" data-target="#delete-post" data-bs-target="#delete-post" class="btn btn-outline-danger">Delete</a></li>                    
                 @endif
             </ul>
