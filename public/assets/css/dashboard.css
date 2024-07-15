@@ -1075,7 +1075,49 @@ section.post-section .post-item .post-actions a.post-action-btn img{
 section.post-section .post-item .post-actions a.post-action-btn span{
   margin: 5px 5px;
 }
+.class-term {
+  width:100%;
+  margin:0 10px;
+}
 
+.class-term .class-term-label {
+  width:100%;
+  font-size:18px;
+  font-weight:500;
+  margin: 10px 0px;
+}
+.class-term .class-term-content{
+  width:100%;
+}
+.class-term .class-term-content .zoom-list .zoom{
+  width:100%;
+}
+.class-term .class-term-content .zoom-list .zoom-item {
+  width:100%;
+  background:white;
+  padding: 10px 25px;
+  border:1px solid #e9eaeb;
+  display:inline-flex;
+  flex-wrap:wrap;
+} 
+.class-term .class-term-content .zoom-list .zoom-item .zoom-id{
+  width:50%;
+  font-size:16px;
+  font-weight:500;
+  color:#010101;
+}
+.class-term .class-term-content .zoom-list .zoom-item .zoom-code{
+  width:50%;
+  font-size:16px;
+  font-weight:500;
+  color:#010101;
+}
+.class-term .class-term-content .zoom-list .zoom-item .zoom-link{
+  width:100%;
+  font-size:16px;
+  font-weight:500;
+  color:#010101;
+}  
 
 
 
