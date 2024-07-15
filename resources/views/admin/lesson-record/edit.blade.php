@@ -24,7 +24,7 @@
                 ["name"=>"redirect", "value"=>route("admin.lesson-record.show",$lessonRecording->slug),"type"=>"hidden"],
  
                 ["name"=>"title","label"=>"Title","size"=>6,"type"=>"text","value"=>$recordVideo->title],  
-                ["name"=>"source_video","label"=>"Video - (Vimeo ID or Link ,Youtube ID or Link ,Video clowd Link)","placeholder"=>"Video","size"=>6,"type"=>"text","value"=>$recordVideo->source_video],  
+                ["name"=>"source_video","label"=>"Video - ( Vimeo ID or Link ,Youtube ID or Link )","placeholder"=>"Video","size"=>6,"type"=>"text","value"=>$recordVideo->source_video],  
             ]' 
         />  
     </div>
