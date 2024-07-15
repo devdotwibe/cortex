@@ -20,8 +20,9 @@
                                         <h3>{{ $exam->title }}</h3>
                                         @if ($user->progress('exam-' . $exam->id . '-complete-review', 'no') == 'yes')
                                         @elseif($user->progress('exam-' . $exam->id . '-complete-date', '') == '')
-                                            <a class="btn btn-warning action-btn"
-                                                onclick="confimexam('{{ route('full-mock-exam.show', $exam->slug) }}',`{{ $exam->title }}`)">ATTEMPT</a>
+                                            @guest('admin')
+                                            <a class="btn btn-warning action-btn" onclick="confimexam('{{ route('full-mock-exam.show', $exam->slug) }}',`{{ $exam->title }}`)">ATTEMPT</a>
+                                            @endguest
                                         @else
                                             <a class="btn btn-primary action-btn"
                                                 onclick="loadlessonsetreviews('{{ route('full-mock-exam.history', $exam->slug) }}')">REVIEW</a>
@@ -77,7 +78,7 @@
                             </div>
                         </div>
                     </div>
-                    <a type="button" href="" id="restart-btn" class="btn btn-dark">Re-Start Full Mock Exam</a>
+                    @guest('admin') <a type="button" href="" id="restart-btn" class="btn btn-dark">Re-Start Full Mock Exam</a> @endguest
                 </div>
             </div>
         </div>
