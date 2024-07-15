@@ -417,7 +417,7 @@
         function updatebooklet(url) {
             $.get(url, function(res) {
                 $('#name-error-booklet-form-create').text("")
-                $('#name-booklet-form-create').val(res.name).removeClass("is-invalid")
+                $('#name-booklet-form-create').val(res.title).removeClass("is-invalid")
                 $('#booklet-form-create').data('save', "update")
                 $('#booklet-form-create').data('action', res.updateUrl)
                 $('#booklet-form-clear').show()
