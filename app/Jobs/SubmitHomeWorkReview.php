@@ -74,8 +74,7 @@ class SubmitHomeWorkReview implements ShouldQueue
                     'home_work_id'=> $this->review->home_work_id,
                     'home_work_book_id'=> $this->review->home_work_book_id,
                     'home_work_question_id'=> $question->id,
-                    'home_work_answer_id'=> $ans->id,
-                    'user_id'=>$this->review->user_id,
+                    'home_work_answer_id'=> $ans->id, 
                 ]); 
             } 
             $user->setProgress("home-work-{$homeWork->id}-booklet-{$homeWorkBook->id}-answer-of-".$question->slug,null);

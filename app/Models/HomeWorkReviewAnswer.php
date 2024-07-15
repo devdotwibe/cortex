@@ -13,6 +13,7 @@ class HomeWorkReviewAnswer extends Model
         'slug',
         'title',
         'iscorrect',
+        'user_answer',
         'home_work_id',
         'home_work_book_id',
         'home_work_answer_id',
