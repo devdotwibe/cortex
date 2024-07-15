@@ -29,7 +29,7 @@
                                 @if($user->progress('exam-'.$exam->id.'-topic-'.$item->id.'-complete-review',"no")=="yes") 
                                 
                                 @elseif($user->progress('exam-'.$exam->id.'-topic-'.$item->id.'-complete-date',"")=="") 
-                                    <a   class="btn btn-warning" onclick="confimexam('{{route('topic-test.show',$item->slug)}}')">ATTEMPT</a>
+                                @guest('admin')    <a   class="btn btn-warning" onclick="confimexam('{{route('topic-test.show',$item->slug)}}')">ATTEMPT</a> @endguest
                                 @else 
                                     <a   class="btn btn-primary" onclick="loadlessonsetreviews('{{route('topic-test.topic.history',$item->slug)}}')">REVIEW</a>
                                 @endif 
@@ -60,7 +60,7 @@
                         </div> 
                     </div>
                 </div>
-                <a type="button" href="" id="restart-btn"  class="btn btn-dark">Re-Start Topic</a> 
+                @guest('admin') <a type="button" href="" id="restart-btn"  class="btn btn-dark">Re-Start Topic</a> @endguest
             </div>
         </div>
     </div>
