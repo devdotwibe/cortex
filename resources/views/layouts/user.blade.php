@@ -142,6 +142,7 @@
                     </a>
                 </li>
 
+                @guest('admin') 
                 <li class="side-item {{request()->is('community') ? 'active':''}}">
                     <a href="{{ route('community.index') }}">
                         <span class="side-icon" >
@@ -153,7 +154,6 @@
                         Community
                     </a>
                 </li>
-                @guest('admin') 
                 <li class="side-item logout">
                     <a href="{{route('logout')}}" class="log-out">
                         <span class="side-icon">
