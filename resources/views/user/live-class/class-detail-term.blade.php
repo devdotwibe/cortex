@@ -29,7 +29,7 @@
                                         <span>Passcode : {{$item->passcode}}</span>
                                     </div>
                                     <div class="class-term">
-                                        <span>Zoom Link : <a href="{{$item->zoom_link}}" target="_blank" rel="noopener noreferrer">{{$item->meeting_id}}</a> </span>
+                                        <span>Zoom Link : <a href="{{$item->zoom_link}}" target="_blank" rel="noopener noreferrer">{{$item->zoom_link}}</a> </span>
                                     </div>
                                 </div>
                             </div> 
