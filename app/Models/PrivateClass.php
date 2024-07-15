@@ -17,7 +17,8 @@ class PrivateClass extends Model
         'phone', 
         'timeslot', 
         'user_id',  
-        'status'
+        'status',
+        'is_valid'
     ];
 
     /**

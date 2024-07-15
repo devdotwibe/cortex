@@ -30,7 +30,7 @@
                 ["th"=>"Phone","name"=>"phone","data"=>"phone"],
                 ["th"=>"Timeslot","name"=>"timeslot","data"=>"timeslottext"],
                 ["th"=>"Status","name"=>"status","data"=>"statushtml"],
-            ]' />
+            ]' tableinit="requesttableinit"  />
         </div>
     </div>
 </section> 
@@ -40,6 +40,18 @@
 @endpush
 @push('footer-script')
     <script> 
+
+    var requesttable = null;
+    function requesttableinit(table) {
+        requesttable = table
+    }
+    function changeactivestatus(url){
+        $.get(url,function(res){
+            if (requesttable != null) {
+                requesttable.ajax.reload()
+            }
+        })
+    }
 
     function s2ab(s) { 
         var buf = new ArrayBuffer(s.length); //convert s to arrayBuffer

@@ -167,7 +167,10 @@ class LiveClassController extends Controller
             })->addColumn('statushtml',function($data){
                 switch ($data->status) {
                     case 'approved':
-                        return '<input type="checkbox" data-toggle="switchbutton" checked data-onlabel="Ready" data-offlabel="Not Ready" data-onstyle="success" data-offstyle="danger">'; 
+                        return '<div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" onchange="changeactivestatus('."'".route('admin.live-class.request.status',$data->slug)."'".')" role="switch" id="active-toggle-'.$data->id.'"  '.($data->is_valid?"checked":"").'/>
+                                    <label class="form-check-label" for="active-toggle-'.$data->id.'">Active</label>
+                                </div>'; 
                     case 'pending';
                         return '<span class="badge text-bg-warning">'.ucfirst($data->status).'</span>';
                     case 'rejected';
@@ -180,6 +183,14 @@ class LiveClassController extends Controller
         $live_class =  LiveClassPage::first();
         return view('admin.live-class.private-class-request',compact('live_class'));
 
+    }
+    public function private_class_request_status(Request $request,PrivateClass $privateClass){
+        $privateClass->update(['is_valid'=>$privateClass->is_valid?false:true]);
+
+        if($request->ajax()){
+            return response()->json(["success"=>"Request status has been successfully changed"]);
+        }  
+        return redirect()->back()->with('success','Request status has been successfully changed');
     }
     public function private_class_request_export(Request $request){
         if($request->ajax()){ 
