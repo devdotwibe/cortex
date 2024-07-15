@@ -35,7 +35,7 @@
                 
                 ["name"=>"description","label"=>"Question","size"=>12,"type"=>"editor","value"=>$homeWorkQuestion->description], 
                 ["name"=>"answer","label"=>"answer" ,"type"=>"choice" ,"size"=>12,"value"=>$choices ],
-                ["name"=>"explanation","label"=>"Explanation","size"=>12,"type"=>"editor","value"=>$homeWorkQuestion->description ],
+                ["name"=>"explanation","label"=>"Explanation","size"=>12,"type"=>"editor","value"=>$homeWorkQuestion->explanation ],
             ]' 
         />  
     </div>
