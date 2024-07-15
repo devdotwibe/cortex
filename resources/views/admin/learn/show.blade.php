@@ -6,6 +6,11 @@
         <div class="header_title">
             <h2>{{$category->name}}</h2>
         </div>
+        <div class="header_content">
+             <div class="form-group">
+                <select  id="subcat-list" class="select2 form-control" data-placeholder="Select an Sub Category" data-allow-clear="true" data-ajax--url="{{route('admin.learn.create',$category->slug)}}"></select>
+             </div>
+        </div>
         <div class="header_right">
             <ul class="nav_bar">
                 <li class="nav_item"><a href="{{route('admin.learn.create', $category->slug)}}" class="nav_link btn">Add Lesssons</a></li>
@@ -21,7 +26,7 @@
                 ["th"=>"Title","name"=>"title","data"=>"title"],
                 ["th" => "Visible", "name" => "visible_status", "data" => "visibility"],
             ]' 
-            tableinit="questiontableinit" />
+            tableinit="questiontableinit" beforeajax="questionbeforeajax" />
         </div>
     </div>
 </section>
@@ -40,5 +45,17 @@
                 }
             }, 'json')
         }
+        function questionbeforeajax(data){
+            data.sub_category=$('#subcat-list').val()||null;
+            return data;
+        }
+
+        $(function(){
+            $('.select2').select2().change(function(){
+                if (questiontable != null) {
+                    questiontable.ajax.reload()
+                }
+            })
+        })
     </script>
 @endpush

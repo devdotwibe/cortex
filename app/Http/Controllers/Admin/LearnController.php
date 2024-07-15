@@ -50,6 +50,9 @@ class LearnController extends Controller
         self::$defaultActions=[];
        
         if($request->ajax()){
+            if(!empty($request->sub_category)){
+                $this->where('sub_category_id',$request->sub_category);
+            }
             return $this ->where('category_id',$category->id)
                 ->addAction(function($data)use($category){
                     return '
