@@ -33,4 +33,28 @@ class UserExamReview extends Model
         }
         return round($qst->whereNotNull('time_taken')->where('time_taken','>',0)->average('time_taken'),2);
     }
+
+    public function getData($name,$defaultValue=null){
+        $data=PreviewResult::where('user_exam_review_id',$this->id)->where("name",$name)->first();
+        if(empty($data)){
+            return $defaultValue;
+        }
+        switch ($data->vtype) {
+            case 'string':
+                return strval($data->content); 
+            case 'int':
+                return intval($data->content); 
+            case 'float':
+                return floatval($data->content); 
+            case 'array':
+                if(is_string($data->content??'')){
+                    return json_decode($data->content??"[]",true);
+                }else{
+                    return json_decode(json_encode($data->content),true);
+                }
+                 
+            default:
+                return $data->content;
+        }
+    }
 }

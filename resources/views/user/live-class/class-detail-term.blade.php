@@ -19,6 +19,15 @@
                          
                             <div class="category"> 
                                 <div class="category-content"> 
+
+                                    <div class="class-term">
+                                        <span>Time Slot :</span>  
+                                        <div class="timelist ml-3 pl-3">
+                                            <ul>
+                                                @foreach ($item->timeslot??[] as $item) <li> <span>{{$item}}</span> </li> @endforeach
+                                            </ul>
+                                        </div>
+                                    </div>
                                     <div class="class-term">
                                         <span>Meeting ID : {{$item->meeting_id}}</span>
                                     </div>
@@ -27,9 +36,6 @@
                                     </div>
                                     <div class="class-term">
                                         <span>Zoom Link : <a href="{{$item->zoom_link}}" target="_blank" rel="noopener noreferrer">{{$item->zoom_link}}</a> </span>
-                                    </div>
-                                    <div class="class-term">
-                                        <span>Time Slot : {!! implode(",<br>",$item->timeslot??[]) !!}</span>
                                     </div>
                                     
                                 </div>

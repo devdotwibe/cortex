@@ -23,6 +23,12 @@ class HomeController extends Controller
         return view("welcome");
     }
     public function login(Request $request){
+        if(Auth::check()){
+            return redirect('/dashboard');
+        }
+        if(Auth::guard('admin')->check()){
+            return redirect('/admin/dashboard');
+        }
         return view("auth.login");
     }
     public function loginSubmit(Request $request){
