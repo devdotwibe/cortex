@@ -19,6 +19,9 @@ class HomeWorkController extends Controller
         self::$routeName = "admin.home-work"; 
         self::$defaultActions=['']; 
         if($request->ajax()){
+            if(!empty($request->booklet)){
+                $this->where('home_work_book_id',$request->booklet);
+            }
             return $this->where('home_work_id',$homeWork->id) 
                 ->addAction(function($data)use($homeWork){
                     return '

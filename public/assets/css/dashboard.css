@@ -901,6 +901,9 @@ border-radius: 7px;
 .header_nav .header_wrapp .header_title {
   display: flex;
 }
+.header_nav .header_wrapp .header_content{ 
+  min-width: 200px;
+}
 .form-progress-ans {
   width:100%; 
 }
