@@ -68,6 +68,29 @@
                                     <input type="text" name="zoom_link" id="zoom_link" value="" class="form-control " placeholder="Zoom Link" aria-placeholder="Sub Title" >
                                     <div class="invalid-feedback" id="error-zoom_link">The field is required</div>
                                 </div>
+
+                                <div class="forms-inputs mb-4">
+                                    <label for="timeslote">Time Slot</label> 
+                                    <div class="check-group form-control @error('timeslote') is-invalid  @enderror">
+                                        <div class="form-check">
+                                            <input type="checkbox" name="timeslote[]" class="form-check-input timeslote"  id="check-group-timeslote-1" value="Saturday 9:30 - 11:30 a.m (Online)"  >
+                                            <label for="check-group-timeslote-1">Saturday 9:30 - 11:30 a.m (Online)</label>
+                                        </div> 
+                                        <div class="form-check">
+                                            <input type="checkbox" name="timeslote[]" class="form-check-input timeslote"  id="check-group-timeslote-1" value="Saturday 12 - 2 p.m"  >
+                                            <label for="check-group-timeslote-1">Saturday 12 - 2 p.m</label>
+                                        </div> 
+                                        <div class="form-check">
+                                            <input type="checkbox" name="timeslote[]" class="form-check-input timeslote"  id="check-group-timeslote-1" value="Sunday 9:30 - 11:30 a.m"  >
+                                            <label for="check-group-timeslote-1">Sunday 9:30 - 11:30 a.m</label>
+                                        </div> 
+                                        <div class="form-check">
+                                            <input type="checkbox" name="timeslote[]" class="form-check-input timeslote"  id="check-group-timeslote-1" value="Sunday 12 - 2 p.m"  >
+                                            <label for="check-group-timeslote-1">Sunday 12 - 2 p.m</label>
+                                        </div>
+                                    </div>
+                                    <div class="invalid-feedback" id="error-timeslote">The field is required</div>
+                                </div>
                             </div>
                          </div>
                         <button type="button" onclick="CancelFrom()" data-bs-dismiss="modal" class="btn btn-secondary mr-1">Cancel</button>
@@ -91,11 +114,18 @@
             $('#meeting_id').val("");
             $('#passcode').val("");
             $('#zoom_link').val("");
+            $('.timeslote').prop('checked',false)
             // $('#term_type_form').text("");
 
             $('#meeting_id').val(res.meeting_id);
             $('#passcode').val(res.passcode);
             $('#zoom_link').val(res.zoom_link);
+
+            $().each(function(){
+                if ((res.timeslot||[]).indexOf($(this).val()) !== -1) {
+                    $(this).prop('checked',checked)
+                }
+            })
 
             $('#error-meeting_id').text('').hide();
             $('#error-passcode').text('').hide();
@@ -131,6 +161,7 @@
 
             $('.invalid-feedback').hide();
             $('#sub_class_btn').text('Save');
+            $('.timeslote').prop('checked',false)
        }
 
        function CancelFrom()
