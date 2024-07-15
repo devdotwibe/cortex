@@ -155,9 +155,6 @@ class LiveClassController extends Controller
                     <a  class="btn btn-success btn-sm" href="'.route("admin.live-class.request.accept",$data->slug).'" > Accept </a> 
                     ';
                 }
-                if($data->status=="approved"){
-
-                }
                 $action.='
                  <a  class="btn btn-icons dlt_btn" data-delete="'.route("admin.live-class.request.destroy",$data->slug).'">
                     <img src="'.asset("assets/images/delete.svg").'" alt="">
@@ -166,7 +163,18 @@ class LiveClassController extends Controller
                 return $action;
             })->addColumn('timeslottext',function($data){
                 return implode('<br> ',$data->timeslot);
-            })->buildTable(['timeslottext']);
+            })->addColumn('statushtml',function($data){
+                switch ($data->status) {
+                    case 'approved':
+                        return ''; 
+                    case 'pending';
+                        return '<span class="badge text-bg-warning">'.ucfirst($data->status).'</span>';
+                    case 'rejected';
+                        return '<span class="badge text-bg-danger">'.ucfirst($data->status).'</span>';
+                    default:
+                        return '<span class="badge text-bg-secondary">'.ucfirst($data->status).'</span>'; 
+                } 
+            })->buildTable(['timeslottext','statushtml']);
         }
         $live_class =  LiveClassPage::first();
         return view('admin.live-class.private-class-request',compact('live_class'));

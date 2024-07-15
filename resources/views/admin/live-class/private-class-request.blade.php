@@ -26,7 +26,7 @@
                 ["th"=>"Parent Name","name"=>"parent_name","data"=>"parent_name"],
                 ["th"=>"Phone","name"=>"phone","data"=>"phone"],
                 ["th"=>"Timeslot","name"=>"timeslot","data"=>"timeslottext"],
-                ["th"=>"Status","name"=>"status","data"=>"status"],
+                ["th"=>"Status","name"=>"status","data"=>"statushtml"],
             ]' />
         </div>
     </div>
