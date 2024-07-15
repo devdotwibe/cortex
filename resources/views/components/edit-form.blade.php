@@ -169,22 +169,23 @@
         }
         function addChoice{{$frmID}}(name,label,target){    
             var ln=$(target).find(".choice-item .choice-check").length;
+            let el=`${name}-{{$frmID}}-chcnt-${chcnt}`;
             $(target).append(
             `
             <div class="choice-item mt-2" id="${name}-{{$frmID}}-choice-item-chcnt-${chcnt}"  >
                 <div class="form-group">
                     <div class="form-data">
                         <div class="forms-inputs mb-4"> 
-                            <label for="${name}-{{$frmID}}-chcnt-${chcnt}">Choice</label>
+                            <label for="${el}">Choice</label>
                             <input type="hidden" name="choice_{{$item->name}}_id[]"  value="">
                             <div class="input-group">
                                  <div class="input-group-prepend choice-check-group">
-                                    <label class="input-group-label choice-label"  for="${name}-{{$frmID}}-chcnt-${chcnt}-check"></label>
-                                    <input type="radio" class="input-group-check choice-check"  id="${name}-{{$frmID}}-chcnt-${chcnt}-check" name="choice_${name}" value="${ln}" >
+                                    <label class="input-group-label choice-label"  for="${el}-check"></label>
+                                    <input type="radio" class="input-group-check choice-check"  id="${el}-check" name="choice_${name}" value="${ln}" >
                                 </div>
-                                <input type="text" name="${name}[]" id="${name}-{{$frmID}}-chcnt-${chcnt}" value="" class="form-control" placeholder="${label}" aria-placeholder="${label}" >
+                                <input type="text" name="${name}[]" id="${el}" value="" class="form-control" placeholder="${label}" aria-placeholder="${label}" >
                                 <div class="input-group-append choice-check-group">
-                                    <button type="button" onclick="removeChoice{{$frmID}}('#${name}-{{$frmID}}-choice-item-chcnt-${chcnt}','#${name}-{{$frmID}}-chcnt-${chcnt}-check','${target}')" class="btn btn-danger "><img src="{{asset("assets/images/delete-icon.svg")}}"></button>
+                                    <button type="button" onclick="removeChoice{{$frmID}}('#${name}-{{$frmID}}-choice-item-chcnt-${chcnt}','#${el}-check','${target}')" class="btn btn-danger "><img src="{{asset("assets/images/delete-icon.svg")}}"></button>
                                 </div>
                             </div>
 
@@ -194,8 +195,10 @@
             </div> 
             
             `)    
+            setTimeout(() => {
+                $('#'+el).focus()                
+            }, 500);  
             chcnt++;
-            $(`#${name}-{{$frmID}}-chcnt-${chcnt}`).focus()
         }
         $(function(){
             $("#{{$frmID}} .select2").each(function(){
