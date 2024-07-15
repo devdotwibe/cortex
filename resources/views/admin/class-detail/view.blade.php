@@ -121,7 +121,7 @@
             $('#passcode').val(res.passcode);
             $('#zoom_link').val(res.zoom_link);
 
-            $().each(function(){
+            $('.timeslote').each(function(){
                 if ((res.timeslot||[]).indexOf($(this).val()) !== -1) {
                     $(this).prop('checked',checked)
                 }
