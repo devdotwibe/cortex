@@ -114,7 +114,7 @@ class LiveClassController extends Controller
         $live_class =  LiveClassPage::first();  
         $sloteterms=[];
         foreach($user->privateClass->timeslot??[] as $s){
-            $sloteterms=[
+            $sloteterms[]=[
                 'slot'=>$s,
                 'list'=>SubClassDetail::where('class_detail_id',$classDetail->id)->whereJsonContains('timeslot',$s)->get()
             ];
