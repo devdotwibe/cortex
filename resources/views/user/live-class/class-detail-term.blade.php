@@ -24,7 +24,7 @@
                                         <span>Time Slot :</span>  
                                         <div class="timelist ml-3 pl-3">
                                             <ul>
-                                                @foreach ($item->timeslot??[] as $item) <li> <span>{{$item}}</span> </li> @endforeach
+                                                @foreach ($item->timeslot??[] as $slt) <li> <span>{{$slt}}</span> </li> @endforeach
                                             </ul>
                                         </div>
                                     </div>
