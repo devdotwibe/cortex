@@ -13,7 +13,7 @@
                     <option value="topic-test-result">Topic Test Result</option>
                     <option value="mock-exam-result">Mock Exam Result</option>
                     <option value="question-bank-result">Question Bank Result</option>
-                    <option value="question-bank-titming">Question Bank Timing</option>
+                    <option value="question-bank-timing">Question Bank Timing</option>
                 </select>
             </div>
         </div>
@@ -53,6 +53,50 @@
                             <div class="analytic-exam" id="analytic-exam"> 
                             </div> 
                         </div>
+                        <div class="analytic-item" id="question-bank-result" style="display: none">
+                            <div class="row">
+                                @foreach ($category as $item)
+                                <div class="col-md-6">
+                                    <div class="exam-overview"> 
+                                        <div class="exam-overview-content">
+                                            <div class="overview-title text-center">
+                                                <h3>{{ucfirst($item->name)}}</h3>
+                                            </div>
+                                            <div class="overview-graph">
+                                                <div class="overview-graph-body">
+                                                    <div class="overview-graph-inner"> 
+                                                        <canvas id="question-bank-chart-{{$item->id}}" data-avg="{{$item->getExamAvg('question-bank')}}" data-mrk="{{$item->getExamMark('question-bank',auth()->id())}}" data-max="{{$item->getQuestionCount('question-bank')}}" class="overview-graph-bar overview-graph-bar-question-bank" width="100%" ></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @endforeach
+                            </div>
+                        </div>
+                        <div class="analytic-item" id="question-bank-timing" style="display: none">
+                            <div class="row">
+                                @foreach ($category as $item)
+                                <div class="col-md-6">
+                                    <div class="exam-overview"> 
+                                        <div class="exam-overview-content">
+                                            <div class="overview-title text-center">
+                                                <h3>{{ucfirst($item->name)}}</h3>
+                                            </div>
+                                            <div class="overview-graph">
+                                                <div class="overview-graph-body">
+                                                    <div class="overview-graph-inner"> 
+                                                        <canvas id="question-bank-chart-{{$item->id}}" data-avg="{{$item->getExamAvg('question-bank')}}" data-mrk="{{$item->getExamMark('question-bank',auth()->id())}}" data-max="{{$item->getQuestionCount('question-bank')}}" class="overview-graph-bar overview-graph-bar-question-bank" width="100%" ></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @endforeach
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -66,9 +110,11 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         function togglegrapg(v){
-            $(`.analytic-item.active,#${v}`).slideToggle(function(){
-                $('.analytic-exam-category').css('height',$(`.analytic-exam-item`).height())
-            }).toggleClass('active');
+            $(`.analytic-item.active,#${v}`).slideToggle().toggleClass('active');
+            if(v=="mock-exam-result"){
+                loadexamgrapg("{{url()->current()}}")
+            }
+            
         }
         function generateRandomId(length) {
             const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -116,8 +162,8 @@
                 },
             });
         }
-        function loadexamgrapg(url){
-             $.get(url,function(res){ 
+        async function loadexamgrapg(url){
+             await $.get(url,function(res){ 
                 const lesseonId=generateRandomId(10); 
                 let nextbtn = '';
                 let prevbtn = '';
@@ -191,14 +237,20 @@
              
         }
 
-        $(function(){
-            loadexamgrapg("{{url()->current()}}")
+        $(function(){ 
             $('.overview-graph-bar-topic-test').each(function(){
                 const avgmrk = $(this).data('avg')
                 const mrk = $(this).data('mrk')
                 const max = $(this).data('max')
                 drowgraph(this,max,mrk,avgmrk)
             }) 
+            $('.overview-graph-bar-question-bank').each(function(){
+                const avgmrk = $(this).data('avg')
+                const mrk = $(this).data('mrk')
+                const max = $(this).data('max')
+                drowgraph(this,max,mrk,avgmrk)
+            })
+            loadexamgrapg("{{url()->current()}}")
         })
     </script>
 @endpush
