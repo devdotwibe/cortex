@@ -244,7 +244,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
             Route::post('/',[LessonMaterialController::class,'store'])->name('store');
             
-            Route::delete('/{lesson}/destory-lesson-material',[LessonMaterialController::class,'destroy_lesson_material'])->name('destroy_lesson_material');
+            Route::delete('/{sub_lesson_material}/destory-lesson-material',[LessonMaterialController::class,'destroy_lesson_material'])->name('destroy_lesson_material');
             
             Route::get('/{sub_lesson_material}/edit-sub-class',[LessonMaterialController::class,'edit_sub_class'])->name('edit_sub_class');
             
