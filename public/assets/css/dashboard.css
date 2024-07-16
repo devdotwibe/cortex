@@ -1156,6 +1156,26 @@ section.post-section .post-item .post-actions a.post-action-btn span{
   border:1px solid #aaaaaa;
   border-radius:5px
 }
+.analytic-list {
+  width:100%
+}
+.analytic-list .analytic-item {
+  width:100%; 
+} 
+/* .analytic-exam .row {
+  align-items: start; 
+} */
+.analytic-exam .analytic-exam-sidebar{
+  overflow-y: hidden; 
+  height: 100%;
+}
+.analytic-exam .analytic-exam-category{
+  overflow-y: auto; 
+}
+.analytic-exam .analytic-exam-category .analytic-exam-category-item,.analytic-exam .analytic-exam-category .analytic-exam-category-item .exam-overview ,.analytic-exam .analytic-exam-category .analytic-exam-category-item .exam-overview .exam-overview-content{
+  height: auto;
+}
+
 
 
 

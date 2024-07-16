@@ -9,8 +9,11 @@
         </div> 
         <div class="header_content">
             <div class="form-group">
-                <select class="form-control" id="">
-
+                <select class="form-control" onchange="togglegrapg(this.value)">
+                    <option value="topic-test-result">Topic Test Result</option>
+                    <option value="mock-exam-result">Mock Exam Result</option>
+                    <option value="question-bank-result">Question Bank Result</option>
+                    <option value="question-bank-titming">Question Bank Timing</option>
                 </select>
             </div>
         </div>
@@ -24,11 +27,31 @@
             <div class="card">
                 <div class="card-body">
                     <div class="analytic-list">
-                        <div class="analytic-item active" id="topic-test-result">
-
+                        <div class="analytic-item active" id="topic-test-result" style="display: block">
+                            <div class="row">
+                                @foreach ($category as $item)
+                                <div class="col-md-6">
+                                    <div class="exam-overview"> 
+                                        <div class="exam-overview-content">
+                                            <div class="overview-title text-center">
+                                                <h3>{{ucfirst($item->name)}}</h3>
+                                            </div>
+                                            <div class="overview-graph">
+                                                <div class="overview-graph-body">
+                                                    <div class="overview-graph-inner"> 
+                                                        <canvas id="topic-test-chart-{{$item->id}}" data-avg="{{$item->getExamAvg('topic-test')}}" data-mrk="{{$item->getExamMark('topic-test',auth()->id())}}" data-max="{{$item->getQuestionCount('topic-test')}}" class="overview-graph-bar overview-graph-bar-topic-test" width="100%" ></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @endforeach
+                            </div>
                         </div>
-                        <div class="analytic-item" id="topic-test-result">
-
+                        <div class="analytic-item" id="mock-exam-result" style="display: none">
+                            <div class="analytic-exam" id="analytic-exam"> 
+                            </div> 
                         </div>
                     </div>
                 </div>
@@ -42,8 +65,128 @@
 @push('footer-script')  
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        $(function(){
+        function togglegrapg(v){
+            $(`.analytic-item.active,#${v}`).slideToggle(function(){
+                $('.analytic-exam-category').css('height',$(`.analytic-exam-item`).height())
+            }).toggleClass('active');
+        }
+        function generateRandomId(length) {
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let result = '';
+            const charactersLength = characters.length;
 
+            for (let i = 0; i < length; i++) {
+                result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            }
+
+            return result;
+        }
+        function drowgraph(el,max,d1,d2){ 
+            const ctx = el.getContext('2d');
+            const progressBar = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Your Score','Student Average'],
+                    datasets: [{
+                        label: 'Mark',
+                        data:[d1,d2],
+                        backgroundColor: ['#e37131','#7f7f7f'],  
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    scales: {
+                        y: { 
+                            grid: {
+                                display: false
+                            }, 
+                        }, 
+                        x: {  
+                            grid: {
+                                display: false
+                            }, 
+                            max:max
+                        },  
+                    },
+                    plugins: { 
+                        legend: {
+                            display: false 
+                        }
+                    }
+                },
+            });
+        }
+        function loadexamgrapg(url){
+             $.get(url,function(res){ 
+                const lesseonId=generateRandomId(10); 
+                $('#analytic-exam').html(`
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="analytic-exam-item" id="analytic-exam-item-${lesseonId}">
+                                <div class="exam-overview" > 
+                                    <div class="exam-overview-content">
+                                        <div class="overview-title text-center">
+                                            <h3>${res.data.title||''}</h3>
+                                        </div>
+                                        <div class="overview-graph">
+                                            <div class="overview-graph-body">
+                                                <div class="overview-graph-inner"> 
+                                                    <canvas id="mock-exam-chart-${lesseonId}" data-avg="${res.data.avg||0}" data-mrk="${res.data.mark||0}" data-max="${res.data.max||0}" class="overview-graph-bar overview-graph-bar-mock-exam" width="100%" ></canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4"> 
+                            <div class="analytic-exam-sidebar" >
+                                <div class="analytic-exam-category" id="analytic-exam-category-${lesseonId}">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `) 
+                $('.analytic-exam-category').css('height',$(`.analytic-exam-item`).height())
+                $.each(res.data.category,function(k,v){
+                    $('#analytic-exam-category-'+lesseonId).append(`
+                        <div class="analytic-exam-category-item">
+                            <div class="exam-overview"> 
+                                <div class="exam-overview-content">
+                                    <div class="overview-title text-center">
+                                        <h3>${v.title}</h3>
+                                    </div>
+                                    <div class="overview-graph">
+                                        <div class="overview-graph-body">
+                                            <div class="overview-graph-inner"> 
+                                                <canvas id="mock-exam-chart-${lesseonId}-${k}" data-avg="${v.avg||0}" data-mrk="${v.mark||0}" data-max="${v.max||0}" class="overview-graph-bar overview-graph-bar-mock-exam" width="100%" ></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `)
+                })                
+                $('.overview-graph-bar-mock-exam').each(function(){ 
+                    const avgmrk = $(this).data('avg')
+                    const mrk = $(this).data('mrk')
+                    const max = $(this).data('max')
+                    drowgraph(this,max,mrk,avgmrk)
+                })
+             },'json')
+             
+        }
+
+        $(function(){
+            loadexamgrapg("{{url()->current()}}")
+            $('.overview-graph-bar-topic-test').each(function(){
+                const avgmrk = $(this).data('avg')
+                const mrk = $(this).data('mrk')
+                const max = $(this).data('max')
+                drowgraph(this,max,mrk,avgmrk)
+            }) 
         })
     </script>
 @endpush
