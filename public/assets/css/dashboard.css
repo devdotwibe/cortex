@@ -1175,6 +1175,12 @@ section.post-section .post-item .post-actions a.post-action-btn span{
 .analytic-exam .analytic-exam-category .analytic-exam-category-item,.analytic-exam .analytic-exam-category .analytic-exam-category-item .exam-overview ,.analytic-exam .analytic-exam-category .analytic-exam-category-item .exam-overview .exam-overview-content{
   height: auto;
 }
+.analytic-exam .analytic-exam-item .overview-title {
+  display:flex;
+  width:100%;
+  justify-content:center;
+  align-items:center;
+} 
 
 
 

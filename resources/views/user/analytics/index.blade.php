@@ -157,8 +157,7 @@
                             </div>
                         </div>
                     </div>
-                `) 
-                $('.analytic-exam-category').css('height',$(`.analytic-exam-item`).height())
+                `)  
                 $.each(res.data.category,function(k,v){
                     $('#analytic-exam-category-'+lesseonId).append(`
                         <div class="analytic-exam-category-item">
@@ -179,12 +178,15 @@
                         </div>
                     `)
                 })                
-                $('.overview-graph-bar-mock-exam').each(function(){ 
+                $('.overview-graph-bar-mock-exam').each(function(k,v){  
                     const avgmrk = $(this).data('avg')
                     const mrk = $(this).data('mrk')
                     const max = $(this).data('max')
                     drowgraph(this,max,mrk,avgmrk)
-                })
+                    if(k==0){
+                        $('.analytic-exam-category').css('height',$(`.analytic-exam-item`).height())
+                    }
+                }) 
              },'json')
              
         }
