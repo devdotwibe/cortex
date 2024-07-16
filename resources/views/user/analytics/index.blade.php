@@ -119,6 +119,14 @@
         function loadexamgrapg(url){
              $.get(url,function(res){ 
                 const lesseonId=generateRandomId(10); 
+                let nextbtn = '';
+                let prevbtn = '';
+                if(res.next){
+                    nextbtn = `<a class="next-btn"  onclick="loadexamgrapg('${res.next}')"><img src="{{asset('assets/images/rightarrows1.svg')}}" alt="next" ></a>`;
+                }
+                if(res.prev){
+                    prevbtn = `<a class="prev-btn"  onclick="loadexamgrapg('${res.prev}')"><img src="{{asset('assets/images/leftarrows1.svg')}}" alt="prev" ></a>`;
+                }
                 $('#analytic-exam').html(`
                     <div class="row">
                         <div class="col-md-8">
@@ -126,7 +134,9 @@
                                 <div class="exam-overview" > 
                                     <div class="exam-overview-content">
                                         <div class="overview-title text-center">
-                                            <h3>${res.data.title||''}</h3>
+                                            <div class="overview-left">${prevbtn}</div>
+                                            <div class="overview-center"><h3>${res.data.title||''} </h3></div>
+                                            <div class="overview-right">${nextbtn}</div>
                                         </div>
                                         <div class="overview-graph">
                                             <div class="overview-graph-body">
