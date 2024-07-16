@@ -151,6 +151,13 @@
     <script>
  
         $(document).ready(function() {
+            $('#table-{{ $tableid }}-delete').on('hidden.bs.modal', function (e) {
+            //  @if(!empty($deletecallbackafterclose))
+            //     {{$deletecallbackafterclose}}(e)
+            //  @endif
+            }).on('shown.bs.modal', function (e) {
+             
+            });
 
             $('#table-{{ $tableid }}-bulk-action-form').submit(function(e){
                 e.preventDefault();

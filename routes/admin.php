@@ -248,7 +248,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
             
             Route::get('/{sub_lesson_material}/edit-sub-class',[LessonMaterialController::class,'edit_sub_class'])->name('edit_sub_class');
             
-            Route::post('/{subclass}/update-sub-class',[ClassDetailController::class,'update_sub_class'])->name('update_sub_class');
+            Route::post('/{subclass}/update-sub-class',[LessonMaterialController::class,'update_sub_class'])->name('update_sub_class');
             
         });
         Route::prefix('home-work')->name('home-work.')->group(function () {
@@ -278,11 +278,5 @@ Route::name('admin.')->prefix('admin')->group(function(){
     Route::prefix('settings')->name('settings.')->group(function () {
         Route::get('/',[SettingsController::class,'index'])->name('index');
         Route::post('/store',[SettingsController::class,'store'])->name('store');
-
     });
-
-
-
-
-
 });

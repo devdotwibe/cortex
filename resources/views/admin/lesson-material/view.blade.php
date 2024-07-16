@@ -47,7 +47,6 @@
                     
                     <form action="{{route('admin.lesson-material.store')}}"  id="lesson_material_form" method="post"  enctype="multipart/form-data">
                         @csrf
-
                         <input type="hidden" name="lesson_material_id" value="{{$lession_material->id}}">
                          <div class="form-group">
                             <div class="form-data">
@@ -55,16 +54,16 @@
                                     <label for="pdf_name">pdf Name</label>
                                     <input type="text" name="pdf_name" id="pdf_name" value="" class="form-control " placeholder="Pdf Name" aria-placeholder="Sub Title" >
                                     <div class="invalid-feedback" id="error-pdf_name">The field is required</div>
-                                </div>
-
+                                </div> 
                                 <div class="forms-inputs mb-8">
-
-                                    <label for="pdf_file">Upload PDF</label>
-
-                                    <input type="file" name="pdf_file" id="pdf_file" value="" class="form-control " placeholder="Passcode" aria-placeholder="Sub Title" >
-
+                                    <label class="dropzone form-control" for="pdf_file"> 
+                                        <p>Drag & Drop your PDF files here or click to upload</p>
+                                        <input type="file" name="pdf_file" id="pdf_file" style="display: none" accept="application/pdf" >
+                                    </label> 
                                     <div class="invalid-feedback" id="error-pdf_file">The field is required</div>
+                                    <div id="selected-files" class="selected-files">
 
+                                    </div>
                                 </div>
 
                             </div>
@@ -92,7 +91,9 @@
                 // $('#term_type_form').text("");
 
                 $('#pdf_name').val(res.pdf_name);
+                var filename= (res.pdf_name||"").toLowerCase().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').replace(/^-+|-+$/g, '');
                 // $('#pdf_file').val(res.pdf_file);
+                $('#selected-files').html(`<span>${filename}.pdf</span>`)
 
                 $('#error-pdf_name').text('').hide();
                 $('#error-pdf_file').text('').hide();
@@ -124,7 +125,7 @@
             $('#lesson_material_form').attr('action',url);
 
             $('#lesson-material-modal').modal('show');
-
+            $('#selected-files').html('')
             $('.invalid-feedback').hide();
             $('#lesson_material_btn').text('Save');
        }
@@ -132,9 +133,17 @@
        function CancelFrom()
        {
             $('#lesson-material-modal').modal('hide');
+            $('#selected-files').html('')
        }
 
-       $(document).ready(function() {
+       $(function(){
+            $('#pdf_file').change(function(e){
+                if(this.files.length>0){
+                    filename= this.files[0].name
+                    $('#selected-files').html(`<span>${filename}</span>`)
+                }
+                
+            })
 
             $('#lesson_material_form').on('submit', function(event) {
 
@@ -161,9 +170,10 @@
 
                         $('#lesson-material-modal').modal('hide');
 
-                        showToast(response.success,'success');  
+                        showToast(response.success,'success');
 
                         $('#table-sub_lesson_material').DataTable().ajax.reload();
+                        $('#selected-files').html('')
 
                     },
                     error: function(response) {
