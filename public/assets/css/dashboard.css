@@ -1162,9 +1162,9 @@ section.post-section .post-item .post-actions a.post-action-btn span{
 .analytic-list .analytic-item {
   width:100%; 
 } 
-/* .analytic-exam .row {
+.analytic-exam .row {
   align-items: start; 
-} */
+}
 .analytic-exam .analytic-exam-sidebar{
   overflow-y: hidden; 
   height: 100%;
