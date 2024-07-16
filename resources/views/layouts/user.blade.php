@@ -142,6 +142,17 @@
                     </a>
                 </li>
 
+                <li class="side-item {{request()->is('analytics') ? 'active':''}}">
+                    <a href="{{ route('analytics.index') }}">
+                        <span class="side-icon" >
+                            <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
+                        </span>
+                        <span class="active-icon">
+                            <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Dashboard">
+                        </span>
+                        Analytics
+                    </a>
+                </li>
                 @guest('admin') 
                 <li class="side-item {{request()->is('community') ? 'active':''}}">
                     <a href="{{ route('community.index') }}">

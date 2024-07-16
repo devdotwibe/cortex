@@ -144,7 +144,22 @@
                 }
                 
             })
-
+            $('.dropzone').on('dragover', function(e) { 
+                e.preventDefault();
+                $(this).addClass('dragover');
+            }); 
+            $('.dropzone').on('dragleave', function(e) { 
+                e.preventDefault();
+                $(this).removeClass('dragover');
+            });
+            $('.dropzone').on('drop', function(e) {
+                e.preventDefault();
+                $(this).removeClass('dragover');
+                var files = e.originalEvent.dataTransfer.files;
+                if(files.length>0){
+                    $('#pdf_file').prop('files',files).change()
+                }
+            })
             $('#lesson_material_form').on('submit', function(event) {
 
                 event.preventDefault(); 

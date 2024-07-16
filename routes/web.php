@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\User\AnalyticsController;
 use App\Http\Controllers\User\CommunityController;
 use App\Http\Controllers\User\PrivateClassHomeWorkController;
 
@@ -171,6 +172,9 @@ Route::middleware(['auth','isUser'])->group(function(){
     Route::prefix('community')->name('community.')->group(function () {
         Route::get('/',[CommunityController::class,'index'])->name('index');
         Route::resource('/post',CommunityController::class); 
+    });
+    Route::prefix('analytics')->name('analytics.')->group(function () {
+        Route::get('/',[AnalyticsController::class,'index'])->name('index');
     });
 }); 
 Route::middleware('signed')->get('email/{id}/{hash}/verify', [HomeController::class,'verifyemail'])->name('verification.verify');
