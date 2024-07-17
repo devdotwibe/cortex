@@ -87,7 +87,7 @@
                                             <div class="overview-graph">
                                                 <div class="overview-graph-body">
                                                     <div class="overview-graph-inner"> 
-                                                        <canvas id="question-bank-timing-chart-{{$item->id}}" data-avg="{{$item->getExamAvgTime('question-bank')}}" data-mrk="{{$item->getExamTime('question-bank',auth()->id())}}" data-max="{{$item->getExamQuestionTime('question-bank')}}" class="overview-graph-bar overview-graph-bar-question-bank" width="100%" ></canvas>
+                                                        <canvas id="question-bank-timing-chart-{{$item->id}}" data-avg="{{$item->getExamAvgTime('question-bank')}}" data-mrk="{{$item->getExamTime('question-bank',auth()->id())}}" data-max="{{$item->getExamQuestionTime('question-bank')}}" class="overview-graph-bar overview-graph-bar-question-bank-timing" width="100%" ></canvas>
                                                     </div>
                                                 </div>
                                             </div>
@@ -127,15 +127,15 @@
 
             return result;
         }
-        function drowgraph(el,max,d1,d2){ 
+        function drowgraph(el,max,label,data){ 
             const ctx = el.getContext('2d');
             const progressBar = new Chart(ctx, {
                 type: 'bar',
                 data: {
                     labels: ['Your Score','Student Average'],
                     datasets: [{
-                        label: 'Mark',
-                        data:[d1,d2],
+                        label: label,
+                        data:data,
                         backgroundColor: ['#e37131','#7f7f7f'],  
                     }]
                 },
@@ -228,7 +228,7 @@
                     const avgmrk = $(this).data('avg')
                     const mrk = $(this).data('mrk')
                     const max = $(this).data('max')
-                    drowgraph(this,max,mrk,avgmrk)
+                    drowgraph(this,max,'Mark',[mrk,avgmrk])
                     if(k==0){
                         $('.analytic-exam-category').css('height',$(`.analytic-exam-item`).height())
                     }
@@ -242,13 +242,19 @@
                 const avgmrk = $(this).data('avg')
                 const mrk = $(this).data('mrk')
                 const max = $(this).data('max')
-                drowgraph(this,max,mrk,avgmrk)
+                drowgraph(this,max,'Mark',[mrk,avgmrk])
             }) 
             $('.overview-graph-bar-question-bank').each(function(){
                 const avgmrk = $(this).data('avg')
                 const mrk = $(this).data('mrk')
                 const max = $(this).data('max')
-                drowgraph(this,max,mrk,avgmrk)
+                drowgraph(this,max,'Percentage',[mrk,avgmrk])
+            })
+            $('.overview-graph-bar-question-bank-timing').each(function(){
+                const avgmrk = $(this).data('avg')
+                const mrk = $(this).data('mrk')
+                const max = $(this).data('max')
+                drowgraph(this,max,'Seconds',[mrk,avgmrk])
             })
             loadexamgrapg("{{url()->current()}}")
         })
