@@ -877,10 +877,14 @@ border-radius: 7px;
   width:max-content;
   float:right;
 }
-.user-info h3,.user-info strong{
+.subscription-info {
     font-weight:bold;
     margin-top:10px;
-}  
+}
+.subscription-heading {
+    font-weight:bold;
+    margin-top:6px;
+}
 
 .table-outer table tbody tr td p { 
   display: -webkit-box;
