@@ -198,7 +198,7 @@
     <x-toast-container />
     <x-confirm-popup />
 
-    @if ($user->progress('cortext-subscription-payment','')!="paid")
+    @if (auth('web')->user()->progress('cortext-subscription-payment','')!="paid")
     <div class="modal fade" id="cortext-subscription-payment-modal" tabindex="-1" role="dialog"  aria-labelledby="cortext-subscription-paymentLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
