@@ -22,12 +22,13 @@
             <div class="card">
                 <div class="card-body">
                     <div class="user-info">
+                        <h3>User Info</h3>
                         <p><strong>Name:</strong> {{ $user->name }}</p>
                         <p><strong>Email:</strong> {{ $user->email }}</p>
                         <p><strong>Schooling Year:</strong> {{ $user->schooling_year }}</p>
                     </div>
                     <div class="subscription">
-                        <h3 class="subscription-info">Subscription Info</h3>
+                        <h3>Subscription Info</h3>
                         
                         @if ($user->progress('cortext-subscription-payment','')=="paid")
                             <div class="subscription-item">
