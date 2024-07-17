@@ -110,9 +110,9 @@ class SubscriptionCheck
         }
 
         if(in_array('full-mock-exam',$opt)){
-            $cat=$request->route('exam');
-            if(!empty($cat)){
-                $exam=Exam::findSlug($cat);
+            $xm=$request->route('exam');
+            if(!empty($xm)){
+                $exam=Exam::findSlug($xm);
                 if(empty($exam)){
                     return $next($request);
                 }
