@@ -60,9 +60,9 @@ class SubscriptionCheck
             $cat=$request->route('category');
             if(!empty($cat)){
                 $category=Category::findSlug($cat);
-                if(empty($category)){
-                    return $next($request);
-                }
+                // if(empty($category)){
+                //     return $next($request);
+                // }
                 $exam=Exam::where("name",'question-bank')->first();
                 if(empty($exam)){
                     $exam=Exam::store([
@@ -126,8 +126,8 @@ class SubscriptionCheck
             return $next($request);
         }
         if ($user->progress('cortext-subscription-payment','')=="expired"){
-            return redirect()->route('profile.view')->with('error','Your Subscription Plan is expired.Please Subscribe for continue.');
+            return redirect()->route('profile.view')->with('error','Your Subscription Plan is expired.Please Subscribe for continue.')->with('subscribe','Your Subscription Plan is expired.Please Subscribe for continue.');
         }
-        return redirect()->route('profile.view')->with('error','Please Subscribe the plan.');
+        return redirect()->route('profile.view')->with('error','Please Subscribe the plan.')->with('subscribe','Please Subscribe the plan.');
     }
 }
