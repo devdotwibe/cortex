@@ -57,12 +57,12 @@ class Exam extends Model
             $exmcnt=UserExamReview::whereIn('id',UserExamReview::where('exam_id',$this->id)->groupBy('user_id')->select(DB::raw('MAX(id)')))->where('exam_id',$this->id)->count();
         }else{
             $anscnt=UserReviewAnswer::whereIn('user_exam_review_id',UserExamReview::where('exam_id',$this->id)->groupBy('user_id')->select(DB::raw('MAX(id)')))->where('exam_id',$this->id)->whereIn('question_id',Question::where('exam_id',$this->id)->where("category_id",$id)->select('id'))->where('iscorrect',true)->where('user_answer',true)->count();
-            $exmcnt=UserExamReview::whereIn('id',UserExamReview::where('exam_id',$this->id)->groupBy('user_id')->select(DB::raw('MAX(id)')))->where('exam_id',$this->id)->where("category_id",$id)->count();
+            $exmcnt=UserExamReview::whereIn('id',UserExamReview::where('exam_id',$this->id)->groupBy('user_id')->select(DB::raw('MAX(id)')))->where('exam_id',$this->id)->count();
         }
         if($anscnt>0&&$exmcnt>0){
             return round($anscnt/$exmcnt,2);
         }else{
-            return $exmcnt;
+            return 0;
         }
     }
     public function avgMark($id=null){ 
