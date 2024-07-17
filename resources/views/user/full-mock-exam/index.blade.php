@@ -31,7 +31,7 @@
 
 
                                         @else
-                                        <a data-bs-toggle="modal" data-bs-target="#cortext-subscription-payment-modal">ATTEMPT</a>
+                                        <a class="btn btn-warning action-btn" data-bs-toggle="modal" data-bs-target="#cortext-subscription-payment-modal">ATTEMPT</a>
                                         @endif
                                     </div>
                                 @endforeach
