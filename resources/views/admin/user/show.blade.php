@@ -26,15 +26,17 @@
             </div>
             <div class="subscription">
                 <h3 class="subscription-info">Subscription Info</h3>
-                @if (!$subscription)
-                    <p>No subscriptions found.</p>
-                @else
+                
+                @if ($user->progress('cortext-subscription-payment','')=="paid")
                     <div class="subscription-item">
-                        <p><strong>Amount:</strong> ${{ $subscription->amount }}</p>
-                        <p><strong>Start Date:</strong> {{ \Carbon\Carbon::parse($subscription->start_date)->toFormattedDateString() }}</p>
-                        <p><strong>Expiration Date:</strong> {{ \Carbon\Carbon::parse($subscription->expiration_date)->toFormattedDateString() }}</p>
+                        <p><strong>Amount:</strong> ${{optional($user->subscription())->amount}} </p>
+                        <p><strong>Start Date:</strong> {{optional($user->subscription())->created_at->toFormattedDateString()}} </p>
+                        {{-- <p><strong>Expiration Date:</strong> {{ \Carbon\Carbon::parse($subscription->expiration_date)->toFormattedDateString() }}</p> --}}
                     </div>
                     <br>
+                @else
+                <p>No subscriptions found.</p>
+                    
                 @endif
             </div>
         </div>
