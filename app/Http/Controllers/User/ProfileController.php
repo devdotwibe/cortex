@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\PaymentTransation;
 use App\Models\User;
+use App\Trait\ResourceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
+    use ResourceController;
     function index(Request $request)
     {
         /**
@@ -47,8 +50,16 @@ class ProfileController extends Controller
 
     function view(Request $request)
     {
+        /**
+         * @var User
+         */
         $user = Auth::user();
         
+        if($request->ajax()){
+            self::$model=PaymentTransation::class;
+            self::$defaultActions=[""];
+            return  $this->where('user_id',$user->id)->buildTable();
+        }
         return view('user.profile.view',compact('user'));
     }
 

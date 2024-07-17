@@ -40,12 +40,18 @@
                 ["name"=>"last_name","label"=>"Last Name" ,"size"=>6,"value"=>$user->last_name], 
                 ["name"=>"email","label"=>"email", "size"=>6,"value"=>$user->email],
                 ["name"=>"phone", "label"=>"Phone No", "size"=>6,"value"=>$user->phone], 
-                ["name"=>"schooling_year", "label"=>"Current year of schooling", "size"=>6,"value"=>$user->schooling_year], 
-                
-                
+                ["name"=>"schooling_year", "label"=>"Current year of schooling", "size"=>6,"value"=>$user->schooling_year],  
                
             ]' /> 
-        
+         
+            <x-ajax-table :coloumns='[
+                ["th"=>"Date","name"=>"created_at","data"=>"date"],
+                ["th"=>"Type","name"=>"stype","data"=>"stype"],
+                ["th" => "Amount", "name" => "amount", "data" => "amount"],
+                ["th" => "Status", "name" => "status", "data" => "status"],
+                ["th" => "Payment ID", "name" => "slug", "data" => "slug"],
+            ]' 
+             />
         
         </div>
     </div>
