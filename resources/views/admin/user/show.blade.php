@@ -27,24 +27,24 @@
                         <p><strong>Email:</strong> {{ $user->email }}</p>
                         <p><strong>Schooling Year:</strong> {{ $user->schooling_year }}</p>
                     </div>
-                    <div class="subscription">
+                    <div class="user-info">
                         <h3>Subscription Info</h3>
                         
                         @if ($user->progress('cortext-subscription-payment','')=="paid")
-                            <div class="subscription-item">
+                             
                                 <p><strong>Amount:</strong> ${{optional($user->subscription())->amount}} </p>
                                 <p><strong>Start Date:</strong> {{optional($user->subscription())->created_at->toFormattedDateString()}} </p>
                                 <p><strong>Status:</strong> Active</p>
                                 {{-- <p><strong>Expiration Date:</strong> {{ \Carbon\Carbon::parse($subscription->expiration_date)->toFormattedDateString() }}</p> --}}
-                            </div>
+                             
                             <br>
                         @elseif ($user->progress('cortext-subscription-payment','')=="expired")
-                        <div class="subscription-item">
+                         
                             <p><strong>Amount:</strong> ${{optional($user->subscription())->amount}} </p>
                             <p><strong>Start Date:</strong> {{optional($user->subscription())->created_at->toFormattedDateString()}} </p>
                             <p><strong>Status:</strong> Expired</p>
                             {{-- <p><strong>Expiration Date:</strong> {{ \Carbon\Carbon::parse($subscription->expiration_date)->toFormattedDateString() }}</p> --}}
-                        </div>
+                         
                         <br>
                         @else
                         <p>No subscriptions found.</p>
