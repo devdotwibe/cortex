@@ -85,6 +85,17 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="amount-item">
+                                <x-ajax-table :coloumns='[
+                                    ["th"=>"Date","name"=>"created_at","data"=>"date"],
+                                    ["th"=>"Type","name"=>"stype","data"=>"stype"],
+                                    ["th" => "Amount", "name" => "amount", "data" => "amount"],
+                                    ["th" => "Status", "name" => "status", "data" => "status"],
+                                    ["th" => "Payment ID", "name" => "slug", "data" => "slug"],
+                                ]' 
+                                :action="false" />
+                            </div>
                             
                         </div>
                     </div>

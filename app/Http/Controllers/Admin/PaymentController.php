@@ -3,13 +3,22 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\PaymentTransation;
 use App\Support\Helpers\OptionHelper;
 use App\Support\Plugin\Payment;
+use App\Trait\ResourceController;
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
+    use ResourceController;
     public function index(Request $request){
+
+        if($request->ajax()){
+            self::$model=PaymentTransation::class;
+            self::$defaultActions=[""];
+            return  $this->buildTable();
+        }
         return view('admin.payment.index');
     }
     public function store(Request $request){
