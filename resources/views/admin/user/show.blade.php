@@ -46,14 +46,14 @@
 <section class="table-section">
     <div class="container">
         <div class="row">
-            <x-ajax-table url="{{route('admin.user.students',$user->slug)}}" :coloumns='[
-                ["th"=>"Title","name"=>"title","data"=>"title"],
-                ["th"=>"Name","name"=>"name","data"=>"name"],
-                ["th"=>"SubCategory","name"=>"sub_category_id","data"=>"sub_category_id"],
-                ["th"=>"Category","name"=>"category_id","data"=>"category_id"],
-                ["th"=>"SubCategorySet","name"=>"sub_category_set","data"=>"sub_category_set_id"],
-
-            ]' />
+            <x-ajax-table :coloumns='[
+                ["th"=>"Date","name"=>"created_at","data"=>"date"],
+                ["th"=>"Type","name"=>"stype","data"=>"stype"],
+                ["th" => "Amount", "name" => "amount", "data" => "amount"],
+                ["th" => "Status", "name" => "status", "data" => "status"],
+                ["th" => "Payment ID", "name" => "slug", "data" => "slug"],
+            ]' 
+            :action="false" />
         </div>
     </div>
 </section>
