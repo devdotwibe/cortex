@@ -6,13 +6,13 @@
         <div class="header_title">
             <h2>User Detail</h2>
         </div>
-        @if (!$user->hasVerifiedEmail())
             <div class="header_right">
-                <ul class="nav_bar">
-                    <li class="nav_item"><a class="nav_link btn">Email Not Verified</a></li>
-                </ul>
+                @if (!$user->hasVerifiedEmail())
+                <span class="badge bg-danger">Email Not Verified</span> 
+                @else
+                <span class="badge bg-success">Email Not Verified</span> 
+                @endif
             </div>
-        @endif
     </div>
 </section>
 
