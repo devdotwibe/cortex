@@ -53,7 +53,7 @@
                             </div>
                             <div class="amout-item">
                                 <div class="amout-item-title">
-                                    <span>Intensive Workshop</span>
+                                    <span>Intensive Workshop Amount</span>
                                 </div>
                                 <div class="amout-item-content">
                                     <div class="form">
