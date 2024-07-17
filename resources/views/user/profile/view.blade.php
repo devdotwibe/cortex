@@ -16,16 +16,16 @@
 </section>
 <section class="content_section">
     <div class="container">
-        <div class="row">
+        <div class="row mb-3">
             @if ($user->progress('cortext-subscription-payment','')=="paid")
-            <div class="card mb-3">
+            <div class="card">
                 <div class="card-body">
                     <p> <span>Subscription Amount</span> : {{optional($user->subscription())->amount}} </p>
                     <p> <span>Paid At</span> : {{optional($user->subscription())->created_at->format("Y-m-d")}} </p>
                 </div>
             </div>
             @else
-            <div class="card mb-3">
+            <div class="card ">
                 <div class="card-body">
                     <form action="{{route('payment.subscription')}}"  id="cortext-subscription-payment-form" >
                         <p>The {{config('app.name')}} Subscription Peyment required </p> 
@@ -34,6 +34,7 @@
                 </div>
             </div>
             @endif
+        </div>
 
             <x-show-fields :fields='[
                 ["name"=>"first_name", "label"=>"First Name" ,"size"=>6,"value"=>$user->first_name?? $user->name],
@@ -44,6 +45,7 @@
                
             ]' /> 
          
+        <div class="row mt-3">
             <x-ajax-table :coloumns='[
                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
                 ["th"=>"Type","name"=>"stype","data"=>"stype"],
