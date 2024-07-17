@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,6 +11,9 @@ class ProfileController extends Controller
 {
     function index(Request $request)
     {
+        /**
+         * @var User
+         */
         $user = Auth::user();
         
         return view('user.profile.edit',compact('user'));
@@ -24,6 +28,9 @@ class ProfileController extends Controller
             "phone"=>"required",
             "schooling_year"=>"required",
         ]);
+        /**
+         * @var User
+         */
         $user = Auth::user();
         $user->name = $request->first_name.' '.$request->last_name;
        
