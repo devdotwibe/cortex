@@ -51,7 +51,7 @@
                 ["th" => "Status", "name" => "status", "data" => "status"],
                 ["th" => "Payment ID", "name" => "slug", "data" => "slug"],
             ]' 
-             />
+            :action="false" />
         
         </div>
     </div>
