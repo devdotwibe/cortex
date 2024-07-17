@@ -46,7 +46,7 @@
                 ["th"=>"Question","name"=>"description","data"=>"description"], 
                 ["th" => "Visible", "name" => "visible_status", "data" => "visibility"],
             ]' 
-            tableinit="questiontableinit" />
+            tableinit="questiontableinit"  beforeajax="questionbeforeajax" />
         </div>
     </div>
 </section> 
@@ -67,6 +67,11 @@
             }, 'json')
         }
  
+        function questionbeforeajax(data){
+            data.category=$('#cat-list').val()||null;
+            return data;
+        }
+
         function importupdate(){ 
             questiontable.ajax.reload()
         } 
