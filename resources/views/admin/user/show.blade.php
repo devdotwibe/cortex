@@ -19,44 +19,44 @@
 <section class="content_section">
     <div class="container">
         <div class="row">
-            <div class="user-info">
-                <p><strong>Name:</strong> {{ $user->name }}</p>
-                <p><strong>Email:</strong> {{ $user->email }}</p>
-                <p><strong>Schooling Year:</strong> {{ $user->schooling_year }}</p>
-            </div>
-            <div class="subscription">
-                <h3 class="subscription-info">Subscription Info</h3>
-                
-                @if ($user->progress('cortext-subscription-payment','')=="paid")
-                    <div class="subscription-item">
-                        <p><strong>Amount:</strong> ${{optional($user->subscription())->amount}} </p>
-                        <p><strong>Start Date:</strong> {{optional($user->subscription())->created_at->toFormattedDateString()}} </p>
-                        {{-- <p><strong>Expiration Date:</strong> {{ \Carbon\Carbon::parse($subscription->expiration_date)->toFormattedDateString() }}</p> --}}
+            <div class="card">
+                <div class="card-body">
+                    <div class="user-info">
+                        <p><strong>Name:</strong> {{ $user->name }}</p>
+                        <p><strong>Email:</strong> {{ $user->email }}</p>
+                        <p><strong>Schooling Year:</strong> {{ $user->schooling_year }}</p>
                     </div>
-                    <br>
-                @else
-                <p>No subscriptions found.</p>
-                    
-                @endif
-            </div>
-        </div>
-    </div>
-</section>
+                    <div class="subscription">
+                        <h3 class="subscription-info">Subscription Info</h3>
+                        
+                        @if ($user->progress('cortext-subscription-payment','')=="paid")
+                            <div class="subscription-item">
+                                <p><strong>Amount:</strong> ${{optional($user->subscription())->amount}} </p>
+                                <p><strong>Start Date:</strong> {{optional($user->subscription())->created_at->toFormattedDateString()}} </p>
+                                {{-- <p><strong>Expiration Date:</strong> {{ \Carbon\Carbon::parse($subscription->expiration_date)->toFormattedDateString() }}</p> --}}
+                            </div>
+                            <br>
+                        @else
+                        <p>No subscriptions found.</p>
+                            
+                        @endif
+                    </div>
 
-<section class="table-section">
-    <div class="container">
-        <div class="row">
-            <x-ajax-table :coloumns='[
-                ["th"=>"Date","name"=>"created_at","data"=>"date"],
-                ["th"=>"Type","name"=>"stype","data"=>"stype"],
-                ["th" => "Amount", "name" => "amount", "data" => "amount"],
-                ["th" => "Status", "name" => "status", "data" => "status"],
-                ["th" => "Payment ID", "name" => "slug", "data" => "slug"],
-            ]' 
-            :action="false" />
+                    <x-ajax-table :coloumns='[
+                        ["th"=>"Date","name"=>"created_at","data"=>"date"],
+                        ["th"=>"Type","name"=>"stype","data"=>"stype"],
+                        ["th" => "Amount", "name" => "amount", "data" => "amount"],
+                        ["th" => "Status", "name" => "status", "data" => "status"],
+                        ["th" => "Payment ID", "name" => "slug", "data" => "slug"],
+                    ]' 
+                    :action="false" />
+
+                </div>
+            </div>            
         </div>
     </div>
 </section>
+ 
 
 @endsection
 
