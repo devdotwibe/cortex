@@ -147,7 +147,11 @@
                 </li>
 
                 <li class="side-item {{request()->is('analytics') ? 'active':''}}">
+                    @if (auth('web')->user()->progress('cortext-subscription-payment','')=="paid") 
                     <a href="{{ route('analytics.index') }}">
+                    @else
+                        <a data-bs-toggle="modal" data-bs-target="#cortext-subscription-payment-modal"> 
+                    @endif 
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
                         </span>
@@ -159,7 +163,11 @@
                 </li>
                 @guest('admin') 
                 <li class="side-item {{request()->is('community') ? 'active':''}}">
-                    <a href="{{ route('community.index') }}">
+                    @if (auth('web')->user()->progress('cortext-subscription-payment','')=="paid") 
+                    <a href="{{ route('community.index') }}"> 
+                    @else
+                        <a data-bs-toggle="modal" data-bs-target="#cortext-subscription-payment-modal"> 
+                    @endif
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
                         </span>
