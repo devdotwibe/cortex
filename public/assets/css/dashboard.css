@@ -877,7 +877,7 @@ border-radius: 7px;
   width:max-content;
   float:right;
 }
-.user-info h3,.user-info strong{
+.user-info h3{
     font-weight:bold;
     margin-top:10px;
 }  
