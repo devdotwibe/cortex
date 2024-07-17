@@ -17,7 +17,7 @@
 <section class="content_section">
     <div class="container">
         <div class="row">
-            @if ($user->progress('cortext-subscription-payment','')!="paid")
+            @if ($user->progress('cortext-subscription-payment','')=="paid")
             <div class="card mb-3">
                 <div class="card-body">
                     <p> <span>Subscription Amount</span> : {{optional($user->subscription())->amount}} </p>
