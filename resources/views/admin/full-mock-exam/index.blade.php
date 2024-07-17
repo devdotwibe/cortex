@@ -6,6 +6,11 @@
         <div class="header_title">
             <h2>{{$exam->title}} - Questions</h2>
         </div>
+        <div class="header_content">
+             <div class="form-group">
+                <select  id="cat-list" class="select2 form-control" data-placeholder="Select an Category" data-allow-clear="true" data-ajax--url="{{route("admin.full-mock-exam.create",$exam->slug)}}"></select>
+             </div>
+        </div>      
         <div class="header_right">
             <ul class="nav_bar">
                 <li class="nav_item"><a href="{{route('admin.full-mock-exam.create',$exam->slug)}}" class="nav_link btn">New Questions</a></li>
@@ -65,5 +70,13 @@
         function importupdate(){ 
             questiontable.ajax.reload()
         } 
+
+        $(function(){
+            $('.select2').select2().change(function(){
+                if (questiontable != null) {
+                    questiontable.ajax.reload()
+                }
+            })
+        })
     </script>
 @endpush
