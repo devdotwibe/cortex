@@ -86,7 +86,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
     public function subscription(){
         $plan=UserProgress::where('user_id',$this->id)->where('name','cortext-subscription-payment-transation')->first();
-        return PaymentTransation::where('user_id',$this->id)->where('type','subscription')->where('slug',optional($plan)->value??"-")->orderBy('id','DESC')->first();
+        return PaymentTransation::where('user_id',$this->id)->where('stype','subscription')->where('slug',optional($plan)->value??"-")->orderBy('id','DESC')->first();
     } 
 
 }
