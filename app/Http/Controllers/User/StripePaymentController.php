@@ -110,8 +110,8 @@ class StripePaymentController extends Controller
                     'redirect' => ['url' => url("stripe/subscription/{$user->slug}/".'payment/{CHECKOUT_SESSION_ID}')],
                 ],
             ]);
-            $user->setProgress('intensive-subscription-payment-id',$payment->id);
-            $user->setProgress('intensive-subscription-payment','pending');
+            $user->setProgress('cortext-subscription-payment-id',$payment->id);
+            $user->setProgress('cortext-subscription-payment','pending');
             return redirect($payment->url);
         } catch (\Throwable $th) {
             return redirect()->back()->with('error',$th->getMessage());
@@ -119,10 +119,10 @@ class StripePaymentController extends Controller
     }
     public function subscription_payment(Request $request,User $user,$payment){
         $payment=Payment::stripe()->checkout->sessions->retrieve($payment); 
-        $user->setProgress('intensive-subscription-payment-session',$payment->id); 
-        $user->setProgress('intensive-subscription-payment-transation',$payment->payment_intent);  
+        $user->setProgress('cortext-subscription-payment-session',$payment->id); 
+        $user->setProgress('cortext-subscription-payment-transation',$payment->payment_intent);  
         if($payment->payment_status=="paid"){
-            $user->setProgress('intensive-subscription-payment','paid');
+            $user->setProgress('cortext-subscription-payment','paid');
             $intent=Payment::stripe()->paymentIntents->retrieve($payment->payment_intent);
 
             $transation=new PaymentTransation;
