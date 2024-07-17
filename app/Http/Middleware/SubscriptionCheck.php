@@ -60,9 +60,10 @@ class SubscriptionCheck
             $cat=$request->route('category');
             if(!empty($cat)){
                 $category=Category::findSlug($cat);
-                // if(empty($category)){
-                //     return $next($request);
-                // }
+                if(empty($category)){
+                    // return $next($request);
+                    echo $cat;exit;
+                }
                 $exam=Exam::where("name",'question-bank')->first();
                 if(empty($exam)){
                     $exam=Exam::store([
