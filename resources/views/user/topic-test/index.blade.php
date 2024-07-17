@@ -4,7 +4,7 @@
 <section class="header_nav">
     <div class="header_wrapp">
         <div class="header_title">
-            <h2>Topic Test {{session('reviewId',0)}}</h2>
+            <h2>Topic Test</h2>
         </div> 
     </div>
 </section>

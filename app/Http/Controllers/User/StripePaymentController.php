@@ -91,4 +91,61 @@ class StripePaymentController extends Controller
         }
 
     }
+
+    public function subscription(Request $request){
+        /**
+         * @var User
+         */
+        $user=Auth::user(); 
+        try {  
+            $payment =Payment::stripe()->paymentLinks->create([
+                'line_items' => [
+                [
+                    'price' => OptionHelper::getData('stripe.subscription.payment.amount',''),
+                    'quantity' => 1,
+                ],
+                ], 
+                'after_completion' => [
+                    'type' => 'redirect',
+                    'redirect' => ['url' => url("stripe/subscription/{$user->slug}/".'payment/{CHECKOUT_SESSION_ID}')],
+                ],
+            ]);
+            $user->setProgress('intensive-subscription-payment-id',$payment->id);
+            $user->setProgress('intensive-subscription-payment','pending');
+            return redirect($payment->url);
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error',$th->getMessage());
+        }
+    }
+    public function subscription_payment(Request $request,User $user,$payment){
+        $payment=Payment::stripe()->checkout->sessions->retrieve($payment); 
+        $user->setProgress('intensive-subscription-payment-session',$payment->id); 
+        $user->setProgress('intensive-subscription-payment-transation',$payment->payment_intent);  
+        if($payment->payment_status=="paid"){
+            $user->setProgress('intensive-subscription-payment','paid');
+            $intent=Payment::stripe()->paymentIntents->retrieve($payment->payment_intent);
+
+            $transation=new PaymentTransation;
+            $transation->stype='subscription';
+            $transation->user_id=$user->id;
+            $transation->slug=$payment->payment_intent; 
+            $transation->amount=$intent->amount/100; 
+            $transation->status="paid";
+            $transation->content="Subscription payment \n Amount : ".($intent->amount/100)." \n Amount Recive: ".($intent->amount_received/100)."  ";
+            $transation->save();
+            return redirect()->route('learn.index')->with('success',"Subscription payment has success");
+        }else{
+            $transation=new PaymentTransation;
+            $transation->stype='subscription';
+            $transation->user_id=$user->id;
+            $transation->slug=$payment->payment_intent??$payment->id;
+            $transation->save();
+            if($payment->status=="open"){
+                return redirect()->route('learn.index')->with('error',"Subscription payment in-complete");
+            }else{
+                return redirect()->route('learn.index')->with('error',"Subscription payment Failed");
+            }
+        }
+
+    }
 }

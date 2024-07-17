@@ -55,6 +55,7 @@ Route::get('/d0/{avathar}/{name}/download', [DocumentController::class, 'downloa
 Route::prefix('stripe')->name('stripe.')->group(function () {
     Route::post('/webhook',[StripeWebHookController::class,'handlewebhook']);
     Route::get('/workshop/{user}/payment/{payment}',[StripePaymentController::class,'workshop_payment'])->name('payment.workshop');
+    Route::get('/subscription/{user}/payment/{payment}',[StripePaymentController::class,'subscription_payment'])->name('payment.subscription');
 });
 
 Route::middleware('guest:web,admin')->group(function(){
@@ -96,6 +97,7 @@ Route::middleware(['auth','isUser'])->group(function(){
 
     Route::prefix('payment')->name('payment.')->group(function () {
         Route::get('/workshop',[StripePaymentController::class,'workshop'])->name('workshop');
+        Route::get('/subscription',[StripePaymentController::class,'subscription'])->name('subscription');
     });
 
     Route::prefix('question-bank')->name('question-bank.')->group(function () {

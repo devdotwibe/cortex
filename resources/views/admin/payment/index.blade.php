@@ -27,7 +27,7 @@
                                             @csrf
                                             <input type="hidden" name="name" value="stripe.workshop.payment.amount">
                                             <div class="row">
-                                                <div class="col-md-4">
+                                                <div class="col-md-6">
                                                     <div class="form-group">
                                                         <div class="form-data">
                                                             <div class="forms-inputs mb-4"> 
@@ -41,6 +41,36 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <button type="submit" class="btn btn-dark" id="workshop-payment-form-submit"> Save</button> 
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="amout-item">
+                                <div class="amout-item-title">
+                                    <span>Subscription Amount</span>
+                                </div>
+                                <div class="amout-item-content">
+                                    <div class="form">
+                                        <form action="{{route('admin.payment.store')}}" method="post">
+                                            @csrf
+                                            <input type="hidden" name="name" value="stripe.subscription.payment.amount">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <div class="form-data">
+                                                            <div class="forms-inputs mb-4"> 
+                                                                <input type="text" name="amount" class="form-control @error('amount') is-invalid @enderror" placeholder="Subscription Amount" value="{{old('amount',get_option('stripe.subscription.payment.amount-price',''))}}">
+                                                                @error('amount')
+                                                                <div class="invalid-feedback"  >{{$message}}</div>                                                                    
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <button type="submit" class="btn btn-dark" id="subscription-payment-form-submit"> Save</button> 
                                                 </div>
                                             </div>
                                         </form>

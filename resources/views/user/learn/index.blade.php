@@ -13,10 +13,11 @@
         <div class="row">
             @foreach ($categorys as $k => $item)
             <div class="col-md-6">
-                {{-- @if($k == 1)
-                <a href="#" onclick="ShowPaymentModal();" data-toggle="modal" data-target="#subscribeModal">
-                @endif --}}
+                @if ($user->progress('cortext-subscription-payment','')=="paid"||$k == 0)
                 <a href="{{ route('learn.show', $item->slug) }}">
+                @else
+                <a data-bs-toggle="modal" data-bs-target="#cortext-subscription-payment-modal">
+                @endif
                     <div class="card">
                         <div class="card-body">
                             <div class="category">
@@ -47,61 +48,27 @@
 </section>
 @endsection
 
-@push('modals')
-<div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="paymentModalLabel">Enter Card Details</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                    onclick="closePaymentModal()">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="{{ route('subscribe.handle') }}" method="post" id="payment-form">
-                    @csrf
-                    <div id="card-element">
-                        <!-- A Stripe Element will be inserted here. -->
+@push('modals') 
+    @if ($user->progress('cortext-subscription-payment','')!="paid")
+        <div class="modal fade" id="cortext-subscription-payment-modal" tabindex="-1" role="dialog"  aria-labelledby="cortext-subscription-paymentLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="cortext-subscription-paymentLablel">Subscription</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
-                    <!-- Used to display form errors. -->
-                    <div id="card-errors" role="alert"></div>
-                    <button type="submit" class="btn btn-primary submit">Submit Payment</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+                    <div class="modal-body">
+                        <form action="{{route('payment.subscription')}}"  id="cortext-subscription-payment-form" >
+                            <p>The {{config('app.name')}} Subscription Peyment required </p>
+                            <button type="button" data-bs-dismiss="modal"  class="btn btn-secondary">Cancel</button>
+                            <button type="submit" class="btn btn-dark">Pay Now ${{ get_option('stripe.subscription.payment.amount-price','0') }} </button>
+                        </form>
+                    </div>
 
-@if(session('showStripePopup'))
-<div class="modal fade" id="subscribeModal" tabindex="-1" role="dialog" aria-labelledby="subscribeModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="subscribeModalLabel">Subscription</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                    onclick="closestripe()">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="{{ route('subscribe.handle') }}" method="post" id="subscribe-form">
-                    @csrf
-                    <div class="form-group">
-                        <div id="amount">
-                            <h1>Amount: {{ session('settings') }}</h1>
-                            <h1>Expiry Date: {{ \Carbon\Carbon::parse('May 30, 2025')->toFormattedDateString() }}</h1>
-                        </div>
-                        <button type="button" class="btn btn-primary submit" onclick="ShowPaymentModal()">Pay Now</button>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-@endif
+    @endif
 @endpush
 
 @push('footer-script')
