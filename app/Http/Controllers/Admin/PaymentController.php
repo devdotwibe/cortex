@@ -17,7 +17,9 @@ class PaymentController extends Controller
         if($request->ajax()){
             self::$model=PaymentTransation::class;
             self::$defaultActions=[""];
-            return  $this->buildTable();
+            return  $this->addColumn('username',function($data){
+                return optional($data->user)->name;
+            })->buildTable();
         }
         return view('admin.payment.index');
     }
