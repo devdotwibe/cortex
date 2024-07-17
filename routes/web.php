@@ -81,7 +81,7 @@ Route::middleware(['auth','isUser'])->group(function(){
 
     Route::prefix('payment')->name('payment.')->group(function () {
         Route::get('/workshop',[StripePaymentController::class,'workshop'])->name('workshop');
-        Route::get('/subscription',[StripePaymentController::class,'subscription'])->name('subscription');
+        Route::get('/subscription',[StripePaymentController::class,'subscription'])->name('subscription'); 
     });
      
     Route::prefix('learn')->name('learn.')->group(function () {

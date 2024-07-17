@@ -24,6 +24,15 @@
                     <p> <span>Paid At</span> : {{optional($user->subscription())->created_at->format("Y-m-d")}} </p>
                 </div>
             </div>
+            @else
+            <div class="card mb-3">
+                <div class="card-body">
+                    <form action="{{route('payment.subscription')}}"  id="cortext-subscription-payment-form" >
+                        <p>The {{config('app.name')}} Subscription Peyment required </p> 
+                        <button type="submit" class="btn btn-dark">Pay Now ${{ get_option('stripe.subscription.payment.amount-price','0') }} </button>
+                    </form>
+                </div>
+            </div>
             @endif
 
             <x-show-fields :fields='[
