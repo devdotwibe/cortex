@@ -28,7 +28,7 @@
                                                 @csrf
                                                 <input type="hidden" name="name" value="stripe.subscription.payment.amount">
                                                 <div class="row">
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-8">
                                                         <div class="form-group">
                                                             <div class="form-data">
                                                                 <div class="forms-inputs mb-4"> 
@@ -62,7 +62,7 @@
                                                 @csrf
                                                 <input type="hidden" name="name" value="stripe.workshop.payment.amount">
                                                 <div class="row">
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-8">
                                                         <div class="form-group">
                                                             <div class="form-data">
                                                                 <div class="forms-inputs mb-4"> 
