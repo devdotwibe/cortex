@@ -64,7 +64,7 @@ class HomeWorkController extends Controller
             'home_work_book_id'=>['required'],
             'description'=>['required'],
             'answer'=>['required'],
-            'answer.*'=>['required'],
+            'answer.*'=>['required','string','max:150'],
             'explanation'=>['required']
         ],[
             'answer.*.required'=>['The answer field is required.']
@@ -106,7 +106,7 @@ class HomeWorkController extends Controller
             'home_work_book_id'=>['required'],
             'description'=>['required'],
             'answer'=>['required'],
-            'answer.*'=>['required'],
+            'answer.*'=>['required','string','max:150'],
             'explanation'=>['required']
         ],[
             'answer.*.required'=>['The answer field is required.']
