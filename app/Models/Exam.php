@@ -62,7 +62,7 @@ class Exam extends Model
         if($anscnt>0&&$exmcnt>0){
             return round($anscnt/$exmcnt,2);
         }else{
-            return 0;
+            return $anscnt;
         }
     }
     public function avgMark($id=null){ 
