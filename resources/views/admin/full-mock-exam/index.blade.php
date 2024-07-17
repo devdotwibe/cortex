@@ -8,7 +8,7 @@
         </div>
         <div class="header_content">
              <div class="form-group">
-                <select  id="cat-list" class="select2 form-control" data-placeholder="Select an Category" data-allow-clear="true" data-ajax--url="{{route("admin.full-mock-exam.create",$exam->slug)}}"></select>
+                <select  id="cat-list" class="select2 form-control" data-placeholder="Select an Category" data-allow-clear="true" data-ajax--url="{{route("admin.full-mock-exam.create",['exam'=>$exam->slug,"parent_id"=>0,"name"=>"category_id"])}}"></select>
              </div>
         </div>      
         <div class="header_right">
