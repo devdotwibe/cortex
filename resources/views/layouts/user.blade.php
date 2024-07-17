@@ -131,7 +131,11 @@
                 </li>
 
                 <li class="side-item {{request()->is('live-class') ? 'active':''}}">
-                    <a href="{{ route('live-class.index') }}">
+                    @if (auth('web')->user()->progress('cortext-subscription-payment','')=="paid") 
+                        <a href="{{ route('live-class.index') }}">
+                    @else
+                        <a data-bs-toggle="modal" data-bs-target="#cortext-subscription-payment-modal"> 
+                    @endif 
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
                         </span>
@@ -206,7 +210,7 @@
         </div>
     </div>
     @endif
-    
+
     @stack('modals')
 
     @stack('before-script')
