@@ -9,6 +9,7 @@ use App\Trait\ResourceController;
 use Illuminate\Http\Request;
 use App\Models\Subcategory;
 use App\Models\Category;
+use App\Models\PaymentTransation;
 use App\Models\Setname;
 use Illuminate\Support\Facades\Auth;
 
@@ -50,8 +51,13 @@ class UserController extends Controller
         return redirect()->route('admin.user.index')->with("success","Users deleted success");
     }
     public function show(Request $request,User $user){
-        $subscription = $user->subscription()->latest('id')->first();
-        return view("admin.user.show",compact('user','subscription'));
+
+        if($request->ajax()){
+            self::$model=PaymentTransation::class;
+            self::$defaultActions=[""];
+            return  $this->where('user_id',$user->id)->buildTable();
+        }
+        return view("admin.user.show",compact('user'));
     }
     public function edit(Request $request,User $user){
         return view("admin.user.edit",compact('user'));

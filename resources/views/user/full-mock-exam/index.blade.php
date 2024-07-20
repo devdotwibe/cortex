@@ -18,14 +18,20 @@
                                 @foreach ($exams as $k => $exam)
                                     <div class="exam-title">
                                         <h3>{{ $exam->title }}</h3>
-                                        @if ($user->progress('exam-' . $exam->id . '-complete-review', 'no') == 'yes')
-                                        @elseif($user->progress('exam-' . $exam->id . '-complete-date', '') == '')
-                                            @guest('admin')
-                                            <a class="btn btn-warning action-btn" onclick="confimexam('{{ route('full-mock-exam.show', $exam->slug) }}',`{{ $exam->title }}`)">ATTEMPT</a>
-                                            @endguest
+                                        @if ($user->progress('cortext-subscription-payment','')=="paid"||$k == 0) 
+                                            @if ($user->progress('exam-' . $exam->id . '-complete-review', 'no') == 'yes')
+                                            @elseif($user->progress('exam-' . $exam->id . '-complete-date', '') == '')
+                                                @guest('admin')
+                                                <a class="btn btn-warning action-btn" onclick="confimexam('{{ route('full-mock-exam.show', $exam->slug) }}',`{{ $exam->title }}`)">ATTEMPT</a>
+                                                @endguest
+                                            @else
+                                                <a class="btn btn-primary action-btn"
+                                                    onclick="loadlessonsetreviews('{{ route('full-mock-exam.history', $exam->slug) }}')">REVIEW</a>
+                                            @endif
+
+
                                         @else
-                                            <a class="btn btn-primary action-btn"
-                                                onclick="loadlessonsetreviews('{{ route('full-mock-exam.history', $exam->slug) }}')">REVIEW</a>
+                                        <a class="btn btn-warning action-btn" data-bs-toggle="modal" data-bs-target="#cortext-subscription-payment-modal">ATTEMPT</a>
                                         @endif
                                     </div>
                                 @endforeach

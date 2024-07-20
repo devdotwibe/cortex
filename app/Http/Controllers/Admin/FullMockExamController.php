@@ -26,6 +26,9 @@ class FullMockExamController extends Controller
         self::$defaultActions=["delete"];
 
         if($request->ajax()){
+            if(!empty($request->category)){
+                $this->where('category_id',$request->category);
+            }
             return $this->where('exam_id',$exam->id) 
                 ->addAction(function($data)use($exam){
                     return '

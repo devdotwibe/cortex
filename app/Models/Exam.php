@@ -36,8 +36,34 @@ class Exam extends Model
     public function categoryMark($id){ 
         return UserReviewAnswer::whereIn('user_exam_review_id',UserExamReview::where('exam_id',$this->id)->groupBy('user_id')->select(DB::raw('MAX(id)')))->where('exam_id',$this->id)->whereIn('question_id',Question::where("category_id",$id)->where('exam_id',$this->id)->select('id'))->where('iscorrect',true)->where('user_answer',true)->count();
     }
-    public function categoryCount($id){ 
-        return Question::where("category_id",$id)->where('exam_id',$this->id)->count();
+    public function categoryCount($id=null){ 
+        if(empty($id)){
+            return Question::where('exam_id',$this->id)->count();
+        }else{
+            return Question::where("category_id",$id)->where('exam_id',$this->id)->count();
+        }
+    }
+    public function getExamMark($user,$id=null){ 
+        if(empty($id)){
+            return UserReviewAnswer::where('user_id',$user)->whereIn('user_exam_review_id',UserExamReview::where('exam_id',$this->id)->groupBy('user_id')->select(DB::raw('MAX(id)')))->where('exam_id',$this->id)->whereIn('question_id',Question::where('exam_id',$this->id)->select('id'))->where('iscorrect',true)->where('user_answer',true)->count();;
+        }else{
+            return UserReviewAnswer::where('user_id',$user)->whereIn('user_exam_review_id',UserExamReview::where('exam_id',$this->id)->groupBy('user_id')->select(DB::raw('MAX(id)')))->where('exam_id',$this->id)->whereIn('question_id',Question::where('exam_id',$this->id)->where("category_id",$id)->select('id'))->where('iscorrect',true)->where('user_answer',true)->count();;
+        } 
+    }
+
+    public function getExamAvg($id=null){ 
+        if(empty($id)){
+            $anscnt=UserReviewAnswer::whereIn('user_exam_review_id',UserExamReview::where('exam_id',$this->id)->groupBy('user_id')->select(DB::raw('MAX(id)')))->where('exam_id',$this->id)->whereIn('question_id',Question::where('exam_id',$this->id)->select('id'))->where('iscorrect',true)->where('user_answer',true)->count();
+            $exmcnt=UserExamReview::whereIn('id',UserExamReview::where('exam_id',$this->id)->groupBy('user_id')->select(DB::raw('MAX(id)')))->where('exam_id',$this->id)->count();
+        }else{
+            $anscnt=UserReviewAnswer::whereIn('user_exam_review_id',UserExamReview::where('exam_id',$this->id)->groupBy('user_id')->select(DB::raw('MAX(id)')))->where('exam_id',$this->id)->whereIn('question_id',Question::where('exam_id',$this->id)->where("category_id",$id)->select('id'))->where('iscorrect',true)->where('user_answer',true)->count();
+            $exmcnt=UserExamReview::whereIn('id',UserExamReview::where('exam_id',$this->id)->groupBy('user_id')->select(DB::raw('MAX(id)')))->where('exam_id',$this->id)->count();
+        }
+        if($anscnt>0&&$exmcnt>0){
+            return round($anscnt/$exmcnt,2);
+        }else{
+            return 0;
+        }
     }
     public function avgMark($id=null){ 
         if(empty($id)){

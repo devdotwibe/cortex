@@ -85,16 +85,8 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(UserExamReview::class);
     }
     public function subscription(){
-        return $this->hasMany(Subscription::class);
-    }
-    public function hasSubscriptionForCategory($categoryId)
-{
-    $subscription = $this->subscription()->where('category_id', $categoryId)->where('status', 'active')->first();
-    // Check if the user has a subscription for the given category
-    $firstCategoryFree = $categoryId === 1; // Adjust this condition based on your logic
-
-    // Check if the user has a subscription for this category or if it's the first category (make it free)
-    return $subscription || $firstCategoryFree;
-}
+        $plan=UserProgress::where('user_id',$this->id)->where('name','cortext-subscription-payment-transation')->first();
+        return PaymentTransation::where('user_id',$this->id)->where('stype','subscription')->where('slug',optional($plan)->value??"-")->orderBy('id','DESC')->first();
+    } 
 
 }

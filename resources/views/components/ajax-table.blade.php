@@ -18,7 +18,9 @@
                 @foreach ($coloumns as $item)
                     <th data-th="{{ ucfirst($item->th) }}">{{ ucfirst($item->th) }}</th>
                 @endforeach
+                @if($action)
                 <th data-th="Action">Action</th>
+                @endif
             </tr>
         </thead>
         <tbody> 
@@ -352,11 +354,14 @@
                             orderable: true,
                             searchable: true,
                         },
-                    @endforeach {
+                    @endforeach 
+                    @if($action)
+                    {
                         data: 'action',
                         orderable: false,
                         searchable: false,
                     },
+                    @endif
                 ],
             })
         })

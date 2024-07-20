@@ -132,7 +132,7 @@
                         <li class="side-item {{request()->is('admin/payment') ? 'active':''}} "><a href="{{route('admin.payment.index')}}">Payment</a></li>
                     </ul>
                 </li> 
-                <li class="side-item {{request()->is('admin/settings') ?'active':''}}">
+                {{-- <li class="side-item {{request()->is('admin/settings') ?'active':''}}">
                     <a href="{{ route('admin.settings.index') }}">
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
@@ -142,7 +142,7 @@
                         </span>
                         Settings
                     </a>
-                </li>
+                </li> --}}
                 {{-- <li class="side-item {{request()->is('admin/question-bank-old') ? 'active':''}}">
                     <a href="{{ route('admin.question-bank-old.index') }}">
                         <span class="side-icon" >

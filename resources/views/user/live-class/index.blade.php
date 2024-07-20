@@ -102,35 +102,9 @@
     </section>
 
 @endsection
-
-@push('modals')
-    <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="paymentModalLabel">Enter Card Details</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                        onclick="closePaymentModal()">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="{{ route('subscribe.handle') }}" method="post" id="payment-form">
-                        @csrf
-                        <div id="card-element">
-                            <!-- A Stripe Element will be inserted here. -->
-                        </div>
-                        <!-- Used to display form errors. -->
-                        <div id="card-errors" role="alert"></div>
-                        <button type="submit" class="btn btn-primary submit">Submit Payment</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-@endpush
+ 
 
 
 @push('footer-script')
+
 @endpush

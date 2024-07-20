@@ -4,7 +4,7 @@
 <section class="header_nav">
     <div class="header_wrapp">
         <div class="header_title">
-            <h2>Topic Test {{session('reviewId',0)}}</h2>
+            <h2>Topic Test</h2>
         </div> 
     </div>
 </section>
@@ -26,12 +26,16 @@
                                 </div>
                             </div>
                             <div class="action-button">
-                                @if($user->progress('exam-'.$exam->id.'-topic-'.$item->id.'-complete-review',"no")=="yes") 
-                                
-                                @elseif($user->progress('exam-'.$exam->id.'-topic-'.$item->id.'-complete-date',"")=="") 
-                                @guest('admin')    <a   class="btn btn-warning" onclick="confimexam('{{route('topic-test.show',$item->slug)}}')">ATTEMPT</a> @endguest
-                                @else 
-                                    <a   class="btn btn-primary" onclick="loadlessonsetreviews('{{route('topic-test.topic.history',$item->slug)}}')">REVIEW</a>
+                                @if ($user->progress('cortext-subscription-payment','')=="paid"||$k == 0) 
+                                    @if($user->progress('exam-'.$exam->id.'-topic-'.$item->id.'-complete-review',"no")=="yes") 
+                                    
+                                    @elseif($user->progress('exam-'.$exam->id.'-topic-'.$item->id.'-complete-date',"")=="") 
+                                    @guest('admin')    <a   class="btn btn-warning" onclick="confimexam('{{route('topic-test.show',$item->slug)}}')">ATTEMPT</a> @endguest
+                                    @else 
+                                        <a   class="btn btn-primary" onclick="loadlessonsetreviews('{{route('topic-test.topic.history',$item->slug)}}')">REVIEW</a>
+                                    @endif
+                                @else
+                                    <a class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#cortext-subscription-payment-modal">ATTEMPT</a>
                                 @endif 
                             </div>
                         </div>

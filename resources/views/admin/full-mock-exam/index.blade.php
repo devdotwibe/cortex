@@ -6,6 +6,11 @@
         <div class="header_title">
             <h2>{{$exam->title}} - Questions</h2>
         </div>
+        <div class="header_content">
+             <div class="form-group">
+                <select  id="cat-list" class="select2 form-control" data-placeholder="Select an Category" data-allow-clear="true" data-ajax--url="{{route("admin.full-mock-exam.create",['exam'=>$exam->slug,"parent_id"=>0,"name"=>"category_id"])}}"></select>
+             </div>
+        </div>      
         <div class="header_right">
             <ul class="nav_bar">
                 <li class="nav_item"><a href="{{route('admin.full-mock-exam.create',$exam->slug)}}" class="nav_link btn">New Questions</a></li>
@@ -41,7 +46,7 @@
                 ["th"=>"Question","name"=>"description","data"=>"description"], 
                 ["th" => "Visible", "name" => "visible_status", "data" => "visibility"],
             ]' 
-            tableinit="questiontableinit" />
+            tableinit="questiontableinit"  beforeajax="questionbeforeajax" />
         </div>
     </div>
 </section> 
@@ -62,8 +67,21 @@
             }, 'json')
         }
  
+        function questionbeforeajax(data){
+            data.category=$('#cat-list').val()||null;
+            return data;
+        }
+
         function importupdate(){ 
             questiontable.ajax.reload()
         } 
+
+        $(function(){
+            $('.select2').select2().change(function(){
+                if (questiontable != null) {
+                    questiontable.ajax.reload()
+                }
+            })
+        })
     </script>
 @endpush

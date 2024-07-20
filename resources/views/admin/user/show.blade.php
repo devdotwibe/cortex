@@ -6,55 +6,67 @@
         <div class="header_title">
             <h2>User Detail</h2>
         </div>
-        @if (!$user->hasVerifiedEmail())
             <div class="header_right">
-                <ul class="nav_bar">
-                    <li class="nav_item"><a class="nav_link btn">Email Not Verified</a></li>
-                </ul>
+                @if (!$user->hasVerifiedEmail())
+                <span class="badge bg-danger">Email Not Verified</span> 
+                @else
+                <span class="badge bg-success">Email Not Verified</span> 
+                @endif
             </div>
-        @endif
     </div>
 </section>
 
 <section class="content_section">
     <div class="container">
         <div class="row">
-            <div class="user-info">
-                <p><strong>Name:</strong> {{ $user->name }}</p>
-                <p><strong>Email:</strong> {{ $user->email }}</p>
-                <p><strong>Schooling Year:</strong> {{ $user->schooling_year }}</p>
-            </div>
-            <div class="subscription">
-                <h3 class="subscription-info">Subscription Info</h3>
-                @if (!$subscription)
-                    <p>No subscriptions found.</p>
-                @else
-                    <div class="subscription-item">
-                        <p><strong>Amount:</strong> ${{ $subscription->amount }}</p>
-                        <p><strong>Start Date:</strong> {{ \Carbon\Carbon::parse($subscription->start_date)->toFormattedDateString() }}</p>
-                        <p><strong>Expiration Date:</strong> {{ \Carbon\Carbon::parse($subscription->expiration_date)->toFormattedDateString() }}</p>
+            <div class="card">
+                <div class="card-body">
+                    <div class="user-info">
+                        <h3>User Info</h3>
+                        <p><strong>Name:</strong> {{ $user->name }}</p>
+                        <p><strong>Email:</strong> {{ $user->email }}</p>
+                        <p><strong>Schooling Year:</strong> {{ $user->schooling_year }}</p>
                     </div>
-                    <br>
-                @endif
-            </div>
+                    <div class="user-info">
+                        <h3>Subscription Info</h3>
+                        
+                        @if ($user->progress('cortext-subscription-payment','')=="paid")
+                             
+                                <p><strong>Amount:</strong> ${{optional($user->subscription())->amount}} </p>
+                                <p><strong>Start Date:</strong> {{optional($user->subscription())->created_at->toFormattedDateString()}} </p>
+                                <p><strong>Status:</strong> Active</p>
+                                {{-- <p><strong>Expiration Date:</strong> {{ \Carbon\Carbon::parse($subscription->expiration_date)->toFormattedDateString() }}</p> --}}
+                             
+                            <br>
+                        @elseif ($user->progress('cortext-subscription-payment','')=="expired")
+                         
+                            <p><strong>Amount:</strong> ${{optional($user->subscription())->amount}} </p>
+                            <p><strong>Start Date:</strong> {{optional($user->subscription())->created_at->toFormattedDateString()}} </p>
+                            <p><strong>Status:</strong> Expired</p>
+                            {{-- <p><strong>Expiration Date:</strong> {{ \Carbon\Carbon::parse($subscription->expiration_date)->toFormattedDateString() }}</p> --}}
+                         
+                        <br>
+                        @else
+                        <p>No subscriptions found.</p>
+                            
+                        @endif
+                    </div>
+
+                    <x-ajax-table :coloumns='[
+                        ["th"=>"Date","name"=>"created_at","data"=>"date"],
+                        ["th"=>"Type","name"=>"stype","data"=>"stype"],
+                        ["th" => "Amount", "name" => "amount", "data" => "amount"],
+                        ["th" => "Status", "name" => "status", "data" => "status"],
+                        ["th" => "Payment ID", "name" => "slug", "data" => "slug"],
+                    ]' 
+                    :action="false" />
+
+                </div>
+            </div>            
         </div>
     </div>
 </section>
-
-<section class="table-section">
-    <div class="container">
-        <div class="row">
-            <x-ajax-table url="{{route('admin.user.students',$user->slug)}}" :coloumns='[
-                ["th"=>"Title","name"=>"title","data"=>"title"],
-                ["th"=>"Name","name"=>"name","data"=>"name"],
-                ["th"=>"SubCategory","name"=>"sub_category_id","data"=>"sub_category_id"],
-                ["th"=>"Category","name"=>"category_id","data"=>"category_id"],
-                ["th"=>"SubCategorySet","name"=>"sub_category_set","data"=>"sub_category_set_id"],
-
-            ]' />
-        </div>
-    </div>
-</section>
+ 
 
 @endsection
 

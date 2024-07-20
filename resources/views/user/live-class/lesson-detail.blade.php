@@ -18,9 +18,9 @@
                     <div class="card-body">
                         <a href="{{ route('live-class.privateclass.lessonshow', ["live" =>$user->slug,"lesson_material"=>$item->slug ]) }}">
                             <div class="category">
-                                <div class="category-image">
+                                {{-- <div class="category-image">
                                     <img src="{{ asset('assets/images/User-red.png') }}">
-                                </div> 
+                                </div>  --}}
                                 <div class="category-content">
                                     <div class="class-title">
                                         <h4>{{$item->term_name}}</h4>

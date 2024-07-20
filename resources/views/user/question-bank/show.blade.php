@@ -28,9 +28,15 @@
                                 <span>{{ $item->name }}</span>
                             </div>
                             <div class="lesson-row-sets"> 
-                                @foreach ($item->setname as $set)
+                                @foreach ($item->setname as $sk=> $set)
                                     <div class="sets-item">
-                                        <a @if($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$item->id.'-set-'.$set->id.'-complete-review',"no")=="yes") @elseif($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$item->id.'-set-'.$set->id.'-complete-date',"")=="")  @guest('admin') onclick="confimexam('{{route('question-bank.set.show',['category'=>$category->slug,'sub_category'=>$item->slug,'setname'=>$set->slug])}}')" @endguest @else onclick="loadlessonsetreviews('{{route('question-bank.set.history',['category'=>$category->slug,'sub_category'=>$item->slug,'setname'=>$set->slug])}}')" @endif ><span class="sets-title">{{$set->name}}</span></a>
+                                        @if ($user->progress('cortext-subscription-payment','')=="paid"||($k == 0&&$sk==0)) 
+                                        <a @if($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$item->id.'-set-'.$set->id.'-complete-review',"no")=="yes") @elseif($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$item->id.'-set-'.$set->id.'-complete-date',"")=="")  @guest('admin') onclick="confimexam('{{route('question-bank.set.show',['category'=>$category->slug,'sub_category'=>$item->slug,'setname'=>$set->slug])}}')" @endguest @else onclick="loadlessonsetreviews('{{route('question-bank.set.history',['category'=>$category->slug,'sub_category'=>$item->slug,'setname'=>$set->slug])}}')" @endif >
+                                        @else
+                                        <a data-bs-toggle="modal" data-bs-target="#cortext-subscription-payment-modal">
+                                        @endif
+                                            <span class="sets-title">{{$set->name}}</span>
+                                        </a>
                                     </div>                                    
                                 @endforeach
                             </div> 
