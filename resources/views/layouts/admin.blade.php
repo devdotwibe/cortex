@@ -194,6 +194,19 @@
                     </a>
                 </li>
 
+
+                <li class="side-item {{request()->is('admin/community') ? 'active':''}}">
+                    <a href="{{ route('admin.community.index') }}">
+                        <span class="side-icon" >
+                            <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
+                        </span>
+                        <span class="active-icon">
+                            <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Dashboard">
+                        </span>
+                        Community
+                    </a>
+                </li>
+
                 <li class="side-item logout">
                     <a href="{{route('admin.logout')}}" class="log-out">
                         <span class="side-icon">

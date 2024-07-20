@@ -1,6 +1,7 @@
-@extends('layouts.user')
-@section('title', 'Create Post')
+@extends('layouts.admin')
+@section('title', 'Category')
 @section('content')
+
 <style>
     #selection {
         padding: 10px;
@@ -56,7 +57,7 @@
 
 <section class="invite-wrap mt-2" id="poll-section" style="display: none;">
     <div class="container">
-        <form method="POST" action="{{route('community.poll.store') }}">
+        <form method="POST" action="{{ route('admin.community.poll.store') }}">
             @csrf
             <div class="form-group">
                 <label>Question</label>
@@ -85,7 +86,7 @@
 
 <section class="invite-wrap mt-2" id="post-section">
     <div class="container">
-        <x-general-form :cancel="route('community.index')" :url="route('community.post.store')" btnsubmit="Publish" :fields='[
+        <x-general-form :cancel="route('admin.community.store')" :url="route('admin.community.store')" btnsubmit="Publish" :fields='[
             ["name"=>"title","size"=>12],
             ["name"=>"description","size"=>12,"type"=>"editor"],
         ]' /> 

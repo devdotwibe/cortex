@@ -20,6 +20,7 @@ use App\Http\Controllers\User\StripeWebHookController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
+
 /**
  * Development
  */
@@ -172,7 +173,17 @@ Route::middleware(['auth','isUser'])->group(function(){
     Route::prefix('community')->name('community.')->group(function () {
         Route::get('/',[CommunityController::class,'index'])->name('index');
         Route::resource('/post',CommunityController::class); 
+        
+
+         // Poll routes
+         Route::get('/poll/create', [CommunityController::class,'createPoll'])->name('poll.create');
+         Route::post('/poll/store', [CommunityController::class,'storePoll'])->name('poll.store');
+         Route::get('/polls', [CommunityController::class, 'getPolls'])->name('poll.index');
+         Route::post('/poll/vote', [CommunityController::class, 'votePoll'])->name('poll.vote');
+        
     });
+
+
     Route::prefix('analytics')->name('analytics.')->group(function () {
         Route::get('/',[AnalyticsController::class,'index'])->name('index');
     });

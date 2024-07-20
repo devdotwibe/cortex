@@ -21,12 +21,30 @@ use App\Http\Controllers\Admin\UploadController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\TermController;
+use App\Http\Controllers\Admin\CommunityControllerController;
 use Illuminate\Support\Facades\Route;
+
+
 
 Route::name('admin.')->prefix('admin')->group(function(){
     Route::middleware('guest:web,admin')->group(function(){
         Route::get('/login', [AdminMainController::class,'login'])->name('login');
         Route::post('/login', [AdminMainController::class,'loginSubmit']);
+        Route::get('community/',[AdminMainController::class,'index'])->name('index');
+
+
+        // Route::prefix('community')->name('community.')->group(function () {
+        //     Route::get('/',[CommunityController::class,'index'])->name('index');
+        //     Route::resource('/post',CommunityController::class); 
+            
+    
+        //      // Poll routes
+        //      Route::get('/poll/create', [CommunityController::class,'createPoll'])->name('poll.create');
+        //      Route::post('/poll/store', [CommunityController::class,'storePoll'])->name('poll.store');
+        //      Route::get('/polls', [CommunityController::class, 'getPolls'])->name('poll.index');
+        //      Route::post('/poll/vote', [CommunityController::class, 'votePoll'])->name('poll.vote');
+            
+        // });
     });
     Route::middleware(['auth:admin','isAdmin'])->group(function(){
 
@@ -103,6 +121,24 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
             Route::get('/{learn}/visibility',[LearnController::class,'visibility'])->name('visibility');
             Route::delete('/{category}/{learn}',[LearnController::class,'destroy'])->name('destroy');
+        });
+
+
+        Route::prefix('community')->name('community.')->group(function () {
+            Route::get('/',[CommunityControllerController::class,'index'])->name('index');
+            Route::get('/post',[CommunityControllerController::class,'create'])->name('create');
+            Route::post('/post/store',[CommunityControllerController::class,'store'])->name('store');
+            Route::get('/post/show',[CommunityControllerController::class,'show'])->name('show');
+            Route::get('/post/distroy',[CommunityControllerController::class,'distroy'])->name('distroy');
+            Route::get('/poll/create',[CommunityControllerController::class,'createPoll'])->name('poll.create');
+            Route::get('/polls',[CommunityControllerController::class,'getPolls'])->name('poll.index');
+            Route::post('/poll/store',[CommunityControllerController::class,'storePoll'])->name('poll.store');
+            Route::put('/poll/vote',[CommunityControllerController::class,'votePoll'])->name('poll.vote');
+          
+
+           
+
+            
         });
 
         // Route::resource("/options",CategoryController::class);
@@ -279,4 +315,6 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::get('/',[SettingsController::class,'index'])->name('index');
         Route::post('/store',[SettingsController::class,'store'])->name('store');
     });
+
+   
 });
