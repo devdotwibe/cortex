@@ -178,7 +178,9 @@ Route::middleware(['auth','isUser'])->group(function(){
          Route::post('/poll/store', [CommunityController::class,'storePoll'])->name('poll.store');
          Route::get('/polls', [CommunityController::class, 'getPolls'])->name('poll.index');
          Route::post('/poll/vote', [CommunityController::class, 'votePoll'])->name('poll.vote');
-        
+         Route::get('/poll/edit/{id}', [CommunityController::class,'polledit'])->name('poll.edit');
+         Route::delete('/poll/delete/{id}', [CommunityController::class, 'pollDestroy'])->name('poll.destroy');
+         Route::put('/poll/update/{id}', [CommunityController::class, 'pollUpdate'])->name('poll.update');
     });
 
 

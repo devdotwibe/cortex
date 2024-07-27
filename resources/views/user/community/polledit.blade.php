@@ -1,9 +1,10 @@
-@extends('layouts.admin')
-@section('title', 'Edit Poll')
+@extends('layouts.user')
+@section('title', 'Edit Post')
 @section('content')
 
 
-<form method="POST" action="{{ route('admin.community.poll.update', $poll->id) }}">
+
+<form method="POST" action="{{ route('community.poll.update', $poll->id) }}">
     @csrf
     @method('PUT')
 
@@ -41,8 +42,6 @@
 }
 
 </script>
-
-
 
 @endsection
 

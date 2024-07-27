@@ -129,11 +129,16 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::get('/post',[CommunityControllerController::class,'create'])->name('create');
             Route::post('/post/store',[CommunityControllerController::class,'store'])->name('store');
             Route::get('/post/show',[CommunityControllerController::class,'show'])->name('show');
-            Route::get('/post/distroy',[CommunityControllerController::class,'distroy'])->name('distroy');
+            
+           
+            
             Route::get('/poll/create',[CommunityControllerController::class,'createPoll'])->name('poll.create');
             Route::get('/polls',[CommunityControllerController::class,'getPolls'])->name('poll.index');
             Route::post('/poll/store',[CommunityControllerController::class,'storePoll'])->name('poll.store');
             Route::put('/poll/vote',[CommunityControllerController::class,'votePoll'])->name('poll.vote');
+            Route::get('/poll/edit/{id}', [CommunityControllerController::class,'edit'])->name('poll.edit');
+            Route::put('/poll/update/{id}', [CommunityControllerController::class, 'update'])->name('poll.update');
+            Route::delete('/poll/delete/{id}', [CommunityControllerController::class, 'destroy'])->name('poll.destroy');
           
 
            

@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\Polls;
+use App\Models\Poll;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\PollOption;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 
 class CommunityController extends Controller
 {  
@@ -46,7 +48,7 @@ class CommunityController extends Controller
             ];
         }
        
-        $data = Polls::where('id','>',0)->orderBy('id','DESC')->paginate();
+        $data  = Poll::with('options')->get(); 
         
         return view('user.community.index',compact('user','data'));
     }
@@ -110,43 +112,115 @@ class CommunityController extends Controller
     { 
         $request->validate([
             'question' => 'required|string|max:255',
-            'option1' => 'required|string|max:255',
-            'option2' => 'required|string|max:255',
-        ]);
+            'options' => 'required|array|min:2|max:6', 
+            'options.*' => 'required|string|max:255',
+        ]); 
 
-        Polls::create([
+        $poll = Poll::create([
+            'user_id' => $request->input('user_id'),
             'question' => $request->input('question'),
-            'option1' => $request->input('option1'),
-            'option2' => $request->input('option2'),
         ]);
 
-        $user=Auth::user(); 
-        return to_route('community.index')->with('success','Failed to Update Event Details');
+        foreach ($request->input('options') as $option) {
+            PollOption::create([
+                'poll_id' => $poll->id,
+                'option' => $option,
+            ]);
+        }
+
+        return redirect()->route('community.index')->with('success', 'Poll created successfully.');
         
     }
 
     public function votePoll(Request $request)
-    {
-        $poll = Polls::find($request->poll_id);
-        if ($poll) {
-            if ($request->option === 'option1') {
-                $poll->increment('option1_votes');
-            } elseif ($request->option === 'option2') {
-                $poll->increment('option2_votes');
-            }
-            $poll->save();
+    { 
+        $pollId = $request->input('poll_id');
+        $optionId = $request->input('option_id');
     
-            $totalVotes = $poll->option1_votes + $poll->option2_votes;
-            $option1Percentage = $totalVotes ? ($poll->option1_votes / $totalVotes * 100) : 0;
-            $option2Percentage = $totalVotes ? ($poll->option2_votes / $totalVotes * 100) : 0;
+        // Fetch and update poll data
+        $poll = Poll::find($pollId);
+        $option = $poll->options()->find($optionId);
+        $option->increment('votes');
     
-            return response()->json([
-                'option1_percentage' => $option1Percentage,
-                'option2_percentage' => $option2Percentage,
-            ]);
-        }
-        return response()->json(['error' => 'Poll not found'], 404);
+        // Recalculate percentages
+        $totalVotes = $poll->options()->sum('votes');
+        $options = $poll->options->map(function ($option) use ($totalVotes) {
+            $option->percentage = ($totalVotes > 0) ? ($option->votes / $totalVotes) * 100 : 0;
+            return $option;
+        });
+    
+        return response()->json([
+            'options' => $options->map(function ($option, $index) {
+                return [
+                    'id' => $option->id,
+                    'percentage' => $option->percentage
+                ];
+            })
+        ]);
+
+    
     }
+
+    public function polledit($id)
+    {
+        $poll = Poll::findOrFail($id); 
+        
+        $user=Auth::user();
+        return view('user.community.polledit',compact('poll','user'));
+    }
+
+    public function pollUpdate(Request $request, $id)
+   { 
+    
+   
+    // Validate the request data
+    $request->validate([
+        'question' => 'required|string|max:255',
+        'options' => 'required|array',
+        'options.*' => 'required|string|max:255',
+        
+    ]);
+
+    // Find the poll by ID
+    $poll = Poll::findOrFail($id);
+
+    // Update the poll question
+    $poll->question = $request->input('question');
+    $poll->save();
+
+    $options = $request->input('options');
+    $optionIds = $request->input('option_ids', []);
+
+    foreach ($options as $index => $option) {
+        if (isset($optionIds[$index])) {
+            $pollOption = $poll->options()->where('id', $optionIds[$index])->first();
+            if ($pollOption) {
+                $pollOption->option = $option;
+                $pollOption->save();
+            }
+        } else {
+            $poll->options()->create(['option' => $option]);
+        }
+    }
+    return back()->with('success', 'Poll updated successfully.');
+}
+
+
+   
+
+
+    public function pollDestroy($id)
+    {
+        $poll = Poll::findOrFail($id);
+    
+        $poll->delete();
+    
+        return back()->with('success', 'Poll deleted successfully.');
+    }
+
+   
+
+
     
     
     

@@ -1,6 +1,30 @@
 @extends('layouts.user')
 @section('title', 'Community')
 @section('content')
+<style>
+    .poll-graph-bar-wrapper {
+        position: relative;
+        height: 20px;
+        background: #f1f1f1;
+        border-radius: 5px;
+        overflow: hidden;
+        margin-top: 5px;
+    }
+
+    .poll-graph-bar {
+        height: 100%;
+        background: #39a84f;
+        transition: width 0.5s ease;
+    }
+
+    .poll-disabled .form-check-input {
+        cursor: not-allowed;
+    }
+
+    .poll-disabled .form-check-input:disabled ~ .form-check-label {
+        color: #999;
+    }
+</style>
 <section class="header_nav">
     <div class="header_wrapp">
         <div class="header_title">
@@ -21,42 +45,44 @@
 
     <section class="post-section">
     <div class="post-container">
-        @foreach($data as $poll)
-            <div class="card mb-3">
-                <div class="card-body">
+        @foreach($data as $poll) 
+            <div class="card mb-3" id="poll-{{ $poll->id }}">
+                <div class="card-body"> 
                     <h5 class="card-title">{{ $poll->question }}</h5>
                     <div class="poll-options">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="poll-{{ $poll->id }}" id="poll-{{ $poll->id }}-option1" value="option1" onclick="vote({{ $poll->id }}, 'option1')">
-                            <label class="form-check-label" for="poll-{{ $poll->id }}-option1">
-                                {{ $poll->option1 }} <span id="poll-{{ $poll->id }}-option1-percentage">({{ $poll->option1_votes }} votes)</span>
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="poll-{{ $poll->id }}" id="poll-{{ $poll->id }}-option2" value="option2" onclick="vote({{ $poll->id }}, 'option2')">
-                            <label class="form-check-label" for="poll-{{ $poll->id }}-option2">
-                                {{ $poll->option2 }} <span id="poll-{{ $poll->id }}-option2-percentage">({{ $poll->option2_votes }} votes)</span>
-                            </label>
-                        </div>
+                        @foreach ($poll->options as $index => $option)
+                        <input type="hidden" name="option_ids[]" value="{{ $option->id }}">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="poll-{{ $poll->id }}" id="poll-{{ $poll->id }}-option{{ $index + 1 }}" value="{{ $option->id }}" onclick="vote({{ $poll->id }}, '{{ $option->id }}')">
+                                <label class="form-check-label" for="poll-{{ $poll->id }}-option{{ $index + 1 }}">
+                                    {{ $option->option }} 
+                                    <span id="poll-{{ $poll->id }}-option{{ $index + 1 }}-percentage">({{ number_format($option->percentage, 2) }}%)</span>
+                                    <div class="poll-graph-bar-wrapper">
+                                        <div class="poll-graph-bar" id="poll-{{ $poll->id }}-option{{ $index + 1 }}-bar" style="width: {{ $option->percentage }}%;"></div>
+                                    </div>
+                                </label>
+                            </div>
+                        @endforeach
                     </div>
                     <p class="card-text">
                         <small class="text-muted">Created at: {{ $poll->created_at->diffForHumans() }}</small><br>
                         <small class="text-muted">By: {{ optional($poll->user)->name }}</small>
                     </p>
+                    
+                    
+                     
+                        <a href="{{ route('community.poll.edit', $poll->id) }}" class="btn btn-primary">Edit</a>
+                        <form action="{{ route('community.poll.destroy', $poll->id) }}" method="POST" style="display:inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                    
                 </div>
             </div>
         @endforeach
     </div>
 </section>
-
-    <div class="load-more" >
-        <button class="btn btn-sm btn-outline-dark" id="load-more-btn" style="display: none" >Load more...</button>
-    </div>
-</section>
-<section class="post-section"  id="post-detail-section">
-</section>
-
-
 
 @endsection
 
@@ -104,44 +130,38 @@
     
 
 <script>
-    function vote(pollId, option) {
-        fetch('{{ route("community.poll.vote") }}', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            body: JSON.stringify({ poll_id: pollId, option: option })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (!data.error) {
-                document.getElementById(`poll-${pollId}-option1-percentage`).innerText = `(${data.option1_percentage.toFixed(2)}%)`;
-                document.getElementById(`poll-${pollId}-option2-percentage`).innerText = `(${data.option2_percentage.toFixed(2)}%)`;
-            }
-        })
-        .catch(error => console.error('Error:', error));
-    }
-</script>
-
-<script>
-function vote(pollId, option) {
+   function vote(pollId, optionId) {
     fetch('{{ route("community.poll.vote") }}', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'X-CSRF-TOKEN': '{{ csrf_token() }}'
         },
-        body: JSON.stringify({ poll_id: pollId, option: option })
+        body: JSON.stringify({ poll_id: pollId, option_id: optionId })
     })
     .then(response => response.json())
     .then(data => {
         if (!data.error) {
-            document.getElementById(`poll-${pollId}-option1-percentage`).innerText = `(${data.option1_percentage.toFixed(2)}%)`;
-            document.getElementById(`poll-${pollId}-option2-percentage`).innerText = `(${data.option2_percentage.toFixed(2)}%)`;
+            data.options.forEach((opt, index) => {
+                document.getElementById(`poll-${pollId}-option${index + 1}-percentage`).innerText = `(${opt.percentage.toFixed(2)}%)`;
+                document.getElementById(`poll-${pollId}-option${index + 1}-bar`).style.width = `${opt.percentage}%`;
+            });
+
+            // Disable voting options
+            document.querySelectorAll(`input[name="poll-${pollId}"]`).forEach(input => {
+                input.disabled = true;
+            });
+
+            // Disable poll section
+            document.getElementById(`poll-${pollId}`).classList.add('poll-disabled');
+        } else {
+            console.error('Error:', data.error);
         }
     })
     .catch(error => console.error('Error:', error));
 }
+
 </script>
+
+
 @endpush

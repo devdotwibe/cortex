@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\AdminPolls;
-use App\Models\Polls;
+use App\Models\Poll;
 use App\Models\AdminPost;
 use App\Models\AdminPoll;
 use App\Models\Post;
@@ -21,52 +21,13 @@ class CommunityControllerController extends Controller
              */
             $user = Auth::user();
 
-            if ($request->ajax()) {
-                $adminPosts = AdminPost::orderBy('id', 'DESC')->paginate();
-                $userPosts = Post::orderBy('id', 'DESC')->paginate();
+            
+            $data = Poll::with('options')->get();
 
-                $adminResults = $this->formatPosts($adminPosts);
-                $userResults = $this->formatPosts($userPosts);
-
-                return [
-                    'current_page' => $userPosts->currentPage(),
-                    'total_pages' => $userPosts->lastPage(),
-                    'total_items' => $userPosts->total(),
-                    'items_per_page' => $userPosts->perPage(),
-                    'data' => array_merge($adminResults, $userResults),
-                    'prev' => $userPosts->previousPageUrl(),
-                    'next' => $userPosts->nextPageUrl()
-                ];
-            }
-
-            $adminPolls = AdminPolls::orderBy('id', 'DESC')->paginate();
-            $userPolls = Polls::orderBy('id', 'DESC')->paginate();
-
-            $polls = array_merge($adminPolls->items(), $userPolls->items());
-
-            return view('admin.community.index', compact('user', 'polls'));
+            return view('admin.community.index', compact('user', 'data'));
         }
 
-        private function formatPosts($posts)
-        {
-            $results = [];
-            foreach ($posts->items() as $row) {
-                $results[] = [
-                    "slug" => $row->slug,
-                    "title" => $row->title,
-                    "type" => $row->type,
-                    "description" => $row->description,
-                    "image" => $row->image,
-                    "video" => $row->video,
-                    "status" => $row->status,
-                    "createdAt" => $row->created_at->diffInMinutes(now()) > 1 ? $row->created_at->diffForHumans(now(), true) . " ago" : 'Just Now',
-                    "user" => [
-                        "name" => optional($row->user)->name
-                    ],
-                ];
-            }
-            return $results;
-        }
+        
 
     public function create(Request $request){
         /**
@@ -101,26 +62,58 @@ class CommunityControllerController extends Controller
         $user=Auth::user();
         return view('admin.community.show',compact('post','user'));
     }
-    public function edit(Request $request,AdminPost $post){
-        /**
-         *  @var User
-         */
+
+    public function edit($id)
+    { 
+        $poll = Poll::findOrFail($id); 
+        
         $user=Auth::user();
-        return view('admin.community.edit',compact('post','user'));
+        
+        return view('admin.community.edit', compact('poll','user'));
     }
-    public function update(Request $request,AdminPost $post){
-        $data=$request->validate([
-            'title'=>["required","max:255"],
-            'description'=>["required"],
+
+    public function update(Request $request,$id)
+    {
+        $request->validate([
+            'question' => 'required|string|max:255',
+            'options' => 'required|array',
+            'options.*' => 'required|string|max:255',
+            
         ]);
- 
-        $post->update($data);
-        return redirect()->route('community.post.show',$post->slug)->with('success',"Post updated");
+    
+        // Find the poll by ID
+        $poll = Poll::findOrFail($id);
+    
+        // Update the poll question
+        $poll->question = $request->input('question');
+        $poll->save();
+    
+        $options = $request->input('options');
+        $optionIds = $request->input('option_ids', []);
+    
+        foreach ($options as $index => $option) {
+            if (isset($optionIds[$index])) {
+                $pollOption = $poll->options()->where('id', $optionIds[$index])->first();
+                if ($pollOption) {
+                    $pollOption->option = $option;
+                    $pollOption->save();
+                }
+            } else {
+                $poll->options()->create(['option' => $option]);
+            }
+        }
+        return redirect()->route('admin.community.index')->with('success', 'Post deleted successfully');
     }
-    public function destroy(Request $request,AdminPost $post){ 
-        $post->delete();
-        return redirect()->route('community.index')->with('success',"Post Deleted");
-    }
+
+    public function destroy($id)
+  {
+    $poll = Poll::findOrFail($id);
+    
+        $poll->delete();
+    return redirect()->route('admin.community.index')
+      ->with('success', 'poll deleted successfully');
+  }
+   
 
     public function pollcreate()
     {

@@ -35,15 +35,14 @@
     .btn:hover {
         background-color: #0056b3;
     }
- </style>   
-
+</style>
 
 <br><br>
 <div class="form-group">
-<select id="selection" onchange="toggleForm()"  class="header_wrapp">
-    <option value="poll">Poll</option>
-    <option value="post">Post</option>
-</select>
+    <select id="selection" onchange="toggleForm()" class="header_wrapp">
+        <option value="poll">Poll</option>
+        <option value="post">Post</option>
+    </select>
 </div>
 
 <section class="header_nav" id="poll-form" style="display: none;">
@@ -56,41 +55,46 @@
 
 <section class="invite-wrap mt-2" id="poll-section" style="display: none;">
     <div class="container">
-        <form method="POST" action="{{route('community.poll.store') }}">
+        <form method="POST" action="{{ route('community.poll.store') }}">
             @csrf
+
+            <input type="hidden" name="user_id" value="{{ Auth::id() }}">
             <div class="form-group">
                 <label>Question</label>
                 <input type="text" name="question" class="form-control" required>
             </div>
-            <div class="form-group">
-                <label>Option 1</label>
-                <input type="text" name="option1" class="form-control" required>
+            <div id="options-container">
+                <div class="form-group">
+                    <label>Option 1</label>
+                    <input type="text" name="options[]" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Option 2</label>
+                    <input type="text" name="options[]" class="form-control" required>
+                </div>
             </div>
-            <div class="form-group">
-                <label>Option 2</label>
-                <input type="text" name="option2" class="form-control" required>
-            </div>
+            <button type="button" class="btn btn-secondary" onclick="addOption()">Add Option</button>
             <button type="submit" class="btn btn-primary">Create Poll</button>
         </form>
     </div>
 </section>
 
-<section class="header_nav" id="post-form">
+<section class="header_nav" id="post-form" style="display: none;">
     <div class="header_wrapp">
         <div class="header_title">
             <h2>Create Post</h2>
-        </div> 
+        </div>
     </div>
 </section>
 
-<section class="invite-wrap mt-2" id="post-section">
+<section class="invite-wrap mt-2" id="post-section" style="display: none;">
     <div class="container">
         <x-general-form :cancel="route('community.index')" :url="route('community.post.store')" btnsubmit="Publish" :fields='[
             ["name"=>"title","size"=>12],
             ["name"=>"description","size"=>12,"type"=>"editor"],
-        ]' /> 
+        ]' />
     </div>
-</section> 
+</section>
 @endsection
 
 @push('footer-script')
@@ -101,6 +105,18 @@
         document.getElementById('poll-section').style.display = selection === 'poll' ? 'block' : 'none';
         document.getElementById('post-form').style.display = selection === 'post' ? 'block' : 'none';
         document.getElementById('post-section').style.display = selection === 'post' ? 'block' : 'none';
+    }
+
+    function addOption() {
+        const optionsContainer = document.getElementById('options-container');
+        const optionCount = optionsContainer.children.length + 1;
+        const newOption = document.createElement('div');
+        newOption.classList.add('form-group');
+        newOption.innerHTML = `
+            <label>Option ${optionCount}</label>
+            <input type="text" name="options[]" class="form-control" required>
+        `;
+        optionsContainer.appendChild(newOption);
     }
 
     window.onload = function() {
