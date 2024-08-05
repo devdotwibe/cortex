@@ -49,7 +49,8 @@ class MainController extends Controller
         $chartbackgroundColor=[];
         $chartdata=[]; 
         if(UserReviewAnswer::where('user_id',$user->id)->count()>0){
-            foreach (CarbonPeriod::create(Carbon::parse(UserReviewAnswer::where('user_id',$user->id)->min('created_at')), Carbon::parse(UserReviewAnswer::where('user_id',$user->id)->max('created_at'))) as $date) {
+            foreach (UserReviewAnswer::where('user_id',$user->id)->select(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d') ndate"))->groupBy('ndate')->pluck('ndate')->toArray() as $date) {
+                $date=Carbon::parse($date);
                 $cnt=UserReviewAnswer::whereDate('created_at',$date->format('Y-m-d'))->where('user_id',$user->id)->whereIn('user_exam_review_id',UserExamReview::where('user_id',$user->id)->groupBy('exam_id')->select(DB::raw('MAX(id)')))->where('iscorrect',true)->where('user_answer',true)->count();
                 $tcnt=UserReviewAnswer::whereDate('created_at',$date->format('Y-m-d'))->where('user_id',$user->id)->whereIn('user_exam_review_id',UserExamReview::where('user_id',$user->id)->groupBy('exam_id')->select(DB::raw('MAX(id)')))->where('iscorrect',true)->count();
                 if($cnt>0){
