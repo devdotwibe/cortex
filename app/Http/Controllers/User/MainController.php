@@ -51,9 +51,10 @@ class MainController extends Controller
         if(UserReviewAnswer::where('user_id',$user->id)->count()>0){
             foreach (CarbonPeriod::create(Carbon::parse(UserReviewAnswer::where('user_id',$user->id)->min('created_at')), Carbon::parse(UserReviewAnswer::where('user_id',$user->id)->max('created_at'))) as $date) {
                 $cnt=UserReviewAnswer::whereDate('created_at',$date->format('Y-m-d'))->where('user_id',$user->id)->whereIn('user_exam_review_id',UserExamReview::where('user_id',$user->id)->groupBy('exam_id')->select(DB::raw('MAX(id)')))->where('iscorrect',true)->where('user_answer',true)->count();
+                $tcnt=UserReviewAnswer::whereDate('created_at',$date->format('Y-m-d'))->where('user_id',$user->id)->whereIn('user_exam_review_id',UserExamReview::where('user_id',$user->id)->groupBy('exam_id')->select(DB::raw('MAX(id)')))->where('iscorrect',true)->count();
                 if($cnt>0){
                     $chartlabel[]=$date->format('Y-m-d');
-                    $chartdata[]=$cnt;
+                    $chartdata[]=round(($cnt*100)/$tcnt,2);
                     $chartbackgroundColor[]="#21853C";
                 }
             }

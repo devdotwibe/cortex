@@ -135,7 +135,7 @@
         data: {
             labels: @json($chartlabel),
             datasets: [{
-                label: 'Students',
+                label: 'Mark',
                 data:@json($chartdata),
                 fill: true,
                 borderColor:@json($chartbackgroundColor),
