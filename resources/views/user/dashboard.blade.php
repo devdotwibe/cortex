@@ -11,7 +11,7 @@
                 <div class="progress-body">
                     <span class="progress-notification"></span>
                     <div class="progress-avathar">
-                        <img src="{{asset('assets/images/lessonmaterial.svg')}}" alt="">
+                        <img src="{{asset('assets/images/learn.svg')}}" alt="">
                     </div>
                     <div class="progress-title">
                         <strong>Learn</strong>
@@ -22,7 +22,7 @@
                 <div class="progress-body">
                     <span class="progress-notification"></span>
                     <div class="progress-avathar">
-                        <img src="{{asset('assets/images/lessonmaterial.svg')}}" alt="">
+                        <img src="{{asset('assets/images/practice.svg')}}" alt="">
                     </div>
                     <div class="progress-title">
                         <strong>Practice</strong>
@@ -33,7 +33,7 @@
                 <div class="progress-body">
                     <span class="progress-notification"></span>
                     <div class="progress-avathar">
-                        <img src="{{asset('assets/images/lessonmaterial.svg')}}" alt="">
+                        <img src="{{asset('assets/images/simulate.svg')}}" alt="">
                     </div>
                     <div class="progress-title">
                         <strong>Simulate</strong>
@@ -44,7 +44,7 @@
                 <div class="progress-body">
                     <span class="progress-notification"></span>
                     <div class="progress-avathar">
-                        <img src="{{asset('assets/images/lessonmaterial.svg')}}" alt="">
+                        <img src="{{asset('assets/images/review.svg')}}" alt="">
                     </div>
                     <div class="progress-title">
                         <strong>Review</strong>
