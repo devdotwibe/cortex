@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Exam;
+use App\Models\Learn;
 use App\Models\User;
 use App\Models\UserExamReview;
 use App\Models\UserReviewAnswer;
+use App\Trait\ResourceController;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
@@ -14,6 +18,7 @@ use Illuminate\Support\Facades\DB;
 
 class MainController extends Controller
 { 
+    use ResourceController;
     public function index(Request $request){
         /**
          * @var User
@@ -60,7 +65,28 @@ class MainController extends Controller
                 }
             }
         }
-        return view("user.dashboard",compact('chartdata','chartbackgroundColor','chartlabel'));
+        self::reset();
+        self::$model = Category::class;
+        $learnprogress=0;
+        $learncnt=0;
+        $learnexam=Exam::where("name",'learn')->first();
+        if(empty($learnexam)){
+            $learnexam=Exam::store([
+                "title"=>"Learn",
+                "name"=>"learn",
+            ]);
+            $learnexam=Exam::find( $learnexam->id );
+        }
+        foreach($this->whereHas('subcategories',function($qry){
+            $qry->whereIn("id",Learn::select('sub_category_id'));
+        })->buildResult() as $item){
+            $learnprogress+=$user->progress('exam-' . $learnexam->id . '-module-' . $item->id,0);
+            $learncnt++;
+        }
+        if($learncnt>0){
+            $learnprogress=round($learnprogress/$learncnt,2);
+        }
+        return view("user.dashboard",compact('chartdata','chartbackgroundColor','chartlabel','learnprogress'));
     }
 
     public function progress(Request $request){

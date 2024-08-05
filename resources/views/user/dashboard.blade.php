@@ -8,7 +8,7 @@
         </div> 
         <div class="progress-list">
             <div class="progress-item">
-                <div class="progress-body">
+                <div class="progress-body @if($learnprogress>=50) complete @endif">
                     <span class="progress-notification"></span>
                     <div class="progress-avathar">
                         <img src="{{asset('assets/images/learn.svg')}}" alt="">
