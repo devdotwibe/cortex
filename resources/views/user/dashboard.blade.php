@@ -145,9 +145,11 @@
         options: {
             scales: {
                 y: {
-                    beginAtZero: true,
-        //             display: false,
-        //             // max:100
+                    beginAtZero: true, 
+                    max:100,
+                    grid: {
+                        display: false
+                    }, 
                 }, 
                 x: {  
                     grid: {
