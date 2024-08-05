@@ -1177,6 +1177,55 @@ section.post-section .post-item .post-actions a.post-action-btn span{
   justify-content:center;
   align-items:center;
 } 
+.progress-list {
+  width:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.progress-list .progress-item {
+  width:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+.progress-list .progress-item::before {
+  content:"";
+  height:1px;
+  width:100%;
+  background-color:black
+}
+.progress-list .progress-item::after {
+  content:"";
+  height:1px;
+  width:100%;
+  background-color:black
+}
+.progress-list .progress-item .progress-body {
+  width:100%; 
+  justify-content:center;
+  align-items:center;
+}
+.progress-list .progress-item .progress-body .progress-avathar {
+  width:50px; 
+  margin:auto
+}
+.progress-list .progress-item .progress-body .progress-title {
+  width:100%;
+  justify-content:center;
+  align-items:center;
+  text-align:center; 
+}
+.progress-list .progress-item .progress-notification {
+  width:5px;
+  height:5px;
+  background:black;
+  display: block;
+  margin-left: auto; 
+  margin-right: 0; 
+  border-radius:50%
+}
 
 
 
