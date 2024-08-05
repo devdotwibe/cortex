@@ -61,8 +61,24 @@
                 <div class="card-body">
                     <h3>Calendar</h3>
                     <div class="calendar">
+                        <div class="calendar-title">
+                            <strong id="calendar-title"></strong>
+                        </div>
                         <div class="calendar-body">
                             <div id="calendar-dashboard"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="overview-graph">
+                        <div class="overview-graph-body">
+                            <div class="overview-graph-inner"> 
+                                <canvas id="myChart" class="overview-graph-bar" width="100%" ></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -77,7 +93,7 @@
 <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.9/index.global.min.js'></script>
 <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.9/index.global.min.js'></script>
 <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@6.1.9/index.global.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     $(function(){
         
@@ -97,8 +113,7 @@
         unselectAuto: true,
         selectable: true, 
         dateClick:function(info){ 
-            console.log(info)
-        // selectedDates=[`${info.date.getFullYear()}-${info.date.getMonth()+1}-${info.date.getDate()}`];
+            console.log(info) 
         }, 
         events: function(fetchInfo, successCallback, failureCallback) { 
             $.get("{{route('dashboard')}}",fetchInfo,function(res){
@@ -106,14 +121,47 @@
             },'json').fail(function(){
                 failureCallback("Network response was not ok")
             }) 
-        },
-        // datesSet: function(view, element) {
-        //     console.log(view)
-        // } 
-        eventClick:function(info){ console.log(info) }
+        }, 
+        eventClick:function(info){ 
+            if(info.event&&info.event.extendedProps){
+                $('#calendar-title').text(info.event.extendedProps.elTitle||"")
+            }            
+        }
     });
-    calendar.render();
-
+    calendar.render(); 
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const progressBar = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: @json($chartlabel),
+            datasets: [{
+                label: 'Students',
+                data:@json($chartdata),
+                fill: true,
+                borderColor:@json($chartbackgroundColor),
+                backgroundColor:"#8FFFAD",
+            }]
+        },
+        // options: {
+        //     scales: {
+        //         y: {
+        //             beginAtZero: true,
+        //             display: false,
+        //             // max:100
+        //         }, 
+        //         x: {  
+        //             grid: {
+        //                 display: false
+        //             }, 
+        //         },  
+        //     },
+        //     plugins: { 
+        //         legend: {
+        //             display: false 
+        //         }
+        //     }
+        // },
+    }); 
 })
 </script>
 @endpush
