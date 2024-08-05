@@ -106,15 +106,8 @@ class MainController extends Controller
         $simulatecnt=Question::whereIn("exam_id",Exam::whereIn("name",['full-mock-exam','topic-test'])->select('id'))->has('category')->has('subCategory')->has('setname')->count();
         if($simulatecnt>0){
             $simulateprogress=round($simulateprogress/$simulatecnt,2);
-        }
-        // if($learncnt>0){
-        //     $learnprogress=round($learnprogress/$learncnt,2);
-        // }
-
-        // if($learncnt>0){
-        //     $learnprogress=round($learnprogress/$learncnt,2);
-        // }
-        return view("user.dashboard",compact('chartdata','chartbackgroundColor','chartlabel','learnprogress','practiceprogress'));
+        } 
+        return view("user.dashboard",compact('chartdata','chartbackgroundColor','chartlabel','learnprogress','practiceprogress','simulateprogress'));
     }
 
     public function progress(Request $request){
