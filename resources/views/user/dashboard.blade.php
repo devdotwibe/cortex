@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div class="progress-item">
-                <div class="progress-body">
+                <div class="progress-body @if($practiceprogress>=50) complete @endif">
                     <span class="progress-notification"></span>
                     <div class="progress-avathar">
                         <img src="{{asset('assets/images/practice.svg')}}" alt="">
@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div class="progress-item">
-                <div class="progress-body">
+                <div class="progress-body @if($practiceprogress>=50) complete @endif">
                     <span class="progress-notification"></span>
                     <div class="progress-avathar">
                         <img src="{{asset('assets/images/simulate.svg')}}" alt="">
@@ -41,7 +41,7 @@
                 </div>
             </div>
             <div class="progress-item">
-                <div class="progress-body">
+                <div class="progress-body @if($practiceprogress>=50) complete @endif">
                     <span class="progress-notification"></span>
                     <div class="progress-avathar">
                         <img src="{{asset('assets/images/review.svg')}}" alt="">

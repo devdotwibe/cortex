@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Exam;
 use App\Models\Learn;
+use App\Models\Question;
 use App\Models\User;
 use App\Models\UserExamReview;
 use App\Models\UserReviewAnswer;
@@ -67,8 +68,6 @@ class MainController extends Controller
         }
         self::reset();
         self::$model = Category::class;
-        $learnprogress=0;
-        $learncnt=0;
         $learnexam=Exam::where("name",'learn')->first();
         if(empty($learnexam)){
             $learnexam=Exam::store([
@@ -77,6 +76,8 @@ class MainController extends Controller
             ]);
             $learnexam=Exam::find( $learnexam->id );
         }
+        $learnprogress=0;
+        $learncnt=0;
         foreach($this->whereHas('subcategories',function($qry){
             $qry->whereIn("id",Learn::select('sub_category_id'));
         })->buildResult() as $item){
@@ -86,7 +87,28 @@ class MainController extends Controller
         if($learncnt>0){
             $learnprogress=round($learnprogress/$learncnt,2);
         }
-        return view("user.dashboard",compact('chartdata','chartbackgroundColor','chartlabel','learnprogress'));
+ 
+        $practiceexam=Exam::where("name",'question-bank')->first();
+        if(empty($practiceexam)){
+            $practiceexam=Exam::store([
+                "title"=>"Question Bank",
+                "name"=>"question-bank",
+            ]);
+            $practiceexam=Exam::find( $practiceexam->id );
+        }
+        $practiceprogress=UserReviewAnswer::whereIn('question_id',Question::where("exam_id",$practiceexam->id)->has('category')->has('subCategory')->has('setname')->select('id'))->where('user_id',$user->id)->whereIn('user_exam_review_id',UserExamReview::where('user_id',$user->id)->groupBy('exam_id')->select(DB::raw('MAX(id)')))->where('iscorrect',true)->where('user_answer',true)->count();
+        $practicecnt=Question::where("exam_id",$practiceexam->id)->has('category')->has('subCategory')->has('setname')->count();
+ 
+        if($learncnt>0){
+            $learnprogress=round($learnprogress/$learncnt,2);
+        }
+        if($practicecnt>0){
+            $practiceprogress=round($practiceprogress/$practicecnt,2);
+        }
+        if($learncnt>0){
+            $learnprogress=round($learnprogress/$learncnt,2);
+        }
+        return view("user.dashboard",compact('chartdata','chartbackgroundColor','chartlabel','learnprogress','practiceprogress'));
     }
 
     public function progress(Request $request){
