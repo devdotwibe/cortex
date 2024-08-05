@@ -32,10 +32,12 @@ class MainController extends Controller
                 $responceData[]=[ 
                     "start"=>$date->format('Y-m-d'),
                     "rendering"=> 'background',
+                    "elTitle"=> "You completed {$cnt} questions this day",
                     "backgroundColor"=> "$bgcolor", 
-                    "title"=> "$cnt",
+                    "borderColor"=>"$bgcolor", 
+                    "title"=> "",
                     "textColor"=> '#FFFFFF',
-                    "className"=> 'event-full',
+                    "className"=> 'event-full', 
                 ];
             }
             return response()->json($responceData);

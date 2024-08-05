@@ -106,8 +106,11 @@
             },'json').fail(function(){
                 failureCallback("Network response was not ok")
             }) 
-        }, 
- 
+        },
+        // datesSet: function(view, element) {
+        //     console.log(view)
+        // } 
+        eventClick:function(info){ console.log(info) }
     });
     calendar.render();
 
