@@ -32,20 +32,19 @@ class MainController extends Controller
                 $chartbackgroundColor=[];
                 $chartdata=[]; 
                 if(UserReviewAnswer::where('user_id',$user->id)->count()>0){
-                    $examsdata=UserReviewAnswer::where('user_id',$user->id);
-                    $today=Carbon::now()->today();
+                    $examsdata=UserReviewAnswer::where('user_id',$user->id); 
                     switch ($request->input('filter')) {
                         case '1week':                            
-                            $examsdata->whereDateBetween('created_at',[$today->subWeek()->toDateString(),$today->toDateString()]);
+                            $examsdata->whereBetween('created_at',[Carbon::now()->today()->subWeek(),Carbon::now()->today()]);
                             break;
                         case '1month':                            
-                            $examsdata->whereDateBetween('created_at',[$today->subMonth()->toDateString(),$today->toDateString()]);
+                            $examsdata->whereBetween('created_at',[Carbon::now()->today()->subMonth(),Carbon::now()->today()]);
                             break;                        
                         case '3months':                            
-                            $examsdata->whereDateBetween('created_at',[$today->subMonths(3)->toDateString(),$today->toDateString()]);
+                            $examsdata->whereBetween('created_at',[Carbon::now()->today()->subMonths(3),Carbon::now()->today()]);
                             break;                                                   
                         case '1year':                            
-                            $examsdata->whereDateBetween('created_at',[$today->subYear()->toDateString(),$today->toDateString()]);
+                            $examsdata->whereBetween('created_at',[Carbon::now()->today()->subYear(),Carbon::now()->today()]);
                             break;
                         default: 
                             break;
