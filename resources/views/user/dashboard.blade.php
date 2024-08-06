@@ -171,8 +171,8 @@
             progressBar.data.datasets[0].data.push(res.data||[]);
             progressBar.data.datasets[0].borderColor.push(res.borderColor||[]);
             progressBar.update();
-            $('.graph-filter-btn').removeClass('btn-primary')->addClass('btn-outline-primary')
-            $('.graph-filter-'+fl).removeClass('btn-outline-primary')->addClass('btn-primary')
+            $('.graph-filter-btn').removeClass('btn-primary').addClass('btn-outline-primary')
+            $('.graph-filter-'+fl).removeClass('btn-outline-primary').addClass('btn-primary')
         },'json')
     }
     $(function(){
