@@ -30,7 +30,11 @@ class MainController extends Controller
             $start=Carbon::parse($request->startStr??date("Y-m-d"));
             $end=Carbon::parse($request->endStr??date("Y-m-d"));
             foreach (CarbonPeriod::create($start, $end) as $date) {
-                $cnt=UserReviewAnswer::whereDate('created_at',$date->format('Y-m-d'))->where('user_id',$user->id)->whereIn('user_exam_review_id',UserExamReview::where('user_id',$user->id)->groupBy('exam_id')->select(DB::raw('MAX(id)')))->where('iscorrect',true)->where('user_answer',true)->count();
+                $cnt=UserReviewAnswer::whereDate('created_at',$date->format('Y-m-d'))->where('user_id',$user->id)->where(function($qry)use($user,$date){
+                    $qry->whereIn('user_exam_review_id',UserExamReview::where('name','full-mock-exam')->whereDate('created_at',$date->format('Y-m-d'))->where('user_id',$user->id)->groupBy('exam_id')->select(DB::raw('MAX(id)')));
+                    $qry->orWhereIn('user_exam_review_id',UserExamReview::where('name','question-bank')->whereDate('created_at',$date->format('Y-m-d'))->where('user_id',$user->id)->groupBy('sub_category_set')->select(DB::raw('MAX(id)'))); 
+                    $qry->orWhereIn('user_exam_review_id',UserExamReview::where('name','topic-test')->whereDate('created_at',$date->format('Y-m-d'))->where('user_id',$user->id)->groupBy('category_id')->select(DB::raw('MAX(id)')));
+                })->where('iscorrect',true)->where('user_answer',true)->count();
                 $bgcolor="#808C83";
                 if($cnt>0){
                     $bgcolor="#8FFFAD";
