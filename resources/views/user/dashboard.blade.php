@@ -167,9 +167,9 @@
     });  
     function updatechart(fl) {
         $.get("{{route('dashboard',['chart'=>'Y'])}}",{filter:fl},function(res){
-            progressBar.data.labels.push(res.label||[]);
-            progressBar.data.datasets[0].data.push(res.data||[]);
-            progressBar.data.datasets[0].borderColor.push(res.borderColor||[]);
+            progressBar.data.labels=res.label||[];
+            progressBar.data.datasets[0].data=res.data||[];
+            progressBar.data.datasets[0].borderColor=res.borderColor||[];
             progressBar.update();
             $('.graph-filter-btn').removeClass('btn-primary').addClass('btn-outline-primary')
             $('.graph-filter-'+fl).removeClass('btn-outline-primary').addClass('btn-primary')
