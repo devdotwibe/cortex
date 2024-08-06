@@ -32,6 +32,6 @@ class UserReviewAnswer extends Model
     { 
         $ansthis=UserReviewAnswer::whereIn('user_exam_review_id',UserExamReview::where('exam_id',$this->exam_id)->groupBy('user_id')->select(DB::raw('MAX(id)')))->where('exam_id',$this->exam_id)->where('question_id',$this->question_id)->where('answer_id',$this->answer_id)->where('user_answer',true)->count();
         $ansthisall=UserReviewAnswer::whereIn('user_exam_review_id',UserExamReview::where('exam_id',$this->exam_id)->groupBy('user_id')->select(DB::raw('MAX(id)')))->where('exam_id',$this->exam_id)->where('question_id',$this->question_id)->where('user_answer',true)->count();
-        return ($ansthis*100)/ $ansthisall;
+        return $ansthis>0? (($ansthis*100)/ $ansthisall):0;
     }
 }
