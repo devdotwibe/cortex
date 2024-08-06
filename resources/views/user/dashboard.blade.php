@@ -148,9 +148,10 @@
                     }, 
                 }, 
                 x: {  
-                    grid: {
-                        display: false
-                    }, 
+                    // grid: {
+                    //     display: false
+                    // }, 
+                    display: false
                 },  
             },
             plugins: { 
