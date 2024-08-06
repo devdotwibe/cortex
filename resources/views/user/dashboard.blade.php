@@ -20,7 +20,7 @@
             <div class="progress-item">
                 <div class="progress-body @if($practiceprogress>=50) complete @endif"> 
                     <div class="progress-avathar">
-                        <img  @if($learnprogress>=50)  src="{{asset('assets/images/practice.svg')}}" @else  src="{{asset('assets/images/practicegreyicon.svg')}}" @endif alt="">
+                        <img  @if($practiceprogress>=50)  src="{{asset('assets/images/practice.svg')}}" @else  src="{{asset('assets/images/practicegreyicon.svg')}}" @endif alt="">
                     </div>
                     <div class="progress-title">
                         <strong>Practice</strong>
@@ -30,7 +30,7 @@
             <div class="progress-item">
                 <div class="progress-body @if($simulateprogress>=50) complete @endif"> 
                     <div class="progress-avathar">
-                        <img  @if($learnprogress>=50)  src="{{asset('assets/images/simulate.svg')}}" @else  src="{{asset('assets/images/simulategreyicon.svg')}}" @endif alt="">
+                        <img  @if($simulateprogress>=50)  src="{{asset('assets/images/simulate.svg')}}" @else  src="{{asset('assets/images/simulategreyicon.svg')}}" @endif alt="">
                     </div>
                     <div class="progress-title">
                         <strong>Simulate</strong>
@@ -38,9 +38,9 @@
                 </div>
             </div>
             <div class="progress-item">
-                <div class="progress-body @if($practiceprogress>=50) complete @endif"> 
+                <div class="progress-body @if($maxretry>=2) complete @endif"> 
                     <div class="progress-avathar">
-                        <img  @if($learnprogress>=50)  src="{{asset('assets/images/review.svg')}}" @else src="{{asset('assets/images/reviewgreyicon.svg')}}" @endif alt="">
+                        <img  @if($maxretry>=2)  src="{{asset('assets/images/review.svg')}}" @else src="{{asset('assets/images/reviewgreyicon.svg')}}" @endif alt="">
                     </div>
                     <div class="progress-title">
                         <strong>Review</strong>

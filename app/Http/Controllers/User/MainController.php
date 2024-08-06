@@ -103,8 +103,8 @@ class MainController extends Controller
             $simulateprogress=round($simulateprogress*100/$simulatecnt,2);
         } 
 
-
-
+        $maxretry=UserExamReview::where('name','full-mock-exam')->where('user_id',$user->id)->groupBy('exam_id')->select(DB::raw('count(exam_id) as cnt'))->max('cnt')+UserExamReview::where('name','question-bank')->where('user_id',$user->id)->groupBy('sub_category_set')->select(DB::raw('count(sub_category_set) as cnt'))->max('cnt')+UserExamReview::where('name','topic-test')->where('user_id',$user->id)->groupBy('category_id')->select(DB::raw('count(category_id)  as cnt'))->max('cnt');
+           
         $chartlabel=[]; 
         $chartbackgroundColor=[];
         $chartdata=[]; 
@@ -127,7 +127,7 @@ class MainController extends Controller
             }
         }
 
-        return view("user.dashboard",compact('chartdata','chartbackgroundColor','chartlabel','learnprogress','practiceprogress','simulateprogress'));
+        return view("user.dashboard",compact('maxretry','chartdata','chartbackgroundColor','chartlabel','learnprogress','practiceprogress','simulateprogress'));
     }
 
     public function progress(Request $request){
