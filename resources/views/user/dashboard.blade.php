@@ -176,7 +176,7 @@
         },'json')
     }
     $(function(){
-        updatechart('all')
+        updatechart('1week')
     })
 </script>
 @endpush
