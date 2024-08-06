@@ -117,7 +117,7 @@ class MainController extends Controller
                 $cnt=$ans->where('user_answer',true)->count();
                 // if($tcnt>0){
                     $chartlabel[]=$date->format('Y-m-d');
-                    $chartdata[]=round(($cnt*100)/$tcnt,2);
+                    $chartdata[]=$tcnt>0?round(($cnt*100)/$tcnt,2):0;
                     $chartbackgroundColor[]="#21853C";
                 // }
             }
