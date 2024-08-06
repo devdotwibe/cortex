@@ -35,16 +35,16 @@ class MainController extends Controller
                     $examsdata=UserReviewAnswer::where('user_id',$user->id); 
                     switch ($request->input('filter')) {
                         case '1week':                            
-                            $examsdata->whereBetween('created_at',[Carbon::now()->subWeek(),Carbon::now()->tomorrow()]);
+                            $examsdata->whereBetween('created_at',[Carbon::now()->subWeek(),Carbon::now()->addDay()]);
                             break;
                         case '1month':                            
-                            $examsdata->whereBetween('created_at',[Carbon::now()->subMonth(),Carbon::now()->tomorrow()]);
+                            $examsdata->whereBetween('created_at',[Carbon::now()->subMonth(),Carbon::now()->addDay()]);
                             break;                        
                         case '3months':                            
-                            $examsdata->whereBetween('created_at',[Carbon::now()->subMonths(3),Carbon::now()->tomorrow()]);
+                            $examsdata->whereBetween('created_at',[Carbon::now()->subMonths(3),Carbon::now()->addDay()]);
                             break;                                                   
                         case '1year':                            
-                            $examsdata->whereBetween('created_at',[Carbon::now()->subYear(),Carbon::now()->tomorrow()]);
+                            $examsdata->whereBetween('created_at',[Carbon::now()->subYear(),Carbon::now()->addDay()]);
                             break;
                         default: 
                             break;
