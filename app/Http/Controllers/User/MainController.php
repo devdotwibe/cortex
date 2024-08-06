@@ -41,7 +41,7 @@ class MainController extends Controller
                         case '1month':                            
                             $examsdata->whereBetween('created_at',[$today->subMonth()->toDateString(),$today->toDateString()]);
                             break;                        
-                        case '3month':                            
+                        case '3months':                            
                             $examsdata->whereBetween('created_at',[$today->subMonths(3)->toDateString(),$today->toDateString()]);
                             break;                                                   
                         case '1year':                            

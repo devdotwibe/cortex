@@ -79,10 +79,10 @@
                         <div class="overview-graph-footer"> 
                             <div class="graph-filter">
                                 <button class="graph-filter-btn graph-filter-all btn btn-outline-primary btn-sm m-3" onclick="updatechart('all')">All</button>
-                                <button class="graph-filter-btn graph-filter-1week btn btn-outline-primary btn-sm m-3">1 Week</button>
-                                <button class="graph-filter-btn graph-filter-1month btn btn-outline-primary btn-sm m-3">1 Month</button>
-                                <button class="graph-filter-btn graph-filter-3months btn btn-outline-primary btn-sm m-3">3 Months</button>
-                                <button class="graph-filter-btn graph-filter-1year btn btn-outline-primary btn-sm m-3">1 Year</button>
+                                <button class="graph-filter-btn graph-filter-1week btn btn-outline-primary btn-sm m-3" onclick="updatechart('1week')">1 Week</button>
+                                <button class="graph-filter-btn graph-filter-1month btn btn-outline-primary btn-sm m-3" onclick="updatechart('1month')">1 Month</button>
+                                <button class="graph-filter-btn graph-filter-3months btn btn-outline-primary btn-sm m-3" onclick="updatechart('3months')">3 Months</button>
+                                <button class="graph-filter-btn graph-filter-1year btn btn-outline-primary btn-sm m-3" onclick="updatechart('1year')">1 Year</button>
                             </div>
                         </div>
                     </div>
@@ -176,7 +176,7 @@
         },'json')
     }
     $(function(){
-        updatechart('1week')
+        updatechart('all')
     })
 </script>
 @endpush
