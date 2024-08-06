@@ -36,16 +36,16 @@ class MainController extends Controller
                     $today=Carbon::now()->today();
                     switch ($request->input('filter')) {
                         case '1week':                            
-                            $examsdata->whereBetween('created_at',[$today->subWeek()->toDateString(),$today->toDateString()]);
+                            $examsdata->whereDateBetween('created_at',[$today->subWeek()->toDateString(),$today->toDateString()]);
                             break;
                         case '1month':                            
-                            $examsdata->whereBetween('created_at',[$today->subMonth()->toDateString(),$today->toDateString()]);
+                            $examsdata->whereDateBetween('created_at',[$today->subMonth()->toDateString(),$today->toDateString()]);
                             break;                        
                         case '3months':                            
-                            $examsdata->whereBetween('created_at',[$today->subMonths(3)->toDateString(),$today->toDateString()]);
+                            $examsdata->whereDateBetween('created_at',[$today->subMonths(3)->toDateString(),$today->toDateString()]);
                             break;                                                   
                         case '1year':                            
-                            $examsdata->whereBetween('created_at',[$today->subYear()->toDateString(),$today->toDateString()]);
+                            $examsdata->whereDateBetween('created_at',[$today->subYear()->toDateString(),$today->toDateString()]);
                             break;
                         default: 
                             break;
