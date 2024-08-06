@@ -51,21 +51,6 @@ class MainController extends Controller
             }
             return response()->json($responceData);
         }
-        $chartlabel=[]; 
-        $chartbackgroundColor=[];
-        $chartdata=[]; 
-        if(UserReviewAnswer::where('user_id',$user->id)->count()>0){
-            foreach (UserReviewAnswer::where('user_id',$user->id)->select(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d') ndate"))->groupBy('ndate')->pluck('ndate')->toArray() as $date) {
-                $date=Carbon::parse($date);
-                $cnt=UserReviewAnswer::whereDate('created_at',$date->format('Y-m-d'))->where('user_id',$user->id)->whereIn('user_exam_review_id',UserExamReview::where('user_id',$user->id)->groupBy('exam_id')->select(DB::raw('MAX(id)')))->where('iscorrect',true)->where('user_answer',true)->count();
-                $tcnt=UserReviewAnswer::whereDate('created_at',$date->format('Y-m-d'))->where('user_id',$user->id)->whereIn('user_exam_review_id',UserExamReview::where('user_id',$user->id)->groupBy('exam_id')->select(DB::raw('MAX(id)')))->where('iscorrect',true)->count();
-                // if($cnt>0){
-                    $chartlabel[]=$date->format('Y-m-d');
-                    $chartdata[]= $cnt; //round(($cnt*100)/$tcnt,2);
-                    $chartbackgroundColor[]="#21853C";
-                // }
-            }
-        }
         self::reset();
         self::$model = Category::class;
         $learnexam=Exam::where("name",'learn')->first();
@@ -107,6 +92,31 @@ class MainController extends Controller
         if($simulatecnt>0){
             $simulateprogress=round($simulateprogress/$simulatecnt,2);
         } 
+
+
+
+        $chartlabel=[]; 
+        $chartbackgroundColor=[];
+        $chartdata=[]; 
+        if(UserReviewAnswer::where('user_id',$user->id)->count()>0){
+            foreach (UserReviewAnswer::where('user_id',$user->id)->select(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d') ndate"))->groupBy('ndate')->pluck('ndate')->toArray() as $date) {
+                $date=Carbon::parse($date);
+
+                $ans=UserReviewAnswer::whereDate('created_at',$date->format('Y-m-d'))->where('user_id',$user->id)->where(function($qry)use($user){
+                    $qry->whereIn('user_exam_review_id',UserExamReview::where('name','full-mock-exam')->where('user_id',$user->id)->groupBy('exam_id')->select(DB::raw('MAX(id)')));
+                    $qry->orWhereIn('user_exam_review_id',UserExamReview::where('name','question-bank')->where('user_id',$user->id)->groupBy('sub_category_set')->select(DB::raw('MAX(id)'))); 
+                    $qry->orWhereIn('user_exam_review_id',UserExamReview::where('name','topic-test')->where('user_id',$user->id)->groupBy('category_id')->select(DB::raw('MAX(id)')));
+                })->where('iscorrect',true);
+                $tcnt=$ans->count();
+                $cnt=$ans->where('user_answer',true)->count();
+                if($cnt>0){
+                    $chartlabel[]=$date->format('Y-m-d');
+                    $chartdata[]=round(($cnt*100)/$tcnt,2);
+                    $chartbackgroundColor[]="#21853C";
+                }
+            }
+        }
+
         return view("user.dashboard",compact('chartdata','chartbackgroundColor','chartlabel','learnprogress','practiceprogress','simulateprogress'));
     }
 
