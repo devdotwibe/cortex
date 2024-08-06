@@ -78,11 +78,11 @@
                         </div>
                         <div class="overview-graph-footer"> 
                             <div class="graph-filter">
-                                <button class="graph-filter-btn graph-filter-all btn btn-outline-primary btn-sm m-3" onclick="updatechart('all')">All</button>
-                                <button class="graph-filter-btn graph-filter-1week btn btn-outline-primary btn-sm m-3" onclick="updatechart('1week')">1 Week</button>
-                                <button class="graph-filter-btn graph-filter-1month btn btn-outline-primary btn-sm m-3" onclick="updatechart('1month')">1 Month</button>
-                                <button class="graph-filter-btn graph-filter-3months btn btn-outline-primary btn-sm m-3" onclick="updatechart('3months')">3 Months</button>
-                                <button class="graph-filter-btn graph-filter-1year btn btn-outline-primary btn-sm m-3" onclick="updatechart('1year')">1 Year</button>
+                                <a class="graph-filter-btn graph-filter-all m-1" onclick="updatechart('all')"><span class="filter-text">All</span></a>
+                                <a class="graph-filter-btn graph-filter-1week m-1" onclick="updatechart('1week')"><span class="filter-text">1 Week</span></a>
+                                <a class="graph-filter-btn graph-filter-1month m-1" onclick="updatechart('1month')"><span class="filter-text">1 Month</span></a>
+                                <a class="graph-filter-btn graph-filter-3months m-1" onclick="updatechart('3months')"><span class="filter-text">3 Months</span></a>
+                                <a class="graph-filter-btn graph-filter-1year m-1" onclick="updatechart('1year')"><span class="filter-text">1 Year</span></a>
                             </div>
                         </div>
                     </div>
@@ -171,8 +171,8 @@
             progressBar.data.datasets[0].data=res.data||[];
             progressBar.data.datasets[0].borderColor=res.borderColor||[];
             progressBar.update();
-            $('.graph-filter-btn').removeClass('btn-primary').addClass('btn-outline-primary')
-            $('.graph-filter-'+fl).removeClass('btn-outline-primary').addClass('btn-primary')
+            $('.graph-filter-btn').removeClass('active')
+            $('.graph-filter-'+fl).addClass('active')
         },'json')
     }
     $(function(){
