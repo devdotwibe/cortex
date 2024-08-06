@@ -1203,14 +1203,8 @@ section.post-section .post-item .post-actions a.post-action-btn span{
   background-color:black
 }
 .progress-list .progress-item .progress-body {
-  width:100%;  
-  padding: 10px 5px;
-  background-color: gray;
-  border-radius: 50%;
-}
-.progress-list .progress-item .progress-body.complete {
-  background-color: orange;
-}
+  width:100%;   
+} 
 .progress-list .progress-item .progress-body .progress-avathar {
   width:25px; 
   margin:auto
@@ -1220,19 +1214,7 @@ section.post-section .post-item .post-actions a.post-action-btn span{
   justify-content:center;
   align-items:center;
   text-align:center; 
-}
-.progress-list .progress-item .progress-body.complete .progress-notification {
-  width:10px;
-  height:10px;
-  background-image:url(../images/tick-green.svg);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  display: block;
-  margin-left: auto; 
-  margin-right: 0;  
-}
+} 
  
 
 
