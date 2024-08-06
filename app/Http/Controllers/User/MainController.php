@@ -115,11 +115,11 @@ class MainController extends Controller
                 })->where('iscorrect',true);
                 $tcnt=$ans->count();
                 $cnt=$ans->where('user_answer',true)->count();
-                if($tcnt>0){
+                // if($tcnt>0){
                     $chartlabel[]=$date->format('Y-m-d');
                     $chartdata[]=round(($cnt*100)/$tcnt,2);
                     $chartbackgroundColor[]="#21853C";
-                }
+                // }
             }
         }
 
