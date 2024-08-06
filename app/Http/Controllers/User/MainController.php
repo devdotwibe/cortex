@@ -81,16 +81,22 @@ class MainController extends Controller
             ]);
             $practiceexam=Exam::find( $practiceexam->id );
         }
-        $practiceprogress=UserReviewAnswer::whereIn('question_id',Question::where("exam_id",$practiceexam->id)->has('category')->has('subCategory')->has('setname')->select('id'))->where('user_id',$user->id)->whereIn('user_exam_review_id',UserExamReview::where('user_id',$user->id)->groupBy('exam_id')->select(DB::raw('MAX(id)')))->where('iscorrect',true)->where('user_answer',true)->count();
-        $practicecnt=Question::where("exam_id",$practiceexam->id)->has('category')->has('subCategory')->has('setname')->count();
+
+        $practice=UserReviewAnswer::whereIn('question_id',Question::where("exam_id",$practiceexam->id)->has('category')->has('subCategory')->has('setname')->select('id'))->where('user_id',$user->id)->whereIn('user_exam_review_id',UserExamReview::where('name','question-bank')->where('user_id',$user->id)->groupBy('sub_category_set')->select(DB::raw('MAX(id)')))->where('iscorrect',true);
+        $practicecnt=$practice->count();
+        $practiceprogress=$practice->where('user_answer',true)->count();        
         if($practicecnt>0){
-            $practiceprogress=round($practiceprogress/$practicecnt,2);
+            $practiceprogress=round($practiceprogress*100/$practicecnt,2);
         } 
         
-        $simulateprogress=UserReviewAnswer::whereIn('question_id',Question::whereIn("exam_id",Exam::whereIn("name",['full-mock-exam','topic-test'])->select('id'))->has('category')->select('id'))->where('user_id',$user->id)->whereIn('user_exam_review_id',UserExamReview::where('user_id',$user->id)->groupBy('exam_id')->select(DB::raw('MAX(id)')))->where('iscorrect',true)->where('user_answer',true)->count();
-        $simulatecnt=Question::whereIn("exam_id",Exam::whereIn("name",['full-mock-exam','topic-test'])->select('id'))->has('category')->has('subCategory')->has('setname')->count();
+        $simu=UserReviewAnswer::whereIn('question_id',Question::whereIn("exam_id",Exam::whereIn("name",['full-mock-exam','topic-test'])->select('id'))->has('category')->select('id'))->where('user_id',$user->id)->where(function($qry)use($user){
+            $qry->whereIn('user_exam_review_id',UserExamReview::where('name','full-mock-exam')->where('user_id',$user->id)->groupBy('exam_id')->select(DB::raw('MAX(id)')));
+            $qry->orWhereIn('user_exam_review_id',UserExamReview::where('name','topic-test')->where('user_id',$user->id)->groupBy('category_id')->select(DB::raw('MAX(id)')));
+        })->where('iscorrect',true);
+        $simulatecnt=$simu->count();
+        $simulateprogress=$simu->where('user_answer',true)->count();
         if($simulatecnt>0){
-            $simulateprogress=round($simulateprogress/$simulatecnt,2);
+            $simulateprogress=round($simulateprogress*100/$simulatecnt,2);
         } 
 
 
