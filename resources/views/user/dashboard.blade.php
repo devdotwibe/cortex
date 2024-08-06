@@ -90,9 +90,7 @@
 <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.9/index.global.min.js'></script>
 <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@6.1.9/index.global.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    $(function(){
-        
+<script> 
    let calendar = new FullCalendar.Calendar($("#calendar-dashboard").get(0), {
         initialView: 'dayGridMonth',
         headerToolbar: {
@@ -160,7 +158,6 @@
                 }
             }
         },
-    }); 
-})
+    });  
 </script>
 @endpush
