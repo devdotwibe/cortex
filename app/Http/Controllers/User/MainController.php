@@ -108,8 +108,8 @@ class MainController extends Controller
             foreach (UserReviewAnswer::where('user_id',$user->id)->select(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d') ndate"))->groupBy('ndate')->pluck('ndate')->toArray() as $date) {
                 $date=Carbon::parse($date);
 
-                $ans=UserReviewAnswer::whereDate('created_at',$date->format('Y-m-d'))->where('user_id',$user->id)->where(function($qry)use($user){
-                    $qry->whereIn('user_exam_review_id',UserExamReview::where('name','full-mock-exam')->whereDate('created_at',$date->format('Y-m-d'))->where('user_id',$user->id)->->groupBy('exam_id')->select(DB::raw('MAX(id)')));
+                $ans=UserReviewAnswer::whereDate('created_at',$date->format('Y-m-d'))->where('user_id',$user->id)->where(function($qry)use($user,$date){
+                    $qry->whereIn('user_exam_review_id',UserExamReview::where('name','full-mock-exam')->whereDate('created_at',$date->format('Y-m-d'))->where('user_id',$user->id)->groupBy('exam_id')->select(DB::raw('MAX(id)')));
                     $qry->orWhereIn('user_exam_review_id',UserExamReview::where('name','question-bank')->whereDate('created_at',$date->format('Y-m-d'))->where('user_id',$user->id)->groupBy('sub_category_set')->select(DB::raw('MAX(id)'))); 
                     $qry->orWhereIn('user_exam_review_id',UserExamReview::where('name','topic-test')->whereDate('created_at',$date->format('Y-m-d'))->where('user_id',$user->id)->groupBy('category_id')->select(DB::raw('MAX(id)')));
                 })->where('iscorrect',true);
