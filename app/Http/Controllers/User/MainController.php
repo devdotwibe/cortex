@@ -27,31 +27,75 @@ class MainController extends Controller
         $user=Auth::user();
         if($request->ajax()){
             $responceData=[];
-            $start=Carbon::parse($request->startStr??date("Y-m-d"));
-            $end=Carbon::parse($request->endStr??date("Y-m-d"));
-            foreach (CarbonPeriod::create($start, $end) as $date) {
-                $cnt=UserReviewAnswer::whereDate('created_at',$date->format('Y-m-d'))->where('user_id',$user->id)->where(function($qry)use($user,$date){
-                    $qry->whereIn('user_exam_review_id',UserExamReview::where('name','full-mock-exam')->whereDate('created_at',$date->format('Y-m-d'))->where('user_id',$user->id)->groupBy('exam_id')->select(DB::raw('MAX(id)')));
-                    $qry->orWhereIn('user_exam_review_id',UserExamReview::where('name','question-bank')->whereDate('created_at',$date->format('Y-m-d'))->where('user_id',$user->id)->groupBy('sub_category_set')->select(DB::raw('MAX(id)'))); 
-                    $qry->orWhereIn('user_exam_review_id',UserExamReview::where('name','topic-test')->whereDate('created_at',$date->format('Y-m-d'))->where('user_id',$user->id)->groupBy('category_id')->select(DB::raw('MAX(id)')));
-                })->where('iscorrect',true)->where('user_answer',true)->count();
-                $bgcolor="#808C83";
-                if($cnt>0){
-                    $bgcolor="#8FFFAD";
+            if($request->input("chart","")=="Y"){
+                $chartlabel=[]; 
+                $chartbackgroundColor=[];
+                $chartdata=[]; 
+                if(UserReviewAnswer::where('user_id',$user->id)->count()>0){
+                    $examsdata=UserReviewAnswer::where('user_id',$user->id);
+                    $today=Carbon::now()->today();
+                    switch ($request->input('filter')) {
+                        case '1week':                            
+                            $examsdata->whereBetween('created_at',[$today->subWeek()->toDateString(),$today->toDateString()]);
+                            break;
+                        case '1month':                            
+                            $examsdata->whereBetween('created_at',[$today->subMonth()->toDateString(),$today->toDateString()]);
+                            break;                        
+                        case '3month':                            
+                            $examsdata->whereBetween('created_at',[$today->subMonths(3)->toDateString(),$today->toDateString()]);
+                            break;                                                   
+                        case '1year':                            
+                            $examsdata->whereBetween('created_at',[$today->subYear()->toDateString(),$today->toDateString()]);
+                            break;
+                        default: 
+                            break;
+                    }
+                    foreach ($examsdata->select(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d') ndate"))->groupBy('ndate')->pluck('ndate')->toArray() as $date) {
+                        $date=Carbon::parse($date);
+                        $ans=UserReviewAnswer::whereDate('created_at',$date->format('Y-m-d'))->where('user_id',$user->id)->where(function($qry)use($user,$date){
+                            $qry->whereIn('user_exam_review_id',UserExamReview::where('name','full-mock-exam')->whereDate('created_at',$date->format('Y-m-d'))->where('user_id',$user->id)->groupBy('exam_id')->select(DB::raw('MAX(id)')));
+                            $qry->orWhereIn('user_exam_review_id',UserExamReview::where('name','question-bank')->whereDate('created_at',$date->format('Y-m-d'))->where('user_id',$user->id)->groupBy('sub_category_set')->select(DB::raw('MAX(id)'))); 
+                            $qry->orWhereIn('user_exam_review_id',UserExamReview::where('name','topic-test')->whereDate('created_at',$date->format('Y-m-d'))->where('user_id',$user->id)->groupBy('category_id')->select(DB::raw('MAX(id)')));
+                        })->where('iscorrect',true);
+                        $tcnt=$ans->count();
+                        $cnt=$ans->where('user_answer',true)->count();
+                        $chartlabel[]=$date->format('Y-m-d');
+                        $chartdata[]=$tcnt>0?round(($cnt*100)/$tcnt,2):0;
+                        $chartbackgroundColor[]="#21853C";
+                    }
                 }
-                if($cnt>30){
-                    $bgcolor="#21853C";
+                $responceData["label"]=$chartlabel;
+                $responceData["data"]=$chartdata;
+                $responceData["borderColor"]=$chartbackgroundColor;
+            }
+            if($request->input("calendar","")=="Y"){
+
+                $start=Carbon::parse($request->startStr??date("Y-m-d"));
+                $end=Carbon::parse($request->endStr??date("Y-m-d"));
+                foreach (CarbonPeriod::create($start, $end) as $date) {
+                    $cnt=UserReviewAnswer::whereDate('created_at',$date->format('Y-m-d'))->where('user_id',$user->id)->where(function($qry)use($user,$date){
+                        $qry->whereIn('user_exam_review_id',UserExamReview::where('name','full-mock-exam')->whereDate('created_at',$date->format('Y-m-d'))->where('user_id',$user->id)->groupBy('exam_id')->select(DB::raw('MAX(id)')));
+                        $qry->orWhereIn('user_exam_review_id',UserExamReview::where('name','question-bank')->whereDate('created_at',$date->format('Y-m-d'))->where('user_id',$user->id)->groupBy('sub_category_set')->select(DB::raw('MAX(id)'))); 
+                        $qry->orWhereIn('user_exam_review_id',UserExamReview::where('name','topic-test')->whereDate('created_at',$date->format('Y-m-d'))->where('user_id',$user->id)->groupBy('category_id')->select(DB::raw('MAX(id)')));
+                    })->where('iscorrect',true)->where('user_answer',true)->count();
+                    $bgcolor="#808C83";
+                    if($cnt>0){
+                        $bgcolor="#8FFFAD";
+                    }
+                    if($cnt>30){
+                        $bgcolor="#21853C";
+                    }
+                    $responceData[]=[ 
+                        "start"=>$date->format('Y-m-d'),
+                        "rendering"=> 'background',
+                        "elTitle"=> "You completed {$cnt} questions this day",
+                        "backgroundColor"=> "$bgcolor", 
+                        "borderColor"=>"$bgcolor", 
+                        "title"=> "",
+                        "textColor"=> '#FFFFFF',
+                        "className"=> 'event-full', 
+                    ];
                 }
-                $responceData[]=[ 
-                    "start"=>$date->format('Y-m-d'),
-                    "rendering"=> 'background',
-                    "elTitle"=> "You completed {$cnt} questions this day",
-                    "backgroundColor"=> "$bgcolor", 
-                    "borderColor"=>"$bgcolor", 
-                    "title"=> "",
-                    "textColor"=> '#FFFFFF',
-                    "className"=> 'event-full', 
-                ];
             }
             return response()->json($responceData);
         }
@@ -105,29 +149,8 @@ class MainController extends Controller
 
         $maxretry=(optional(UserExamReview::where('name','full-mock-exam')->where('user_id',$user->id)->groupBy('exam_id')->select(DB::raw('count(exam_id) as cnt'))->first())->cnt??0)+(optional(UserExamReview::where('name','question-bank')->where('user_id',$user->id)->groupBy('sub_category_set')->select(DB::raw('count(sub_category_set) as cnt'))->first())->cnt??0)+(optional(UserExamReview::where('name','topic-test')->where('user_id',$user->id)->groupBy('category_id')->select(DB::raw('count(category_id)  as cnt'))->first())->cnt??0);
            
-        $chartlabel=[]; 
-        $chartbackgroundColor=[];
-        $chartdata=[]; 
-        if(UserReviewAnswer::where('user_id',$user->id)->count()>0){
-            foreach (UserReviewAnswer::where('user_id',$user->id)->select(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d') ndate"))->groupBy('ndate')->pluck('ndate')->toArray() as $date) {
-                $date=Carbon::parse($date);
 
-                $ans=UserReviewAnswer::whereDate('created_at',$date->format('Y-m-d'))->where('user_id',$user->id)->where(function($qry)use($user,$date){
-                    $qry->whereIn('user_exam_review_id',UserExamReview::where('name','full-mock-exam')->whereDate('created_at',$date->format('Y-m-d'))->where('user_id',$user->id)->groupBy('exam_id')->select(DB::raw('MAX(id)')));
-                    $qry->orWhereIn('user_exam_review_id',UserExamReview::where('name','question-bank')->whereDate('created_at',$date->format('Y-m-d'))->where('user_id',$user->id)->groupBy('sub_category_set')->select(DB::raw('MAX(id)'))); 
-                    $qry->orWhereIn('user_exam_review_id',UserExamReview::where('name','topic-test')->whereDate('created_at',$date->format('Y-m-d'))->where('user_id',$user->id)->groupBy('category_id')->select(DB::raw('MAX(id)')));
-                })->where('iscorrect',true);
-                $tcnt=$ans->count();
-                $cnt=$ans->where('user_answer',true)->count();
-                // if($tcnt>0){
-                    $chartlabel[]=$date->format('Y-m-d');
-                    $chartdata[]=$tcnt>0?round(($cnt*100)/$tcnt,2):0;
-                    $chartbackgroundColor[]="#21853C";
-                // }
-            }
-        }
-
-        return view("user.dashboard",compact('maxretry','chartdata','chartbackgroundColor','chartlabel','learnprogress','practiceprogress','simulateprogress'));
+        return view("user.dashboard",compact('maxretry','learnprogress','practiceprogress','simulateprogress'));
     }
 
     public function progress(Request $request){

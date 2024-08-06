@@ -76,6 +76,15 @@
                                 <canvas id="myChart" class="overview-graph-bar" width="100%" ></canvas>
                             </div>
                         </div>
+                        <div class="overview-graph-footer"> 
+                            <div class="graph-filter">
+                                <button class="graph-filter-btn graph-filter-all btn btn-outline-primary btn-sm m-3" onclick="updatechart('all')">All</button>
+                                <button class="graph-filter-btn graph-filter-1week btn btn-outline-primary btn-sm m-3">1 Week</button>
+                                <button class="graph-filter-btn graph-filter-1month btn btn-outline-primary btn-sm m-3">1 Month</button>
+                                <button class="graph-filter-btn graph-filter-3months btn btn-outline-primary btn-sm m-3">3 Months</button>
+                                <button class="graph-filter-btn graph-filter-1year btn btn-outline-primary btn-sm m-3">1 Year</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -110,7 +119,7 @@
             console.log(info) 
         }, 
         events: function(fetchInfo, successCallback, failureCallback) { 
-            $.get("{{route('dashboard')}}",fetchInfo,function(res){
+            $.get("{{route('dashboard',['calendar'=>'Y'])}}",fetchInfo,function(res){
                 successCallback(res);
             },'json').fail(function(){
                 failureCallback("Network response was not ok")
@@ -127,12 +136,12 @@
     const progressBar = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: @json($chartlabel),
+            labels:[],
             datasets: [{
                 label: 'Mark',
-                data:@json($chartdata),
+                data:[],
                 fill: true,
-                borderColor:@json($chartbackgroundColor),
+                borderColor:[],
                 backgroundColor:"#8FFFAD",
             }]
         },
@@ -145,10 +154,7 @@
                         display: false
                     }, 
                 }, 
-                x: {  
-                    // grid: {
-                    //     display: false
-                    // }, 
+                x: {   
                     display: false
                 },  
             },
@@ -159,5 +165,18 @@
             }
         },
     });  
+    function updatechart(fl) {
+        $.get("{{route('dashboard',['chart'=>'Y'])}}",{filter:fl},function(res){
+            progressBar.data.labels.push(res.label||[]);
+            progressBar.data.datasets[0].data.push(res.data||[]);
+            progressBar.data.datasets[0].borderColor.push(res.borderColor||[]);
+            progressBar.update();
+            $('.graph-filter-btn').removeClass('btn-primary')->addClass('btn-outline-primary')
+            $('.graph-filter-'+fl).removeClass('btn-outline-primary')->addClass('btn-primary')
+        },'json')
+    }
+    $(function(){
+        updatechart('1week')
+    })
 </script>
 @endpush
