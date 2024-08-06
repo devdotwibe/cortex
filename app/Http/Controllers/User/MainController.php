@@ -59,11 +59,11 @@ class MainController extends Controller
                 $date=Carbon::parse($date);
                 $cnt=UserReviewAnswer::whereDate('created_at',$date->format('Y-m-d'))->where('user_id',$user->id)->whereIn('user_exam_review_id',UserExamReview::where('user_id',$user->id)->groupBy('exam_id')->select(DB::raw('MAX(id)')))->where('iscorrect',true)->where('user_answer',true)->count();
                 $tcnt=UserReviewAnswer::whereDate('created_at',$date->format('Y-m-d'))->where('user_id',$user->id)->whereIn('user_exam_review_id',UserExamReview::where('user_id',$user->id)->groupBy('exam_id')->select(DB::raw('MAX(id)')))->where('iscorrect',true)->count();
-                if($cnt>0){
+                // if($cnt>0){
                     $chartlabel[]=$date->format('Y-m-d');
-                    $chartdata[]=round(($cnt*100)/$tcnt,2);
+                    $chartdata[]= $cnt; //round(($cnt*100)/$tcnt,2);
                     $chartbackgroundColor[]="#21853C";
-                }
+                // }
             }
         }
         self::reset();
