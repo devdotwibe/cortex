@@ -107,7 +107,7 @@ class MainController extends Controller
         if($simulatecnt>0){
             $simulateprogress=round($simulateprogress/$simulatecnt,2);
         } 
-        print_r(UserReviewAnswer::where('user_id',$user->id)->select(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d') ndate"))->groupBy('ndate')->pluck('ndate')->toArray());exit;
+        print_r(UserReviewAnswer::where('user_id',$user->id)->select(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d') ndate"))->pluck('ndate')->toArray());exit;
         return view("user.dashboard",compact('chartdata','chartbackgroundColor','chartlabel','learnprogress','practiceprogress','simulateprogress'));
     }
 
