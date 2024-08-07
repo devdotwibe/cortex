@@ -81,10 +81,10 @@
                         <div class="overview-graph-footer"> 
                             <div class="graph-filter">
                                 <a class="graph-filter-btn graph-filter-all m-1" onclick="updatechart('all')"><span class="filter-text">All</span></a>
-                                <a class="graph-filter-btn graph-filter-1week m-1" onclick="updatechart('1week')"><span class="filter-text">1 Week</span></a>
-                                <a class="graph-filter-btn graph-filter-1month m-1" onclick="updatechart('1month')"><span class="filter-text">1 Month</span></a>
-                                <a class="graph-filter-btn graph-filter-3months m-1" onclick="updatechart('3months')"><span class="filter-text">3 Months</span></a>
-                                <a class="graph-filter-btn graph-filter-1year m-1" onclick="updatechart('1year')"><span class="filter-text">1 Year</span></a>
+                                <a class="graph-filter-btn graph-filter-1week m-1" onclick="updatechart('1week')"><span class="filter-text">1W</span></a>
+                                <a class="graph-filter-btn graph-filter-1month m-1" onclick="updatechart('1month')"><span class="filter-text">1M</span></a>
+                                <a class="graph-filter-btn graph-filter-3months m-1" onclick="updatechart('3months')"><span class="filter-text">3M</span></a>
+                                <a class="graph-filter-btn graph-filter-1year m-1" onclick="updatechart('1year')"><span class="filter-text">1Y</span></a>
                             </div>
                         </div>
                     </div>
