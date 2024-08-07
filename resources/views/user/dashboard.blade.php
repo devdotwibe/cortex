@@ -105,7 +105,8 @@
             </div> 
             <div class="modal-body" id="exam-reminder-add" style="display: none"> 
                 <div class="form">
-                     <form action="{{route('reminder.store')}}" method="post">
+                     <form action="{{route('reminder.store')}}" id="exam-reminder-add-form"  method="post">
+                        @csrf
                         <div class="form-group">
                             <div class="forms-inputs mb-4"> 
                                 <label for="exam-reminder-add-name">Title</label> 
@@ -120,10 +121,33 @@
                                 <div class="invalid-feedback" id="exam-reminder-add-error-reminder_date-message"></div>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-dark" > Add + </button>  
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >Cancel</button>               
+                        </div>
                      </form>
                 </div>
             </div>
             <div class="modal-body" id="exam-reminder-edit"  style="display: none"> 
+                <div class="form">
+                    <form action="" id="exam-reminder-edit-form"  method="post">
+                       @csrf
+                       <div class="form-group">
+                           <div class="forms-inputs mb-4"> 
+                               <label for="exam-reminder-edit-name">Title</label> 
+                               <input type="text" id="exam-reminder-edit-name" class="form-control" name="name" >
+                               <div class="invalid-feedback" id="exam-reminder-edit-error-name-message"></div>
+                           </div>
+                       </div>
+                       <div class="form-group">
+                           <div class="forms-inputs mb-4"> 
+                               <label for="exam-reminder-edit-reminder_date">Date</label> 
+                               <input type="text" id="exam-reminder-edit-reminder_date" class="form-control datepicker" name="reminder_date" readonly >
+                               <div class="invalid-feedback" id="exam-reminder-edit-error-reminder_date-message"></div>
+                           </div>
+                       </div>
+                    </form>
+               </div>
             </div>
         </div>
     </div>
@@ -217,6 +241,10 @@
     function addreminder(){
         $('#exam-reminder-add').show();
         $('#exam-reminder-edit').hide();
+        $('#exam-reminder-add-reminder_date').val('')
+        $('#exam-reminder-add-name').val('')
+        $('#exam-reminder-add-error-name-message').text('')
+        $('#exam-reminder-add-error-reminder_date-message').text('')
         $('#exam-reminder').modal('show');
         // calendar.refetchEvents()
     }
