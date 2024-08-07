@@ -63,6 +63,8 @@
                         <div class="calendar-body">
                             <div id="calendar-dashboard"></div>
                         </div>
+                        <div class="calendar-footer" id="calendar-exam-data"> 
+                        </div>
                     </div>
                 </div>
             </div>
@@ -100,17 +102,28 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="Lablel">Reminder</h5>
                 <button type="button" class="close" data-bs-dismiss="modal"    aria-label="Close"><span  aria-hidden="true">&times;</span></button>
-            </div>
-            <div class="modal-body" id="exam-reminder-view"> 
-            </div>
-            <div class="modal-body" id="exam-reminder-add"> 
+            </div> 
+            <div class="modal-body" id="exam-reminder-add" style="display: none"> 
                 <div class="form">
                      <form action="{{route('reminder.store')}}" method="post">
-
+                        <div class="form-group">
+                            <div class="forms-inputs mb-4"> 
+                                <label for="exam-reminder-add-name">Title</label> 
+                                <input type="text" id="exam-reminder-add-name" class="form-control" name="name" >
+                                <div class="invalid-feedback" id="exam-reminder-add-error-name-message"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="forms-inputs mb-4"> 
+                                <label for="exam-reminder-add-reminder_date">Date</label> 
+                                <input type="text" id="exam-reminder-add-reminder_date" class="form-control datepicker" name="reminder_date" readonly >
+                                <div class="invalid-feedback" id="exam-reminder-add-error-reminder_date-message"></div>
+                            </div>
+                        </div>
                      </form>
                 </div>
             </div>
-            <div class="modal-body" id="exam-reminder-edit"> 
+            <div class="modal-body" id="exam-reminder-edit"  style="display: none"> 
             </div>
         </div>
     </div>
@@ -122,6 +135,9 @@
 <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.9/index.global.min.js'></script>
 <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@6.1.9/index.global.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.14.0/themes/base/jquery-ui.css" rel="stylesheet">
+<script src="https://code.jquery.com/ui/1.14.0/jquery-ui.min.js" integrity="sha256-Fb0zP4jE3JHqu+IBB9YktLcSjI1Zc6J2b6gTjB0LpoM=" crossorigin="anonymous"></script>
 <script> 
    let calendar = new FullCalendar.Calendar($("#calendar-dashboard").get(0), {
         initialView: 'dayGridMonth',
@@ -199,10 +215,32 @@
         },'json')
     }
     function addreminder(){
-        calendar.refetchEvents()
+        $('#exam-reminder-add').show();
+        $('#exam-reminder-edit').hide();
+        $('#exam-reminder').modal('show');
+        // calendar.refetchEvents()
+    }
+
+    function showreminder(){
+         $.get('{{route("reminder.index")}}',function(res){
+            if(res.reminder){
+                $('#calendar-exam-data').html(`
+                
+                `)
+            }else{
+                $('#calendar-exam-data').html(`
+                    <button class="btn btn-default float-end" onclick="addreminder()">+ Add UKCAT Date<button>
+                `)
+            }
+         },'json')
     }
     $(function(){
-        updatechart('1week')
+        updatechart('1week') 
+        showreminder()
+        $('.datepicker').datepicker({
+            dateFormat:'yy-mm-dd',
+            minDate:0
+        });
     })
 </script>
 @endpush

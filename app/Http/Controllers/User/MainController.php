@@ -84,13 +84,9 @@ class MainController extends Controller
                     }
                     if($cnt>30){
                         $bgcolor="#21853C";
-                    }
-                    $reminder=Reminder::where("remind_date",$date)->where('user_id',$user->id)->first();
-                    $showUrl=null;
-                    if(!empty($reminder)){
-                        $bgcolor="#FC0317";
-                        $reminder->showUrl=route('reminder.show',$reminder->slug);
-                        $reminder->updateUrl=route('reminder.update',$reminder->slug);
+                    } 
+                    if(Reminder::where("remind_date",$date)->where('user_id',$user->id)->count()>0){
+                        $bgcolor="#FC0317"; 
                     }
                     $responceData[]=[ 
                         "start"=>$date->format('Y-m-d'),
@@ -98,8 +94,6 @@ class MainController extends Controller
                         "elTitle"=> "You completed {$cnt} questions this day",
                         "backgroundColor"=> "$bgcolor", 
                         "borderColor"=>"$bgcolor", 
-                        "elReminderTitle"=>$reminder->name,
-                        "elReminder"=>$reminder,
                         "title"=> "",
                         "textColor"=> '#FFFFFF',
                         "className"=> 'event-full', 
@@ -166,11 +160,15 @@ class MainController extends Controller
          *  @var User
          */
         $user=Auth::user();
-        $reminder=Reminder::where('user_id',$user->id);
-        if(!empty($request->date)){
-            $reminder->where("remind_date",$request->date);
+        $reminder=Reminder::where('user_id',$user->id); 
+        $reminder=$reminder->first();        
+        if(!empty($reminder)){ 
+            $reminder->showUrl=route('reminder.show',$reminder->slug);
+            $reminder->updateUrl=route('reminder.update',$reminder->slug);
         }
-        return $reminder->get();
+        return response()->json([
+            "reminder"=>$reminder
+        ]);
     }
 
     public function progress(Request $request){
