@@ -166,7 +166,9 @@ class MainController extends Controller
             $date = Carbon::parse($reminder->remind_date); 
             $reminder->showUrl=route('reminder.show',$reminder->slug);
             $reminder->updateUrl=route('reminder.update',$reminder->slug);
-            $reminder->title="{$reminder->name} in ".($date->diffForHumans())." ".$date->format('jS F');
+            $reminder->title="{$reminder->name} in ".($date->diffForHumans(null,[
+                'syntax' => Carbon::DIFF_ABSOLUTE,
+            ]))." ".$date->format('jS F');
         }
         return response()->json([
             "reminder"=>$reminder
@@ -181,7 +183,9 @@ class MainController extends Controller
         $date = Carbon::parse($reminder->remind_date); 
         $reminder->showUrl=route('reminder.show',$reminder->slug);
         $reminder->updateUrl=route('reminder.update',$reminder->slug);
-        $reminder->title="{$reminder->name} in ".($date->diffForHumans())." ".$date->format('jS F');
+        $reminder->title="{$reminder->name} in ".($date->diffForHumans(null,[
+            'syntax' => Carbon::DIFF_ABSOLUTE,
+        ]))." ".$date->format('jS F');
         return response()->json($reminder);
     }
     public function editreminder(Request $request,Reminder $reminder){
