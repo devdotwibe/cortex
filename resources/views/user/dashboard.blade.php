@@ -173,11 +173,11 @@
 <script> 
    let calendar = new FullCalendar.Calendar($("#calendar-dashboard").get(0), {
         initialView: 'multiMonthFourMonth',
-        // headerToolbar: {
-        //     left: 'prev',
-        //     center: 'title',
-        //     right: 'next'
-        // },
+        headerToolbar: {
+            left: 'prev',
+            center: '',
+            right: 'next'
+        },
         views: {
             multiMonthFourMonth: {
                 type: 'multiMonthYear',
