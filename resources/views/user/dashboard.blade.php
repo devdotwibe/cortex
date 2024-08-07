@@ -122,7 +122,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-dark" > Add + </button>  
+                            <button type="submit" class="btn btn-dark" id="exam-reminder-add-button" > Add + </button>  
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >Cancel</button>               
                         </div>
                      </form>
@@ -132,6 +132,7 @@
                 <div class="form">
                     <form action="" id="exam-reminder-edit-form"  method="post">
                        @csrf
+                       @method('PUT')
                        <div class="form-group">
                            <div class="forms-inputs mb-4"> 
                                <label for="exam-reminder-edit-name">Title</label> 
@@ -145,6 +146,10 @@
                                <input type="text" id="exam-reminder-edit-reminder_date" class="form-control datepicker" name="reminder_date" readonly >
                                <div class="invalid-feedback" id="exam-reminder-edit-error-reminder_date-message"></div>
                            </div>
+                       </div>
+                       <div class="form-group">
+                           <button type="submit" class="btn btn-dark" > Update </button>  
+                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >Cancel</button>               
                        </div>
                     </form>
                </div>
@@ -241,19 +246,30 @@
     function addreminder(){
         $('#exam-reminder-add').show();
         $('#exam-reminder-edit').hide();
-        $('#exam-reminder-add-reminder_date').val('')
-        $('#exam-reminder-add-name').val('')
+        $('#exam-reminder-add-reminder_date').val('').removeClass("is-invalid")
+        $('#exam-reminder-add-name').val('').removeClass("is-invalid")
         $('#exam-reminder-add-error-name-message').text('')
         $('#exam-reminder-add-error-reminder_date-message').text('')
-        $('#exam-reminder').modal('show');
-        // calendar.refetchEvents()
+        $('#exam-reminder').modal('show'); 
+    }
+    function editreminder(url){
+        $.get(url,function(res){
+            $('#exam-reminder-edit').show();
+            $('#exam-reminder-add').hide();
+            $('#exam-reminder-edit-form').attr('action',res.updateUrl)
+            $('#exam-reminder-edit-reminder_date').val(res.reminder_date).removeClass("is-invalid")
+            $('#exam-reminder-edit-name').val(res.name).removeClass("is-invalid")
+            $('#exam-reminder-edit-error-name-message').text('')
+            $('#exam-reminder-edit-error-reminder_date-message').text('')
+            $('#exam-reminder').modal('show'); 
+        })
     }
 
     function showreminder(){
          $.get('{{route("reminder.index")}}',function(res){
             if(res.reminder){
                 $('#calendar-exam-data').html(`
-                
+                    <span>${res.reminder.title}</span><button class="btn btn-default float-end" onclick="addreminder('${res.reminder.showUrl}')">+ Add UKCAT Date<button>
                 `)
             }else{
                 $('#calendar-exam-data').html(`
@@ -269,6 +285,26 @@
             dateFormat:'yy-mm-dd',
             minDate:0
         });
+        $('#exam-reminder-add-form').submit(function(e){
+            e.preventDefault() 
+            $.post($(this).attr('action'),$(this).serialize(),function(res){
+                $('#exam-reminder').modal('hide'); 
+                showToast(res.success??'Date added successfully', 'success');
+                calendar.refetchEvents()
+                showreminder()
+            })
+            return false;
+        })
+        $('#exam-reminder-edit-form').submit(function(e){
+            e.preventDefault() 
+            $.post($(this).attr('action'),$(this).serialize(),function(res){
+                $('#exam-reminder').modal('hide'); 
+                showToast(res.success??'Date updated successfully', 'success');
+                calendar.refetchEvents()
+                showreminder()
+            })
+            return false;
+        })
     })
 </script>
 @endpush

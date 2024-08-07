@@ -171,6 +171,41 @@ class MainController extends Controller
         ]);
     }
 
+    public function showreminder(Request $request,Reminder $reminder){
+        /**
+         *  @var User
+         */
+        $user=Auth::user();  
+        $reminder->showUrl=route('reminder.show',$reminder->slug);
+        $reminder->updateUrl=route('reminder.update',$reminder->slug);
+        return response()->json($reminder);
+    }
+    public function editreminder(Request $request,Reminder $reminder){
+        $data= $request->validate([
+                'name'=>"required",
+                'reminder_date'=>"required",
+        ]);
+        /**
+         *  @var User
+         */
+        $user=Auth::user();  
+        $reminder->update($data); 
+        return response()->json(['success'=>"Date updated success"]);
+    }
+
+    public function addreminder(Request $request){
+        $data= $request->validate([
+                'name'=>"required",
+                'reminder_date'=>"required",
+        ]);
+        /**
+         *  @var User
+         */
+        $user=Auth::user();  
+        $data['user_id']=$user->id;
+        Reminder::store($data); 
+        return response()->json(['success'=>"Date added success"]);
+    }
     public function progress(Request $request){
         $request->validate([
             "name"=>['required']
