@@ -181,7 +181,7 @@
             type: 'multiMonth',
             duration: { months: 4 }
             }
-        }
+        },
         weekends: true,
         weekNumbers: false,
         editable: true,
