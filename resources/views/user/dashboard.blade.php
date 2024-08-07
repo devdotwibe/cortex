@@ -162,6 +162,7 @@
 <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.9/main.min.css" rel="stylesheet">
 <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.9/index.global.min.js'></script>
 <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.9/index.global.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/@fullcalendar/multimonth@6.1.9/index.global.min.js'></script>
 <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@6.1.9/index.global.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -169,12 +170,18 @@
 <script src="https://code.jquery.com/ui/1.14.0/jquery-ui.min.js" integrity="sha256-Fb0zP4jE3JHqu+IBB9YktLcSjI1Zc6J2b6gTjB0LpoM=" crossorigin="anonymous"></script>
 <script> 
    let calendar = new FullCalendar.Calendar($("#calendar-dashboard").get(0), {
-        initialView: 'dayGridMonth',
+        initialView: 'multiMonthFourMonth',
         headerToolbar: {
             left: 'prev',
             center: 'title',
             right: 'next'
         },
+        views: {
+            multiMonthFourMonth: {
+            type: 'multiMonth',
+            duration: { months: 4 }
+            }
+        }
         weekends: true,
         weekNumbers: false,
         editable: true,
