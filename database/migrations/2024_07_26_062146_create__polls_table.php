@@ -16,10 +16,7 @@ return new class extends Migration
             $table->id();
             $table->integer('user_id'); // Define user_id
             $table->string('question');
-            $table->timestamps();
-
-            // Adding the foreign key constraint after defining the column
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->timestamps(); 
         });
 
         Schema::create('poll_options', function (Blueprint $table) {
@@ -27,10 +24,7 @@ return new class extends Migration
             $table->integer('poll_id'); // Define poll_id
             $table->string('option');
             $table->integer('votes')->default(0);
-            $table->timestamps();
-
-            // Adding the foreign key constraint after defining the column
-            $table->foreign('poll_id')->references('id')->on('polls')->onDelete('cascade');
+            $table->timestamps(); 
         });
     }
 
