@@ -72,6 +72,10 @@ Route::middleware('guest:web,admin')->group(function(){
 
 });
 Route::middleware(['auth','isUser'])->group(function(){
+    Route::get('/reminder',[UserMainController::class,'reminder'])->name('reminder.index');
+    Route::post('/reminder/{reminder}/show',[UserMainController::class,'viewreminder'])->name('reminder.show');
+    Route::post('/reminder/{reminder}/add',[UserMainController::class,'addreminder'])->name('reminder.store');
+    Route::put('/reminder/{reminder}/edit',[UserMainController::class,'editreminder'])->name('reminder.update');
     Route::get('/dashboard',[UserMainController::class,'index'])->name('dashboard');
     Route::post('/progress',[UserMainController::class,'progress'])->name('progress');
     Route::post('/getprogress',[UserMainController::class,'getprogress'])->name('getprogress');

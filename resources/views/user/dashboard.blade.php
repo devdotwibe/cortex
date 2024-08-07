@@ -92,7 +92,30 @@
     </div> 
 </section> 
 @endsection
+@push('modals')
 
+<div class="modal fade" id="exam-reminder" tabindex="-1" role="dialog" aria-labelledby="Label" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content" > 
+            <div class="modal-header">
+                <h5 class="modal-title" id="Lablel">Reminder</h5>
+                <button type="button" class="close" data-bs-dismiss="modal"    aria-label="Close"><span  aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body" id="exam-reminder-view"> 
+            </div>
+            <div class="modal-body" id="exam-reminder-add"> 
+                <div class="form">
+                     <form action="{{route('reminder.store')}}" method="post">
+
+                     </form>
+                </div>
+            </div>
+            <div class="modal-body" id="exam-reminder-edit"> 
+            </div>
+        </div>
+    </div>
+</div>
+@endpush
 @push('footer-script')
 <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.9/main.min.css" rel="stylesheet">
 <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.9/index.global.min.js'></script>
@@ -174,6 +197,9 @@
             $('.graph-filter-btn').removeClass('active')
             $('.graph-filter-'+fl).addClass('active')
         },'json')
+    }
+    function addreminder(){
+        calendar.refetchEvents()
     }
     $(function(){
         updatechart('1week')

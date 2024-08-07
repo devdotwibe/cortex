@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Exam;
 use App\Models\Learn;
 use App\Models\Question;
+use App\Models\Reminder;
 use App\Models\User;
 use App\Models\UserExamReview;
 use App\Models\UserReviewAnswer;
@@ -84,12 +85,21 @@ class MainController extends Controller
                     if($cnt>30){
                         $bgcolor="#21853C";
                     }
+                    $reminder=Reminder::where("remind_date",$date)->where('user_id',$user->id)->first();
+                    $showUrl=null;
+                    if(!empty($reminder)){
+                        $bgcolor="#FC0317";
+                        $reminder->showUrl=route('reminder.show',$reminder->slug);
+                        $reminder->updateUrl=route('reminder.update',$reminder->slug);
+                    }
                     $responceData[]=[ 
                         "start"=>$date->format('Y-m-d'),
                         "rendering"=> 'background',
                         "elTitle"=> "You completed {$cnt} questions this day",
                         "backgroundColor"=> "$bgcolor", 
                         "borderColor"=>"$bgcolor", 
+                        "elReminderTitle"=>$reminder->name,
+                        "elReminder"=>$reminder,
                         "title"=> "",
                         "textColor"=> '#FFFFFF',
                         "className"=> 'event-full', 
@@ -150,6 +160,17 @@ class MainController extends Controller
            
 
         return view("user.dashboard",compact('maxretry','learnprogress','practiceprogress','simulateprogress'));
+    }
+    public function reminder(Request $request){
+        /**
+         *  @var User
+         */
+        $user=Auth::user();
+        $reminder=Reminder::where('user_id',$user->id);
+        if(!empty($request->date)){
+            $reminder->where("remind_date",$request->date);
+        }
+        return $reminder->get();
     }
 
     public function progress(Request $request){
