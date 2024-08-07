@@ -163,8 +163,10 @@ class MainController extends Controller
         $reminder=Reminder::where('user_id',$user->id); 
         $reminder=$reminder->first();        
         if(!empty($reminder)){ 
+            $date = Carbon::parse($reminder->reminder_date); 
             $reminder->showUrl=route('reminder.show',$reminder->slug);
             $reminder->updateUrl=route('reminder.update',$reminder->slug);
+            $reminder->title="{$reminder->name} in ".($date->diffForHumans())." ".$date->format('jS F');
         }
         return response()->json([
             "reminder"=>$reminder
