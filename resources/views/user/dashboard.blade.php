@@ -171,25 +171,25 @@
 <script> 
    let calendar = new FullCalendar.Calendar($("#calendar-dashboard").get(0), {
         initialView: 'multiMonthFourMonth',
-        headerToolbar: {
-            left: 'prev',
-            center: 'title',
-            right: 'next'
-        },
+        // headerToolbar: {
+        //     left: 'prev',
+        //     center: 'title',
+        //     right: 'next'
+        // },
         views: {
             multiMonthFourMonth: {
-            type: 'multiMonth',
-            duration: { months: 4 }
+                type: 'multiMonthYear',
+                duration: { months: 4 }
             }
         },
-        weekends: true,
-        weekNumbers: false,
-        editable: true,
-        navLinks: false,
-        dayMaxEvents: false,
-        displayEventTime: false,
-        unselectAuto: true,
-        selectable: true, 
+        // weekends: true,
+        // weekNumbers: false,
+        // editable: true,
+        // navLinks: false,
+        // dayMaxEvents: false,
+        // displayEventTime: false,
+        // unselectAuto: true,
+        // selectable: true, 
         dateClick:function(info){ 
             console.log(info) 
         }, 
