@@ -184,14 +184,14 @@
                 duration: { months: 4 }
             }
         },
-        // weekends: true,
-        // weekNumbers: false,
-        // editable: true,
-        // navLinks: false,
-        // dayMaxEvents: false,
-        // displayEventTime: false,
-        // unselectAuto: true,
-        // selectable: true, 
+        weekends: true,
+        weekNumbers: false,
+        editable: true,
+        navLinks: false,
+        dayMaxEvents: false,
+        displayEventTime: false,
+        unselectAuto: true,
+        selectable: true, 
         dateClick:function(info){ 
             console.log(info) 
         }, 
