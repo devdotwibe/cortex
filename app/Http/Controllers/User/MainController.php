@@ -178,8 +178,10 @@ class MainController extends Controller
          *  @var User
          */
         $user=Auth::user();  
+        $date = Carbon::parse($reminder->reminder_date); 
         $reminder->showUrl=route('reminder.show',$reminder->slug);
         $reminder->updateUrl=route('reminder.update',$reminder->slug);
+        $reminder->title="{$reminder->name} in ".($date->diffForHumans())." ".$date->format('jS F');
         return response()->json($reminder);
     }
     public function editreminder(Request $request,Reminder $reminder){
