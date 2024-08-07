@@ -269,11 +269,11 @@
          $.get('{{route("reminder.index")}}',function(res){
             if(res.reminder){
                 $('#calendar-exam-data').html(`
-                    <span>${res.reminder.title}</span><button class="btn btn-default float-end" onclick="addreminder('${res.reminder.showUrl}')">+ Add UKCAT Date<button>
+                    <span>${res.reminder.title}</span><button class="btn btn-default float-end" onclick="editreminder('${res.reminder.showUrl}')">  Edit ${es.reminder.name} Date <button>
                 `)
             }else{
                 $('#calendar-exam-data').html(`
-                    <button class="btn btn-default float-end" onclick="addreminder()">+ Add UKCAT Date<button>
+                    <button class="btn btn-default float-end" onclick="addreminder()"> + Add Date <button>
                 `)
             }
          },'json')
