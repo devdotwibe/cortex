@@ -85,7 +85,7 @@ class MainController extends Controller
                     if($cnt>30){
                         $bgcolor="#21853C";
                     } 
-                    if(Reminder::where("remind_date",$date)->where('user_id',$user->id)->count()>0){
+                    if(Reminder::where("remind_date",$date->format('Y-m-d'))->where('user_id',$user->id)->count()>0){
                         $bgcolor="#FC0317"; 
                     }
                     $responceData[]=[ 
