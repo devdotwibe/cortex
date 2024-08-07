@@ -287,21 +287,47 @@
         });
         $('#exam-reminder-add-form').submit(function(e){
             e.preventDefault() 
+            $('.invalid-feedback').text('')
+            $(`.form-control`).removeClass("is-invalid")
             $.post($(this).attr('action'),$(this).serialize(),function(res){
                 $('#exam-reminder').modal('hide'); 
                 showToast(res.success??'Date added successfully', 'success');
                 calendar.refetchEvents()
                 showreminder()
+            }).fail(function(xhr){
+                try {
+                    var errors = xhr.responseJSON.errors;
+                    $.each(errors,function(k,v){
+                        $(`#exam-reminder-add-error-${k}-message`).text(v[0])
+                        $(`#exam-reminder-add-${k}`).addClass("is-invalid")
+
+                    })
+                } catch (error) {
+
+                }
             })
             return false;
         })
         $('#exam-reminder-edit-form').submit(function(e){
             e.preventDefault() 
+            $('.invalid-feedback').text('')
+            $(`.form-control`).removeClass("is-invalid")
             $.post($(this).attr('action'),$(this).serialize(),function(res){
                 $('#exam-reminder').modal('hide'); 
                 showToast(res.success??'Date updated successfully', 'success');
                 calendar.refetchEvents()
                 showreminder()
+            }).fail(function(xhr){
+                try {
+                    var errors = xhr.responseJSON.errors;
+                    $.each(errors,function(k,v){
+                        $(`#exam-reminder-edit-error-${k}-message`).text(v[0])
+                        $(`#exam-reminder-edit-${k}`).addClass("is-invalid")
+
+                    })
+                } catch (error) {
+
+                }
             })
             return false;
         })
