@@ -175,7 +175,7 @@
         initialView: 'multiMonthFourMonth',
         headerToolbar: {
             left: 'prev',
-            center: '',
+            center: 'title',
             right: 'next'
         },
         views: {
