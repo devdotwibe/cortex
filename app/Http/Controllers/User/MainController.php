@@ -163,7 +163,7 @@ class MainController extends Controller
         $reminder=Reminder::where('user_id',$user->id); 
         $reminder=$reminder->first();        
         if(!empty($reminder)){ 
-            $date = Carbon::parse($reminder->reminder_date); 
+            $date = Carbon::parse($reminder->remind_date); 
             $reminder->showUrl=route('reminder.show',$reminder->slug);
             $reminder->updateUrl=route('reminder.update',$reminder->slug);
             $reminder->title="{$reminder->name} in ".($date->diffForHumans())." ".$date->format('jS F');
@@ -178,7 +178,7 @@ class MainController extends Controller
          *  @var User
          */
         $user=Auth::user();  
-        $date = Carbon::parse($reminder->reminder_date); 
+        $date = Carbon::parse($reminder->remind_date); 
         $reminder->showUrl=route('reminder.show',$reminder->slug);
         $reminder->updateUrl=route('reminder.update',$reminder->slug);
         $reminder->title="{$reminder->name} in ".($date->diffForHumans())." ".$date->format('jS F');
@@ -187,7 +187,7 @@ class MainController extends Controller
     public function editreminder(Request $request,Reminder $reminder){
         $data= $request->validate([
                 'name'=>"required",
-                'reminder_date'=>"required",
+                'remind_date'=>"required",
         ]);
         /**
          *  @var User
@@ -200,7 +200,7 @@ class MainController extends Controller
     public function addreminder(Request $request){
         $data= $request->validate([
                 'name'=>"required",
-                'reminder_date'=>"required",
+                'remind_date'=>"required",
         ]);
         /**
          *  @var User

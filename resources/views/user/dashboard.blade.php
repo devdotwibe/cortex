@@ -116,9 +116,9 @@
                         </div>
                         <div class="form-group">
                             <div class="forms-inputs mb-4"> 
-                                <label for="exam-reminder-add-reminder_date">Date</label> 
-                                <input type="text" id="exam-reminder-add-reminder_date" class="form-control datepicker" name="reminder_date" readonly >
-                                <div class="invalid-feedback" id="exam-reminder-add-error-reminder_date-message"></div>
+                                <label for="exam-reminder-add-remind_date">Date</label> 
+                                <input type="text" id="exam-reminder-add-remind_date" class="form-control datepicker" name="remind_date" readonly >
+                                <div class="invalid-feedback" id="exam-reminder-add-error-remind_date-message"></div>
                             </div>
                         </div>
                         <div class="form-group">
@@ -142,9 +142,9 @@
                        </div>
                        <div class="form-group">
                            <div class="forms-inputs mb-4"> 
-                               <label for="exam-reminder-edit-reminder_date">Date</label> 
-                               <input type="text" id="exam-reminder-edit-reminder_date" class="form-control datepicker" name="reminder_date" readonly >
-                               <div class="invalid-feedback" id="exam-reminder-edit-error-reminder_date-message"></div>
+                               <label for="exam-reminder-edit-remind_date">Date</label> 
+                               <input type="text" id="exam-reminder-edit-remind_date" class="form-control datepicker" name="remind_date" readonly >
+                               <div class="invalid-feedback" id="exam-reminder-edit-error-remind_date-message"></div>
                            </div>
                        </div>
                        <div class="form-group">
@@ -246,10 +246,10 @@
     function addreminder(){
         $('#exam-reminder-add').show();
         $('#exam-reminder-edit').hide();
-        $('#exam-reminder-add-reminder_date').val('').removeClass("is-invalid")
+        $('#exam-reminder-add-remind_date').val('').removeClass("is-invalid")
         $('#exam-reminder-add-name').val('').removeClass("is-invalid")
         $('#exam-reminder-add-error-name-message').text('')
-        $('#exam-reminder-add-error-reminder_date-message').text('')
+        $('#exam-reminder-add-error-remind_date-message').text('')
         $('#exam-reminder').modal('show'); 
     }
     function editreminder(url){
@@ -257,10 +257,10 @@
             $('#exam-reminder-edit').show();
             $('#exam-reminder-add').hide();
             $('#exam-reminder-edit-form').attr('action',res.updateUrl)
-            $('#exam-reminder-edit-reminder_date').val(res.reminder_date).removeClass("is-invalid")
+            $('#exam-reminder-edit-remind_date').val(res.remind_date).removeClass("is-invalid")
             $('#exam-reminder-edit-name').val(res.name).removeClass("is-invalid")
             $('#exam-reminder-edit-error-name-message').text('')
-            $('#exam-reminder-edit-error-reminder_date-message').text('')
+            $('#exam-reminder-edit-error-remind_date-message').text('')
             $('#exam-reminder').modal('show'); 
         })
     }
