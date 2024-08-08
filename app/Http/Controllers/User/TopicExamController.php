@@ -145,53 +145,38 @@ class TopicExamController extends Controller
         if($request->ajax()){
             return  response()->json(["success"=>"Topic Test Submited","preview"=>route('topic-test.preview',$review->slug)]);    
         }
-        return  redirect()->route('topic-test.complete',["category"=>$category->slug])->with("success","Topic Test Submited")->with("review",$review->id);
+        return  redirect()->route('topic-test.complete',$review->slug)->with("success","Topic Test Submited")->with("review",$review->id);
     }
 
-    public function topiccomplete(Request $request,Category $category){
-        $review=UserExamReview::find(session('review'));
+    public function topiccomplete(Request $request,UserExamReview $userExamReview){ 
         /**
          * @var User
          */
-        $user=Auth::user();  
-              
-        $exam=Exam::where("name",'topic-test')->first();
-        if(empty($exam)){
-            $exam=Exam::store([
-                "title"=>"Topic Test",
-                "name"=>"topic-test",
-            ]);
-            $exam=Exam::find( $exam->id );
-        }
+        $user=Auth::user();   
+        $user->progress("exam-review-".$userExamReview->id."-timed",'timed');
+        $tmtk=intval($user->progress("exam-review-".$userExamReview->id."-timetaken",0)); 
+        $passed=$user->progress("exam-review-".$userExamReview->id."-passed",0);
+        
+        $m=sprintf("%02d",intval($tmtk/60));
+        $s=sprintf("%02d",intval($tmtk%60));
 
-        if(!empty($review)){ 
-            $user->progress("exam-review-".$review->id."-timed",'timed');
-            $tmtk=intval($user->progress("exam-review-".$review->id."-timetaken",0)); 
-            $passed=$user->progress("exam-review-".$review->id."-passed",0);
-            
-            $m=sprintf("%02d",intval($tmtk/60));
-            $s=sprintf("%02d",intval($tmtk%60));
-
-            $attemttime="$m:$s";
-            $questioncount=Question::where('exam_id',$exam->id)->where('category_id',$category->id)->count();
-            $chartlabel=[];
-            $chartbackgroundColor=[];
-            $chartdata=[]; 
-            foreach (UserReviewAnswer::select('mark',DB::raw('count(mark) as marked_users'))->fromSub(function ($query)use($exam,$category){
-                $query->from('user_review_answers')->whereIn('user_exam_review_id',UserExamReview::where('exam_id',$exam->id)->where('category_id',$category->id)->groupBy('user_id')->select(DB::raw('MAX(id)')))
-                ->where('exam_id',$exam->id)->where('iscorrect',true)->where('user_answer',true)->groupBy('user_id')
-                ->select(DB::raw('count(user_id) as mark'));
+        $attemttime="$m:$s";
+        $questioncount=UserReviewQuestion::where('user_exam_review_id',$userExamReview->id)->count();
+        $chartlabel=[];
+        $chartbackgroundColor=[];
+        $chartdata=[]; 
+        foreach (UserReviewAnswer::select('mark',DB::raw('count(mark) as marked_users'))->fromSub(function ($query)use($userExamReview){
+            $query->from('user_review_answers')->where('user_exam_review_id','<=',$userExamReview->id)->whereIn('user_exam_review_id',UserExamReview::where('name','topic-test')->where('user_exam_review_id','<=',$userExamReview->id)->where('exam_id',$userExamReview->exam_id)->where('category_id',$userExamReview->category_id)->groupBy('user_id')->select(DB::raw('MAX(id)')))
+            ->where('iscorrect',true)->where('user_answer',true)->select(DB::raw('count(user_id) as mark'));
         }, 'subquery')->groupBy('mark')->get() as  $row) { 
-                $chartlabel[]=strval($row->mark);
-                $chartbackgroundColor[]=$passed==$row->mark? "#ef9b10" : '#dfdfdf';
-                $chartdata[]=$row->marked_users;
-            } 
-            $attemtcount=UserExamReview::where('exam_id',$exam->id)->where('user_id',$user->id)->where('category_id',$category->id)->count();
-            $categorylist=Category::all();
-            return view('user.topic-test.resultpage',compact('chartdata','chartbackgroundColor','chartlabel','exam','category','categorylist','review','passed','attemttime','questioncount','attemtcount'));
-        }else{
-            return redirect()->route('topic-test.index');
-        }
+            $chartlabel[]=strval($row->mark);
+            $chartbackgroundColor[]=$passed==$row->mark? "#ef9b10" : '#dfdfdf';
+            $chartdata[]=$row->marked_users;
+        } 
+        $attemtcount=UserExamReview::where('exam_id',$userExamReview->exam_id)->where('category_id',$userExamReview->category_id)->where('user_id',$user->id)->count();
+        $categorylist=Category::all();
+        return view('user.topic-test.resultpage',compact('chartdata','chartbackgroundColor','chartlabel','categorylist','review','passed','attemttime','questioncount','attemtcount'));
+      
     }
 
     public function preview(Request $request,UserExamReview $userExamReview){ 
@@ -268,7 +253,7 @@ class TopicExamController extends Controller
                 return Carbon::parse($data->created_at)->format('Y-m-d h:i a');
             })
             ->addColumn('action',function($data){
-                return '<a type="button" href="'.route('topic-test.preview',$data->slug).'" class="btn btn-warning btn-sm">Review</a>';
+                return '<a type="button" href="'.route('topic-test.complete',$data->slug).'" class="btn btn-warning btn-sm">Review</a>';
             })
             ->rawColumns(['action'])
             ->with('url',route('topic-test.show',[

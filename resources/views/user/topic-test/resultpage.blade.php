@@ -34,7 +34,7 @@
         
                                 <p>Next Step: Review and Improve</p>
                                 <div class="exam-mark-bottom">
-                                    <a class="btn btn-warning btn-lg" id="review-link" href="{{route('topic-test.preview',$review->slug)}}">Review Set</a>
+                                    <a class="btn btn-warning btn-lg" id="review-link" href="{{route('topic-test.preview',$userExamReview->slug)}}">Review Set</a>
                                     <a href="{{route('topic-test.index')}}" class="btn btn-outline-dark btn-lg">Exit Set</a>
                                 </div>
                             </div>
@@ -65,8 +65,8 @@
                                                 <th>Marks</th>
                                                 <td>{{$passed}}/{{$questioncount}}</td>
                                                 @foreach ($categorylist as $item)
-                                                    @if ($review->categoryCount($item->id)>0)
-                                                    <td>{{$review->categoryMark($item->id)}}/{{$review->categoryCount($item->id)}}</td>
+                                                    @if ($userExamReview->categoryCount($item->id)>0)
+                                                    <td>{{$userExamReview->categoryMark($item->id)}}/{{$userExamReview->categoryCount($item->id)}}</td>
                                                     @else
                                                     <td></td>
                                                     @endif
@@ -74,17 +74,17 @@
                                             </tr>
                                             <tr>
                                                 <th>Average</th>
-                                                <td>{{$exam->avgMark($category->id)}}</td>
+                                                <td>{{$userExamReview->avgMark()}}</td>
                                                 @foreach ($categorylist as $item)
                                                 <td></td>
                                                 @endforeach 
                                             </tr>
                                             <tr>
                                                 <th>Average Time <br>Per Question</th>
-                                                <td>{{$review->avgTime()}}</td>
+                                                <td>{{$userExamReview->avgTime()}}</td>
                                                 @foreach ($categorylist as $item)
-                                                    @if ($review->avgTime($item->id)>0)
-                                                        <td>{{$review->avgTime($item->id)}}</td>
+                                                    @if ($userExamReview->avgTime($item->id)>0)
+                                                        <td>{{$userExamReview->avgTime($item->id)}}</td>
                                                     @else
                                                         <td></td>
                                                     @endif                                                                                                   

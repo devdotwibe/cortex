@@ -36,16 +36,32 @@ class UserExamReview extends Model
     }
     public function avgMark(){ 
         $userExamReviewId=$this->id;
-        $anscnt = UserReviewAnswer::where('user_exam_review_id','<=',$userExamReviewId)->where('exam_id',$this->exam_id)->where(function($qry)use($userExamReviewId){
-            $qry->whereIn('user_exam_review_id',UserExamReview::where('name','full-mock-exam')->where('id','<=',$userExamReviewId)->groupBy('exam_id')->select(DB::raw('MAX(id)')));
-            $qry->orWhereIn('user_exam_review_id',UserExamReview::where('name','question-bank')->where('id','<=',$userExamReviewId)->groupBy('sub_category_set')->select(DB::raw('MAX(id)'))); 
-            $qry->orWhereIn('user_exam_review_id',UserExamReview::where('name','topic-test')->where('id','<=',$userExamReviewId)->groupBy('category_id')->select(DB::raw('MAX(id)')));
-        })->where('iscorrect',true)->where('user_answer',true)->count();
-        $exmcnt=UserExamReview::where('id','<=',$userExamReviewId)->where('exam_id',$this->exam_id)->where(function($qry)use($userExamReviewId){
-            $qry->whereIn('id',UserExamReview::where('name','full-mock-exam')->where('id','<=',$userExamReviewId)->groupBy('exam_id')->select(DB::raw('MAX(id)')));
-            $qry->orWhereIn('id',UserExamReview::where('name','question-bank')->where('id','<=',$userExamReviewId)->groupBy('sub_category_set')->select(DB::raw('MAX(id)'))); 
-            $qry->orWhereIn('id',UserExamReview::where('name','topic-test')->where('id','<=',$userExamReviewId)->groupBy('category_id')->select(DB::raw('MAX(id)')));
-        })->count();
+        $categoryId=$this->category_id;
+        $subCategoryId=$this->sub_category_id;
+        $subCategorySet=$this->sub_category_set;
+        $anscnt=0;
+        $exmcnt=0; 
+        switch ($this->name) {
+            case 'full-mock-exam':
+                $anscnt = UserReviewAnswer::where('user_exam_review_id','<=',$userExamReviewId)->where('exam_id',$this->exam_id)->whereIn('user_exam_review_id',UserExamReview::where('name','full-mock-exam')->where('id','<=',$userExamReviewId)->groupBy('user_id')->select(DB::raw('MAX(id)')))->where('iscorrect',true)->where('user_answer',true)->count();
+                $exmcnt = UserExamReview::where('id','<=',$userExamReviewId)->where('exam_id',$this->exam_id)->whereIn('id',UserExamReview::where('name','full-mock-exam')->where('id','<=',$userExamReviewId)->groupBy('user_id')->select(DB::raw('MAX(id)')))->count();
+                break; 
+            case 'topic-test':
+                $anscnt = UserReviewAnswer::where('user_exam_review_id','<=',$userExamReviewId)->where('exam_id',$this->exam_id)->where('category_id',$categoryId)->whereIn('user_exam_review_id',UserExamReview::where('name','topic-test')->where('category_id',$categoryId)->where('id','<=',$userExamReviewId)->groupBy('user_id')->select(DB::raw('MAX(id)')))->where('iscorrect',true)->where('user_answer',true)->count();
+                $exmcnt = UserExamReview::where('id','<=',$userExamReviewId)->where('exam_id',$this->exam_id)->where('category_id',$categoryId)->whereIn('id',UserExamReview::where('name','topic-test')->where('category_id',$categoryId)->where('id','<=',$userExamReviewId)->groupBy('user_id')->select(DB::raw('MAX(id)')))->count();
+                break; 
+            case 'learn':
+                $anscnt = UserReviewAnswer::where('user_exam_review_id','<=',$userExamReviewId)->where('exam_id',$this->exam_id)->where('category_id',$categoryId)->where('sub_category_id',$subCategoryId)->whereIn('user_exam_review_id',UserExamReview::where('name','learn')->where('category_id',$categoryId)->where('sub_category_id',$subCategoryId)->where('id','<=',$userExamReviewId)->groupBy('user_id')->select(DB::raw('MAX(id)')))->where('iscorrect',true)->where('user_answer',true)->count();
+                $exmcnt = UserExamReview::where('id','<=',$userExamReviewId)->where('exam_id',$this->exam_id)->where('category_id',$categoryId)->where('sub_category_id',$subCategoryId)->whereIn('id',UserExamReview::where('name','learn')->where('category_id',$categoryId)->where('sub_category_id',$subCategoryId)->where('id','<=',$userExamReviewId)->groupBy('user_id')->select(DB::raw('MAX(id)')))->count();
+                break; 
+            case 'question-bank':
+                $anscnt = UserReviewAnswer::where('user_exam_review_id','<=',$userExamReviewId)->where('exam_id',$this->exam_id)->where('category_id',$categoryId)->where('sub_category_id',$subCategoryId)->where('sub_category_set',$subCategorySet)->whereIn('user_exam_review_id',UserExamReview::where('name','question-bank')->where('category_id',$categoryId)->where('sub_category_id',$subCategoryId)->where('sub_category_set',$subCategorySet)->where('id','<=',$userExamReviewId)->groupBy('user_id')->select(DB::raw('MAX(id)')))->where('iscorrect',true)->where('user_answer',true)->count();
+                $exmcnt = UserExamReview::where('id','<=',$userExamReviewId)->where('exam_id',$this->exam_id)->where('category_id',$categoryId)->where('sub_category_id',$subCategoryId)->where('sub_category_set',$subCategorySet)->whereIn('id',UserExamReview::where('name','question-bank')->where('category_id',$categoryId)->where('sub_category_id',$subCategoryId)->where('sub_category_set',$subCategorySet)->where('id','<=',$userExamReviewId)->groupBy('user_id')->select(DB::raw('MAX(id)')))->count();
+                break; 
+            default:
+                # code...
+                break;
+        } 
         $qstcnt=UserReviewQuestion::where('user_exam_review_id',$userExamReviewId)->where('exam_id',$this->exam_id)->count();
         return ($exmcnt>0?round($anscnt/$exmcnt,2):0)."/$qstcnt ";
     }
