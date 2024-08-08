@@ -206,7 +206,7 @@ class MockExamController extends Controller
                 return Carbon::parse($data->created_at)->format('Y-m-d h:i a');
             })
             ->addColumn('action',function($data){
-                return '<a type="button" href="'.route('full-mock-exam.preview',$data->slug).'" class="btn btn-warning btn-sm">Review</a>';
+                return '<a type="button" href="'.route('full-mock-exam.complete',$data->slug).'" class="btn btn-warning btn-sm">Review</a>';
             })
             ->rawColumns(['action'])
             ->with('url',route('full-mock-exam.show',$exam->slug))
