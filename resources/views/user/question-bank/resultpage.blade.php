@@ -45,7 +45,7 @@
         
                                 <p>Next Step: Review and Improve</p>
                                 <div class="exam-mark-bottom">
-                                    <a class="btn btn-warning btn-lg" id="review-link" href="{{route('question-bank.preview',$review->slug)}}">Review Set</a>
+                                    <a class="btn btn-warning btn-lg" id="review-link" href="{{route('question-bank.preview',$userExamReview->slug)}}">Review Set</a>
                                     <a href="{{route('question-bank.show',$category->slug)}}" class="btn btn-outline-dark btn-lg">Exit Set</a>
                                 </div>
                             </div>
