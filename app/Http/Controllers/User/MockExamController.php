@@ -150,11 +150,8 @@ class MockExamController extends Controller
         $chartdata=[];
             
         foreach (UserReviewAnswer::select('mark',DB::raw('count(mark) as marked_users'))->fromSub(function ($query)use($userExamReview){
-            $query->from('user_review_answers')->where('user_exam_review_id','<=',$userExamReview->id)->where('exam_id',$userExamReview->exam_id)->where(function($qry)use($userExamReview){
-                $qry->whereIn('user_exam_review_id',UserExamReview::where('name','full-mock-exam')->where('id','<=',$userExamReview->id)->groupBy('exam_id')->select(DB::raw('MAX(id)')));
-                $qry->orWhereIn('user_exam_review_id',UserExamReview::where('name','question-bank')->where('id','<=',$userExamReview->id)->groupBy('sub_category_set')->select(DB::raw('MAX(id)'))); 
-                $qry->orWhereIn('user_exam_review_id',UserExamReview::where('name','topic-test')->where('id','<=',$userExamReview->id)->groupBy('category_id')->select(DB::raw('MAX(id)')));
-            })->where('iscorrect',true)->where('user_answer',true)->groupBy('user_id')
+            $query->from('user_review_answers')->where('user_exam_review_id','<=',$userExamReview->id)->whereIn('user_exam_review_id',UserExamReview::where('exam_id',$userExamReview->exam_id)->groupBy('user_id')->select(DB::raw('MAX(id)')))
+            ->where('exam_id',$userExamReview->exam_id)->where('iscorrect',true)->where('user_answer',true)->groupBy('user_id')
             ->select(DB::raw('count(user_id) as mark'));
         }, 'subquery')->groupBy('mark')->get() as  $row) { 
             $chartlabel[]=strval($row->mark);
