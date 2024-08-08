@@ -120,7 +120,7 @@ Route::middleware(['auth','isUser'])->group(function(){
         Route::middleware('subscription:topic-test')->post('/{category}/verify',[TopicExamController::class,'topicverify'])->name('topic.verify');
         Route::middleware('subscription:topic-test')->get('/{category}/review',[TopicExamController::class,'topicreview'])->name('topic.review');
         Route::get('/attempt/{user_exam_review}/preview',[TopicExamController::class,'preview'])->name('preview');
-        Route::middleware('subscription:topic-test')->get('/{category}/complete',[TopicExamController::class,'topiccomplete'])->name('complete');
+        Route::middleware('subscription:topic-test')->get('/{user_exam_review}/complete',[TopicExamController::class,'topiccomplete'])->name('complete');
     });
 
     Route::prefix('full-mock-exam')->name('full-mock-exam.')->group(function () { 
