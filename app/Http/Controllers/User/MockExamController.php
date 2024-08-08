@@ -127,45 +127,41 @@ class MockExamController extends Controller
         if($request->ajax()){
             return  response()->json(["success"=>$exam->title." Submited","preview"=>route('full-mock-exam.preview',$review->slug)]);    
         }
-        return  redirect()->route('full-mock-exam.complete',$exam->slug)->with("success",$exam->title." Submited")->with("review",$review->id);
+        return  redirect()->route('full-mock-exam.complete',$review->slug)->with("success",$exam->title." Submited")->with("review",$review->id);
     }
 
 
-    public function examcomplete(Request $request,Exam $exam){
-        $review=UserExamReview::find(session('review',0));
+    public function examcomplete(Request $request,UserExamReview $userExamReview){ 
         /**
          * @var User
          */
         $user=Auth::user();   
-        if(!empty($review)){ 
-            $user->progress("exam-review-".$review->id."-timed",'timed');
-            $tmtk=intval($user->progress("exam-review-".$review->id."-timetaken",0)); 
-            $passed=$user->progress("exam-review-".$review->id."-passed",0);
-            
-            $m=sprintf("%02d",intval($tmtk/60));
-            $s=sprintf("%02d",intval($tmtk%60));
+        $timed=$user->progress("exam-review-".$userExamReview->id."-timed",'timed');
+        $tmtk=intval($user->progress("exam-review-".$userExamReview->id."-timetaken",0)); 
+        $passed=$user->progress("exam-review-".$userExamReview->id."-passed",0);
+        
+        $m=sprintf("%02d",intval($tmtk/60));
+        $s=sprintf("%02d",intval($tmtk%60));
 
-            $attemttime="$m:$s";
-            $questioncount=Question::where('exam_id',$exam->id)->count();
-            $chartlabel=[];
-            $chartbackgroundColor=[];
-            $chartdata=[];
+        $attemttime="$m:$s";
+        $questioncount=UserReviewQuestion::where('user_exam_review_id',$userExamReview->id)->count();
+        $chartlabel=[];
+        $chartbackgroundColor=[];
+        $chartdata=[];
             
-            foreach (UserReviewAnswer::select('mark',DB::raw('count(mark) as marked_users'))->fromSub(function ($query)use($exam){
-                $query->from('user_review_answers')->whereIn('user_exam_review_id',UserExamReview::where('exam_id',$exam->id)->groupBy('user_id')->select(DB::raw('MAX(id)')))
-                ->where('exam_id',$exam->id)->where('iscorrect',true)->where('user_answer',true)->groupBy('user_id')
-                ->select(DB::raw('count(user_id) as mark'));
+        foreach (UserReviewAnswer::select('mark',DB::raw('count(mark) as marked_users'))->fromSub(function ($query)use($userExamReview){
+            $query->from('user_review_answers')->whereIn('user_exam_review_id',UserExamReview::where('exam_id',$userExamReview->exam_id)->groupBy('user_id')->select(DB::raw('MAX(id)')))
+            ->where('exam_id',$userExamReview->exam_id)->where('iscorrect',true)->where('user_answer',true)->groupBy('user_id')
+            ->select(DB::raw('count(user_id) as mark'));
         }, 'subquery')->groupBy('mark')->get() as  $row) { 
-                $chartlabel[]=strval($row->mark);
-                $chartbackgroundColor[]=$passed==$row->mark? "#ef9b10" : '#dfdfdf';
-                $chartdata[]=$row->marked_users;
-            } 
-            $attemtcount=UserExamReview::where('exam_id',$exam->id)->where('user_id',$user->id)->count();
-            $category=Category::all();
-            return view('user.full-mock-exam.resultpage',compact('chartdata','chartbackgroundColor','chartlabel','exam','category','review','passed','attemttime','questioncount','attemtcount'));
-        }else{
-            return redirect()->route('full-mock-exam.index');
-        }
+            $chartlabel[]=strval($row->mark);
+            $chartbackgroundColor[]=$passed==$row->mark? "#ef9b10" : '#dfdfdf';
+            $chartdata[]=$row->marked_users;
+        } 
+        $attemtcount=UserExamReview::where('exam_id',$userExamReview->exam_id)->where('user_id',$user->id)->count();
+        $category=Category::all();
+        return view('user.full-mock-exam.resultpage',compact('chartdata','chartbackgroundColor','chartlabel','category','userExamReview','passed','attemttime','questioncount','attemtcount'));
+        
     }
     public function preview(Request $request,UserExamReview $userExamReview){
         $exam=Exam::find( $userExamReview->exam_id );

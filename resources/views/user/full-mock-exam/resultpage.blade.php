@@ -1,5 +1,5 @@
 @extends('layouts.exam')
-@section('title', 'Congratulation on Completing the '.$exam->title)
+@section('title', 'Congratulation on Completing the '.$userExamReview->title)
 @section('content')  
 
 <section class="modal-expand modal-expand-result" id="question-complete-page" >
@@ -11,7 +11,7 @@
                         <div class="exam-result">
                             <div class="exam-result-content"> 
                                 <div class="exam-title">
-                                    <h3>{{$exam->title}}</h3>
+                                    <h3>{{$userExamReview->title}}</h3>
                                 </div>
                                 <div class="exam-mark-body">
                                     <div class="mark-title">
@@ -71,7 +71,7 @@
                                             </tr>
                                             <tr>
                                                 <th>Average</th>
-                                                <td>{{$exam->avgMark()}}</td>
+                                                <td>{{$userExamReview->avgMark()}}</td>
                                                 @foreach ($category as $item)
                                                 <td></td>
                                                 @endforeach 
