@@ -296,7 +296,7 @@ class ExamQuestionController extends Controller
                 return Carbon::parse($data->created_at)->format('Y-m-d h:i a');
             })
             ->addColumn('action',function($data){
-                return '<a type="button" href="'.route('question-bank.preview',$data->slug).'" class="btn btn-warning btn-sm">Review</a>';
+                return '<a type="button" href="'.route('question-bank.set.complete',$data->slug).'" class="btn btn-warning btn-sm">Review</a>';
             })
             ->rawColumns(['action'])
             ->with('url',route('question-bank.set.show',[

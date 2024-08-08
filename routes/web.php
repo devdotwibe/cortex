@@ -108,7 +108,7 @@ Route::middleware(['auth','isUser'])->group(function(){
         Route::middleware('subscription:question-bank')->post('/{category}/{sub_category}/set/{setname}/verify',[ExamQuestionController::class,'setverify'])->name('set.verify');
         Route::middleware('subscription:question-bank')->get('/{category}/{sub_category}/set/{setname}/review',[ExamQuestionController::class,'setreview'])->name('set.review');
         Route::get('/attempt/{user_exam_review}/preview',[ExamQuestionController::class,'preview'])->name('preview');
-        Route::middleware('subscription:question-bank')->get('/{category}/set/complete',[ExamQuestionController::class,'setcomplete'])->name('set.complete');
+        Route::middleware('subscription:question-bank')->get('/{user_exam_review}/set/complete',[ExamQuestionController::class,'setcomplete'])->name('set.complete');
     }); 
 
     Route::prefix('topic-test')->name('topic-test.')->group(function () {
