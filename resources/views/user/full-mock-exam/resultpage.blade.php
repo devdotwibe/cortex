@@ -27,7 +27,7 @@
                                     </div> 
                                     <div class="mark-label">
                                         <span>Attemt Date :</span>
-                                        <span>{{date('d M Y')}}</span>
+                                        <span>@if(!empty($userExamReview->created_at)) {{$userExamReview->created_at->format('d M Y')}} @endif</span>
                                     </div> 
                                 </div>  
         
