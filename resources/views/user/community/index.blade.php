@@ -37,8 +37,7 @@
                 let polloption=``;
                 if(v.vote){
 
-                    $.each(v.poll||[],function(pk,pv){
-                        console.log(pv.slug,pv)
+                    $.each(v.poll||[],function(pk,pv){ 
                         polloption+=`
                         <div class="form-check ${v.vote.option==pv.slug?"voted":"vote"}">
                             <input class="form-check-input" type="radio" name="${v.slug}" id="poll-${v.slug}-option-${pv.slug}" value="${pv.slug}" onchange="vote('${pv.voteUrl}','#post-item-${v.slug}')" >
@@ -109,8 +108,7 @@
             let polloption=``;
             if(v.vote){
 
-                $.each(v.poll||[],function(pk,pv){
-                    console.log(pv.slug,pv)
+                $.each(v.poll||[],function(pk,pv){ 
                     polloption+=`
                     <div class="form-check ${v.vote.option==pv.slug?"voted":"vote"}">
                         <input class="form-check-input" type="radio" name="${v.slug}" id="poll-${v.slug}-option-${pv.slug}" value="${pv.slug}" onchange="vote('${pv.voteUrl}','#post-item-${v.slug}')" >
