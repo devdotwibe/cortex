@@ -36,9 +36,7 @@ class CommunityController extends Controller
                 $vote=Poll::where('user_id',$user->id)->where('post_id',$row->id)->first();
                 if(!empty($vote)){
                     $vote=[
-                        'slug'=>$vote->slug,
-                        'updateUrl'=>route('community.post.show',$row->slug),
-                        'removeUrl'=>route('community.post.show',$row->slug),
+                        'slug'=>$vote->slug, 
                         'option'=>optional($vote->pollOption)->slug,
                     ];
                 }
@@ -108,6 +106,55 @@ class CommunityController extends Controller
             }
         }
         return redirect()->route('community.post.show',$post->slug)->with('success',"Post published");
+    }
+    public function pollVote(Request $request,PollOption $pollOption){ 
+        /**
+         *  @var User
+         */
+        $user=Auth::user();
+        $vote=Poll::where('user_id',$user->id)->where('post_id',$pollOption->post_id)->first();
+        if(empty($vote)){
+            $vote=Poll::store([
+                'user_id'=>$user->id,
+                'post_id'=>$pollOption->post_id,
+                'poll_option_id'=>$pollOption->id
+            ]);
+        }else{
+            $vote=$vote->update([ 
+                'poll_option_id'=>$pollOption->id
+            ]);
+        }
+        $row=Post::find($pollOption->post_id);
+        $options=[];
+        $tvotes=$row->pollOption->sum('votes');
+        foreach($row->pollOption as $opt){
+            $options[]=[
+                "slug"=>$opt->slug,
+                "option"=>$opt->option,
+                "votes"=>$opt->votes,
+                'percentage'=>$tvotes>0?round(($opt->votes*100)/$tvotes,2):0,
+                'voteUrl'=>route('community.post.show',$row->slug),
+            ];
+        } 
+        return response()->json( [
+            "slug"=>$row->slug,
+            "title"=>$row->title,
+            "type"=>$row->type,
+            "description"=>$row->description,
+            "image"=>$row->image,
+            "video"=>$row->video,
+            "status"=>$row->status,
+            "vote"=>[
+                'slug'=>$vote->slug, 
+                'option'=>optional($vote->pollOption)->slug,
+            ], 
+            "poll"=>$options,
+            "showUrl"=>route('community.post.show',$row->slug),
+            "createdAt"=>$row->created_at->diffInMinutes(now())>1? $row->created_at->diffForHumans(now(), true)." ago":'Just Now',
+            "user"=>[
+                "name"=>optional($row->user)->name
+            ],                
+        ]);
     }
     public function show(Request $request,Post $post){
         /**
