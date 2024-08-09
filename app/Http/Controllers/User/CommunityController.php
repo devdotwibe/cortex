@@ -26,6 +26,7 @@ class CommunityController extends Controller
                 $tvotes=$row->pollOption->sum('votes');
                 foreach($row->pollOption as $opt){
                     $options[]=[
+                        "slug"=>$opt->slug,
                         "option"=>$opt->option,
                         "votes"=>$opt->votes,
                         'percentage'=>$tvotes>0?round(($opt->votes*100)/$tvotes,2):0,
