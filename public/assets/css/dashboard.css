@@ -1227,6 +1227,7 @@ section.post-section .post-item .post-actions a.post-action-btn span{
   display:none
 }
 .poll-options .form-check .form-check-label{
+  display: block;
   width:100%;
   height:80px;
   border:1px solid #f1f1f1;
