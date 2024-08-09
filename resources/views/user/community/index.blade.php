@@ -120,10 +120,10 @@
                             </div>
                         </div>
                         <div class="post-title">
-                            ${v.title}
+                            ${v.title||""}
                         </div>
                         <div class="post-content">
-                            ${v.description}
+                            ${v.description||""}
                         </div>
                         <div class="poll-options">
                             ${polloption}
