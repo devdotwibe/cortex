@@ -1220,6 +1220,10 @@ section.post-section .post-item .post-actions a.post-action-btn span{
 .poll-options {
   width:100%;
 }
+.poll-options>a {
+  width:100%;
+  color: black;
+}
 .poll-options .form-check {
   width:100%;
 }
