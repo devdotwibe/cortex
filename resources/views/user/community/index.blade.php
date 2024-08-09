@@ -56,7 +56,7 @@
                     $.each(v.poll||[],function(pk,pv){
                         polloption+=`
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="${v.slug}" id="poll-${v.slug}-option-${pv.slug}" value="${pv.slug}" onclick="vote('${pv.voteUrl}','#post-item-${v.slug}')">
+                            <input class="form-check-input" type="radio" name="${v.slug}" id="poll-${v.slug}-option-${pv.slug}" value="${pv.slug}" onchange="vote('${pv.voteUrl}','#post-item-${v.slug}')">
                             <label class="form-check-label" for="poll-${v.slug}-option-${pv.slug}">
                                 ${pv.option}
                                 <span id="poll-${v.slug}-option-${pv.slug}-percentage">(${pv.percentage}%)</span>
@@ -127,7 +127,7 @@
                 $.each(v.poll||[],function(pk,pv){
                     polloption+=`
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="${v.slug}" id="poll-${v.slug}-option-${pv.slug}" value="${pv.slug}" onclick="vote('${pv.voteUrl}','#post-item-${v.slug}')">
+                        <input class="form-check-input" type="radio" name="${v.slug}" id="poll-${v.slug}-option-${pv.slug}" value="${pv.slug}" onchange="vote('${pv.voteUrl}','#post-item-${v.slug}')">
                         <label class="form-check-label" for="poll-${v.slug}-option-${pv.slug}">
                             ${pv.option}
                             <span id="poll-${v.slug}-option-${pv.slug}-percentage">(${pv.percentage}%)</span>
