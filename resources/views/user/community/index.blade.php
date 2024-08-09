@@ -41,7 +41,7 @@
                         console.log(pv.slug,pv)
                         polloption+=`
                         <div class="form-check ${v.vote.option==pv.slug?"voted":"vote"}">
-                            <input class="form-check-input" type="radio" name="${v.slug}" id="poll-${v.slug}-option-${pv.slug}" value="${pv.slug}" onchange="vote('${pv.voteUrl}')" disabled>
+                            <input class="form-check-input" type="radio" name="${v.slug}" id="poll-${v.slug}-option-${pv.slug}" value="${pv.slug}" onchange="vote('${pv.voteUrl}')" >
                             <label class="form-check-label" for="poll-${v.slug}-option-${pv.slug}">
                                 ${pv.option}
                                 <span id="poll-${v.slug}-option-${pv.slug}-percentage">(${pv.percentage}%)</span>
@@ -113,7 +113,7 @@
                     console.log(pv.slug,pv)
                     polloption+=`
                     <div class="form-check ${v.vote.option==pv.slug?"voted":"vote"}">
-                        <input class="form-check-input" type="radio" name="${v.slug}" id="poll-${v.slug}-option-${pv.slug}" value="${pv.slug}" onchange="vote('${pv.voteUrl}')" disabled>
+                        <input class="form-check-input" type="radio" name="${v.slug}" id="poll-${v.slug}-option-${pv.slug}" value="${pv.slug}" onchange="vote('${pv.voteUrl}')" >
                         <label class="form-check-label" for="poll-${v.slug}-option-${pv.slug}">
                             ${pv.option}
                             <span id="poll-${v.slug}-option-${pv.slug}-percentage">(${pv.percentage}%)</span>
