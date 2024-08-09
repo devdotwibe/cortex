@@ -19,7 +19,7 @@
 <section class="header_nav community-post-type community-post-type-poll"    @if(old('type',$post->type)!="poll") style="display:none" @endif >
     <div class="header_wrapp">
         <div class="header_title">
-            <h2>Create Poll</h2>
+            <h2>Update Poll</h2>
         </div>
     </div>
 </section> 
@@ -27,7 +27,7 @@
 <section class="header_nav community-post-type community-post-type-post"  @if(old('type',$post->type)!="post") style="display:none" @endif >
     <div class="header_wrapp">
         <div class="header_title">
-            <h2>Create Post</h2>
+            <h2>Update Post</h2>
         </div>
     </div>
 </section>
@@ -143,11 +143,11 @@
 
                         <div class="mb-3 community-post-type community-post-type-poll"  @if(old('type',$post->type)!="poll") style="display:none" @endif >  
                             <a href="{{route('community.post.show',$post->slug)}}"  class="btn btn-secondary">Cancel</a> 
-                            <button type="submit" class="btn btn-dark">Create Poll</button> 
+                            <button type="submit" class="btn btn-dark">Update Poll</button> 
                         </div>
                         <div class="mb-3 community-post-type community-post-type-post"  @if(old('type',$post->type)!="post") style="display:none" @endif >  
                             <a href="{{route('community.post.show',$post->slug)}}"  class="btn btn-secondary">Cancel</a> 
-                            <button type="submit" class="btn btn-dark">Create Post</button> 
+                            <button type="submit" class="btn btn-dark">Update Post</button> 
                         </div>
                     </form>
                 </div>

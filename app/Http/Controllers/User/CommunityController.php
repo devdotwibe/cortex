@@ -193,9 +193,31 @@ class CommunityController extends Controller
         ],[
             'option.required_if'=>"This field is required",
             'option.*.required_if'=>"This field is required",
-        ]);
- 
+        ]); 
         $post->update($data);
+        $ids=[];
+        if($request->type=="poll"){
+            $optid=$request->input('option_id',[]);
+            foreach ($request->input('option',[]) as $k=>$v) {
+                $opt=null;
+                if(!empty($optid[$k])){
+                    $opt=PollOption::findSlug($optid[$k]);
+                }
+                if(empty($opt)){
+                    $opt=PollOption::store([
+                        'option'=>$v,
+                        'post_id'=>$post->id
+                    ]);
+                }else{
+                    $opt->update([
+                        'option'=>$v, 
+                    ]);
+                }
+
+                $ids[]=$opt->id;
+            }
+        }
+        PollOption::where('post_id',$post->id)->whereNotIn('id',$ids)->delete();
         return redirect()->route('community.post.show',$post->slug)->with('success',"Post updated");
     }
     public function destroy(Request $request,Post $post){ 
