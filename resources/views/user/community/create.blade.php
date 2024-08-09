@@ -136,11 +136,7 @@
         $('.community-post-type').val(val);
         $('.community-post-type').hide();
         $('.community-post-type-'+val).fadeIn();
-    } 
-    // $(function(){
-    //     changeFormType('{{old("type","post")}}');
-    // })
-
+    }  
     var chcnt=$('.choice-item').length;
         function removeChoice(target,checkbox,parent){
             if($(checkbox).is(":checked")){
