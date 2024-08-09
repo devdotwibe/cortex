@@ -2,17 +2,22 @@
 
 namespace App\Models;
 
+use App\Trait\ResourceModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class PollOption extends Model
 {
-    use HasFactory;
+    use HasFactory,ResourceModel;
 
-    protected $fillable = ['poll_id', 'option', 'votes'];
+    protected $fillable = ['slug','post_id', 'option', 'votes'];
 
-    public function poll()
+    public function polls()
     {
-        return $this->belongsTo(Poll::class);
+        return $this->hasMany(Poll::class);
+    }
+    public function post()
+    {
+        return $this->belongsTo(Post::class);
     }
 }

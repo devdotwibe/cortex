@@ -1,30 +1,6 @@
 @extends('layouts.user')
 @section('title', 'Community')
-@section('content')
-<style>
-    .poll-graph-bar-wrapper {
-        position: relative;
-        height: 20px;
-        background: #f1f1f1;
-        border-radius: 5px;
-        overflow: hidden;
-        margin-top: 5px;
-    }
-
-    .poll-graph-bar {
-        height: 100%;
-        background: #39a84f;
-        transition: width 0.5s ease;
-    }
-
-    .poll-disabled .form-check-input {
-        cursor: not-allowed;
-    }
-
-    .poll-disabled .form-check-input:disabled ~ .form-check-label {
-        color: #999;
-    }
-</style>
+@section('content') 
 <section class="header_nav">
     <div class="header_wrapp">
         <div class="header_title">
@@ -42,8 +18,7 @@
     <div class="post-container" id="post-item-list">
         
     </div>
-
-    <section class="post-section">
+{{--  
     <div class="post-container">
         @foreach($data as $poll) 
             <div class="card mb-3" id="poll-{{ $poll->id }}">
@@ -81,7 +56,7 @@
                 </div>
             </div>
         @endforeach
-    </div>
+    </div> --}}
 </section>
 
 @endsection
@@ -98,8 +73,43 @@
                 $('#load-more-btn').hide().data('url',null);
             }
             $.each(res.data,function(k,v){
+                let polloption=``;
+                if(v.vote){
+
+                    $.each(v.poll||[],function(pk,pv){
+                        polloption+=`
+                        <div class="form-check ${v.vote.slug==pv.slug?"voted":"vote"}">
+                            <input class="form-check-input" type="radio" name="${v.slug}" id="poll-${v.slug}-option-${pv.slug}" value="${pv.slug}" onclick="vote('${v.voteUrl}')" disabled>
+                            <label class="form-check-label" for="poll-${v.slug}-option-${pv.slug}">
+                                ${pv.option}
+                                <span id="poll-${v.slug}-option-${pv.slug}-percentage">(${pv.percentage}%)</span>
+                                <div class="poll-graph-bar-wrapper">
+                                    <div class="poll-graph-bar" id="poll-${v.slug}-option-${pv.slug}-bar" style="width: ${pv.percentage}%;"></div>
+                                </div>
+                            </label>
+                        </div>
+                        `;
+                    })
+                }else{
+
+                    $.each(v.poll||[],function(pk,pv){
+                        polloption+=`
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="${v.slug}" id="poll-${v.slug}-option-${pv.slug}" value="${pv.slug}" onclick="vote('${v.voteUrl}')">
+                            <label class="form-check-label" for="poll-${v.slug}-option-${pv.slug}">
+                                ${pv.option}
+                                <span id="poll-${v.slug}-option-${pv.slug}-percentage">(${pv.percentage}%)</span>
+                                <div class="poll-graph-bar-wrapper">
+                                    <div class="poll-graph-bar" id="poll-${v.slug}-option-${pv.slug}-bar" style="width: ${pv.percentage}%;"></div>
+                                </div>
+                            </label>
+                        </div>
+                        `;
+                    })
+                }
+
                 $('#post-item-list').append(`
-                    <div class="post-item">  
+                    <div class="post-item" id="post-item-${v.slug}">  
                         <div class="post-header">
                             <div class="avathar">
                                 <img src="{{asset("assets/images/User-blk.png")}}" alt="img">
@@ -109,11 +119,17 @@
                                 <span>${v.createdAt}</span>
                             </div>
                         </div>
+                        <div class="post-title">
+                            ${v.title}
+                        </div>
                         <div class="post-content">
                             ${v.description}
                         </div>
+                        <div class="poll-options">
+                            ${polloption}
+                        </div>
                         <div class="post-actions">
-                            <a class="post-action-btn comment-btn"><img src="{{asset('assets/images/comment.svg')}}" slt="comment"> <span>1</span></a>
+                            <a class="post-action-btn comment-btn" href="${v.showUrl}""><img src="{{asset('assets/images/comment.svg')}}" slt="comment"> <span>1</span></a>
                         </div>
                     </div>
                 `)
@@ -126,10 +142,15 @@
             loadpost($('#load-more-btn').data('url'))
         })
     })
+    function vote(url) {
+        $.get(url,function(){
+            
+        })
+    }
 </script>
     
 
-<script>
+{{-- <script>
    function vote(pollId, optionId) {
     fetch('{{ route("community.poll.vote") }}', {
         method: 'POST',
@@ -161,7 +182,7 @@
     .catch(error => console.error('Error:', error));
 }
 
-</script>
+</script> --}}
 
 
 @endpush

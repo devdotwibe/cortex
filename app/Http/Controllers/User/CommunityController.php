@@ -22,6 +22,25 @@ class CommunityController extends Controller
             $posts=Post::where('id','>',0)->orderBy('id','DESC')->paginate();
             $results=[];
             foreach ($posts->items() as $row) { 
+                $options=[];
+                $tvotes=$row->pollOption->sum('votes');
+                foreach($row->pollOption as $opt){
+                    $options[]=[
+                        "option"=>$opt->option,
+                        "votes"=>$opt->votes,
+                        'percentage'=>$tvotes>0?round(($opt->votes*100)/$tvotes,2):0,
+                        'voteUrl'=>route('community.post.show',$row->slug),
+                    ];
+                }
+                $vote=Poll::where('user_id',$user->id)->where('post_id',$row->id)->first();
+                if(!empty($vote)){
+                    $vote=[
+                        'slug'=>$vote->slug,
+                        'updateUrl'=>route('community.post.show',$row->slug),
+                        'removeUrl'=>route('community.post.show',$row->slug),
+                        'option'=>optional($vote->pollOption)->slug,
+                    ];
+                }
                 $results[]=[
                     "slug"=>$row->slug,
                     "title"=>$row->title,
@@ -30,6 +49,9 @@ class CommunityController extends Controller
                     "image"=>$row->image,
                     "video"=>$row->video,
                     "status"=>$row->status,
+                    "vote"=>$vote, 
+                    "poll"=>$options,
+                    "showUrl"=>route('community.post.show',$row->slug),
                     "createdAt"=>$row->created_at->diffInMinutes(now())>1? $row->created_at->diffForHumans(now(), true)." ago":'Just Now',
                     "user"=>[
                         "name"=>optional($row->user)->name
@@ -46,11 +68,8 @@ class CommunityController extends Controller
                 'prev' => $posts->previousPageUrl(),
                 'next' => $posts->nextPageUrl()
             ];
-        }
-       
-        $data  = Poll::with('options')->get(); 
-        
-        return view('user.community.index',compact('user','data'));
+        } 
+        return view('user.community.index',compact('user'));
     }
     public function create(Request $request){
         /**
@@ -59,10 +78,16 @@ class CommunityController extends Controller
         $user=Auth::user();
         return view('user.community.create',compact('user'));
     }
-    public function store(Request $request){
+    public function store(Request $request){ 
         $data=$request->validate([
             'title'=>["required","max:255"],
             'description'=>["required"],
+            'type'=>["required"],
+            'option'=>["required_if:type,poll",'array','min:2'],
+            'option.*'=>["required_if:type,poll",'max:255'],
+        ],[
+            'option.required_if'=>"This field is required",
+            'option.*.required_if'=>"This field is required",
         ]);
 
         /**
@@ -73,6 +98,14 @@ class CommunityController extends Controller
         $data['user_id']=$user->id;
         $data['status']="publish";
         $post=Post::store($data);
+        if($request->type=="poll"){
+            foreach ($request->input('option',[]) as $k=>$v) {
+                PollOption::store([
+                    'option'=>$v,
+                    'post_id'=>$post->id
+                ]);
+            }
+        }
         return redirect()->route('community.post.show',$post->slug)->with('success',"Post published");
     }
     public function show(Request $request,Post $post){
@@ -93,6 +126,12 @@ class CommunityController extends Controller
         $data=$request->validate([
             'title'=>["required","max:255"],
             'description'=>["required"],
+            'type'=>["required"],
+            'option'=>["required_if:type,poll",'array','min:2'],
+            'option.*'=>["required_if:type,poll",'max:255'],
+        ],[
+            'option.required_if'=>"This field is required",
+            'option.*.required_if'=>"This field is required",
         ]);
  
         $post->update($data);
