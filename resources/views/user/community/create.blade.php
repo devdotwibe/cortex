@@ -2,8 +2,8 @@
 @section('title', 'Create Post')
 @section('content') 
  <section class="header_nav">
-    <div class="row m-3">
-        <div class="col-md-4">
+    <div class="header_wrapp">
+        <div class="header_title">
             <div class="form-group">
                 <select id="selection"  onchange="changeFormType(this.value)" class="form-control">
                     <option value="post" @selected(old('type','post')=="post")>Post</option>
