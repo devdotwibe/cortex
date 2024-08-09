@@ -2,11 +2,15 @@
 @section('title', 'Create Post')
 @section('content') 
  
-<div class="form-group">
-    <select id="selection" onchange="changeFormType(this.value)" class="header_wrapp">
-        <option value="post" @selected(old('type','post')=="post")>Post</option>
-        <option value="poll" @selected(old('type','')=="poll")>Poll</option> 
-    </select>
+<div class="row mt-3">
+    <div class="col-md-4">
+        <div class="form-group">
+            <select id="selection"  onchange="changeFormType(this.value)" class="form-control">
+                <option value="post" @selected(old('type','post')=="post")>Post</option>
+                <option value="poll" @selected(old('type','')=="poll")>Poll</option> 
+            </select>
+        </div>
+    </div>
 </div>
 
 <section class="header_nav community-post-type community-post-type-poll"    @if(old('type','')!="poll") style="display:none" @endif >
