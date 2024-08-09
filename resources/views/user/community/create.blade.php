@@ -1,17 +1,19 @@
 @extends('layouts.user')
 @section('title', 'Create Post')
 @section('content') 
- 
-<div class="row mt-3">
-    <div class="col-md-4">
-        <div class="form-group">
-            <select id="selection"  onchange="changeFormType(this.value)" class="form-control">
-                <option value="post" @selected(old('type','post')=="post")>Post</option>
-                <option value="poll" @selected(old('type','')=="poll")>Poll</option> 
-            </select>
+ <section>
+    <div class="row m-3">
+        <div class="col-md-4">
+            <div class="form-group">
+                <select id="selection"  onchange="changeFormType(this.value)" class="form-control">
+                    <option value="post" @selected(old('type','post')=="post")>Post</option>
+                    <option value="poll" @selected(old('type','')=="poll")>Poll</option> 
+                </select>
+            </div>
         </div>
     </div>
-</div>
+
+ </section>
 
 <section class="header_nav community-post-type community-post-type-poll"    @if(old('type','')!="poll") style="display:none" @endif >
     <div class="header_wrapp">
