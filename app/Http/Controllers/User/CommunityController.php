@@ -173,7 +173,7 @@ class CommunityController extends Controller
          *  @var User
          */
         $user=Auth::user();
-        $vote=Poll::where('user_id',$user->id)->where('post_id',$post->ID)->first();
+        $vote=Poll::where('user_id',$user->id)->where('post_id',$post->id)->first();
         return view('user.community.show',compact('post','user','vote'));
     }
     public function edit(Request $request,Post $post){
