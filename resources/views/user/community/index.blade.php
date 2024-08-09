@@ -77,6 +77,7 @@
                 if(v.vote){
 
                     $.each(v.poll||[],function(pk,pv){
+                        console.log(pv.slug,pv)
                         polloption+=`
                         <div class="form-check ${v.vote.slug==pv.slug?"voted":"vote"}">
                             <input class="form-check-input" type="radio" name="${v.slug}" id="poll-${v.slug}-option-${pv.slug}" value="${pv.slug}" onchange="vote('${pv.voteUrl}')" disabled>
