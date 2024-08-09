@@ -124,6 +124,11 @@ class CommunityController extends Controller
                 'poll_option_id'=>$pollOption->id
             ]);
         }
+        foreach(PollOption::where('post_id',$pollOption->post_id)->get() as $opt){
+            $opt->update([
+                'votes'=>Poll::where('user_id',$user->id)->where('post_id',$pollOption->post_id)->where('poll_option_id',$opt->id)->count()
+            ]);
+        }
         $row=Post::find($pollOption->post_id);
         $options=[];
         $tvotes=$row->pollOption->sum('votes');
