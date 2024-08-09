@@ -31,20 +31,6 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::get('/login', [AdminMainController::class,'login'])->name('login');
         Route::post('/login', [AdminMainController::class,'loginSubmit']);
         Route::get('community/',[AdminMainController::class,'index'])->name('index');
-
-
-        // Route::prefix('community')->name('community.')->group(function () {
-        //     Route::get('/',[CommunityController::class,'index'])->name('index');
-        //     Route::resource('/post',CommunityController::class); 
-            
-    
-        //      // Poll routes
-        //      Route::get('/poll/create', [CommunityController::class,'createPoll'])->name('poll.create');
-        //      Route::post('/poll/store', [CommunityController::class,'storePoll'])->name('poll.store');
-        //      Route::get('/polls', [CommunityController::class, 'getPolls'])->name('poll.index');
-        //      Route::post('/poll/vote', [CommunityController::class, 'votePoll'])->name('poll.vote');
-            
-        // });
     });
     Route::middleware(['auth:admin','isAdmin'])->group(function(){
 

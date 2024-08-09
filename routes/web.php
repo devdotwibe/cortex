@@ -169,15 +169,15 @@ Route::middleware(['auth', 'isUser'])->group(function () {
         Route::prefix('community')->name('community.')->group(function () {
             Route::get('/', [CommunityController::class, 'index'])->name('index');
             Route::resource('/post', CommunityController::class);
-
+            Route::post('/poll/{poll_option}/vote', [CommunityController::class, 'pollVote'])->name('poll.vote');
             // Poll routes
-            Route::get('/poll/create', [CommunityController::class, 'createPoll'])->name('poll.create');
-            Route::post('/poll/store', [CommunityController::class, 'storePoll'])->name('poll.store');
-            Route::get('/polls', [CommunityController::class, 'getPolls'])->name('poll.index');
-            Route::post('/poll/vote', [CommunityController::class, 'votePoll'])->name('poll.vote');
-            Route::get('/poll/edit/{id}', [CommunityController::class, 'polledit'])->name('poll.edit');
-            Route::delete('/poll/delete/{id}', [CommunityController::class, 'pollDestroy'])->name('poll.destroy');
-            Route::put('/poll/update/{id}', [CommunityController::class, 'pollUpdate'])->name('poll.update');
+            // Route::get('/poll/create', [CommunityController::class, 'createPoll'])->name('poll.create');
+            // Route::post('/poll/store', [CommunityController::class, 'storePoll'])->name('poll.store');
+            // Route::get('/polls', [CommunityController::class, 'getPolls'])->name('poll.index');
+            // Route::post('/poll/vote', [CommunityController::class, 'votePoll'])->name('poll.vote');
+            // Route::get('/poll/edit/{id}', [CommunityController::class, 'polledit'])->name('poll.edit');
+            // Route::delete('/poll/delete/{id}', [CommunityController::class, 'pollDestroy'])->name('poll.destroy');
+            // Route::put('/poll/update/{id}', [CommunityController::class, 'pollUpdate'])->name('poll.update');
         });
 
         Route::prefix('analytics')->name('analytics.')->group(function () {
