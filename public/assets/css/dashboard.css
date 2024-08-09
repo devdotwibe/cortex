@@ -1219,11 +1219,7 @@ section.post-section .post-item .post-actions a.post-action-btn span{
 }
 .poll-options {
   width:100%;
-}
-.poll-options>a {
-  width:100%;
-  color: black;
-}
+} 
 .poll-options .form-check {
   width:100%;
 }
@@ -1243,10 +1239,12 @@ section.post-section .post-item .post-actions a.post-action-btn span{
   display:none
 } 
 .poll-options .form-check.vote .form-check-label{
-  background-color:#f1f7fb    
+  background-color:#f1f7fb;
+  color: black;
 }
 .poll-options .form-check.voted .form-check-label{
-  background-color:#2196F3    
+  background-color:#2196F3;
+  color: white;
 }
 
 .side_bar { width: 270px;height: 100vh;padding: 30px;overflow: hidden;position: fixed;background: #ffff;z-index: 99;box-shadow: 4px 0px 16px 0px #0000000A;left: 0;border-radius: 0 10px 10px 0;top: 80px}
