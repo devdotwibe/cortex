@@ -120,7 +120,7 @@ class CommunityController extends Controller
                 'poll_option_id'=>$pollOption->id
             ]);
         }else{
-            $vote=$vote->update([ 
+            $vote->update([ 
                 'poll_option_id'=>$pollOption->id
             ]);
         }
