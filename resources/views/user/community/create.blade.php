@@ -1,7 +1,7 @@
 @extends('layouts.user')
 @section('title', 'Create Post')
 @section('content') 
- <section>
+ <section class="header_nav">
     <div class="row m-3">
         <div class="col-md-4">
             <div class="form-group">
