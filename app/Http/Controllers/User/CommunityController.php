@@ -129,46 +129,52 @@ class CommunityController extends Controller
                 'votes'=>Poll::where('user_id',$user->id)->where('post_id',$pollOption->post_id)->where('poll_option_id',$opt->id)->count()
             ]);
         }
-        $row=Post::find($pollOption->post_id);
-        $options=[];
-        $tvotes=$row->pollOption->sum('votes');
-        foreach($row->pollOption as $opt){
-            $options[]=[
-                "slug"=>$opt->slug,
-                "option"=>$opt->option,
-                "votes"=>$opt->votes,
-                'percentage'=>$tvotes>0?round(($opt->votes*100)/$tvotes,2):0,
-                'voteUrl'=>route('community.poll.vote',$opt->slug),
-            ];
-        } 
+        if($request->ajax()){
 
-        $vote=Poll::where('user_id',$user->id)->where('post_id',$pollOption->post_id)->first();
-        return response()->json( [
-            "slug"=>$row->slug,
-            "title"=>$row->title,
-            "type"=>$row->type,
-            "description"=>$row->description,
-            "image"=>$row->image,
-            "video"=>$row->video,
-            "status"=>$row->status,
-            "vote"=>[
-                'slug'=>$vote->slug, 
-                'option'=>optional($vote->pollOption)->slug,
-            ], 
-            "poll"=>$options,
-            "showUrl"=>route('community.post.show',$row->slug),
-            "createdAt"=>$row->created_at->diffInMinutes(now())>1? $row->created_at->diffForHumans(now(), true)." ago":'Just Now',
-            "user"=>[
-                "name"=>optional($row->user)->name
-            ],                
-        ]);
+            $row=Post::find($pollOption->post_id);
+            $options=[];
+            $tvotes=$row->pollOption->sum('votes');
+            foreach($row->pollOption as $opt){
+                $options[]=[
+                    "slug"=>$opt->slug,
+                    "option"=>$opt->option,
+                    "votes"=>$opt->votes,
+                    'percentage'=>$tvotes>0?round(($opt->votes*100)/$tvotes,2):0,
+                    'voteUrl'=>route('community.poll.vote',$opt->slug),
+                ];
+            } 
+    
+            $vote=Poll::where('user_id',$user->id)->where('post_id',$pollOption->post_id)->first();
+            return response()->json( [
+                "slug"=>$row->slug,
+                "title"=>$row->title,
+                "type"=>$row->type,
+                "description"=>$row->description,
+                "image"=>$row->image,
+                "video"=>$row->video,
+                "status"=>$row->status,
+                "vote"=>[
+                    'slug'=>$vote->slug, 
+                    'option'=>optional($vote->pollOption)->slug,
+                ], 
+                "poll"=>$options,
+                "showUrl"=>route('community.post.show',$row->slug),
+                "createdAt"=>$row->created_at->diffInMinutes(now())>1? $row->created_at->diffForHumans(now(), true)." ago":'Just Now',
+                "user"=>[
+                    "name"=>optional($row->user)->name
+                ],                
+            ]);
+        }else{
+            return redirect()->back()->with('success',"Voted Success");
+        }
     }
     public function show(Request $request,Post $post){
         /**
          *  @var User
          */
         $user=Auth::user();
-        return view('user.community.show',compact('post','user'));
+        $vote=Poll::where('user_id',$user->id)->where('post_id',$post->ID)->first();
+        return view('user.community.show',compact('post','user','vote'));
     }
     public function edit(Request $request,Post $post){
         /**

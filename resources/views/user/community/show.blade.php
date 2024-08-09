@@ -25,9 +25,41 @@
     <div class="container"> 
         <div class="row">
             <div class="card">
+                @if($post->type=="post")
                 <div class="card-body">
                     {!! $post->description !!}
                 </div>
+                @elseif($post->type=="poll")
+                @php
+                    $tvotes=$post->pollOption->sum('votes');
+                @endphp
+                <div class="card-body">                    
+                    <div class="poll-options"> 
+                        @if (empty($vote))
+                            @foreach($post->pollOption as $opt)
+                            <a href="{{route('community.poll.vote',$opt->slug)}}">
+                                <div class="form-check @if($vote->option==$opt->slug) voted @else vote @endif ">
+                                    <input class="form-check-input" type="radio" name="{{$post->slug}}" id="poll-{{$post->slug}}-option-{{$opt->slug}}" value="{{$opt->slug}}"  >
+                                    <label class="form-check-label" for="poll-{{$post->slug}}-option-{{$opt->slug}}">
+                                        ${pv.option}
+                                        <span id="poll-{{$post->slug}}-option-{{$opt->slug}}-percentage">({{$tvotes>0?round(($opt->votes*100)/$tvotes,2):0}}%)</span>
+                                        <div class="poll-graph-bar-wrapper">
+                                            <div class="poll-graph-bar" id="poll-{{$post->slug}}-option-{{$opt->slug}}-bar" style="width: {{$tvotes>0?round(($opt->votes*100)/$tvotes,2):0}}%;"></div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </a>
+                            @endforeach
+                        @else                            
+                            @foreach($post->pollOption as $opt)
+                            @endforeach
+                        @endif
+                    </div>
+                </div>
+                @else
+                <div class="card-body">
+                </div>
+                @endif
             </div>
         </div>
     </div>
