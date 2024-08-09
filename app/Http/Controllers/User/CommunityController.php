@@ -30,7 +30,7 @@ class CommunityController extends Controller
                         "option"=>$opt->option,
                         "votes"=>$opt->votes,
                         'percentage'=>$tvotes>0?round(($opt->votes*100)/$tvotes,2):0,
-                        'voteUrl'=>route('community.post.show',$row->slug),
+                        'voteUrl'=>route('community.poll.vote',$opt->slug),
                     ];
                 }
                 $vote=Poll::where('user_id',$user->id)->where('post_id',$row->id)->first();
@@ -133,7 +133,7 @@ class CommunityController extends Controller
                 "option"=>$opt->option,
                 "votes"=>$opt->votes,
                 'percentage'=>$tvotes>0?round(($opt->votes*100)/$tvotes,2):0,
-                'voteUrl'=>route('community.post.show',$row->slug),
+                'voteUrl'=>route('community.poll.vote',$opt->slug),
             ];
         } 
         return response()->json( [
