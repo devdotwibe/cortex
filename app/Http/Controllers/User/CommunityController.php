@@ -141,6 +141,8 @@ class CommunityController extends Controller
                 'voteUrl'=>route('community.poll.vote',$opt->slug),
             ];
         } 
+
+        $vote=Poll::where('user_id',$user->id)->where('post_id',$pollOption->post_id)->first();
         return response()->json( [
             "slug"=>$row->slug,
             "title"=>$row->title,
