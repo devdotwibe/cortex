@@ -186,14 +186,15 @@ class CommunityController extends Controller
     public function update(Request $request,Post $post){
         $data=$request->validate([
             'title'=>["required","max:255"],
-            'description'=>["required"],
             'type'=>["required"],
-            'option'=>["required_if:type,poll",'array','min:2'],
-            'option.*'=>["required_if:type,poll",'max:255'],
+            'description'=>["required_if:type,'post'"],
+            'option'=>["required_if:type,'poll'",'array','min:2'],
+            'option.*'=>["required_if:type,'poll'",'max:255'],
         ],[
             'option.required_if'=>"This field is required",
             'option.*.required_if'=>"This field is required",
-        ]); 
+        ]);
+
         $post->update($data);
         $ids=[];
         if($request->type=="poll"){
