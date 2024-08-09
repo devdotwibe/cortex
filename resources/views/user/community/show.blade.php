@@ -38,7 +38,7 @@
                         @if (!empty($vote))
                             @foreach($post->pollOption as $opt)
                             <a href="{{route('community.poll.vote',$opt->slug)}}">
-                                <div class="form-check @if($vote->option==$opt->slug) voted @else vote @endif "> 
+                                <div class="form-check @if(optional($vote->pollOption)->slug==$opt->slug) voted @else vote @endif "> 
                                     <span class="form-check-label" for="poll-{{$post->slug}}-option-{{$opt->slug}}">
                                         {{$opt->option}}
                                         <span id="poll-{{$post->slug}}-option-{{$opt->slug}}-percentage">({{$tvotes>0?round(($opt->votes*100)/$tvotes,2):0}}%)</span>
