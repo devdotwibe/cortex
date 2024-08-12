@@ -34,8 +34,11 @@
                         <a class="post-action-btn comment-btn m-2" ><img src="{{asset('assets/images/comment1.svg')}}" slt="comment"> <span>{{$post->comments()->count()}}</span></a>
                         <a class="post-action-btn like-btn m-2"  href="{{route('community.post.like',$post->slug)}}"><img @if($post->likes()->where('user_id',auth()->id())->count()>0) src="{{asset('assets/images/liked.svg')}}" @else src="{{asset('assets/images/like.svg')}}" @endif slt="comment"> <span>{{$post->likes()->count()}}</span></a>
                     </div>
-                    <div class="post-comments" id="post-comments">
+                    <div class="post-comment" id="post-comment-list">
 
+                    </div>
+                    <div class="post-comment-action">
+                        <button id="load-more-btn" class="btn btn-outline-dark" style="display: none"> Load More </button>
                     </div>
                 </div>
                 @elseif($post->type=="poll")
@@ -78,8 +81,11 @@
                         <a class="post-action-btn comment-btn m-2" ><img src="{{asset('assets/images/comment1.svg')}}" slt="comment"> <span>{{$post->comments()->count()}}</span></a>
                         <a class="post-action-btn like-btn m-2"  href="{{route('community.post.like',$post->slug)}}"><img @if($post->likes()->where('user_id',auth()->id())->count()>0) src="{{asset('assets/images/liked.svg')}}" @else src="{{asset('assets/images/like.svg')}}" @endif slt="comment"> <span>{{$post->likes()->count()}}</span></a>
                     </div>
-                    <div class="post-comments" id="post-comments">
+                    <div class="post-comment" id="post-comment-list">
 
+                    </div>
+                    <div class="post-comment-action">
+                        <button id="load-more-btn" class="btn btn-outline-dark" style="display: none"> Load More </button>
                     </div>
                 </div>
                 @else
@@ -119,5 +125,30 @@
 @endpush
 
 @push('footer-script')
-    
+    <script>
+        function loadcomment(url){
+            $.get(url,function(res){
+                if(res.next){
+                    $('#load-more-btn').show().data('url',res.next)
+                }else{
+                    $('#load-more-btn').hide().data('url',null);
+                }
+                $.each(res.data,function(k,v){
+                    $('#post-comment-list').append(`
+                        <div class="post-comment-item" id="post-comment-${v.slug}"> 
+                            <div class="post-comment-text">${v.comment}</div>
+                            <div class="post-comment-replys" id="post-comment-${v.slug}-replys">
+                            </div>
+                        </div>
+                    `)
+                })
+            },'json')
+        }
+        $(function(){
+            loadcomment("{{url()->current()}}");
+            $('#load-more-btn').click(function(){
+                loadcomment($('#load-more-btn').data('url'))
+            })
+        })
+    </script>
 @endpush
