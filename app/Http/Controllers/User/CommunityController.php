@@ -245,7 +245,7 @@ class CommunityController extends Controller
         $user=Auth::user();
         $like=PostLike::where('user_id',$user->id)->where('post_id',$post->id)->first();
         if(empty($like)){
-            $like=Poll::store([
+            $like=PostLike::store([
                 'user_id'=>$user->id,
                 'post_id'=>$post->id,
             ]);
