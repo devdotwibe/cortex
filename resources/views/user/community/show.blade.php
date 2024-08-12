@@ -42,6 +42,9 @@
                                     <label for="comment">Comment</label>
                                     <textarea name="comment" id="comment" class="form-control" rows="10"></textarea>
                                 </div>
+                                <div class="form-group">
+                                    <button class="btn btn-dark ">Add Comment</button>
+                                </div>
                             </form>
                         </div>
                     </div>
