@@ -61,9 +61,9 @@
                                 <div class="form-group">
                                     <div class="form-data">
                                         <div class="forms-inputs mb-4"> 
-                                            <label for="description-community-post-type">Title</label> 
+                                            <label for="description-community-post-type">Description</label> 
                                             <textarea name="description" id="description-community-post-type"  class="form-control texteditor @error('description') is-invalid @enderror "  rows="5">{{old('description',$post->description)}}</textarea>
-                                            @error('title')
+                                            @error('description')
                                             <div class="invalid-feedback">{{$message}}</div>
                                             @enderror
                                         </div>
