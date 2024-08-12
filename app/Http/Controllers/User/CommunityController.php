@@ -324,7 +324,7 @@ class CommunityController extends Controller
          */
         $user=Auth::user();
         if($request->ajax()){
-            $comments=PostComment::where('post_id',$post)->orderBy('id','DESC')->paginate();
+            $comments=PostComment::where('post_id',$post->id)->orderBy('id','DESC')->paginate();
             $results=[];
             foreach ($comments->items() as $row) { 
                 $results[]=$row;
