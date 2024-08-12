@@ -59,7 +59,7 @@ class CommunityController extends Controller
                         "name"=>optional($row->user)->name
                     ],
                     "liked"=>$row->likes()->where('user_id',$user->id)->count()>0?true:false,
-                    "likeUrl"=>route('community.post.show',$row->slug),  
+                    "likeUrl"=>route('community.post.like',$row->slug),
                      
                 ];
             }
@@ -121,7 +121,7 @@ class CommunityController extends Controller
                         "name"=>optional($row->user)->name
                     ],
                     "liked"=>$row->likes()->where('user_id',$user->id)->count()>0?true:false,
-                    "likeUrl"=>route('community.post.show',$row->slug),                     
+                    "likeUrl"=>route('community.post.like',$row->slug),                     
                 ];
             }
             return [ 
@@ -230,7 +230,9 @@ class CommunityController extends Controller
                 "createdAt"=>$row->created_at->diffInMinutes(now())>1? $row->created_at->diffForHumans(now(), true)." ago":'Just Now',
                 "user"=>[
                     "name"=>optional($row->user)->name
-                ],                
+                ],
+                "liked"=>$row->likes()->where('user_id',$user->id)->count()>0?true:false,
+                "likeUrl"=>route('community.post.like',$row->slug), 
             ]);
         }else{
             return redirect()->back()->with('success',"Voted");
@@ -288,7 +290,9 @@ class CommunityController extends Controller
                 "createdAt"=>$row->created_at->diffInMinutes(now())>1? $row->created_at->diffForHumans(now(), true)." ago":'Just Now',
                 "user"=>[
                     "name"=>optional($row->user)->name
-                ],                
+                ],
+                "liked"=>$row->likes()->where('user_id',$user->id)->count()>0?true:false,
+                "likeUrl"=>route('community.post.like',$row->slug), 
             ]);
         }else{
             return redirect()->back()->with('success',"Liked");

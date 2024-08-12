@@ -44,7 +44,7 @@
                     $.each(v.poll||[],function(pk,pv){ 
                         polloption+=`
                         <div class="form-check ${v.vote.option==pv.slug?"voted":"vote"}">
-                            <input class="form-check-input" type="radio" name="${v.slug}" id="poll-${v.slug}-option-${pv.slug}" value="${pv.slug}" onchange="vote('${pv.voteUrl}','#post-item-${v.slug}')" >
+                            <input class="form-check-input" type="radio" name="${v.slug}" id="poll-${v.slug}-option-${pv.slug}" value="${pv.slug}" onchange="likevote('${pv.voteUrl}','#post-item-${v.slug}')" >
                             <label class="form-check-label" for="poll-${v.slug}-option-${pv.slug}">
                                 ${pv.option}
                                 <span id="poll-${v.slug}-option-${pv.slug}-percentage">(${pv.percentage}%)</span>
@@ -60,7 +60,7 @@
                     $.each(v.poll||[],function(pk,pv){
                         polloption+=`
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="${v.slug}" id="poll-${v.slug}-option-${pv.slug}" value="${pv.slug}" onchange="vote('${pv.voteUrl}','#post-item-${v.slug}')">
+                            <input class="form-check-input" type="radio" name="${v.slug}" id="poll-${v.slug}-option-${pv.slug}" value="${pv.slug}" onchange="likevote('${pv.voteUrl}','#post-item-${v.slug}')">
                             <label class="form-check-label" for="poll-${v.slug}-option-${pv.slug}">
                                 ${pv.option}
                                 <span id="poll-${v.slug}-option-${pv.slug}-percentage">(${pv.percentage}%)</span>
@@ -94,8 +94,8 @@
                             ${polloption}
                         </div>
                         <div class="post-actions">
-                            <a class="post-action-btn comment-btn" href="${v.showUrl}""><img src="{{asset('assets/images/comment1.svg')}}" slt="comment"> <span>${v.comments}</span></a>
-                            <a class="post-action-btn like-btn" href="${v.likeUrl}""><img src="${v.liked?"{{asset('assets/images/liked.svg')}}":"{{asset('assets/images/like.svg')}}"}" slt="comment"> <span>${v.likes}</span></a>
+                            <a class="post-action-btn comment-btn" href="${v.showUrl}"><img src="{{asset('assets/images/comment1.svg')}}" slt="comment"> <span>${v.comments}</span></a>
+                            <a class="post-action-btn like-btn" onclick="likevote('${v.likeUrl}','#post-item-${v.slug}')"><img src="${v.liked?"{{asset('assets/images/liked.svg')}}":"{{asset('assets/images/like.svg')}}"}" slt="comment"> <span>${v.likes}</span></a>
                         </div>
                     </div>
                 `)
@@ -108,7 +108,7 @@
             loadpost($('#load-more-btn').data('url'))
         })
     })
-    function vote(url,id) {
+    function likevote(url,id) {
         $.get(url,function(v){
             let polloption=``;
             if(v.vote){
@@ -116,7 +116,7 @@
                 $.each(v.poll||[],function(pk,pv){ 
                     polloption+=`
                     <div class="form-check ${v.vote.option==pv.slug?"voted":"vote"}">
-                        <input class="form-check-input" type="radio" name="${v.slug}" id="poll-${v.slug}-option-${pv.slug}" value="${pv.slug}" onchange="vote('${pv.voteUrl}','#post-item-${v.slug}')" >
+                        <input class="form-check-input" type="radio" name="${v.slug}" id="poll-${v.slug}-option-${pv.slug}" value="${pv.slug}" onchange="likevote('${pv.voteUrl}','#post-item-${v.slug}')" >
                         <label class="form-check-label" for="poll-${v.slug}-option-${pv.slug}">
                             ${pv.option}
                             <span id="poll-${v.slug}-option-${pv.slug}-percentage">(${pv.percentage}%)</span>
@@ -132,7 +132,7 @@
                 $.each(v.poll||[],function(pk,pv){
                     polloption+=`
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="${v.slug}" id="poll-${v.slug}-option-${pv.slug}" value="${pv.slug}" onchange="vote('${pv.voteUrl}','#post-item-${v.slug}')">
+                        <input class="form-check-input" type="radio" name="${v.slug}" id="poll-${v.slug}-option-${pv.slug}" value="${pv.slug}" onchange="likevote('${pv.voteUrl}','#post-item-${v.slug}')">
                         <label class="form-check-label" for="poll-${v.slug}-option-${pv.slug}">
                             ${pv.option}
                             <span id="poll-${v.slug}-option-${pv.slug}-percentage">(${pv.percentage}%)</span>
@@ -164,7 +164,8 @@
                 ${polloption}
             </div>
             <div class="post-actions">
-                <a class="post-action-btn comment-btn" href="${v.showUrl}""><img src="{{asset('assets/images/comment.svg')}}" slt="comment"> <span>1</span></a>
+                <a class="post-action-btn comment-btn" href="${v.showUrl}"><img src="{{asset('assets/images/comment1.svg')}}" slt="comment"> <span>${v.comments}</span></a>
+                <a class="post-action-btn like-btn" onclick="likevote('${v.likeUrl}','#post-item-${v.slug}')"><img src="${v.liked?"{{asset('assets/images/liked.svg')}}":"{{asset('assets/images/like.svg')}}"}" slt="comment"> <span>${v.likes}</span></a>
             </div>
             `)
         })
