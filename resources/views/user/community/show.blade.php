@@ -27,7 +27,13 @@
             <div class="card">
                 @if($post->type=="post")
                 <div class="card-body">
+                    <div class="post-description">
                     {!! $post->description !!}
+                    </div>
+                    <div class="post-actions">
+                        <a class="post-action-btn comment-btn m-2" ><img src="{{asset('assets/images/comment1.svg')}}" slt="comment"> <span>{{$post->comments()->count()}}</span></a>
+                        <a class="post-action-btn like-btn m-2"  href="{{route('community.post.like',$post->slug)}}"><img @if($post->likes()->where('user_id',auth()->id())->count()>0) src="{{asset('assets/images/liked.svg')}}" @else src="{{asset('assets/images/like.svg')}}" @endif slt="comment"> <span>{{$post->likes()->count()}}</span></a>
+                    </div>
                 </div>
                 @elseif($post->type=="poll")
                 @php
@@ -65,17 +71,15 @@
                             @endforeach
                         @endif
                     </div>
-                </div>
-                @else
-                <div class="card-body">
-                </div>
-                @endif
-                <div class="card-footer"> 
                     <div class="post-actions">
                         <a class="post-action-btn comment-btn m-2" ><img src="{{asset('assets/images/comment1.svg')}}" slt="comment"> <span>{{$post->comments()->count()}}</span></a>
                         <a class="post-action-btn like-btn m-2"  href="{{route('community.post.like',$post->slug)}}"><img @if($post->likes()->where('user_id',auth()->id())->count()>0) src="{{asset('assets/images/liked.svg')}}" @else src="{{asset('assets/images/like.svg')}}" @endif slt="comment"> <span>{{$post->likes()->count()}}</span></a>
                     </div>
                 </div>
+                @else
+                <div class="card-body">
+                </div>
+                @endif 
             </div>
         </div>
     </div>
