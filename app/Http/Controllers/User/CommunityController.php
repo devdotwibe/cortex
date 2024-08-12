@@ -7,6 +7,7 @@ use App\Models\Poll;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\PollOption;
+use App\Models\PostComment;
 use App\Models\PostLike;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -300,6 +301,22 @@ class CommunityController extends Controller
         }else{
             return redirect()->back()->with('success',$row->likes()->where('user_id',$user->id)->count()>0?"Liked":"Removed");
         }
+    }
+    public function postComment(Request $request,Post $post){ 
+        /**
+         *  @var User
+         */
+        $user=Auth::user();
+        $data=$request->validate([
+            "comment"=>'required'
+        ]);
+        if(!empty(($request->reply))){
+            $data['post_comment_id']=$request->reply;
+        }
+        $data['post_id']=$post->id;
+        $data['user_id']=$user->id;
+        PostComment::store($data);
+        return redirect()->back()->with('success',"Comment Added");
     }
     public function show(Request $request,Post $post){
         /**

@@ -36,11 +36,14 @@
                     </div>
                     <div class="post-comment">
                         <div class="form">
-                            <form action="" method="post">
+                            <form action="{{route('community.post.comment',$post->slug)}}" method="post">
                                 @csrf
                                 <div class="form-group">
                                     <label for="comment">Comment</label>
-                                    <textarea name="comment" id="comment" class="form-control" rows="10"></textarea>
+                                    <textarea name="comment" id="comment" class="form-control @error('comment')  is-invalid  @enderror" rows="10"></textarea>
+                                    @error('comment')
+                                    <div class="invalid-feedback">{{$message}}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <button class="btn btn-dark ">Add Comment</button>
@@ -97,11 +100,17 @@
                     </div>
                     <div class="post-comment">
                         <div class="form">
-                            <form action="" method="post">
+                            <form action="{{route('community.post.comment',$post->slug)}}" method="post">
                                 @csrf
                                 <div class="form-group">
                                     <label for="comment">Comment</label>
-                                    <textarea name="comment" id="comment" class="form-control" rows="10"></textarea>
+                                    <textarea name="comment" id="comment" class="form-control @error('comment')  is-invalid  @enderror" rows="10"></textarea>
+                                    @error('comment')
+                                    <div class="invalid-feedback">{{$message}}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-dark ">Add Comment</button>
                                 </div>
                             </form>
                         </div>
