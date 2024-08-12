@@ -184,7 +184,7 @@ class CommunityController extends Controller
         }
         foreach(PollOption::where('post_id',$pollOption->post_id)->get() as $opt){
             $opt->update([
-                'votes'=>Poll::where('user_id',$user->id)->where('post_id',$pollOption->post_id)->where('poll_option_id',$opt->id)->count()
+                'votes'=>Poll::where('post_id',$pollOption->post_id)->where('poll_option_id',$opt->id)->count()
             ]);
         }
         if($request->ajax()){
