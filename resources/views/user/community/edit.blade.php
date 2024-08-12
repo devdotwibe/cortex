@@ -200,5 +200,7 @@
             `)    
             chcnt++;
         }
+
+        CKEDITOR.replaceAll('texteditor')
 </script>
 @endpush
