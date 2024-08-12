@@ -254,9 +254,9 @@ class CommunityController extends Controller
         }else{
             $like->delete();
         } 
+        $row=Post::find($post->id);
         if($request->ajax()){
 
-            $row=Post::find($post->id);
             $options=[];
             $tvotes=$row->pollOption->sum('votes');
             foreach($row->pollOption as $opt){
@@ -298,7 +298,7 @@ class CommunityController extends Controller
                 "editUrl"=>$row->user_id==$user->id?route('community.post.edit',$row->slug):null,
             ]);
         }else{
-            return redirect()->back()->with('success',"Liked");
+            return redirect()->back()->with('success',$row->likes()->where('user_id',$user->id)->count()>0?"Liked":"Removed");
         }
     }
     public function show(Request $request,Post $post){
