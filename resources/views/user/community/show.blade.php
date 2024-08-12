@@ -45,7 +45,7 @@
                                     <div class="invalid-feedback">{{$message}}</div>
                                     @enderror
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group mt-3">
                                     <button class="btn btn-dark ">Add Comment</button>
                                 </div>
                             </form>
@@ -109,7 +109,7 @@
                                     <div class="invalid-feedback">{{$message}}</div>
                                     @enderror
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group mt-3">
                                     <button class="btn btn-dark ">Add Comment</button>
                                 </div>
                             </form>
