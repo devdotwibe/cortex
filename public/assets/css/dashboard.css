@@ -1033,8 +1033,7 @@ section.post-section .post-item{
   border-radius:5px;
 }
 section.post-section .post-item .post-header{
-  display:flex;
-  flex-wrap:wrap;
+  display:flex; 
   width:100%;
   justify-content:left;
   align-items:center
@@ -1044,6 +1043,9 @@ section.post-section .post-item .post-header .avathar{
   height:40px;
   border-radius:50%;
   margin: 15px 5px;
+}
+section.post-section .post-item .post-header .title{
+  width:100%;
 }
 section.post-section .post-item .post-header .title h3{
   font-size: 16px;
@@ -1055,6 +1057,9 @@ section.post-section .post-item .post-header .title span{
   font-weight: 400px;
   color: #919291;
 }
+section.post-section .post-item .post-header .action{
+  width:170px;
+} 
 section.post-section .post-item .post-actions {
   width:100%;
   display:flex;
