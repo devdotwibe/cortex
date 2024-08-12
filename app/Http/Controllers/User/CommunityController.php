@@ -324,11 +324,21 @@ class CommunityController extends Controller
          */
         $user=Auth::user();
         if($request->ajax()){
-            // $comment=PostComment::where('post_id',$post)->orderBy('id','DESC')->paginate();
-            // return response()->json([
-
-            // ])
-            return PostComment::where('post_id',$post)->orderBy('id','DESC')->paginate();
+            $comments=PostComment::where('post_id',$post)->orderBy('id','DESC')->paginate();
+            $results=[];
+            foreach ($comments->items() as $row) { 
+                $results[]=$row;
+            }
+            
+            return [ 
+                'current_page' => $comments->currentPage(),
+                'total_pages' => $comments->lastPage(),
+                'total_items' => $comments->total(),
+                'items_per_page' => $comments->perPage(),
+                'data' => $results, 
+                'prev' => $comments->previousPageUrl(),
+                'next' => $comments->nextPageUrl()
+            ]; 
         }
         $vote=Poll::where('user_id',$user->id)->where('post_id',$post->id)->first();
         return view('user.community.show',compact('post','user','vote'));
