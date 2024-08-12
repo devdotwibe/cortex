@@ -71,6 +71,7 @@
                         `;
                     })
                 }
+                
 
                 $('#post-item-list').append(`
                     <div class="post-item" id="post-item-${v.slug}">  
@@ -81,6 +82,10 @@
                             <div class="title">
                                 <h3>${v.user.name||""}</h3>
                                 <span>${v.createdAt}</span>
+                            </div>
+                            <div class="action">
+                                <a class="btn btn-outline-dark" href="${v.showUrl}">View</a>
+                                <a class="btn btn-dark" href="${v.editUrl}">edit</a>
                             </div>
                         </div>
                         <div class="post-title">
@@ -151,6 +156,10 @@
                 <div class="title">
                     <h3>${v.user.name||""}</h3>
                     <span>${v.createdAt}</span>
+                </div>
+                <div class="action">
+                    <a class="btn btn-outline-dark" href="${v.showUrl}">View</a>
+                    <a class="btn btn-dark" href="${v.editUrl}">edit</a>
                 </div>
             </div>
             <div class="post-title">

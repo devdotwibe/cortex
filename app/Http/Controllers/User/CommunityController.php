@@ -121,7 +121,8 @@ class CommunityController extends Controller
                         "name"=>optional($row->user)->name
                     ],
                     "liked"=>$row->likes()->where('user_id',$user->id)->count()>0?true:false,
-                    "likeUrl"=>route('community.post.like',$row->slug),                     
+                    "likeUrl"=>route('community.post.like',$row->slug),
+                    "editUrl"=>$row->user_id==$user->id?route('community.post.edit',$row->slug):null,
                 ];
             }
             return [ 
@@ -233,6 +234,7 @@ class CommunityController extends Controller
                 ],
                 "liked"=>$row->likes()->where('user_id',$user->id)->count()>0?true:false,
                 "likeUrl"=>route('community.post.like',$row->slug), 
+                "editUrl"=>$row->user_id==$user->id?route('community.post.edit',$row->slug):null,
             ]);
         }else{
             return redirect()->back()->with('success',"Voted");
@@ -293,6 +295,7 @@ class CommunityController extends Controller
                 ],
                 "liked"=>$row->likes()->where('user_id',$user->id)->count()>0?true:false,
                 "likeUrl"=>route('community.post.like',$row->slug), 
+                "editUrl"=>$row->user_id==$user->id?route('community.post.edit',$row->slug):null,
             ]);
         }else{
             return redirect()->back()->with('success',"Liked");
