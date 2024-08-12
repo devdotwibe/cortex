@@ -26,4 +26,10 @@ class Post extends Model
     public function pollOption(){
         return $this->hasMany(PollOption::class);
     }
+    public function likes(){
+        return $this->hasMany(PostLike::class);
+    }
+    public function comments(){
+        return $this->hasMany(PostComment::class);
+    }
 }

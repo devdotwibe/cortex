@@ -170,6 +170,7 @@ Route::middleware(['auth', 'isUser'])->group(function () {
             Route::get('/', [CommunityController::class, 'posts'])->name('index');
             Route::resource('/post', CommunityController::class);
             Route::get('/poll/{poll_option}/vote', [CommunityController::class, 'pollVote'])->name('poll.vote'); 
+            Route::get('/post/{post}/like', [CommunityController::class, 'postLike'])->name('post.like'); 
         });
 
         Route::prefix('analytics')->name('analytics.')->group(function () {
