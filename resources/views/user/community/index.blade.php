@@ -93,8 +93,8 @@
                             ${polloption}
                         </div>
                         <div class="post-actions">
-                            <a class="post-action-btn comment-btn" href="${v.showUrl}""><img src="{{asset('assets/images/comment1.svg')}}" slt="comment"> <span>1</span></a>
-                            <a class="post-action-btn like-btn" href="${v.showUrl}""><img src="{{asset('assets/images/like.svg')}}" slt="comment"> <span>1</span></a>
+                            <a class="post-action-btn comment-btn" href="${v.showUrl}""><img src="{{asset('assets/images/comment1.svg')}}" slt="comment"> <span>${v.comments}</span></a>
+                            <a class="post-action-btn like-btn" href="${v.showUrl}""><img src="{{asset('assets/images/like.svg')}}" slt="comment"> <span>${v.likes}</span></a>
                         </div>
                     </div>
                 `)
