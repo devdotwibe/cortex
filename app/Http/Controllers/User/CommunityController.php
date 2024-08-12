@@ -323,6 +323,13 @@ class CommunityController extends Controller
          *  @var User
          */
         $user=Auth::user();
+        if($request->ajax()){
+            // $comment=PostComment::where('post_id',$post)->orderBy('id','DESC')->paginate();
+            // return response()->json([
+
+            // ])
+            return PostComment::where('post_id',$post)->orderBy('id','DESC')->paginate();
+        }
         $vote=Poll::where('user_id',$user->id)->where('post_id',$post->id)->first();
         return view('user.community.show',compact('post','user','vote'));
     }
