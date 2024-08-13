@@ -84,7 +84,7 @@
 
                     <div class="post-actions">
                         <a class="post-action-btn like-btn m-2"  href="{{route('community.post.like',$post->slug)}}"><img @if($post->likes()->where('user_id',auth()->id())->count()>0) src="{{asset('assets/images/liked.svg')}}" @else src="{{asset('assets/images/like.svg')}}" @endif slt="comment"> <span>{{$post->likes()->count()}}</span></a>
-                        <a class="post-action-btn comment-btn m-2" ><img src="{{asset('assets/images/comment1.svg')}}" slt="comment"> <span>{{$post->comments()->count()}}</span></a>
+                        <a class="post-action-btn comment-btn m-2" ><img src="{{asset('assets/images/comment1.svg')}}" slt="comment"> <span>{{$post->comments()->whereNull('post_comment_id')->count()}}</span></a>
                     </div>
                     <div class="post-comment">
                         <div class="form">
