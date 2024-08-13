@@ -36,9 +36,15 @@
                         </div>
                     </div>
                     @if($post->type=="post")
-                    <div class="post-description">
-                    {!! $post->description !!}
-                    </div>
+                    <div class="post-description" id="post-description"></div>
+                    <script> 
+                        const component = document.getElementById('post-description');
+                        const shadowRoot = component.attachShadow({ mode: 'open' });
+                        shadowRoot.innerHTML = `
+                            <link rel="stylesheet" href="{{asset('ckeditor/contents.css')}}">
+                            {!! $post->description !!}
+                        `;
+                    </script>
                     @elseif($post->type=="poll")
                     @php
                         $tvotes=$post->pollOption->sum('votes');
@@ -108,10 +114,7 @@
         </div>
     </div>
 </section> 
-@endsection
-@push('style')
-    <link rel="stylesheet" href="{{asset('ckeditor/contents.css')}}">
-@endpush
+@endsection 
 @push('modals') 
     @if ($post->user_id==$user->id)
         <div class="modal fade" id="delete-post" tabindex="-1" role="dialog" aria-labelledby="Label" aria-hidden="true">
@@ -162,7 +165,7 @@
             loadcomment("{{url()->current()}}");
             $('#load-more-btn').click(function(){
                 loadcomment($('#load-more-btn').data('url'))
-            })
+            })    
         })
     </script>
 @endpush
