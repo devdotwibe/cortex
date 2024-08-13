@@ -1303,6 +1303,17 @@ section.post-section .post-container .post-item .post-content{
   float:left;
   width:80%;
   border-radius:20px 5px 5px 0px;
+  display:flex;
+  flex-wrap:wrap
+}
+.post-comment .post-comment-item .post-comment-text .comment-text {
+  width:100%;
+  text-align:justify;
+  margin:5px 10px 15px 10px;
+}
+.post-comment .post-comment-item .post-comment-text .comment-avathar {
+  width:40px;
+  height:40px
 }
 
 
