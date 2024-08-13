@@ -32,7 +32,7 @@
                         </div>
                         <div class="title">
                             <h3>{{optional($post->user)->name}}</h3>
-                            <span>{{$post->created_at->}}</span>
+                            <span>@if($post->created_at->diffInMinutes(now())>1) {{$post->created_at->diffForHumans(now(), true)}} ago @else Just Now @endif</span>
                         </div>
                     </div>
                     @if($post->type=="post")
