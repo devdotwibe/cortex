@@ -25,44 +25,24 @@
     <div class="container"> 
         <div class="row">
             <div class="card">
-                @if($post->type=="post")
                 <div class="card-body">
+                    <div class="post-header">
+                        <div class="avathar">
+                            <img src="{{asset("assets/images/User-blk.png")}}" alt="img">
+                        </div>
+                        <div class="title">
+                            <h3>{{optional($post->user)->name}}</h3>
+                            <span>{{$post->created_at->}}</span>
+                        </div>
+                    </div>
+                    @if($post->type=="post")
                     <div class="post-description">
                     {!! $post->description !!}
                     </div>
-                    <div class="post-actions">
-                        <a class="post-action-btn comment-btn m-2" ><img src="{{asset('assets/images/comment1.svg')}}" slt="comment"> <span>{{$post->comments()->count()}}</span></a>
-                        <a class="post-action-btn like-btn m-2"  href="{{route('community.post.like',$post->slug)}}"><img @if($post->likes()->where('user_id',auth()->id())->count()>0) src="{{asset('assets/images/liked.svg')}}" @else src="{{asset('assets/images/like.svg')}}" @endif slt="comment"> <span>{{$post->likes()->count()}}</span></a>
-                    </div>
-                    <div class="post-comment">
-                        <div class="form">
-                            <form action="{{route('community.post.comment',$post->slug)}}" method="post">
-                                @csrf
-                                <div class="form-group">
-                                    <label for="comment">Comment</label>
-                                    <textarea name="comment" id="comment" class="form-control @error('comment')  is-invalid  @enderror" rows="10"></textarea>
-                                    @error('comment')
-                                    <div class="invalid-feedback">{{$message}}</div>
-                                    @enderror
-                                </div>
-                                <div class="form-group mt-3">
-                                    <button class="btn btn-dark ">Add Comment</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="post-comment" id="post-comment-list">
-
-                    </div>
-                    <div class="post-comment-action">
-                        <button id="load-more-btn" class="btn btn-outline-dark" style="display: none"> Load More </button>
-                    </div>
-                </div>
-                @elseif($post->type=="poll")
-                @php
-                    $tvotes=$post->pollOption->sum('votes');
-                @endphp
-                <div class="card-body">                    
+                    @elseif($post->type=="poll")
+                    @php
+                        $tvotes=$post->pollOption->sum('votes');
+                    @endphp
                     <div class="poll-options"> 
                         @if (!empty($vote))
                             @foreach($post->pollOption as $opt)
@@ -94,6 +74,8 @@
                             @endforeach
                         @endif
                     </div>
+                    @endif
+
                     <div class="post-actions">
                         <a class="post-action-btn comment-btn m-2" ><img src="{{asset('assets/images/comment1.svg')}}" slt="comment"> <span>{{$post->comments()->count()}}</span></a>
                         <a class="post-action-btn like-btn m-2"  href="{{route('community.post.like',$post->slug)}}"><img @if($post->likes()->where('user_id',auth()->id())->count()>0) src="{{asset('assets/images/liked.svg')}}" @else src="{{asset('assets/images/like.svg')}}" @endif slt="comment"> <span>{{$post->likes()->count()}}</span></a>
@@ -121,11 +103,7 @@
                     <div class="post-comment-action">
                         <button id="load-more-btn" class="btn btn-outline-dark" style="display: none"> Load More </button>
                     </div>
-                </div>
-                @else
-                <div class="card-body">
-                </div>
-                @endif 
+                </div> 
             </div>
         </div>
     </div>
