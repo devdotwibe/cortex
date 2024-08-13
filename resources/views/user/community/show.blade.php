@@ -109,7 +109,9 @@
     </div>
 </section> 
 @endsection
-
+@push('style')
+    <link rel="stylesheet" href="{{asset('ckeditor/contents.css')}}">
+@endpush
 @push('modals') 
     @if ($post->user_id==$user->id)
         <div class="modal fade" id="delete-post" tabindex="-1" role="dialog" aria-labelledby="Label" aria-hidden="true">
