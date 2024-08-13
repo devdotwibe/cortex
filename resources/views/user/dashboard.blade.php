@@ -220,7 +220,7 @@
                 fill: true,
                 borderColor:[],
                 backgroundColor:"#8FFFAD",
-                fill: false,
+                fill: true,
                 tension: 0.4
             }]
         },
