@@ -14,7 +14,15 @@
     </div>
 
  </section>
-
+ @if ($errors->any())
+ <div class="alert alert-danger">
+     <ul>
+         @foreach ($errors->all() as $error)
+             <li>{{ $error }}</li>
+         @endforeach
+     </ul>
+ </div>
+@endif
 <section class="header_nav community-post-type community-post-type-poll"    @if(old('type','')!="poll") style="display:none" @endif >
     <div class="header_wrapp">
         <div class="header_title">
