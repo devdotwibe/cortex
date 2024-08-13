@@ -11,4 +11,7 @@ class PostComment extends Model
     use HasFactory,ResourceModel;
     protected $fillable = ['slug','user_id','post_id','comment'];
 
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

@@ -153,7 +153,16 @@
                 $.each(res.data,function(k,v){
                     $('#post-comment-list').append(`
                         <div class="post-comment-item" id="post-comment-${v.slug}"> 
-                            <div class="post-comment-text">${v.comment}</div>
+                            <div class="post-comment-text">
+                                <p class="comment-text">${v.comment}</p>
+                                <div class="comment-avathar">
+                                    <img src="{{asset("assets/images/User-blk.png")}}" alt="img">
+                                </div>
+                                <div class="comment-title">
+                                    <h3>${v.user}</h3>
+                                    <span>${v.createdAt}</span>
+                                </div>
+                            </div>
                             <div class="post-comment-replys" id="post-comment-${v.slug}-replys">
                             </div>
                         </div>

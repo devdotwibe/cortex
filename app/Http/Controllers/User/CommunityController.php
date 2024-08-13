@@ -336,7 +336,12 @@ class CommunityController extends Controller
             $comments=PostComment::where('post_id',$post->id)->orderBy('id','DESC')->paginate();
             $results=[];
             foreach ($comments->items() as $row) { 
-                $results[]=$row;
+                $results[]=[
+                    'slug'=>$row->slug,
+                    'comment'=>$row->comment,
+                    'user'=>optional($row->user)->name,
+                    "createdAt"=>$row->created_at->diffInMinutes(now())>1? $row->created_at->diffForHumans(now(), true)." ago":'Just Now',
+                ];
             }
             
             return [ 
