@@ -162,6 +162,10 @@
                                     <span>${v.createdAt}</span>
                                 </div>
                                 <p class="comment-text">${v.comment}</p>
+                                <div class="comment-action">
+                                    <a class="reply-btn m-2" >Reply</a>
+                                    <a class="like-btn m-2"  href="{{route('community.post.like',$post->slug)}}"><img src="{{asset('assets/images/like.svg')}}"  slt="comment"> <span>0</span></a>
+                                </div>
                             </div>
                             <div class="post-comment-replys" id="post-comment-${v.slug}-replys">
                             </div>
