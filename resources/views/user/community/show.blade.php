@@ -183,7 +183,7 @@
                                         </div>
                                     </form>
                                 </div>
-                                <div clas="replay-lis" id="post-comment-${v.slug}-replys"></div>
+                                <div clas="replay-list" id="post-comment-${v.slug}-replys"></div>
                             </div>
                         </div>
                     `)
@@ -223,16 +223,16 @@
                 $.each(res.data,function(k,v){
 
                     $(comment).append(`
-                        <div class="post-comment-reply-item" id="post-comment-reply-${v.slug}"> 
-                            <div class="post-comment-reply-text">
-                                <div class="comment-avathar">
+                        <div class="replay-list-item" id="replay-list-${v.slug}"> 
+                            <div class="replay-list-text">
+                                <div class="replay-avathar">
                                     <img src="{{asset("assets/images/User-blk.png")}}" alt="img">
                                 </div>
-                                <div class="comment-title">
+                                <div class="replay-title">
                                     <h3>${v.user}</h3>
                                     <span>${v.createdAt}</span>
                                 </div>
-                                <p class="comment-text">${v.comment}</p>
+                                <p class="replay-text">${v.comment}</p>
                             </div> 
                         </div>
                     `)
