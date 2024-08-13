@@ -92,7 +92,7 @@
                                 @csrf
                                 <div class="form-group">
                                     <label for="comment">Comment</label>
-                                    <textarea name="comment" id="comment" class="form-control @error('comment')  is-invalid  @enderror" rows="10"></textarea>
+                                    <textarea name="comment" id="comment" class="form-control @error('comment')  is-invalid  @enderror" rows="5"></textarea>
                                     @error('comment')
                                     <div class="invalid-feedback">{{$message}}</div>
                                     @enderror

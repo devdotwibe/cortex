@@ -1282,6 +1282,12 @@ section.post-section .post-container .post-item .post-content{
   overflow: hidden; 
   text-overflow: ellipsis;
 }
+.post-comment {
+  margin: 10px 0px;
+}
+.post-comment .form-group label{
+  font-size:18px
+}
 
 
 
