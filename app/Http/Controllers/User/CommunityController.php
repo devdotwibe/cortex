@@ -326,7 +326,11 @@ class CommunityController extends Controller
         $data['post_id']=$post->id;
         $data['user_id']=$user->id;
         PostComment::store($data);
-        return redirect()->back()->with('success',"Comment Added");
+        if($request->ajax()){
+            return response()->json(['success'=>"Comment Added"]);
+        }else{
+            return redirect()->back()->with('success',"Comment Added");
+        }
     }
     public function show(Request $request,Post $post){
         /**
