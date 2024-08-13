@@ -332,6 +332,34 @@ class CommunityController extends Controller
             return redirect()->back()->with('success',"Comment Added");
         }
     }
+    public function postCommentReplay(Request $request,Post $post,PostComment $postComment){
+        /**
+         *  @var User
+         */
+        $user=Auth::user();
+        if($request->ajax()){
+            $comments=PostComment::where('post_id',$post->id)->where('post_comment_id',$postComment->id)->orderBy('id','DESC')->paginate();
+            $results=[];
+            foreach ($comments->items() as $row) { 
+                $results[]=[
+                    'slug'=>$row->slug,
+                    'comment'=>$row->comment,
+                    'user'=>optional($row->user)->name,
+                    'createdAt'=>$row->created_at->diffInMinutes(now())>1? $row->created_at->diffForHumans(now(), true)." ago":'Just Now',
+                ];
+            }
+            
+            return [ 
+                'current_page' => $comments->currentPage(),
+                'total_pages' => $comments->lastPage(),
+                'total_items' => $comments->total(),
+                'items_per_page' => $comments->perPage(),
+                'data' => $results, 
+                'prev' => $comments->previousPageUrl(),
+                'next' => $comments->nextPageUrl()
+            ]; 
+        }
+    }
     public function show(Request $request,Post $post){
         /**
          *  @var User
@@ -346,7 +374,7 @@ class CommunityController extends Controller
                     'comment'=>$row->comment,
                     'user'=>optional($row->user)->name,
                     'createdAt'=>$row->created_at->diffInMinutes(now())>1? $row->created_at->diffForHumans(now(), true)." ago":'Just Now',
-                    'replyUrl'=>""
+                    'replyUrl'=>route("community.post.comment.reply",['post'=>$post->slug,'post_comment'=>$row->slug]),
                 ];
             }
             

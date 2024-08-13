@@ -214,14 +214,30 @@
             })
         }
         function loadcommentreplay(url,comment){
-            // $.get(url,function(res){
+            $.get(url,function(res){
             //     // if(res.next){
             //     //     $('#load-more-btn').show().data('url',res.next)
             //     // }else{
             //     //     $('#load-more-btn').hide().data('url',null);
             //     // }
-            //     $.each(res.data,function(k,v){})
-            // })
+                $.each(res.data,function(k,v){
+
+                    $(comment).append(`
+                        <div class="post-comment-reply-item" id="post-comment-reply-${v.slug}"> 
+                            <div class="post-comment-reply-text">
+                                <div class="comment-avathar">
+                                    <img src="{{asset("assets/images/User-blk.png")}}" alt="img">
+                                </div>
+                                <div class="comment-title">
+                                    <h3>${v.user}</h3>
+                                    <span>${v.createdAt}</span>
+                                </div>
+                                <p class="comment-text">${v.comment}</p>
+                            </div> 
+                        </div>
+                    `)
+                })
+            })
         }
         $(function(){
             loadcomment("{{url()->current()}}");
