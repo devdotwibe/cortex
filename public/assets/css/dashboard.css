@@ -1251,6 +1251,27 @@ section.post-section .post-item .post-actions a.post-action-btn span{
   background-color:#2196F3;
   color: white;
 }
+.post-header {
+  width:100%;
+  display:flex;
+  margin:10px 0;
+}
+.post-header .avathar{
+  width:40px;
+  height:40px;
+  margin:5px 10px;
+}
+.post-header .title {
+  width:100%
+}
+.post-header .title h3{
+  font-size:18px;
+  font-weight:500;
+}
+
+
+
+
 
 .side_bar { width: 270px;height: 100vh;padding: 30px;overflow: hidden;position: fixed;background: #ffff;z-index: 99;box-shadow: 4px 0px 16px 0px #0000000A;left: 0;border-radius: 0 10px 10px 0;top: 80px}
 .side-bar-logo {margin: 0 0 20px;}
