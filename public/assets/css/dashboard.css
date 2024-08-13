@@ -1268,6 +1268,14 @@ section.post-section .post-item .post-actions a.post-action-btn span{
   font-size:18px;
   font-weight:500;
 }
+section.post-section .post-container .post-item .post-content{    
+  color:#212121;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  overflow: hidden; 
+  text-overflow: ellipsis;
+}
 
 
 

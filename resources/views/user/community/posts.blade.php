@@ -75,6 +75,7 @@
 
                 $('#post-item-list').append(`
                     <div class="post-item" id="post-item-${v.slug}">  
+                        <a href="${v.showUrl}">
                         <div class="post-header">
                             <div class="avathar">
                                 <img src="{{asset("assets/images/User-blk.png")}}" alt="img">
@@ -90,6 +91,7 @@
                         <div class="post-content">
                             ${v.description||""}
                         </div>
+                        </a>
                         <div class="poll-options">
                             ${polloption}
                         </div>
@@ -145,6 +147,7 @@
                 })
             }
             $(id).html(`
+            <a href="${v.showUrl}">
             <div class="post-header">
                 <div class="avathar">
                     <img src="{{asset("assets/images/User-blk.png")}}" alt="img">
@@ -160,6 +163,7 @@
             <div class="post-content">
                 ${v.description||""}
             </div>
+            </a>
             <div class="poll-options">
                 ${polloption}
             </div>
