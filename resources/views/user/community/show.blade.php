@@ -183,7 +183,7 @@
                                         </div>
                                     </form>
                                 </div>
-                                <div clas="replay-list" id="post-comment-${v.slug}-replys"></div>
+                                <div class="replay-list" id="post-comment-${v.slug}-replys"></div>
                             </div>
                         </div>
                     `)
