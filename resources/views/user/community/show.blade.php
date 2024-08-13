@@ -199,7 +199,7 @@
             $.post("{{route('community.post.comment',$post->slug)}}",$(form).serialize(),function(res){
                 form.reset();
                 $(`#post-comment-${v.slug}-replys`).html('')
-                loadcommentreplay(replyUrl,`#post-comment-${v.slug}-replys`)
+                loadcommentreplay(replyUrl,`#post-comment-${slug}-replys`)
             },'json').fail(function(xhr){
                 try {
                     let res = JSON.parse(xht.responseText); 
