@@ -223,6 +223,10 @@
             }]
         },
         options: {
+            responsive: true,
+            interaction: {
+            intersect: false,
+            },
             scales: {
                 y: {
                     beginAtZero: true, 
