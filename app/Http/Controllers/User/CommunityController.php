@@ -320,7 +320,8 @@ class CommunityController extends Controller
             "comment"=>'required'
         ]);
         if(!empty(($request->reply))){
-            $data['post_comment_id']=$request->reply;
+            $replay=PostComment::findSlug($request->reply);
+            $data['post_comment_id']= $replay->id;
         }
         $data['post_id']=$post->id;
         $data['user_id']=$user->id;
@@ -333,14 +334,15 @@ class CommunityController extends Controller
          */
         $user=Auth::user();
         if($request->ajax()){
-            $comments=PostComment::where('post_id',$post->id)->orderBy('id','DESC')->paginate();
+            $comments=PostComment::where('post_id',$post->id)->whereNull('post_comment_id')->orderBy('id','DESC')->paginate();
             $results=[];
             foreach ($comments->items() as $row) { 
                 $results[]=[
                     'slug'=>$row->slug,
                     'comment'=>$row->comment,
                     'user'=>optional($row->user)->name,
-                    "createdAt"=>$row->created_at->diffInMinutes(now())>1? $row->created_at->diffForHumans(now(), true)." ago":'Just Now',
+                    'createdAt'=>$row->created_at->diffInMinutes(now())>1? $row->created_at->diffForHumans(now(), true)." ago":'Just Now',
+                    'replyUrl'=>""
                 ];
             }
             

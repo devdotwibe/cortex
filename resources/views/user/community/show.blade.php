@@ -163,16 +163,64 @@
                                 </div>
                                 <p class="comment-text">${v.comment}</p>
                                 <div class="comment-action">
-                                    <a class="reply-btn m-2" >Reply</a>
+                                    <a class="reply-btn m-2" onclick="showToggle('#post-comment-${v.slug}-reply-form')" >Reply</a>
                                     <a class="like-btn m-2"  href="{{route('community.post.like',$post->slug)}}"><img src="{{asset('assets/images/like.svg')}}"  slt="comment"> <span>0</span></a>
                                 </div>
                             </div>
-                            <div class="post-comment-replys" id="post-comment-${v.slug}-replys">
+                            <div class="post-comment-replys" >
+                                <div class="form" id="post-comment-${v.slug}-reply-form" style="display:none">
+                                    <form  onSubmit="replaysubmit(event,this,'${v.slug}','${v.replyUrl}')" method="post">
+                                        @csrf
+                                        <input type="hidden" name="reply" value="${v.slug}" >
+                                        <div class="form-group">
+                                            <label for="post-comment-${v.slug}-reply-form-comment">Reply</label>
+                                            <textarea name="comment" id="post-comment-${v.slug}-reply-form-comment" class="form-control"></textarea>
+                                            <div class="invalid-feedback" id="post-comment-${v.slug}-reply-form-comment-error"></div> 
+                                        </div>
+                                        <div class="form-group mt-3">
+                                            <button class="btn btn-dark ">Add Comment</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div clas="replay-lis" id="post-comment-${v.slug}-replys"></div>
                             </div>
                         </div>
                     `)
+                    loadcommentreplay(v.replyUrl,`#post-comment-${v.slug}-replys`)
                 })
             },'json')
+        }
+        function showToggle(e){
+            $(e).slideToggle();
+        }
+        function replaysubmit(e,form,slug,replyUrl){
+            e.preventDefault();
+            $(form).find('.form-control').removeClass('is-invalid')
+            $.post("{{route('community.post.comment',$post->slug)}}",$(form).serialize(),function(res){
+                form.reset();
+                $(`#post-comment-${v.slug}-replys`).html('')
+                loadcommentreplay(replyUrl,`#post-comment-${v.slug}-replys`)
+            },'json').fail(function(xhr){
+                try {
+                    let res = JSON.parse(xht.responseText); 
+                    $.each(res.errors,function(k,v){
+                        $(`#post-comment-${slug}-reply-form-${k}`).addClass('is-invalid')
+                        $(`#post-comment-${slug}-reply-form-${k}-error`).text(v[0])
+                    })
+                } catch (error) {
+                    
+                }
+            })
+        }
+        function loadcommentreplay(url,comment){
+            // $.get(url,function(res){
+            //     // if(res.next){
+            //     //     $('#load-more-btn').show().data('url',res.next)
+            //     // }else{
+            //     //     $('#load-more-btn').hide().data('url',null);
+            //     // }
+            //     $.each(res.data,function(k,v){})
+            // })
         }
         $(function(){
             loadcomment("{{url()->current()}}");
