@@ -1323,7 +1323,7 @@ section.post-section .post-container .post-item .post-content{
   width:100%;
   margin: 10px 0px;
 }
-.replay-list .replay-list-item {
+.replay-list .replay-list-item .replay-list-text {
     border:1px solid #afafaf;
     padding: 10px 15px;
     margin: 10px 0;
@@ -1332,12 +1332,12 @@ section.post-section .post-container .post-item .post-content{
     flex-wrap:wrap;
     width:100%;
 }
-.replay-list .replay-list-item .replay-text {
+.replay-list .replay-list-item .replay-list-text .replay-text {
   width:100%;
   text-align:justify;
   margin:5px 10px 15px 10px;
 }
-.replay-list .replay-list-item .replay-avathar {
+.replay-list .replay-list-item .replay-list-text .replay-avathar {
   width:40px;
   height:40px
 }
