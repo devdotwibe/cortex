@@ -178,7 +178,8 @@
                                             <div class="invalid-feedback" id="post-comment-${v.slug}-reply-form-comment-error"></div> 
                                         </div>
                                         <div class="form-group mt-3">
-                                            <button class="btn btn-dark ">Add Comment</button>
+                                            <button type="submit" class="btn btn-dark ">Add Reply</button>
+                                            <button type="button"  onclick="showToggle('#post-comment-${v.slug}-reply-form')" class="btn btn-outline-dark ">Cancel</button>
                                         </div>
                                     </form>
                                 </div>
