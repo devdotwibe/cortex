@@ -1288,7 +1288,22 @@ section.post-section .post-container .post-item .post-content{
 .post-comment .form-group label{
   font-size:18px
 }
-
+.post-comment{
+  width:100%;
+}
+.post-comment .post-comment-item {
+  width:100%; 
+  margin: 10px 0;
+  display:block;
+}
+.post-comment .post-comment-item .post-comment-text{
+  border:1px solid #afafaf;
+  padding: 10px 5px;
+  margin: 10px 0;
+  float:left;
+  width:80%;
+  border-radius:20px 5px 5px 0px;
+}
 
 
 
