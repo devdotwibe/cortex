@@ -146,16 +146,25 @@ class CommunityController extends Controller
         return view('user.community.create',compact('user'));
     }
     public function store(Request $request){ 
-        $data=$request->validate([
-            'title'=>["required","max:255"],
-            'type'=>["required"],
-            'description'=>["required_if:type,'post'"],
-            'option'=>["required_if:type,poll",'array','min:2'],
-            'option.*'=>["required_if:type,poll",'max:255'],
-        ],[
-            'option.required_if'=>"This field is required",
-            'option.*.required_if'=>"This field is required",
-        ]);
+        $type=$request->type??"post";
+        if($type=="post"){
+            $data=$request->validate([
+                'title'=>["required","max:255"],
+                'type'=>["required"],
+                'description'=>["required"], 
+            ]);
+        }else{
+
+            $data=$request->validate([
+                'title'=>["required","max:255"],
+                'type'=>["required"], 
+                'option'=>["required",'array','min:2'],
+                'option.*'=>["required",'max:255'],
+            ],[
+                'option.required'=>"This field is required",
+                'option.*.required'=>"This field is required",
+            ]);
+        }
 
         /**
          *  @var User
@@ -351,16 +360,25 @@ class CommunityController extends Controller
         return view('user.community.edit',compact('post','user'));
     }
     public function update(Request $request,Post $post){
-        $data=$request->validate([
-            'title'=>["required","max:255"],
-            'type'=>["required"],
-            'description'=>["required_if:type,'post'"],
-            'option'=>["required_if:type,'poll'",'array','min:2'],
-            'option.*'=>["required_if:type,'poll'",'max:255'],
-        ],[
-            'option.required_if'=>"This field is required",
-            'option.*.required_if'=>"This field is required",
-        ]);
+        $type=$request->type??"post";
+        if($type=="post"){
+            $data=$request->validate([
+                'title'=>["required","max:255"],
+                'type'=>["required"],
+                'description'=>["required"], 
+            ]);
+        }else{
+
+            $data=$request->validate([
+                'title'=>["required","max:255"],
+                'type'=>["required"], 
+                'option'=>["required",'array','min:2'],
+                'option.*'=>["required",'max:255'],
+            ],[
+                'option.required'=>"This field is required",
+                'option.*.required'=>"This field is required",
+            ]);
+        }
 
         $post->update($data);
         $ids=[];
