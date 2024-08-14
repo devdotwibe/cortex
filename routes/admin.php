@@ -117,7 +117,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
             // Route::get('/post/{post}/like', [CommunityControllerController::class, 'postLike'])->name('post.like'); 
             // Route::post('/post/{post}/comment', [CommunityControllerController::class, 'postComment'])->name('post.comment'); 
             Route::get('/post/{post}/comment/{post_comment}/reply', [CommunityControllerController::class, 'postCommentReplay'])->name('post.comment.reply'); 
-            // Route::get('/post/{post}/comment/{post_comment}/like', [CommunityControllerController::class, 'commentLike'])->name('post.comment.like'); 
+            Route::delete('/post/{post}/comment/{post_comment}/delete', [CommunityControllerController::class, 'commentDestroy'])->name('post.comment.destroy'); 
         });
 
         // Route::resource("/options",CategoryController::class);
