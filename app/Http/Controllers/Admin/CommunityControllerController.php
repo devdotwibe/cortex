@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use App\Models\AdminPolls;
 use App\Models\Poll;
@@ -67,7 +68,11 @@ class CommunityControllerController extends Controller
     public function create(Request $request){
         return view('admin.community.create');
     }
-    public function store(Request $request){ 
+    public function store(Request $request){
+        /**
+         * @var Admin
+         */
+        $admin=Auth::guard('admin')->user();
         $type=$request->type??"post";
         if($type=="post"){
             $data=$request->validate([
@@ -89,6 +94,7 @@ class CommunityControllerController extends Controller
         }
   
         $data['status']="publish";
+        $data['admin_id']=$admin->id;
         $post=Post::store($data);
         if($request->type=="poll"){
             foreach ($request->input('option',[]) as $k=>$v) {
