@@ -97,27 +97,48 @@
 @endsection 
 @push('modals') 
     
-        <div class="modal fade" id="delete-post" tabindex="-1" role="dialog" aria-labelledby="Label" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
+    <div class="modal fade" id="delete-post" tabindex="-1" role="dialog" aria-labelledby="Label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
 
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="Lablel">Delete Confirmation Required</h5>
-                        <button type="button" class="close"  data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="{{route('admin.community.post.destroy',$post->slug)}}"  id="delete-post-form" method="post">
-                            @csrf
-                            @method("DELETE")
-                            <p>Are you sure you want to delete the record </p>
-                            <button type="button" data-bs-dismiss="modal"   class="btn btn-secondary">Cancel</button>
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
-                    </div>
-
+                <div class="modal-header">
+                    <h5 class="modal-title" id="Lablel">Delete Confirmation Required</h5>
+                    <button type="button" class="close"  data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
+                <div class="modal-body">
+                    <form action="{{route('admin.community.post.destroy',$post->slug)}}"  id="delete-post-form" method="post">
+                        @csrf
+                        @method("DELETE")
+                        <p>Are you sure you want to delete the record </p>
+                        <button type="button" data-bs-dismiss="modal"   class="btn btn-secondary">Cancel</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+
             </div>
-        </div> 
+        </div>
+    </div> 
+    <div class="modal fade" id="delete-post-comment" tabindex="-1" role="dialog" aria-labelledby="Label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="Lablel">Delete Confirmation Required</h5>
+                    <button type="button" class="close"  data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <form action="#"  id="delete-post-comment-form" method="post">
+                        @csrf
+                        @method("DELETE")
+                        <p>Are you sure you want to delete the record </p>
+                        <button type="button" data-bs-dismiss="modal"   class="btn btn-secondary">Cancel</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div> 
 @endpush
 
 @push('footer-script')
@@ -144,6 +165,7 @@
                                 <div class="comment-action">
                                     <a class="reply-btn m-2 btn"  >Reply <span>${v.replys}</span></a>
                                     <a class="like-btn m-2 btn"  ><img src="{{asset('assets/images/like.svg')}}"  slt="comment"> <span>${v.likes}</span></a>
+                                    <a class="delete-btn m-2btn btn-danger float-end" onclick="deletecomment('${v.deleteUrl}')">Delete</a>
                                 </div>
                             </div>
                             <div class="post-comment-replys" > 
@@ -175,17 +197,30 @@
                                     <span>${v.createdAt}</span>
                                 </div>
                                 <p class="replay-text">${v.comment}</p>
+                                <a class="delete-btn m-2btn btn-danger float-end" onclick="deletecomment('${v.deleteUrl}')">Delete</a>
                             </div> 
                         </div>
                     `)
                 })
             })
         }
+        function deletecomment(url){
+            $('#delete-post-comment-form').attr('action',url);
+            $('#delete-post-comment').modal('show');
+        }
         $(function(){
             loadcomment("{{url()->current()}}");
             $('#load-more-btn').click(function(){
                 loadcomment($('#load-more-btn').data('url'))
-            })    
+            })
+            $('#delete-post-comment-form').submit(function(e){
+                e.preventDefault();
+                $.post($(this).attr('action'),$(this).serialize(),function(res){
+                    $('#post-comment-list').html(``)
+                    loadcomment("{{url()->current()}}");
+                });
+                $('#delete-post-comment').modal('hide')
+            });
         })
     </script>
 @endpush
