@@ -14,4 +14,10 @@ class PostComment extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+    public function likes(){
+        return $this->hasMany(CommentLike::class);
+    }
+    public function replys(){
+        return $this->hasMany(PostComment::class);
+    }
 }

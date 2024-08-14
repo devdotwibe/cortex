@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\CommentLike;
 use App\Models\Poll;
 use App\Models\Post;
 use App\Models\User;
@@ -311,6 +312,69 @@ class CommunityController extends Controller
             return redirect()->back()->with('success',$row->likes()->where('user_id',$user->id)->count()>0?"Liked":"Removed");
         }
     }
+
+    public function commentLike(Request $request,Post $post,PostComment $postComment){ 
+        /**
+         *  @var User
+         */
+        $user=Auth::user();
+        $like=CommentLike::where('user_id',$user->id)->where('post_id',$post->id)->where('post_comment_id',$postComment->id)->first();
+        if(empty($like)){
+            $like=CommentLike::store([
+                'user_id'=>$user->id,
+                'post_id'=>$post->id,
+                'post_comment_id'=>$postComment->id,
+            ]);
+        }else{
+            $like->delete();
+        } 
+        $row=Post::find($post->id);
+        if($request->ajax()){
+
+            $options=[];
+            $tvotes=$row->pollOption->sum('votes');
+            foreach($row->pollOption as $opt){
+                $options[]=[
+                    "slug"=>$opt->slug,
+                    "option"=>$opt->option,
+                    "votes"=>$opt->votes,
+                    'percentage'=>$tvotes>0?round(($opt->votes*100)/$tvotes,2):0,
+                    'voteUrl'=>route('community.poll.vote',$opt->slug),
+                ];
+            }     
+            
+            $vote=Poll::where('user_id',$user->id)->where('post_id',$row->id)->first();
+            if(!empty($vote)){
+                $vote=[
+                    'slug'=>$vote->slug, 
+                    'option'=>optional($vote->pollOption)->slug,
+                ];
+            }
+            return response()->json( [
+                "slug"=>$row->slug,
+                "title"=>$row->title,
+                "type"=>$row->type,
+                "description"=>$row->description,
+                "likes"=>$row->likes()->count(),
+                "comments"=>$row->comments()->whereNull('post_comment_id')->count(),
+                "image"=>$row->image,
+                "video"=>$row->video,
+                "status"=>$row->status,
+                "vote"=>$vote, 
+                "poll"=>$options,
+                "showUrl"=>route('community.post.show',$row->slug),
+                "createdAt"=>$row->created_at->diffInMinutes(now())>1? $row->created_at->diffForHumans(now(), true)." ago":'Just Now',
+                "user"=>[
+                    "name"=>optional($row->user)->name
+                ],
+                "liked"=>$row->likes()->where('user_id',$user->id)->count()>0?true:false,
+                "likeUrl"=>route('community.post.like',$row->slug), 
+                "editUrl"=>$row->user_id==$user->id?route('community.post.edit',$row->slug):null,
+            ]);
+        }else{
+            return redirect()->back()->with('success',$row->likes()->where('user_id',$user->id)->count()>0?"Liked":"Removed");
+        }
+    }
     public function postComment(Request $request,Post $post){ 
         /**
          *  @var User
@@ -373,8 +437,11 @@ class CommunityController extends Controller
                     'slug'=>$row->slug,
                     'comment'=>$row->comment,
                     'user'=>optional($row->user)->name,
+                    "likes"=>$row->likes()->count(),
+                    "replys"=>$row->replys()->count(),
                     'createdAt'=>$row->created_at->diffInMinutes(now())>1? $row->created_at->diffForHumans(now(), true)." ago":'Just Now',
                     'replyUrl'=>route("community.post.comment.reply",['post'=>$post->slug,'post_comment'=>$row->slug]),
+                    'likeUrl'=>route("community.post.comment.like",['post'=>$post->slug,'post_comment'=>$row->slug]),
                 ];
             }
             

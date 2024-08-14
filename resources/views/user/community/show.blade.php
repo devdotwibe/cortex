@@ -163,8 +163,8 @@
                                 </div>
                                 <p class="comment-text">${v.comment}</p>
                                 <div class="comment-action">
-                                    <a class="reply-btn m-2 btn" onclick="showToggle('#post-comment-${v.slug}-reply-form')" >Reply</a>
-                                    <a class="like-btn m-2"  ><img src="{{asset('assets/images/like.svg')}}"  slt="comment"> <span>0</span></a>
+                                    <a class="reply-btn m-2 btn" onclick="showToggle('#post-comment-${v.slug}-reply-form')" >Reply <span>${v.replys}</span></a>
+                                    <a class="like-btn m-2" onclick="likevote('${v.likeUrl}','post-comment-${v.slug}')" ><img src="{{asset('assets/images/like.svg')}}"  slt="comment"> <span>${v.likes}</span></a>
                                 </div>
                             </div>
                             <div class="post-comment-replys" >
@@ -237,6 +237,45 @@
                         </div>
                     `)
                 })
+            })
+        }
+        function likevote(url,id) {
+            $.get(url,function(v){ 
+                $(id).html(`
+                <div class="post-comment-text">
+                    <div class="comment-avathar">
+                        <img src="{{asset("assets/images/User-blk.png")}}" alt="img">
+                    </div>
+                    <div class="comment-title">
+                        <h3>${v.user}</h3>
+                        <span>${v.createdAt}</span>
+                    </div>
+                    <p class="comment-text">${v.comment}</p>
+                    <div class="comment-action">
+                        <a class="reply-btn m-2 btn-outline-dark" onclick="showToggle('#post-comment-${v.slug}-reply-form')" >Reply <span>${v.replys}</span></a>
+                        <a class="like-btn m-2" onclick="likevote('${v.likeUrl}','post-comment-${v.slug}')"  ><img src="{{asset('assets/images/like.svg')}}"  slt="comment"> <span>${v.likes}</span></a>
+                    </div>
+                </div>
+                <div class="post-comment-replys" >
+                    <div class="form" id="post-comment-${v.slug}-reply-form" style="display:none">
+                        <form  onSubmit="replaysubmit(event,this,'${v.slug}','${v.replyUrl}')" method="post">
+                            @csrf
+                            <input type="hidden" name="reply" value="${v.slug}" >
+                            <div class="form-group">
+                                <label for="post-comment-${v.slug}-reply-form-comment">Reply</label>
+                                <textarea name="comment" id="post-comment-${v.slug}-reply-form-comment" class="form-control"></textarea>
+                                <div class="invalid-feedback" id="post-comment-${v.slug}-reply-form-comment-error"></div> 
+                            </div>
+                            <div class="form-group mt-3">
+                                <button type="submit" class="btn btn-dark ">Add Reply</button>
+                                <button type="button"  onclick="showToggle('#post-comment-${v.slug}-reply-form')" class="btn btn-outline-dark ">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="replay-list" id="post-comment-${v.slug}-replys"></div>
+                </div>
+                `)
+                loadcommentreplay(v.replyUrl,`#post-comment-${v.slug}-replys`)
             })
         }
         $(function(){
