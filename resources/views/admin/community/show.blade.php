@@ -5,14 +5,14 @@
 <section class="header_nav">
     <div class="header_wrapp">
         <div class="back-btn" >
-            <a href="{{route('community.index')}}"><img src="{{asset('assets/images/leftarrowblack.svg')}}" alt=""></a>
+            <a href="{{route('admin.community.index')}}"><img src="{{asset('assets/images/leftarrowblack.svg')}}" alt=""></a>
         </div>
         <div class="header_title">
             <h2>{{$post->title}}</h2>
         </div> 
         <div class="header_right">
             <ul class="nav_bar"> 
-                <li class="nav_item"><a href="{{route('community.post.edit',$post->slug)}}" class="nav_link btn">Edit Post</a></li>
+                <li class="nav_item"><a href="{{route('admin.community.post.edit',$post->slug)}}" class="nav_link btn">Edit Post</a></li>
                 <li class="nav_item"><a data-bs-toggle="modal" data-target="#delete-post" data-bs-target="#delete-post" class="btn btn-outline-danger">Delete</a></li>                    
             </ul>
         </div>
