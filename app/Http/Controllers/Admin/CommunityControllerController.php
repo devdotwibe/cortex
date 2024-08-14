@@ -217,4 +217,9 @@ class CommunityControllerController extends Controller
         $post->delete();
         return redirect()->route('admin.community.index')->with('success',"Post Deleted");
     }
+    public function commentDestroy(Request $request,Post $post,PostComment $postComment){ 
+        PostComment::where('post_comment_id',$postComment->id)->delete();
+        PostComment::where('id',$postComment->id)->delete();
+        return redirect()->route('admin.community.index')->with('success',"Post Comment Deleted");
+    }
 }
