@@ -163,7 +163,7 @@
                                 </div>
                                 <p class="comment-text">${v.comment}</p>
                                 <div class="comment-action">
-                                    <a class="reply-btn m-2" onclick="showToggle('#post-comment-${v.slug}-reply-form')" >Reply</a>
+                                    <a class="reply-btn m-2 btn" onclick="showToggle('#post-comment-${v.slug}-reply-form')" >Reply</a>
                                     <a class="like-btn m-2"  ><img src="{{asset('assets/images/like.svg')}}"  slt="comment"> <span>0</span></a>
                                 </div>
                             </div>
