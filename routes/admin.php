@@ -111,25 +111,13 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
 
         Route::prefix('community')->name('community.')->group(function () {
-            Route::get('/',[CommunityControllerController::class,'index'])->name('index');
-            Route::get('/post',[CommunityControllerController::class,'create'])->name('create');
-            Route::post('/post/store',[CommunityControllerController::class,'store'])->name('store');
-            Route::get('/post/show',[CommunityControllerController::class,'show'])->name('show');
-            
-           
-            
-            Route::get('/poll/create',[CommunityControllerController::class,'createPoll'])->name('poll.create');
-            Route::get('/polls',[CommunityControllerController::class,'getPolls'])->name('poll.index');
-            Route::post('/poll/store',[CommunityControllerController::class,'storePoll'])->name('poll.store');
-            Route::put('/poll/vote',[CommunityControllerController::class,'votePoll'])->name('poll.vote');
-            Route::get('/poll/edit/{id}', [CommunityControllerController::class,'edit'])->name('poll.edit');
-            Route::put('/poll/update/{id}', [CommunityControllerController::class, 'update'])->name('poll.update');
-            Route::delete('/poll/delete/{id}', [CommunityControllerController::class, 'destroy'])->name('poll.destroy');
-          
-
-           
-
-            
+            Route::get('/', [CommunityControllerController::class, 'index'])->name('index');
+            Route::resource('/post', CommunityControllerController::class);
+            Route::get('/poll/{poll_option}/vote', [CommunityControllerController::class, 'pollVote'])->name('poll.vote'); 
+            Route::get('/post/{post}/like', [CommunityControllerController::class, 'postLike'])->name('post.like'); 
+            Route::post('/post/{post}/comment', [CommunityControllerController::class, 'postComment'])->name('post.comment'); 
+            Route::get('/post/{post}/comment/{post_comment}/reply', [CommunityControllerController::class, 'postCommentReplay'])->name('post.comment.reply'); 
+            Route::get('/post/{post}/comment/{post_comment}/like', [CommunityControllerController::class, 'commentLike'])->name('post.comment.like'); 
         });
 
         // Route::resource("/options",CategoryController::class);

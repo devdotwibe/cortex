@@ -13,156 +13,53 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class CommunityControllerController extends Controller
-{
-            public function index(Request $request)
-        {
-            /**
-             * @var User
-             */
-            $user = Auth::user();
-
-            
-            $data = Poll::with('options')->get();
-
-            return view('admin.community.index', compact('user', 'data'));
-        }
-
-        
-
-    public function create(Request $request){
-        /**
-         *  @var User
-         */
-        $user=Auth::user();
-        return view('admin.community.create',compact('user'));
-    }
-    public function store(Request $request) { 
-        $data = $request->validate([
-            'title' => ["required", "max:255"],
-            'description' => ["required"],
-        ]);
+{ 
     
-        /**
-         *  @var User
-         */
-        $user = Auth::user();
-    
-        $data['user_id'] = $user->id;
-        $data['status'] = "publish";
-    
-        // Use the create method instead of store
-        $post = AdminPost::create($data);
-    
-        return redirect()->route('admin.community.show', $post->slug)->with('success', "Post published");
-    }
-    public function show(Request $request,AdminPost $post){
-        /**
-         *  @var User
-         */
-        $user=Auth::user();
-        return view('admin.community.show',compact('post','user'));
-    }
-
-    public function edit($id)
-    { 
-        $poll = Poll::findOrFail($id); 
-        
-        $user=Auth::user();
-        
-        return view('admin.community.edit', compact('poll','user'));
-    }
-
-    public function update(Request $request,$id)
-    {
-        $request->validate([
-            'question' => 'required|string|max:255',
-            'options' => 'required|array',
-            'options.*' => 'required|string|max:255',
-            
-        ]);
-    
-        // Find the poll by ID
-        $poll = Poll::findOrFail($id);
-    
-        // Update the poll question
-        $poll->question = $request->input('question');
-        $poll->save();
-    
-        $options = $request->input('options');
-        $optionIds = $request->input('option_ids', []);
-    
-        foreach ($options as $index => $option) {
-            if (isset($optionIds[$index])) {
-                $pollOption = $poll->options()->where('id', $optionIds[$index])->first();
-                if ($pollOption) {
-                    $pollOption->option = $option;
-                    $pollOption->save();
+    public function index(Request $request){ 
+        if($request->ajax()){   
+            $posts=Post::where('id','>',0)->orderBy('id','DESC')->paginate();
+            $results=[];
+            foreach ($posts->items() as $row) { 
+                $options=[];
+                $tvotes=$row->pollOption->sum('votes');
+                foreach($row->pollOption as $opt){
+                    $options[]=[
+                        "slug"=>$opt->slug,
+                        "option"=>$opt->option,
+                        "votes"=>$opt->votes,
+                        'percentage'=>$tvotes>0?round(($opt->votes*100)/$tvotes,2):0,
+                    ];
                 }
-            } else {
-                $poll->options()->create(['option' => $option]);
+                $results[]=[
+                    "slug"=>$row->slug,
+                    "title"=>$row->title,
+                    "type"=>$row->type,
+                    "description"=>$row->description,
+                    "likes"=>$row->likes()->count(),
+                    "comments"=>$row->comments()->whereNull('post_comment_id')->count(),
+                    "image"=>$row->image,
+                    "video"=>$row->video,
+                    "status"=>$row->status,
+                    "poll"=>$options,
+                    "showUrl"=>route('admin.community.post.show',$row->slug),
+                    "createdAt"=>$row->created_at->diffInMinutes(now())>1? $row->created_at->diffForHumans(now(), true)." ago":'Just Now',
+                    "user"=>[
+                        "name"=>optional($row->user)->name
+                    ],
+                     
+                ];
             }
-        }
-        return redirect()->route('admin.community.index')->with('success', 'Post deleted successfully');
+            return [ 
+                'current_page' => $posts->currentPage(),
+                'total_pages' => $posts->lastPage(),
+                'total_items' => $posts->total(),
+                'items_per_page' => $posts->perPage(),
+                'data' => $results, 
+                'prev' => $posts->previousPageUrl(),
+                'next' => $posts->nextPageUrl()
+            ];
+        } 
+        return view('admin.community.index');
     }
 
-    public function destroy($id)
-  {
-    $poll = Poll::findOrFail($id);
-    
-        $poll->delete();
-    return redirect()->route('admin.community.index')
-      ->with('success', 'poll deleted successfully');
-  }
-   
-
-    public function pollcreate()
-    {
-        return view('create');
-    }
-
-    public function storePoll(Request $request)
-    { 
-        $request->validate([
-            'question' => 'required|string|max:255',
-            'option1' => 'required|string|max:255',
-            'option2' => 'required|string|max:255',
-        ]);
-
-        AdminPolls::create([
-            'question' => $request->input('question'),
-            'option1' => $request->input('option1'),
-            'option2' => $request->input('option2'),
-        ]);
-
-        $user=Auth::user();  
-        return to_route('admin.community.index')->with('success','Failed to Update Event Details');
-        
-    }
-
-    public function votePoll(Request $request)
-    {
-        $poll = AdminPolls::find($request->poll_id);
-        if ($poll) {
-            if ($request->option === 'option1') {
-                $poll->increment('option1_votes');
-            } elseif ($request->option === 'option2') {
-                $poll->increment('option2_votes');
-            }
-            $poll->save();
-    
-            $totalVotes = $poll->option1_votes + $poll->option2_votes;
-            $option1Percentage = $totalVotes ? ($poll->option1_votes / $totalVotes * 100) : 0;
-            $option2Percentage = $totalVotes ? ($poll->option2_votes / $totalVotes * 100) : 0;
-    
-            return response()->json([
-                'option1_percentage' => $option1Percentage,
-                'option2_percentage' => $option2Percentage,
-            ]);
-        }
-        return response()->json(['error' => 'Poll not found'], 404);
-    }
-
-   
-
-    
 }
