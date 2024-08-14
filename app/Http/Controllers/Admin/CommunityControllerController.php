@@ -62,7 +62,7 @@ class CommunityControllerController extends Controller
         return view('admin.community.index');
     }
     public function create(Request $request){
-        return view('user.community.create');
+        return view('admin.community.create');
     }
 
 }
