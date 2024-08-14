@@ -165,7 +165,7 @@
                                 <div class="comment-action">
                                     <a class="reply-btn m-2 btn"  >Reply <span>${v.replys}</span></a>
                                     <a class="like-btn m-2 btn"  ><img src="{{asset('assets/images/like.svg')}}"  slt="comment"> <span>${v.likes}</span></a>
-                                    <a class="delete-btn m-2btn btn-danger float-end" onclick="deletecomment('${v.deleteUrl}')">Delete</a>
+                                    <a class="delete-btn m-2 btn btn-danger float-end" onclick="deletecomment('${v.deleteUrl}')">Delete</a>
                                 </div>
                             </div>
                             <div class="post-comment-replys" > 
