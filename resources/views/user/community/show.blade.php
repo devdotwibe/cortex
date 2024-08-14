@@ -164,7 +164,7 @@
                                 <p class="comment-text">${v.comment}</p>
                                 <div class="comment-action">
                                     <a class="reply-btn m-2 btn" onclick="showToggle('#post-comment-${v.slug}-reply-form')" >Reply <span>${v.replys}</span></a>
-                                    <a class="like-btn m-2" onclick="likevote('${v.likeUrl}','post-comment-${v.slug}')" ><img src="{{asset('assets/images/like.svg')}}"  slt="comment"> <span>${v.likes}</span></a>
+                                    <a class="like-btn m-2" onclick="likevote('${v.likeUrl}','#post-comment-${v.slug}')" ><img src="{{asset('assets/images/like.svg')}}"  slt="comment"> <span>${v.likes}</span></a>
                                 </div>
                             </div>
                             <div class="post-comment-replys" >
@@ -253,7 +253,7 @@
                     <p class="comment-text">${v.comment}</p>
                     <div class="comment-action">
                         <a class="reply-btn m-2 btn-outline-dark" onclick="showToggle('#post-comment-${v.slug}-reply-form')" >Reply <span>${v.replys}</span></a>
-                        <a class="like-btn m-2" onclick="likevote('${v.likeUrl}','post-comment-${v.slug}')"  ><img src="{{asset('assets/images/like.svg')}}"  slt="comment"> <span>${v.likes}</span></a>
+                        <a class="like-btn m-2" onclick="likevote('${v.likeUrl}','#post-comment-${v.slug}')"  ><img src="{{asset('assets/images/like.svg')}}"  slt="comment"> <span>${v.likes}</span></a>
                     </div>
                 </div>
                 <div class="post-comment-replys" >
