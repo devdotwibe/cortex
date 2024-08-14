@@ -70,7 +70,7 @@
                 ["th"=>"Name","name"=>"name","data"=>"name"],
                 ["th"=>"Email","name"=>"email","data"=>"email"],
                 ["th"=>"Community","name"=>"post_status","data"=>"post_status"],
-            ]' />
+            ]' tableinit="usertableinit" />
         </div>
     </div>
 </section>
@@ -113,12 +113,25 @@
 @endpush
 @push('footer-script')
     <script>
+
+        var usertable = null;
+        function usertableinit(table) {
+            usertable = table
+        }
+        function changeactivestatus(url){
+            $.get(url,function(res){
+                if (usertable != null) {
+                    usertable.ajax.reload()
+                }
+            })
+        }
+
         function resetpassword(url){
             $('#user-password-reset-form').attr('action',url)
             $('.password-reset-field').val('').removeClass('is-invalid')
             $('.password-reset-error').text("")
             $('#password-reset-modal').modal('show')
-        }
+        } 
         $(function(){
             $('#user-password-reset-form').submit(function(e){
                 e.preventDefault();
