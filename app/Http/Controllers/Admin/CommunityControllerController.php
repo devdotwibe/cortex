@@ -113,8 +113,6 @@ class CommunityControllerController extends Controller
                     "likes"=>$row->likes()->count(),
                     "replys"=>$row->replys()->count(),
                     'createdAt'=>$row->created_at->diffInMinutes(now())>1? $row->created_at->diffForHumans(now(), true)." ago":'Just Now',
-                    'replyUrl'=>route("admin.community.post.comment.reply",['post'=>$post->slug,'post_comment'=>$row->slug]),
-                    'likeUrl'=>route("admin.community.post.comment.like",['post'=>$post->slug,'post_comment'=>$row->slug]),
                 ];
             }
             
