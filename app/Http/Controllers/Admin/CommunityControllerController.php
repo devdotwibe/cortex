@@ -120,6 +120,7 @@ class CommunityControllerController extends Controller
                     "replys"=>$row->replys()->count(),
                     'createdAt'=>$row->created_at->diffInMinutes(now())>1? $row->created_at->diffForHumans(now(), true)." ago":'Just Now',
                     'replyUrl'=>route("admin.community.post.comment.reply",['post'=>$post->slug,'post_comment'=>$row->slug]),
+                    'deleteUrl'=>route('admin.community.post.comment.destroy',['post'=>$post->slug,'post_comment'=>$row->slug]),
                 ];
             }
             
@@ -146,6 +147,7 @@ class CommunityControllerController extends Controller
                     'comment'=>$row->comment,
                     'user'=>optional($row->user)->name??'(deleted user)',
                     'createdAt'=>$row->created_at->diffInMinutes(now())>1? $row->created_at->diffForHumans(now(), true)." ago":'Just Now',
+                    'deleteUrl'=>route('admin.community.post.comment.destroy',['post'=>$post->slug,'post_comment'=>$row->slug]),
                 ];
             }
             
