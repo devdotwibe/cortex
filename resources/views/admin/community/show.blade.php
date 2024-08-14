@@ -157,11 +157,11 @@
         } 
         function loadcommentreplay(url,comment){
             $.get(url,function(res){
-            //     // if(res.next){
-            //     //     $('#load-more-btn').show().data('url',res.next)
-            //     // }else{
-            //     //     $('#load-more-btn').hide().data('url',null);
-            //     // }
+                // if(res.next){
+                //     $('#load-more-btn').show().data('url',res.next)
+                // }else{
+                //     $('#load-more-btn').hide().data('url',null);
+                // }
                 $.each(res.data,function(k,v){
 
                     $(comment).append(`
