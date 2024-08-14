@@ -58,7 +58,7 @@ class CommunityController extends Controller
                     "showUrl"=>route('community.post.show',$row->slug),
                     "createdAt"=>$row->created_at->diffInMinutes(now())>1? $row->created_at->diffForHumans(now(), true)." ago":'Just Now',
                     "user"=>[
-                        "name"=>optional($row->user)->name
+                        "name"=>optional($row->user)->name??optional($row->admin)->name??"(deleted user)"
                     ],
                     "liked"=>$row->likes()->where('user_id',$user->id)->count()>0?true:false,
                     "likeUrl"=>route('community.post.like',$row->slug),
@@ -120,7 +120,7 @@ class CommunityController extends Controller
                     "showUrl"=>route('community.post.show',$row->slug),
                     "createdAt"=>$row->created_at->diffInMinutes(now())>1? $row->created_at->diffForHumans(now(), true)." ago":'Just Now',
                     "user"=>[
-                        "name"=>optional($row->user)->name
+                        "name"=>optional($row->user)->name??optional($row->admin)->name??"(deleted user)"
                     ],
                     "liked"=>$row->likes()->where('user_id',$user->id)->count()>0?true:false,
                     "likeUrl"=>route('community.post.like',$row->slug),
@@ -241,7 +241,7 @@ class CommunityController extends Controller
                 "showUrl"=>route('community.post.show',$row->slug),
                 "createdAt"=>$row->created_at->diffInMinutes(now())>1? $row->created_at->diffForHumans(now(), true)." ago":'Just Now',
                 "user"=>[
-                    "name"=>optional($row->user)->name
+                    "name"=>optional($row->user)->name??optional($row->admin)->name??"(deleted user)"
                 ],
                 "liked"=>$row->likes()->where('user_id',$user->id)->count()>0?true:false,
                 "likeUrl"=>route('community.post.like',$row->slug), 
@@ -302,7 +302,7 @@ class CommunityController extends Controller
                 "showUrl"=>route('community.post.show',$row->slug),
                 "createdAt"=>$row->created_at->diffInMinutes(now())>1? $row->created_at->diffForHumans(now(), true)." ago":'Just Now',
                 "user"=>[
-                    "name"=>optional($row->user)->name
+                    "name"=>optional($row->user)->name??optional($row->admin)->name??"(deleted user)"
                 ],
                 "liked"=>$row->likes()->where('user_id',$user->id)->count()>0?true:false,
                 "likeUrl"=>route('community.post.like',$row->slug), 
@@ -335,7 +335,7 @@ class CommunityController extends Controller
             return response()->json( [
                 'slug'=>$row->slug,
                 'comment'=>$row->comment,
-                'user'=>optional($row->user)->name,
+                'user'=>optional($row->user)->name??"(deleted user)",
                 "likes"=>$row->likes()->count(),
                 "replys"=>$row->replys()->count(),
                 'createdAt'=>$row->created_at->diffInMinutes(now())>1? $row->created_at->diffForHumans(now(), true)." ago":'Just Now',
@@ -380,7 +380,7 @@ class CommunityController extends Controller
                 $results[]=[
                     'slug'=>$row->slug,
                     'comment'=>$row->comment,
-                    'user'=>optional($row->user)->name,
+                    'user'=>optional($row->user)->name??'(deleted user)',
                     'createdAt'=>$row->created_at->diffInMinutes(now())>1? $row->created_at->diffForHumans(now(), true)." ago":'Just Now',
                 ];
             }
@@ -408,7 +408,7 @@ class CommunityController extends Controller
                 $results[]=[
                     'slug'=>$row->slug,
                     'comment'=>$row->comment,
-                    'user'=>optional($row->user)->name,
+                    'user'=>optional($row->user)->name??"(deleted user)",
                     "likes"=>$row->likes()->count(),
                     "replys"=>$row->replys()->count(),
                     'createdAt'=>$row->created_at->diffInMinutes(now())>1? $row->created_at->diffForHumans(now(), true)." ago":'Just Now',
