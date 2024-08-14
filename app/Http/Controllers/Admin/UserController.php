@@ -25,7 +25,7 @@ class UserController extends Controller
         if($request->ajax()){
             return $this->addColumn('post_status',function($data){ 
                 return '<div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" onchange="changeactivestatus('."'".route('admin.live-class.request.status',$data->slug)."'".')" role="switch" id="active-toggle-'.$data->id.'"  '.($data->post_status=="active"?"checked":"").'/>
+                            <input class="form-check-input" type="checkbox" onchange="changeactivestatus('."'".route('admin.user.comunity',$data->slug)."'".')" role="switch" id="active-toggle-'.$data->id.'"  '.($data->post_status=="active"?"checked":"").'/>
                             <label class="form-check-label" for="active-toggle-'.$data->id.'">Active</label>
                         </div>'; 
             })->addAction(function($data){
@@ -70,6 +70,14 @@ class UserController extends Controller
     public function userspectate(Request $request,User $user){
         Auth::guard('web')->login($user);
         return redirect('/dashboard');
+    }
+    public function usercomunity(Request $request,User $user){
+        $user->update([
+            'post_status'=>$user->post_status=="active"?"banned":"active"
+        ]);
+        return response()->json([
+            'success'=>"Community status updated"
+        ]);
     }
     public function resetpassword(Request $request,User $user){
         $data=$request->validate([

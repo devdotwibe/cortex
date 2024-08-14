@@ -48,6 +48,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::post('/user/bulk/action',[UserController::class,'bulkaction'])->name('user.bulkaction');
         Route::get('/user/{user}/getdata',[UserController::class,'getdata'])->name('user.students');
         Route::get('/user/{user}/spectate',[UserController::class,'userspectate'])->name('user.spectate');
+        Route::get('/user/{user}/comunity',[UserController::class,'usercomunity'])->name('user.comunity');
         Route::resource("/exam",ExamController::class);
         Route::get('/full-mock-exam-options',[ExamController::class,'examoptions'])->name('exam.options');
         Route::post('/full-mock-exam-options',[ExamController::class,'examoptionssave']);
