@@ -160,4 +160,8 @@ class CommunityControllerController extends Controller
             ]; 
         }
     }
+
+    public function edit(Request $request,Post $post){
+        return view('admin.community.edit',compact('post'));
+    }
 }
