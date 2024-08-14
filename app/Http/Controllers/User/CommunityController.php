@@ -144,6 +144,9 @@ class CommunityController extends Controller
          *  @var User
          */
         $user=Auth::user();
+        if($user->post_status=="active"){
+            return redirect()->route('user.community.index')->with('error',"Admin Banned from Community post");
+        }
         return view('user.community.create',compact('user'));
     }
     public function store(Request $request){ 
