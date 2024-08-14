@@ -23,7 +23,12 @@ class UserController extends Controller
     }
     public function index(Request $request){
         if($request->ajax()){
-            return $this->addAction(function($data){
+            return $this->addColumn('post_status',function($data){ 
+                return '<div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" onchange="changeactivestatus('."'".route('admin.live-class.request.status',$data->slug)."'".')" role="switch" id="active-toggle-'.$data->id.'"  '.($data->post_status=="active"?"checked":"").'/>
+                            <label class="form-check-label" for="active-toggle-'.$data->id.'">Active</label>
+                        </div>'; 
+            })->addAction(function($data){
                 return '
                     <a href="'.route("admin.user.spectate",$data->slug).'" target="_blank" rel="noreferrer" class="btn btn-icons spectate_btn">
                         <img src="'.asset("assets/images/spectate.svg").'" alt="">
@@ -32,7 +37,7 @@ class UserController extends Controller
                         <img src="'.asset("assets/images/lock.svg").'" alt="">
                     </a>
                 ';
-            })->buildTable();
+            })->buildTable(['post_status']);
         }
         return view("admin.user.index");
     }
