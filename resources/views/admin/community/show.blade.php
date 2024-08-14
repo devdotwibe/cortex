@@ -197,7 +197,9 @@
                                     <span>${v.createdAt}</span>
                                 </div>
                                 <p class="replay-text">${v.comment}</p>
-                                <a class="delete-btn m-2btn btn-danger float-end" onclick="deletecomment('${v.deleteUrl}')">Delete</a>
+                                <div class="replay-action">
+                                    <a class="delete-btn m-2 btn float-end" onclick="deletecomment('${v.deleteUrl}')"><img src="{{asset('assets/images/delete.svg')}}"  slt="comment"></a>
+                                </div>
                             </div> 
                         </div>
                     `)
