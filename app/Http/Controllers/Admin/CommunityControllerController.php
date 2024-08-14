@@ -119,6 +119,7 @@ class CommunityControllerController extends Controller
                     "likes"=>$row->likes()->count(),
                     "replys"=>$row->replys()->count(),
                     'createdAt'=>$row->created_at->diffInMinutes(now())>1? $row->created_at->diffForHumans(now(), true)." ago":'Just Now',
+                    'replyUrl'=>route("admin.community.post.comment.reply",['post'=>$post->slug,'post_comment'=>$row->slug]),
                 ];
             }
             
@@ -135,4 +136,28 @@ class CommunityControllerController extends Controller
         return view('admin.community.show',compact('post'));
     }
 
+    public function postCommentReplay(Request $request,Post $post,PostComment $postComment){ 
+        if($request->ajax()){
+            $comments=PostComment::where('post_id',$post->id)->where('post_comment_id',$postComment->id)->orderBy('id','DESC')->paginate();
+            $results=[];
+            foreach ($comments->items() as $row) { 
+                $results[]=[
+                    'slug'=>$row->slug,
+                    'comment'=>$row->comment,
+                    'user'=>optional($row->user)->name??'(deleted user)',
+                    'createdAt'=>$row->created_at->diffInMinutes(now())>1? $row->created_at->diffForHumans(now(), true)." ago":'Just Now',
+                ];
+            }
+            
+            return [ 
+                'current_page' => $comments->currentPage(),
+                'total_pages' => $comments->lastPage(),
+                'total_items' => $comments->total(),
+                'items_per_page' => $comments->perPage(),
+                'data' => $results, 
+                'prev' => $comments->previousPageUrl(),
+                'next' => $comments->nextPageUrl()
+            ]; 
+        }
+    }
 }
