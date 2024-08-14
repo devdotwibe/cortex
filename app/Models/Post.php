@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use App\Models\Scopes\VisibleStatus;
+use App\Models\Scopes\PublicBan;
 use App\Trait\ResourceModel;
 use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-#[ScopedBy([VisibleStatus::class])]
+#[ScopedBy([PublicBan::class])]
 class Post extends Model
 {
     use HasFactory,ResourceModel;
