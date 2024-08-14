@@ -113,11 +113,11 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::prefix('community')->name('community.')->group(function () {
             Route::get('/', [CommunityControllerController::class, 'index'])->name('index');
             Route::resource('/post', CommunityControllerController::class);
-            Route::get('/poll/{poll_option}/vote', [CommunityControllerController::class, 'pollVote'])->name('poll.vote'); 
-            Route::get('/post/{post}/like', [CommunityControllerController::class, 'postLike'])->name('post.like'); 
-            Route::post('/post/{post}/comment', [CommunityControllerController::class, 'postComment'])->name('post.comment'); 
+            // Route::get('/poll/{poll_option}/vote', [CommunityControllerController::class, 'pollVote'])->name('poll.vote'); 
+            // Route::get('/post/{post}/like', [CommunityControllerController::class, 'postLike'])->name('post.like'); 
+            // Route::post('/post/{post}/comment', [CommunityControllerController::class, 'postComment'])->name('post.comment'); 
             Route::get('/post/{post}/comment/{post_comment}/reply', [CommunityControllerController::class, 'postCommentReplay'])->name('post.comment.reply'); 
-            Route::get('/post/{post}/comment/{post_comment}/like', [CommunityControllerController::class, 'commentLike'])->name('post.comment.like'); 
+            // Route::get('/post/{post}/comment/{post_comment}/like', [CommunityControllerController::class, 'commentLike'])->name('post.comment.like'); 
         });
 
         // Route::resource("/options",CategoryController::class);
