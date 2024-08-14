@@ -47,36 +47,18 @@
                     @php
                         $tvotes=$post->pollOption->sum('votes');
                     @endphp
-                    <div class="poll-options"> 
-                        @if (!empty($vote))
-                            @foreach($post->pollOption as $opt)
-                            <a href="{{route('admin.community.poll.vote',$opt->slug)}}">
-                                <div class="form-check @if(optional($vote->pollOption)->slug==$opt->slug) voted @else vote @endif "> 
-                                    <span class="form-check-label" for="poll-{{$post->slug}}-option-{{$opt->slug}}">
-                                        {{$opt->option}}
-                                        <span id="poll-{{$post->slug}}-option-{{$opt->slug}}-percentage">({{$tvotes>0?round(($opt->votes*100)/$tvotes,2):0}}%)</span>
-                                        <div class="poll-graph-bar-wrapper">
-                                            <div class="poll-graph-bar" id="poll-{{$post->slug}}-option-{{$opt->slug}}-bar" style="width: {{$tvotes>0?round(($opt->votes*100)/$tvotes,2):0}}%;"></div>
-                                        </div>
-                                    </span>
-                                </div>
-                            </a>
-                            @endforeach
-                        @else                            
-                            @foreach($post->pollOption as $opt)
-                            <a href="{{route('admin.community.poll.vote',$opt->slug)}}">
-                                <div class="form-check">
-                                    <span class="form-check-label" for="poll-{{$post->slug}}-option-{{$opt->slug}}">
-                                        {{$opt->option}}
-                                        <span id="poll-{{$post->slug}}-option-{{$opt->slug}}-percentage">({{$tvotes>0?round(($opt->votes*100)/$tvotes,2):0}}%)</span>
-                                        <div class="poll-graph-bar-wrapper">
-                                            <div class="poll-graph-bar" id="poll-{{$post->slug}}-option-{{$opt->slug}}-bar" style="width: {{$tvotes>0?round(($opt->votes*100)/$tvotes,2):0}}%;"></div>
-                                        </div>
-                                    </span>
-                                </div>
-                            </a>
-                            @endforeach
-                        @endif
+                    <div class="poll-options">                            
+                        @foreach($post->pollOption as $opt) 
+                            <div class="form-check">
+                                <span class="form-check-label" for="poll-{{$post->slug}}-option-{{$opt->slug}}">
+                                    {{$opt->option}}
+                                    <span id="poll-{{$post->slug}}-option-{{$opt->slug}}-percentage">({{$tvotes>0?round(($opt->votes*100)/$tvotes,2):0}}%)</span>
+                                    <div class="poll-graph-bar-wrapper">
+                                        <div class="poll-graph-bar" id="poll-{{$post->slug}}-option-{{$opt->slug}}-bar" style="width: {{$tvotes>0?round(($opt->votes*100)/$tvotes,2):0}}%;"></div>
+                                    </div>
+                                </span>
+                            </div> 
+                        @endforeach 
                     </div>
                     @endif
 
