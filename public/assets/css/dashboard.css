@@ -1336,6 +1336,9 @@ section.post-section .post-container .post-item .post-content{
     flex-wrap:wrap;
     width:100%;
 }
+.replay-list .replay-list-item .replay-list-text .replay-action {
+  width:100%;
+}
 .replay-list .replay-list-item .replay-list-text .replay-text {
   width:100%;
   text-align:justify;
