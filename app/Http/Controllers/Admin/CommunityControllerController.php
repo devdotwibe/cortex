@@ -164,4 +164,55 @@ class CommunityControllerController extends Controller
     public function edit(Request $request,Post $post){
         return view('admin.community.edit',compact('post'));
     }
+    public function update(Request $request,Post $post){
+        $type=$request->type??"post";
+        if($type=="post"){
+            $data=$request->validate([
+                'title'=>["required","max:255"],
+                'type'=>["required"],
+                'description'=>["required"], 
+            ]);
+        }else{
+
+            $data=$request->validate([
+                'title'=>["required","max:255"],
+                'type'=>["required"], 
+                'option'=>["required",'array','min:2'],
+                'option.*'=>["required",'max:255'],
+            ],[
+                'option.required'=>"This field is required",
+                'option.*.required'=>"This field is required",
+            ]);
+        }
+
+        $post->update($data);
+        $ids=[];
+        if($request->type=="poll"){
+            $optid=$request->input('option_id',[]);
+            foreach ($request->input('option',[]) as $k=>$v) {
+                $opt=null;
+                if(!empty($optid[$k])){
+                    $opt=PollOption::findSlug($optid[$k]);
+                }
+                if(empty($opt)){
+                    $opt=PollOption::store([
+                        'option'=>$v,
+                        'post_id'=>$post->id
+                    ]);
+                }else{
+                    $opt->update([
+                        'option'=>$v, 
+                    ]);
+                }
+
+                $ids[]=$opt->id;
+            }
+        }
+        PollOption::where('post_id',$post->id)->whereNotIn('id',$ids)->delete();
+        return redirect()->route('admin.community.index')->with('success',"Post updated");
+    }
+    public function destroy(Request $request,Post $post){ 
+        $post->delete();
+        return redirect()->route('admin.community.index')->with('success',"Post Deleted");
+    }
 }
