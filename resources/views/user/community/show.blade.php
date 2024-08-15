@@ -170,7 +170,7 @@
                                 <option value="Off-topic">Off-topic</option>
                                 <option value="Other">Other</option>
                             </select>
-                            <div class="invalid-feedback" id="report-reason-error"></div> 
+                            <div class="invalid-feedback" id="report-type-error"></div> 
                         </div>
                         <div class="form-group">
                             <label for="report-reason">Provide Additional Information</label>
