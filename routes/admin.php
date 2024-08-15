@@ -22,6 +22,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\TermController;
 use App\Http\Controllers\Admin\CommunityControllerController;
+use App\Http\Controllers\Admin\PostReportController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -29,8 +30,7 @@ use Illuminate\Support\Facades\Route;
 Route::name('admin.')->prefix('admin')->group(function(){
     Route::middleware('guest:web,admin')->group(function(){
         Route::get('/login', [AdminMainController::class,'login'])->name('login');
-        Route::post('/login', [AdminMainController::class,'loginSubmit']);
-        Route::get('community/',[AdminMainController::class,'index'])->name('index');
+        Route::post('/login', [AdminMainController::class,'loginSubmit']); 
     });
     Route::middleware(['auth:admin','isAdmin'])->group(function(){
 
@@ -114,9 +114,10 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::prefix('community')->name('community.')->group(function () {
             Route::get('/', [CommunityControllerController::class, 'index'])->name('index');
             Route::resource('/post', CommunityControllerController::class);
-            // Route::get('/poll/{poll_option}/vote', [CommunityControllerController::class, 'pollVote'])->name('poll.vote'); 
-            // Route::get('/post/{post}/like', [CommunityControllerController::class, 'postLike'])->name('post.like'); 
-            // Route::post('/post/{post}/comment', [CommunityControllerController::class, 'postComment'])->name('post.comment'); 
+            Route::get('/report-post', [PostReportController::class,'index'])->name('report.index');
+            Route::delete('/report-post/{report_post}', [PostReportController::class,'destroy'])->name('report.destroy');
+            Route::get('/report-post/{report_post}', [PostReportController::class,'get'])->name('report.get');
+
             Route::get('/post/{post}/comment/{post_comment}/reply', [CommunityControllerController::class, 'postCommentReplay'])->name('post.comment.reply'); 
             Route::delete('/post/{post}/comment/{post_comment}/delete', [CommunityControllerController::class, 'commentDestroy'])->name('post.comment.destroy'); 
         });
