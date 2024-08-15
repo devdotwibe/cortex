@@ -333,7 +333,7 @@
             })    
             $('#report-post').on('shown.bs.modal',function(){
                 $('#report-type').val("")
-                $('#report-reson').val("")
+                $('#report-reason').val("")
             })
             $('#report-post-form').submit(function(e){
                 e.preventDefault()
