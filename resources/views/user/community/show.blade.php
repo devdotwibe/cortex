@@ -339,8 +339,9 @@
                 e.preventDefault()
                 $('.form-control').removeClass('is-invalid')
                 $('.invalid-feedback').text('')
-                $.post("{{route('community.post.report',$post->slug)}}",$(this).serialize(),function(res){
+                $.post("{{route('community.post.report',$post->slug)}}",$(this).serialize(),function(response){
                     $('#report-post').modal('hide')
+                    showToast(response.success||"Report Submited",'success');  
                 },'json').fail(function(xhr){
                     try {
                         var errors = xhr.responseJSON.errors;
