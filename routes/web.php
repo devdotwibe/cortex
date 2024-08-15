@@ -174,6 +174,7 @@ Route::middleware(['auth', 'isUser'])->group(function () {
             Route::post('/post/{post}/comment', [CommunityController::class, 'postComment'])->name('post.comment'); 
             Route::get('/post/{post}/comment/{post_comment}/reply', [CommunityController::class, 'postCommentReplay'])->name('post.comment.reply'); 
             Route::get('/post/{post}/comment/{post_comment}/like', [CommunityController::class, 'commentLike'])->name('post.comment.like'); 
+            Route::post('/post/{post}/report', [CommunityController::class, 'postReport'])->name('post.report'); 
         });
 
         Route::prefix('analytics')->name('analytics.')->group(function () {

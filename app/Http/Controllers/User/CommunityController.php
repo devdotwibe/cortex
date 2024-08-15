@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\PollOption;
 use App\Models\PostComment;
 use App\Models\PostLike;
+use App\Models\ReportPost;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -371,6 +372,25 @@ class CommunityController extends Controller
             return redirect()->back()->with('success',"Comment Added");
         }
     }
+    public function postReport(Request $request,Post $post){ 
+        /**
+         *  @var User
+         */
+        $user=Auth::user();
+        $data=$request->validate([
+            "type"=>['required'],
+            "reason"=>['required']
+        ]);
+        $data['user_id']=$user->id;
+        $data['post_id']=$post->id;
+        ReportPost::store($data);
+        if($request->ajax()){
+            return response()->json(['success'=>"Report Submited"]);
+        }else{
+            return redirect()->back()->with('success',"Report Submited");
+        }
+    }
+    
     public function postCommentReplay(Request $request,Post $post,PostComment $postComment){
         /**
          *  @var User

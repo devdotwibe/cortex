@@ -14,7 +14,9 @@
             <ul class="nav_bar">
                 @if ($post->user_id==$user->id)
                 <li class="nav_item"><a href="{{route('community.post.edit',$post->slug)}}" class="nav_link btn">Edit Post</a></li>
-                <li class="nav_item"><a data-bs-toggle="modal" data-target="#delete-post" data-bs-target="#delete-post" class="btn btn-outline-danger">Delete</a></li>                    
+                <li class="nav_item"><a data-bs-toggle="modal" data-target="#delete-post" data-bs-target="#delete-post" class="btn btn-outline-danger">Delete</a></li>
+                @else
+                <li class="nav_item"><a data-bs-toggle="modal" data-target="#report-post" data-bs-target="#report-post" class="btn btn-outline-warning">Report</a></li>
                 @endif
             </ul>
         </div>
@@ -138,6 +140,49 @@
                 </div>
             </div>
         </div>
+    @else   
+    <div class="modal fade" id="report-post" tabindex="-1" role="dialog" aria-labelledby="Label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="Lablel">Report</h5>
+                    <button type="button" class="close"  data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{route('community.post.report',$post->slug)}}"  id="report-post-form" method="post">
+                        @csrf
+                        <p>Report this post to Admin for review </p>
+                        <div class="form-group">
+                            <label for="report-type">Choose a Reason for Reporting</label>
+                            <select class="form-control" name="type" id="report-type">
+                                <option value="">--Choose a Reason--</option>
+                                <option value="Spam">Spam</option>
+                                <option value="Harassment or Bullying">Harassment or Bullying</option>
+                                <option value="Hate Speech">Hate Speech</option>
+                                <option value="Inappropriate Content">Inappropriate Content</option>
+                                <option value="Misinformation">Misinformation</option>
+                                <option value="Violence or Harmful Behavior">Violence or Harmful Behavior</option>
+                                <option value="Privacy Violation">Privacy Violation</option>
+                                <option value="Impersonation">Impersonation</option>
+                                <option value="Copyright Infringement">Copyright Infringement</option>
+                                <option value="Scam or Fraud">Scam or Fraud</option>
+                                <option value="Off-topic">Off-topic</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="report-reason">Provide Additional Information</label>
+                            <textarea name="reason" id="report-reason" class="form-control" rows="10"></textarea>
+                        </div>
+                        <button type="button" data-bs-dismiss="modal"   class="btn btn-secondary">Cancel</button>
+                        <button type="submit" class="btn btn-danger">Submit the Report</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
     @endif
 @endpush
 
