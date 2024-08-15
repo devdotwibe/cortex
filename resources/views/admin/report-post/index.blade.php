@@ -16,7 +16,7 @@
                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
                 ["th"=>"Post","name"=>"post_id","data"=>"post"],
                 ["th"=>"Reason","name"=>"type","data"=>"type"],
-                ["th"=>"Status","name"=>"status","data"=>"statushtml"],
+                ["th"=>"Status","name"=>"status","data"=>"status"],
             ]' tableinit="requesttableinit"  />
         </div>
     </div>

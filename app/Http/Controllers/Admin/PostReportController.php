@@ -17,7 +17,9 @@ class PostReportController extends Controller
     }
     public function index(Request $request){
         if($request->ajax()){
-            return $this->buildTable();
+            return $this->addColumn('post',function($data){
+                return optional($data->post)->title;
+            })->buildTable();
         }
         return view('admin.report-post.index');
     }
