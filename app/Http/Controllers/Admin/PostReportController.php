@@ -13,7 +13,7 @@ class PostReportController extends Controller
 
     public function __construct(){
         self::$model=ReportPost::class;
-        self::$defaultActions=['delete'];
+        self::$defaultActions=['delete','view'];
         self::$routeName="admin.community.report";
     }
     public function index(Request $request){
