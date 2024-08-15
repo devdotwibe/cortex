@@ -116,7 +116,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::resource('/post', CommunityControllerController::class);
             Route::get('/report-post', [PostReportController::class,'index'])->name('report.index');
             Route::delete('/report-post/{report_post}', [PostReportController::class,'destroy'])->name('report.destroy');
-            Route::get('/report-post/{report_post}', [PostReportController::class,'get'])->name('report.get');
+            Route::get('/report-post/{report_post}', [PostReportController::class,'show'])->name('report.show');
 
             Route::get('/post/{post}/comment/{post_comment}/reply', [CommunityControllerController::class, 'postCommentReplay'])->name('post.comment.reply'); 
             Route::delete('/post/{post}/comment/{post_comment}/delete', [CommunityControllerController::class, 'commentDestroy'])->name('post.comment.destroy'); 

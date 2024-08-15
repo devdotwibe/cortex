@@ -13,7 +13,7 @@ class PostReportController extends Controller
 
     public function __construct(){
         self::$model=ReportPost::class;
-        self::$defaultActions=[''];
+        self::$defaultActions=['delete'];
     }
     public function index(Request $request){
         if($request->ajax()){
@@ -22,5 +22,12 @@ class PostReportController extends Controller
             })->buildTable();
         }
         return view('admin.report-post.index');
+    }
+    public function destroy(Request $request,ReportPost $reportPost){
+        $reportPost->delete();
+        if($request->ajax()){
+            return response()->json(["success"=>"Report has been deleted"]);
+        }        
+        return redirect()->route('admin.report-post.index')->with("success","Report has been deleted");
     }
 }
