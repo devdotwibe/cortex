@@ -146,7 +146,7 @@
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <h5 class="modal-title" id="Lablel">Report this post to Admin</h5>
+                    <h5 class="modal-title" id="Lablel">Report</h5>
                     <button type="button" class="close"  data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
@@ -176,8 +176,10 @@
                             <textarea name="reason" id="report-reason" class="form-control" rows="10"></textarea>
                             <div class="invalid-feedback" id="report-reason-error"></div> 
                         </div>
-                        <button type="button" data-bs-dismiss="modal"   class="btn btn-secondary">Cancel</button>
-                        <button type="submit" class="btn btn-danger">Submit the Report</button>
+                        <div class="form-group mt-2">
+                            <button type="button" data-bs-dismiss="modal"   class="btn btn-secondary">Cancel</button>
+                            <button type="submit" class="btn btn-danger">Submit the Report</button>
+                        </div>
                     </form>
                 </div>
 
