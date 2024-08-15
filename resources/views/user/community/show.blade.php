@@ -146,13 +146,12 @@
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <h5 class="modal-title" id="Lablel">Report</h5>
+                    <h5 class="modal-title" id="Lablel">Report this post to Admin</h5>
                     <button type="button" class="close"  data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
                     <form action="{{route('community.post.report',$post->slug)}}"  id="report-post-form" method="post">
-                        @csrf
-                        <p>Report this post to Admin for review </p>
+                        @csrf 
                         <div class="form-group">
                             <label for="report-type">Choose a Reason for Reporting</label>
                             <select class="form-control" name="type" id="report-type">
