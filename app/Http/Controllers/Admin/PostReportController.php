@@ -14,6 +14,7 @@ class PostReportController extends Controller
     public function __construct(){
         self::$model=ReportPost::class;
         self::$defaultActions=['delete'];
+        self::$routeName="admin.community.report-post";
     }
     public function index(Request $request){
         if($request->ajax()){
