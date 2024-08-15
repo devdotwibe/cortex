@@ -170,10 +170,12 @@
                                 <option value="Off-topic">Off-topic</option>
                                 <option value="Other">Other</option>
                             </select>
+                            <div class="invalid-feedback" id="report-reason-error"></div> 
                         </div>
                         <div class="form-group">
                             <label for="report-reason">Provide Additional Information</label>
                             <textarea name="reason" id="report-reason" class="form-control" rows="10"></textarea>
+                            <div class="invalid-feedback" id="report-reason-error"></div> 
                         </div>
                         <button type="button" data-bs-dismiss="modal"   class="btn btn-secondary">Cancel</button>
                         <button type="submit" class="btn btn-danger">Submit the Report</button>
@@ -328,6 +330,28 @@
             $('#load-more-btn').click(function(){
                 loadcomment($('#load-more-btn').data('url'))
             })    
+            $('#report-post').on('shown.bs.modal',function(){
+                $('#report-type').val("")
+                $('#report-reson').val("")
+            })
+            $('#report-post-form').submit(function(e){
+                e.preventDefault()
+                $('.form-control').removeClass('is-invalid')
+                $('.invalid-feedback').text('')
+                $.post("{{route('community.post.report',$post->slug)}}",$(this).serialize(),function(res){
+                    $('#report-post').modal('hide')
+                },'json').fail(function(xhr){
+                    try {
+                        var errors = xhr.responseJSON.errors;
+                        $.each(errors,function(k,v){
+                            $('#report-'+k+'-error').text(v[0])
+                            $('#report-'+k).addClass("is-invalid")
+                        })
+                    } catch (error) {
+
+                    }
+                })
+            })
         })
     </script>
 @endpush
