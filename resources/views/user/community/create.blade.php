@@ -180,16 +180,16 @@
             chcnt++;
         }
 
-        CKEDITOR.editorConfig = function( config ) { 
-            config.extraPlugins = 'uploadButton';
-            config.removePlugins = 'easyimage';
-            config.toolbarGroups = [
-                { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },  
-                { name: 'insert', groups: [ 'UploadButton' ] }, 
-            ]
-            config.allowedContent = true;
-            // config.removeButtons = 'Save,NewPage,ExportPdf,Preview,Print,Templates,PasteText,PasteFromWord,Cut,SelectAll,BidiLtr,BidiRtl,Language, SpecialChar,PageBreak,ShowBlocks,About';
-        };
-        CKEDITOR.replaceAll('texteditor')
+         
+        CKEDITOR.replaceAll('texteditor',{
+            extraPlugins: 'uploadButton',
+            removePlugins: 'easyimage',
+            toolbarGroups: [
+                { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
+                { name: 'insert', groups: [ 'UploadButton' ] }
+            ],
+            allowedContent: true
+            // removeButtons: 'Save,NewPage,ExportPdf,Preview,Print,Templates,PasteText,PasteFromWord,Cut,SelectAll,BidiLtr,BidiRtl,Language,SpecialChar,PageBreak,ShowBlocks,About'
+        })
 </script>
 @endpush
