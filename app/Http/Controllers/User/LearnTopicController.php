@@ -60,9 +60,7 @@ class LearnTopicController extends Controller
 
     }
     public function show(Request $request,Category $category){
-        $lessons=SubCategory::where('category_id',$category->id)->where(function($qry){
-            $qry->whereIn("id",Learn::select('sub_category_id'));
-        })->get();
+        $lessons=[];
         $exam=Exam::where("name",'learn')->first();
         if(empty($exam)){
             $exam=Exam::store([
@@ -76,6 +74,13 @@ class LearnTopicController extends Controller
          *  @var User
          */
         $user=Auth::user();
+
+        foreach (SubCategory::where('category_id',$category->id)->where(function($qry){
+            $qry->whereIn("id",Learn::select('sub_category_id'));
+        })->get() as $row) {
+            $row->progress=optional(UserExamReview::where('user_id',$user->id)->where('category_id',$row->category_id)->where('sub_category_id',$row->id)->where('exam_id',$exam->id)->orderBy('id','DESC')->first())->progress??0;
+            $lessons[]=$row;
+        }
         return view("user.learn.show",compact('category','exam','lessons','user'));
     }
     public function lessonshow(Request $request,Category $category,SubCategory $subCategory){
