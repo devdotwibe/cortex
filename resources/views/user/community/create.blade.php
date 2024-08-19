@@ -188,8 +188,7 @@
                 { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
                 { name: 'insert', groups: [ 'UploadButton' ] }
             ],
-            allowedContent: true
-            removeButtons: 'Save,NewPage,ExportPdf,Preview,Print,Templates,PasteText,PasteFromWord,Cut,SelectAll,BidiLtr,BidiRtl,Language,SpecialChar,PageBreak,ShowBlocks,About'
+            allowedContent: true, 
         })
 </script>
 @endpush
