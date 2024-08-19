@@ -201,6 +201,14 @@
             chcnt++;
         }
 
-        CKEDITOR.replaceAll('texteditor')
+        CKEDITOR.replace($('#description-community-post-type')[0],{
+            extraPlugins: 'uploadButton',
+            removePlugins: 'easyimage',
+            toolbarGroups: [
+                { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
+                { name: 'insert', groups: [ 'UploadButton' ] }
+            ],
+            allowedContent: true, 
+        })
 </script>
 @endpush
