@@ -187,7 +187,7 @@ class CommunityController extends Controller
                 ]);
             }
         }
-        return redirect()->route('community.post.index')->with('success',"Post published");
+        return redirect()->route('community.index')->with('success',"Post published");
     }
     public function pollVote(Request $request,PollOption $pollOption){ 
         /**
@@ -506,7 +506,7 @@ class CommunityController extends Controller
             }
         }
         PollOption::where('post_id',$post->id)->whereNotIn('id',$ids)->delete();
-        return redirect()->route('community.post.index')->with('success',"Post updated");
+        return redirect()->route('community.index')->with('success',"Post updated");
     }
     public function destroy(Request $request,Post $post){ 
         $post->delete();
