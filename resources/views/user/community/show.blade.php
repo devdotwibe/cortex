@@ -247,7 +247,7 @@
             $(form).find('.form-control').removeClass('is-invalid')
             $.post("{{route('community.post.comment',$post->slug)}}",$(form).serialize(),function(res){
                 form.reset();
-                $(`#post-comment-${v.slug}-replys`).html('')
+                $(`#post-comment-${slug}-replys`).html('')
                 loadcommentreplay(replyUrl,`#post-comment-${slug}-replys`)
             },'json').fail(function(xhr){
                 try {
