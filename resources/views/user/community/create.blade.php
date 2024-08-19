@@ -181,7 +181,7 @@
         }
 
          
-        CKEDITOR.replaceAll('texteditor',{
+        CKEDITOR.replace($('#description-community-post-type')[0],{
             extraPlugins: 'uploadButton',
             removePlugins: 'easyimage',
             toolbarGroups: [
@@ -189,7 +189,7 @@
                 { name: 'insert', groups: [ 'UploadButton' ] }
             ],
             allowedContent: true
-            // removeButtons: 'Save,NewPage,ExportPdf,Preview,Print,Templates,PasteText,PasteFromWord,Cut,SelectAll,BidiLtr,BidiRtl,Language,SpecialChar,PageBreak,ShowBlocks,About'
+            removeButtons: 'Save,NewPage,ExportPdf,Preview,Print,Templates,PasteText,PasteFromWord,Cut,SelectAll,BidiLtr,BidiRtl,Language,SpecialChar,PageBreak,ShowBlocks,About'
         })
 </script>
 @endpush
