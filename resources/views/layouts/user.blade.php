@@ -242,7 +242,7 @@
                 var toastId = showToast('Uploading... 0%', 'info', false);
 
                 $.ajax({
-                    url : "{{route('admin.upload')}}",
+                    url : "{{route('upload')}}",
                     type : 'POST',
                     data : formData,
                     processData: false,

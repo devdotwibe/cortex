@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UploadController;
 use App\Http\Controllers\User\AnalyticsController;
 use App\Http\Controllers\User\CommunityController;
 use App\Http\Controllers\User\ExamQuestionController;
@@ -66,6 +67,9 @@ Route::middleware('guest:web,admin')->group(function () {
 
 });
 Route::middleware(['auth', 'isUser'])->group(function () {
+
+    Route::post("/upload",[UploadController::class,'uploadFile'])->name("upload");
+    
     Route::get('/reminder', [UserMainController::class, 'reminder'])->name('reminder.index');
     Route::get('/reminder/{reminder}/show', [UserMainController::class, 'showreminder'])->name('reminder.show');
     Route::post('/reminder/add', [UserMainController::class, 'addreminder'])->name('reminder.store');
