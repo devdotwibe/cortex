@@ -31,10 +31,10 @@
                                     <h3>{{ $item->name }}</h3>
                                     <div class="progress-area">
                                         <progress max="100"
-                                            value="{{ $user->progress('exam-' . $exam->id . '-module-' . $item->id, 0) }}">
-                                            {{ round($user->progress('exam-' . $exam->id . '-module-' . $item->id, 0), 2) }}%
+                                            value="{{ $item->progress }}">
+                                            {{ round($item->progress, 2) }}%
                                         </progress>
-                                        <span>{{ round($user->progress('exam-' . $exam->id . '-module-' . $item->id, 0), 2) }}%</span>
+                                        <span>{{ round($item->progress, 2) }}%</span>
                                     </div>
                                 </div>
                             </div>

@@ -19,6 +19,7 @@ use App\Trait\ResourceController;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Session;
 
@@ -34,6 +35,10 @@ class LearnTopicController extends Controller
     public function index(Request $request){
         self::reset();
         self::$model = Category::class;
+        /**
+         *  @var User
+         */
+        $user=Auth::user();
 
         $exam=Exam::where("name",'learn')->first();
         if(empty($exam)){
@@ -44,13 +49,13 @@ class LearnTopicController extends Controller
             $exam=Exam::find( $exam->id );
         }
 
-        $categorys=$this->whereHas('subcategories',function($qry){
+        $categorys=[];
+        foreach($this->whereHas('subcategories',function($qry){
             $qry->whereIn("id",Learn::select('sub_category_id'));
-        })->buildResult();
-        /**
-         *  @var User
-         */
-        $user=Auth::user();
+        })->buildResult() as $row){
+            $row->progress=UserExamReview::whereIn("id",UserExamReview::where('user_id',$user->id)->where('category_id',$row->id)->groupBy('sub_category_id')->select(DB::raw('MAX(id)')) )->where('user_id',$user->id)->where('category_id',$row->id)->where('exam_id',$exam->id)->avg('progress');
+            $categorys[]=$row;
+        }
         return view("user.learn.index",compact('categorys','exam','user'));
 
     }
@@ -71,20 +76,7 @@ class LearnTopicController extends Controller
          *  @var User
          */
         $user=Auth::user();
-        // $subscription = Subscription::where('user_id', $user->id)
-        //     ->where('status', 'active')
-        //     ->orderBy('id','desc')
-        //     ->first();
-        //    $firstlesson = $lessons->first();
-        //    $hasFreeAccess = $user->hasSubscriptionForCategory($category->id);
-           $settings = Settings::first();
-        //   if ($firstlesson && $hasFreeAccess){
-            return view("user.learn.show",compact('category','exam','lessons','user'));
-        //   }
-
-        //  else{
-        //     return redirect()->route('learn.index')->with('showStripePopup', true)->with('settings',$settings->amount);
-        // }
+        return view("user.learn.show",compact('category','exam','lessons','user'));
     }
     public function lessonshow(Request $request,Category $category,SubCategory $subCategory){
 
@@ -163,16 +155,7 @@ class LearnTopicController extends Controller
          * @var User
          */
         $user=Auth::user();
-        if($request->ajax()){
-            if($user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$subCategory->id.'-complete-date',"")==""){
-                $lessons=SubCategory::where('category_id',$category->id)->get();
-                $lessencount=count($lessons);
-                $totalprogres=0;
-                foreach ($lessons as $lesson) {
-                    $totalprogres+=$user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$lesson->id,0);
-                }
-                $user->setProgress('exam-'.$exam->id.'-module-'.$category->id,$totalprogres/$lessencount);
-            }
+        if($request->ajax()){ 
 
             return Learn::with('learnanswers')->whereIn('learn_type',['mcq','short_notes'])->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->paginate(1);
         }
