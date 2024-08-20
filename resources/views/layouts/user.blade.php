@@ -192,6 +192,21 @@
         </div>
     </aside>
     <main class="content_outer">
+        @if(!$request->user()->hasVerifiedEmail())
+        <div class="warning-container">
+            @if (session('resent'))
+                <div class="alert alert-success" role="alert">
+                    {{ __('A fresh verification link has been sent to your email address.') }}
+                </div>
+            @endif
+            <div class="alert alert-warning" role="alert">
+                <p>Before proceeding, please check your email for a verification link.</p>
+                <p>If you did not receive the email</p>
+                <a href="{{ route('verification.resend') }}" class="btn btn-link">{{ __('click here to request another') }}</a>
+            </div>
+        </div>
+
+        @endif
         @yield('content')
     </main>
 
