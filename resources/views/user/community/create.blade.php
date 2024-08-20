@@ -184,9 +184,8 @@
         CKEDITOR.replace($('#description-community-post-type')[0],{
             extraPlugins: 'uploadButton',
             removePlugins: 'easyimage',
-            toolbarGroups: [
-                { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
-                { name: 'upload', groups: [ 'UploadButton' ] }
+            toolbarGroups: [ 
+                { name: 'image', groups: [ 'UploadButton' ] }
             ],
             allowedContent: true, 
         })
