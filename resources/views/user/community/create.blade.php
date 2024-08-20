@@ -188,7 +188,7 @@
                 { name: 'toolbarInsert', groups: [ 'UploadButton' ] }
             ],
             toolbar: [
-                { name: 'toolbarInsert', items: ['UploadButton', 'Bold', 'Italic'] }, // Add buttons to the custom group
+                { name: 'toolbarInsert', items: ['UploadButton', 'image', 'smiley'] }, // Add buttons to the custom group
             ],
             allowedContent: true, 
         })
