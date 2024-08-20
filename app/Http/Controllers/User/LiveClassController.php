@@ -104,7 +104,7 @@ class LiveClassController extends Controller
          */
         $user=Auth::user();
         $live_class =  LiveClassPage::first();  
-        $classdetail = ClassDetail::whereIn('id',TermAccess::where('type','lesson-record')->where('user_id',$user->id)->select('term_id'))->get();
+        $classdetail = ClassDetail::whereIn('id',TermAccess::where('type','class-detail')->where('user_id',$user->id)->select('term_id'))->get();
         return view('user.live-class.class-detail',compact('user','live_class','classdetail')); 
     }
     public function privateclassterm(Request  $request,$live,ClassDetail $classDetail){
