@@ -89,7 +89,13 @@ class HomeController extends Controller
     {
         return view('auth.verify-email');
     }
- 
+    public function verificationresend(Request $request){
+        if ($request->user()->hasVerifiedEmail()) {
+            return redirect()->route('dashboard');
+        }
+        $request->user()->sendEmailVerificationNotification();
+        return back()->with('resent', true);
+    }
     public function ensureIsNotRateLimited(Request $request)
     {
         if (!RateLimiter::tooManyAttempts($this->throttleKey($request), 5)) {

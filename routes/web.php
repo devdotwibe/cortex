@@ -69,6 +69,8 @@ Route::middleware('guest:web,admin')->group(function () {
 Route::middleware(['auth', 'isUser'])->group(function () {
 
     Route::get('/verification/notice',[HomeController::class,'verificationnotice'])->name('verification.notice');
+    Route::get('/verification/resend',[HomeController::class,'verificationresend'])->name('verification.resend');
+    Route::post('/verification/resend',[HomeController::class,'verificationresend']);
 
     Route::post("/upload",[UploadController::class,'uploadFile'])->name("upload");
     
