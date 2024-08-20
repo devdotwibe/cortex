@@ -11,6 +11,7 @@ use App\Models\HomeWorkQuestion;
 use App\Models\HomeWorkReview;
 use App\Models\HomeWorkReviewAnswer;
 use App\Models\HomeWorkReviewQuestion;
+use App\Models\TermAccess;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -20,11 +21,11 @@ use Yajra\DataTables\Facades\DataTables;
 class PrivateClassHomeWorkController extends Controller
 {
     public function index(Request $request){
-        $homeWorks=HomeWork::all();
         /**
          *  @var User
          */
         $user=Auth::user();
+        $homeWorks=HomeWork::whereIn('id',TermAccess::where('type','home-work')->where('user_id',$user->id)->select('term_id'))->get();
         return view('user.home-work.index',compact('homeWorks','user'));
     }
     public function show(Request $request,HomeWork $homeWork){
