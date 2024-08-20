@@ -87,7 +87,7 @@ Route::middleware(['auth', 'isUser'])->group(function () {
         Route::get('/subscription', [StripePaymentController::class, 'subscription'])->name('subscription');
     });
 
-    Route::prefix('learn')->name('learn.')->group(function () {
+    Route::middleware('verified')->prefix('learn')->name('learn.')->group(function () {
         Route::get('/', [LearnTopicController::class, 'index'])->name('index');
         Route::middleware('subscription:learn')->get('/{category}', [LearnTopicController::class, 'show'])->name('show');
         Route::middleware('subscription:learn')->get('/{category}/lesson/{sub_category}', [LearnTopicController::class, 'lessonshow'])->name('lesson.show');
@@ -184,6 +184,7 @@ Route::middleware(['auth', 'isUser'])->group(function () {
         Route::prefix('analytics')->name('analytics.')->group(function () {
             Route::get('/', [AnalyticsController::class, 'index'])->name('index');
         });
+        
     });
 });
 Route::middleware('signed')->get('email/{id}/{hash}/verify', [HomeController::class, 'verifyemail'])->name('verification.verify');
