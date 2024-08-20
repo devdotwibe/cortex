@@ -185,8 +185,8 @@
             extraPlugins: 'uploadButton',
             removePlugins: 'easyimage',
             toolbarGroups: [
-                // { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
-                { name: 'UploadButton', groups: [ 'UploadButton' ] }
+                { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
+                { name: 'upload', groups: [ 'UploadButton' ] }
             ],
             allowedContent: true, 
         })
