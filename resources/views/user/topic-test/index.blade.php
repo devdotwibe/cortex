@@ -26,7 +26,7 @@
                                 </div>
                             </div>
                             <div class="action-button">
-                                @if ($user->progress('cortext-subscription-payment','')=="paid"||$k == 0) 
+                                @if ($user->is_free_access||$user->progress('cortext-subscription-payment','')=="paid"||$k == 0) 
                                     @if($user->progress('exam-'.$exam->id.'-topic-'.$item->id.'-complete-review',"no")=="yes") 
                                     
                                     @elseif($user->progress('exam-'.$exam->id.'-topic-'.$item->id.'-complete-date',"")=="") 

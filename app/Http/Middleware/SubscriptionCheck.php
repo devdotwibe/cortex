@@ -27,6 +27,10 @@ class SubscriptionCheck
          * @var User
          */
         $user = Auth::user();
+        if($user->is_free_access){
+            return $next($request);
+        }
+        
         if (in_array('learn', $opt)) {
             $category = $request->route('category');
             if (!empty($category)) {

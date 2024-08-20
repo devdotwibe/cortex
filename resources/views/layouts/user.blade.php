@@ -131,7 +131,7 @@
                 </li>
 
                 <li class="side-item {{request()->is('live-class') ? 'active':''}}">
-                    @if (auth('web')->user()->progress('cortext-subscription-payment','')=="paid") 
+                    @if (auth('web')->user()->progress('cortext-subscription-payment','')=="paid"||auth('web')->user()->is_free_access) 
                         <a href="{{ route('live-class.index') }}">
                     @else
                         <a data-bs-toggle="modal" data-bs-target="#cortext-subscription-payment-modal"> 
@@ -147,7 +147,7 @@
                 </li>
 
                 <li class="side-item {{request()->is('analytics') ? 'active':''}}">
-                    @if (auth('web')->user()->progress('cortext-subscription-payment','')=="paid") 
+                    @if (auth('web')->user()->progress('cortext-subscription-payment','')=="paid"||auth('web')->user()->is_free_access) 
                     <a href="{{ route('analytics.index') }}">
                     @else
                         <a data-bs-toggle="modal" data-bs-target="#cortext-subscription-payment-modal"> 
@@ -163,7 +163,7 @@
                 </li>
                 @guest('admin') 
                 <li class="side-item {{request()->is('community') ? 'active':''}}">
-                   @if (auth('web')->user()->progress('cortext-subscription-payment','')=="paid")
+                   @if (auth('web')->user()->progress('cortext-subscription-payment','')=="paid"||auth('web')->user()->is_free_access)
                     <a href="{{ route('community.index') }}"> 
                    @else
                         <a data-bs-toggle="modal" data-bs-target="#cortext-subscription-payment-modal"> 
@@ -192,7 +192,7 @@
         </div>
     </aside>
     <main class="content_outer">
-        @if(!auth()->user()->hasVerifiedEmail())
+        @if(!auth('web')->user()->hasVerifiedEmail())
         <div class="warning-container">
             @if (session('resent'))
                 <div class="alert alert-success" role="alert">

@@ -13,7 +13,7 @@
         <div class="row">
             @foreach ($categorys as $k => $item)
             <div class="col-md-6">
-                @if ($user->progress('cortext-subscription-payment','')=="paid"||$k == 0)
+                @if ($user->is_free_access||$user->progress('cortext-subscription-payment','')=="paid"||$k == 0)
                 <a href="{{ route('learn.show', $item->slug) }}">
                 @else
                 <a data-bs-toggle="modal" data-bs-target="#cortext-subscription-payment-modal">

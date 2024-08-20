@@ -25,14 +25,16 @@
                 </div>
             </div>
             @else
-            <div class="card ">
-                <div class="card-body">
-                    <form action="{{route('payment.subscription')}}"  id="cortext-subscription-payment-form" >
-                        <p>The {{config('app.name')}} Subscription Peyment required </p> 
-                        <button type="submit" class="btn btn-dark">Pay Now ${{ get_option('stripe.subscription.payment.amount-price','0') }} </button>
-                    </form>
+                @if(!auth('web')->user()->is_free_access)
+                <div class="card ">
+                    <div class="card-body">
+                        <form action="{{route('payment.subscription')}}"  id="cortext-subscription-payment-form" >
+                            <p>The {{config('app.name')}} Subscription Peyment required </p> 
+                            <button type="submit" class="btn btn-dark">Pay Now ${{ get_option('stripe.subscription.payment.amount-price','0') }} </button>
+                        </form>
+                    </div>
                 </div>
-            </div>
+                @endif
             @endif
         </div>
 

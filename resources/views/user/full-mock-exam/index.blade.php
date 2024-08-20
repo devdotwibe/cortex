@@ -18,7 +18,7 @@
                                 @foreach ($exams as $k => $exam)
                                     <div class="exam-title">
                                         <h3>{{ $exam->title }}</h3>
-                                        @if ($user->progress('cortext-subscription-payment','')=="paid"||$k == 0) 
+                                        @if ($user->is_free_access||$user->progress('cortext-subscription-payment','')=="paid"||$k == 0) 
                                             @if ($user->progress('exam-' . $exam->id . '-complete-review', 'no') == 'yes')
                                             @elseif($user->progress('exam-' . $exam->id . '-complete-date', '') == '')
                                                 @guest('admin')
