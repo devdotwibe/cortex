@@ -116,7 +116,7 @@
                     <x-ajax-table :url="route('admin.user-access.index',['type'=>'class-detail','term'=>$class_detail->slug])"   :coloumns='[
                         ["th"=>"Name","name"=>"name","data"=>"name"],                      
                     ]' 
-                    />
+                    tableinit="usertableinit"  />
                 </div>
 
             </div>
@@ -126,6 +126,18 @@
 
 @push('footer-script')
     <script>
+
+        var usertable = null;
+        function usertableinit(table) {
+            usertable = table
+        }
+        function changeactivestatus(url){
+            $.get(url,function(res){
+                if (usertable != null) {
+                    usertable.ajax.reload()
+                }
+            })
+        }
 
         function update_sub_class(url) {
 
