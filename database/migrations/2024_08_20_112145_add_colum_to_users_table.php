@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->boolean('isFreeAccess')->default(false);
+            $table->boolean('is_free_access')->default(false);
         });
     }
 
