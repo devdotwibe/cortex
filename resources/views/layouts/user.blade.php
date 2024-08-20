@@ -192,7 +192,7 @@
         </div>
     </aside>
     <main class="content_outer">
-        @if(!$request->user()->hasVerifiedEmail())
+        @if(!auth()->user()->hasVerifiedEmail())
         <div class="warning-container">
             @if (session('resent'))
                 <div class="alert alert-success" role="alert">
