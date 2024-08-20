@@ -48,7 +48,7 @@
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span  aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-                <x-ajax-table :url="route('admin.user-access.index',['type'=>'class-detail','term'=>$class_detail->slug])"   :coloumns='[
+                <x-ajax-table :url="route('admin.user-access.index',['type'=>'home-work','term'=>$homeWork->slug])"   :coloumns='[
                     ["th"=>"Name","name"=>"name","data"=>"name"],                      
                 ]' 
                 tableinit="usertableinit"  />
