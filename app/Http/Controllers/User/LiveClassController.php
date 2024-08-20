@@ -9,6 +9,7 @@ use App\Models\LiveClassPage;
 use App\Models\PrivateClass;
 use App\Models\SubClassDetail;
 use App\Models\SubLessonMaterial;
+use App\Models\TermAccess;
 use App\Models\User;
 use App\Support\Helpers\ImageHelper;
 use Illuminate\Http\Request;
@@ -103,7 +104,7 @@ class LiveClassController extends Controller
          */
         $user=Auth::user();
         $live_class =  LiveClassPage::first();  
-        $classdetail = ClassDetail::all();
+        $classdetail = ClassDetail::whereIn('id',TermAccess::where('type','lesson-record')->where('user_id',$user->id)->select('term_id'))->get();
         return view('user.live-class.class-detail',compact('user','live_class','classdetail')); 
     }
     public function privateclassterm(Request  $request,$live,ClassDetail $classDetail){
@@ -129,7 +130,7 @@ class LiveClassController extends Controller
          */
         $user=Auth::user();
         $live_class =  LiveClassPage::first();  
-        $lessons = LessonMaterial::all();
+        $lessons = LessonMaterial::whereIn('id',TermAccess::where('type','lesson-record')->where('user_id',$user->id)->select('term_id'))->get();
         return view('user.live-class.lesson-detail',compact('user','live_class','lessons')); 
     }
     public function privateclasslessonshow(Request  $request,$live,LessonMaterial $lessonMaterial){
