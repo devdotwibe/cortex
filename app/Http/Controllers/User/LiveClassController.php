@@ -130,7 +130,7 @@ class LiveClassController extends Controller
          */
         $user=Auth::user();
         $live_class =  LiveClassPage::first();  
-        $lessons = LessonMaterial::whereIn('id',TermAccess::where('type','lesson-record')->where('user_id',$user->id)->select('term_id'))->get();
+        $lessons = LessonMaterial::whereIn('id',TermAccess::where('type','lesson-material')->where('user_id',$user->id)->select('term_id'))->get();
         return view('user.live-class.lesson-detail',compact('user','live_class','lessons')); 
     }
     public function privateclasslessonshow(Request  $request,$live,LessonMaterial $lessonMaterial){
