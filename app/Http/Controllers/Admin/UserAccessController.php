@@ -94,6 +94,10 @@ class UserAccessController extends Controller
                 TermAccess::store(['type'=>$type,'term_id'=>$term->id,'user_id'=>$user->id]);
             }
         }
+
+        return response()->json([
+            'success'=>"User Access updated"
+        ]);
     }
     
 }
