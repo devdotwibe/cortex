@@ -185,7 +185,10 @@
             extraPlugins: 'uploadButton',
             removePlugins: 'easyimage',
             toolbarGroups: [ 
-                { name: 'image', groups: [ 'UploadButton' ] }
+                { name: 'toolbarInsert', groups: [ 'UploadButton' ] }
+            ],
+            toolbar: [
+                { name: 'toolbarInsert', items: ['UploadButton', 'Bold', 'Italic'] }, // Add buttons to the custom group
             ],
             allowedContent: true, 
         })
