@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('term_accesses', function (Blueprint $table) {
             $table->id();
-            $table->integer('slug');
+            $table->string('slug')->unique();
             $table->foreignIdFor(User::class); 
             $table->string('type')->default('class-detail');
             $table->integer('term_id');
