@@ -25,7 +25,7 @@ class UserController extends Controller
         if($request->ajax()){
             return $this->addColumn('is_free_access',function($data){ 
                 return '<div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" onchange="changesubscriptionstatus('."'".route('admin.user.comunity',$data->slug)."'".')" role="switch" id="free-toggle-'.$data->id.'"  '.($data->is_free_access?"checked":"").'/>
+                            <input class="form-check-input" type="checkbox" onchange="changeactivestatus('."'".route('admin.user.freeacces',$data->slug)."'".')" role="switch" id="free-toggle-'.$data->id.'"  '.($data->is_free_access?"checked":"").'/>
                             <label class="form-check-label" for="free-toggle-'.$data->id.'">Free</label>
                         </div>'; 
             })->addColumn('post_status',function($data){ 
@@ -79,6 +79,14 @@ class UserController extends Controller
     public function usercomunity(Request $request,User $user){
         $user->update([
             'post_status'=>$user->post_status=="active"?"banned":"active"
+        ]);
+        return response()->json([
+            'success'=>"Community status updated"
+        ]);
+    }
+    public function freeaccess(Request $request,User $user){
+        $user->update([
+            'is_free_access'=>$user->is_free_access?false:true
         ]);
         return response()->json([
             'success'=>"Community status updated"

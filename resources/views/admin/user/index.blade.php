@@ -69,6 +69,7 @@
                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
                 ["th"=>"Name","name"=>"name","data"=>"name"],
                 ["th"=>"Email","name"=>"email","data"=>"email"],
+                ["th"=>"Free Access","name"=>"is_free_access","data"=>"is_free_access"],
                 ["th"=>"Community","name"=>"post_status","data"=>"post_status"],
             ]' tableinit="usertableinit" />
         </div>
