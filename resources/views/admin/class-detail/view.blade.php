@@ -11,6 +11,7 @@
          
         <div class="header_right">
             <ul class="nav_bar">
+                <li class="nav_item"><a class="nav_link btn"  data-bs-toggle="modal" data-bs-target="#user-acces-modal" data-target="#user-acces-modal" >User Access</a></li>
                 <li class="nav_item"><a onclick="CreateForm(event)" class="nav_link btn">New Form</a></li>
             </ul>
         </div>
@@ -97,6 +98,25 @@
                         <button type="submit" id="sub_class_btn" class="btn btn-dark ml-1">Save</button>
                     </form>
 
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="user-acces-modal" tabindex="-1" role="dialog"  aria-labelledby="live-class-modalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" >User Access</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span  aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <x-ajax-table :url="route('admin.user-access.index',['type'=>'class-detail','term'=>$class_detail->slug])"   :coloumns='[
+                        ["th"=>"Name","name"=>"name","data"=>"name"],                      
+                    ]' 
+                    />
                 </div>
 
             </div>

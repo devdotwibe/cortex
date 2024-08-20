@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\TermController;
 use App\Http\Controllers\Admin\CommunityControllerController;
 use App\Http\Controllers\Admin\PostReportController;
+use App\Http\Controllers\Admin\UserAccessController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -293,6 +294,9 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::put('/{lesson_recording}/video/{record_video}/edit',[LessonRecordController::class,'update'])->name('update');
             Route::delete('/{lesson_recording}/video/{record_video}/destroy',[LessonRecordController::class,'destroy'])->name('destroy');
             Route::get('/{lesson_recording}/video/{record_video}/visibility',[LessonRecordController::class,'visibility'])->name('visibility');
+        });
+        Route::prefix('user-access')->name('user-access.')->group(function () {
+            Route::get('/{type}/user/{term}/list',[UserAccessController::class,'index'])->name('index');
         });
     });
     Route::prefix('settings')->name('settings.')->group(function () {

@@ -48,83 +48,7 @@
 @endif
 
 
-@push('modals')
-{{-- 
-    @if ($ajaxcreate??false)
-        
-
-        <div class="modal fade bd-example-modal-lg"  id="table-{{ $tableid }}-static" tabindex="-1" role="dialog" aria-labelledby="table-{{ $tableid }}-createLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="table-{{ $tableid }}-createLabel">{{ $title??"Add" }}</h5>
-                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-
-                        <div class="modal-body">
-
-                            <div class="row"> 
-                                <div class="card">
-                                    <div class="card-body">
-                                        <form action="{{$createurl}}" class="form" id="table-{{ $tableid }}-form-create" method="post">
-                                            @csrf 
-                            
-                                            <div class="row">
-                                                @foreach ($fields as $item)
-                                                    <div class="col-md-{{$item->size??4}}">
-                                                        <div class="form-group">
-                                                            <div class="form-data">
-                                                                <div class="forms-inputs mb-4"> 
-                                                                    <label for="{{$item->name}}-table-{{ $tableid }}-form-create">{{ucfirst($item->label??$item->name)}}</label>
-                                                                    @switch($item->type??"text")
-                                                                        @case('textarea')
-                                                                            <textarea name="{{$item->name}}" id="{{$item->name}}-table-{{ $tableid }}-form-create"  class="form-control @error($item->name) is-invalid @enderror "  rows="5" @readonly($item->readonly??false) >{{old($item->name)}}</textarea>
-                                                                            @break
-                                                                        @case('select')
-                                                                            <select name="{{$item->name}}" id="{{$item->name}}-table-{{ $tableid }}-form-create">
-                            
-                                                                            </select>
-                                                                            @break
-                                                                        @default
-                                                                            <input type="{{$item->type??"text"}}" name="{{$item->name}}" id="{{$item->name}}-table-{{ $tableid }}-form-create" value="{{old($item->name,$item->value??"")}}" class="form-control @error($item->name) is-invalid @enderror " @readonly($item->readonly??false) >        
-                                                                    @endswitch
-                                                                    
-                                                                   
-                                                                    <div class="invalid-feedback" id="{{$item->name}}-error-table-{{ $tableid }}-form-create"></div>
-                                                                   
-                                                                </div>
-                                                            </div>
-                                                        </div>    
-                                                    </div> 
-                                                @endforeach
-                                                 
-                                            </div>
-                            
-                                            <div class="mb-3"> 
-                                                @if(!empty($cancel))
-                                                    <a href="{{ $cancel }}"  class="btn btn-secondary">Cancel</a>
-                                                @elseif(!empty($onclick))                            
-                                                    <a  onclick="{{ $onclick }}" class="btn btn-secondary">Cancel</a>
-                            
-                                                @endif
-                            
-                                                    <button type="submit" class="btn btn-dark">{{$btnsubmit}}</button> 
-                            
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div> 
-                            </div> 
-                                
-                        </div>
-
-                </div>
-            </div>
-        </div>
-    @endif --}}
+@push('modals') 
 
     <div class="modal fade" id="table-{{ $tableid }}-delete" tabindex="-1" role="dialog"
         aria-labelledby="{{ $tableid }}Label" aria-hidden="true">
@@ -154,9 +78,7 @@
  
         $(document).ready(function() {
             $('#table-{{ $tableid }}-delete').on('hidden.bs.modal', function (e) {
-            //  @if(!empty($deletecallbackafterclose))
-            //     {{$deletecallbackafterclose}}(e)
-            //  @endif
+                
             }).on('shown.bs.modal', function (e) {
              
             });
@@ -170,44 +92,7 @@
                     showToast('Bulk action failed', 'danger');
                 })
             })
-            /*
-            $('#table-{{ $tableid }}-form-create').on('submit', function(e) {
-                e.preventDefault();
-
-                $.ajax({
-                    url: $(this).attr('action'),
-                    method: $(this).attr('method'),
-                    data: $(this).serialize(),
-                    
-                    success: function(response) {
-
-                        
-                        $('#table-{{ $tableid }}-create').modal('hide');
-
-                        $('#table-{{ $tableid }}-static').modal('hide');
-
-                        $('#table-{{ $tableid }}').DataTable().ajax.reload();
-                        showToast('Record has been successfully created', 'success');
-
-                        $('.invalid-feedback').text('');
-
-                        $('#{{$item->name}}-table-{{ $tableid }}-form-create').val('');
-                    },
-
-                    error: function(xhr) {
-
-                        var errors = xhr.responseJSON.errors;
-                        
-                        $.each(errors, function(key, value) {
-
-                            $('#' + key + '-error-table-{{ $tableid }}-form-create').text(value[0]).show();
-
-                        });
-
-                    }
-                });
-            });
-            */
+            
         });
 
 
