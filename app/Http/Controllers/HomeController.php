@@ -80,14 +80,16 @@ class HomeController extends Controller
         if($hash==sha1($user->email)&&!$user->hasVerifiedEmail()){
             $user->markEmailAsVerified();
             event(new Verified($user));
+            return redirect()->route('login')->with('success', " Account verifyed Succesfully");
+        }else{
+            return redirect()->route('login')->with('error', " Account Not verifyed");
         }
     }
-
-
-
-
-
-
+    public function show()
+    {
+        return view('auth.verify-email');
+    }
+ 
     public function ensureIsNotRateLimited(Request $request)
     {
         if (!RateLimiter::tooManyAttempts($this->throttleKey($request), 5)) {
