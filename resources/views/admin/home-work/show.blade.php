@@ -17,6 +17,7 @@
          
         <div class="header_right">
             <ul class="nav_bar">
+                <li class="nav_item"><a class="nav_link btn"  data-bs-toggle="modal" data-bs-target="#user-acces-modal" data-target="#user-acces-modal" >User Access</a></li>
                 <li class="nav_item"><a href="{{route('admin.home-work.create',$homeWork->slug)}}"  class="nav_link btn">Add Homework</a></li>
             </ul>
         </div>
@@ -37,6 +38,26 @@
 </section>
 @endsection
 
+@push('modals')
+<div class="modal fade" id="user-acces-modal" tabindex="-1" role="dialog"  aria-labelledby="live-class-modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" >User Access</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span  aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <x-ajax-table :url="route('admin.user-access.index',['type'=>'class-detail','term'=>$class_detail->slug])"   :coloumns='[
+                    ["th"=>"Name","name"=>"name","data"=>"name"],                      
+                ]' 
+                tableinit="usertableinit"  />
+            </div>
+
+        </div>
+    </div>
+</div>
+@endpush
 
 @push('footer-script')
     <script>
@@ -47,6 +68,18 @@
         function questionbeforeajax(data){
             data.booklet=$('#booklet-list').val()||null;
             return data;
+        }
+
+        var usertable = null;
+        function usertableinit(table) {
+            usertable = table
+        }
+        function changeactivestatus(url){
+            $.get(url,function(res){
+                if (usertable != null) {
+                    usertable.ajax.reload()
+                }
+            })
         }
 
         function visiblechangerefresh(url) {
