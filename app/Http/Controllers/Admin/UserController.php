@@ -42,7 +42,7 @@ class UserController extends Controller
                         <img src="'.asset("assets/images/lock.svg").'" alt="">
                     </a>
                 ';
-            })->buildTable(['post_status']);
+            })->buildTable(['post_status','is_free_access']);
         }
         return view("admin.user.index");
     }
