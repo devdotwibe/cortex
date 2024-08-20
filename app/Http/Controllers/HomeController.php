@@ -85,7 +85,7 @@ class HomeController extends Controller
             return redirect()->route('login')->with('error', " Account Not verifyed");
         }
     }
-    public function show()
+    public function verificationnotice()
     {
         return view('auth.verify-email');
     }
