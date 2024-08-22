@@ -39,7 +39,7 @@
     </div>
 </section>
 
-<section class="invite-wrap mt-2" >
+<section class="invite-wrap mt-2 post-wrap" >
     <div class="container">
         <div class="row"> 
             <div class="card">
