@@ -34,6 +34,11 @@
                         </div>
                     </div>
                     @if($post->type=="post")
+                    <div class="post-image">
+                        @if(!empty($post->image))
+                        <img src="{{ $post->image }}" alt="">
+                        @endif 
+                    </div>
                     <div class="post-description" id="post-description"></div>
                     <script> 
                         const component = document.getElementById('post-description');
