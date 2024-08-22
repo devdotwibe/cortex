@@ -215,7 +215,11 @@
         ],
         allowedContent: true, 
     })
-
+    function removeimage(){
+        $('#selected-files').html(``)
+        $('#image-url').val("") 
+        $('#image').val("")
+    }
     $(function(){
 
             $('#image').change(function(e){
@@ -254,13 +258,22 @@
                                 response=JSON.parse(response);
                             }
                             $('#image-url').val(response.url) 
+                            $('#image').val("")
                             $('#selected-files').html(`                        
                                 <div class="selected-item">
+                                    <button type="button" class="close" onclick="removeimage()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                     <img src="${response.url}" alt="img" > 
                                 </div>
                             `)
                         },
                         error: function(xhr, status, error) { 
+                            $('#image').val("")
+                            $('#selected-files').html(`                        
+                                <div class="selected-item border border-dange">
+                                    <button type="button" class="close" onclick="removeimage()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <img src="${imgUrl}" alt="img" >  
+                                </div>
+                            `)
                             updateToast(toastId, 'Upload failed.', 'danger');
                             try {
                                 var ermsg= JSON.parse(xhr.responseText)

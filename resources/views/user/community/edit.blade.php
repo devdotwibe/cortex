@@ -239,5 +239,83 @@
             ],
             allowedContent: true, 
         })
+
+
+    $(function(){
+
+        $('#image').change(function(e){
+            if(this.files.length>0){ 
+                let imgUrl=URL.createObjectURL(this.files[0]);
+                $('#selected-files').html(`                        
+                    <div class="selected-item loading">
+                        <img src="${imgUrl}" alt="img" > 
+                    </div>
+                `)
+                var toastId = showToast('Uploading... 0%', 'info', false);
+
+                var formData = new FormData();
+                formData.append("file", this.files[0]);
+                formData.append("foldername", "post");
+                formData.append("file_type","image");
+                $.ajax({
+                    url : "{{route('upload')}}",
+                    type : 'POST',
+                    data : formData,
+                    processData: false,
+                    contentType: false,
+                    xhr: function() {
+                        var xhr = new window.XMLHttpRequest();
+                        xhr.upload.addEventListener('progress', function(event) {
+                            if (event.lengthComputable) {
+                                var percentComplete = Math.round((event.loaded / event.total) * 100);
+                                updateToast(toastId, `Uploading... ${percentComplete}%`, 'info');
+                            }
+                        }, false);
+                        return xhr;
+                    },
+                    success: function(response) {
+                        updateToast(toastId, 'Upload complete!', 'success');
+                        if(typeof response=="string"){
+                            response=JSON.parse(response);
+                        }
+                        $('#image-url').val(response.url) 
+                        $('#selected-files').html(`                        
+                            <div class="selected-item">
+                                <img src="${response.url}" alt="img" > 
+                            </div>
+                        `)
+                    },
+                    error: function(xhr, status, error) { 
+                        updateToast(toastId, 'Upload failed.', 'danger');
+                        try {
+                            var ermsg= JSON.parse(xhr.responseText)
+                            if(ermsg.errors){
+                                $('#error-image').tex(ermsg.errors.file[0])
+                            }
+                        } catch (error) {
+                            
+                        }
+                    }
+                });
+            }
+            
+        })
+        $('.dropzone').on('dragover', function(e) { 
+            e.preventDefault();
+            $(this).addClass('dragover');
+        }); 
+        $('.dropzone').on('dragleave', function(e) { 
+            e.preventDefault();
+            $(this).removeClass('dragover');
+        });
+        $('.dropzone').on('drop', function(e) {
+            e.preventDefault();
+            $(this).removeClass('dragover');
+            var files = e.originalEvent.dataTransfer.files;
+            if(files.length>0){
+                $('#image').prop('files',files).change()
+            }
+        })
+    })
 </script>
 @endpush
