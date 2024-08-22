@@ -43,20 +43,7 @@
                         <input type="hidden" name="type" class="community-post-type" value="{{old('type',$post->type)}}">
                         <div class="row">
 
-                            <div class="col-md-12" >
-                                <div class="form-group">
-                                    <div class="form-data">
-                                        <div class="forms-inputs mb-4"> 
-                                            <label for="title-community-post-type">Title</label> 
-                                            <input type="text" name="title" id="title-community-post-type" value="{{old('title',$post->title)}}" class="form-control  @error('title') is-invalid @enderror " placeholder="Title" aria-placeholder="Title" >
-                                            @error('title')
-                                            <div class="invalid-feedback">{{$message}}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>    
-                            </div> 
-
+                            
                             <div class="col-md-12 community-post-type community-post-type-post" @if(old('type',$post->type)!="post") style="display:none" @endif >
                                 <div class="form-group">
                                     <div class="form-data">
@@ -70,6 +57,48 @@
                                     </div>
                                 </div>    
                             </div>
+
+                            <div class="col-md-12 community-post-type community-post-type-post" @if(old('type',$post->type)!="post") style="display:none" @endif >
+                                <div class="form-group">
+                                    <div class="form-data"> 
+                                        <div class="forms-inputs mb-8">
+                                            <label class="dropzone form-control @error('image') is-invalid @enderror" for="image"> 
+                                                <p>Drag & Drop your Image file here or click to upload</p>
+                                                <input type="file"  id="image" style="display: none" accept=".png,.jpg,.jpeg" >
+                                                <input type="hidden" id="image-url"  name="image" value="{{old('image',$post->image)}}">
+                                            </label> 
+                                            @error('image')
+                                            <div class="invalid-feedback">{{$message}}</div>
+                                            @else
+                                            <div class="invalid-feedback" id="error-image">The field is required</div>
+                                            @enderror
+                                            <div id="selected-files" class="selected-files">
+                                                @if(!empty(old('image',$post->image)))
+                                                <div class="selected-item">
+                                                    <img src="{{old('image',$post->image)}}" alt="img" >
+                                                </div>
+                                                @endif
+                                            </div>
+                                        </div>
+        
+                                    </div>
+                                 </div>
+                            </div>
+
+                            <div class="col-md-12 community-post-type community-post-type-poll"  @if(old('type',$post->type)!="poll") style="display:none" @endif>
+                                <div class="form-group">
+                                    <div class="form-data">
+                                        <div class="forms-inputs mb-4"> 
+                                            <label for="title-community-post-type">Title</label> 
+                                            <input type="text" name="title" id="title-community-post-type" value="{{old('title',$post->title)}}" class="form-control  @error('title') is-invalid @enderror " placeholder="Title" aria-placeholder="Title" >
+                                            @error('title')
+                                            <div class="invalid-feedback">{{$message}}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>    
+                            </div> 
+
                             <div class="choice community-post-type community-post-type-poll"  @if(old('type',$post->type)!="poll") style="display:none" @endif>
                                 <h3>Choices</h3>
                                 <div class="choice-group col-md-12" id="option-community-post-type-choice-group" >
@@ -201,14 +230,12 @@
             chcnt++;
         }
 
-        CKEDITOR.replace($('#description-community-post-type')[0],{
-            extraPlugins: 'uploadButton',
-            removePlugins: 'easyimage',
+        CKEDITOR.replace($('#description-community-post-type')[0],{ 
             toolbarGroups: [ 
-                { name: 'toolbarInsert', groups: [ 'Source','UploadButton','Smiley' ] }
+                { name: 'toolbarInsert', groups: [ 'Source','Smiley' ] }
             ],
             toolbar: [
-                { name: 'toolbarInsert', items: ['Source','UploadButton','Smiley'] }, // Add buttons to the custom group
+                { name: 'toolbarInsert', items: ['Source','Smiley'] }, 
             ],
             allowedContent: true, 
         })

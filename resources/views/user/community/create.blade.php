@@ -49,20 +49,6 @@
                         <input type="hidden" name="type" class="community-post-type" value="{{old('type','post')}}">
                         <div class="row">
 
-                            <div class="col-md-12" >
-                                <div class="form-group">
-                                    <div class="form-data">
-                                        <div class="forms-inputs mb-4"> 
-                                            <label for="title-community-post-type">Title</label> 
-                                            <input type="text" name="title" id="title-community-post-type" value="{{old('title')}}" class="form-control  @error('title') is-invalid @enderror " placeholder="Title" aria-placeholder="Title" >
-                                            @error('title')
-                                            <div class="invalid-feedback">{{$message}}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>    
-                            </div> 
-
                             <div class="col-md-12 community-post-type community-post-type-post" @if(old('type','post')!="post") style="display:none" @endif >
                                 <div class="form-group">
                                     <div class="form-data">
@@ -76,6 +62,45 @@
                                     </div>
                                 </div>    
                             </div>
+                            <div class="col-md-12 community-post-type community-post-type-post" @if(old('type','post')!="post") style="display:none" @endif >
+                                <div class="form-group">
+                                    <div class="form-data"> 
+                                        <div class="forms-inputs mb-8">
+                                            <label class="dropzone form-control @error('image') is-invalid @enderror" for="image"> 
+                                                <p>Drag & Drop your Image file here or click to upload</p>
+                                                <input type="file"  id="image" style="display: none" accept=".png,.jpg,.jpeg" >
+                                                <input type="hidden" id="image-url"  name="image" value="{{old('image')}}">
+                                            </label> 
+                                            @error('image')
+                                            <div class="invalid-feedback" id="error-image">{{$message}}</div>
+                                            @else
+                                            <div class="invalid-feedback" id="error-image">The field is required</div>
+                                            @enderror
+                                            <div id="selected-files" class="selected-files">
+                                                @if(!empty(old('image')))
+                                                <div class="selected-item">
+                                                    <img src="{{old('image')}}" alt="img" >
+                                                </div>
+                                                @endif
+                                            </div>
+                                        </div> 
+                                    </div>
+                                 </div>
+                            </div>
+ 
+                            <div class="col-md-12 community-post-type community-post-type-poll" @if(old('type','')!="poll") style="display:none" @endif >
+                                <div class="form-group">
+                                    <div class="form-data">
+                                        <div class="forms-inputs mb-4"> 
+                                            <label for="title-community-post-type">Title</label> 
+                                            <input type="text" name="title" id="title-community-post-type" value="{{old('title')}}" class="form-control  @error('title') is-invalid @enderror " placeholder="Title" aria-placeholder="Title" >
+                                            @error('title')
+                                            <div class="invalid-feedback">{{$message}}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>    
+                            </div> 
                             <div class="choice community-post-type community-post-type-poll"  @if(old('type','')!="poll") style="display:none" @endif>
                                 <h3>Choices</h3>
                                 <div class="choice-group col-md-12" id="option-community-post-type-choice-group" >
@@ -146,51 +171,122 @@
         $('.community-post-type-'+val).fadeIn();
     }  
     var chcnt=$('.choice-item').length;
-        function removeChoice(target,checkbox,parent){
-            if($(checkbox).is(":checked")){
-                $(parent).find(".choice-item:first .choice-check").prop("checked",true)
-            }
-            $(target).remove()
-            $(parent).find(".choice-item .choice-check").each(function(k,v){
-                $(v).val(k)
-            })
-        } 
-        function addChoice(name,label,target){    
-            var ln=$(target).find(".choice-item .choice-check").length;
-            $(target).append(
-            `
-            <div class="choice-item mt-2" id="${name}-community-post-type-choice-item-chcnt-${chcnt}"  >
-                <div class="form-group">
-                    <div class="form-data">
-                        <div class="forms-inputs mb-4"> 
-                            <label for="${name}-community-post-type-chcnt-${chcnt}">Choice</label>
-                            <div class="input-group"> 
-                                <input type="text" name="${name}[]" id="${name}-community-post-type-chcnt-${chcnt}" value="" class="form-control" placeholder="${label}" aria-placeholder="${label}" >
-                                <div class="input-group-append choice-check-group">
-                                    <button type="button" onclick="removeChoice('#${name}-community-post-type-choice-item-chcnt-${chcnt}','#${name}-community-post-type-chcnt-${chcnt}-check','${target}')" class="btn btn-danger "><img src="{{asset("assets/images/delete-icon.svg")}}"></button>
-                                </div>
+    function removeChoice(target,checkbox,parent){
+        if($(checkbox).is(":checked")){
+            $(parent).find(".choice-item:first .choice-check").prop("checked",true)
+        }
+        $(target).remove()
+        $(parent).find(".choice-item .choice-check").each(function(k,v){
+            $(v).val(k)
+        })
+    } 
+    function addChoice(name,label,target){    
+        var ln=$(target).find(".choice-item .choice-check").length;
+        $(target).append(
+        `
+        <div class="choice-item mt-2" id="${name}-community-post-type-choice-item-chcnt-${chcnt}"  >
+            <div class="form-group">
+                <div class="form-data">
+                    <div class="forms-inputs mb-4"> 
+                        <label for="${name}-community-post-type-chcnt-${chcnt}">Choice</label>
+                        <div class="input-group"> 
+                            <input type="text" name="${name}[]" id="${name}-community-post-type-chcnt-${chcnt}" value="" class="form-control" placeholder="${label}" aria-placeholder="${label}" >
+                            <div class="input-group-append choice-check-group">
+                                <button type="button" onclick="removeChoice('#${name}-community-post-type-choice-item-chcnt-${chcnt}','#${name}-community-post-type-chcnt-${chcnt}-check','${target}')" class="btn btn-danger "><img src="{{asset("assets/images/delete-icon.svg")}}"></button>
                             </div>
-
                         </div>
+
                     </div>
                 </div>
-            </div> 
-            
-            `)    
-            chcnt++;
-        }
+            </div>
+        </div> 
+        
+        `)    
+        chcnt++;
+    }
 
-         
-        CKEDITOR.replace($('#description-community-post-type')[0],{
-            extraPlugins: 'uploadButton',
-            removePlugins: 'easyimage',
-            toolbarGroups: [ 
-                { name: 'toolbarInsert', groups: [ 'Source','UploadButton','Smiley' ] }
-            ],
-            toolbar: [
-                { name: 'toolbarInsert', items: ['Source','UploadButton','Smiley'] }, // Add buttons to the custom group
-            ],
-            allowedContent: true, 
-        })
+        
+    CKEDITOR.replace($('#description-community-post-type')[0],{ 
+        toolbarGroups: [ 
+            { name: 'toolbarInsert', groups: [ 'Source','Smiley' ] }
+        ],
+        toolbar: [
+            { name: 'toolbarInsert', items: ['Source','Smiley'] }, 
+        ],
+        allowedContent: true, 
+    })
+
+    $(function(){
+
+            $('#image').change(function(e){
+                if(this.files.length>0){ 
+                    let imgUrl=URL.createObjectURL(this.files[0]);
+                    $('#selected-files').html(`                        
+                        <div class="selected-item loading">
+                            <img src="${imgUrl}" alt="img" > 
+                        </div>
+                    `)
+                    var toastId = showToast('Uploading... 0%', 'info', false);
+
+                    $.ajax({
+                        url : "{{route('upload')}}",
+                        type : 'POST',
+                        data : formData,
+                        processData: false,
+                        contentType: false,
+                        xhr: function() {
+                            var xhr = new window.XMLHttpRequest();
+                            xhr.upload.addEventListener('progress', function(event) {
+                                if (event.lengthComputable) {
+                                    var percentComplete = Math.round((event.loaded / event.total) * 100);
+                                    updateToast(toastId, `Uploading... ${percentComplete}%`, 'info');
+                                }
+                            }, false);
+                            return xhr;
+                        },
+                        success: function(response) {
+                            updateToast(toastId, 'Upload complete!', 'success');
+                            if(typeof response=="string"){
+                                response=JSON.parse(response);
+                            }
+                            $('#image-url').val(response.url) 
+                            $('#selected-files').html(`                        
+                                <div class="selected-item">
+                                    <img src="${response.url}" alt="img" > 
+                                </div>
+                            `)
+                        },
+                        error: function(xhr, status, error) { 
+                            updateToast(toastId, 'Upload failed.', 'danger');
+                            try {
+                                var ermsg= JSON.parse(xhr.responseText)
+                                if(ermsg.errors){
+                                    $('#error-image').tex(ermsg.errors.file[])
+                                }
+                            } catch (error) {
+                                
+                            }
+                        }
+                    });
+                }
+                
+            })
+            $('.dropzone').on('dragover', function(e) { 
+                e.preventDefault();
+                $(this).addClass('dragover');
+            }); 
+            $('.dropzone').on('dragleave', function(e) { 
+                e.preventDefault();
+                $(this).removeClass('dragover');
+            });
+            $('.dropzone').on('drop', function(e) {
+                e.preventDefault();
+                $(this).removeClass('dragover');
+                var files = e.originalEvent.dataTransfer.files;
+                if(files.length>0){
+                    $('#image').prop('files',files).change()
+                }
+            })
+    })
 </script>
 @endpush

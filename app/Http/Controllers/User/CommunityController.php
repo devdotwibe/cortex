@@ -153,10 +153,10 @@ class CommunityController extends Controller
     public function store(Request $request){ 
         $type=$request->type??"post";
         if($type=="post"){
-            $data=$request->validate([
-                'title'=>["required","max:255"],
+            $data=$request->validate([ 
                 'type'=>["required"],
                 'description'=>["required"], 
+                'image'=>["nullable"], 
             ]);
         }else{
 
@@ -464,10 +464,10 @@ class CommunityController extends Controller
     public function update(Request $request,Post $post){
         $type=$request->type??"post";
         if($type=="post"){
-            $data=$request->validate([
-                'title'=>["required","max:255"],
+            $data=$request->validate([ 
                 'type'=>["required"],
                 'description'=>["required"], 
+                'image'=>["nullable"], 
             ]);
         }else{
 
