@@ -75,6 +75,12 @@
                     })
                 }
                 
+                let imagehtml='';
+                if(v.image){
+                    imagehtml=`
+                        <img src="${v.image}" alt="">
+                    `;
+                }
 
                 $('#post-item-list').append(`
                     <div class="post-item" id="post-item-${v.slug}">  
@@ -93,6 +99,9 @@
                         </div>
                         <div class="post-title">
                             ${v.title||""}
+                        </div>
+                        <div class="post-image">
+                            ${imagehtml}
                         </div>
                         <div class="post-content">
                             ${v.description||""}
