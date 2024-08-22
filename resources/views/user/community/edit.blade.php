@@ -233,10 +233,10 @@
 
         CKEDITOR.replace($('#description-community-post-type')[0],{ 
             toolbarGroups: [ 
-                { name: 'toolbarInsert', groups: [ 'Source','Smiley' ] }
+                { name: 'toolbarInsert', groups: ['Smiley' ] }
             ],
             toolbar: [
-                { name: 'toolbarInsert', items: ['Source','Smiley'] }, 
+                { name: 'toolbarInsert', items: ['Smiley'] }, 
             ],
             allowedContent: true, 
         })
