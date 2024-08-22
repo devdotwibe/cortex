@@ -21,6 +21,14 @@ class LessonRecordVideoController extends Controller
         return view('user.lesson-record.index',compact('lessonRecordings'));
     }
     public function show(Request $request,LessonRecording $lessonRecording){
+        /**
+         * @var User
+         */
+        $user=Auth::user();
+
+        if(TermAccess::where('type','lesson-record')->where('term_id',$lessonRecording->id)->where('user_id',$user->id)->count()==0){
+            return abort(404);
+        }
         $recordVideos=RecordVideo::where('lesson_recording_id',$lessonRecording->id)->get();
         return view('user.lesson-record.show',compact('lessonRecording','recordVideos'));
     }

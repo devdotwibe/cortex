@@ -33,6 +33,9 @@ class PrivateClassHomeWorkController extends Controller
          *  @var User
          */
         $user=Auth::user();
+        if(TermAccess::where('type','home-work')->where('term_id',$homeWork->id)->where('user_id',$user->id)->count()==0){
+            return abort(404);
+        }
         $booklets=HomeWorkBook::where('home_work_id',$homeWork->id)->get();
         return view('user.home-work.show',compact('homeWork','booklets','user'));
     }
@@ -42,6 +45,9 @@ class PrivateClassHomeWorkController extends Controller
          */
         $user=Auth::user();
 
+        if(TermAccess::where('type','home-work')->where('term_id',$homeWork->id)->where('user_id',$user->id)->count()==0){
+            return abort(404);
+        }
         if($request->ajax()){      
             
             if(!empty($request->question)){
@@ -61,7 +67,11 @@ class PrivateClassHomeWorkController extends Controller
         /**
         * @var User
         */
-       $user=Auth::user();   
+       $user=Auth::user();  
+       
+       if(TermAccess::where('type','home-work')->where('term_id',$homeWork->id)->where('user_id',$user->id)->count()==0){
+            return abort(404);
+        } 
         $question=HomeWorkQuestion::findSlug($request->question);
         $ans=HomeWorkAnswer::findSlug($request->answer);
         if(empty($ans)||$ans->home_work_id!=$homeWorkBook->id||$ans->home_work_question_id!=$question->id||!$ans->iscorrect){
@@ -76,6 +86,10 @@ class PrivateClassHomeWorkController extends Controller
          * @var User
          */
         $user=Auth::user(); 
+
+        if(TermAccess::where('type','home-work')->where('term_id',$homeWork->id)->where('user_id',$user->id)->count()==0){
+            return abort(404);
+        }
         $review=HomeWorkReview::store([
             "title"=>$homeWorkBook->title,
             "name"=>'home-work-booklet',
@@ -124,6 +138,10 @@ class PrivateClassHomeWorkController extends Controller
          * @var User
          */
         $user=Auth::user(); 
+
+        if(TermAccess::where('type','home-work')->where('term_id',$homeWork->id)->where('user_id',$user->id)->count()==0){
+            return abort(404);
+        }
         return DataTables::of(HomeWorkReview::where('user_id',$user->id)->where('home_work_id',$homeWork->id)->where('home_work_book_id',$homeWorkBook->id)->select('slug','created_at','progress'))
             ->addColumn('progress',function($data){
                 return $data->progress."%";

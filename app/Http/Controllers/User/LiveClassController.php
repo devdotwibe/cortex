@@ -112,6 +112,10 @@ class LiveClassController extends Controller
          * @var User
          */
         $user=Auth::user();
+
+        if(TermAccess::where('type','class-detail')->where('term_id',$classDetail->id)->where('user_id',$user->id)->count()==0){
+            return abort(404);
+        }
         $live_class =  LiveClassPage::first();  
         $sloteterms=[];
         foreach($user->privateClass->timeslot??[] as $s){
@@ -138,6 +142,10 @@ class LiveClassController extends Controller
          * @var User
          */
         $user=Auth::user();
+
+        if(TermAccess::where('type','lesson-material')->where('term_id',$lessonMaterial->id)->where('user_id',$user->id)->count()==0){
+            return abort(404);
+        }
         $live_class =  LiveClassPage::first();  
         $lessons = SubLessonMaterial::where('lesson_material_id',$lessonMaterial->id)->paginate();
         return view('user.live-class.lesson',compact('user','live_class','lessonMaterial','lessons')); 
@@ -150,6 +158,10 @@ class LiveClassController extends Controller
         $user=Auth::user();
         $live_class =  LiveClassPage::first();   
         $lessonMaterial=LessonMaterial::find($subLessonMaterial->lesson_material_id);
+
+        if(TermAccess::where('type','lesson-material')->where('term_id',$lessonMaterial->id)->where('user_id',$user->id)->count()==0){
+            return abort(404);
+        }
         $cachepath=Storage::disk('private')->path('cache/'.md5($subLessonMaterial->pdf_file));
         $filepath=Storage::disk('private')->path($subLessonMaterial->pdf_file);
         File::ensureDirectoryExists($cachepath);
