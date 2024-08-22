@@ -75,6 +75,7 @@
                                             <div id="selected-files" class="selected-files">
                                                 @if(!empty(old('image',$post->image)))
                                                 <div class="selected-item">
+                                                    <button type="button" class="close" onclick="removeimage()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                     <img src="{{old('image',$post->image)}}" alt="img" >
                                                 </div>
                                                 @endif
@@ -240,82 +241,95 @@
             allowedContent: true, 
         })
 
+        function removeimage(){
+            $('#selected-files').html(``)
+            $('#image-url').val("") 
+            $('#image').val("")
+        }
+        $(function(){
 
-    $(function(){
+            $('#image').change(function(e){
+                if(this.files.length>0){ 
+                    let imgUrl=URL.createObjectURL(this.files[0]);
+                    $('#selected-files').html(`                        
+                        <div class="selected-item loading">
+                            <img src="${imgUrl}" alt="img" > 
+                        </div>
+                    `)
+                    var toastId = showToast('Uploading... 0%', 'info', false);
 
-        $('#image').change(function(e){
-            if(this.files.length>0){ 
-                let imgUrl=URL.createObjectURL(this.files[0]);
-                $('#selected-files').html(`                        
-                    <div class="selected-item loading">
-                        <img src="${imgUrl}" alt="img" > 
-                    </div>
-                `)
-                var toastId = showToast('Uploading... 0%', 'info', false);
-
-                var formData = new FormData();
-                formData.append("file", this.files[0]);
-                formData.append("foldername", "post");
-                formData.append("file_type","image");
-                $.ajax({
-                    url : "{{route('upload')}}",
-                    type : 'POST',
-                    data : formData,
-                    processData: false,
-                    contentType: false,
-                    xhr: function() {
-                        var xhr = new window.XMLHttpRequest();
-                        xhr.upload.addEventListener('progress', function(event) {
-                            if (event.lengthComputable) {
-                                var percentComplete = Math.round((event.loaded / event.total) * 100);
-                                updateToast(toastId, `Uploading... ${percentComplete}%`, 'info');
+                    var formData = new FormData();
+                    formData.append("file", this.files[0]);
+                    formData.append("foldername", "post");
+                    formData.append("file_type","image");
+                    $.ajax({
+                        url : "{{route('upload')}}",
+                        type : 'POST',
+                        data : formData,
+                        processData: false,
+                        contentType: false,
+                        xhr: function() {
+                            var xhr = new window.XMLHttpRequest();
+                            xhr.upload.addEventListener('progress', function(event) {
+                                if (event.lengthComputable) {
+                                    var percentComplete = Math.round((event.loaded / event.total) * 100);
+                                    updateToast(toastId, `Uploading... ${percentComplete}%`, 'info');
+                                }
+                            }, false);
+                            return xhr;
+                        },
+                        success: function(response) {
+                            updateToast(toastId, 'Upload complete!', 'success');
+                            if(typeof response=="string"){
+                                response=JSON.parse(response);
                             }
-                        }, false);
-                        return xhr;
-                    },
-                    success: function(response) {
-                        updateToast(toastId, 'Upload complete!', 'success');
-                        if(typeof response=="string"){
-                            response=JSON.parse(response);
-                        }
-                        $('#image-url').val(response.url) 
-                        $('#selected-files').html(`                        
-                            <div class="selected-item">
-                                <img src="${response.url}" alt="img" > 
-                            </div>
-                        `)
-                    },
-                    error: function(xhr, status, error) { 
-                        updateToast(toastId, 'Upload failed.', 'danger');
-                        try {
-                            var ermsg= JSON.parse(xhr.responseText)
-                            if(ermsg.errors){
-                                $('#error-image').tex(ermsg.errors.file[0])
+                            $('#image-url').val(response.url) 
+                            $('#image').val("")
+                            $('#selected-files').html(`                        
+                                <div class="selected-item">
+                                    <button type="button" class="close" onclick="removeimage()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <img src="${response.url}" alt="img" > 
+                                </div>
+                            `)
+                        },
+                        error: function(xhr, status, error) { 
+                            $('#image').val("")
+                            $('#selected-files').html(`                        
+                                <div class="selected-item border border-dange">
+                                    <button type="button" class="close" onclick="removeimage()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <img src="${imgUrl}" alt="img" >  
+                                </div>
+                            `)
+                            updateToast(toastId, 'Upload failed.', 'danger');
+                            try {
+                                var ermsg= JSON.parse(xhr.responseText)
+                                if(ermsg.errors){
+                                    $('#error-image').tex(ermsg.errors.file[0])
+                                }
+                            } catch (error) {
+                                
                             }
-                        } catch (error) {
-                            
                         }
-                    }
-                });
-            }
-            
+                    });
+                }
+                
+            })
+            $('.dropzone').on('dragover', function(e) { 
+                e.preventDefault();
+                $(this).addClass('dragover');
+            }); 
+            $('.dropzone').on('dragleave', function(e) { 
+                e.preventDefault();
+                $(this).removeClass('dragover');
+            });
+            $('.dropzone').on('drop', function(e) {
+                e.preventDefault();
+                $(this).removeClass('dragover');
+                var files = e.originalEvent.dataTransfer.files;
+                if(files.length>0){
+                    $('#image').prop('files',files).change()
+                }
+            })
         })
-        $('.dropzone').on('dragover', function(e) { 
-            e.preventDefault();
-            $(this).addClass('dragover');
-        }); 
-        $('.dropzone').on('dragleave', function(e) { 
-            e.preventDefault();
-            $(this).removeClass('dragover');
-        });
-        $('.dropzone').on('drop', function(e) {
-            e.preventDefault();
-            $(this).removeClass('dragover');
-            var files = e.originalEvent.dataTransfer.files;
-            if(files.length>0){
-                $('#image').prop('files',files).change()
-            }
-        })
-    })
 </script>
 @endpush

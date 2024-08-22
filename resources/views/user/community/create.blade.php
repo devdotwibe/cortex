@@ -79,6 +79,7 @@
                                             <div id="selected-files" class="selected-files">
                                                 @if(!empty(old('image')))
                                                 <div class="selected-item">
+                                                    <button type="button" class="close" onclick="removeimage()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                     <img src="{{old('image')}}" alt="img" >
                                                 </div>
                                                 @endif
