@@ -228,6 +228,10 @@
                     `)
                     var toastId = showToast('Uploading... 0%', 'info', false);
 
+                    var formData = new FormData();
+                    formData.append("file", this.files[0]);
+                    formData.append("foldername", "post");
+                    formData.append("file_type","image");
                     $.ajax({
                         url : "{{route('upload')}}",
                         type : 'POST',
@@ -261,7 +265,7 @@
                             try {
                                 var ermsg= JSON.parse(xhr.responseText)
                                 if(ermsg.errors){
-                                    $('#error-image').tex(ermsg.errors.file[])
+                                    $('#error-image').tex(ermsg.errors.file[0])
                                 }
                             } catch (error) {
                                 
