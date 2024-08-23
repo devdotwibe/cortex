@@ -272,12 +272,7 @@
                         },
                         error: function(xhr, status, error) { 
                             $('#image').val("")
-                            $('#selected-files').html(`                        
-                                <div class="selected-item border border-dange">
-                                    <button type="button" class="close" onclick="removeimage()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <img src="${imgUrl}" alt="img" >  
-                                </div>
-                            `)
+                            $('#selected-files').html(``)
                             updateToast(toastId, 'Upload failed.', 'danger');
                             try {
                                 var ermsg= JSON.parse(xhr.responseText)
