@@ -120,7 +120,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::delete('/report-post/{report_post}', [PostReportController::class,'destroy'])->name('report.destroy');
             Route::get('/report-post/{report_post}', [PostReportController::class,'show'])->name('report.show');
             Route::get('/report-post/{user}/ban-user', [PostReportController::class,'banuser'])->name('report.banuser');
-            Route::get('/report-post/{user}/block-post', [PostReportController::class,'hidepost'])->name('report.hidepost');
+            Route::get('/report-post/{post}/block-post', [PostReportController::class,'hidepost'])->name('report.hidepost');
 
             Route::get('/post/{post}/comment/{post_comment}/reply', [CommunityControllerController::class, 'postCommentReplay'])->name('post.comment.reply'); 
             Route::delete('/post/{post}/comment/{post_comment}/delete', [CommunityControllerController::class, 'commentDestroy'])->name('post.comment.destroy'); 
