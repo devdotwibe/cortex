@@ -43,7 +43,7 @@ class PostReportController extends Controller
     }
     public function hidepost(Request $request,Post $post){
         $post->update([
-            'visible_status'=>"blocked"
+            'visible_status'=>"hide"
         ]); 
         if($request->ajax()){
             return response()->json(["success"=>"Post has been blocked"]);
