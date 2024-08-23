@@ -29,7 +29,8 @@ class PostReportController extends Controller
     public function show(Request $request,ReportPost $reportPost){
         $post=Post::find($reportPost->post_id);
         $user=User::find($reportPost->user_id);
-        return view('admin.report-post.show',compact('post','user','reportPost'));
+        $postUser=User::find($post->user_id);
+        return view('admin.report-post.show',compact('postUser','post','user','reportPost'));
     }
     public function banuser(Request $request,User $user){
         $user->update([

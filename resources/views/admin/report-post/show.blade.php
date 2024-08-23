@@ -13,7 +13,7 @@
         <div class="header_right">
             <ul class="nav_bar"> 
                 @if($user->post_status=="active")
-                <li class="nav_item"><a href="{{route('admin.community.report.banuser',$user->slug)}}" class=" btn btn-danger">Ban User</a></li> 
+                <li class="nav_item"><a href="{{route('admin.community.report.banuser',$postUser->slug)}}" class=" btn btn-danger">Ban User</a></li> 
                 @endif
                 <li class="nav_item"><a href="{{route('admin.community.post.edit',$post->slug)}}" class="nav_link btn">Edit Post</a></li>       
                 @if($post->visible_status=="show")
