@@ -45,10 +45,10 @@ class PostReportController extends Controller
         $post->update([
             'visible_status'=>"hide"
         ]); 
-        if($request->ajax()){
-            return response()->json(["success"=>"Post has been blocked"]);
-        }        
-        return redirect()->back()->with("success","Post has been blocked");
+        // if($request->ajax()){
+        //     return response()->json(["success"=>"Post has been blocked"]);
+        // }        
+        // return redirect()->back()->with("success","Post has been blocked");
     }
     public function destroy(Request $request,ReportPost $reportPost){
         $reportPost->delete();
