@@ -12,6 +12,7 @@
         </div> 
         <div class="header_right">
             <ul class="nav_bar"> 
+                @json($post)
                 @if($postUser->post_status=="active")
                 <li class="nav_item"><a href="{{route('admin.community.report.banuser',$postUser->slug)}}" class=" btn btn-danger">Ban User</a></li> 
                 @endif
