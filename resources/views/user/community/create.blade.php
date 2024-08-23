@@ -227,6 +227,7 @@
             $('#image').change(function(e){
                 if(this.files.length>0){ 
                     let imgUrl=URL.createObjectURL(this.files[0]);
+                    let oldhtml=$('#selected-files').html();
                     $('#selected-files').html(`                        
                         <div class="selected-item loading">
                             <img src="${imgUrl}" alt="img" > 
@@ -270,12 +271,7 @@
                         },
                         error: function(xhr, status, error) { 
                             $('#image').val("")
-                            $('#selected-files').html(`                        
-                                <div class="selected-item border border-dange">
-                                    <button type="button" class="close" onclick="removeimage()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <img src="${imgUrl}" alt="img" >  
-                                </div>
-                            `)
+                            $('#selected-files').html(oldhtml)
                             updateToast(toastId, 'Upload failed.', 'danger');
                             try {
                                 var ermsg= JSON.parse(xhr.responseText)
