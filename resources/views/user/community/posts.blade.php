@@ -5,6 +5,9 @@
     <div class="header_wrapp">
         <div class="header_title">
             <h2>Community</h2>
+            @if($user->post_status=="active")
+            <p class="text-danger">You have been banned by admin</p>
+            @endif
         </div>
 
         <div class="header_right">
