@@ -241,7 +241,7 @@
                     formData.append("foldername", "post");
                     formData.append("file_type","image");
                     $.ajax({
-                        url : "{{route('upload')}}",
+                        url : "{{route('admin.upload')}}",
                         type : 'POST',
                         data : formData,
                         processData: false,
