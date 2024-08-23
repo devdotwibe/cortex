@@ -62,6 +62,7 @@
                                 <div class="form-group">
                                     <div class="form-data"> 
                                         <div class="forms-inputs mb-8">
+                                            <small>note: Max image size 5MB | supported files: .png, .jpg, .jpge</small>
                                             <label class="dropzone form-control @error('image') is-invalid @enderror" for="image"> 
                                                 <p>Drag & Drop your Image file here or click to upload</p>
                                                 <input type="file"  id="image" style="display: none" accept=".png,.jpg,.jpeg" >
