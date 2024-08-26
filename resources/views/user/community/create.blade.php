@@ -58,6 +58,16 @@
                                 </div>    
                             </div>
 
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="form-data"> 
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" onchange="changeFormType(this.checked?'poll':'post')" role="switch" id="active-toggle" />
+                                            <label class="form-check-label" for="active-toggle">Poll</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="choice community-post-type community-post-type-poll"  @if(old('type','')!="poll") style="display:none" @endif>
                                 <h3>Choices</h3>
