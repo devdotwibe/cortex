@@ -1,10 +1,20 @@
 @extends('layouts.auth')
 @section('title', 'Register')
 @section('content')
-<section class="register-wrapp">
-    <div class="container mt-5">
-        <div class="row d-flex justify-content-center">
-            <div class="col-md-6">
+<section class="login-wrapp register-wrapp">
+    <div class="login-head">
+        <div class="logo">
+            <a href="">
+                <img src="{{asset('assets/images/logo1.svg')}}" alt="">
+            </a>
+        </div>
+    </div>
+    <div class="login-cont">
+        <div class="login-row">
+            <div class="login-left">
+                <img src="{{asset('assets/images/studying.png')}}" alt="">
+            </div>
+            <div class="login-right">
                 <div class="card @error('register') register-error @enderror px-5 py-5">
                     @error('register')
                     <div class="alert alert-danger" role="alert">
