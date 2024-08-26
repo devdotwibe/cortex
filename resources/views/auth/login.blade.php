@@ -1,10 +1,25 @@
 @extends('layouts.auth')
 @section('title', 'Login')
 @section('content')
+
+
+
 <section class="login-wrapp">
-    <div class="container mt-5">
-        <div class="row d-flex justify-content-center">
-            <div class="col-md-6">
+    <div class="login-head">
+        <div class="container">
+            <div class="logo">
+                <a href="">
+                    <img src="{{asset('public/assets/images/logo1')}}" alt="">
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="login-cont">
+        <div class="login-row">
+            <div class="login-right">
+                <img src="{{asset('public/assets/images/Book-lover-bro.png')}}" alt="">
+            </div>
+            <div class="login-right">
                 <div class="card @error('login') login-error @enderror px-5 py-5">
                     @error('login')
                     <div class="alert alert-danger" role="alert">
@@ -61,4 +76,6 @@
         </div>
     </div>
 </section> 
+
+
 @endsection
