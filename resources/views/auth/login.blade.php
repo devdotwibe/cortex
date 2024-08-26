@@ -18,7 +18,9 @@
                 <img src="{{asset('assets/images/Book-lover-bro.png')}}" alt="">
             </div>
             <div class="login-right">
-                <div class="card @error('login') login-error @enderror px-5 py-5">
+                <div class="card @error('login') login-error @enderror">
+                    <h2>Welcome to Cortex</h2>
+                    <h3>Login</h3>
                     @error('login')
                     <div class="alert alert-danger" role="alert">
                         <span>{{$message}}</span>
@@ -41,14 +43,12 @@
                         <div class="form-group">
                             <div class="form-data">
                                 <div class="forms-inputs mb-4"> 
-                                    <span>Email or username</span> 
                                     <input autocomplete="off" name="email" type="text" placeholder="Enter your email or username" value="{{old('email')}}" class="form-control @error('email') is-invalid @enderror " >
                                     @error('email')
                                     <div class="invalid-feedback">{{$message}}</div>
                                     @enderror
                                 </div>
                                 <div class="forms-inputs mb-4"> 
-                                    <span>Password</span> 
                                     <input autocomplete="off" name="password" type="password" placeholder="Enter your password" class="form-control @error('password') is-invalid @enderror " >
                                     @error('password')
                                     <div class="invalid-feedback">{{$message}}</div>

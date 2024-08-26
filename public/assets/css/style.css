@@ -50,3 +50,66 @@ body {
     text-decoration: underline;
 }
   
+
+
+.login-wrapp {
+    width: 100%;
+    position: relative;
+}
+
+.login-wrapp .login-head {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+    padding: 15px 5%;
+}
+
+.login-wrapp .login-head .logo {
+    width: auto;
+}
+
+.login-wrapp .login-cont {
+    width: 100%;
+    background: #fff;
+    height: 100vh;
+}
+
+.login-wrapp .login-cont .login-row {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    height: 100%;
+}
+
+.login-wrapp .login-cont .login-row .login-left {
+    width: 50%;
+    background: #FDF4E0;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    padding: 0 5%;
+}
+
+.login-wrapp .login-cont .login-row 
+ .login-right {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    padding: 0 5%;
+}
+
+.login-wrapp .login-cont .login-row .login-left img {
+    max-width: 100%;
+    display: block;
+}
+
+.login-wrapp .login-cont .login-row .login-right .card {
+    width: 100%;
+    max-width: 500px;
+}
