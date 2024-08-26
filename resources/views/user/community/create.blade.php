@@ -1,7 +1,7 @@
 @extends('layouts.user')
 @section('title', 'Create Post')
 @section('content') 
- <section class="header_nav">
+ {{-- <section class="header_nav">
     <div class="header_wrapp">
         <div class="header_title">
             <div class="form-group">
@@ -13,8 +13,10 @@
         </div>
     </div>
 
- </section>
- @if ($errors->any())
+ </section> --}}
+
+
+ {{-- @if ($errors->any())
  <div class="alert alert-danger">
      <ul>
          @foreach ($errors->all() as $error)
@@ -22,19 +24,12 @@
          @endforeach
      </ul>
  </div>
-@endif
-<section class="header_nav community-post-type community-post-type-poll"    @if(old('type','')!="poll") style="display:none" @endif >
-    <div class="header_wrapp">
-        <div class="header_title">
-            <h2>Create Poll</h2>
-        </div>
-    </div>
-</section> 
+@endif  --}}
 
-<section class="header_nav community-post-type community-post-type-post"  @if(old('type','post')!="post") style="display:none" @endif >
+<section class="header_nav"    >
     <div class="header_wrapp">
         <div class="header_title">
-            <h2>Create Post</h2>
+            <h2> Post</h2>
         </div>
     </div>
 </section>
@@ -49,7 +44,7 @@
                         <input type="hidden" name="type" class="community-post-type" value="{{old('type','post')}}">
                         <div class="row">
 
-                            <div class="col-md-12 community-post-type community-post-type-post" @if(old('type','post')!="post") style="display:none" @endif >
+                            <div class="col-md-12" >
                                 <div class="form-group">
                                     <div class="form-data">
                                         <div class="forms-inputs mb-4"> 
@@ -62,47 +57,8 @@
                                     </div>
                                 </div>    
                             </div>
-                            <div class="col-md-12 community-post-type community-post-type-post" @if(old('type','post')!="post") style="display:none" @endif >
-                                <div class="form-group">
-                                    <div class="form-data"> 
-                                        <div class="forms-inputs mb-8">
-                                            <small>note: Max image size 5MB | supported files: .png, .jpg, .jpge</small>
-                                            <label class="dropzone form-control @error('image') is-invalid @enderror" for="image"> 
-                                                <p>Drag & Drop your Image file here or click to upload</p>
-                                                <input type="file"  id="image" style="display: none" accept=".png,.jpg,.jpeg" >
-                                                <input type="hidden" id="image-url"  name="image" value="{{old('image')}}">
-                                            </label> 
-                                            @error('image')
-                                            <div class="invalid-feedback" id="error-image">{{$message}}</div>
-                                            @else
-                                            <div class="invalid-feedback" id="error-image">The field is required</div>
-                                            @enderror
-                                            <div id="selected-files" class="selected-files">
-                                                @if(!empty(old('image')))
-                                                <div class="selected-item">
-                                                    <button type="button" class="close" onclick="removeimage()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                    <img src="{{old('image')}}" alt="img" >
-                                                </div>
-                                                @endif
-                                            </div>
-                                        </div> 
-                                    </div>
-                                 </div>
-                            </div>
- 
-                            <div class="col-md-12 community-post-type community-post-type-poll" @if(old('type','')!="poll") style="display:none" @endif >
-                                <div class="form-group">
-                                    <div class="form-data">
-                                        <div class="forms-inputs mb-4"> 
-                                            <label for="title-community-post-type">Title</label> 
-                                            <input type="text" name="title" id="title-community-post-type" value="{{old('title')}}" class="form-control  @error('title') is-invalid @enderror " placeholder="Title" aria-placeholder="Title" >
-                                            @error('title')
-                                            <div class="invalid-feedback">{{$message}}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>    
-                            </div> 
+
+
                             <div class="choice community-post-type community-post-type-poll"  @if(old('type','')!="poll") style="display:none" @endif>
                                 <h3>Choices</h3>
                                 <div class="choice-group col-md-12" id="option-community-post-type-choice-group" >
@@ -147,15 +103,52 @@
                                     <button class="btn btn-dark btn-sm float-end" type="button" onclick="addChoice('option','Choice','#option-community-post-type-choice-group')"> <img src="{{asset("assets/images/plus.svg")}}" alt=""> Add </button>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="mb-3 community-post-type community-post-type-poll"  @if(old('type','')!="poll") style="display:none" @endif >  
+                            <div class="col-md-12 " >
+                                <div class="form-group">
+                                    <div class="form-data"> 
+                                        <div class="forms-inputs mb-8">
+                                            <small>note: Max image size 5MB | supported files: .png, .jpg, .jpge</small>
+                                            <label class="dropzone form-control @error('image') is-invalid @enderror" for="image"> 
+                                                <p>Drag & Drop your Image file here or click to upload</p>
+                                                <input type="file"  id="image" style="display: none" accept=".png,.jpg,.jpeg" >
+                                                <input type="hidden" id="image-url"  name="image" value="{{old('image')}}">
+                                            </label> 
+                                            @error('image')
+                                            <div class="invalid-feedback" id="error-image">{{$message}}</div>
+                                            @else
+                                            <div class="invalid-feedback" id="error-image">The field is required</div>
+                                            @enderror
+                                            <div id="selected-files" class="selected-files">
+                                                @if(!empty(old('image')))
+                                                <div class="selected-item">
+                                                    <button type="button" class="close" onclick="removeimage()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                    <img src="{{old('image')}}" alt="img" >
+                                                </div>
+                                                @endif
+                                            </div>
+                                        </div> 
+                                    </div>
+                                 </div>
+                            </div>
+ 
+                            {{-- <div class="col-md-12 community-post-type community-post-type-poll" @if(old('type','')!="poll") style="display:none" @endif >
+                                <div class="form-group">
+                                    <div class="form-data">
+                                        <div class="forms-inputs mb-4"> 
+                                            <label for="title-community-post-type">Title</label> 
+                                            <input type="text" name="title" id="title-community-post-type" value="{{old('title')}}" class="form-control  @error('title') is-invalid @enderror " placeholder="Title" aria-placeholder="Title" >
+                                            @error('title')
+                                            <div class="invalid-feedback">{{$message}}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>    
+                            </div>  --}}
+                        </div> 
+                        <div class="mb-3" >  
                             <a href="{{ route('community.index') }}"  class="btn btn-secondary">Cancel</a> 
-                            <button type="submit" class="btn btn-dark">Create Poll</button> 
-                        </div>
-                        <div class="mb-3 community-post-type community-post-type-post"  @if(old('type','post')!="post") style="display:none" @endif >  
-                            <a href="{{ route('community.index') }}"  class="btn btn-secondary">Cancel</a> 
-                            <button type="submit" class="btn btn-dark">Create Post</button> 
+                            <button type="submit" class="btn btn-dark">Share Post</button> 
                         </div>
                     </form>
                 </div>
