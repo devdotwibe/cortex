@@ -9,7 +9,7 @@
         <div class="container">
             <div class="logo">
                 <a href="">
-                    <img src="{{asset('public/assets/images/logo1.svg')}}" alt="">
+                    <img src="{{asset('assets/images/logo1.svg')}}" alt="">
                 </a>
             </div>
         </div>
@@ -17,7 +17,7 @@
     <div class="login-cont">
         <div class="login-row">
             <div class="login-left">
-                <img src="{{asset('public/assets/images/Book-lover-bro.png')}}" alt="">
+                <img src="{{asset('assets/images/Book-lover-bro.png')}}" alt="">
             </div>
             <div class="login-right">
                 <div class="card @error('login') login-error @enderror px-5 py-5">
