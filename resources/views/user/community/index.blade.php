@@ -106,11 +106,11 @@
                         <div class="post-content">
                             ${v.description||""}
                         </div>
-                        <div class="post-image">
-                            ${imagehtml}
-                        </div>
                         <div class="poll-options">
                             ${polloption}
+                        </div>
+                        <div class="post-image">
+                            ${imagehtml}
                         </div>
                         <div class="post-actions">
                             <a class="post-action-btn like-btn btn" onclick="likevote('${v.likeUrl}','#post-item-${v.slug}')"><img src="${v.liked?"{{asset('assets/images/liked.svg')}}":"{{asset('assets/images/like.svg')}}"}" slt="comment"> <span>${v.likes}</span></a>
@@ -190,11 +190,11 @@
             <div class="post-content">
                 ${v.description||""}
             </div>
-            <div class="post-image">
-                ${imagehtml}
-            </div>
             <div class="poll-options">
                 ${polloption}
+            </div>
+            <div class="post-image">
+                ${imagehtml}
             </div>
             <div class="post-actions">
                 <a class="post-action-btn like-btn btn" onclick="likevote('${v.likeUrl}','#post-item-${v.slug}')"><img src="${v.liked?"{{asset('assets/images/liked.svg')}}":"{{asset('assets/images/like.svg')}}"}" slt="comment"> <span>${v.likes}</span></a>

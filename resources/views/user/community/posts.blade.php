@@ -85,7 +85,7 @@
                 }
 
                 $('#post-item-list').append(`
-                    <div class="post-item" id="post-item-${v.slug}">  
+                    <div class="post-item" id="post-item-${v.slug}"> 
                         <a href="${v.showUrl}">
                             <div class="post-header">
                                 <div class="avathar">
@@ -102,13 +102,15 @@
                             <div class="post-content">
                                 ${v.description||""}
                             </div>
-                            <div class="post-image">
-                                ${imagehtml}
-                            </div>
                         </a>
                         <div class="poll-options">
                             ${polloption}
                         </div>
+                        <a href="${v.showUrl}">
+                            <div class="post-image">
+                                ${imagehtml}
+                            </div>
+                        </a>
                         <div class="post-actions">
                             <a class="post-action-btn like-btn" onclick="likevote('${v.likeUrl}','#post-item-${v.slug}')"><img src="${v.liked?"{{asset('assets/images/liked.svg')}}":"{{asset('assets/images/like.svg')}}"}" slt="comment"> <span>${v.likes}</span></a>
                             <a class="post-action-btn comment-btn" href="${v.showUrl}"><img src="{{asset('assets/images/comment1.svg')}}" slt="comment"> <span>${v.comments}</span></a>
@@ -184,13 +186,15 @@
                 <div class="post-content">
                     ${v.description||""}
                 </div>
+            </a>
+                <div class="poll-options">
+                    ${polloption}
+                </div>
+            <a href="${v.showUrl}">
                 <div class="post-image">
                     ${imagehtml}
                 </div>
             </a>
-            <div class="poll-options">
-                ${polloption}
-            </div>
             <div class="post-actions">
                 <a class="post-action-btn like-btn" onclick="likevote('${v.likeUrl}','#post-item-${v.slug}')"><img src="${v.liked?"{{asset('assets/images/liked.svg')}}":"{{asset('assets/images/like.svg')}}"}" slt="comment"> <span>${v.likes}</span></a>
                 <a class="post-action-btn comment-btn" href="${v.showUrl}"><img src="{{asset('assets/images/comment1.svg')}}" slt="comment"> <span>${v.comments}</span></a>

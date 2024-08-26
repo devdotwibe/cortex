@@ -101,11 +101,11 @@
                         <div class="post-content">
                             ${v.description||""}
                         </div>
-                        <div class="post-image">
-                            ${imagehtml}
-                        </div>
                         <div class="poll-options">
                             ${polloption}
+                        </div>
+                        <div class="post-image">
+                            ${imagehtml}
                         </div>
                         <div class="post-actions">
                             <a class="post-action-btn like-btn btn" ><img src="{{asset('assets/images/like.svg')}}" slt="comment"> <span>${v.likes}</span></a>
