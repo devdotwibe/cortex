@@ -6,12 +6,10 @@
 
 <section class="login-wrapp">
     <div class="login-head">
-        <div class="container">
-            <div class="logo">
-                <a href="">
-                    <img src="{{asset('assets/images/logo1.svg')}}" alt="">
-                </a>
-            </div>
+        <div class="logo">
+            <a href="">
+                <img src="{{asset('assets/images/logo1.svg')}}" alt="">
+            </a>
         </div>
     </div>
     <div class="login-cont">
