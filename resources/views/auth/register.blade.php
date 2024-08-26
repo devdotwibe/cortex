@@ -15,7 +15,7 @@
                 <img src="{{asset('assets/images/studying.png')}}" alt="">
             </div>
             <div class="login-right">
-                <div class="card @error('register') register-error @enderror px-5 py-5">
+                <div class="card @error('register') register-error @enderror">
                     @error('register')
                     <div class="alert alert-danger" role="alert">
                         <span>{{$message}}</span>
