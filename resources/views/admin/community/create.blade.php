@@ -63,7 +63,7 @@
                                 <div class="form-group">
                                     <div class="form-data"> 
                                         <div class="form-check form-switch">
-                                            <input class="form-check-input" type="checkbox" onchange="changeFormType(this.checked?'poll':'post')" role="switch" id="active-toggle" />
+                                            <input class="form-check-input" type="checkbox" onchange="changeFormType(this.checked?'poll':'post')" role="switch" id="active-toggle" @checked(old('type','')=="poll")   />
                                             <label class="form-check-label" for="active-toggle">Poll</label>
                                         </div>
                                     </div>
