@@ -87,24 +87,24 @@
                 $('#post-item-list').append(`
                     <div class="post-item" id="post-item-${v.slug}">  
                         <a href="${v.showUrl}">
-                        <div class="post-header">
-                            <div class="avathar">
-                                <img src="{{asset("assets/images/User-blk.png")}}" alt="img">
+                            <div class="post-header">
+                                <div class="avathar">
+                                    <img src="{{asset("assets/images/User-blk.png")}}" alt="img">
+                                </div>
+                                <div class="title">
+                                    <h3>${v.user.name||""}</h3>
+                                    <span>${v.createdAt}</span>
+                                </div>
                             </div>
-                            <div class="title">
-                                <h3>${v.user.name||""}</h3>
-                                <span>${v.createdAt}</span>
+                            <div class="post-title">
+                                ${v.title||""}
                             </div>
-                        </div>
-                        <div class="post-title">
-                            ${v.title||""}
-                        </div>
-                        <div class="post-image">
-                            ${imagehtml}
-                        </div>
-                        <div class="post-content">
-                            ${v.description||""}
-                        </div>
+                            <div class="post-content">
+                                ${v.description||""}
+                            </div>
+                            <div class="post-image">
+                                ${imagehtml}
+                            </div>
                         </a>
                         <div class="poll-options">
                             ${polloption}
@@ -160,23 +160,33 @@
                     `;
                 })
             }
+
+            let imagehtml='';
+                if(v.image){
+                    imagehtml=`
+                        <img src="${v.image}" alt="">
+                    `;
+                }
             $(id).html(`
             <a href="${v.showUrl}">
-            <div class="post-header">
-                <div class="avathar">
-                    <img src="{{asset("assets/images/User-blk.png")}}" alt="img">
+                <div class="post-header">
+                    <div class="avathar">
+                        <img src="{{asset("assets/images/User-blk.png")}}" alt="img">
+                    </div>
+                    <div class="title">
+                        <h3>${v.user.name||""}</h3>
+                        <span>${v.createdAt}</span>
+                    </div>
                 </div>
-                <div class="title">
-                    <h3>${v.user.name||""}</h3>
-                    <span>${v.createdAt}</span>
+                <div class="post-title">
+                    ${v.title||""}
                 </div>
-            </div>
-            <div class="post-title">
-                ${v.title||""}
-            </div>
-            <div class="post-content">
-                ${v.description||""}
-            </div>
+                <div class="post-content">
+                    ${v.description||""}
+                </div>
+                <div class="post-image">
+                    ${imagehtml}
+                </div>
             </a>
             <div class="poll-options">
                 ${polloption}

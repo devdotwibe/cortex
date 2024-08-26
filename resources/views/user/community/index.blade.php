@@ -103,11 +103,11 @@
                         <div class="post-title">
                             ${v.title||""}
                         </div>
-                        <div class="post-image">
-                            ${imagehtml}
-                        </div>
                         <div class="post-content">
                             ${v.description||""}
+                        </div>
+                        <div class="post-image">
+                            ${imagehtml}
                         </div>
                         <div class="poll-options">
                             ${polloption}
@@ -163,6 +163,13 @@
                     `;
                 })
             }
+
+            let imagehtml='';
+            if(v.image){
+                imagehtml=`
+                    <img src="${v.image}" alt="">
+                `;
+            }
             $(id).html(`
             <div class="post-header">
                 <div class="avathar">
@@ -182,6 +189,9 @@
             </div>
             <div class="post-content">
                 ${v.description||""}
+            </div>
+            <div class="post-image">
+                ${imagehtml}
             </div>
             <div class="poll-options">
                 ${polloption}

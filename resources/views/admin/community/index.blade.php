@@ -98,11 +98,11 @@
                         <div class="post-title">
                             ${v.title||""}
                         </div>
-                        <div class="post-image">
-                            ${imagehtml}
-                        </div>
                         <div class="post-content">
                             ${v.description||""}
+                        </div>
+                        <div class="post-image">
+                            ${imagehtml}
                         </div>
                         <div class="poll-options">
                             ${polloption}
