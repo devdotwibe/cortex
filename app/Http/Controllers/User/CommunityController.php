@@ -161,10 +161,11 @@ class CommunityController extends Controller
         }else{
 
             $data=$request->validate([
-                'title'=>["required","max:255"],
+                'description'=>["required"], 
                 'type'=>["required"], 
                 'option'=>["required",'array','min:2'],
                 'option.*'=>["required",'max:255'],
+                'image'=>["nullable"], 
             ],[
                 'option.required'=>"This field is required",
                 'option.*.required'=>"This field is required",
@@ -472,10 +473,11 @@ class CommunityController extends Controller
         }else{
 
             $data=$request->validate([
-                'title'=>["required","max:255"],
+                'description'=>["required"], 
                 'type'=>["required"], 
                 'option'=>["required",'array','min:2'],
                 'option.*'=>["required",'max:255'],
+                'image'=>["nullable"], 
             ],[
                 'option.required'=>"This field is required",
                 'option.*.required'=>"This field is required",
