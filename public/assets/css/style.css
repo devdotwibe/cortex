@@ -113,3 +113,56 @@ body {
     width: 100%;
     max-width: 500px;
 }
+
+.login-wrapp .login-cont .login-row .login-right .card h2 {
+    font-size: 32px;
+    font-weight: 500;
+    color: #000;
+    margin: 0 0 20px;
+}
+
+.login-wrapp .login-cont .login-row .login-right .card h3 {
+    font-size: 24px;
+    color: #000;
+    margin: 0 0 20px;
+}
+
+.login-wrapp .login-cont .login-row .login-right .card .forms-inputs input {
+    width: 100%;
+    height: 64px;
+    background: none;
+    box-shadow: none;
+    border: 1px solid #E1E1E1;
+    font-size: 18px;
+    color: #767676;
+    padding: 17px;
+}
+
+.login-wrapp .login-cont .login-row .login-right .card .btn {
+    background: #FBAE1E;
+    border: 1px solid #FBAE1E;
+    color: #000;
+    font-size: 20px;
+    font-weight: 500;
+    height: 64px;
+}
+
+.login-wrapp .login-cont .login-row .login-right .card .btn:hover{
+    background: none;
+    color: #FBAE1E;
+} 
+
+.login-wrapp .login-cont .login-row .login-right .card p {
+    font-size: 18px;
+    color: #000;
+}
+
+.login-wrapp .login-cont .login-row .login-right .card p a {
+    color: #000;
+    text-decoration: none;
+    transition: all .25s ease-in-out;
+}
+
+.login-wrapp .login-cont .login-row .login-right .card p a:hover {
+    color: #fbae1e;
+}
