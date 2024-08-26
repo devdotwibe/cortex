@@ -163,7 +163,7 @@ class CommunityController extends Controller
             $data=$request->validate([
                 'description'=>["required"], 
                 'type'=>["required"], 
-                'option'=>["required",'array','min:2'],
+                'option'=>["required",'array','min:2','max:5'],
                 'option.*'=>["required",'max:255'],
                 'image'=>["nullable"], 
             ],[
@@ -475,7 +475,7 @@ class CommunityController extends Controller
             $data=$request->validate([
                 'description'=>["required"], 
                 'type'=>["required"], 
-                'option'=>["required",'array','min:2'],
+                'option'=>["required",'array','min:2','max:5'],
                 'option.*'=>["required",'max:255'],
                 'image'=>["nullable"], 
             ],[

@@ -75,18 +75,19 @@ class CommunityControllerController extends Controller
         $admin=Auth::guard('admin')->user();
         $type=$request->type??"post";
         if($type=="post"){
-            $data=$request->validate([
-                'title'=>["required","max:255"],
+            $data=$request->validate([ 
                 'type'=>["required"],
                 'description'=>["required"], 
+                'image'=>["nullable"], 
             ]);
         }else{
 
             $data=$request->validate([
-                'title'=>["required","max:255"],
+                'description'=>["required"], 
                 'type'=>["required"], 
-                'option'=>["required",'array','min:2'],
+                'option'=>["required",'array','min:2','max:5'],
                 'option.*'=>["required",'max:255'],
+                'image'=>["nullable"], 
             ],[
                 'option.required'=>"This field is required",
                 'option.*.required'=>"This field is required",
@@ -169,18 +170,19 @@ class CommunityControllerController extends Controller
     public function update(Request $request,Post $post){
         $type=$request->type??"post";
         if($type=="post"){
-            $data=$request->validate([
-                'title'=>["required","max:255"],
+            $data=$request->validate([ 
                 'type'=>["required"],
                 'description'=>["required"], 
+                'image'=>["nullable"], 
             ]);
         }else{
 
             $data=$request->validate([
-                'title'=>["required","max:255"],
+                'description'=>["required"], 
                 'type'=>["required"], 
-                'option'=>["required",'array','min:2'],
+                'option'=>["required",'array','min:2','max:5'],
                 'option.*'=>["required",'max:255'],
+                'image'=>["nullable"], 
             ],[
                 'option.required'=>"This field is required",
                 'option.*.required'=>"This field is required",

@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('title', 'Create Post')
 @section('content') 
- <section class="header_nav">
+ {{-- <section class="header_nav">
     <div class="header_wrapp">
         <div class="header_title">
             <div class="form-group">
@@ -13,8 +13,10 @@
         </div>
     </div>
 
- </section>
- @if ($errors->any())
+ </section> --}}
+
+
+ {{-- @if ($errors->any())
  <div class="alert alert-danger">
      <ul>
          @foreach ($errors->all() as $error)
@@ -22,19 +24,12 @@
          @endforeach
      </ul>
  </div>
-@endif
-<section class="header_nav community-post-type community-post-type-poll"    @if(old('type','')!="poll") style="display:none" @endif >
-    <div class="header_wrapp">
-        <div class="header_title">
-            <h2>Create Poll</h2>
-        </div>
-    </div>
-</section> 
+@endif --}} 
 
-<section class="header_nav community-post-type community-post-type-post"  @if(old('type','post')!="post") style="display:none" @endif >
+<section class="header_nav "    >
     <div class="header_wrapp">
         <div class="header_title">
-            <h2>Create Post</h2>
+            <h2> Post</h2>
         </div>
     </div>
 </section>
