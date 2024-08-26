@@ -119,7 +119,7 @@
         },'json');
     }
     $(function(){
-        loadpost("{{url()->current()}}");
+        loadpost("{{route('community.index',['ref'=>'ajax'])}}");
         $('#load-more-btn').click(function(){
             loadpost($('#load-more-btn').data('url'))
         })
