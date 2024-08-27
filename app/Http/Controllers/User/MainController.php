@@ -244,4 +244,7 @@ class MainController extends Controller
         $request->session()->regenerateToken();
         return redirect()->route('login');
     }
+    public function tips_n_advice(Request $request){
+        return view('user.tips_n_advice');
+    }
 }
