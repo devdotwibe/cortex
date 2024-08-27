@@ -112,7 +112,7 @@
                                     @endforelse
                                 </div>
     
-                                <div class="choice-button">
+                                <div class="choice-button" id="option-community-post-type-choice-group-btn">
                                     <button class="btn btn-dark btn-sm float-end" type="button" onclick="addChoice('option','Choice','#option-community-post-type-choice-group')"> <img src="{{asset("assets/images/plus.svg")}}" alt=""> Add </button>
                                 </div>
                             </div>
@@ -188,9 +188,9 @@
             $(parent).find(".choice-item .choice-check").each(function(k,v){
                 $(v).val(k)
             })
+            $(parent+"-btn").show()
         } 
         function addChoice(name,label,target){    
-            var ln=$(target).find(".choice-item .choice-check").length;
             $(target).append(
             `
             <div class="choice-item mt-2" id="${name}-community-post-type-choice-item-chcnt-${chcnt}"  >
@@ -211,6 +211,10 @@
             </div> 
             
             `)    
+            var len=$(target).find(".choice-item").length;
+            if(len>4){
+                $(target+"-btn").hide()
+            }
             chcnt++;
         }
 

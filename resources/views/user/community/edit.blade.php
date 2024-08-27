@@ -125,7 +125,7 @@
                                     @endif
                                 </div>
     
-                                <div class="choice-button">
+                                <div class="choice-button" id="option-community-post-type-choice-group-btn">
                                     <button class="btn btn-dark btn-sm float-end" type="button" onclick="addChoice('option','Choice','#option-community-post-type-choice-group')"> <img src="{{asset("assets/images/plus.svg")}}" alt=""> Add </button>
                                 </div>
                             </div>
@@ -208,9 +208,9 @@
             $(parent).find(".choice-item .choice-check").each(function(k,v){
                 $(v).val(k)
             })
+            $(parent+"-btn").show()
         } 
         function addChoice(name,label,target){    
-            var ln=$(target).find(".choice-item .choice-check").length;
             $(target).append(
             `
             <div class="choice-item mt-2" id="${name}-community-post-type-choice-item-chcnt-${chcnt}"  >
@@ -219,7 +219,6 @@
                         <div class="forms-inputs mb-4"> 
                             <label for="${name}-community-post-type-chcnt-${chcnt}">Choice</label>
                             <div class="input-group"> 
-                                <input type="hidden" name="option_id[]" id="${name}-community-post-type-chcnt-${chcnt}-id" value=""   >
                                 <input type="text" name="${name}[]" id="${name}-community-post-type-chcnt-${chcnt}" value="" class="form-control" placeholder="${label}" aria-placeholder="${label}" >
                                 <div class="input-group-append choice-check-group">
                                     <button type="button" onclick="removeChoice('#${name}-community-post-type-choice-item-chcnt-${chcnt}','#${name}-community-post-type-chcnt-${chcnt}-check','${target}')" class="btn btn-danger "><img src="{{asset("assets/images/delete-icon.svg")}}"></button>
@@ -232,6 +231,10 @@
             </div> 
             
             `)    
+            var len=$(target).find(".choice-item").length;
+            if(len>4){
+                $(target+"-btn").hide()
+            }
             chcnt++;
         }
 

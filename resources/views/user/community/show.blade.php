@@ -36,13 +36,7 @@
                             <h3>{{optional($post->user)->name}}</h3>
                             <span>@if($post->created_at->diffInMinutes(now())>1) {{$post->created_at->diffForHumans(now(), true)}} ago @else Just Now @endif</span>
                         </div>
-                    </div>
-                    @if($post->type=="post")
-                    <div class="post-image">
-                        @if(!empty($post->image))
-                        <img src="{{ $post->image }}" alt="">
-                        @endif 
-                    </div>
+                    </div> 
                     <div class="post-description" id="post-description"></div>
                     <script> 
                         const component = document.getElementById('post-description');
@@ -51,8 +45,7 @@
                             <link rel="stylesheet" href="{{asset('ckeditor/contents.css')}}">
                             {!! $post->description !!}
                         `;
-                    </script>
-                    @elseif($post->type=="poll")
+                    </script> 
                     @php
                         $tvotes=$post->pollOption->sum('votes');
                     @endphp
@@ -87,7 +80,12 @@
                             @endforeach
                         @endif
                     </div>
-                    @endif
+                    
+                    <div class="post-image">
+                        @if(!empty($post->image))
+                        <img src="{{ $post->image }}" alt="">
+                        @endif 
+                    </div>
 
                     <div class="post-actions">
                         <a class="post-action-btn like-btn m-2 btn"  href="{{route('community.post.like',$post->slug)}}"><img @if($post->likes()->where('user_id',auth()->id())->count()>0) src="{{asset('assets/images/liked.svg')}}" @else src="{{asset('assets/images/like.svg')}}" @endif slt="comment"> <span>{{$post->likes()->count()}}</span></a>
