@@ -1380,7 +1380,7 @@ section.post-section .post-container .post-item .post-content{
 .sidebar-content {overflow: auto;height: 100%;padding: 0 0 50px;}
 .sidebar-content::-webkit-scrollbar {display: none;}
 .sidebar-content ul li.side-item{margin: 0 0 2px;}
-.sidebar-content ul li.side-item a {padding: 10px 30px;display: flex;align-items: center;color: #000;cursor: pointer;position: relative;border-radius: 0;}
+.sidebar-content ul li.side-item a {padding: 10px 30px;display: flex;align-items: center;color: #000;cursor: pointer;position: relative;border-radius: 0; border: 1px solid transparent;}
 .sidebar-content ul li.side-item a:hover {background: #EFEFEF;color: #000;  border: 1px solid #dadada;}
 .sidebar-content ul li.side-item.active a {background: #000;color: #fff;}
 .sidebar-content ul li.side-item.logout {padding: 25px 0 0 0;position: relative;}
