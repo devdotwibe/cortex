@@ -125,7 +125,7 @@
                                     @endif
                                 </div>
     
-                                <div class="choice-button" id="option-community-post-type-choice-group-btn">
+                                <div class="choice-button" id="option-community-post-type-choice-group-btn" @if(count(old('option',$post->pollOption??[]))>4) style="display:none" @endif>
                                     <button class="btn btn-dark btn-sm float-end" type="button" onclick="addChoice('option','Choice','#option-community-post-type-choice-group')"> <img src="{{asset("assets/images/plus.svg")}}" alt=""> Add </button>
                                 </div>
                             </div>
@@ -219,6 +219,7 @@
                         <div class="forms-inputs mb-4"> 
                             <label for="${name}-community-post-type-chcnt-${chcnt}">Choice</label>
                             <div class="input-group"> 
+                                <input type="hidden" name="option_id[]" id="${name}-community-post-type-chcnt-${chcnt}-id" value=""   >
                                 <input type="text" name="${name}[]" id="${name}-community-post-type-chcnt-${chcnt}" value="" class="form-control" placeholder="${label}" aria-placeholder="${label}" >
                                 <div class="input-group-append choice-check-group">
                                     <button type="button" onclick="removeChoice('#${name}-community-post-type-choice-item-chcnt-${chcnt}','#${name}-community-post-type-chcnt-${chcnt}-check','${target}')" class="btn btn-danger "><img src="{{asset("assets/images/delete-icon.svg")}}"></button>

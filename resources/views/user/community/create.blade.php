@@ -109,7 +109,7 @@
                                     @endforelse
                                 </div>
     
-                                <div class="choice-button" id="option-community-post-type-choice-group-btn">
+                                <div class="choice-button" id="option-community-post-type-choice-group-btn" @if(count(old('option',[]))>4) style="display:none" @endif>
                                     <button class="btn btn-dark btn-sm float-end" type="button" onclick="addChoice('option','Choice','#option-community-post-type-choice-group')"> <img src="{{asset("assets/images/plus.svg")}}" alt=""> Add </button>
                                 </div>
                             </div>
