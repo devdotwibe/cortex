@@ -1431,7 +1431,7 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .critical-reasoning .critical-reasoning-col1 { width: 45%;}
 .critical-reasoning .critical-reasoning-col2 {width: 45%;}
 .critical-reasoning  .critical-reasoning-row1 { width: 100%;}
-.critical-reasoning .critical-reasoning-row1 h3 { width: 100%; font-size: 18px; font-weight: 500; padding: 15px 22px;border: 1px solid #d6d6d6; margin: 0 0 30px; border-radius: 10px;}
+.critical-reasoning .critical-reasoning-row1 h3 { width: 100%; font-size: 18px; font-weight: 500; padding: 15px 22px;border: 1px solid #d6d6d6; margin: 0 0 30px; border-radius: 10px; cursor: pointer;}
 .critical-reasoning .critical-reasoning-conten { width: 100%; padding: 20px 20px 5px; border: 2px solid #fdd03f; background: #faf8f3; border-radius: 10px; display: none;}
 .critical-reasoning .critical-reasoning-conten p { font-size: 16px; line-height: 1.4; margin: 0 0 20px;}
 .critical-reasoning .critical-reasoning-row1 h3.active { border: 2px solid #fdd03f;  background: #faf8f3;}
