@@ -17,3 +17,11 @@ jQuery(".side-dropdown-toggle").click(function () {
         jQuery(".side-dropdown-menu").hide("active");
     }
 });
+
+$(document).ready(function() {
+    $('.critical-reasoning-row1 h3').click(function() {
+        $('.critical-reasoning-conten').removeClass('active');
+        var targetId = $(this).data('target');
+        $('#' + targetId).addClass('active');
+    });
+});
