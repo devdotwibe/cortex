@@ -93,8 +93,12 @@
                     @endif
                     {{-- <img src="{{ asset('app/images/learnicon.svg') }}" alt="Prepare Icon"> --}}
                 </div>
+                @if(!empty($banner->preparetitle))
                 <h3>{{$banner->preparetitle}}</h3>
+                @endif
+                @if(!empty($banner->practisecontent))
                 <p>{{$banner->practisecontent}}</p>
+                @endif
             </div>
             <div class="guarantee-col1">
                 <div class="guarantee-img">
