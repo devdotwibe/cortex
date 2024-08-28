@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\banner;
 use App\Models\User;
+use App\Support\Helpers\OptionHelper;
+use App\Support\Plugin\Payment;
 use App\Trait\ResourceController;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Auth\Events\PasswordReset;
@@ -14,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
@@ -177,5 +180,54 @@ class HomeController extends Controller
 
     public function pricing(Request $request){
         return view('pricing.index');
+    }
+    public function verifypricing(Request $request){
+        $request->validate([
+            "year"=>['required'],
+            "plan"=>['required'],
+            "email"=>["required_if:plan,combo"]
+        ]);
+        $ajaxres=[];
+        /**
+        * @var User
+        */
+        $user=Auth::user();
+        $email=$request->input('email','');
+        if($request->plan=="combo"){ 
+            if($user->email==$email){
+                return throw ValidationException::withMessages(['email'=>["This email is not allowed. Please check the email address and try again."]]);
+            }
+            if(User::where('email',$email)->where('id','!=',$user->id)->count()>0){ 
+                $ajaxres["success"]="verifyed";
+            }else{
+                $ajaxres["success"]="un-verifyed";
+            }
+        }
+        if($request->ajax()){
+            return response()->json($ajaxres);
+        }
+ 
+        try {  
+            $payment =Payment::stripe()->paymentLinks->create([
+                'line_items' => [
+                [
+                    'price' =>$request->plan=="combo"? OptionHelper::getData('stripe.subscription.payment.combo-amount',''): OptionHelper::getData('stripe.subscription.payment.amount',''),
+                    'quantity' => 1,
+                ],
+                ], 
+                'after_completion' => [
+                    'type' => 'redirect',
+                    'redirect' => ['url' => url("stripe/subscription/{$user->slug}/".'payment/{CHECKOUT_SESSION_ID}')],
+                ],
+            ]);
+            $user->setProgress('cortext-subscription-payment-id',$payment->id);
+            $user->setProgress('cortext-subscription-payment','pending');
+            $user->setProgress('cortext-subscription-payment-plan',$request->plan);
+            $user->setProgress('cortext-subscription-payment-email',$request->email);
+            $user->setProgress('cortext-subscription-payment-year',$request->year);
+            return redirect($payment->url);
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error',$th->getMessage());
+        }
     }
 }

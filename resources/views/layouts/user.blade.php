@@ -134,7 +134,7 @@
                     @if (auth('web')->user()->progress('cortext-subscription-payment','')=="paid"||auth('web')->user()->is_free_access) 
                         <a href="{{ route('live-class.index') }}">
                     @else
-                        <a data-bs-toggle="modal" data-bs-target="#cortext-subscription-payment-modal"> 
+                        <a  href="{{route('pricing.index')}}"> 
                     @endif 
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
@@ -150,7 +150,7 @@
                     @if (auth('web')->user()->progress('cortext-subscription-payment','')=="paid"||auth('web')->user()->is_free_access) 
                     <a href="{{ route('analytics.index') }}">
                     @else
-                        <a data-bs-toggle="modal" data-bs-target="#cortext-subscription-payment-modal"> 
+                        <a href="{{route('pricing.index')}}"> 
                     @endif 
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
@@ -166,7 +166,7 @@
                    @if (auth('web')->user()->progress('cortext-subscription-payment','')=="paid"||auth('web')->user()->is_free_access)
                     <a href="{{ route('community.index') }}"> 
                    @else
-                        <a data-bs-toggle="modal" data-bs-target="#cortext-subscription-payment-modal"> 
+                        <a href="{{route('pricing.index')}}"> 
                     @endif
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
@@ -213,7 +213,7 @@
     <x-toast-container />
     <x-confirm-popup />
 
-    @if (auth('web')->user()->progress('cortext-subscription-payment','')!="paid")
+    {{-- @if (auth('web')->user()->progress('cortext-subscription-payment','')!="paid")
     <div class="modal fade" id="cortext-subscription-payment-modal" tabindex="-1" role="dialog"  aria-labelledby="cortext-subscription-paymentLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -232,7 +232,7 @@
             </div>
         </div>
     </div>
-    @endif
+    @endif --}}
 
     @stack('modals')
 

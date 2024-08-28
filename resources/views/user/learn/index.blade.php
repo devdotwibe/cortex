@@ -16,7 +16,7 @@
                 @if ($user->is_free_access||$user->progress('cortext-subscription-payment','')=="paid"||$k == 0)
                 <a href="{{ route('learn.show', $item->slug) }}">
                 @else
-                <a data-bs-toggle="modal" data-bs-target="#cortext-subscription-payment-modal">
+                <a href="{{route('pricing.index')}}">
                 @endif
                     <div class="card">
                         <div class="card-body">

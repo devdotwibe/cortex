@@ -5,6 +5,11 @@
 <section class="subsciption-wrapp">
     <div class="container">
         <div class="subsciption-title"><h1>Affordable Pricing</h1></div>
+        @if(session('subscribe'))
+            <div class="alert alert-danger" role="alert">
+                <span>{{ session('subscribe') }}</span>
+            </div>
+        @endif
         <div class="subsciption-body">
             <div class="row">
                 <div class="col-md-4">
@@ -18,7 +23,11 @@
                             <p>One user</p>
                         </div>
                         <div class="card-footer"> 
+                            @auth('web')
                             <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cortext-subscription-payment-modal">Pay</button>
+                            @else
+                            <a href="{{route('login')}}" class="btn btn-danger">Pay</a>
+                            @endauth
                         </div>
                     </div>
                 </div>
@@ -29,11 +38,15 @@
                         </div>
                         <div class="card-body">
                             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                            <p>Price ${{get_option('stripe.subscription.payment.compo-amount-price','0')}}</p>
+                            <p>Price ${{get_option('stripe.subscription.payment.combo-amount-price','0')}}</p>
                             <p>two user</p>
                         </div>
                         <div class="card-footer"> 
-                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cortext-compo-subscription-payment-modal">Pay</button>
+                            @auth('web')
+                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cortext-combo-subscription-payment-modal">Pay</button>
+                            @else
+                            <a href="{{route('login')}}" class="btn btn-danger">Pay</a>
+                            @endauth
                         </div>
                     </div>
                 </div>
@@ -42,7 +55,8 @@
     </div>
 </section>
 
-
+@auth('web')
+    
 
 <div class="modal fade" id="cortext-subscription-payment-modal" tabindex="-1" role="dialog"  aria-labelledby="cortext-subscription-paymentLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -52,10 +66,27 @@
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-                <form action="{{route('payment.subscription')}}"  id="cortext-subscription-payment-form" >
-                    <p>The {{config('app.name')}} Subscription Peyment required </p>
-                    <button type="button" data-bs-dismiss="modal"  class="btn btn-secondary">Cancel</button>
-                    <button type="submit" class="btn btn-dark">Pay Now ${{ get_option('stripe.subscription.payment.amount-price','0') }} </button>
+                <form action="{{route('pricing.index')}}"  id="cortext-subscription-payment-form" method="POST" >
+                    @csrf
+
+                    <input type="hidden" name="plan" value="single">
+                    <div class="form-group">
+                        <label for="year-1"> Year </label>
+                        <select name="year" class="form-control" id="year-1"> 
+                            @if(date('m')>3) 
+                                <option value="{{date('Y')+1}}-{{date('Y')+2}}" >Apr {{date('Y')+1}} - Mar {{date('Y')+2}}</option>
+                                <option value="{{date('Y')+2}}-{{date('Y')+3}}" >Apr {{date('Y')+2}} - Mar {{date('Y')+3}}</option>
+                            @else
+                                <option value="{{date('Y')+0}}-{{date('Y')+1}}" >Apr {{date('Y')+0}} - Mar {{date('Y')+1}}</option>
+                                <option value="{{date('Y')+1}}-{{date('Y')+2}}" >Apr {{date('Y')+1}} - Mar {{date('Y')+2}}</option>
+                            @endif
+                        </select>
+                    </div> 
+
+                    <div class="form-group mt-2">
+                        <button type="button" data-bs-dismiss="modal"  class="btn btn-secondary">Cancel</button>
+                        <button type="submit" class="btn btn-dark">Pay Now ${{ get_option('stripe.subscription.payment.amount-price','0') }} </button>
+                    </div>
                 </form>
             </div>
 
@@ -63,22 +94,50 @@
     </div>
 </div>
 
-<div class="modal fade" id="cortext-compo-subscription-payment-modal" tabindex="-1" role="dialog"  aria-labelledby="cortext-subscription-paymentLabel" aria-hidden="true">
+<div class="modal fade" id="cortext-combo-subscription-payment-modal" tabindex="-1" role="dialog"  aria-labelledby="cortext-subscription-paymentLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="cortext-subscription-paymentLablel">Subscription</h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" id="cortext-subscription-paymentLablel">Subscription</h5> 
             </div>
             <div class="modal-body">
-                <form action="{{route('payment.subscription')}}"  id="cortext-subscription-payment-form" >
-                    <p>The {{config('app.name')}} Subscription Compo Peyment  </p>
-                    <button type="button" data-bs-dismiss="modal"  class="btn btn-secondary">Cancel</button>
-                    <button type="submit" class="btn btn-dark">Pay Now ${{ get_option('stripe.subscription.payment.compo-amount-price','0') }} </button>
+                <form action="{{route('pricing.index')}}"  id="cortext-subscription-payment-form"  method="POST">
+                    @csrf        
+                    
+                    <input type="hidden" name="plan" value="combo">
+                    <div class="form-group">
+                        <label for="year-2"> Year</label>
+                        <select name="year" class="form-control" id="year-2"> 
+                            @if(date('m')>3) 
+                                <option value="{{date('Y')+1}}-{{date('Y')+2}}" >Apr {{date('Y')+1}} - Mar {{date('Y')+2}}</option>
+                                <option value="{{date('Y')+2}}-{{date('Y')+3}}" >Apr {{date('Y')+2}} - Mar {{date('Y')+3}}</option>
+                            @else
+                                <option value="{{date('Y')+0}}-{{date('Y')+1}}" >Apr {{date('Y')+0}} - Mar {{date('Y')+1}}</option>
+                                <option value="{{date('Y')+1}}-{{date('Y')+2}}" >Apr {{date('Y')+1}} - Mar {{date('Y')+2}}</option>
+                            @endif
+                        </select>
+                    </div>  
+                    <div class="form-group">
+                        <label for="email-2">Invite User</label>
+                        <input type="email" name="email" id="email-2" class="form-control" />
+                    </div>
+                    <div class="form-group mt-2">
+                        <button type="button" data-bs-dismiss="modal"  class="btn btn-secondary">Cancel</button>
+                        <button type="submit" class="btn btn-dark">Pay Now ${{ get_option('stripe.subscription.payment.combo-amount-price','0') }} </button>
+                    </div>
                 </form>
             </div>
 
         </div>
     </div>
 </div>
+
+<script>
+
+</script>
+
+
+@endauth
+
+
 @endsection

@@ -20,7 +20,7 @@
                                    href="#" onclick="loadlessonreviews('{{ route('learn.lesson.history', ['category' => $category->slug, 'sub_category' => $item->slug]) }}', {{$k+1}}); return false;"
                                @endif> 
                         @else
-                        <a data-bs-toggle="modal" data-bs-target="#cortext-subscription-payment-modal">
+                        <a href="{{route('pricing.index')}}">
                         @endif
                         <div class="lesson-row">
                             <div class="lesson-row-title">

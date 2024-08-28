@@ -123,15 +123,25 @@ class StripePaymentController extends Controller
         $user->setProgress('cortext-subscription-payment-transation',$payment->payment_intent);  
         if($payment->payment_status=="paid"){
             $user->setProgress('cortext-subscription-payment','paid');
+            $plan=$user->progress('cortext-subscription-payment-plan','');
+            if($plan=="combo"){
+                $email=$user->progress('cortext-subscription-payment-email','');
+                if(!empty($email)&& User::where('email',$email)->where('id','!=',$user->id)->count()>0){
+                    $cuser=User::where('email',$email)->first();
+                    $cuser->setProgress('cortext-subscription-payment-ref',$payment->payment_intent);
+                    $cuser->setProgress('cortext-subscription-payment','paid');
+                    $cuser->setProgress('cortext-subscription-payment-year',$user->progress('cortext-subscription-payment-year'));
+                }
+            }
+            
             $intent=Payment::stripe()->paymentIntents->retrieve($payment->payment_intent);
-
             $transation=new PaymentTransation;
             $transation->stype='subscription';
             $transation->user_id=$user->id;
             $transation->slug=$payment->payment_intent; 
             $transation->amount=$intent->amount/100; 
             $transation->status="paid";
-            $transation->content="Subscription payment \n Amount : ".($intent->amount/100)." \n Amount Recive: ".($intent->amount_received/100)."  ";
+            $transation->content="Subscription $plan payment \n Amount : ".($intent->amount/100)." \n Amount Recive: ".($intent->amount_received/100)."  ";
             $transation->save();
             return redirect()->route('learn.index')->with('success',"Subscription payment has success");
         }else{

@@ -101,9 +101,9 @@ class SubscriptionCheck
             return $next($request);
         }
         if ($user->progress('cortext-subscription-payment', '') == "expired") {
-            return redirect()->route('profile.view')->with('error', 'Your Subscription Plan is expired.Please Subscribe for continue.')->with('subscribe', 'Your Subscription Plan is expired.Please Subscribe for continue.');
+            return redirect()->route('pricing.index')->with('error', 'Your Subscription Plan is expired.Please Subscribe for continue.')->with('subscribe', 'Your Subscription Plan is expired.Please Subscribe for continue.');
         }
-        return redirect()->route('profile.view')->with('error', 'Please Subscribe the plan.')->with('subscribe', 'Please Subscribe the plan.');
+        return redirect()->route('pricing.index')->with('error', 'Please Subscribe the plan.')->with('subscribe', 'Please Subscribe the plan.');
 
     }
 }
