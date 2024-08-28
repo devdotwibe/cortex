@@ -31,7 +31,7 @@
     <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
 
     @stack('header-script')
-     
+
 
 </head>
 
@@ -131,7 +131,7 @@
                         <li class="side-item {{request()->is('admin/exam') ? 'active':''}} "><a href="{{route('admin.exam.options')}}">Exam Simulator</a></li>
                         <li class="side-item {{request()->is('admin/payment') ? 'active':''}} "><a href="{{route('admin.payment.index')}}">Payment</a></li>
                     </ul>
-                </li> 
+                </li>
                 {{-- <li class="side-item {{request()->is('admin/settings') ?'active':''}}">
                     <a href="{{ route('admin.settings.index') }}">
                         <span class="side-icon" >
@@ -205,6 +205,23 @@
                         </span>
                         Community
                     </a>
+                </li>
+
+                <li class="side-item side-dropdown ">
+                    <a class="side-dropdown-toggle" >
+                        <span class="side-icon" >
+                            <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
+                        </span>
+                        <span class="active-icon">
+                            <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Dashboard">
+                        </span>
+                        Pages
+                    </a>
+                    <ul class="side-dropdown-menu" >
+                        <li class="side-item {{request()->is('admin/page') ?'active':''}} "><a href="{{ route('admin.page.index') }}">Home</a></li>
+                        <li class="side-item {{request()->is('admin/exam') ? 'active':''}} "><a href="{{route('admin.exam.options')}}">FAQ</a></li>
+                        {{-- <li class="side-item {{request()->is('admin/payment') ? 'active':''}} "><a href="{{route('admin.payment.index')}}">Payment</a></li> --}}
+                    </ul>
                 </li>
 
                 <li class="side-item logout">
@@ -332,9 +349,9 @@
     <script src="{{ asset('assets/js/select2.min.js') }}"></script>
     <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
     <script src="{{ asset('assets/js/jquery.inputmask.min.js') }}"></script>
-    <script src="{{ asset('assets/js/custom.js') }}"></script> 
+    <script src="{{ asset('assets/js/custom.js') }}"></script>
     <script lang="javascript" src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
-    
+
     @stack('footer-script')
 </body>
 
