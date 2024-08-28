@@ -138,10 +138,9 @@
     overflow: hidden;
     font-family: "DM Sans", sans-serif;
     background: #EFEFEF;
+    overflow-y: auto;
   }
-  :root {
-    overflow-y: scroll;
-  }
+
   a {
     text-decoration: none;
     transition: all 0.25s ease-out 0s;
