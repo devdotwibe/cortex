@@ -196,9 +196,9 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="imagePreview">Image Preview</label>
-                                            <div id="imagePreviewContainer" style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
-                                                 @if(isset($banner) && $banner->image)
-                                                <img id="imagePreview" src="{{ url('d0/'.$banner->image) }}" alt="Image Preview" style="width: 100%; height: auto;">
+                                            <div id="imagePreviewContainer" style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
+                                                 @if(isset($banner) && $banner->learnimage)
+                                                <img id="imagePreview" src="{{ url('d0/'.$banner->learnimage) }}" alt="Image Preview" style="width: 100%; height: auto;">
 
                                                 <img id="imagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
                                                  @endif
@@ -247,9 +247,9 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="imagePreview">Image Preview</label>
-                                            <div id="imagePreviewContainer" style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
-                                                 @if(isset($banner) && $banner->image)
-                                                <img id="imagePreview" src="{{ url('d0/'.$banner->image) }}" alt="Image Preview" style="width: 100%; height: auto;">
+                                            <div id="imagePreviewContainer" style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
+                                                 @if(isset($banner) && $banner->practiseimage)
+                                                <img id="imagePreview" src="{{ url('d0/'.$banner->practiseimage) }}" alt="Image Preview" style="width: 100%; height: auto;">
 
                                                 <img id="imagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
                                                  @endif
@@ -299,9 +299,9 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="imagePreview">Image Preview</label>
-                                            <div id="imagePreviewContainer" style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
-                                                 @if(isset($banner) && $banner->image)
-                                                <img id="imagePreview" src="{{ url('d0/'.$banner->image) }}" alt="Image Preview" style="width: 100%; height: auto;">
+                                            <div id="imagePreviewContainer" style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
+                                                 @if(isset($banner) && $banner->prepareimage)
+                                                <img id="imagePreview" src="{{ url('d0/'.$banner->prepareimage) }}" alt="Image Preview" style="width: 100%; height: auto;">
 
                                                 <img id="imagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
                                                  @endif
@@ -351,14 +351,16 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="imagePreview">Image Preview</label>
-                                            <div id="imagePreviewContainer" style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
-                                                 @if(isset($banner) && $banner->image)
-                                                <img id="imagePreview" src="{{ url('d0/'.$banner->image) }}" alt="Image Preview" style="width: 100%; height: auto;">
+                                            <div id="imagePreviewContainer" style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
+                                                 @if(isset($banner) && $banner->reviewimage)
+                                                <img id="imagePreview" src="{{ url('d0/'.$banner->reviewimage) }}" alt="Image Preview" style="width: 100%; height: auto;">
 
                                                 <img id="imagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
                                                  @endif
                                                  </div>
                                                     </div>
+
+
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <div class="form-data">
@@ -408,5 +410,22 @@
         reader.readAsDataURL(event.target.files[0]);
     }
     </script>
+
+
+{{-- <script>
+    function previewImage(event) {
+        var reader = new FileReader();
+        reader.onload = function(){
+            var output = document.getElementById('imagePreview');
+            output.src = reader.result;
+            output.style.display = 'block';
+        };
+        if (event.target.files[0]) {
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    }
+    </script> --}}
+
+
 @endsection
 

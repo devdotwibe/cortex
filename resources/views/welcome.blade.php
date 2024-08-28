@@ -96,8 +96,8 @@
                 @if(!empty($banner->preparetitle))
                 <h3>{{$banner->preparetitle}}</h3>
                 @endif
-                @if(!empty($banner->practisecontent))
-                <p>{{$banner->practisecontent}}</p>
+                @if(!empty($banner->preparecontent))
+                <p>{{$banner->preparecontent}}</p>
                 @endif
             </div>
             <div class="guarantee-col1">
