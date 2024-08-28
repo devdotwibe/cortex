@@ -63,8 +63,12 @@
                     <img src="{{ url('d0/' . $banner->learnimage) }}" alt="Learn Icon">
                     @endif
                 </div>
+                @if(!empty($banner->learntitle))
                 <h3>{{$banner->learntitle}}</h3>
+                @endif
+                @if(!empty($banner->learncontent))
                 <p>{{$banner->learncontent}}</p>
+                @endif
             </div>
             <div class="guarantee-col1">
                 <div class="guarantee-img">
