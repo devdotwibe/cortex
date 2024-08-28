@@ -18,10 +18,13 @@ jQuery(".side-dropdown-toggle").click(function () {
     }
 });
 
+
 $(document).ready(function() {
     $('.critical-reasoning-row1 h3').click(function() {
         $('.critical-reasoning-conten').removeClass('active');
+        $('.critical-reasoning-row1 h3').removeClass('active');
         var targetId = $(this).data('target');
         $('#' + targetId).addClass('active');
+        $(this).addClass('active');
     });
 });
