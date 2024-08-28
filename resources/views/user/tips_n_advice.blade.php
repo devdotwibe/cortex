@@ -40,9 +40,11 @@
         </div>
         <div class="critical-reasoning-col2">
             <div class="critical-reasoning-conten" id="tab1">
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum tempore ut quo odit veritatis perspiciatis officia quasi. Eos quas id vitae, voluptas voluptatem maiores expedita suscipit officiis soluta consequuntur? Sed?</p>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum tempore ut quo odit veritatis perspiciatis officia quasi. Eos quas id vitae, voluptas voluptatem maiores expedita suscipit officiis soluta consequuntur? Sed? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum tempore ut quo odit veritatis perspiciatis officia quasi. Eos quas id vitae, voluptas voluptatem maiores expedita suscipit officiis soluta consequuntur? Sed?</p>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum tempore ut quo odit veritatis perspiciatis officia quasi. Eos quas id vitae, voluptas voluptatem maiores expedita suscipit officiis soluta consequuntur? Sed? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum tempore ut quo odit veritatis perspiciatis officia quasi. Eos quas id vitae, voluptas voluptatem maiores expedita suscipit officiis soluta consequuntur? Sed?</p>
             </div>
             <div class="critical-reasoning-conten" id="tab2">
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum tempore ut quo odit veritatis perspiciatis officia quasi. Eos quas id vitae, voluptas voluptatem maiores expedita suscipit officiis soluta consequuntur? Sed?</p>
                 <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum tempore ut quo odit veritatis perspiciatis officia quasi. Eos quas id vitae, voluptas voluptatem maiores expedita suscipit officiis soluta consequuntur? Sed?</p>
             </div>
             <div class="critical-reasoning-conten" id="tab3">
@@ -50,9 +52,11 @@
             </div>
             <div class="critical-reasoning-conten" id="tab4">
                 <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum tempore ut quo odit veritatis perspiciatis officia quasi. Eos quas id vitae, voluptas voluptatem maiores expedita suscipit officiis soluta consequuntur? Sed?</p>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum tempore ut quo odit veritatis perspiciatis officia quasi. Eos quas id vitae, voluptas voluptatem maiores expedita suscipit officiis soluta consequuntur? Sed?</p>
             </div>
             <div class="critical-reasoning-conten" id="tab5">
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum tempore ut quo odit veritatis perspiciatis officia quasi. Eos quas id vitae, voluptas voluptatem maiores expedita suscipit officiis soluta consequuntur? Sed?</p>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum tempore ut quo odit veritatis perspiciatis officia quasi. Eos quas id vitae, voluptas voluptatem maiores expedita suscipit officiis soluta consequuntur? Sed? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum tempore ut quo odit veritatis perspiciatis officia quasi. Eos quas id vitae, voluptas voluptatem maiores expedita suscipit officiis soluta consequuntur? Sed?</p>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum tempore ut quo odit veritatis perspiciatis officia quasi. Eos quas id vitae, voluptas voluptatem maiores expedita suscipit officiis soluta consequuntur? Sed? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum tempore ut quo odit veritatis perspiciatis officia quasi. Eos quas id vitae, voluptas voluptatem maiores expedita suscipit officiis soluta consequuntur? Sed?</p>
             </div>
             <div class="critical-reasoning-conten" id="tab6">
                 <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum tempore ut quo odit veritatis perspiciatis officia quasi. Eos quas id vitae, voluptas voluptatem maiores expedita suscipit officiis soluta consequuntur? Sed?</p>
