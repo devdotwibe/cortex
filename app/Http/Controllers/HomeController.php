@@ -174,4 +174,8 @@ class HomeController extends Controller
                     : back()->withErrors(['email' => [__($status)]]);
 
     }
+
+    public function pricing(Request $request){
+        return view('pricing.index');
+    }
 }

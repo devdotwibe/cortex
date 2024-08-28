@@ -53,6 +53,8 @@ Route::prefix('stripe')->name('stripe.')->group(function () {
     Route::get('/subscription/{user}/payment/{payment}', [StripePaymentController::class, 'subscription_payment'])->name('payment.subscription');
 });
 
+Route::get('/pricing', [HomeController::class, 'pricing'])->name('pricing.index');
+
 Route::middleware('guest:web,admin')->group(function () {
     Route::get('/login', [HomeController::class, 'login'])->name('login');
     Route::post('/login', [HomeController::class, 'loginSubmit']);
