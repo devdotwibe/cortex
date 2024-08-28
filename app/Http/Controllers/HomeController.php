@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\banner;
 use App\Models\User;
 use App\Trait\ResourceController;
 use Illuminate\Auth\Events\Lockout;
@@ -20,7 +21,10 @@ class HomeController extends Controller
 {
     use ResourceController;
     public function index(Request $request){
-        return view("welcome");
+
+        $banner = banner::first();
+
+        return view("welcome",compact('banner'));
     }
     public function login(Request $request){
         if(Auth::check()){
