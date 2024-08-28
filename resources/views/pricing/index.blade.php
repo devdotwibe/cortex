@@ -74,11 +74,11 @@
                         <label for="year-1"> Year </label>
                         <select name="year" class="form-control" id="year-1"> 
                             @if(date('m')>3) 
-                                <option value="{{date('Y')+1}}-{{date('Y')+2}}" >Apr {{date('Y')+1}} - Mar {{date('Y')+2}}</option>
-                                <option value="{{date('Y')+2}}-{{date('Y')+3}}" >Apr {{date('Y')+2}} - Mar {{date('Y')+3}}</option>
+                                <option value="{{date('Y')+1}}-{{date('Y')+2}}" >May {{date('Y')+1}} - Apr {{date('Y')+2}}</option>
+                                <option value="{{date('Y')+2}}-{{date('Y')+3}}" >May {{date('Y')+2}} - Apr {{date('Y')+3}}</option>
                             @else
-                                <option value="{{date('Y')+0}}-{{date('Y')+1}}" >Apr {{date('Y')+0}} - Mar {{date('Y')+1}}</option>
-                                <option value="{{date('Y')+1}}-{{date('Y')+2}}" >Apr {{date('Y')+1}} - Mar {{date('Y')+2}}</option>
+                                <option value="{{date('Y')+0}}-{{date('Y')+1}}" >May {{date('Y')+0}} - Apr {{date('Y')+1}}</option>
+                                <option value="{{date('Y')+1}}-{{date('Y')+2}}" >May {{date('Y')+1}} - Apr {{date('Y')+2}}</option>
                             @endif
                         </select>
                     </div> 
