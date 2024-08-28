@@ -22,6 +22,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\TermController;
 use App\Http\Controllers\Admin\CommunityControllerController;
+use App\Http\Controllers\Admin\PagesController;
 use App\Http\Controllers\Admin\PostReportController;
 use App\Http\Controllers\Admin\UserAccessController;
 use Illuminate\Support\Facades\Route;
@@ -31,7 +32,7 @@ use Illuminate\Support\Facades\Route;
 Route::name('admin.')->prefix('admin')->group(function(){
     Route::middleware('guest:web,admin')->group(function(){
         Route::get('/login', [AdminMainController::class,'login'])->name('login');
-        Route::post('/login', [AdminMainController::class,'loginSubmit']); 
+        Route::post('/login', [AdminMainController::class,'loginSubmit']);
     });
     Route::middleware(['auth:admin','isAdmin'])->group(function(){
 
@@ -122,8 +123,8 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::get('/report-post/{user}/ban-user', [PostReportController::class,'banuser'])->name('report.banuser');
             Route::get('/report-post/{post}/block-post', [PostReportController::class,'hidepost'])->name('report.hidepost');
 
-            Route::get('/post/{post}/comment/{post_comment}/reply', [CommunityControllerController::class, 'postCommentReplay'])->name('post.comment.reply'); 
-            Route::delete('/post/{post}/comment/{post_comment}/delete', [CommunityControllerController::class, 'commentDestroy'])->name('post.comment.destroy'); 
+            Route::get('/post/{post}/comment/{post_comment}/reply', [CommunityControllerController::class, 'postCommentReplay'])->name('post.comment.reply');
+            Route::delete('/post/{post}/comment/{post_comment}/delete', [CommunityControllerController::class, 'commentDestroy'])->name('post.comment.destroy');
         });
 
         // Route::resource("/options",CategoryController::class);
@@ -184,7 +185,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::get('/private/class/{private_class}/requests/accept',[LiveClassController::class,'private_class_request_accept'])->name('request.accept');
             Route::get('/private/class/{private_class}/requests/reject',[LiveClassController::class,'private_class_request_reject'])->name('request.reject');
             Route::get('/private/class/{private_class}/requests/status',[LiveClassController::class,'private_class_request_status'])->name('request.status');
-            
+
             Route::delete('/private/class/{private_class}/requests',[LiveClassController::class,'private_class_request_destroy'])->name('request.destroy');
             Route::get('/private/class/requests',[LiveClassController::class,'private_class_request'])->name('private_class_request');
             Route::get('/private/class/requests/export',[LiveClassController::class,'private_class_request_export'])->name('private_class_request_export');
@@ -194,7 +195,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::get('/private/class',[LiveClassController::class,'private_class_create'])->name('private_class_create');
 
             Route::post('/intensive/class',[LiveClassController::class,'intensive_class'])->name('intensive_class');
-            
+
         });
 
         Route::prefix('term')->name('term.')->group(function () {
@@ -220,7 +221,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::get('/{term_name}/edit-lesson-recording',[TermController::class,'edit_lesson_recording'])->name('edit_lesson_recording');
 
             Route::post('/{term_name}/update-class',[TermController::class,'update_class_detail'])->name('update_class_detail');
-            
+
             Route::post('/{term_name}/update-lesson-material',[TermController::class,'update_lesson_material'])->name('update_lesson_material');
 
             Route::post('/{term_name}/update-home-work',[TermController::class,'update_home_work'])->name('update_home_work');
@@ -236,13 +237,13 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::get('/show/home-work-booklet',[TermController::class,'show_table_week_booklet'])->name('show_table_week_booklet');
 
             Route::get('/show/lesson-recording',[TermController::class,'show_table_lesson_recording'])->name('show_table_lesson_recording');
-            
+
             Route::get('/class-detail',[TermController::class,'class_detail'])->name('class_detail');
 
             Route::get('/lesson-material',[TermController::class,'lesson_material'])->name('lesson_material');
             Route::get('/home-work',[TermController::class,'home_work'])->name('home_work');
             Route::get('/lesson-recording',[TermController::class,'lesson_recording'])->name('lesson_recording');
-            
+
         });
 
         Route::prefix('class-detail')->name('class-detail.')->group(function () {
@@ -250,13 +251,13 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::get('/{slug}',[ClassDetailController::class,'show'])->name('show');
 
             Route::post('/',[ClassDetailController::class,'store'])->name('store');
-            
+
             Route::delete('/{subclass}/destory-sub-class',[ClassDetailController::class,'destroy_sub_class'])->name('destroy_sub_class');
-            
+
             Route::get('/{subclass}/edit-sub-class',[ClassDetailController::class,'edit_sub_class'])->name('edit_sub_class');
-            
+
             Route::post('/{subclass}/update-sub-class',[ClassDetailController::class,'update_sub_class'])->name('update_sub_class');
-            
+
         });
 
         Route::prefix('lesson-material')->name('lesson-material.')->group(function () {
@@ -264,16 +265,16 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::get('/{slug}',[LessonMaterialController::class,'show'])->name('show');
 
             Route::post('/',[LessonMaterialController::class,'store'])->name('store');
-            
+
             Route::delete('/{sub_lesson_material}/destory-lesson-material',[LessonMaterialController::class,'destroy_lesson_material'])->name('destroy_lesson_material');
-            
+
             Route::get('/{sub_lesson_material}/edit-sub-class',[LessonMaterialController::class,'edit_sub_class'])->name('edit_sub_class');
-            
+
             Route::post('/{subclass}/update-sub-class',[LessonMaterialController::class,'update_sub_class'])->name('update_sub_class');
-            
+
         });
         Route::prefix('home-work')->name('home-work.')->group(function () {
-            Route::get('/{home_work}',[HomeWorkController::class,'show'])->name('show'); 
+            Route::get('/{home_work}',[HomeWorkController::class,'show'])->name('show');
             Route::get('/{home_work}/question/create',[HomeWorkController::class,'create'])->name('create');
             Route::post('/{home_work}/question/create',[HomeWorkController::class,'store'])->name('store');
             Route::get('/{home_work}/question/{home_work_question}/edit',[HomeWorkController::class,'edit'])->name('edit');
@@ -305,5 +306,19 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::post('/store',[SettingsController::class,'store'])->name('store');
     });
 
-   
+    Route::prefix('page')->name('page.')->group(function () {
+        Route::get('/', [PagesController::class, 'index'])->name('index');
+        Route::get('/create', [PagesController::class, 'create'])->name('create');
+        Route::post('/', [PagesController::class, 'store'])->name('store');
+        Route::post('/section2', [PagesController::class, 'storeSection2'])->name('section2'); // Add this line
+        Route::get('/{setname}/edit', [PagesController::class, 'edit'])->name('edit');
+        Route::put('/{setname}', [PagesController::class, 'update'])->name('update');
+        Route::get('/{setname}', [PagesController::class, 'show'])->name('show');
+        Route::delete('/{setname}', [PagesController::class, 'destroy'])->name('destroy');
+        Route::get('/{setname}/visibility', [PagesController::class, 'visibility'])->name('visibility');
+    });
+
+    Route::get('/set/view', [PagesController::class, 'set_table_show'])->name('set_table.show');
+
+
 });
