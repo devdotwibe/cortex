@@ -54,6 +54,40 @@
                                 </div>
                                 <div class="amout-item">
                                     <div class="amout-item-title">
+                                        <span>Compo Subscription Amount</span>
+                                    </div>
+                                    <div class="amout-item-content">
+                                        <div class="form">
+                                            <form action="{{route('admin.payment.store')}}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="name" value="stripe.subscription.payment.compo-amount">
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <div class="form-group">
+                                                            <div class="form-data">
+                                                                <div class="forms-inputs mb-4"> 
+                                                                    @if(!empty(old('compo-subscription-payment-form-submit')))
+                                                                        <input type="text" name="amount" placeholder="Subscription Amount"  class="form-control @error('amount') is-invalid @enderror"  value="{{old('amount',get_option('stripe.subscription.payment.compo-amount-price',''))}}" >
+                                                                        @error('amount')
+                                                                        <div class="invalid-feedback"  >{{$message}}</div>                                                                    
+                                                                        @enderror
+                                                                    @else
+                                                                    <input type="text" name="amount" placeholder="Subscription Amount" class="form-control"  value="{{get_option('stripe.subscription.payment.compo-amount-price','')}}" >
+                                                                    @endif
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <button type="submit" class="btn btn-dark" name="compo-subscription-payment-form-submit" value="Save" id="subscription-payment-form-submit"> Save</button> 
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="amout-item">
+                                    <div class="amout-item-title">
                                         <span>Intensive Workshop Amount</span>
                                     </div>
                                     <div class="amout-item-content">
