@@ -2,6 +2,6 @@
 
 @section('content')
 
-<input id="myFileInput" type="file" accept="capture=camera">
+<input id="myFileInput" type="file" accept="image/*;capture=camera">
 
 @endsection
