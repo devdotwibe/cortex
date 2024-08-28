@@ -21,10 +21,23 @@ jQuery(".side-dropdown-toggle").click(function () {
 
 $(document).ready(function() {
     $('.critical-reasoning-row1 h3').click(function() {
-        $('.critical-reasoning-conten').removeClass('active');
-        $('.critical-reasoning-row1 h3').removeClass('active');
-        var targetId = $(this).data('target');
-        $('#' + targetId).addClass('active');
-        $(this).addClass('active');
+        var $this = $(this);
+        var targetId = $this.data('target');
+        var $targetContent = $('#' + targetId);
+
+        // Check if the clicked h3 is already active
+        if ($this.hasClass('active')) {
+            // If the clicked h3 is active, remove 'active' class from it and the target content
+            $this.removeClass('active');
+            $targetContent.removeClass('active');
+        } else {
+            // Remove 'active' class from all content elements and all h3 elements
+            $('.critical-reasoning-conten').removeClass('active');
+            $('.critical-reasoning-row1 h3').removeClass('active');
+            
+            // Add 'active' class to the target content and clicked h3
+            $targetContent.addClass('active');
+            $this.addClass('active');
+        }
     });
 });
