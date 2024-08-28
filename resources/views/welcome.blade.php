@@ -108,8 +108,12 @@
                     @endif
                     {{-- <img src="{{ asset('app/images/learnicon.svg') }}" alt="Review Icon"> --}}
                 </div>
+                @if(!empty($banner->reviewtitle))
                 <h3>{{$banner->reviewtitle}}</h3>
+                @endif
+                @if(!empty($banner->reviewcontent))
                 <p>{{$banner->reviewcontent}}</p>
+                @endif
             </div>
         </div>
     </div>
