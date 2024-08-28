@@ -49,3 +49,15 @@
         </div>
     </header>
     @yield('content')
+
+
+    <script src="{{ asset('app/js/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ asset('app/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('app/js/slick.js') }}"></script>
+    <script src="{{ asset('app/js/sticky-cards.js') }}"></script>
+    <script src="{{ asset('app/js/scripts.js') }}"></script>
+
+    @yield('scripts')
+
+</body>
+</html>
