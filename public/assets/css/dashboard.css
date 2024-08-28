@@ -1425,3 +1425,14 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 
 
 
+.critical-reasoning { width: 100%; background: #fff; padding: 50px; border-radius: 6px;  box-shadow: 4px 0px 16px 0px #0000000A;}
+.critical-reasoning h2 { font-size: 30px; font-weight: 600; margin: 0 0 38px;}
+.critical-reasoning .critical-reasoning-row { width: 100%; display: flex; flex-wrap: wrap;  justify-content: space-between;}
+.critical-reasoning .critical-reasoning-col1 { width: 45%;}
+.critical-reasoning .critical-reasoning-col2 {width: 45%;}
+.critical-reasoning  .critical-reasoning-row1 { width: 100%;}
+.critical-reasoning .critical-reasoning-row1 h3 { width: 100%; font-size: 18px; font-weight: 500; padding: 15px 22px;border: 1px solid #d6d6d6; margin: 0 0 30px; border-radius: 10px;}
+.critical-reasoning .critical-reasoning-conten { width: 100%; padding: 20px 20px 5px; border: 2px solid #fdd03f; background: #faf8f3; border-radius: 10px; display: none;}
+.critical-reasoning .critical-reasoning-conten p { font-size: 16px; line-height: 1.4; margin: 0 0 20px;}
+.critical-reasoning .critical-reasoning-row1 h3.active { border: 2px solid #fdd03f;  background: #faf8f3;}
+.critical-reasoning .critical-reasoning-conten.active { display: block;}
