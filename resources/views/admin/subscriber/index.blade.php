@@ -15,6 +15,8 @@
                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
                 ["th"=>"Name","name"=>"name","data"=>"name"],
                 ["th"=>"Email","name"=>"email","data"=>"email"], 
+                ["th"=>"Plan","name"=>"plan","data"=>"plan"], 
+                ["th"=>"Pay Id","name"=>"payid","data"=>"payid"], 
             ]' tableinit="usertableinit" />
         </div>
     </div>

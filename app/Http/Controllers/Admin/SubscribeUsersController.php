@@ -20,18 +20,16 @@ class SubscribeUsersController extends Controller
             return $this->where(function($qry){
                 $qry->whereIn('id',UserProgress::where('name',"cortext-subscription-payment")->where('value','paid')->select('user_id'));
                 $qry->whereIn('id',PaymentTransation::where('stype','subscription')->where('status','paid')->select('user_id'));
-            })->addColumn('subscriber',function($data){
-                $name="";
-                if(!empty($data->user)){
-                    $name.="<span class='badge bg-secondary' >".$data->user->email."</span>";
-                    $compo=$data->user->progress('cortext-subscription-payment-email','');
-                    if(!empty($compo)){
-                        $name.="<span class='badge bg-secondary' >".$compo."</span>";                        
-                    }
+            })->addColumn('plan',function($data){
+                $type=$data->progress('cortext-subscription-payment-plan','');
+                if($type=="combo"){
+                    $email=$data->user->progress('cortext-subscription-payment-email','');
+                    $type.="  &nbsp:<span class='badge bg-secondary' >".$email."</span>"; 
                 }
-
-                return $name;
-            })->buildTable(['subscriber']);
+                return $type;
+            })->addColumn('payid',function($data){
+                return $data->progress('cortext-subscription-payment');
+            })->buildTable(['payid','plan']);
         }
         return view('admin.subscriber.index');
     }
