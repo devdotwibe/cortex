@@ -196,7 +196,7 @@ class HomeController extends Controller
     }
     public function combo_mail(Request $request){
         $request->validate([
-            "email"=>['required|email'], 
+            "email"=>['required','email'], 
             "year"=>['required'], 
         ]);
         $email=$request->input('email','');
