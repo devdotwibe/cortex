@@ -12,9 +12,13 @@
     <div class="container">
         <div class="row">
             <x-ajax-table :coloumns='[
-                ["th"=>"Date","name"=>"created_at","data"=>"date"],
-                ["th"=>"Name","name"=>"name","data"=>"name"],
-                ["th"=>"Email","name"=>"email","data"=>"email"], 
+                ["th"=>"Date","name"=>"created_at","data"=>"date"], 
+                ["th"=>"Pay ID","name"=>"slug","data"=>"slug"], 
+                ["th"=>"Name","name"=>"subscriber","data"=>"subscriber"],
+                ["th"=>"Amount","name"=>"amount","data"=>"amount"],
+                ["th"=>"Status","name"=>"status","data"=>"status"],
+                ["th"=>"Content","name"=>"content","data"=>"content"],
+
             ]' tableinit="usertableinit" />
         </div>
     </div>
