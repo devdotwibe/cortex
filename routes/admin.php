@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\TermController;
 use App\Http\Controllers\Admin\CommunityControllerController;
 use App\Http\Controllers\Admin\PagesController;
 use App\Http\Controllers\Admin\PostReportController;
+use App\Http\Controllers\Admin\SubscribeUsersController;
 use App\Http\Controllers\Admin\UserAccessController;
 use Illuminate\Support\Facades\Route;
 
@@ -57,6 +58,9 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::post('/full-mock-exam-options',[ExamController::class,'examoptionssave']);
 
         Route::resource("/payment",PaymentController::class);
+        Route::prefix('subscriber')->name('subscriber.')->group(function () {
+            Route::get('/',[SubscribeUsersController::class,'index'])->name('index');
+        });
 
         Route::prefix('full-mock-exam')->name('full-mock-exam.')->group(function () {
             Route::get('/{exam}',[FullMockExamController::class,'index'])->name('index');
