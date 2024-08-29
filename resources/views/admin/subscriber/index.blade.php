@@ -4,14 +4,14 @@
 <section class="header_nav">
     <div class="header_wrapp">
         <div class="header_title">
-            <h2>Subscribers</h2>
+            <h2>Paid Subscribers</h2>
         </div> 
     </div>
 </section> 
 <section class="table-section">
     <div class="container">
         <div class="row">
-            <x-ajax-table :coloumns='[
+            <x-ajax-table :action='false' :coloumns='[
                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
                 ["th"=>"Name","name"=>"name","data"=>"name"],
                 ["th"=>"Email","name"=>"email","data"=>"email"], 
