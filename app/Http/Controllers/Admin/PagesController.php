@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Feature;
 use App\Models\banner; // Import the Banner model
 use Illuminate\Support\Facades\Storage;
 
@@ -12,7 +13,10 @@ class PagesController extends Controller
     public function index()
     {
         $banner = Banner::first();
-        return view('admin.pages.home', compact('banner'));
+
+        $feature = Feature::get();
+
+        return view('admin.pages.home', compact('banner','feature'));
     }
 
     // public function store(Request $request)
@@ -134,5 +138,76 @@ class PagesController extends Controller
 
         $banner->save();
         return redirect()->route('admin.page.index')->with('success', 'Section 2 data has been successfully saved.');
+
     }
+
+    public function storeSection3(Request $request)
+    {
+        // Validate the request data for Section 3
+        $request->validate([
+
+            'featuresubtitle.*' => 'nullable|string|max:255',
+            'featurecontent.*' => 'nullable|string',
+            'featureimage.*' => 'nullable|image|max:2048', // Validate image
+        ]);
+
+        // Retrieve input arrays
+
+        $featuresubtitles = $request->input('featuresubtitle', []);
+        $featurecontents = $request->input('featurecontent', []);
+        $featureimages = $request->file('featureimage', []);
+
+        // Iterate over the feature titles
+        foreach ($featuresubtitles as $key => $title) {
+            $feature = new Feature;
+
+            // Set feature date
+            $feature->featuresubtitle = $title;
+            $feature->featurecontent = $featurecontents[$key] ;
+
+            // Handle file upload
+            if (isset($featureimages[$key])) {
+                $featureImage = $featureimages[$key];
+                $featureImageName = "features/" . $featureImage->hashName();
+                Storage::put('features', $featureImage);
+                $feature->image = $featureImageName;
+            }
+
+            // Save the feature record
+            $feature->save();
+        }
+
+        // Redirect back with success message
+        return redirect()->route('admin.page.index')->with('success', 'Section 3 data has been successfully saved.');
+    }
+
+    public function storeSection4(Request $request)
+    {
+        // Validate the request data for Section 1
+        $request->validate([
+            'FeatureHeading' => 'nullable|max:255',
+        ]);
+
+        $banner = Banner::first();
+
+        if(empty($banner))
+        {
+            $banner =new Banner;
+        }
+        $banner->FeatureHeading = $request->input('FeatureHeading'); // Save Feature Top Heading
+
+
+
+
+        $banner->save();
+
+        return redirect()->route('admin.page.index')->with('success', 'Section 4 data has been successfully saved.');
+    }
+
+
+
+
 }
+
+
+
