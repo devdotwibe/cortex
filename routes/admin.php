@@ -310,7 +310,9 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::get('/', [PagesController::class, 'index'])->name('index');
         Route::get('/create', [PagesController::class, 'create'])->name('create');
         Route::post('/', [PagesController::class, 'store'])->name('store');
-        Route::post('/section2', [PagesController::class, 'storeSection2'])->name('section2'); // Add this line
+        Route::post('/section2', [PagesController::class, 'storeSection2'])->name('section2');
+        Route::post('/section3', [PagesController::class, 'storeSection3'])->name('section3');
+        Route::post('/section3', [PagesController::class, 'storeSection4'])->name('section3'); // Add this line// Add this line
         Route::get('/{setname}/edit', [PagesController::class, 'edit'])->name('edit');
         Route::put('/{setname}', [PagesController::class, 'update'])->name('update');
         Route::get('/{setname}', [PagesController::class, 'show'])->name('show');
