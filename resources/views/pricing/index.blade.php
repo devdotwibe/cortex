@@ -58,12 +58,11 @@
 @auth('web')
     
 
-<div class="modal fade" id="cortext-subscription-payment-modal" tabindex="-1" role="dialog"  aria-labelledby="cortext-subscription-paymentLabel" aria-hidden="true">
+<div class="modal fade" id="cortext-subscription-payment-modal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"  aria-labelledby="cortext-subscription-paymentLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="cortext-subscription-paymentLablel">Subscription</h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" id="cortext-subscription-paymentLablel">Subscription</h5> 
             </div>
             <div class="modal-body">
                 <form action="{{route('pricing.index')}}"  id="cortext-subscription-payment-form" method="POST" >
@@ -94,7 +93,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="cortext-combo-subscription-payment-modal" tabindex="-1" role="dialog"  aria-labelledby="cortext-subscription-paymentLabel" aria-hidden="true">
+<div class="modal fade" id="cortext-combo-subscription-payment-modal" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog"  aria-labelledby="cortext-subscription-paymentLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
