@@ -24,7 +24,7 @@
                             src="{{asset("assets/images/User-red.png")}}"></span>
                 </div>
                 <h3>Mail Un-Verifyed  Users</h3> 
-                <span class="badge text-success">{{$newuser??0}}</span> 
+                <span class="badge text-success">{{$unverifyuser??0}}</span> 
             </div>
              
             <div class="dash_card">
@@ -35,7 +35,7 @@
                             src="{{asset("assets/images/User-red.png")}}"></span>
                 </div>
                 <h3>Mail Verifyed  Users</h3> 
-                <span class="badge text-success">{{$newuser??0}}</span> 
+                <span class="badge text-success">{{$verifyuser??0}}</span> 
             </div>
 
 

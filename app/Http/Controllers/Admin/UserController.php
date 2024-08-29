@@ -11,6 +11,7 @@ use App\Models\Subcategory;
 use App\Models\Category;
 use App\Models\PaymentTransation;
 use App\Models\Setname;
+use App\Models\UserProgress;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
@@ -44,7 +45,10 @@ class UserController extends Controller
                 ';
             })->buildTable(['post_status','is_free_access']);
         }
-        return view("admin.user.index");
+        $unverifyuser=User::whereNull('email_verified_at')->count();
+        $verifyuser=User::whereNotNull('email_verified_at')->count();
+        $paiduser=User::whereIn('id',UserProgress::where('name',"cortext-subscription-payment")->where('value','paid')->select('user_id'))->count();
+        return view("admin.user.index",compact('unverifyuser','verifyuser','paiduser'));
     }
     public function create(Request $request){
         return view("admin.user.create");
