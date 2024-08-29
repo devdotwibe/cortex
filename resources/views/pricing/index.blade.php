@@ -127,8 +127,11 @@
                             </div>  
                             <div class="form-group">
                                 <label for="email-2">Invite User</label>
-                                <input type="email" name="email" id="combo-email" class="form-control" />
-                                <div class="invalid-feedback" id="error-combo-email-message"></div>
+                                <div class="input-group ">  
+                                    <input type="email" name="email" id="combo-email" class="form-control" />
+                                    <div class="invalid-feedback" id="error-combo-email-message"></div>
+                                    <button class="btn btn-outline-secondary" type="button" id="mail-verify-button">Button</button>
+                                </div>
                             </div>
                             <div class="form-group" id="combo-message-area">
                             </div>
