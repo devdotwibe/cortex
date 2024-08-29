@@ -128,7 +128,7 @@
                             <div class="form-group">
                                 <label for="email-2">Invite User</label>
                                 <div class="input-group ">  
-                                    <input type="email" name="email" id="combo-email" class="form-control" />
+                                    <input type="email" name="email" id="combo-email" placeholder="Enter email address" class="form-control" />
                                     <button class="btn btn-outline-secondary" type="button" id="mail-verify-button">Confirm Email</button>
                                     <div class="invalid-feedback" id="error-combo-email-message"></div>
                                 </div>
