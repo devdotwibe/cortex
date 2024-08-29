@@ -29,6 +29,10 @@ class SubscribeUsersController extends Controller
                 return $type;
             })->addColumn('payid',function($data){
                 return $data->progress('cortext-subscription-payment');
+            })->addColumn('amount',function($data){
+                $payid = $data->progress('cortext-subscription-payment');
+                $payment=PaymentTransation::where('slug',$payid)->first();
+                return optional($payment)->amount;
             })->buildTable(['payid','plan']);
         }
         return view('admin.subscriber.index');

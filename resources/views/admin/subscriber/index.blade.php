@@ -6,6 +6,13 @@
         <div class="header_title">
             <h2>Paid Subscribers</h2>
         </div> 
+        <div class="header_content">
+             <div class="form-group">
+                <select  id="cat-list" class="select2 form-control" data-placeholder="Select an Year" data-allow-clear="true" >
+                     
+                </select>
+             </div>
+        </div> 
     </div>
 </section> 
 <section class="table-section">
@@ -16,6 +23,7 @@
                 ["th"=>"Name","name"=>"name","data"=>"name"],
                 ["th"=>"Email","name"=>"email","data"=>"email"], 
                 ["th"=>"Plan","name"=>"plan","data"=>"plan"], 
+                ["th"=>"Amount","name"=>"amount","data"=>"amount"], 
                 ["th"=>"Pay Id","name"=>"payid","data"=>"payid"], 
             ]' tableinit="usertableinit" />
         </div>
