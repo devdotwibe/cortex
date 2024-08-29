@@ -72,15 +72,15 @@
                     <input type="hidden" name="plan" value="single">
                     <div class="form-group">
                         <label for="year-1"> Year </label>
-                        <select name="year" class="form-control" id="year-1"> 
-                            @if(date('m')>3) 
-                                <option value="{{date('Y')+1}}-{{date('Y')+2}}" >May {{date('Y')+1}} - Apr {{date('Y')+2}}</option>
-                                <option value="{{date('Y')+2}}-{{date('Y')+3}}" >May {{date('Y')+2}} - Apr {{date('Y')+3}}</option>
-                            @else
-                                <option value="{{date('Y')+0}}-{{date('Y')+1}}" >May {{date('Y')+0}} - Apr {{date('Y')+1}}</option>
-                                <option value="{{date('Y')+1}}-{{date('Y')+2}}" >May {{date('Y')+1}} - Apr {{date('Y')+2}}</option>
-                            @endif
-                        </select>
+                        @if(date('m')>5)  
+                            <input type="text" id="year-1" class="form-control" value="June {{date('Y')+0}} - May {{date('Y')+1}}" readonly>
+                            <input type="hidden" name="year" value="{{date('Y')+0}}-{{date('Y')+1}}" >
+                        @else
+                            <select name="year" class="form-control" id="year-1"> 
+                                <option value="{{date('Y')+0}}-{{date('Y')+1}}" >June {{date('Y')+0}} - May {{date('Y')+1}}</option>
+                                <option value="{{date('Y')-1}}-{{date('Y')+2}}" >June {{date('Y')+1}} - May {{date('Y')+0}}</option>
+                            </select>
+                        @endif
                     </div> 
 
                     <div class="form-group mt-2">
@@ -106,16 +106,16 @@
                     
                     <input type="hidden" name="plan" value="combo">
                     <div class="form-group">
-                        <label for="year-2"> Year</label>
-                        <select name="year" class="form-control" id="year-2"> 
-                            @if(date('m')>3) 
-                                <option value="{{date('Y')+1}}-{{date('Y')+2}}" >May {{date('Y')+1}} - Apr {{date('Y')+2}}</option>
-                                <option value="{{date('Y')+2}}-{{date('Y')+3}}" >May {{date('Y')+2}} - Apr {{date('Y')+3}}</option>
+                        <label for="year-2"> Year</label>                            
+                            @if(date('m')>5)  
+                                <input type="text" id="year-2" class="form-control" value="June {{date('Y')+0}} - May {{date('Y')+1}}" readonly>
+                                <input type="hidden" name="year" value="{{date('Y')+0}}-{{date('Y')+1}}" >
                             @else
-                                <option value="{{date('Y')+0}}-{{date('Y')+1}}" >May {{date('Y')+0}} - Apr {{date('Y')+1}}</option>
-                                <option value="{{date('Y')+1}}-{{date('Y')+2}}" >May {{date('Y')+1}} - Apr {{date('Y')+2}}</option>
+                                <select name="year" class="form-control" id="year-2"> 
+                                    <option value="{{date('Y')+0}}-{{date('Y')+1}}" >June {{date('Y')+0}} - May {{date('Y')+1}}</option>
+                                    <option value="{{date('Y')-1}}-{{date('Y')+2}}" >June {{date('Y')+1}} - May {{date('Y')+0}}</option>
+                                </select>
                             @endif
-                        </select>
                     </div>  
                     <div class="form-group">
                         <label for="email-2">Invite User</label>
