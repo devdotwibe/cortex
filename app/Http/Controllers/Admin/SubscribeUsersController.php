@@ -30,7 +30,7 @@ class SubscribeUsersController extends Controller
             })->addColumn('payid',function($data){
                 return $data->progress('cortext-subscription-payment');
             })->addColumn('amount',function($data){
-                $payid = $data->progress('cortext-subscription-payment');
+                $payid = $data->progress('cortext-subscription-payment-transation');
                 $payment=PaymentTransation::where('slug',$payid)->first();
                 return optional($payment)->amount;
             })->buildTable(['payid','plan']);
