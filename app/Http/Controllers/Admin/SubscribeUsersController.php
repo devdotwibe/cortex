@@ -19,6 +19,7 @@ class SubscribeUsersController extends Controller
             self::$defaultActions=[''];  
             return $this->where(function($qry){
                 $qry->whereIn('id',UserProgress::where('name',"cortext-subscription-payment")->where('value','paid')->select('user_id'));
+                $qry->whereIn('id',PaymentTransation::where('stype','subscription')->where('status','paid')->select('user_id'));
             })->addColumn('subscriber',function($data){
                 $name="";
                 if(!empty($data->user)){
