@@ -5,31 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Cortex</title>
-
-
-{{--
-    <link rel="stylesheet" href="./app/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./app/css/slick.css">
-    <link rel="stylesheet" href="./app/css/slick-theme.css">
-    <link rel="stylesheet" href="./app/css/stylesheet.css"> --}}
+    <title> @hasSection ('title') @yield('title') @else {{config('app.name')}} @endif </title> 
 
     <link rel="stylesheet" href="{{ asset('app/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('app/css/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('app/css/slick-theme.css') }}">
     <link rel="stylesheet" href="{{ asset('app/css/stylesheet.css') }}">
-
-
-
+ 
 </head>
 <body>
     <header class="header-wrapp">
         <div class="container">
             <div class="header-row">
                 <div class="brand-logo">
-                    <a href="">
-                        {{-- <img src="./app/images/logo.svg" alt=""> --}}
-
+                    <a href=""> 
                         <img src="{{ asset('app/images/logo.svg') }}" alt="">
                     </a>
                 </div>
@@ -50,6 +39,7 @@
     </header>
     @yield('content')
 
+    @stack('modals')
 
     <script src="{{ asset('app/js/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ asset('app/js/bootstrap.min.js') }}"></script>
@@ -57,7 +47,7 @@
     <script src="{{ asset('app/js/sticky-cards.js') }}"></script>
     <script src="{{ asset('app/js/scripts.js') }}"></script>
 
-    @yield('scripts')
+    @stack('scripts')
 
 </body>
 </html>

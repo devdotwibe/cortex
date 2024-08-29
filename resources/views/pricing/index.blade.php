@@ -55,88 +55,133 @@
     </div>
 </section>
 
-@auth('web')
-    
-
-<div class="modal fade" id="cortext-subscription-payment-modal"  data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"  aria-labelledby="cortext-subscription-paymentLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="cortext-subscription-paymentLablel">Subscription</h5> 
-            </div>
-            <div class="modal-body">
-                <form action="{{route('pricing.index')}}"  id="cortext-subscription-payment-form" method="POST" >
-                    @csrf
-
-                    <input type="hidden" name="plan" value="single">
-                    <div class="form-group">
-                        <label for="year-1"> Year </label>
-                        @if(date('m')>5)  
-                            <input type="text" id="year-1" class="form-control" value="June {{date('Y')+0}} - May {{date('Y')+1}}" readonly>
-                            <input type="hidden" name="year" value="{{date('Y')+0}}-{{date('Y')+1}}" >
-                        @else
-                            <select name="year" class="form-control" id="year-1"> 
-                                <option value="{{date('Y')+0}}-{{date('Y')+1}}" >June {{date('Y')+0}} - May {{date('Y')+1}}</option>
-                                <option value="{{date('Y')-1}}-{{date('Y')+2}}" >June {{date('Y')+1}} - May {{date('Y')+0}}</option>
-                            </select>
-                        @endif
-                    </div> 
-
-                    <div class="form-group mt-2">
-                        <button type="button" data-bs-dismiss="modal"  class="btn btn-secondary">Cancel</button>
-                        <button type="button" class="btn btn-dark" id="cortext-subscription-payment-form-buttom">Pay Now ${{ get_option('stripe.subscription.payment.amount-price','0') }} </button>
-                    </div>
-                </form>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="cortext-combo-subscription-payment-modal" tabindex="-1"  data-bs-backdrop="static" data-bs-keyboard="false" role="dialog"  aria-labelledby="cortext-subscription-paymentLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="cortext-combo-subscription-paymentLablel">Subscription</h5> 
-            </div>
-            <div class="modal-body">
-                <form action="{{route('pricing.index')}}"  id="cortext-combo-subscription-payment-form"  method="POST">
-                    @csrf        
-                    
-                    <input type="hidden" name="plan" value="combo">
-                    <div class="form-group">
-                        <label for="year-2"> Year</label>                            
-                            @if(date('m')>5)  
-                                <input type="text" id="year-2" class="form-control" value="June {{date('Y')+0}} - May {{date('Y')+1}}" readonly>
-                                <input type="hidden" name="year" value="{{date('Y')+0}}-{{date('Y')+1}}" >
-                            @else
-                                <select name="year" class="form-control" id="year-2"> 
-                                    <option value="{{date('Y')+0}}-{{date('Y')+1}}" >June {{date('Y')+0}} - May {{date('Y')+1}}</option>
-                                    <option value="{{date('Y')-1}}-{{date('Y')+2}}" >June {{date('Y')+1}} - May {{date('Y')+0}}</option>
-                                </select>
-                            @endif
-                    </div>  
-                    <div class="form-group">
-                        <label for="email-2">Invite User</label>
-                        <input type="email" name="email" id="email-2" class="form-control" />
-                    </div>
-                    <div class="form-group mt-2">
-                        <button type="button" data-bs-dismiss="modal"  class="btn btn-secondary">Cancel</button>
-                        <button type="button" class="btn btn-dark" id="cortext-combo-subscription-payment-form-buttom">Pay Now ${{ get_option('stripe.subscription.payment.combo-amount-price','0') }} </button>
-                    </div>
-                </form>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-<script>
-    
-</script>
-
-
-@endauth
-
 
 @endsection
+
+@push('modals')
+    
+    @auth('web')
+        
+
+        <div class="modal fade" id="cortext-subscription-payment-modal"  data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"  aria-labelledby="cortext-subscription-paymentLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="cortext-subscription-paymentLablel">Subscription</h5> 
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{route('pricing.index')}}"  id="cortext-subscription-payment-form" method="POST" >
+                            @csrf
+
+                            <input type="hidden" name="plan" value="single">
+                            <div class="form-group">
+                                <label for="year-1"> Year </label>
+                                @if(date('m')>5)  
+                                    <input type="text" id="year-1" class="form-control" value="June {{date('Y')+0}} - May {{date('Y')+1}}" readonly>
+                                    <input type="hidden" name="year" value="{{date('Y')+0}}-{{date('Y')+1}}" >
+                                @else
+                                    <select name="year" class="form-control" id="year-1"> 
+                                        <option value="{{date('Y')+0}}-{{date('Y')+1}}" >June {{date('Y')+0}} - May {{date('Y')+1}}</option>
+                                        <option value="{{date('Y')-1}}-{{date('Y')+2}}" >June {{date('Y')+1}} - May {{date('Y')+0}}</option>
+                                    </select>
+                                @endif
+                                <div class="invalid-feedback" id="error-year-message"></div>
+                            </div> 
+
+                            <div class="form-group" id="message-area">
+                            </div>
+                            <div class="form-group mt-2">
+                                <button type="button" data-bs-dismiss="modal"  class="btn btn-secondary">Cancel</button>
+                                <button type="button" class="btn btn-dark" id="cortext-subscription-payment-form-buttom">Pay Now ${{ get_option('stripe.subscription.payment.amount-price','0') }} </button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="cortext-combo-subscription-payment-modal" tabindex="-1"  data-bs-backdrop="static" data-bs-keyboard="false" role="dialog"  aria-labelledby="cortext-subscription-paymentLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="cortext-combo-subscription-paymentLablel">Subscription</h5> 
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{route('pricing.index')}}"  id="cortext-combo-subscription-payment-form"  method="POST">
+                            @csrf        
+                            
+                            <input type="hidden" name="plan" value="combo">
+                            <div class="form-group">
+                                <label for="combo-year"> Year</label>                            
+                                    @if(date('m')>5)  
+                                        <input type="hidden" name="year" value="{{date('Y')+0}}-{{date('Y')+1}}" >
+                                        <input type="text" id="combo-year" class="form-control" value="June {{date('Y')+0}} - May {{date('Y')+1}}" readonly>
+                                    @else
+                                        <select name="year" class="form-control" id="combo-year"> 
+                                            <option value="{{date('Y')+0}}-{{date('Y')+1}}" >June {{date('Y')+0}} - May {{date('Y')+1}}</option>
+                                            <option value="{{date('Y')-1}}-{{date('Y')+2}}" >June {{date('Y')+1}} - May {{date('Y')+0}}</option>
+                                        </select>
+                                    @endif
+                                    <div class="invalid-feedback" id="error-combo-year-message"></div>
+                            </div>  
+                            <div class="form-group">
+                                <label for="email-2">Invite User</label>
+                                <input type="email" name="email" id="combo-email" class="form-control" />
+                                <div class="invalid-feedback" id="error-combo-email-message"></div>
+                            </div>
+                            <div class="form-group" id="combo-message-area">
+                            </div>
+                            <div class="form-group mt-2">
+                                <button type="button" data-bs-dismiss="modal"  class="btn btn-secondary">Cancel</button> 
+                                <button type="button" class="btn btn-dark" id="cortext-combo-subscription-payment-form-buttom">Pay Now ${{ get_option('stripe.subscription.payment.combo-amount-price','0') }} </button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+    @endauth
+
+@endpush
+
+@push('scripts')
+        
+    @auth('web')
+        <script>
+            $('#cortext-combo-subscription-payment-form-buttom').click(function(e){
+                e.preventDefault();
+                $('#combo-message-area').html('')
+                $('.invalid-feedback').text('')
+                $('.form-control').removeClass('is-invalid')
+                $.post("{{ route('pricing.index') }}", $('#cortext-combo-subscription-payment-form').serialize(), function(res) {
+                    $('#cortext-combo-subscription-payment-form').submit()
+                }, 'json').fail(function(xhr) {
+                    $.each(xhr.responseJSON.errors, function(k, v) { 
+                        $('#error-combo-'+k+'-message').text(v[0]) 
+                        $('#combo-'+k).addClass('is-invalid')
+                    });
+                });
+            })
+
+            $('#cortext-subscription-payment-form-buttom').click(function(e){
+                e.preventDefault();
+                $('#message-area').html('')
+                $('.invalid-feedback').text('')
+                $('.form-control').removeClass('is-invalid')
+                $.post("{{ route('pricing.index') }}", $('#cortext-subscription-payment-form').serialize(), function(res) {
+                    $('#cortext-subscription-payment-form').submit()
+                }, 'json').fail(function(xhr) {
+                    $.each(xhr.responseJSON.errors, function(k, v) { 
+                        $('#error-'+k+'-message').text(v[0]) 
+                        $('#'+k).addClass('is-invalid')
+                    });
+                });
+            })
+        </script>
+    @endauth
+
+@endpush
