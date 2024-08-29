@@ -156,6 +156,10 @@
         
     @auth('web')
         <script>
+             $('#cortext-combo-subscription-payment-form-buttom').on('hidden.bs.modal', function () { 
+                $('#combo-email').val('')
+                $('#verify-mail').val('N')
+            });
             $('#cortext-combo-subscription-payment-form-buttom').click(function(e){
                 e.preventDefault();
                 $('#combo-message-area').html('')
