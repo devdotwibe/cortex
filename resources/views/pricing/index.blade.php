@@ -115,8 +115,8 @@
                             <div class="form-group">
                                 <label for="combo-year"> Year</label>                            
                                     @if(date('m')>5)  
-                                        <input type="hidden" name="year" value="{{date('Y')+0}}-{{date('Y')+1}}" >
-                                        <input type="text" id="combo-year" class="form-control" value="June {{date('Y')+0}} - May {{date('Y')+1}}" readonly>
+                                        <input type="hidden"  id="combo-year" name="year" value="{{date('Y')+0}}-{{date('Y')+1}}" >
+                                        <input type="text" class="form-control" value="June {{date('Y')+0}} - May {{date('Y')+1}}" readonly>
                                     @else
                                         <select name="year" class="form-control" id="combo-year"> 
                                             <option value="{{date('Y')+0}}-{{date('Y')+1}}" >June {{date('Y')+0}} - May {{date('Y')+1}}</option>
@@ -187,7 +187,7 @@
                 $('#combo-message-area').html('')
                 $('.invalid-feedback').text('')
                 $('.form-control').removeClass('is-invalid') 
-                $.post("{{route('combo-email')}}",{ email:$('#combo-email').val() },function(res){
+                $.post("{{route('combo-email')}}",{ email:$('#combo-email').val(),year:$('#combo-year').val() },function(res){
                     if(res.message){
                         $('#combo-message-area').html(`
                             <div class="alert alert-info" role="alert">
