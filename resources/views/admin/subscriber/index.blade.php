@@ -8,8 +8,10 @@
         </div> 
         <div class="header_content">
              <div class="form-group">
-                <select  id="cat-list" class="select2 form-control" data-placeholder="Select an Year" data-allow-clear="true" >
-                     
+                <select  id="cat-list" onchange="changeyear()" class="select2 form-control" data-placeholder="Select an Year" data-allow-clear="true" >
+                     @for ($i = 2024; $i < (date('Y')+1); $i++)
+                         <option value="{{$i}}-{{$i+1}}">June {{$i}} - May {{$i+1}}</option>
+                     @endfor
                 </select>
              </div>
         </div> 
@@ -25,7 +27,7 @@
                 ["th"=>"Plan","name"=>"plan","data"=>"plan"], 
                 ["th"=>"Amount","name"=>"amount","data"=>"amount"], 
                 ["th"=>"Pay Id","name"=>"payid","data"=>"payid"], 
-            ]' tableinit="usertableinit" />
+            ]' tableinit="usertableinit" beforeajax="usertableajaxbefoire"/>
         </div>
     </div>
 </section>
@@ -38,12 +40,13 @@
         function usertableinit(table) {
             usertable = table
         }
-        function changeactivestatus(url){
-            $.get(url,function(res){
-                if (usertable != null) {
-                    usertable.ajax.reload()
-                }
-            })
+        function changeyear(){ 
+            if (usertable != null) {
+                usertable.ajax.reload()
+            } 
+        }
+        function usertableajaxbefoire(data) {
+            data.year=$('#cat-list').val()
         }
     </script>
 @endpush

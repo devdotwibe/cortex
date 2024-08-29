@@ -13,11 +13,12 @@ class SubscribeUsersController extends Controller
 {
     use ResourceController;
     public function index(Request $request){ 
-        $year=$request->year??((date('Y')+0)."-".(date('Y')+1));
         if($request->ajax()){
+            $year=$request->year??((date('Y')+0)."-".(date('Y')+1));
             self::$model=User::class;
             self::$defaultActions=[''];  
-            return $this->where(function($qry){
+            return $this->where(function($qry)use($year){
+                $qry->whereIn('id',UserProgress::where('name',"cortext-subscription-payment-year")->where('value',$year)->select('user_id'));
                 $qry->whereIn('id',UserProgress::where('name',"cortext-subscription-payment")->where('value','paid')->select('user_id'));
                 $qry->whereIn('id',PaymentTransation::where('stype','subscription')->where('status','paid')->select('user_id'));
             })->addColumn('plan',function($data){
