@@ -14,6 +14,12 @@
  
 </head>
 <body>
+    <div class="loading-wrap" style="display: none">
+        <div class="loading-container">
+            <div class="loading-image"><img src="{{asset('assets/images/loader.svg')}}" alt=""></div>
+            <span>Plese wait...</span>
+        </div>
+    </div>
     <header class="header-wrapp">
         <div class="container">
             <div class="header-row">
@@ -46,6 +52,20 @@
     <script src="{{ asset('app/js/slick.js') }}"></script>
     <script src="{{ asset('app/js/sticky-cards.js') }}"></script>
     <script src="{{ asset('app/js/scripts.js') }}"></script>
+    <script>
+
+        $.ajaxSetup({
+             headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+             },
+             beforeSend:function(xhr){
+                 $('.loading-wrap').show();
+             },
+             complete:function(xhr,status){
+                 $('.loading-wrap').hide();
+             },
+        });
+    </script>
 
     @stack('scripts')
 
