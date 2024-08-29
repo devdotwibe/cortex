@@ -196,7 +196,8 @@ class LearnTopicController extends Controller
         }
         $user->setProgress("exam-".$exam->id."-module-".$category->id."-lesson-".$subCategory->id."-complete-review",'yes');
         dispatch(new SubmitReview($review));
-        return  redirect()->route('learn.show',['category'=>$category->slug])->with("success","Lesson Submited");
+        //route('learn.show',['category'=>$category->slug])
+        return  redirect()->route('learn.preview',$review->slug)->with("success","Lesson Submited");
     }
     public function lessonhistory(Request $request,Category $category,SubCategory $subCategory){
         /**
