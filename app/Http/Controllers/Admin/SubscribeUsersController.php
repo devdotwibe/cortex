@@ -27,7 +27,7 @@ class SubscribeUsersController extends Controller
                 }
 
                 return $name;
-            })->buildTable();
+            })->buildTable(['subscriber']);
         }
         return view('admin.subscriber.index');
     }
