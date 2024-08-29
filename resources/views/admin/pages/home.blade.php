@@ -14,15 +14,22 @@
 <section class="invite-wrap mt-2">
     <div class="container">
 
+
+
         <!-- Tabs Navigation -->
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item" role="presentation">
-                <a class="nav-link  @if(old('section','save')=='save') active @endif" id="section1-tab" data-bs-toggle="tab" href="#section1" role="tab" aria-controls="section1" aria-selected="@if(old('section2')=='section2')false @else true @endif">Section 1</a>
-            </li>
-            <li class="nav-item " role="presentation">
-                <a class="nav-link @if(old('section')=='section2') active @endif" id="section2-tab" data-bs-toggle="tab" href="#section2" role="tab" aria-controls="section2" aria-selected="@if(old('section2')=='section2')true @else false @endif">Section 2</a>
-            </li>
-        </ul>
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <a class="nav-link @if(old('section') == 'section1' || old('section') == '') active @endif" id="section1-tab" data-bs-toggle="tab" href="#section1" role="tab" aria-controls="section1" aria-selected="@if(old('section') == 'section1' || old('section') == '') true @else false @endif">Section 1</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link @if(old('section') == 'section2') active @endif" id="section2-tab" data-bs-toggle="tab" href="#section2" role="tab" aria-controls="section2" aria-selected="@if(old('section') == 'section2') true @else false @endif">Section 2</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link @if(old('section') == 'section3') active @endif" id="section3-tab" data-bs-toggle="tab" href="#section3" role="tab" aria-controls="section3" aria-selected="@if(old('section') == 'section3') true @else false @endif">Section 3</a>
+    </li>
+</ul>
+
+
 
         <!-- Tabs Content -->
         <div class="tab-content" id="myTabContent">
@@ -395,6 +402,158 @@
         </div>
 
     </div>
+
+
+
+    {{-- <div class="tab-pane fade @if(old('section3')=='section3') show active @endif" id="section3" role="tabpanel" aria-labelledby="section3-tab"> --}}
+        <div class="tab-pane fade @if(old('section') == 'section3') show active @endif" id="section3" role="tabpanel" aria-labelledby="section3-tab">
+        <div class="row">
+            <div class="card">
+                <div class="card-body">
+                    <form action="{{ route('admin.page.section3') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="row">
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="form-data">
+                            <div class="forms-inputs mb-4">
+                                <label for="FeatureHeading">Feature Top Heading</label>
+                                <input type="text" name="FeatureHeading" class="form-control" value="{{ old('FeatureHeading', optional($banner)->FeatureHeading) }}" placeholder="Feature Top Heading">
+                                @error('FeatureHeading')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                    @if(!empty($feature) && count($feature) > 0)
+                        @foreach ($feature as $k => $item)
+                            {{-- <div class="accordion-item @if($k == 0)active @endif" data-img="img{{ $k + 1 }}"> --}}
+
+
+                                <!-- Feature Subtitle -->
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <div class="form-data">
+                                            <div class="forms-inputs mb-4">
+                                                <label for="featuresubtitle">Feature Heading</label>
+                                                <input type="text" name="featuresubtitle[{{$item->id}}]" class="form-control" placeholder="Feature Heading" value="{{ $item->featuresubtitle }}">
+                                                @error('featuresubtitle')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Feature Content -->
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <div class="form-data">
+                                            <div class="forms-inputs mb-4">
+                                                <label for="featurecontent">Feature Description</label>
+                                                <textarea name="featurecontent[]" class="form-control" rows="5" placeholder="Feature Description">{{ $item->featurecontent }}</textarea>
+                                                @error('featurecontent')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Feature Image -->
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <div class="form-data">
+                                            <div class="forms-inputs mb-4">
+                                                <label for="featureimage">Feature Image</label>
+                                                <input type="file" name="featureimage[]" class="form-control" onchange="previewFeatureImage(event)">
+                                                @if(!empty($item->image))
+                                                    <img src="{{ url('d0/' . $item->image) }}" alt="Feature Image" style="max-width: 100px; margin-top: 10px;">
+                                                @endif
+                                                @error('featureimage')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    @endif
+                </div>
+
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="form-data">
+                                        <div class="forms-inputs mb-4">
+                                            <label for="featuresubtitle">Feature Heading</label>
+                                            <input type="text" name="featuresubtitle[]" class="form-control" placeholder="Feature Heading">
+                                            @error('featuresubtitle')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="form-data">
+                                        <div class="forms-inputs mb-4">
+                                            <label for="featurecontent">Feature Description</label>
+                                            <textarea name="featurecontent[]" class="form-control" rows="5" placeholder="Feature Description"></textarea>
+                                            @error('featurecontent')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="form-data">
+                                        <div class="forms-inputs mb-4">
+                                            <label for="featureimage">Feature Image</label>
+                                            <input type="file" name="featureimage[]" class="form-control" onchange="previewFeatureImage(event)">
+                                            @error('featureimage')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Add Feature Button -->
+
+
+                            <!-- Feature Repeater -->
+                            <div class="col-md-12" id="featuresContainer"></div>
+
+                            <div class="col-md-12 mb-3">
+                                <button type="button" class="btn btn-dark" id="addFeature">Add</button>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="col-md-12 mb-3">
+                                <button type="submit" class="btn btn-primary" name="section" value="section3">Save</button>
+                            </div>
+
+                        </div>
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </section>
 
 <!-- Include Bootstrap JS (if not already included) -->
@@ -412,19 +571,49 @@
     </script>
 
 
-{{-- <script>
-    function previewImage(event) {
-        var reader = new FileReader();
-        reader.onload = function(){
-            var output = document.getElementById('imagePreview');
-            output.src = reader.result;
-            output.style.display = 'block';
-        };
-        if (event.target.files[0]) {
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let featureIndex = 0;
+
+        document.getElementById('addFeature').addEventListener('click', function () {
+            featureIndex++;
+
+            let featureHTML = `
+                <div class="feature-item mb-3">
+                    <h4>Feature ${featureIndex}</h4>
+                    <div class="form-group">
+                        <label for="featuretitle_${featureIndex}">Feature Title</label>
+                        <input type="text" name="featuretitle[]" id="featuretitle_${featureIndex}" class="form-control" placeholder="Feature Title">
+                    </div>
+                    <div class="form-group">
+                        <label for="featuresubtitle${featureIndex}">Feature Heading</label>
+                        <input type="text" name="featuresubtitle[]" id="featuresubtitle${featureIndex}" class="form-control" placeholder="Feature Heading">
+                    </div>
+                    <div class="form-group">
+                        <label for="featurecontent${featureIndex}">Feature Description</label>
+                        <textarea name="featurecontent[]" id="featurecontent${featureIndex}" class="form-control" rows="5" placeholder="Feature Description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="featureimage_${featureIndex}">Feature Image</label>
+                        <input type="file" name="featureimage[]" id="featureimage_${featureIndex}" class="form-control" onchange="previewFeatureImage(event)">
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('featuresContainer').insertAdjacentHTML('beforeend', featureHTML);
+        });
+
+        function previewFeatureImage(event) {
+            let reader = new FileReader();
+            reader.onload = function() {
+                let output = document.getElementById('imagePreview');
+                output.src = reader.result;
+                output.style.display = 'block';
+            };
             reader.readAsDataURL(event.target.files[0]);
         }
-    }
-    </script> --}}
+    });
+</script>
 
 
 @endsection

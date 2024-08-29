@@ -124,59 +124,37 @@
         <div class="features-row">
             <div class="features-col1">
                 <h3 class="highlight">OUR FEATURES</h3>
-                <h2>Using Exam Online is easy and <span>straightforward. Here's how it works:</span></h2>
+
+
+
+                <h2> @if(!empty($banner->FeatureHeading))
+                    {!! $banner->FeatureHeading !!}
+                @endif</h2>
+
                 <div class="accordion">
-                    <div class="accordion-item active">
-                        <h3 data-target="img1" class="accordion-item-header">Learning, Finally organised</h3>
-                        <div class="accordion-content">
-                            <p>Hours of interactive video tutorials walking students through our specially designed syllabus. </p>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h3 data-target="img2" class="accordion-item-header">Easy to learn system</h3>
-                        <div class="accordion-content">
-                            <p>Hours of interactive video tutorials walking students through our specially designed syllabus. </p>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h3 data-target="img3" class="accordion-item-header">Detailed analytics</h3>
-                        <div class="accordion-content">
-                            <p>Hours of interactive video tutorials walking students through our specially designed syllabus. </p>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h3 data-target="img4" class="accordion-item-header">Prepare smart</h3>
-                        <div class="accordion-content">
-                            <p>Hours of interactive video tutorials walking students through our specially designed syllabus. </p>
-                        </div>
-                    </div>
+                    @if(!empty($feature) && count($feature) > 0)
+                        @foreach ($feature as $k => $item)
+                            <div class="accordion-item @if($k == 0)active @endif" data-img="img{{ $k + 1 }}">
+                                <h3 class="accordion-item-header" data-target="img{{ $k + 1 }}">{{ $item->featuresubtitle }}</h3>
+                                <div class="accordion-content">
+                                    <p>{{ $item->featurecontent }}</p>
+                                </div>
+                            </div>
+                        @endforeach
+                    @endif
                 </div>
             </div>
+
             <div class="features-col2">
-                <div class="feature-img active" id="img1">
-                    <img src="{{ asset('app/images/feature-img.png') }}" alt="Feature Image">
-                    <span class="feature-shape">
-                        <img src="{{ asset('app/images/ourfeaturebgcircle.png') }}" alt="Feature Background Circle">
-                    </span>
-                </div>
-                <div class="feature-img" id="img2">
-                    <img src="{{ asset('app/images/feature-img.png') }}" alt="Feature Image">
-                    <span class="feature-shape">
-                        <img src="{{ asset('app/images/ourfeaturebgcircle.png') }}" alt="Feature Background Circle">
-                    </span>
-                </div>
-                <div class="feature-img" id="img3">
-                    <img src="{{ asset('app/images/feature-img.png') }}" alt="Feature Image">
-                    <span class="feature-shape">
-                        <img src="{{ asset('app/images/ourfeaturebgcircle.png') }}" alt="Feature Background Circle">
-                    </span>
-                </div>
-                <div class="feature-img" id="img4">
-                    <img src="{{ asset('app/images/feature-img.png') }}" alt="Feature Image">
-                    <span class="feature-shape">
-                        <img src="{{ asset('app/images/ourfeaturebgcircle.png') }}" alt="Feature Background Circle">
-                    </span>
-                </div>
+                @if(!empty($feature) && count($feature) > 0)
+                    @foreach ($feature as $k => $item)
+                        <div class="feature-img @if($k == 0) active @endif" id="img{{ $k + 1 }}">
+                            @if(!empty($item->image))
+                                <img src="{{ url('d0/' . $item->image) }}" alt="Feature Image">
+                            @endif
+                        </div>
+                    @endforeach
+                @endif
             </div>
         </div>
     </div>
@@ -477,6 +455,45 @@
         <a href="" class="learn-more">Learn More</a>
     </div>
 </section>
+
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const headers = document.querySelectorAll('.accordion-item-header');
+        const images = document.querySelectorAll('.feature-img');
+
+        headers.forEach(header => {
+            header.addEventListener('click', function() {
+                // Get target image ID
+                const targetImgId = this.getAttribute('data-target');
+
+                // Remove active class from all accordion items and images
+                document.querySelectorAll('.accordion-item').forEach(item => item.classList.remove('active'));
+                document.querySelectorAll('.feature-img').forEach(img => img.classList.remove('active'));
+
+                // Add active class to the clicked accordion item and corresponding image
+                this.parentElement.classList.add('active');
+                document.getElementById(targetImgId).classList.add('active');
+            });
+        });
+    });
+    </script>
+
+    <style>
+    .accordion-item.active .accordion-content {
+        display: block;
+    }
+
+    .feature-img {
+        display: none;
+    }
+
+    .feature-img.active {
+        display: block;
+    }
+    </style>
 
 
 @endsection
