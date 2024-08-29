@@ -129,7 +129,7 @@
                                 <label for="email-2">Invite User</label>
                                 <div class="input-group ">  
                                     <input type="email" name="email" id="combo-email" class="form-control" />
-                                    <button class="btn btn-outline-secondary" type="button" id="mail-verify-button">Verify</button>
+                                    <button class="btn btn-outline-secondary" type="button" id="mail-verify-button">Confirm Email</button>
                                     <div class="invalid-feedback" id="error-combo-email-message"></div>
                                 </div>
                             </div>
@@ -160,15 +160,48 @@
                 e.preventDefault();
                 $('#combo-message-area').html('')
                 $('.invalid-feedback').text('')
-                $('.form-control').removeClass('is-invalid')
+                $('.form-control').removeClass('is-invalid') 
                 $.post("{{ route('pricing.index') }}", $('#cortext-combo-subscription-payment-form').serialize(), function(res) {
-                    $('#cortext-combo-subscription-payment-form').submit()
+                    if($('#verify-mail').val()=="Y"){ 
+                        $('#cortext-combo-subscription-payment-form').submit()
+                    }else{
+                        $('#combo-message-area').html(`
+                            <div class="alert alert-danger" role="alert">
+                                Please confirm your inviting friend mail by click on "Confirm Email" button.
+                            </div>                        
+                        `)
+                    }
                 }, 'json').fail(function(xhr) {
                     $.each(xhr.responseJSON.errors, function(k, v) { 
                         $('#error-combo-'+k+'-message').text(v[0]) 
                         $('#combo-'+k).addClass('is-invalid')
                     });
-                });
+                }); 
+            })
+            $('#combo-email').change(function(){
+                $('#verify-mail').val('N')
+            })
+
+            $('#mail-verify-button').click(function(e){
+                e.preventDefault();
+                $('#combo-message-area').html('')
+                $('.invalid-feedback').text('')
+                $('.form-control').removeClass('is-invalid') 
+                $.post("{{route('combo-email')}}",{ email:$('#combo-email').val() },function(res){
+                    if(res.message){
+                        $('#combo-message-area').html(`
+                            <div class="alert alert-info" role="alert">
+                                ${res.message}
+                            </div>                        
+                        `)
+                        $('#verify-mail').val('Y')
+                    }
+                },'json').fail(function(xhr){
+                    $.each(xhr.responseJSON.errors, function(k, v) { 
+                        $('#error-combo-'+k+'-message').text(v[0]) 
+                        $('#combo-'+k).addClass('is-invalid')
+                    });
+                })
             })
 
             $('#cortext-subscription-payment-form-buttom').click(function(e){

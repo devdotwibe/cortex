@@ -194,6 +194,37 @@ class HomeController extends Controller
     public function pricing(Request $request){
         return view('pricing.index');
     }
+    public function combo_mail(Request $request){
+        $request->validate([
+            "email"=>['required'], 
+            "plan"=>['required'], 
+        ]);
+        $email=$request->input('email','');
+        /**
+        * @var User
+        */
+        $user=Auth::user();
+        if($user->email==$email){
+            return throw ValidationException::withMessages(['email'=>["This email is not allowed. Please check the email address and try again."]]);
+        }
+
+        if(User::where('email',$email)->where('id','!=',$user->id)->count()>0){ 
+            $tuser=User::where('email',$email)->first();
+            if(!empty($tuser)){
+                $count=UserProgress::where('user_id',$tuser->id)->where('name','cortext-subscription-payment-year')->where('value', $request->year)->count();
+                if($count>0){
+                    return throw ValidationException::withMessages(['email'=>["You inviting friend is already subscribed for this year {$request->year}. Please confirm before payment"]]);
+                }
+            }
+           return response()->json([
+             'message'=> "User Mail Approved "
+           ]);
+        }else{
+            return response()->json([
+                'message'=> "Not found a user with submitted mail id. No problem now you can subscribe with this mail id then later registering with this same mail id the user will get this subscription. "
+            ]);
+        }
+    }
     public function verifypricing(Request $request){
         $request->validate([
             "year"=>['required'],
