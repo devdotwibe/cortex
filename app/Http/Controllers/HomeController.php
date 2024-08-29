@@ -205,7 +205,7 @@ class HomeController extends Controller
         */
         $user=Auth::user();
         if($user->email==$email){
-            return throw ValidationException::withMessages(['email'=>["This email is not allowed. Please check the email address and try again."]]);
+            return throw ValidationException::withMessages(['email'=>[" Entered mail id same as your, please try with another one."]]);
         }
 
         if(User::where('email',$email)->where('id','!=',$user->id)->count()>0){ 
@@ -239,7 +239,7 @@ class HomeController extends Controller
         $email=$request->input('email','');
         if($request->plan=="combo"){ 
             if($user->email==$email){
-                return throw ValidationException::withMessages(['email'=>["This email is not allowed. Please check the email address and try again."]]);
+                return throw ValidationException::withMessages(['email'=>[" Entered mail id same as your, please try with another one."]]);
             }
             if(User::where('email',$email)->where('id','!=',$user->id)->count()>0){ 
                 $ajaxres["success"]="verifyed";
