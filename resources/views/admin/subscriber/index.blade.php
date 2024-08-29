@@ -9,7 +9,7 @@
         <div class="header_content">
              <div class="form-group">
                 <select  id="cat-list" onchange="changeyear()" class="select2 form-control" data-placeholder="Select an Year" data-allow-clear="true" >
-                     @for ($i = 2024; $i < (date('Y')+1); $i++)
+                     @for ($i = 2024; $i < (date('Y')+2); $i++)
                          <option value="{{$i}}-{{$i+1}}">June {{$i}} - May {{$i+1}}</option>
                      @endfor
                 </select>
