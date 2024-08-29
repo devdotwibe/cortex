@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\banner;
 use App\Models\Feature;
 use App\Models\User;
+use App\Models\UserProgress;
 use App\Support\Helpers\OptionHelper;
 use App\Support\Plugin\Payment;
 use App\Trait\ResourceController;
@@ -83,6 +84,15 @@ class HomeController extends Controller
 
         $user=User::store($userdata);
         event(new Registered($user));
+        $pro=UserProgress::where('name',"cortext-subscription-payment-email")->where('value',$user->email)->first();
+        if(!empty($pro)){
+            $refuser=User::find($pro->user_id);
+            if($refuser->progress('cortext-subscription-payment')=='paid'&&$refuser->progress('cortext-subscription-payment-plan')=='combo'){
+                $user->setProgress('cortext-subscription-payment-ref',$refuser->progress('cortext-subscription-payment-transation'));
+                $user->setProgress('cortext-subscription-payment','paid');
+                $user->setProgress('cortext-subscription-payment-year',$refuser->progress('cortext-subscription-payment-year'));
+            }
+        }
         return redirect()->route('login')->with('success', " Account created Succesfully");
     }
     public function verifyemail($id,$hash){
