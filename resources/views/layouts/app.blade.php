@@ -24,14 +24,14 @@
                 </div>
                 <div class="header-right">
                     <ul>
-                        <li class="nav-link"><a href="">Home</a></li>
+                        <li class="nav-link"><a href="{{url('/')}}">Home</a></li>
                         <li class="nav-link"><a href="">Course</a></li>
-                        <li class="nav-link"><a href="">Pricing</a></li>
+                        <li class="nav-link"><a href="{{route('pricing.index')}}">Pricing</a></li>
                         <li class="nav-link"><a href="">Find a Tutor</a></li>
-                        <li class="nav-link signup-link"><a href="">Sign Up</a></li>
+                        <li class="nav-link signup-link"><a href="{{route('register')}}">Sign Up</a></li>
                     </ul>
                     <div class="header-btn">
-                        <a href="" class="header-btn1">Login</a>
+                        <a href="{{route('login')}}" class="header-btn1">Login</a>
                     </div>
                 </div>
             </div>
