@@ -23,7 +23,7 @@
                     <span class="red-icon"><img
                             src="{{asset("assets/images/User-red.png")}}"></span>
                 </div>
-                <h3>New  Users</h3> 
+                <h3>Mail Un-Verifyed  Users</h3> 
                 <span class="badge text-success">{{$newuser??0}}</span> 
             </div>
              
@@ -34,7 +34,7 @@
                     <span class="red-icon"><img
                             src="{{asset("assets/images/User-red.png")}}"></span>
                 </div>
-                <h3>Verifyed  Users</h3> 
+                <h3>Mail Verifyed  Users</h3> 
                 <span class="badge text-success">{{$newuser??0}}</span> 
             </div>
 
