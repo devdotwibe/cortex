@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\banner;
+use App\Models\Feature;
 use App\Models\User;
 use App\Support\Helpers\OptionHelper;
 use App\Support\Plugin\Payment;
@@ -27,7 +28,9 @@ class HomeController extends Controller
 
         $banner = banner::first();
 
-        return view("welcome",compact('banner'));
+        $feature = Feature::get();
+
+        return view("welcome",compact('banner','feature'));
     }
     public function login(Request $request){
         if(Auth::check()){
