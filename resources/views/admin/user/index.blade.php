@@ -6,11 +6,11 @@
         <div class="header_title">
             <h2>Users</h2>
         </div>
-        {{-- <div class="header_right">
+        <div class="header_right">
             <ul class="nav_bar">
-                <li class="nav_item"><a href="{{route('admin.user.create')}}" class="nav_link btn">Invite</a></li>
+                <li class="nav_item"><a href="{{route('admin.subscriber.index')}}" class="nav_link btn">Subscriber</a></li>
             </ul>
-        </div> --}}
+        </div>
     </div>
 </section>
 <section class="content_section">
