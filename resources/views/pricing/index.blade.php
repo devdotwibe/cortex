@@ -129,13 +129,14 @@
                                 <label for="email-2">Invite User</label>
                                 <div class="input-group ">  
                                     <input type="email" name="email" id="combo-email" class="form-control" />
+                                    <button class="btn btn-outline-secondary" type="button" id="mail-verify-button">Verify</button>
                                     <div class="invalid-feedback" id="error-combo-email-message"></div>
-                                    <button class="btn btn-outline-secondary" type="button" id="mail-verify-button">Button</button>
                                 </div>
                             </div>
                             <div class="form-group" id="combo-message-area">
                             </div>
                             <div class="form-group mt-2">
+                                <input type="hidden" name="verify" value="N" id="verify-mail">
                                 <button type="button" data-bs-dismiss="modal"  class="btn btn-secondary">Cancel</button> 
                                 <button type="button" class="btn btn-dark" id="cortext-combo-subscription-payment-form-buttom">Pay Now ${{ get_option('stripe.subscription.payment.combo-amount-price','0') }} </button>
                             </div>
