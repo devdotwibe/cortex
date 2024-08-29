@@ -84,7 +84,7 @@
 
                     <div class="form-group mt-2">
                         <button type="button" data-bs-dismiss="modal"  class="btn btn-secondary">Cancel</button>
-                        <button type="submit" class="btn btn-dark">Pay Now ${{ get_option('stripe.subscription.payment.amount-price','0') }} </button>
+                        <button type="button" class="btn btn-dark" id="cortext-subscription-payment-form-buttom">Pay Now ${{ get_option('stripe.subscription.payment.amount-price','0') }} </button>
                     </div>
                 </form>
             </div>
@@ -97,10 +97,10 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="cortext-subscription-paymentLablel">Subscription</h5> 
+                <h5 class="modal-title" id="cortext-combo-subscription-paymentLablel">Subscription</h5> 
             </div>
             <div class="modal-body">
-                <form action="{{route('pricing.index')}}"  id="cortext-subscription-payment-form"  method="POST">
+                <form action="{{route('pricing.index')}}"  id="cortext-combo-subscription-payment-form"  method="POST">
                     @csrf        
                     
                     <input type="hidden" name="plan" value="combo">
@@ -122,7 +122,7 @@
                     </div>
                     <div class="form-group mt-2">
                         <button type="button" data-bs-dismiss="modal"  class="btn btn-secondary">Cancel</button>
-                        <button type="submit" class="btn btn-dark">Pay Now ${{ get_option('stripe.subscription.payment.combo-amount-price','0') }} </button>
+                        <button type="button" class="btn btn-dark" id="cortext-combo-subscription-payment-form-buttom">Pay Now ${{ get_option('stripe.subscription.payment.combo-amount-price','0') }} </button>
                     </div>
                 </form>
             </div>
@@ -132,7 +132,7 @@
 </div>
 
 <script>
-
+    
 </script>
 
 
