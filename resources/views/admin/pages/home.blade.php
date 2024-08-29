@@ -405,7 +405,7 @@
 
 
 
-    {{-- <div class="tab-pane fade @if(old('section3')=='section3') show active @endif" id="section3" role="tabpanel" aria-labelledby="section3-tab"> --}}
+
         <div class="tab-pane fade @if(old('section') == 'section3') show active @endif" id="section3" role="tabpanel" aria-labelledby="section3-tab">
         <div class="row">
             <div class="card">
@@ -431,8 +431,8 @@
 
                     @if(!empty($feature) && count($feature) > 0)
                         @foreach ($feature as $k => $item)
-                            {{-- <div class="accordion-item @if($k == 0)active @endif" data-img="img{{ $k + 1 }}"> --}}
 
+                            <div class="outer-feature" id="close-{{$item->id}}">
 
                                 <!-- Feature Subtitle -->
                                 <div class="col-md-12">
@@ -440,7 +440,7 @@
                                         <div class="form-data">
                                             <div class="forms-inputs mb-4">
                                                 <label for="featuresubtitle">Feature Heading</label>
-                                                <input type="text" name="featuresubtitle[{{$item->id}}]" class="form-control" placeholder="Feature Heading" value="{{ $item->featuresubtitle }}">
+                                                <input type="text" name="featuresubtitleupdate[]" class="form-control" placeholder="Feature Heading" value="{{ $item->featuresubtitle }}">
                                                 @error('featuresubtitle')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -455,7 +455,7 @@
                                         <div class="form-data">
                                             <div class="forms-inputs mb-4">
                                                 <label for="featurecontent">Feature Description</label>
-                                                <textarea name="featurecontent[]" class="form-control" rows="5" placeholder="Feature Description">{{ $item->featurecontent }}</textarea>
+                                                <textarea name="featurecontentupdate[]" class="form-control" rows="5" placeholder="Feature Description">{{ $item->featurecontent }}</textarea>
                                                 @error('featurecontent')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -470,7 +470,8 @@
                                         <div class="form-data">
                                             <div class="forms-inputs mb-4">
                                                 <label for="featureimage">Feature Image</label>
-                                                <input type="file" name="featureimage[]" class="form-control" onchange="previewFeatureImage(event)">
+                                                <input type="hidden" name="featureids[]" value="{{$item->id}}">
+                                                <input type="file" name="featureimageupdate[]" class="form-control" onchange="previewFeatureImage(event)">
                                                 @if(!empty($item->image))
                                                     <img src="{{ url('d0/' . $item->image) }}" alt="Feature Image" style="max-width: 100px; margin-top: 10px;">
                                                 @endif
@@ -481,11 +482,18 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        @endforeach
-                    @endif
-                </div>
 
+                                {{-- <button type="button" class="btn-btn-danger" onclick="removeDiv(this,close-{{$item->id}})">X</button> --}}
+
+                                {{-- <button type="button" class="btn btn-danger" onclick="removeDiv(this, 'close-{{$item->id}}')">X</button> --}}
+
+                                <button type="button" class="btn btn-danger" onclick="removeDiv(this, 'close-{{$item->id}}')" data-feature-id="{{$item->id}}">X</button>
+
+                            </div>
+
+                        @endforeach
+
+                                @else
 
                             <div class="col-md-12">
                                 <div class="form-group">
@@ -528,6 +536,9 @@
                                     </div>
                                 </div>
                             </div>
+
+                            @endif
+
 
                             <!-- Add Feature Button -->
 
@@ -572,7 +583,17 @@
 
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+
+
+
+    // function removeDiv(element,id)
+    // {
+    //     $('#'+id).remove();
+    // }
+
+
+
+        document.addEventListener('DOMContentLoaded', function () {
         let featureIndex = 0;
 
         document.getElementById('addFeature').addEventListener('click', function () {
@@ -581,10 +602,7 @@
             let featureHTML = `
                 <div class="feature-item mb-3">
                     <h4>Feature ${featureIndex}</h4>
-                    <div class="form-group">
-                        <label for="featuretitle_${featureIndex}">Feature Title</label>
-                        <input type="text" name="featuretitle[]" id="featuretitle_${featureIndex}" class="form-control" placeholder="Feature Title">
-                    </div>
+
                     <div class="form-group">
                         <label for="featuresubtitle${featureIndex}">Feature Heading</label>
                         <input type="text" name="featuresubtitle[]" id="featuresubtitle${featureIndex}" class="form-control" placeholder="Feature Heading">
@@ -614,6 +632,16 @@
         }
     });
 </script>
+
+<script>
+    function removeDiv(button, id) {
+        // Remove the element from the DOM
+        var element = document.getElementById(id);
+        element.remove();
+
+    }
+    </script>
+
 
 
 @endsection

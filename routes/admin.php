@@ -312,12 +312,16 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::post('/', [PagesController::class, 'store'])->name('store');
         Route::post('/section2', [PagesController::class, 'storeSection2'])->name('section2');
         Route::post('/section3', [PagesController::class, 'storeSection3'])->name('section3');
-        Route::post('/section3', [PagesController::class, 'storeSection4'])->name('section3'); // Add this line// Add this line
+        Route::post('/section4', [PagesController::class, 'storeSection4'])->name('section4'); // Add this line// Add this line
         Route::get('/{setname}/edit', [PagesController::class, 'edit'])->name('edit');
         Route::put('/{setname}', [PagesController::class, 'update'])->name('update');
         Route::get('/{setname}', [PagesController::class, 'show'])->name('show');
         Route::delete('/{setname}', [PagesController::class, 'destroy'])->name('destroy');
         Route::get('/{setname}/visibility', [PagesController::class, 'visibility'])->name('visibility');
+
+        Route::delete('/admin/page/feature/{id}', [PagesController::class, 'destroy'])->name('feature.destroy');
+
+
     });
 
     Route::get('/set/view', [PagesController::class, 'set_table_show'])->name('set_table.show');
