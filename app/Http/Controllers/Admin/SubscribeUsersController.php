@@ -18,6 +18,13 @@ class SubscribeUsersController extends Controller
             
             return $this->where('stype','subscription')->addColumn('subscriber',function($data){
                 $name="";
+                if(!empty($data->user)){
+                    $name.="<span class='badge bg-secondary' >".$data->user->email."</span>";
+                    $compo=$data->user->progress('cortext-subscription-payment-email','');
+                    if(!empty($compo)){
+                        $name.="<span class='badge bg-secondary' >".$compo."</span>";                        
+                    }
+                }
 
                 return $name;
             })->buildTable();
