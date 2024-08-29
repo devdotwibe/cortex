@@ -58,7 +58,7 @@
 @auth('web')
     
 
-<div class="modal fade" id="cortext-subscription-payment-modal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"  aria-labelledby="cortext-subscription-paymentLabel" aria-hidden="true">
+<div class="modal fade" id="cortext-subscription-payment-modal"  data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"  aria-labelledby="cortext-subscription-paymentLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -93,7 +93,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="cortext-combo-subscription-payment-modal" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog"  aria-labelledby="cortext-subscription-paymentLabel" aria-hidden="true">
+<div class="modal fade" id="cortext-combo-subscription-payment-modal" tabindex="-1"  data-bs-backdrop="static" data-bs-keyboard="false" role="dialog"  aria-labelledby="cortext-subscription-paymentLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
