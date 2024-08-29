@@ -46,8 +46,8 @@
                     <span class="red-icon"><img
                             src="{{asset("assets/images/User-red.png")}}"></span>
                 </div>
-                <h3>Trial  Users</h3> 
-                <span class="badge text-success">{{$newuser??0}}</span> 
+                <h3>Free Access  Users</h3> 
+                <span class="badge text-success">{{$freeuser??0}}</span> 
             </div>
             <div class="dash_card">
                 <div class="admin-icon">
@@ -57,7 +57,7 @@
                             src="{{asset("assets/images/User-red.png")}}"></span>
                 </div>
                 <h3>Paid  Users</h3> 
-                <span class="badge text-success">{{$newuser??0}}</span> 
+                <span class="badge text-success">{{$paiduser??0}}</span> 
             </div>
         </div>
     </div>

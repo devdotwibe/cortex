@@ -47,8 +47,9 @@ class UserController extends Controller
         }
         $unverifyuser=User::whereNull('email_verified_at')->count();
         $verifyuser=User::whereNotNull('email_verified_at')->count();
+        $freeuser=User::where('is_free_access',false)->count();
         $paiduser=User::whereIn('id',UserProgress::where('name',"cortext-subscription-payment")->where('value','paid')->select('user_id'))->count();
-        return view("admin.user.index",compact('unverifyuser','verifyuser','paiduser'));
+        return view("admin.user.index",compact('unverifyuser','verifyuser','paiduser','freeuser'));
     }
     public function create(Request $request){
         return view("admin.user.create");
