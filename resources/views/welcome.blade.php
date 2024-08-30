@@ -345,17 +345,35 @@
         <div class="learning-row">
             <div class="learning-col1">
                 <h3 class="highlight">Learn, Perfect & Excel</h3>
-                <h2>Get access to free Selective Style <span>Tests for Year 5 & 6 students to see</span> if your child is exam-ready.</h2>
-                <p>Check if your child is exam-ready with a free Selective Style test. Prepare smarter, not harder.</p>
+                <h2>@if(!empty($banner->exceltitle))
+                       {!! $banner->exceltitle !!}
+                    @endif</h2>
+                <p> @if(!empty($banner->excelsubtitle))
+                    <p>{{$banner->excelsubtitle}}</p>
+                    @endif</p>
                 <ul>
-                    <li>Latest exam-style questions</li>
-                    <li>Detailed solutions & comprehensive reports provided</li>
-                    <li>No payment details required</li>
+                    <li>@if(!empty($banner->subtitle1))
+                        <p>{{$banner->subtitle1}}</p>
+                        @endif</li>
+                    <li>@if(!empty($banner->subtitle2))
+                        <p>{{$banner->subtitle2}}</p>
+                        @endif</li>
+                    <li>@if(!empty($banner->subtitle3))
+                        <p>{{$banner->subtitle3}}</p>
+                        @endif</li>
                 </ul>
-                <a href="" class="learning-btn">Claim your Free test today</a>
+
+                @if(!empty($banner->excelbuttonlink) && !empty($banner->excelbuttonlabel))
+                <a href="{{ $banner->excelbuttonlink }}" class="learning-btn">{{ $banner->excelbuttonlabel }}</a>
+            @endif
+
+
             </div>
             <div class="learning-col2">
-                <img src="{{ asset('app/images/learn-img.jpg') }}" alt="">
+
+                @if (!empty($banner->excelimage))
+                    <img src="{{ url('d0/' . $banner->excelimage) }}" alt="Header Image">
+                    @endif
             </div>
         </div>
     </div>
@@ -366,8 +384,12 @@
         <div class="review-row">
             <div class="review-col1">
                 <h3 class="highlight">Students feedback</h3>
-                <h2>Our 5-Star Reviews</h2>
-                <p>Find any educational institution with higher rated and more reviews than Cortex, and we will offer our Premium Package absolutely free</p>
+                <h2>@if(!empty($courses->studenttitle))
+                    {{ $courses->studenttitle}}
+                 @endif</h2>
+                @if(!empty($courses->studentsubtitle))
+                    <p>{{$courses->studentsubtitle}}</p>
+                    @endif
                 <div class="review-col3">
                     <div class="review-col4">
                         <h1>99%</h1>
@@ -432,27 +454,53 @@
 <section class="course-wrapp">
     <div class="container">
         <h3 class="highlight">Our Courses</h3>
-        <h2>Explore our MasterClasses</h2>
-        <p>Learn the proper fundamental theory of conclusions, assumptions, arguments and reasoning. Follow the proven techniques and strategies from a professional Thinking Skills exam writer and teacher.</p>
+        @if(!empty($courses->coursetitle))
+            <h2>{{$courses->coursetitle}}</h2>
+            @endif
+            @if(!empty($courses->coursesubtitle))
+            <p>{{$courses->coursesubtitle}}</p>
+            @endif
         <div class="course-row">
             <div class="course-box">
-                <h4>Logical Reasoning</h4>
-                <p>A free full-length Thinking Skills exam that allows your child to test their current abilities. Take a sneak-peek into Cortex Online's style of teaching and questions.</p>
+                @if(!empty($courses->courseheading1))
+                <h4>{{$courses->courseheading1}}</h4>
+                @endif
+                @if(!empty($courses->coursecontent1))
+                <p>{{$courses->coursecontent1}}</p>
+                @endif
             </div>
             <div class="course-box">
-                <h4>Critical Reasoning</h4>
-                <p>Learn the proper fundamental theory of conclusions, assumptions, arguments and reasoning. Follow the proven techniques and strategies from a professional Thinking Skills exam writer and teacher.</p>
+                @if(!empty($courses->courseheading2))
+            <h4>{{$courses->courseheading2}}</h4>
+            @endif
+            @if(!empty($courses->coursecontent2))
+            <p>{{$courses->coursecontent2}}</p>
+            @endif
             </div>
             <div class="course-box">
-                <h4>Abstract Reasoning</h4>
-                <p>Give your child a competitive edge in the Selective Test. Learn the most efficient techniques and strategies for each question type from a Thinking Skills expert.</p>
+                @if(!empty($courses->courseheading3))
+            <h4>{{$courses->courseheading3}}</h4>
+            @endif
+            @if(!empty($courses->coursecontent3))
+            <p>{{$courses->coursecontent3}}</p>
+            @endif
             </div>
             <div class="course-box">
-                <h4>Numerical Reasoning</h4>
-                <p>Give your child a competitive edge in the Selective Test. Learn the most efficient techniques and strategies for each question type from a Thinking Skills expert.</p>
+                @if(!empty($courses->courseheading4))
+                <h4>{{$courses->courseheading4}}</h4>
+                @endif
+                @if(!empty($courses->coursecontent4))
+                <p>{{$courses->coursecontent4}}</p>
+                @endif
             </div>
         </div>
-        <a href="" class="learn-more">Learn More</a>
+        {{-- <a href="" class="learn-more">Learn More</a> --}}
+
+
+
+        @if(!empty($courses->coursebuttonlink) && !empty($courses->coursebuttonlabel))
+        <a href="{{ $courses->coursebuttonlink }}" class="learn-more">{{ $courses->coursebuttonlabel }}</a>
+    @endif
     </div>
 </section>
 
