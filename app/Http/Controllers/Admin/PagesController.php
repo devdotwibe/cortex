@@ -157,6 +157,7 @@ class PagesController extends Controller
         $featurecontents = $request->input('featurecontent', []);
         $featureimages = $request->file('featureimage', []);
 
+        $feaids=[];
         // Iterate over the feature titles
         foreach ($featuresubtitles as $key => $title) {
             $feature = new Feature;
@@ -173,13 +174,106 @@ class PagesController extends Controller
                 $feature->image = $featureImageName;
             }
 
-            // Save the feature record
+
+            array_push($feaids,$feature->id);
+
             $feature->save();
+
         }
+
+        $featuresubtitles = $request->input('featuresubtitleupdate', []);
+        $featurecontents = $request->input('featurecontentupdate', []);
+        $featureimages = $request->file('featureimageupdate', []);
+
+        $featureids = $request->input('featureids', []);
+
+        // dd($featureids);
+
+
+
+        foreach ($featuresubtitles as $key=> $value) {
+
+            if(!empty($featureids[$key]))
+            {
+
+                $feature =Feature::find($featureids[$key]);
+
+                $feature->featuresubtitle = $value;
+
+                $feature->featurecontent = $featurecontents[$key];
+
+                if (isset($featureimages[$key])) {
+                    $featureImage = $featureimages[$key];
+                    $featureImageName = "features/" . $featureImage->hashName();
+                    Storage::put('features', $featureImage);
+                    $feature->image = $featureImageName;
+                }
+
+                $feature->save();
+
+                array_push($feaids,$feature->id);
+
+            }else{
+
+                $feature = new Feature;
+
+                $feature->featuresubtitle = $value;
+
+                $feature->featurecontent = $featurecontents[$key];
+
+                if (isset($featureimages[$key])) {
+                    $featureImage = $featureimages[$key];
+                    $featureImageName = "features/" . $featureImage->hashName();
+                    Storage::put('features', $featureImage);
+                    $feature->image = $featureImageName;
+                }
+
+                array_push($feaids,$feature->id);
+
+                $feature->save();
+            }
+
+        }
+
+        Feature::whereNotIn('id',$feaids)->delete();
+
+
 
         // Redirect back with success message
         return redirect()->route('admin.page.index')->with('success', 'Section 3 data has been successfully saved.');
     }
+
+
+
+
+
+
+
+
+
+    public function destroy($id)
+{
+    $feature = Feature::find($id);
+
+    if ($feature) {
+        // Delete the feature from the database
+        $feature->delete();
+
+        // Return a success response
+        return response()->json(['success' => true]);
+    }
+
+    // Return a failure response if feature not found
+    return response()->json(['success' => false], 404);
+}
+
+
+
+
+
+
+
+
 
     public function storeSection4(Request $request)
     {

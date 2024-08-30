@@ -427,7 +427,8 @@
                     value:'pending'
                 }),
             });
-            loadlessonreview()
+            window.location.href="{{route('learn.lesson.submit',['category'=>$category->slug,'sub_category'=>$subCategory->slug])}}";
+            // loadlessonreview()
          }
 
          $(function(){

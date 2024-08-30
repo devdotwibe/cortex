@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\banner;
 use App\Models\Feature;
 use App\Models\User;
+use App\Models\UserProgress;
 use App\Support\Helpers\OptionHelper;
 use App\Support\Plugin\Payment;
 use App\Trait\ResourceController;
@@ -83,6 +84,15 @@ class HomeController extends Controller
 
         $user=User::store($userdata);
         event(new Registered($user));
+        $pro=UserProgress::where('name',"cortext-subscription-payment-email")->where('value',$user->email)->first();
+        if(!empty($pro)){
+            $refuser=User::find($pro->user_id);
+            if($refuser->progress('cortext-subscription-payment')=='paid'&&$refuser->progress('cortext-subscription-payment-plan')=='combo'){
+                $user->setProgress('cortext-subscription-payment-ref',$refuser->progress('cortext-subscription-payment-transation'));
+                $user->setProgress('cortext-subscription-payment','paid');
+                $user->setProgress('cortext-subscription-payment-year',$refuser->progress('cortext-subscription-payment-year'));
+            }
+        }
         return redirect()->route('login')->with('success', " Account created Succesfully");
     }
     public function verifyemail($id,$hash){
@@ -184,6 +194,37 @@ class HomeController extends Controller
     public function pricing(Request $request){
         return view('pricing.index');
     }
+    public function combo_mail(Request $request){
+        $request->validate([
+            "email"=>['required','email'], 
+            "year"=>['required'], 
+        ]);
+        $email=$request->input('email','');
+        /**
+        * @var User
+        */
+        $user=Auth::user();
+        if($user->email==$email){
+            return throw ValidationException::withMessages(['email'=>[" Entered mail id same as your, please try with another one."]]);
+        }
+
+        if(User::where('email',$email)->where('id','!=',$user->id)->count()>0){ 
+            $tuser=User::where('email',$email)->first();
+            if(!empty($tuser)){
+                $count=UserProgress::where('user_id',$tuser->id)->where('name','cortext-subscription-payment-year')->where('value', $request->year)->count();
+                if($count>0){
+                    return throw ValidationException::withMessages(['email'=>["You inviting friend is already subscribed for this year {$request->year}. Please confirm before payment"]]);
+                }
+            }
+           return response()->json([
+             'message'=> "User Mail Approved "
+           ]);
+        }else{
+            return response()->json([
+                'message'=> "Not found a user with submitted mail id. No problem now you can subscribe with this mail id then later registering with this same mail id the user will get this subscription. "
+            ]);
+        }
+    }
     public function verifypricing(Request $request){
         $request->validate([
             "year"=>['required'],
@@ -198,7 +239,7 @@ class HomeController extends Controller
         $email=$request->input('email','');
         if($request->plan=="combo"){ 
             if($user->email==$email){
-                return throw ValidationException::withMessages(['email'=>["This email is not allowed. Please check the email address and try again."]]);
+                return throw ValidationException::withMessages(['email'=>[" Entered mail id same as your, please try with another one."]]);
             }
             if(User::where('email',$email)->where('id','!=',$user->id)->count()>0){ 
                 $ajaxres["success"]="verifyed";

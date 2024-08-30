@@ -115,8 +115,8 @@
                             <div class="form-group">
                                 <label for="combo-year"> Year</label>                            
                                     @if(date('m')>5)  
-                                        <input type="hidden" name="year" value="{{date('Y')+0}}-{{date('Y')+1}}" >
-                                        <input type="text" id="combo-year" class="form-control" value="June {{date('Y')+0}} - May {{date('Y')+1}}" readonly>
+                                        <input type="hidden"  id="combo-year" name="year" value="{{date('Y')+0}}-{{date('Y')+1}}" >
+                                        <input type="text" class="form-control" value="June {{date('Y')+0}} - May {{date('Y')+1}}" readonly>
                                     @else
                                         <select name="year" class="form-control" id="combo-year"> 
                                             <option value="{{date('Y')+0}}-{{date('Y')+1}}" >June {{date('Y')+0}} - May {{date('Y')+1}}</option>
@@ -127,12 +127,16 @@
                             </div>  
                             <div class="form-group">
                                 <label for="email-2">Invite User</label>
-                                <input type="email" name="email" id="combo-email" class="form-control" />
-                                <div class="invalid-feedback" id="error-combo-email-message"></div>
+                                <div class="input-group ">  
+                                    <input type="email" name="email" id="combo-email" placeholder="Enter email address" class="form-control" />
+                                    <button class="btn btn-outline-secondary" type="button" id="mail-verify-button">Confirm Email</button>
+                                    <div class="invalid-feedback" id="error-combo-email-message"></div>
+                                </div>
                             </div>
                             <div class="form-group" id="combo-message-area">
                             </div>
                             <div class="form-group mt-2">
+                                <input type="hidden" name="verify" value="N" id="verify-mail">
                                 <button type="button" data-bs-dismiss="modal"  class="btn btn-secondary">Cancel</button> 
                                 <button type="button" class="btn btn-dark" id="cortext-combo-subscription-payment-form-buttom">Pay Now ${{ get_option('stripe.subscription.payment.combo-amount-price','0') }} </button>
                             </div>
@@ -152,19 +156,56 @@
         
     @auth('web')
         <script>
+             $('#cortext-combo-subscription-payment-form-buttom').on('hidden.bs.modal', function () { 
+                $('#combo-email').val('')
+                $('#verify-mail').val('N')
+            });
             $('#cortext-combo-subscription-payment-form-buttom').click(function(e){
                 e.preventDefault();
                 $('#combo-message-area').html('')
                 $('.invalid-feedback').text('')
-                $('.form-control').removeClass('is-invalid')
+                $('.form-control').removeClass('is-invalid') 
                 $.post("{{ route('pricing.index') }}", $('#cortext-combo-subscription-payment-form').serialize(), function(res) {
-                    $('#cortext-combo-subscription-payment-form').submit()
+                    if($('#verify-mail').val()=="Y"){ 
+                        $('#cortext-combo-subscription-payment-form').submit()
+                    }else{
+                        $('#combo-message-area').html(`
+                            <div class="alert alert-danger" role="alert">
+                                Please confirm your inviting friend mail by click on "Confirm Email" button.
+                            </div>                        
+                        `)
+                    }
                 }, 'json').fail(function(xhr) {
                     $.each(xhr.responseJSON.errors, function(k, v) { 
                         $('#error-combo-'+k+'-message').text(v[0]) 
                         $('#combo-'+k).addClass('is-invalid')
                     });
-                });
+                }); 
+            })
+            $('#combo-email').change(function(){
+                $('#verify-mail').val('N')
+            })
+
+            $('#mail-verify-button').click(function(e){
+                e.preventDefault();
+                $('#combo-message-area').html('')
+                $('.invalid-feedback').text('')
+                $('.form-control').removeClass('is-invalid') 
+                $.post("{{route('combo-email')}}",{ email:$('#combo-email').val(),year:$('#combo-year').val() },function(res){
+                    if(res.message){
+                        $('#combo-message-area').html(`
+                            <div class="alert alert-info" role="alert">
+                                ${res.message}
+                            </div>                        
+                        `)
+                        $('#verify-mail').val('Y')
+                    }
+                },'json').fail(function(xhr){
+                    $.each(xhr.responseJSON.errors, function(k, v) { 
+                        $('#error-combo-'+k+'-message').text(v[0]) 
+                        $('#combo-'+k).addClass('is-invalid')
+                    });
+                })
             })
 
             $('#cortext-subscription-payment-form-buttom').click(function(e){

@@ -6,11 +6,11 @@
         <div class="header_title">
             <h2>Users</h2>
         </div>
-        {{-- <div class="header_right">
+        <div class="header_right">
             <ul class="nav_bar">
-                <li class="nav_item"><a href="{{route('admin.user.create')}}" class="nav_link btn">Invite</a></li>
+                <li class="nav_item"><a href="{{route('admin.subscriber.index')}}" class="nav_link btn">Subscriber</a></li>
             </ul>
-        </div> --}}
+        </div>
     </div>
 </section>
 <section class="content_section">
@@ -23,8 +23,8 @@
                     <span class="red-icon"><img
                             src="{{asset("assets/images/User-red.png")}}"></span>
                 </div>
-                <h3>New  Users</h3> 
-                <span class="badge text-success">{{$newuser??0}}</span> 
+                <h3>Mail Un-Verifyed  Users</h3> 
+                <span class="badge text-success">{{$unverifyuser??0}}</span> 
             </div>
              
             <div class="dash_card">
@@ -34,8 +34,8 @@
                     <span class="red-icon"><img
                             src="{{asset("assets/images/User-red.png")}}"></span>
                 </div>
-                <h3>Verifyed  Users</h3> 
-                <span class="badge text-success">{{$newuser??0}}</span> 
+                <h3>Mail Verifyed  Users</h3> 
+                <span class="badge text-success">{{$verifyuser??0}}</span> 
             </div>
 
 
@@ -46,8 +46,8 @@
                     <span class="red-icon"><img
                             src="{{asset("assets/images/User-red.png")}}"></span>
                 </div>
-                <h3>Trial  Users</h3> 
-                <span class="badge text-success">{{$newuser??0}}</span> 
+                <h3>Free Access  Users</h3> 
+                <span class="badge text-success">{{$freeuser??0}}</span> 
             </div>
             <div class="dash_card">
                 <div class="admin-icon">
@@ -57,7 +57,7 @@
                             src="{{asset("assets/images/User-red.png")}}"></span>
                 </div>
                 <h3>Paid  Users</h3> 
-                <span class="badge text-success">{{$newuser??0}}</span> 
+                <span class="badge text-success">{{$paiduser??0}}</span> 
             </div>
         </div>
     </div>
