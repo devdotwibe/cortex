@@ -264,12 +264,12 @@
                         <p>{{$subitem->answer}}</p>
                     </div>
                     </div>
-                
-                
+
+
                 @endforeach
             </div>
             @endif
-              
+
          {{-- </div> --}}
             @endforeach
             @endif
@@ -339,51 +339,40 @@
             </div>
             <div class="review-col2">
                 <div class="review-slider">
+                    @foreach ($feed as $review) <!-- Ensure you're using the correct variable here -->
+
                     <div class="review-box">
                         <div class="review-img">
-                            <img src="{{ asset('app/images/review-img.jpg') }}" alt="">
+                            <img src="{{ url('d0/' . $review->image) }}" alt="">
                         </div>
                         <div class="review-content">
-                            <h3>Anna</h3>
-                            <span class="rating"><img src="{{ asset('app/images/rating.svg') }}" alt=""></span>
-                            <p>I am writing to share my selective results. I couldn't make it without your help. I received the North Sydney Boys' offer and reserve for James Ruse.</p>
+                            @if(!empty($review->name))
+                                <h3>{{ $review->name }}</h3>
+                            @endif
+                            <span class="rating">
+                                @for($i = 1; $i <= 5; $i++)
+                                    @if($i <= $review->starrating)
+                                        <img src="./assets/images/Star-Yellow.svg" alt="Yellow Star">
+                                    @else
+                                        <img src="./assets/images/Star-Grey.svg" alt="Grey Star">
+                                    @endif
+                                @endfor
+                            </span>
+                            @if(!empty($review->review))
+                                <p>{{ $review->review }}</p>
+                            @endif
                         </div>
                     </div>
-                    <div class="review-box">
-                        <div class="review-img">
-                            <img src="{{ asset('app/images/review-img.jpg') }}" alt="">
-                        </div>
-                        <div class="review-content">
-                            <h3>Anna</h3>
-                            <span class="rating"><img src="{{ asset('app/images/rating.svg') }}" alt=""></span>
-                            <p>I am writing to share my selective results. I couldn't make it without your help. I received the North Sydney Boys' offer and reserve for James Ruse.</p>
-                        </div>
-                    </div>
-                    <div class="review-box">
-                        <div class="review-img">
-                            <img src="{{ asset('app/images/review-img.jpg') }}" alt="">
-                        </div>
-                        <div class="review-content">
-                            <h3>Anna</h3>
-                            <span class="rating"><img src="{{ asset('app/images/rating.svg') }}" alt=""></span>
-                            <p>I am writing to share my selective results. I couldn't make it without your help. I received the North Sydney Boys' offer and reserve for James Ruse.</p>
-                        </div>
-                    </div>
-                    <div class="review-box">
-                        <div class="review-img">
-                            <img src="{{ asset('app/images/review-img.jpg') }}" alt="">
-                        </div>
-                        <div class="review-content">
-                            <h3>Anna</h3>
-                            <span class="rating"><img src="{{ asset('app/images/rating.svg') }}" alt=""></span>
-                            <p>I am writing to share my selective results. I couldn't make it without your help. I received the North Sydney Boys' offer and reserve for James Ruse.</p>
-                        </div>
-                    </div>
+
+                    @endforeach
                 </div>
             </div>
+
         </div>
     </div>
 </section>
+
+
 
 
 
