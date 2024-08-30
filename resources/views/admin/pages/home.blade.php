@@ -910,7 +910,6 @@
     </div>
 </div>
 
-
 <!-- Section 6 Content -->
 <div class="tab-pane fade @if(old('section') == 'section6') show active @endif" id="section6" role="tabpanel" aria-labelledby="section6-tab">
     <div class="row">
@@ -919,134 +918,116 @@
                 <form action="{{ route('admin.page.section6') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-
                         <!-- Student Title Field -->
                         <div class="col-md-12">
                             <div class="form-group">
-                                <div class="form-data">
-                                    <div class="forms-inputs mb-4">
-                                        <label for="studenttitle">Student Title</label>
-                                        <input type="text" name="studenttitle" id="studenttitle" value="{{ old('studenttitle', optional($courses)->studenttitle) }}" class="form-control" placeholder="Student Title">
-                                        @error('studenttitle')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
+                                <label for="studenttitle">Student Title</label>
+                                <input type="text" name="studenttitle" id="studenttitle" value="{{ old('studenttitle', optional($courses)->studenttitle) }}" class="form-control" placeholder="Student Title">
+                                @error('studenttitle')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
 
                         <!-- Student Subtitle Field -->
                         <div class="col-md-12">
                             <div class="form-group">
-                                <div class="form-data">
-                                    <div class="forms-inputs mb-4">
-                                        <label for="studentsubtitle">Student Subtitle</label>
-                                        <input type="text" name="studentsubtitle" id="studentsubtitle" value="{{ old('studentsubtitle', optional($courses)->studentsubtitle) }}" class="form-control" placeholder="Student Subtitle">
-                                        @error('studentsubtitle')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
+                                <label for="studentsubtitle">Student Subtitle</label>
+                                <input type="text" name="studentsubtitle" id="studentsubtitle" value="{{ old('studentsubtitle', optional($courses)->studentsubtitle) }}" class="form-control" placeholder="Student Subtitle">
+                                @error('studentsubtitle')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
 
-
-
-
-
-
                         @if(!empty($feed) && count($feed) > 0)
-                        @foreach ($feed as $k => $item)
-
-                            <div class="outer-feature" id="closefeed-{{$item->id}}">
-
-                                <!-- Name -->
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <div class="form-data">
-                                            <div class="forms-inputs mb-4">
-                                                <label for="name">Name</label>
-                                                <input type="text" name="nameupdate[]" class="form-control" placeholder="Name" value="{{ $item->name }}">
-                                                @error('name')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
+                            @foreach ($feed as $k => $item)
+                                <div class="outer-feature" id="closefeed-{{$item->id}}">
+                                    <!-- Name -->
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="name">Name</label>
+                                            <input type="text" name="nameupdate[]" class="form-control" placeholder="Name" value="{{ $item->name }}">
+                                            @error('name')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
-                                </div>
 
-                                <!-- Star Rating -->
-                                <div class="col-md-12">
+
+{{--
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="starrating">Star Rating</label>
+                                            <select name="starratingupdate[]" class="form-control">
+                                                <option value="1" {{ $item->starrating == 1 ? 'selected' : '' }}>1</option>
+                                                <option value="2" {{ $item->starrating == 2 ? 'selected' : '' }}>2</option>
+                                                <option value="3" {{ $item->starrating == 3 ? 'selected' : '' }}>3</option>
+                                                <option value="4" {{ $item->starrating == 4 ? 'selected' : '' }}>4</option>
+                                                <option value="5" {{ $item->starrating == 5 ? 'selected' : '' }}>5</option>
+                                            </select>
+                                            @error('starrating')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div> --}}
+
+
+
                                     <div class="form-group">
-                                        <div class="form-data">
-                                            <div class="forms-inputs mb-4">
-                                                <label for="starrating">Star Rating</label>
-                                                <input type="text" name="starratingupdate[]" class="form-control" placeholder="Star Rating" value="{{ $item->starrating }}">
-                                                @error('starrating')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
+                                        <label for="starrating">Star Rating</label>
+                                        <select name="starratingupdate[]" class="form-control">
+                                            <option value="1" {{ $item->starrating == 1 ? 'selected' : '' }}>1</option>
+                                            <option value="2" {{ $item->starrating == 2 ? 'selected' : '' }}>2</option>
+                                            <option value="3" {{ $item->starrating == 3 ? 'selected' : '' }}>3</option>
+                                            <option value="4" {{ $item->starrating == 4 ? 'selected' : '' }}>4</option>
+                                            <option value="5" {{ $item->starrating == 5 ? 'selected' : '' }}>5</option>
+                                        </select>
+                                        @error('starrating')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+
+
+
+
+                                    <!-- Review -->
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="review">Review</label>
+                                            <textarea name="reviewupdate[]" class="form-control" rows="5" placeholder="Review">{{ $item->review }}</textarea>
+                                            @error('review')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
-                                </div>
 
-                                <!-- Review -->
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <div class="form-data">
-                                            <div class="forms-inputs mb-4">
-                                                <label for="review">Review</label>
-                                                <textarea name="reviewupdate[]" class="form-control" rows="5" placeholder="Review">{{ $item->review }}</textarea>
-                                                @error('review')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
+                                    <!-- Image -->
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="image">Image</label>
+                                            <input type="hidden" name="feedids[]" value="{{$item->id}}">
+                                            <input type="file" name="imageupdate[]" class="form-control" onchange="previewFeatureImage(event)">
+                                            @if(!empty($item->image))
+                                                <img src="{{ url('d0/' . $item->image) }}" alt="Image" style="max-width: 100px; margin-top: 10px;">
+                                            @endif
+                                            @error('image')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
-                                </div>
 
-                                <!-- Image -->
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <div class="form-data">
-                                            <div class="forms-inputs mb-4">
-                                                <label for="image">Image</label>
-                                                <input type="hidden" name="feedids[]" value="{{$item->id}}">
-                                                <input type="file" name="imageupdate[]" class="form-control" onchange="previewFeatureImage(event)">
-                                                @if(!empty($item->image))
-                                                    <img src="{{ url('d0/' . $item->image) }}" alt="Image" style="max-width: 100px; margin-top: 10px;">
-                                                @endif
-                                                @error('image')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
+                                    <!-- Remove Button -->
+                                    <div class="col-md-12 mb-3">
+                                        <button type="button" class="btn btn-danger" onclick="removeDiv(this, 'closefeed-{{$item->id}}')" data-feed-id="{{$item->id}}">X</button>
                                     </div>
                                 </div>
-
-
-
-
-
-                        <!-- Other Fields -->
-                        <!-- Add any other fields you want here -->
-
-                        <!-- Submit Button -->
-                        <div class="col-md-12 mb-3">
-                            {{-- <button type="submit" class="btn btn-primary" name="section" value="section6">Save</button> --}}
-
-
-                            <button type="button" class="btn btn-danger" onclick="removeDiv(this, 'closefeed-{{$item->id}}')" data-feed-id="{{$item->id}}">X</button>
-
-                        </div>
-
-                        @endforeach
-
+                            @endforeach
                         @else
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <div class="form-data">
-                                <div class="forms-inputs mb-4">
+                            <!-- Default Name Field -->
+                            <div class="col-md-12">
+                                <div class="form-group">
                                     <label for="name">Name</label>
                                     <input type="text" name="name[]" class="form-control" placeholder="Name">
                                     @error('name')
@@ -1054,13 +1035,10 @@
                                     @enderror
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <div class="form-data">
-                                <div class="forms-inputs mb-4">
+
+                            <div class="col-md-12">
+                                <div class="form-group">
                                     <label for="starrating">Star Rating</label>
                                     <input type="text" name="starrating[]" class="form-control" placeholder="Star Rating">
                                     @error('starrating')
@@ -1068,13 +1046,15 @@
                                     @enderror
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <div class="form-data">
-                                <div class="forms-inputs mb-4">
+
+
+
+
+
+               <!-- Default Review Field -->
+                            <div class="col-md-12">
+                                <div class="form-group">
                                     <label for="review">Review</label>
                                     <textarea name="review[]" class="form-control" rows="5" placeholder="Review"></textarea>
                                     @error('review')
@@ -1082,13 +1062,10 @@
                                     @enderror
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <div class="form-data">
-                                <div class="forms-inputs mb-4">
+                            <!-- Default Image Field -->
+                            <div class="col-md-12">
+                                <div class="form-group">
                                     <label for="image">Image</label>
                                     <input type="file" name="image[]" class="form-control" onchange="previewFeatureImage(event)">
                                     @error('image')
@@ -1096,33 +1073,27 @@
                                     @enderror
                                 </div>
                             </div>
+                        @endif
+
+                        <!-- Dynamic Feed Container -->
+                        <div class="col-md-12" id="feedContainer"></div>
+
+                        <!-- Add Feature Button -->
+                        <div class="col-md-12 mb-3">
+                            <button type="button" class="btn btn-dark" id="addFeed">Add</button>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="col-md-12 mb-3">
+                            <button type="submit" class="btn btn-primary" name="section" value="section6">Save</button>
                         </div>
                     </div>
-
-                @endif
-                      <!-- Add Feature Button -->
-                <div class="col-md-12" id="feedContainer"></div>
-
-                <div class="col-md-12 mb-3">
-                    <button type="button" class="btn btn-dark" id="addFeed">Add</button>
-                </div>
-
-                <!-- Submit Button -->
-                <div class="col-md-12 mb-3">
-                    <button type="submit" class="btn btn-primary" name="section" value="section6">Save</button>
-
-                            </div>
-                       </div>
-                    </form>
-             </div>
+                </form>
             </div>
         </div>
     </div>
-
-
-    </div>
-
 </div>
+
 
 
 
@@ -1207,14 +1178,37 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('addFeed').addEventListener('click', function () {
         feedIndex++;
 
+
         let feedHTML = `
-            <div class="outer-feature feed-item mb-3" id="feed-${feedIndex}">
+            <div class="feed-item mb-3" id="feedItem_${feedIndex}">
                 <h4>Review ${feedIndex}</h4>
-                <!-- Name, Star Rating, Review, Image Fields -->
-                <!-- Remove Button -->
-                <div class="col-md-12 mb-3">
-                    <button type="button" class="btn btn-danger remove-feature" onclick="removeDiv(this, 'feed-${feedIndex}')">X</button>
+
+                <!-- Name Field -->
+                <div class="form-group">
+                    <label for="name${feedIndex}">Name</label>
+                    <input type="text" name="name[]" id="name${feedIndex}" class="form-control" placeholder="Name">
                 </div>
+
+                <!-- Star Rating Field -->
+                <div class="form-group">
+                    <label for="starrating${feedIndex}">Star Rating</label>
+                    <input type="text" name="starrating[]" id="starrating${feedIndex}" class="form-control" placeholder="Star Rating">
+                </div>
+
+                <!-- Review Field -->
+                <div class="form-group">
+                    <label for="review${feedIndex}">Review</label>
+                    <textarea name="review[]" id="review${feedIndex}" class="form-control" rows="5" placeholder="Review"></textarea>
+                </div>
+
+                <!-- Image Field -->
+                <div class="form-group">
+                    <label for="image_${feedIndex}">Image</label>
+                    <input type="file" name="image[]" id="image_${feedIndex}" class="form-control" onchange="previewFeedImage(event)">
+                </div>
+
+                <!-- Close Button -->
+                <button type="button" class="btn btn-danger" onclick="removeFeedItem('feedItem_${feedIndex}')">X</button>
             </div>
         `;
 

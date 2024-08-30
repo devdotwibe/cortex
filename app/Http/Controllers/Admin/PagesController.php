@@ -102,6 +102,7 @@ class PagesController extends Controller
         ]);
 
 
+
         $banner = Banner::first();
 
         if(empty($banner))
@@ -157,8 +158,22 @@ class PagesController extends Controller
             'featuresubtitle.*' => 'nullable|string|max:255',
             'featurecontent.*' => 'nullable|string',
             'featureimage.*' => 'nullable|image|max:2048', // Validate image
+            'FeatureHeading' => 'nullable|max:255',
         ]);
 
+
+        $banner = Banner::first();
+
+        if(empty($banner))
+        {
+            $banner =new Banner;
+        }
+        $banner->FeatureHeading = $request->input('FeatureHeading'); // Save Feature Top Heading
+
+
+
+
+        $banner->save();
         // Retrieve input arrays
 
         $featuresubtitles = $request->input('featuresubtitle', []);
@@ -283,28 +298,28 @@ class PagesController extends Controller
 
 
 
-    public function storeSection4(Request $request)
-    {
-        // Validate the request data for Section 3
-        $request->validate([
-            'FeatureHeading' => 'nullable|max:255',
-        ]);
+    // public function storeSection4(Request $request)
+    // {
+    //     // Validate the request data for Section 3
+    //     $request->validate([
+    //         'FeatureHeading' => 'nullable|max:255',
+    //     ]);
 
-        $banner = Banner::first();
+    //     $banner = Banner::first();
 
-        if(empty($banner))
-        {
-            $banner =new Banner;
-        }
-        $banner->FeatureHeading = $request->input('FeatureHeading'); // Save Feature Top Heading
-
-
+    //     if(empty($banner))
+    //     {
+    //         $banner =new Banner;
+    //     }
+    //     $banner->FeatureHeading = $request->input('FeatureHeading'); // Save Feature Top Heading
 
 
-        $banner->save();
 
-        return redirect()->route('admin.page.index')->with('success', 'Section 4 data has been successfully saved.');
-    }
+
+    //     $banner->save();
+
+    //     return redirect()->route('admin.page.index')->with('success', 'Section 4 data has been successfully saved.');
+    // }
 
 
     public function storeSection5(Request $request)
@@ -319,6 +334,7 @@ class PagesController extends Controller
             'excelbuttonlabel' => 'nullable|string|max:255',
             'excelbuttonlink' => 'nullable|string|max:255',
             'excelimage' => 'nullable|image|max:2048', // Validate image
+
         ]);
 
         $banner = Banner::first();
@@ -401,31 +417,29 @@ class PagesController extends Controller
 
 
 
-public function storeSection7(Request $request)
-{
-    // Validate the request data for Section 6
-    $request->validate([
-        'studenttitle' => 'nullable|string|max:255',
-        'studentsubtitle' => 'nullable|string|max:255',
-    ]);
+// public function storeSection7(Request $request)
+// {
+//     // Validate the request data for Section 6
+//     $request->validate([
+//         'studenttitle' => 'nullable|string|max:255',
+//         'studentsubtitle' => 'nullable|string|max:255',
+//     ]);
 
-    // Find the first record in the Banner model or create a new one
-    $courses = Course::first();
 
-    if (empty($courses)) {
-        $courses = new Course;
-    }
+//     $courses = Course::first();
 
-    // Update fields with input data
-    $courses->studenttitle = $request->input('studenttitle');
-    $courses->studentsubtitle = $request->input('studentsubtitle');
+//     if (empty($courses)) {
+//         $courses = new Course;
+//     }
 
-    // Save the updated Banner record
-    $courses->save();
 
-    return redirect()->route('admin.page.index')->with('success', 'Section 7 data has been successfully saved.');
-}
+//     $courses->studenttitle = $request->input('studenttitle');
+//     $courses->studentsubtitle = $request->input('studentsubtitle');
 
+//     $courses->save();
+
+//     return redirect()->route('admin.page.index')->with('success', 'Section 6 data has been successfully saved.');
+// }
 
 
 
@@ -437,7 +451,23 @@ public function storeSection8(Request $request)
         'starrating.*' => 'nullable|string',
         'review.*' => 'nullable|string',
         'image.*' => 'nullable|image',
+        'studenttitle' => 'nullable|string|max:255',
+        'studentsubtitle' => 'nullable|string|max:255',
     ]);
+
+
+
+    $courses = Course::first();
+
+    if (empty($courses)) {
+        $courses = new Course;
+    }
+
+
+    $courses->studenttitle = $request->input('studenttitle');
+    $courses->studentsubtitle = $request->input('studentsubtitle');
+
+    $courses->save();
 
     // Retrieve input arrays
     $names = $request->input('name', []);
@@ -503,7 +533,7 @@ public function storeSection8(Request $request)
     Feed::whereNotIn('id', $feedIds)->delete();
 
     // Redirect back with success message
-    return redirect()->route('admin.page.index')->with('success', 'Section 8 data has been successfully saved.');
+    return redirect()->route('admin.page.index')->with('success', 'Section 6 data has been successfully saved.');
 }
 
 
