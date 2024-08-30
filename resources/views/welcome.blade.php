@@ -250,7 +250,10 @@
 
             @if(!empty($faq) && count($faq) > 0)
             @foreach ($faq as $k => $item)
+
             <h4><span>@if($k < 9){{'0'}}@endif{{$k+1}} </span> {{$item->name}}</h4>
+
+            @if(!empty($item->faqs) && count($item->faqs) > 0)
 
                 @foreach ($item->faqs as $k => $subitem)
                 <div class="accordion">
@@ -263,6 +266,7 @@
                 </div>
 
                 @endforeach
+            @endif
               
             </div>
             @endforeach
