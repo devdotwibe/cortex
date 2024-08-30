@@ -7,6 +7,7 @@ use App\Models\Course;
 use App\Models\Feature;
 use App\Models\Feed;
 use App\Models\User;
+use App\Models\FaqCategory;
 use App\Models\UserProgress;
 use App\Support\Helpers\OptionHelper;
 use App\Support\Plugin\Payment;
@@ -37,8 +38,10 @@ class HomeController extends Controller
 
         $feed = Feed::get();
 
+        $faq = FaqCategory::get();
 
-        return view("welcome",compact('banner','feature','courses','feed'));
+
+        return view("welcome",compact('banner','feature','courses','feed','faq'));
     }
 
     public function login(Request $request){

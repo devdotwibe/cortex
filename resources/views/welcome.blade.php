@@ -247,96 +247,26 @@
         <h3 class="highlight">FAQ</h3>
         <h2>Most Frequent Questions and Answers</h2>
         <div class="faq-row">
-            <h4><span>01</span> Common Questions</h4>
-            <div class="accordion">
-                <div class="accordion-row">
-                    <h5>What is the Selective Test?</h5>
-                    <div class="accordion-content1">
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officiis eius nobis aut illum veritatis eligendi dicta tenetur voluptatem, ex ipsa repellat odio. Provident odit ex accusantium, doloribus mollitia rerum consequuntur!</p>
-                    </div>
-                </div>
-                <div class="accordion-row">
-                    <h5>What is the Selective Test?</h5>
-                    <div class="accordion-content1">
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officiis eius nobis aut illum veritatis eligendi dicta tenetur voluptatem, ex ipsa repellat odio. Provident odit ex accusantium, doloribus mollitia rerum consequuntur!</p>
-                    </div>
-                </div>
-                <div class="accordion-row">
-                    <h5>What is the Selective Test?</h5>
-                    <div class="accordion-content1">
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officiis eius nobis aut illum veritatis eligendi dicta tenetur voluptatem, ex ipsa repellat odio. Provident odit ex accusantium, doloribus mollitia rerum consequuntur!</p>
-                    </div>
-                </div>
-                <div class="accordion-row">
-                    <h5>What is the Selective Test?</h5>
-                    <div class="accordion-content1">
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officiis eius nobis aut illum veritatis eligendi dicta tenetur voluptatem, ex ipsa repellat odio. Provident odit ex accusantium, doloribus mollitia rerum consequuntur!</p>
-                    </div>
-                </div>
-            </div>
 
-            <h4><span>02</span> Why go to Selective High School?</h4>
-            <div class="accordion">
-                <div class="accordion-row">
-                    <h5>What are the benefits of sending my child to a selective high school?</h5>
-                    <div class="accordion-content1">
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officiis eius nobis aut illum veritatis eligendi dicta tenetur voluptatem, ex ipsa repellat odio. Provident odit ex accusantium, doloribus mollitia rerum consequuntur!</p>
-                    </div>
-                </div>
-                <div class="accordion-row">
-                    <h5>What is the Selective Placement Test Structure?</h5>
-                    <div class="accordion-content1">
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officiis eius nobis aut illum veritatis eligendi dicta tenetur voluptatem, ex ipsa repellat odio. Provident odit ex accusantium, doloribus mollitia rerum consequuntur!</p>
-                    </div>
-                </div>
-            </div>
+            @if(!empty($faq) && count($faq) > 0)
+            @foreach ($faq as $k => $item)
+            <h4><span>@if($k < 9){{'0'}}@endif{{$k+1}} </span> {{$item->name}}</h4>
 
-            <h4><span>03</span> About Test & Structure</h4>
-            <div class="accordion">
-                <div class="accordion-row">
-                    <h5>What is the Selective Placement Test Structure?</h5>
-                    <div class="accordion-content1">
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officiis eius nobis aut illum veritatis eligendi dicta tenetur voluptatem, ex ipsa repellat odio. Provident odit ex accusantium, doloribus mollitia rerum consequuntur!</p>
-                    </div>
-                </div>
-                <div class="accordion-row">
-                    <h5>How difficult is the Selective Placement Test?</h5>
-                    <div class="accordion-content1">
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officiis eius nobis aut illum veritatis eligendi dicta tenetur voluptatem, ex ipsa repellat odio. Provident odit ex accusantium, doloribus mollitia rerum consequuntur!</p>
-                    </div>
-                </div>
-                <div class="accordion-row">
-                    <h5>Are Cortex practice tests similar to the Selective Test?</h5>
-                    <div class="accordion-content1">
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officiis eius nobis aut illum veritatis eligendi dicta tenetur voluptatem, ex ipsa repellat odio. Provident odit ex accusantium, doloribus mollitia rerum consequuntur!</p>
-                    </div>
-                </div>
-                <div class="accordion-row">
-                    <h5>What is the purpose of Cortex Online Tests?</h5>
-                    <div class="accordion-content1">
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officiis eius nobis aut illum veritatis eligendi dicta tenetur voluptatem, ex ipsa repellat odio. Provident odit ex accusantium, doloribus mollitia rerum consequuntur!</p>
-                    </div>
-                </div>
-                <div class="accordion-row">
-                    <h5>How do Cortex test results help parents?</h5>
-                    <div class="accordion-content1">
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officiis eius nobis aut illum veritatis eligendi dicta tenetur voluptatem, ex ipsa repellat odio. Provident odit ex accusantium, doloribus mollitia rerum consequuntur!</p>
-                    </div>
-                </div>
-                <div class="accordion-row">
-                    <h5>Will Cortex practice tests improve my child's test scores?</h5>
-                    <div class="accordion-content1">
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officiis eius nobis aut illum veritatis eligendi dicta tenetur voluptatem, ex ipsa repellat odio. Provident odit ex accusantium, doloribus mollitia rerum consequuntur!</p>
-                    </div>
-                </div>
-                <div class="accordion-row">
-                    <h5>How does Cortex support students to make them exam ready?</h5>
-                    <div class="accordion-content1">
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officiis eius nobis aut illum veritatis eligendi dicta tenetur voluptatem, ex ipsa repellat odio. Provident odit ex accusantium, doloribus mollitia rerum consequuntur!</p>
-                    </div>
-                </div>
-            </div>
+                @foreach ($item->faqs as $k => $subitem)
+                <div class="accordion">
 
+                <div class="accordion-row">
+                    <h5>{{$subitem->question}}</h5>
+                    <div class="accordion-content1">
+                        <p>{{$subitem->answer}}</p>
+                    </div>
+                </div>
+
+                @endforeach
+              
+            </div>
+            @endforeach
+            @endif
         </div>
     </div>
 </section>
