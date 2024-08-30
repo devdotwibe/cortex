@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\FaqController;
+use App\Http\Controllers\Admin\SubFaqController;
 use App\Http\Controllers\Admin\ClassDetailController;
 use App\Http\Controllers\Admin\ExamController;
 use App\Http\Controllers\Admin\FullMockExamController;
@@ -26,6 +28,7 @@ use App\Http\Controllers\Admin\PagesController;
 use App\Http\Controllers\Admin\PostReportController;
 use App\Http\Controllers\Admin\UserAccessController;
 use Illuminate\Support\Facades\Route;
+
 
 
 
@@ -128,6 +131,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
         });
 
         // Route::resource("/options",CategoryController::class);
+       
 
         Route::prefix('category')->name('category.')->group(function () {
             Route::get('/',[CategoryController::class,'index'])->name('index');
@@ -321,6 +325,26 @@ Route::name('admin.')->prefix('admin')->group(function(){
     });
 
     Route::get('/set/view', [PagesController::class, 'set_table_show'])->name('set_table.show');
+    
+    Route::prefix('faq')->name('faq.')->group(function () {
+        Route::get('/',[FaqController::class,'index'])->name('index');
+        Route::post('/',[FaqController::class,'store'])->name('store');
 
+        Route::post('/add-subfaq/{faq}',[FaqController::class,'add_subfaq'])->name('add_subfaq');
+       
+        Route::post('/subfaq-store',[SubFaqController::class,'substore'])->name('subfaq-store');
+        Route::get('/subfaq-table',[SubFaqController::class,'subfaq_table'])->name('subfaq_table');
+        Route::get('/{faq}/edit_subfaq',[SubFaqController::class,'edit_subfaq'])->name('edit_subfaq');
+        Route::post('sub/{faq}',[SubFaqController::class,'update_subfaq'])->name('update_subfaq');
+        Route::delete('del/{faq}',[SubFaqController::class,'del_subfaq'])->name('del_subfaq');
+
+        Route::get('/{faq}/edit_faq',[FaqController::class,'edit_faq'])->name('edit_faq');
+        Route::post('/{faq}',[FaqController::class,'update_faq'])->name('update_faq');
+        Route::delete('/{faq}',[FaqController::class,'del_faq'])->name('del_faq');
+
+
+
+    });
+   
 
 });

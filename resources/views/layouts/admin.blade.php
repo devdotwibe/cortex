@@ -224,6 +224,18 @@
                     </ul>
                 </li>
 
+                <li class="side-item {{request()->is('admin/faq') ? 'active':''}}">
+                    <a href="{{ route('admin.faq.index') }}">
+                        <span class="side-icon" >
+                            <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
+                        </span>
+                        <span class="active-icon">
+                            <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Dashboard">
+                        </span>
+                        Faq
+                    </a>
+                </li>
+
                 <li class="side-item logout">
                     <a href="{{route('admin.logout')}}" class="log-out">
                         <span class="side-icon">
