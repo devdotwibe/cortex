@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\TermController;
 use App\Http\Controllers\Admin\CommunityControllerController;
 use App\Http\Controllers\Admin\PagesController;
+use App\Http\Controllers\Admin\SupportController;
 use App\Http\Controllers\Admin\PostReportController;
 use App\Http\Controllers\Admin\SubscribeUsersController;
 use App\Http\Controllers\Admin\UserAccessController;
@@ -352,6 +353,27 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::get('/{faq}/edit_faq',[FaqController::class,'edit_faq'])->name('edit_faq');
         Route::post('/{faq}',[FaqController::class,'update_faq'])->name('update_faq');
         Route::delete('/{faq}',[FaqController::class,'del_faq'])->name('del_faq');
+
+
+
+    });
+
+
+
+    Route::prefix('support')->name('support.')->group(function () {
+        Route::get('/', [SupportController::class, 'index'])->name('index');
+        Route::get('/create', [SupportController::class, 'create'])->name('create');
+        Route::post('/', [SupportController::class, 'storeSection1'])->name('store');
+        // Route::post('/section2', [PagesController::class, 'storeSection2'])->name('section2');
+
+        Route::get('/{setname}/edit', [SupportController::class, 'edit'])->name('edit');
+        Route::put('/{setname}', [SupportController::class, 'update'])->name('update');
+        Route::get('/{setname}', [SupportController::class, 'show'])->name('show');
+        Route::delete('/{setname}', [SupportController::class, 'destroy'])->name('destroy');
+        Route::get('/{setname}/visibility', [SupportController::class, 'visibility'])->name('visibility');
+
+        Route::delete('/admin/page/feature/{id}', [SupportController::class, 'destroy'])->name('feature.destroy');
+
 
 
 
