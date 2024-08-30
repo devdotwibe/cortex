@@ -320,10 +320,9 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::post('/', [PagesController::class, 'store'])->name('store');
         Route::post('/section2', [PagesController::class, 'storeSection2'])->name('section2');
         Route::post('/section3', [PagesController::class, 'storeSection3'])->name('section3');
-        Route::post('/section4', [PagesController::class, 'storeSection4'])->name('section4'); // Add this line// Add this line
-        Route::post('/section5', [PagesController::class, 'storeSection5'])->name('section5');
-        Route::post('/section6', [PagesController::class, 'storeSection6'])->name('section6');
-        Route::post('/section7', [PagesController::class, 'storeSection7'])->name('section7');
+        // Route::post('/section4', [PagesController::class, 'storeSection4'])->name('section4'); // Add this line// Add this line
+        Route::post('/section5', [PagesController::class, 'storeSection5'])->name('section4');
+        Route::post('/section6', [PagesController::class, 'storeSection6'])->name('section5');
         Route::post('/section8', [PagesController::class, 'storeSection8'])->name('section6');
         Route::get('/{setname}/edit', [PagesController::class, 'edit'])->name('edit');
         Route::put('/{setname}', [PagesController::class, 'update'])->name('update');
