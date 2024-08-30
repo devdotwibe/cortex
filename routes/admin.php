@@ -135,7 +135,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
         });
 
         // Route::resource("/options",CategoryController::class);
-       
+
 
         Route::prefix('category')->name('category.')->group(function () {
             Route::get('/',[CategoryController::class,'index'])->name('index');
@@ -321,6 +321,10 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::post('/section2', [PagesController::class, 'storeSection2'])->name('section2');
         Route::post('/section3', [PagesController::class, 'storeSection3'])->name('section3');
         Route::post('/section4', [PagesController::class, 'storeSection4'])->name('section4'); // Add this line// Add this line
+        Route::post('/section5', [PagesController::class, 'storeSection5'])->name('section5');
+        Route::post('/section6', [PagesController::class, 'storeSection6'])->name('section6');
+        Route::post('/section7', [PagesController::class, 'storeSection7'])->name('section7');
+        Route::post('/section8', [PagesController::class, 'storeSection8'])->name('section6');
         Route::get('/{setname}/edit', [PagesController::class, 'edit'])->name('edit');
         Route::put('/{setname}', [PagesController::class, 'update'])->name('update');
         Route::get('/{setname}', [PagesController::class, 'show'])->name('show');
@@ -333,13 +337,13 @@ Route::name('admin.')->prefix('admin')->group(function(){
     });
 
     Route::get('/set/view', [PagesController::class, 'set_table_show'])->name('set_table.show');
-    
+
     Route::prefix('faq')->name('faq.')->group(function () {
         Route::get('/',[FaqController::class,'index'])->name('index');
         Route::post('/',[FaqController::class,'store'])->name('store');
 
         Route::post('/add-subfaq/{faq}',[FaqController::class,'add_subfaq'])->name('add_subfaq');
-       
+
         Route::post('/subfaq-store',[SubFaqController::class,'substore'])->name('subfaq-store');
         Route::get('/subfaq-table',[SubFaqController::class,'subfaq_table'])->name('subfaq_table');
         Route::get('/{faq}/edit_subfaq',[SubFaqController::class,'edit_subfaq'])->name('edit_subfaq');
@@ -353,6 +357,6 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
 
     });
-   
+
 
 });

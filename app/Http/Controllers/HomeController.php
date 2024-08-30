@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\banner;
+use App\Models\Course;
 use App\Models\Feature;
+use App\Models\Feed;
 use App\Models\User;
 use App\Models\UserProgress;
 use App\Support\Helpers\OptionHelper;
@@ -31,8 +33,14 @@ class HomeController extends Controller
 
         $feature = Feature::get();
 
-        return view("welcome",compact('banner','feature'));
+        $courses = Course::first();
+
+        $feed = Feed::get();
+
+
+        return view("welcome",compact('banner','feature','courses','feed'));
     }
+
     public function login(Request $request){
         if(Auth::check()){
             return redirect('/dashboard');
@@ -196,8 +204,8 @@ class HomeController extends Controller
     }
     public function combo_mail(Request $request){
         $request->validate([
-            "email"=>['required','email'], 
-            "year"=>['required'], 
+            "email"=>['required','email'],
+            "year"=>['required'],
         ]);
         $email=$request->input('email','');
         /**
@@ -208,7 +216,7 @@ class HomeController extends Controller
             return throw ValidationException::withMessages(['email'=>[" Entered mail id same as your, please try with another one."]]);
         }
 
-        if(User::where('email',$email)->where('id','!=',$user->id)->count()>0){ 
+        if(User::where('email',$email)->where('id','!=',$user->id)->count()>0){
             $tuser=User::where('email',$email)->first();
             if(!empty($tuser)){
                 $count=UserProgress::where('user_id',$tuser->id)->where('name','cortext-subscription-payment-year')->where('value', $request->year)->count();
@@ -237,11 +245,11 @@ class HomeController extends Controller
         */
         $user=Auth::user();
         $email=$request->input('email','');
-        if($request->plan=="combo"){ 
+        if($request->plan=="combo"){
             if($user->email==$email){
                 return throw ValidationException::withMessages(['email'=>[" Entered mail id same as your, please try with another one."]]);
             }
-            if(User::where('email',$email)->where('id','!=',$user->id)->count()>0){ 
+            if(User::where('email',$email)->where('id','!=',$user->id)->count()>0){
                 $ajaxres["success"]="verifyed";
             }else{
                 $ajaxres["success"]="un-verifyed";
@@ -250,15 +258,15 @@ class HomeController extends Controller
         if($request->ajax()){
             return response()->json($ajaxres);
         }
- 
-        try {  
+
+        try {
             $payment =Payment::stripe()->paymentLinks->create([
                 'line_items' => [
                 [
                     'price' =>$request->plan=="combo"? OptionHelper::getData('stripe.subscription.payment.combo-amount',''): OptionHelper::getData('stripe.subscription.payment.amount',''),
                     'quantity' => 1,
                 ],
-                ], 
+                ],
                 'after_completion' => [
                     'type' => 'redirect',
                     'redirect' => ['url' => url("stripe/subscription/{$user->slug}/".'payment/{CHECKOUT_SESSION_ID}')],
