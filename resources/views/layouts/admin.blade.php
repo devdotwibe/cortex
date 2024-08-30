@@ -219,14 +219,15 @@
                     </a>
                     <ul class="side-dropdown-menu" >
                         <li class="side-item {{request()->is('admin/page') ?'active':''}} "><a href="{{ route('admin.page.index') }}">Home</a></li>
-                        <li class="side-item {{request()->is('admin/') ? 'active':''}} "><a href="{{route('admin.exam.options')}}">FAQ</a></li>
+                        <li class="side-item {{request()->is('admin/faq') ? 'active':''}} "><a href="{{route('admin.faq.index')}}">FAQ</a></li>
                         <li class="side-item {{request()->is('admin/page') ? 'active':''}} "><a href="{{route('admin.support.index')}}">Support</a></li>
+                        
 
                         {{-- <li class="side-item {{request()->is('admin/payment') ? 'active':''}} "><a href="{{route('admin.payment.index')}}">Payment</a></li> --}}
                     </ul>
                 </li>
 
-                <li class="side-item {{request()->is('admin/faq') ? 'active':''}}">
+                {{-- <li class="side-item {{request()->is('admin/faq') ? 'active':''}}">
                     <a href="{{ route('admin.faq.index') }}">
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
@@ -236,7 +237,7 @@
                         </span>
                         Faq
                     </a>
-                </li>
+                </li> --}}
 
                 <li class="side-item logout">
                     <a href="{{route('admin.logout')}}" class="log-out">

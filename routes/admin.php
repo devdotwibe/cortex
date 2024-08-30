@@ -29,6 +29,7 @@ use App\Http\Controllers\Admin\SupportController;
 use App\Http\Controllers\Admin\PostReportController;
 use App\Http\Controllers\Admin\SubscribeUsersController;
 use App\Http\Controllers\Admin\UserAccessController;
+use App\Http\Controllers\Admin\TipsController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -377,6 +378,22 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
 
 
+    });
+
+    Route::prefix('tip')->name('tip.')->group(function () {
+        Route::get('/',[TipsController::class,'index'])->name('index');
+        Route::get('/{tip}/create',[TipsController::class,'create'])->name('create');
+        Route::get('/{tip}/storetip',[TipsController::class,'storetip'])->name('storetip');
+        Route::post('/{tip}/store',[TipsController::class,'store'])->name('store');
+
+        // Route::post('/subtitle',[QuestionBankController::class,'subtitle'])->name('subtitle');
+        // Route::get('/{setname}',[QuestionBankController::class,'show'])->name('show');
+        // Route::get('/{setname}/create',[QuestionBankController::class,'create'])->name('create');
+        // Route::get('/{setname}/{question}/edit',[QuestionBankController::class,'edit'])->name('edit');
+        // Route::post('/{setname}/store',[QuestionBankController::class,'store'])->name('store');
+        // Route::get('/{category}/subcategory',[QuestionBankController::class,'subcategory'])->name('subcategory');
+        // Route::get('/{sub_category}/set',[QuestionBankController::class,'subcategoryset'])->name('subcategoryset');
+        // Route::post('/{setname}/import',[QuestionBankController::class,'importquestion'])->name('import');
     });
 
 
