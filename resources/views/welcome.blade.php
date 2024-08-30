@@ -258,17 +258,18 @@
                 @foreach ($item->faqs as $k => $subitem)
                 <div class="accordion">
 
-                <div class="accordion-row">
+                    <div class="accordion-row">
                     <h5>{{$subitem->question}}</h5>
                     <div class="accordion-content1">
                         <p>{{$subitem->answer}}</p>
                     </div>
+                    </div>
+                
                 </div>
-
                 @endforeach
             @endif
               
-            </div>
+         {{-- </div> --}}
             @endforeach
             @endif
         </div>
