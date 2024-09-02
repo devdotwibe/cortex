@@ -150,10 +150,26 @@ class MainController extends Controller
             $simulateprogress=round($simulateprogress*100/$simulatecnt,2);
         } 
 
+
+        
+        $topic=UserReviewAnswer::whereIn('question_id',Question::whereIn("exam_id",Exam::where("name", 'topic-test')->select('id'))->has('category')->select('id'))->where('user_id',$user->id)->orWhereIn('user_exam_review_id',UserExamReview::where('name','topic-test')->where('user_id',$user->id)->groupBy('category_id')->select(DB::raw('MAX(id)')))->where('iscorrect',true);
+        $topiclatecnt=$topic->count();        
+        $topiclateprogress=$topic->where('user_answer',true)->count();
+        if($topiclatecnt>0){
+            $topiclateprogress=round($topiclateprogress*100/$topiclatecnt,2);
+        } 
+
+        $moc=UserReviewAnswer::whereIn('question_id',Question::whereIn("exam_id",Exam::where("name", 'full-mock-exam')->select('id'))->has('category')->select('id'))->where('user_id',$user->id)->orWhereIn('user_exam_review_id',UserExamReview::where('name','full-mock-exam')->where('user_id',$user->id)->groupBy('category_id')->select(DB::raw('MAX(id)')))->where('iscorrect',true);
+        $moclatecnt=$moc->count();        
+        $moclateprogress=$moc->where('user_answer',true)->count();
+        if($moclatecnt>0){
+            $moclateprogress=round($moclateprogress*100/$moclatecnt,2);
+        } 
+
         $maxretry=(optional(UserExamReview::where('name','full-mock-exam')->where('user_id',$user->id)->groupBy('exam_id')->select(DB::raw('count(exam_id) as cnt'))->first())->cnt??0)+(optional(UserExamReview::where('name','question-bank')->where('user_id',$user->id)->groupBy('sub_category_set')->select(DB::raw('count(sub_category_set) as cnt'))->first())->cnt??0)+(optional(UserExamReview::where('name','topic-test')->where('user_id',$user->id)->groupBy('category_id')->select(DB::raw('count(category_id)  as cnt'))->first())->cnt??0);
            
 
-        return view("user.dashboard",compact('maxretry','learnprogress','practiceprogress','simulateprogress'));
+        return view("user.dashboard",compact('maxretry','learnprogress','practiceprogress','simulateprogress','moclateprogress','topiclateprogress'));
     }
     public function reminder(Request $request){
         /**

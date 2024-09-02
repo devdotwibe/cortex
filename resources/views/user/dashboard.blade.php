@@ -116,6 +116,39 @@
                                 <span>Learn</span>
                             </div>
                         </div>
+                        <div class="col-md-3">
+                            <div class="session-chart">
+                                <canvas id="practiceChart" class="session-chart-item" width="100%" ></canvas> 
+                                <div class="donut-inner"> 
+                                    <span> {{$practiceprogress??0}}% </span>
+                                </div>
+                            </div> 
+                            <div class="session-text">
+                                <span>Practice</span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="session-chart">
+                                <canvas id="topicChart" class="session-chart-item" width="100%" ></canvas> 
+                                <div class="donut-inner"> 
+                                    <span> {{$topiclateprogress??0}}% </span>
+                                </div>
+                            </div> 
+                            <div class="session-text">
+                                <span>Topic Test</span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="session-chart">
+                                <canvas id="mocChart" class="session-chart-item" width="100%" ></canvas> 
+                                <div class="donut-inner"> 
+                                    <span> {{$moclateprogress??0}}% </span>
+                                </div>
+                            </div> 
+                            <div class="session-text">
+                                <span>Mock Exam</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -306,11 +339,125 @@
                     data: [{{$learnprogress??0}}, {{100-($learnprogress??0)}}],
                     backgroundColor: [
                         '#36A2EB', 
-                        '#afafaf',
+                        '#AFAFAF',
                     ],
                     borderColor:[
                         '#36A2EB', 
-                        "#afafaf"
+                        "#AFAFAF"
+                    ],
+                    hoverOffset: 4
+                }
+            ]
+        }, 
+        options: {
+            responsive: true,
+            interaction: {
+                intersect: false,
+            },
+
+            plugins: { 
+                legend: {
+                    display: false 
+                },
+            }
+        }
+    });
+
+    const practiceCtx = document.getElementById('practiceChart').getContext('2d');
+    const practiceChart = new Chart(practiceCtx, {
+        type: 'doughnut',
+        data: {
+            labels: [
+                'Complete', 
+                'In-Complete',
+            ],
+            datasets: [
+                {
+                    label: 'Learn',
+                    data: [{{$practiceprogress??0}}, {{100-($practiceprogress??0)}}],
+                    backgroundColor: [
+                        '#FFCD56', 
+                        '#AFAFAF',
+                    ],
+                    borderColor:[
+                        '#FFCD56', 
+                        "#AFAFAF"
+                    ],
+                    hoverOffset: 4
+                }
+            ]
+        }, 
+        options: {
+            responsive: true,
+            interaction: {
+                intersect: false,
+            },
+
+            plugins: { 
+                legend: {
+                    display: false 
+                },
+            }
+        }
+    });
+
+    const topicCtx = document.getElementById('topicChart').getContext('2d');
+    const topicChart = new Chart(topicCtx, {
+        type: 'doughnut',
+        data: {
+            labels: [
+                'Complete', 
+                'In-Complete',
+            ],
+            datasets: [
+                {
+                    label: 'Learn',
+                    data: [{{$topiclateprogress??0}}, {{100-($topiclateprogress??0)}}],
+                    backgroundColor: [
+                        '#198754', 
+                        '#AFAFAF',
+                    ],
+                    borderColor:[
+                        '#198754', 
+                        "#AFAFAF"
+                    ],
+                    hoverOffset: 4
+                }
+            ]
+        }, 
+        options: {
+            responsive: true,
+            interaction: {
+                intersect: false,
+            },
+
+            plugins: { 
+                legend: {
+                    display: false 
+                },
+            }
+        }
+    });
+
+    const mocCtx = document.getElementById('mocChart').getContext('2d');
+    const mocChart = new Chart(mocCtx, {
+        type: 'doughnut',
+        data: {
+            labels: [
+                'Complete', 
+                'In-Complete',
+            ],
+            datasets: [
+                {
+                    label: 'Learn',
+                    data: [{{$moclateprogress??0}}, {{100-($moclateprogress??0)}}],
+                    backgroundColor: [
+                        '#EB0606', 
+                        '#AFAFAF',
+                    ],
+                    borderColor:[
+                        '#EB0606', 
+                        "#AFAFAF"
                     ],
                     hoverOffset: 4
                 }
