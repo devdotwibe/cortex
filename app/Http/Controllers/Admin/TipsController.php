@@ -11,23 +11,33 @@ use App\Trait\ResourceController;
 
 class TipsController extends Controller
 {
-    use ResourceController; 
-    
+    use ResourceController;
+
     public function index(Request $request){
         self::reset();
         self::$model = Category::class;
-        self::$routeName = "admin.tips"; 
+        self::$routeName = "admin.tips";
         $categorys=$this->buildResult();
 
         return view("admin.tip.index",compact('categorys'));
     }
 
-    public function create(Request $request,$id){
+    // public function create(Request $request,$id){
 
-        $tip = Category::find($id);
+    //     $tip = Category::find($id);
 
-        return view("admin.tip.create",compact('tip'));
-    }
+    //     return view("admin.tip.create",compact('tip'));
+    // }
+
+
+    public function create(Request $request, $id)
+{
+    $tip = Category::find($id);
+    $tips = Tips::where('category_id', $id)->get();
+
+    return view("admin.tip.create", compact('tip', 'tips'));
+}
+
 
     public function storetip(Request $request,$id){
 
@@ -41,7 +51,7 @@ class TipsController extends Controller
     {
         // Validate the incoming request data
         $validatedData = $request->validate([
-    
+
             'tip' => 'nullable|string|max:65535',
             'advice' => 'nullable|string|max:65535',
         ]);
@@ -53,9 +63,10 @@ class TipsController extends Controller
         $tips->advice =$request->advice;
         $tips->save();
 
-        
+
         // Redirect or respond as needed
         return back()->with('success', 'Tip and advice saved successfully.');
+
     }
 }
 

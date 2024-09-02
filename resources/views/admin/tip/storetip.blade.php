@@ -13,11 +13,16 @@
 </section>
 <section class="invite-wrap mt-2">
     <div class="container">
-        <div class="row"> 
+        <div class="row">
     <div class="card">
         <div class="card-body">
-            <form    action="{{route('admin.tip.store',$tip->id)}}"    class="form" id="frmvk3a41725017844" method="post">
-                <input type="hidden" name="_token" value="lDS5gn14gLMqHZPX4BDqXlNeNGAdvCblfbggW808" autocomplete="off"> 
+
+            <form action="{{route('admin.tip.store', $tip->id)}}" class="form" id="frmvk3a41725017844" method="post">
+                @csrf  <!-- This line adds the CSRF token -->
+
+
+            {{-- <form    action="{{route('admin.tip.store',$tip->id)}}"    class="form" id="frmvk3a41725017844" method="post">
+                <input type="hidden" name="_token" value="lDS5gn14gLMqHZPX4BDqXlNeNGAdvCblfbggW808" autocomplete="off"> --}}
                 <div class="row">
                         <input type="hidden" name="exam_id" id="exam_id" value="2">
                         <input type="hidden" name="exam_type" id="exam_type" value="question-bank">
@@ -25,48 +30,48 @@
                         <input type="hidden" name="sub_category_id" id="sub_category_id" value="2">
                         <input type="hidden" name="sub_category_set" id="sub_category_set" value="2">
                         <input type="hidden" name="redirect" id="redirect-frmvk3a41725017844" value="http://localhost:8000/admin/question-bank/5a88aba7547d089097697baa9badf614">
-                                                                                                
+
                         <div class="col-md-12 " >
                             <div class="form-group">
                                 <div class="form-data">
-                                    <div class="forms-inputs mb-4"> 
+                                    <div class="forms-inputs mb-4">
                                         <label for="tip">Tip</label>
                                             <textarea name="tip" id="tip"  class="form-control texteditor"  rows="5"></textarea>
-                                                                                        
+
                                     </div>
                                 </div>
-                            </div>    
-                        </div> 
-                                                                                                
+                            </div>
+                        </div>
+
                         <div class="col-md-12 " >
                             <div class="form-group">
                                 <div class="form-data">
-                                    <div class="forms-inputs mb-4"> 
+                                    <div class="forms-inputs mb-4">
                                         <label for="advice">Advice</label>
                                         <textarea name="advice" id="advice"  class="form-control texteditor  "  rows="5"></textarea>
-                                                                                        
+
                                     </div>
                                 </div>
-                            </div>    
-                        </div> 
+                            </div>
+                        </div>
 
-                                                                 
+
                 </div>
-                
-                <div class="mb-3"> 
-                    <a href="#"  class="btn btn-secondary">Cancel</a> <button type="submit" class="btn btn-dark">Save</button> 
+
+                <div class="mb-3">
+                    <a href="#"  class="btn btn-secondary">Cancel</a> <button type="submit" class="btn btn-dark">Save</button>
                 </div>
 
             </form>
         </div>
-    </div> 
+    </div>
 </div>
 
 
- 
+
     </div>
 </section>
-@endsection 
+@endsection
 
 
 @push('footer-script')

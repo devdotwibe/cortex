@@ -47,10 +47,10 @@ class PagesController extends Controller
         // Validate the request data for Section 1
         $request->validate([
             'title' => 'required|string|max:255',
-            'subtitle' => 'nullable|string|max:255',
-            'content' => 'nullable|string',
-            'buttonlabel' => 'nullable|string|max:255',
-            'buttonlink' => 'nullable|string|max:255',
+            'subtitle' => 'required|nullable|string|max:255',
+            'content' => 'required|nullable|string',
+            'buttonlabel' => 'required|nullable|string|max:255',
+            'buttonlink' => 'required|nullable|string|max:255',
             'image' => 'nullable|image|max:2048', // Validate image
         ]);
 
@@ -88,16 +88,16 @@ class PagesController extends Controller
             'learntitle' => 'required|string|max:255',
 
             'learnimage' => 'nullable|image|max:2048',
-            'learncontent' => 'nullable|string',
-            'practisetitle' => 'nullable|string|max:255',
+            'learncontent' => 'required|nullable|string',
+            'practisetitle' => 'required|nullable|string|max:255',
             'practiseimage' => 'nullable|image|max:2048',
-            'practisecontent' => 'nullable|string',
-            'preparetitle' => 'nullable|string|max:255',
+            'practisecontent' => 'required|nullable|string',
+            'preparetitle' => 'required|nullable|string|max:255',
             'prepareimage' => 'nullable|image|max:2048',
-            'preparecontent' => 'nullable|string',
-            'reviewtitle' => 'nullable|string|max:255',
+            'preparecontent' => 'required|nullable|string',
+            'reviewtitle' => 'required|nullable|string|max:255',
             'reviewimage' => 'nullable|image|max:2048',
-            'reviewcontent' => 'nullable|string',
+            'reviewcontent' => 'required|nullable|string',
             // Add validation for other fields here
         ]);
 
@@ -155,11 +155,26 @@ class PagesController extends Controller
         // Validate the request data for Section 3
         $request->validate([
 
-            'featuresubtitle.*' => 'nullable|string|max:255',
-            'featurecontent.*' => 'nullable|string',
-            'featureimage.*' => 'nullable|image|max:2048', // Validate image
-            'FeatureHeading' => 'nullable|max:255',
+            'featuresubtitle.*' => 'required|nullable|string|max:255',
+            'featurecontent.*' => 'required|nullable|string',
+            'featureimage.*' => 'required|nullable|image|max:2048', // Validate image
+            'FeatureHeading' => 'required|nullable|max:255',
+
+
+            'featuresubtitleupdate.*' => 'required|nullable|string',
+            'featurecontentupdate.*' => 'required|nullable|image|max:2048', // Validate image
+            'featureimageupdate' => 'required|nullable|max:255',
+
+        //  ,['featuresubtitleupdate.*.required' =>'this field is required.']);
+
+
+        ], [
+
+            'featuresubtitleupdate.*.required' => 'The feature subtitle update field is required.',
+            'featurecontentupdate.*.required' => 'The feature content update field is required.',
+            // 'featureimageupdate.required' => 'The feature image update field is required.',
         ]);
+
 
 
         $banner = Banner::first();
@@ -326,13 +341,13 @@ class PagesController extends Controller
     {
         // Validate the request data for Section 4
         $request->validate([
-            'exceltitle' => 'nullable|string|max:255',
-            'excelsubtitle' => 'nullable|string|max:255',
-            'subtitle1' => 'nullable|string|max:255',
-            'subtitle2' => 'nullable|string|max:255',
-            'subtitle3' => 'nullable|string|max:255',
-            'excelbuttonlabel' => 'nullable|string|max:255',
-            'excelbuttonlink' => 'nullable|string|max:255',
+            'exceltitle' => 'required|nullable|string|max:255',
+            'excelsubtitle' => 'required|nullable|string|max:255',
+            'subtitle1' => 'required|nullable|string|max:255',
+            'subtitle2' => 'required|nullable|string|max:255',
+            'subtitle3' => 'required|nullable|string|max:255',
+            'excelbuttonlabel' => 'required|nullable|string|max:255',
+            'excelbuttonlink' => 'required|nullable|string|max:255',
             'excelimage' => 'nullable|image|max:2048', // Validate image
 
         ]);
@@ -370,18 +385,18 @@ class PagesController extends Controller
 {
     // Validate the request data for Section 5
     $request->validate([
-        'coursetitle' => 'nullable|string|max:255',
-        'coursesubtitle' => 'nullable|string|max:255',
-        'courseheading1' => 'nullable|string|max:255',
-        'coursecontent1' => 'nullable|string',
-        'courseheading2' => 'nullable|string|max:255',
-        'coursecontent2' => 'nullable|string',
-        'courseheading3' => 'nullable|string|max:255',
-        'coursecontent3' => 'nullable|string',
-        'courseheading4' => 'nullable|string|max:255',
-        'coursecontent4' => 'nullable|string',
-        'coursebuttonlabel' => 'nullable|string|max:255',
-        'coursebuttonlink' => 'nullable|string|max:255',
+        'coursetitle' => 'required|nullable|string|max:255',
+        'coursesubtitle' => 'required|nullable|string|max:255',
+        'courseheading1' => 'required|nullable|string|max:255',
+        'coursecontent1' => 'required|nullable|string',
+        'courseheading2' => 'required|nullable|string|max:255',
+        'coursecontent2' => 'required|nullable|string',
+        'courseheading3' => 'required|nullable|string|max:255',
+        'coursecontent3' => 'required|nullable|string',
+        'courseheading4' => 'required|nullable|string|max:255',
+        'coursecontent4' => 'required|nullable|string',
+        'coursebuttonlabel' => 'required|nullable|string|max:255',
+        'coursebuttonlink' => 'required|nullable|string|max:255',
         'courseimage' => 'nullable|image|max:2048', // Validate image
     ]);
 

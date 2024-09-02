@@ -434,8 +434,112 @@
                             </div>
                         </div>
 
+                        @php
 
-                            @if(!empty($feature) && count($feature) > 0)
+
+
+                        @endphp
+
+                            @if(count(old('featuresubtitleupdate',[]))>0)
+                        @foreach (old('featuresubtitleupdate',[]) as $k=> $item)
+
+                                    <div class="outer-feature" id="close-{{$k }}">
+
+
+
+                                        <!-- Feature Subtitle -->
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="form-data">
+                                                    <div class="forms-inputs mb-4">
+                                                        <label for="featuresubtitle">Feature Heading</label>
+                                                        <input type="text" name="featuresubtitleupdate[]" class="form-control" placeholder="Feature Heading" value="{{ old('featuresubtitleupdate.' . $k) }}">
+                                                        @error('featuresubtitleupdate.' . $k)
+                                                            <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {{-- <!-- Feature Content -->
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="form-data">
+                                                    <div class="forms-inputs mb-4">
+                                                        <label for="featurecontent">Feature Description</label>
+                                                        <textarea name="featurecontentupdate[]" class="form-control" rows="5" placeholder="Feature Description"></textarea>
+                                                        @error('featurecontent')
+                                                            <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> --}}
+
+<!-- Feature Content -->
+<div class="col-md-12">
+    <div class="form-group">
+        <div class="form-data">
+            <div class="forms-inputs mb-4">
+                <label for="featurecontent">Feature Description</label>
+                <textarea name="featurecontentupdate[]" class="form-control" rows="5" placeholder="Feature Description">{{ old('featurecontentupdate.' . $k) }}</textarea>
+                @error('featurecontentupdate.' . $k)
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+        </div>
+    </div>
+</div>
+{{--
+                                        <!-- Feature Image -->
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="form-data">
+                                                    <div class="forms-inputs mb-4">
+                                                        <label for="featureimage">Feature Image</label>
+                                                        <input type="hidden" name="featureids[]" value="">
+                                                        <input type="file" name="featureimageupdate[]" class="form-control" onchange="previewFeatureImage(event)">
+                                                        @if(!empty($item->image))
+                                                            <img src="" alt="Feature Image" style="max-width: 100px; margin-top: 10px;">
+                                                        @endif
+                                                        @error('featureimage')
+                                                            <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> --}}
+
+
+                                          <!-- Feature Image -->
+            <div class="col-md-12">
+                <div class="form-group">
+                    <div class="form-data">
+                        <div class="forms-inputs mb-4">
+                            <label for="featureimage">Feature Image</label>
+                            <input type="hidden" name="featureids[]" value="">
+                            <input type="file" name="featureimageupdate[]" class="form-control" onchange="previewFeatureImage(event)">
+                            @if(!empty($item->image))
+                                <img src="" alt="Feature Image" style="max-width: 100px; margin-top: 10px;">
+                            @endif
+                            @error('featureimageupdate.' . $k)
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+                                        <button type="button" class="btn btn-danger" onclick="removeDiv(this, 'close-{{$k}}')" data-feature-id="{{$k}}">X</button>
+
+                                    </div>
+
+                                    @endforeach
+
+                            @elseif(!empty($feature) && count($feature) > 0)
+
                                 @foreach ($feature as $k => $item)
 
                                     <div class="outer-feature" id="close-{{$item->id}}">
