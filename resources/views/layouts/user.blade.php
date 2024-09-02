@@ -65,7 +65,7 @@
                         @guest('admin')
                         <a class="dropdown-item" href="{{ route('profile.view') }}">Profile</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{route('logout')}}">Log Out </a>                            
+                        <a class="dropdown-item" href="{{route('logout')}}">Log Out </a>
                         @endguest
                     </div>
                 </li>
@@ -90,7 +90,7 @@
                         Dashboard
                     </a>
                 </li>
-                
+
                 <li class="side-item {{request()->is('learn') ? 'active' :''}}">
                     <a href="{{ route('learn.index') }}">
                         <span class="side-icon" >
@@ -101,8 +101,8 @@
                         </span>
                         Learn
                     </a>
-                </li>                    
-                
+                </li>
+
                 <li class="side-item {{request()->is('question-bank') ? 'active':''}}">
                     <a href="{{ route('question-bank.index') }}">
                         <span class="side-icon" >
@@ -131,11 +131,11 @@
                 </li>
 
                 <li class="side-item {{request()->is('live-class') ? 'active':''}}">
-                    @if (auth('web')->user()->progress('cortext-subscription-payment','')=="paid"||auth('web')->user()->is_free_access) 
+                    @if (auth('web')->user()->progress('cortext-subscription-payment','')=="paid"||auth('web')->user()->is_free_access)
                         <a href="{{ route('live-class.index') }}">
                     @else
-                        <a  href="{{route('pricing.index')}}"> 
-                    @endif 
+                        <a  href="{{route('pricing.index')}}">
+                    @endif
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
                         </span>
@@ -147,11 +147,11 @@
                 </li>
 
                 <li class="side-item {{request()->is('analytics') ? 'active':''}}">
-                    @if (auth('web')->user()->progress('cortext-subscription-payment','')=="paid"||auth('web')->user()->is_free_access) 
+                    @if (auth('web')->user()->progress('cortext-subscription-payment','')=="paid"||auth('web')->user()->is_free_access)
                     <a href="{{ route('analytics.index') }}">
                     @else
-                        <a href="{{route('pricing.index')}}"> 
-                    @endif 
+                        <a href="{{route('pricing.index')}}">
+                    @endif
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
                         </span>
@@ -161,12 +161,12 @@
                         Analytics
                     </a>
                 </li>
-                @guest('admin') 
+                @guest('admin')
                 <li class="side-item {{request()->is('community') ? 'active':''}}">
                    @if (auth('web')->user()->progress('cortext-subscription-payment','')=="paid"||auth('web')->user()->is_free_access)
-                    <a href="{{ route('community.index') }}"> 
+                    <a href="{{ route('community.index') }}">
                    @else
-                        <a href="{{route('pricing.index')}}"> 
+                        <a href="{{route('pricing.index')}}">
                     @endif
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
@@ -177,6 +177,24 @@
                         Community
                     </a>
                 </li>
+
+                <li class="side-item {{request()->is('support') ? 'active':''}}">
+                    @if (auth('web')->user()->progress('cortext-subscription-payment','')=="paid"||auth('web')->user()->is_free_access)
+                     <a href="{{ route('support1.index') }}">
+                    @else
+                         <a href="{{route('support.index')}}">
+                     @endif
+                         <span class="side-icon" >
+                             <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
+                         </span>
+                         <span class="active-icon">
+                             <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Dashboard">
+                         </span>
+                         Support
+                     </a>
+                 </li>
+
+
                 <li class="side-item logout">
                     <a href="{{route('logout')}}" class="log-out">
                         <span class="side-icon">
@@ -228,7 +246,7 @@
                         <button type="submit" class="btn btn-dark">Pay Now ${{ get_option('stripe.subscription.payment.amount-price','0') }} </button>
                     </form>
                 </div>
-    
+
             </div>
         </div>
     </div>

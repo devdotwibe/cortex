@@ -9,6 +9,7 @@ use App\Http\Controllers\User\ExamQuestionController;
 use App\Http\Controllers\User\LearnTopicController;
 use App\Http\Controllers\User\LessonRecordVideoController;
 use App\Http\Controllers\User\LiveClassController;
+use App\Http\Controllers\User\SupportController;
 use App\Http\Controllers\User\MainController as UserMainController;
 use App\Http\Controllers\User\MockExamController;
 use App\Http\Controllers\User\PrivateClassHomeWorkController;
@@ -77,7 +78,7 @@ Route::middleware(['auth', 'isUser'])->group(function () {
     Route::post('/verification/resend',[HomeController::class,'verificationresend']);
 
     Route::post("/upload",[UploadController::class,'uploadFile'])->name("upload");
-    
+
     Route::get('/reminder', [UserMainController::class, 'reminder'])->name('reminder.index');
     Route::get('/reminder/{reminder}/show', [UserMainController::class, 'showreminder'])->name('reminder.show');
     Route::post('/reminder/add', [UserMainController::class, 'addreminder'])->name('reminder.store');
@@ -93,7 +94,7 @@ Route::middleware(['auth', 'isUser'])->group(function () {
     Route::middleware('verified')->group(function(){
 
         Route::get('/tips-n-advice', [UserMainController::class, 'tips_n_advice'])->name('tips-n-advice');
-        
+
         Route::prefix('payment')->name('payment.')->group(function () {
             Route::get('/workshop', [StripePaymentController::class, 'workshop'])->name('workshop');
             Route::get('/subscription', [StripePaymentController::class, 'subscription'])->name('subscription');
@@ -185,20 +186,36 @@ Route::middleware(['auth', 'isUser'])->group(function () {
             Route::prefix('community')->name('community.')->group(function () {
                 Route::get('/', [CommunityController::class, 'posts'])->name('index');
                 Route::resource('/post', CommunityController::class);
-                Route::get('/poll/{poll_option}/vote', [CommunityController::class, 'pollVote'])->name('poll.vote'); 
-                Route::get('/post/{post}/like', [CommunityController::class, 'postLike'])->name('post.like'); 
-                Route::post('/post/{post}/comment', [CommunityController::class, 'postComment'])->name('post.comment'); 
-                Route::get('/post/{post}/comment/{post_comment}/reply', [CommunityController::class, 'postCommentReplay'])->name('post.comment.reply'); 
-                Route::get('/post/{post}/comment/{post_comment}/like', [CommunityController::class, 'commentLike'])->name('post.comment.like'); 
-                Route::post('/post/{post}/report', [CommunityController::class, 'postReport'])->name('post.report'); 
+                Route::get('/poll/{poll_option}/vote', [CommunityController::class, 'pollVote'])->name('poll.vote');
+                Route::get('/post/{post}/like', [CommunityController::class, 'postLike'])->name('post.like');
+                Route::post('/post/{post}/comment', [CommunityController::class, 'postComment'])->name('post.comment');
+                Route::get('/post/{post}/comment/{post_comment}/reply', [CommunityController::class, 'postCommentReplay'])->name('post.comment.reply');
+                Route::get('/post/{post}/comment/{post_comment}/like', [CommunityController::class, 'commentLike'])->name('post.comment.like');
+                Route::post('/post/{post}/report', [CommunityController::class, 'postReport'])->name('post.report');
             });
 
             Route::prefix('analytics')->name('analytics.')->group(function () {
                 Route::get('/', [AnalyticsController::class, 'index'])->name('index');
             });
-            
+
+        });
+
+
+
+
+
+
+        Route::prefix('support')->name('support.')->group(function () {
+            Route::get('/', [SupportController::class, 'index'])->name('index');
+            Route::resource('/post',SupportController ::class);
+
         });
 
     });
-});
+
+    });
+
+
+
+
 Route::middleware('signed')->get('email/{id}/{hash}/verify', [HomeController::class, 'verifyemail'])->name('verification.verify');

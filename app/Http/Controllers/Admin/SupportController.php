@@ -52,7 +52,7 @@ class SupportController extends Controller
     $support->save();
 
     // Redirect to a route with a success message
-    return redirect()->route('admin.page.index')->with('success', 'Support1 has been successfully saved.');
+    return redirect()->route('admin.support.index')->with('success', 'Support has been successfully saved.');
 }
 
 }
