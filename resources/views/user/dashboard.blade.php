@@ -53,6 +53,16 @@
 <section class="content_section"> 
     <div class="row"> 
         <div class="col-md-6">
+            <div class="card mb-3">
+                <div class="card-body"> 
+                    <h3>Continue Where You Left Off</h3>
+                    <div class="session-links">
+                        <a href="" class="btn btn-outline-secondary">Review Recent</a>
+                        <span>or</span>
+                        <a href="" class="btn btn-outline-warning">Practice Next</a>
+                    </div> 
+                </div>
+            </div>
             <div class="card">
                 <div class="card-body">
                     <h3>Calendar</h3>
@@ -85,6 +95,25 @@
                                 <a class="graph-filter-btn graph-filter-1month m-1" onclick="updatechart('1month')"><span class="filter-text">1M</span></a>
                                 <a class="graph-filter-btn graph-filter-3months m-1" onclick="updatechart('3months')"><span class="filter-text">3M</span></a>
                                 <a class="graph-filter-btn graph-filter-1year m-1" onclick="updatechart('1year')"><span class="filter-text">1Y</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-3">
+                <div class="card-body"> 
+                    <h3>Completion Status</h3>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="session-chart">
+                                <canvas id="lernChart" class="session-chart-item" width="100%" ></canvas> 
+                                <div class="donut-inner"> 
+                                    <span> {{$learnprogress??0}}% </span>
+                                </div>
+                            </div> 
+                            <div class="session-text">
+                                <span>Learn</span>
                             </div>
                         </div>
                     </div>
@@ -227,7 +256,7 @@
         options: {
             responsive: true,
             interaction: {
-            intersect: false,
+                intersect: false,
             },
             scales: {
                 y: {
@@ -261,7 +290,45 @@
                 }
             }
         },
-    });  
+    });
+
+    const lernCtx = document.getElementById('lernChart').getContext('2d');
+    const lernChart = new Chart(lernCtx, {
+        type: 'doughnut',
+        data: {
+            labels: [
+                'Complete', 
+                'In-Complete',
+            ],
+            datasets: [
+                {
+                    label: 'Learn',
+                    data: [{{$learnprogress??0}}, {{100-($learnprogress??0)}}],
+                    backgroundColor: [
+                        '#36A2EB', 
+                        '#afafaf',
+                    ],
+                    borderColor:[
+                        '#36A2EB', 
+                        "#afafaf"
+                    ],
+                    hoverOffset: 4
+                }
+            ]
+        }, 
+        options: {
+            responsive: true,
+            interaction: {
+                intersect: false,
+            },
+
+            plugins: { 
+                legend: {
+                    display: false 
+                },
+            }
+        }
+    });
     function updatechart(fl) {
         $.get("{{route('dashboard',['chart'=>'Y'])}}",{filter:fl},function(res){
             progressBar.data.labels=res.label||[];
