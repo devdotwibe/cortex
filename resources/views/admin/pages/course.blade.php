@@ -40,7 +40,7 @@
                                             <div class="form-data">
                                                 <div class="forms-inputs mb-4">
                                                     <label for="title">Title</label>
-                                                    <textarea class="form-control" name="couse_title" value="{{old('couse_title')}}"></textarea>
+                                                    <textarea class="form-control texteditor" name="couse_title" value="{{old('couse_title')}}"></textarea>
                                                     @error('title')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
@@ -84,7 +84,7 @@
 
     <script>
 
-
+        CKEDITOR.replaceAll('texteditor');
          
     </script>
 
