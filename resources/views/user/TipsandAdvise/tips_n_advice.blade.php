@@ -17,8 +17,8 @@
             <div class="col-md-12">
                 <div class="card mt-4">
                     <div class="card-body">
-                        <h3>{{ $tip->title }}</h3>
-                        <p>{{ $tip->content }}</p>
+                        <h3>{{ $tip->tip }}</h3>
+                        {{-- <p>{{ $tip->advice }}</p> --}}
                     </div>
                 </div>
             </div>
