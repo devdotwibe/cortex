@@ -26,7 +26,7 @@
 
 
         <div class="tab-content" id="myTabContent">
-        
+
             <div class="tab-pane fade  @if(old('section','save')=='save') show active @endif" id="section1" role="tabpanel" aria-labelledby="section1-tab">
                 <div class="row">
                     <div class="card">
@@ -40,7 +40,7 @@
                                             <div class="form-data">
                                                 <div class="forms-inputs mb-4">
                                                     <label for="title">Title</label>
-                                                    <input type="text" name="title" id="title" value="" class="form-control" placeholder="Title">
+                                                    <textarea class="form-control" name="couse_title" value="{{old('couse_title')}}"></textarea>
                                                     @error('title')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
