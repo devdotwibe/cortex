@@ -39,9 +39,37 @@
                                         <div class="form-group">
                                             <div class="form-data">
                                                 <div class="forms-inputs mb-4">
-                                                    <label for="title">Title</label>
+                                                    <label for="title">Course Banner Title</label>
                                                     <textarea class="form-control texteditor" name="couse_title" value="{{old('couse_title')}}"></textarea>
                                                     @error('title')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                     <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div class="form-data">
+                                                <div class="forms-inputs mb-4">
+                                                    <label for="learn_btn_label">Learn Button Label</label>
+                                                    <input type="text" class="form-control" name="learn_btn_label" value="{{old('learn_btn_label')}}">
+                                                    @error('learn_btn_label')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                     <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div class="form-data">
+                                                <div class="forms-inputs mb-4">
+                                                    <label for="learn_btn_link">Learn Button Link</label>
+                                                     <input type="text" class="form-control" name="learn_btn_link" value="{{old('learn_btn_link')}}">
+                                                    @error('learn_btn_link')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>
