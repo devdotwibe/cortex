@@ -223,7 +223,8 @@
                         <li class="side-item {{request()->is('admin/page') ? 'active':''}} "><a href="{{route('admin.support.index')}}">Support</a></li>
                         <li class="side-item {{request()->is('admin/page') ? 'active':''}} "><a href="{{route('admin.tip.index')}}">Tips and Advice</a></li>
 
-
+                        <li class="side-item {{request()->is('admin/course') ? 'active':''}} "><a href="{{route('admin.course.index')}}">Course</a></li>
+                        
                         {{-- <li class="side-item {{request()->is('admin/payment') ? 'active':''}} "><a href="{{route('admin.payment.index')}}">Payment</a></li> --}}
                     </ul>
                 </li>
