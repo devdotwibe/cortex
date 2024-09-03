@@ -82,6 +82,9 @@
                                         <div class="mb-3">
                                             <button type="submit" class="btn btn-dark" name="section" value="save">Save</button>
                                         </div>
+                                         <div class="mb-3">
+                                            <button type="button" class="btn btn-btn-secondary" name="section" value="cancel">Cancel</button>
+                                        </div>
                                     </div>
 
                                 </div>
