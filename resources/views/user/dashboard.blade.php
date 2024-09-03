@@ -373,7 +373,7 @@
             ],
             datasets: [
                 {
-                    label: 'Learn',
+                    label: 'Practice',
                     data: [{{$practiceprogress??0}}, {{100-($practiceprogress??0)}}],
                     backgroundColor: [
                         '#FFCD56', 
@@ -411,7 +411,7 @@
             ],
             datasets: [
                 {
-                    label: 'Learn',
+                    label: 'Topic Test',
                     data: [{{$topiclateprogress??0}}, {{100-($topiclateprogress??0)}}],
                     backgroundColor: [
                         '#198754', 
@@ -449,7 +449,7 @@
             ],
             datasets: [
                 {
-                    label: 'Learn',
+                    label: 'Mock Exam',
                     data: [{{$moclateprogress??0}}, {{100-($moclateprogress??0)}}],
                     backgroundColor: [
                         '#EB0606', 
