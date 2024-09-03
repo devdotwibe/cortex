@@ -380,32 +380,26 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
     });
 
-    // Route::prefix('tip')->name('tip.')->group(function () {
-    //     Route::get('/',[TipsController::class,'index'])->name('index');
-    //     Route::get('/{tip}/create',[TipsController::class,'create'])->name('create');
-    //     Route::get('/{tip}/storetip',[TipsController::class,'storetip'])->name('storetip');
-    //     Route::post('/{tip}/store',[TipsController::class,'store'])->name('store');
-
-    //     // Route::post('/subtitle',[QuestionBankController::class,'subtitle'])->name('subtitle');
-    //     // Route::get('/{setname}',[QuestionBankController::class,'show'])->name('show');
-    //     // Route::get('/{setname}/create',[QuestionBankController::class,'create'])->name('create');
-    //     // Route::get('/{setname}/{question}/edit',[QuestionBankController::class,'edit'])->name('edit');
-    //     // Route::post('/{setname}/store',[QuestionBankController::class,'store'])->name('store');
-    //     // Route::get('/{category}/subcategory',[QuestionBankController::class,'subcategory'])->name('subcategory');
-    //     // Route::get('/{sub_category}/set',[QuestionBankController::class,'subcategoryset'])->name('subcategoryset');
-    //     // Route::post('/{setname}/import',[QuestionBankController::class,'importquestion'])->name('import');
-    // });
 
 
 
     Route::prefix('tip')->name('tip.')->group(function () {
         Route::get('/', [TipsController::class, 'index'])->name('index');
+
         Route::get('/{tip}/create', [TipsController::class, 'create'])->name('create');
         Route::get('/{tip}/storetip', [TipsController::class, 'storetip'])->name('storetip');
         Route::post('/{tip}/store', [TipsController::class, 'store'])->name('store');
-        Route::get('/{tip}/edit', [TipsController::class, 'edit'])->name('edit'); // Added edit route
-        Route::delete('/{tip}', [TipsController::class, 'destroy'])->name('delete'); // Added delete route
+        Route::get('/{tip}/edit', [TipsController::class, 'edit'])->name('edit'); // Ensure this route is defined
+
+        Route::get('/{tip}/edit_subfaq',[TipsController::class,'edit_subfaq'])->name('edit_subfaq');
+        Route::post('update/{tip}',[TipsController::class,'update'])->name('update'); // Update route
+
+        Route::delete('del/{tip}',[TipsController::class,'del_tip'])->name('del_tip');
     });
+
+
+
+
 
 
 });

@@ -197,33 +197,7 @@
                                             </div>
                                         </div>
                                     </div>
-{{--
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <div class="form-data">
-                                                <div class="forms-inputs mb-4">
-                                                    <label for="learnimage">Learn Image</label>
-                                                    <input type="file" name="learnimage" id="learnimage" value="{{ old('learnimage', optional($banner)->learnimage) }}" class="form-control" onchange="previewImage(event)">
-                                                    @error('learnimage')
-                                                        <div class="text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
 
-
-
-                                    <div class="form-group">
-                                        <label for="imagePreview">Image Preview</label>
-                                            <div id="imagePreviewContainer" style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
-                                                 @if(isset($banner) && $banner->learnimage)
-                                                <img id="imagePreview" src="{{ url('d0/'.$banner->learnimage) }}" alt="Image Preview" style="width: 100%; height: auto;">
-
-                                                <img id="imagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
-                                                 @endif
-                                                 </div>
-                                                    </div> --}}
 
 
                                                     <div class="col-md-12">
@@ -494,7 +468,7 @@
                                             </div>
                                         </div>
 
-                                        {{-- <!-- Feature Content -->
+                                        <!-- Feature Content -->
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <div class="form-data">
@@ -507,9 +481,9 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div> --}}
+                                        </div>
 
-<!-- Feature Content -->
+{{-- <!-- Feature Content -->
 <div class="col-md-12">
     <div class="form-group">
         <div class="form-data">
@@ -522,9 +496,9 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
-                                        <!-- Feature Image -->
+                                       <!-- Feature Image -->
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <div class="form-data">

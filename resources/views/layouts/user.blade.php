@@ -195,6 +195,22 @@
                  </li>
 
 
+                 <li class="side-item {{request()->is('tipsandadvise') ? 'active':''}}">
+                    @if (auth('web')->user()->progress('cortext-subscription-payment','')=="paid"||auth('web')->user()->is_free_access)
+                     <a href="{{ route('community.index') }}">
+                    @else
+                         <a href="{{route('tipsandadvise.index')}}">
+                     @endif
+                         <span class="side-icon" >
+                             <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
+                         </span>
+                         <span class="active-icon">
+                             <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Dashboard">
+                         </span>
+                         Tips And Advise
+                     </a>
+                 </li>
+
                 <li class="side-item logout">
                     <a href="{{route('logout')}}" class="log-out">
                         <span class="side-icon">

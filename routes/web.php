@@ -16,6 +16,7 @@ use App\Http\Controllers\User\PrivateClassHomeWorkController;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\StripePaymentController;
 use App\Http\Controllers\User\StripeWebHookController;
+use App\Http\Controllers\User\TipsAndAdviceController;
 use App\Http\Controllers\User\TopicExamController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
@@ -213,7 +214,24 @@ Route::middleware(['auth', 'isUser'])->group(function () {
 
     });
 
+
+    Route::prefix('tipsandadvise')->name('tipsandadvise.')->group(function () {
+        Route::get('/', [TipsAndAdviceController::class, 'index'])->name('index');
+        Route::resource('/post',TipsAndAdviceController ::class);
+
+        Route::get('/tips-show/{id}', [TipsAndAdviceController::class, 'tip_show'])->name('tip_show');
+
+
+
     });
+
+});
+
+
+
+
+
+
 
 
 

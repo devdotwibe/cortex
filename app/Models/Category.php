@@ -26,7 +26,7 @@ class Category extends Model
         return $this->hasMany(SubCategory::class,'category_id','id');
     }
 
-    public function getExamAvg($exam){ 
+    public function getExamAvg($exam){
         $anscnt=UserReviewAnswer::whereIn('user_exam_review_id',UserExamReview::whereIn('exam_id',Exam::where('name',$exam)->select('id'))->where("category_id",$this->id)->groupBy('user_id')->select(DB::raw('MAX(id)')))->whereIn('exam_id',Exam::where('name',$exam)->select('id'))->whereIn('question_id',Question::whereIn('exam_id',Exam::where('name',$exam)->select('id'))->where("category_id",$this->id)->select('id'))->where('iscorrect',true)->where('user_answer',true)->count();
         $exmcnt=UserExamReview::whereIn('id',UserExamReview::whereIn('exam_id',Exam::where('name',$exam)->select('id'))->where("category_id",$this->id)->groupBy('user_id')->select(DB::raw('MAX(id)')))->whereIn('exam_id',Exam::where('name',$exam)->select('id'))->where("category_id",$this->id)->count();
         if($anscnt>0&&$exmcnt>0){
@@ -54,7 +54,7 @@ class Category extends Model
         $cnt=$this->getQuestionCount($exam);
         if($exam=="topic-test"){
             if(!empty($this->time_of_exam)&&$cnt>0){
-                $time=explode(':',$this->time_of_exam); 
+                $time=explode(':',$this->time_of_exam);
                 return round(((trim($time[0])*(count($time)*60))+(trim($time[1]??0)*60))/$cnt,2);
             }
         }
@@ -66,11 +66,11 @@ class Category extends Model
         }
         return 0;
     }
-    public function getExamMark($exam,$user){ 
-         
+    public function getExamMark($exam,$user){
+
         return UserReviewAnswer::where('user_id',$user)->whereIn('user_exam_review_id',UserExamReview::whereIn('exam_id',Exam::where('name',$exam)->select('id'))->where("category_id",$this->id)->groupBy('user_id')->select(DB::raw('MAX(id)')))->whereIn('exam_id',Exam::where('name',$exam)->select('id'))->whereIn('question_id',Question::whereIn('exam_id',Exam::where('name',$exam)->select('id'))->where("category_id",$this->id)->select('id'))->where('iscorrect',true)->where('user_answer',true)->count();;
     }
-    public function getExamTime($exam,$user){ 
+    public function getExamTime($exam,$user){
         return round(UserReviewQuestion::where('user_id',$user)->whereIn('user_exam_review_id',UserExamReview::whereIn('exam_id',Exam::where('name',$exam)->select('id'))->where("category_id",$this->id)->groupBy('user_id')->select(DB::raw('MAX(id)')))->whereIn('exam_id',Exam::where('name',$exam)->select('id'))->whereIn('question_id',Question::whereIn('exam_id',Exam::where('name',$exam)->select('id'))->where("category_id",$this->id)->select('id'))->whereNotNull('time_taken')->where('time_taken','>',0)->average('time_taken'),2);
     }
     public function getExamMarkPercentage($exam,$user){
@@ -81,5 +81,11 @@ class Category extends Model
         }else{
             return 0;
         }
+    }
+
+
+    public function tips()
+    {
+        return $this->hasMany(Tips::class);
     }
 }
