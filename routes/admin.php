@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\TermController;
 use App\Http\Controllers\Admin\CommunityControllerController;
+use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\PagesController;
 use App\Http\Controllers\Admin\SupportController;
 use App\Http\Controllers\Admin\PostReportController;
@@ -395,6 +396,21 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::post('update/{tip}',[TipsController::class,'update'])->name('update'); // Update route
 
         Route::delete('del/{tip}',[TipsController::class,'del_tip'])->name('del_tip');
+    });
+
+
+    Route::prefix('course')->name('course.')->group(function () {
+        Route::get('/', [CourseController::class, 'index'])->name('index');
+
+        Route::get('/{tip}/create', [CourseController::class, 'create'])->name('create');
+        Route::get('/{tip}/storetip', [CourseController::class, 'storetip'])->name('storetip');
+        Route::post('/{tip}/store', [CourseController::class, 'store'])->name('store');
+        Route::get('/{tip}/edit', [CourseController::class, 'edit'])->name('edit'); // Ensure this route is defined
+
+        Route::get('/{tip}/edit_subfaq',[CourseController::class,'edit_subfaq'])->name('edit_subfaq');
+        Route::post('update/{tip}',[CourseController::class,'update'])->name('update'); // Update route
+
+        Route::delete('del/{tip}',[CourseController::class,'del_tip'])->name('del_tip');
     });
 
 
