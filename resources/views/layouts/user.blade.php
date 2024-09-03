@@ -180,7 +180,7 @@
 
                 <li class="side-item {{request()->is('support') ? 'active':''}}">
                     @if (auth('web')->user()->progress('cortext-subscription-payment','')=="paid"||auth('web')->user()->is_free_access)
-                     <a href="{{ route('support1.index') }}">
+                     <a href="{{ route('community.index') }}">
                     @else
                          <a href="{{route('support.index')}}">
                      @endif

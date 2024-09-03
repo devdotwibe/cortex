@@ -121,12 +121,12 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-12 video_section">
+                                    <div class="col-md-12">
                                         <div class="form-group">
                                             <div class="form-data">
                                                 <div class="forms-inputs mb-4">
                                                     <label for="image">Upload Image</label>
-                                                    <input type="file" name="image" id="image" class="form-control" onchange="previewImage(event)">
+                                                    <input type="file" name="image" id="image" class="form-control" onchange="previewImage(event, 'imagePreview')">
                                                     @error('image')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
@@ -134,17 +134,18 @@
                                             </div>
                                         </div>
                                     </div>
-                           <!-- Preview Image Container -->
+
+                                    <!-- Preview Image Container -->
                                     <div class="form-group">
                                         <label for="imagePreview">Image Preview</label>
-                                            <div id="imagePreviewContainer" style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
-                                                 @if(isset($banner) && $banner->image)
+                                        <div id="imagePreviewContainer" style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
+                                            @if(isset($banner) && $banner->image)
                                                 <img id="imagePreview" src="{{ url('d0/'.$banner->image) }}" alt="Image Preview" style="width: 100%; height: auto;">
-
+                                            @else
                                                 <img id="imagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
-                                                 @endif
-                                                 </div>
-                                                    </div>
+                                            @endif
+                                        </div>
+                                    </div>
                                     <!-- Save Button -->
                                     <div class="col-md-12">
                                         <div class="mb-3">
@@ -196,7 +197,7 @@
                                             </div>
                                         </div>
                                     </div>
-
+{{--
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <div class="form-data">
@@ -210,6 +211,9 @@
                                             </div>
                                         </div>
                                     </div>
+
+
+
                                     <div class="form-group">
                                         <label for="imagePreview">Image Preview</label>
                                             <div id="imagePreviewContainer" style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
@@ -219,6 +223,33 @@
                                                 <img id="imagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
                                                  @endif
                                                  </div>
+                                                    </div> --}}
+
+
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <div class="form-data">
+                                                                <div class="forms-inputs mb-4">
+                                                                    <label for="learnimage">Learn Image</label>
+                                                                    <input type="file" name="learnimage" id="learnimage" value="{{ old('learnimage', optional($banner)->learnimage) }}" class="form-control" onchange="previewImage(event, 'learnImagePreview')">
+                                                                    @error('learnimage')
+                                                                        <div class="text-danger">{{ $message }}</div>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Preview Learn Image Container -->
+                                                    <div class="form-group">
+                                                        <label for="learnImagePreview">Learn Image Preview</label>
+                                                        <div id="learnImagePreviewContainer" style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
+                                                            @if(isset($banner) && $banner->learnimage)
+                                                                <img id="learnImagePreview" src="{{ url('d0/'.$banner->learnimage) }}" alt="Learn Image Preview" style="width: 100%; height: auto;">
+                                                            @else
+                                                                <img id="learnImagePreview" src="#" alt="Learn Image Preview" style="display: none; width: 100%; height: auto;">
+                                                            @endif
+                                                        </div>
                                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
@@ -253,7 +284,7 @@
                                             <div class="form-data">
                                                 <div class="forms-inputs mb-4">
                                                     <label for="practiseimage">Practice Image</label>
-                                                    <input type="file" name="practiseimage" id="practiseimage" value="{{ old('practiseimage', optional($banner)->practiseimage) }}" class="form-control" onchange="previewImage(event)">
+                                                    <input type="file" name="practiseimage" id="practiseimage" value="{{ old('practiseimage', optional($banner)->practiseimage) }}" class="form-control" onchange="previewImage(event, 'practiseImagePreview')">
                                                     @error('practiseimage')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
@@ -262,15 +293,15 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="imagePreview">Image Preview</label>
-                                            <div id="imagePreviewContainer" style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
-                                                 @if(isset($banner) && $banner->practiseimage)
-                                                <img id="imagePreview" src="{{ url('d0/'.$banner->practiseimage) }}" alt="Image Preview" style="width: 100%; height: auto;">
-
-                                                <img id="imagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
-                                                 @endif
-                                                 </div>
-                                                    </div>
+                                        <label for="practiseImagePreview">Practice Image Preview</label>
+                                        <div id="imagePreviewContainer" style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
+                                            @if(isset($banner) && $banner->practiseimage)
+                                                <img id="practiseImagePreview" src="{{ url('d0/'.$banner->practiseimage) }}" alt="Practice Image Preview" style="width: 100%; height: auto;">
+                                            @else
+                                                <img id="practiseImagePreview" src="#" alt="Practice Image Preview" style="display: none; width: 100%; height: auto;">
+                                            @endif
+                                        </div>
+                                    </div>
 
                                     <div class="col-md-12">
                                         <div class="form-group">
@@ -305,7 +336,7 @@
                                             <div class="form-data">
                                                 <div class="forms-inputs mb-4">
                                                     <label for="prepareimage">Prepare Image</label>
-                                                    <input type="file" name="prepareimage" id="prepareimage" value="{{ old('prepareimage', optional($banner)->prepareimage) }}" class="form-control" onchange="previewImage(event)">
+                                                    <input type="file" name="prepareimage" id="prepareimage" value="{{ old('prepareimage', optional($banner)->prepareimage) }}" class="form-control" onchange="previewImage(event, 'prepareImagePreview')">
                                                     @error('prepareimage')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
@@ -314,15 +345,15 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="imagePreview">Image Preview</label>
-                                            <div id="imagePreviewContainer" style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
-                                                 @if(isset($banner) && $banner->prepareimage)
-                                                <img id="imagePreview" src="{{ url('d0/'.$banner->prepareimage) }}" alt="Image Preview" style="width: 100%; height: auto;">
-
-                                                <img id="imagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
-                                                 @endif
-                                                 </div>
-                                                    </div>
+                                        <label for="prepareImagePreview">Prepare Image Preview</label>
+                                        <div id="imagePreviewContainer" style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
+                                            @if(isset($banner) && $banner->prepareimage)
+                                                <img id="prepareImagePreview" src="{{ url('d0/'.$banner->prepareimage) }}" alt="Prepare Image Preview" style="width: 100%; height: auto;">
+                                            @else
+                                                <img id="prepareImagePreview" src="#" alt="Prepare Image Preview" style="display: none; width: 100%; height: auto;">
+                                            @endif
+                                        </div>
+                                    </div>
 
                                     <div class="col-md-12">
                                         <div class="form-group">
@@ -357,7 +388,7 @@
                                             <div class="form-data">
                                                 <div class="forms-inputs mb-4">
                                                     <label for="reviewimage">Review Image</label>
-                                                    <input type="file" name="reviewimage" id="reviewimage" value="{{ old('reviewimage', optional($banner)->reviewimage) }}" class="form-control" onchange="previewImage(event)">
+                                                    <input type="file" name="reviewimage" id="reviewimage" value="{{ old('reviewimage', optional($banner)->reviewimage) }}" class="form-control" onchange="previewImage(event, 'reviewImagePreview')">
                                                     @error('reviewimage')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
@@ -366,15 +397,16 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="imagePreview">Image Preview</label>
-                                            <div id="imagePreviewContainer" style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
-                                                 @if(isset($banner) && $banner->reviewimage)
-                                                <img id="imagePreview" src="{{ url('d0/'.$banner->reviewimage) }}" alt="Image Preview" style="width: 100%; height: auto;">
+                                        <label for="reviewImagePreview">Review Image Preview</label>
+                                        <div id="imagePreviewContainer" style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
+                                            @if(isset($banner) && $banner->reviewimage)
+                                                <img id="reviewImagePreview" src="{{ url('d0/'.$banner->reviewimage) }}" alt="Review Image Preview" style="width: 100%; height: auto;">
+                                            @else
+                                                <img id="reviewImagePreview" src="#" alt="Review Image Preview" style="display: none; width: 100%; height: auto;">
+                                            @endif
+                                        </div>
+                                    </div>
 
-                                                <img id="imagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
-                                                 @endif
-                                                 </div>
-                                                    </div>
 
 
                                     <div class="col-md-12">
@@ -491,7 +523,7 @@
         </div>
     </div>
 </div>
-{{--
+
                                         <!-- Feature Image -->
                                         <div class="col-md-12">
                                             <div class="form-group">
@@ -509,27 +541,10 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div> --}}
+                                        </div>
 
 
-                                          <!-- Feature Image -->
-            <div class="col-md-12">
-                <div class="form-group">
-                    <div class="form-data">
-                        <div class="forms-inputs mb-4">
-                            <label for="featureimage">Feature Image</label>
-                            <input type="hidden" name="featureids[]" value="">
-                            <input type="file" name="featureimageupdate[]" class="form-control" onchange="previewFeatureImage(event)">
-                            @if(!empty($item->image))
-                                <img src="" alt="Feature Image" style="max-width: 100px; margin-top: 10px;">
-                            @endif
-                            @error('featureimageupdate.' . $k)
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-                </div>
-            </div>
+
 
 
                                         <button type="button" class="btn btn-danger" onclick="removeDiv(this, 'close-{{$k}}')" data-feature-id="{{$k}}">X</button>
@@ -790,7 +805,7 @@
                                 <div class="form-data">
                                     <div class="forms-inputs mb-4">
                                         <label for="excelimage">Excel Image</label>
-                                        <input type="file" name="excelimage" id="excelimage" class="form-control" onchange="previewExcelImage(event)">
+                                        <input type="file" name="excelimage" id="excelimage" class="form-control" onchange="previewImage(event, 'excelImagePreview')">
                                         @error('excelimage')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -801,12 +816,12 @@
 
                         <!-- Image Preview -->
                         <div class="form-group">
-                            <label for="imagePreview">Image Preview</label>
+                            <label for="excelImagePreview">Image Preview</label>
                             <div id="imagePreviewContainer" style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
                                 @if(isset($banner) && $banner->excelimage)
-                                    <img id="imagePreview" src="{{ url('d0/'.$banner->excelimage) }}" alt="Image Preview" style="width: 100%; height: auto;">
-
-                                    <img id="imagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
+                                    <img id="excelImagePreview" src="{{ url('d0/'.$banner->excelimage) }}" alt="Excel Image Preview" style="width: 100%; height: auto;">
+                                @else
+                                    <img id="excelImagePreview" src="#" alt="Excel Image Preview" style="display: none; width: 100%; height: auto;">
                                 @endif
                             </div>
                         </div>
@@ -1201,21 +1216,18 @@
 
 
 
-
-<!-- Include Bootstrap JS (if not already included) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    function previewImage(event) {
+    function previewImage(event, previewId) {
         var reader = new FileReader();
-        reader.onload = function(){
-            var output = document.getElementById('imagePreview');
+        reader.onload = function() {
+            var output = document.getElementById(previewId);
             output.src = reader.result;
             output.style.display = 'block';
         };
         reader.readAsDataURL(event.target.files[0]);
     }
-    </script>
-
+</script>
 
 <script>
 
@@ -1341,7 +1353,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
     </script>
 
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function previewLearnImage(event) {
+        var reader = new FileReader();
+        reader.onload = function(){
+            var output = document.getElementById('learnImagePreview');
+            output.src = reader.result;
+            output.style.display = 'block';
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>
 
 
 
