@@ -132,7 +132,7 @@ class LearnTopicController extends Controller
          * @var User
          */
         $user=Auth::user();
-
+        $user->setProgress("review-recent-link",route('learn.preview',['user_exam_review'=>$userExamReview->slug]));
         if($request->ajax()){
             if(!empty($request->question)){
                 $question=UserReviewQuestion::findSlug($request->question);
