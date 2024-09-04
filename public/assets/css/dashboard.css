@@ -295,14 +295,15 @@ nav.navbar .dropdown .nav-link.dropdown-toggle:after {
 }
 
 .category .category-image {
-  width: 50px;
+  width: 90px;
   transition: all .25s ease-in-out;
 }
 .category .category-content {
   width: 75%;
   transition: all .25s ease-in-out;
+  flex: 1 0 0;
 }
-.category .category-content h3 { font-size: 18px; font-weight: 600; color: #000; display: block;}
+.category .category-content h3 { font-size: 26px; font-weight: 500; color: #000; display: block;}
 .category .category-title {
   width:max-content;
   padding:5px 8px;
@@ -310,6 +311,12 @@ nav.navbar .dropdown .nav-link.dropdown-toggle:after {
   border:1px solid #d2d1d3;
   border-radius:5px;
 }
+.category .category-content h5 {
+  font-size: 19px;
+  color: #6E6E6E;
+  margin: 0 0 10px;
+}
+
 .choice{
   background-color: #6c757d;
   margin-top: 20px;
