@@ -27,10 +27,10 @@
                                 <div class="category-content">
                                     <h5><span id="category-content-subtitle-{{$item->id}}"> {{$exam->subtitle($item->id,"Topic ".($item->getIdx()+1))}} </span></h5>
                                     <h3>{{$item->name}}</h3>
-                                    <div class="progress-area">
-                                        <progress max="100" value="{{$user->progress('exam-'.$exam->id.'-topic-'.$item->id,0)}}">{{round($user->progress('exam-'.$exam->id.'-topic-'.$item->id,0),2)}}%</progress>
-                                        <span>{{round($user->progress('exam-'.$exam->id.'-topic-'.$item->id,0),2)}}%</span>
-                                    </div>
+                                </div>
+                                <div class="progress-area">
+                                    <progress max="100" value="{{$user->progress('exam-'.$exam->id.'-topic-'.$item->id,0)}}">{{round($user->progress('exam-'.$exam->id.'-topic-'.$item->id,0),2)}}%</progress>
+                                    <span>{{round($user->progress('exam-'.$exam->id.'-topic-'.$item->id,0),2)}}%</span>
                                 </div>
                             </div>
                         </div>
