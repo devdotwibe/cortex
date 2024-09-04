@@ -57,9 +57,9 @@
                 <div class="card-body"> 
                     <h3>Continue Where You Left Off</h3>
                     <div class="session-links">
-                        <a href="" class="btn btn-outline-secondary">Review Recent</a>
+                        <a href="{{$user->progress("review-recent-link",route('learn.index'))}}" class="btn btn-outline-secondary">Review Recent</a>
                         <span>or</span>
-                        <a href="" class="btn btn-outline-warning">Practice Next</a>
+                        <a href="{{$user->progress("attempt-recent-link",route('learn.index'))}}" class="btn btn-outline-warning">Practice Next</a>
                     </div> 
                 </div>
             </div>

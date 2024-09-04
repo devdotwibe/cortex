@@ -169,7 +169,7 @@ class MainController extends Controller
         $maxretry=(optional(UserExamReview::where('name','full-mock-exam')->where('user_id',$user->id)->groupBy('exam_id')->select(DB::raw('count(exam_id) as cnt'))->first())->cnt??0)+(optional(UserExamReview::where('name','question-bank')->where('user_id',$user->id)->groupBy('sub_category_set')->select(DB::raw('count(sub_category_set) as cnt'))->first())->cnt??0)+(optional(UserExamReview::where('name','topic-test')->where('user_id',$user->id)->groupBy('category_id')->select(DB::raw('count(category_id)  as cnt'))->first())->cnt??0);
            
 
-        return view("user.dashboard",compact('maxretry','learnprogress','practiceprogress','simulateprogress','moclateprogress','topiclateprogress'));
+        return view("user.dashboard",compact('user','maxretry','learnprogress','practiceprogress','simulateprogress','moclateprogress','topiclateprogress'));
     }
     public function reminder(Request $request){
         /**
