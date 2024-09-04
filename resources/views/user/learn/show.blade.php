@@ -24,12 +24,13 @@
                         @endif
                         <div class="lesson-row">
                             <div class="lesson-row-title">
-                                <span>Lesson {{$k+1}}</span>
-                                <span>: {{ $item->name }} </span>
+                                <span class="lesson-line">Lesson {{$k+1}}</span>
+                                <h3>: {{ $item->name }} </h3>
+                                <h4>{{ round($user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$item->id,0), 2) }}%</h4>
                             </div>
-                            <div class="lesson-row-subtitle">
-                                <span>{{ round($user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$item->id,0), 2) }}%</span>
-                            </div>
+                            {{-- <div class="lesson-row-subtitle"> --}}
+                               
+                            {{-- </div> --}}
                         </div>
                         </a>
                     </div>
