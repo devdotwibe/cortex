@@ -61,6 +61,7 @@ class TopicExamController extends Controller
          * @var User
          */
         $user=Auth::user();  
+        $user->setProgress("attempt-recent-link",route('topic-test.index'));
         $questioncount=Question::where('exam_id',$exam->id)->where('category_id',$category->id)->count();
         $endtime=0;
         $times=explode(':',$category->time_of_exam);
@@ -194,7 +195,7 @@ class TopicExamController extends Controller
          * @var User
          */
         $user=Auth::user(); 
-
+        $user->setProgress("review-recent-link",route('topic-test.preview',['user_exam_review'=>$userExamReview->slug]));
         if($request->ajax()){
             if(!empty($request->question)){
                 $question=UserReviewQuestion::findSlug($request->question);

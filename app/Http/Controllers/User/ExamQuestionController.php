@@ -84,6 +84,7 @@ class ExamQuestionController extends Controller
          * @var User
          */
         $user=Auth::user();
+        $user->setProgress("attempt-recent-link",route('question-bank.show',['category'=>$category->slug]));
         if($request->ajax()){
             if($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$subCategory->id.'-set-'.$setname->id.'-complete-date',"")==""){
                 $lessons=SubCategory::where('category_id',$category->id)->get();
@@ -138,7 +139,7 @@ class ExamQuestionController extends Controller
          * @var User
          */
         $user=Auth::user();
-
+        $user->setProgress("review-recent-link",route('question-bank.preview',['user_exam_review'=>$userExamReview->slug]));
         if($request->ajax()){
             if(!empty($request->question)){
                 $question=UserReviewQuestion::findSlug($request->question);

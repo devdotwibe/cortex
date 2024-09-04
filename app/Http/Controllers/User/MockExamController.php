@@ -44,6 +44,7 @@ class MockExamController extends Controller
          * @var User
          */
         $user=Auth::user();  
+        $user->setProgress("attempt-recent-link",route('full-mock-exam.index'));
         $questioncount=Question::where('exam_id',$exam->id)->count();
         $endtime=0;
         $times=explode(':',$exam->time_of_exam);
@@ -168,7 +169,7 @@ class MockExamController extends Controller
          * @var User
          */
         $user=Auth::user();
-        
+        $user->setProgress("review-recent-link",route('full-mock-exam.preview',['user_exam_review'=>$userExamReview->slug]));
         if($request->ajax()){
             if(!empty($request->question)){
                 $question=UserReviewQuestion::findSlug($request->question);
