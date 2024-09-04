@@ -279,8 +279,14 @@ main{ margin-top: 120px;}
 .category{
   width: 100%;
   display: flex;
+  flex: 1 0 0;
   align-items: center;
 }
+
+
+.learn-section .col-md-6 .card {border-radius: 5px; border: none;}
+.category .progress-area {width: 100%; margin: 10px 0 0;}
+.learn-section .col-md-6 .card .card-body { padding: 30px;}
 
 nav.navbar .dropdown .nav-link.dropdown-toggle {
   padding-right: 20px;
@@ -1442,5 +1448,3 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .critical-reasoning .critical-reasoning-conten p { font-size: 16px; line-height: 1.4; margin: 0 0 20px;}
 .critical-reasoning .critical-reasoning-row1 h3.active { border: 2px solid #fdd03f;  background: #faf8f3;}
 .critical-reasoning .critical-reasoning-conten.active { display: block;}
-
-.learn-section .col-md-6 .card {border-radius: 5px; border: none;}
