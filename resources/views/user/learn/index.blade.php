@@ -29,13 +29,13 @@
                                             {{ $exam->subtitle($item->id, "Module " . ($item->getIdx() + 1)) }}
                                         </span></h5>
                                     <h3>{{ $item->name }}</h3>
-                                    <div class="progress-area">
-                                        <progress max="100"
-                                            value="{{ $item->progress }}">
-                                            {{ round($item->progress, 2) }}%
-                                        </progress>
-                                        <span>{{ round($item->progress, 2) }}%</span>
-                                    </div>
+                                </div>
+                                <div class="progress-area">
+                                    <progress max="100"
+                                        value="{{ $item->progress }}">
+                                        {{ round($item->progress, 2) }}%
+                                    </progress>
+                                    <span>{{ round($item->progress, 2) }}%</span>
                                 </div>
                             </div>
                         </div>
