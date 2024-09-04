@@ -93,6 +93,8 @@ class LearnTopicController extends Controller
          * @var User
          */
         $user=Auth::user();
+
+        $user->setProgress("attempt-recent-link",route('learn.lesson.show',['category'=>$category->slug,'sub_category'=>$subCategory->slug]));
         if($request->ajax()){
             if($user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$subCategory->id.'-complete-date',"")==""){
                 $lessons=SubCategory::where('category_id',$category->id)->get();
