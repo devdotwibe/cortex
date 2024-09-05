@@ -73,6 +73,12 @@
         </div>
     </nav>
 
+    <div class="sidebar-menu">
+        <a href="" class="sidebar-toggle">
+            <span class="line"></span>
+        </a>
+    </div>
+     
     <aside class="side_bar">
         <div class="side-nav-toggle">
             <button class="btn btn-close-toggle"><img src="{{asset("assets/images/close.svg")}}" alt="close"></button>
