@@ -404,7 +404,7 @@ button.close {
 .exam-container .container-wrap {
   width: 90%;
   float: none;
-  padding: 20px;
+  padding: 50px;
   margin:50px auto 0;
   background: #ffff;
   box-shadow: 4px 0px 16px 0px #0000000A;
@@ -623,6 +623,17 @@ margin-left:auto;
   background: #8F8F8F;
   color: #fff;
 }
+
+.exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check input {
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  border: 1px solid;
+  position: relative;
+  top: -3px;
+}
+
+.exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check input:checked {background: url(../images/check-icon.svg) no-repeat center;}
 
 .progress-area progress {
   width:90%;
