@@ -624,6 +624,11 @@ margin-left:auto;
   color: #fff;
 }
 
+.exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check {
+  padding-left: 45px;
+  margin: 0 0 20px;
+}
+
 .exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check input {
   width: 20px;
   height: 20px;
@@ -632,6 +637,7 @@ margin-left:auto;
   position: relative;
   top: -3px;
   box-shadow: none;
+  margin-left: -43px;
 }
 
 .exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check input:checked {background: url(../images/check-icon.svg) no-repeat center; background-size: 100%;}
