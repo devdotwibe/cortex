@@ -761,6 +761,7 @@ border-radius: 7px;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
+  padding: 5px 5%;
 }
 .exam-progress>.exam-progress-inner>.exam-left {
   width: auto;
@@ -784,6 +785,7 @@ border-radius: 7px;
   min-width: 350px;
   display:flex;
   flex-wrap:wrap;
+  align-items: center;
 }
 .progress-main .timer {
   width:max-content;
