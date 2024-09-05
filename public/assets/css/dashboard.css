@@ -545,6 +545,24 @@ margin-left:auto;
   padding-bottom: 56%;
 }
 
+.exam-container .container-wrap .lesson .lesson-body .note-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 10px;
+}
+
+.exam-container .container-wrap .lesson .lesson-body p {
+  font-size: 20px;
+  line-height: 1.5;
+  margin: 0 0 20px;
+}
+
+.exam-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
 .progress-area progress {
   width:90%;
   height:6px;
