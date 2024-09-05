@@ -1,5 +1,5 @@
 
-<div class="modal fade" id="modal-confirm-{{$id}}" tabindex="-1" role="dialog" aria-labelledby="Lablel-{{$id}}" aria-hidden="true">
+<div class="modal fade confirm-modal" id="modal-confirm-{{$id}}" tabindex="-1" role="dialog" aria-labelledby="Lablel-{{$id}}" aria-hidden="true">
     <div class="modal-dialog ">
         <div class="modal-content">
 
