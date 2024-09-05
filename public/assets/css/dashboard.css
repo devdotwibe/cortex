@@ -1501,3 +1501,13 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .lesson .lesson-row { padding-top: 56px;}
 
 }
+
+
+@media screen and (max-width:1199px) {
+.lesson .lesson-row-title h3 { font-size: 20px;}
+.lesson .lesson-row-title h4 { font-size: 20px;}
+.lesson .lesson-row { padding: 56px 20px 20px;}
+.lesson .lesson-row-title .lesson-line { font-size: 15px;}
+
+
+}
