@@ -410,6 +410,22 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::post('/{tip}/store', [CourseController::class, 'store'])->name('store');
         Route::get('/{tip}/edit', [CourseController::class, 'edit'])->name('edit'); // Ensure this route is defined
 
+        Route::post('/course', [CourseController::class, 'storesection1'])->name('section1');
+        // Store data for each tab
+        Route::post('/tab1', [CourseController::class, 'storeTab1'])->name('tab1.store');
+        Route::post('/tab2', [CourseController::class, 'storeTab2'])->name('tab2.store');
+        Route::post('/tab3', [CourseController::class, 'storeTab3'])->name('tab3.store');
+        Route::post('/tab4', [CourseController::class, 'storeTab4'])->name('tab4.store');
+
+
+
+        Route::post('/section3/tab1', [CourseController::class, 'storeSection3Tab1'])->name('section3.tab1.store');
+        Route::post('/section3/tab2', [CourseController::class, 'storeSection3Tab2'])->name('section3.tab2.store');
+        Route::post('/section3/tab3', [CourseController::class, 'storeSection3Tab3'])->name('section3.tab3.store');
+        Route::post('/section3/tab4', [CourseController::class, 'storeSection3Tab4'])->name('section3.tab4.store');
+        Route::post('/section3/tab5', [CourseController::class, 'storeSection3Tab5'])->name('section3.tab5.store');
+
+
         Route::get('/{tip}/edit_subfaq',[CourseController::class,'edit_subfaq'])->name('edit_subfaq');
         Route::post('update/{tip}',[CourseController::class,'update'])->name('update'); // Update route
 

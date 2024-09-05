@@ -1617,21 +1617,22 @@
         document.getElementById('addFeature').addEventListener('click', function () {
             featureIndex++;
 
-            let featureHTML = `
+
+        let featureHTML = `
                 <div class="feature-item mb-3">
                     <h4>Feature ${featureIndex}</h4>
 
                     <div class="form-group">
                         <label for="featuresubtitle${featureIndex}">Feature Heading</label>
-                        <input type="text" name="featuresubtitle[]" id="featuresubtitle${featureIndex}" class="form-control" placeholder="Feature Heading">
+                        <input type="text" name="featuresubtitleupdate[]" id="featuresubtitle${featureIndex}" class="form-control" placeholder="Feature Heading">
                     </div>
                     <div class="form-group">
                         <label for="featurecontent${featureIndex}">Feature Description</label>
-                        <textarea name="featurecontent[]" id="featurecontent${featureIndex}" class="form-control" rows="5" placeholder="Feature Description"></textarea>
+                        <textarea name="featurecontentupdate[]" id="featurecontent${featureIndex}" class="form-control" rows="5" placeholder="Feature Description"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="featureimage_${featureIndex}">Feature Image</label>
-                        <input type="file" name="featureimage[]" id="featureimage_${featureIndex}" class="form-control" onchange="previewFeatureImage(event)">
+                        <input type="file" name="featureimageupdate[]" id="featureimage_${featureIndex}" class="form-control" onchange="previewFeatureImage(event)">
                     </div>
                 </div>
             `;
