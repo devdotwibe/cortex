@@ -633,7 +633,7 @@ margin-left:auto;
   top: -3px;
 }
 
-.exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check input:checked {background: url(../images/check-icon.svg) no-repeat center;}
+.exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check input:checked {background: url(../images/check-icon.svg) no-repeat center; background-size: 100%;}
 
 .progress-area progress {
   width:90%;
