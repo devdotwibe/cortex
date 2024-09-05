@@ -25,7 +25,7 @@
                     <div class="col-md-6">                        
                         <div class="lesson-row">
                             <div class="lesson-row-title"> 
-                                <span>{{ $item->name }}</span>
+                                <h2>{{ $item->name }}</h2>
                             </div>
                             <div class="lesson-row-sets"> 
                                 @foreach ($item->setname as $sk=> $set)
