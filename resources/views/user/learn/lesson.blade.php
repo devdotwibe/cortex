@@ -1,7 +1,7 @@
 @extends('layouts.exam')
 @section('title', $exam->subtitle($category->id,"Module ".($category->getIdx()+1)).':'.$category->name)
 @section('content')
-<section class="exam-container">
+<section class="exam-container" id="exam-container">
     <div class="container-wrap">
         <div class="lesson">
             <a class="lesson-exit float-start" href="{{route('learn.show',$category->slug)}}">
@@ -91,6 +91,7 @@
             $.get(pageurl||"{{ route('learn.lesson.show',['category'=>$category->slug,'sub_category'=>$subCategory->slug]) }}",function(res){
                 $('.pagination-arrow').hide();
                 $('#lesson-footer-pagination').html('')
+                $('#exam-container').removeClass('exam-video')
                 const lesseonId=generateRandomId(10);
                 $.each(res.data,function(k,v){
 
@@ -99,7 +100,8 @@
                         if (vimeoid.includes('vimeo.com')) {
                             vimeoid =getVimeoId(vimeoid);
                         }
-                        var hash_parameter=
+                        // var hash_parameter=.
+                        $('#exam-container').addClass('exam-video')
                         $('#lesson-questionlist-list').html(`
                             <div class="col-md-12">
                                 <div class="video-row video-box" >
