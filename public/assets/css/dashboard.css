@@ -631,6 +631,7 @@ margin-left:auto;
   border: 1px solid;
   position: relative;
   top: -3px;
+  box-shadow: none;
 }
 
 .exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check input:checked {background: url(../images/check-icon.svg) no-repeat center; background-size: 100%;}
