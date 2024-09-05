@@ -1690,6 +1690,9 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .confirm-modal .modal-content .modal-body .btn.btn-secondary:hover { background: #8F8F8F; color: #fff;}
 
 
+.exam-container .container-wrap .lesson .lesson-body .mcq-container .image-area {max-width: 300px; width: 100%;  margin: 0 0 26px;}
+
+
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
 
