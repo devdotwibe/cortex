@@ -18,7 +18,7 @@
                     <x-ajax-import 
                         :url="route('admin.full-mock-exam.import',$exam->slug)" 
                         :fields='[ 
-                        ["name"=>"category","label"=>"Category"], 
+                        ["name"=>"category","label"=>"Topic"], 
                         ["name"=>"description","label"=>"Question"], 
                         ["name"=>"answer_1","label"=>"Option A"],
                         ["name"=>"answer_2","label"=>"Option B"],
