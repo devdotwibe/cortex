@@ -408,6 +408,7 @@ function delfaq(url) //delete main faq
 $('#table-delete-form').attr('action',url);
 $('#table_faq_delete').modal('show');
 
+
 }
 
 function delsubfaq(url) {
@@ -431,8 +432,16 @@ function delsubfaq(url) {
             success: function(response) {
                 // Hide the delete confirmation modal
                 $('#table_faq_delete').modal('hide');
-                
+                $('#subcategory')[0].reset();
                 // Show the next modal (replace 'nextModalId' with the actual ID of your next modal)
+                $('#table-subcategory-form-submit').text(' Submit ');
+
+            // Hide the cancel button
+            $('#table-subcategory-form-clear').hide();
+
+            // Clear the update state
+            $('#subcategory').data('save', ""); // Reset save data
+            $('#subcategory').attr('action', '{{route('admin.faq.subfaq-store')}}');
                 $('#subfaq').DataTable().ajax.reload();
                 
                // $('#sub-category-create-modal').modal('show');
@@ -451,7 +460,7 @@ function onDeleteSuccess() {
     $('#table_faq_delete').modal('hide');
     
     // Show the next modal (replace 'nextModalId' with the actual ID of your next modal)
-    $('#nextModalId').modal('show');
+    //$('#nextModalId').modal('show');
 
     // Optionally, you can refresh the data table or perform any other action needed here
 }
@@ -520,7 +529,7 @@ $('#table-subcategory-form-clear').on('click', function() {
 
     // Reset the save action and form action URL (optional, adjust according to your use case)
     $('#subcategory').data('save', "create");  // Revert to default save behavior (create mode)
-    $('#subcategory').attr('action', 'default_url');  // Reset to the default form action URL if needed
+    $('#subcategory').attr('action', '{{route('admin.faq.subfaq-store')}}');  // Reset to the default form action URL if needed
 
     // Hide the cancel button after cancellation
     $('#table-subcategory-form-clear').hide();

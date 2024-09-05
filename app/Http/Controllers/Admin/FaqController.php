@@ -15,7 +15,7 @@ class FaqController extends Controller
         if ($request->ajax()) {
 
             
-            $faq = FaqCategory::where('id','>',0);
+            $faq = FaqCategory::where('id','>',0)->orderBy('id', 'asc');
 
             return DataTables::of($faq)
 
