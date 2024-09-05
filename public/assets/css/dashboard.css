@@ -575,6 +575,54 @@ margin-left:auto;
   box-shadow: none;
 }
 
+#finish-exam-confirm .modal-content {
+  padding: 10px;
+}
+
+#finish-exam-confirm .modal-content .modal-header {
+  padding-bottom: 0;
+  border: none;
+}
+
+.modal-content p {
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0 0 20px;
+}
+
+#finish-exam-confirm .modal-dialog {
+  max-width: 425px;
+  top: 42%;
+  transform: translateY(-50%);
+}
+
+#finish-exam-confirm .modal-content .modal-header h5 {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+#finish-exam-confirm .modal-content .modal-body .btn.btn-dark {
+  width: 48%;
+  margin-right: 2%;
+}
+
+#finish-exam-confirm .modal-content .modal-body .btn.btn-secondary {
+  width: 48%;
+  border: 1px solid #8F8F8F;
+  background: none;
+  color: #000000;
+}
+
+#finish-exam-confirm .modal-content .modal-body .btn.btn-dark:hover {
+  background: none;
+  color: #000;
+}
+
+#finish-exam-confirm .modal-content .modal-body .btn.btn-secondary:hover {
+  background: #8F8F8F;
+  color: #fff;
+}
+
 .progress-area progress {
   width:90%;
   height:6px;
