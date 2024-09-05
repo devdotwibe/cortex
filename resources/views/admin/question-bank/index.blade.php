@@ -11,7 +11,7 @@
         </div>
     </div>
 </section>
-<section class="content_section" id="category-content-section">
+<section class="content_section category-section" id="category-content-section">
     <div class="container">
         <div class="row">
             @foreach ($categorys as $k=> $item)
@@ -39,7 +39,7 @@
     </div>
 </section>
 
-<section class="content_section" id="subcategory-content-section" style="display: none">
+<section class="content_section subcategory-section" id="subcategory-content-section" style="display: none">
     <div class="container">
         <div class="row" id="subcategory-list">
 
