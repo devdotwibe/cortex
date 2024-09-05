@@ -646,6 +646,12 @@ margin-left:auto;
   height: 68px;
 }
 
+.exam-container .container-wrap .lesson #lesson-footer-pagination {
+  width: 100%;
+  margin: 30px 0 0;
+  text-align: center;
+}
+
 .progress-area progress {
   width:90%;
   height:6px;
