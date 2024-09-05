@@ -102,12 +102,12 @@
                         var hash_parameter=
                         $('#lesson-questionlist-list').html(`
                             <div class="col-md-12">
-                                <div class="video-row" >
+                                <div class="video-row video-box" >
                                     <div class="video-title">
                                         <span>${v.title}</span>
                                     </div>
                                     <div class="video-container">
-                                        <div id="vimo-videoframe-${lesseonId}">
+                                        <div class="videoframe" id="vimo-videoframe-${lesseonId}">
                                             <iframe src="https://player.vimeo.com/video/${vimeoid}?byline=0&keyboard=0&dnt=1&app_id=${lesseonId}" width="100%" height="500" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" title="${v.title}" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                                         </div>
                                         <div class="forms-inputs">

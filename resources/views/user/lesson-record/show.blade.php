@@ -98,13 +98,13 @@
             if (videocontent.includes('youtube.com')||videocontent.match(/^[a-zA-Z0-9_-]{11}$/)) {
                 videocontent =getYoutubeId(videocontent);
                 $('#video-content-body').html(`
-                <div class="video-row" >
+                <div class="video-row video-box" >
 
                     <div class="video-title">
                         <span>${title}</span>
                     </div>
                     <div class="video-container">
-                        <div id="vimo-videoframe-${lesseonId}">
+                        <div class="videoframe" id="vimo-videoframe-${lesseonId}">
                             <iframe src="https://www.youtube.com/embed/${videocontent}?byline=0&keyboard=0&dnt=1&app_id=${lesseonId}" width="100%" height="500" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" title="${title}" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                         </div> 
                     </div>
@@ -113,12 +113,12 @@
             }else if (videocontent.includes('vimeo.com')||videocontent.match(/^\d{8,10}$/)) {
                 videocontent =getVimeoId(videocontent);
                 $('#video-content-body').html(`
-                <div class="video-row" >
+                <div class="video-row video-box" >
                     <div class="video-title">
                         <span>${title}</span>
                     </div>
                     <div class="video-container">
-                        <div id="vimo-videoframe-${lesseonId}">
+                        <div class="videoframe" id="vimo-videoframe-${lesseonId}">
                             <iframe src="https://player.vimeo.com/video/${videocontent}?byline=0&keyboard=0&dnt=1&app_id=${lesseonId}" width="100%" height="500" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" title="${title}" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                         </div> 
                     </div>
@@ -127,12 +127,12 @@
             }else{
                 
                 $('#video-content-body').html(`
-                <div class="video-row" >
+                <div class="video-row video-box" >
                     <div class="video-title">
                         <span>${title}</span>
                     </div>
                     <div class="video-container">
-                        <div id="vimo-videoframe-${lesseonId}">
+                        <div class="videoframe" id="vimo-videoframe-${lesseonId}">
                             <iframe src="${videocontent}" width="100%" height="500" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" title="${title}" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                         </div> 
                     </div>
