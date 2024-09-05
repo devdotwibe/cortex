@@ -1,7 +1,7 @@
 @extends('layouts.user')
 @section('title', $exam->subtitle($category->id,"Topic ".($category->getIdx()+1)).':'.$category->name)
 @section('content')
-<section class="container">
+<section class="container set-container">
     <div class="container-wrap">
         <div class="lesson">
             <div class="lesson-title">
