@@ -399,6 +399,7 @@ button.close {
   margin-top: 40px;
   padding: 50px 0;
   height: 100%;
+  min-height: 89vh;
 }
 .exam-container .container-wrap {
   width: 90%;
