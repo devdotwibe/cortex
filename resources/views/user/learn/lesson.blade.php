@@ -336,7 +336,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div id="note-${lesseonId}-answer">
+                                        <div class="note-currect" id="note-${lesseonId}-answer">
                                             <label>Correct Answer </label>
                                             ${v.short_answer}
                                         </div>
