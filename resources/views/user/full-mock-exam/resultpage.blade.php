@@ -2,7 +2,7 @@
 @section('title', 'Congratulation on Completing the '.$userExamReview->title)
 @section('content')  
 
-<section class="modal-expand modal-expand-result" id="question-complete-page" >
+<section class="modal-expand modal-expand-result modal-expand-result-section" id="question-complete-page" >
     <div class="container-wrap">
         <div class="result-preview">   
             <div class="result-preview-body">
