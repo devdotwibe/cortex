@@ -276,34 +276,34 @@
         <h3 class="highlight">FAQ</h3>
         <h2>Most Frequent Questions and Answers</h2>
         <div class="faq-row">
-
+            @php
+                $count = 0;
+            @endphp
+    
             @if(!empty($faq) && count($faq) > 0)
-            @foreach ($faq as $k => $item)
-
-            <h4><span>@if($k < 9){{'0'}}@endif{{$k+1}} </span> {{$item->name}}</h4>
-
-            @if(!empty($item->faqs) && count($item->faqs) > 0)
-
-                @foreach ($item->faqs as $k => $subitem)
-                <div class="accordion">
-
-                    <div class="accordion-row">
-                    <h5>{{$subitem->question}}</h5>
-                    <div class="accordion-content1">
-                        <p>{{$subitem->answer}}</p>
-                    </div>
-                    </div>
-
-
+                @foreach ($faq as $k => $item)
+                    @if(!empty($item->faqs) && count($item->faqs) > 0)
+                        @php
+                            $count++;
+                        @endphp
+                        <h4><span>@if($count < 10){{'0'}}@endif{{$count}} </span> {{$item->name}}</h4>
+    
+                        <div class="accordion">
+                            @foreach ($item->faqs as $subitem)
+                                <div class="accordion-row">
+                                    <h5>{{$subitem->question}}</h5>
+                                    <div class="accordion-content1">
+                                        <p>{{$subitem->answer}}</p>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
                 @endforeach
-            </div>
-            @endif
-
-         {{-- </div> --}}
-            @endforeach
             @endif
         </div>
     </div>
+    
 </section>
 <section class="learning-wrapp">
     <div class="container">

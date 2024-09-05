@@ -285,4 +285,8 @@ class HomeController extends Controller
             return redirect()->back()->with('error',$th->getMessage());
         }
     }
+
+    public function price(Request $request){
+        return view('price.index');
+    }
 }
