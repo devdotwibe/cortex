@@ -563,6 +563,11 @@ margin-left:auto;
   left: 0;
 }
 
+.exam-container.exam-video .container-wrap {
+  background: none;
+  box-shadow: none;
+}
+
 .progress-area progress {
   width:90%;
   height:6px;
