@@ -1693,6 +1693,16 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .exam-container .container-wrap .lesson .lesson-body .mcq-container .image-area {max-width: 300px; width: 100%;  margin: 0 0 26px;}
 
 
+.modal-expand.modal-expand-result-section { position: relative; top: 0; width: 100%; margin-top: 40px; padding: 50px 0; height: 100%; min-height: 95vh; background: no-repeat;}
+.modal-expand.modal-expand-result-section .container-wrap { width: 90%; float: none;  padding: 50px;  margin: 50px auto 0;  background: #ffff;  box-shadow: 4px 0px 16px 0px #0000000A;  border-radius: 10px;  max-width: 1320px;}
+.modal-expand.modal-expand-result-section .question-preview-title h3 {  font-size: 22px;  font-weight: 500;  color: #1989F8;  padding: 20px 0;}
+.modal-expand.modal-expand-result-section .exam-result .exam-result-content .exam-mark-title {  background: #EEEEEE;}
+.modal-expand.modal-expand-result-section .exam-result .exam-result-content .card {  margin: 0  0 20px;}
+.modal-expand.modal-expand-result-section .exam-result .exam-result-content p {  margin: 0 0 20px;}
+.modal-expand.modal-expand-result-section .exam-result .exam-result-content .exam-mark-bottom a#review-link { background: #ECB301;  color: #fff;  border: 1px solid #ECB301;  font-size: 20px;}
+.modal-expand.modal-expand-result-section .exam-result .exam-result-content .exam-mark-bottom a#review-link:hover {  color: #ECB301;  background: none;}
+
+
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
 
