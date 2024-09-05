@@ -642,6 +642,10 @@ margin-left:auto;
 
 .exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check input:checked {background: url(../images/check-icon.svg) no-repeat center; background-size: 100%;}
 
+.exam-container .container-wrap .lesson .lesson-body .note-row .forms-inputs input {
+  height: 68px;
+}
+
 .progress-area progress {
   width:90%;
   height:6px;
