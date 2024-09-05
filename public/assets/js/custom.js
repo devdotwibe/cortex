@@ -35,3 +35,11 @@ $(document).ready(function() {
         }
     });
 });
+
+$('.sidebar-toggle').on('click', function(e){
+    $('.side_bar').toggleClass('show');
+    $(this).toggleClass('active');
+    e.preventDefault();
+});
+
+
