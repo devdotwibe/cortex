@@ -45,6 +45,7 @@ Route::get('/db-seed', function () {
 });
 
 Route::get('/', [HomeController::class, 'index']);
+Route::get('/price', [HomeController::class, 'price'])->name('price.index');
 
 Route::get('d0/{avathar}/{name}', [DocumentController::class, 'getuploadedFiles'])->name('file.view');
 Route::get('/d0/{avathar}/{name}/download', [DocumentController::class, 'downloaduploadedFiles'])->name('file.download');
@@ -224,6 +225,8 @@ Route::middleware(['auth', 'isUser'])->group(function () {
 
 
     });
+
+    
 
 });
 
