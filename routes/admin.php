@@ -327,6 +327,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::post('/section5', [PagesController::class, 'storeSection5'])->name('section4');
         Route::post('/section6', [PagesController::class, 'storeSection6'])->name('section5');
         Route::post('/section8', [PagesController::class, 'storeSection8'])->name('section6');
+        Route::post('/section9', [PagesController::class, 'storeSection9'])->name('section7');
         Route::get('/{setname}/edit', [PagesController::class, 'edit'])->name('edit');
         Route::put('/{setname}', [PagesController::class, 'update'])->name('update');
         Route::get('/{setname}', [PagesController::class, 'show'])->name('show');
