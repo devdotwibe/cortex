@@ -31,6 +31,8 @@ use App\Http\Controllers\Admin\PostReportController;
 use App\Http\Controllers\Admin\SubscribeUsersController;
 use App\Http\Controllers\Admin\UserAccessController;
 use App\Http\Controllers\Admin\TipsController;
+use App\Http\Controllers\Admin\PriceController;
+
 use Illuminate\Support\Facades\Route;
 
 
@@ -414,7 +416,9 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::delete('del/{tip}',[CourseController::class,'del_tip'])->name('del_tip');
     });
 
-
+    Route::prefix('price')->name('price.')->group(function () {
+        Route::get('/',[PriceController::class,'index'])->name('index');
+    });
 
 
 
