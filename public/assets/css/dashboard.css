@@ -652,6 +652,19 @@ margin-left:auto;
   text-align: center;
 }
 
+.exam-container .container-wrap .lesson .lesson-body .note-currect {
+  width: 100%;
+  font-size: 20px;
+  line-height: 1.5;
+  margin: 33px 0 20px;
+}
+
+.exam-container .container-wrap .lesson .lesson-body .note-currect label {
+  font-weight: 500;
+  display: block;
+  margin: 0 0 15px;
+}
+
 .progress-area progress {
   width:90%;
   height:6px;
