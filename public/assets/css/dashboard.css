@@ -548,7 +548,7 @@ margin-left:auto;
 .exam-container .container-wrap .lesson .lesson-body .note-title {
   font-size: 20px;
   font-weight: 600;
-  margin: 0 0 10px;
+  margin: 0 0 20px;
 }
 
 .exam-container .container-wrap .lesson .lesson-body p {
@@ -556,6 +556,13 @@ margin-left:auto;
   line-height: 1.5;
   margin: 0 0 20px;
 }
+
+.exam-container .container-wrap .lesson .lesson-body h2 {
+  font-size: 20px;
+  line-height: 1.5;
+  margin: 0 0 12px;
+}
+
 
 .exam-footer {
   position: fixed;
