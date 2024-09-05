@@ -17,30 +17,17 @@ class PagesController extends Controller
     {
         $banner = Banner::first();
 
-        $feature = Feature::get();
+        $features = Feature::get();
 
         $courses = Course::first();
 
         $feed = Feed::get();
 
 
-        return view('admin.pages.home', compact('banner','feature','courses','feed'));
+        return view('admin.pages.home', compact('banner','features','courses','feed'));
     }
 
-    // public function store(Request $request)
-    // {
-    //     // Determine which section's form was submitted
-    //     $action = $request->input('action');
 
-    //     if ($action == 'save') {
-    //         $this->saveSection1($request);
-    //     } elseif ($action == 'submit') {
-    //         $this->storeSection2($request);
-    //     }
-
-    //     // Redirect back to the home page with a success message
-    //     return redirect()->route('admin.page.index')->with('success', 'Success.');
-    // }
 
     public function store(Request $request)
     {
@@ -51,7 +38,9 @@ class PagesController extends Controller
             'content' => 'required|nullable|string',
             'buttonlabel' => 'required|nullable|string|max:255',
             'buttonlink' => 'required|nullable|string|max:255',
-            'image' => 'nullable|image|max:2048', // Validate image
+            // 'image' => 'nullable|image|max:2048', // Validate image
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048',
+
         ]);
 
         $banner = Banner::first();
@@ -87,16 +76,16 @@ class PagesController extends Controller
             'guaranteetitle' => 'required|string|max:255',
             'learntitle' => 'required|string|max:255',
 
-            'learnimage' => 'nullable|image|max:2048',
+            'learnimage' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048',
             'learncontent' => 'required|nullable|string',
             'practisetitle' => 'required|nullable|string|max:255',
-            'practiseimage' => 'nullable|image|max:2048',
+            'practiseimage' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048',
             'practisecontent' => 'required|nullable|string',
             'preparetitle' => 'required|nullable|string|max:255',
-            'prepareimage' => 'nullable|image|max:2048',
+            'prepareimage' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048',
             'preparecontent' => 'required|nullable|string',
             'reviewtitle' => 'required|nullable|string|max:255',
-            'reviewimage' => 'nullable|image|max:2048',
+            'reviewimage' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048',
             'reviewcontent' => 'required|nullable|string',
             // Add validation for other fields here
         ]);
@@ -153,26 +142,23 @@ class PagesController extends Controller
     public function storeSection3(Request $request)
     {
         // Validate the request data for Section 3
-        $request->validate([
 
-            'featuresubtitle.*' => 'required|nullable|string|max:255',
-            'featurecontent.*' => 'required|nullable|string',
-            'featureimage.*' => 'required|nullable|image|max:2048', // Validate image
+        $request->validate([
             'FeatureHeading' => 'required|nullable|max:255',
 
 
             'featuresubtitleupdate.*' => 'required|nullable|string',
-            'featurecontentupdate.*' => 'required|nullable|image|max:2048', // Validate image
-            'featureimageupdate' => 'required|nullable|max:255',
+            'featurecontentupdate.*' => 'required|nullable|max:255',
+            'featureimageupdate.*' => 'required|nullable|image|max:2048', // Validate image
 
         //  ,['featuresubtitleupdate.*.required' =>'this field is required.']);
 
 
         ], [
 
-            'featuresubtitleupdate.*.required' => 'The feature subtitle update field is required.',
-            'featurecontentupdate.*.required' => 'The feature content update field is required.',
-            // 'featureimageupdate.required' => 'The feature image update field is required.',
+            'featuresubtitleupdate.*.required' => 'The feature subtitle  field is required.',
+            'featurecontentupdate.*.required' => 'The feature content field is required.',
+            'featureimageupdate.required' => 'The feature image field is required.',
         ]);
 
 
@@ -184,8 +170,6 @@ class PagesController extends Controller
             $banner =new Banner;
         }
         $banner->FeatureHeading = $request->input('FeatureHeading'); // Save Feature Top Heading
-
-
 
 
         $banner->save();
@@ -219,6 +203,7 @@ class PagesController extends Controller
 
         }
 
+
         $featuresubtitles = $request->input('featuresubtitleupdate', []);
         $featurecontents = $request->input('featurecontentupdate', []);
         $featureimages = $request->file('featureimageupdate', []);
@@ -233,6 +218,8 @@ class PagesController extends Controller
 
             if(!empty($featureids[$key]))
             {
+
+
 
                 $feature =Feature::find($featureids[$key]);
 
@@ -252,6 +239,7 @@ class PagesController extends Controller
                 array_push($feaids,$feature->id);
 
             }else{
+
 
                 $feature = new Feature;
 
@@ -308,35 +296,6 @@ class PagesController extends Controller
 
 
 
-
-
-
-
-
-    // public function storeSection4(Request $request)
-    // {
-    //     // Validate the request data for Section 3
-    //     $request->validate([
-    //         'FeatureHeading' => 'nullable|max:255',
-    //     ]);
-
-    //     $banner = Banner::first();
-
-    //     if(empty($banner))
-    //     {
-    //         $banner =new Banner;
-    //     }
-    //     $banner->FeatureHeading = $request->input('FeatureHeading'); // Save Feature Top Heading
-
-
-
-
-    //     $banner->save();
-
-    //     return redirect()->route('admin.page.index')->with('success', 'Section 4 data has been successfully saved.');
-    // }
-
-
     public function storeSection5(Request $request)
     {
         // Validate the request data for Section 4
@@ -348,7 +307,7 @@ class PagesController extends Controller
             'subtitle3' => 'required|nullable|string|max:255',
             'excelbuttonlabel' => 'required|nullable|string|max:255',
             'excelbuttonlink' => 'required|nullable|string|max:255',
-            'excelimage' => 'nullable|image|max:2048', // Validate image
+            'excelimage' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048',
 
         ]);
 
@@ -397,7 +356,7 @@ class PagesController extends Controller
         'coursecontent4' => 'required|nullable|string',
         'coursebuttonlabel' => 'required|nullable|string|max:255',
         'coursebuttonlink' => 'required|nullable|string|max:255',
-        'courseimage' => 'nullable|image|max:2048', // Validate image
+        'courseimage' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048',
     ]);
 
     $courses = Course::first();
@@ -432,43 +391,29 @@ class PagesController extends Controller
 
 
 
-// public function storeSection7(Request $request)
-// {
-//     // Validate the request data for Section 6
-//     $request->validate([
-//         'studenttitle' => 'nullable|string|max:255',
-//         'studentsubtitle' => 'nullable|string|max:255',
-//     ]);
-
-
-//     $courses = Course::first();
-
-//     if (empty($courses)) {
-//         $courses = new Course;
-//     }
-
-
-//     $courses->studenttitle = $request->input('studenttitle');
-//     $courses->studentsubtitle = $request->input('studentsubtitle');
-
-//     $courses->save();
-
-//     return redirect()->route('admin.page.index')->with('success', 'Section 6 data has been successfully saved.');
-// }
-
-
 
 public function storeSection8(Request $request)
 {
     // Validate the request data for Section 8
     $request->validate([
-        'name.*' => 'nullable|string|max:255',
-        'starrating.*' => 'nullable|string',
-        'review.*' => 'nullable|string',
-        'image.*' => 'nullable|image',
+
         'studenttitle' => 'nullable|string|max:255',
         'studentsubtitle' => 'nullable|string|max:255',
+
+        'nameupdate.*' => 'required|string|max:255',
+        'starratingupdate.*' => 'required|string',
+        'reviewupdate.*' => 'required|string',
+        'imageupdate.*' => 'required|image|max:2048',
+
+
+    ], [
+
+        'nameupdate.*.required' => 'The name  field is required.',
+        'starratingupdate.*.required' => 'The star rating field is required.',
+        'reviewupdate.required' => 'The review field is required.',
+        'imageupdate.required' => 'The image field is required.',
     ]);
+
 
 
 
@@ -574,6 +519,78 @@ if ($feed) {
 return response()->json(['success' => false], 404);
 }
 
+
+
+
+
+public function storeSection9(Request $request)
+{
+
+
+
+    // Validate the request data for Section 9
+    $request->validate([
+        'analyticsimage' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048',
+        'analyticstitle' => 'required|string|max:255',
+        'analyticscontent' => 'required|nullable|string',
+        'anytimeimage' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048',
+        'anytimetitle' => 'required|required|string|max:255',
+        'anytimedescription' => 'required|nullable|string',
+        'unlimitedimage' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048',
+        'unlimitedtitle' => 'required|string|max:255',
+        'unlimitedcontent' => 'required|nullable|string',
+        'liveimage' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048',
+        'livetitle' => 'required|required|string|max:255',
+        'livecontent' => 'required|nullable|string',
+    ]);
+
+    // Retrieve the first banner or create a new one if none exists
+    $banner = Banner::first();
+
+    if (empty($banner)) {
+        $banner = new Banner;
+    }
+
+    // Assign values from the request to the banner
+    $banner->analytics_title = $request->input('analyticstitle');
+    $banner->analytics_content = $request->input('analyticscontent');
+    $banner->anytime_title = $request->input('anytimetitle');
+    $banner->anytime_description = $request->input('anytimedescription');
+    $banner->unlimited_title = $request->input('unlimitedtitle');
+    $banner->unlimited_content = $request->input('unlimitedcontent');
+    $banner->live_title = $request->input('livetitle');
+    $banner->live_content = $request->input('livecontent');
+
+    // Handle file uploads
+    if ($request->hasFile('analyticsimage')) {
+        $analyticsImageName = "banner/" . $request->file('analyticsimage')->hashName();
+        Storage::put('banner', $request->file('analyticsimage'));
+        $banner->analytics_image = $analyticsImageName;
+    }
+
+    if ($request->hasFile('anytimeimage')) {
+        $anytimeImageName = "banner/" . $request->file('anytimeimage')->hashName();
+        Storage::put('banner', $request->file('anytimeimage'));
+        $banner->anytime_image = $anytimeImageName;
+    }
+
+    if ($request->hasFile('unlimitedimage')) {
+        $unlimitedImageName = "banner/" . $request->file('unlimitedimage')->hashName();
+        Storage::put('banner', $request->file('unlimitedimage'));
+        $banner->unlimited_image = $unlimitedImageName;
+    }
+
+    if ($request->hasFile('liveimage')) {
+        $liveImageName = "banner/" . $request->file('liveimage')->hashName();
+        Storage::put('banner', $request->file('liveimage'));
+        $banner->live_image = $liveImageName;
+    }
+
+    // Save the banner
+    $banner->save();
+
+    return redirect()->route('admin.page.index')->with('success', 'Section 7 data has been successfully saved.');
+}
 
 
 

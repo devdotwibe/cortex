@@ -28,14 +28,18 @@
         <a class="nav-link @if(old('section') == 'section3') active @endif" id="section3-tab" data-bs-toggle="tab" href="#section3" role="tab" aria-controls="section3" aria-selected="@if(old('section') == 'section3') true @else false @endif">Section 3</a>
     </li>
     <li class="nav-item" role="presentation">
-        <a class="nav-link @if(old('section') == 'section4') active @endif" id="section4-tab" data-bs-toggle="tab" href="#section4" role="tab" aria-controls="section4" aria-selected="@if(old('section') == 'section4') true @else false @endif">Section 4</a>
+        <a class="nav-link @if(old('section') == 'section7') active @endif" id="section7-tab" data-bs-toggle="tab" href="#section7" role="tab" aria-controls="section7" aria-selected="@if(old('section') == 'section7') true @else false @endif">Section 4</a>
     </li>
     <li class="nav-item" role="presentation">
-        <a class="nav-link @if(old('section') == 'section5') active @endif" id="section5-tab" data-bs-toggle="tab" href="#section5" role="tab" aria-controls="section5" aria-selected="@if(old('section') == 'section5') true @else false @endif">Section 5</a>
+        <a class="nav-link @if(old('section') == 'section4') active @endif" id="section4-tab" data-bs-toggle="tab" href="#section4" role="tab" aria-controls="section4" aria-selected="@if(old('section') == 'section4') true @else false @endif">Section 5</a>
     </li>
     <li class="nav-item" role="presentation">
-        <a class="nav-link @if(old('section') == 'section6') active @endif" id="section6-tab" data-bs-toggle="tab" href="#section6" role="tab" aria-controls="section6" aria-selected="@if(old('section') == 'section6') true @else false @endif">Section 6</a>
+        <a class="nav-link @if(old('section') == 'section5') active @endif" id="section5-tab" data-bs-toggle="tab" href="#section5" role="tab" aria-controls="section5" aria-selected="@if(old('section') == 'section5') true @else false @endif">Section 6</a>
     </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link @if(old('section') == 'section6') active @endif" id="section6-tab" data-bs-toggle="tab" href="#section6" role="tab" aria-controls="section6" aria-selected="@if(old('section') == 'section6') true @else false @endif">Section 7</a>
+    </li>
+
 </ul>
 
 
@@ -442,12 +446,28 @@
 
                         @php
 
+                            $feature =[];
 
+                            if(count(old('featuresubtitleupdate',[]))>0)
+                            {
+                                $feature = old('featuresubtitleupdate',[]);
+                            }
+
+                            if(count(old('featurecontentupdate',[]))>0)
+                            {
+                                $feature = old('featurecontentupdate',[]);
+                            }
+
+                            if(count(old('featureimageupdate',[]))>0)
+                            {
+                                $feature = old('featureimageupdate',[]);
+                            }
 
                         @endphp
 
-                            @if(count(old('featuresubtitleupdate',[]))>0)
-                        @foreach (old('featuresubtitleupdate',[]) as $k=> $item)
+                            @if(count($feature)>0 && isset($feature))
+
+                        @foreach ($feature as $k=> $item)
 
                                     <div class="outer-feature" id="close-{{$k }}">
 
@@ -468,14 +488,16 @@
                                             </div>
                                         </div>
 
-                                        <!-- Feature Content -->
+
+
+
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
                                                         <label for="featurecontent">Feature Description</label>
-                                                        <textarea name="featurecontentupdate[]" class="form-control" rows="5" placeholder="Feature Description"></textarea>
-                                                        @error('featurecontent')
+                                                        <textarea name="featurecontentupdate[]" class="form-control" rows="5" placeholder="Feature Description">{{ old('featurecontentupdate.' . $k) }}</textarea>
+                                                        @error('featurecontentupdate.' . $k)
                                                             <div class="text-danger">{{ $message }}</div>
                                                         @enderror
                                                     </div>
@@ -483,39 +505,37 @@
                                             </div>
                                         </div>
 
-{{-- <!-- Feature Content -->
+
+
+
+
+
+                                        <!-- Feature Image -->
 <div class="col-md-12">
     <div class="form-group">
         <div class="form-data">
             <div class="forms-inputs mb-4">
-                <label for="featurecontent">Feature Description</label>
-                <textarea name="featurecontentupdate[]" class="form-control" rows="5" placeholder="Feature Description">{{ old('featurecontentupdate.' . $k) }}</textarea>
-                @error('featurecontentupdate.' . $k)
+                <label for="featureimage">Feature Image</label>
+                <input type="hidden" name="featureids[]" value="{{ old('featureids.' . $k, $item->id ?? '') }}">
+                <input type="file" name="featureimageupdate[]" class="form-control" onchange="previewFeatureImage(event)">
+
+                @if(!empty($item->image))
+                    <img src="{{ asset('path/to/images/' . $item->image) }}" alt="Feature Image" style="max-width: 100px; margin-top: 10px;" id="imagePreview_{{ $k }}">
+                @else
+                    <img src="#" alt="Feature Image" style="max-width: 100px; margin-top: 10px; display: none;" id="imagePreview_{{ $k }}">
+                @endif
+
+                @error('featureimageupdate.' . $k)
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
             </div>
         </div>
     </div>
-</div> --}}
+</div>
 
-                                       <!-- Feature Image -->
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <div class="form-data">
-                                                    <div class="forms-inputs mb-4">
-                                                        <label for="featureimage">Feature Image</label>
-                                                        <input type="hidden" name="featureids[]" value="">
-                                                        <input type="file" name="featureimageupdate[]" class="form-control" onchange="previewFeatureImage(event)">
-                                                        @if(!empty($item->image))
-                                                            <img src="" alt="Feature Image" style="max-width: 100px; margin-top: 10px;">
-                                                        @endif
-                                                        @error('featureimage')
-                                                            <div class="text-danger">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+
+
+
 
 
 
@@ -527,9 +547,9 @@
 
                                     @endforeach
 
-                            @elseif(!empty($feature) && count($feature) > 0)
+                            @elseif(!empty($features) && count($features) > 0)
 
-                                @foreach ($feature as $k => $item)
+                                @foreach ($features as $k => $item)
 
                                     <div class="outer-feature" id="close-{{$item->id}}">
 
@@ -658,6 +678,230 @@
                     </div>
                 </div>
             </div>
+
+
+
+
+
+
+
+
+
+
+
+            <div class="tab-pane fade @if(old('section')=='section7') show active @endif" id="section7" role="tabpanel" aria-labelledby="section7-tab">
+                <div class="row">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="{{ route('admin.page.section7') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <div class="row">
+
+                                    <!-- Analytics Section -->
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="analyticstitle">Analytics Title</label>
+                                            <input type="text" name="analyticstitle" id="analyticstitle" value="{{ old('analyticstitle', optional($banner)->analytics_title) }}" class="form-control" placeholder="Analytics Title">
+                                            @error('analyticstitle')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="analyticsimage">Analytics Image</label>
+                                            <input type="file" name="analyticsimage" id="analyticsimage" class="form-control" onchange="previewImage(event, 'analyticsImagePreview')">
+                                            @error('analyticsimage')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+
+
+
+
+
+
+
+                                        <div class="form-group">
+                                            <label for="analyticsImagePreview">Analytics Image Preview</label>
+                                            <div id="analyticsImagePreviewContainer" style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
+                                                @if(isset($banner) && $banner->analytics_image)
+                                                    <img id="analyticsImagePreview" src="{{ url('d0/'.$banner->analytics_image) }}" alt="Analytics Image Preview" style="width: 100%; height: auto;">
+                                                @else
+                                                    <img id="analyticsImagePreview" src="#" alt="Analytics Image Preview" style="display: none; width: 100%; height: auto;">
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="analyticscontent">Analytics Content</label>
+                                            <textarea name="analyticscontent" id="analyticscontent" class="form-control" rows="5">{{ old('analyticscontent', optional($banner)->analytics_content) }}</textarea>
+                                            @error('analyticscontent')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <!-- Anytime Section -->
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="anytimetitle">Anytime Title</label>
+                                            <input type="text" name="anytimetitle" id="anytimetitle" value="{{ old('anytimetitle', optional($banner)->anytime_title) }}" class="form-control" placeholder="Anytime Title">
+                                            @error('anytimetitle')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="anytimeimage">Anytime Image</label>
+                                            <input type="file" name="anytimeimage" id="anytimeimage" class="form-control" onchange="previewImage(event, 'anytimeImagePreview')">
+                                            @error('anytimeimage')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="anytimeImagePreview">Anytime Image Preview</label>
+                                            <div id="anytimeImagePreviewContainer" style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
+                                                @if(isset($banner) && $banner->anytime_image)
+                                                    <img id="anytimeImagePreview" src="{{ url('d0/'.$banner->anytime_image) }}" alt="Anytime Image Preview" style="width: 100%; height: auto;">
+                                                @else
+                                                    <img id="anytimeImagePreview" src="#" alt="Anytime Image Preview" style="display: none; width: 100%; height: auto;">
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="anytimedescription">Anytime Description</label>
+                                            <textarea name="anytimedescription" id="anytimedescription" class="form-control" rows="5">{{ old('anytimedescription', optional($banner)->anytime_description) }}</textarea>
+                                            @error('anytimedescription')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <!-- Unlimited Section -->
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="unlimitedtitle">Unlimited Title</label>
+                                            <input type="text" name="unlimitedtitle" id="unlimitedtitle" value="{{ old('unlimitedtitle', optional($banner)->unlimited_title) }}" class="form-control" placeholder="Unlimited Title">
+                                            @error('unlimitedtitle')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="unlimitedimage">Unlimited Image</label>
+                                            <input type="file" name="unlimitedimage" id="unlimitedimage" class="form-control" onchange="previewImage(event, 'unlimitedImagePreview')">
+                                            @error('unlimitedimage')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="unlimitedImagePreview">Unlimited Image Preview</label>
+                                            <div id="unlimitedImagePreviewContainer" style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
+                                                @if(isset($banner) && $banner->unlimited_image)
+                                                    <img id="unlimitedImagePreview" src="{{ url('d0/'.$banner->unlimited_image) }}" alt="Unlimited Image Preview" style="width: 100%; height: auto;">
+                                                @else
+                                                    <img id="unlimitedImagePreview" src="#" alt="Unlimited Image Preview" style="display: none; width: 100%; height: auto;">
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="unlimitedcontent">Unlimited Content</label>
+                                            <textarea name="unlimitedcontent" id="unlimitedcontent" class="form-control" rows="5">{{ old('unlimitedcontent', optional($banner)->unlimited_content) }}</textarea>
+                                            @error('unlimitedcontent')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <!-- Live Section -->
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="livetitle">Live Title</label>
+                                            <input type="text" name="livetitle" id="livetitle" value="{{ old('livetitle', optional($banner)->live_title) }}" class="form-control" placeholder="Live Title">
+                                            @error('livetitle')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="liveimage">Live Image</label>
+                                            <input type="file" name="liveimage" id="liveimage" class="form-control" onchange="previewImage(event, 'liveImagePreview')">
+                                            @error('liveimage')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="liveImagePreview">Live Image Preview</label>
+                                            <div id="liveImagePreviewContainer" style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
+                                                @if(isset($banner) && $banner->live_image)
+                                                    <img id="liveImagePreview" src="{{ url('d0/'.$banner->live_image) }}" alt="Live Image Preview" style="width: 100%; height: auto;">
+                                                @else
+                                                    <img id="liveImagePreview" src="#" alt="Live Image Preview" style="display: none; width: 100%; height: auto;">
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="livecontent">Live Content</label>
+                                            <textarea name="livecontent" id="livecontent" class="form-control" rows="5">{{ old('livecontent', optional($banner)->live_content) }}</textarea>
+                                            @error('livecontent')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <div class="col-md-12 mb-3">
+                                        <button type="submit" class="btn btn-primary" name="section" value="section7">Save</button>
+                                    </div>
+
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1033,7 +1277,143 @@
                             </div>
                         </div>
 
-                        @if(!empty($feed) && count($feed) > 0)
+
+
+
+                        @php
+
+                            $stud =[];
+
+                            if(count(old('nameupdate',[]))>0)
+                            {
+                                $stud = old('nameupdate',[]);
+                            }
+
+                            if(count(old('starratingupdate',[]))>0)
+                            {
+                                $stud = old('starratingupdate',[]);
+                            }
+
+                            if(count(old('reviewupdate',[]))>0)
+                            {
+                                $stud = old('reviewupdate',[]);
+                            }
+                            if(count(old('imageupdate',[]))>0)
+                            {
+                                $stud = old('imageupdate',[]);
+                            }
+                        @endphp
+
+
+                        @if(count($stud)>0 && isset($stud))
+
+                        @foreach ($stud as $k=> $item)
+
+                         <div class="outer-feature" id="close-{{$k }}">
+
+
+
+
+
+
+                                   <!-- Name -->
+<div class="col-md-12">
+    <div class="form-group">
+        <div class="form-data">
+            <div class="forms-inputs mb-4">
+                <label for="name">Name</label>
+                <input type="text" name="nameupdate[]" class="form-control" placeholder="Name" value="{{ old('nameupdate.' . $k, $item->name ?? '') }}">
+                @error('nameupdate.' . $k)
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="form-group">
+    <div class="form-data">
+        <div class="forms-inputs mb-4">
+            <label for="starrating">Star Rating</label>
+            <select name="starratingupdate[]" class="form-control">
+                <option value="1" {{ old('starratingupdate.' . $k, $item->starrating ?? '') == 1 ? 'selected' : '' }}>1</option>
+                <option value="2" {{ old('starratingupdate.' . $k, $item->starrating ?? '') == 2 ? 'selected' : '' }}>2</option>
+                <option value="3" {{ old('starratingupdate.' . $k, $item->starrating ?? '') == 3 ? 'selected' : '' }}>3</option>
+                <option value="4" {{ old('starratingupdate.' . $k, $item->starrating ?? '') == 4 ? 'selected' : '' }}>4</option>
+                <option value="5" {{ old('starratingupdate.' . $k, $item->starrating ?? '') == 5 ? 'selected' : '' }}>5</option>
+            </select>
+            @error('starratingupdate.' . $k)
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+                                    <!-- Review -->
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div class="form-data">
+                                                <div class="forms-inputs mb-4">
+                                                    <label for="review">Review</label>
+                                                    <textarea name="reviewupdate[]" class="form-control" rows="5" placeholder="Review">{{ old('reviewupdate.' . $k, $item->review ?? '') }}</textarea>
+                                                    @error('reviewupdate.' . $k)
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Image -->
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div class="form-data">
+                                                <div class="forms-inputs mb-4">
+                                                    <label for="image">Image</label>
+
+                                                    <input type="file" name="imageupdate[]" class="form-control" onchange="previewFeatureImage(event)">
+
+                                                    @error('imageupdate.' . $k)
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+
+
+
+
+                                    <button type="button" class="btn btn-danger" onclick="removeDiv(this, 'close-{{$k}}')" data-feature-id="{{$k}}">X</button>
+
+                                </div>
+
+                                @endforeach
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        @elseif(!empty($feed) && count($feed) > 0)
                             @foreach ($feed as $k => $item)
                                 <div class="outer-feature" id="closefeed-{{$item->id}}">
                                     <!-- Name -->
@@ -1047,23 +1427,6 @@
                                         </div>
                                     </div>
 
-
-{{--
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="starrating">Star Rating</label>
-                                            <select name="starratingupdate[]" class="form-control">
-                                                <option value="1" {{ $item->starrating == 1 ? 'selected' : '' }}>1</option>
-                                                <option value="2" {{ $item->starrating == 2 ? 'selected' : '' }}>2</option>
-                                                <option value="3" {{ $item->starrating == 3 ? 'selected' : '' }}>3</option>
-                                                <option value="4" {{ $item->starrating == 4 ? 'selected' : '' }}>4</option>
-                                                <option value="5" {{ $item->starrating == 5 ? 'selected' : '' }}>5</option>
-                                            </select>
-                                            @error('starrating')
-                                                <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                    </div> --}}
 
 
 
@@ -1130,6 +1493,10 @@
                             </div>
 
 
+
+
+
+
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="starrating">Star Rating</label>
@@ -1140,13 +1507,25 @@
                                 </div>
                             </div>
 
-
-
+{{--
+                            <div class="form-group">
+                                <label for="starrating">Star Rating</label>
+                                <select name="starrating[]" class="form-control">
+                                    <option value="1" {{ $item->starrating == 1 ? 'selected' : '' }}>1</option>
+                                    <option value="2" {{ $item->starrating == 2 ? 'selected' : '' }}>2</option>
+                                    <option value="3" {{ $item->starrating == 3 ? 'selected' : '' }}>3</option>
+                                    <option value="4" {{ $item->starrating == 4 ? 'selected' : '' }}>4</option>
+                                    <option value="5" {{ $item->starrating == 5 ? 'selected' : '' }}>5</option>
+                                </select>
+                                @error('starrating')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div> --}}
 
 
 
                <!-- Default Review Field -->
-                            <div class="col-md-12">
+                            {{-- <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="review">Review</label>
                                     <textarea name="review[]" class="form-control" rows="5" placeholder="Review"></textarea>
@@ -1154,13 +1533,38 @@
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
+                            </div> --}}
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="review">Review</label>
+                                    <textarea name="review[]" class="form-control" rows="5" placeholder="Review">{{ $item->review }}</textarea>
+                                    @error('review')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
 
                             <!-- Default Image Field -->
-                            <div class="col-md-12">
+                            {{-- <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="image">Image</label>
                                     <input type="file" name="image[]" class="form-control" onchange="previewFeatureImage(event)">
+                                    @error('image')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div> --}}
+
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="image">Image</label>
+                                    <input type="hidden" name="feedids[]" value="{{$item->id}}">
+                                    <input type="file" name="image[]" class="form-control" onchange="previewFeatureImage(event)">
+                                    @if(!empty($item->image))
+                                        <img src="{{ url('d0/' . $item->image) }}" alt="Image" style="max-width: 100px; margin-top: 10px;">
+                                    @endif
                                     @error('image')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -1279,11 +1683,20 @@ document.addEventListener('DOMContentLoaded', function () {
                     <input type="text" name="name[]" id="name${feedIndex}" class="form-control" placeholder="Name">
                 </div>
 
+
+
                 <!-- Star Rating Field -->
-                <div class="form-group">
-                    <label for="starrating${feedIndex}">Star Rating</label>
-                    <input type="text" name="starrating[]" id="starrating${feedIndex}" class="form-control" placeholder="Star Rating">
-                </div>
+<div class="form-group">
+    <label for="starrating${feedIndex}">Star Rating</label>
+    <select name="starrating[]" id="starrating${feedIndex}" class="form-control">
+        <option value="1" selected>1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select>
+</div>
+
 
                 <!-- Review Field -->
                 <div class="form-group">
@@ -1340,8 +1753,30 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 </script>
 
+<script>
+    function previewanalyticsImage(event) {
+        var reader = new FileReader();
+        reader.onload = function(){
+            var output = document.getElementById('analyticsImagePreview');
+            output.src = reader.result;
+            output.style.display = 'block';
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>
 
 
+<script>
+    function previewanytimeImage(event) {
+        var reader = new FileReader();
+        reader.onload = function(){
+            var output = document.getElementById('anytimeImagePreview');
+            output.src = reader.result;
+            output.style.display = 'block';
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>
 
 @endsection
 

@@ -212,31 +212,60 @@
         <div class="features-row">
             <div class="features-box">
                 <div class="features-icon">
-                    <img src="{{ asset('app/images/feature1.svg') }}" alt="Feature 1">
+
+                    @if (!empty($banner->analytics_image))
+                    <img src="{{ url('d0/' . $banner->analytics_image) }}" alt="Feature 1">
+                    @endif
                 </div>
-                <h3>Analytics</h3>
-                <p>Detailed analytics reports include topic-wise analysis, time taken per question, and more to educate your child.</p>
+                @if(!empty($banner->analytics_title))
+                <h3>{{$banner->analytics_title}}</h3>
+                @endif
+
+
+                @if(!empty($banner->analytics_content))
+                <p>{{$banner->analytics_content}}</p>
+                @endif
             </div>
             <div class="features-box">
                 <div class="features-icon">
-                    <img src="{{ asset('app/images/feature2.svg') }}" alt="Feature 2">
+                    @if (!empty($banner->anytime_image))
+                    <img src="{{ url('d0/' . $banner->anytime_image) }}" alt="Feature 2">
+                    @endif
                 </div>
-                <h3>Anytime, Anywhere</h3>
-                <p>We are an online learning provider. That means our servers run 24/7, ready for any time that your child wants to learn.</p>
+                @if(!empty($banner->anytime_title))
+                <h3>{{$banner->anytime_title}}</h3>
+                @endif
+
+                @if(!empty($banner->anytime_description))
+                <p>{{$banner->anytime_description}}</p>
+                @endif
             </div>
             <div class="features-box">
                 <div class="features-icon">
-                    <img src="{{ asset('app/images/feature3.svg') }}" alt="Feature 3">
+                    @if (!empty($banner->unlimited_image))
+                    <img src="{{ url('d0/' . $banner->unlimited_image) }}" alt="Feature 3">
+                    @endif
                 </div>
-                <h3>Unlimited Test Attempts</h3>
-                <p>We want your child to succeed. Do the test once or as many times as you want, we believe practice makes perfect.</p>
+                @if(!empty($banner->unlimited_title))
+                <h3>{{$banner->unlimited_title}}</h3>
+                @endif
+
+                @if(!empty($banner->unlimited_content))
+                <p>{{$banner->unlimited_content}}</p>
+                @endif
             </div>
             <div class="features-box">
                 <div class="features-icon">
-                    <img src="{{ asset('app/images/feature4.svg') }}" alt="Feature 4">
+                    @if (!empty($banner->live_image))
+                    <img src="{{ url('d0/' . $banner->live_image) }}" alt="Feature 4">
+                    @endif
                 </div>
-                <h3>Live Chat Support</h3>
-                <p>We are here to help explain any questions or concepts over live chat. Message our friendly team anytime!</p>
+                @if(!empty($banner->live_title))
+                <h3>{{$banner->live_title}}</h3>
+                @endif
+                @if(!empty($banner->live_content))
+                <p>{{$banner->live_content}}</p>
+                @endif
             </div>
         </div>
     </div>
