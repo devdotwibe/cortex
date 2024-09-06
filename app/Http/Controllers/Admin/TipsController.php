@@ -27,37 +27,30 @@ class TipsController extends Controller
 
 
     public function create(Request $request, $id)
-{
-    $tip = Category::find($id);
+    {
+        $tip = Category::find($id);
+        $tips = Tips::where('category_id', $id);
 
-    $tips = Tips::where('category_id', $id);
+        if ($request->ajax()) {
+            return DataTables::of($tips)
+                ->addColumn("action", function ($data) {
+                    return
+                        '<a onclick="delsubfaq('."'".route('admin.tip.del_tip', $data->id)."'".')" class="btn btn-icons edit_btn"><img src="'.asset("assets/images/delete.svg").'" alt=""></a>'.
+                        '<a href="' . route('admin.tip.edit_subfaq', $data->id) . '" class="btn btn-icons edit_btn"><img src="' . asset('assets/images/edit.svg') . '" alt="Edit"></a>';
+                })
+                ->addColumn("tip", function ($data) {
+                    return strip_tags($data->tip); // Strip HTML tags from the tip
+                })
+                ->addColumn("advice", function ($data) {
+                    return strip_tags($data->advice); // Strip HTML tags from the advice
+                })
+                ->addIndexColumn()
+                ->rawColumns(['action'])
+                ->make(true);
+        }
 
-    if ($request->ajax()) {
-
-        return DataTables::of($tips)
-
-        ->addColumn("action", function ($data) {
-
-            return
-
-
-            '<a onclick="delsubfaq('."'".route('admin.tip.del_tip', $data->id)."'".')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/delete.svg").'" alt=""></a>'.
-            '<a href="' . route('admin.tip.edit_subfaq', $data->id) . '" class="btn btn-icons edit_btn"><img src="' . asset('assets/images/edit.svg') . '" alt="Edit"></a>';
-        })
-
-
-        ->addIndexColumn()
-        ->rawColumns([
-            'action'
-        ])
-
-
-        ->make(true);
+        return view("admin.tip.create", compact('tip', 'tips'));
     }
-
-
-    return view("admin.tip.create", compact('tip', 'tips'));
-}
 
 
     public function storetip(Request $request,$id){
@@ -98,25 +91,7 @@ class TipsController extends Controller
 
     return view('admin.tip.edit', compact('tip'));
 }
-// public function update(Request $request, $id)
-// {
-//     // Validate the incoming request data
-//     $validatedData = $request->validate([
-//         'tip' => 'nullable|string|max:65535',
-//         'advice' => 'nullable|string|max:65535',
-//     ]);
 
-//     $tip = Tips::findOrFail($id);
-
-//     // Update the tip and advice fields
-//     $tip->tip = $request->tip;
-//     $tip->advice = $request->advice;
-//     $tip->save();
-
-//     // Redirect back to the tips index with a success message
-//     return redirect()->route('admin.tip.create', $tip->category_id)->with('success', 'Tip and advice updated successfully.');
-
-// }
 
 
 public function update(Request $request, $id)
@@ -147,15 +122,6 @@ public function del_tip(Request $request,Tips $tip)
     return redirect()->back()->with("success","Tips and Advise deleted successfully");
 }
 
-
-// public function edit_subfaq($id)
-// {
-//     // Retrieve the Tip record by ID
-//     $tip = Tips::findOrFail($id);
-
-//     // Return the view for editing
-//     return view('admin.tip.edit_subfaq', compact('tip'));
-// }
 
 
 
