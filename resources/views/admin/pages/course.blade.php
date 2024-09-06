@@ -138,10 +138,10 @@
                                                 <button type="submit" class="btn btn-dark" name="section"
                                                     value="save">Save</button>
                                             </div>
-                                            <div class="mb-3">
+                                            {{-- <div class="mb-3">
                                                 <button type="button" class="btn btn-btn-secondary" name="section"
                                                     value="cancel">Cancel</button>
-                                            </div>
+                                            </div> --}}
                                         </div>
 
                                     </div>
@@ -444,7 +444,7 @@
                     <ul class="nav nav-tabs" id="section3Tabs" role="tablist">
                         <li class="nav-item" role="presentation">
                             <a class="nav-link @if (old('sub_section') == 'tab1' || old('sub_section') == '') active @endif" id="tab1-tabb"
-                                data-bs-toggle="tab" href="#tab1" role="tab" aria-controls="tab1"
+                                data-bs-toggle="tab" href="#tab11" role="tab" aria-controls="tab1"
                                 aria-selected="@if (old('sub_section') == 'tab1' || old('sub_section') == '') true @else false @endif">Tab 1</a>
                         </li>
                         <li class="nav-item" role="presentation">
@@ -471,7 +471,7 @@
 
                     <div class="tab-content mt-2" id="section3TabContent">
                         <!-- Tab 1: Learn Content & Learn Image -->
-                        <div class="tab-pane fade @if (old('sub_section') == 'tab1' || old('sub_section') == '') show active @endif" id="tab1"
+                        <div class="tab-pane fade @if (old('sub_section') == 'tab1' || old('sub_section') == '') show active @endif" id="tab11"
                             role="tabpanel" aria-labelledby="tab1-tabb">
                             <form action="{{ route('admin.course.section3.tab1.store') }}" method="POST"
                                 enctype="multipart/form-data">
@@ -480,7 +480,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="learncontent">Learn Content</label>
-                                            <textarea class="form-control texteditor" name="learncontent" id="learncontent">{{ old('learncontent') }}</textarea>
+                                            <textarea class="form-control texteditor" name="learncontent" id="learncontent">{{ old('learncontent', optional($course)->learncontent) }}</textarea>
                                         </div>
                                     </div>
 
@@ -506,7 +506,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="questionbankcontent">Question Bank Content</label>
-                                            <textarea class="form-control texteditor" name="questionbankcontent" id="questionbankcontent">{{ old('questionbankcontent') }}</textarea>
+                                            <textarea class="form-control texteditor" name="questionbankcontent" id="questionbankcontent">{{ old('questionbankcontent', optional($course)->questionbankcontent) }}</textarea>
                                         </div>
                                     </div>
 
@@ -532,7 +532,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="topiccontent">Topic Content</label>
-                                            <textarea class="form-control texteditor" name="topiccontent" id="topiccontent">{{ old('topiccontent') }}</textarea>
+                                            <textarea class="form-control texteditor" name="topiccontent" id="topiccontent">{{ old('topiccontent', optional($course)->topiccontent) }}</textarea>
                                         </div>
                                     </div>
 
@@ -558,7 +558,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="fullmockcontent">Full Mock Content</label>
-                                            <textarea class="form-control texteditor" name="fullmockcontent" id="fullmockcontent">{{ old('fullmockcontent') }}</textarea>
+                                            <textarea class="form-control texteditor" name="fullmockcontent" id="fullmockcontent">{{ old('fullmockcontent', optional($course)->fullmockcontent) }}</textarea>
                                         </div>
                                     </div>
 
@@ -584,14 +584,14 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="privatecontent">Private Content</label>
-                                            <textarea class="form-control texteditor" name="privatecontent" id="privatecontent">{{ old('privatecontent') }}</textarea>
+                                            <textarea class="form-control texteditor" name="privatecontent" id="privatecontent">{{ old('privatecontent', optional($course)->privatecontent) }}</textarea>
                                         </div>
                                     </div>
 
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="privetimage">Private Image</label>
-                                            <input type="file" class="form-control" name="privetimage">
+                                            <label for="privateimage">Private Image</label>
+                                            <input type="file" class="form-control" name="privateimage">
                                         </div>
                                     </div>
                                 </div>

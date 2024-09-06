@@ -8,13 +8,14 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
 
-    <title> @hasSection ('title') @yield('title') @else {{config('app.name')}} @endif </title> 
+    <title> @hasSection ('title') @yield('title') @else {{config('app.name')}} @endif </title>
 
     <link rel="stylesheet" href="{{ asset('app/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('app/css/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('app/css/slick-theme.css') }}">
     <link rel="stylesheet" href="{{ asset('app/css/stylesheet.css') }}">
- 
+    <link rel="stylesheet" href="{{ asset('app/css/course.css') }}">
+
 </head>
 <body>
     <div class="loading-wrap" style="display: none">
@@ -27,7 +28,7 @@
         <div class="container">
             <div class="header-row">
                 <div class="brand-logo">
-                    <a href=""> 
+                    <a href="">
                         <img src="{{ asset('app/images/logo.svg') }}" alt="">
                     </a>
                 </div>
@@ -47,6 +48,55 @@
         </div>
     </header>
     @yield('content')
+
+    <footer>
+        <div class="footer-wrapp">
+            <div class="container">
+                <div class="footer-row">
+                    <div class="footer-col1">
+                        <a href="" class="footer-brand">
+                            <img src="./assets/images/footer-logo.svg" alt="">
+                        </a>
+                    </div>
+                    <div class="footer-col2">
+                        <h3>Courses</h3>
+                        <ul>
+                            <li><a href="">Diagnostic Exam</a></li>
+                            <li><a href="">Critical Reasoning</a></li>
+                            <li><a href="">Exam Preparation</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col3">
+                        <h3>Information</h3>
+                        <ul>
+                            <li><a href="">Home</a></li>
+                            <li><a href="">Pricing </a></li>
+                            <li><a href="">Courses</a></li>
+                            <li><a href="">Find Tutor</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col4">
+                        <p><a href="">www.cortexacademy.com.au</a></p>
+                        <p><a href="">St Hudson Street
+                            <span>Australia</span></a>
+                        </p>
+                        <p><a href="">Open 9am to 5pm
+                            <span>Monday to Friday</span></a>
+                        </p>
+                        <ul class="social-icons">
+                            <li><a href=""><img src="./assets/images/fb.svg" alt=""></a></li>
+                            <li><a href=""><img src="./assets/images/yt.svg" alt=""></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-row1">
+            <div class="container">
+                <p>Privacy Policy | Terms & Conditions © 2024 Cortex</p>
+            </div>
+        </div>
+    </footer>
 
     @stack('modals')
 

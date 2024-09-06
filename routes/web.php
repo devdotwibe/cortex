@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserCourseController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\User\AnalyticsController;
 use App\Http\Controllers\User\CommunityController;
@@ -22,6 +23,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /**
+ *
  * Development
  */
 
@@ -216,7 +218,7 @@ Route::middleware(['auth', 'isUser'])->group(function () {
     });
 
 
-    Route::prefix('tipsandadvise')->name('tipsandadvise.')->group(function () {
+    Route::prefix(' xxxxxxxxxxxx ')->name('tipsandadvise.')->group(function () {
         Route::get('/', [TipsAndAdviceController::class, 'index'])->name('index');
         Route::resource('/post',TipsAndAdviceController ::class);
 
@@ -226,14 +228,14 @@ Route::middleware(['auth', 'isUser'])->group(function () {
 
     });
 
-    
+
 
 });
 
 
 
 
-
+Route::get('/course', [UserCourseController::class, 'index'])->name('course.index');
 
 
 

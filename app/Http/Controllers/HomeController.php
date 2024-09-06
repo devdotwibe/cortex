@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\banner;
 use App\Models\Course;
+use App\Models\Courses;
 use App\Models\Feature;
 use App\Models\Feed;
 use App\Models\User;
@@ -41,7 +42,10 @@ class HomeController extends Controller
         $faq = FaqCategory::get();
 
 
+
         return view("welcome",compact('banner','feature','courses','feed','faq'));
+
+
     }
 
     public function login(Request $request){
