@@ -1740,4 +1740,7 @@ nav.navbar { padding-left: 60px;}
 
 .set-container .lesson .lesson-row .lesson-row-sets .sets-item { font-size: 16px;}
 
+.exam-container .container-wrap {padding: 30px;}
+.exam-container .container-wrap .lesson .lesson-body p {font-size: 16px;}
+
 }
