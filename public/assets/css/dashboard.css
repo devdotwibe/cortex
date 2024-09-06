@@ -1709,7 +1709,7 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 
 .card .action-button {width: 100%; margin: 30px 0 0;}
 .card .action-button .btn { background: #FBAE1E; border: 1px solid #FBAE1E; width: 100%; max-width: 275px; color: #fff;}
-.card .action-button .btn:hover { color: #FBAE1E; background: none;}
+.card .action-button .btn:hover {  background: #1989F8; border-color: #1989F8;}
 
 
 @media screen and (max-width:1500px) {
