@@ -220,11 +220,11 @@
                     <ul class="side-dropdown-menu" >
                         <li class="side-item {{request()->is('admin/page') ?'active':''}} "><a href="{{ route('admin.page.index') }}">Home</a></li>
                         <li class="side-item {{request()->is('admin/faq') ? 'active':''}} "><a href="{{route('admin.faq.index')}}">FAQ</a></li>
-                        <li class="side-item {{request()->is('admin/page') ? 'active':''}} "><a href="{{route('admin.support.index')}}">Support</a></li>
-                        <li class="side-item {{request()->is('admin/page') ? 'active':''}} "><a href="{{route('admin.tip.index')}}">Tips and Advice</a></li>
+                        <li class="side-item {{request()->is('admin/support') ? 'active':''}} "><a href="{{route('admin.support.index')}}">Support</a></li>
+                        <li class="side-item {{request()->is('admin/tip') ? 'active':''}} "><a href="{{route('admin.tip.index')}}">Tips and Advice</a></li>
 
                         <li class="side-item {{request()->is('admin/course') ? 'active':''}} "><a href="{{route('admin.course.index')}}">Course</a></li>
-                        
+
                         {{-- <li class="side-item {{request()->is('admin/payment') ? 'active':''}} "><a href="{{route('admin.payment.index')}}">Payment</a></li> --}}
                     </ul>
                 </li>

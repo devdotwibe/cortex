@@ -78,7 +78,7 @@
             <span class="line"></span>
         </a>
     </div>
-     
+
     <aside class="side_bar">
         <div class="side-nav-toggle">
             <button class="btn btn-close-toggle"><img src="{{asset("assets/images/close.svg")}}" alt="close"></button>
@@ -185,11 +185,8 @@
                 </li>
 
                 <li class="side-item {{request()->is('support') ? 'active':''}}">
-                    @if (auth('web')->user()->progress('cortext-subscription-payment','')=="paid"||auth('web')->user()->is_free_access)
-                     <a href="{{ route('community.index') }}">
-                    @else
-                         <a href="{{route('support.index')}}">
-                     @endif
+
+                    <a href="{{route('support.index')}}">
                          <span class="side-icon" >
                              <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
                          </span>
@@ -202,11 +199,8 @@
 
 
                  <li class="side-item {{request()->is('tipsandadvise') ? 'active':''}}">
-                    @if (auth('web')->user()->progress('cortext-subscription-payment','')=="paid"||auth('web')->user()->is_free_access)
-                     <a href="{{ route('community.index') }}">
-                    @else
-                         <a href="{{route('tipsandadvise.index')}}">
-                     @endif
+
+                    <a href="{{route('tipsandadvise.index')}}">
                          <span class="side-icon" >
                              <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
                          </span>

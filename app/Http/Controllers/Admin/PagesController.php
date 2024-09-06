@@ -493,7 +493,7 @@ public function storeSection8(Request $request)
     Feed::whereNotIn('id', $feedIds)->delete();
 
     // Redirect back with success message
-    return redirect()->route('admin.page.index')->with('success', 'Section 6 data has been successfully saved.');
+    return redirect()->route('admin.page.index')->with('success', 'Section 7 data has been successfully saved.');
 }
 
 
@@ -589,7 +589,7 @@ public function storeSection9(Request $request)
     // Save the banner
     $banner->save();
 
-    return redirect()->route('admin.page.index')->with('success', 'Section 7 data has been successfully saved.');
+    return redirect()->route('admin.page.index')->with('success', 'Section 4 data has been successfully saved.');
 }
 
 

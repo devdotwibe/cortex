@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserCourseController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\User\AnalyticsController;
 use App\Http\Controllers\User\CommunityController;
@@ -22,6 +23,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /**
+ *
  * Development
  */
 
@@ -60,8 +62,8 @@ Route::get('/pricing', [HomeController::class, 'pricing'])->name('pricing.index'
 Route::post('/pricing', [HomeController::class, 'verifypricing']);
 Route::post('/combo-email', [HomeController::class, 'combo_mail'])->name('combo-email');
 
+Route::get('/login', [HomeController::class, 'login'])->name('login');
 Route::middleware('guest:web,admin')->group(function () {
-    Route::get('/login', [HomeController::class, 'login'])->name('login');
     Route::post('/login', [HomeController::class, 'loginSubmit']);
     Route::get('/register', [HomeController::class, 'register'])->name('register');
     Route::post('/register', [HomeController::class, 'registerSubmit']);
@@ -216,7 +218,7 @@ Route::middleware(['auth', 'isUser'])->group(function () {
     });
 
 
-    Route::prefix('tipsandadvise')->name('tipsandadvise.')->group(function () {
+    Route::prefix('tipsandadvice')->name('tipsandadvise.')->group(function () {
         Route::get('/', [TipsAndAdviceController::class, 'index'])->name('index');
         Route::resource('/post',TipsAndAdviceController ::class);
 
@@ -226,14 +228,14 @@ Route::middleware(['auth', 'isUser'])->group(function () {
 
     });
 
-    
+
 
 });
 
 
 
 
-
+Route::get('/course', [UserCourseController::class, 'index'])->name('course.index');
 
 
 
