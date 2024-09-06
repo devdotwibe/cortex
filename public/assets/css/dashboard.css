@@ -1720,6 +1720,19 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .exam-container .summery-wrap .summery-action .btn:hover { color: #FBAE1E; background: none;}
 
 
+.question-preview .question-preview-body .card {border: none; text-align: left;}
+.question-preview .question-preview-body .card .exam-mark-body { padding: 0;}
+.question-preview .question-preview-body .card .mark-label { margin: 0 0 20px; display: block; font-size: 17px;}
+.question-preview .question-preview-body .card .mark-title h3 { font-size: 18px;}
+.question-preview .question-preview-body .card .mark-title h3 { color: #000; font-weight: 500; margin: 0 0 20px;}
+.question-preview .question-preview-body .card .mark-label span {display: block; margin: 0 0 5px;}
+.question-preview .question-preview-body .exam-result { text-align: left;}
+.question-preview .question-preview-body .exam-result p { font-size: 18px; margin: 0 0 20px;}
+.question-preview .question-preview-body .exam-result .exam-mark-bottom a#review-link { color: #fff; background: #FFA800; border: 1px solid #FFA800;}
+.question-preview .question-preview-body .exam-result .exam-mark-bottom a#review-link:hover { background: none; color: #FFA800;}
+
+
+
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
 
