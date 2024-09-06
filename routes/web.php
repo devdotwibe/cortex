@@ -62,8 +62,8 @@ Route::get('/pricing', [HomeController::class, 'pricing'])->name('pricing.index'
 Route::post('/pricing', [HomeController::class, 'verifypricing']);
 Route::post('/combo-email', [HomeController::class, 'combo_mail'])->name('combo-email');
 
+Route::get('/login', [HomeController::class, 'login'])->name('login');
 Route::middleware('guest:web,admin')->group(function () {
-    Route::get('/login', [HomeController::class, 'login'])->name('login');
     Route::post('/login', [HomeController::class, 'loginSubmit']);
     Route::get('/register', [HomeController::class, 'register'])->name('register');
     Route::post('/register', [HomeController::class, 'registerSubmit']);
