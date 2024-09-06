@@ -218,7 +218,7 @@ Route::middleware(['auth', 'isUser'])->group(function () {
     });
 
 
-    Route::prefix(' xxxxxxxxxxxx ')->name('tipsandadvise.')->group(function () {
+    Route::prefix('tipsandadvice')->name('tipsandadvise.')->group(function () {
         Route::get('/', [TipsAndAdviceController::class, 'index'])->name('index');
         Route::resource('/post',TipsAndAdviceController ::class);
 
