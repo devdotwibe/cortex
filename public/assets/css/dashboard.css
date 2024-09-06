@@ -1712,6 +1712,14 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .card .action-button .btn:hover {  background: #1989F8; border-color: #1989F8;}
 
 
+.exam-container .summery-wrap { width: 100%; max-width: 1320px; margin: 50px auto 0; padding: 50px;}
+.exam-container .summery-wrap h2 { font-size: 20px; font-weight: 500;  color: #000000;  margin: 0 0 20px;}
+.exam-container .summery-wrap p { color: #787878;  font-size: 20px; margin: 0 0 20px; line-height: 1.56;}
+.exam-container .summery-wrap .summery-action {  width: 100%;text-align: center;}
+.exam-container .summery-wrap .summery-action .btn { background: #FBAE1E; padding: 10px 50px; color: #FFFFFF; font-size: 16px; margin: 0 auto;}
+.exam-container .summery-wrap .summery-action .btn:hover { color: #FBAE1E; background: none;}
+
+
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
 
