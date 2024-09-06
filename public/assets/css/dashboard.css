@@ -1703,7 +1703,7 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .modal-expand.modal-expand-result-section .exam-result .exam-result-content .exam-mark-bottom a#review-link:hover {  color: #ECB301;  background: none;}
 
 
-#review-history-modal .modal-content .table-outer table#attemt-list-table {min-width: 720px;}
+#review-history-modal .modal-content .table-outer table#attemt-list-table td:nth-child(2) { min-width: 200px;}
 #review-history-modal .modal-content .table-outer table#attemt-list-table td {text-align: left;}
 
 
