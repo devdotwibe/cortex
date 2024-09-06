@@ -8,7 +8,7 @@
         </div> 
     </div>
 </section>
-<section class="content_section">
+<section class="content_section topic-section">
     <div class="container">
         <div class="row">
             @foreach ($categorys as $k=> $item)
@@ -23,20 +23,20 @@
                                 <div class="category-content">
                                     <h5><span id="category-content-subtitle-{{$item->id}}"> {{$exam->subtitle($item->id,"Topic ".($item->getIdx()+1))}} </span></h5>
                                     <h3>{{$item->name}}</h3> 
+                                    <div class="action-button">
+                                        @if ($user->is_free_access||$user->progress('cortext-subscription-payment','')=="paid"||$k == 0) 
+                                            @if($user->progress('exam-'.$exam->id.'-topic-'.$item->id.'-complete-review',"no")=="yes") 
+                                            
+                                            @elseif($user->progress('exam-'.$exam->id.'-topic-'.$item->id.'-complete-date',"")=="") 
+                                            @guest('admin')    <a   class="btn btn-warning" onclick="confimexam('{{route('topic-test.show',$item->slug)}}')">ATTEMPT</a> @endguest
+                                            @else 
+                                                <a   class="btn btn-primary" onclick="loadlessonsetreviews('{{route('topic-test.topic.history',$item->slug)}}')">REVIEW</a>
+                                            @endif
+                                        @else
+                                            <a class="btn btn-warning" href="{{route('pricing.index')}}">ATTEMPT</a>
+                                        @endif 
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="action-button">
-                                @if ($user->is_free_access||$user->progress('cortext-subscription-payment','')=="paid"||$k == 0) 
-                                    @if($user->progress('exam-'.$exam->id.'-topic-'.$item->id.'-complete-review',"no")=="yes") 
-                                    
-                                    @elseif($user->progress('exam-'.$exam->id.'-topic-'.$item->id.'-complete-date',"")=="") 
-                                    @guest('admin')    <a   class="btn btn-warning" onclick="confimexam('{{route('topic-test.show',$item->slug)}}')">ATTEMPT</a> @endguest
-                                    @else 
-                                        <a   class="btn btn-primary" onclick="loadlessonsetreviews('{{route('topic-test.topic.history',$item->slug)}}')">REVIEW</a>
-                                    @endif
-                                @else
-                                    <a class="btn btn-warning" href="{{route('pricing.index')}}">ATTEMPT</a>
-                                @endif 
                             </div>
                         </div>
                     </div>    
