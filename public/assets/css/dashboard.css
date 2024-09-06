@@ -1089,9 +1089,10 @@ border-radius: 7px;
   display:flex;
   width:100%;
   margin:5px;
-  border:1px solid #d9d9d9;
+  border:1px solid #C0C0C0;
   border-radius:10px;
-  padding: 15px 10px;
+  padding: 15px 20px;
+  align-items: center;
 }
 .exam-list .exam-title h3{
   width:100%;
@@ -1100,7 +1101,16 @@ border-radius: 7px;
 .exam-list .exam-title .action-btn{
   width:max-content;
   float:right;
+  background: #FFA800;
+  border: 1px solid #FFA800;
+  padding: 10px 22px;
 }
+
+.exam-list .exam-title .action-btn:hover {
+  background: no-repeat;
+  color: #FFA800;
+}
+
 .user-info h3{
     font-weight:bold;
     margin-top:10px;
