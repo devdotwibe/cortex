@@ -186,9 +186,9 @@
 
                 <li class="side-item {{request()->is('support') ? 'active':''}}">
                     @if (auth('web')->user()->progress('cortext-subscription-payment','')=="paid"||auth('web')->user()->is_free_access)
-                     <a href="{{ route('community.index') }}">
+                     <a href="{{ route('support.index') }}">
                     @else
-                         <a href="{{route('support.index')}}">
+                         <a href="{{route('dashboard')}}">
                      @endif
                          <span class="side-icon" >
                              <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
@@ -203,7 +203,7 @@
 
                  <li class="side-item {{request()->is('tipsandadvise') ? 'active':''}}">
                     @if (auth('web')->user()->progress('cortext-subscription-payment','')=="paid"||auth('web')->user()->is_free_access)
-                     <a href="{{ route('community.index') }}">
+                     <a href="{{ route('.index') }}">
                     @else
                          <a href="{{route('tipsandadvise.index')}}">
                      @endif
