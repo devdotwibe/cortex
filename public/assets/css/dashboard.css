@@ -1097,6 +1097,8 @@ border-radius: 7px;
 .exam-list .exam-title h3{
   width:100%;
   float:left;
+  font-size: 16px;
+  font-weight: 600;
 }
 .exam-list .exam-title .action-btn{
   width:max-content;
