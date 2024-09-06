@@ -1707,6 +1707,11 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 #review-history-modal .modal-content .table-outer table#attemt-list-table td {text-align: left;}
 
 
+.card .action-button {width: 100%; margin: 30px 0 0;}
+.card .action-button .btn { background: #FBAE1E; border: 1px solid #FBAE1E; width: 100%; max-width: 275px; color: #fff;}
+.card .action-button .btn:hover { color: #FBAE1E; background: none;}
+
+
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
 
