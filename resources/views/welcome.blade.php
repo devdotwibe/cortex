@@ -121,7 +121,7 @@
         <div class="container">
             <div class="features-row">
                 <div class="features-col1">
-                    <h3 class="highlight">OUR FEATURES</h3>
+                    <h3 class="highlight">{{ $banner->ourfeaturestitle }}</h3>
 
 
 
@@ -214,7 +214,10 @@
     </section>
     <section class="features-wrapp1">
         <div class="container">
-            <h2>Our <span>Features</span></h2>
+            <h2>@if (!empty($banner->featurestitle))
+                {!! $banner->featurestitle !!}
+            @endif</h2>
+
             <div class="features-row">
                 <div class="features-box">
                     <div class="features-icon">
@@ -430,7 +433,7 @@
 
     <section class="course-wrapp">
         <div class="container">
-            <h3 class="highlight">Our Courses</h3>
+            <h3 class="highlight">{{ $courses->ourcoursetitle }}</h3>
             @if (!empty($courses->coursetitle))
                 <h2>{{ $courses->coursetitle }}</h2>
             @endif

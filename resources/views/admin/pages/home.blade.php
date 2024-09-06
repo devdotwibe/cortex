@@ -509,6 +509,25 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
+
+                                                        <label for="ourfeaturestitle">Feature Title</label>
+                                                        <input type="text" name="ourfeaturestitle" class="form-control"
+                                                            value="{{ old('ourfeaturestitle', optional($banner)->ourfeaturestitle) }}"
+                                                            placeholder="Feature Title">
+                                                        @error('ourfeaturestitle')
+                                                            <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="form-data">
+                                                    <div class="forms-inputs mb-4">
                                                         <label for="FeatureHeading">Feature Top Heading</label>
                                                         <input type="text" name="FeatureHeading" class="form-control"
                                                             value="{{ old('FeatureHeading', optional($banner)->FeatureHeading) }}"
@@ -789,6 +808,19 @@
                                     enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="featurestitle">Feature Title</label>
+                                                <input type="text" name="featurestitle" id="featurestitle"
+                                                    value="{{ old('featurestitle', optional($banner)->featurestitle) }}"
+                                                    class="form-control" placeholder="Feature Title">
+                                                @error('featurestitle')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+
 
                                         <!-- Analytics Section -->
                                         <div class="col-md-12">
@@ -1225,6 +1257,22 @@
                                     enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="form-data">
+                                                    <div class="forms-inputs mb-4">
+                                                        <label for="ourcoursetitle">Our Course Title</label>
+                                                        <input type="text" name="ourcoursetitle" id="ourcoursetitle"
+                                                            value="{{ old('ourcoursetitle', optional($courses)->ourcoursetitle) }}"
+                                                            class="form-control" placeholder="Our Course Title">
+                                                        @error('ourcoursetitle')
+                                                            <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
                                         <!-- Fourth Section Fields -->
                                         <div class="col-md-12">

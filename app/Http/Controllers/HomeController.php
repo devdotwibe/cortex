@@ -49,7 +49,7 @@ class HomeController extends Controller
     }
 
     public function login(Request $request){
-        if(Auth::check()){
+        if(Auth::guard('web')->check()){
             return redirect('/dashboard');
         }
         if(Auth::guard('admin')->check()){

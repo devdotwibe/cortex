@@ -144,6 +144,7 @@ class PagesController extends Controller
         // Validate the request data for Section 3
 
         $request->validate([
+            'ourfeaturestitle'=>'required|nullable|max:255',
             'FeatureHeading' => 'required|nullable|max:255',
 
 
@@ -169,7 +170,8 @@ class PagesController extends Controller
         {
             $banner =new Banner;
         }
-        $banner->FeatureHeading = $request->input('FeatureHeading'); // Save Feature Top Heading
+        $banner->FeatureHeading = $request->input('FeatureHeading');
+        $banner->ourfeaturestitle = $request->input('ourfeaturestitle');// Save Feature Top Heading
 
 
         $banner->save();
@@ -344,6 +346,7 @@ class PagesController extends Controller
 {
     // Validate the request data for Section 5
     $request->validate([
+        'ourcoursetitle' => 'required|nullable|string|max:255',
         'coursetitle' => 'required|nullable|string|max:255',
         'coursesubtitle' => 'required|nullable|string|max:255',
         'courseheading1' => 'required|nullable|string|max:255',
@@ -364,7 +367,7 @@ class PagesController extends Controller
     if (empty($courses)) {
         $courses = new Course;
     }
-
+    $courses->ourcoursetitle = $request->input('ourcoursetitle');
     $courses->coursetitle = $request->input('coursetitle');
     $courses->coursesubtitle = $request->input('coursesubtitle');
     $courses->courseheading1 = $request->input('courseheading1');
@@ -530,6 +533,7 @@ public function storeSection9(Request $request)
 
     // Validate the request data for Section 9
     $request->validate([
+        'featurestitle' => 'required|nullable|string',
         'analyticsimage' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048',
         'analyticstitle' => 'required|string|max:255',
         'analyticscontent' => 'required|nullable|string',
@@ -552,6 +556,7 @@ public function storeSection9(Request $request)
     }
 
     // Assign values from the request to the banner
+    $banner->featurestitle = $request->input('featurestitle');
     $banner->analytics_title = $request->input('analyticstitle');
     $banner->analytics_content = $request->input('analyticscontent');
     $banner->anytime_title = $request->input('anytimetitle');
