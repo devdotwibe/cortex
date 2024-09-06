@@ -905,7 +905,7 @@ border-radius: 7px;
   left:0;
   width: -webkit-fill-available;
   height:max-content;
-  background:#f0f6fa;
+  background:#EEEEEE;
   z-index:11;
 }
 .modal-expand.modal-expand-result {
