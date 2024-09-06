@@ -405,9 +405,9 @@
                                     <span class="rating">
                                         @for ($i = 1; $i <= 5; $i++)
                                             @if ($i <= $review->starrating)
-                                                <img src="{{asset(assets/images/Star-Yellow.svg)}}" alt="Yellow Star">
+                                                <img src="{{asset('assets/images/Star-Yellow.svg')}}" alt="Yellow Star">
                                             @else
-                                                <img src="{{asset(assets/images/Star-Grey.svg)}}" alt="Grey Star">
+                                                <img src="{{asset('assets/images/Star-Grey.svg')}}" alt="Grey Star">
                                             @endif
                                         @endfor
                                     </span>
