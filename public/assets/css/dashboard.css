@@ -1735,6 +1735,8 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .exam-overview .exam-overview-content table { border-radius: 10px; border-collapse: separate; overflow: hidden; min-width: 900px; border: 1px solid #D0D0D0;}
 .exam-overview .exam-overview-content .overview-table { overflow-x: auto;}
 .exam-overview .exam-overview-content table tr th { border-color: rgb(0 0 0 / 10%) !important; background: #ECECEC;}
+.exam-overview .vl { display: none;}
+.exam-overview .exam-overview-content { margin: 20px 0 0;}
 
 
 @media screen and (max-width:1500px) {
