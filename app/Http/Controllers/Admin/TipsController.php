@@ -144,7 +144,7 @@ public function del_tip(Request $request,Tips $tip)
 {
     $tip->delete();
 
-    return redirect()->back()->with("success","Faq deleted success");
+    return redirect()->back()->with("success","Tips and Advise deleted successfully");
 }
 
 
