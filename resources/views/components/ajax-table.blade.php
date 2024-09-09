@@ -29,7 +29,7 @@
 </div>
 
 @if ($bulkaction)
-    <div class="selectbox-action" style="display: none">
+    <div class="table-{{ $tableid }}-selectbox selectbox-action" style="display: none">
         <div class="delete-action">
             <button class="btn btn-danger" name="bulkaction" value="delete">
                 Delete
@@ -38,7 +38,7 @@
     </div>
     </form>
     @if (!empty($bulkotheraction))
-        <div class="selectbox-action" style="display: none">
+        <div class="table-{{ $tableid }}-selectbox selectbox-action" style="display: none">
             <div class="other-actions">
                 <form action="{{ $bulkotheraction->url }}" method="post">
                     @csrf
@@ -134,9 +134,9 @@
             })
             $('#table-{{ $tableid }}-bulk').change(function() {
                 if ($('#table-{{ $tableid }}-bulk').is(":checked")) {
-                    $('#table-{{ $tableid }} .selectbox-action').show()
+                    $('.table-{{ $tableid }}-selectbox').show()
                 } else {
-                    $('#table-{{ $tableid }} .selectbox-action').hide()
+                    $('.table-{{ $tableid }}-selectbox').hide()
                 }
                 $('#table-{{ $tableid }}').DataTable().ajax.reload();
             })
@@ -145,12 +145,12 @@
                     $('#table-{{ $tableid }}-bulk').prop("checked", false);
                 }
                 if ($('#table-{{ $tableid }}-bulk').is(":checked")) {
-                    $('#table-{{ $tableid }} .selectbox-action').show()
+                    $('.table-{{ $tableid }}-selectbox').show()
                 } else {
                     if ($('#table-{{ $tableid }} .selectbox:checked').length > 1) {
-                        $('#table-{{ $tableid }} .selectbox-action').show()
+                        $('.table-{{ $tableid }}-selectbox').show()
                     } else {
-                        $('#table-{{ $tableid }} .selectbox-action').hide()
+                        $('.table-{{ $tableid }}-selectbox').hide()
                     }
                 }
             })
