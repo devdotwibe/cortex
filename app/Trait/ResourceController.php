@@ -121,7 +121,7 @@ trait ResourceController
             return ' 
 
             <div class="form-check selectbox-box">
-                <input type="checkbox"  class="selectbox form-check-box" name="selectbox" value="'.($data->id).'" '.(request('select_all','no')=="yes"?"checked":"").'> 
+                <input type="checkbox"  class="selectbox form-check-box" name="selectbox[]" value="'.($data->id).'" '.(request('select_all','no')=="yes"?"checked":"").'> 
             </div>
                 
             ';
