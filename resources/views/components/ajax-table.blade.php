@@ -158,7 +158,7 @@
                 $.post($(this).attr("action"),$(this).serialize(),function(res){ 
                     $('#table-{{ $tableid }}-delete').modal('hide');  
                     $('#table-{{ $tableid }}').DataTable().ajax.reload(); 
-                    showToast('Record has been successfully deleted', 'success')  
+                    showToast(res.success||'Record has been successfully deleted', 'success')  
                     @if(!empty($deletecallbackafter))
                         {{$deletecallbackafter}}()
                     @endif
