@@ -53,7 +53,7 @@ class AjaxTable extends Component
         $this->deletecallbackbefore=$deletecallbackbefore;
         $this->deletecallbackafter=$deletecallbackafter;
         $this->action=$action;
-        $this->bulkotheraction=$bulkotheraction;
+        $this->bulkotheraction=!empty($bulkotheraction)?json_decode(json_encode($bulkotheraction),false):null;
     }
 
     /**
