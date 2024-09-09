@@ -32,7 +32,7 @@
 
                 <td >
                     <div class="selectbox-action" style="display: none"  >
-                        @if($bulkotheraction)
+                        @if(!empty($bulkotheraction))
                         <div class="other-actions">
                             <form action="{{$bulkotheraction->url}}" method="post">
                                 @csrf
