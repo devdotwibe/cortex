@@ -34,25 +34,33 @@
                         aria-selected="@if (old('section') == 'section3') true @else false @endif">Section 3</a>
                 </li>
                 <li class="nav-item" role="presentation">
+                    <a class="nav-link @if (old('section') == 'section8') active @endif" id="section8-tab"
+                        data-bs-toggle="tab" href="#section8" role="tab" aria-controls="section8"
+                        aria-selected="@if (old('section') == 'section8') true @else false @endif">Section 4</a>
+                </li>
+                <li class="nav-item" role="presentation">
                     <a class="nav-link @if (old('section') == 'section7') active @endif" id="section7-tab"
                         data-bs-toggle="tab" href="#section7" role="tab" aria-controls="section7"
-                        aria-selected="@if (old('section') == 'section7') true @else false @endif">Section 4</a>
+                        aria-selected="@if (old('section') == 'section7') true @else false @endif">Section 5</a>
                 </li>
                 <li class="nav-item" role="presentation">
                     <a class="nav-link @if (old('section') == 'section4') active @endif" id="section4-tab"
                         data-bs-toggle="tab" href="#section4" role="tab" aria-controls="section4"
-                        aria-selected="@if (old('section') == 'section4') true @else false @endif">Section 5</a>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <a class="nav-link @if (old('section') == 'section5') active @endif" id="section5-tab"
-                        data-bs-toggle="tab" href="#section5" role="tab" aria-controls="section5"
-                        aria-selected="@if (old('section') == 'section5') true @else false @endif">Section 6</a>
+                        aria-selected="@if (old('section') == 'section4') true @else false @endif">Section 6</a>
                 </li>
                 <li class="nav-item" role="presentation">
                     <a class="nav-link @if (old('section') == 'section6') active @endif" id="section6-tab"
                         data-bs-toggle="tab" href="#section6" role="tab" aria-controls="section6"
                         aria-selected="@if (old('section') == 'section6') true @else false @endif">Section 7</a>
                 </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link @if (old('section') == 'section5') active @endif" id="section5-tab"
+                        data-bs-toggle="tab" href="#section5" role="tab" aria-controls="section5"
+                        aria-selected="@if (old('section') == 'section5') true @else false @endif">Section 8</a>
+                </li>
+
+
+
 
             </ul>
 
@@ -1084,15 +1092,17 @@
                                     @csrf
                                     <div class="row">
 
+
+
+
                                         <!-- Fourth Section Fields -->
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
                                                         <label for="exceltitle">Excel Title</label>
-                                                        <input type="text" name="exceltitle" id="exceltitle"
-                                                            value="{{ old('exceltitle', optional($banner)->exceltitle) }}"
-                                                            class="form-control" placeholder="Excel Title">
+
+                                                            <textarea class="form-control texteditor" name="exceltitle" id="exceltitle">{{ old('exceltitle', optional($banner)->exceltitle) }}</textarea>
                                                         @error('exceltitle')
                                                             <div class="text-danger">{{ $message }}</div>
                                                         @enderror
@@ -1101,69 +1111,9 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <div class="form-data">
-                                                    <div class="forms-inputs mb-4">
-                                                        <label for="excelsubtitle">Excel Subtitle</label>
-                                                        <input type="text" name="excelsubtitle" id="excelsubtitle"
-                                                            value="{{ old('excelsubtitle', optional($banner)->excelsubtitle) }}"
-                                                            class="form-control" placeholder="Excel Subtitle">
-                                                        @error('excelsubtitle')
-                                                            <div class="text-danger">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
 
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <div class="form-data">
-                                                    <div class="forms-inputs mb-4">
-                                                        <label for="subtitle1">Subtitle 1</label>
-                                                        <input type="text" name="subtitle1" id="subtitle1"
-                                                            value="{{ old('subtitle1', optional($banner)->subtitle1) }}"
-                                                            class="form-control" placeholder="Subtitle 1">
-                                                        @error('subtitle1')
-                                                            <div class="text-danger">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
 
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <div class="form-data">
-                                                    <div class="forms-inputs mb-4">
-                                                        <label for="subtitle2">Subtitle 2</label>
-                                                        <input type="text" name="subtitle2" id="subtitle2"
-                                                            value="{{ old('subtitle2', optional($banner)->subtitle2) }}"
-                                                            class="form-control" placeholder="Subtitle 2">
-                                                        @error('subtitle2')
-                                                            <div class="text-danger">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
 
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <div class="form-data">
-                                                    <div class="forms-inputs mb-4">
-                                                        <label for="subtitle3">Subtitle 3</label>
-                                                        <input type="text" name="subtitle3" id="subtitle3"
-                                                            value="{{ old('subtitle3', optional($banner)->subtitle3) }}"
-                                                            class="form-control" placeholder="Subtitle 3">
-                                                        @error('subtitle3')
-                                                            <div class="text-danger">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                         <!-- Excel Button Label -->
                                         <div class="col-md-12">
                                             <div class="form-group">
@@ -1483,6 +1433,19 @@
                                     enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
+
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="studentsfeedback">Student Feedback</label>
+                                                <input type="text" name="studentsfeedback" id="studentsfeedback"
+                                                    value="{{ old('studentsfeedback', optional($courses)->studentsfeedback) }}"
+                                                    class="form-control" placeholder="Students Feedback">
+                                                @error('studentsfeedback')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
                                         <!-- Student Title Field -->
                                         <div class="col-md-12">
                                             <div class="form-group">
@@ -1508,7 +1471,28 @@
                                                 @enderror
                                             </div>
                                         </div>
-
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="percentage">Percentage</label>
+                                                <input type="text" name="percentage" id="percentage"
+                                                    value="{{ old('percentage', optional($courses)->percentage) }}"
+                                                    class="form-control" placeholder="Percentage">
+                                                @error('percentage')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="studentssubtitle">Students Subtitle</label>
+                                                <input type="text" name="studentssubtitle" id="studentssubtitle"
+                                                    value="{{ old('studentssubtitle', optional($courses)->studentssubtitle) }}"
+                                                    class="form-control" placeholder="Students Subtitle">
+                                                @error('studentssubtitle')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
 
 
 
@@ -1752,33 +1736,7 @@
                                                 </div>
                                             </div>
 
-                                            {{--
-                            <div class="form-group">
-                                <label for="starrating">Star Rating</label>
-                                <select name="starrating[]" class="form-control">
-                                    <option value="1" {{ $item->starrating == 1 ? 'selected' : '' }}>1</option>
-                                    <option value="2" {{ $item->starrating == 2 ? 'selected' : '' }}>2</option>
-                                    <option value="3" {{ $item->starrating == 3 ? 'selected' : '' }}>3</option>
-                                    <option value="4" {{ $item->starrating == 4 ? 'selected' : '' }}>4</option>
-                                    <option value="5" {{ $item->starrating == 5 ? 'selected' : '' }}>5</option>
-                                </select>
-                                @error('starrating')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div> --}}
 
-
-
-                                            <!-- Default Review Field -->
-                                            {{-- <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="review">Review</label>
-                                    <textarea name="review[]" class="form-control" rows="5" placeholder="Review"></textarea>
-                                    @error('review')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div> --}}
 
                                             <div class="col-md-12">
                                                 <div class="form-group">
@@ -1790,16 +1748,7 @@
                                                 </div>
                                             </div>
 
-                                            <!-- Default Image Field -->
-                                            {{-- <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="image">Image</label>
-                                    <input type="file" name="image[]" class="form-control" onchange="previewFeatureImage(event)">
-                                    @error('image')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div> --}}
+
 
 
                                             <div class="col-md-12">
@@ -1839,6 +1788,327 @@
                         </div>
                     </div>
                 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <div class="tab-pane fade @if (old('section') == 'section8') show active @endif" id="section8"
+                role="tabpanel" aria-labelledby="section8-tab">
+                <div class="row">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="{{ route('admin.page.section8') }}" method="POST"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <div class="row">
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div class="form-data">
+                                                <div class="forms-inputs mb-4">
+
+                                                    <label for="ourprocesstitle">Our Process Title</label>
+                                                    <input type="text" name="ourprocesstitle" class="form-control"
+                                                        value="{{ old('ourprocesstitle', optional($banner)->ourprocesstitle) }}"
+                                                        placeholder="Our Process Title">
+                                                    @error('ourprocesstitle')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div class="form-data">
+                                                <div class="forms-inputs mb-4">
+
+                                                    <label for="ourprocesssubtitle">Our Process SubTitle</label>
+                                                    <input type="text" name="ourprocesssubtitle" class="form-control"
+                                                        value="{{ old('ourprocesssubtitle', optional($banner)->ourprocesssubtitle) }}"
+                                                        placeholder="Our Process SubTitle">
+                                                    @error('ourprocesssubtitle')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @php
+
+                                        $processold = [];
+
+                                        if (count(old('ourprocessheadingupdate', [])) > 0) {
+                                            $processold = old('ourprocessheadingupdate', []);
+                                        }
+
+
+
+                                        if (count(old('ourprocessimageupdate', [])) > 0) {
+                                            $processold = old('ourprocessimageupdate', []);
+                                        }
+
+                                    @endphp
+
+                                    @if (count($processold) > 0 && isset($processold))
+
+                                        @foreach ($processold as $k => $item)
+                                            <div class="outer-feature" id="close-{{ $k }}">
+
+
+
+
+
+
+
+
+
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <div class="form-data">
+                                                            <div class="forms-inputs mb-4">
+                                                                <label for="ourprocessheading">Our Process Heading 1</label>
+                                                                <textarea name="ourprocessheadingupdate[]" class="form-control texteditor" rows="5" placeholder="Process Heading">{{ old('ourprocessheadingupdate.' . $k) }}</textarea>
+                                                                @error('ourprocessheadingupdate.' . $k)
+                                                                    <div class="text-danger">{{ $message }}</div>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
+
+
+
+                                                <!-- Feature Image -->
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <div class="form-data">
+                                                            <div class="forms-inputs mb-4">
+                                                                <label for="ourprocessimage">Process Icon</label>
+                                                                <input type="hidden" name="processids[]"
+                                                                    value="{{ old('processids.' . $k, $item->id ?? '') }}">
+                                                                <input type="file" name="ourprocessimageupdate[]"
+                                                                    class="form-control"
+                                                                    onchange="previewFeatureImage(event)">
+
+                                                                @if (!empty($item->image))
+                                                                    <img src="{{ asset('path/to/images/' . $item->image) }}"
+                                                                        alt="Feature Image"
+                                                                        style="max-width: 100px; margin-top: 10px;"
+                                                                        id="imagePreview_{{ $k }}">
+                                                                @else
+                                                                    <img src="#" alt="Feature Image"
+                                                                        style="max-width: 100px; margin-top: 10px; display: none;"
+                                                                        id="imagePreview_{{ $k }}">
+                                                                @endif
+
+                                                                @error('ourprocessimageupdate.' . $k)
+                                                                    <div class="text-danger">{{ $message }}</div>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
+
+
+
+
+
+
+                                                <button type="button" class="btn btn-danger"
+                                                    onclick="removeDiv(this, 'close-{{ $k }}')"
+                                                    data-feature-id="{{ $k }}">X</button>
+
+                                            </div>
+                                        @endforeach
+                                    @elseif(!empty($ourprocess) && count($ourprocess) > 0)
+                                        @foreach ($ourprocess as $k => $item)
+                                            <div class="outer-feature" id="close-{{ $item->id }}">
+
+
+
+
+
+
+
+
+<div class="col-md-12">
+    <div class="form-group">
+        <div class="form-data">
+            <div class="forms-inputs mb-4">
+                <label for="ourprocessheading">Our Process Heading 2</label>
+
+                <!-- Textarea for Process Heading -->
+                <textarea name="ourprocessheadingupdate[]" class="form-control texteditor" rows="5" placeholder="Process Heading">{{ old('ourprocessheadingupdate[]', $item->ourprocessheading) }}</textarea>
+
+                @error('ourprocessheading')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+                                                <!-- Feature Image -->
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <div class="form-data">
+                                                            <div class="forms-inputs mb-4">
+                                                                <label for="ourprocessimage">Process Icon</label>
+                                                                <input type="hidden" name="processids[]"
+                                                                    value="{{ $item->id }}">
+                                                                <input type="file" name="ourprocessimageupdate[]"
+                                                                    class="form-control"
+                                                                    onchange="previewFeatureImage(event)">
+                                                                @if (!empty($item->ourprocessimage))
+                                                                    <img src="{{ url('d0/' . $item->ourprocessimage) }}"
+                                                                        alt="Feature Image"
+                                                                        style="max-width: 100px; margin-top: 10px;">
+                                                                @endif
+                                                                @error('ourprocessimageupdate')
+                                                                    <div class="text-danger">{{ $message }}</div>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <button type="button" class="btn btn-danger"
+                                                    onclick="removeDiv(this, 'close-{{ $item->id }}')"
+                                                    data-feature-id="{{ $item->id }}">X</button>
+
+                                            </div>
+                                        @endforeach
+                                    @else
+
+
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="form-data">
+                                                    <div class="forms-inputs mb-4">
+                                                        <label for="ourprocessheading">Our Process Heading 3</label>
+
+                                                        <!-- Textarea for Process Heading -->
+                                                        <textarea name="ourprocessheadingupdate[]" class="form-control texteditor" rows="5" placeholder="Process Heading">{{ old('ourprocessheadingupdate', optional($banner)->ourprocessheadings) }}</textarea>
+
+                                                        @error('ourprocessheading')
+                                                            <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="form-data">
+                                                    <div class="forms-inputs mb-4">
+                                                        <label for="ourprocessimage">Process Icon</label>
+                                                        <input type="file" name="ourprocessimage[]"
+                                                            class="form-control"
+                                                            onchange="previewFeatureImage(event)">
+                                                        @error('ourprocessimage')
+                                                            <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    @endif
+
+
+                                    <!-- Add Feature Button -->
+
+
+                                    <!-- Feature Repeater -->
+                                    <div class="col-md-12" id="processContainer"></div>
+
+                                    <div class="col-md-12 mb-3">
+                                        <button type="button" class="btn btn-dark" id="addprocess">Add</button>
+                                    </div>
+
+                                    <!-- Submit Button -->
+                                    <div class="col-md-12 mb-3">
+                                        <button type="submit" class="btn btn-primary" name="section"
+                                            value="section8">Save</button>
+                                    </div>
+
+                                </div>
+
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2023,4 +2293,73 @@
                     }
                 </script>
 
+
+
+
+<script>
+ document.addEventListener('DOMContentLoaded', function() {
+    let processIndex = 0;
+
+    document.getElementById('addprocess').addEventListener('click', function() {
+        processIndex++;
+
+        let processHTML = `
+<div class="feature-item mb-3">
+    <h4>Process ${processIndex}</h4>
+
+    <div class="form-group">
+        <label for="ourprocessheading${processIndex}">Process Heading</label>
+        <textarea name="ourprocessheadingupdate[]" id="ourprocessheading${processIndex}" class="form-control texteditor" placeholder="Feature Heading"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="ourprocessimage${processIndex}">Our Process Icon</label>
+        <input type="file" name="ourprocessimageupdate[]" id="ourprocessimage${processIndex}" class="form-control" onchange="previewFeatureImage(event)">
+    </div>
+</div>
+`;
+
+        let container = document.getElementById('processContainer');
+        container.insertAdjacentHTML('beforeend', processHTML);
+
+        // Initialize CKEditor for the newly added textarea
+        CKEDITOR.replace(`ourprocessheading${processIndex}`);
+    });
+
+    function previewFeatureImage(event) {
+        let reader = new FileReader();
+        reader.onload = function() {
+            let output = document.getElementById('imagePreview');
+            output.src = reader.result;
+            output.style.display = 'block';
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+});
+
+
+function removeDiv(button, id) {
+    // Destroy CKEditor instance
+    if (CKEDITOR.instances[id]) {
+        CKEDITOR.instances[id].destroy();
+    }
+
+    // Remove the feature item
+    document.getElementById(id).remove();
+}
+
+
+</script>
+<script>
+
+
             @endsection
+
+            @push('footer-script')
+            <script>
+                CKEDITOR.replaceAll('texteditor');
+            </script>
+
+
+            <script>
+            @endpush

@@ -11,10 +11,13 @@
                         <h3 class="highlight">{{ $banner->title }}</h3>
                     @endif
 
-                    {{-- Render subtitle as HTML --}}
-                    @if (!empty($banner->subtitle))
+
+                    <h1> @if (!empty($banner->subtitle))
                         {!! $banner->subtitle !!}
                     @endif
+                    </h1>
+
+
 
 
                     @if (!empty($banner->content))
@@ -48,9 +51,11 @@
     <section class="guarantee-wrapp">
         <div class="container">
             {{-- Render subtitle as HTML --}}
-            @if (!empty($banner->guaranteetitle))
+
+            <h2> @if (!empty($banner->guaranteetitle))
                 {!! $banner->guaranteetitle !!}
-            @endif
+            @endif</h2>
+
 
             <div class="guarantee-row">
                 <div class="guarantee-col1">
@@ -162,61 +167,52 @@
         </div>
     </section>
 
-    <section class="process-wrapp">
-        <div class="container">
-            <div class="process-row">
-                <div class="process-col1">
-                    <h3 class="highlight">OUR PROCESS</h3>
-                    <h2>Unique <span>Preparation</span> Process</h2>
-                </div>
-                <div class="process-col2">
-                    <div class="sticky-cards">
-                        <div class="process-box card-1 card-3">
+
+ <section class="process-wrapp">
+    <div class="container">
+        <div class="process-row">
+            <div class="process-col1">
+                @if (!empty($banner->ourprocesstitle))
+                    <h3 class="highlight">{{ $banner->ourprocesstitle }}</h3>
+                @endif
+                <h2>
+                    @if (!empty($banner->ourprocesssubtitle))
+                        {!! $banner->ourprocesssubtitle !!}
+                    @endif
+                </h2>
+            </div>
+            <div class="process-col2">
+                <div class="sticky-cards">
+                    @foreach ($ourprocess as $p)
+                        <div class="process-box card-{{ $p->id }} card-3 _{{ $p->id }}">
                             <div class="process-icon">
-                                <img src="{{ asset('app/images/preparation.svg') }}" alt="Preparation Icon">
+                                <img src="{{ url('d0/' . $p->ourprocessimage) }}" alt="{{ $p->icon_alt }}">
                             </div>
-                            <span class="count">01</span>
-                            <h3>Exam Preparation</h3>
-                            <p>Join Cortex’s industry-leading exam platform, purchase a test pack and begin your exam
-                                preparation journey.</p>
+                            <span class="count">{{ $p->step_number }}</span>
+                            @if (!empty($p->ourprocessheading))
+                                {!! $p->ourprocessheading !!}
+                            @endif
                         </div>
-                        <div class="process-box card-2 card-3 _2">
-                            <div class="process-icon">
-                                <img src="{{ asset('app/images/preparation.svg') }}" alt="Preparation Icon">
-                            </div>
-                            <span class="count">02</span>
-                            <h3>Exam Preparation</h3>
-                            <p>Join Cortex’s industry-leading exam platform, purchase a test pack and begin your exam
-                                preparation journey.</p>
-                        </div>
-                        <div class="process-box card-3 card-3 _3">
-                            <div class="process-icon">
-                                <img src="{{ asset('app/images/preparation.svg') }}" alt="Preparation Icon">
-                            </div>
-                            <span class="count">03</span>
-                            <h3>Exam Preparation</h3>
-                            <p>Join Cortex’s industry-leading exam platform, purchase a test pack and begin your exam
-                                preparation journey.</p>
-                        </div>
-                        <div class="process-box card-4 card-3 _4">
-                            <div class="process-icon">
-                                <img src="{{ asset('app/images/preparation.svg') }}" alt="Preparation Icon">
-                            </div>
-                            <span class="count">04</span>
-                            <h3>Exam Preparation</h3>
-                            <p>Join Cortex’s industry-leading exam platform, purchase a test pack and begin your exam
-                                preparation journey.</p>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
+
+
+
+
+
+
     <section class="features-wrapp1">
         <div class="container">
-            <h2>@if (!empty($banner->featurestitle))
-                {!! $banner->featurestitle !!}
-            @endif</h2>
+            <h2>
+                @if (!empty($banner->featurestitle))
+                    {!! $banner->featurestitle !!}
+                @endif
+            </h2>
 
             <div class="features-row">
                 <div class="features-box">
@@ -322,34 +318,12 @@
         <div class="container">
             <div class="learning-row">
                 <div class="learning-col1">
-                    <h3 class="highlight">Learn, Perfect & Excel</h3>
-                    <h2>
-                        @if (!empty($banner->exceltitle))
-                            {!! $banner->exceltitle !!}
-                        @endif
-                    </h2>
-                    <p>
-                        @if (!empty($banner->excelsubtitle))
-                            <p>{{ $banner->excelsubtitle }}</p>
-                        @endif
-                    </p>
-                    <ul>
-                        <li>
-                            @if (!empty($banner->subtitle1))
-                                <p>{{ $banner->subtitle1 }}</p>
-                            @endif
-                        </li>
-                        <li>
-                            @if (!empty($banner->subtitle2))
-                                <p>{{ $banner->subtitle2 }}</p>
-                            @endif
-                        </li>
-                        <li>
-                            @if (!empty($banner->subtitle3))
-                                <p>{{ $banner->subtitle3 }}</p>
-                            @endif
-                        </li>
-                    </ul>
+
+
+                    @if (!empty($banner->exceltitle))
+                        {!! $banner->exceltitle !!}
+                    @endif
+
 
                     @if (!empty($banner->excelbuttonlink) && !empty($banner->excelbuttonlabel))
                         <a href="{{ $banner->excelbuttonlink }}"
@@ -372,7 +346,7 @@
         <div class="container">
             <div class="review-row">
                 <div class="review-col1">
-                    <h3 class="highlight">Students feedback</h3>
+                    <h3 class="highlight"> {{ $courses->studentsfeedback }}</h3>
                     <h2>
                         @if (!empty($courses->studenttitle))
                             {{ $courses->studenttitle }}
@@ -383,11 +357,14 @@
                     @endif
                     <div class="review-col3">
                         <div class="review-col4">
-                            <h1>99%</h1>
+                            @if (!empty($courses->percentage))
+                        <h1>{{ $courses->percentage }}</h1>
+                    @endif
                         </div>
                         <div class="review-col5">
-                            <h3>Students Completed
-                                <span>Course Successfully.</span>
+                            <h3> @if (!empty($courses->studentssubtitle))
+                                {!! $courses->studentssubtitle !!}
+                            @endif
                             </h3>
                         </div>
                     </div>
@@ -408,9 +385,10 @@
                                     <span class="rating">
                                         @for ($i = 1; $i <= 5; $i++)
                                             @if ($i <= $review->starrating)
-                                                <img src="{{asset('assets/images/Star-Yellow.svg')}}" alt="Yellow Star">
+                                                <img src="{{ asset('assets/images/Star-Yellow.svg') }}"
+                                                    alt="Yellow Star">
                                             @else
-                                                <img src="{{asset('assets/images/Star-Grey.svg')}}" alt="Grey Star">
+                                                <img src="{{ asset('assets/images/Star-Grey.svg') }}" alt="Grey Star">
                                             @endif
                                         @endfor
                                     </span>
