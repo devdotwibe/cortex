@@ -78,7 +78,7 @@ class UserController extends Controller
                     $data["is_free_access"]=false;
                     break;
                 case 'enable-community':
-                    $data["post_status"]=="active";
+                    $data["post_status"]="active";
                     break;
                 case 'disable-community':
                     $data["post_status"]="banned";
