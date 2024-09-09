@@ -28,12 +28,13 @@ class AjaxTable extends Component
     public $deletecallbackbefore;
     public $deletecallbackafter;
     public $action;
+    public $bulkotheraction;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($coloumns,$url=null,$fields=null,$tableid=null,$popupid=null,$ajaxcreate=null,$createurl=null,$cancel=null,$btnsubmit=null,$onclick=null,$beforeajax=null,$bulkaction=false,$bulkactionlink=null,$tableinit=null,$deletecallbackbefore=null,$deletecallbackafter=null,$action=true)
+    public function __construct($coloumns,$url=null,$fields=null,$tableid=null,$popupid=null,$ajaxcreate=null,$createurl=null,$cancel=null,$btnsubmit=null,$onclick=null,$beforeajax=null,$bulkaction=false,$bulkactionlink=null,$tableinit=null,$deletecallbackbefore=null,$deletecallbackafter=null,$action=true,$bulkotheraction=null)
     {
         $this->coloumns = json_decode(json_encode($coloumns),false); 
         $this->url = $url??url()->current();
@@ -52,6 +53,7 @@ class AjaxTable extends Component
         $this->deletecallbackbefore=$deletecallbackbefore;
         $this->deletecallbackafter=$deletecallbackafter;
         $this->action=$action;
+        $this->bulkotheraction=$bulkotheraction;
     }
 
     /**

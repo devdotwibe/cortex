@@ -65,13 +65,22 @@
 <section class="table-section">
     <div class="container">
         <div class="row">
-            <x-ajax-table :bulkaction="true" bulkactionlink="{{route('admin.user.bulkaction')}}" :coloumns='[
+             
+            <x-ajax-table :bulkaction="true" bulkactionlink="{{route('admin.user.bulkaction')}}" :bulkotheraction='[
+                "actions"=>[
+                    ["name"=>"Enable Free Access","value"=>"enable-free-access"],
+                    ["name"=>"Disable Free Access","value"=>"disable-free-access"],
+                    ["name"=>"Enable Community","value"=>"enable-community"],
+                    ["name"=>"Disable Community","value"=>"disable-community"],
+                ],
+                "url"=>route("admin.user.bulkupdate")
+            ]' :coloumns='[
                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
                 ["th"=>"Name","name"=>"name","data"=>"name"],
                 ["th"=>"Email","name"=>"email","data"=>"email"],
                 ["th"=>"Free Access","name"=>"is_free_access","data"=>"is_free_access"],
                 ["th"=>"Community","name"=>"post_status","data"=>"post_status"],
-            ]' tableinit="usertableinit" />
+            ]' tableinit="usertableinit"  />
         </div>
     </div>
 </section>
