@@ -6,6 +6,7 @@ use App\Models\banner;
 use App\Models\Course;
 use App\Models\Courses;
 use App\Models\Feature;
+use App\Models\OurProcess;
 use App\Models\Feed;
 use App\Models\User;
 use App\Models\FaqCategory;
@@ -43,7 +44,11 @@ class HomeController extends Controller
 
 
 
-        return view("welcome",compact('banner','feature','courses','feed','faq'));
+        $ourprocess = OurProcess::get();
+
+
+
+        return view("welcome",compact('banner','feature','courses','feed','faq','ourprocess'));
 
 
     }

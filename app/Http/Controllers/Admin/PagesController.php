@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Feature;
+use App\Models\OurProcess;
 use App\Models\banner; // Import the Banner model
 use App\Models\Course;
 use App\Models\Feed;
@@ -23,8 +24,10 @@ class PagesController extends Controller
 
         $feed = Feed::get();
 
+        $ourprocess = OurProcess::get();
 
-        return view('admin.pages.home', compact('banner','features','courses','feed'));
+
+        return view('admin.pages.home', compact('banner', 'features', 'courses', 'feed','ourprocess'));
     }
 
 
@@ -45,9 +48,8 @@ class PagesController extends Controller
 
         $banner = Banner::first();
 
-        if(empty($banner))
-        {
-            $banner =new Banner;
+        if (empty($banner)) {
+            $banner = new Banner;
         }
 
         $banner->title = $request->input('title');
@@ -94,9 +96,8 @@ class PagesController extends Controller
 
         $banner = Banner::first();
 
-        if(empty($banner))
-        {
-            $banner =new Banner;
+        if (empty($banner)) {
+            $banner = new Banner;
         }
 
         $banner->guaranteetitle = $request->input('guaranteetitle');
@@ -136,7 +137,6 @@ class PagesController extends Controller
 
         $banner->save();
         return redirect()->route('admin.page.index')->with('success', 'Section 2 data has been successfully saved.');
-
     }
 
     public function storeSection3(Request $request)
@@ -144,7 +144,7 @@ class PagesController extends Controller
         // Validate the request data for Section 3
 
         $request->validate([
-            'ourfeaturestitle'=>'required|nullable|max:255',
+            'ourfeaturestitle' => 'required|nullable|max:255',
             'FeatureHeading' => 'required|nullable|max:255',
 
 
@@ -152,7 +152,7 @@ class PagesController extends Controller
             'featurecontentupdate.*' => 'required|nullable|max:255',
             'featureimageupdate.*' => 'required|nullable|image|max:2048', // Validate image
 
-        //  ,['featuresubtitleupdate.*.required' =>'this field is required.']);
+            //  ,['featuresubtitleupdate.*.required' =>'this field is required.']);
 
 
         ], [
@@ -166,12 +166,11 @@ class PagesController extends Controller
 
         $banner = Banner::first();
 
-        if(empty($banner))
-        {
-            $banner =new Banner;
+        if (empty($banner)) {
+            $banner = new Banner;
         }
         $banner->FeatureHeading = $request->input('FeatureHeading');
-        $banner->ourfeaturestitle = $request->input('ourfeaturestitle');// Save Feature Top Heading
+        $banner->ourfeaturestitle = $request->input('ourfeaturestitle'); // Save Feature Top Heading
 
 
         $banner->save();
@@ -181,14 +180,14 @@ class PagesController extends Controller
         $featurecontents = $request->input('featurecontent', []);
         $featureimages = $request->file('featureimage', []);
 
-        $feaids=[];
+        $feaids = [];
         // Iterate over the feature titles
         foreach ($featuresubtitles as $key => $title) {
             $feature = new Feature;
 
             // Set feature date
             $feature->featuresubtitle = $title;
-            $feature->featurecontent = $featurecontents[$key] ;
+            $feature->featurecontent = $featurecontents[$key];
 
             // Handle file upload
             if (isset($featureimages[$key])) {
@@ -199,10 +198,9 @@ class PagesController extends Controller
             }
 
 
-            array_push($feaids,$feature->id);
+            array_push($feaids, $feature->id);
 
             $feature->save();
-
         }
 
 
@@ -216,14 +214,13 @@ class PagesController extends Controller
 
 
 
-        foreach ($featuresubtitles as $key=> $value) {
+        foreach ($featuresubtitles as $key => $value) {
 
-            if(!empty($featureids[$key]))
-            {
-
+            if (!empty($featureids[$key])) {
 
 
-                $feature =Feature::find($featureids[$key]);
+
+                $feature = Feature::find($featureids[$key]);
 
                 $feature->featuresubtitle = $value;
 
@@ -238,9 +235,8 @@ class PagesController extends Controller
 
                 $feature->save();
 
-                array_push($feaids,$feature->id);
-
-            }else{
+                array_push($feaids, $feature->id);
+            } else {
 
 
                 $feature = new Feature;
@@ -256,14 +252,13 @@ class PagesController extends Controller
                     $feature->image = $featureImageName;
                 }
 
-                array_push($feaids,$feature->id);
+                array_push($feaids, $feature->id);
 
                 $feature->save();
             }
-
         }
 
-        Feature::whereNotIn('id',$feaids)->delete();
+        Feature::whereNotIn('id', $feaids)->delete();
 
 
 
@@ -280,20 +275,20 @@ class PagesController extends Controller
 
 
     public function destroy($id)
-{
-    $feature = Feature::find($id);
+    {
+        $feature = Feature::find($id);
 
-    if ($feature) {
-        // Delete the feature from the database
-        $feature->delete();
+        if ($feature) {
+            // Delete the feature from the database
+            $feature->delete();
 
-        // Return a success response
-        return response()->json(['success' => true]);
+            // Return a success response
+            return response()->json(['success' => true]);
+        }
+
+        // Return a failure response if feature not found
+        return response()->json(['success' => false], 404);
     }
-
-    // Return a failure response if feature not found
-    return response()->json(['success' => false], 404);
-}
 
 
 
@@ -302,11 +297,8 @@ class PagesController extends Controller
     {
         // Validate the request data for Section 4
         $request->validate([
-            'exceltitle' => 'required|nullable|string|max:255',
-            'excelsubtitle' => 'required|nullable|string|max:255',
-            'subtitle1' => 'required|nullable|string|max:255',
-            'subtitle2' => 'required|nullable|string|max:255',
-            'subtitle3' => 'required|nullable|string|max:255',
+            'exceltitle' => 'required|nullable|string',
+
             'excelbuttonlabel' => 'required|nullable|string|max:255',
             'excelbuttonlink' => 'required|nullable|string|max:255',
             'excelimage' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048',
@@ -315,16 +307,12 @@ class PagesController extends Controller
 
         $banner = Banner::first();
 
-        if(empty($banner))
-        {
+        if (empty($banner)) {
             $banner = new Banner;
         }
 
         $banner->exceltitle = $request->input('exceltitle');
-        $banner->excelsubtitle = $request->input('excelsubtitle');
-        $banner->subtitle1 = $request->input('subtitle1');
-        $banner->subtitle2 = $request->input('subtitle2');
-        $banner->subtitle3 = $request->input('subtitle3');
+
         $banner->excelbuttonlabel = $request->input('excelbuttonlabel');
         $banner->excelbuttonlink = $request->input('excelbuttonlink');
 
@@ -343,161 +331,168 @@ class PagesController extends Controller
     }
 
     public function storeSection6(Request $request)
-{
-    // Validate the request data for Section 5
-    $request->validate([
-        'ourcoursetitle' => 'required|nullable|string|max:255',
-        'coursetitle' => 'required|nullable|string|max:255',
-        'coursesubtitle' => 'required|nullable|string|max:255',
-        'courseheading1' => 'required|nullable|string|max:255',
-        'coursecontent1' => 'required|nullable|string',
-        'courseheading2' => 'required|nullable|string|max:255',
-        'coursecontent2' => 'required|nullable|string',
-        'courseheading3' => 'required|nullable|string|max:255',
-        'coursecontent3' => 'required|nullable|string',
-        'courseheading4' => 'required|nullable|string|max:255',
-        'coursecontent4' => 'required|nullable|string',
-        'coursebuttonlabel' => 'required|nullable|string|max:255',
-        'coursebuttonlink' => 'required|nullable|string|max:255',
-        'courseimage' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048',
-    ]);
+    {
+        // Validate the request data for Section 5
+        $request->validate([
+            'ourcoursetitle' => 'required|nullable|string|max:255',
+            'coursetitle' => 'required|nullable|string|max:255',
+            'coursesubtitle' => 'required|nullable|string|max:255',
+            'courseheading1' => 'required|nullable|string|max:255',
+            'coursecontent1' => 'required|nullable|string',
+            'courseheading2' => 'required|nullable|string|max:255',
+            'coursecontent2' => 'required|nullable|string',
+            'courseheading3' => 'required|nullable|string|max:255',
+            'coursecontent3' => 'required|nullable|string',
+            'courseheading4' => 'required|nullable|string|max:255',
+            'coursecontent4' => 'required|nullable|string',
+            'coursebuttonlabel' => 'required|nullable|string|max:255',
+            'coursebuttonlink' => 'required|nullable|string|max:255',
+            'courseimage' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048',
+        ]);
 
-    $courses = Course::first();
+        $courses = Course::first();
 
-    if (empty($courses)) {
-        $courses = new Course;
-    }
-    $courses->ourcoursetitle = $request->input('ourcoursetitle');
-    $courses->coursetitle = $request->input('coursetitle');
-    $courses->coursesubtitle = $request->input('coursesubtitle');
-    $courses->courseheading1 = $request->input('courseheading1');
-    $courses->coursecontent1 = $request->input('coursecontent1');
-    $courses->courseheading2 = $request->input('courseheading2');
-    $courses->coursecontent2 = $request->input('coursecontent2');
-    $courses->courseheading3 = $request->input('courseheading3');
-    $courses->coursecontent3 = $request->input('coursecontent3');
-    $courses->courseheading4 = $request->input('courseheading4');
-    $courses->coursecontent4 = $request->input('coursecontent4');
-    $courses->coursebuttonlabel = $request->input('coursebuttonlabel');
-    $courses->coursebuttonlink = $request->input('coursebuttonlink');
+        if (empty($courses)) {
+            $courses = new Course;
+        }
+        $courses->ourcoursetitle = $request->input('ourcoursetitle');
+        $courses->coursetitle = $request->input('coursetitle');
+        $courses->coursesubtitle = $request->input('coursesubtitle');
+        $courses->courseheading1 = $request->input('courseheading1');
+        $courses->coursecontent1 = $request->input('coursecontent1');
+        $courses->courseheading2 = $request->input('courseheading2');
+        $courses->coursecontent2 = $request->input('coursecontent2');
+        $courses->courseheading3 = $request->input('courseheading3');
+        $courses->coursecontent3 = $request->input('coursecontent3');
+        $courses->courseheading4 = $request->input('courseheading4');
+        $courses->coursecontent4 = $request->input('coursecontent4');
+        $courses->coursebuttonlabel = $request->input('coursebuttonlabel');
+        $courses->coursebuttonlink = $request->input('coursebuttonlink');
 
-    if ($request->hasFile('courseimage')) {
-        $imageName = "course/" . $request->file('courseimage')->hashName();
-        Storage::put('course', $request->file('courseimage'));
-        $courses->courseimage = $imageName;
-    }
-
-    $courses->save();
-
-    return redirect()->route('admin.page.index')->with('success', 'Section 6 data has been successfully saved.');
-}
-
-
-
-
-public function storeSection8(Request $request)
-{
-    // Validate the request data for Section 8
-    $request->validate([
-
-        'studenttitle' => 'nullable|string|max:255',
-        'studentsubtitle' => 'nullable|string|max:255',
-
-        'nameupdate.*' => 'required|string|max:255',
-        'starratingupdate.*' => 'required|string',
-        'reviewupdate.*' => 'required|string',
-        'imageupdate.*' => 'required|image|max:2048',
-
-
-    ], [
-
-        'nameupdate.*.required' => 'The name  field is required.',
-        'starratingupdate.*.required' => 'The star rating field is required.',
-        'reviewupdate.required' => 'The review field is required.',
-        'imageupdate.required' => 'The image field is required.',
-    ]);
-
-
-
-
-    $courses = Course::first();
-
-    if (empty($courses)) {
-        $courses = new Course;
-    }
-
-
-    $courses->studenttitle = $request->input('studenttitle');
-    $courses->studentsubtitle = $request->input('studentsubtitle');
-
-    $courses->save();
-
-    // Retrieve input arrays
-    $names = $request->input('name', []);
-    $starratings = $request->input('starrating', []);
-    $reviews = $request->input('review', []);
-    $images = $request->file('image', []);
-
-    // Initialize the feedIds array
-    $feedIds = [];
-
-    // Iterate over the input arrays to create or update feeds
-    foreach ($names as $key => $name) {
-        $feed = new Feed;
-
-        // Set feed data
-        $feed->name = $name;
-        $feed->starrating = $starratings[$key] ?? null;
-        $feed->review = $reviews[$key] ?? null;
-
-        // Handle file upload
-        if (isset($images[$key])) {
-            $image = $images[$key];
-            $feedImageName = "feed/" . $image->hashName();
-            Storage::put('feed', $image);
-            $feed->image = $feedImageName;
+        if ($request->hasFile('courseimage')) {
+            $imageName = "course/" . $request->file('courseimage')->hashName();
+            Storage::put('course', $request->file('courseimage'));
+            $courses->courseimage = $imageName;
         }
 
-        $feed->save();
-        $feedIds[] = $feed->id; // Using array_push is optional, you can just append to the array like this
+        $courses->save();
+
+        return redirect()->route('admin.page.index')->with('success', 'Section 6 data has been successfully saved.');
     }
 
-    // Handle updates for existing feeds
-    $namesUpdate = $request->input('nameupdate', []);
-    $starratingsUpdate = $request->input('starratingupdate', []);
-    $reviewsUpdate = $request->input('reviewupdate', []);
-    $imagesUpdate = $request->file('imageupdate', []);
-    $feedidsUpdate = $request->input('feedids', []);
 
-    foreach ($namesUpdate as $key => $value) {
-        if (!empty($feedidsUpdate[$key])) {
-            $feed = Feed::find($feedidsUpdate[$key]);
 
-            if ($feed) {
-                $feed->name = $value;
-                $feed->starrating = $starratingsUpdate[$key] ?? null;
-                $feed->review = $reviewsUpdate[$key] ?? null;
 
-                // Handle file upload for update
-                if (isset($imagesUpdate[$key])) {
-                    $image = $imagesUpdate[$key];
-                    $feedImageName = "feed/" . $image->hashName();
-                    Storage::put('feed', $image);
-                    $feed->image = $feedImageName;
+    public function storeSection8(Request $request)
+    {
+        // Validate the request data for Section 8
+        $request->validate([
+
+            'studenttitle' => 'nullable|string|max:255',
+            'studentsubtitle' => 'nullable|string|max:255',
+            'percentage' => 'nullable|string|max:255',
+            'studentssubtitle' => 'nullable|string|max:255',
+            'studentsfeedback' => 'nullable|string|max:255',
+
+            'nameupdate.*' => 'required|string|max:255',
+            'starratingupdate.*' => 'required|string',
+            'reviewupdate.*' => 'required|string',
+            'imageupdate.*' => 'required|image|max:2048',
+
+
+        ], [
+
+            'nameupdate.*.required' => 'The name  field is required.',
+            'starratingupdate.*.required' => 'The star rating field is required.',
+            'reviewupdate.required' => 'The review field is required.',
+            'imageupdate.required' => 'The image field is required.',
+        ]);
+
+
+
+
+        $courses = Course::first();
+
+        if (empty($courses)) {
+            $courses = new Course;
+        }
+
+
+        $courses->studenttitle = $request->input('studenttitle');
+        $courses->studentsubtitle = $request->input('studentsubtitle');
+        $courses->percentage = $request->input('percentage');
+        $courses->studentssubtitle = $request->input('studentssubtitle');
+        $courses->studentsfeedback = $request->input('studentsfeedback');
+
+        $courses->save();
+
+        // Retrieve input arrays
+        $names = $request->input('name', []);
+        $starratings = $request->input('starrating', []);
+        $reviews = $request->input('review', []);
+        $images = $request->file('image', []);
+
+        // Initialize the feedIds array
+        $feedIds = [];
+
+        // Iterate over the input arrays to create or update feeds
+        foreach ($names as $key => $name) {
+            $feed = new Feed;
+
+            // Set feed data
+            $feed->name = $name;
+            $feed->starrating = $starratings[$key] ?? null;
+            $feed->review = $reviews[$key] ?? null;
+
+            // Handle file upload
+            if (isset($images[$key])) {
+                $image = $images[$key];
+                $feedImageName = "feed/" . $image->hashName();
+                Storage::put('feed', $image);
+                $feed->image = $feedImageName;
+            }
+
+            $feed->save();
+            $feedIds[] = $feed->id; // Using array_push is optional, you can just append to the array like this
+        }
+
+        // Handle updates for existing feeds
+        $namesUpdate = $request->input('nameupdate', []);
+        $starratingsUpdate = $request->input('starratingupdate', []);
+        $reviewsUpdate = $request->input('reviewupdate', []);
+        $imagesUpdate = $request->file('imageupdate', []);
+        $feedidsUpdate = $request->input('feedids', []);
+
+        foreach ($namesUpdate as $key => $value) {
+            if (!empty($feedidsUpdate[$key])) {
+                $feed = Feed::find($feedidsUpdate[$key]);
+
+                if ($feed) {
+                    $feed->name = $value;
+                    $feed->starrating = $starratingsUpdate[$key] ?? null;
+                    $feed->review = $reviewsUpdate[$key] ?? null;
+
+                    // Handle file upload for update
+                    if (isset($imagesUpdate[$key])) {
+                        $image = $imagesUpdate[$key];
+                        $feedImageName = "feed/" . $image->hashName();
+                        Storage::put('feed', $image);
+                        $feed->image = $feedImageName;
+                    }
+
+                    $feed->save();
+                    $feedIds[] = $feed->id;
                 }
-
-                $feed->save();
-                $feedIds[] = $feed->id;
             }
         }
+
+        // Delete feeds that were not included in the request
+        Feed::whereNotIn('id', $feedIds)->delete();
+
+        // Redirect back with success message
+        return redirect()->route('admin.page.index')->with('success', 'Section 7 data has been successfully saved.');
     }
 
-    // Delete feeds that were not included in the request
-    Feed::whereNotIn('id', $feedIds)->delete();
-
-    // Redirect back with success message
-    return redirect()->route('admin.page.index')->with('success', 'Section 7 data has been successfully saved.');
-}
 
 
 
@@ -505,104 +500,313 @@ public function storeSection8(Request $request)
 
 
 
+    public function destroyy($id)
+    {
+        $feed = Feed::find($id);
 
-public function destroyy($id)
+        if ($feed) {
+            // Delete the feature from the database
+            $feed->delete();
+
+            // Return a success response
+            return response()->json(['success' => true]);
+        }
+
+        // Return a failure response if feature not found
+        return response()->json(['success' => false], 404);
+    }
+
+
+
+
+
+    public function storeSection9(Request $request)
+    {
+
+
+
+        // Validate the request data for Section 9
+        $request->validate([
+            'featurestitle' => 'required|nullable|string',
+            'analyticsimage' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048',
+            'analyticstitle' => 'required|string|max:255',
+            'analyticscontent' => 'required|nullable|string',
+            'anytimeimage' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048',
+            'anytimetitle' => 'required|required|string|max:255',
+            'anytimedescription' => 'required|nullable|string',
+            'unlimitedimage' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048',
+            'unlimitedtitle' => 'required|string|max:255',
+            'unlimitedcontent' => 'required|nullable|string',
+            'liveimage' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048',
+            'livetitle' => 'required|required|string|max:255',
+            'livecontent' => 'required|nullable|string',
+        ]);
+
+        // Retrieve the first banner or create a new one if none exists
+        $banner = Banner::first();
+
+        if (empty($banner)) {
+            $banner = new Banner;
+        }
+
+        // Assign values from the request to the banner
+        $banner->featurestitle = $request->input('featurestitle');
+        $banner->analytics_title = $request->input('analyticstitle');
+        $banner->analytics_content = $request->input('analyticscontent');
+        $banner->anytime_title = $request->input('anytimetitle');
+        $banner->anytime_description = $request->input('anytimedescription');
+        $banner->unlimited_title = $request->input('unlimitedtitle');
+        $banner->unlimited_content = $request->input('unlimitedcontent');
+        $banner->live_title = $request->input('livetitle');
+        $banner->live_content = $request->input('livecontent');
+
+        // Handle file uploads
+        if ($request->hasFile('analyticsimage')) {
+            $analyticsImageName = "banner/" . $request->file('analyticsimage')->hashName();
+            Storage::put('banner', $request->file('analyticsimage'));
+            $banner->analytics_image = $analyticsImageName;
+        }
+
+        if ($request->hasFile('anytimeimage')) {
+            $anytimeImageName = "banner/" . $request->file('anytimeimage')->hashName();
+            Storage::put('banner', $request->file('anytimeimage'));
+            $banner->anytime_image = $anytimeImageName;
+        }
+
+        if ($request->hasFile('unlimitedimage')) {
+            $unlimitedImageName = "banner/" . $request->file('unlimitedimage')->hashName();
+            Storage::put('banner', $request->file('unlimitedimage'));
+            $banner->unlimited_image = $unlimitedImageName;
+        }
+
+        if ($request->hasFile('liveimage')) {
+            $liveImageName = "banner/" . $request->file('liveimage')->hashName();
+            Storage::put('banner', $request->file('liveimage'));
+            $banner->live_image = $liveImageName;
+        }
+
+        // Save the banner
+        $banner->save();
+
+        return redirect()->route('admin.page.index')->with('success', 'Section 4 data has been successfully saved.');
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // public function storeSection10(Request $request)
+    // {
+    //     // Validate the request data for Section 3
+
+    //     $request->validate([
+    //         'ourprocesstitle' => 'nullable|max:255',
+    //         'ourprocesssubtitle' => 'nullable|max:255',
+
+
+    //         'ourprocessheadingupdate.*' => 'nullable|string',
+
+    //         'ourprocessimageupdate.*' => 'nullable|image|max:2048', // Validate image
+
+    //         //  ,['featuresubtitleupdate.*.required' =>'this field is required.']);
+
+
+    //     ], [
+
+    //         'ourprocessheadingupdate.*.required' => 'The Process Heading  field is required.',
+
+    //         'ourprocessimageupdate.required' => 'The process image field is required.',
+    //     ]);
+
+
+
+    //     $banner = Banner::first();
+
+    //     if (empty($banner)) {
+    //         $banner = new Banner;
+    //     }
+    //     $banner->ourprocesstitle = $request->input('ourprocesstitle');
+    //     $banner->ourprocesssubtitle = $request->input('ourprocesssubtitle'); // Save Feature Top Heading
+
+
+    //     $banner->save();
+    //     // Retrieve input arrays
+
+    //     $ourprocessheading = $request->input('ourprocessheadingupdate', []);
+
+    //     $ourprocessimage = $request->file('ourprocessimageupdate', []);
+
+    //     $proids = [];
+    //     // Iterate over the feature titles
+    //     foreach ($ourprocessheading as $key => $ourprocessheading) {
+    //         $process = new OurProcess;
+
+    //         // Set feature date
+    //         $process->ourprocessheading = $ourprocessheading;
+
+
+    //         // Handle file upload
+    //         if (isset($ourprocessimage[$key])) {
+    //             $ourprocessimage = $ourprocessimage[$key];
+    //             $ourprocessimage = "features/" . $ourprocessimage->hashName();
+    //             Storage::put('features', $ourprocessimage);
+    //             $process->ourprocessimage = $ourprocessimage;
+    //         }
+
+
+    //         array_push($proids, $process->id);
+
+    //         $process->save();
+    //     }
+
+
+    //     $ourprocesstitle = $request->input('ourprocessheadingupdate', []);
+
+    //     $ourprocessimage = $request->file('ourprocessimageupdate', []);
+
+    //     $processids = $request->input('processids', []);
+
+    //     // dd($featureids);
+
+
+
+    //     foreach ($ourprocesstitle as $key => $value) {
+
+    //         if (!empty($processids[$key])) {
+
+
+
+    //             $process = OurProcess::find($processids[$key]);
+
+    //             $process->ourprocessheading = $value;
+
+
+
+    //             if (isset($ourprocessimage[$key])) {
+    //                 $ourprocessimage = $ourprocessimage[$key];
+    //                 $ourprocessimage = "features/" . $ourprocessimage->hashName();
+    //                 Storage::put('features', $ourprocessimage);
+    //                 $process->ourprocessimage = $ourprocessimage;
+    //             }
+
+    //             $process->save();
+
+    //             array_push($feaids, $process->id);
+    //         } else {
+
+
+    //             $process = new OurProcess;
+
+    //             $process->ourprocessheading = $value;
+
+
+
+    //             if (isset($ourprocessimage[$key])) {
+    //                 $ourprocessimage = $ourprocessimage[$key];
+    //                 $ourprocessimage = "features/" . $ourprocessimage;
+    //                 Storage::put('features', $ourprocessimage);
+    //                 $process->ourprocessimage = $ourprocessimage;
+    //             }
+
+    //             array_push($proids, $process->id);
+
+    //             $process->save();
+    //         }
+    //     }
+
+    //     OurProcess::whereNotIn('id', $proids)->delete();
+
+
+
+    //     // Redirect back with success message
+    //     return redirect()->route('admin.page.index')->with('success', 'Section 8 data has been successfully saved.');
+    // }
+
+
+
+    public function storeSection10(Request $request)
 {
-$feed = Feed::find($id);
-
-if ($feed) {
-    // Delete the feature from the database
-    $feed->delete();
-
-    // Return a success response
-    return response()->json(['success' => true]);
-}
-
-// Return a failure response if feature not found
-return response()->json(['success' => false], 404);
-}
-
-
-
-
-
-public function storeSection9(Request $request)
-{
-
-
-
-    // Validate the request data for Section 9
+    // Validate the request data for Section 10
     $request->validate([
-        'featurestitle' => 'required|nullable|string',
-        'analyticsimage' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048',
-        'analyticstitle' => 'required|string|max:255',
-        'analyticscontent' => 'required|nullable|string',
-        'anytimeimage' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048',
-        'anytimetitle' => 'required|required|string|max:255',
-        'anytimedescription' => 'required|nullable|string',
-        'unlimitedimage' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048',
-        'unlimitedtitle' => 'required|string|max:255',
-        'unlimitedcontent' => 'required|nullable|string',
-        'liveimage' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048',
-        'livetitle' => 'required|required|string|max:255',
-        'livecontent' => 'required|nullable|string',
+        'ourprocesstitle' => 'required|nullable|max:255',
+        'ourprocesssubtitle' => 'required|nullable|max:255',
+        'ourprocessheadingupdate.*' => 'required|nullable|string',
+        'ourprocessimageupdate.*' => 'required|nullable|image|max:2048', // Validate image
+    ], [
+        'ourprocessheadingupdate.*.required' => 'The Process Heading field is required.',
+        'ourprocessimageupdate.*.required' => 'The process image field is required.',
     ]);
 
-    // Retrieve the first banner or create a new one if none exists
+    // Save banner data
     $banner = Banner::first();
-
     if (empty($banner)) {
         $banner = new Banner;
     }
-
-    // Assign values from the request to the banner
-    $banner->featurestitle = $request->input('featurestitle');
-    $banner->analytics_title = $request->input('analyticstitle');
-    $banner->analytics_content = $request->input('analyticscontent');
-    $banner->anytime_title = $request->input('anytimetitle');
-    $banner->anytime_description = $request->input('anytimedescription');
-    $banner->unlimited_title = $request->input('unlimitedtitle');
-    $banner->unlimited_content = $request->input('unlimitedcontent');
-    $banner->live_title = $request->input('livetitle');
-    $banner->live_content = $request->input('livecontent');
-
-    // Handle file uploads
-    if ($request->hasFile('analyticsimage')) {
-        $analyticsImageName = "banner/" . $request->file('analyticsimage')->hashName();
-        Storage::put('banner', $request->file('analyticsimage'));
-        $banner->analytics_image = $analyticsImageName;
-    }
-
-    if ($request->hasFile('anytimeimage')) {
-        $anytimeImageName = "banner/" . $request->file('anytimeimage')->hashName();
-        Storage::put('banner', $request->file('anytimeimage'));
-        $banner->anytime_image = $anytimeImageName;
-    }
-
-    if ($request->hasFile('unlimitedimage')) {
-        $unlimitedImageName = "banner/" . $request->file('unlimitedimage')->hashName();
-        Storage::put('banner', $request->file('unlimitedimage'));
-        $banner->unlimited_image = $unlimitedImageName;
-    }
-
-    if ($request->hasFile('liveimage')) {
-        $liveImageName = "banner/" . $request->file('liveimage')->hashName();
-        Storage::put('banner', $request->file('liveimage'));
-        $banner->live_image = $liveImageName;
-    }
-
-    // Save the banner
+    $banner->ourprocesstitle = $request->input('ourprocesstitle');
+    $banner->ourprocesssubtitle = $request->input('ourprocesssubtitle');
     $banner->save();
 
-    return redirect()->route('admin.page.index')->with('success', 'Section 4 data has been successfully saved.');
+    $ourprocessheadings = $request->input('ourprocessheadingupdate', []);
+    $ourprocessimages = $request->file('ourprocessimageupdate', []);
+    $processids = $request->input('processids', []);
+
+    $proids = [];
+
+    // Iterate over the feature headings
+    foreach ($ourprocessheadings as $key => $heading) {
+        $process = isset($processids[$key]) ? OurProcess::find($processids[$key]) : new OurProcess;
+
+        // Set process heading
+        $process->ourprocessheading = $heading;
+
+        // Handle file upload
+        if (isset($ourprocessimages[$key]) && $ourprocessimages[$key] instanceof \Illuminate\Http\UploadedFile) {
+            $image = $ourprocessimages[$key];
+            $imagePath = 'features/' . $image->hashName();
+            $image->storeAs('features', $image->hashName()); // Store the image
+            $process->ourprocessimage = $imagePath;
+        }
+
+        $process->save();
+        $proids[] = $process->id;
+    }
+
+    // Delete processes that were not in the submitted data
+    OurProcess::whereNotIn('id', $proids)->delete();
+
+    // Redirect back with success message
+    return redirect()->route('admin.page.index')->with('success', 'Section 10 data has been successfully saved.');
 }
 
 
 
+
+
+
+
+    public function destroyyyy($id)
+    {
+        $process = OurProcess::find($id);
+
+        if ($process) {
+            // Delete the feature from the database
+            $process->delete();
+
+            // Return a success response
+            return response()->json(['success' => true]);
+        }
+
+        // Return a failure response if feature not found
+        return response()->json(['success' => false], 404);
+    }
 }
-
-
-
-
-
-
