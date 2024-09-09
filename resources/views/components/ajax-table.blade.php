@@ -52,10 +52,7 @@
                             @error('bulkaction')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
-                        </div>
-                        <div class="form-group">
-                            <button class="btn btn-warning">Submit</button>
-                        </div>
+                        </div> 
                     </div>
                 </form>
             </div>
