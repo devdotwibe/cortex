@@ -53,50 +53,52 @@ class UserController extends Controller
     }
     public function create(Request $request){
         return view("admin.user.create");
-    }
-    public function bulkupdate(Request $request){
-        $request->validate([
-            "bulkaction"=>['required']
-        ]);
-        $data=[];
-        switch ($request->bulkaction) {
-            case 'enable-free-access':
-                $data["is_free_access"]=true;
-                break;
-            case 'disable-free-access':
-                $data["is_free_access"]=false;
-                break;
-            case 'enable-community':
-                $data["post_status"]=="active";
-                break;
-            case 'disable-community':
-                $data["post_status"]="banned";
-                break;
-            
-            default:
-                # code...
-                break;
-        }
-        if($request->input('select_all','no')=="yes"){
-            User::where('id','>',0)->update($data);
-        }else{
-            User::whereIn('id',$request->input('selectbox',[]))->update($data);
-        }
-        if($request->ajax()){
-            return response()->json(["success"=>"Users updated success"]);
-        }
-        return redirect()->route('admin.user.index')->with("success","Users updated success");
-    }
+    } 
     public function bulkaction(Request $request){
-        if($request->input('select_all','no')=="yes"){
-            User::where('id','>',0)->delete();
+        if(!empty($request->deleteaction)){
+            if($request->input('select_all','no')=="yes"){
+                User::where('id','>',0)->delete();
+            }else{
+                User::whereIn('id',$request->input('selectbox',[]))->delete();
+            }
+            if($request->ajax()){
+                return response()->json(["success"=>"Users deleted success"]);
+            }
+            return redirect()->route('admin.user.index')->with("success","Users deleted success");
         }else{
-            User::whereIn('id',$request->input('selectbox',[]))->delete();
+            $request->validate([
+                "bulkaction"=>['required']
+            ]);
+            $data=[];
+            switch ($request->bulkaction) {
+                case 'enable-free-access':
+                    $data["is_free_access"]=true;
+                    break;
+                case 'disable-free-access':
+                    $data["is_free_access"]=false;
+                    break;
+                case 'enable-community':
+                    $data["post_status"]=="active";
+                    break;
+                case 'disable-community':
+                    $data["post_status"]="banned";
+                    break;
+                
+                default:
+                    # code...
+                    break;
+            }
+            if($request->input('select_all','no')=="yes"){
+                User::where('id','>',0)->update($data);
+            }else{
+                User::whereIn('id',$request->input('selectbox',[]))->update($data);
+            }
+
+            if($request->ajax()){
+                return response()->json(["success"=>"Users update success"]);
+            }
+            return redirect()->route('admin.user.index')->with("success","Users update success");
         }
-        if($request->ajax()){
-            return response()->json(["success"=>"Users deleted success"]);
-        }
-        return redirect()->route('admin.user.index')->with("success","Users deleted success");
     }
     public function show(Request $request,User $user){
 
