@@ -243,7 +243,7 @@
         views: {
             multiMonthFourMonth: {
                 type: 'multiMonthYear',
-                duration: { months: 4 }
+                duration: { months: 2 }
             }
         },
         weekends: true,
