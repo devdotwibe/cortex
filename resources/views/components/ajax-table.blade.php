@@ -213,6 +213,12 @@
                         $('#table-{{ $tableid }}-bulk-box').hide()
                         $('#table-{{ $tableid }}_wrapper .selectbox-box').hide()
                     }
+
+                    if($('#table-{{ $tableid }}-bulk').is(":checked")){
+                        $('#table-{{ $tableid }} .selectbox-action').show()
+                    }else{
+                        $('#table-{{ $tableid }} .selectbox-action').hide()
+                    }
                     @if(!empty($tableinit))
                         {{$tableinit}}(table_{{ $tableid }},info,settings,'table-{{ $tableid }}')
                     @endif
@@ -235,6 +241,11 @@
                     }else{
                         $('#table-{{ $tableid }}_wrapper #table-{{ $tableid }}-bulk-box').hide()
                         $('#table-{{ $tableid }}_wrapper .selectbox-box').hide()
+                    }
+                    if($('#table-{{ $tableid }}-bulk').is(":checked")){
+                        $('#table-{{ $tableid }} .selectbox-action').show()
+                    }else{
+                        $('#table-{{ $tableid }} .selectbox-action').hide()
                     }
                 },
                 columns: [
