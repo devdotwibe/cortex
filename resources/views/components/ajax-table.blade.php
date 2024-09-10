@@ -105,7 +105,10 @@
 
             $('#table-{{ $tableid }}-bulk-action-form').submit(function(e){
                 e.preventDefault();   
-                console.log(new FormData(e.target),e.target)
+                var formData=new FormData(this);
+                for (const [key, value] of formData) {
+                    console.log(key, value)
+                }
                 $.post($(this).attr('action'),$(this).serialize(),function(res){
                     showToast(res.success??'Records has been successfully deleted', 'success');
                     $('#table-{{ $tableid }}').DataTable().ajax.reload();
