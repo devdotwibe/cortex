@@ -102,6 +102,7 @@ class UserAccessController extends Controller
     public function user_update(Request $request,User $user){
         $term=trim($request->term);
         if(!empty($term)){
+            echo "----".$term;
             $classIds=[];
             foreach (ClassDetail::where('term_name','like',"%".$term."%")->get() as $term) {
                 if(TermAccess::where('type',"class-detail")->where('term_id',$term->id)->where('user_id',$user->id)->count()==0){
@@ -109,8 +110,8 @@ class UserAccessController extends Controller
                 }
                 $classIds[]=$term->id;
             }
-            TermAccess::where('type','class-detail')->whereNotIn('term_id',$classIds)->where('user_id',$user->id)->delete();
-
+            // TermAccess::where('type','class-detail')->whereNotIn('term_id',$classIds)->where('user_id',$user->id)->delete();
+            print_r($classIds);
 
             $lessonIds=[];
             foreach (LessonMaterial::where('term_name','like',"%".$term."%")->get() as $term) {
@@ -119,7 +120,7 @@ class UserAccessController extends Controller
                 }
                 $lessonIds[]=$term->id;
             }
-            TermAccess::where('type','lesson-material')->whereNotIn('term_id',$lessonIds)->where('user_id',$user->id)->delete();
+            // TermAccess::where('type','lesson-material')->whereNotIn('term_id',$lessonIds)->where('user_id',$user->id)->delete();
 
 
             $homeIds=[];
@@ -129,7 +130,7 @@ class UserAccessController extends Controller
                 }
                 $homeIds[]=$term->id;
             }
-            TermAccess::where('type','home-work')->whereNotIn('term_id',$homeIds)->where('user_id',$user->id)->delete();
+            // TermAccess::where('type','home-work')->whereNotIn('term_id',$homeIds)->where('user_id',$user->id)->delete();
 
 
             $recordIds=[];
@@ -139,7 +140,7 @@ class UserAccessController extends Controller
                 }
                 $recordIds[]=$term->id;
             }
-            TermAccess::where('type','lesson-record')->whereNotIn('term_id',$recordIds)->where('user_id',$user->id)->delete();
+            // TermAccess::where('type','lesson-record')->whereNotIn('term_id',$recordIds)->where('user_id',$user->id)->delete();
         }else{
             echo "**";
         }
