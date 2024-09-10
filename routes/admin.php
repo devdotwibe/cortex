@@ -414,7 +414,6 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
         Route::post('/course', [CourseController::class, 'storesection1'])->name('section1');
 
-
         Route::post('/', [CourseController::class, 'storesection4'])->name('section4');
         // Store data for each tab
         Route::post('/tab1', [CourseController::class, 'storeTab1'])->name('tab1.store');

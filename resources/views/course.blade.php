@@ -216,32 +216,40 @@
         </div>
     </section>
 
+
     <section class="contact-wrapp">
         <div class="container">
             <div class="contact-row">
                 <h3 class="highlight">Our Courses</h3>
                 <h2>Need help? Have a question?</h2>
-                <form action="">
+                <form id="contact_form" action="" method="post">
+                    @csrf <!-- Include the CSRF token -->
                     <div class="text-fields">
                         <div class="text-field">
-                            <input type="text" name="" id="" placeholder="First Name">
+                            <input type="text" name="first_name" id="first_name" placeholder="First Name">
+                            <div class="error text-danger" id="first_name_error"></div>
                         </div>
                         <div class="text-field">
-                            <input type="text" name="" id="" placeholder="Last Name">
+                            <input type="text" name="last_name" id="last_name" placeholder="Last Name">
+                            <div class="error text-danger" id="last_name_error"></div>
                         </div>
                         <div class="text-field">
-                            <input type="text" name="" id="" placeholder="Phone Number">
+                            <input type="text" name="phone_number" id="phone_number" placeholder="Phone Number">
+                            <div class="error text-danger" id="phone_number_error"></div>
                         </div>
                         <div class="text-field">
-                            <input type="text" name="" id="" placeholder="Email">
+                            <input type="email" name="email" id="email" placeholder="Email">
+                            <div class="error text-danger" id="email_error"></div>
                         </div>
                         <div class="text-field">
-                            <textarea name="" id="" placeholder="Your Message"></textarea>
+                            <textarea name="message" id="message" placeholder="Your Message"></textarea>
+                            <div class="error text-danger" id="message_error"></div>
                         </div>
                     </div>
                     <div class="form-btn">
-                        <button class="submit-btn">Submit</button>
+                        <button type="submit" class="submit-btn">Submit</button>
                     </div>
+                    <div id="form-messages"></div>
                 </form>
             </div>
         </div>
@@ -249,3 +257,41 @@
 
     @endsection
 
+    @push('scripts')
+
+    <script>
+        $(document).ready(function() {
+
+            $('#contact_form').on('submit', function(event) {
+                event.preventDefault();
+
+                // Clear previous error messages
+                $('.error').html(''); // Clear all error fields
+                $('#form-messages').html(''); // Clear form messages
+
+                const formData = $(this).serialize();
+
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ route("contact.submit") }}',
+                    data: formData,
+                    success: function(response) {
+                        $('#form-messages').html('<p>Thank you for your message. We will get back to you soon.</p>');
+                        $('#contact_form').trigger('reset'); // Reset the form fields
+                    },
+                    error: function(response) {
+                        let errors = response.responseJSON.errors;
+
+
+                            $('#first_name_error').text(errors.first_name);
+                            $('#last_name_error').text(errors.last_name);
+                            $('#phone_number_error').text(errors.phone_number);
+                            $('#email_error').text(errors.email);
+                            $('#message_error').text(errors.message);
+                    }
+                });
+            });
+        });
+    </script>
+
+    @endpush
