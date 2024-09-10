@@ -150,7 +150,7 @@ class LiveClassController extends Controller
             self::$defaultActions=[''];
             return $this->addAction(function($data){
                 $action="";
-                if($data->status=="pending"){
+                if($data->status=="pending"&&!empty($data->user)){
                     $action.='
                     <a  class="btn btn-danger btn-sm" href="'.route("admin.live-class.request.reject",$data->slug).'" > Reject </a> 
                     <a  class="btn btn-success btn-sm" href="'.route("admin.live-class.request.accept",$data->slug).'" > Accept </a> 
@@ -171,19 +171,23 @@ class LiveClassController extends Controller
                     return '';
                 }
             })->addColumn('statushtml',function($data){
-                switch ($data->status) {
-                    case 'approved':
-                        return '<div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" onchange="changeactivestatus('."'".route('admin.live-class.request.status',$data->slug)."'".')" role="switch" id="active-toggle-'.$data->id.'"  '.($data->is_valid?"checked":"").'/>
-                                    <label class="form-check-label" for="active-toggle-'.$data->id.'">Active</label>
-                                </div>'; 
-                    case 'pending';
-                        return '<span class="badge text-bg-warning">'.ucfirst($data->status).'</span>';
-                    case 'rejected';
-                        return '<span class="badge text-bg-danger">'.ucfirst($data->status).'</span>';
-                    default:
-                        return '<span class="badge text-bg-secondary">'.ucfirst($data->status).'</span>'; 
-                } 
+                if(!empty($data->user)){
+                    switch ($data->status) {
+                        case 'approved':
+                            return '<div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" onchange="changeactivestatus('."'".route('admin.live-class.request.status',$data->slug)."'".')" role="switch" id="active-toggle-'.$data->id.'"  '.($data->is_valid?"checked":"").'/>
+                                        <label class="form-check-label" for="active-toggle-'.$data->id.'">Active</label>
+                                    </div>'; 
+                        case 'pending';
+                            return '<span class="badge text-bg-warning">'.ucfirst($data->status).'</span>';
+                        case 'rejected';
+                            return '<span class="badge text-bg-danger">'.ucfirst($data->status).'</span>';
+                        default:
+                            return '<span class="badge text-bg-secondary">'.ucfirst($data->status).'</span>'; 
+                    } 
+                }else{
+                    return '<span class="badge text-bg-secondary">'.ucfirst($data->status).'</span>'; 
+                }
             })->buildTable(['timeslottext','statushtml','termhtml']);
         }
         $live_class =  LiveClassPage::first();
