@@ -111,11 +111,7 @@
             });
 
             $('#table-{{ $tableid }}-bulk-action-form').submit(function(e){
-                e.preventDefault();   
-                var formData=new FormData(this);
-                for (const [key, value] of formData) {
-                    console.log(key, value)
-                }
+                e.preventDefault();  
                 $.post($(this).attr('action'),$(this).serialize(),function(res){
                     showToast(res.success??'Records has been successfully deleted', 'success');
                     $('#table-{{ $tableid }}').DataTable().ajax.reload();
