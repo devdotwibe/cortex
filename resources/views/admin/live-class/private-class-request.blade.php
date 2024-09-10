@@ -139,7 +139,11 @@
                 $(`#user-term-table-body`).append(`                
                     <tr>
                         <td>${k}</td>
-                        <td>${v}</td>
+                        <td>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox"  role="switch"  ${v>0?"checked":""} />
+                            </div>
+                        </td>
                     </tr>
                 `)
             })
