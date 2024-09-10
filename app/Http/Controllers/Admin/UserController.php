@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\Subcategory;
 use App\Models\Category;
 use App\Models\PaymentTransation;
+use App\Models\PrivateClass;
 use App\Models\Setname;
 use App\Models\UserProgress;
 use Illuminate\Support\Facades\Auth;
@@ -24,6 +25,28 @@ class UserController extends Controller
     }
     public function index(Request $request){
         if($request->ajax()){
+            if(!empty($request->usertype)){
+                switch ($request->usertype) {
+                    case 'free-users': 
+                        $this->where("is_free_access",true);
+                        break;
+                    case 'paid-users': 
+                        $this->where(function($qry){
+                            $qry->whereIn("id",UserProgress::where('name','stripe.subscription.payment.amount')->where('value','paid')->select('user_id'));
+                            $qry->orWhere("is_free_access",true);
+                        });
+                        break;
+                    case 'student-users': 
+                        $this->where(function($qry){
+                            $qry->whereIn('id',PrivateClass::where('status','!=','rejected')->select('user_id'));
+                        });
+                        break;
+                    
+                    default:
+                        # code...
+                        break;
+                }
+            }
             return $this->addColumn('is_free_access',function($data){ 
                 return '<div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" onchange="changeactivestatus('."'".route('admin.user.freeaccess',$data->slug)."'".')" role="switch" id="free-toggle-'.$data->id.'"  '.($data->is_free_access?"checked":"").'/>
