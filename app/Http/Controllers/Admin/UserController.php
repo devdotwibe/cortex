@@ -9,9 +9,14 @@ use App\Trait\ResourceController;
 use Illuminate\Http\Request;
 use App\Models\Subcategory;
 use App\Models\Category;
+use App\Models\ClassDetail;
+use App\Models\HomeWork;
+use App\Models\LessonMaterial;
+use App\Models\LessonRecording;
 use App\Models\PaymentTransation;
 use App\Models\PrivateClass;
 use App\Models\Setname;
+use App\Models\TermAccess;
 use App\Models\UserProgress;
 use Illuminate\Support\Facades\Auth;
 
@@ -155,6 +160,25 @@ class UserController extends Controller
         ]);
     }
     public function termslist(Request $request,User $user){
+        $terms=[];
+        foreach(ClassDetail::all() as $term){
+            $name=trim($term->term_name); 
+            $terms[$name]=($terms[$name]??0)+(TermAccess::where('type','class-detail')->where('term_id',$term->id)->where('user_id',$user->id)->count()>0?1:0); 
+        }
+        foreach(LessonMaterial::all() as $term){
+            $name=trim($term->term_name); 
+            $terms[$name]=($terms[$name]??0)+(TermAccess::where('type','lesson-material')->where('term_id',$term->id)->where('user_id',$user->id)->count()>0?1:0); 
+        }
+        foreach(HomeWork::all() as $term){
+            $name=trim($term->term_name); 
+            $terms[$name]=($terms[$name]??0)+(TermAccess::where('type','home-work')->where('term_id',$term->id)->where('user_id',$user->id)->count()>0?1:0); 
+        }
+        foreach(LessonRecording::all() as $term){
+            $name=trim($term->term_name); 
+            $terms[$name]=($terms[$name]??0)+(TermAccess::where('type','lesson-record')->where('term_id',$term->id)->where('user_id',$user->id)->count()>0?1:0); 
+        }
+        $user->termsList=$terms;
+        $user->updateUrl=route("admin.user-access.user.update",$user->slug);
         return $user;
     }
     public function resetpassword(Request $request,User $user){

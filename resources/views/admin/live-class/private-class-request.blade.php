@@ -46,6 +46,14 @@
                 <button type="button" class="close" data-bs-dismiss="modal"  aria-label="Close"><span  aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body"> 
+                <form action="" method="post" id="user-term-form">
+                    @csrf
+                    <div class="row">
+                        <div class="col-md-12" id="user-term-table">
+    
+                        </div>
+                    </div>
+                </form>
             </div> 
         </div>
     </div>
@@ -112,7 +120,29 @@
     function usertermlist(url){
         $.get(url,function(res){
             $('#user-termLablel').text(res.name)
+            $('#user-term-form').attr('action',res.updateUrl)
+            $('#user-term-table').html(`           
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Term</th>
+                            <th>Access</th>
+                        </tr>
+                    </thead>
+                    <tbody id="user-term-table-body">
+
+                    </tbody>
+                </table>
+            `)
             $('#user-term-modal').modal('show')
+            $.each(res.,function(k,v){   
+                $(`#user-term-table-body`).append(`                
+                    <tr>
+                        <td>${k}</td>
+                        <td>${v}</td>
+                    </tr>
+                `)
+            })
         },'json')
     }
      
