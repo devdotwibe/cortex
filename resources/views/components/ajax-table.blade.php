@@ -54,7 +54,7 @@
                                 Delete All
                             </button>                            
                         </div>
-                        <input type="hidden" id="deleteaction{{ $tableid }}" value="" >
+                        <input type="hidden" name="deleteaction" id="deleteaction{{ $tableid }}" value="" >
 
                     </div>
                 </td>
