@@ -25,6 +25,7 @@
         </thead>
         <tbody> 
         </tbody>
+        @if ($bulkaction)
         <tfoot>
             <tr> 
                 <td colspan="{{count($coloumns)+2}}"></td>
@@ -58,6 +59,7 @@
                 </td>
             </tr>
         </tfoot>  
+        @endif
     </table>
 </div>
 
