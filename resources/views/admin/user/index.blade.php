@@ -147,7 +147,11 @@
                 }
             })
         }
-
+        $('#user-filter').change(function(){
+            if (usertable != null) {
+                usertable.ajax.reload()
+            }
+        })
         function resetpassword(url){
             $('#user-password-reset-form').attr('action',url)
             $('.password-reset-field').val('').removeClass('is-invalid')
