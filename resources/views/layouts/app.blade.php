@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="{{ asset('app/css/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('app/css/slick-theme.css') }}">
     <link rel="stylesheet" href="{{ asset('app/css/stylesheet.css') }}">
-    {{-- <link rel="stylesheet" href="{{ asset('app/css/course.css') }}"> --}}
+    <link rel="stylesheet" href="{{ asset('app/css/course.css') }}">
 
 </head>
 <body>
