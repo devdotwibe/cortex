@@ -236,6 +236,8 @@ Route::middleware(['auth', 'isUser'])->group(function () {
 
 
 Route::get('/course', [UserCourseController::class, 'index'])->name('course.index');
+Route::post('/contact-submit', [UserCourseController::class, 'submit'])->name('contact.submit');
+
 
 
 

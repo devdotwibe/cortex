@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ContactMail;
 use Illuminate\Http\Request;
 use App\Models\Courses;
+use Illuminate\Support\Facades\Mail;
 
 class UserCourseController extends Controller
 {
@@ -20,4 +22,35 @@ class UserCourseController extends Controller
 
 
 }
+
+
+
+public function submit(Request $request)
+    {
+        $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'phone_number' => 'required|numeric',
+            'email' => 'required|email',
+            'message' => 'required|string',
+        ]);
+
+
+
+        Mail::to('jerinjohnykzm@gmail.com')->send(new ContactMail([
+
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'phone_number' => $request->phone_number,
+            'email' => $request->email,
+            'message' => $request->message,
+
+        ]));
+
+
+        return response()->json([
+            'success' => 'Form submitted successfully!'
+        ]);
+    }
+
 }
