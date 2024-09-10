@@ -53,6 +53,10 @@
     
                         </div>
                     </div>
+                    <div class="row">
+                        <button type="button"  class="btn btn-outline-dark m-1" data-bs-dismiss="modal"  aria-label="Close" >Save</button> 
+                        <button type="submit"  class="btn btn-dark m-1" >Save</button> 
+                    </div>
                 </form>
             </div> 
         </div>
