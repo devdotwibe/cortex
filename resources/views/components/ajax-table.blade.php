@@ -45,7 +45,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <button class="btn btn-warning">Submit</button>
+                                <button class="btn btn-warning" name="updateaction" value="bulkaction" >Submit</button>
                             </div> 
                         </div>
                         @endif
