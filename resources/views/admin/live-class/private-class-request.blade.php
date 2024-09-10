@@ -147,7 +147,7 @@
                         <td>${k}</td>
                         <td>
                             <div class="form-check form-switch">
-                                <input class="form-check-input" name="term" value="${k}" type="checkbox"  role="switch"  ${v>0?"checked":""} />
+                                <input class="form-check-input" name="term[]" value="${k}" type="checkbox"  role="switch"  ${v>0?"checked":""} />
                             </div>
                         </td>
                     </tr>
