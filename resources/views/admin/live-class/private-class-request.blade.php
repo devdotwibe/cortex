@@ -135,7 +135,7 @@
                 </table>
             `)
             $('#user-term-modal').modal('show')
-            $.each(res.,function(k,v){   
+            $.each(res.termsList,function(k,v){   
                 $(`#user-term-table-body`).append(`                
                     <tr>
                         <td>${k}</td>
