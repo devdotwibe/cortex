@@ -50,7 +50,7 @@
                         @endif
                         <div class="delete-action">
                             <button class="btn btn-danger" name="deleteaction" value="delete">
-                                Delete
+                                Delete All
                             </button>                            
                         </div>
 
