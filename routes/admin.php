@@ -314,7 +314,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::prefix('user-access')->name('user-access.')->group(function () {
             Route::get('/{type}/user/{term}/list',[UserAccessController::class,'index'])->name('index');
             Route::get('/{type}/user/{term}/{user}/update',[UserAccessController::class,'update'])->name('update');
-            Route::get('/{user}/user-update-term',[UserAccessController::class,'user_update'])->name('user.update');
+            Route::post('/{user}/user-update-term',[UserAccessController::class,'user_update'])->name('user.update');
         });
     });
     Route::prefix('settings')->name('settings.')->group(function () {
