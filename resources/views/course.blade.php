@@ -30,32 +30,30 @@
         <div class="container">
 
 
-
-        <h2> @if (!empty($course->coursetitle))
+            @if (!empty($course->coursetitle))
             {!! $course->coursetitle !!}
-        @endif</h2>
+        @endif
 
-            @if(!empty($course->coursesubtitle))
-                <p>{{$course->coursesubtitle}}</p>
-                @endif
+
             <div class="courses-row">
 
 
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
-                      <button class="nav-link active" data-target="#first"> @if(!empty($course->logicaltitle1)){{$course->logicaltitle1}}@endif</button>
+                      <button class="nav-link active" data-bs-target="#first" role="tab" data-bs-toggle="tab"> @if(!empty($course->logicaltitle1)){{$course->logicaltitle1}}@endif</button>
                     </li>
                     <li class="nav-item" role="presentation">
-                      <button class="nav-link" data-target="#second"> @if(!empty($course->criticaltitle1)){{$course->criticaltitle1}}@endif</button>
+                      <button class="nav-link" data-bs-target="#second" role="tab" data-bs-toggle="tab"> @if(!empty($course->criticaltitle1)){{$course->criticaltitle1}}@endif</button>
                     </li>
                     <li class="nav-item" role="presentation">
-                      <button class="nav-link" data-target="#third">@if(!empty($course->abstracttitle1)){{$course->abstracttitle1}}@endif</button>
+                      <button class="nav-link" data-bs-target="#third" role="tab" data-bs-toggle="tab">@if(!empty($course->abstracttitle1)){{$course->abstracttitle1}}@endif</button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" data-target="#four">@if(!empty($course->numericaltitle1)){{$course->numericaltitle1}}@endif</button>
+                        <button class="nav-link" data-bs-target="#four" role="tab" data-bs-toggle="tab">@if(!empty($course->numericaltitle1)){{$course->numericaltitle1}}@endif</button>
                     </li>
                   </ul>
                   <div class="tab-content tab-slider" >
+
                     <div class="tab-pane fade show active" id="first">
                         <div class="courses-col1">
                             <div class="courses-col2">
@@ -73,6 +71,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="tab-pane fade" id="second">
                         <div class="courses-col1">
                             <div class="courses-col2">

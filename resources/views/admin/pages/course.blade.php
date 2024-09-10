@@ -153,15 +153,39 @@
 
                 <div class="tab-pane fade @if (old('section') == 'section2') show active @endif" id="section2"
                     role="tabpanel" aria-labelledby="section2-tab">
+
+
+
+
+
+                    <form action="{{ route('admin.course.section4') }}" method="POST"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="coursetitle">Course Title</label>
+                                <textarea class="form-control texteditor" name="coursetitle" id="coursetitle">{{ old('coursetitle', optional($course)->coursetitle) }}</textarea>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary" name="section" value="save">Save</button>
+                            </div>
+                        </div>
+                    </form>
+
+
+
+
+
                     <ul class="nav nav-tabs" id="section2Tabs" role="tablist">
                         <li class="nav-item" role="presentation">
                             <a class="nav-link @if (old('sub_section') == 'tab1' || old('sub_section') == '') active @endif" id="tab1-tab"
                                 data-bs-toggle="tab" href="#tab1" role="tab" aria-controls="tab1"
                                 aria-selected="@if (old('sub_section') == 'tab1' || old('sub_section') == '') true @else false @endif">Tab 1</a>
                         </li>
-                        <li class="nav-item" role="pr
-
-                    esentation">
+                        <li class="nav-item" role="presentation">
                             <a class="nav-link @if (old('sub_section') == 'tab2') active @endif" id="tab2-tab"
                                 data-bs-toggle="tab" href="#tab2" role="tab" aria-controls="tab2"
                                 aria-selected="@if (old('sub_section') == 'tab2') true @else false @endif">Tab 2</a>
@@ -185,23 +209,14 @@
                             <form action="{{ route('admin.course.tab1.store') }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
+
+
+
+
+
                                 <div class="row">
 
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="coursetitle">Course Title</label>
-                                            <input type="text" class="form-control" name="coursetitle"
-                                                value="{{ old('coursetitle', optional($course)->coursetitle) }}">
-                                        </div>
-                                    </div>
 
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="coursesubtitle">Course Subtitle</label>
-                                            <input type="text" class="form-control" name="coursesubtitle"
-                                                value="{{ old('coursesubtitle', optional($course)->coursesubtitle) }}">
-                                        </div>
-                                    </div>
 
                                     <div class="col-md-12">
                                         <div class="form-group">

@@ -413,11 +413,15 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::get('/{tip}/edit', [CourseController::class, 'edit'])->name('edit'); // Ensure this route is defined
 
         Route::post('/course', [CourseController::class, 'storesection1'])->name('section1');
+
+
+        Route::post('/', [CourseController::class, 'storesection4'])->name('section4');
         // Store data for each tab
         Route::post('/tab1', [CourseController::class, 'storeTab1'])->name('tab1.store');
         Route::post('/tab2', [CourseController::class, 'storeTab2'])->name('tab2.store');
         Route::post('/tab3', [CourseController::class, 'storeTab3'])->name('tab3.store');
         Route::post('/tab4', [CourseController::class, 'storeTab4'])->name('tab4.store');
+
 
 
 

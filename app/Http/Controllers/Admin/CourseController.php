@@ -80,8 +80,6 @@ class CourseController extends Controller
     {
         // Validate the request data for Tab 1
         $request->validate([
-            'coursetitle' => 'nullable|string|max:255',
-            'coursesubtitle' => 'nullable|string|max:255',
             'logicaltitle1' => 'nullable|string|max:255',
             'logicaltitle2' => 'nullable|string|max:255',
             'logicalcontent' => 'nullable|string',
@@ -90,8 +88,11 @@ class CourseController extends Controller
 
         $course = Courses::first();
 
-        $course->coursetitle = $request->input('coursetitle');
-        $course->coursesubtitle = $request->input('coursesubtitle');
+        if(empty($course))
+        {
+            $course =new Courses;
+        }
+
         $course->logicaltitle1 = $request->input('logicaltitle1');
         $course->logicaltitle2 = $request->input('logicaltitle2');
         $course->logicalcontent = $request->input('logicalcontent');
@@ -118,6 +119,11 @@ class CourseController extends Controller
         ]);
 
         $course = Courses::first();
+
+        if(empty($course))
+        {
+            $course =new Courses;
+        }
 
         $course->criticaltitle1 = $request->input('criticaltitle1');
         $course->criticaltitle2 = $request->input('criticaltitle2');
@@ -146,6 +152,11 @@ class CourseController extends Controller
 
         $course = Courses::first();
 
+        if(empty($course))
+        {
+            $course =new Courses;
+        }
+
         $course->abstracttitle1 = $request->input('abstracttitle1');
         $course->abstracttitle2 = $request->input('abstracttitle2');
         $course->abstractcontent = $request->input('abstractcontent');
@@ -172,6 +183,11 @@ class CourseController extends Controller
         ]);
 
         $course = Courses::first();
+
+        if(empty($course))
+        {
+            $course =new Courses;
+        }
 
         $course->numericaltitle1 = $request->input('numericaltitle1');
         $course->numericaltitle2 = $request->input('numericaltitle2');
@@ -201,6 +217,11 @@ class CourseController extends Controller
 
         $course = Courses::first();
 
+        if(empty($course))
+        {
+            $course =new Courses;
+        }
+
         $course->learncontent = $request->input('learncontent');
 
         if ($request->hasFile('learnimage')) {
@@ -223,6 +244,11 @@ class CourseController extends Controller
         ]);
 
         $course = Courses::first();
+
+        if(empty($course))
+        {
+            $course =new Courses;
+        }
 
         $course->questionbankcontent = $request->input('questionbankcontent');
 
@@ -247,6 +273,11 @@ class CourseController extends Controller
 
         $course = Courses::first();
 
+        if(empty($course))
+        {
+            $course =new Courses;
+        }
+
         $course->topiccontent = $request->input('topiccontent');
 
         if ($request->hasFile('topicimage')) {
@@ -269,6 +300,11 @@ class CourseController extends Controller
         ]);
 
         $course = Courses::first();
+
+        if(empty($course))
+        {
+            $course =new Courses;
+        }
 
         $course->fullmockcontent = $request->input('fullmockcontent');
 
@@ -293,6 +329,11 @@ class CourseController extends Controller
 
         $course = Courses::first();
 
+        if(empty($course))
+        {
+            $course =new Courses;
+        }
+
         $course->privatecontent = $request->input('privatecontent');
 
         if ($request->hasFile('privateimage')) {
@@ -305,6 +346,41 @@ class CourseController extends Controller
 
         return redirect()->back()->with('success', 'Tab 5 data has been successfully saved.');
     }
+
+
+
+
+
+    public function storesection4(Request $request)
+    {
+        // Validate the request data for Section 1
+        $request->validate([
+            'coursetitle' => 'nullable|string|max:255',
+
+
+
+
+
+        ]);
+
+        $course = Courses::first();
+
+        if(empty($course))
+        {
+            $course =new Courses;
+        }
+
+        $course->coursetitle = $request->input('coursetitle');
+
+
+
+
+
+        $course->save();
+
+        return redirect()->route('admin.course.index')->with('success', 'Section 2 data has been successfully saved.');
+    }
+
 
 
 }

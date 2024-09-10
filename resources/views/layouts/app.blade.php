@@ -105,6 +105,9 @@
     <script src="{{ asset('app/js/slick.js') }}"></script>
     <script src="{{ asset('app/js/sticky-cards.js') }}"></script>
     <script src="{{ asset('app/js/scripts.js') }}"></script>
+    <script src="{{ asset('app/js/aos.js') }}"></script>
+
+
     <script>
 
         $.ajaxSetup({
