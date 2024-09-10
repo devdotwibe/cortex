@@ -65,7 +65,16 @@
 <section class="table-section">
     <div class="container">
         <div class="row">
-             
+            <div class="col-md-4">
+                <div class="form-group">
+                    <select id="user-filter" class="form-control">
+                        <option value="">All users</option>
+                        <option value="free-users">Free users</option>
+                        <option value="paid-users">Paid users</option>
+                        <option value="student-users">Student users</option>
+                    </select>
+                </div>
+            </div>             
             <x-ajax-table :bulkaction="true" bulkactionlink="{{route('admin.user.bulkaction')}}" 
                 :bulkotheraction='[
                     ["name"=>"Enable Free Access","value"=>"enable-free-access"],
@@ -79,7 +88,7 @@
                     ["th"=>"Email","name"=>"email","data"=>"email"],
                     ["th"=>"Free Access","name"=>"is_free_access","data"=>"is_free_access"],
                     ["th"=>"Community","name"=>"post_status","data"=>"post_status"],
-            ]' tableinit="usertableinit"  />
+            ]' tableinit="usertableinit" beforeajax="usertablefilter" />
         </div>
     </div>
 </section>
@@ -126,6 +135,10 @@
         var usertable = null;
         function usertableinit(table) {
             usertable = table
+        }
+        function usertablefilter(d){
+            d.usertype=$('#user-filter').val()
+            return d;
         }
         function changeactivestatus(url){
             $.get(url,function(res){

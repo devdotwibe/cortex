@@ -35,7 +35,7 @@
                         @if(!empty($bulkotheraction))
                         <div class="other-actions"> 
                             <div class="form-group">
-                                <select name="bulkaction" class="fom-control"  >
+                                <select name="bulkaction" class="form-control"  >
                                     @foreach ($bulkotheraction as $item)
                                     <option value="{{$item->value}}">{{$item->name}}</option>                                                
                                     @endforeach
