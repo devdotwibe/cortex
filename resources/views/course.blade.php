@@ -28,9 +28,12 @@
     </section>
     <section class="courses-wrapp">
         <div class="container">
-            @if (!empty($course->coursetitle))
+
+
+
+        <h2> @if (!empty($course->coursetitle))
             {!! $course->coursetitle !!}
-        @endif
+        @endif</h2>
 
             @if(!empty($course->coursesubtitle))
                 <p>{{$course->coursesubtitle}}</p>
@@ -40,16 +43,16 @@
 
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
-                      <button class="nav-link active" data-target="#first">{{ $course->logicaltitle1 }}</button>
+                      <button class="nav-link active" data-target="#first"> @if(!empty($course->logicaltitle1)){{$course->logicaltitle1}}@endif</button>
                     </li>
                     <li class="nav-item" role="presentation">
-                      <button class="nav-link" data-target="#second">{{ $course->criticaltitle1 }}</button>
+                      <button class="nav-link" data-target="#second"> @if(!empty($course->criticaltitle1)){{$course->criticaltitle1}}@endif</button>
                     </li>
                     <li class="nav-item" role="presentation">
-                      <button class="nav-link" data-target="#third">{{ $course->abstracttitle1 }}</button>
+                      <button class="nav-link" data-target="#third">@if(!empty($course->abstracttitle1)){{$course->abstracttitle1}}@endif</button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" data-target="#four">{{ $course->numericaltitle1 }}</button>
+                        <button class="nav-link" data-target="#four">@if(!empty($course->numericaltitle1)){{$course->numericaltitle1}}@endif</button>
                     </li>
                   </ul>
                   <div class="tab-content tab-slider" >
@@ -64,7 +67,9 @@
                             @endif
                                 </div>
                             <div class="courses-col3">
-                                <img src="./assets/images/courses.png" alt="">
+                                @if (!empty($course->logicalimage))
+                        <img src="{{ url('d0/' . $course->logicalimage) }}" alt="">
+                    @endif
                             </div>
                         </div>
                     </div>
@@ -80,7 +85,10 @@
                             @endif
                             </div>
                             <div class="courses-col3">
-                                <img src="./assets/images/courses.png" alt="">
+                                @if (!empty($course->criticalimage))
+                        <img src="{{ url('d0/' . $course->criticalimage) }}" alt="">
+                    @endif
+
                             </div>
                         </div>
                     </div>
@@ -95,7 +103,9 @@
                             @endif
                             </div>
                             <div class="courses-col3">
-                                <img src="./assets/images/courses.png" alt="">
+                                @if (!empty($course->abstractimage))
+                                <img src="{{ url('d0/' . $course->abstractimage) }}" alt="">
+                            @endif
                             </div>
                         </div>
                     </div>
@@ -110,7 +120,9 @@
                             @endif
                             </div>
                             <div class="courses-col3">
-                                <img src="./assets/images/courses.png" alt="">
+                                @if (!empty($course->numericalimage))
+                                <img src="{{ url('d0/' . $course->numericalimage) }}" alt="">
+                            @endif
                             </div>
                         </div>
                     </div>
@@ -124,69 +136,62 @@
         <div class="container">
             <div class="detail-row">
                 <div class="detail-col1">
-                    @if (!empty($course->numericaltitle2))
-                    <h3>{{ $course->numericaltitle2 }}</h3>
+                    @if (!empty($course->learncontent))
+                    {!! $course->learncontent !!}
                 @endif
-                    <p>Hours of video tutorials walking students through each topic of Thinking Skills. Follow us as we guide your learning journey from the fundamental principles all the way up to advanced techniques.</p>
-                    <ul>
-                        <li>Stay engaged with interactive videos and practice questions</li>
-                        <li>Retain up to 80% more information</li>
-                    </ul>
                 </div>
                 <div class="detail-col2">
                     <div class="detail-img">
-                        <img src="./assets/images/detail1.png" alt="">
+                        {{-- <img src="./assets/images/detail1.png" alt=""> --}}
+                        @if (!empty($course->learnimage))
+                        <img src="{{ url('d0/' . $course->learnimage) }}" alt="">
+                    @endif
                     </div>
                 </div>
             </div>
             <div class="detail-row">
                 <div class="detail-col1">
-                    @if (!empty($course->numericaltitle2))
-                    {{ $course->numericaltitle2 }}
+                    @if (!empty($course->questionbankcontent))
+                    {!! $course->questionbankcontent !!}
                 @endif
-                    <p>Hours of video tutorials walking students through each topic of Thinking Skills. Follow us as we guide your learning journey from the fundamental principles all the way up to advanced techniques.</p>
-                    <ul>
-                        <li>Stay engaged with interactive videos and practice questions</li>
-                        <li>Retain up to 80% more information</li>
-                    </ul>
+
                 </div>
                 <div class="detail-col2">
                     <div class="detail-img">
-                        <img src="./assets/images/detail2.png" alt="">
+                        {{-- <img src="./assets/images/detail2.png" alt=""> --}}
+                        @if (!empty($course->questionbankimage))
+                        <img src="{{ url('d0/' . $course->questionbankimage) }}" alt="">
+                    @endif
                     </div>
                 </div>
             </div>
             <div class="detail-row">
                 <div class="detail-col1">
-                    @if (!empty($course->numericaltitle2))
-                                <h3>{{ $course->numericaltitle2 }}</h3>
-                            @endif
-                    <p>Hours of video tutorials walking students through each topic of Thinking Skills. Follow us as we guide your learning journey from the fundamental principles all the way up to advanced techniques.</p>
-                    <ul>
-                        <li>Stay engaged with interactive videos and practice questions</li>
-                        <li>Retain up to 80% more information</li>
-                    </ul>
+                    @if (!empty($course->topiccontent))
+                    {!! $course->topiccontent !!}
+                @endif
                 </div>
                 <div class="detail-col2">
                     <div class="detail-img">
-                        <img src="./assets/images/detail3.png" alt="">
+                        {{-- <img src="./assets/images/detail3.png" alt=""> --}}
+                        @if (!empty($course->topicimage))
+                        <img src="{{ url('d0/' . $course->topicimage) }}" alt="">
+                    @endif
                     </div>
                 </div>
             </div>
             <div class="detail-row">
                 <div class="detail-col1">
-                    @if (!empty($course->numericaltitle2))
-                                <h3>{{ $course->numericaltitle2 }}</h3>
-                            @endif
-                    <p>Hours of video tutorials walking students through each topic of Thinking Skills. Follow us as we guide your learning journey from the fundamental principles all the way up to advanced techniques.</p>
-                    <ul>
-                        <li>Stay engaged with interactive videos and practice questions</li>
-                        <li>Retain up to 80% more information</li>
-                    </ul>
+                    @if (!empty($course->fullmockcontent))
+                    {!! $course->fullmockcontent !!}
+                @endif
                 </div>
                 <div class="detail-col2">
                     <div class="detail-img">
-                        <img src="./assets/images/detail4.png" alt="">
+                        {{-- <img src="./assets/images/detail4.png" alt=""> --}}
+                        @if (!empty($course->fullmockimage))
+                        <img src="{{ url('d0/' . $course->fullmockimage) }}" alt="">
+                    @endif
                     </div>
                 </div>
             </div>
@@ -197,15 +202,16 @@
         <div class="container">
             <div class="analysis-row">
                 <div class="analysis-col1">
-                    <h2>Analyse Your Progress</h2>
-                    <p>Measure how you perform in every exam, with mock insights that compare your answer to each question with other students</p>
-                    <ul>
-                        <li>Every response to our questions & quizzes is recorded on our database to determine the percentage of students that selected each option</li>
-                        <li>Time data also shows how long you spent on each question compared to the average student</li>
-                    </ul>
+                    @if (!empty($course->privatecontent))
+                    {!! $course->privatecontent !!}
+                @endif
                 </div>
                 <div class="analysis-col2">
-                    <img src="./assets/images/analysis-img.png" alt="">
+                    {{-- <img src="./assets/images/analysis-img.png" alt=""> --}}
+                    @if (!empty($course->privateimage))
+                        <img src="{{ url('d0/' . $course->privateimage) }}" alt="">
+                    @endif
+
                 </div>
             </div>
         </div>

@@ -491,6 +491,22 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                 <!-- Preview Image Container -->
+                                 <div class="form-group">
+                                    <label for="learnImagePreview">Image Preview</label>
+                                    <div id="learnImagePreviewContainer"
+                                        style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
+                                        @if (isset($course) && $course->learnimage)
+                                            <img id="learnImagePreview"
+                                                src="{{ url('d0/' . $course->learnimage) }}" alt="Image Preview"
+                                                style="width: 100%; height: auto;">
+                                        @else
+                                            <img id="learnImagePreview" src="#" alt="Image Preview"
+                                                style="display: none; width: 100%; height: auto;">
+                                        @endif
+                                    </div>
+                                </div>
                                 <button type="submit" class="btn btn-dark" name="sub_section"
                                     value="tab1_save">Save</button>
                             </form>
@@ -515,6 +531,21 @@
                                             <label for="questionbankimage">Question Bank Image</label>
                                             <input type="file" class="form-control" name="questionbankimage">
                                         </div>
+                                    </div>
+                                </div>
+                                  <!-- Preview Image Container -->
+                                  <div class="form-group">
+                                    <label for="questionbankimage">Image Preview</label>
+                                    <div id="questionbankContainer"
+                                        style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
+                                        @if (isset($course) && $course->questionbankimage)
+                                            <img id="questionbankimage"
+                                                src="{{ url('d0/' . $course->questionbankimage) }}" alt="Image Preview"
+                                                style="width: 100%; height: auto;">
+                                        @else
+                                            <img id="questionbankImagePreview" src="#" alt="Image Preview"
+                                                style="display: none; width: 100%; height: auto;">
+                                        @endif
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-dark" name="sub_section"
@@ -543,6 +574,21 @@
                                         </div>
                                     </div>
                                 </div>
+                                  <!-- Preview Image Container -->
+                                  <div class="form-group">
+                                    <label for="topicImagePreview">Image Preview</label>
+                                    <div id="topicImagePreviewContainer"
+                                        style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
+                                        @if (isset($course) && $course->topicimage)
+                                            <img id="topicImagePreview"
+                                                src="{{ url('d0/' . $course->topicimage) }}" alt="Image Preview"
+                                                style="width: 100%; height: auto;">
+                                        @else
+                                            <img id="topicImagePreview" src="#" alt="Image Preview"
+                                                style="display: none; width: 100%; height: auto;">
+                                        @endif
+                                    </div>
+                                </div>
                                 <button type="submit" class="btn btn-dark" name="sub_section"
                                     value="tab3_save">Save</button>
                             </form>
@@ -569,6 +615,21 @@
                                         </div>
                                     </div>
                                 </div>
+                                  <!-- Preview Image Container -->
+                                  <div class="form-group">
+                                    <label for="fullmockImagePreview">Image Preview</label>
+                                    <div id="fullmockPreviewContainer"
+                                        style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
+                                        @if (isset($course) && $course->fullmockimage)
+                                            <img id="fullmockImagePreview"
+                                                src="{{ url('d0/' . $course->fullmockimage) }}" alt="Image Preview"
+                                                style="width: 100%; height: auto;">
+                                        @else
+                                            <img id="fullmockImagePreview" src="#" alt="Image Preview"
+                                                style="display: none; width: 100%; height: auto;">
+                                        @endif
+                                    </div>
+                                </div>
                                 <button type="submit" class="btn btn-dark" name="sub_section"
                                     value="tab4_save">Save</button>
                             </form>
@@ -593,6 +654,21 @@
                                             <label for="privateimage">Private Image</label>
                                             <input type="file" class="form-control" name="privateimage">
                                         </div>
+                                    </div>
+                                </div>
+                                  <!-- Preview Image Container -->
+                                  <div class="form-group">
+                                    <label for="privateImagePreview">Image Preview</label>
+                                    <div id="privateImagePreviewContainer"
+                                        style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
+                                        @if (isset($course) && $course->privateimage)
+                                            <img id="privateImagePreview"
+                                                src="{{ url('d0/' . $course->privateimage) }}" alt="Image Preview"
+                                                style="width: 100%; height: auto;">
+                                        @else
+                                            <img id="privateImagePreview" src="#" alt="Image Preview"
+                                                style="display: none; width: 100%; height: auto;">
+                                        @endif
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-dark" name="sub_section"

@@ -204,8 +204,8 @@ class CourseController extends Controller
         $course->learncontent = $request->input('learncontent');
 
         if ($request->hasFile('learnimage')) {
-            $learnImageName = "course/learn/" . $request->file('learnimage')->hashName();
-            Storage::put('course/learn', $request->file('learnimage'));
+            $learnImageName = "course/" . $request->file('learnimage')->hashName();
+            Storage::put('course/', $request->file('learnimage'));
             $course->learnimage = $learnImageName;
         }
 
@@ -227,8 +227,8 @@ class CourseController extends Controller
         $course->questionbankcontent = $request->input('questionbankcontent');
 
         if ($request->hasFile('questionbankimage')) {
-            $questionBankImageName = "course/questionbank/" . $request->file('questionbankimage')->hashName();
-            Storage::put('course/questionbank', $request->file('questionbankimage'));
+            $questionBankImageName = "course/" . $request->file('questionbankimage')->hashName();
+            Storage::put('course/', $request->file('questionbankimage'));
             $course->questionbankimage = $questionBankImageName;
         }
 
@@ -250,8 +250,8 @@ class CourseController extends Controller
         $course->topiccontent = $request->input('topiccontent');
 
         if ($request->hasFile('topicimage')) {
-            $topicImageName = "course/topic/" . $request->file('topicimage')->hashName();
-            Storage::put('course/topic', $request->file('topicimage'));
+            $topicImageName = "course/" . $request->file('topicimage')->hashName();
+            Storage::put('course/', $request->file('topicimage'));
             $course->topicimage = $topicImageName;
         }
 
@@ -273,8 +273,8 @@ class CourseController extends Controller
         $course->fullmockcontent = $request->input('fullmockcontent');
 
         if ($request->hasFile('fullmockimage')) {
-            $fullMockImageName = "course/fullmock/" . $request->file('fullmockimage')->hashName();
-            Storage::put('course/fullmock', $request->file('fullmockimage'));
+            $fullMockImageName = "course/" . $request->file('fullmockimage')->hashName();
+            Storage::put('course/', $request->file('fullmockimage'));
             $course->fullmockimage = $fullMockImageName;
         }
 
@@ -296,8 +296,8 @@ class CourseController extends Controller
         $course->privatecontent = $request->input('privatecontent');
 
         if ($request->hasFile('privateimage')) {
-            $privateImageName = "course/private/" . $request->file('privateimage')->hashName();
-            Storage::put('course/private', $request->file('privateimage'));
+            $privateImageName = "course/" . $request->file('privateimage')->hashName();
+            Storage::put('course/', $request->file('privateimage'));
             $course->privateimage = $privateImageName;
         }
 
