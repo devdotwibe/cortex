@@ -60,9 +60,11 @@
                                 @if (!empty($course->logicaltitle2))
                                 <h3>{{ $course->logicaltitle2 }}</h3>
                             @endif
+
                             @if (!empty($course->logicalcontent))
                             {!! $course->logicalcontent !!}
                             @endif
+
                                 </div>
                             <div class="courses-col3">
                                 @if (!empty($course->logicalimage))
