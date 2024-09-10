@@ -105,7 +105,8 @@
 
             $('#table-{{ $tableid }}-bulk-action-form').submit(function(e){
                 e.preventDefault();
-                $.post($(this).attr('action'),$(this).serialize(),function(res){
+                var formData = new FormData(this);
+                $.post($(this).attr('action'),formData,function(res){
                     showToast(res.success??'Records has been successfully deleted', 'success');
                     $('#table-{{ $tableid }}').DataTable().ajax.reload();
                 },'json').fail(function(){
