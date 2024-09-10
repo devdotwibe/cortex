@@ -123,7 +123,7 @@ Route::middleware(['auth', 'isUser'])->group(function () {
             Route::middleware('subscription:question-bank')->post('/{category}/{sub_category}/set/{setname}/verify', [ExamQuestionController::class, 'setverify'])->name('set.verify');
             Route::middleware('subscription:question-bank')->get('/{category}/{sub_category}/set/{setname}/review', [ExamQuestionController::class, 'setreview'])->name('set.review');
             Route::get('/attempt/{user_exam_review}/preview', [ExamQuestionController::class, 'preview'])->name('preview');
-            Route::middleware('subscription:question-bank')->get('/{user_exam_review}/set/complete', [ExamQuestionController::class, 'setcomplete'])->name('set.complete');
+            Route::get('/{user_exam_review}/set/complete', [ExamQuestionController::class, 'setcomplete'])->name('set.complete');
         });
 
         Route::prefix('topic-test')->name('topic-test.')->group(function () {
@@ -135,7 +135,7 @@ Route::middleware(['auth', 'isUser'])->group(function () {
             Route::middleware('subscription:topic-test')->post('/{category}/verify', [TopicExamController::class, 'topicverify'])->name('topic.verify');
             Route::middleware('subscription:topic-test')->get('/{category}/review', [TopicExamController::class, 'topicreview'])->name('topic.review');
             Route::get('/attempt/{user_exam_review}/preview', [TopicExamController::class, 'preview'])->name('preview');
-            Route::middleware('subscription:topic-test')->get('/{user_exam_review}/complete', [TopicExamController::class, 'topiccomplete'])->name('complete');
+            Route::get('/{user_exam_review}/complete', [TopicExamController::class, 'topiccomplete'])->name('complete');
         });
 
         Route::prefix('full-mock-exam')->name('full-mock-exam.')->group(function () {
@@ -147,7 +147,7 @@ Route::middleware(['auth', 'isUser'])->group(function () {
             Route::middleware('subscription:full-mock-exam')->post('/{exam}/verify', [MockExamController::class, 'examverify'])->name('verify');
             Route::middleware('subscription:full-mock-exam')->get('/{exam}/review', [MockExamController::class, 'examreview'])->name('review');
             Route::get('/attempt/{user_exam_review}/preview', [MockExamController::class, 'preview'])->name('preview');
-            Route::middleware('subscription:full-mock-exam')->get('/{user_exam_review}/complete', [MockExamController::class, 'examcomplete'])->name('complete');
+            Route::get('/{user_exam_review}/complete', [MockExamController::class, 'examcomplete'])->name('complete');
         });
 
         Route::middleware('subscription')->group(function () {

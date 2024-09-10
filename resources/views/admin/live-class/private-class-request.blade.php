@@ -38,6 +38,18 @@
 @endsection
 @push('modals')
      
+<div class="modal fade" id="user-term-modal" tabindex="-1" role="dialog" aria-labelledby="user-termLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="user-termLablel">User Term</h5>
+                <button type="button" class="close" data-bs-dismiss="modal"  aria-label="Close"><span  aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body"> 
+            </div> 
+        </div>
+    </div>
+</div>
 @endpush
 @push('footer-script')
     <script> 
@@ -96,6 +108,12 @@
 
         document.body.removeChild(link)
         window.URL.revokeObjectURL(url)
+    }
+    function usertermlist(url){
+        $.get(url,function(res){
+            $('#user-termLablel').text(res.name)
+            $('#user-term-modal').modal('show')
+        },'json')
     }
      
     </script>

@@ -62,6 +62,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::get('/user/{user}/spectate',[UserController::class,'userspectate'])->name('user.spectate');
         Route::get('/user/{user}/comunity',[UserController::class,'usercomunity'])->name('user.comunity');
         Route::get('/user/{user}/freeaccess',[UserController::class,'freeaccess'])->name('user.freeaccess');
+        Route::get('/user/{user}/termslist',[UserController::class,'termslist'])->name('user.termslist');
         Route::resource("/exam",ExamController::class);
         Route::get('/full-mock-exam-options',[ExamController::class,'examoptions'])->name('exam.options');
         Route::post('/full-mock-exam-options',[ExamController::class,'examoptionssave']);

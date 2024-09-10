@@ -165,7 +165,11 @@ class LiveClassController extends Controller
             })->addColumn('timeslottext',function($data){
                 return implode('<br> ',$data->timeslot);
             })->addColumn('termhtml',function($data){
-                return '<a onclick="usertermlist('."'".route('admin.add_subcatecory', $data->slug)."'".')" class="btn btn-icons view_btn">+</a>';
+                if(!empty($data->user)){       
+                    return '<a onclick="usertermlist('."'".route('admin.user.termslist', $data->user->slug)."'".')" class="btn btn-icons view_btn">+</a>';
+                }else{
+                    return '';
+                }
             })->addColumn('statushtml',function($data){
                 switch ($data->status) {
                     case 'approved':
