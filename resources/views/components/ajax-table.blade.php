@@ -45,15 +45,16 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <button class="btn btn-warning" name="updateaction" value="bulkaction" >Submit</button>
+                                <button class="btn btn-warning" type="submit" onclick="return updateaction{{ $tableid }}('updateaction')" >Submit</button>
                             </div> 
                         </div>
                         @endif
                         <div class="delete-action">
-                            <button class="btn btn-danger" name="deleteaction" value="delete">
+                            <button class="btn btn-danger" type="submit" onclick="return updateaction{{ $tableid }}('deleteaction')">
                                 Delete All
                             </button>                            
                         </div>
+                        <input type="hidden" id="deleteaction{{ $tableid }}" value="" >
 
                     </div>
                 </td>
@@ -95,7 +96,13 @@
 @push('footer-script')
    
     <script>
- 
+        function updateaction{{ $tableid }}(v){
+            if(v==='deleteaction'){
+                $('#deleteaction{{ $tableid }}').val('deleteaction')
+            }else{
+                $('#deleteaction{{ $tableid }}').val('')
+            }
+        }
         $(document).ready(function() {
             $('#table-{{ $tableid }}-delete').on('hidden.bs.modal', function (e) {
                 
