@@ -164,6 +164,8 @@ class LiveClassController extends Controller
                 return $action;
             })->addColumn('timeslottext',function($data){
                 return implode('<br> ',$data->timeslot);
+            })->addColumn('termhtml',function($data){
+                return '<a onclick="usertermlist('."'".route('admin.add_subcatecory', $data->slug)."'".')" class="btn btn-icons view_btn">+</a>';
             })->addColumn('statushtml',function($data){
                 switch ($data->status) {
                     case 'approved':
@@ -178,7 +180,7 @@ class LiveClassController extends Controller
                     default:
                         return '<span class="badge text-bg-secondary">'.ucfirst($data->status).'</span>'; 
                 } 
-            })->buildTable(['timeslottext','statushtml']);
+            })->buildTable(['timeslottext','statushtml','termhtml']);
         }
         $live_class =  LiveClassPage::first();
         return view('admin.live-class.private-class-request',compact('live_class'));

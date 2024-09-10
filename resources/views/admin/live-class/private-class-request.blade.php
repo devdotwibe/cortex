@@ -29,6 +29,7 @@
                 ["th"=>"Parent Name","name"=>"parent_name","data"=>"parent_name"],
                 ["th"=>"Phone","name"=>"phone","data"=>"phone"],
                 ["th"=>"Timeslot","name"=>"timeslot","data"=>"timeslottext"],
+                ["th"=>"Term","name"=>"status","data"=>"termhtml"],
                 ["th"=>"Status","name"=>"status","data"=>"statushtml"],
             ]' tableinit="requesttableinit"  />
         </div>
