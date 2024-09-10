@@ -154,6 +154,9 @@ class UserController extends Controller
             'success'=>"Community status updated"
         ]);
     }
+    public function termslist(Request $request,User $user){
+        return $user;
+    }
     public function resetpassword(Request $request,User $user){
         $data=$request->validate([
             "password"=>["required",'string','min:6','max:250'],
