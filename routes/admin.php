@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\SubFaqController;
 use App\Http\Controllers\Admin\ClassDetailController;
@@ -71,6 +72,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::prefix('subscriber')->name('subscriber.')->group(function () {
             Route::get('/',[SubscribeUsersController::class,'index'])->name('index');
         });
+        Route::resource("/coupon",CouponController::class);
 
         Route::prefix('full-mock-exam')->name('full-mock-exam.')->group(function () {
             Route::get('/{exam}',[FullMockExamController::class,'index'])->name('index');
