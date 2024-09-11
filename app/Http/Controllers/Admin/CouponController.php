@@ -33,11 +33,16 @@ class CouponController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $offer=$request->validate([
             'name'=>['required','string','max:50'],
             'amount'=>['required','numeric','min:0'],
             'expire'=>['required']
         ]);
+        $coupen=CouponOffer::store($offer);   
+        if($request->ajax()){
+            return response()->json(["success","Coupon created success"]);
+        }
+        return redirect()->route('admin.coupon.index')->with("success","Coupon created success");
     }
 
     /**
