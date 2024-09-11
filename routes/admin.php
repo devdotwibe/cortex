@@ -71,8 +71,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::resource("/payment",PaymentController::class);
         Route::prefix('subscriber')->name('subscriber.')->group(function () {
             Route::get('/',[SubscribeUsersController::class,'index'])->name('index');
-        });
-        Route::resource("/coupon",CouponController::class);
+        }); 
         Route::prefix('coupon')->name('coupon.')->group(function () {
             Route::get('/',[CouponController::class,'index'])->name('index');
             Route::get('/create',[CouponController::class,'create'])->name('create');

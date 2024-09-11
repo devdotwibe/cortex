@@ -14,6 +14,7 @@ class CouponController extends Controller
     { 
         if($request->ajax()){
             self::$model=CouponOffer::class;
+            self::$routeName="admin.coupon";
             self::$defaultActions=["delete"];
             return  $this->buildTable();
         }
