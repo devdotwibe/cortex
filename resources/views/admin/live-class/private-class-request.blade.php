@@ -34,7 +34,7 @@
             ]' tableinit="requesttableinit" :bulkaction="true" :bulkactionlink="route('admin.live-class.request.bulkaction')"  />
         </div>
         <div class="selectbox-action" style="display:none">
-            <button class="btn btn-outline-secondary">+ User Access</button>
+            <button class="btn btn-outline-secondary" id="multi-user-action" >+ User Access</button>
         </div>
     </div>
 </section> 
@@ -61,14 +61,14 @@
                             <button type="submit"  class="btn btn-dark m-1" >Save</button> 
                         </div>
                     </div>
-                </form>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div  class="list-group" id="multi-user-list">
-
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div  class="list-group" id="multi-user-list">
+    
+                            </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div> 
         </div>
     </div>
@@ -82,7 +82,7 @@
                 <button type="button" class="close" data-bs-dismiss="modal"  aria-label="Close"><span  aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body"> 
-                <form action="" method="post" id="user-term-form">
+                <form action="{{route('admin.user-access.multi-user.update')}}" method="post" id="user-term-form">
                     @csrf
                     <div class="row">
                         <div class="col-md-12" id="user-term-table">
@@ -191,6 +191,49 @@
             })
         },'json')
     }
+    $(function(){
+        $('#multi-user-action').click(function(){
+            $.post("{{route('admin.live-class.request.bulkupdate')}}",{},function(res){
+                $('#multi-user-term-table').html(`           
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Term</th>
+                                <th>Access</th>
+                            </tr>
+                        </thead>
+                        <tbody id="multi-user-term-table-body">
+
+                        </tbody>
+                    </table>
+                `)
+                $('#user-term-table').html('')
+                $('#multi-user-term-modal').modal('show')
+                $.each(res.termsList,function(k,v){   
+                    $(`#multi-user-term-table-body`).append(`                
+                        <tr>
+                            <td>${k}</td>
+                            <td>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" name="term[]" value="${k}" type="checkbox"  role="switch"  />
+                                </div>
+                            </td>
+                        </tr>
+                    `)
+                }) 
+                $.each(res.userList,function(k,v){  
+                    $('#user-term-table').append(`
+                        <div class="list-group-item">
+                            <span>${v.name}</span>
+                            <input type="hidden" name="user[]" value="${v.id}">
+                        </div>
+                    `)
+                })
+
+            })
+        })
+    })
      
     </script>
+    
 @endpush

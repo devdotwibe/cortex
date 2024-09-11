@@ -3,8 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\ClassDetail;
+use App\Models\HomeWork;
+use App\Models\LessonMaterial;
+use App\Models\LessonRecording;
 use App\Models\LiveClassPage;
 use App\Models\PrivateClass;
+use App\Models\User;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -243,6 +248,31 @@ class LiveClassController extends Controller
             return response()->json(["success"=>"Request has been successfully deleted"]);
         }
         return redirect()->back()->with("success","Request has been successfully deleted");
+    }
+    public function bulkupdate(Request $request){
+        $terms=[];
+        foreach(ClassDetail::all() as $term){
+            $name=trim($term->term_name); 
+            $terms[$name]=0; 
+        }
+        foreach(LessonMaterial::all() as $term){
+            $name=trim($term->term_name); 
+            $terms[$name]=0; 
+        }
+        foreach(HomeWork::all() as $term){
+            $name=trim($term->term_name); 
+            $terms[$name]=0; 
+        }
+        foreach(LessonRecording::all() as $term){
+            $name=trim($term->term_name); 
+            $terms[$name]=0; 
+        }
+        $privateClass=  PrivateClass::where('id','>',0);
+        if($request->input('select_all','no')!="yes"){
+            $privateClass->whereIn('id',$request->input('selectbox',[]));
+        }
+        $users=User::whereIn("id",$privateClass->select('user_id'))->get();
+        return ["termsList"=>$terms,"userList"=>$users];
     }
 
 }

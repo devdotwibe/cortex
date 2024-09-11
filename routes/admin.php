@@ -200,7 +200,8 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::get('/private/class/{private_class}/requests/accept',[LiveClassController::class,'private_class_request_accept'])->name('request.accept');
             Route::get('/private/class/{private_class}/requests/reject',[LiveClassController::class,'private_class_request_reject'])->name('request.reject');
             Route::get('/private/class/{private_class}/requests/status',[LiveClassController::class,'private_class_request_status'])->name('request.status');
-
+            
+            Route::post('/private/class/bulk-update',[LiveClassController::class,'bulkupdate'])->name('request.bulkupdate');
             Route::post('/private/class/bulk-action',[LiveClassController::class,'bulkaction'])->name('request.bulkaction');
             Route::delete('/private/class/{private_class}/requests',[LiveClassController::class,'private_class_request_destroy'])->name('request.destroy');
             Route::get('/private/class/requests',[LiveClassController::class,'private_class_request'])->name('private_class_request');
@@ -316,7 +317,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::get('/{type}/user/{term}/list',[UserAccessController::class,'index'])->name('index');
             Route::get('/{type}/user/{term}/{user}/update',[UserAccessController::class,'update'])->name('update');
             Route::post('/{user}/user-update-term',[UserAccessController::class,'user_update'])->name('user.update');
-            Route::post('/multi-user-delete',[UserAccessController::class,'user_update'])->name('user.update');
+            Route::post('/multi-user-delete',[UserAccessController::class,'multi_user_update'])->name('multi-user.update');
         });
     });
     Route::prefix('settings')->name('settings.')->group(function () {
