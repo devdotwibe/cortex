@@ -225,6 +225,10 @@ class HomeController extends Controller
             $price=($request->type??"")=="combo"? floatval(OptionHelper::getData('stripe.subscription.payment.combo-amount-price','0')) :floatval(OptionHelper::getData('stripe.subscription.payment.amount-price','0'));
             $offerprice=floatval($offer->amount);
             $newprice=$price-$offerprice;
+            if($newprice<0){
+                $newprice=0;
+                $offerprice=$price;
+            }
             return response()->json([
                 "price"=>$price,
                 "offer"=>$offerprice,
@@ -295,24 +299,66 @@ class HomeController extends Controller
         }
 
         try {
-            $payment =Payment::stripe()->paymentLinks->create([
-                'line_items' => [
-                [
-                    'price' =>$request->plan=="combo"? OptionHelper::getData('stripe.subscription.payment.combo-amount',''): OptionHelper::getData('stripe.subscription.payment.amount',''),
-                    'quantity' => 1,
-                ],
-                ],
-                'after_completion' => [
-                    'type' => 'redirect',
-                    'redirect' => ['url' => url("stripe/subscription/{$user->slug}/".'payment/{CHECKOUT_SESSION_ID}')],
-                ],
-            ]);
-            $user->setProgress('cortext-subscription-payment-id',$payment->id);
-            $user->setProgress('cortext-subscription-payment','pending');
-            $user->setProgress('cortext-subscription-payment-plan',$request->plan);
-            $user->setProgress('cortext-subscription-payment-email',$request->email);
-            $user->setProgress('cortext-subscription-payment-year',$request->year);
-            return redirect($payment->url);
+            $coupon=trim($request->coupon??"");
+            if(CouponOffer::where('name',$coupon)->count()>0){
+                $offer=CouponOffer::where('name',$coupon)->first();
+                $oldprice=($request->plan??"")=="combo"? floatval(OptionHelper::getData('stripe.subscription.payment.combo-amount-price','0')) :floatval(OptionHelper::getData('stripe.subscription.payment.amount-price','0'));
+                $oldkey=($request->type??"")=="combo"? floatval(OptionHelper::getData('stripe.subscription.payment.combo-amount','0')) :floatval(OptionHelper::getData('stripe.subscription.payment.amount','0'));
+                $offerprice=floatval($offer->amount);
+                $newprice=$oldprice-$offerprice;
+                if($newprice<0){
+                    $newprice=0;
+                    $offerprice=$oldprice;
+                }
+                $price=Payment::stripe()->prices->create([
+                    'currency' => config('stripe.currency'),
+                    'unit_amount' => intval($newprice*100),
+                    'product_data' => ['name' => config('app.name','Cortex').' Offer Amount :'.(intval($newprice*100)/100).' For '.($request->plan).' Plan'],
+                    'metadata'=>[
+                        'modify_time'=>date('Y-m-d h:i a'),
+                        'original_key'=>$oldkey,
+                        'original_value'=>$oldprice,
+                    ]
+                ]);
+                $payment =Payment::stripe()->paymentLinks->create([
+                    'line_items' => [
+                    [
+                        'price' =>$price->id,
+                        'quantity' => 1,
+                    ],
+                    ],
+                    'after_completion' => [
+                        'type' => 'redirect',
+                        'redirect' => ['url' => url("stripe/subscription/{$user->slug}/".'payment/{CHECKOUT_SESSION_ID}')],
+                    ],
+                ]);
+                $user->setProgress('cortext-subscription-payment-id',$payment->id);
+                $user->setProgress('cortext-subscription-payment','pending');
+                $user->setProgress('cortext-subscription-payment-plan',$request->plan);
+                $user->setProgress('cortext-subscription-payment-email',$request->email);
+                $user->setProgress('cortext-subscription-payment-year',$request->year);
+                return redirect($payment->url);
+            }else{
+
+                $payment =Payment::stripe()->paymentLinks->create([
+                    'line_items' => [
+                    [
+                        'price' =>$request->plan=="combo"? OptionHelper::getData('stripe.subscription.payment.combo-amount',''): OptionHelper::getData('stripe.subscription.payment.amount',''),
+                        'quantity' => 1,
+                    ],
+                    ],
+                    'after_completion' => [
+                        'type' => 'redirect',
+                        'redirect' => ['url' => url("stripe/subscription/{$user->slug}/".'payment/{CHECKOUT_SESSION_ID}')],
+                    ],
+                ]);
+                $user->setProgress('cortext-subscription-payment-id',$payment->id);
+                $user->setProgress('cortext-subscription-payment','pending');
+                $user->setProgress('cortext-subscription-payment-plan',$request->plan);
+                $user->setProgress('cortext-subscription-payment-email',$request->email);
+                $user->setProgress('cortext-subscription-payment-year',$request->year);
+                return redirect($payment->url);
+            }
         } catch (\Throwable $th) {
             return redirect()->back()->with('error',$th->getMessage());
         }
