@@ -37,19 +37,35 @@
                 <button type="button" class="close" data-bs-dismiss="modal"  aria-label="Close"><span  aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body"> 
-                <form action="" method="post" id="coupen-form">
+                <form action="" method="post" id="coupen-add-form">
                     @csrf
                     <div class="row">
                         <div class="col-md-12" >
                             <div class="form-group">
-                                <label for=""></label>
+                                <label for="name">Offer Name</label>
+                                <input type="text" name="name" value="" class="form-control" id="coupen-add-form-name">
+                                <div id="coupen-add-form-name-error" class="invalid-feedback"></div>
+                            </div>    
+                        </div>
+                        <div class="col-md-12" >
+                            <div class="form-group">
+                                <label for="amount">Amount</label>
+                                <input type="text" name="amount" value="" class="form-control" id="coupen-add-form-amount">
+                                <div id="coupen-add-form-amount-error" class="invalid-feedback"></div>
+                            </div>    
+                        </div>
+                        <div class="col-md-12" >
+                            <div class="form-group">
+                                <label for="expire">Expire</label>
+                                <input type="text" name="expire" value="" class="form-control" id="coupen-add-form-expire">
+                                <div id="coupen-add-form-expire-error" class="invalid-feedback"></div>
                             </div>    
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
                             <button type="button"  class="btn btn-outline-dark m-1" data-bs-dismiss="modal"  aria-label="Close" >Close</button> 
-                            <button type="submit"  class="btn btn-dark m-1" >Save</button> 
+                            <button type="submit"  class="btn btn-dark m-1" > + Add </button> 
                         </div>
                     </div>
                 </form>
