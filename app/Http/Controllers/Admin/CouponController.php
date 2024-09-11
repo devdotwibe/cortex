@@ -33,7 +33,11 @@ class CouponController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'=>['required','string','max:50'],
+            'amount'=>['required','numeric','min:0'],
+            'expire'=>['required']
+        ]);
     }
 
     /**

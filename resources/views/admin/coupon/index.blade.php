@@ -22,7 +22,7 @@
                         ["th"=>"Offer Name","name"=>"name","data"=>"name"],
                         ["th"=>"Amount","name"=>"amount","data"=>"amount"], 
                         ["th"=>"Expire","name"=>"expire","data"=>"expire"],  
-                    ]' />
+                    ]' tableinit="coupentableinit" />
                 </div>
             </div>
         </div>
@@ -77,16 +77,37 @@
 
 @push('footer-script')
 <script>
-    $('#coupen-modal').on('hidden.bs.modal',  ()=> {
-        $('#coupen-add-form').get(0).reset()
-    });
-    $('#coupen-add-form').submit((e)=>{
-        e.preventDefault()
-
-        return false;
-    });
+    let coupentable=null;
+    const coupentableinit=(table)=>{
+        coupentable=table
+    }
     $(()=>{
-
+        $('#coupen-modal').on('hidden.bs.modal',  ()=> {
+            $('#coupen-add-form').get(0).reset()
+            $('.form-control').removeClass('is-invalid')
+            $('.invalid-feedback').text('')
+        });
+        $('#coupen-add-form').submit((e)=>{
+            e.preventDefault()
+            $('.form-control').removeClass('is-invalid')
+            $('.invalid-feedback').text('')
+            $.post("{{route('admin.coupon.store')}}",$(this).serialize(),(res)=>{
+                coupentable.ajax.reload()
+                $('#coupen-modal').modal('hide')
+                showToast(res.success||'Coupon has been successfully added', 'success');
+            },'json')
+            return false;
+        }).fail((xhr)=>{
+            try {
+                var errors = xhr.responseJSON.errors;
+                $.each(errors,(k,v)=>{
+                    $(`#coupen-add-form-${k}-error`).text(v[0])
+                    $(`#coupen-add-form-${k}`).addClass('is-invalid')
+                })
+            } catch (error) {
+                
+            }
+        });
     });
 </script>
 @endpush
