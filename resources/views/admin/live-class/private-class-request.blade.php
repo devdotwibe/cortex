@@ -233,7 +233,7 @@
                         </tbody>
                     </table>
                 `)
-                $('#user-term-table').html('')
+                $('#multi-user-list').html('')
                 $('#multi-user-term-modal').modal('show')
                 $.each(res.termsList,function(k,v){   
                     $(`#multi-user-term-table-body`).append(`                
@@ -248,7 +248,7 @@
                     `)
                 }) 
                 $.each(res.userList,function(k,v){  
-                    $('#user-term-table').append(`
+                    $('#multi-user-list').append(`
                         <div class="list-group-item">
                             <span>${v.name}</span>
                             <input type="hidden" name="user[]" value="${v.id}">
