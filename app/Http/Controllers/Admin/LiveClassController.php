@@ -232,4 +232,17 @@ class LiveClassController extends Controller
         return redirect()->back()->with('success','Request has been successfully deleted');
     }
 
+    public function bulkaction(Request $request){
+
+        if($request->input('select_all','no')=="yes"){
+            PrivateClass::where('id','>',0)->delete();
+        }else{
+            PrivateClass::whereIn('id',$request->input('selectbox',[]))->delete();
+        }
+        if($request->ajax()){
+            return response()->json(["success"=>"Request has been successfully deleted"]);
+        }
+        return redirect()->back()->with("success","Request has been successfully deleted");
+    }
+
 }

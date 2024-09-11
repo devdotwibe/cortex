@@ -31,12 +31,45 @@
                 ["th"=>"Timeslot","name"=>"timeslot","data"=>"timeslottext"],
                 ["th"=>"Term","name"=>"status","data"=>"termhtml"],
                 ["th"=>"Status","name"=>"status","data"=>"statushtml"],
-            ]' tableinit="requesttableinit"  />
+            ]' tableinit="requesttableinit" :bulkaction="true" :bulkactionlink="route('admin.live-class.request.bulkaction')"  />
         </div>
     </div>
 </section> 
 @endsection
 @push('modals')
+<div class="modal fade" id="multi-user-term-modal" tabindex="-1" role="dialog" aria-labelledby="multi-user-termLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="multi-user-termLablel">User Term</h5>
+                <button type="button" class="close" data-bs-dismiss="modal"  aria-label="Close"><span  aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body"> 
+                <form action="" method="post" id="multi-user-term-form">
+                    @csrf
+                    <div class="row">
+                        <div class="col-md-12" id="multi-user-term-table">
+    
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="button"  class="btn btn-outline-dark m-1" data-bs-dismiss="modal"  aria-label="Close" >Close</button> 
+                            <button type="submit"  class="btn btn-dark m-1" >Save</button> 
+                        </div>
+                    </div>
+                </form>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div  class="list-group" id="multi-user-list">
+
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </div>
+</div>
      
 <div class="modal fade" id="user-term-modal" tabindex="-1" role="dialog" aria-labelledby="user-termLabel" aria-hidden="true">
     <div class="modal-dialog">
