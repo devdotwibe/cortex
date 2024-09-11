@@ -16,7 +16,13 @@ class CouponController extends Controller
             self::$model=CouponOffer::class;
             self::$routeName="admin.coupon";
             self::$defaultActions=["delete"];
-            return  $this->buildTable();
+            return  $this->addAction(function($data){
+                return '                
+                    <a onclick="editcoupon('."'".route("admin.coupon.edit",$data->slug)."'".')" class="btn btn-icons edit_btn">
+                        <img src="'.asset("assets/images/edit.svg").'" alt="">
+                    </a>
+                ';
+            })->buildTable();
         }
         return view('admin.coupon.index');
     }
@@ -51,6 +57,7 @@ class CouponController extends Controller
      */
     public function show(Request $request, CouponOffer $couponOffer)
     {
+        $couponOffer->updateUrl=route('admin.coupon.update',$couponOffer->slug);
         return $couponOffer;
     }
 
@@ -59,6 +66,7 @@ class CouponController extends Controller
      */
     public function edit(Request $request, CouponOffer $couponOffer)
     {
+        $couponOffer->updateUrl=route('admin.coupon.update',$couponOffer->slug);
         return $couponOffer;
     }
 

@@ -80,6 +80,58 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="coupen-edit-modal" tabindex="-1" role="dialog" aria-labelledby="coupen-editLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="coupen-editLablel">Update Coupon</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="post" id="coupen-edit-form">
+                        @csrf
+                        @method("PUT")
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="name">Offer Name</label>
+                                    <input type="text" name="name" value="" class="form-control"
+                                        id="coupen-edit-form-name">
+                                    <div id="coupen-edit-form-name-error" class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="amount">Amount</label>
+                                    <input type="text" name="amount" value="" class="form-control"
+                                        id="coupen-edit-form-amount">
+                                    <div id="coupen-edit-form-amount-error" class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="expire">Expire</label>
+                                    <input type="text" name="expire" value="" class="form-control datepicker"
+                                        id="coupen-edit-form-expire" readonly>
+                                    <div id="coupen-edit-form-expire-error" class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-12">
+                                <button type="button" class="btn btn-outline-dark m-1" data-bs-dismiss="modal"
+                                    aria-label="Close">Close</button>
+                                <button type="submit" class="btn btn-dark m-1"> Update </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endpush
 
 @push('footer-script')
