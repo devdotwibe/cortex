@@ -235,7 +235,7 @@ class HomeController extends Controller
                 "pay"=>$newprice,
                 "message"=>"<p>
                                 <strong>Coupon Applied Successfully!</strong><br>
-                                <span>Congratulations! Your coupon has been applied, and you've saved \$$offerprice. Your new total is \$$newprice.</span>
+                                <span>Congratulations! Your coupon has been applied, and you've saved \$$offerprice. Your total is \$$newprice.</span>
                             </p>"
             ]);
         }

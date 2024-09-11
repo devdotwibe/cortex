@@ -112,61 +112,94 @@
                         <h5 class="modal-title" id="cortext-combo-subscription-paymentLablel">Subscription</h5> 
                     </div>
                     <div class="modal-body">
-
                         <div class="form-group"> 
                             <div class="form-check">
-                                <input type="radio" class="form-check-input" name="tabs2" id="tabs2a" autocomplete="off" checked>
+                                <input type="radio" class="form-check-input" onchange="changetab('#tabs2-tabs2a','.tabs2')"  name="tabs2" id="tabs2a" autocomplete="off" checked>
                                 <label  for="tabs2a" class="form-check-label">Group 1</label>
-                                
                             </div>
                             <div class="form-check">
                                 <input type="radio" class="form-check-input" name="tabs2" id="tabs2b" autocomplete="off">
                                 <label  for="tabs2b" class="form-check-label">Induvidual</label> 
-                                
                             </div>
-                    
                         </div>
-                        <form action="{{route('pricing.index')}}"  id="cortext-combo-subscription-payment-form"  method="POST">
-                            @csrf        
-                            
-                            <input type="hidden" name="plan" value="combo">
-                            <div class="form-group">
-                                <label for="combo-year"> Year</label>                            
+                        <div class="tabs2" id="tabs2-tabs2a">
+                            <form action="{{route('pricing.index')}}"  id="cortext-combo-subscription-payment-form"  method="POST">
+                                @csrf        
+                                <input type="hidden" name="plan" value="combo">
+                                <div class="form-group">
+                                    <label for="combo-year"> Year</label>                            
+                                        @if(date('m')>5)  
+                                            <input type="hidden"  id="combo-year" name="year" value="{{date('Y')+0}}-{{date('Y')+1}}" >
+                                            <input type="text" class="form-control" value="June {{date('Y')+0}} - May {{date('Y')+1}}" readonly>
+                                        @else
+                                            <select name="year" class="form-control" id="combo-year"> 
+                                                <option value="{{date('Y')+0}}-{{date('Y')+1}}" >June {{date('Y')+0}} - May {{date('Y')+1}}</option>
+                                                <option value="{{date('Y')-1}}-{{date('Y')+2}}" >June {{date('Y')+1}} - May {{date('Y')+0}}</option>
+                                            </select>
+                                        @endif
+                                        <div class="invalid-feedback" id="error-combo-year-message"></div>
+                                </div>  
+                                <div class="form-group">
+                                    <label for="email-2">Invite User</label>
+                                    <div class="input-group ">  
+                                        <input type="email" name="email" id="combo-email" placeholder="Enter email address" class="form-control" />
+                                        <button class="btn btn-outline-secondary" type="button" id="mail-verify-button">Confirm Email</button>
+                                        <div class="invalid-feedback" id="error-combo-email-message"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="combo-coupon">Coupon Code</label>
+                                    <div class="input-group ">  
+                                        <input type="text" name="coupon" id="combo-coupon" placeholder="Enter Coupon Code" class="form-control" />
+                                        <button class="btn btn-outline-secondary" type="button" id="combo-coupon-verify-button">Apply</button>
+                                        <div class="invalid-feedback" id="error-combo-coupon-message"></div>
+                                    </div>
+                                </div> 
+                                <div class="form-group" id="combo-message-area">
+                                </div>
+                                <div class="form-group mt-2">
+                                    <input type="hidden" name="verify" value="N" id="verify-mail">
+                                    <button type="button" data-bs-dismiss="modal"  class="btn btn-secondary">Cancel</button> 
+                                    <button type="button" class="btn btn-dark" id="cortext-combo-subscription-payment-form-buttom">Pay Now $<span class="amount" id="cortext-combo-subscription-payment-form-buttom-price" data-amount="{{ get_option('stripe.subscription.payment.combo-amount-price','0') }}">{{ get_option('stripe.subscription.payment.combo-amount-price','0') }}</span> </button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tabs2" id="tabs2-tabs2b">
+                            <form action="{{route('pricing.index')}}"  id="cortext-subscription-payment-form" method="POST" >
+                                @csrf
+    
+                                <input type="hidden" name="plan" value="single">
+                                <div class="form-group">
+                                    <label for="year-1"> Year </label>
                                     @if(date('m')>5)  
-                                        <input type="hidden"  id="combo-year" name="year" value="{{date('Y')+0}}-{{date('Y')+1}}" >
-                                        <input type="text" class="form-control" value="June {{date('Y')+0}} - May {{date('Y')+1}}" readonly>
+                                        <input type="text" id="year-1" class="form-control" value="June {{date('Y')+0}} - May {{date('Y')+1}}" readonly>
+                                        <input type="hidden" name="year" value="{{date('Y')+0}}-{{date('Y')+1}}" >
                                     @else
-                                        <select name="year" class="form-control" id="combo-year"> 
+                                        <select name="year" class="form-control" id="year-1"> 
                                             <option value="{{date('Y')+0}}-{{date('Y')+1}}" >June {{date('Y')+0}} - May {{date('Y')+1}}</option>
                                             <option value="{{date('Y')-1}}-{{date('Y')+2}}" >June {{date('Y')+1}} - May {{date('Y')+0}}</option>
                                         </select>
                                     @endif
-                                    <div class="invalid-feedback" id="error-combo-year-message"></div>
-                            </div>  
-                            <div class="form-group">
-                                <label for="email-2">Invite User</label>
-                                <div class="input-group ">  
-                                    <input type="email" name="email" id="combo-email" placeholder="Enter email address" class="form-control" />
-                                    <button class="btn btn-outline-secondary" type="button" id="mail-verify-button">Confirm Email</button>
-                                    <div class="invalid-feedback" id="error-combo-email-message"></div>
+                                    <div class="invalid-feedback" id="error-year-message"></div>
+                                </div> 
+                                <div class="form-group">
+                                    <label for="coupon">Coupon Code</label>
+                                    <div class="input-group ">  
+                                        <input type="text" name="coupon" id="coupon" placeholder="Enter Coupon Code" class="form-control" />
+                                        <button class="btn btn-outline-secondary" type="button" id="coupon-verify-button">Apply</button>
+                                        <div class="invalid-feedback" id="error-coupon-message"></div>
+                                    </div>
+                                </div> 
+    
+                                <div class="form-group" id="message-area">
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="combo-coupon">Coupon Code</label>
-                                <div class="input-group ">  
-                                    <input type="text" name="coupon" id="combo-coupon" placeholder="Enter Coupon Code" class="form-control" />
-                                    <button class="btn btn-outline-secondary" type="button" id="combo-coupon-verify-button">Apply</button>
-                                    <div class="invalid-feedback" id="error-combo-coupon-message"></div>
+                                <div class="form-group mt-2">
+                                    <button type="button" data-bs-dismiss="modal"  class="btn btn-secondary">Cancel</button> 
+                                    <button type="button" class="btn btn-dark price-norm" id="cortext-subscription-payment-form-buttom">Pay Now $<span class="amount" id="cortext-subscription-payment-form-buttom-price" data-amount="{{ get_option('stripe.subscription.payment.amount-price','0') }}">{{ get_option('stripe.subscription.payment.amount-price','0') }}</span> </button> 
                                 </div>
-                            </div> 
-                            <div class="form-group" id="combo-message-area">
-                            </div>
-                            <div class="form-group mt-2">
-                                <input type="hidden" name="verify" value="N" id="verify-mail">
-                                <button type="button" data-bs-dismiss="modal"  class="btn btn-secondary">Cancel</button> 
-                                <button type="button" class="btn btn-dark" id="cortext-combo-subscription-payment-form-buttom">Pay Now $<span class="amount" id="cortext-combo-subscription-payment-form-buttom-price" data-amount="{{ get_option('stripe.subscription.payment.combo-amount-price','0') }}">{{ get_option('stripe.subscription.payment.combo-amount-price','0') }}</span> </button>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
+                        
                     </div>
 
                 </div>
@@ -182,7 +215,10 @@
         
     @auth('web')
         <script>
-
+            function changetab(e,o){
+                $(o).hide()
+                $(e).fadeIn()
+            }
             $('#cortext-subscription-payment-modal').on('hidden.bs.modal', function () { 
                 $('#coupon').val('') 
                 $('#message-area').html('')
