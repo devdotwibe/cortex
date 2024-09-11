@@ -246,7 +246,7 @@
                 $('.form-control').removeClass('is-invalid') 
                 var coupen=$('#combo-coupon').val();
                 if(coupen){
-                    $.get('{{route("coupon-verify")}}',{coupon:coupen},function(res){
+                    $.get('{{route("coupon-verify")}}',{type:"combo",coupon:coupen},function(res){
                         if(res.message){
                             $('#combo-message-area').html(`
                                 <div class="alert alert-info" role="alert">
