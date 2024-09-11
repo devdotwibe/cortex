@@ -317,7 +317,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::get('/{type}/user/{term}/list',[UserAccessController::class,'index'])->name('index');
             Route::get('/{type}/user/{term}/{user}/update',[UserAccessController::class,'update'])->name('update');
             Route::post('/{user}/user-update-term',[UserAccessController::class,'user_update'])->name('user.update');
-            Route::post('/multi-user-delete',[UserAccessController::class,'multi_user_update'])->name('multi-user.update');
+            Route::post('/multi-user-update',[UserAccessController::class,'multi_user_update'])->name('multi-user.update');
         });
     });
     Route::prefix('settings')->name('settings.')->group(function () {
