@@ -145,10 +145,11 @@
         }
         function editcoupon(url){
             $.get(url,function(res){
-                $('#coupen-edit-form-name').val(res.name)
-                $('#coupen-edit-form-amount').val(res.amount)
-                $('#coupen-edit-form-expire').val(res.expire)
-                $('#coupen-edit-modal').modal('show')
+                $('#coupen-edit-form-name').val(res.name);
+                $('#coupen-edit-form-amount').val(res.amount);
+                $('#coupen-edit-form-expire').val(res.expire);
+                $('#coupen-edit-form').attr('action',res.updateUrl);
+                $('#coupen-edit-modal').modal('show');
             },'json')
         }
         $(function(){
@@ -171,6 +172,27 @@
                 $('.form-control').removeClass('is-invalid')
                 $('.invalid-feedback').text('')
                 $.post("{{ route('admin.coupon.store') }}", $(this).serialize(), function(res){
+                    coupentable.ajax.reload()
+                    $('#coupen-modal').modal('hide')
+                    showToast(res.success || 'Coupon has been successfully added', 'success');
+                }, 'json').fail(function(xhr) {
+                    try {
+                        var errors = xhr.responseJSON.errors;
+                        $.each(errors, function(k, v) {
+                            $(`#coupen-add-form-${k}-error`).text(v[0])
+                            $(`#coupen-add-form-${k}`).addClass('is-invalid')
+                        })
+                    } catch (error) {
+
+                    }
+                });
+                return false;
+            })
+            $('#coupen-edit-form').submit(function(e){
+                e.preventDefault()
+                $('.form-control').removeClass('is-invalid')
+                $('.invalid-feedback').text('')
+                $.post($(this).attr('action'), $(this).serialize(), function(res){
                     coupentable.ajax.reload()
                     $('#coupen-modal').modal('hide')
                     showToast(res.success || 'Coupon has been successfully added', 'success');
