@@ -62,8 +62,8 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="expire">Expire</label>
-                                    <input type="text" name="expire" value="" class="form-control"
-                                        id="coupen-add-form-expire">
+                                    <input type="text" name="expire" value="" class="form-control datepicker"
+                                        id="coupen-add-form-expire" readonly>
                                     <div id="coupen-add-form-expire-error" class="invalid-feedback"></div>
                                 </div>
                             </div>
@@ -83,12 +83,19 @@
 @endpush
 
 @push('footer-script')
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.14.0/themes/base/jquery-ui.css" rel="stylesheet">
+<script src="https://code.jquery.com/ui/1.14.0/jquery-ui.min.js" integrity="sha256-Fb0zP4jE3JHqu+IBB9YktLcSjI1Zc6J2b6gTjB0LpoM=" crossorigin="anonymous"></script>
     <script>
         let coupentable = null;
         const coupentableinit = (table) => {
             coupentable = table
         }
         $(() => {
+            $('.datepicker').datepicker({
+                dateFormat:'yy-mm-dd',
+                minDate:0
+            });
             $('#coupen-modal').on('hidden.bs.modal', () => {
                 $('#coupen-add-form').get(0).reset()
                 $('.form-control').removeClass('is-invalid')
