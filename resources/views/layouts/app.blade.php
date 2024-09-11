@@ -104,8 +104,8 @@
     <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/js/slick.js') }}"></script>
     <script src="{{ asset('assets/js/sticky-cards.js') }}"></script>
-    <script src="{{ asset('assets/js/scripts.js') }}"></script>
     <script src="{{ asset('assets/js/aos.js') }}"></script>
+    <script src="{{ asset('assets/js/scripts.js') }}"></script>
 
 
     <script>
