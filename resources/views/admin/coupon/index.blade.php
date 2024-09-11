@@ -149,7 +149,7 @@
                 $('#coupen-edit-form-amount').val(res.amount)
                 $('#coupen-edit-form-expire').val(res.expire)
                 $('#coupen-edit-modal').modal('show')
-            }.'json')
+            },'json')
         }
         $(function(){
             $('.datepicker').datepicker({
