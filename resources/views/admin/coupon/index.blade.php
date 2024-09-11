@@ -143,6 +143,14 @@
         const coupentableinit = (table) => {
             coupentable = table
         }
+        const editcoupon=(url)=>{
+            $.get(url,function(res){
+                $('#coupen-edit-form-name').val(res.name)
+                $('#coupen-edit-form-amount').val(res.amount)
+                $('#coupen-edit-form-expire').val(res.expire)
+                $('#coupen-edit-modal').modal('show')
+            }.'json')
+        }
         $(() => {
             $('.datepicker').datepicker({
                 dateFormat:'yy-mm-dd',
@@ -150,6 +158,11 @@
             });
             $('#coupen-modal').on('hidden.bs.modal', function(){
                 $('#coupen-add-form').get(0).reset()
+                $('.form-control').removeClass('is-invalid')
+                $('.invalid-feedback').text('')
+            });
+            $('#coupen-edit-modal').on('hidden.bs.modal', function(){
+                $('#coupen-edit-form').get(0).reset()
                 $('.form-control').removeClass('is-invalid')
                 $('.invalid-feedback').text('')
             });
