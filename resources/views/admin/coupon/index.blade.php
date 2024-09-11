@@ -18,12 +18,12 @@
         <div class="coupon-wrap">
             <div class="row">
                 <div class="col-md-12">
-                    <x-ajax-table :coloumns='[
+                    <x-ajax-table :coloumns="[
                         ['th' => 'Date', 'name' => 'created_at', 'data' => 'date'],
                         ['th' => 'Offer Name', 'name' => 'name', 'data' => 'name'],
                         ['th' => 'Amount', 'name' => 'amount', 'data' => 'amount'],
                         ['th' => 'Expire', 'name' => 'expire', 'data' => 'expire'],
-                    ]' tableinit="coupentableinit" />
+                    ]" tableinit="coupentableinit" />
                 </div>
             </div>
         </div>
