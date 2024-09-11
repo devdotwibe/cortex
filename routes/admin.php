@@ -77,7 +77,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::get('/create',[CouponController::class,'create'])->name('create');
             Route::post('/store',[CouponController::class,'store'])->name('store');
             Route::get('/{coupon_offer}/show',[CouponController::class,'show'])->name('show'); 
-            Route::edit('/{coupon_offer}/edit',[CouponController::class,'edit'])->name('edit'); 
+            Route::get('/{coupon_offer}/edit',[CouponController::class,'edit'])->name('edit'); 
             Route::put('/{coupon_offer}/update',[CouponController::class,'update'])->name('update'); 
             Route::delete('/{coupon_offer}/destroy',[CouponController::class,'destroy'])->name('destroy'); 
 
