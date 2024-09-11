@@ -73,6 +73,16 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::get('/',[SubscribeUsersController::class,'index'])->name('index');
         });
         Route::resource("/coupon",CouponController::class);
+        Route::prefix('coupon')->name('coupon.')->group(function () {
+            Route::get('/',[CouponController::class,'index'])->name('index');
+            Route::get('/create',[CouponController::class,'create'])->name('create');
+            Route::post('/store',[CouponController::class,'store'])->name('store');
+            Route::show('/{coupon_offer}/show',[CouponController::class,'show'])->name('show'); 
+            Route::edit('/{coupon_offer}/edit',[CouponController::class,'edit'])->name('edit'); 
+            Route::update('/{coupon_offer}/update',[CouponController::class,'update'])->name('update'); 
+            Route::delete('/{coupon_offer}/destroy',[CouponController::class,'destroy'])->name('destroy'); 
+
+        });
 
         Route::prefix('full-mock-exam')->name('full-mock-exam.')->group(function () {
             Route::get('/{exam}',[FullMockExamController::class,'index'])->name('index');
