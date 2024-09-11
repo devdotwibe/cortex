@@ -79,7 +79,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::post('/store',[CouponController::class,'store'])->name('store');
             Route::show('/{coupon_offer}/show',[CouponController::class,'show'])->name('show'); 
             Route::edit('/{coupon_offer}/edit',[CouponController::class,'edit'])->name('edit'); 
-            Route::update('/{coupon_offer}/update',[CouponController::class,'update'])->name('update'); 
+            Route::post('/{coupon_offer}/update',[CouponController::class,'update'])->name('update'); 
             Route::delete('/{coupon_offer}/destroy',[CouponController::class,'destroy'])->name('destroy'); 
 
         });
