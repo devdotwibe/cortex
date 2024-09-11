@@ -164,13 +164,14 @@
         
     @auth('web')
         <script>
+            
             $('#cortext-subscription-payment-modal').on('hidden.bs.modal', function () { 
-               $('#coupon').val('') 
+                $('#coupon').val('') 
                 $('#message-area').html('')
                 $('.invalid-feedback').text('')
                 $('.form-control').removeClass('is-invalid') 
                 $('#cortext-subscription-payment-form-buttom-price').text($('#cortext-subscription-payment-form-buttom-price').data("amount"))
-           });
+            });
              $('#cortext-combo-subscription-payment-modal').on('hidden.bs.modal', function () { 
                 $('#combo-email').val('')
                 $('#verify-mail').val('N')
