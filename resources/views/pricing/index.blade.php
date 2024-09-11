@@ -114,15 +114,15 @@
                     <div class="modal-body">
                         <div class="form-group"> 
                             <div class="form-check">
-                                <input type="radio" class="form-check-input" onchange="changetab('#tabs2-tabs2a','.tabs2')"  name="tabs2" id="tabs2a" autocomplete="off" checked>
+                                <input type="radio" class="form-check-input" onchange="changetab('#tabs2-tabs2a','.tabs2')"  name="tabs2" id="tabs2a" autocomplete="off" >
                                 <label  for="tabs2a" class="form-check-label">Group 1</label>
                             </div>
                             <div class="form-check">
-                                <input type="radio" class="form-check-input" name="tabs2" id="tabs2b" autocomplete="off">
+                                <input type="radio" class="form-check-input" onchange="changetab('#tabs2-tabs2b','.tabs2')"  name="tabs2" id="tabs2b" autocomplete="off" checked>
                                 <label  for="tabs2b" class="form-check-label">Induvidual</label> 
                             </div>
                         </div>
-                        <div class="tabs2" id="tabs2-tabs2a">
+                        <div class="tabs2" id="tabs2-tabs2a" style="display: none" >
                             <form action="{{route('pricing.index')}}"  id="cortext-combo-subscription-payment-form"  method="POST">
                                 @csrf        
                                 <input type="hidden" name="plan" value="combo">
