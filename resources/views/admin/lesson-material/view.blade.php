@@ -11,7 +11,7 @@
          
         <div class="header_right">
             <ul class="nav_bar">
-                <li class="nav_item"><a class="nav_link btn"  data-bs-toggle="modal" data-bs-target="#user-acces-modal" data-target="#user-acces-modal" >User Access</a></li>
+                {{-- <li class="nav_item"><a class="nav_link btn"  data-bs-toggle="modal" data-bs-target="#user-acces-modal" data-target="#user-acces-modal" >User Access</a></li> --}}
                 <li class="nav_item"><a onclick="CreateForm(event)" class="nav_link btn">Add Lessons</a></li>
             </ul>
         </div>
@@ -79,7 +79,7 @@
         </div>
     </div>
  
-    <div class="modal fade" id="user-acces-modal" tabindex="-1" role="dialog"  aria-labelledby="live-class-modalLabel" aria-hidden="true">
+    {{-- <div class="modal fade" id="user-acces-modal" tabindex="-1" role="dialog"  aria-labelledby="live-class-modalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
     
@@ -96,23 +96,23 @@
     
             </div>
         </div>
-    </div>
+    </div> --}}
 @endpush
 
 @push('footer-script')
     <script>
 
-        var usertable = null;
-        function usertableinit(table) {
-            usertable = table
-        }
-        function changeactivestatus(url){
-            $.get(url,function(res){
-                if (usertable != null) {
-                    usertable.ajax.reload()
-                }
-            })
-        }
+        // var usertable = null;
+        // function usertableinit(table) {
+        //     usertable = table
+        // }
+        // function changeactivestatus(url){
+        //     $.get(url,function(res){
+        //         if (usertable != null) {
+        //             usertable.ajax.reload()
+        //         }
+        //     })
+        // }
 
         function update_lesson_material(url) {
 
