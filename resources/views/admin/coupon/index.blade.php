@@ -140,10 +140,10 @@
 <script src="https://code.jquery.com/ui/1.14.0/jquery-ui.min.js" integrity="sha256-Fb0zP4jE3JHqu+IBB9YktLcSjI1Zc6J2b6gTjB0LpoM=" crossorigin="anonymous"></script>
     <script>
         let coupentable = null;
-        const coupentableinit = (table) => {
+        function coupentableinit(table){
             coupentable = table
         }
-        const editcoupon=(url)=>{
+        function editcoupon(url){
             $.get(url,function(res){
                 $('#coupen-edit-form-name').val(res.name)
                 $('#coupen-edit-form-amount').val(res.amount)
@@ -151,7 +151,7 @@
                 $('#coupen-edit-modal').modal('show')
             }.'json')
         }
-        $(() => {
+        $(function(){
             $('.datepicker').datepicker({
                 dateFormat:'yy-mm-dd',
                 minDate:0
