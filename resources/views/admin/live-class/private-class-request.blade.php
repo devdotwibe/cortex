@@ -48,7 +48,7 @@
                 <button type="button" class="close" data-bs-dismiss="modal"  aria-label="Close"><span  aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body"> 
-                <form action="" method="post" id="multi-user-term-form">
+                <form action="{{route('admin.user-access.multi-user.update')}}" method="post" id="multi-user-term-form">
                     @csrf
                     <div class="row">
                         <div class="col-md-12" id="multi-user-term-table">
@@ -82,7 +82,7 @@
                 <button type="button" class="close" data-bs-dismiss="modal"  aria-label="Close"><span  aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body"> 
-                <form action="{{route('admin.user-access.multi-user.update')}}" method="post" id="user-term-form">
+                <form action="" method="post" id="user-term-form">
                     @csrf
                     <div class="row">
                         <div class="col-md-12" id="user-term-table">
