@@ -194,14 +194,14 @@
                 $('.invalid-feedback').text('')
                 $.post($(this).attr('action'), $(this).serialize(), function(res){
                     coupentable.ajax.reload()
-                    $('#coupen-modal').modal('hide')
-                    showToast(res.success || 'Coupon has been successfully added', 'success');
+                    $('#coupen-edit-modal').modal('hide')
+                    showToast(res.success || 'Coupon has been successfully updated', 'success');
                 }, 'json').fail(function(xhr) {
                     try {
                         var errors = xhr.responseJSON.errors;
                         $.each(errors, function(k, v) {
-                            $(`#coupen-add-form-${k}-error`).text(v[0])
-                            $(`#coupen-add-form-${k}`).addClass('is-invalid')
+                            $(`#coupen-edit-form-${k}-error`).text(v[0])
+                            $(`#coupen-edit-form-${k}`).addClass('is-invalid')
                         })
                     } catch (error) {
 
