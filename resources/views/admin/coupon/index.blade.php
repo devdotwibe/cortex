@@ -10,19 +10,13 @@
     </section>
     <section class="invite-wrap mt-2"> 
         <div class="coupon-wrap">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card"> 
-                        <div class="card-body">
-                            <x-ajax-table  :coloumns='[
-                                ["th"=>"Date","name"=>"created_at","data"=>"date"],
-                                ["th"=>"Offer Name","name"=>"name","data"=>"name"],
-                                ["th"=>"Amount","name"=>"amount","data"=>"amount"], 
-                                ["th"=>"Expire","name"=>"expire","data"=>"expire"],  
-                            ]' />
-                        </div>
-                    </div>
-                </div>
+            <div class="row">                
+                <x-ajax-table  :coloumns='[
+                    ["th"=>"Date","name"=>"created_at","data"=>"date"],
+                    ["th"=>"Offer Name","name"=>"name","data"=>"name"],
+                    ["th"=>"Amount","name"=>"amount","data"=>"amount"], 
+                    ["th"=>"Expire","name"=>"expire","data"=>"expire"],  
+                ]' />
             </div>
         </div>
     </section>
