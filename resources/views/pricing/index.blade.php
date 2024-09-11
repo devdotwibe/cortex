@@ -22,9 +22,9 @@
                             <p>Price ${{ get_option('stripe.subscription.payment.amount-price','0') }}</p>
                             <p>One user</p>
                         </div>
-                        <div class="card-footer"> 
-                            @auth('web')
-                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cortext-subscription-payment-modal">Pay</button>
+                        <div class="card-footer @if(date('m')>5) disabled-action @endif"> 
+                            @auth('web')   
+                            <button class="btn btn-danger" @if(date('m')>5) disabled @else data-bs-toggle="modal" data-bs-target="#cortext-subscription-payment-modal"  @endif >Pay</button>
                             @else
                             <a href="{{route('login')}}" class="btn btn-danger">Pay</a>
                             @endauth
@@ -61,7 +61,7 @@
 @push('modals')
     
     @auth('web')
-        
+        @if(date('m')<=5)
 
         <div class="modal fade" id="cortext-subscription-payment-modal"  data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"  aria-labelledby="cortext-subscription-paymentLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -70,23 +70,18 @@
                         <h5 class="modal-title" id="cortext-subscription-paymentLablel">Subscription</h5> 
                     </div>
                     <div class="modal-body">
+                        <div class="btn-group" role="group"> 
+                            <input type="radio" class="btn-check" name="tabs1" id="tabs1a" autocomplete="off" checked>
+                            <label class="btn btn-outline-primary" for="tabs1a">Group 1</label>
+                    
+                            <input type="radio" class="btn-check" name="tabs1" id="tabs1b" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="tabs1b">Induvidual</label> 
+                        </div>
                         <form action="{{route('pricing.index')}}"  id="cortext-subscription-payment-form" method="POST" >
                             @csrf
+                            <input type="hidden" name="year" value="{{date('Y')-1}}-{{date('Y')+0}}" >
 
-                            <input type="hidden" name="plan" value="single">
-                            <div class="form-group">
-                                <label for="year-1"> Year </label>
-                                @if(date('m')>5)  
-                                    <input type="text" id="year-1" class="form-control" value="June {{date('Y')+0}} - May {{date('Y')+1}}" readonly>
-                                    <input type="hidden" name="year" value="{{date('Y')+0}}-{{date('Y')+1}}" >
-                                @else
-                                    <select name="year" class="form-control" id="year-1"> 
-                                        <option value="{{date('Y')+0}}-{{date('Y')+1}}" >June {{date('Y')+0}} - May {{date('Y')+1}}</option>
-                                        <option value="{{date('Y')-1}}-{{date('Y')+2}}" >June {{date('Y')+1}} - May {{date('Y')+0}}</option>
-                                    </select>
-                                @endif
-                                <div class="invalid-feedback" id="error-year-message"></div>
-                            </div> 
+                            <input type="hidden" name="plan" value="single"> 
                             <div class="form-group">
                                 <label for="coupon">Coupon Code</label>
                                 <div class="input-group ">  
@@ -108,6 +103,7 @@
                 </div>
             </div>
         </div>
+        @endif
 
         <div class="modal fade" id="cortext-combo-subscription-payment-modal" tabindex="-1"  data-bs-backdrop="static" data-bs-keyboard="false" role="dialog"  aria-labelledby="cortext-subscription-paymentLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -116,6 +112,14 @@
                         <h5 class="modal-title" id="cortext-combo-subscription-paymentLablel">Subscription</h5> 
                     </div>
                     <div class="modal-body">
+
+                        <div class="btn-group" role="group"> 
+                            <input type="radio" class="btn-check" name="tabs2" id="tabs2a" autocomplete="off" checked>
+                            <label class="btn btn-outline-primary" for="tabs2a">Group 1</label>
+                    
+                            <input type="radio" class="btn-check" name="tabs2" id="tabs2b" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="tabs2b">Induvidual</label> 
+                        </div>
                         <form action="{{route('pricing.index')}}"  id="cortext-combo-subscription-payment-form"  method="POST">
                             @csrf        
                             
