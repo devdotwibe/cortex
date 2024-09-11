@@ -62,7 +62,7 @@
                             </div>    
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row mt-2">
                         <div class="col-md-12">
                             <button type="button"  class="btn btn-outline-dark m-1" data-bs-dismiss="modal"  aria-label="Close" >Close</button> 
                             <button type="submit"  class="btn btn-dark m-1" > + Add </button> 
@@ -73,4 +73,20 @@
         </div>
     </div>
 </div>
+@endpush
+
+@push('footer-script')
+<script>
+    $('#coupen-modal').on('hidden.bs.modal',  ()=> {
+        $('#coupen-add-form').get(0).reset()
+    });
+    $('#coupen-add-form').submit((e)=>{
+        e.preventDefault()
+
+        return false;
+    });
+    $(()=>{
+
+    });
+</script>
 @endpush
