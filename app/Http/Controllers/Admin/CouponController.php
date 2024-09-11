@@ -14,7 +14,7 @@ class CouponController extends Controller
     { 
         if($request->ajax()){
             self::$model=CouponOffer::class;
-            self::$defaultActions=[""];
+            self::$defaultActions=["delete"];
             return  $this->buildTable();
         }
         return view('admin.coupon.index');
