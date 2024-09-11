@@ -31,9 +31,9 @@
                 ["th"=>"Timeslot","name"=>"timeslot","data"=>"timeslottext"],
                 ["th"=>"Term","name"=>"status","data"=>"termhtml"],
                 ["th"=>"Status","name"=>"status","data"=>"statushtml"],
-            ]' tableinit="requesttableinit" :bulkaction="true" :bulkactionlink="route('admin.live-class.request.bulkaction')"  />
+            ]' tableinit="requesttableinit" :bulkaction="true" beforeajax="hideaction" :bulkactionlink="route('admin.live-class.request.bulkaction')"  />
         </div>
-        <div class="selectbox-action" style="display:none">
+        <div class="multi-user-action" style="display:none">
             <button class="btn btn-outline-secondary" id="multi-user-action" >+ User Access</button>
         </div>
     </div>
@@ -115,7 +115,10 @@
             }
         })
     }
-
+    function hideaction(d){
+        $('.multi-user-action').hide();
+        return d;
+    }
     function s2ab(s) { 
         var buf = new ArrayBuffer(s.length); //convert s to arrayBuffer
         var view = new Uint8Array(buf);  //create uint8array as viewer
@@ -191,9 +194,32 @@
             })
         },'json')
     }
+    function refreshaction(){
+        if($('[name="select_all"]').is(":checked")){
+                $('.multi-user-action').show()
+        }else{
+            if($('.selectbox:checked').length>1){
+                $('.multi-user-action').show()
+            }else{
+                $('.multi-user-action').hide()
+            }
+        }
+    }
     $(function(){
+        $(document).on('change','.selectbox,[name="select_all"]',function(e){
+            setTimeout(() => {
+                refreshaction()
+            }, 500);
+        })
         $('#multi-user-action').click(function(){
-            $.post("{{route('admin.live-class.request.bulkupdate')}}",{},function(res){
+            var selectedbox=[];
+            $('.selectbox:checked').each(function(k,v){
+                selectedbox.push(this.value)
+            })
+            $.post("{{route('admin.live-class.request.bulkupdate')}}",{
+                select_all:$('[name="select_all"]').is(":checked")?"yes":"no",
+                selectbox:selectedbox
+            },function(res){
                 $('#multi-user-term-table').html(`           
                     <table class="table table-striped">
                         <thead>
