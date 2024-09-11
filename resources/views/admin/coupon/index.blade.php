@@ -96,23 +96,23 @@
                 dateFormat:'yy-mm-dd',
                 minDate:0
             });
-            $('#coupen-modal').on('hidden.bs.modal', () => {
+            $('#coupen-modal').on('hidden.bs.modal', function(){
                 $('#coupen-add-form').get(0).reset()
                 $('.form-control').removeClass('is-invalid')
                 $('.invalid-feedback').text('')
             });
-            $('#coupen-add-form').submit((e) => {
+            $('#coupen-add-form').submit(function(e){
                 e.preventDefault()
                 $('.form-control').removeClass('is-invalid')
                 $('.invalid-feedback').text('')
-                $.post("{{ route('admin.coupon.store') }}", $(this).serialize(), (res) => {
+                $.post("{{ route('admin.coupon.store') }}", $(this).serialize(), function(res){
                     coupentable.ajax.reload()
                     $('#coupen-modal').modal('hide')
                     showToast(res.success || 'Coupon has been successfully added', 'success');
-                }, 'json').fail((xhr) => {
+                }, 'json').fail(function(xhr) {
                     try {
                         var errors = xhr.responseJSON.errors;
-                        $.each(errors, (k, v) => {
+                        $.each(errors, function(k, v) {
                             $(`#coupen-add-form-${k}-error`).text(v[0])
                             $(`#coupen-add-form-${k}`).addClass('is-invalid')
                         })
