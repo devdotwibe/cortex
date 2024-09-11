@@ -48,32 +48,45 @@ class CouponController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request, CouponOffer $couponOffer)
     {
-        //
+        return $couponOffer;
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Request $request, CouponOffer $couponOffer)
     {
-        //
+        return $couponOffer;
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        //
+    public function update(Request $request, CouponOffer $couponOffer)
+    {        
+        $offer=$request->validate([
+            'name'=>['required','string','max:50'],
+            'amount'=>['required','numeric','min:0'],
+            'expire'=>['required']
+        ]);
+        $couponOffer->update($offer);   
+        if($request->ajax()){
+            return response()->json(["success","Coupon updated success"]);
+        }
+        return redirect()->route('admin.coupon.index')->with("success","Coupon updated success");
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request, CouponOffer $couponOffer)
     {
-        //
+        $couponOffer->delete();   
+        if($request->ajax()){
+            return response()->json(["success","Coupon deleted success"]);
+        }
+        return redirect()->route('admin.coupon.index')->with("success","Coupon deleted success");
     }
 }
