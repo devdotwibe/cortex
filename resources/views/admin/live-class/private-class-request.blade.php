@@ -33,6 +33,9 @@
                 ["th"=>"Status","name"=>"status","data"=>"statushtml"],
             ]' tableinit="requesttableinit" :bulkaction="true" :bulkactionlink="route('admin.live-class.request.bulkaction')"  />
         </div>
+        <div class="selectbox-action" style="display:none">
+            <button class="btn btn-outline-secondary">+ User Access</button>
+        </div>
     </div>
 </section> 
 @endsection
