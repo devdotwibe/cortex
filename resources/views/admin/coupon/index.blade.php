@@ -6,6 +6,11 @@
             <div class="header_title">
                 <h2>Coupon</h2>
             </div>
+            <div class="header_right">
+                <ul class="nav_bar">
+                    <li class="nav_item"><a  class="nav_link btn">+ Add New</a></li>
+                </ul>
+            </div>
         </div>
     </section>
     <section class="invite-wrap mt-2"> 
