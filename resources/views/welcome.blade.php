@@ -168,7 +168,7 @@
     </section>
 
 
- <section class="process-wrapp">
+ {{-- <section class="process-wrapp">
     <div class="container">
         <div class="process-row">
             <div class="process-col1">
@@ -198,11 +198,99 @@
             </div>
         </div>
     </div>
-</section>
+</section> --}}
 
 
 
+ <section class="process-wrapp">
+        <div class="container">
+            <div class="process-row">
+                <div class="process-col1">
+                    <h3 class="highlight">OUR PROCESS</h3>
+                    <h2>Unique <span>Preparation</span> Process</h2>
+                </div>
 
+                <div class="process-col2">
+                    <div class="sticky-cards">
+
+
+                        <div class="card-3">
+                            <div class="card-icon-container">
+                                <div class="process-icon">
+                                    <img src="./assets/images/preparation.svg" alt="">
+                                </div>
+                                <div class="card-number">01</div>
+                            </div>
+                            <div class="card-text-container-2">
+                                <div class="card-title">Exam Preparation</div>
+                                <p class="card-text">Join Cortex’s industry-leading exam platform, purchase a test pack and begin your exam preparation journey</p>
+                            </div>
+                        </div>
+                        <div class="card-3 _2">
+                            <div class="card-icon-container">
+                                <div class="process-icon">
+                                    <img src="./assets/images/acess.svg" alt="">
+                                </div>
+                                <div class="card-number">02</div>
+
+                            </div>
+                            <div class="card-text-container-2">
+                                <div class="card-title">Gain Access Instantly</div>
+                                <p class="card-text">After you have joined, your child can start taking tests straight
+                                    away. You will have access to Premium / Platinum for 365 days.</p>
+                            </div>
+                        </div>
+                        <div class="card-3 _3">
+                            <div class="card-icon-container">
+                                <div class="process-icon">
+                                    <img src="./assets/images/first-test.svg" alt="">
+                                </div>
+                                <div class="card-number">03</div>
+
+                            </div>
+                            <div class="card-text-container-2">
+                                <div class="card-title"> Take the First Test</div>
+                                <p class="card-text">Start by taking one of NotesEdu's crafted exam-style tests. These
+                                    tests are under exam conditions and are timed. Use the first attempt of the test to
+                                    gauge your child's understanding level.</p>
+                            </div>
+                        </div>
+                        <div class="card-3 _4">
+                            <div class="card-icon-container">
+                                <div class="process-icon">
+                                    <img src="./assets/images/result.svg" alt="">
+                                </div>
+                                <div class="card-number">04</div>
+
+                            </div>
+                            <div class="card-text-container-2">
+                                <div class="card-title">Evaluate Your Results</div>
+                                <p class="card-text">This is one of the most important aspects of reviewing your success
+                                    while preparing. Utilise NotesEdu’s detailed answer solutions combined with
+                                    comprehensive result analysis to pin point your strengths and weaknesses. </p>
+                            </div>
+                        </div>
+                        <div class="card-3 _5">
+                            <div class="card-icon-container">
+                                <div class="process-icon">
+                                    <img src="./assets/images/preparation.svg" alt="">
+                                </div>
+                                <div class="card-number">05</div>
+                            </div>
+                            <div class="card-text-container-2">
+                                <div class="card-title">Excel Extraordinarily!</div>
+                                <p class="card-text">Repeat the test with unlimited test attempts to improve your
+                                    understanding of key concepts. Repeat this process and you are on the path to
+                                    success.</p>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 
 
