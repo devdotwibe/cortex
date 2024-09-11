@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\banner;
+use App\Models\CouponOffer;
 use App\Models\Course;
 use App\Models\Courses;
 use App\Models\Feature;
@@ -213,6 +214,28 @@ class HomeController extends Controller
 
     public function pricing(Request $request){
         return view('pricing.index');
+    }
+    public function verifycoupon(Request $request){
+        $request->validate([ 
+            "coupon"=>['required'],
+        ]);
+        $coupon=trim($request->coupon);
+        if(CouponOffer::where('name',$coupon)->count()>0){
+            $offer=CouponOffer::where('name',$coupon)->first();
+            $price=($request->type??"")=="combo"? floatval(OptionHelper::getData('stripe.subscription.payment.combo-amount-price','0')) :floatval(OptionHelper::getData('stripe.subscription.payment.amount-price','0'));
+            $offerprice=floatval($offer->amount);
+            $newprice=$price-$offerprice;
+            return response()->json([
+                "price"=>$price,
+                "offer"=>$offerprice,
+                "pay"=>$newprice,
+                "message"=>"<p>
+                                <strong>Coupon Applied Successfully!</strong><br>
+                                <span>Congratulations! Your coupon has been applied, and you've saved \$$offerprice. Your new total is \$$newprice.</span>
+                            </p>"
+            ]);
+        }
+        return throw ValidationException::withMessages(["coupon"=>["Coupon Not Available"]]);
     }
     public function combo_mail(Request $request){
         $request->validate([

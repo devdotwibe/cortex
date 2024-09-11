@@ -61,6 +61,7 @@ Route::prefix('stripe')->name('stripe.')->group(function () {
 Route::get('/pricing', [HomeController::class, 'pricing'])->name('pricing.index');
 Route::post('/pricing', [HomeController::class, 'verifypricing']);
 Route::post('/combo-email', [HomeController::class, 'combo_mail'])->name('combo-email');
+Route::get('/verify-coupon', [HomeController::class, 'verifycoupon'])->name('verify-coupon');
 
 Route::get('/login', [HomeController::class, 'login'])->name('login');
 Route::middleware('guest:web,admin')->group(function () {

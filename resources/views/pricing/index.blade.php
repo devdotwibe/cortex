@@ -87,12 +87,20 @@
                                 @endif
                                 <div class="invalid-feedback" id="error-year-message"></div>
                             </div> 
+                            <div class="form-group">
+                                <label for="coupon">Coupon Code</label>
+                                <div class="input-group ">  
+                                    <input type="text" name="coupon" id="coupon" placeholder="Enter Coupon Code" class="form-control" />
+                                    <button class="btn btn-outline-secondary" type="button" id="coupon-verify-button">Apply</button>
+                                    <div class="invalid-feedback" id="error-coupon-message"></div>
+                                </div>
+                            </div> 
 
                             <div class="form-group" id="message-area">
                             </div>
                             <div class="form-group mt-2">
-                                <button type="button" data-bs-dismiss="modal"  class="btn btn-secondary">Cancel</button>
-                                <button type="button" class="btn btn-dark" id="cortext-subscription-payment-form-buttom">Pay Now ${{ get_option('stripe.subscription.payment.amount-price','0') }} </button>
+                                <button type="button" data-bs-dismiss="modal"  class="btn btn-secondary">Cancel</button> 
+                                <button type="button" class="btn btn-dark price-norm" id="cortext-subscription-payment-form-buttom">Pay Now $<span class="amount" id="cortext-subscription-payment-form-buttom-price" data-amount="{{ get_option('stripe.subscription.payment.amount-price','0') }}">{{ get_option('stripe.subscription.payment.amount-price','0') }}</span> </button> 
                             </div>
                         </form>
                     </div>
@@ -156,9 +164,19 @@
         
     @auth('web')
         <script>
-             $('#cortext-combo-subscription-payment-form-buttom').on('hidden.bs.modal', function () { 
+            $('#cortext-subscription-payment-modal').on('hidden.bs.modal', function () { 
+               $('#coupon').val('') 
+                $('#message-area').html('')
+                $('.invalid-feedback').text('')
+                $('.form-control').removeClass('is-invalid') 
+                $('#cortext-subscription-payment-form-buttom-price').text($('#cortext-subscription-payment-form-buttom-price').data("amount"))
+           });
+             $('#cortext-combo-subscription-payment-modal').on('hidden.bs.modal', function () { 
                 $('#combo-email').val('')
                 $('#verify-mail').val('N')
+                $('#combo-message-area').html('')
+                $('.invalid-feedback').text('')
+                $('.form-control').removeClass('is-invalid') 
             });
             $('#cortext-combo-subscription-payment-form-buttom').click(function(e){
                 e.preventDefault();
@@ -184,8 +202,33 @@
             })
             $('#combo-email').change(function(){
                 $('#verify-mail').val('N')
+            }) 
+            $('#coupon-verify-button').click(function(e){
+                e.preventDefault();
+                $('#combo-message-area').html('')
+                $('.invalid-feedback').text('')
+                $('.form-control').removeClass('is-invalid') 
+                var coupen=$('#coupon').val();
+                if(coupen){
+                    $.get('{{route("coupon-verify")}}',{coupon:coupen},function(res){
+                        if(res.message){
+                            $('#message-area').html(`
+                                <div class="alert alert-info" role="alert">
+                                    ${res.message}
+                                </div>                        
+                            `) 
+                        }
+                        if(res.pay){
+                            $('#cortext-subscription-payment-form-buttom-price').text(res.pay)
+                        }
+                    },'json').fail(function(xhr){
+                        $.each(xhr.responseJSON.errors, function(k, v) { 
+                            $('#error-'+k+'-message').text(v[0]) 
+                            $('#'+k).addClass('is-invalid')
+                        });
+                    })
+                }
             })
-
             $('#mail-verify-button').click(function(e){
                 e.preventDefault();
                 $('#combo-message-area').html('')
