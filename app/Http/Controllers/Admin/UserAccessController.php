@@ -180,6 +180,7 @@ class UserAccessController extends Controller
                 TermAccess::where('type','lesson-record')->whereNotIn('term_id',$recordIds)->where('user_id',$userId)->delete();
             }
         }
+        return redirect()->back()->with('success',"User Access updated");
     }
 
 }
