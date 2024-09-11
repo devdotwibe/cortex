@@ -81,7 +81,7 @@ class CourseController extends Controller
         // Validate the request data for Tab 1
         $request->validate([
             'logicaltitle1' => 'nullable|string|max:255',
-            'logicaltitle2' => 'nullable|string|max:255',
+            // 'logicaltitle2' => 'nullable|string|max:255',
             'logicalcontent' => 'nullable|string',
             'logicalimage' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048',
         ]);
@@ -94,7 +94,7 @@ class CourseController extends Controller
         }
 
         $course->logicaltitle1 = $request->input('logicaltitle1');
-        $course->logicaltitle2 = $request->input('logicaltitle2');
+        // $course->logicaltitle2 = $request->input('logicaltitle2');
         $course->logicalcontent = $request->input('logicalcontent');
 
         if ($request->hasFile('logicalimage')) {
@@ -105,7 +105,12 @@ class CourseController extends Controller
 
         $course->save();
 
-        return redirect()->back()->with('success', 'Tab 1 data has been successfully saved.');
+        return redirect()->back()->with([
+            'success' => 'Tab 1 data has been successfully saved.',
+            'tab_1' => true
+        ]);
+
+
     }
 
     public function storeTab2(Request $request)
@@ -113,7 +118,7 @@ class CourseController extends Controller
         // Validate the request data for Tab 2
         $request->validate([
             'criticaltitle1' => 'nullable|string|max:255',
-            'criticaltitle2' => 'nullable|string|max:255',
+            // 'criticaltitle2' => 'nullable|string|max:255',
             'criticalcontent' => 'nullable|string',
             'criticalimage' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048',
         ]);
@@ -126,7 +131,7 @@ class CourseController extends Controller
         }
 
         $course->criticaltitle1 = $request->input('criticaltitle1');
-        $course->criticaltitle2 = $request->input('criticaltitle2');
+        // $course->criticaltitle2 = $request->input('criticaltitle2');
         $course->criticalcontent = $request->input('criticalcontent');
 
         if ($request->hasFile('criticalimage')) {
@@ -145,7 +150,7 @@ class CourseController extends Controller
         // Validate the request data for Tab 3
         $request->validate([
             'abstracttitle1' => 'nullable|string|max:255',
-            'abstracttitle2' => 'nullable|string|max:255',
+            // 'abstracttitle2' => 'nullable|string|max:255',
             'abstractcontent' => 'nullable|string',
             'abstractimage' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048',
         ]);
@@ -158,7 +163,7 @@ class CourseController extends Controller
         }
 
         $course->abstracttitle1 = $request->input('abstracttitle1');
-        $course->abstracttitle2 = $request->input('abstracttitle2');
+        // $course->abstracttitle2 = $request->input('abstracttitle2');
         $course->abstractcontent = $request->input('abstractcontent');
 
         if ($request->hasFile('abstractimage')) {
@@ -177,7 +182,7 @@ class CourseController extends Controller
         // Validate the request data for Tab 4
         $request->validate([
             'numericaltitle1' => 'nullable|string|max:255',
-            'numericaltitle2' => 'nullable|string|max:255',
+            // 'numericaltitle2' => 'nullable|string|max:255',
             'numericalcontent' => 'nullable|string',
             'numericalimage' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048',
         ]);
@@ -190,7 +195,7 @@ class CourseController extends Controller
         }
 
         $course->numericaltitle1 = $request->input('numericaltitle1');
-        $course->numericaltitle2 = $request->input('numericaltitle2');
+        // $course->numericaltitle2 = $request->input('numericaltitle2');
         $course->numericalcontent = $request->input('numericalcontent');
 
         if ($request->hasFile('numericalimage')) {
@@ -320,32 +325,7 @@ class CourseController extends Controller
     }
 
     // Store for tab 5 (Private Content)
-    public function storeSection3Tab5(Request $request)
-    {
-        $request->validate([
-            'privatecontent' => 'nullable|string',
-            'privateimage' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048',
-        ]);
 
-        $course = Courses::first();
-
-        if(empty($course))
-        {
-            $course =new Courses;
-        }
-
-        $course->privatecontent = $request->input('privatecontent');
-
-        if ($request->hasFile('privateimage')) {
-            $privateImageName = "course/" . $request->file('privateimage')->hashName();
-            Storage::put('course/', $request->file('privateimage'));
-            $course->privateimage = $privateImageName;
-        }
-
-        $course->save();
-
-        return redirect()->back()->with('success', 'Tab 5 data has been successfully saved.');
-    }
 
 
 
@@ -382,6 +362,64 @@ class CourseController extends Controller
     }
 
 
+    public function storesection5(Request $request)
+    {
+        // Validate the request data for Section 1
+        $request->validate([
+            'privatecontent' => 'required|nullable|string|',
+
+
+            // 'image' => 'nullable|image|max:2048', // Validate image
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048',
+
+        ]);
+
+        $course = Courses::first();
+
+        if(empty($course))
+        {
+            $course =new Courses;
+        }
+
+        $course->privatecontent = $request->input('privatecontent');
+
+
+
+
+
+        if ($request->hasFile('privateimage')) {
+            $privateImageName = "course/" . $request->file('privateimage')->hashName();
+            Storage::put('course/', $request->file('privateimage'));
+            $course->privateimage = $privateImageName;
+        }
+
+
+
+        $course->save();
+
+        return redirect()->route('admin.course.index')->with('success', 'Section 5 data has been successfully saved.');
+    }
+    public function deleteImage(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|exists:maincourse,id',
+        ]);
+
+        $course = Courses::find($request->id);
+
+        if ($course) {
+            if (Storage::exists($course->image)) {
+                Storage::delete($course->image);
+            }
+
+            $course->image = null;
+            $course->save();
+
+            return redirect()->back()->with('success', 'Image deleted successfully.');
+        }
+
+        return redirect()->back()->with('error', 'Image not found.');
+    }
 
 
 }

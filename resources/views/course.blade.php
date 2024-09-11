@@ -57,9 +57,7 @@
                     <div class="tab-pane fade show active" id="first">
                         <div class="courses-col1">
                             <div class="courses-col2">
-                                @if (!empty($course->logicaltitle2))
-                                <h3>{{ $course->logicaltitle2 }}</h3>
-                            @endif
+
 
                             @if (!empty($course->logicalcontent))
                             {!! $course->logicalcontent !!}
@@ -77,9 +75,7 @@
                     <div class="tab-pane fade" id="second">
                         <div class="courses-col1">
                             <div class="courses-col2">
-                                @if (!empty($course->criticaltitle2))
-                                <h3>{{ $course->criticaltitle2 }}</h3>
-                            @endif
+
 
                             @if (!empty($course->criticalcontent))
                             {!! $course->criticalcontent !!}
@@ -96,9 +92,7 @@
                     <div class="tab-pane fade" id="third">
                         <div class="courses-col1">
                             <div class="courses-col2">
-                                @if (!empty($course->abstracttitle2))
-                                <h3>{{ $course->abstracttitle2 }}</h3>
-                            @endif
+
                             @if (!empty($course->abstractcontent))
                             {!! $course->abstractcontent !!}
                             @endif
@@ -113,9 +107,7 @@
                     <div class="tab-pane fade" id="four">
                         <div class="courses-col1">
                             <div class="courses-col2">
-                                @if (!empty($course->numericaltitle2))
-                                <h3>{{ $course->numericaltitle2 }}</h3>
-                            @endif
+
                             @if (!empty($course->numericalcontent))
                             {!! $course->numericalcontent !!}
                             @endif

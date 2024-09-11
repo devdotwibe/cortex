@@ -10,11 +10,11 @@
 
     <title> @hasSection ('title') @yield('title') @else {{config('app.name')}} @endif </title>
 
-    <link rel="stylesheet" href="{{ asset('app/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('app/css/slick.css') }}">
-    <link rel="stylesheet" href="{{ asset('app/css/slick-theme.css') }}">
-    <link rel="stylesheet" href="{{ asset('app/css/stylesheet.css') }}">
-    <link rel="stylesheet" href="{{ asset('app/css/course.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/slick.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/slick-theme.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/stylesheet.css') }}">
+
 
 </head>
 <body>
@@ -100,12 +100,12 @@
 
     @stack('modals')
 
-    <script src="{{ asset('app/js/jquery-3.7.1.min.js') }}"></script>
-    <script src="{{ asset('app/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('app/js/slick.js') }}"></script>
-    <script src="{{ asset('app/js/sticky-cards.js') }}"></script>
-    <script src="{{ asset('app/js/scripts.js') }}"></script>
-    <script src="{{ asset('app/js/aos.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/js/slick.js') }}"></script>
+    <script src="{{ asset('assets/js/sticky-cards.js') }}"></script>
+    <script src="{{ asset('assets/js/scripts.js') }}"></script>
+    <script src="{{ asset('assets/js/aos.js') }}"></script>
 
 
     <script>
