@@ -113,12 +113,16 @@
                     </div>
                     <div class="modal-body">
 
-                        <div  role="group"> 
-                            <input type="radio" class="form-check" name="tabs2" id="tabs2a" autocomplete="off" checked>
+                        <div  role="tablist"> 
+                            <input type="radio" class="form-check" data-bs-target="#group2" data-bs-toggle="tab" type="button" role="tab" aria-controls="group2" aria-selected="true" name="tabs2" id="tabs2a" autocomplete="off" checked>
                             <label  for="tabs2a">Group 1</label>
                     
-                            <input type="radio" class="form-check" name="tabs2" id="tabs2b" autocomplete="off">
+                            <input type="radio" class="form-check" data-bs-target="#ind2" data-bs-toggle="tab" type="button" role="tab" aria-controls="ind2" aria-selected="false"name="tabs2" id="tabs2b" autocomplete="off">
                             <label  for="tabs2b">Induvidual</label> 
+                        </div>
+                        <div class="tab-content" >
+                            <div class="tab-pane fade show active" id="group2" role="tabpanel" aria-labelledby="tabs2a">.Group..</div>
+                            <div class="tab-pane fade" id="ind2" role="tabpanel" aria-labelledby="tabs2b">.Induvidual..</div>
                         </div>
                         <form action="{{route('pricing.index')}}"  id="cortext-combo-subscription-payment-form"  method="POST">
                             @csrf        
