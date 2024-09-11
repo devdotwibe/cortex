@@ -202,7 +202,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::get('/private/class/{private_class}/requests/accept',[LiveClassController::class,'private_class_request_accept'])->name('request.accept');
             Route::get('/private/class/{private_class}/requests/reject',[LiveClassController::class,'private_class_request_reject'])->name('request.reject');
             Route::get('/private/class/{private_class}/requests/status',[LiveClassController::class,'private_class_request_status'])->name('request.status');
-            
+
             Route::post('/private/class/bulk-update',[LiveClassController::class,'bulkupdate'])->name('request.bulkupdate');
             Route::post('/private/class/bulk-action',[LiveClassController::class,'bulkaction'])->name('request.bulkaction');
             Route::delete('/private/class/{private_class}/requests',[LiveClassController::class,'private_class_request_destroy'])->name('request.destroy');
@@ -422,6 +422,29 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::post('/course', [CourseController::class, 'storesection1'])->name('section1');
 
         Route::post('/', [CourseController::class, 'storesection4'])->name('section4');
+
+        Route::post('/', [CourseController::class, 'storesection5'])->name('section5');
+
+
+        Route::delete('/delete-image', [CourseController::class, 'deleteImage'])->name('deleteImage');
+
+
+        Route::delete('/private-image', [CourseController::class, 'deletePrivateImage'])->name('deletePrivateImage');
+
+        Route::delete('/logicalimage', [CourseController::class, 'deleteLogicalImage'])->name('deleteLogicalImage');
+        Route::delete('/criticalimage', [CourseController::class, 'deleteCriticalImage'])->name('deleteCriticalImage');
+
+        Route::delete('/abstractimage', [CourseController::class, 'deleteAbstractImage'])->name('deleteAbstractImage');
+
+        Route::delete('/numericalimage', [CourseController::class, 'deleteNumericalImage'])->name('deleteNumericalImage');
+
+        Route::delete('/learnimage', [CourseController::class, 'deleteLearnImage'])->name('deleteLearnImage');
+
+        Route::delete('/questionbankimage', [CourseController::class, 'deleteQuestionBankImage'])->name('deleteQuestionBankImage');
+
+        Route::delete('/topicimage', [CourseController::class, 'deleteTopicImage'])->name('deleteTopicImage');
+
+        Route::delete('/fullmockimage', [CourseController::class, 'deleteFullmockImage'])->name('deleteFullmockImage');
         // Store data for each tab
         Route::post('/tab1', [CourseController::class, 'storeTab1'])->name('tab1.store');
         Route::post('/tab2', [CourseController::class, 'storeTab2'])->name('tab2.store');
