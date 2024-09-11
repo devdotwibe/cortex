@@ -163,26 +163,21 @@
                 }
             })
             $('#table-{{ $tableid }}-delete-form').submit(async function(e){
-                e.preventDefault(); 
-                if(await showConfirm({ 
-                    title:"Are you sure you want to submit?" ,
-                    message: " Please review your record before final submission.",
-                })){  
-                    $.post($(this).attr("action"),$(this).serialize(),function(res){ 
-                        $('#table-{{ $tableid }}-delete').modal('hide');  
-                        $('#table-{{ $tableid }}').DataTable().ajax.reload(); 
-                        showToast(res.success||'Record has been successfully deleted', 'success')  
-                        @if(!empty($deletecallbackafter))
-                            {{$deletecallbackafter}}()
-                        @endif
+                e.preventDefault();  
+                $.post($(this).attr("action"),$(this).serialize(),function(res){ 
+                    $('#table-{{ $tableid }}-delete').modal('hide');  
+                    $('#table-{{ $tableid }}').DataTable().ajax.reload(); 
+                    showToast(res.success||'Record has been successfully deleted', 'success')  
+                    @if(!empty($deletecallbackafter))
+                        {{$deletecallbackafter}}()
+                    @endif
 
-                        @if(!empty($popupid))
+                    @if(!empty($popupid))
 
-                        $('#{{ $popupid }}').modal('show');
+                    $('#{{ $popupid }}').modal('show');
 
-                        @endif
-                    })
-                }
+                    @endif
+                })
                 return false;
             })
             table_{{ $tableid }}=$('#table-{{ $tableid }}').DataTable({
