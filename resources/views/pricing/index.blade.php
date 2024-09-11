@@ -113,12 +113,12 @@
                     </div>
                     <div class="modal-body">
 
-                        <div class="btn-group" role="group"> 
-                            <input type="radio" class="btn-check" name="tabs2" id="tabs2a" autocomplete="off" checked>
-                            <label class="btn btn-outline-primary" for="tabs2a">Group 1</label>
+                        <div  role="group"> 
+                            <input type="radio" class="form-check" name="tabs2" id="tabs2a" autocomplete="off" checked>
+                            <label  for="tabs2a">Group 1</label>
                     
-                            <input type="radio" class="btn-check" name="tabs2" id="tabs2b" autocomplete="off">
-                            <label class="btn btn-outline-primary" for="tabs2b">Induvidual</label> 
+                            <input type="radio" class="form-check" name="tabs2" id="tabs2b" autocomplete="off">
+                            <label  for="tabs2b">Induvidual</label> 
                         </div>
                         <form action="{{route('pricing.index')}}"  id="cortext-combo-subscription-payment-form"  method="POST">
                             @csrf        
