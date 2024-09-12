@@ -153,7 +153,13 @@
                                                         </div> 
                                                         <div class="form-group" id="{{$item->slug}}-icon-preview"> 
                                                             @if(!empty(old($item->slug.'.icon',$item->icon)))
-                                                            <img src="{{url("/d0"."/".old($item->slug.'.icon',$item->icon))}}" alt="">
+                                                            <div class="image-group">
+                                                                <img src="{{url("/d0"."/".old($item->slug.'.icon',$item->icon))}}" alt="">
+
+                                                                <button onclick="removeicon('{{$item->slug}}')">
+                                                                    <img src="{{asset('assets/images/delete-icon.svg')}}" alt="">
+                                                                </button>
+                                                            </div>
                                                             @endif
                                                         </div>
                                                     </div>
@@ -247,10 +253,12 @@
                                                         </div> 
                                                         <div class="form-group" id="payment-icon-preview"> 
                                                             @if(!empty(old('payment.icon')))
-                                                                <img src="{{url("/d0"."/".old('payment.icon'))}}" alt="">
-                                                                <button onclick="removeicon('payment')">
-                                                                    <img src="{{asset('assets/images/delete-icon.svg')}}" alt="">
-                                                                </button>
+                                                                <div class="image-group">
+                                                                    <img src="{{url("/d0"."/".old('payment.icon'))}}" alt="">
+                                                                    <button onclick="removeicon('payment')">
+                                                                        <img src="{{asset('assets/images/delete-icon.svg')}}" alt="">
+                                                                    </button>
+                                                                </div>
                                                             @endif
                                                         </div>
                                                     </div>
@@ -353,7 +361,15 @@
                     success: function(response) {
                         updateToast(toastId, 'Upload complete!', 'success');
                         $(`#${formID}-icon-input`).val(response.path)
-                        $(`#${formID}-icon-preview`).html(`<img src="${response.url}" alt="">`)
+                        $(`#${formID}-icon-preview`).html(` 
+                        <div class="image-group">                         
+                            <img src="${response.url}" alt="">
+                            <button onclick="removeicon('${formID}')">
+                                <img src="{{asset('assets/images/delete-icon.svg')}}" alt="">
+                            </button>
+                        </div>
+                        `)
+                        
                         $(`#${formID}-icon`).val('')
                     },
                     error: function(xhr, status, error) { 
