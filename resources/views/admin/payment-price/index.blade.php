@@ -313,7 +313,6 @@
             $('#plan-delete-form').attr(url)
             $('#plan-delete').modal('show')
         }
-
         CKEDITOR.replaceAll('texteditor')
     </script>
 @endpush
