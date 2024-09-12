@@ -474,6 +474,9 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::post('update/{tip}',[CourseController::class,'update'])->name('update'); // Update route
 
         Route::delete('del/{tip}',[CourseController::class,'del_tip'])->name('del_tip');
+
+        Route::post('/tab/change', [CourseController::class, 'tabchange'])->name('tabchange');
+        
     });
 
     Route::prefix('price')->name('price.')->group(function () {

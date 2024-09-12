@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Courses;
 use App\Models\Exam;
+use App\Models\TabOrder;
 use App\Trait\ResourceController;
 // use Illuminate\Container\Attributes\Storage;
 use Illuminate\Support\Facades\Storage;
@@ -29,7 +30,11 @@ class CourseController extends Controller
 
         $course = Courses::first();
 
-        return view('admin.pages.course',compact('course'));
+        $tabs1 = TabOrder::orderBy('tab_sort_1', 'asc')->get();
+
+        $tabs2 = TabOrder::orderBy('tab_sort_2', 'asc')->get();
+    
+        return view('admin.pages.course',compact('course','tabs1','tabs2'));
 
     }
 
@@ -647,6 +652,28 @@ public function deleteFullmockImage()
     // Return a failure response if the fullmock image was not found
     return response()->json(['success' => false], 404);
 }
+
+
+
+    public function tabchange(Request $request)
+    {
+        $order = $request->input('order');
+
+        foreach ($order as $index => $tabId) {
+
+            $taborder = TabOrder::where('tab_id_1',$tabId)->first();
+
+            if ($taborder) {
+
+                $taborder->tab_sort_1 = $index + 1;
+
+                $taborder->save();
+            }
+
+        }
+
+        return response()->json(['success' => true]);
+    }
 
 
 }
