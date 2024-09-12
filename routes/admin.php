@@ -33,7 +33,7 @@ use App\Http\Controllers\Admin\SubscribeUsersController;
 use App\Http\Controllers\Admin\UserAccessController;
 use App\Http\Controllers\Admin\TipsController;
 use App\Http\Controllers\Admin\PriceController;
-
+use App\Http\Controllers\Admin\SubscriptionPaymentController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -81,6 +81,10 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::put('/{coupon_offer}/update',[CouponController::class,'update'])->name('update'); 
             Route::delete('/{coupon_offer}/destroy',[CouponController::class,'destroy'])->name('destroy'); 
 
+        });
+        Route::prefix('payment-price')->name('payment-price.')->group(function () {
+            Route::get('/',[SubscriptionPaymentController::class,'index'])->name('index');
+            Route::post('/',[SubscriptionPaymentController::class,'store'])->name('store');
         });
 
         Route::prefix('full-mock-exam')->name('full-mock-exam.')->group(function () {
