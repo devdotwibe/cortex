@@ -48,19 +48,16 @@ class DatabaseSeeder extends Seeder
 
         $insertData = [];
 
-        foreach ($tabs1 as $tab1_value) {
-            $insertData[] = [
-                'tab_id_1' => $tab1_value['tab_id_1'],
-                'tab_name_1' => $tab1_value['tab_name_1'],
-                'tab_sort_1' => $tab1_value['tab_sort_1']
-            ];
-        }
+        $insertData = [];
 
-        foreach ($tabs2 as $tab2_value) {
+        for ($i = 0; $i < count($tabs1); $i++) {
             $insertData[] = [
-                'tab_id_2' => $tab2_value['tab_id_2'],
-                'tab_name_2' => $tab2_value['tab_name_2'],
-                'tab_sort_2' => $tab2_value['tab_sort_2']
+                'tab_id_1'   => $tabs1[$i]['tab_id_1'],
+                'tab_name_1' => $tabs1[$i]['tab_name_1'],
+                'tab_sort_1' => $tabs1[$i]['tab_sort_1'],
+                'tab_id_2'   => $tabs2[$i]['tab_id_2'],
+                'tab_name_2' => $tabs2[$i]['tab_name_2'],
+                'tab_sort_2' => $tabs2[$i]['tab_sort_2']
             ];
         }
 
