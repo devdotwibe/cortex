@@ -86,7 +86,7 @@
                         <div class="tab-pane fade  @if(old('subscription_plan')==$item->slug||($k==0&&empty(old('subscription_plan')))) show active @endif " id="price{{$k}}" role="tabpanel" aria-labelledby="price{{$k}}-tab">
                             <div class="amount-form">
                                 <div class="amout-item">
-                                    <div class="amout-item-action">
+                                    <div class="amout-item-action p-3">
                                         <a onclick="removeplan('{{route('admin.payment-price.destroy',$item->slug)}}')" class="float-end"> <img src="{{asset('assets/images/delete.svg')}}" alt=""></a>
                                     </div>
                                     <div class="amout-item-content">
