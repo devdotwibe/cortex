@@ -87,7 +87,7 @@
                             <div class="amount-form">
                                 <div class="amout-item">
                                     <div class="amout-item-action">
-                                        <button  class="btn btn-danger" onclick="removeplan('{{route('admin.payment-price.destroy',$item->slug)}}')"> Delete <img src="{{asset('assets/images/delete.svg')}}" alt=""></button>
+                                        <a onclick="removeplan('{{route('admin.payment-price.destroy',$item->slug)}}')" class="float-end"> <img src="{{asset('assets/images/delete.svg')}}" alt=""></a>
                                     </div>
                                     <div class="amout-item-content">
                                         <div class="form">
