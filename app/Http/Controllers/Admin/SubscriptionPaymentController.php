@@ -69,10 +69,10 @@ class SubscriptionPaymentController extends Controller
 
         if($request->ajax()){
             return response()->json([
-                'success'=>"Amount Updated",
+                'success'=>"Plan created",
             ]);
         }
-        return redirect()->back()->with('success',"Amount Updated");
+        return redirect()->back()->with('success',"Plan created");
     }
     public function history(Request $request){
         if($request->ajax()){
@@ -138,9 +138,18 @@ class SubscriptionPaymentController extends Controller
 
         if($request->ajax()){
             return response()->json([
-                'success'=>"Amount Updated",
+                'success'=>"Plan Updated",
             ]);
         }
-        return redirect()->back()->with('success',"Amount Updated");
+        return redirect()->back()->with('success',"Plan Updated");
+    }
+    public function destroy(Request $request,SubscriptionPlan $subscriptionPlan){
+        $subscriptionPlan->delete();
+        if($request->ajax()){
+            return response()->json([
+                'success'=>"Plan Deleted",
+            ]);
+        }
+        return redirect()->back()->with('success',"Plan Deleted");
     }
 }
