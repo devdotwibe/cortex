@@ -119,7 +119,9 @@
                 </li>
 
                 <li class="side-item side-dropdown ">
-                    <a class="side-dropdown-toggle" >
+                    <a class="side-dropdown-toggle {{(
+                        request()->is('admin/category')|| request()->is('admin/exam')||request()->is('admin/payment')||request()->is('admin/payment-price')||request()->is('admin/coupon')
+                        )?'active':''}}" >
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
                         </span>
