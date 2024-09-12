@@ -17,6 +17,9 @@ return new class extends Migration
             $table->string('basic_amount')->nullable();
             $table->text('content')->nullable();
             $table->text('icon')->nullable();
+            $table->string('combo_amount_id')->nullable();
+            $table->string('basic_amount_id')->nullable();
+            $table->dropColumn(['amount','stripe_id']);
         });
     }
 
