@@ -202,7 +202,7 @@
                         </li>
                     </ul> --}}
 
-                    @php
+                    {{-- @php
 
                         $tabs = [
                                 ['id' => 'tab1', 'name' => 'Tab 1','section' => 'tab_1'],
@@ -211,19 +211,19 @@
                                 ['id' => 'tab4', 'name' => 'Tab 4','section' => 'tab_4']
                             ];
 
-                    @endphp
+                    @endphp --}}
 
                     <ul class="nav nav-tabs" id="section2Tabs" role="tablist">
-                        @foreach($tabs as $tab)
-                            <li class="nav-item" role="presentation" data-tab-id="{{ $tab['id'] }}">
-                                <a class="nav-link @if (old('sub_section') == $tab['id'] || ($tab['id'] == 'tab1' && old('sub_section')=="" ) || session('tab_1') == true) active @endif" 
-                                   id="{{ $tab['id'] }}-tab" 
+                        @foreach($tabs1 as $tab)
+                            <li class="nav-item" role="presentation" data-tab-id="{{ $tab['tab_id_1'] }}">
+                                <a class="nav-link @if (old('sub_section') == $tab['tab_id_1'] || ($tab['tab_id_1'] == 'tab1' && old('sub_section')=="" ) || session('tab_1') == true) active @endif" 
+                                   id="{{ $tab['tab_id_1'] }}-tab" 
                                    data-bs-toggle="tab" 
-                                   href="#{{ $tab['id'] }}" 
+                                   href="#{{ $tab['tab_id_1'] }}" 
                                    role="tab" 
-                                   aria-controls="{{ $tab['id'] }}" 
-                                   aria-selected="@if (old('sub_section') == $tab['id']) true @else false @endif">
-                                    {{ $tab['name'] }}
+                                   aria-controls="{{ $tab['tab_id_1'] }}" 
+                                   aria-selected="@if (old('sub_section') == $tab['tab_id_1']) true @else false @endif">
+                                    {{ $tab['tab_name_1'] }}
                                 </a>
                             </li>
                         @endforeach
@@ -839,7 +839,7 @@
         CKEDITOR.replaceAll('texteditor');
 
         $(function() {
-            
+
             $("#section2Tabs").sortable({
                 update: function(event, ui) {
                     var tabOrder = [];
@@ -850,6 +850,27 @@
                 }
             });
         });
+
+        function saveTabOrder(order) {
+
+            $.ajax({
+                url: '{{route('admin.course.tabchange')}}',  
+                method: 'POST',
+                data: {
+                    order: order,
+                },
+                success: function(response) {
+
+                    console.log('Tab order saved successfully');
+
+                },
+                error: function(xhr) {
+
+                    console.error('Error saving tab order');
+                }
+            });
+        }
+
 
 
 
