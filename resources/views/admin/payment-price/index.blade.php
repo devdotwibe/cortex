@@ -156,7 +156,7 @@
                                                             <div class="image-group">
                                                                 <img src="{{url("/d0"."/".old($item->slug.'.icon',$item->icon))}}" alt="">
 
-                                                                <button onclick="removeicon('{{$item->slug}}')">
+                                                                <button type="button" onclick="removeicon('{{$item->slug}}')">
                                                                     <img src="{{asset('assets/images/delete-icon.svg')}}" alt="">
                                                                 </button>
                                                             </div>
@@ -255,7 +255,7 @@
                                                             @if(!empty(old('payment.icon')))
                                                                 <div class="image-group">
                                                                     <img src="{{url("/d0"."/".old('payment.icon'))}}" alt="">
-                                                                    <button onclick="removeicon('payment')">
+                                                                    <button type="button" onclick="removeicon('payment')">
                                                                         <img src="{{asset('assets/images/delete-icon.svg')}}" alt="">
                                                                     </button>
                                                                 </div>
@@ -364,7 +364,7 @@
                         $(`#${formID}-icon-preview`).html(` 
                         <div class="image-group">                         
                             <img src="${response.url}" alt="">
-                            <button onclick="removeicon('${formID}')">
+                            <button type="button" onclick="removeicon('${formID}')">
                                 <img src="{{asset('assets/images/delete-icon.svg')}}" alt="">
                             </button>
                         </div>
