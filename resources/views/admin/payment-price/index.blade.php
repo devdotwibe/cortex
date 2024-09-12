@@ -330,7 +330,7 @@
             const formID = $(this).data("form");
             if(files.length>0){
                 var formData = new FormData();
-                formData.append("file", file);
+                formData.append("file", files[0]);
                 formData.append("foldername", "subscription");
                 var toastId = showToast('Uploading... 0%', 'info', false);
 
