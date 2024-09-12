@@ -25,6 +25,13 @@ class SubscriptionPaymentController extends Controller
             'payment.title'=>['required'],
             'payment.content'=>['nullable'],
             'payment.icon'=>['nullable']
+        ],[
+            "payment.required"=>"The field is required",
+            "payment.basic_amount.required"=>"This basic amount field is required",
+            "payment.combo_amount.required"=>"This combo amount field is required",
+            "payment.title.required"=>"This basic title is required",
+            "payment.content.required"=>"This content field is required",
+            "payment.icon.required"=>"This icon field is required",
         ]);
         $basic_amount=$request->payment["basic_amount"];
         $combo_amount=$request->payment["combo_amount"];
@@ -85,6 +92,13 @@ class SubscriptionPaymentController extends Controller
             "$field.title"=>['required'],
             "$field.content"=>['nullable'],
             "$field.icon"=>['nullable']
+        ],[
+            "$field.required"=>"The field is required",
+            "$field.basic_amount.required"=>"This basic amount field is required",
+            "$field.combo_amount.required"=>"This combo amount field is required",
+            "$field.title.required"=>"This basic title is required",
+            "$field.content.required"=>"This content field is required",
+            "$field.icon.required"=>"This icon field is required",
         ]);
         $basic_amount=$request->$field["basic_amount"];
         $combo_amount=$request->$field["combo_amount"];
