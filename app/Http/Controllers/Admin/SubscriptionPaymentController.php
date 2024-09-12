@@ -96,7 +96,8 @@ class SubscriptionPaymentController extends Controller
             'product_data' => ['name' => config('app.name','Cortex').' Amount :'.(intval($combo_amount*100)/100).' For '.ucfirst($title)],
             'metadata'=>[
                 'modify_time'=>date('Y-m-d h:i a'),
-                'title'=>$title, 
+                'title'=>$title,
+                "old_key"=>$subscriptionPlan->basic_amount_id, 
             ]
         ]); 
         $price2=Payment::stripe()->prices->create([
@@ -106,6 +107,7 @@ class SubscriptionPaymentController extends Controller
             'metadata'=>[
                 'modify_time'=>date('Y-m-d h:i a'),
                 'title'=>$title, 
+                "old_key"=>$subscriptionPlan->combo_amount_id,
             ]
         ]); 
         $subscriptionPlan->update([
