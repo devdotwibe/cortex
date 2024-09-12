@@ -22,7 +22,7 @@
                 <div class="card-body">
                     <p> <span>Subscription Amount</span> : {{optional($user->subscription())->amount}} </p>
                     <p> <span>Paid At</span> : {{optional($user->subscription())->created_at->format("Y-m-d")}} </p>
-                    <p> <span>Expire</span>  : @json(optional($user->subscription()))</p>
+                    <p> <span>Expire</span>  : </p>
                 </div>
             </div>
             @else
