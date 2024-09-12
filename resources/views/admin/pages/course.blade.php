@@ -839,6 +839,7 @@
         CKEDITOR.replaceAll('texteditor');
 
         $(function() {
+            
             $("#section2Tabs").sortable({
                 update: function(event, ui) {
                     var tabOrder = [];
