@@ -6,10 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Models\SubscriptionPlan;
 use App\Support\Helpers\OptionHelper;
 use App\Support\Plugin\Payment;
+use App\Trait\ResourceController;
 use Illuminate\Http\Request;
 
 class SubscriptionPaymentController extends Controller
 {
+    use ResourceController;
     public function index(Request $request){
         return view('admin.payment-price.index');
     }
@@ -44,5 +46,13 @@ class SubscriptionPaymentController extends Controller
             ]);
         }
         return redirect()->back()->with('success',"Amount Updated");
+    }
+    public function history(Request $request){
+        if($request->ajax()){
+            self::$model=SubscriptionPlan::class;
+            self::$defaultActions=[''];  
+            return $this->buildTable();
+        }
+        return view('admin.payment-price.history');
     }
 }
