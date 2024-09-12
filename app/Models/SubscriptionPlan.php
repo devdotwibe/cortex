@@ -12,8 +12,13 @@ class SubscriptionPlan extends Model
     protected $fillable = [
         'slug',
         'name', 
-        'amount',   
-        'stripe_id',   
+        'title', 
+        'basic_amount',   
+        'combo_amount',   
+        'content',
+        'icon',
+        'basic_amount_id',   
+        'combo_amount_id',   
     ]; 
 
 }
