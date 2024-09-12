@@ -71,15 +71,15 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::resource("/payment",PaymentController::class);
         Route::prefix('subscriber')->name('subscriber.')->group(function () {
             Route::get('/',[SubscribeUsersController::class,'index'])->name('index');
-        }); 
+        });
         Route::prefix('coupon')->name('coupon.')->group(function () {
             Route::get('/',[CouponController::class,'index'])->name('index');
             Route::get('/create',[CouponController::class,'create'])->name('create');
             Route::post('/store',[CouponController::class,'store'])->name('store');
-            Route::get('/{coupon_offer}/show',[CouponController::class,'show'])->name('show'); 
-            Route::get('/{coupon_offer}/edit',[CouponController::class,'edit'])->name('edit'); 
-            Route::put('/{coupon_offer}/update',[CouponController::class,'update'])->name('update'); 
-            Route::delete('/{coupon_offer}/destroy',[CouponController::class,'destroy'])->name('destroy'); 
+            Route::get('/{coupon_offer}/show',[CouponController::class,'show'])->name('show');
+            Route::get('/{coupon_offer}/edit',[CouponController::class,'edit'])->name('edit');
+            Route::put('/{coupon_offer}/update',[CouponController::class,'update'])->name('update');
+            Route::delete('/{coupon_offer}/destroy',[CouponController::class,'destroy'])->name('destroy');
 
         });
         Route::prefix('payment-price')->name('payment-price.')->group(function () {
@@ -437,6 +437,8 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
         Route::post('/course', [CourseController::class, 'storesection1'])->name('section1');
 
+        Route::post('/course1', [CourseController::class, 'storesection4'])->name('section2');
+
         Route::post('/', [CourseController::class, 'storesection4'])->name('section4');
 
         Route::post('/', [CourseController::class, 'storesection5'])->name('section5');
@@ -483,7 +485,9 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::delete('del/{tip}',[CourseController::class,'del_tip'])->name('del_tip');
 
         Route::post('/tab/change', [CourseController::class, 'tabchange'])->name('tabchange');
-        
+
+        Route::post('/tab/change1', [CourseController::class, 'tabchange1'])->name('tabchange1');
+
     });
 
     Route::prefix('price')->name('price.')->group(function () {
