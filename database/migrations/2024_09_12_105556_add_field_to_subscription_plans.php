@@ -29,7 +29,10 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('subscription_plans', function (Blueprint $table) {
-            $table->dropColumn(['title','content','icon','combo_amount','basic_amount','basic_amount_id','combo_amount_id']);
+            $table->dropColumn([
+                'title','content','icon','combo_amount',
+                'basic_amount','basic_amount_id','combo_amount_id'
+            ]);
             $table->string( 'stripe_id')->nullable();
             $table->string('amount')->default('0');
         });
