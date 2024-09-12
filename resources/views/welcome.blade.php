@@ -330,7 +330,11 @@
                         <div class="card-3 card-{{ $p->id }} _{{ $p->id }}">
                             <div class="card-icon-container">
                                 <div class="process-icon">
-                                    <img src="{{ url('assets/images/' . $p->ourprocessimage) }}" alt="{{ $p->icon_alt }}">
+
+
+
+
+                                    <img src="{{ url('d0/' . $p->ourprocessimage) }}" alt="{{ $p->icon_alt }}">
                                 </div>
                                 <div class="card-number">@if($k < 10)0{{ $k+1 }} @else{{ $k+1 }} @endif</div>
                             </div>
