@@ -216,7 +216,7 @@
                     <ul class="nav nav-tabs" id="section2Tabs" role="tablist">
                         @foreach($tabs as $tab)
                             <li class="nav-item" role="presentation" data-tab-id="{{ $tab['id'] }}">
-                                <a class="nav-link @if (old('sub_section') == $tab['id'] || ($tab['id'] == 'tab1' && old('sub_section')=="" ) && session('tab_1') == true) active @endif" 
+                                <a class="nav-link @if (old('sub_section') == $tab['id'] || ($tab['id'] == 'tab1' && old('sub_section')=="" ) || session('tab_1') == true) active @endif" 
                                    id="{{ $tab['id'] }}-tab" 
                                    data-bs-toggle="tab" 
                                    href="#{{ $tab['id'] }}" 
