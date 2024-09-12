@@ -40,16 +40,16 @@
 
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
-                      <button class="nav-link active" data-bs-target="#first" role="tab" data-bs-toggle="tab"> @if(!empty($course->logicaltitle1)){{$course->logicaltitle1}}@endif</button>
+                      <button class="nav-link link-active active" data-bs-target="#first" role="tab" data-bs-toggle="tab"> @if(!empty($course->logicaltitle1)){{$course->logicaltitle1}}@endif</button>
                     </li>
                     <li class="nav-item" role="presentation">
-                      <button class="nav-link" data-bs-target="#second" role="tab" data-bs-toggle="tab"> @if(!empty($course->criticaltitle1)){{$course->criticaltitle1}}@endif</button>
+                      <button class="nav-link link-active" data-bs-target="#second" role="tab" data-bs-toggle="tab"> @if(!empty($course->criticaltitle1)){{$course->criticaltitle1}}@endif</button>
                     </li>
                     <li class="nav-item" role="presentation">
-                      <button class="nav-link" data-bs-target="#third" role="tab" data-bs-toggle="tab">@if(!empty($course->abstracttitle1)){{$course->abstracttitle1}}@endif</button>
+                      <button class="nav-link link-active" data-bs-target="#third" role="tab" data-bs-toggle="tab">@if(!empty($course->abstracttitle1)){{$course->abstracttitle1}}@endif</button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" data-bs-target="#four" role="tab" data-bs-toggle="tab">@if(!empty($course->numericaltitle1)){{$course->numericaltitle1}}@endif</button>
+                        <button class="nav-link link-active" data-bs-target="#four" role="tab" data-bs-toggle="tab">@if(!empty($course->numericaltitle1)){{$course->numericaltitle1}}@endif</button>
                     </li>
                   </ul>
                   <div class="tab-content tab-slider" >

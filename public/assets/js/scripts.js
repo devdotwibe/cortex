@@ -83,11 +83,11 @@ $(document).ready(function(){
     });
 
     // Handle tab clicks
-    $('.nav-link').on('click', function(e) {
+    $('.link-active').on('click', function(e) {
       e.preventDefault();
 
       // Remove 'active' class from all tabs and add it to the clicked tab
-      $('.nav-link').removeClass('active');
+      $('.link-active').removeClass('active');
       $(this).addClass('active');
 
       // Get target pane ID and slide to that pane
