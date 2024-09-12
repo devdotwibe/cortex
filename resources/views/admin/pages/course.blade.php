@@ -6,7 +6,8 @@
     <section class="header_nav">
         <div class="header_wrapp">
             <div class="header_title">
-                <h2>Course</h2>
+                <h2>Course </h2>
+                {{-- {{session('section_tab')}} {{session('section_tab1')}} {{session('section_tab11')}} --}}
             </div>
         </div>
     </section>
@@ -16,22 +17,22 @@
 
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link @if ((old('section') == 'section1' || old('section') == '') && session('tab_1') != true) active @endif" id="section1-tab"
+                    <a class="nav-link @if (session('section_tab') == 'section1-tab' || session('section_tab') == "") active @endif" id="section1-tab"
                         data-bs-toggle="tab" href="#section1" role="tab" aria-controls="section1"
                         aria-selected="@if (old('section') == 'section1' || old('section') == '') true @else false @endif">Section 1</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link @if (old('section') == 'section2') active @endif @if (session('tab_1') == true) show active @else @endif "
+                    <a class="nav-link @if (session('section_tab') == 'section2-tab')  active @endif"
                         id="section2-tab" data-bs-toggle="tab" href="#section2" role="tab" aria-controls="section2"
                         aria-selected="@if (old('section') == 'section2') true @else false @endif">Section 2</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link @if (old('section') == 'section3') active @endif" id="section3-tab"
+                    <a class="nav-link @if (session('section_tab') == 'section3-tab')  active @endif" id="section3-tab"
                         data-bs-toggle="tab" href="#section3" role="tab" aria-controls="section3"
                         aria-selected="@if (old('section') == 'section3') true @else false @endif">Section 3</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link @if (old('section') == 'section5') active @endif" id="section5-tab"
+                    <a class="nav-link @if (session('section_tab') == 'section5-tab') active @endif" id="section5-tab"
                         data-bs-toggle="tab" href="#section5" role="tab" aria-controls="section5"
                         aria-selected="@if (old('section') == 'section5') true @else false @endif">Section 4</a>
                 </li>
@@ -42,7 +43,7 @@
 
             <div class="tab-content" id="myTabContent">
 
-                <div class="tab-pane fade  @if (old('section', 'save') == 'save') show active @endif" id="section1"
+                <div class="tab-pane fade @if (session('section_tab') == 'section1-tab' ||  session('section_tab') == "") show active @endif" id="section1"
                     role="tabpanel" aria-labelledby="section1-tab">
                     <div class="row">
                         <div class="card">
@@ -151,14 +152,20 @@
                     </div>
                 </div>
 
-                <div class="tab-pane fade @if (old('section') == 'section2') show active @endif @if (session('tab_1') == true) show active @else @endif "
+
+
+
+
+
+
+                <div class="tab-pane fade @if (session('section_tab') == 'section2-tab')  show active @endif"
                     id="section2" role="tabpanel" aria-labelledby="section2-tab">
 
 
 
 
 
-                    <form action="{{ route('admin.course.section5') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('admin.course.section2') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="col-md-12">
                             <div class="form-group">
@@ -214,25 +221,33 @@
                     @endphp --}}
 
                     <ul class="nav nav-tabs" id="section2Tabs" role="tablist">
-                        @foreach($tabs1 as $tab)
+                        @foreach($tabs1 as $k => $tab)
                             <li class="nav-item" role="presentation" data-tab-id="{{ $tab['tab_id_1'] }}">
-                                <a class="nav-link @if (old('sub_section') == $tab['tab_id_1'] || ($tab['tab_id_1'] == 'tab1' && old('sub_section')=="" ) || session('tab_1') == true) active @endif" 
-                                   id="{{ $tab['tab_id_1'] }}-tab" 
-                                   data-bs-toggle="tab" 
-                                   href="#{{ $tab['tab_id_1'] }}" 
-                                   role="tab" 
-                                   aria-controls="{{ $tab['tab_id_1'] }}" 
+                                <a class="nav-link @if(session('section_tab1') == $tab['tab_id_1'] || ($k ==0) && session('section_tab1')=="") active @endif"
+                                   id="{{ $tab['tab_id_1'] }}-tab"
+                                   data-bs-toggle="tab"
+                                   href="#{{ $tab['tab_id_1'] }}"
+                                   role="tab"
+                                   aria-controls="{{ $tab['tab_id_1'] }}"
                                    aria-selected="@if (old('sub_section') == $tab['tab_id_1']) true @else false @endif">
                                     {{ $tab['tab_name_1'] }}
                                 </a>
                             </li>
                         @endforeach
                     </ul>
-                    
+
 
                     <div class="tab-content mt-2" id="section2TabContent">
                         <!-- Tab 1 -->
-                        <div class="tab-pane fade @if (old('sub_section') == 'tab1' || old('sub_section') == '') show active @endif @if (session('tab_1') == true) show active @else @endif "
+
+
+
+
+
+
+
+
+                        <div class="tab-pane fade @if (session('section_tab1') == 'tab1' || (session('section_tab1')=="" && $tabsctive1->tab_id_1=='tab1' )) show active @endif"
                             id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
                             <form action="{{ route('admin.course.tab1.store') }}" method="POST"
                                 enctype="multipart/form-data">
@@ -306,7 +321,11 @@
                         </div>
 
                         <!-- Tab 2 -->
-                        <div class="tab-pane fade @if (old('sub_section') == 'tab2') show active @endif" id="tab2"
+
+
+
+
+                        <div class="tab-pane fade @if (session('section_tab1') == 'tab2' || (session('section_tab1')=="" && $tabsctive1->tab_id_1=='tab2' ))  show active @endif" id="tab2"
                             role="tabpanel" aria-labelledby="tab2-tab">
                             <form action="{{ route('admin.course.tab2.store') }}" method="POST"
                                 enctype="multipart/form-data">
@@ -337,21 +356,7 @@
                                         </div>
                                     </div>
 
-                                    <!-- Preview Image Container -->
-                                    {{-- <div class="form-group">
-                                        <label for="criticalImagePreview">Image Preview</label>
-                                        <div id="criticalImagePreviewContainer"
-                                            style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
-                                            @if (isset($course) && $course->criticalimage)
-                                                <img id="criticalImagePreview"
-                                                    src="{{ url('d0/' . $course->criticalimage) }}" alt="Image Preview"
-                                                    style="width: 100%; height: auto;">
-                                            @else
-                                                <img id="criticalImagePreview" src="#" alt="Image Preview"
-                                                    style="display: none; width: 100%; height: auto;">
-                                            @endif
-                                        </div>
-                                    </div> --}}
+
 
                                     <!-- Preview Image Container -->
                                     <div class="form-group">
@@ -380,7 +385,12 @@
                         </div>
 
                         <!-- Tab 3 -->
-                        <div class="tab-pane fade @if (old('sub_section') == 'tab3') show active @endif" id="tab3"
+
+
+
+
+
+                        <div class="tab-pane fade @if (session('section_tab1') == 'tab3' || (session('section_tab1')=="" && $tabsctive1->tab_id_1=='tab3' ))  show active @endif" id="tab3"
                             role="tabpanel" aria-labelledby="tab3-tab">
                             <form action="{{ route('admin.course.tab3.store') }}" method="POST"
                                 enctype="multipart/form-data">
@@ -438,7 +448,11 @@
                         </div>
 
                         <!-- Tab 4 -->
-                        <div class="tab-pane fade @if (old('sub_section') == 'tab4') show active @endif" id="tab4"
+
+
+
+
+                        <div class="tab-pane fade @if (session('section_tab1') == 'tab4' || (session('section_tab1')=="" && $tabsctive1->tab_id_1=='tab4' )) show active @endif" id="tab4"
                             role="tabpanel" aria-labelledby="tab4-tab">
                             <form action="{{ route('admin.course.tab4.store') }}" method="POST"
                                 enctype="multipart/form-data">
@@ -504,8 +518,14 @@
 
 
 
-                <div class="tab-pane fade @if (old('section') == 'section3') show active @endif" id="section3"
+
+
+                <div class="tab-pane fade @if (session('section_tab') == 'section3-tab')  show active @endif" id="section3"
                     role="tabpanel" aria-labelledby="section3-tab">
+
+
+
+{{--
                     <ul class="nav nav-tabs" id="section3Tabs" role="tablist">
                         <li class="nav-item" role="presentation">
                             <a class="nav-link @if (old('sub_section') == 'tab1' || old('sub_section') == '') active @endif" id="tab1-tabb"
@@ -528,12 +548,43 @@
                                 aria-selected="@if (old('sub_section') == 'tab4') true @else false @endif">Tab 4</a>
                         </li>
 
+                    </ul> --}}
+
+
+
+
+
+
+                    <ul class="nav nav-tabs" id="section3Tabs" role="tablist">
+                        @foreach($tabs2 as $k => $tab)
+                            <li class="nav-item" role="presentation" data-tab-id="{{ $tab['tab_id_2'] }}">
+                                <a class="nav-link @if(session('section_tab11') == $tab['tab_id_2'] || ($k ==0) && session('section_tab11')=="") active @endif"
+                                   id="{{ $tab['tab_id_2'] }}-tab"
+                                   data-bs-toggle="tab"
+                                   href="#{{ $tab['tab_id_2'] }}"
+                                   role="tab"
+                                   aria-controls="{{ $tab['tab_id_2'] }}"
+                                   aria-selected="@if (old('sub_section') == $tab['tab_id_2']) true @else false @endif">
+                                    {{ $tab['tab_name_2'] }}
+                                </a>
+                            </li>
+                        @endforeach
                     </ul>
+
+
+
+
 
                     <div class="tab-content mt-2" id="section3TabContent">
                         <!-- Tab 1: Learn Content & Learn Image -->
-                        <div class="tab-pane fade @if (old('sub_section') == 'tab1' || old('sub_section') == '') show active @endif" id="tab11"
-                            role="tabpanel" aria-labelledby="tab1-tabb">
+
+
+
+
+
+
+                        <div class="tab-pane fade @if (session('section_tab11') == 'sec_tab1' || (session('section_tab11')=="" && $tabsctive2->tab_id_2=='sec_tab1')) show active @endif"  id="sec_tab1"
+                            role="tabpanel" aria-labelledby="sec_tab1">
                             <form action="{{ route('admin.course.section3.tab1.store') }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
@@ -578,8 +629,12 @@
                         </div>
 
                         <!-- Tab 2: Question Bank Content & Image -->
-                        <div class="tab-pane fade @if (old('sub_section') == 'tab2') show active @endif" id="tab22"
-                            role="tabpanel" aria-labelledby="tab2-tabb">
+
+
+
+
+                        <div class="tab-pane fade @if (session('section_tab11') == 'sec_tab2' || (session('section_tab11')=="" && $tabsctive2->tab_id_2=='sec_tab2')) show active @endif" id="sec_tab2"
+                            role="tabpanel" aria-labelledby="sec_tab2">
                             <form action="{{ route('admin.course.section3.tab2.store') }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
@@ -624,8 +679,12 @@
                         </div>
 
                         <!-- Tab 3: Topic Content & Image -->
-                        <div class="tab-pane fade @if (old('sub_section') == 'tab3') show active @endif" id="tab33"
-                            role="tabpanel" aria-labelledby="tab3-tabb">
+
+
+
+
+                        <div class="tab-pane fade @if (session('section_tab11') == 'sec_tab3'|| (session('section_tab11')=="" && $tabsctive2->tab_id_2=='sec_tab3' )) show active @endif" id="sec_tab3"
+                            role="tabpanel" aria-labelledby="sec_tab3">
                             <form action="{{ route('admin.course.section3.tab3.store') }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
@@ -668,9 +727,13 @@
                             </form>
                         </div>
 
+
+
+
+
                         <!-- Tab 4: Full Mock Content & Image -->
-                        <div class="tab-pane fade @if (old('sub_section') == 'tab4') show active @endif" id="tab44"
-                            role="tabpanel" aria-labelledby="tab4-tabb">
+                        <div class="tab-pane fade @if (session('section_tab11') == 'sec_tab4' || (session('section_tab11')=="" && $tabsctive2->tab_id_2=='sec_tab4' )) show active @endif" id="sec_tab4"
+                            role="tabpanel" aria-labelledby="sec_tab4">
                             <form action="{{ route('admin.course.section3.tab4.store') }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
@@ -723,7 +786,10 @@
 
 
 
-                <div class="tab-pane fade  @if (old('section', 'save') == 'save1') show active @endif" id="section5"
+
+
+
+                <div class="tab-pane fade  @if (session('section_tab') == 'section5-tab') show active @endif" id="section5"
                     role="tabpanel" aria-labelledby="section5-tab">
                     <div class="row">
                         <div class="card">
@@ -854,7 +920,7 @@
         function saveTabOrder(order) {
 
             $.ajax({
-                url: '{{route('admin.course.tabchange')}}',  
+                url: '{{route('admin.course.tabchange')}}',
                 method: 'POST',
                 data: {
                     order: order,
@@ -1233,6 +1299,50 @@
     }
 
     </script>
+
+
+
+
+
+
+<script>
+
+
+    $(function() {
+
+        $("#section3Tabs").sortable({
+            update: function(event, ui) {
+                var tabOrder = [];
+                $("#section3Tabs li").each(function() {
+                    tabOrder.push($(this).data('tab-id'));
+                });
+                saveTabOrder1(tabOrder);
+            }
+        });
+    });
+
+    function saveTabOrder1(order) {
+
+        $.ajax({
+            url: '{{route('admin.course.tabchange1')}}',
+            method: 'POST',
+            data: {
+                order: order,
+            },
+            success: function(response) {
+
+                console.log('Tab order saved successfully');
+
+            },
+            error: function(xhr) {
+
+                console.error('Error saving tab order');
+            }
+        });
+    }
+
+</script>
+
 
 
 @endpush

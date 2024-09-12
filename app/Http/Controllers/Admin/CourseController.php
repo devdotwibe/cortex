@@ -11,7 +11,7 @@ use App\Trait\ResourceController;
 use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Session;
 
 class CourseController extends Controller
 {
@@ -33,13 +33,29 @@ class CourseController extends Controller
         $tabs1 = TabOrder::orderBy('tab_sort_1', 'asc')->get();
 
         $tabs2 = TabOrder::orderBy('tab_sort_2', 'asc')->get();
-    
-        return view('admin.pages.course',compact('course','tabs1','tabs2'));
+
+        $tabsctive1 = TabOrder::orderBy('tab_sort_1', 'asc')->first();
+
+        $tabsctive2 = TabOrder::orderBy('tab_sort_2', 'asc')->first();
+
+
+        // Session::forget('section_tab');
+
+        // Session::forget('section_tab1');
+        // Session::forget('section_tab11');
+
+
+
+        return view('admin.pages.course',compact('course','tabs1','tabs2','tabsctive1','tabsctive2'));
 
     }
 
     public function storesection1(Request $request)
     {
+
+        Session::put("section_tab",'section1-tab');
+
+
         // Validate the request data for Section 1
         $request->validate([
             'heading' => 'required|nullable|string|max:255',
@@ -74,7 +90,6 @@ class CourseController extends Controller
         }
 
 
-
         $course->save();
 
         return redirect()->route('admin.course.index')->with('success', 'Section 1 data has been successfully saved.');
@@ -83,7 +98,10 @@ class CourseController extends Controller
 
     public function storeTab1(Request $request)
     {
-        // Validate the request data for Tab 1
+        Session::put("section_tab",'section2-tab');
+        Session::put("section_tab1",'tab1');
+
+
         $request->validate([
             'logicaltitle1' => 'nullable|string|max:255',
             // 'logicaltitle2' => 'nullable|string|max:255',
@@ -120,6 +138,10 @@ class CourseController extends Controller
 
     public function storeTab2(Request $request)
     {
+
+
+        Session::put("section_tab",'section2-tab');
+        Session::put("section_tab1",'tab2');
         // Validate the request data for Tab 2
         $request->validate([
             'criticaltitle1' => 'nullable|string|max:255',
@@ -152,6 +174,12 @@ class CourseController extends Controller
 
     public function storeTab3(Request $request)
     {
+
+
+        Session::put("section_tab",'section2-tab');
+        Session::put("section_tab1",'tab3');
+
+
         // Validate the request data for Tab 3
         $request->validate([
             'abstracttitle1' => 'nullable|string|max:255',
@@ -184,6 +212,9 @@ class CourseController extends Controller
 
     public function storeTab4(Request $request)
     {
+
+        Session::put("section_tab",'section2-tab');
+        Session::put("section_tab1",'tab4');
         // Validate the request data for Tab 4
         $request->validate([
             'numericaltitle1' => 'nullable|string|max:255',
@@ -220,6 +251,9 @@ class CourseController extends Controller
 
     public function storeSection3Tab1(Request $request)
     {
+
+        Session::put("section_tab",'section3-tab');
+        Session::put("section_tab11",'sec_tab1');
         $request->validate([
             'learncontent' => 'nullable|string',
             'learnimage' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048',
@@ -248,6 +282,9 @@ class CourseController extends Controller
     // Store for tab 2 (Question Bank)
     public function storeSection3Tab2(Request $request)
     {
+
+        Session::put("section_tab",'section3-tab');
+        Session::put("section_tab11",'sec_tab2');
         $request->validate([
             'questionbankcontent' => 'nullable|string',
             'questionbankimage' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048',
@@ -276,6 +313,13 @@ class CourseController extends Controller
     // Store for tab 3 (Topic)
     public function storeSection3Tab3(Request $request)
     {
+
+
+
+
+
+        Session::put("section_tab",'section3-tab');
+        Session::put("section_tab11",'sec_tab3');
         $request->validate([
             'topiccontent' => 'nullable|string',
             'topicimage' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048',
@@ -304,6 +348,9 @@ class CourseController extends Controller
     // Store for tab 4 (Full Mock)
     public function storeSection3Tab4(Request $request)
     {
+
+        Session::put("section_tab",'section3-tab');
+        Session::put("section_tab11",'sec_tab4');
         $request->validate([
             'fullmockcontent' => 'nullable|string',
             'fullmockimage' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048',
@@ -338,6 +385,10 @@ class CourseController extends Controller
 
     public function storesection4(Request $request)
     {
+
+        Session::put("section_tab",'section2-tab');
+
+
         // Validate the request data for Section 1
         $request->validate([
             'coursetitle' => 'nullable|string|max:255',
@@ -369,6 +420,8 @@ class CourseController extends Controller
 
     public function storesection5(Request $request)
     {
+
+        Session::put("section_tab",'section5-tab');
         // Validate the request data for Section 1
         $request->validate([
             'privatecontent' => 'required|nullable|string|',
@@ -402,7 +455,7 @@ class CourseController extends Controller
 
         $course->save();
 
-        return redirect()->route('admin.course.index')->with('success', 'Section 5 data has been successfully saved.');
+        return redirect()->route('admin.course.index')->with('success', 'Section 4 data has been successfully saved.');
     }
 
 
@@ -674,6 +727,37 @@ public function deleteFullmockImage()
 
         return response()->json(['success' => true]);
     }
+
+
+
+
+
+
+
+
+    public function tabchange1(Request $request)
+    {
+        $order = $request->input('order');
+
+        foreach ($order as $index => $tabId) {
+
+            $taborder = TabOrder::where('tab_id_2',$tabId)->first();
+
+            if ($taborder) {
+
+                $taborder->tab_sort_2 = $index + 1;
+
+                $taborder->save();
+            }
+
+        }
+
+        return response()->json(['success' => true]);
+    }
+
+
+
+
 
 
 }
