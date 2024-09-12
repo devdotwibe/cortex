@@ -854,7 +854,7 @@
         function saveTabOrder(order) {
 
             $.ajax({
-                url: '{{route('admin.tabchange')}}',  
+                url: '{{route('admin.course.tabchange')}}',  
                 method: 'POST',
                 data: {
                     order: order,
