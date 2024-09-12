@@ -12,9 +12,10 @@
                     @endif
 
 
-                    <h1> @if (!empty($banner->subtitle))
-                        {!! $banner->subtitle !!}
-                    @endif
+                    <h1>
+                        @if (!empty($banner->subtitle))
+                            {!! $banner->subtitle !!}
+                        @endif
                     </h1>
 
 
@@ -52,9 +53,11 @@
         <div class="container">
             {{-- Render subtitle as HTML --}}
 
-            <h2> @if (!empty($banner->guaranteetitle))
-                {!! $banner->guaranteetitle !!}
-            @endif</h2>
+            <h2>
+                @if (!empty($banner->guaranteetitle))
+                    {!! $banner->guaranteetitle !!}
+                @endif
+            </h2>
 
 
             <div class="guarantee-row">
@@ -126,7 +129,11 @@
         <div class="container">
             <div class="features-row">
                 <div class="features-col1">
-                    <h3 class="highlight">{{ $banner->ourfeaturestitle }}</h3>
+
+
+                    @if (!empty($banner->ourfeaturestitle))
+                        <h3 class="highlight">{{ $banner->ourfeaturestitle }}</h3>
+                    @endif
 
 
 
@@ -168,7 +175,7 @@
     </section>
 
 
- {{-- <section class="process-wrapp">
+    {{-- <section class="process-wrapp">
     <div class="container">
         <div class="process-row">
             <div class="process-col1">
@@ -202,7 +209,7 @@
 
 
 
- <section class="process-wrapp">
+    <section class="process-wrapp">
         <div class="container">
             <div class="process-row">
                 <div class="process-col1">
@@ -223,7 +230,8 @@
                             </div>
                             <div class="card-text-container-2">
                                 <div class="card-title">Exam Preparation</div>
-                                <p class="card-text">Join Cortex’s industry-leading exam platform, purchase a test pack and begin your exam preparation journey</p>
+                                <p class="card-text">Join Cortex’s industry-leading exam platform, purchase a test pack and
+                                    begin your exam preparation journey</p>
                             </div>
                         </div>
                         <div class="card-3 _2">
@@ -434,7 +442,10 @@
         <div class="container">
             <div class="review-row">
                 <div class="review-col1">
-                    <h3 class="highlight"> {{ $courses->studentsfeedback }}</h3>
+                    @if (!empty($courses->studentsfeedback))
+                        <h3 class="highlight">{{ $courses->studentsfeedback }}</h3>
+                    @endif
+
                     <h2>
                         @if (!empty($courses->studenttitle))
                             {{ $courses->studenttitle }}
@@ -446,13 +457,14 @@
                     <div class="review-col3">
                         <div class="review-col4">
                             @if (!empty($courses->percentage))
-                        <h1>{{ $courses->percentage }}</h1>
-                    @endif
+                                <h1>{{ $courses->percentage }}</h1>
+                            @endif
                         </div>
                         <div class="review-col5">
-                            <h3> @if (!empty($courses->studentssubtitle))
-                                {!! $courses->studentssubtitle !!}
-                            @endif
+                            <h3>
+                                @if (!empty($courses->studentssubtitle))
+                                    {!! $courses->studentssubtitle !!}
+                                @endif
                             </h3>
                         </div>
                     </div>
@@ -499,7 +511,10 @@
 
     <section class="course-wrapp">
         <div class="container">
-            <h3 class="highlight">{{ $courses->ourcoursetitle }}</h3>
+            @if (!empty($courses->ourcoursetitle))
+                <h3 class="highlight">{{ $courses->ourcoursetitle }}</h3>
+            @endif
+
             @if (!empty($courses->coursetitle))
                 <h2>{{ $courses->coursetitle }}</h2>
             @endif
