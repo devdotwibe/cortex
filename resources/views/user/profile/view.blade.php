@@ -17,6 +17,7 @@
 <section class="content_section">
     <div class="container">
         <div class="row mb-3">
+            <p>{{$user->progress('cortext-subscription-payment','-')}}</p>
             @if ($user->progress('cortext-subscription-payment','')=="paid")
             <div class="card">
                 <div class="card-body">
