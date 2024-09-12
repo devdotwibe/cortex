@@ -312,7 +312,7 @@
 @push('footer-script')
     <script>
         function removeplan(url){            
-            $('#plan-delete-form').attr(url)
+            $('#plan-delete-form').attr('action',url)
             $('#plan-delete').modal('show')
         }
         CKEDITOR.replaceAll('texteditor')
