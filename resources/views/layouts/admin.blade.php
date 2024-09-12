@@ -24,10 +24,12 @@
     <link rel="stylesheet" href="{{ asset("assets/css/datatables.min.css") }}" >
     <link rel="stylesheet" href="{{ asset("assets/css/select2.min.css") }}" >
     <link rel="stylesheet" href="{{ asset("assets/css/select2.min.css") }}" >
-
+    <link rel="stylesheet" href="{{ asset("assets/css/jquery.ui.css") }}" >
+    
     @stack('style')
 
     <script src="{{ asset('assets/js/jquery-3.7.0.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
 
     @stack('header-script')

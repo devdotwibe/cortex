@@ -179,7 +179,7 @@
 
 
 
-                    <ul class="nav nav-tabs" id="section2Tabs" role="tablist">
+                    {{-- <ul class="nav nav-tabs" id="section2Tabs" role="tablist">
                         <li class="nav-item" role="presentation">
                             <a class="nav-link @if (old('sub_section') == 'tab1' || old('sub_section') == '') active @endif @if (session('tab_1') == true) active @else @endif "
                                 id="tab1-tab" data-bs-toggle="tab" href="#tab1" role="tab" aria-controls="tab1"
@@ -200,7 +200,35 @@
                                 data-bs-toggle="tab" href="#tab4" role="tab" aria-controls="tab4"
                                 aria-selected="@if (old('sub_section') == 'tab4') true @else false @endif">Tab 4</a>
                         </li>
+                    </ul> --}}
+
+                    @php
+
+                        $tabs = [
+                                ['id' => 'tab1', 'name' => 'Tab 1','section' => 'tab_1'],
+                                ['id' => 'tab2', 'name' => 'Tab 2','section' => 'tab_2'],
+                                ['id' => 'tab3', 'name' => 'Tab 3','section' => 'tab_3'],
+                                ['id' => 'tab4', 'name' => 'Tab 4','section' => 'tab_4']
+                            ];
+
+                    @endphp
+
+                    <ul class="nav nav-tabs" id="section2Tabs" role="tablist">
+                        @foreach($tabs as $tab)
+                            <li class="nav-item" role="presentation" data-tab-id="{{ $tab['id'] }}">
+                                <a class="nav-link @if (old('sub_section') == $tab['id'] || ($tab['id'] == 'tab1' && old('sub_section')=="" ) || session('tab_1') == true) active @endif" 
+                                   id="{{ $tab['id'] }}-tab" 
+                                   data-bs-toggle="tab" 
+                                   href="#{{ $tab['id'] }}" 
+                                   role="tab" 
+                                   aria-controls="{{ $tab['id'] }}" 
+                                   aria-selected="@if (old('sub_section') == $tab['id']) true @else false @endif">
+                                    {{ $tab['name'] }}
+                                </a>
+                            </li>
+                        @endforeach
                     </ul>
+                    
 
                     <div class="tab-content mt-2" id="section2TabContent">
                         <!-- Tab 1 -->
@@ -810,6 +838,18 @@
     <script>
         CKEDITOR.replaceAll('texteditor');
 
+        $(function() {
+            
+            $("#section2Tabs").sortable({
+                update: function(event, ui) {
+                    var tabOrder = [];
+                    $("#section2Tabs li").each(function() {
+                        tabOrder.push($(this).data('tab-id'));
+                    });
+                    saveTabOrder(tabOrder);
+                }
+            });
+        });
 
 
 
