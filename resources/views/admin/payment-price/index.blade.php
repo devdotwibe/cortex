@@ -143,7 +143,7 @@
                                                             <div class="form-data">
                                                                 <div class="forms-inputs mb-4">
                                                                     <label for="{{$item->slug}}-icon">Icon</label> 
-                                                                    <input type="file" id="{{$item->slug}}-icon"  class="form-control  @error($item->slug.'.icon') is-invalid @enderror" >
+                                                                    <input type="file" id="{{$item->slug}}-icon" data-form="{{$item->slug}}"  class="form-control icon-file @error($item->slug.'.icon') is-invalid @enderror" >
                                                                     <input type="hidden" id="{{$item->slug}}-icon-input" name="{{$item->slug}}[icon]" value="{{old($item->slug.'.icon',$item->icon)}}">
                                                                     @error($item->slug.'.icon')
                                                                         <div class="invalid-feedback">{{ $message }} </div>
@@ -237,7 +237,7 @@
                                                             <div class="form-data">
                                                                 <div class="forms-inputs mb-4">
                                                                     <label for="payment-icon">Icon</label> 
-                                                                    <input type="file" id="payment-icon"  class="form-control  @error('payment.icon') is-invalid @enderror" >
+                                                                    <input type="file" id="payment-icon" data-form="payment" class="form-control icon-file @error('payment.icon') is-invalid @enderror" >
                                                                     <input type="hidden" id="payment-icon-input" name="payment[icon]" value="{{old('payment.icon')}}">
                                                                     @error('payment.icon')
                                                                         <div class="invalid-feedback">{{ $message }} </div>
@@ -327,7 +327,7 @@
         }
         $(".icon-file").change(function(e){
             const files=e.target.files;
-            const formID = $(this).data("id");
+            const formID = $(this).data("form");
             if(files.length>0){
                 var formData = new FormData();
                 formData.append("file", file);
