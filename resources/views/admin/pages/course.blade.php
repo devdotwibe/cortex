@@ -204,7 +204,7 @@
 
                     @php
 
-                        $tabs =[ {'id'=>'tab1','name'=>'Tab 1'}, {'id'=>'tab2','name'=>'Tab 2'}, {'id'=>'tab3','name'=>'Tab 3'}, {'id'=>'tab4','name'=>'Tab 4'} ];
+                        $tabs =[ {'id'=>'tab1','name'=>'Tab 1'}, {'id'=>'tab2','name'=>'Tab 2'}, {'id'=>'tab3','name'=>'Tab 3'}, {'id'=>'tab4','name'=>'Tab 4'}, ];
 
                     @endphp
 
