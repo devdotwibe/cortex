@@ -90,6 +90,7 @@
                                         <div class="form">
                                             <form action="{{ route('admin.payment-price.update',$item->slug) }}" name="{{$item->name}}" method="post">
                                                 @csrf 
+                                                @method('PUT')
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <div class="form-group">
