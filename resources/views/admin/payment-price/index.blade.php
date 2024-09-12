@@ -13,30 +13,171 @@
         <div class="payment-wrap">
             <div class="row">
                 <div class="col-md-12">
+                    <div class="payment-workshop mb-2">
+                        <div class="payment-title">
+                            <h3>Intensive Workshop Plan</h3>
+                        </div>
+                        <div class="amount-form">
+                            <div class="amout-item">
+                                <div class="amout-item-content">
+                                    <div class="form">
+                                        <form action="{{ route('admin.payment.store') }}" method="post">
+                                            @csrf
+                                            <input type="hidden" name="name"
+                                                value="stripe.workshop.payment.amount">
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <div class="form-group">
+                                                        <div class="form-data">
+                                                            <div class="forms-inputs mb-4">
+                                                                @if (!empty(old('workshop-payment-form-submit')))
+                                                                    <input type="text" name="amount"
+                                                                        class="form-control @error('amount') is-invalid @enderror"
+                                                                        placeholder="Workshop Amount"
+                                                                        value="{{ old('amount', get_option('stripe.workshop.payment.amount-price', '')) }}">
+                                                                    @error('amount')
+                                                                        <div class="invalid-feedback">{{ $message }}
+                                                                        </div>
+                                                                    @enderror
+                                                                @else
+                                                                    <input type="text" name="amount"
+                                                                        class="form-control "
+                                                                        placeholder="Workshop Amount"
+                                                                        value="{{ get_option('stripe.workshop.payment.amount-price', '') }}">
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <button type="submit" class="btn btn-dark"
+                                                        id="workshop-payment-form-submit"
+                                                        name="workshop-payment-form-submit" value="Save">
+                                                        Save</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="payment-title">
+                        <h3>Subscription Plan</h3>
+                    </div>
                     <ul class="nav nav-tabs" id="priceTab" role="tablist">
-                        {{-- <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home"
-                                type="button" role="tab" aria-controls="home" aria-selected="true">Home</button>
+                        @foreach ($plans as $k=>$item)
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link @if(old('subscription_plan')==$item->slug||($k==0&&empty(old('subscription_plan')))) active @endif " id="price{{$k}}-tab" data-bs-toggle="tab" data-bs-target="#price{{$k}}"
+                                type="button" role="tab" aria-controls="price{{$k}}" @if(old('subscription_plan')==$item->slug||($k==0&&empty(old('subscription_plan'))))  aria-selected="true" @else aria-selected="false" @endif>Subscription {{$k+1}}</button>
                         </li>
+                        @endforeach 
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile"
-                                type="button" role="tab" aria-controls="profile" aria-selected="false">Profile</button>
-                        </li> --}}
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link bg-dark @if (!empty(old('subscription-payment-form-submit'))) active @endif" id="add-price-tab" data-bs-toggle="tab" data-bs-target="#add-price"
-                                type="button" role="tab" aria-controls="add-price" @if (!empty(old('subscription-payment-form-submit'))) aria-selected="true" @else aria-selected="false" @endif>
+                            <button class="nav-link bg-dark @if (!empty(old('subscription-payment-add'))|| count($plans)==0) active @endif" id="add-price-tab" data-bs-toggle="tab" data-bs-target="#add-price"
+                                type="button" role="tab" aria-controls="add-price" @if (!empty(old('subscription-payment-add'))||count($plans)==0) aria-selected="true" @else aria-selected="false" @endif>
                                 <img src="{{asset('assets/images/plus.svg')}}" alt=""><span class="text-white p-2">Add Subscription</span>
                             </button>
                         </li>
                     </ul>
                     <div class="tab-content" id="priceTabContent">
-                        {{-- <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">...
+                        @foreach ($plans as $k=>$item)
+                        <div class="tab-pane fade  @if(old('subscription_plan')==$item->slug||($k==0&&empty(old('subscription_plan')))) show active @endif " id="price{{$k}}" role="tabpanel" aria-labelledby="price{{$k}}-tab">
+                            <div class="amount-form">
+                                <div class="amout-item">
+                                    <div class="amout-item-content">
+                                        <div class="form">
+                                            <form action="{{ route('admin.payment-price.update',$item->slug) }}" method="post">
+                                                @csrf 
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <div class="form-data">
+                                                                <div class="forms-inputs mb-4">
+                                                                    <label for="{{$item->slug}}-title">Title</label> 
+                                                                    <input type="text" name="{{$item->slug}}[title]" id="{{$item->slug}}-title"  class="form-control  @error($item->slug.'.title') is-invalid @enderror"  value="{{old($item->slug.'.title')}}" >
+                                                                    @error($item->slug.'.title')
+                                                                        <div class="invalid-feedback">{{ $message }} </div>
+                                                                    @enderror 
+                                                                </div>
+                                                            </div>
+                                                        </div>  
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <div class="form-data">
+                                                                <div class="forms-inputs mb-4"> 
+                                                                    <label for="{{$item->slug}}-icon">Subscription Basic Amount </label> 
+                                                                    <input type="text" name="{{$item->slug}}[basic_amount]"  class="form-control @error($item->slug.'.basic_amount') is-invalid @enderror"  value="{{ old($item->slug.'.basic_amount') }}">
+                                                                    @error($item->slug.'.basic_amount')
+                                                                        <div class="invalid-feedback">{{ $message }} </div>
+                                                                    @enderror 
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <div class="form-data">
+                                                                <div class="forms-inputs mb-4"> 
+                                                                    <label for="{{$item->slug}}-combo_amount">Subscription Combo Amount</label> 
+                                                                    <input type="text" name="{{$item->slug}}[combo_amount]"  class="form-control @error($item->slug.'.combo_amount') is-invalid @enderror"  value="{{ old($item->slug.'.combo_amount') }}">
+                                                                    @error($item->slug.'.combo_amount')
+                                                                        <div class="invalid-feedback">{{ $message }} </div>
+                                                                    @enderror 
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <div class="form-data">
+                                                                <div class="forms-inputs mb-4">
+                                                                    <label for="{{$item->slug}}-icon">Icon</label> 
+                                                                    <input type="file" id="{{$item->slug}}-icon"  class="form-control  @error($item->slug.'.icon') is-invalid @enderror" >
+                                                                    <input type="hidden" id="{{$item->slug}}-icon-input" name="{{$item->slug}}[icon]" value="{{old($item->slug.'.icon',$item->icon)}}">
+                                                                    @error($item->slug.'.icon')
+                                                                        <div class="invalid-feedback">{{ $message }} </div>
+                                                                    @enderror 
+                                                                </div>
+                                                            </div>
+                                                        </div> 
+                                                        <div class="form-group" id="{{$item->slug}}-icon-preview"> 
+                                                            @if(!empty(old($item->slug.'.icon',$item->icon)))
+                                                            <img src="{{url("/d0"."/".old($item->slug.'.icon',$item->icon))}}" alt="">
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <div class="form-data">
+                                                                <div class="forms-inputs mb-4">
+                                                                    <label for="{{$item->slug}}-content">Content</label>
+                                                                    <textarea name="{{$item->slug}}[content]" id="{{$item->slug}}-content" class="form-control texteditor" >{{old($item->slug.'.content',$item->content)}}</textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <button type="submit" class="btn btn-dark"  name="subscription_plan" value="{{$item->slug}}" > Save</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+
                         </div>
-                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div> --}}
-                        <div class="tab-pane fade @if (!empty(old('subscription-payment-add'))) show active @endif " id="add-price" role="tabpanel" aria-labelledby="add-price-tab">
-                            <div class="payment-title">
-                                <h3>Subscription Plan</h3>
-                            </div>
+                        @endforeach  
+                        <div class="tab-pane fade @if (!empty(old('subscription-payment-add'))||count($plans)==0) show active @endif " id="add-price" role="tabpanel" aria-labelledby="add-price-tab">
                             <div class="amount-form">
                                 <div class="amout-item">
                                     <div class="amout-item-content">
@@ -61,7 +202,7 @@
                                                         <div class="form-group">
                                                             <div class="form-data">
                                                                 <div class="forms-inputs mb-4"> 
-                                                                    <label for="payment-icon">Subscription Basic Amount </label> 
+                                                                    <label for="payment-basic_amount">Subscription Basic Amount </label> 
                                                                     <input type="text" name="payment[basic_amount]"  class="form-control @error('payment.basic_amount') is-invalid @enderror"  value="{{ old('payment.basic_amount') }}">
                                                                     @error('payment.basic_amount')
                                                                         <div class="invalid-feedback">{{ $message }} </div>
@@ -74,7 +215,7 @@
                                                         <div class="form-group">
                                                             <div class="form-data">
                                                                 <div class="forms-inputs mb-4"> 
-                                                                    <label for="payment-icon">Subscription Combo Amount</label> 
+                                                                    <label for="payment-combo_amount">Subscription Combo Amount</label> 
                                                                     <input type="text" name="payment[combo_amount]"  class="form-control @error('payment.combo_amount') is-invalid @enderror"  value="{{ old('payment.combo_amount') }}">
                                                                     @error('payment.combo_amount')
                                                                         <div class="invalid-feedback">{{ $message }} </div>
@@ -119,7 +260,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-12">
-                                                        <button type="submit" class="btn btn-dark"  name="subscription-payment-add" value="Add" id="subscription-payment-form-submit"> + Add</button>
+                                                        <button type="submit" class="btn btn-dark"  name="subscription-payment-add" value="Add" > + Add</button>
                                                     </div>
                                                 </div>
                                             </form>
@@ -128,171 +269,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-
-
-
-
-
-
-
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="payment-title">
-                                <h3>Subscription Base Plan</h3>
-                            </div>
-                            <div class="amount-form">
-                                <div class="amout-item">
-                                    <div class="amout-item-content">
-                                        <div class="form">
-                                            <form action="{{ route('admin.payment-price.store') }}" method="post">
-                                                @csrf
-                                                <input type="hidden" name="name"
-                                                    value="stripe.subscription.payment.amount">
-                                                <div class="row">
-                                                    <div class="col-md-8">
-                                                        <div class="form-group">
-                                                            <div class="form-data">
-                                                                <div class="forms-inputs mb-4">
-                                                                    @if (!empty(old('subscription-payment-form-submit')))
-                                                                        <input type="text" name="amount"
-                                                                            placeholder="Subscription Amount"
-                                                                            class="form-control @error('amount') is-invalid @enderror"
-                                                                            value="{{ old('amount', get_option('stripe.subscription.payment.amount-price', '')) }}">
-                                                                        @error('amount')
-                                                                            <div class="invalid-feedback">{{ $message }}
-                                                                            </div>
-                                                                        @enderror
-                                                                    @else
-                                                                        <input type="text" name="amount"
-                                                                            placeholder="Subscription Amount"
-                                                                            class="form-control"
-                                                                            value="{{ get_option('stripe.subscription.payment.amount-price', '') }}">
-                                                                    @endif
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <button type="submit" class="btn btn-dark"
-                                                            name="subscription-payment-form-submit" value="Save"
-                                                            id="subscription-payment-form-submit"> Save</button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="payment-title">
-                                <h3>Subscription Combo Plan</h3>
-                            </div>
-                            <div class="amount-form">
-                                <div class="amout-item">
-                                    <div class="amout-item-content">
-                                        <div class="form">
-                                            <form action="{{ route('admin.payment-price.store') }}" method="post">
-                                                @csrf
-                                                <input type="hidden" name="name"
-                                                    value="stripe.subscription.payment.combo-amount">
-                                                <div class="row">
-                                                    <div class="col-md-8">
-                                                        <div class="form-group">
-                                                            <div class="form-data">
-                                                                <div class="forms-inputs mb-4">
-                                                                    @if (!empty(old('combo-subscription-payment-form-submit')))
-                                                                        <input type="text" name="amount"
-                                                                            placeholder="Subscription Amount"
-                                                                            class="form-control @error('amount') is-invalid @enderror"
-                                                                            value="{{ old('amount', get_option('stripe.subscription.payment.combo-amount-price', '')) }}">
-                                                                        @error('amount')
-                                                                            <div class="invalid-feedback">{{ $message }}
-                                                                            </div>
-                                                                        @enderror
-                                                                    @else
-                                                                        <input type="text" name="amount"
-                                                                            placeholder="Subscription Amount"
-                                                                            class="form-control"
-                                                                            value="{{ get_option('stripe.subscription.payment.combo-amount-price', '') }}">
-                                                                    @endif
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <button type="submit" class="btn btn-dark"
-                                                            name="combo-subscription-payment-form-submit" value="Save"
-                                                            id="subscription-payment-form-submit"> Save</button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="payment-title">
-                                <h3>Intensive Workshop Plan</h3>
-                            </div>
-                            <div class="amount-form">
-                                <div class="amout-item">
-                                    <div class="amout-item-content">
-                                        <div class="form">
-                                            <form action="{{ route('admin.payment-price.store') }}" method="post">
-                                                @csrf
-                                                <input type="hidden" name="name"
-                                                    value="stripe.workshop.payment.amount">
-                                                <div class="row">
-                                                    <div class="col-md-8">
-                                                        <div class="form-group">
-                                                            <div class="form-data">
-                                                                <div class="forms-inputs mb-4">
-                                                                    @if (!empty(old('workshop-payment-form-submit')))
-                                                                        <input type="text" name="amount"
-                                                                            class="form-control @error('amount') is-invalid @enderror"
-                                                                            placeholder="Workshop Amount"
-                                                                            value="{{ old('amount', get_option('stripe.workshop.payment.amount-price', '')) }}">
-                                                                        @error('amount')
-                                                                            <div class="invalid-feedback">{{ $message }}
-                                                                            </div>
-                                                                        @enderror
-                                                                    @else
-                                                                        <input type="text" name="amount"
-                                                                            class="form-control "
-                                                                            placeholder="Workshop Amount"
-                                                                            value="{{ get_option('stripe.workshop.payment.amount-price', '') }}">
-                                                                    @endif
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <button type="submit" class="btn btn-dark"
-                                                            id="workshop-payment-form-submit"
-                                                            name="workshop-payment-form-submit" value="Save">
-                                                            Save</button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    </div> 
+                </div> 
             </div>
         </div>
     </section>

@@ -8,36 +8,43 @@ use App\Support\Helpers\OptionHelper;
 use App\Support\Plugin\Payment;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str; 
 
 class SubscriptionPaymentController extends Controller
 {
     use ResourceController;
     public function index(Request $request){
-        return view('admin.payment-price.index');
+        $plans=SubscriptionPlan::where('id','>',0)->get();
+        return view('admin.payment-price.index',compact('plans'));
     }
     public function store(Request $request){
         $request->validate([
-            "amount"=>['required','numeric','min:1','max:100000'],
-            'name'=>['required']
+            "payment"=>['required'],
+            "payment.amount"=>['required','numeric','min:1','max:100000'],
+            'payment.title'=>['required'],
+            'payment.content'=>['nullable'],
+            'payment.icon'=>['nullable']
         ]);
+        $amount=$request->payment["amount"];
+        $title=$request->payment["title"];
+        $content=$request->payment["content"];
+        $icon=$request->payment["icon"];
         $price=Payment::stripe()->prices->create([
             'currency' => config('stripe.currency'),
-            'unit_amount' => intval($request->amount*100),
-            'product_data' => ['name' => config('app.name','Cortex').' Amount :'.(intval($request->amount*100)/100).' For '.ucfirst($request->name)],
+            'unit_amount' => intval($amount*100),
+            'product_data' => ['name' => config('app.name','Cortex').' Amount :'.(intval($amount*100)/100).' For '.ucfirst($title)],
             'metadata'=>[
                 'modify_time'=>date('Y-m-d h:i a'),
-                'old_key'=>OptionHelper::getData($request->name,''),
-                'old_value'=>OptionHelper::getData($request->name."-price",''),
+                'title'=>$title, 
             ]
-        ]);
-
-        OptionHelper::setData($request->name,$price->id);
-        OptionHelper::setData($request->name."-price",$price->unit_amount/100);
-         
+        ]); 
         SubscriptionPlan::store([
-            "name"=>$request->name,
+            "name"=>Str::slug($title),
+            "title"=>$title,
+            "content"=>$content,
             'amount'=>$price->unit_amount/100,
-            'stripe_id'=>$price->id
+            'stripe_id'=>$price->id,
+            'icon'=>$icon,
         ]);
 
         if($request->ajax()){
