@@ -174,8 +174,7 @@
         </div>
     </section>
 
-
-    {{-- <section class="process-wrapp">
+{{-- <section class="process-wrapp">
     <div class="container">
         <div class="process-row">
             <div class="process-col1">
@@ -209,12 +208,19 @@
 
 
 
-    <section class="process-wrapp">
+    {{-- <section class="process-wrapp">
         <div class="container">
             <div class="process-row">
                 <div class="process-col1">
-                    <h3 class="highlight">OUR PROCESS</h3>
-                    <h2>Unique <span>Preparation</span> Process</h2>
+                    @if (!empty($banner->ourprocesstitle))
+                    <h3 class="highlight">{{ $banner->ourprocesstitle }}</h3>
+                @endif
+
+                <h2>
+                    @if (!empty($banner->ourprocesssubtitle))
+                        {!! $banner->ourprocesssubtitle !!}
+                    @endif
+                </h2>
                 </div>
 
                 <div class="process-col2">
@@ -300,7 +306,47 @@
         </div>
     </section>
 
+ --}}
 
+
+ <section class="process-wrapp">
+    <div class="container">
+        <div class="process-row">
+            <div class="process-col1">
+                @if (!empty($banner->ourprocesstitle))
+                    <h3 class="highlight">{{ $banner->ourprocesstitle }}</h3>
+                @endif
+
+                <h2>
+                    @if (!empty($banner->ourprocesssubtitle))
+                        {!! $banner->ourprocesssubtitle !!}
+                    @endif
+                </h2>
+            </div>
+
+            <div class="process-col2">
+                <div class="sticky-cards">
+                    @foreach ($ourprocess as  $k => $p)
+                        <div class="card-3 card-{{ $p->id }} _{{ $p->id }}">
+                            <div class="card-icon-container">
+                                <div class="process-icon">
+                                    <img src="{{ url('assets/images/' . $p->ourprocessimage) }}" alt="{{ $p->icon_alt }}">
+                                </div>
+                                <div class="card-number">@if($k < 10)0{{ $k+1 }} @else{{ $k+1 }} @endif</div>
+                            </div>
+                            <div class="card-text-container-2">
+                                <div class="card-title">@if (!empty($p->ourprocessheading))
+                                    {!! $p->ourprocessheading !!}
+                                @endif</div>
+                                {{-- <p class="card-text">{{!! $p->ourprocessdescription !!}}</p> --}}
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
     <section class="features-wrapp1">
         <div class="container">
