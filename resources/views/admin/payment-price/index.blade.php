@@ -96,7 +96,7 @@
                                                             <div class="form-data">
                                                                 <div class="forms-inputs mb-4">
                                                                     <label for="{{$item->slug}}-title">Title</label> 
-                                                                    <input type="text" name="{{$item->slug}}[title]" id="{{$item->slug}}-title"  class="form-control  @error($item->slug.'.title') is-invalid @enderror"  value="{{old($item->slug.'.title')}}" >
+                                                                    <input type="text" name="{{$item->slug}}[title]" id="{{$item->slug}}-title"  class="form-control  @error($item->slug.'.title') is-invalid @enderror"  value="{{old($item->slug.'.title',$item->title)}}" >
                                                                     @error($item->slug.'.title')
                                                                         <div class="invalid-feedback">{{ $message }} </div>
                                                                     @enderror 
@@ -109,7 +109,7 @@
                                                             <div class="form-data">
                                                                 <div class="forms-inputs mb-4"> 
                                                                     <label for="{{$item->slug}}-icon">Subscription Basic Amount </label> 
-                                                                    <input type="text" name="{{$item->slug}}[basic_amount]"  class="form-control @error($item->slug.'.basic_amount') is-invalid @enderror"  value="{{ old($item->slug.'.basic_amount') }}">
+                                                                    <input type="text" name="{{$item->slug}}[basic_amount]"  class="form-control @error($item->slug.'.basic_amount') is-invalid @enderror"  value="{{ old($item->slug.'.basic_amount',$item->basic_amount) }}">
                                                                     @error($item->slug.'.basic_amount')
                                                                         <div class="invalid-feedback">{{ $message }} </div>
                                                                     @enderror 
@@ -122,7 +122,7 @@
                                                             <div class="form-data">
                                                                 <div class="forms-inputs mb-4"> 
                                                                     <label for="{{$item->slug}}-combo_amount">Subscription Combo Amount</label> 
-                                                                    <input type="text" name="{{$item->slug}}[combo_amount]"  class="form-control @error($item->slug.'.combo_amount') is-invalid @enderror"  value="{{ old($item->slug.'.combo_amount') }}">
+                                                                    <input type="text" name="{{$item->slug}}[combo_amount]"  class="form-control @error($item->slug.'.combo_amount') is-invalid @enderror"  value="{{ old($item->slug.'.combo_amount',$item->combo_amount) }}">
                                                                     @error($item->slug.'.combo_amount')
                                                                         <div class="invalid-feedback">{{ $message }} </div>
                                                                     @enderror 
