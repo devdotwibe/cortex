@@ -45,4 +45,7 @@ class SubscriptionPaymentController extends Controller
         }
         return redirect()->back()->with('success',"Amount Updated");
     }
+    public function history(Request $request){
+        return view('admin.payment-price.history');
+    }
 }
