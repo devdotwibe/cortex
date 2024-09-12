@@ -88,7 +88,7 @@
                                 <div class="amout-item">
                                     <div class="amout-item-content">
                                         <div class="form">
-                                            <form action="{{ route('admin.payment-price.update',$item->slug) }}" method="post">
+                                            <form action="{{ route('admin.payment-price.update',$item->slug) }}" name="{{$item->name}}" method="post">
                                                 @csrf 
                                                 <div class="row">
                                                     <div class="col-md-4">
