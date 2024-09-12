@@ -205,10 +205,10 @@
                     @php
 
                         $tabs = [
-                                ['id' => 'tab1', 'name' => 'Tab 1'],
-                                ['id' => 'tab2', 'name' => 'Tab 2'],
-                                ['id' => 'tab3', 'name' => 'Tab 3'],
-                                ['id' => 'tab4', 'name' => 'Tab 4']
+                                ['id' => 'tab1', 'name' => 'Tab 1','section' => 'tab_1'],
+                                ['id' => 'tab2', 'name' => 'Tab 2','section' => 'tab_2'],
+                                ['id' => 'tab3', 'name' => 'Tab 3','section' => 'tab_3'],
+                                ['id' => 'tab4', 'name' => 'Tab 4','section' => 'tab_4']
                             ];
 
                     @endphp
@@ -216,7 +216,7 @@
                     <ul class="nav nav-tabs" id="section2Tabs" role="tablist">
                         @foreach($tabs as $tab)
                             <li class="nav-item" role="presentation" data-tab-id="{{ $tab['id'] }}">
-                                <a class="nav-link @if (old('sub_section') == $tab['id']) active @endif" 
+                                <a class="nav-link @if (old('sub_section') == $tab['id'] && session('tab_1') == true) active @endif" 
                                    id="{{ $tab['id'] }}-tab" 
                                    data-bs-toggle="tab" 
                                    href="#{{ $tab['id'] }}" 
