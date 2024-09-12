@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::table('subscription_plans', function (Blueprint $table) {
             $table->string('title')->nullable();
+            $table->string('combo_amount')->nullable();
+            $table->string('basic_amount')->nullable();
             $table->text('content')->nullable();
             $table->text('icon')->nullable();
         });
@@ -24,7 +26,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('subscription_plans', function (Blueprint $table) {
-            //
+            $table->dropColumn(['title','content','icon']);
         });
     }
 };
