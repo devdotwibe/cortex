@@ -48,6 +48,9 @@
             ]' /> 
          
         <div class="row mt-3">
+            <div class="col-md-12">
+                <h3>Transation History</h3>
+            </div>
             <x-ajax-table :coloumns='[
                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
                 ["th"=>"Type","name"=>"stype","data"=>"stype"],

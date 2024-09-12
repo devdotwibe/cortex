@@ -10,6 +10,7 @@
 .htaccess
 git-update.php
 index.php
+package-lock.json
 .env.backup
 .env.production
 .phpactor.json
