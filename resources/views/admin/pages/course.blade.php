@@ -838,6 +838,17 @@
     <script>
         CKEDITOR.replaceAll('texteditor');
 
+        $(function() {
+            $("#section2Tabs").sortable({
+                update: function(event, ui) {
+                    var tabOrder = [];
+                    $("#section2Tabs li").each(function() {
+                        tabOrder.push($(this).data('tab-id'));
+                    });
+                    saveTabOrder(tabOrder);
+                }
+            });
+        });
 
 
 
