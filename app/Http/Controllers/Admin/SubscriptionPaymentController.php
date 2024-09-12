@@ -98,7 +98,7 @@ class SubscriptionPaymentController extends Controller
             'metadata'=>[
                 'modify_time'=>date('Y-m-d h:i a'),
                 'title'=>$title,
-                "old_key"=>$subscriptionPlan->basic_amount_id, 
+                "old_key"=>$subscriptionPlan->basic_amount_id??"-", 
             ]
         ]); 
         $price2=Payment::stripe()->prices->create([
@@ -108,7 +108,7 @@ class SubscriptionPaymentController extends Controller
             'metadata'=>[
                 'modify_time'=>date('Y-m-d h:i a'),
                 'title'=>$title, 
-                "old_key"=>$subscriptionPlan->combo_amount_id,
+                "old_key"=>$subscriptionPlan->combo_amount_id??"-",
             ]
         ]); 
         $subscriptionPlan->update([
