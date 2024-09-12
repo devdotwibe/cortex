@@ -33,8 +33,8 @@ class SubscriptionPaymentController extends Controller
         $icon=$request->payment["icon"];
         $price1=Payment::stripe()->prices->create([
             'currency' => config('stripe.currency'),
-            'unit_amount' => intval($combo_amount*100),
-            'product_data' => ['name' => config('app.name','Cortex').' Amount :'.(intval($combo_amount*100)/100).' For '.ucfirst($title)],
+            'unit_amount' => intval($basic_amount*100),
+            'product_data' => ['name' => config('app.name','Cortex').' Amount :'.(intval($basic_amount*100)/100).' For '.ucfirst($title)],
             'metadata'=>[
                 'modify_time'=>date('Y-m-d h:i a'),
                 'title'=>$title, 
@@ -77,23 +77,24 @@ class SubscriptionPaymentController extends Controller
     }
 
     public function update(Request $request,SubscriptionPlan $subscriptionPlan){
+        $field=$subscriptionPlan->slug;
         $request->validate([
-            "payment"=>['required'],
-            "payment.basic_amount"=>['required','numeric','min:1','max:100000'],
-            "payment.combo_amount"=>['required','numeric','min:1','max:100000'],
-            'payment.title'=>['required'],
-            'payment.content'=>['nullable'],
-            'payment.icon'=>['nullable']
+            "$field"=>['required'],
+            "$field.basic_amount"=>['required','numeric','min:1','max:100000'],
+            "$field.combo_amount"=>['required','numeric','min:1','max:100000'],
+            "$field.title"=>['required'],
+            "$field.content"=>['nullable'],
+            "$field.icon"=>['nullable']
         ]);
-        $basic_amount=$request->payment["basic_amount"];
-        $combo_amount=$request->payment["combo_amount"];
-        $title=$request->payment["title"];
-        $content=$request->payment["content"];
-        $icon=$request->payment["icon"];
+        $basic_amount=$request->$field["basic_amount"];
+        $combo_amount=$request->$field["combo_amount"];
+        $title=$request->$field["title"];
+        $content=$request->$field["content"];
+        $icon=$request->$field["icon"];
         $price1=Payment::stripe()->prices->create([
             'currency' => config('stripe.currency'),
-            'unit_amount' => intval($combo_amount*100),
-            'product_data' => ['name' => config('app.name','Cortex').' Amount :'.(intval($combo_amount*100)/100).' For '.ucfirst($title)],
+            'unit_amount' => intval($basic_amount*100),
+            'product_data' => ['name' => config('app.name','Cortex').' Amount :'.(intval($basic_amount*100)/100).' For '.ucfirst($title)],
             'metadata'=>[
                 'modify_time'=>date('Y-m-d h:i a'),
                 'title'=>$title,
