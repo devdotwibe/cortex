@@ -87,6 +87,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::post('/',[SubscriptionPaymentController::class,'store'])->name('store');
             Route::get('/history',[SubscriptionPaymentController::class,'history'])->name('history');
             Route::put('/{subscription_plan}/update',[SubscriptionPaymentController::class,'update'])->name('update');
+            Route::delete('/{subscription_plan}/destroy',[SubscriptionPaymentController::class,'destroy'])->name('destroy');
         });
 
         Route::prefix('full-mock-exam')->name('full-mock-exam.')->group(function () {
