@@ -86,6 +86,9 @@
                         <div class="tab-pane fade  @if(old('subscription_plan')==$item->slug||($k==0&&empty(old('subscription_plan')))) show active @endif " id="price{{$k}}" role="tabpanel" aria-labelledby="price{{$k}}-tab">
                             <div class="amount-form">
                                 <div class="amout-item">
+                                    <div class="amout-item-action">
+                                        <button  class="btn btn-danger" onclick="removeplan('{{route('admin.payment-price.destroy',$item->slug)}}')"> Delete <img src="{{asset('assets/images/delete.svg')}}" alt=""></button>
+                                    </div>
                                     <div class="amout-item-content">
                                         <div class="form">
                                             <form action="{{ route('admin.payment-price.update',$item->slug) }}" name="{{$item->name}}" method="post">
@@ -279,8 +282,37 @@
 @endsection
 
 
+@push('modals') 
+
+    <div class="modal fade" id="plan-delete" tabindex="-1" role="dialog"
+        aria-labelledby="planLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="planLablel">Delete Confirmation Required</h5>
+                    <button type="button" class="close"  data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <form action=""  id="plan-delete-form" method="post">
+                        @csrf
+                        @method("DELETE")
+                        <p>Are you sure you want to delete the record </p>
+                        <button type="button" data-bs-dismiss="modal"   class="btn btn-secondary">Cancel</button><button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+@endpush
+
 @push('footer-script')
     <script>
+        function removeplan(url){            
+            $('#plan-delete-form').attr(url)
+            $('#plan-delete').modal('show')
+        }
 
         CKEDITOR.replaceAll('texteditor')
     </script>
