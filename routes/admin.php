@@ -85,6 +85,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::prefix('payment-price')->name('payment-price.')->group(function () {
             Route::get('/',[SubscriptionPaymentController::class,'index'])->name('index');
             Route::post('/',[SubscriptionPaymentController::class,'store'])->name('store');
+            Route::get('/history',[SubscriptionPaymentController::class,'history'])->name('history');
         });
 
         Route::prefix('full-mock-exam')->name('full-mock-exam.')->group(function () {
