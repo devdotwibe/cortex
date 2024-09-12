@@ -1,8 +1,7 @@
 <?php
 namespace App\Http\Controllers\User;
 
-use App\Http\Controllers\Controller;
-use App\Models\Subscription;
+use App\Http\Controllers\Controller; 
 use Illuminate\Http\Request;
 
 
@@ -26,21 +25,21 @@ class StripeWebHookController extends Controller
             case 'payment_intent.succeeded':
                 $paymentIntent= $event->data->object;
                 $paymentIntentId=$paymentIntent->id;
-                $subscription =Subscription::where('payment_id',$paymentIntentId)->first();
-                if($subscription){
-                    $subscription->status ='active';
-                    $subscription->save();
-                }
+                // $subscription =Subscription::where('payment_id',$paymentIntentId)->first();
+                // if($subscription){
+                //     $subscription->status ='active';
+                //     $subscription->save();
+                // }
                 return response()->json(['status'=>'success','message'=>'Payment succeeded and subscription activated']);
 
             case 'payment_intent.payment_failed':
                 $paymentIntent = $event->data->object;
                 $paymentIntentId= $paymentIntent->id;
-                $subscription = Subscription::where('payment_id',$paymentIntentId)->first();
-                if($subscription){
-                    $subscription->status='inactive';
-                    $subscription->save();
-                }
+                // $subscription = Subscription::where('payment_id',$paymentIntentId)->first();
+                // if($subscription){
+                //     $subscription->status='inactive';
+                //     $subscription->save();
+                // }
                 return response()->json(['status'=>'success','message'=>'Payment failed']);
             default:
                return response()->json(['status'=>'success','message'=>'Received unexpected value']);
