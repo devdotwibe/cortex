@@ -48,8 +48,6 @@ class DatabaseSeeder extends Seeder
 
         $insertData = [];
 
-        $insertData = [];
-
         for ($i = 0; $i < count($tabs1); $i++) {
             $insertData[] = [
                 'tab_id_1'   => $tabs1[$i]['tab_id_1'],
@@ -64,6 +62,6 @@ class DatabaseSeeder extends Seeder
         DB::table('tab_orders')->truncate();
 
         DB::table('tab_orders')->insert($insertData);
-        
+
     }
 }
