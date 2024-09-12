@@ -247,7 +247,10 @@
                                                         </div> 
                                                         <div class="form-group" id="payment-icon-preview"> 
                                                             @if(!empty(old('payment.icon')))
-                                                            <img src="{{url("/d0"."/".old('payment.icon'))}}" alt="">
+                                                                <img src="{{url("/d0"."/".old('payment.icon'))}}" alt="">
+                                                                <button onclick="removeicon('payment')">
+                                                                    <img src="{{asset('assets/images/delete-icon.svg')}}" alt="">
+                                                                </button>
                                                             @endif
                                                         </div>
                                                     </div>
@@ -315,6 +318,50 @@
             $('#plan-delete-form').attr('action',url)
             $('#plan-delete').modal('show')
         }
+        async function removeicon(formID){
+            if(await showConfirm({title: "Are you sure you want to delete the Image"})){
+                $(`#${formID}-icon-input`).val('')
+                $(`#${formID}-icon-preview`).html(``)
+                $(`#${formID}-icon`).val('')
+            }
+        }
+        $(".icon-file").change(function(e){
+            const files=e.target.files;
+            const formID = $(this).data("id");
+            if(files.length>0){
+                var formData = new FormData();
+                formData.append("file", file);
+                formData.append("foldername", "subscription");
+                var toastId = showToast('Uploading... 0%', 'info', false);
+
+                $.ajax({
+                    url : "{{route('admin.upload')}}",
+                    type : 'POST',
+                    data : formData,
+                    processData: false,
+                    contentType: false,
+                    xhr: function() {
+                        var xhr = new window.XMLHttpRequest();
+                        xhr.upload.addEventListener('progress', function(event) {
+                            if (event.lengthComputable) {
+                                var percentComplete = Math.round((event.loaded / event.total) * 100);
+                                updateToast(toastId, `Uploading... ${percentComplete}%`, 'info');
+                            }
+                        }, false);
+                        return xhr;
+                    },
+                    success: function(response) {
+                        updateToast(toastId, 'Upload complete!', 'success');
+                        $(`#${formID}-icon-input`).val(response.path)
+                        $(`#${formID}-icon-preview`).html(`<img src="${response.url}" alt="">`)
+                        $(`#${formID}-icon`).val('')
+                    },
+                    error: function(xhr, status, error) { 
+                        updateToast(toastId, 'Upload failed.', 'danger'); 
+                    }
+                });
+            }
+        })
         CKEDITOR.replaceAll('texteditor')
     </script>
 @endpush
