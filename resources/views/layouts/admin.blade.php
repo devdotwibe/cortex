@@ -29,7 +29,7 @@
     @stack('style')
 
     <script src="{{ asset('assets/js/jquery-3.7.0.min.js') }}"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="{{ asset('assets/js/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
 
     @stack('header-script')
