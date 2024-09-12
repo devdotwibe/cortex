@@ -214,10 +214,9 @@
                     @endphp --}}
 
                     <ul class="nav nav-tabs" id="section2Tabs" role="tablist">
-                        @foreach($tabs1 as $k => $tab)
+                        @foreach($tabs1 as $tab)
                             <li class="nav-item" role="presentation" data-tab-id="{{ $tab['tab_id_1'] }}">
-
-                                <a class="nav-link @if($k ==0 &&  old('sub_section')=="" || old('sub_section') == $tab['tab_id_1'] || ($tab['tab_id_1'] == 'tab1' && old('sub_section')=="" ) ) active @elseif( old('sub_section') == $tab['tab_id_1'] || ($tab['tab_id_1'] == 'tab1' ) ) active @endif" 
+                                <a class="nav-link @if (old('sub_section') == $tab['tab_id_1'] || ($tab['tab_id_1'] == 'tab1' && old('sub_section')=="" ) || session('tab_1') == true) active @endif" 
                                    id="{{ $tab['tab_id_1'] }}-tab" 
                                    data-bs-toggle="tab" 
                                    href="#{{ $tab['tab_id_1'] }}" 
