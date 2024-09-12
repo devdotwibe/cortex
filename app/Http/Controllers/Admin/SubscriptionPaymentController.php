@@ -20,19 +20,30 @@ class SubscriptionPaymentController extends Controller
     public function store(Request $request){
         $request->validate([
             "payment"=>['required'],
-            "payment.amount"=>['required','numeric','min:1','max:100000'],
+            "payment.basic_amount"=>['required','numeric','min:1','max:100000'],
+            "payment.combo_amount"=>['required','numeric','min:1','max:100000'],
             'payment.title'=>['required'],
             'payment.content'=>['nullable'],
             'payment.icon'=>['nullable']
         ]);
-        $amount=$request->payment["amount"];
+        $basic_amount=$request->payment["basic_amount"];
+        $combo_amount=$request->payment["combo_amount"];
         $title=$request->payment["title"];
         $content=$request->payment["content"];
         $icon=$request->payment["icon"];
-        $price=Payment::stripe()->prices->create([
+        $price1=Payment::stripe()->prices->create([
             'currency' => config('stripe.currency'),
-            'unit_amount' => intval($amount*100),
-            'product_data' => ['name' => config('app.name','Cortex').' Amount :'.(intval($amount*100)/100).' For '.ucfirst($title)],
+            'unit_amount' => intval($combo_amount*100),
+            'product_data' => ['name' => config('app.name','Cortex').' Amount :'.(intval($combo_amount*100)/100).' For '.ucfirst($title)],
+            'metadata'=>[
+                'modify_time'=>date('Y-m-d h:i a'),
+                'title'=>$title, 
+            ]
+        ]); 
+        $price2=Payment::stripe()->prices->create([
+            'currency' => config('stripe.currency'),
+            'unit_amount' => intval($combo_amount*100),
+            'product_data' => ['name' => config('app.name','Cortex').' Amount :'.(intval($combo_amount*100)/100).' For '.ucfirst($title)],
             'metadata'=>[
                 'modify_time'=>date('Y-m-d h:i a'),
                 'title'=>$title, 
@@ -42,8 +53,10 @@ class SubscriptionPaymentController extends Controller
             "name"=>Str::slug($title),
             "title"=>$title,
             "content"=>$content,
-            'amount'=>$price->unit_amount/100,
-            'stripe_id'=>$price->id,
+            'basic_amount'=>$price1->unit_amount/100,
+            'basic_amount_id'=>$price1->id,
+            'combo_amount'=>$price2->unit_amount/100,
+            'combo_amount_id'=>$price2->id,
             'icon'=>$icon,
         ]);
 
