@@ -3,6 +3,7 @@
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserCourseController;
+use App\Http\Controllers\UserPriceController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\User\AnalyticsController;
 use App\Http\Controllers\User\CommunityController;
@@ -245,3 +246,6 @@ Route::post('/contact-submit', [UserCourseController::class, 'submit'])->name('c
 
 
 Route::middleware('signed')->get('email/{id}/{hash}/verify', [HomeController::class, 'verifyemail'])->name('verification.verify');
+
+
+Route::get('/price', [UserPriceController::class, 'index'])->name('price.index');

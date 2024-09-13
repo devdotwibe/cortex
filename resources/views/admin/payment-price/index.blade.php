@@ -11,6 +11,33 @@
 
     <section class="invite-wrap mt-2">
         <div class="payment-wrap">
+
+
+             <!-- Tabs Navigation -->
+             <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link @if (old('section') == 'section1' || old('section') == '') active @endif" id="section1-tab"
+                        data-bs-toggle="tab" href="#section1" role="tab" aria-controls="section1"
+                        aria-selected="@if (old('section') == 'section1' || old('section') == '') true @else false @endif">Section 1</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link @if (old('section') == 'section2') active @endif" id="section2-tab"
+                        data-bs-toggle="tab" href="#section2" role="tab" aria-controls="section2"
+                        aria-selected="@if (old('section') == 'section2') true @else false @endif">Section 2</a>
+                </li>
+
+            </ul>
+
+
+
+   <!-- Tabs Content -->
+   <div class="tab-content" id="myTabContent">
+    
+    <div class="tab-pane fade  @if (old('section', 'save') == 'save') show active @endif" id="section1"
+        role="tabpanel" aria-labelledby="section1-tab">
+       
+
+                                        
             <div class="row">
                 <div class="col-md-12">
                     <div class="payment-workshop mb-2">
