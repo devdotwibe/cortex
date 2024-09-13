@@ -26,7 +26,7 @@
     <section class="price-wrapp">
         <div class="container">
             <div class="price-row1">
-                <div class="gif"><img src="./assets/images/loader.gif" alt=""></div>
+                <div class="gif"><img src="{{assets("assets/images/loader.gif")}}" alt=""></div>
                 <h2>Access a Thinking Skills Test for Free</h2>
                 <p>No payment details required</p>
                 <a href="" class="join-btn">Join for free</a>
