@@ -55,27 +55,30 @@
                                             ${v.note||""}
                                         </div>
                                     </div>
-                                    <div id="mcq-${lesseonId}-ans" class="form-group">
-                                        <div class="form-data" >
-                                            <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list"> 
-                                                
-                                            </div> 
+                                    <div class="mcq-group-right">
+                                        <div id="mcq-${lesseonId}-ans" class="form-group">
+                                            <div class="form-data" >
+                                                <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list"> 
+                                                    
+                                                </div> 
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div id="mcq-${lesseonId}-explanation"> 
-                                        <label>Correct Answer <span id="mcq-${lesseonId}-correct"></span></label>
-                                        ${v.explanation||''}
-                                    </div>
+                                        <div id="mcq-${lesseonId}-explanation"> 
+                                            <label>Correct Answer <span id="mcq-${lesseonId}-correct"></span></label>
+                                            ${v.explanation||''}
+                                        </div>
 
-                                    <div id="mcq-${lesseonId}-ans-progress" class="form-group">
-                                        <div class="form-data" >
-                                            <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list-progress"> 
-                                                
-                                            </div> 
+                                        <div id="mcq-${lesseonId}-ans-progress" class="form-group">
+                                            <div class="form-data" >
+                                                <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list-progress"> 
+                                                    
+                                                </div> 
+                                            </div>
+                                            <div>
+                                                <p>You spent ${v.time_taken||0} seconds on this question. The average student spent ${v.total_user_taken_time||0} seconds on this question<p>
+                                            </div>
                                         </div>
-                                        <div>
-                                            <p>You spent ${v.time_taken||0} seconds on this question. The average student spent ${v.total_user_taken_time||0} seconds on this question<p>
-                                        </div>
+
                                     </div>
                                 </div>
                             </div>
