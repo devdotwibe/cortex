@@ -1783,6 +1783,23 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .card-links .card-body .session-links .btn-outline-warning:hover { background: #FBAE1E;}
 
 
+.card-calendar .card-body { padding: 30px;}
+.card-calendar .card-body h3 { font-size: 24px; color: #000000; font-weight: 400; margin: 0 0 26px;}
+.card-calendar .card-body .calendar { width: 100%;}
+.card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view { justify-content: space-between; border-radius: 10px;}
+.card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month { width: 50% !important; border-right: 1px solid #ddd;}
+.card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view::-webkit-scrollbar {  display: none;}
+.card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month:last-child { border: navajowhite;}
+.card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month .fc-multimonth-header table thead tr th { border: none; font-size: 12px;}
+.card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month .fc-multimonth-header table thead tr th .fc-col-header-cell-cushion { color: #000000;}
+.card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month table tbody tr td { border: none; padding: 1%; vertical-align: middle;}
+.card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month table tbody tr td .fc-daygrid-day-frame { min-height: auto;}
+.card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month table tbody tr td .fc-daygrid-day-frame .fc-daygrid-day-top { position: relative; z-index: 9; justify-content: center; align-items: center; margin: 3px 0 0;}
+.card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month table tbody tr td .fc-daygrid-day-frame .fc-daygrid-day-top .fc-daygrid-day-number { color: #000;  font-size: 12px;}
+.card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month table tbody tr td .fc-daygrid-day-frame .fc-daygrid-day-events { width: 100%; height: 100%; top: 0;}
+.card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month table tbody tr td .fc-daygrid-day-frame .fc-daygrid-day-events .fc-event { min-height: 20px;}
+
+
 
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
