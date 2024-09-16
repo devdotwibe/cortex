@@ -9,6 +9,7 @@ use App\Models\Courses;
 use App\Models\Feature;
 use App\Models\OurProcess;
 use App\Models\Feed;
+use App\Models\SubscriptionPlan;
 use App\Models\User;
 use App\Models\FaqCategory;
 use App\Models\UserProgress;
@@ -365,6 +366,7 @@ class HomeController extends Controller
     }
 
     public function price(Request $request){
-        return view('price.index');
+        $subscriptionPlans = SubscriptionPlan::all();
+        return view("price",compact('subscriptionPlans'));
     }
 }
