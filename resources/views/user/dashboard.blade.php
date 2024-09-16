@@ -78,15 +78,15 @@
                         <div class="calendar-footer" > 
                             <div class="row">
                                 <div class="col-md-4">
-                                    <span class="colorspan" style="background-color: #E1E1E1"></span>
+                                    <span class="colorspan nodata" ></span>
                                     <span>No practice completed</span>
                                 </div>
                                 <div class="col-md-4">
-                                    <span class="colorspan" style="background-color: #94F3AB"></span>
+                                    <span class="colorspan somedata" ></span>
                                     <span>Some practice completed</span>
                                 </div>
                                 <div class="col-md-4">
-                                    <span class="colorspan" style="background-color: #00D734"></span>
+                                    <span class="colorspan lotsdata"></span>
                                     <span>Lots practice completed</span>
                                 </div>
                             </div>
