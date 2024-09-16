@@ -15,8 +15,8 @@
                 </div>
                 <div class="banner-col2">
                     <div class="banner-img">
-                        <img src="./assets/images/home3-banner.png" alt="">
-                        <span class="banner-shape"><img src="./assets/images/bgcircleheader.png" alt=""></span>
+                        <img src="{{asset('assets/images/home3-banner.png')}}" alt="">
+                        <span class="banner-shape"><img src="{{asset("assets/images/bgcircleheader.png")}}" alt=""></span>
                     </div>
                 </div>                
             </div>
@@ -33,7 +33,42 @@
             </div>
 
             <div class="price-row2">
+                @foreach ($subscriptionPlans as $plan)
                 <div class="price-col1">
+                    <ss style="display: none">@json($plan)</ss>
+                    <div class="price-icon">
+                        <img src="{{asset("assets/images/cap.svg")}}" alt="">
+                    </div>
+                    <h2>{{$plan->title}}</h2>
+                    <h6>Valid for Year 5</h6>
+                    <h6>Access until 2026 Selective Test</h6>
+                    <p>Get exam ready with Cortex Every test comes with detailed explanations.</p>
+                    <ul>
+                        <li class="valid"><strong>16</strong> Informative Writing Lessons</li>
+                        <li class="valid"><strong>18</strong> Persuasive Writing Lessons</li>
+                        <li class="valid"><strong>16</strong> Informative Writing Lessons</li>
+                        <li class="valid"><strong>18</strong> x Thinking Skills (Full Tests & Concept Checks)</li>
+                        <li class="valid">365 Days Validity</li>
+                        <li class="valid">Detailed answer explanations</li>
+                        <li class="valid">Unlimited Test Attempts</li>
+                        <li class="valid"><strong>1</strong> x Vocabulary Booklet</li>
+                        <li class="invalid">2 x Writing Tests with feedback</li>
+                        <li class="invalid">NEW Thinking Skills Course</li>
+                        <li class="invalid">NEW Reading Course</li>
+                        <li class="invalid">NEW Mathematical Reasoning Tests</li>
+                        <li class="invalid">First Priority to New Resources</li>
+                        <li class="invalid">Informative Writing Lessons</li>
+                    </ul>
+
+                    <h6>FROM <span>$120</span></h6>
+                    <div class="price-detail">
+                        <h5>GROUP: <span>$120</span></h5>
+                        <h5>INDIVIDUAL: <span>$160</span></h5>
+                    </div>
+                    <a href="" class="buy-btn">Buy Now</a>
+                </div>
+                @endforeach
+                {{-- <div class="price-col1">
                     <div class="price-icon">
                         <img src="./assets/images/cap.svg" alt="">
                     </div>
@@ -127,7 +162,7 @@
                         <h5>INDIVIDUAL: <span>$160</span></h5>
                     </div>
                     <a href="" class="buy-btn">Buy Now</a>
-                </div>
+                </div> --}}
             </div>
             <div class="note">
                 <h3><span>GROUP:</span> More than 1000 questions to practise from that covers all areas of Thinking Skills. </h3>
