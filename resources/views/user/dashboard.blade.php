@@ -53,7 +53,7 @@
 <section class="content_section"> 
     <div class="row"> 
         <div class="col-md-6">
-            <div class="card mb-3">
+            <div class="card mb-3 card-links">
                 <div class="card-body"> 
                     <h3>Continue Where You Left Off</h3>
                     <div class="session-links">
@@ -63,7 +63,7 @@
                     </div> 
                 </div>
             </div>
-            <div class="card">
+            <div class="card card-calendar">
                 <div class="card-body">
                     <h3>Calendar</h3>
                     <div class="calendar">
@@ -80,7 +80,7 @@
             </div>
         </div>
         <div class="col-md-6">
-            <div class="card">
+            <div class="card card-graph">
                 <div class="card-body">
                     <div class="overview-graph">
                         <div class="overview-graph-body">
@@ -101,7 +101,7 @@
                 </div>
             </div>
 
-            <div class="card mt-3">
+            <div class="card mt-3 card-progress">
                 <div class="card-body"> 
                     <h3>Completion Status</h3>
                     <div class="row">
