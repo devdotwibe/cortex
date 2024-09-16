@@ -2,14 +2,14 @@
 @section('title', $exam->subtitle($category->id,"Topic ".($category->getIdx()+1)).':'.$category->name)
 @section('content')
 <section class="exam-container">
-    <div class="container-wrap">
+    <div class="container-wrap mcq-container-wrap question-bank-review">
         <div class="lesson">            
             <a class="lesson-exit float-start" href="{{route('question-bank.show',$category->slug)}}">
                 <img src="{{asset("assets/images/exiticon.svg")}}" alt="exiticon">
             </a>
-            <div class="lesson-title">
+            {{-- <div class="lesson-title">
                 <h3><span>{{$exam->subtitle($category->id,"Topic ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h3>
-            </div>
+            </div> --}}
             <div class="lesson-body"> 
                 <div class="row" id="lesson-questionlist-list" style="display: none">
                 </div>
@@ -49,8 +49,11 @@
                                     <span>${v.title||""}</span>
                                 </div>
                                 <div class="mcq-container">
-                                    <div id="mcq-${lesseonId}">
-                                        ${v.note||""}
+                                    <div class="mcq-group">
+                                        <h3><span>{{$exam->subtitle($category->id,"Topic ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h3>
+                                        <div id="mcq-${lesseonId}">
+                                            ${v.note||""}
+                                        </div>
                                     </div>
                                     <div id="mcq-${lesseonId}-ans" class="form-group">
                                         <div class="form-data" >
