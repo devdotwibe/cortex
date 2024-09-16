@@ -75,6 +75,22 @@
                         </div>
                         <div class="calendar-footer" id="calendar-exam-data"> 
                         </div>
+                        <div class="calendar-footer" > 
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <span class="colorspan" style="background-color: #E1E1E1"></span>
+                                    <span>No practice completed</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span class="colorspan" style="background-color: #94F3AB"></span>
+                                    <span>Some practice completed</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span class="colorspan" style="background-color: #00D734"></span>
+                                    <span>Lots practice completed</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
