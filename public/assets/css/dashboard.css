@@ -1801,6 +1801,15 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .card-calendar .card-body .calendar .calendar-body .fc-header-toolbar .fc-toolbar-chunk h2 { font-size: 28px;}
 
 
+.card-progress .card-body {padding: 30px;}
+.card-progress .card-body h3 { font-size: 20px; font-weight: 400; margin: 0 0 24px;}
+.card-progress .card-body .session-chart { width: 100%; text-align: center;}
+.card-progress .card-body  .session-text { text-align: center; font-size: 20px; font-weight: 400; margin: 5px 0 0;}
+.card-progress .card-body .session-chart .donut-inner { margin: 10px 0 0; font-size: 20px; font-weight: 400;}
+
+
+
+
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
 
