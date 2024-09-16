@@ -1755,7 +1755,7 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .exam-container .question-bank .lesson .lesson-body .mcq-container .mcq-group { width: 50%; padding: 0 35px 0 0;}
 .exam-container .question-bank .lesson .lesson-body .mcq-container .mcq-answer { width: 50%; padding: 0 0 0 35px;}
 .exam-container .question-bank .lesson .lesson-body .mcq-container:after { content: ""; position: absolute; width: 1px; height: 100%; top: 0; left: 50%; transform: translateX(-50%); background: #1599f2;}
-
+.exam-container .question-bank .lesson .lesson-body .mcq-container .mcq-group h3 {font-size: 20px; font-weight: 500; color: #000000; margin: 0 0 20px;}
 
 
 @media screen and (max-width:1500px) {
