@@ -377,11 +377,11 @@
                     data: [{{$practiceprogress??0}}, {{100-($practiceprogress??0)}}],
                     backgroundColor: [
                         '#FFCD56', 
-                        '#AFAFAF',
+                        '#E1E1E1',
                     ],
                     borderColor:[
                         '#FFCD56', 
-                        "#AFAFAF"
+                        "#E1E1E1"
                     ],
                     hoverOffset: 4
                 }
@@ -415,11 +415,11 @@
                     data: [{{$topiclateprogress??0}}, {{100-($topiclateprogress??0)}}],
                     backgroundColor: [
                         '#198754', 
-                        '#AFAFAF',
+                        '#E1E1E1',
                     ],
                     borderColor:[
                         '#198754', 
-                        "#AFAFAF"
+                        "#E1E1E1"
                     ],
                     hoverOffset: 4
                 }
@@ -453,11 +453,11 @@
                     data: [{{$moclateprogress??0}}, {{100-($moclateprogress??0)}}],
                     backgroundColor: [
                         '#EB0606', 
-                        '#AFAFAF',
+                        '#E1E1E1',
                     ],
                     borderColor:[
                         '#EB0606', 
-                        "#AFAFAF"
+                        "#E1E1E1"
                     ],
                     hoverOffset: 4
                 }
