@@ -42,12 +42,11 @@
                     <h2>{{$plan->title}}</h2>
                     <div class="content">
                         {!!$plan->content!!}
-                    </div>
-
-                    <h6>FROM <span>$120</span></h6>
+                    </div> 
+                    <h6>FROM @if(($plan->basic_amount??0)<($plan->combo_amount)) <span>${{$plan->basic_amount??0}}</span> @else <span>${{$plan->combo_amount??0}}</span> @endif </h6>
                     <div class="price-detail">
-                        <h5>GROUP: <span>$120</span></h5>
-                        <h5>INDIVIDUAL: <span>$160</span></h5>
+                        <h5>GROUP: <span>${{$plan->combo_amount}}</span></h5>
+                        <h5>INDIVIDUAL: <span>${{$plan->basic_amount??0}}</span></h5>
                     </div>
                     <a href="" class="buy-btn">Buy Now</a>
                 </div>
