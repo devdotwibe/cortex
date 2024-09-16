@@ -159,10 +159,10 @@
                         <a href="{{route('pricing.index')}}">
                     @endif
                         <span class="side-icon" >
-                            <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
+                            <img src="{{asset("assets/images/icons/analytic.svg")}}" alt="Dashboard">
                         </span>
                         <span class="active-icon">
-                            <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Dashboard">
+                            <img src="{{asset("assets/images/iconshover/analytic.svg")}}" alt="Dashboard">
                         </span>
                         Analytics
                     </a>
