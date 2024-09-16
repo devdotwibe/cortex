@@ -37,28 +37,12 @@
                 <div class="price-col1">
                     <ss style="display: none">@json($plan)</ss>
                     <div class="price-icon">
-                        <img src="{{asset("assets/images/cap.svg")}}" alt="">
+                        <img @if(empty($plan->icon)) src="{{asset("assets/images/cap.svg")}}" @else src="{{url("d0/{$plan->icon}")}}" @endif alt="">
                     </div>
                     <h2>{{$plan->title}}</h2>
-                    <h6>Valid for Year 5</h6>
-                    <h6>Access until 2026 Selective Test</h6>
-                    <p>Get exam ready with Cortex Every test comes with detailed explanations.</p>
-                    <ul>
-                        <li class="valid"><strong>16</strong> Informative Writing Lessons</li>
-                        <li class="valid"><strong>18</strong> Persuasive Writing Lessons</li>
-                        <li class="valid"><strong>16</strong> Informative Writing Lessons</li>
-                        <li class="valid"><strong>18</strong> x Thinking Skills (Full Tests & Concept Checks)</li>
-                        <li class="valid">365 Days Validity</li>
-                        <li class="valid">Detailed answer explanations</li>
-                        <li class="valid">Unlimited Test Attempts</li>
-                        <li class="valid"><strong>1</strong> x Vocabulary Booklet</li>
-                        <li class="invalid">2 x Writing Tests with feedback</li>
-                        <li class="invalid">NEW Thinking Skills Course</li>
-                        <li class="invalid">NEW Reading Course</li>
-                        <li class="invalid">NEW Mathematical Reasoning Tests</li>
-                        <li class="invalid">First Priority to New Resources</li>
-                        <li class="invalid">Informative Writing Lessons</li>
-                    </ul>
+                    <div class="content">
+                        {!!$plan->content!!}
+                    </div>
 
                     <h6>FROM <span>$120</span></h6>
                     <div class="price-detail">
