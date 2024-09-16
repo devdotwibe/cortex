@@ -35,11 +35,12 @@
             <div class="price-row2">
                 @foreach ($subscriptionPlans as $plan)
                 <div class="price-col1">
+                    <ss style="display: none">@json($plan)</ss>
                     <div class="price-icon">
                         <img src="{{asset("assets/images/cap.svg")}}" alt="">
                     </div>
                     <h2>{{$plan->title}}</h2>
-                    <h6>Valid for Year 5 {{$plan->title}}</h6>
+                    <h6>Valid for Year 5</h6>
                     <h6>Access until 2026 Selective Test</h6>
                     <p>Get exam ready with Cortex Every test comes with detailed explanations.</p>
                     <ul>
