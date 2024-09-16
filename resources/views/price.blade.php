@@ -15,8 +15,8 @@
                 </div>
                 <div class="banner-col2">
                     <div class="banner-img">
-                        <img src="./assets/images/home3-banner.png" alt="">
-                        <span class="banner-shape"><img src="./assets/images/bgcircleheader.png" alt=""></span>
+                        <img src="{{asset('assets/images/home3-banner.png')}}" alt="">
+                        <span class="banner-shape"><img src="{{asset("assets/images/bgcircleheader.png")}}" alt=""></span>
                     </div>
                 </div>                
             </div>
@@ -36,9 +36,9 @@
                 @foreach ($subscriptionPlans as $plan)
                 <div class="price-col1">
                     <div class="price-icon">
-                        <img src="./assets/images/cap.svg" alt="">
+                        <img src="{{asset("assets/images/cap.svg")}}" alt="">
                     </div>
-                    <h2>Trainee</h2>
+                    <h2>{{$plan->title}}</h2>
                     <h6>Valid for Year 5</h6>
                     <h6>Access until 2026 Selective Test</h6>
                     <p>Get exam ready with Cortex Every test comes with detailed explanations.</p>
