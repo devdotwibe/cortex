@@ -53,11 +53,11 @@
         </div>
         
     </div>
-    <div class="container-wrap" id="question-answer-page">
+    <div class="container-wrap  mcq-container-wrap question-bank" id="question-answer-page">
         <div class="lesson">  
-            <div class="lesson-title">
+            {{-- <div class="lesson-title">
                 <h3><span>{{$exam->subtitle($category->id,"Topic ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h3>
-            </div>
+            </div> --}}
             <div class="lesson-body"> 
                 <div class="row" id="lesson-questionlist-list" style="display: none">
                 </div>
@@ -419,8 +419,11 @@
                                         <span>${v.title||""}</span>
                                     </div>
                                     <div class="mcq-container">
-                                        <div id="mcq-${lesseonId}" class="mcq-description">
-                                            ${v.description}
+                                        <div class="mcq-group">
+                                            <h3><span>{{$exam->subtitle($category->id,"Topic ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h3>
+                                            <div id="mcq-${lesseonId}" class="mcq-description">
+                                                ${v.description}
+                                            </div>
                                         </div>
                                         <div class="mcq-answer">
                                             <div id="mcq-${lesseonId}-ans" class="form-group" >
