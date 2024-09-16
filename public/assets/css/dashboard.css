@@ -1759,6 +1759,31 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .exam-container .question-bank .lesson .lesson-body .mcq-container .mcq-group h3 {font-size: 20px; font-weight: 500; color: #000000; margin: 0 0 20px;}
 
 
+.exam-container .question-bank-review { max-width: 100%; padding: 0; position: relative;}
+.exam-container .question-bank-review .lesson .lesson-body { margin: 0;}
+.exam-container .question-bank-review .lesson .lesson-body .mcq-container { width: 100%; display: flex; flex-wrap: wrap;  padding: 50px 50px 0;  position: relative;}
+.exam-container .question-bank-review .lesson .lesson-body .mcq-container .mcq-group { width: 50%; padding: 0 35px 0 0;}
+.exam-container .question-bank-review .lesson .lesson-body .mcq-container .mcq-group-right { width: 50%;  padding: 0 0 0 35px;}
+.exam-container .question-bank-review .lesson .lesson-body  .col-md-12 { padding: 0;}
+.exam-container .question-bank-review .lesson  .lesson-exit { position: absolute; top: 50px; left: 40px;}
+.exam-container .question-bank-review .lesson .lesson-body h3 { font-size: 20px; font-weight: 500; color: #000000; margin: 0 0 20px; padding: 0 0 0 35px;}
+.exam-container .question-bank-review .lesson .lesson-body .mcq-container:after { content: ""; position: absolute; width: 1px; height: 100%; top: 0; left: 50%; transform: translateX(-50%);  background: #1599f2;}
+.exam-container .question-bank-review .lesson #lesson-footer-pagination { margin: 30px 0; display: inline-block;}
+.exam-container .question-bank-review .lesson #lesson-footer-pagination button.btn { display: inline-block;}
+
+
+.card-links {border: none; border-radius: 10px;}
+.card-links .card-body { padding: 25px; text-align: center;}
+.card-links .card-body h3 { font-size: 18px; font-weight: 400; margin: 0 0 20px;}
+.card-links .card-body .session-links { width: 100%;}
+.card-links .card-body .session-links .btn-outline-secondary { border: 1px solid #17C274; color: #000000; font-size: 18px;}
+.card-links .card-body .session-links .btn-outline-warning { border: 1px solid #FBAE1E; color: #000; font-size: 18px;}
+.card-links .card-body .session-links span { display: inline-block; margin: 0 10px; font-size: 18px;}
+.card-links .card-body .session-links .btn-outline-secondary:hover { background: #17C274;}
+.card-links .card-body .session-links .btn-outline-warning:hover { background: #FBAE1E;}
+
+
+
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
 
