@@ -1731,6 +1731,7 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .exam-container .summery-wrap .summery-action .btn { background: #FBAE1E; padding: 10px 50px; color: #FFFFFF; font-size: 16px; margin: 0 auto;}
 .exam-container .summery-wrap .summery-action .btn:hover { color: #FBAE1E; background: none;}
 .exam-result .exam-result-content .card-body { border: 1px solid #cfcfcf; text-align: center;}
+.modal-expand.modal-expand-result-section .exam-result .exam-result-content { text-align: center;}
 
 .question-preview .question-preview-body .card {border: none; text-align: left;}
 .question-preview .question-preview-body .card .exam-mark-body { padding: 0;}
