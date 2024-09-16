@@ -339,11 +339,11 @@
                     data: [{{$learnprogress??0}}, {{100-($learnprogress??0)}}],
                     backgroundColor: [
                         '#36A2EB', 
-                        '#AFAFAF',
+                        '#E1E1E1',
                     ],
                     borderColor:[
                         '#36A2EB', 
-                        "#AFAFAF"
+                        "#E1E1E1"
                     ],
                     hoverOffset: 4
                 }
