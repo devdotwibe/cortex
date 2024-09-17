@@ -217,7 +217,13 @@
                 <h3 class="highlight">Our Courses</h3>
                 <h2>Need help? Have a question?</h2>
 
-                <div id="form-messages" class="btn-success"></div>
+                <div  class="btn-success"></div>
+                <div class="alert alert-primary alert-dismissible fade show"id="form-messages">
+                   
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+
+
 
                 <form id="contact_form" action="" method="post">
                     @csrf <!-- Include the CSRF token -->
