@@ -2,14 +2,14 @@
 @section('title', $exam->subtitle($category->id,"Topic ".($category->getIdx()+1)).':'.$category->name)
 @section('content')
 <section class="exam-container">
-    <div class="container-wrap">
+    <div class="container-wrap mcq-container-wrap question-bank-review">
         <div class="lesson">            
             <a class="lesson-exit float-start" href="{{route('question-bank.show',$category->slug)}}">
                 <img src="{{asset("assets/images/exiticon.svg")}}" alt="exiticon">
             </a>
-            <div class="lesson-title">
+            {{-- <div class="lesson-title">
                 <h3><span>{{$exam->subtitle($category->id,"Topic ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h3>
-            </div>
+            </div> --}}
             <div class="lesson-body"> 
                 <div class="row" id="lesson-questionlist-list" style="display: none">
                 </div>
@@ -49,30 +49,36 @@
                                     <span>${v.title||""}</span>
                                 </div>
                                 <div class="mcq-container">
-                                    <div id="mcq-${lesseonId}">
-                                        ${v.note||""}
-                                    </div>
-                                    <div id="mcq-${lesseonId}-ans" class="form-group">
-                                        <div class="form-data" >
-                                            <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list"> 
-                                                
-                                            </div> 
+                                    <div class="mcq-group">
+                                        <h3><span>{{$exam->subtitle($category->id,"Topic ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h3>
+                                        <div id="mcq-${lesseonId}">
+                                            ${v.note||""}
                                         </div>
                                     </div>
-                                    <div id="mcq-${lesseonId}-explanation"> 
-                                        <label>Correct Answer <span id="mcq-${lesseonId}-correct"></span></label>
-                                        ${v.explanation||''}
-                                    </div>
+                                    <div class="mcq-group-right">
+                                        <div id="mcq-${lesseonId}-ans" class="form-group">
+                                            <div class="form-data" >
+                                                <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list"> 
+                                                    
+                                                </div> 
+                                            </div>
+                                        </div>
+                                        <div id="mcq-${lesseonId}-explanation" class="mcq-explanation"> 
+                                            <label>Correct Answer <span id="mcq-${lesseonId}-correct"></span></label>
+                                            ${v.explanation||''}
+                                        </div>
 
-                                    <div id="mcq-${lesseonId}-ans-progress" class="form-group">
-                                        <div class="form-data" >
-                                            <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list-progress"> 
-                                                
-                                            </div> 
+                                        <div id="mcq-${lesseonId}-ans-progress" class="form-group">
+                                            <div class="form-data" >
+                                                <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list-progress"> 
+                                                    
+                                                </div> 
+                                            </div>
+                                            <div>
+                                                <p>You spent ${v.time_taken||0} seconds on this question. The average student spent ${v.total_user_taken_time||0} seconds on this question<p>
+                                            </div>
                                         </div>
-                                        <div>
-                                            <p>You spent ${v.time_taken||0} seconds on this question. The average student spent ${v.total_user_taken_time||0} seconds on this question<p>
-                                        </div>
+
                                     </div>
                                 </div>
                             </div>

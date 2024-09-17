@@ -85,10 +85,10 @@
                 <li class="side-item {{request()->is('admin/dashboard') ?'active':''}}">
                     <a href="{{route('admin.dashboard')}}">
                         <span class="side-icon" >
-                            <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
+                            <img src="{{asset("assets/images/iconshover/dashboard.svg")}}" alt="Dashboard">
                         </span>
                         <span class="active-icon">
-                            <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Dashboard">
+                            <img src="{{asset("assets/images/icons/dashboard.svg")}}" alt="Dashboard">
                         </span>
                         Dashboard
                     </a>
@@ -96,10 +96,10 @@
                 <li class="side-item {{request()->is('admin/user') ? 'active':''}}">
                     <a href="{{route("admin.user.index")}}">
                         <span class="side-icon" >
-                            <img src="{{asset("assets/images/Dashboard-wht.svg")}}"  alt="Users">
+                            <img src="{{asset("assets/images/iconshover/user.svg")}}"  alt="Users">
                         </span>
                         <span class="active-icon">
-                            <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Users">
+                            <img src="{{asset("assets/images/icons/user.svg")}}" alt="Users">
                         </span>
                         Users
                     </a>
@@ -109,10 +109,10 @@
                 <li class="side-item {{request()->is('admin/learn') ? 'active':''}}">
                     <a href="{{ route('admin.learn.index') }}">
                         <span class="side-icon" >
-                            <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
+                            <img src="{{asset("assets/images/iconshover/learn.svg")}}" alt="Dashboard">
                         </span>
                         <span class="active-icon">
-                            <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Dashboard">
+                            <img src="{{asset("assets/images/icons/learn.svg")}}" alt="Dashboard">
                         </span>
                         Learn
                     </a>
@@ -121,10 +121,10 @@
                 <li class="side-item side-dropdown ">
                     <a class="side-dropdown-toggle" >
                         <span class="side-icon" >
-                            <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
+                            <img src="{{asset("assets/images/iconshover/options.svg")}}" alt="Dashboard">
                         </span>
                         <span class="active-icon">
-                            <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Dashboard">
+                            <img src="{{asset("assets/images/icons/options.svg")}}" alt="Dashboard">
                         </span>
                         Options
                     </a>
@@ -135,37 +135,15 @@
                         <li class="side-item {{request()->is('admin/payment-price') ? 'active':''}} "><a href="{{route('admin.payment-price.index')}}">Price</a></li>
                         <li class="side-item {{request()->is('admin/coupon') ? 'active':''}} "><a href="{{route('admin.coupon.index')}}">Coupon</a></li>
                     </ul>
-                </li>
-                {{-- <li class="side-item {{request()->is('admin/settings') ?'active':''}}">
-                    <a href="{{ route('admin.settings.index') }}">
-                        <span class="side-icon" >
-                            <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
-                        </span>
-                        <span class="active-icon">
-                            <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Dashboard">
-                        </span>
-                        Settings
-                    </a>
-                </li> --}}
-                {{-- <li class="side-item {{request()->is('admin/question-bank-old') ? 'active':''}}">
-                    <a href="{{ route('admin.question-bank-old.index') }}">
-                        <span class="side-icon" >
-                            <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
-                        </span>
-                        <span class="active-icon">
-                            <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Dashboard">
-                        </span>
-                        Question Bank Old
-                    </a>
-                </li> --}}
+                </li> 
 
                 <li class="side-item {{request()->is('admin/question-bank') ? 'active':''}}">
                     <a href="{{ route('admin.question-bank.index') }}">
                         <span class="side-icon" >
-                            <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
+                            <img src="{{asset("assets/images/iconshover/questionbank.svg")}}" alt="Dashboard">
                         </span>
                         <span class="active-icon">
-                            <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Dashboard">
+                            <img src="{{asset("assets/images/icons/questionbank.svg")}}" alt="Dashboard">
                         </span>
                         Question Bank
                     </a>
@@ -173,10 +151,10 @@
                 <li class="side-item side-dropdown ">
                     <a class="side-dropdown-toggle" >
                         <span class="side-icon" >
-                            <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
+                            <img src="{{asset("assets/images/iconshover/examsimulator.svg")}}" alt="Dashboard">
                         </span>
                         <span class="active-icon">
-                            <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Dashboard">
+                            <img src="{{asset("assets/images/icons/examsimulator.svg")}}" alt="Dashboard">
                         </span>
                         Exam Simulator
                     </a>
@@ -189,10 +167,10 @@
                 <li class="side-item {{request()->is('admin/live-class') ? 'active':''}}">
                     <a href="{{ route('admin.live-class.index') }}">
                         <span class="side-icon" >
-                            <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
+                            <img src="{{asset("assets/images/iconshover/onlineteaching.svg")}}" alt="Dashboard">
                         </span>
                         <span class="active-icon">
-                            <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Dashboard">
+                            <img src="{{asset("assets/images/icons/onlineteaching.svg")}}" alt="Dashboard">
                         </span>
                         Live Teaching
                     </a>
@@ -202,10 +180,10 @@
                 <li class="side-item {{request()->is('admin/community') ? 'active':''}}">
                     <a href="{{ route('admin.community.index') }}">
                         <span class="side-icon" >
-                            <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
+                            <img src="{{asset("assets/images/iconshover/community.svg")}}" alt="Dashboard">
                         </span>
                         <span class="active-icon">
-                            <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Dashboard">
+                            <img src="{{asset("assets/images/icons/community.svg")}}" alt="Dashboard">
                         </span>
                         Community
                     </a>
@@ -214,10 +192,10 @@
                 <li class="side-item side-dropdown ">
                     <a class="side-dropdown-toggle" >
                         <span class="side-icon" >
-                            <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
+                            <img src="{{asset("assets/images/iconshover/pages.svg")}}" alt="Dashboard">
                         </span>
                         <span class="active-icon">
-                            <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Dashboard">
+                            <img src="{{asset("assets/images/icons/pages.svg")}}" alt="Dashboard">
                         </span>
                         Pages
                     </a>

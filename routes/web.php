@@ -246,6 +246,3 @@ Route::post('/contact-submit', [UserCourseController::class, 'submit'])->name('c
 
 
 Route::middleware('signed')->get('email/{id}/{hash}/verify', [HomeController::class, 'verifyemail'])->name('verification.verify');
-
-
-Route::get('/price', [UserPriceController::class, 'index'])->name('price.index');

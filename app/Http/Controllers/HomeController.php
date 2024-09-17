@@ -9,6 +9,7 @@ use App\Models\Courses;
 use App\Models\Feature;
 use App\Models\OurProcess;
 use App\Models\Feed;
+use App\Models\SubscriptionPlan;
 use App\Models\User;
 use App\Models\FaqCategory;
 use App\Models\UserProgress;
@@ -212,8 +213,9 @@ class HomeController extends Controller
 
     }
 
-    public function pricing(Request $request){
-        return view('pricing.index');
+    public function pricing(Request $request){ 
+        $subscriptionPlans = SubscriptionPlan::all();
+        return view("price",compact('subscriptionPlans'));
     }
     public function verifycoupon(Request $request){
         $request->validate([ 
@@ -363,8 +365,5 @@ class HomeController extends Controller
             return redirect()->back()->with('error',$th->getMessage());
         }
     }
-
-    public function price(Request $request){
-        return view('price.index');
-    }
+ 
 }

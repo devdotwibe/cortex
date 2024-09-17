@@ -275,7 +275,7 @@
 }
 nav.navbar { width: 100%;padding: 10px; position: fixed;background: #ffff;z-index: 100;box-shadow: 4px 0px 16px 0px #0000000A;left: 0;border-radius: 0 0 0 0;top: 0; border-bottom: 1px solid #dadada;}
 .navbar-brand img{height: 50px;}
-main{ margin-top: 120px;}
+main{ margin-top:87px;}
 .category{
   width: 100%;
   display: flex;
@@ -627,6 +627,7 @@ margin-left:auto;
 .exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check {
   padding-left: 45px;
   margin: 0 0 20px;
+  font-size: 20px;
 }
 
 .exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check input {
@@ -1145,6 +1146,7 @@ border-radius: 7px;
   margin:5px 15px;
   display:flex;
   align-items:center; 
+  font-size: 20px;
 }
 .form-progress-ans .form-progress label{
   width:max-content;
@@ -1154,7 +1156,7 @@ border-radius: 7px;
   width:max-content;
   min-width:400px; 
   margin: 0 5px;
-  height:10px
+  height:22px;
 }
 .form-progress-ans .form-progress progress::-webkit-progress-bar {
   background-color: #ffffff;  
@@ -1621,12 +1623,12 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .header_nav .header_wrapp {display: flex;width: 100%;flex-wrap: wrap;justify-content: space-between;align-items: center;}
 .header_nav .header_wrapp .header_title {width: auto;float: left;}
 .header_nav .header_wrapp .header_right {float: right;}
-.header_nav .header_wrapp .header_title h2 {font-size: 20px;font-weight: 600;}
+.header_nav .header_wrapp .header_title h2 {font-size: 20px;font-weight: 700;}
 .header_nav .header_wrapp .header_right ul.nav_bar {display: inline-block;}
 .header_nav .header_wrapp .header_right ul.nav_bar li.nav_item {display: inline;}
 .header_nav .header_wrapp .header_right ul.nav_bar li.nav_item a.nav_link.btn {color: #000;border: 1px solid #000;padding: 6px 27px;}
 .header_nav .header_wrapp .header_right ul.nav_bar li.nav_item a.nav_link.btn:hover {background: #000 ;color: #ffff;}
-.content_section { padding: 30px 0 20px;}
+.content_section { padding: 20px 0 20px;}
 .dash_card { background: #fff; width: 23.5%; margin: 0 2% 2% 0;  padding: 20px;  border-radius: 7px;  transition: all .5s ease-in-out;  box-shadow: 1px -1px 20px 8px #0000000A;}
 .dash_card .admin-icon { margin: 0 0 20px; display: block;  width: 80px; position: relative;}
 .dash_card .admin-icon .wht-icon {width: 100%;display: block;  opacity: 0; transition: all .25s ease-in-out;}
@@ -1708,7 +1710,7 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .modal-expand.modal-expand-result-section { position: relative; top: 0; width: 100%; margin-top: 40px; padding: 50px 0; height: 100%; min-height: 95vh; background: no-repeat;}
 .modal-expand.modal-expand-result-section .container-wrap { width: 90%; float: none;  padding: 50px;  margin: 50px auto 0;  background: #ffff;  box-shadow: 4px 0px 16px 0px #0000000A;  border-radius: 10px;  max-width: 1320px;}
 .modal-expand.modal-expand-result-section .question-preview-title h3 {  font-size: 22px;  font-weight: 500;  color: #1989F8;  padding: 20px 0;}
-.modal-expand.modal-expand-result-section .exam-result .exam-result-content .exam-mark-title {  background: #EEEEEE;}
+.modal-expand.modal-expand-result-section .exam-result .exam-result-content .exam-mark-title {  background: #EEEEEE; margin: 0 0 20px;}
 .modal-expand.modal-expand-result-section .exam-result .exam-result-content .card {  margin: 0  0 20px;}
 .modal-expand.modal-expand-result-section .exam-result .exam-result-content p {  margin: 0 0 20px;}
 .modal-expand.modal-expand-result-section .exam-result .exam-result-content .exam-mark-bottom a#review-link { background: #ECB301;  color: #fff;  border: 1px solid #ECB301;  font-size: 20px;}
@@ -1730,14 +1732,15 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .exam-container .summery-wrap .summery-action {  width: 100%;text-align: center;}
 .exam-container .summery-wrap .summery-action .btn { background: #FBAE1E; padding: 10px 50px; color: #FFFFFF; font-size: 16px; margin: 0 auto;}
 .exam-container .summery-wrap .summery-action .btn:hover { color: #FBAE1E; background: none;}
-
+.exam-result .exam-result-content .card-body { border: 1px solid #cfcfcf; text-align: center;}
+.modal-expand.modal-expand-result-section .exam-result .exam-result-content { text-align: center;}
 
 .question-preview .question-preview-body .card {border: none; text-align: left;}
 .question-preview .question-preview-body .card .exam-mark-body { padding: 0;}
 .question-preview .question-preview-body .card .mark-label { margin: 0 0 20px; display: block; font-size: 17px;}
 .question-preview .question-preview-body .card .mark-title h3 { font-size: 18px;}
 .question-preview .question-preview-body .card .mark-title h3 { color: #000; font-weight: 500; margin: 0 0 20px;}
-.question-preview .question-preview-body .card .mark-label span {display: block; margin: 0 0 5px;}
+.question-preview .question-preview-body .card .mark-label span {display: inline; margin: 0 0 5px;}
 .question-preview .question-preview-body .exam-result { text-align: left;}
 .question-preview .question-preview-body .exam-result p { font-size: 18px; margin: 0 0 20px;}
 .question-preview .question-preview-body .exam-result .exam-mark-bottom a#review-link { color: #fff; background: #FFA800; border: 1px solid #FFA800;}
@@ -1747,6 +1750,75 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .exam-overview .exam-overview-content table { border-radius: 10px; border-collapse: separate; overflow: hidden; min-width: 900px; border: 1px solid #D0D0D0;}
 .exam-overview .exam-overview-content .overview-table { overflow-x: auto;}
 .exam-overview .exam-overview-content table tr th { border-color: rgb(0 0 0 / 10%) !important; background: #ECECEC;}
+
+
+
+.exam-container .question-bank {padding: 0; max-width: 100%;}
+.exam-container .question-bank .lesson .lesson-body .mcq-container {width: 100%; padding: 50px; display: flex; flex-wrap: wrap; justify-content: space-between; position: relative;}
+.exam-container .question-bank .lesson .lesson-body .mcq-container .mcq-group { width: 50%; padding: 0 35px 0 0;}
+.exam-container .question-bank .lesson .lesson-body .mcq-container .mcq-answer { width: 50%; padding: 0 0 0 35px;}
+.exam-container .question-bank .lesson .lesson-body .mcq-container:after { content: ""; position: absolute; width: 1px; height: 100%; top: 0; left: 50%; transform: translateX(-50%); background: #1599f2;}
+.exam-container .question-bank .lesson .lesson-body .mcq-container .mcq-group h3 {font-size: 20px; font-weight: 500; color: #000000; margin: 0 0 20px;}
+
+
+.exam-container .question-bank-review { max-width: 100%; padding: 0; position: relative;}
+.exam-container .question-bank-review .lesson .lesson-body { margin: 0;}
+.exam-container .question-bank-review .lesson .lesson-body .mcq-container { width: 100%; display: flex; flex-wrap: wrap;  padding: 50px 50px 0;  position: relative;}
+.exam-container .question-bank-review .lesson .lesson-body .mcq-container .mcq-group { width: 50%; padding: 0 35px 0 0;}
+.exam-container .question-bank-review .lesson .lesson-body .mcq-container .mcq-group-right { width: 50%;  padding: 0 0 0 35px;}
+.exam-container .question-bank-review .lesson .lesson-body  .col-md-12 { padding: 0;}
+.exam-container .question-bank-review .lesson  .lesson-exit { position: absolute; top: 50px; left: 40px;}
+.exam-container .question-bank-review .lesson .lesson-body h3 { font-size: 20px; font-weight: 500; color: #000000; margin: 0 0 20px; padding: 0 0 0 35px;}
+.exam-container .question-bank-review .lesson .lesson-body .mcq-container:after { content: ""; position: absolute; width: 1px; height: 100%; top: 0; left: 50%; transform: translateX(-50%);  background: #1599f2;}
+.exam-container .question-bank-review .lesson #lesson-footer-pagination { margin: 30px 0; display: inline-block;}
+.exam-container .question-bank-review .lesson #lesson-footer-pagination button.btn { display: inline-block;}
+.exam-container .question-bank-review .lesson .lesson-body .mcq-container .mcq-group-right .mcq-explanation { font-size: 20px; font-weight: 600; margin: 0 0 20px;}
+
+
+.card-links {border: none; border-radius: 10px;}
+.card-links .card-body { padding: 25px; text-align: center;}
+.card-links .card-body h3 { font-size: 18px; font-weight: 400; margin: 0 0 20px;}
+.card-links .card-body .session-links { width: 100%;}
+.card-links .card-body .session-links .btn-outline-secondary { border: 1px solid #17C274; color: #000000; font-size: 18px;}
+.card-links .card-body .session-links .btn-outline-warning { border: 1px solid #FBAE1E; color: #000; font-size: 18px;}
+.card-links .card-body .session-links span { display: inline-block; margin: 0 10px; font-size: 18px;}
+.card-links .card-body .session-links .btn-outline-secondary:hover { background: #17C274;color: #fff;}
+.card-links .card-body .session-links .btn-outline-warning:hover { background: #FBAE1E;color: #fff;}
+
+
+.card-calendar .card-body { padding: 30px;}
+.card-calendar .card-body h3 { font-size: 20px; color: #000000; font-weight: 700; margin: 0 0 26px;}
+.card-calendar .card-body .calendar { width: 100%;}
+.card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view { justify-content: space-between; border-radius: 10px; border: none;}
+.card-calendar .card-body .calendar .calendar-body .fc-view-harness { max-height: 19.5vw;}
+.card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month { width: 50% !important;     padding: 0 10px 0 0;}
+.card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view::-webkit-scrollbar {  display: none;}
+.card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month:last-child {     padding: 0 0 0 10px;}s
+.card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month .fc-multimonth-header table thead tr th { border: none; font-size: 12px;}
+.card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month .fc-multimonth-header table thead tr th .fc-col-header-cell-cushion { color: #000000;}
+.card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month table tbody tr td { border: none; padding: 1%; vertical-align: middle;}
+.card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month table tbody tr td .fc-daygrid-day-frame { min-height: auto;}
+.card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month table tbody tr td .fc-daygrid-day-frame .fc-daygrid-day-top { position: relative; z-index: 9; justify-content: center; align-items: center; margin: 3px 0 0;}
+.card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month table tbody tr td .fc-daygrid-day-frame .fc-daygrid-day-top .fc-daygrid-day-number { color: #000;  font-size: 12px;}
+.card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month table tbody tr td .fc-daygrid-day-frame .fc-daygrid-day-events { width: 100%; height: 100%; top: 0;}
+.card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month table tbody tr td .fc-daygrid-day-frame .fc-daygrid-day-events .fc-event { min-height: 20px;}
+.card-calendar .card-body .calendar .calendar-body .fc-header-toolbar .fc-toolbar-chunk h2 { font-size: 18px;}
+.card-calendar { border: none; border-radius: 10px;}
+.card-graph { border: none;  border-radius: 10px;}
+.card-progress { border: none;  border-radius: 10px;}
+.card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month .fc-multimonth-header table thead tr th { border: none;}
+.card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month table tbody tr td.fc-day-disabled { background: none;}
+
+
+.card-progress .card-body {padding: 30px;}
+.card-progress .card-body h3 { font-size: 20px; font-weight: 700; margin: 0 0 24px;}s
+.card-progress .card-body .session-chart { width: 100%; text-align: center;}
+.card-progress .card-body  .session-text { text-align: center; font-size: 18px; font-weight: 400; margin: 5px 0 0; }
+.card-progress .card-body .session-chart .donut-inner { text-align: center; margin: 10px 0 0; font-size: 18px; font-weight: 400;}
+.card-graph .overview-graph-footer .graph-filter { width: 100%; padding: 0 10px;}
+.card-graph .overview-graph-footer .graph-filter .graph-filter-btn { margin: 0 8% 0 0 !important;  font-size: 18px; color: #FFCD56; cursor: pointer;}
+.card-graph .overview-graph-footer .graph-filter .graph-filter-btn:hover {color: #212121;}
+
 
 
 
