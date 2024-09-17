@@ -1813,6 +1813,9 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .card-progress .card-body .session-chart { width: 100%; text-align: center;}
 .card-progress .card-body  .session-text { text-align: center; font-size: 18px; font-weight: 400; margin: 5px 0 0;}
 .card-progress .card-body .session-chart .donut-inner { margin: 10px 0 0; font-size: 18px; font-weight: 400;}
+.card-graph .overview-graph-footer .graph-filter { width: 100%; padding: 0 10px;}
+.card-graph .overview-graph-footer .graph-filter .graph-filter-btn { margin: 0 8% 0 0 !important;  font-size: 18px; color: #FFCD56; cursor: pointer;}
+.card-graph .overview-graph-footer .graph-filter .graph-filter-btn:hover {color: #212121;}
 
 
 
