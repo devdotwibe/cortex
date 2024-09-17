@@ -129,7 +129,7 @@ class HomeController extends Controller
     }
     public function verificationnotice()
     {
-        return view('auth.verify-email');
+        return view('notice.verify-email');
     }
     public function verificationresend(Request $request){
         if ($request->user()->hasVerifiedEmail()) {
@@ -364,6 +364,10 @@ class HomeController extends Controller
         } catch (\Throwable $th) {
             return redirect()->back()->with('error',$th->getMessage());
         }
+    }
+    public function subscriptionnotice()
+    {
+        return view('notice.subscription');
     }
  
 }

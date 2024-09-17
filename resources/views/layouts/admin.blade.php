@@ -82,7 +82,7 @@
         </div>
         <div class="sidebar-content js-simplebar">
             <ul class="sidebar-nav">
-                <li class="side-item {{request()->is('admin/dashboard') ?'active':''}}">
+                {{-- <li class="side-item {{request()->is('admin/dashboard') ?'active':''}}">
                     <a href="{{route('admin.dashboard')}}">
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/iconshover/dashboard.svg")}}" alt="Dashboard">
@@ -92,7 +92,7 @@
                         </span>
                         Dashboard
                     </a>
-                </li>
+                </li> --}}
                 <li class="side-item {{request()->is('admin/user') ? 'active':''}}">
                     <a href="{{route("admin.user.index")}}">
                         <span class="side-icon" >
