@@ -194,13 +194,17 @@
                                                                 <div class="col-md-8">
                                                                     <div class="row">
                                                                         <div class="col-md-12">
-                                                                            <div class="form-group">
-                                                                                <div class="form-data price-role-switch">
-                                                                                    <label class="form-check-label" for="{{ $item->slug }}-active-toggle">Subscription</label>
-                                                                                    <div class="form-check form-switch">
-                                                                                        <input class="form-check-input" onchange="changeaction('.action-{{$item->slug}}',this.checked)" name="{{ $item->slug }}[is_external]" type="checkbox"  role="switch" id="{{ $item->slug }}-active-toggle" value="Y" @checked((old('subscription_plan','')==$item->slug&&old($item->slug . '.is_external',"")=="Y")||(empty(old('subscription_plan','')) && $item->is_external)) />
+                                                                            <div class="form-group">                                                                                
+                                                                                <div class="form-data">
+                                                                                    <div class="forms-inputs mb-4">
+                                                                                        <div class="price-role-switch">
+                                                                                            <label class="form-check-label" for="{{ $item->slug }}-active-toggle">Subscription</label>
+                                                                                            <div class="form-check form-switch">
+                                                                                                <input class="form-check-input" onchange="changeaction('.action-{{$item->slug}}',this.checked)" name="{{ $item->slug }}[is_external]" type="checkbox"  role="switch" id="{{ $item->slug }}-active-toggle" value="Y" @checked((old('subscription_plan','')==$item->slug&&old($item->slug . '.is_external',"")=="Y")||(empty(old('subscription_plan','')) && $item->is_external)) />
+                                                                                            </div>
+                                                                                            <label class="form-check-label" for="{{ $item->slug }}-active-toggle">External Link</label>
+                                                                                        </div>
                                                                                     </div>
-                                                                                    <label class="form-check-label" for="{{ $item->slug }}-active-toggle">External Link</label>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -376,9 +380,14 @@
                                                                     <div class="col-md-12">
                                                                         <div class="form-group">
                                                                             <div class="form-data">
-                                                                                <div class="form-check form-switch">
-                                                                                    <input class="form-check-input" onchange="changeaction('.action-payment',this.checked)" name="payment[is_external]" type="checkbox"  role="switch" id="payment-active-toggle" value="Y" @checked(old('payment.is_external',"")=="Y")/>
-                                                                                    <label class="form-check-label" for="payment-active-toggle">External Link</label>
+                                                                                <div class="forms-inputs mb-4">
+                                                                                    <div class="price-role-switch">
+                                                                                        <label class="form-check-label" for="payment-active-toggle">Subscription</label>
+                                                                                        <div class="form-check form-switch">
+                                                                                            <input class="form-check-input" onchange="changeaction('.action-payment',this.checked)" name="payment[is_external]" type="checkbox"  role="switch" id="payment-active-toggle" value="Y" @checked(old('payment.is_external',"")=="Y")/>
+                                                                                        </div>
+                                                                                        <label class="form-check-label" for="payment-active-toggle">External Link</label>
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
