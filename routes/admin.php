@@ -84,7 +84,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::prefix('payment-price')->name('payment-price.')->group(function () {
             Route::get('/',[SubscriptionPaymentController::class,'index'])->name('index');
             Route::post('/',[SubscriptionPaymentController::class,'store'])->name('store');
-            Route::post('/section-2', [SubscriptionPaymentController::class, 'storesection1'])->name('section2');
+            Route::post('/section-1', [SubscriptionPaymentController::class, 'storesection1'])->name('section1');
             Route::put('/{subscription_plan}/update',[SubscriptionPaymentController::class,'update'])->name('update');
             Route::delete('/{subscription_plan}/destroy',[SubscriptionPaymentController::class,'destroy'])->name('destroy');
         });

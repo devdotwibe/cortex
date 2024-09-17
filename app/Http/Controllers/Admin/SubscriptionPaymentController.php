@@ -9,6 +9,7 @@ use App\Support\Helpers\OptionHelper;
 use App\Support\Plugin\Payment;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str; 
 
 class SubscriptionPaymentController extends Controller
@@ -21,6 +22,8 @@ class SubscriptionPaymentController extends Controller
     }
     public function store(Request $request){ 
         $field='payment';
+        Session::put("__payment_price___","payment");
+        Session::put("__payment_price_form___","payment");
         $request->validate([
             "$field"=>['required'],
             "$field.basic_amount"=>['required','numeric','min:1','max:100000'],
@@ -104,6 +107,8 @@ class SubscriptionPaymentController extends Controller
     {
 
         
+        Session::put("__payment_price___","section1");
+        Session::put("__payment_price_form___","section1");
         // Validate the request data for price information
         $request->validate([
             'pricebannertitle' => 'nullable|string',
@@ -145,6 +150,10 @@ class SubscriptionPaymentController extends Controller
 
     public function update(Request $request,SubscriptionPlan $subscriptionPlan){
         $field=$subscriptionPlan->slug;
+        
+        Session::put("__payment_price___","payment");
+        Session::put("__payment_price_form___","$field");
+        
         if(($request->$field['is_external']??"")=="Y"){
 
             $request->validate([

@@ -14,16 +14,16 @@
 
 
             <!-- Tabs Navigation -->
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <ul class="nav nav-tabs"  role="tablist">
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link @if (old('section') == 'section1' || old('section') == '') active @endif" id="section1-tab"
-                        data-bs-toggle="tab" href="#section1" role="tab" aria-controls="section1"
-                        aria-selected="@if (old('section') == 'section1' || old('section') == '') true @else false @endif">Section 1</a>
+                    <a class="nav-link @if (session('__payment_price___','payment') == 'payment') active @endif" id="section-price-tab"
+                        data-bs-toggle="tab" href="#section-price" role="tab" aria-controls="section-price"
+                        @if (session('__payment_price___','payment') == 'payment')  aria-selected="true" @else aria-selected="false" @endif>Section 1</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link @if (old('section') == 'section2') active @endif" id="section2-tab"
-                        data-bs-toggle="tab" href="#section2" role="tab" aria-controls="section2"
-                        aria-selected="@if (old('section') == 'section2') true @else false @endif">Section 2</a>
+                    <a class="nav-link @if (session('__payment_price___','') == 'section1') active @endif" id="section1-tab"
+                        data-bs-toggle="tab" href="#section1" role="tab" aria-controls="section1"
+                        @if (session('__payment_price___','') == 'section1') aria-selected="true" @else aria-selected="false" @endif>Section 2</a>
                 </li>
 
             </ul>
@@ -33,8 +33,8 @@
             <!-- Tabs Content -->
             <div class="tab-content" id="myTabContent">
 
-                <div class="tab-pane fade  @if (old('section', 'save') == 'save') show active @endif" id="section1"
-                    role="tabpanel" aria-labelledby="section1-tab">
+                <div class="tab-pane fade  @if (old('section', 'save') == 'save') show active @endif" id="section-price"
+                    role="tabpanel" aria-labelledby="section-price-tab">
 
 
                     <div class="row">
@@ -97,19 +97,19 @@
                             <ul class="nav nav-tabs" id="priceTab" role="tablist">
                                 @foreach ($plans as $k => $item)
                                     <li class="nav-item" role="presentation">
-                                        <button class="nav-link @if (old('subscription_plan') == $item->slug || ($k == 0 && empty(old('subscription_plan')))) active @endif "
+                                        <button class="nav-link @if (session('__payment_price_form___','payment') == $item->slug) active @endif "
                                             id="price{{ $k }}-tab" data-bs-toggle="tab"
                                             data-bs-target="#price{{ $k }}" type="button" role="tab"
                                             aria-controls="price{{ $k }}"
-                                            @if (old('subscription_plan') == $item->slug || ($k == 0 && empty(old('subscription_plan')))) aria-selected="true" @else aria-selected="false" @endif>Subscription
+                                            @if (session('__payment_price_form___','payment') == $item->slug) aria-selected="true" @else aria-selected="false" @endif>Subscription
                                             {{ $k + 1 }}</button>
                                     </li>
                                 @endforeach
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link bg-dark @if (!empty(old('subscription-payment-add')) || count($plans) == 0) active @endif"
+                                    <button class="nav-link bg-dark @if (session('__payment_price_form___','payment') == 'payment') active @endif"
                                         id="add-price-tab" data-bs-toggle="tab" data-bs-target="#add-price" type="button"
                                         role="tab" aria-controls="add-price"
-                                        @if (!empty(old('subscription-payment-add')) || count($plans) == 0) aria-selected="true" @else aria-selected="false" @endif>
+                                        @if (session('__payment_price_form___','payment') == 'payment') aria-selected="true" @else aria-selected="false" @endif>
                                         <img src="{{ asset('assets/images/plus.svg') }}" alt=""><span
                                             class="text-white p-2">Add Subscription</span>
                                     </button>
@@ -117,7 +117,7 @@
                             </ul>
                             <div class="tab-content" id="priceTabContent">
                                 @foreach ($plans as $k => $item)
-                                    <div class="tab-pane fade  @if (old('subscription_plan') == $item->slug || ($k == 0 && empty(old('subscription_plan')))) show active @endif "
+                                    <div class="tab-pane fade  @if (session('__payment_price_form___','payment') == $item->slug) show active @endif "
                                         id="price{{ $k }}" role="tabpanel"
                                         aria-labelledby="price{{ $k }}-tab">
                                         <div class="row mb-3">
@@ -318,7 +318,7 @@
 
                                     </div>
                                 @endforeach
-                                <div class="tab-pane fade @if (!empty(old('subscription-payment-add')) || count($plans) == 0) show active @endif "
+                                <div class="tab-pane fade @if (session('__payment_price_form___','payment') == 'payment') show active @endif "
                                     id="add-price" role="tabpanel" aria-labelledby="add-price-tab">
                                     <div class="amount-form">
                                         <div class="amout-item">
@@ -510,12 +510,12 @@
                 </div>
 
 
-                    <div class="tab-pane fade @if (old('section') == 'section2') show active @endif" id="section2"
-                        role="tabpanel" aria-labelledby="section2-tab">
+                    <div class="tab-pane fade @if (old('section') == 'section1') show active @endif" id="section1"
+                        role="tabpanel" aria-labelledby="section1-tab">
                         <div class="row">
                             <div class="card">
                                 <div class="card-body">
-                                    <form action="{{ route('admin.payment-price.section2') }}" method="POST"
+                                    <form action="{{ route('admin.payment-price.section1') }}" method="POST"
                                         enctype="multipart/form-data">
                                         @csrf
                                         <div class="row">
