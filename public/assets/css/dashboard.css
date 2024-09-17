@@ -1818,7 +1818,7 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .card-graph .overview-graph-footer .graph-filter { width: 100%; padding: 0 0 0 30px;}
 .card-graph .overview-graph-footer .graph-filter .graph-filter-btn { margin: 0 8% 0 0 !important;  font-size: 18px; color: #FFCD56; cursor: pointer;}
 .card-graph .overview-graph-footer .graph-filter .graph-filter-btn:hover {color: #212121;}
-
+.card-graph h3 { font-size: 20px; color: #000000; font-weight: 700;  margin: 0 0 26px;}
 
 .card-calendar .card-body .calendar .calendar-footer { width: 100%; display: inline-block;}
 .card-calendar .card-body .calendar .calendar-footer span { display: inline-block; font-size: 13px; font-weight: 500;}
