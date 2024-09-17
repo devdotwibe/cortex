@@ -43,13 +43,13 @@
 
 
 
-                         {{-- Check if user or admin is logged in --}}
-                         @if (session('is.logined.as') == 'user' && Auth::check())
-                         {{-- User is logged in --}}
+                      
+                         {{-- @if (session('is.logined.as') == 'user' && Auth::check())
+                       
                          <li class="nav-link"><a href="#">Welcome, {{ Auth::user()->name }}</a></li>
                          <li class="nav-link"><a href="{{ route('logout') }}">Logout</a></li>
                      @elseif (session('is.logined.as') == 'admin')
-                         {{-- Admin is logged in, show admin dropdown --}}
+                       
                          <li class="nav-link dropdown">
                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin</a>
                              <ul class="dropdown-menu">
@@ -58,12 +58,13 @@
                              </ul>
                          </li>
                      @else
-                         {{-- Default for unauthenticated users --}}
+                      
                          <li class="nav-link signup-link"><a href="{{ route('register') }}">Sign Up</a></li>
                          <div class="header-btn">
                              <a href="{{ route('login') }}" class="header-btn1">Login</a>
+                             
                          </div>
-                     @endif
+                     @endif --}}
 
 
 
