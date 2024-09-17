@@ -1806,6 +1806,7 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .card-calendar { border: none; border-radius: 10px;}
 .card-graph { border: none;  border-radius: 10px;}
 .card-progress { border: none;  border-radius: 10px;}
+.card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month .fc-multimonth-header table thead tr th { border: none;}
 
 
 .card-progress .card-body {padding: 30px;}
