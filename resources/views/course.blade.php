@@ -242,7 +242,7 @@
                             <div class="error text-danger" id="phone_number_error"></div>
                         </div>
                         <div class="text-field">
-                            <input type="email" name="email" id="email" placeholder="Email">
+                            <input type="text" name="email" id="email" placeholder="Email">
                             <div class="error text-danger" id="email_error"></div>
                         </div>
                         <div class="text-field">
