@@ -197,14 +197,14 @@
                                                                             <div class="form-group">
                                                                                 <div class="form-data">
                                                                                     <div class="form-check form-switch">
-                                                                                        <input class="form-check-input" onchange="changeaction('.action-{{$item->slug}}',this.checked)" name="{{ $item->slug }}[is_external]" type="checkbox"  role="switch" id="{{ $item->slug }}-active-toggle" value="Y" @checked((old('subscription_plan','')==$item->slug&&old($item->slug . '.basic_amount',"")=="Y")||(empty(old('subscription_plan','')) && $item->is_external)) />
+                                                                                        <input class="form-check-input" onchange="changeaction('.action-{{$item->slug}}',this.checked)" name="{{ $item->slug }}[is_external]" type="checkbox"  role="switch" id="{{ $item->slug }}-active-toggle" value="Y" @checked((old('subscription_plan','')==$item->slug&&old($item->slug . '.is_external',"")=="Y")||(empty(old('subscription_plan','')) && $item->is_external)) />
                                                                                         <label class="form-check-label" for="{{ $item->slug }}-active-toggle">External Link</label>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="row action-{{$item->slug}} action-{{$item->slug}}-amount" @if((old('subscription_plan','')==$item->slug&&old($item->slug . '.basic_amount',"")=="Y")||(empty(old('subscription_plan','')) && $item->is_external)) style="display:none" @endif> 
+                                                                    <div class="row action-{{$item->slug}} action-{{$item->slug}}-amount" @if((old('subscription_plan','')==$item->slug&&old($item->slug . '.is_external',"")=="Y")||(empty(old('subscription_plan','')) && $item->is_external)) style="display:none" @endif> 
                                                                         <div class="col-md-6">
                                                                             <div class="form-group">
                                                                                 <div class="form-data">
@@ -246,7 +246,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div> 
-                                                                    <div class="row action-{{$item->slug}} action-{{$item->slug}}-ext" @if(!((old('subscription_plan','')==$item->slug&&old($item->slug . '.basic_amount',"")=="Y")||(empty(old('subscription_plan','')) && $item->is_external))) style="display:none"  @endif>
+                                                                    <div class="row action-{{$item->slug}} action-{{$item->slug}}-ext" @if(!((old('subscription_plan','')==$item->slug&&old($item->slug . '.is_external',"")=="Y")||(empty(old('subscription_plan','')) && $item->is_external))) style="display:none"  @endif>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group">
                                                                                 <div class="form-data">
@@ -372,16 +372,30 @@
                                                             </div>
                                                             <div class="col-md-8">
                                                                 <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div class="form-group">
+                                                                            <div class="form-data">
+                                                                                <div class="form-check form-switch">
+                                                                                    <input class="form-check-input" onchange="changeaction('.action-payment',this.checked)" name="payment[is_external]" type="checkbox"  role="switch" id="payment-active-toggle" value="Y" @checked(old('payment.is_external',"")=="Y")/>
+                                                                                    <label class="form-check-label" for="payment-active-toggle">External Link</label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row action-payment action-payment-amount" @if(old('payment.is_external',"")=="Y") style="display:none" @endif> 
                                                                     <div class="col-md-6">
                                                                         <div class="form-group">
                                                                             <div class="form-data">
                                                                                 <div class="forms-inputs mb-4">
-                                                                                    <label for="payment-basic_amount">Subscription
+                                                                                    <label
+                                                                                        for="payment-basic_amount">Subscription
                                                                                         Basic Amount </label>
                                                                                     <input type="text"
+                                                                                    id="payment-basic_amount"
                                                                                         name="payment[basic_amount]"
                                                                                         class="form-control @error('payment.basic_amount') is-invalid @enderror"
-                                                                                        value="{{ old('payment.basic_amount') }}">
+                                                                                        value="{{ old('payment.basic_amount', $item->basic_amount) }}">
                                                                                     @error('payment.basic_amount')
                                                                                         <div class="invalid-feedback">
                                                                                             {{ $message }} </div>
@@ -394,13 +408,52 @@
                                                                         <div class="form-group">
                                                                             <div class="form-data">
                                                                                 <div class="forms-inputs mb-4">
-                                                                                    <label for="payment-combo_amount">Subscription
+                                                                                    <label
+                                                                                        for="payment-combo_amount">Subscription
                                                                                         Combo Amount</label>
                                                                                     <input type="text"
+                                                                                        id="payment-combo_amount"
                                                                                         name="payment[combo_amount]"
                                                                                         class="form-control @error('payment.combo_amount') is-invalid @enderror"
-                                                                                        value="{{ old('payment.combo_amount') }}">
+                                                                                        value="{{ old('payment.combo_amount', $item->combo_amount) }}">
                                                                                     @error('payment.combo_amount')
+                                                                                        <div class="invalid-feedback">
+                                                                                            {{ $message }} </div>
+                                                                                    @enderror
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div> 
+                                                                <div class="row action-payment action-payment-ext" @if(old('payment.is_external',"")!=="Y") style="display:none"  @endif>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <div class="form-data">
+                                                                                <div class="forms-inputs mb-4">
+                                                                                    <label  for="payment-external_label">External  Label </label>
+                                                                                    <input type="text"  name="payment[external_label]"
+                                                                                        id="payment-external_label"
+                                                                                        class="form-control @error('payment.external_label') is-invalid @enderror"
+                                                                                        value="{{ old('payment.external_label', $item->external_label) }}">
+                                                                                    @error('payment.external_label')
+                                                                                        <div class="invalid-feedback">
+                                                                                            {{ $message }} </div>
+                                                                                    @enderror
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <div class="form-data">
+                                                                                <div class="forms-inputs mb-4">
+                                                                                    <label  for="payment-external_link">External Link</label>
+                                                                                    <input type="text"
+                                                                                        id="payment-external_link"
+                                                                                        name="payment[external_link]"
+                                                                                        class="form-control @error('payment.external_link') is-invalid @enderror"
+                                                                                        value="{{ old('payment.external_link', $item->external_link) }}">
+                                                                                    @error('payment.external_link')
                                                                                         <div class="invalid-feedback">
                                                                                             {{ $message }} </div>
                                                                                     @enderror
