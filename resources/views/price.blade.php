@@ -29,7 +29,7 @@
                 <div class="gif"><img src="{{asset("assets/images/loader.gif")}}" alt=""></div>
                 <h2>Access a Thinking Skills Test for Free</h2>
                 <p>No payment details required</p>
-                <a href="" class="join-btn">Join for free</a>
+                <a href="{{route('login')}}" class="join-btn">Join for free</a>
             </div>
 
             <div class="price-row2">
