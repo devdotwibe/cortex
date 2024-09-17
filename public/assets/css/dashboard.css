@@ -1789,7 +1789,7 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .card-calendar .card-body { padding: 30px;}
 .card-calendar .card-body h3 { font-size: 20px; color: #000000; font-weight: 700; margin: 0 0 26px;}
 .card-calendar .card-body .calendar { width: 100%;}
-.card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view { justify-content: space-between; border-radius: 10px;}
+.card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view { justify-content: space-between; border-radius: 10px; border: none;}
 .card-calendar .card-body .calendar .calendar-body .fc-view-harness { max-height: 19.5vw;}
 .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month { width: 50% !important;     padding: 0 10px 0 0;}
 .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view::-webkit-scrollbar {  display: none;}
