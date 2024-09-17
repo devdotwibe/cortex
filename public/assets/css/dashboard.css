@@ -1623,7 +1623,7 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .header_nav .header_wrapp {display: flex;width: 100%;flex-wrap: wrap;justify-content: space-between;align-items: center;}
 .header_nav .header_wrapp .header_title {width: auto;float: left;}
 .header_nav .header_wrapp .header_right {float: right;}
-.header_nav .header_wrapp .header_title h2 {font-size: 24px;font-weight: 600;}
+.header_nav .header_wrapp .header_title h2 {font-size: 24px;font-weight: 700;}
 .header_nav .header_wrapp .header_right ul.nav_bar {display: inline-block;}
 .header_nav .header_wrapp .header_right ul.nav_bar li.nav_item {display: inline;}
 .header_nav .header_wrapp .header_right ul.nav_bar li.nav_item a.nav_link.btn {color: #000;border: 1px solid #000;padding: 6px 27px;}
@@ -1787,7 +1787,7 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 
 
 .card-calendar .card-body { padding: 30px;}
-.card-calendar .card-body h3 { font-size: 24px; color: #000000; font-weight: 600; margin: 0 0 26px;}
+.card-calendar .card-body h3 { font-size: 24px; color: #000000; font-weight: 700; margin: 0 0 26px;}
 .card-calendar .card-body .calendar { width: 100%;}
 .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view { justify-content: space-between; border-radius: 10px;}
 .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month { width: 50% !important; border-right: 1px solid #ddd;}
@@ -1808,7 +1808,7 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 
 
 .card-progress .card-body {padding: 30px;}
-.card-progress .card-body h3 { font-size: 24px; font-weight: 600; margin: 0 0 24px;}
+.card-progress .card-body h3 { font-size: 24px; font-weight: 700; margin: 0 0 24px;}
 .card-progress .card-body .session-chart { width: 100%; text-align: center;}
 .card-progress .card-body  .session-text { text-align: center; font-size: 20px; font-weight: 400; margin: 5px 0 0;}
 .card-progress .card-body .session-chart .donut-inner { margin: 10px 0 0; font-size: 20px; font-weight: 400;}
