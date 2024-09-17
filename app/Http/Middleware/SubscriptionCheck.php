@@ -31,9 +31,9 @@ class SubscriptionCheck
             return $next($request);
         }
 
-        if ($user->progress('cortext-subscription-payment', '') == "paid") {
-            return $next($request);
-        }
+        // if ($user->progress('cortext-subscription-payment', '') == "paid") {
+        //     return $next($request);
+        // }
         $subscription=$user->subscription();
         if(!empty($subscription)&&$subscription->status=="subscribed"){
             return $next($request);

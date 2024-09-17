@@ -134,6 +134,7 @@ class StripePaymentController extends Controller
                     'payment_id'=>$intent->id,
                     'stripe_id' =>$payment->id,
                     'user_id'=>$user->id,
+                    'pay_by'=>$user->id,
                     'subscription_plan_id'=>$subscriptionPlan->id,
                     'payment_status'=>$intent->id,
                     'amount'=>$intent->amount/100,
@@ -170,6 +171,7 @@ class StripePaymentController extends Controller
                     'payment_status'=>$intent->status,
                     'amount'=>$intent->amount/100,
                     'status'=>"subscribed",
+                    'expire_at'=>$subscriptionPlan->end_plan,
                     'coupon'=>$coupon
                 ]);
             }

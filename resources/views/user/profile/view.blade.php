@@ -17,7 +17,7 @@
 <section class="content_section">
     <div class="container">
         <div class="row mb-3"> 
-            @if ($user->progress('cortext-subscription-payment','')=="paid")
+            @if ((optional($user->subscription())->status=="subscribed"??"")=="subscribed")
             <div class="card">
                 <div class="card-body">
                     <p> <span>Subscription Amount</span> : {{optional($user->subscription())->amount}} </p>
