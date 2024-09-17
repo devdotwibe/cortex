@@ -279,7 +279,7 @@
                     url: '{{ route("contact.submit") }}',
                     data: formData,
                     success: function(response) {
-                        $('#form-messages').text('Thank you for your message. We will get back to you soon.').show();
+                        $('#form-messages').text('Thank you for your message. We will get back to you soon.').addClass('show');
                         $('#contact_form').trigger('reset'); // Reset the form fields
                     },
                     error: function(response) {
