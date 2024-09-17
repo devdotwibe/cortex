@@ -1628,7 +1628,9 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .header_nav .header_wrapp .header_right ul.nav_bar li.nav_item {display: inline;}
 .header_nav .header_wrapp .header_right ul.nav_bar li.nav_item a.nav_link.btn {color: #000;border: 1px solid #000;padding: 6px 27px;}
 .header_nav .header_wrapp .header_right ul.nav_bar li.nav_item a.nav_link.btn:hover {background: #000 ;color: #ffff;}
-.content_section { padding: 20px 0 20px;}
+.content_section { padding: 16px 0 20px;}
+.content_section > .row { margin: 0; justify-content: space-between;}
+.content_section > .row > .col-md-6 { padding: 0; width: 49.3%;}
 .dash_card { background: #fff; width: 23.5%; margin: 0 2% 2% 0;  padding: 20px;  border-radius: 7px;  transition: all .5s ease-in-out;  box-shadow: 1px -1px 20px 8px #0000000A;}
 .dash_card .admin-icon { margin: 0 0 20px; display: block;  width: 80px; position: relative;}
 .dash_card .admin-icon .wht-icon {width: 100%;display: block;  opacity: 0; transition: all .25s ease-in-out;}
@@ -1826,7 +1828,7 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .card-calendar .card-body .calendar .calendar-footer button.btn-default { display: block; padding: 0; font-size: 13px; font-weight: 500; margin: 0 0 0; color: #FFCD56;}
 .card-calendar .card-body .calendar .calendar-footer button.btn-default:hover { color: #121212;}
 .card-calendar .card-body .calendar .calendar-footer .calendar-color-list { width: 100%;  display: flex;  flex-wrap: wrap;}
-.card-calendar .card-body .calendar .calendar-footer .calendar-color-list .calendar-color-item {width: 40%; margin: 15px 2% 0 0;}
+.card-calendar .card-body .calendar .calendar-footer .calendar-color-list .calendar-color-item {width: 48%; margin: 15px 2% 0 0;}
 .card-calendar .card-body .calendar .calendar-footer .calendar-color-list .calendar-color-item .colorspan { width: 15px; height: 15px; border-radius: 3px; margin: 0 2px -2px 0;}
 .card-calendar .card-body .calendar .calendar-footer .calendar-color-list .calendar-color-item .colorspan.nodata { border: 1px solid #E1E1E1;}
 .card-calendar .card-body .calendar .calendar-footer .calendar-color-list .calendar-color-item .colorspan.somedata { border: 1px solid #91C188;}

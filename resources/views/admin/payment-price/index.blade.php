@@ -155,48 +155,6 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        <div class="form-data">
-                                                                            <div class="forms-inputs mb-4">
-                                                                                <label
-                                                                                    for="{{ $item->slug }}-icon">Subscription
-                                                                                    Basic Amount </label>
-                                                                                <input type="text"
-                                                                                    name="{{ $item->slug }}[basic_amount]"
-                                                                                    class="form-control @error($item->slug . '.basic_amount') is-invalid @enderror"
-                                                                                    value="{{ old($item->slug . '.basic_amount', $item->basic_amount) }}">
-                                                                                @error($item->slug . '.basic_amount')
-                                                                                    <div class="invalid-feedback">
-                                                                                        {{ $message }} </div>
-                                                                                @enderror
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        <div class="form-data">
-                                                                            <div class="forms-inputs mb-4">
-                                                                                <label
-                                                                                    for="{{ $item->slug }}-combo_amount">Subscription
-                                                                                    Combo Amount</label>
-                                                                                <input type="text"
-                                                                                    name="{{ $item->slug }}[combo_amount]"
-                                                                                    class="form-control @error($item->slug . '.combo_amount') is-invalid @enderror"
-                                                                                    value="{{ old($item->slug . '.combo_amount', $item->combo_amount) }}">
-                                                                                @error($item->slug . '.combo_amount')
-                                                                                    <div class="invalid-feedback">
-                                                                                        {{ $message }} </div>
-                                                                                @enderror
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         <div class="form-data">
                                                                             <div class="forms-inputs mb-4">
@@ -233,7 +191,49 @@
                                                                         @endif
                                                                     </div>
                                                                 </div>
-                                                            </div>
+                                                                <div class="col-md-8">
+                                                                    <div class="row"> 
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group">
+                                                                                <div class="form-data">
+                                                                                    <div class="forms-inputs mb-4">
+                                                                                        <label
+                                                                                            for="{{ $item->slug }}-icon">Subscription
+                                                                                            Basic Amount </label>
+                                                                                        <input type="text"
+                                                                                            name="{{ $item->slug }}[basic_amount]"
+                                                                                            class="form-control @error($item->slug . '.basic_amount') is-invalid @enderror"
+                                                                                            value="{{ old($item->slug . '.basic_amount', $item->basic_amount) }}">
+                                                                                        @error($item->slug . '.basic_amount')
+                                                                                            <div class="invalid-feedback">
+                                                                                                {{ $message }} </div>
+                                                                                        @enderror
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group">
+                                                                                <div class="form-data">
+                                                                                    <div class="forms-inputs mb-4">
+                                                                                        <label
+                                                                                            for="{{ $item->slug }}-combo_amount">Subscription
+                                                                                            Combo Amount</label>
+                                                                                        <input type="text"
+                                                                                            name="{{ $item->slug }}[combo_amount]"
+                                                                                            class="form-control @error($item->slug . '.combo_amount') is-invalid @enderror"
+                                                                                            value="{{ old($item->slug . '.combo_amount', $item->combo_amount) }}">
+                                                                                        @error($item->slug . '.combo_amount')
+                                                                                            <div class="invalid-feedback">
+                                                                                                {{ $message }} </div>
+                                                                                        @enderror
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div> 
+                                                                </div> 
+                                                            </div> 
                                                             <div class="row">
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
