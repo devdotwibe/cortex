@@ -218,7 +218,7 @@
                 <h2>Need help? Have a question?</h2>
 
                 <div  class="btn-success"></div>
-                <div class="alert alert-primary alert-dismissible fade show"id="form-messages">
+                <div class="alert alert-success alert-dismissible fade"id="form-messages">
                    
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
