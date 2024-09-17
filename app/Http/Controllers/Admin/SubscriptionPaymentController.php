@@ -107,8 +107,7 @@ class SubscriptionPaymentController extends Controller
     {
 
         
-        Session::put("__payment_price___","section1");
-        Session::put("__payment_price_form___","section1");
+        Session::put("__payment_price___","section1"); 
         // Validate the request data for price information
         $request->validate([
             'pricebannertitle' => 'nullable|string',
