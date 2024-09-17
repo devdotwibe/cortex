@@ -110,7 +110,7 @@ class CouponController extends Controller
     {
         // Validate the request data for Section 1
         $request->validate([
-            'emailaddress' => 'nullable|string|max:255',
+            'emailaddress' => 'required|string|max:255',
            
 
         ]);
@@ -128,7 +128,7 @@ class CouponController extends Controller
 
         $setting->save();
 
-        return redirect()->route('admin.coupon.index')->with('success', 'Success.');
+        return redirect()->route('admin.coupon.index')->with('success', 'Admin Mail Updated Successfully.');
     }
 
 

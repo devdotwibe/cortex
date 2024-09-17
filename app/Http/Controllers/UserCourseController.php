@@ -32,7 +32,7 @@ public function submit(Request $request)
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'phone_number' => 'required|numeric',
-            'email' => 'required|email',
+            'email' => 'required|email:rfc,dns',
             'message' => 'required|string',
         ]);
 
