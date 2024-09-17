@@ -58,8 +58,8 @@
                                 Welcome, {{ Auth::user()->name }}
                             </a>
                             <div class="dropdown-menu" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="{{ route('.dashboard') }}">Dashboard</a>
-                                <a class="dropdown-item" href="{{ route('user.logout') }}">Logout</a>
+                                <a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a>
+                                <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
                             </div>
                         </li>
                     @elseif (session('is.logined.as') == 'admin')
