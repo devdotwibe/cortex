@@ -192,15 +192,28 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-8">
-                                                                    <div class="row"> 
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group">
+                                                                                <div class="form-data">
+                                                                                    <div class="form-check form-switch">
+                                                                                        <input class="form-check-input" name="{{ $item->slug }}[is_external]" type="checkbox"  role="switch" id="{{ $item->slug }}-active-toggle" value="Y" @checked((old('subscription_plan','')==$item->slug&&old($item->slug . '.basic_amount',"")=="Y")||(empty(old('subscription_plan','')) && $item->is_external)) />
+                                                                                        <label class="form-check-label" for="{{ $item->slug }}-active-toggle">External Link</label>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row" @if((old('subscription_plan','')==$item->slug&&old($item->slug . '.basic_amount',"")=="Y")||(empty(old('subscription_plan','')) && $item->is_external)) style="display:none" @endif> 
                                                                         <div class="col-md-6">
                                                                             <div class="form-group">
                                                                                 <div class="form-data">
                                                                                     <div class="forms-inputs mb-4">
                                                                                         <label
-                                                                                            for="{{ $item->slug }}-icon">Subscription
+                                                                                            for="{{ $item->slug }}-basic_amount">Subscription
                                                                                             Basic Amount </label>
                                                                                         <input type="text"
+                                                                                        id="{{ $item->slug }}-basic_amount"
                                                                                             name="{{ $item->slug }}[basic_amount]"
                                                                                             class="form-control @error($item->slug . '.basic_amount') is-invalid @enderror"
                                                                                             value="{{ old($item->slug . '.basic_amount', $item->basic_amount) }}">
@@ -220,6 +233,7 @@
                                                                                             for="{{ $item->slug }}-combo_amount">Subscription
                                                                                             Combo Amount</label>
                                                                                         <input type="text"
+                                                                                            id="{{ $item->slug }}-combo_amount"
                                                                                             name="{{ $item->slug }}[combo_amount]"
                                                                                             class="form-control @error($item->slug . '.combo_amount') is-invalid @enderror"
                                                                                             value="{{ old($item->slug . '.combo_amount', $item->combo_amount) }}">
@@ -232,6 +246,43 @@
                                                                             </div>
                                                                         </div>
                                                                     </div> 
+                                                                    <div class="row" @if(!((old('subscription_plan','')==$item->slug&&old($item->slug . '.basic_amount',"")=="Y")||(empty(old('subscription_plan','')) && $item->is_external))) style="display:none"  @endif>
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group">
+                                                                                <div class="form-data">
+                                                                                    <div class="forms-inputs mb-4">
+                                                                                        <label  for="{{ $item->slug }}-external_label">External  Label </label>
+                                                                                        <input type="text"  name="{{ $item->slug }}[external_label]"
+                                                                                            id="{{ $item->slug }}-external_label"
+                                                                                            class="form-control @error($item->slug . '.external_label') is-invalid @enderror"
+                                                                                            value="{{ old($item->slug . '.external_label', $item->external_label) }}">
+                                                                                        @error($item->slug . '.external_label')
+                                                                                            <div class="invalid-feedback">
+                                                                                                {{ $message }} </div>
+                                                                                        @enderror
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group">
+                                                                                <div class="form-data">
+                                                                                    <div class="forms-inputs mb-4">
+                                                                                        <label  for="{{ $item->slug }}-external_link">External Link</label>
+                                                                                        <input type="text"
+                                                                                            id="{{ $item->slug }}-external_link"
+                                                                                            name="{{ $item->slug }}[external_link]"
+                                                                                            class="form-control @error($item->slug . '.external_link') is-invalid @enderror"
+                                                                                            value="{{ old($item->slug . '.external_link', $item->external_link) }}">
+                                                                                        @error($item->slug . '.external_link')
+                                                                                            <div class="invalid-feedback">
+                                                                                                {{ $message }} </div>
+                                                                                        @enderror
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div> 
                                                             </div> 
                                                             <div class="row">
