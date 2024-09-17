@@ -59,12 +59,14 @@
                          </li>
                      @else
                       
-                         <li class="nav-link signup-link"><a href="{{ route('register') }}">Sign Up</a></li>
-                         <div class="header-btn">
-                             <a href="{{ route('login') }}" class="header-btn1">Login</a>
-                             
-                         </div>
+                       
                      @endif --}}
+                     
+                     <li class="nav-link signup-link"><a href="{{ route('register') }}">Sign Up</a></li>
+                     <div class="header-btn">
+                         <a href="{{ route('login') }}" class="header-btn1">Login</a>
+                         
+                     </div>
 
 
 
