@@ -145,21 +145,41 @@ class SubscriptionPaymentController extends Controller
 
     public function update(Request $request,SubscriptionPlan $subscriptionPlan){
         $field=$subscriptionPlan->slug;
-        $request->validate([
-            "$field"=>['required'],
-            "$field.basic_amount"=>['required','numeric','min:1','max:100000'],
-            "$field.combo_amount"=>['required','numeric','min:1','max:100000'],
-            "$field.title"=>['required'],
-            "$field.content"=>['nullable'],
-            "$field.icon"=>['nullable']
-        ],[
-            "$field.required"=>"The field is required",
-            "$field.basic_amount.required"=>"This basic amount field is required",
-            "$field.combo_amount.required"=>"This combo amount field is required",
-            "$field.title.required"=>"This basic title is required",
-            "$field.content.required"=>"This content field is required",
-            "$field.icon.required"=>"This icon field is required",
-        ]);
+        if(($request->$field['is_external']??"")=="Y"){
+
+            $request->validate([
+                "$field"=>['required'],
+                "$field.external_label"=>['required'],
+                "$field.external_link"=>['required'],
+                "$field.title"=>['required'],
+                "$field.content"=>['nullable'],
+                "$field.icon"=>['nullable']
+            ],[
+                "$field.required"=>"The field is required",
+                "$field.external_label.required"=>"This external label field is required",
+                "$field.external_link.required"=>"This external link field is required",
+                "$field.title.required"=>"This basic title is required",
+                "$field.content.required"=>"This content field is required",
+                "$field.icon.required"=>"This icon field is required",
+            ]);
+        }else{
+
+            $request->validate([
+                "$field"=>['required'],
+                "$field.basic_amount"=>['required','numeric','min:1','max:100000'],
+                "$field.combo_amount"=>['required','numeric','min:1','max:100000'],
+                "$field.title"=>['required'],
+                "$field.content"=>['nullable'],
+                "$field.icon"=>['nullable']
+            ],[
+                "$field.required"=>"The field is required",
+                "$field.basic_amount.required"=>"This basic amount field is required",
+                "$field.combo_amount.required"=>"This combo amount field is required",
+                "$field.title.required"=>"This basic title is required",
+                "$field.content.required"=>"This content field is required",
+                "$field.icon.required"=>"This icon field is required",
+            ]);
+        }
         $title=$request->$field["title"];
         $content=$request->$field["content"];
         $icon=$request->$field["icon"];
