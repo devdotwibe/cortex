@@ -10,8 +10,8 @@
     <meta http-equiv="Expires" content="0">
 
     <title>
-        @hasSection 
-            ('title') @yield('title')
+        @hasSection('title') 
+            @yield('title')
         @else
             {{ config('app.name') }}
         @endif
