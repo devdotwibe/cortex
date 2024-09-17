@@ -1826,7 +1826,7 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .card-calendar .card-body .calendar .calendar-footer button.btn-default { display: block; padding: 0; font-size: 13px; font-weight: 500; margin: 0 0 0; color: #FFCD56;}
 .card-calendar .card-body .calendar .calendar-footer button.btn-default:hover { color: #121212;}
 .card-calendar .card-body .calendar .calendar-footer .calendar-color-list { width: 100%;  display: flex;  flex-wrap: wrap;}
-.card-calendar .card-body .calendar .calendar-footer .calendar-color-list .calendar-color-item {width: 35%; margin: 15px 2% 0 0;}
+.card-calendar .card-body .calendar .calendar-footer .calendar-color-list .calendar-color-item {width: 40%; margin: 15px 2% 0 0;}
 .card-calendar .card-body .calendar .calendar-footer .calendar-color-list .calendar-color-item .colorspan { width: 15px; height: 15px; border-radius: 3px; margin: 0 2px -1px 0;}
 .card-calendar .card-body .calendar .calendar-footer .calendar-color-list .calendar-color-item .colorspan.nodata { border: 1px solid #E1E1E1;}
 .card-calendar .card-body .calendar .calendar-footer .calendar-color-list .calendar-color-item .colorspan.somedata { border: 1px solid #91C188;}
