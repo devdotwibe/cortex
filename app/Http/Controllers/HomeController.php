@@ -274,7 +274,7 @@ class HomeController extends Controller
             ]);
         }
     }
-    public function verifypricing(Request $request){
+    public function verifypricing(Request $request,SubscriptionPlan $subscriptionPlan){
         $request->validate([
             "year"=>['required'],
             "plan"=>['required'],
@@ -331,14 +331,15 @@ class HomeController extends Controller
                     ],
                     'after_completion' => [
                         'type' => 'redirect',
-                        'redirect' => ['url' => url("stripe/subscription/{$user->slug}/".'payment/{CHECKOUT_SESSION_ID}')],
+                        'redirect' => ['url' => url("stripe/subscription/{$user->slug}/plan/{$subscriptionPlan->slug}/{$request->plan}/".'payment/{CHECKOUT_SESSION_ID}')],
                     ],
                 ]);
-                $user->setProgress('cortext-subscription-payment-id',$payment->id);
-                $user->setProgress('cortext-subscription-payment','pending');
-                $user->setProgress('cortext-subscription-payment-plan',$request->plan);
+                // $user->setProgress('cortext-subscription-payment-id',$payment->id);
+                // $user->setProgress('cortext-subscription-payment','pending');
+                // $user->setProgress('cortext-subscription-payment-plan',$request->plan);
                 $user->setProgress('cortext-subscription-payment-email',$request->email);
-                $user->setProgress('cortext-subscription-payment-year',$request->year);
+                // $user->setProgress('cortext-subscription-payment-year',$request->year);
+                $user->setProgress('cortext-subscription-payment-coupon',$coupon);
                 return redirect($payment->url);
             }else{
 
@@ -351,23 +352,24 @@ class HomeController extends Controller
                     ],
                     'after_completion' => [
                         'type' => 'redirect',
-                        'redirect' => ['url' => url("stripe/subscription/{$user->slug}/".'payment/{CHECKOUT_SESSION_ID}')],
+                        'redirect' => ['url' => url("stripe/subscription/{$user->slug}/plan/{$subscriptionPlan->slug}/{$request->plan}/".'payment/{CHECKOUT_SESSION_ID}')],
                     ],
                 ]);
-                $user->setProgress('cortext-subscription-payment-id',$payment->id);
-                $user->setProgress('cortext-subscription-payment','pending');
-                $user->setProgress('cortext-subscription-payment-plan',$request->plan);
+                // $user->setProgress('cortext-subscription-payment-id',$payment->id);
+                // $user->setProgress('cortext-subscription-payment','pending');
+                // $user->setProgress('cortext-subscription-payment-plan',$request->plan);
                 $user->setProgress('cortext-subscription-payment-email',$request->email);
-                $user->setProgress('cortext-subscription-payment-year',$request->year);
+                // $user->setProgress('cortext-subscription-payment-year',$request->year);
                 return redirect($payment->url);
             }
         } catch (\Throwable $th) {
             return redirect()->back()->with('error',$th->getMessage());
         }
     }
-    public function subscriptionnotice()
+    public function subscriptionnotice(Request $request,$payment_intent)
     {
-        return view('notice.subscription');
+        $payment=Payment::stripe()->paymentIntents->retrieve($payment_intent);
+        return view('notice.subscription',compact('payment'));
     }
  
 }

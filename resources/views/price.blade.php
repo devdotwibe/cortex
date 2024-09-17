@@ -53,7 +53,7 @@
                         </div>
                         @guest('admin')                        
                             @auth('web')
-                                <a class="buy-btn" data-bs-toggle="modal" data-bs-target="#tabs2-cortext-subscription-payment-modal">Pay</a>
+                                <a class="buy-btn"  onclick="paymodel('{{route('pricing.pay',$plan->slug)}}')">Pay</a>
                             @else
                             <a href="{{route('login')}}" class="buy-btn">Pay</a>
                             @endauth
@@ -375,6 +375,11 @@
             function changetab(e,o){
                 $(o).hide()
                 $(e).fadeIn()
+            }
+            function paymodel(url){
+                $('#tabs2-cortext-combo-subscription-payment-form').attr('action',url)
+                $('#tabs2-cortext-subscription-payment-form').attr('action',url)
+                $('#tabs2-cortext-subscription-payment-modal').modal('show');
             }
             $('#tabs1-cortext-subscription-payment-modal').on('hidden.bs.modal', function () { 
                 $('#tabs1-combo-email').val('')
