@@ -396,7 +396,7 @@
                 $('#tabs1-combo-message-area').html('')
                 $('.invalid-feedback').text('')
                 $('.form-control').removeClass('is-invalid') 
-                $.post("{{ route('pricing.index') }}", $('#tabs1-cortext-combo-subscription-payment-form').serialize(), function(res) {
+                $.post($('#tabs1-cortext-combo-subscription-payment-form').attr('action'), $('#tabs1-cortext-combo-subscription-payment-form').serialize(), function(res) {
                     if($('#tabs1-verify-mail').val()=="Y"){ 
                         $('#tabs1-cortext-combo-subscription-payment-form').submit()
                     }else{
@@ -494,7 +494,7 @@
                 $('#tabs1-message-area').html('')
                 $('.invalid-feedback').text('')
                 $('.form-control').removeClass('is-invalid')
-                $.post("{{ route('pricing.index') }}", $('#tabs1-cortext-subscription-payment-form').serialize(), function(res) {
+                $.post($('#tabs1-cortext-subscription-payment-form').attr('action'), $('#tabs1-cortext-subscription-payment-form').serialize(), function(res) {
                     $('#tabs1-cortext-subscription-payment-form').submit()
                 }, 'json').fail(function(xhr) {
                     $.each(xhr.responseJSON.errors, function(k, v) { 
@@ -521,7 +521,7 @@
                 $('#tabs2-combo-message-area').html('')
                 $('.invalid-feedback').text('')
                 $('.form-control').removeClass('is-invalid') 
-                $.post("{{ route('pricing.index') }}", $('#tabs2-cortext-combo-subscription-payment-form').serialize(), function(res) {
+                $.post($('#tabs2-cortext-combo-subscription-payment-form').attr('action'), $('#tabs2-cortext-combo-subscription-payment-form').serialize(), function(res) {
                     if($('#tabs2-verify-mail').val()=="Y"){ 
                         $('#tabs2-cortext-combo-subscription-payment-form').submit()
                     }else{
@@ -619,7 +619,7 @@
                 $('#tabs2-message-area').html('')
                 $('.invalid-feedback').text('')
                 $('.form-control').removeClass('is-invalid')
-                $.post("{{ route('pricing.index') }}", $('#tabs2-cortext-subscription-payment-form').serialize(), function(res) {
+                $.post($('#tabs2-cortext-subscription-payment-form').attr("action"), $('#tabs2-cortext-subscription-payment-form').serialize(), function(res) {
                     $('#tabs2-cortext-subscription-payment-form').submit()
                 }, 'json').fail(function(xhr) {
                     $.each(xhr.responseJSON.errors, function(k, v) { 
