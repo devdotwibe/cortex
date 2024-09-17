@@ -19,6 +19,9 @@ class SubscriptionPlan extends Model
         'icon',
         'basic_amount_id',   
         'combo_amount_id',   
+        'is_external',
+        'external_link',
+        'external_label'
     ]; 
 
 }
