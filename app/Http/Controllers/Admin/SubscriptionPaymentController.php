@@ -80,7 +80,7 @@ class SubscriptionPaymentController extends Controller
             $external_link=$request->$field["external_link"];
         }
 
-        SubscriptionPlan::store([
+        $subscriptionPlan=SubscriptionPlan::store([
             "name"=>Str::slug($title),
             "title"=>$title,
             "content"=>$content,
@@ -93,6 +93,7 @@ class SubscriptionPaymentController extends Controller
             'external_label'=>$external_label,
             'is_external'=>(($request->$field['is_external']??"")=="Y")?true:false,
         ]);
+        Session::put("__payment_price_form___",$subscriptionPlan->slug);
 
         if($request->ajax()){
             return response()->json([
