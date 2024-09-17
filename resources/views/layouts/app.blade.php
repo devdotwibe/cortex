@@ -44,7 +44,7 @@
 
 
                       
-                         {{-- @if (session('is.logined.as') == 'user' && Auth::check())
+                         @if (session('is.logined.as') == 'user' && Auth::check())
                        
                          <li class="nav-link"><a href="#">Welcome, {{ Auth::user()->name }}</a></li>
                          <li class="nav-link"><a href="{{ route('logout') }}">Logout</a></li>
@@ -59,14 +59,12 @@
                          </li>
                      @else
                       
-                       
-                     @endif --}}
-                     
-                     <li class="nav-link signup-link"><a href="{{ route('register') }}">Sign Up</a></li>
-                     <div class="header-btn">
-                         <a href="{{ route('login') }}" class="header-btn1">Login</a>
-                         
-                     </div>
+                         <li class="nav-link signup-link"><a href="{{ route('register') }}">Sign Up</a></li>
+                         <div class="header-btn">
+                             <a href="{{ route('login') }}" class="header-btn1">Login</a>
+                             
+                         </div>
+                     @endif
 
 
 
