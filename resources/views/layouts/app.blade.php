@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +9,13 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
 
-    <title> @hasSection ('title') @yield('title') @else {{config('app.name')}} @endif </title>
+    <title>
+        @hasSection 
+            ('title') @yield('title')
+        @else
+            {{ config('app.name') }}
+        @endif
+    </title>
 
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/slick.css') }}">
@@ -17,10 +24,11 @@
 
 
 </head>
+
 <body>
     <div class="loading-wrap" style="display: none">
         <div class="loading-container">
-            <div class="loading-image"><img src="{{asset('assets/images/loader.svg')}}" alt=""></div>
+            <div class="loading-image"><img src="{{ asset('assets/images/loader.svg') }}" alt=""></div>
             <span>Plese wait...</span>
         </div>
     </div>
@@ -34,46 +42,46 @@
                 </div>
                 <div class="header-right">
                     <ul>
-                        <li class="nav-link"><a href="{{url('/')}}">Home</a></li>
+                        <li class="nav-link"><a href="{{ url('/') }}">Home</a></li>
                         <li class="nav-link"><a href="">Course</a></li>
-                        <li class="nav-link"><a href="{{route('pricing.index')}}">Pricing</a></li>
+                        <li class="nav-link"><a href="{{ route('pricing.index') }}">Pricing</a></li>
                         <li class="nav-link"><a href="">Find a Tutor</a></li>
 
 
 
 
 
-                      
-                         @if (session('is.logined.as') == 'user' && Auth::check())
-                       
-                         <li class="nav-link"><a href="#">Welcome, {{ Auth::user()->name }}</a></li>
-                         <li class="nav-link"><a href="{{ route('logout') }}">Logout</a></li>
-                     @elseif (session('is.logined.as') == 'admin')
-                       
-                         <li class="nav-link dropdown">
-                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin</a>
-                             <ul class="dropdown-menu">
-                                 <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                                 <li><a href="{{ route('admin.logout') }}">Logout</a></li>
-                             </ul>
-                         </li>
-                     @else
-                      
-                         <li class="nav-link signup-link"><a href="{{ route('register') }}">Sign Up</a></li>
-                         <div class="header-btn">
-                             <a href="{{ route('login') }}" class="header-btn1">Login</a>
-                             
-                         </div>
-                     @endif
+
+                        @if (session('is.logined.as') == 'user' && Auth::check())
+                            <li class="nav-link"><a href="#">Welcome, {{ Auth::user()->name }}</a></li>
+                            <li class="nav-link"><a href="{{ route('logout') }}">Logout</a></li>
+                        @elseif (session('is.logined.as') == 'admin')
+                            <li class="nav-link dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" id="adminDropdown"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Admin
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="adminDropdown">
+                                    <a class="dropdown-item" href="{{ route('admin.dashboard') }}">Dashboard</a>
+                                    <a class="dropdown-item" href="{{ route('admin.logout') }}">Logout</a>
+                                </div>
+                            </li>
+                        @else
+                            <li class="nav-link signup-link"><a href="{{ route('register') }}">Sign Up</a></li>
+                            <div class="header-btn">
+                                <a href="{{ route('login') }}" class="header-btn1">Login</a>
+                            </div>
+                        @endif
 
 
 
 
 
 
-                     
+
+
                     </ul>
-                   
+
                 </div>
             </div>
         </div>
@@ -109,10 +117,10 @@
                     <div class="footer-col4">
                         <p><a href="">www.cortexacademy.com.au</a></p>
                         <p><a href="">St Hudson Street
-                            <span>Australia</span></a>
+                                <span>Australia</span></a>
                         </p>
                         <p><a href="">Open 9am to 5pm
-                            <span>Monday to Friday</span></a>
+                                <span>Monday to Friday</span></a>
                         </p>
                         <ul class="social-icons">
                             <li><a href=""><img src="./assets/images/fb.svg" alt=""></a></li>
@@ -140,21 +148,21 @@
 
 
     <script>
-
         $.ajaxSetup({
-             headers: {
+            headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-             },
-             beforeSend:function(xhr){
-                 $('.loading-wrap').show();
-             },
-             complete:function(xhr,status){
-                 $('.loading-wrap').hide();
-             },
+            },
+            beforeSend: function(xhr) {
+                $('.loading-wrap').show();
+            },
+            complete: function(xhr, status) {
+                $('.loading-wrap').hide();
+            },
         });
     </script>
 
     @stack('scripts')
 
 </body>
+
 </html>
