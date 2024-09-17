@@ -103,6 +103,9 @@
             <div class="card card-graph">
                 <div class="card-body">
                     <div class="overview-graph">
+                        <div class="overview-graph-title">
+                            <h3>Activity Progress</h3>
+                        </div>
                         <div class="overview-graph-body">
                             <div class="overview-graph-inner"> 
                                 <canvas id="myChart" class="overview-graph-bar" width="100%" ></canvas>
