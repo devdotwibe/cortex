@@ -450,7 +450,7 @@
                                                                                         id="payment-basic_amount"
                                                                                         name="payment[basic_amount]"
                                                                                         class="form-control @error('payment.basic_amount') is-invalid @enderror"
-                                                                                        value="{{ old('payment.basic_amount', $item->basic_amount) }}">
+                                                                                        value="{{ old('payment.basic_amount') }}">
                                                                                     @error('payment.basic_amount')
                                                                                         <div class="invalid-feedback">
                                                                                             {{ $message }} </div>
@@ -470,7 +470,7 @@
                                                                                         id="payment-combo_amount"
                                                                                         name="payment[combo_amount]"
                                                                                         class="form-control @error('payment.combo_amount') is-invalid @enderror"
-                                                                                        value="{{ old('payment.combo_amount', $item->combo_amount) }}">
+                                                                                        value="{{ old('payment.combo_amount') }}">
                                                                                     @error('payment.combo_amount')
                                                                                         <div class="invalid-feedback">
                                                                                             {{ $message }} </div>
@@ -493,7 +493,7 @@
                                                                                         name="payment[external_label]"
                                                                                         id="payment-external_label"
                                                                                         class="form-control @error('payment.external_label') is-invalid @enderror"
-                                                                                        value="{{ old('payment.external_label', $item->external_label) }}">
+                                                                                        value="{{ old('payment.external_label') }}">
                                                                                     @error('payment.external_label')
                                                                                         <div class="invalid-feedback">
                                                                                             {{ $message }} </div>
@@ -513,7 +513,7 @@
                                                                                         id="payment-external_link"
                                                                                         name="payment[external_link]"
                                                                                         class="form-control @error('payment.external_link') is-invalid @enderror"
-                                                                                        value="{{ old('payment.external_link', $item->external_link) }}">
+                                                                                        value="{{ old('payment.external_link') }}">
                                                                                     @error('payment.external_link')
                                                                                         <div class="invalid-feedback">
                                                                                             {{ $message }} </div>
