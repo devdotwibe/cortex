@@ -20,6 +20,7 @@ class UserSubscription extends Model
         'subscription_plan_id',
         'expire_at',
         'email',
-        'status'
+        'status',
+        'pay_by'
     ];
 }
