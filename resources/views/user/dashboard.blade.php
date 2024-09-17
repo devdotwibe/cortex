@@ -103,6 +103,9 @@
             <div class="card card-graph">
                 <div class="card-body">
                     <div class="overview-graph">
+                        <div class="overview-graph-title">
+                            <h3>Activity Progress</h3>
+                        </div>
                         <div class="overview-graph-body">
                             <div class="overview-graph-inner"> 
                                 <canvas id="myChart" class="overview-graph-bar" width="100%" ></canvas>
@@ -532,17 +535,17 @@
          $.get('{{route("reminder.index")}}',function(res){
             if(res.reminder){
                 $('#calendar-exam-data').html(`
-                    <span>${res.reminder.title}</span><button class="btn btn-default float-end" onclick="editreminder('${res.reminder.showUrl}')">  Edit ${res.reminder.name} Date <button>
+                    <span>${res.reminder.title}</span><button class="btn btn-default float-end" onclick="editreminder('${res.reminder.showUrl}')">  Edit Date </button>
                 `)
             }else{
                 $('#calendar-exam-data').html(`
-                    <button class="btn btn-default float-end" onclick="addreminder()"> + Add Date <button>
+                    <button class="btn btn-default float-end" onclick="addreminder()"> + Add Date </button>
                 `)
             }
          },'json')
     }
     $(function(){
-        updatechart('1week') 
+        updatechart('all') 
         showreminder()
         $('.datepicker').datepicker({
             dateFormat:'yy-mm-dd',

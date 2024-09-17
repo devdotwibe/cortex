@@ -38,11 +38,41 @@
                         <li class="nav-link"><a href="">Course</a></li>
                         <li class="nav-link"><a href="{{route('pricing.index')}}">Pricing</a></li>
                         <li class="nav-link"><a href="">Find a Tutor</a></li>
-                        <li class="nav-link signup-link"><a href="{{route('register')}}">Sign Up</a></li>
+
+
+
+
+
+                         {{-- Check if user or admin is logged in --}}
+                         @if (session('is.logined.as') == 'user' && Auth::check())
+                         {{-- User is logged in --}}
+                         <li class="nav-link"><a href="#">Welcome, {{ Auth::user()->name }}</a></li>
+                         <li class="nav-link"><a href="{{ route('logout') }}">Logout</a></li>
+                     @elseif (session('is.logined.as') == 'admin')
+                         {{-- Admin is logged in, show admin dropdown --}}
+                         <li class="nav-link dropdown">
+                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin</a>
+                             <ul class="dropdown-menu">
+                                 <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                                 <li><a href="{{ route('admin.logout') }}">Logout</a></li>
+                             </ul>
+                         </li>
+                     @else
+                         {{-- Default for unauthenticated users --}}
+                         <li class="nav-link signup-link"><a href="{{ route('register') }}">Sign Up</a></li>
+                         <div class="header-btn">
+                             <a href="{{ route('login') }}" class="header-btn1">Login</a>
+                         </div>
+                     @endif
+
+
+
+
+
+
+                     
                     </ul>
-                    <div class="header-btn">
-                        <a href="{{route('login')}}" class="header-btn1">Login</a>
-                    </div>
+                   
                 </div>
             </div>
         </div>
