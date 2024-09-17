@@ -9,6 +9,7 @@ use App\Support\Helpers\OptionHelper;
 use App\Support\Plugin\Payment;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str; 
 
 class SubscriptionPaymentController extends Controller
@@ -21,21 +22,44 @@ class SubscriptionPaymentController extends Controller
     }
     public function store(Request $request){ 
         $field='payment';
-        $request->validate([
-            "$field"=>['required'],
-            "$field.basic_amount"=>['required','numeric','min:1','max:100000'],
-            "$field.combo_amount"=>['required','numeric','min:1','max:100000'],
-            "$field.title"=>['required'],
-            "$field.content"=>['nullable'],
-            "$field.icon"=>['nullable']
-        ],[
-            "$field.required"=>"The field is required",
-            "$field.basic_amount.required"=>"This basic amount field is required",
-            "$field.combo_amount.required"=>"This combo amount field is required",
-            "$field.title.required"=>"This basic title is required",
-            "$field.content.required"=>"This content field is required",
-            "$field.icon.required"=>"This icon field is required",
-        ]);
+        Session::put("__payment_price___","payment");
+        Session::put("__payment_price_form___","payment");
+        
+        if(($request->$field['is_external']??"")=="Y"){
+
+            $request->validate([
+                "$field"=>['required'],
+                "$field.external_label"=>['required'],
+                "$field.external_link"=>['required'],
+                "$field.title"=>['required'],
+                "$field.content"=>['nullable'],
+                "$field.icon"=>['nullable']
+            ],[
+                "$field.required"=>"The field is required",
+                "$field.external_label.required"=>"This external label field is required",
+                "$field.external_link.required"=>"This external link field is required",
+                "$field.title.required"=>"This basic title is required",
+                "$field.content.required"=>"This content field is required",
+                "$field.icon.required"=>"This icon field is required",
+            ]);
+        }else{
+
+            $request->validate([
+                "$field"=>['required'],
+                "$field.basic_amount"=>['required','numeric','min:1','max:100000'],
+                "$field.combo_amount"=>['required','numeric','min:1','max:100000'],
+                "$field.title"=>['required'],
+                "$field.content"=>['nullable'],
+                "$field.icon"=>['nullable']
+            ],[
+                "$field.required"=>"The field is required",
+                "$field.basic_amount.required"=>"This basic amount field is required",
+                "$field.combo_amount.required"=>"This combo amount field is required",
+                "$field.title.required"=>"This basic title is required",
+                "$field.content.required"=>"This content field is required",
+                "$field.icon.required"=>"This icon field is required",
+            ]);
+        }
         $title=$request->$field["title"];
         $content=$request->$field["content"];
         $icon=$request->$field["icon"];
@@ -77,7 +101,7 @@ class SubscriptionPaymentController extends Controller
             $external_link=$request->$field["external_link"];
         }
 
-        SubscriptionPlan::store([
+        $subscriptionPlan=SubscriptionPlan::store([
             "name"=>Str::slug($title),
             "title"=>$title,
             "content"=>$content,
@@ -90,6 +114,7 @@ class SubscriptionPaymentController extends Controller
             'external_label'=>$external_label,
             'is_external'=>(($request->$field['is_external']??"")=="Y")?true:false,
         ]);
+        Session::put("__payment_price_form___",$subscriptionPlan->slug);
 
         if($request->ajax()){
             return response()->json([
@@ -104,6 +129,7 @@ class SubscriptionPaymentController extends Controller
     {
 
         
+        Session::put("__payment_price___","section1"); 
         // Validate the request data for price information
         $request->validate([
             'pricebannertitle' => 'nullable|string',
@@ -145,6 +171,10 @@ class SubscriptionPaymentController extends Controller
 
     public function update(Request $request,SubscriptionPlan $subscriptionPlan){
         $field=$subscriptionPlan->slug;
+        
+        Session::put("__payment_price___","payment");
+        Session::put("__payment_price_form___","$field");
+        
         if(($request->$field['is_external']??"")=="Y"){
 
             $request->validate([

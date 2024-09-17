@@ -110,8 +110,8 @@ class StripePaymentController extends Controller
                     'redirect' => ['url' => url("stripe/subscription/{$user->slug}/".'payment/{CHECKOUT_SESSION_ID}')],
                 ],
             ]);
-            $user->setProgress('cortext-subscription-payment-id',$payment->id);
-            $user->setProgress('cortext-subscription-payment','pending');
+            // $user->setProgress('cortext-subscription-payment-id',$payment->id);
+            // $user->setProgress('cortext-subscription-payment','pending');
             return redirect($payment->url);
         } catch (\Throwable $th) {
             return redirect()->back()->with('error',$th->getMessage());
