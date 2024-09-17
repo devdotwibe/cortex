@@ -14,8 +14,11 @@ class SubscriptionPaymentController extends Controller
 {
     use ResourceController;
     public function index(Request $request){
+
+        $price = SubscriptionPlan::first();
+
         $plans=SubscriptionPlan::where('id','>',0)->get();
-        return view('admin.payment-price.index',compact('plans'));
+        return view('admin.payment-price.index',compact('plans','price'));
     }
     public function store(Request $request){
         $request->validate([

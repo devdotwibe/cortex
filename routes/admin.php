@@ -33,6 +33,7 @@ use App\Http\Controllers\Admin\SubscribeUsersController;
 use App\Http\Controllers\Admin\UserAccessController;
 use App\Http\Controllers\Admin\TipsController;
 use App\Http\Controllers\Admin\PriceController;
+use App\Http\Controllers\Admin\AdminPriceController;
 use App\Http\Controllers\Admin\SubscriptionPaymentController;
 use Illuminate\Support\Facades\Route;
 
@@ -493,6 +494,14 @@ Route::name('admin.')->prefix('admin')->group(function(){
     Route::prefix('price')->name('price.')->group(function () {
         Route::get('/',[PriceController::class,'index'])->name('index');
     });
+
+
+    Route::prefix('admin-price')->name('admin-price.')->group(function () {
+      
+        Route::post('/', [AdminPriceController::class, 'storesection1'])->name('section2');
+
+
+});
 
 
 
