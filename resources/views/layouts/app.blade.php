@@ -58,7 +58,7 @@
                                 Welcome, {{ Auth::user()->name }}
                             </a>
                             <div class="dropdown-menu" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="{{ route('user.dashboard') }}">Dashboard</a>
+                                <a class="dropdown-item" href="{{ route('.dashboard') }}">Dashboard</a>
                                 <a class="dropdown-item" href="{{ route('user.logout') }}">Logout</a>
                             </div>
                         </li>
