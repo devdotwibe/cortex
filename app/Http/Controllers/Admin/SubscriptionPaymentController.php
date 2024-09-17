@@ -138,42 +138,60 @@ class SubscriptionPaymentController extends Controller
             "$field.content.required"=>"This content field is required",
             "$field.icon.required"=>"This icon field is required",
         ]);
-        $basic_amount=$request->$field["basic_amount"];
-        $combo_amount=$request->$field["combo_amount"];
         $title=$request->$field["title"];
         $content=$request->$field["content"];
         $icon=$request->$field["icon"];
-        $price1=Payment::stripe()->prices->create([
-            'currency' => config('stripe.currency'),
-            'unit_amount' => intval($basic_amount*100),
-            'product_data' => ['name' => config('app.name','Cortex').' Amount :'.(intval($basic_amount*100)/100).' For '.ucfirst($title)],
-            'metadata'=>[
-                'modify_time'=>date('Y-m-d h:i a'),
-                'title'=>$title,
-                "old_key"=>$subscriptionPlan->basic_amount_id??"-", 
-            ]
-        ]); 
-        $price2=Payment::stripe()->prices->create([
-            'currency' => config('stripe.currency'),
-            'unit_amount' => intval($combo_amount*100),
-            'product_data' => ['name' => config('app.name','Cortex').' Amount :'.(intval($combo_amount*100)/100).' For '.ucfirst($title)],
-            'metadata'=>[
-                'modify_time'=>date('Y-m-d h:i a'),
-                'title'=>$title, 
-                "old_key"=>$subscriptionPlan->combo_amount_id??"-",
-            ]
-        ]); 
+        $basic_amount=null;
+        $combo_amount=null;
+        $external_label=null;
+        $external_link=null;
+        $basic_amount_id=null;
+        $combo_amount_id=null;
+
+        if($request->$field['is_external']){
+            $basic_amount=$request->$field["basic_amount"];
+            $combo_amount=$request->$field["combo_amount"];
+                
+            $price1=Payment::stripe()->prices->create([
+                'currency' => config('stripe.currency'),
+                'unit_amount' => intval($basic_amount*100),
+                'product_data' => ['name' => config('app.name','Cortex').' Amount :'.(intval($basic_amount*100)/100).' For '.ucfirst($title)],
+                'metadata'=>[
+                    'modify_time'=>date('Y-m-d h:i a'),
+                    'title'=>$title,
+                    "old_key"=>$subscriptionPlan->basic_amount_id??"-", 
+                ]
+            ]); 
+            $basic_amount_id=$price1->id; 
+            $price2=Payment::stripe()->prices->create([
+                'currency' => config('stripe.currency'),
+                'unit_amount' => intval($combo_amount*100),
+                'product_data' => ['name' => config('app.name','Cortex').' Amount :'.(intval($combo_amount*100)/100).' For '.ucfirst($title)],
+                'metadata'=>[
+                    'modify_time'=>date('Y-m-d h:i a'),
+                    'title'=>$title, 
+                    "old_key"=>$subscriptionPlan->combo_amount_id??"-",
+                ]
+            ]);  
+            $combo_amount_id=$price2->id;
+        }else{
+            $external_label=$request->$field["external_label"];
+            $external_link=$request->$field["external_link"];
+        }
+
         $subscriptionPlan->update([
             "name"=>Str::slug($title),
             "title"=>$title,
             "content"=>$content,
-            'basic_amount'=>$price1->unit_amount/100,
-            'basic_amount_id'=>$price1->id,
-            'combo_amount'=>$price2->unit_amount/100,
-            'combo_amount_id'=>$price2->id,
+            'basic_amount'=>$basic_amount,
+            'basic_amount_id'=>$basic_amount_id,
+            'combo_amount'=>$combo_amount,
+            'combo_amount_id'=>$combo_amount_id,
             'icon'=>$icon,
+            'external_link'=>$external_link,
+            'external_label'=>$external_label,
+            'is_external'=>false,
         ]);
-
         if($request->ajax()){
             return response()->json([
                 'success'=>"Plan Updated",
