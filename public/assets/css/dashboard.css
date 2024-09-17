@@ -1779,11 +1779,11 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .card-links .card-body { padding: 25px; text-align: center;}
 .card-links .card-body h3 { font-size: 18px; font-weight: 400; margin: 0 0 20px;}
 .card-links .card-body .session-links { width: 100%;}
-.card-links .card-body .session-links .btn-outline-secondary { border: 1px solid #17C274; color: #000000; font-size: 18px;}
-.card-links .card-body .session-links .btn-outline-warning { border: 1px solid #FBAE1E; color: #000; font-size: 18px;}
+.card-links .card-body .session-links .btn-outline-secondary { border: 1px solid #17C274; color: #000000; font-size: 20px;}
+.card-links .card-body .session-links .btn-outline-warning { border: 1px solid #FBAE1E; color: #000; font-size: 20px;}
 .card-links .card-body .session-links span { display: inline-block; margin: 0 10px; font-size: 18px;}
-.card-links .card-body .session-links .btn-outline-secondary:hover { background: #17C274;}
-.card-links .card-body .session-links .btn-outline-warning:hover { background: #FBAE1E;}
+.card-links .card-body .session-links .btn-outline-secondary:hover { background: #17C274;color: #fff;}
+.card-links .card-body .session-links .btn-outline-warning:hover { background: #FBAE1E;color: #fff;}
 
 
 .card-calendar .card-body { padding: 30px;}
