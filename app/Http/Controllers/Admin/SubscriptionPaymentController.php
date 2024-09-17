@@ -46,7 +46,7 @@ class SubscriptionPaymentController extends Controller
         $basic_amount_id=null;
         $combo_amount_id=null;
 
-        if($request->$field['is_external']){
+        if(($request->$field['is_external']??"")!=="Y"){
             $basic_amount=$request->$field["basic_amount"];
             $combo_amount=$request->$field["combo_amount"];
                 
@@ -88,7 +88,7 @@ class SubscriptionPaymentController extends Controller
             'icon'=>$icon,
             'external_link'=>$external_link,
             'external_label'=>$external_label,
-            'is_external'=>false,
+            'is_external'=>(($request->$field['is_external']??"")=="Y")?true:false,
         ]);
 
         if($request->ajax()){
@@ -170,7 +170,7 @@ class SubscriptionPaymentController extends Controller
         $basic_amount_id=null;
         $combo_amount_id=null;
 
-        if($request->$field['is_external']){
+        if(($request->$field['is_external']??"")!=="Y"){
             $basic_amount=$request->$field["basic_amount"];
             $combo_amount=$request->$field["combo_amount"];
                 
@@ -212,7 +212,7 @@ class SubscriptionPaymentController extends Controller
             'icon'=>$icon,
             'external_link'=>$external_link,
             'external_label'=>$external_label,
-            'is_external'=>false,
+            'is_external'=>(($request->$field['is_external']??"")=="Y")?true:false,
         ]);
         if($request->ajax()){
             return response()->json([
