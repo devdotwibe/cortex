@@ -1833,7 +1833,7 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .card-calendar .card-body .calendar .calendar-footer .calendar-color-list .calendar-color-item .colorspan.lotsdata { border: 1px solid #4B9773;}
 .card-calendar .card-body .calendar .calendar-footer .calendar-color-list .calendar-color-item .colorspan.admindata { border: 1px solid #FFCD56;}
 .card-calendar .card-body .calendar .calendar-footer .calendar-color-list .calendar-color-item span { font-size: 12px;}
-
+.card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month table tbody tr td.fc-day.fc-day-today.fc-daygrid-day { background: none;}
 
 
 @media screen and (max-width:1500px) {
