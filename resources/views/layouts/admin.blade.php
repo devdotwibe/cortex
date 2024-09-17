@@ -66,8 +66,8 @@
                         <span>{{auth('admin')->user()->name}}</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarLogin">
-                        <a class="dropdown-item" href="#">Profile</a>
-                        <a class="dropdown-item" href="#">Settings</a>
+                       
+                        <a class="dropdown-item" href="#">Dashboard</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{route('admin.logout')}}">Log Out </a>
                     </div>
