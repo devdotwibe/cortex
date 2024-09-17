@@ -216,6 +216,9 @@
             <div class="contact-row">
                 <h3 class="highlight">Our Courses</h3>
                 <h2>Need help? Have a question?</h2>
+
+                <div id="form-messages" class="btn-success"></div>
+
                 <form id="contact_form" action="" method="post">
                     @csrf <!-- Include the CSRF token -->
                     <div class="text-fields">
@@ -243,7 +246,7 @@
                     <div class="form-btn">
                         <button type="submit" class="submit-btn">Submit</button>
                     </div>
-                    <div id="form-messages"></div>
+                   
                 </form>
             </div>
         </div>
@@ -270,7 +273,7 @@
                     url: '{{ route("contact.submit") }}',
                     data: formData,
                     success: function(response) {
-                        $('#form-messages').html('<p>Thank you for your message. We will get back to you soon.</p>');
+                        $('#form-messages').text('Thank you for your message. We will get back to you soon.');
                         $('#contact_form').trigger('reset'); // Reset the form fields
                     },
                     error: function(response) {
