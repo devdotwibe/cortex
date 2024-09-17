@@ -99,11 +99,11 @@
                             <ul class="nav nav-tabs" id="priceTab" role="tablist">
                                 @foreach ($plans as $k => $item)
                                     <li class="nav-item" role="presentation">
-                                        <button class="nav-link @if (session('__payment_price_form___', $item->slug) == $item->slug) active @endif "
+                                        <button class="nav-link @if (session('__payment_price_form___', $plans[0]->slug) == $item->slug) active @endif "
                                             id="price{{ $k }}-tab" data-bs-toggle="tab"
                                             data-bs-target="#price{{ $k }}" type="button" role="tab"
                                             aria-controls="price{{ $k }}"
-                                            @if (session('__payment_price_form___', $item->slug) == $item->slug) aria-selected="true" @else aria-selected="false" @endif>Subscription
+                                            @if (session('__payment_price_form___', $plans[0]->slug) == $item->slug) aria-selected="true" @else aria-selected="false" @endif>Subscription
                                             {{ $k + 1 }}</button>
                                     </li>
                                 @endforeach
@@ -119,7 +119,7 @@
                             </ul>
                             <div class="tab-content" id="priceTabContent">
                                 @foreach ($plans as $k => $item)
-                                    <div class="tab-pane fade  @if (session('__payment_price_form___', $item->slug) == $item->slug) show active @endif "
+                                    <div class="tab-pane fade  @if (session('__payment_price_form___', $plans[0]->slug) == $item->slug) show active @endif "
                                         id="price{{ $k }}" role="tabpanel"
                                         aria-labelledby="price{{ $k }}-tab">
                                         <div class="row mb-3">
