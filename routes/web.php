@@ -3,7 +3,6 @@
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserCourseController;
-use App\Http\Controllers\UserPriceController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\User\AnalyticsController;
 use App\Http\Controllers\User\CommunityController;
