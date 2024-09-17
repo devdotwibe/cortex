@@ -188,10 +188,10 @@
 
                     <a href="{{route('support.index')}}">
                          <span class="side-icon" >
-                             <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
+                             <img src="{{asset("assets/images/iconshover/support.svg")}}" alt="Dashboard">
                          </span>
                          <span class="active-icon">
-                             <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Dashboard">
+                             <img src="{{asset("assets/images/icons/Dashboard-blk.svg")}}" alt="Dashboard">
                          </span>
                          Support
                      </a>
@@ -202,10 +202,10 @@
 
                     <a href="{{route('tipsandadvise.index')}}">
                          <span class="side-icon" >
-                             <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
+                             <img src="{{asset("assets/images/iconshover/tipsandadvice.svg")}}" alt="Dashboard">
                          </span>
                          <span class="active-icon">
-                             <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Dashboard">
+                             <img src="{{asset("assets/images/icons/tipsandadvice.svg")}}" alt="Dashboard">
                          </span>
                          Tips And Advise
                      </a>
