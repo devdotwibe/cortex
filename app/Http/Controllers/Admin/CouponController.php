@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\CouponOffer;
+
+use App\Models\Settings;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
 
@@ -12,6 +14,9 @@ class CouponController extends Controller
     use ResourceController;
     public function index(Request $request)
     { 
+
+        $setting = Settings::first();
+
         if($request->ajax()){
             self::$model=CouponOffer::class;
             self::$routeName="admin.coupon";
@@ -24,7 +29,7 @@ class CouponController extends Controller
                 ';
             })->buildTable();
         }
-        return view('admin.coupon.index');
+        return view('admin.coupon.index',compact('setting'));
     }
 
     /**
@@ -98,4 +103,36 @@ class CouponController extends Controller
         }
         return redirect()->route('admin.coupon.index')->with("success","Coupon deleted success");
     }
+
+
+
+    public function setting(Request $request)
+    {
+        // Validate the request data for Section 1
+        $request->validate([
+            'emailaddress' => 'nullable|string|max:255',
+           
+
+        ]);
+
+        $setting = Settings::first();
+
+        if (empty($setting)) {
+            $setting = new Settings;
+        }
+
+        $setting->emailaddress = $request->input('emailaddress');
+       
+
+
+
+        $setting->save();
+
+        return redirect()->route('admin.coupon.index')->with('success', 'Success.');
+    }
+
+
+
+
+
 }

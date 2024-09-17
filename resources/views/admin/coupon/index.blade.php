@@ -14,6 +14,8 @@
             </div>
         </div>
     </section>
+
+    
     <section class="invite-wrap mt-2">
         <div class="coupon-wrap">
             <div class="row">
@@ -28,6 +30,34 @@
             </div>
         </div>
     </section>
+
+       <!-- Settings Section -->
+       <section class="settings-wrap mt-4">
+        <div class="settings-header">
+            <h2>Settings</h2>
+        </div>
+        <div class="settings-content">
+            <form action="{{ route('admin.coupon.setting') }}" method="post" id="settings-form">
+                @csrf
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="emailaddress">Email Address</label>
+                            <input type="email" name="emailaddress" value="{{ old('emailaddress', optional($setting)->emailaddress) }}" class="form-control" id="emailaddress">
+                            <div id="email_address-error" class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-dark m-1">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    
 @endsection
 @push('modals')
     <div class="modal fade" id="coupen-modal" tabindex="-1" role="dialog" aria-labelledby="coupenLabel"
@@ -131,8 +161,20 @@
                 </div>
             </div>
         </div>
+        
     </div>
+
+    
+
+
+  
+
+
+
+    
 @endpush
+
+    
 
 @push('footer-script')
 

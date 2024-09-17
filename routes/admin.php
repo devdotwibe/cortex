@@ -80,6 +80,9 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::put('/{coupon_offer}/update',[CouponController::class,'update'])->name('update');
             Route::delete('/{coupon_offer}/destroy',[CouponController::class,'destroy'])->name('destroy');
 
+
+            Route::post('/setting',[CouponController::class,'setting'])->name('setting');
+
         });
         Route::prefix('payment-price')->name('payment-price.')->group(function () {
             Route::get('/',[SubscriptionPaymentController::class,'index'])->name('index');
