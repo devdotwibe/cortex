@@ -246,7 +246,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div> 
-                                                                    <div class="row" @if(!((old('subscription_plan','')==$item->slug&&old($item->slug . '.basic_amount',"")=="Y")||(empty(old('subscription_plan','')) && $item->is_external))) @endif>
+                                                                    <div class="row" @if(!((old('subscription_plan','')==$item->slug&&old($item->slug . '.basic_amount',"")=="Y")||(empty(old('subscription_plan','')) && $item->is_external))) style="display:none"  @endif>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group">
                                                                                 <div class="form-data">
