@@ -43,18 +43,22 @@
                     <div class="content">
                         {!!$plan->content!!}
                     </div> 
-                    <h6>FROM @if(($plan->basic_amount??0)<($plan->combo_amount)) <span>${{$plan->basic_amount??0}}</span> @else <span>${{$plan->combo_amount??0}}</span> @endif </h6>
-                    <div class="price-detail">
-                        <h5>GROUP: <span>${{$plan->combo_amount}}</span></h5>
-                        <h5>INDIVIDUAL: <span>${{$plan->basic_amount??0}}</span></h5>
-                    </div>
-                    @guest('admin')                        
-                        @auth('web')
-                            <a class="buy-btn" data-bs-toggle="modal" data-bs-target="#tabs2-cortext-subscription-payment-modal">Pay</a>
-                        @else
-                        <a href="{{route('login')}}" class="buy-btn">Pay</a>
-                        @endauth
-                    @endguest 
+                    @if($plan->is_external)
+                    <a href="{{$plan->external_link}}" class="buy-btn">{{$plan->external_label}}</a>
+                    @else
+                        <h6>FROM @if(($plan->basic_amount??0)<($plan->combo_amount)) <span>${{$plan->basic_amount??0}}</span> @else <span>${{$plan->combo_amount??0}}</span> @endif </h6>
+                        <div class="price-detail">
+                            <h5>GROUP: <span>${{$plan->combo_amount}}</span></h5>
+                            <h5>INDIVIDUAL: <span>${{$plan->basic_amount??0}}</span></h5>
+                        </div>
+                        @guest('admin')                        
+                            @auth('web')
+                                <a class="buy-btn" data-bs-toggle="modal" data-bs-target="#tabs2-cortext-subscription-payment-modal">Pay</a>
+                            @else
+                            <a href="{{route('login')}}" class="buy-btn">Pay</a>
+                            @endauth
+                        @endguest 
+                    @endif
                 </div>
                 @endforeach
                 {{-- <div class="price-col1">
