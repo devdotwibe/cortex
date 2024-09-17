@@ -75,6 +75,22 @@
                         </div>
                         <div class="calendar-footer" id="calendar-exam-data"> 
                         </div>
+                        <div class="calendar-footer" > 
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <span class="colorspan nodata" ></span>
+                                    <span>No practice completed</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span class="colorspan somedata" ></span>
+                                    <span>Some practice completed</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span class="colorspan lotsdata"></span>
+                                    <span>Lots practice completed</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -339,11 +355,11 @@
                     data: [{{$learnprogress??0}}, {{100-($learnprogress??0)}}],
                     backgroundColor: [
                         '#36A2EB', 
-                        '#AFAFAF',
+                        '#E1E1E1',
                     ],
                     borderColor:[
                         '#36A2EB', 
-                        "#AFAFAF"
+                        "#E1E1E1"
                     ],
                     hoverOffset: 4
                 }
@@ -377,11 +393,11 @@
                     data: [{{$practiceprogress??0}}, {{100-($practiceprogress??0)}}],
                     backgroundColor: [
                         '#FFCD56', 
-                        '#AFAFAF',
+                        '#E1E1E1',
                     ],
                     borderColor:[
                         '#FFCD56', 
-                        "#AFAFAF"
+                        "#E1E1E1"
                     ],
                     hoverOffset: 4
                 }
@@ -415,11 +431,11 @@
                     data: [{{$topiclateprogress??0}}, {{100-($topiclateprogress??0)}}],
                     backgroundColor: [
                         '#198754', 
-                        '#AFAFAF',
+                        '#E1E1E1',
                     ],
                     borderColor:[
                         '#198754', 
-                        "#AFAFAF"
+                        "#E1E1E1"
                     ],
                     hoverOffset: 4
                 }
@@ -453,11 +469,11 @@
                     data: [{{$moclateprogress??0}}, {{100-($moclateprogress??0)}}],
                     backgroundColor: [
                         '#EB0606', 
-                        '#AFAFAF',
+                        '#E1E1E1',
                     ],
                     borderColor:[
                         '#EB0606', 
-                        "#AFAFAF"
+                        "#E1E1E1"
                     ],
                     hoverOffset: 4
                 }
