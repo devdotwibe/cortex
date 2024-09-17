@@ -31,8 +31,7 @@ use App\Http\Controllers\Admin\SupportController;
 use App\Http\Controllers\Admin\PostReportController;
 use App\Http\Controllers\Admin\SubscribeUsersController;
 use App\Http\Controllers\Admin\UserAccessController;
-use App\Http\Controllers\Admin\TipsController;
-use App\Http\Controllers\Admin\PriceController;
+use App\Http\Controllers\Admin\TipsController; 
 use App\Http\Controllers\Admin\AdminPriceController;
 use App\Http\Controllers\Admin\SubscriptionPaymentController;
 use Illuminate\Support\Facades\Route;
@@ -490,10 +489,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::post('/tab/change1', [CourseController::class, 'tabchange1'])->name('tabchange1');
 
     });
-
-    Route::prefix('price')->name('price.')->group(function () {
-        Route::get('/',[PriceController::class,'index'])->name('index');
-    });
+ 
 
 
     Route::prefix('admin-price')->name('admin-price.')->group(function () {
