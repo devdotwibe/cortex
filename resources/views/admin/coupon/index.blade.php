@@ -1,6 +1,52 @@
 @extends('layouts.admin')
-@section('title', 'Coupon')
+@section('title', 'Coupon'.'Settings')
 @section('content')
+    <section class="header_nav">
+        <div class="header_wrapp">
+            <div class="header_title">
+                <h2>Settings</h2>
+            </div>
+            <div class="header_right">
+              
+            </div>
+        </div>
+    </section>
+
+
+
+       <!-- Settings Section -->
+       <section class="settings-wrap mt-4">
+        <div class="header_wrapp">
+            {{-- <div class="header_title">
+                <h2>Settings</h2>
+            </div>
+             --}}
+        </div>
+        <div class="settings-content">
+            <form action="{{ route('admin.coupon.setting') }}" method="post" id="settings-form">
+                @csrf
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="emailaddress">Email Address</label>
+                            <input type="email" name="emailaddress" value="{{ old('emailaddress', optional($setting)->emailaddress) }}" class="form-control" id="emailaddress">
+                            @error('emailaddress')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                            <div id="email_address-error" class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-dark m-1">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+
     <section class="header_nav">
         <div class="header_wrapp">
             <div class="header_title">
@@ -14,6 +60,7 @@
             </div>
         </div>
     </section>
+    
     <section class="invite-wrap mt-2">
         <div class="coupon-wrap">
             <div class="row">
@@ -28,6 +75,9 @@
             </div>
         </div>
     </section>
+
+    
+    
 @endsection
 @push('modals')
     <div class="modal fade" id="coupen-modal" tabindex="-1" role="dialog" aria-labelledby="coupenLabel"
@@ -131,8 +181,20 @@
                 </div>
             </div>
         </div>
+        
     </div>
+
+    
+
+
+  
+
+
+
+    
 @endpush
+
+    
 
 @push('footer-script')
 

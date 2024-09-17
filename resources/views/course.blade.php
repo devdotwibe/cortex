@@ -238,9 +238,10 @@
                             <div class="error text-danger" id="last_name_error"></div>
                         </div>
                         <div class="text-field">
-                            <input type="text" name="phone_number" id="phone_number" placeholder="Phone Number">
+                            <input type="text" name="phone_number" id="phone_number" placeholder="Phone Number" onkeypress="return isNumberKey(event)">
                             <div class="error text-danger" id="phone_number_error"></div>
                         </div>
+                        
                         <div class="text-field">
                             <input type="text" name="email" id="email" placeholder="Email">
                             <div class="error text-danger" id="email_error"></div>
@@ -297,5 +298,17 @@
             });
         });
     </script>
+
+<script>
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        // Allow only numbers (charCode 48-57 are 0-9)
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false; // Block non-numeric characters
+        }
+        return true; // Allow numbers
+    }
+</script>
+
 
     @endpush
