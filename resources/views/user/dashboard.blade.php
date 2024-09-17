@@ -542,7 +542,7 @@
          },'json')
     }
     $(function(){
-        updatechart('1week') 
+        updatechart('all') 
         showreminder()
         $('.datepicker').datepicker({
             dateFormat:'yy-mm-dd',
