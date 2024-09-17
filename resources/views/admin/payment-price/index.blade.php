@@ -197,14 +197,14 @@
                                                                             <div class="form-group">
                                                                                 <div class="form-data">
                                                                                     <div class="form-check form-switch">
-                                                                                        <input class="form-check-input" name="{{ $item->slug }}[is_external]" type="checkbox"  role="switch" id="{{ $item->slug }}-active-toggle" value="Y" @checked((old('subscription_plan','')==$item->slug&&old($item->slug . '.basic_amount',"")=="Y")||(empty(old('subscription_plan','')) && $item->is_external)) />
+                                                                                        <input class="form-check-input" onchange="changeaction('.action-{{$item->slug}}',this.checked)" name="{{ $item->slug }}[is_external]" type="checkbox"  role="switch" id="{{ $item->slug }}-active-toggle" value="Y" @checked((old('subscription_plan','')==$item->slug&&old($item->slug . '.basic_amount',"")=="Y")||(empty(old('subscription_plan','')) && $item->is_external)) />
                                                                                         <label class="form-check-label" for="{{ $item->slug }}-active-toggle">External Link</label>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="row" @if((old('subscription_plan','')==$item->slug&&old($item->slug . '.basic_amount',"")=="Y")||(empty(old('subscription_plan','')) && $item->is_external)) style="display:none" @endif> 
+                                                                    <div class="row action-{{$item->slug}} action-{{$item->slug}}-amount" @if((old('subscription_plan','')==$item->slug&&old($item->slug . '.basic_amount',"")=="Y")||(empty(old('subscription_plan','')) && $item->is_external)) style="display:none" @endif> 
                                                                         <div class="col-md-6">
                                                                             <div class="form-group">
                                                                                 <div class="form-data">
@@ -246,7 +246,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div> 
-                                                                    <div class="row" @if(!((old('subscription_plan','')==$item->slug&&old($item->slug . '.basic_amount',"")=="Y")||(empty(old('subscription_plan','')) && $item->is_external))) style="display:none"  @endif>
+                                                                    <div class="row action-{{$item->slug}} action-{{$item->slug}}-ext" @if(!((old('subscription_plan','')==$item->slug&&old($item->slug . '.basic_amount',"")=="Y")||(empty(old('subscription_plan','')) && $item->is_external))) style="display:none"  @endif>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group">
                                                                                 <div class="form-data">
@@ -594,6 +594,10 @@
 
 @push('footer-script')
     <script>
+        function changeaction(e,c){
+            $(e).hide();
+            $(e+(c?"-ext":"-amount"))
+        }
         function removeplan(url) {
             $('#plan-delete-form').attr('action', url)
             $('#plan-delete').modal('show')
