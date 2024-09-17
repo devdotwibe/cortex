@@ -595,7 +595,8 @@
 @push('footer-script')
     <script>
         function changeaction(e,c){
-            $(e).slideToggle(); 
+            $(e).hide();
+            $(e+(c?"-ext":"-amount")).fadeIn()
         }
         function removeplan(url) {
             $('#plan-delete-form').attr('action', url)
