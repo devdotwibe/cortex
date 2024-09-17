@@ -220,6 +220,7 @@
                 <div  class="btn-success"></div>
                 <div class="alert alert-success alert-dismissible fade"id="form-messages">
                    
+                    Thank you for your message. We will get back to you soon.
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
 
@@ -270,7 +271,7 @@
 
                 // Clear previous error messages
                 $('.error').html(''); // Clear all error fields
-                $('#form-messages').text(''); // Clear form messages
+                $('#form-messages').removeClass('show');
 
                 const formData = $(this).serialize();
 
@@ -279,7 +280,7 @@
                     url: '{{ route("contact.submit") }}',
                     data: formData,
                     success: function(response) {
-                        $('#form-messages').text('Thank you for your message. We will get back to you soon.').addClass('show');
+                        $('#form-messages').addClass('show');
                         $('#contact_form').trigger('reset'); // Reset the form fields
                     },
                     error: function(response) {
