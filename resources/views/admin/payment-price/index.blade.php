@@ -195,11 +195,12 @@
                                                                     <div class="row">
                                                                         <div class="col-md-12">
                                                                             <div class="form-group">
-                                                                                <div class="form-data">
+                                                                                <div class="form-data price-role-switch">
+                                                                                    <label class="form-check-label" for="{{ $item->slug }}-active-toggle">Subscription</label>
                                                                                     <div class="form-check form-switch">
                                                                                         <input class="form-check-input" onchange="changeaction('.action-{{$item->slug}}',this.checked)" name="{{ $item->slug }}[is_external]" type="checkbox"  role="switch" id="{{ $item->slug }}-active-toggle" value="Y" @checked((old('subscription_plan','')==$item->slug&&old($item->slug . '.is_external',"")=="Y")||(empty(old('subscription_plan','')) && $item->is_external)) />
-                                                                                        <label class="form-check-label" for="{{ $item->slug }}-active-toggle">External Link</label>
                                                                                     </div>
+                                                                                    <label class="form-check-label" for="{{ $item->slug }}-active-toggle">External Link</label>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
