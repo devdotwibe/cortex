@@ -191,7 +191,7 @@
                              <img src="{{asset("assets/images/iconshover/support.svg")}}" alt="Dashboard">
                          </span>
                          <span class="active-icon">
-                             <img src="{{asset("assets/images/icons/Dashboard-blk.svg")}}" alt="Dashboard">
+                             <img src="{{asset("assets/images/icons/support.svg")}}" alt="Dashboard">
                          </span>
                          Support
                      </a>
