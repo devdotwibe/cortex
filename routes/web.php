@@ -3,7 +3,6 @@
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserCourseController;
-use App\Http\Controllers\UserPriceController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\User\AnalyticsController;
 use App\Http\Controllers\User\CommunityController;
@@ -47,8 +46,7 @@ Route::get('/db-seed', function () {
     dd(Artisan::output());
 });
 
-Route::get('/', [HomeController::class, 'index']);
-Route::get('/price', [HomeController::class, 'price'])->name('price.index');
+Route::get('/', [HomeController::class, 'index']); 
 
 Route::get('d0/{avathar}/{name}', [DocumentController::class, 'getuploadedFiles'])->name('file.view');
 Route::get('/d0/{avathar}/{name}/download', [DocumentController::class, 'downloaduploadedFiles'])->name('file.download');

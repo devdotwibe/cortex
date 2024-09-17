@@ -31,9 +31,7 @@ use App\Http\Controllers\Admin\SupportController;
 use App\Http\Controllers\Admin\PostReportController;
 use App\Http\Controllers\Admin\SubscribeUsersController;
 use App\Http\Controllers\Admin\UserAccessController;
-use App\Http\Controllers\Admin\TipsController;
-use App\Http\Controllers\Admin\PriceController;
-use App\Http\Controllers\Admin\AdminPriceController;
+use App\Http\Controllers\Admin\TipsController;  
 use App\Http\Controllers\Admin\SubscriptionPaymentController;
 use Illuminate\Support\Facades\Route;
 
@@ -86,7 +84,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::prefix('payment-price')->name('payment-price.')->group(function () {
             Route::get('/',[SubscriptionPaymentController::class,'index'])->name('index');
             Route::post('/',[SubscriptionPaymentController::class,'store'])->name('store');
-            Route::get('/history',[SubscriptionPaymentController::class,'history'])->name('history');
+            Route::post('/section-2', [SubscriptionPaymentController::class, 'storesection1'])->name('section2');
             Route::put('/{subscription_plan}/update',[SubscriptionPaymentController::class,'update'])->name('update');
             Route::delete('/{subscription_plan}/destroy',[SubscriptionPaymentController::class,'destroy'])->name('destroy');
         });
@@ -490,18 +488,8 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::post('/tab/change1', [CourseController::class, 'tabchange1'])->name('tabchange1');
 
     });
-
-    Route::prefix('price')->name('price.')->group(function () {
-        Route::get('/',[PriceController::class,'index'])->name('index');
-    });
-
-
-    Route::prefix('admin-price')->name('admin-price.')->group(function () {
-      
-        Route::post('/', [AdminPriceController::class, 'storesection1'])->name('section2');
-
-
-});
+ 
+ 
 
 
 

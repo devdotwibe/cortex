@@ -400,7 +400,7 @@
                         <div class="row">
                             <div class="card">
                                 <div class="card-body">
-                                    <form action="{{ route('admin.admin-price.section2') }}" method="POST"
+                                    <form action="{{ route('admin.payment-price.section2') }}" method="POST"
                                         enctype="multipart/form-data">
                                         @csrf
                                         <div class="row">
