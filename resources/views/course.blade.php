@@ -270,7 +270,7 @@
 
                 // Clear previous error messages
                 $('.error').html(''); // Clear all error fields
-                $('#form-messages').html(''); // Clear form messages
+                $('#form-messages').text(''); // Clear form messages
 
                 const formData = $(this).serialize();
 
@@ -279,7 +279,7 @@
                     url: '{{ route("contact.submit") }}',
                     data: formData,
                     success: function(response) {
-                        $('#form-messages').text('Thank you for your message. We will get back to you soon.');
+                        $('#form-messages').text('Thank you for your message. We will get back to you soon.').show();
                         $('#contact_form').trigger('reset'); // Reset the form fields
                     },
                     error: function(response) {
