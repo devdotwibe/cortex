@@ -288,46 +288,6 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="col-md-4">
-                                                                <div class="form-group">
-                                                                    <div class="form-data">
-                                                                        <div class="forms-inputs mb-4">
-                                                                            <label for="payment-basic_amount">Subscription
-                                                                                Basic Amount </label>
-                                                                            <input type="text"
-                                                                                name="payment[basic_amount]"
-                                                                                class="form-control @error('payment.basic_amount') is-invalid @enderror"
-                                                                                value="{{ old('payment.basic_amount') }}">
-                                                                            @error('payment.basic_amount')
-                                                                                <div class="invalid-feedback">
-                                                                                    {{ $message }} </div>
-                                                                            @enderror
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-4">
-                                                                <div class="form-group">
-                                                                    <div class="form-data">
-                                                                        <div class="forms-inputs mb-4">
-                                                                            <label for="payment-combo_amount">Subscription
-                                                                                Combo Amount</label>
-                                                                            <input type="text"
-                                                                                name="payment[combo_amount]"
-                                                                                class="form-control @error('payment.combo_amount') is-invalid @enderror"
-                                                                                value="{{ old('payment.combo_amount') }}">
-                                                                            @error('payment.combo_amount')
-                                                                                <div class="invalid-feedback">
-                                                                                    {{ $message }} </div>
-                                                                            @enderror
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-4">
                                                                 <div class="form-group">
                                                                     <div class="form-data">
                                                                         <div class="forms-inputs mb-4">
@@ -359,7 +319,48 @@
                                                                     @endif
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                            <div class="col-md-8">
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <div class="form-data">
+                                                                                <div class="forms-inputs mb-4">
+                                                                                    <label for="payment-basic_amount">Subscription
+                                                                                        Basic Amount </label>
+                                                                                    <input type="text"
+                                                                                        name="payment[basic_amount]"
+                                                                                        class="form-control @error('payment.basic_amount') is-invalid @enderror"
+                                                                                        value="{{ old('payment.basic_amount') }}">
+                                                                                    @error('payment.basic_amount')
+                                                                                        <div class="invalid-feedback">
+                                                                                            {{ $message }} </div>
+                                                                                    @enderror
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <div class="form-data">
+                                                                                <div class="forms-inputs mb-4">
+                                                                                    <label for="payment-combo_amount">Subscription
+                                                                                        Combo Amount</label>
+                                                                                    <input type="text"
+                                                                                        name="payment[combo_amount]"
+                                                                                        class="form-control @error('payment.combo_amount') is-invalid @enderror"
+                                                                                        value="{{ old('payment.combo_amount') }}">
+                                                                                    @error('payment.combo_amount')
+                                                                                        <div class="invalid-feedback">
+                                                                                            {{ $message }} </div>
+                                                                                    @enderror
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                            </div> 
+                                                        </div> 
                                                         <div class="row">
                                                             <div class="col-md-12">
                                                                 <div class="form-group">
