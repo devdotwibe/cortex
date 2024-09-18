@@ -207,7 +207,8 @@
 
                         <li class="side-item {{request()->is('admin/course') ? 'active':''}} "><a href="{{route('admin.course.index')}}">Course</a></li>
 
-                        {{-- <li class="side-item {{request()->is('admin/payment') ? 'active':''}} "><a href="{{route('admin.payment.index')}}">Payment</a></li> --}}
+                        <li class="side-item {{request()->is('admin/privacy') ? 'active':''}} "><a href="{{route('admin.privacy.index')}}">Privacy Policy</a></li>
+                        <li class="side-item {{request()->is('admin/terms') ? 'active':''}} "><a href="{{route('admin.terms.index')}}">Terms & Conditions</a></li>
                     </ul>
                 </li>
 

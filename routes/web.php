@@ -3,6 +3,8 @@
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserCourseController;
+use App\Http\Controllers\UserTermsController;
+use App\Http\Controllers\UserPrivacyController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\User\AnalyticsController;
 use App\Http\Controllers\User\CommunityController;
@@ -247,4 +249,17 @@ Route::post('/contact-submit', [UserCourseController::class, 'submit'])->name('c
 
 
 
+
 Route::middleware('signed')->get('email/{id}/{hash}/verify', [HomeController::class, 'verifyemail'])->name('verification.verify');
+
+
+
+
+
+Route::get('/privacy', [UserPrivacyController::class, 'index'])->name('privacy.index');
+
+
+
+
+Route::get('/terms', [UserTermsController::class, 'index'])->name('terms.index');
+
