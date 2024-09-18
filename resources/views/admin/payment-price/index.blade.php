@@ -292,7 +292,7 @@
                                                                                             id="{{ $item->slug }}-start_plan"
                                                                                             name="{{ $item->slug }}[start_plan]"
                                                                                             class="form-control @error($item->slug . '.start_plan') is-invalid @enderror"
-                                                                                            value="{{ old($item->slug . '.start_plan', $item->start_plan) }}">
+                                                                                            value="{{ old($item->slug . '.start_plan', $item->start_plan) }}" readonly>
                                                                                         @error($item->slug .
                                                                                             '.start_plan')
                                                                                             <div class="invalid-feedback">
@@ -312,7 +312,7 @@
                                                                                             id="{{ $item->slug }}-end_plan"
                                                                                             name="{{ $item->slug }}[end_plan]"
                                                                                             class="form-control @error($item->slug . '.end_plan') is-invalid @enderror"
-                                                                                            value="{{ old($item->slug . '.end_plan', $item->end_plan) }}">
+                                                                                            value="{{ old($item->slug . '.end_plan', $item->end_plan) }}" readonly>
                                                                                         @error($item->slug .
                                                                                             '.end_plan')
                                                                                             <div class="invalid-feedback">
@@ -523,6 +523,47 @@
                                                                                         class="form-control @error('payment.combo_amount') is-invalid @enderror"
                                                                                         value="{{ old('payment.combo_amount') }}">
                                                                                     @error('payment.combo_amount')
+                                                                                        <div class="invalid-feedback">
+                                                                                            {{ $message }} </div>
+                                                                                    @enderror
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row action-payment action-payment-amount"
+                                                                    @if (old('payment.is_external', '') == 'Y') style="display:none" @endif>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <div class="form-data">
+                                                                                <div class="forms-inputs mb-4">
+                                                                                    <label
+                                                                                        for="payment-start_plan">Start Plan </label>
+                                                                                    <input type="text"
+                                                                                        id="payment-start_plan"
+                                                                                        name="payment[start_plan]"
+                                                                                        class="form-control @error('payment.start_plan') is-invalid @enderror"
+                                                                                        value="{{ old('payment.start_plan') }}">
+                                                                                    @error('payment.start_plan')
+                                                                                        <div class="invalid-feedback">
+                                                                                            {{ $message }} </div>
+                                                                                    @enderror
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <div class="form-data">
+                                                                                <div class="forms-inputs mb-4">
+                                                                                    <label
+                                                                                        for="payment-end_plan">End Plan</label>
+                                                                                    <input type="text"
+                                                                                        id="payment-end_plan"
+                                                                                        name="payment[end_plan]"
+                                                                                        class="form-control @error('payment.end_plan') is-invalid @enderror"
+                                                                                        value="{{ old('payment.end_plan') }}">
+                                                                                    @error('payment.end_plan')
                                                                                         <div class="invalid-feedback">
                                                                                             {{ $message }} </div>
                                                                                     @enderror
