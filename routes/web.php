@@ -207,6 +207,12 @@ Route::middleware(['auth', 'isUser'])->group(function () {
             Route::prefix('analytics')->name('analytics.')->group(function () {
                 Route::get('/', [AnalyticsController::class, 'index'])->name('index');
             });
+            Route::prefix('tipsandadvice')->name('tipsandadvise.')->group(function () {
+                Route::get('/', [TipsAndAdviceController::class, 'index'])->name('index');
+                Route::resource('/post',TipsAndAdviceController ::class);
+                Route::get('/tips-show/{id}', [TipsAndAdviceController::class, 'tip_show'])->name('tip_show');
+    
+            });
 
         });
 
@@ -222,15 +228,6 @@ Route::middleware(['auth', 'isUser'])->group(function () {
         });
 
 
-        Route::prefix('tipsandadvice')->name('tipsandadvise.')->group(function () {
-            Route::get('/', [TipsAndAdviceController::class, 'index'])->name('index');
-            Route::resource('/post',TipsAndAdviceController ::class);
-
-            Route::get('/tips-show/{id}', [TipsAndAdviceController::class, 'tip_show'])->name('tip_show');
-
-
-
-        });
 
     });
 
