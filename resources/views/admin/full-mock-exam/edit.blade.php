@@ -25,7 +25,10 @@
             ["name"=>"redirect", "value"=>route("admin.full-mock-exam.index",$exam->slug),"type"=>"hidden"],
             ["name"=>"category_id" ,"label"=>"Category","ajaxurl"=>route("admin.full-mock-exam.create",$exam->slug),"type"=>"select","value"=>$question->category_id,"valuetext"=>optional($question->category)->name,"size"=>4], 
              
-            ["name"=>"description","label"=>"Question","size"=>12,"type"=>"editor","value"=>$question->description], 
+            
+            ["name"=>"title_text","label"=>"Title Text","size"=>12,"type"=>"editor","value"=>$question->title_text],
+            ["name"=>"description","label"=>"Left Question","size"=>12,"type"=>"editor","value"=>$question->description], 
+            ["name"=>"sub_question","label"=>"Right Question","size"=>12,"type"=>"editor","value"=>$question->sub_question],             
             ["name"=>"answer","label"=>"answer" ,"type"=>"choice" ,"size"=>6,"value"=>$choices ],
             ["name"=>"explanation","label"=>"Explanation","size"=>12,"type"=>"editor" ,"value"=>$question->explanation],
         ]' /> 

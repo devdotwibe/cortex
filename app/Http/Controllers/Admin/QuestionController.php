@@ -30,6 +30,8 @@ class QuestionController extends Controller
                     // "duration"=>["required"],
                     "answer.*"=>["required",'string','max:150'],
                     "explanation"=>['nullable'],
+                    "title_text"=>['nullable'],
+                    "sub_question"=>['nullable'],
                 ],[
                     'answer.*.required'=>['The answer field is required.']
                 ]);
@@ -43,6 +45,8 @@ class QuestionController extends Controller
                     // "duration"=>["required"],
                     "answer.*"=>["required",'string','max:150'],
                     "explanation"=>['nullable'],
+                    "title_text"=>['nullable'],
+                    "sub_question"=>['nullable'],
                 ],[
                     'answer.*.required'=>['The answer field is required.']
                 ]);
@@ -56,6 +60,8 @@ class QuestionController extends Controller
                     // "duration"=>["required"],
                     "answer.*"=>["required",'string','max:150'],
                     "explanation"=>['nullable'],
+                    "title_text"=>['nullable'],
+                    "sub_question"=>['nullable'],
                 ],[
                     'answer.*.required'=>['The answer field is required.']
                 ]);
@@ -100,6 +106,8 @@ class QuestionController extends Controller
                     //"duration"=>["required"],
                     "answer.*"=>["required",'string','max:150'],
                     "explanation"=>['nullable'],
+                    "title_text"=>['nullable'],
+                    "sub_question"=>['nullable'],
                 ],[
                     'answer.*.required'=>['The answer field is required.']
                 ]);
@@ -112,6 +120,8 @@ class QuestionController extends Controller
                     // "duration"=>["required"],
                     "answer.*"=>["required",'string','max:150'],
                     "explanation"=>['nullable'],
+                    "title_text"=>['nullable'],
+                    "sub_question"=>['nullable'],
                 ],[
                     'answer.*.required'=>['The answer field is required.']
                 ]);
@@ -124,6 +134,8 @@ class QuestionController extends Controller
                     // "duration"=>["required"],
                     "answer.*"=>["required",'string','max:150'],
                     "explanation"=>['nullable'],
+                    "title_text"=>['nullable'],
+                    "sub_question"=>['nullable'],
                 ],[
                     'answer.*.required'=>['The answer field is required.']
                 ]);
