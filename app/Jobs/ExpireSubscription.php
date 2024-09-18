@@ -21,7 +21,10 @@ class ExpireSubscription implements ShouldQueue
     public function __construct()
     {
         // UserProgress::whereIn('name',['intensive-workshop-payment','stripe.subscription.payment.amount'])->whereIn('user_id',UserProgress::where('name','cortext-subscription-payment-year')->where('value',(date('Y')-1)."-".(date('Y')))->select('user_id'))->whereNotIn('user_id',UserProgress::where('name','cortext-subscription-payment-year')->where('value',(date('Y'))."-".(date('Y')+1))->select('user_id'))->where('value','paid')->update(['value'=>'expired']);
-        UserSubscription::where('status','subscribed')->whereNotNull('expire_at')->whereDate('expire_at','<',Carbon::now()->toDateString())->update([
+        UserSubscription::where('status','subscribed')->where(function($qry){
+            $qry->orWhereNull('expire_at');
+            $qry->orWhereDate('expire_at','<',Carbon::now()->toDateString());                        
+        })->update([
             'status'=>"expired"
         ]);
     }
