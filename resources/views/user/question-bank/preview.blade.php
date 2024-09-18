@@ -75,7 +75,7 @@
                                                 </div> 
                                             </div>
                                             <div>
-                                                <p>You spent ${v.time_taken||0} seconds on this question. The average student spent ${v.total_user_taken_time||0} seconds on this question<p>
+                                                <p>You spent <strong>${v.time_taken||0} seconds</strong> on this question. The average student spent <strong>${v.total_user_taken_time||0} seconds</strong> on this question<p>
                                             </div>
                                         </div>
 
