@@ -25,7 +25,7 @@ class PrivateClassHomeWorkController extends Controller
          *  @var User
          */
         $user=Auth::user();
-        print_r(TermAccess::where('type','home-work')->where('user_id',$user->id)->get());
+        print_r($user);
         $homeWorks=HomeWork::whereIn('id',TermAccess::where('type','home-work')->where('user_id',$user->id)->select('term_id'))->get();
         return view('user.home-work.index',compact('homeWorks','user'));
     }
