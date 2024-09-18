@@ -55,7 +55,8 @@
                         @if (session('is.logined.as') == 'user' && Auth::check())
                         <li class="nav-link dropdown">
                             <a href="#" class="nav-link dropdown-toggle" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Welcome, {{ Auth::user()->name }}
+                                {{-- Welcome, {{ Auth::user()->name }} --}}
+                                Welcome, {{ \Illuminate\Support\Str::before(Auth::user()->name, ' ') }}
                             </a>
                             <div class="dropdown-menu" aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a>
