@@ -25,7 +25,8 @@ class ExpireSubscription implements ShouldQueue
             $qry->orWhereNull('expire_at');
             $qry->orWhereDate('expire_at','<',Carbon::now()->toDateString());                        
         })->update([
-            'status'=>"expired"
+            'status'=>"expired",
+            'expire_at'=>Carbon::now()->toDateString()
         ]);
     }
 
