@@ -43,7 +43,7 @@
                 <div class="header-right">
                     <ul>
                         <li class="nav-link"><a href="{{ url('/') }}">Home</a></li>
-                        <li class="nav-link"><a href="">Course</a></li>
+                        <li class="nav-link"><a href="{{ route('course.index') }}">Course</a></li>
                         <li class="nav-link"><a href="{{ route('pricing.index') }}">Pricing</a></li>
                         <li class="nav-link"><a href="">Find a Tutor</a></li>
 
@@ -105,19 +105,19 @@
                         </a>
                     </div>
                     <div class="footer-col2">
-                        <h3>Courses</h3>
-                        <ul>
+                        {{-- <h3>Courses</h3>
+                        {{-- <ul>
                             <li><a href="">Diagnostic Exam</a></li>
                             <li><a href="">Critical Reasoning</a></li>
                             <li><a href="">Exam Preparation</a></li>
-                        </ul>
+                        </ul> --}} 
                     </div>
                     <div class="footer-col3">
                         <h3>Information</h3>
                         <ul>
-                            <li><a href="">Home</a></li>
-                            <li><a href="">Pricing </a></li>
-                            <li><a href="">Courses</a></li>
+                            <li><a href="{{ url('/') }}">Home</a></li>
+                            <li><a href="{{ route('pricing.index') }}">Pricing </a></li>
+                            <li><a href="{{ route('course.index') }}">Courses</a></li>
                             <li><a href="">Find Tutor</a></li>
                         </ul>
                     </div>
