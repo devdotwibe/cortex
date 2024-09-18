@@ -117,7 +117,7 @@
                         <ul>
                             <li><a href="{{ url('/') }}">Home</a></li>
                             <li><a href="{{ route('pricing.index') }}">Pricing </a></li>
-                            <li><a href="{{ route('course.index') }}">Courses</a></li>
+                            <li><a href="{{ route('course.index') }}">Course</a></li>
                             <li><a href="">Find Tutor</a></li>
                         </ul>
                     </div>

@@ -15,7 +15,7 @@
             <td>
                <table width="760" border="0" align="center" cellpadding="0" cellspacing="0" >
                   <tr>
-                     <td align="center"><br /><br /><img src="{{asset("app/images/logo.svg")}}" width="30%" alt="logo"/><br /><br /></td>
+                     <td align="center"><br /><br /><img src="{{asset("app/images/logo.png")}}" width="30%" alt="logo"/><br /><br /></td>
                   </tr>
                </table>
                <table width="800" border="0" align="center" cellpadding="0" cellspacing="0" style="background-color:#fff">
