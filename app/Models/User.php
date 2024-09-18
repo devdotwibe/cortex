@@ -9,7 +9,10 @@ use App\Trait\ResourceModel;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Auth\Notifications\VerifyEmail;
+use Illuminate\Auth\Notifications\ResetPassword;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -90,4 +93,48 @@ class User extends Authenticatable implements MustVerifyEmail
         return UserSubscription::where('user_id',$this->id)->orderBy('id','DESC')->first();
     } 
 
+
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new UserEmailVerifyNotification);
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new UserPasswrdResetNotification($token));
+    }
+
+}
+class UserEmailVerifyNotification extends VerifyEmail{
+
+ 
+    /**
+     * Build the mail representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return \Illuminate\Notifications\Messages\MailMessage
+     */
+    public function toMail($notifiable)
+    {
+        $url = $this->verificationUrl($notifiable);
+        $name = $notifiable->first_name;
+        return (new MailMessage)->view('email.verify',compact('url', 'name'));
+    }
+
+}
+class UserPasswrdResetNotification extends ResetPassword{
+    
+   /**
+    * Build the mail representation of the notification.
+    *
+    * @param  mixed  $notifiable
+    * @return \Illuminate\Notifications\Messages\MailMessage
+    */
+   public function toMail($notifiable)
+   {
+        $url=$this->resetUrl($notifiable);
+        $name = $notifiable->first_name;
+        return (new MailMessage)->view('email.reset',compact('url', 'name'));
+    }
+    
 }
