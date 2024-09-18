@@ -289,6 +289,12 @@ class HomeController extends Controller
             ]);
         }
     }
+    public function getpricing(Request $request,SubscriptionPlan $subscriptionPlan){
+        if($request->ajax()){
+            return $subscriptionPlan;
+        }
+        return redirect()->back();
+    }
     public function verifypricing(Request $request,SubscriptionPlan $subscriptionPlan){
         $request->validate([
             "year"=>['required'],

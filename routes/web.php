@@ -59,7 +59,8 @@ Route::prefix('stripe')->name('stripe.')->group(function () {
 });
 
 Route::get('/pricing', [HomeController::class, 'pricing'])->name('pricing.index');
-Route::post('/pricing/{subscription_plan}', [HomeController::class, 'verifypricing'])->name('pricing.pay');
+Route::get('/pricing/{subscription_plan}', [HomeController::class, 'getpricing'])->name('pricing.pay');
+Route::post('/pricing/{subscription_plan}', [HomeController::class, 'verifypricing']);
 Route::post('/combo-email', [HomeController::class, 'combo_mail'])->name('combo-email');
 Route::get('/verify-coupon', [HomeController::class, 'verifycoupon'])->name('coupon-verify');
 
