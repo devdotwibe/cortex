@@ -1665,10 +1665,11 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .critical-reasoning .critical-reasoning-conten.active { display: block;}
 
 
-#review-history-modal .modal-content { border-radius: 10px; text-align: center;}
-#review-history-modal .modal-content .modal-header { background: #2F4188;}
-#review-history-modal .modal-content .modal-header h5 { color: #FFFFFF; font-size: 20px;}
-#review-history-modal .modal-content button.close {background: #fff; color: #2F4188; border: 2px solid #fff;  font-size: 22px; line-height: 0; transition: all .25s ease-in-out;}
+
+#review-history-modal .modal-content {border-radius: 10px;text-align: center;padding: 30px;}
+#review-history-modal .modal-content .modal-header {background: none;padding: 0;border: none;}
+#review-history-modal .modal-content .modal-header h5 {color: #218df8;font-size: 20px;margin: 0 0 20px;font-weight: 600;}
+#review-history-modal .modal-content button.close {background: #fff;color: #000;border: 2px solid #fff;font-size: 30px;line-height: 0;transition: all .25s ease-in-out;width: auto;height: auto;font-weight: 300;position: absolute;right: 15px;top: 20px;}
 #review-history-modal .modal-content .table-outer table thead tr th { background: none; color: #000000; font-weight: 700;}
 #review-history-modal .modal-content .table-outer table thead tr { border-bottom: 1px solid rgb(0 0 0 / 10%);}
 #review-history-modal .modal-content .table-outer { box-shadow: none; overflow-x: auto;}
@@ -1677,7 +1678,7 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 #review-history-modal .modal-content .btn#restart-btn { margin: 0 auto; float: none; display: inline-block; background: #FBAE1E; border: 1px solid #FBAE1E; transition: all .25s ease-in-out;}
 #review-history-modal .modal-content .btn#restart-btn:hover { color: #FBAE1E; background: none;}
 #review-history-modal .modal-content button.close:hover { background: #2F4188; color: #fff;}
-#review-history-modal .modal-content .modal-body { padding: 30px;}
+#review-history-modal .modal-content .modal-body {padding: 0;}
 #review-history-modal .modal-content .table-outer table { min-width: 418px;}
 
 
