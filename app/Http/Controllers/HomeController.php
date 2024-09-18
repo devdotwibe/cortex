@@ -235,11 +235,13 @@ class HomeController extends Controller
     public function verifycoupon(Request $request){
         $request->validate([ 
             "coupon"=>['required'],
+            "subscription"=>['required']
         ]);
         $coupon=trim($request->coupon);
-        if(CouponOffer::where('name',$coupon)->count()>0){
+        $subscriptionPlan=SubscriptionPlan::findSlug($request->subscription);
+        if(CouponOffer::where('name',$coupon)->count()>0&&!empty($subscriptionPlan)){
             $offer=CouponOffer::where('name',$coupon)->first();
-            $price=($request->type??"")=="combo"? floatval(OptionHelper::getData('stripe.subscription.payment.combo-amount-price','0')) :floatval(OptionHelper::getData('stripe.subscription.payment.amount-price','0'));
+            $price=($request->type??"")=="combo"? floatval($subscriptionPlan->combo_amount??0):floatval($subscriptionPlan->basic_amount??0);
             $offerprice=floatval($offer->amount);
             $newprice=$price-$offerprice;
             if($newprice<0){

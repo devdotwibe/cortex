@@ -239,6 +239,7 @@
                             <div class="tabs2" id="tabs2-tabs2a" style="display: none" >
                                 <form action="{{route('pricing.index')}}"  id="tabs2-cortext-combo-subscription-payment-form"  method="POST">
                                     @csrf        
+                                    <input type="hidden" name="subscription" id="subscription-combo" value=""> 
                                     <input type="hidden" name="plan" value="combo"> 
                                     <input type="hidden" name="year" value="{{date('Y')+0}}-{{date('Y')+1}}" >
                                     <div class="form-group">
@@ -262,13 +263,14 @@
                                     <div class="form-group mt-2">
                                         <input type="hidden" name="verify" value="N" id="tabs2-verify-mail">
                                         <button type="button" data-bs-dismiss="modal"  class="btn btn-secondary">Cancel</button> 
-                                        <button type="button" class="btn btn-dark" id="tabs2-cortext-combo-subscription-payment-form-buttom">Pay Now $<span class="amount" id="tabs2-cortext-combo-subscription-payment-form-buttom-price" data-amount="{{ get_option('stripe.subscription.payment.combo-amount-price','0') }}">{{ get_option('stripe.subscription.payment.combo-amount-price','0') }}</span> </button>
+                                        <button type="button" class="btn btn-dark" id="tabs2-cortext-combo-subscription-payment-form-buttom">Pay Now $<span class="amount" id="tabs2-cortext-combo-subscription-payment-form-buttom-price"></span> </button>
                                     </div>
                                 </form>
                             </div>
                             <div class="tabs2" id="tabs2-tabs2b">
                                 <form action="{{route('pricing.index')}}"  id="tabs2-cortext-subscription-payment-form" method="POST" >
                                     @csrf    
+                                    <input type="hidden" name="subscription" id="subscription-single" value=""> 
                                     <input type="hidden" name="plan" value="single">
                                     <input type="hidden" name="year" value="{{date('Y')+0}}-{{date('Y')+1}}" >
                                     <div class="form-group">
@@ -283,7 +285,7 @@
                                     </div>
                                     <div class="form-group mt-2">
                                         <button type="button" data-bs-dismiss="modal"  class="btn btn-secondary">Cancel</button> 
-                                        <button type="button" class="btn btn-dark price-norm" id="tabs2-cortext-subscription-payment-form-buttom">Pay Now $<span class="amount" id="tabs2-cortext-subscription-payment-form-buttom-price" data-amount="{{ get_option('stripe.subscription.payment.amount-price','0') }}">{{ get_option('stripe.subscription.payment.amount-price','0') }}</span> </button> 
+                                        <button type="button" class="btn btn-dark price-norm" id="tabs2-cortext-subscription-payment-form-buttom">Pay Now $<span class="amount" id="tabs2-cortext-subscription-payment-form-buttom-price" ></span> </button> 
                                     </div>
                                 </form>
                             </div>
@@ -307,11 +309,15 @@
                 $(e).fadeIn()
             }
             function paymodel(url){
-                // $.get(url,function(res){
+                $.get(url,function(res){
+                    $('#subscription-single').val(res.slug)
+                    $('#subscription-combo').val(res.slug)
                     $('#tabs2-cortext-combo-subscription-payment-form').attr('action',url)
                     $('#tabs2-cortext-subscription-payment-form').attr('action',url)
                     $('#tabs2-cortext-subscription-payment-modal').modal('show');
-                // },'json')
+                    $('#tabs2-cortext-subscription-payment-form-buttom-price').text(res.basic_amount)
+                    $('#tabs2-cortext-combo-subscription-payment-form-buttom-price').text(res.combo_amount)
+                },'json')
             }
 
 
@@ -324,7 +330,6 @@
                 $('#tabs2-combo-message-area').html('')
                 $('.invalid-feedback').text('')
                 $('.form-control').removeClass('is-invalid') 
-                $('#tabs2-cortext-subscription-payment-form-buttom-price').text($('#tabs2-cortext-subscription-payment-form-buttom-price').data("amount"))
             });
             $('#tabs2-cortext-combo-subscription-payment-form-buttom').click(function(e){
                 e.preventDefault();
@@ -358,7 +363,7 @@
                 $('.form-control').removeClass('is-invalid') 
                 var coupen=$('#tabs2-coupon').val();
                 if(coupen){
-                    $.get('{{route("coupon-verify")}}',{coupon:coupen},function(res){
+                    $.get('{{route("coupon-verify")}}',{coupon:coupen,subscription:$('#subscription-single').val()},function(res){
                         if(res.message){
                             $('#tabs2-message-area').html(`
                                 <div class="alert alert-info" role="alert">
@@ -384,7 +389,7 @@
                 $('.form-control').removeClass('is-invalid') 
                 var coupen=$('#tabs2-combo-coupon').val();
                 if(coupen){
-                    $.get('{{route("coupon-verify")}}',{type:"combo",coupon:coupen},function(res){
+                    $.get('{{route("coupon-verify")}}',{type:"combo",coupon:coupen,subscription:$('#subscription-combo').val()},function(res){
                         if(res.message){
                             $('#tabs2-combo-message-area').html(`
                                 <div class="alert alert-info" role="alert">
