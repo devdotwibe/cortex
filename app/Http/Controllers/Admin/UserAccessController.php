@@ -139,6 +139,12 @@ class UserAccessController extends Controller
         TermAccess::where('type', 'home-work')->whereNotIn('term_id', $homeIds)->where('user_id', $user->id)->delete();
         TermAccess::where('type', 'lesson-record')->whereNotIn('term_id', $recordIds)->where('user_id', $user->id)->delete();
 
+        print_r([
+            $classIds,
+            $lessonIds,
+            $homeIds,
+            $recordIds
+        ]);exit;
         return redirect()->back()->with('success', "User Access updated");
     }
     public function multi_user_update(Request $request)
