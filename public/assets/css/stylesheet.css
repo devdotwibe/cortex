@@ -390,7 +390,7 @@ footer .footer-row1 p { font-size: 16px; color: #fff; font-weight: 500;}
 
 
 
-#tabs2-cortext-subscription-payment-modal .modal-dialog { max-width: 600px;}
+#tabs2-cortext-subscription-payment-modal .modal-dialog { max-width: 600px;top: 45%; transform: translateY(-50%);}
 #tabs2-cortext-subscription-payment-modal .modal-dialog .modal-content { padding: 50px  80px; text-align: center; border-radius: 20px;}
 #tabs2-cortext-subscription-payment-modal .modal-dialog .modal-content .modal-header { padding: 0;}
 #tabs2-cortext-subscription-payment-modal .modal-dialog .modal-content .modal-body { padding: 0;}
