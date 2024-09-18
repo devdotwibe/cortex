@@ -54,10 +54,7 @@
         
     </div>
     <div class="container-wrap mcq-container-wrap full-mock-exam" id="question-answer-page">
-        <div class="lesson">  
-            <div class="lesson-title">
-                <h3><span>{{$exam->title}}</span></h3>
-            </div>
+        <div class="lesson">   
             <div class="lesson-body"> 
                 <div class="row" id="lesson-questionlist-list" style="display: none">
                 </div>
