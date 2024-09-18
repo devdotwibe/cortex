@@ -45,17 +45,6 @@
                 <img src="{{ asset('assets/images/cortexlogo.svg') }}" alt="">
             </a>
             <ul class="navbar-nav ml-auto">
-                {{-- <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarNotification" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-bell"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarNotification">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li> --}}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarLogin" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span>{{auth('web')->user()->name}}</span>
@@ -137,11 +126,7 @@
                 </li>
 
                 <li class="side-item {{request()->is('live-class') ? 'active':''}}">
-                    @if ((optional(auth('web')->user()->subscription())->status??"")=="subscribed"||auth('web')->user()->is_free_access)
-                        <a href="{{ route('live-class.index') }}">
-                    @else
-                        <a  href="{{route('pricing.index')}}">
-                    @endif
+                    <a href="{{ route('live-class.index') }}">
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/iconshover/onlineteaching.svg")}}" alt="Dashboard">
                         </span>
@@ -153,11 +138,7 @@
                 </li>
 
                 <li class="side-item {{request()->is('analytics') ? 'active':''}}">
-                    @if ((optional(auth('web')->user()->subscription())->status??"")=="subscribed"||auth('web')->user()->is_free_access)
                     <a href="{{ route('analytics.index') }}">
-                    @else
-                        <a href="{{route('pricing.index')}}">
-                    @endif
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/iconshover/analytics.svg")}}" alt="Dashboard">
                         </span>
@@ -169,11 +150,7 @@
                 </li>
                 @guest('admin')
                 <li class="side-item {{request()->is('community') ? 'active':''}}">
-                   @if ((optional(auth('web')->user()->subscription())->status??"")=="subscribed"||auth('web')->user()->is_free_access)
                     <a href="{{ route('community.index') }}">
-                   @else
-                        <a href="{{route('pricing.index')}}">
-                    @endif
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/iconshover/community.svg")}}" alt="Dashboard">
                         </span>
