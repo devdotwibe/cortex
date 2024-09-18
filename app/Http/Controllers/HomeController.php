@@ -231,8 +231,12 @@ class HomeController extends Controller
 
     public function pricing(Request $request){ 
         $subscriptionPlans = SubscriptionPlan::where(function($qry){
-            $qry->where('is_external',true)->orWhere(function($iqry){
-                $iqry->whereNotNull('end_plan')->whereDate('end_plan','<',Carbon::now()->toDateString());
+            $qry->where(function($iqry){
+                $iqry->where('is_external',true);
+                $iqry->whereNull('end_plan');
+            });
+            $qry->orWhere(function($iqry){
+                $iqry->whereNotNull('end_plan')->whereDate('end_plan','>=',Carbon::now()->toDateString());
             });
         })->get();
         return view("price",compact('subscriptionPlans'));

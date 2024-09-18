@@ -247,7 +247,7 @@
                             <div class="form-group"> 
                                 <div class="form-check">
                                     <input type="radio" class="form-check-input" onchange="changetab('#tabs2-tabs2a','.tabs2')"  name="tabs2" id="tabs2a" autocomplete="off" >
-                                    <label  for="tabs2a" class="form-check-label">Group 1</label>
+                                    <label  for="tabs2a" class="form-check-label">Group </label>
                                 </div>
                                 <div class="form-check">
                                     <input type="radio" class="form-check-input" onchange="changetab('#tabs2-tabs2b','.tabs2')"  name="tabs2" id="tabs2b" autocomplete="off" checked>
@@ -261,7 +261,7 @@
                                     <input type="hidden" name="plan" value="combo"> 
                                     <input type="hidden" name="year" value="{{date('Y')+0}}-{{date('Y')+1}}" >
                                     <div class="form-group">
-                                        <label for="email-2">Invite User</label>
+                                        {{-- <label for="email-2">Invite User</label> --}}
                                         <div class="input-group ">  
                                             <input type="email" name="email" id="tabs2-combo-email" placeholder="Enter email address" class="form-control" />
                                             <button class="btn btn-outline-secondary" type="button" id="tabs2-mail-verify-button">Confirm Email</button>
@@ -269,7 +269,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="combo-coupon">Coupon Code</label>
+                                        {{-- <label for="combo-coupon">Coupon Code</label> --}}
                                         <div class="input-group ">  
                                             <input type="text" name="coupon" id="tabs2-combo-coupon" placeholder="Enter Coupon Code" class="form-control" />
                                             <button class="btn btn-outline-secondary" type="button" id="tabs2-combo-coupon-verify-button">Apply</button>
@@ -292,7 +292,7 @@
                                     <input type="hidden" name="plan" value="single">
                                     <input type="hidden" name="year" value="{{date('Y')+0}}-{{date('Y')+1}}" >
                                     <div class="form-group">
-                                        <label for="coupon">Coupon Code</label>
+                                        {{-- <label for="coupon">Coupon Code</label> --}}
                                         <div class="input-group ">  
                                             <input type="text" name="coupon" id="tabs2-coupon" placeholder="Enter Coupon Code" class="form-control" />
                                             <button class="btn btn-outline-secondary" type="button" id="tabs2-coupon-verify-button">Apply</button>
