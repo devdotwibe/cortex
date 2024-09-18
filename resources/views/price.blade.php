@@ -316,7 +316,7 @@
                     $('#tabs2-cortext-subscription-payment-form').attr('action',url)
                     $('#tabs2-cortext-subscription-payment-modal').modal('show');
                     $('#tabs2-cortext-subscription-payment-form-buttom-price').text(res.basic_amount)
-                    $('#tabs2-cortext-combo-subscription-payment-form-buttom-price').text(res.combo_amount)
+                    $('#tabs2-cortext-combo-subscription-payment-form-buttom-price').text(res.combo_amount*2)
                 },'json')
             }
 

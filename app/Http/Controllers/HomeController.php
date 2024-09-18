@@ -241,7 +241,7 @@ class HomeController extends Controller
         $subscriptionPlan=SubscriptionPlan::findSlug($request->subscription);
         if(CouponOffer::where('name',$coupon)->count()>0&&!empty($subscriptionPlan)){
             $offer=CouponOffer::where('name',$coupon)->first();
-            $price=($request->type??"")=="combo"? floatval($subscriptionPlan->combo_amount??0):floatval($subscriptionPlan->basic_amount??0);
+            $price=($request->type??"")=="combo"? floatval($subscriptionPlan->combo_amount??0)*2:floatval($subscriptionPlan->basic_amount??0);
             $offerprice=floatval($offer->amount);
             $newprice=$price-$offerprice;
             if($newprice<0){
@@ -327,8 +327,8 @@ class HomeController extends Controller
             $coupon=trim($request->coupon??"");
             if(CouponOffer::where('name',$coupon)->count()>0){
                 $offer=CouponOffer::where('name',$coupon)->first();
-                $oldprice=($request->plan??"")=="combo"? floatval(OptionHelper::getData('stripe.subscription.payment.combo-amount-price','0')) :floatval(OptionHelper::getData('stripe.subscription.payment.amount-price','0'));
-                $oldkey=($request->type??"")=="combo"? floatval(OptionHelper::getData('stripe.subscription.payment.combo-amount','0')) :floatval(OptionHelper::getData('stripe.subscription.payment.amount','0'));
+                $oldprice=($request->plan??"")=="combo"?floatval($subscriptionPlan->combo_amount??0)*2:floatval($subscriptionPlan->basic_amount??0);
+                $oldkey=($request->type??"")=="combo"?$subscriptionPlan->combo_amount_id:$subscriptionPlan->basic_amount_id;
                 $offerprice=floatval($offer->amount);
                 $newprice=$oldprice-$offerprice;
                 if($newprice<0){
@@ -369,7 +369,7 @@ class HomeController extends Controller
                 $payment =Payment::stripe()->paymentLinks->create([
                     'line_items' => [
                     [
-                        'price' =>$request->plan=="combo"? OptionHelper::getData('stripe.subscription.payment.combo-amount',''): OptionHelper::getData('stripe.subscription.payment.amount',''),
+                        'price' =>$request->plan=="combo"? $subscriptionPlan->combo_amount_id:  $subscriptionPlan->basic_amount_id,
                         'quantity' => 1,
                     ],
                     ],
