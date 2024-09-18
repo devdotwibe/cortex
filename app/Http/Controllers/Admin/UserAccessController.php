@@ -134,10 +134,10 @@ class UserAccessController extends Controller
                 $recordIds[] = $term->id;
             }
         }
-        TermAccess::where('type', 'class-detail')->whereNotIn('term_id', $classIds)->where('user_id', $user->id)->delete();
-        TermAccess::where('type', 'lesson-material')->whereNotIn('term_id', $lessonIds)->where('user_id', $user->id)->delete();
-        TermAccess::where('type', 'home-work')->whereNotIn('term_id', $homeIds)->where('user_id', $user->id)->delete();
-        TermAccess::where('type', 'lesson-record')->whereNotIn('term_id', $recordIds)->where('user_id', $user->id)->delete();
+        TermAccess::where('type', 'class-detail')->whereNotIn('id', $classIds)->where('user_id', $user->id)->delete();
+        TermAccess::where('type', 'lesson-material')->whereNotIn('id', $lessonIds)->where('user_id', $user->id)->delete();
+        TermAccess::where('type', 'home-work')->whereNotIn('id', $homeIds)->where('user_id', $user->id)->delete();
+        TermAccess::where('type', 'lesson-record')->whereNotIn('id', $recordIds)->where('user_id', $user->id)->delete();
 
         return redirect()->back()->with('success', "User Access updated");
     }
@@ -176,10 +176,10 @@ class UserAccessController extends Controller
                         $recordIds[] = $term->id;
                     }
                 }
-                TermAccess::where('type', 'class-detail')->whereNotIn('term_id', $classIds)->where('user_id', $userId)->delete();
-                TermAccess::where('type', 'lesson-material')->whereNotIn('term_id', $lessonIds)->where('user_id', $userId)->delete();
-                TermAccess::where('type', 'home-work')->whereNotIn('term_id', $homeIds)->where('user_id', $userId)->delete();
-                TermAccess::where('type', 'lesson-record')->whereNotIn('term_id', $recordIds)->where('user_id', $userId)->delete();
+                TermAccess::where('type', 'class-detail')->whereNotIn('id', $classIds)->where('user_id', $userId)->delete();
+                TermAccess::where('type', 'lesson-material')->whereNotIn('id', $lessonIds)->where('user_id', $userId)->delete();
+                TermAccess::where('type', 'home-work')->whereNotIn('id', $homeIds)->where('user_id', $userId)->delete();
+                TermAccess::where('type', 'lesson-record')->whereNotIn('id', $recordIds)->where('user_id', $userId)->delete();
             }
         }
         return redirect()->back()->with('success', "User Access updated");
