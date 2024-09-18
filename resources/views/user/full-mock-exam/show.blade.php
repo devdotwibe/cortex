@@ -53,7 +53,7 @@
         </div>
         
     </div>
-    <div class="container-wrap" id="question-answer-page">
+    <div class="container-wrap mcq-container-wrap full-mock-exam" id="question-answer-page">
         <div class="lesson">  
             <div class="lesson-title">
                 <h3><span>{{$exam->title}}</span></h3>
@@ -415,15 +415,26 @@
                                         <span>${v.title||""}</span>
                                     </div>
                                     <div class="mcq-container">
-                                        <div id="mcq-${lesseonId}" class="mcq-description">
-                                            ${v.description}
-                                        </div>
-                                        <div class="mcq-answer">
-                                            <div id="mcq-${lesseonId}-ans" class="form-group" >
-                                                <div class="form-data" >
-                                                    <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list"> 
-                                                        
-                                                    </div> 
+                                        <div class="mcq-group">
+                                            <h5><span>{{$exam->title}}</span></h5>
+                                            <div class="mcq-title-text" ${v.title_text?"":'style="display:none"'}>
+                                                ${v.title_text}
+                                            </div>
+                                            <div id="mcq-${lesseonId}" class="mcq-description">
+                                                ${v.description}
+                                            </div>
+                                        </div> 
+                                        <div class="mcq-group-right">
+                                            <div  class="mcq-description">
+                                                ${v.sub_question}
+                                            </div> 
+                                            <div class="mcq-answer">
+                                                <div id="mcq-${lesseonId}-ans" class="form-group" >
+                                                    <div class="form-data" >
+                                                        <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list"> 
+                                                            
+                                                        </div> 
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

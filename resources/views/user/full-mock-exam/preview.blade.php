@@ -2,14 +2,11 @@
 @section('title', $exam->title)
 @section('content')
 <section class="exam-container">
-    <div class="container-wrap">
+    <div class="container-wrap mcq-container-wrap full-mock-exam-review">
         <div class="lesson">            
             <a class="lesson-exit float-start" href="{{route('full-mock-exam.index')}}">
                 <img src="{{asset("assets/images/exiticon.svg")}}" alt="exiticon">
-            </a>
-            <div class="lesson-title">
-                <h3><span>{{$exam->title}}</span></h3>
-            </div>
+            </a> 
             <div class="lesson-body"> 
                 <div class="row" id="lesson-questionlist-list" style="display: none">
                 </div>
@@ -48,29 +45,40 @@
                                     <span>${v.title||""}</span>
                                 </div>
                                 <div class="mcq-container">
-                                    <div id="mcq-${lesseonId}">
-                                        ${v.note||""}
-                                    </div>
-                                    <div id="mcq-${lesseonId}-ans" class="form-group">
-                                        <div class="form-data" >
-                                            <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list"> 
-                                                
-                                            </div> 
+                                    <div class="mcq-group">
+                                        <h5><span>{{$exam->title}}</span></h5>
+                                        <div class="mcq-title-text" ${v.title_text?"":'style="display:none"'}>
+                                            ${v.title_text}
                                         </div>
-                                    </div>
-                                    <div id="mcq-${lesseonId}-explanation"> 
-                                        <label>Correct Answer <span id="mcq-${lesseonId}-correct"></span></label>
-                                        ${v.explanation||''}
-                                    </div>
+                                        <div id="mcq-${lesseonId}">
+                                            ${v.note||""}
+                                        </div>
+                                    </div> 
+                                    <div class="mcq-group-right">
+                                        <div  class="mcq-description">
+                                            ${v.sub_question}
+                                        </div> 
+                                        <div id="mcq-${lesseonId}-ans" class="form-group">
+                                            <div class="form-data" >
+                                                <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list"> 
+                                                    
+                                                </div> 
+                                            </div>
+                                        </div>
+                                        <div id="mcq-${lesseonId}-explanation"> 
+                                            <label>Correct Answer <span id="mcq-${lesseonId}-correct"></span></label>
+                                            ${v.explanation||''}
+                                        </div>
 
-                                    <div id="mcq-${lesseonId}-ans-progress" class="form-group">
-                                        <div class="form-data" >
-                                            <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list-progress"> 
-                                                
-                                            </div> 
-                                        </div>
-                                        <div>
-                                            <p>You spent ${v.time_taken||0} seconds on this question. The average student spent ${v.total_user_taken_time||0} seconds on this question<p>
+                                        <div id="mcq-${lesseonId}-ans-progress" class="form-group">
+                                            <div class="form-data" >
+                                                <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list-progress"> 
+                                                    
+                                                </div> 
+                                            </div>
+                                            <div>
+                                                <p>You spent ${v.time_taken||0} seconds on this question. The average student spent ${v.total_user_taken_time||0} seconds on this question<p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
