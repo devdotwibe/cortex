@@ -1675,9 +1675,8 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 #review-history-modal .modal-content .table-outer { box-shadow: none; overflow-x: auto;}
 #review-history-modal .modal-content .table-outer table  .btn { border: 1px solid #8C8C8C; background: none;  color: #8C8C8C; padding: 6px 20px; transition: all .25s ease-in-out;}
 #review-history-modal .modal-content .table-outer table .btn:hover { background: #8C8C8C; color: #fff;}
-#review-history-modal .modal-content .btn#restart-btn { margin: 0 auto; float: none; display: inline-block; background: #FBAE1E; border: 1px solid #FBAE1E; transition: all .25s ease-in-out;}
-#review-history-modal .modal-content .btn#restart-btn:hover { color: #FBAE1E; background: none;}
-#review-history-modal .modal-content button.close:hover { background: #2F4188; color: #fff;}
+#review-history-modal .modal-content .btn#restart-btn { margin: 0 auto; float: none; display: inline-block; background: #000; border: 1px solid #000; transition: all .25s ease-in-out;}
+#review-history-modal .modal-content .btn#restart-btn:hover { color: #000; background: none;}
 #review-history-modal .modal-content .modal-body {padding: 0;}
 #review-history-modal .modal-content .table-outer table { min-width: 418px;}
 
