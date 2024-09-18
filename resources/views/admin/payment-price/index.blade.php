@@ -278,6 +278,51 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
+                                                                    <div class="row action-{{ $item->slug }} action-{{ $item->slug }}-amount"
+                                                                        @if (
+                                                                            (old('subscription_plan', '') == $item->slug && old($item->slug . '.is_external', '') == 'Y') ||
+                                                                                (empty(old('subscription_plan', '')) && $item->is_external)) style="display:none" @endif>
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group">
+                                                                                <div class="form-data">
+                                                                                    <div class="forms-inputs mb-4">
+                                                                                        <label
+                                                                                            for="{{ $item->slug }}-start_plan">Start Plan </label>
+                                                                                        <input type="text"
+                                                                                            id="{{ $item->slug }}-start_plan"
+                                                                                            name="{{ $item->slug }}[start_plan]"
+                                                                                            class="form-control @error($item->slug . '.start_plan') is-invalid @enderror"
+                                                                                            value="{{ old($item->slug . '.start_plan', $item->start_plan) }}">
+                                                                                        @error($item->slug .
+                                                                                            '.start_plan')
+                                                                                            <div class="invalid-feedback">
+                                                                                                {{ $message }} </div>
+                                                                                        @enderror
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group">
+                                                                                <div class="form-data">
+                                                                                    <div class="forms-inputs mb-4">
+                                                                                        <label
+                                                                                            for="{{ $item->slug }}-end_plan">End Plan</label>
+                                                                                        <input type="text"
+                                                                                            id="{{ $item->slug }}-end_plan"
+                                                                                            name="{{ $item->slug }}[end_plan]"
+                                                                                            class="form-control @error($item->slug . '.end_plan') is-invalid @enderror"
+                                                                                            value="{{ old($item->slug . '.end_plan', $item->end_plan) }}">
+                                                                                        @error($item->slug .
+                                                                                            '.end_plan')
+                                                                                            <div class="invalid-feedback">
+                                                                                                {{ $message }} </div>
+                                                                                        @enderror
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                     <div class="row action-{{ $item->slug }} action-{{ $item->slug }}-ext"
                                                                         @if (
                                                                             !(
