@@ -107,27 +107,27 @@ class UserAccessController extends Controller
         $lessonIds = [];
         $homeIds = [];
         $recordIds = [];
-        foreach ($request->term ?? [] as $term) {
-            $term = trim($term);
-            foreach (ClassDetail::where('term_name', 'like', "%{$term}%")->get() as $term) {
+        foreach ($request->term ?? [] as $termname) {
+            $termname = trim($termname);
+            foreach (ClassDetail::where('term_name', 'like', "%{$termname}%")->get() as $term) {
                 if (TermAccess::where('type', "class-detail")->where('term_id', $term->id)->where('user_id', $user->id)->count() == 0) {
                     TermAccess::store(['type' => "class-detail", 'term_id' => $term->id, 'user_id' => $user->id]);
                 }
                 $classIds[] = $term->id;
             }
-            foreach (LessonMaterial::where('term_name', 'like', "%{$term}%")->get() as $term) {
+            foreach (LessonMaterial::where('term_name', 'like', "%{$termname}%")->get() as $term) {
                 if (TermAccess::where('type', "lesson-material")->where('term_id', $term->id)->where('user_id', $user->id)->count() == 0) {
                     TermAccess::store(['type' => "lesson-material", 'term_id' => $term->id, 'user_id' => $user->id]);
                 }
                 $lessonIds[] = $term->id;
             }
-            foreach (HomeWork::where('term_name', 'like', "%{$term}%")->get() as $term) {
+            foreach (HomeWork::where('term_name', 'like', "%{$termname}%")->get() as $term) {
                 if (TermAccess::where('type', "home-work")->where('term_id', $term->id)->where('user_id', $user->id)->count() == 0) {
                     TermAccess::store(['type' => "home-work", 'term_id' => $term->id, 'user_id' => $user->id]);
                 }
                 $homeIds[] = $term->id;
             }
-            foreach (LessonRecording::where('term_name', 'like', "%{$term}%")->get() as $term) {
+            foreach (LessonRecording::where('term_name', 'like', "%{$termname}%")->get() as $term) {
                 if (TermAccess::where('type', "lesson-record")->where('term_id', $term->id)->where('user_id', $user->id)->count() == 0) {
                     TermAccess::store(['type' => "lesson-record", 'term_id' => $term->id, 'user_id' => $user->id]);
                 }
@@ -138,7 +138,7 @@ class UserAccessController extends Controller
         TermAccess::where('type', 'lesson-material')->whereNotIn('term_id', $lessonIds)->where('user_id', $user->id)->delete();
         TermAccess::where('type', 'home-work')->whereNotIn('term_id', $homeIds)->where('user_id', $user->id)->delete();
         TermAccess::where('type', 'lesson-record')->whereNotIn('term_id', $recordIds)->where('user_id', $user->id)->delete();
-
+ 
         return redirect()->back()->with('success', "User Access updated");
     }
     public function multi_user_update(Request $request)
@@ -149,27 +149,27 @@ class UserAccessController extends Controller
                 $lessonIds = [];
                 $homeIds = [];
                 $recordIds = [];
-                foreach ($request->term ?? [] as $term) {
-                    $term = trim($term);
-                    foreach (ClassDetail::where('term_name', 'like', "%{$term}%")->get() as $term) {
+                foreach ($request->term ?? [] as $termname) {                    
+                    $termname = trim($termname);
+                    foreach (ClassDetail::where('term_name', 'like', "%{$termname}%")->get() as $term) {
                         if (TermAccess::where('type', "class-detail")->where('term_id', $term->id)->where('user_id', $userId)->count() == 0) {
                             TermAccess::store(['type' => "class-detail", 'term_id' => $term->id, 'user_id' => $userId]);
                         }
                         $classIds[] = $term->id;
                     }
-                    foreach (LessonMaterial::where('term_name', 'like', "%{$term}%")->get() as $term) {
+                    foreach (LessonMaterial::where('term_name', 'like', "%{$termname}%")->get() as $term) {
                         if (TermAccess::where('type', "lesson-material")->where('term_id', $term->id)->where('user_id', $userId)->count() == 0) {
                             TermAccess::store(['type' => "lesson-material", 'term_id' => $term->id, 'user_id' => $userId]);
                         }
                         $lessonIds[] = $term->id;
                     }
-                    foreach (HomeWork::where('term_name', 'like', "%{$term}%")->get() as $term) {
+                    foreach (HomeWork::where('term_name', 'like', "%{$termname}%")->get() as $term) {
                         if (TermAccess::where('type', "home-work")->where('term_id', $term->id)->where('user_id', $userId)->count() == 0) {
                             TermAccess::store(['type' => "home-work", 'term_id' => $term->id, 'user_id' => $userId]);
                         }
                         $homeIds[] = $term->id;
                     }
-                    foreach (LessonRecording::where('term_name', 'like', "%{$term}%")->get() as $term) {
+                    foreach (LessonRecording::where('term_name', 'like', "%{$termname}%")->get() as $term) {
                         if (TermAccess::where('type', "lesson-record")->where('term_id', $term->id)->where('user_id', $userId)->count() == 0) {
                             TermAccess::store(['type' => "lesson-record", 'term_id' => $term->id, 'user_id' => $userId]);
                         }

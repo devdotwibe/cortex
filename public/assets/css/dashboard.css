@@ -1665,20 +1665,21 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .critical-reasoning .critical-reasoning-conten.active { display: block;}
 
 
-#review-history-modal .modal-content { border-radius: 10px; text-align: center;}
-#review-history-modal .modal-content .modal-header { background: #2F4188;}
-#review-history-modal .modal-content .modal-header h5 { color: #FFFFFF; font-size: 20px;}
-#review-history-modal .modal-content button.close {background: #fff; color: #2F4188; border: 2px solid #fff;  font-size: 22px; line-height: 0; transition: all .25s ease-in-out;}
+
+#review-history-modal .modal-content {border-radius: 10px;text-align: center;padding: 30px;}
+#review-history-modal .modal-content .modal-header {background: none;padding: 0;border: none;}
+#review-history-modal .modal-content .modal-header h5 {color: #218df8;font-size: 20px;margin: 0 0 20px;font-weight: 600;}
+#review-history-modal .modal-content button.close {background: #fff;color: #000;border: 2px solid #fff;font-size: 30px;line-height: 0;transition: all .25s ease-in-out;width: auto;height: auto;font-weight: 300;position: absolute;right: 15px;top: 20px;}
 #review-history-modal .modal-content .table-outer table thead tr th { background: none; color: #000000; font-weight: 700;}
 #review-history-modal .modal-content .table-outer table thead tr { border-bottom: 1px solid rgb(0 0 0 / 10%);}
 #review-history-modal .modal-content .table-outer { box-shadow: none; overflow-x: auto;}
 #review-history-modal .modal-content .table-outer table  .btn { border: 1px solid #8C8C8C; background: none;  color: #8C8C8C; padding: 6px 20px; transition: all .25s ease-in-out;}
 #review-history-modal .modal-content .table-outer table .btn:hover { background: #8C8C8C; color: #fff;}
-#review-history-modal .modal-content .btn#restart-btn { margin: 0 auto; float: none; display: inline-block; background: #FBAE1E; border: 1px solid #FBAE1E; transition: all .25s ease-in-out;}
-#review-history-modal .modal-content .btn#restart-btn:hover { color: #FBAE1E; background: none;}
-#review-history-modal .modal-content button.close:hover { background: #2F4188; color: #fff;}
-#review-history-modal .modal-content .modal-body { padding: 30px;}
+#review-history-modal .modal-content .btn#restart-btn { margin: 0 auto; float: none; display: inline-block; background: #000; border: 1px solid #000; transition: all .25s ease-in-out;}
+#review-history-modal .modal-content .btn#restart-btn:hover { color: #000; background: none;}
+#review-history-modal .modal-content .modal-body {padding: 0;}
 #review-history-modal .modal-content .table-outer table { min-width: 418px;}
+#review-history-modal .modal-dialog {max-width: 700px;}
 
 
 
@@ -1696,14 +1697,28 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 
 
 .confirm-modal .modal-content { padding: 10px; border-radius: 10px;}
-.confirm-modal .modal-content .modal-header {padding-bottom: 0; border: none;}
+.confirm-modal .modal-content .modal-header {padding-bottom: 0; border: none; justify-content: center;}
 .confirm-modal .modal-content p { font-size: 16px; line-height: 1.5; margin: 0 0 20px;}
 .confirm-modal .modal-dialog { max-width: 425px; top: 42%; transform: translateY(-50%);}
-.confirm-modal .modal-content .modal-header h5 { font-size: 20px; font-weight: 500;}
+.confirm-modal .modal-content .modal-header h5 { font-size: 20px; font-weight: 500; color: #218df8;}
 .confirm-modal .modal-content .modal-body .btn.btn-dark {width: 48%;  margin-right: 2%;}
 .confirm-modal .modal-content .modal-body .btn.btn-secondary { width: 48%; border: 1px solid #8F8F8F; background: none; color: #000000;}
 .confirm-modal .modal-content .modal-body .btn.btn-dark:hover { background: none; color: #000;}
 .confirm-modal .modal-content .modal-body .btn.btn-secondary:hover { background: #8F8F8F; color: #fff;}
+.confirm-modal .modal-content .modal-header button.close { background: none; color: #000; width: auto; height: auto; font-size: 40px; font-weight: 300; position: absolute;  right: 15px; top: 0;}
+
+
+
+#finish-exam-confirm .modal-content { padding: 10px; border-radius: 10px;}
+#finish-exam-confirm .modal-content .modal-header {padding-bottom: 0; border: none; justify-content: left;}
+#finish-exam-confirm .modal-content p { font-size: 16px; line-height: 1.5; margin: 0 0 20px;}
+#finish-exam-confirm .modal-dialog { max-width: 425px; top: 42%; transform: translateY(-50%);}
+#finish-exam-confirm .modal-content .modal-header h5 { font-size: 20px; font-weight: 500; color: #218df8;}
+#finish-exam-confirm .modal-content .modal-body .btn.btn-dark {width: 48%;  margin-right: 2%;}
+#finish-exam-confirm .modal-content .modal-body .btn.btn-secondary { width: 48%; border: 1px solid #8F8F8F; background: none; color: #000000;}
+#finish-exam-confirm .modal-content .modal-body .btn.btn-dark:hover { background: none; color: #000;}
+#finish-exam-confirm .modal-content .modal-body .btn.btn-secondary:hover { background: #8F8F8F; color: #fff;}
+#finish-exam-confirm .modal-content .modal-header button.close { background: none; color: #000; width: auto; height: auto; font-size: 40px; font-weight: 300; position: absolute;  right: 15px; top: 0;}
 
 
 .exam-container .container-wrap .lesson .lesson-body .mcq-container .image-area {max-width: 300px; width: 100%;  margin: 0 0 26px;}

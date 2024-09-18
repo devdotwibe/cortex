@@ -48,7 +48,7 @@ class SubscriptionPaymentController extends Controller
                 "$field"=>['required'],
                 "$field.basic_amount"=>['required','numeric','min:1','max:100000'],
                 "$field.combo_amount"=>['required','numeric','min:1','max:100000'],
-                "$field.start_plan"=>['required'],
+                // "$field.start_plan"=>['required'],
                 "$field.end_plan"=>['required'],
                 "$field.title"=>['required'],
                 "$field.content"=>['nullable'],
@@ -80,7 +80,7 @@ class SubscriptionPaymentController extends Controller
             $basic_amount=$request->$field["basic_amount"];
             $combo_amount=$request->$field["combo_amount"];
             $end_plan=$request->$field["end_plan"];
-            $start_plan=$request->$field["start_plan"];
+            // $start_plan=$request->$field["start_plan"];
                 
             $price1=Payment::stripe()->prices->create([
                 'currency' => config('stripe.currency'),
@@ -117,7 +117,7 @@ class SubscriptionPaymentController extends Controller
             'basic_amount_id'=>$basic_amount_id,
             'combo_amount'=>$combo_amount,
             'combo_amount_id'=>$combo_amount_id,
-            'start_plan'=>$start_plan,
+            // 'start_plan'=>$start_plan,
             'end_plan'=>$end_plan,
             'icon'=>$icon,
             'external_link'=>$external_link,
@@ -208,7 +208,7 @@ class SubscriptionPaymentController extends Controller
                 "$field"=>['required'],
                 "$field.basic_amount"=>['required','numeric','min:1','max:100000'],
                 "$field.combo_amount"=>['required','numeric','min:1','max:100000'],
-                "$field.start_plan"=>['required'],
+                // "$field.start_plan"=>['required'],
                 "$field.end_plan"=>['required'],
                 "$field.title"=>['required'],
                 "$field.content"=>['nullable'],
@@ -239,7 +239,7 @@ class SubscriptionPaymentController extends Controller
         if(($request->$field['is_external']??"")!=="Y"){
             $basic_amount=$request->$field["basic_amount"];
             $combo_amount=$request->$field["combo_amount"];
-            $start_plan=$request->$field["start_plan"];
+            // $start_plan=$request->$field["start_plan"];
             $end_plan=$request->$field["end_plan"];
                 
             $price1=Payment::stripe()->prices->create([
@@ -278,7 +278,7 @@ class SubscriptionPaymentController extends Controller
             'combo_amount'=>$combo_amount,
             'combo_amount_id'=>$combo_amount_id,
             'icon'=>$icon,
-            'start_plan'=>$start_plan,
+            // 'start_plan'=>$start_plan,
             'end_plan'=>$end_plan,
             'external_link'=>$external_link,
             'external_label'=>$external_label,

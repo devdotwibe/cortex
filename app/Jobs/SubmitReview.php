@@ -160,6 +160,8 @@ class SubmitReview implements ShouldQueue
                 'user_answer'=>$user_answer,  
                 'exam_id'=> $this->review->exam_id,
                 'question_id'=> $question->id,
+                'title_text'=> $question->title_text,
+                'sub_question'=> $question->sub_question,
                 'user_id'=>$this->review->user_id,
                 'time_taken'=>$takentime[$question->slug]??0
             ]);
@@ -209,6 +211,8 @@ class SubmitReview implements ShouldQueue
                 'user_answer'=>$user_answer,  
                 'exam_id'=> $this->review->exam_id,
                 'question_id'=> $question->id,
+                'title_text'=> $question->title_text,
+                'sub_question'=> $question->sub_question,
                 'user_id'=>$this->review->user_id,
                 'time_taken'=>$takentime[$question->slug]??0
             ]);
@@ -255,6 +259,8 @@ class SubmitReview implements ShouldQueue
                 'user_answer'=>$user_answer,  
                 'exam_id'=> $this->review->exam_id,
                 'question_id'=> $question->id,
+                'title_text'=> $question->title_text,
+                'sub_question'=> $question->sub_question,
                 'user_id'=>$this->review->user_id,
                 'time_taken'=>$takentime[$question->slug]??0
             ]);

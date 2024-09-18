@@ -282,7 +282,7 @@
                                                                         @if (
                                                                             (old('subscription_plan', '') == $item->slug && old($item->slug . '.is_external', '') == 'Y') ||
                                                                                 (empty(old('subscription_plan', '')) && $item->is_external)) style="display:none" @endif>
-                                                                        <div class="col-md-6">
+                                                                        {{-- <div class="col-md-6">
                                                                             <div class="form-group">
                                                                                 <div class="form-data">
                                                                                     <div class="forms-inputs mb-4">
@@ -301,7 +301,7 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                        </div>
+                                                                        </div> --}}
                                                                         <div class="col-md-6">
                                                                             <div class="form-group">
                                                                                 <div class="form-data">
@@ -533,7 +533,7 @@
                                                                 </div>
                                                                 <div class="row action-payment action-payment-amount"
                                                                     @if (old('payment.is_external', '') == 'Y') style="display:none" @endif>
-                                                                    <div class="col-md-6">
+                                                                    {{-- <div class="col-md-6">
                                                                         <div class="form-group">
                                                                             <div class="form-data">
                                                                                 <div class="forms-inputs mb-4">
@@ -551,7 +551,7 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
+                                                                    </div> --}}
                                                                     <div class="col-md-6">
                                                                         <div class="form-group">
                                                                             <div class="form-data">
@@ -798,15 +798,15 @@
 @push('footer-script')
     <script>
 
-        $('.start-datepicker').datepicker({
-            dateFormat:'yy-mm-dd',
-            minDate:0,
-            onSelect: function(selectedDate) {  
-                const target = $(this).data('target');
-                $(target).datepicker("option", "minDate", selectedDate);
-                $(target).datepicker("setDate", selectedDate);
-            }
-        });
+        // $('.start-datepicker').datepicker({
+        //     dateFormat:'yy-mm-dd',
+        //     minDate:0,
+        //     onSelect: function(selectedDate) {  
+        //         const target = $(this).data('target');
+        //         $(target).datepicker("option", "minDate", selectedDate);
+        //         $(target).datepicker("setDate", selectedDate);
+        //     }
+        // });
         $('.end-datepicker').datepicker({
             dateFormat:'yy-mm-dd',
             minDate:0
