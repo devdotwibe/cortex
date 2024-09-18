@@ -171,7 +171,7 @@ class LiveClassController extends Controller
                 return implode('<br> ',$data->timeslot);
             })->addColumn('termhtml',function($data){
                 if(!empty($data->user)){       
-                    return '<a onclick="usertermlist('."'".route('admin.user.termslist', $data->user->slug)."'".')" class="btn btn-icons view_btn">+</a>';
+                    return '<a  onclick="usertermlist('."'".route('admin.user.termslist', $data->user->slug)."'".')" class="btn btn-icons view_btn">+</a>';
                 }else{
                     return '';
                 }
