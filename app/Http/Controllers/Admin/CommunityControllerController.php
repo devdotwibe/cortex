@@ -7,6 +7,7 @@ use App\Models\Admin;
 use Illuminate\Http\Request;
 use App\Models\AdminPolls;
 use App\Models\Poll;
+use App\Models\Hashtag;
 use App\Models\AdminPost;
 use App\Models\AdminPoll;
 use App\Models\PollOption;
@@ -19,6 +20,20 @@ class CommunityControllerController extends Controller
 { 
     
     public function index(Request $request){ 
+
+
+        // $hashtag = $request->input('hashtag');
+
+        // $posts = $hashtag 
+        //     ? Post::where('hashtags', 'like', "%$hashtag%")->get()
+        //     : Post::all();
+    
+        $hashtags = Hashtag::pluck('hashtag');
+    
+        // return view('community.index', compact('posts', 'hashtags'));
+
+
+
         if($request->ajax()){   
             $posts=Post::where('id','>',0)->orderBy('id','DESC')->paginate();
             $results=[];
@@ -63,7 +78,7 @@ class CommunityControllerController extends Controller
                 'next' => $posts->nextPageUrl()
             ];
         } 
-        return view('admin.community.index');
+        return view('admin.community.index',compact('hashtags'));
     }
     public function create(Request $request){
         return view('admin.community.create');
@@ -213,6 +228,12 @@ class CommunityControllerController extends Controller
             }
         }
         PollOption::where('post_id',$post->id)->whereNotIn('id',$ids)->delete();
+
+
+
+
+
+        
         return redirect()->route('admin.community.index')->with('success',"Post updated");
     }
     public function destroy(Request $request,Post $post){ 
@@ -224,4 +245,47 @@ class CommunityControllerController extends Controller
         PostComment::where('id',$postComment->id)->delete();
         return redirect()->route('admin.community.index')->with('success',"Post Comment Deleted");
     }
+
+
+
+
+
+    public function store2(Request $request)
+{
+    $post = Post::create([
+        'description' => $request->description,
+        'hashtags' => json_encode($this->extractHashtags($request->description)),
+        // Other fields
+    ]);
+
+    // Update or create hashtags
+    foreach ($post->hashtags as $hashtag) {
+        Hashtag::firstOrCreate(['hashtag' => $hashtag]);
+    }
+
+    // Redirect or return response
+}
+
+private function extractHashtags($text)
+{
+    preg_match_all('/#\w+/', $text, $matches);
+    return array_unique($matches[0]);
+}
+
+// public function index2(Request $request)
+// {
+//     $hashtag = $request->input('hashtag');
+
+//     $posts = $hashtag 
+//         ? Post::where('hashtags', 'like', "%$hashtag%")->get()
+//         : Post::all();
+
+//     $hashtags = Hashtag::pluck('hashtag');
+
+//     return view('community.index', compact('posts', 'hashtags'));
+// }
+
+
+
+    
 }

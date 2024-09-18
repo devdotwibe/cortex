@@ -1,0 +1,28 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up()
+    {
+        Schema::create('hashtags', function (Blueprint $table) {
+            $table->id(); // Auto-incrementing ID
+            $table->string('hashtag')->unique(); // Hashtag text with a unique constraint
+            $table->timestamps(); // Created at and updated at timestamps
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('hashtags');
+    }
+};
