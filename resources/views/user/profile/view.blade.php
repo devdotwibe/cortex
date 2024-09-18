@@ -24,12 +24,12 @@
                         <div class="card-body">
                             <p><strong>Amount:</strong> ${{ optional($user->subscription())->amount }} </p>
                             <p><strong>Start Date:</strong>
-                                {{ optional($user->subscription())->created_at->format('Y-m-d') }} </p>
+                                {{ optional($user->subscription())->created_at->toFormattedDateString() }} </p>
                             <p><strong>Status:</strong> Active</p>
                             <p>
                                 <strong>Expiration Date:</strong>
-                                @if (empty(optional($user->subscription())->expire_at))
-                                    {{ \Carbon\Carbon::parse(optional($user->subscription())->expire_at)->format('Y-m-d') }}
+                                @if (!empty(optional($user->subscription())->expire_at))
+                                    {{ \Carbon\Carbon::parse(optional($user->subscription())->expire_at)->toFormattedDateString() }}
                                 @endif
                             </p>
                         </div>
@@ -39,12 +39,12 @@
                         <div class="card-body">
                             <p><strong>Amount:</strong> ${{ optional($user->subscription())->amount }} </p>
                             <p><strong>Start Date:</strong>
-                                {{ optional($user->subscription())->created_at->format('Y-m-d') }} </p>
+                                {{ optional($user->subscription())->created_at->toFormattedDateString() }} </p>
                             <p><strong>Status:</strong> Expired</p>
                             <p>
                                 <strong>Expired Date:</strong>
-                                @if (empty(optional($user->subscription())->expire_at))
-                                    {{ \Carbon\Carbon::parse(optional($user->subscription())->expire_at)->format('Y-m-d') }}
+                                @if (!empty(optional($user->subscription())->expire_at))
+                                    {{ \Carbon\Carbon::parse(optional($user->subscription())->expire_at)->toFormattedDateString() }}
                                 @endif
                             </p>
                         </div>

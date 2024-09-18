@@ -37,7 +37,7 @@
                                 <p><strong>Status:</strong> Active</p>
                                 <p>
                                     <strong>Expiration Date:</strong>
-                                    @if(empty(optional($user->subscription())->expire_at)) 
+                                    @if(!empty(optional($user->subscription())->expire_at)) 
                                     {{ \Carbon\Carbon::parse(optional($user->subscription())->expire_at)->toFormattedDateString() }}
                                     @endif
                                 </p>
@@ -50,7 +50,7 @@
                             <p><strong>Status:</strong> Expired</p>
                             <p>
                                 <strong>Expired Date:</strong> 
-                                @if(empty(optional($user->subscription())->expire_at)) 
+                                @if(!empty(optional($user->subscription())->expire_at)) 
                                 {{ \Carbon\Carbon::parse(optional($user->subscription())->expire_at)->toFormattedDateString() }}
                                 @endif
                             </p>
