@@ -236,7 +236,7 @@ class HomeController extends Controller
                 $iqry->whereNull('end_plan');
             });
             $qry->orWhere(function($iqry){
-                $iqry->whereNotNull('end_plan')->whereDate('end_plan','<',Carbon::now()->toDateString());
+                $iqry->whereNotNull('end_plan')->whereDate('end_plan','>=',Carbon::now()->toDateString());
             });
         })->get();
         return view("price",compact('subscriptionPlans'));
