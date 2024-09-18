@@ -137,11 +137,22 @@
                 </div>
             </div>
         </div>
-        <div class="footer-row1">
+        {{-- <div class="footer-row1">
             <div class="container">
                 <p>Privacy Policy | Terms & Conditions © 2024 Cortex</p>
             </div>
+        </div> --}}
+        <div class="footer-row1">
+            <div class="container">
+                <p>
+                    <a href="{{ route('privacy.index') }}">Privacy Policy</a> | 
+                    <a href="{{ route('terms.index') }}">Terms & Conditions</a> 
+                    © 2024 Cortex
+                </p>
+            </div>
         </div>
+
+        
     </footer>
 
     @stack('modals')
