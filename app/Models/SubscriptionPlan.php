@@ -21,7 +21,9 @@ class SubscriptionPlan extends Model
         'combo_amount_id',   
         'is_external',
         'external_link',
-        'external_label'
+        'external_label',
+        'end_plan',
+        'start_plan'
     ]; 
 
 }

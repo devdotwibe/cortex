@@ -30,6 +30,14 @@ class SubscriptionCheck
         if($user->is_free_access){
             return $next($request);
         }
+
+        // if ($user->progress('cortext-subscription-payment', '') == "paid") {
+        //     return $next($request);
+        // }
+        $subscription=$user->subscription();
+        if(!empty($subscription)&&$subscription->status=="subscribed"){
+            return $next($request);
+        }
         
         if (in_array('learn', $opt)) {
             $category = $request->route('category');
@@ -95,10 +103,6 @@ class SubscriptionCheck
                     return $next($request);
                 }
             }
-        }
-
-        if ($user->progress('cortext-subscription-payment', '') == "paid") {
-            return $next($request);
         }
         if ($user->progress('cortext-subscription-payment', '') == "expired") {
             return redirect()->route('pricing.index')->with('error', 'Your Subscription Plan is expired.Please Subscribe for continue.')->with('subscribe', 'Your Subscription Plan is expired.Please Subscribe for continue.');

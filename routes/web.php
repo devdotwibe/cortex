@@ -56,11 +56,13 @@ Route::get('/d0/{avathar}/{name}/download', [DocumentController::class, 'downloa
 Route::prefix('stripe')->name('stripe.')->group(function () {
     Route::post('/webhook', [StripeWebHookController::class, 'handlewebhook']);
     Route::get('/workshop/{user}/payment/{payment}', [StripePaymentController::class, 'workshop_payment'])->name('payment.workshop');
-    Route::get('/subscription/{user}/payment/{payment}', [StripePaymentController::class, 'subscription_payment'])->name('payment.subscription');
+    // Route::get('/subscription/{user}/payment/{payment}', [StripePaymentController::class, 'subscription_payment'])->name('payment.subscription');
+    Route::get('/subscription/{user}/plan/{subscription_plan}/{type}/payment/{payment}', [StripePaymentController::class, 'subscription_payment'])->name('payment.subscription');
 });
 
 Route::get('/pricing', [HomeController::class, 'pricing'])->name('pricing.index');
-Route::post('/pricing', [HomeController::class, 'verifypricing']);
+Route::get('/pricing/{subscription_plan}', [HomeController::class, 'getpricing'])->name('pricing.pay');
+Route::post('/pricing/{subscription_plan}', [HomeController::class, 'verifypricing']);
 Route::post('/combo-email', [HomeController::class, 'combo_mail'])->name('combo-email');
 Route::get('/verify-coupon', [HomeController::class, 'verifycoupon'])->name('coupon-verify');
 
@@ -82,6 +84,8 @@ Route::middleware(['auth', 'isUser'])->group(function () {
     Route::get('/verification/notice',[HomeController::class,'verificationnotice'])->name('verification.notice');
     Route::get('/verification/resend',[HomeController::class,'verificationresend'])->name('verification.resend');
     Route::post('/verification/resend',[HomeController::class,'verificationresend']);
+
+    Route::get('/subscription-payment/{payment_intent}/notice',[HomeController::class,'subscriptionnotice'])->name('subscription-payment.notice');
 
     Route::post("/upload",[UploadController::class,'uploadFile'])->name("upload");
 

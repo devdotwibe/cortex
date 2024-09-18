@@ -11,7 +11,7 @@
                 <div class="row" id="lesson-list">
                     @forelse ($lessons as $k => $item)
                     <div class="col-md-6"> 
-                        @if ($user->is_free_access||$user->progress('cortext-subscription-payment','')=="paid"||$k == 0)
+                        @if ($user->is_free_access||(optional($user->subscription())->status??"")=="subscribed"||$k == 0)
                             <a @if ($user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$item->id.'-complete-review',"no") == "yes") 
                                 
                                 @elseif ($user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$item->id.'-complete-date',"") == "")

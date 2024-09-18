@@ -87,8 +87,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(UserExamReview::class);
     }
     public function subscription(){
-        $plan=UserProgress::where('user_id',$this->id)->where('name','cortext-subscription-payment-transation')->first();
-        return PaymentTransation::where('user_id',$this->id)->where('stype','subscription')->where('slug',optional($plan)->value??"-")->orderBy('id','DESC')->first();
+        return UserSubscription::where('user_id',$this->id)->orderBy('id','DESC')->first();
     } 
 
 }
