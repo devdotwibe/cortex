@@ -1,7 +1,7 @@
 @extends('layouts.email')
 @section('content')
 
-Dear {{$data['first_name']}},
+Dear Admin,
 
 Client want to contact you please see the details.
 <br>
