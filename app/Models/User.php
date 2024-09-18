@@ -118,7 +118,7 @@ class UserEmailVerifyNotification extends VerifyEmail{
     {
         $url = $this->verificationUrl($notifiable);
         $name = $notifiable->first_name;
-        return (new MailMessage)->view('email.reset',compact('url', 'name'));
+        return (new MailMessage)->view('email.verify',compact('url', 'name'));
     }
 
 }
@@ -134,7 +134,7 @@ class UserPasswrdResetNotification extends ResetPassword{
    {
         $url=$this->resetUrl($notifiable);
         $name = $notifiable->first_name;
-        return (new MailMessage)->view('email.forgot',compact('url', 'name'));
+        return (new MailMessage)->view('email.reset',compact('url', 'name'));
     }
     
 }
