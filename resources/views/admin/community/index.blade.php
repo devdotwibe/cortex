@@ -5,8 +5,7 @@
     <div class="header_wrapp">
         <div class="header_title">
             <h2>Community</h2>
-        </div>
-
+        </div>      
         <div class="header_right">
             <ul class="nav_bar">
                 <li class="nav_item"><a href="{{route('admin.community.report.index')}}" class="nav_link btn">Reported Post</a></li>
@@ -15,7 +14,25 @@
         </div>
     </div>
 </section>
+
 <section class="post-section" >
+
+    <div class="container">
+        <div class="row">
+            <!-- Left Sidebar for Hashtags -->
+            <div class="col-md-3">
+                <h4>Hashtags</h4>
+                <ul class="list-group">
+                    @foreach ($hashtags as $hashtag)
+                        <li class="list-group-item">
+                            <a href="{{-- route('community.index', ['hashtag' => $hashtag]) --}}">{{ $hashtag }}</a>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+     
+        </div>
+    </div>
     <div class="post-container" id="post-item-list">
         
     </div> 

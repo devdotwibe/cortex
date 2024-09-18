@@ -154,14 +154,29 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::prefix('community')->name('community.')->group(function () {
             Route::get('/', [CommunityControllerController::class, 'index'])->name('index');
             Route::resource('/post', CommunityControllerController::class);
+            
             Route::get('/report-post', [PostReportController::class,'index'])->name('report.index');
             Route::delete('/report-post/{report_post}', [PostReportController::class,'destroy'])->name('report.destroy');
             Route::get('/report-post/{report_post}', [PostReportController::class,'show'])->name('report.show');
             Route::get('/report-post/{user}/ban-user', [PostReportController::class,'banuser'])->name('report.banuser');
             Route::get('/report-post/{post}/block-post', [PostReportController::class,'hidepost'])->name('report.hidepost');
 
+            
+            
             Route::get('/post/{post}/comment/{post_comment}/reply', [CommunityControllerController::class, 'postCommentReplay'])->name('post.comment.reply');
             Route::delete('/post/{post}/comment/{post_comment}/delete', [CommunityControllerController::class, 'commentDestroy'])->name('post.comment.destroy');
+
+
+            // Routes for hashtags management
+    Route::get('/hashtags', [CommunityControllerController::class, 'index'])->name('hashtags.index');
+    Route::post('/hashtags', [CommunityControllerController::class, 'store'])->name('hashtags.store');
+    Route::delete('/hashtags/{hashtag}', [CommunityControllerController::class, 'destroy'])->name('hashtags.destroy');
+
+    // Route to view posts by hashtag
+    Route::get('/posts/hashtag/{hashtag}', [CommunityControllerController::class, 'postsByHashtag'])->name('posts.byHashtag');
+
+
+
         });
 
         // Route::resource("/options",CategoryController::class);
@@ -515,7 +530,9 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
     });
 
+    
 
+   
 
 
 
