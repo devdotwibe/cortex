@@ -61,10 +61,12 @@
                         <span>{{auth('web')->user()->name}}</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarLogin">
+                        <a class="dropdown-item" href="{{route('dashboard')}}">Dashboard</a>
+                        @guest('admin')
                         <a class="dropdown-item" href="{{ route('profile.view') }}">Profile</a>
-                        <a class="dropdown-item" href="#">Settings</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{route('logout')}}">Log Out </a>
+                        @endguest
                     </div>
                 </li>
             </ul>   
