@@ -291,8 +291,8 @@
                                                                                         <input type="text"
                                                                                             id="{{ $item->slug }}-start_plan"
                                                                                             name="{{ $item->slug }}[start_plan]"
-                                                                                            class="form-control datepicker @error($item->slug . '.start_plan') is-invalid @enderror"
-                                                                                            value="{{ old($item->slug . '.start_plan', $item->start_plan) }}" readonly>
+                                                                                            class="form-control datepicker start-datepicker @error($item->slug . '.start_plan') is-invalid @enderror"
+                                                                                            value="{{ old($item->slug . '.start_plan', $item->start_plan) }}"  data-target="#{{ $item->slug }}-end_plan"  readonly>
                                                                                         @error($item->slug .
                                                                                             '.start_plan')
                                                                                             <div class="invalid-feedback">
@@ -311,7 +311,7 @@
                                                                                         <input type="text"
                                                                                             id="{{ $item->slug }}-end_plan"
                                                                                             name="{{ $item->slug }}[end_plan]"
-                                                                                            class="form-control datepicker @error($item->slug . '.end_plan') is-invalid @enderror"
+                                                                                            class="form-control datepicker end-datepicker @error($item->slug . '.end_plan') is-invalid @enderror"
                                                                                             value="{{ old($item->slug . '.end_plan', $item->end_plan) }}" readonly>
                                                                                         @error($item->slug .
                                                                                             '.end_plan')
@@ -542,8 +542,8 @@
                                                                                     <input type="text"
                                                                                         id="payment-start_plan"
                                                                                         name="payment[start_plan]"
-                                                                                        class="form-control datepicker @error('payment.start_plan') is-invalid @enderror"
-                                                                                        value="{{ old('payment.start_plan') }}" readonly>
+                                                                                        class="form-control datepicker start-datepicker @error('payment.start_plan') is-invalid @enderror"
+                                                                                        value="{{ old('payment.start_plan') }}" data-target="#payment-end_plan" readonly >
                                                                                     @error('payment.start_plan')
                                                                                         <div class="invalid-feedback">
                                                                                             {{ $message }} </div>
@@ -561,7 +561,7 @@
                                                                                     <input type="text"
                                                                                         id="payment-end_plan"
                                                                                         name="payment[end_plan]"
-                                                                                        class="form-control datepicker @error('payment.end_plan') is-invalid @enderror"
+                                                                                        class="form-control datepicker end-datepicker @error('payment.end_plan') is-invalid @enderror"
                                                                                         value="{{ old('payment.end_plan') }}" readonly>
                                                                                     @error('payment.end_plan')
                                                                                         <div class="invalid-feedback">
@@ -798,7 +798,16 @@
 @push('footer-script')
     <script>
 
-        $('.datepicker').datepicker({
+        $('.start-datepicker').datepicker({
+            dateFormat:'yy-mm-dd',
+            minDate:0,
+            onSelect: function(selectedDate) {  
+                const target = $(this).data('target');
+                $(target).datepicker("option", "minDate", selectedDate);
+                $(target).datepicker("setDate", selectedDate);
+            }
+        });
+        $('.end-datepicker').datepicker({
             dateFormat:'yy-mm-dd',
             minDate:0
         });
