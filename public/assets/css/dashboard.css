@@ -1710,7 +1710,7 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 
 
 #finish-exam-confirm .modal-content { padding: 10px; border-radius: 10px;}
-#finish-exam-confirm .modal-content .modal-header {padding-bottom: 0; border: none; justify-content: center;}
+#finish-exam-confirm .modal-content .modal-header {padding-bottom: 0; border: none; justify-content: left;}
 #finish-exam-confirm .modal-content p { font-size: 16px; line-height: 1.5; margin: 0 0 20px;}
 #finish-exam-confirm .modal-dialog { max-width: 425px; top: 42%; transform: translateY(-50%);}
 #finish-exam-confirm .modal-content .modal-header h5 { font-size: 20px; font-weight: 500; color: #218df8;}
