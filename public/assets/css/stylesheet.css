@@ -397,10 +397,10 @@ footer .footer-row1 p { font-size: 16px; color: #fff; font-weight: 500;}
 #tabs2-cortext-subscription-payment-modal .modal-dialog .modal-content .modal-header { border: none; justify-content: center;}
 #tabs2-cortext-subscription-payment-modal .modal-dialog .modal-content .modal-header h5 { font-size: 26px; color: #218df8; font-weight: 500; margin: 0 0 18px;}
 #tabs2-cortext-subscription-payment-modal .modal-dialog .modal-content .modal-body .form-group { width: 100%; margin: 0 0 18px;}
-#tabs2-cortext-subscription-payment-modal .modal-dialog .modal-content .modal-body .form-group .form-check { display: inline-block; margin: 0 30px 0 0; padding: 0 30px 0 0; position: relative;}
+#tabs2-cortext-subscription-payment-modal .modal-dialog .modal-content .modal-body .form-group .form-check { display: inline-block; margin: 0 30px 0 0; padding: 0 30px 0 0; position: relative;cursor: pointer;}
 #tabs2-cortext-subscription-payment-modal .modal-dialog .modal-content .modal-body .form-group .form-check:last-child { margin-right: 0;}
 #tabs2-cortext-subscription-payment-modal .modal-dialog .modal-content .modal-body .form-group .form-check input {position: absolute;right: 0;top: 0;-webkit-appearance: none;border-radius: 3px;background: none;border: 2px solid #FFCD56;box-shadow: none;}
-#tabs2-cortext-subscription-payment-modal .modal-dialog .modal-content .modal-body .form-group .form-check input:checked {background: url(../images/checkyellow.svg) no-repeat center / 100%;}
+#tabs2-cortext-subscription-payment-modal .modal-dialog .modal-content .modal-body .form-group .form-check input:checked {background: url(../images/checkyellow.svg) no-repeat center / 20px;}
 
 
 @media screen and (min-width:1500px){
