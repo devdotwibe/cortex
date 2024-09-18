@@ -292,7 +292,7 @@
                                     <input type="hidden" name="plan" value="single">
                                     <input type="hidden" name="year" value="{{date('Y')+0}}-{{date('Y')+1}}" >
                                     <div class="form-group">
-                                        <label for="coupon">Coupon Code</label>
+                                        {{-- <label for="coupon">Coupon Code</label> --}}
                                         <div class="input-group ">  
                                             <input type="text" name="coupon" id="tabs2-coupon" placeholder="Enter Coupon Code" class="form-control" />
                                             <button class="btn btn-outline-secondary" type="button" id="tabs2-coupon-verify-button">Apply</button>
