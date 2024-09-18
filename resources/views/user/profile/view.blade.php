@@ -27,7 +27,7 @@
                                 {{ optional($user->subscription())->created_at->toFormattedDateString() }} </p>
                             <p><strong>Status:</strong> Active</p>
                             <p>
-                                <strong>Expiration Date:</strong>
+                                <strong>Expiration Date:</strong>{{optional($user->subscription())->expire_at}}
                                 @if (empty(optional($user->subscription())->expire_at))
                                     {{ \Carbon\Carbon::parse(optional($user->subscription())->expire_at)->toFormattedDateString() }}
                                 @endif
