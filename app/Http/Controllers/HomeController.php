@@ -17,6 +17,7 @@ use App\Models\UserSubscription;
 use App\Support\Helpers\OptionHelper;
 use App\Support\Plugin\Payment;
 use App\Trait\ResourceController;
+use Carbon\Carbon;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Auth\Events\Registered;
@@ -229,7 +230,11 @@ class HomeController extends Controller
     }
 
     public function pricing(Request $request){ 
-        $subscriptionPlans = SubscriptionPlan::all();
+        $subscriptionPlans = SubscriptionPlan::where(function($qry){
+            $qry->where('is_external',true)->orWhere(function($iqry){
+                $iqry->whereNotNull('end_plan')->whereDate('end_plan','<',Carbon::now()->toDateString());
+            });
+        })->get();
         return view("price",compact('subscriptionPlans'));
     }
     public function verifycoupon(Request $request){
