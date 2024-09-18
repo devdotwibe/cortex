@@ -255,7 +255,7 @@ class SubscriptionPaymentController extends Controller
             $basic_amount_id=$price1->id; 
             $price2=Payment::stripe()->prices->create([
                 'currency' => config('stripe.currency'),
-                'unit_amount' => intval($combo_amount*100),
+                'unit_amount' => intval($combo_amount*100*2),
                 'product_data' => ['name' => config('app.name','Cortex').' Amount :'.(intval($combo_amount*100)/100).' For '.ucfirst($title)],
                 'metadata'=>[
                     'modify_time'=>date('Y-m-d h:i a'),

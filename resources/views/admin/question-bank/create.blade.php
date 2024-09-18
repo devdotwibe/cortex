@@ -18,7 +18,9 @@
             ["name"=>"sub_category_set", "value"=>$setname->id,"type"=>"hidden"],
             ["name"=>"redirect", "value"=>route("admin.question-bank.show",$setname->slug),"type"=>"hidden"],
               
-            ["name"=>"description","label"=>"Question","size"=>12,"type"=>"editor"], 
+            ["name"=>"title_text","label"=>"Title Text","size"=>12,"type"=>"editor"],
+            ["name"=>"description","label"=>"Left Question","size"=>12,"type"=>"editor"],
+            ["name"=>"sub_question","label"=>"Right Question","size"=>12,"type"=>"editor"], 
             ["name"=>"answer","label"=>"answer" ,"type"=>"choice" ,"size"=>6],
             ["name"=>"explanation","label"=>"Explanation","size"=>12,"type"=>"editor" ],
         ]' /> 
