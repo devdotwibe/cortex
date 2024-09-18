@@ -48,7 +48,7 @@
                     @else
                         <h6>FROM @if(($plan->basic_amount??0)<($plan->combo_amount)) <span>${{$plan->basic_amount??0}}</span> @else <span>${{$plan->combo_amount??0}}</span> @endif </h6>
                         <div class="price-detail">
-                            <h5>GROUP: <span>${{$plan->combo_amount}}</span></h5>
+                            <h5>GROUP/Per Person: <span>${{$plan->combo_amount}}</span></h5>
                             <h5>INDIVIDUAL: <span>${{$plan->basic_amount??0}}</span></h5>
                         </div>
                         @guest('admin')                        

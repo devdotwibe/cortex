@@ -262,8 +262,7 @@ class HomeController extends Controller
     }
     public function combo_mail(Request $request){
         $request->validate([
-            "email"=>['required','email'],
-            "year"=>['required'],
+            "email"=>['required','email'], 
         ]);
         $email=$request->input('email','');
         /**
@@ -276,11 +275,8 @@ class HomeController extends Controller
 
         if(User::where('email',$email)->where('id','!=',$user->id)->count()>0){
             $tuser=User::where('email',$email)->first();
-            if(!empty($tuser)){
-                $count=UserProgress::where('user_id',$tuser->id)->where('name','cortext-subscription-payment-year')->where('value', $request->year)->count();
-                if($count>0){
-                    return throw ValidationException::withMessages(['email'=>["You inviting friend is already subscribed for this year {$request->year}. Please confirm before payment"]]);
-                }
+            if(!empty($tuser)&&(optional($tuser->subscription())->status??'')=="subscribed"){ 
+                return throw ValidationException::withMessages(['email'=>["You inviting friend is already subscribed . Please confirm before payment"]]);
             }
            return response()->json([
              'message'=> "User Mail Approved "
@@ -298,8 +294,7 @@ class HomeController extends Controller
         return redirect()->back();
     }
     public function verifypricing(Request $request,SubscriptionPlan $subscriptionPlan){
-        $request->validate([
-            "year"=>['required'],
+        $request->validate([ 
             "plan"=>['required'],
             "email"=>["required_if:plan,combo"]
         ]);
