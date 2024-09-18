@@ -347,10 +347,10 @@ class HomeController extends Controller
                 ]);
                 $payment =Payment::stripe()->paymentLinks->create([
                     'line_items' => [
-                    [
-                        'price' =>$price->id,
-                        'quantity' => 1,
-                    ],
+                        [
+                            'price' =>$price->id,
+                            'quantity' => 1,
+                        ],
                     ],
                     'after_completion' => [
                         'type' => 'redirect',
@@ -368,10 +368,10 @@ class HomeController extends Controller
 
                 $payment =Payment::stripe()->paymentLinks->create([
                     'line_items' => [
-                    [
-                        'price' =>$request->plan=="combo"? $subscriptionPlan->combo_amount_id:  $subscriptionPlan->basic_amount_id,
-                        'quantity' => 1,
-                    ],
+                        [
+                            'price' =>$request->plan=="combo"? $subscriptionPlan->combo_amount_id:  $subscriptionPlan->basic_amount_id,
+                            'quantity' => 1,
+                        ],
                     ],
                     'after_completion' => [
                         'type' => 'redirect',
