@@ -30,7 +30,7 @@ class TermsAndConditionsController extends Controller
         // Check if a Support record already exists
         $TermsAndConditions = TermsAndConditions::first();
     
-        if (empty($privacy)) {
+        if (empty($TermsAndConditions)) {
             // Create a new Support instance if none exists
             $TermsAndConditions = new TermsAndConditions;
         }
