@@ -28,11 +28,14 @@ use App\Http\Controllers\Admin\CommunityControllerController;
 use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\PagesController;
 use App\Http\Controllers\Admin\SupportController;
+use App\Http\Controllers\Admin\TermsAndConditionsController;
+use App\Http\Controllers\Admin\PrivacyController;
 use App\Http\Controllers\Admin\PostReportController;
 use App\Http\Controllers\Admin\SubscribeUsersController;
 use App\Http\Controllers\Admin\UserAccessController;
 use App\Http\Controllers\Admin\TipsController;  
 use App\Http\Controllers\Admin\SubscriptionPaymentController;
+
 use Illuminate\Support\Facades\Route;
 
 
@@ -493,6 +496,26 @@ Route::name('admin.')->prefix('admin')->group(function(){
     });
  
  
+
+    Route::prefix('privacy')->name('privacy.')->group(function () {
+        Route::get('/', [PrivacyController::class, 'index'])->name('index');
+        Route::get('/create', [PrivacyController::class, 'create'])->name('create');
+        Route::post('/', [PrivacyController::class, 'storeSection1'])->name('store');
+
+       
+
+    });
+
+    Route::prefix('terms')->name('terms.')->group(function () {
+        Route::get('/', [TermsAndConditionsController::class, 'index'])->name('index');
+        Route::get('/create', [TermsAndConditionsController::class, 'create'])->name('create');
+        Route::post('/', [TermsAndConditionsController::class, 'storeSection1'])->name('store');
+
+       
+
+    });
+
+
 
 
 
