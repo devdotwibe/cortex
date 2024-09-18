@@ -40,7 +40,7 @@
                                 </div>
 
                                 <div class="forms-inputs mb-4">
-                                    <input autocomplete="off" name="email" type="text" placeholder="Enter your email or username" value="{{old('email')}}" class="form-control @error('email') is-invalid @enderror " >
+                                    <input autocomplete="off" name="email" type="text" placeholder="Enter your email" value="{{old('email')}}" class="form-control @error('email') is-invalid @enderror " >
                                     @error('email')
                                     <div class="invalid-feedback">{{$message}}</div>
                                     @enderror
