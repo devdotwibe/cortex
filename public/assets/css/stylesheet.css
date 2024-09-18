@@ -44,7 +44,7 @@ section{width: 100%; float: left;}
 .header-wrapp .brand-logo img { width: 100%; display: block;}
 .header-wrapp .header-right { width: auto;}
 .header-wrapp .header-right ul { width: auto; display: inline-block;}
-.header-wrapp .header-right ul .nav-link { display: inline-block; font-size: 19px; color: #000;font-weight: 500; margin: 0 24px 0 0;}
+.header-wrapp .header-right ul .nav-link { display: inline-block; font-size: 19px; color: #000;font-weight: 500; margin: 0 24px 0 0; padding: 0;}
 .header-wrapp .header-right ul .nav-link a { color: #000;}
 .header-wrapp .header-right ul .nav-link a:hover {  color: #FBAE1E;}
 .header-wrapp .header-right .header-btn {  width: auto; display: inline-block;}
@@ -54,6 +54,7 @@ section{width: 100%; float: left;}
 .header-wrapp .header-right ul .nav-link.signup-link a:hover { color: #FBAE1E;}
 .hamburger { display: none;}
 .overlay { display: none;}
+.header-wrapp .header-right ul .dropdown:hover .dropdown-menu {display: block;}
 
 
 .banner-wrapp {width: 100%; float: left; background: #E5F7FF; padding: 45px 0;}
