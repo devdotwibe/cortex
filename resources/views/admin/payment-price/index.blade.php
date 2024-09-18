@@ -543,7 +543,7 @@
                                                                                         id="payment-start_plan"
                                                                                         name="payment[start_plan]"
                                                                                         class="form-control @error('payment.start_plan') is-invalid @enderror"
-                                                                                        value="{{ old('payment.start_plan') }}">
+                                                                                        value="{{ old('payment.start_plan') }}" readonly>
                                                                                     @error('payment.start_plan')
                                                                                         <div class="invalid-feedback">
                                                                                             {{ $message }} </div>
@@ -562,7 +562,7 @@
                                                                                         id="payment-end_plan"
                                                                                         name="payment[end_plan]"
                                                                                         class="form-control @error('payment.end_plan') is-invalid @enderror"
-                                                                                        value="{{ old('payment.end_plan') }}">
+                                                                                        value="{{ old('payment.end_plan') }}" readonly>
                                                                                     @error('payment.end_plan')
                                                                                         <div class="invalid-feedback">
                                                                                             {{ $message }} </div>
