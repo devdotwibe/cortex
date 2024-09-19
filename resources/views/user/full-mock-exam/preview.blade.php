@@ -21,6 +21,7 @@
 @push('footer-script') 
 
 <script>
+        var useranswers=@json($useranswer);
         function generateRandomId(length) {
             const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
             let result = '';
@@ -48,7 +49,7 @@
                                     <div class="mcq-group">
                                         <h5><span>{{$exam->title}}</span></h5>
                                         <div class="mcq-title-text" ${v.title_text?"":'style="display:none"'}>
-                                            ${v.title_text}
+                                            ${v.title_text||}
                                         </div>
                                         <div id="mcq-${lesseonId}">
                                             ${v.note||""}
@@ -56,7 +57,7 @@
                                     </div> 
                                     <div class="mcq-group-right">
                                         <div  class="mcq-description">
-                                            ${v.sub_question}
+                                            ${v.sub_question||}
                                         </div> 
                                         <div id="mcq-${lesseonId}-ans" class="form-group">
                                             <div class="form-data" >
@@ -116,13 +117,23 @@
                 }) 
                 if(res.total>1){
                      $.each(res.links,function(k,v){
+                        let linkstatus="";
+                        if(k!=0&&k!=res.links.length&&useranswers[k-1]){
+                            linkstatus='status-bad';
+                            if(useranswers[k-1].iscorrect){
+                                linkstatus="status-good";
+                                if(useranswers[k-1].time_taken<{{$examtime}}){
+                                    linkstatus="status-exelent";
+                                }
+                            }
+                        }
                         if(v.active||!v.url){
                             $('#lesson-footer-pagination').append(`
-                                <button class="btn btn-secondary ${v.active?"active":""}" disabled  >${v.label}</button>
+                                <button class="${linkstatus} btn btn-secondary ${v.active?"active":""}" disabled  >${v.label}</button>
                             `)
                         }else{
                             $('#lesson-footer-pagination').append(`
-                                <button class="btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
+                                <button class="${linkstatus} btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
                             `)
                         }
                      })
