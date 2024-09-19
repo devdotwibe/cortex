@@ -168,12 +168,12 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
 
             // Routes for hashtags management
-    Route::get('/hashtags', [CommunityControllerController::class, 'index'])->name('hashtags.index');
-    Route::post('/hashtags', [CommunityControllerController::class, 'store'])->name('hashtags.store');
-    Route::delete('/hashtags/{hashtag}', [CommunityControllerController::class, 'destroy'])->name('hashtags.destroy');
+    // Route::get('/hashtags', [CommunityControllerController::class, 'index'])->name('hashtags.index');
+    // Route::post('/hashtags', [CommunityControllerController::class, 'store'])->name('hashtags.store');
+    // Route::delete('/hashtags/{hashtag}', [CommunityControllerController::class, 'destroy'])->name('hashtags.destroy');
 
-    // Route to view posts by hashtag
-    Route::get('/posts/hashtag/{hashtag}', [CommunityControllerController::class, 'postsByHashtag'])->name('posts.byHashtag');
+    // // Route to view posts by hashtag
+    // Route::get('/posts/hashtag/{hashtag}', [CommunityControllerController::class, 'postsByHashtag'])->name('posts.byHashtag');
 
 
 

@@ -25,7 +25,7 @@
                 <ul class="list-group">
                     @foreach ($hashtags as $hashtag)
                         <li class="list-group-item">
-                            <a href="{{-- route('community.index', ['hashtag' => $hashtag]) --}}">{{ $hashtag }}</a>
+                            <a href="{{ route('admin.community.index', ['hashtag' => $hashtag]) }}">{{ $hashtag }}</a>
                         </li>
                     @endforeach
                 </ul>
@@ -134,7 +134,7 @@
         },'json');
     }
     $(function(){
-        loadpost("{{url()->current()}}");
+        loadpost("{{url()->full()}}");
         $('#load-more-btn').click(function(){
             loadpost($('#load-more-btn').data('url'))
         })

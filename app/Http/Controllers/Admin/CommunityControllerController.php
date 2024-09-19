@@ -22,20 +22,27 @@ class CommunityControllerController extends Controller
     public function index(Request $request){ 
 
 
-        // $hashtag = $request->input('hashtag');
 
         // $posts = $hashtag 
         //     ? Post::where('hashtags', 'like', "%$hashtag%")->get()
         //     : Post::all();
     
-        $hashtags = Hashtag::pluck('hashtag');
+        $hashtags = Hashtag::groupBy('hashtag')->pluck('hashtag');
     
         // return view('community.index', compact('posts', 'hashtags'));
 
+        $hashtag = $request->input('hashtag');
 
 
         if($request->ajax()){   
-            $posts=Post::where('id','>',0)->orderBy('id','DESC')->paginate();
+            $posts=Post::where('id','>',0);
+            if(!empty($hashtag))
+            {
+                $posts->whereIn('id',Hashtag::where('hashtag', 'like', "%$hashtag%")->select ('post_id'));
+            }
+
+
+            $posts=$posts->orderBy('id','DESC')->paginate();
             $results=[];
             foreach ($posts->items() as $row) { 
                 $options=[];
@@ -83,45 +90,100 @@ class CommunityControllerController extends Controller
     public function create(Request $request){
         return view('admin.community.create');
     }
-    public function store(Request $request){
-        /**
-         * @var Admin
-         */
-        $admin=Auth::guard('admin')->user();
-        $type=$request->type??"post";
-        if($type=="post"){
-            $data=$request->validate([ 
-                'type'=>["required"],
-                'description'=>["required"], 
-                'image'=>["nullable"], 
-            ]);
-        }else{
+    // public function store(Request $request){
+    //     /**
+    //      * @var Admin
+    //      */
+    //     $admin=Auth::guard('admin')->user();
+    //     $type=$request->type??"post";
+    //     if($type=="post"){
+    //         $data=$request->validate([ 
+    //             'type'=>["required"],
+    //             'description'=>["required"], 
+    //             'image'=>["nullable"], 
+    //         ]);
+    //     }else{
 
-            $data=$request->validate([
-                'description'=>["required"], 
-                'type'=>["required"], 
-                'option'=>["required",'array','min:2','max:5'],
-                'option.*'=>["required",'max:255'],
-                'image'=>["nullable"], 
-            ],[
-                'option.required'=>"This field is required",
-                'option.*.required'=>"This field is required",
+    //         $data=$request->validate([
+    //             'description'=>["required"], 
+    //             'type'=>["required"], 
+    //             'option'=>["required",'array','min:2','max:5'],
+    //             'option.*'=>["required",'max:255'],
+    //             'image'=>["nullable"], 
+    //         ],[
+    //             'option.required'=>"This field is required",
+    //             'option.*.required'=>"This field is required",
+    //         ]);
+    //     }
+  
+    //     $data['status']="publish";
+    //     $data['admin_id']=$admin->id;
+    //     $post=Post::store($data);
+    //     if($request->type=="poll"){
+    //         foreach ($request->input('option',[]) as $k=>$v) {
+    //             PollOption::store([
+    //                 'option'=>$v,
+    //                 'post_id'=>$post->id
+    //             ]);
+    //         }
+    //     }
+    //     return redirect()->route('admin.community.index')->with('success',"Post published");
+    // }
+
+
+    public function store(Request $request)
+{
+    /**
+     * @var Admin
+     */
+    $admin = Auth::guard('admin')->user();
+    $type = $request->type ?? "post";
+
+    if ($type == "post") {
+        $data = $request->validate([
+            'type' => ["required"],
+            'description' => ["required"],
+            'image' => ["nullable"],
+        ]);
+    } else {
+        $data = $request->validate([
+            'description' => ["required"],
+            'type' => ["required"],
+            'option' => ["required", 'array', 'min:2', 'max:5'],
+            'option.*' => ["required", 'max:255'],
+            'image' => ["nullable"],
+        ], [
+            'option.required' => "This field is required",
+            'option.*.required' => "This field is required",
+        ]);
+    }
+
+    $data['status'] = "publish";
+    $data['admin_id'] = $admin->id;
+
+    // Create the post
+    $post = Post::store($data);
+
+    // Handle poll options if the type is "poll"
+    if($request->type=="poll"){
+        foreach ($request->input('option',[]) as $k=>$v) {
+            PollOption::store([
+                'option'=>$v,
+                'post_id'=>$post->id
             ]);
         }
-  
-        $data['status']="publish";
-        $data['admin_id']=$admin->id;
-        $post=Post::store($data);
-        if($request->type=="poll"){
-            foreach ($request->input('option',[]) as $k=>$v) {
-                PollOption::store([
-                    'option'=>$v,
-                    'post_id'=>$post->id
-                ]);
-            }
-        }
-        return redirect()->route('admin.community.index')->with('success',"Post published");
     }
+
+    // Extract and store hashtags from the description
+    preg_match_all('/#\w+/', $data['description'], $hashtags);
+    $extractedHashtags = $hashtags[0]; 
+    foreach ($extractedHashtags as $hashtag) {
+        Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id'=>$post->id]);
+    }
+
+    return redirect()->route('admin.community.index')->with('success', "Post published");
+}
+
 
     public function show(Request $request,Post $post){
         if($request->ajax()){
@@ -228,12 +290,16 @@ class CommunityControllerController extends Controller
             }
         }
         PollOption::where('post_id',$post->id)->whereNotIn('id',$ids)->delete();
-
-
-
-
-
-        
+ 
+        preg_match_all('/#\w+/',  $data['description'], $hashtags);
+        $extractedHashtags = $hashtags[0]; 
+        $hashIds=[];
+        foreach ($extractedHashtags as $hashtag) {
+            
+           $hash= Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id'=>$post->id]);
+           $hashIds[]=$hash->id;
+        }
+        Hashtag::where('post_id',$post->id)->whereNotIn('id',$hashIds)->delete();
         return redirect()->route('admin.community.index')->with('success',"Post updated");
     }
     public function destroy(Request $request,Post $post){ 
