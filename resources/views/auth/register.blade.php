@@ -125,9 +125,9 @@
 	        // agree: "Please accept our policy"
 	    },
 	    errorElement: "div",
-	    errorPlacement: function ( error, element ) { 
+	    errorPlacement: function ( error, element,a ) { 
 	        error.addClass( "invalid-feedback" );
-            console.log(error,element)
+            console.log(a,element)
 	        // if ( element.prop( "type" ) === "checkbox" ) {
 	        //     error.insertAfter(element.next( "label" ));
 	        // } else {
