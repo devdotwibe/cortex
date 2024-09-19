@@ -264,9 +264,46 @@
 @push('footer-script') 
 
     <script> 
+    let storage = JSON.parse(localStorage.getItem("topic-test-summery-retry"))||{};
+    let summery = new Proxy({
+        ...storage,
+        save:function(target){ 
+            localStorage.setItem("topic-test-summery-retry",JSON.stringify(summery));
+            return true; 
+        }
+    }, {
+        get: function(target, propertyName) {
+            return target[propertyName] || null;
+        },
+        set: function(target, propertyName, value) {
+            target[propertyName] = value;
+            return true;
+        }
+    });
+    if(!summery.isInIt){
+        summery.totalcount={{$questioncount??0}};
+        summery.questionids=[]; 
+        summery.timercurrent={};
+        summery.flagcurrent={};
+        summery.endTime={{$endtime}}*60; 
+        summery.currentSlug=""; 
+        summery.flagdx={};
+        summery.verifydx={};
+        summery.cudx=1;
+
+        summery.answeridx=[];
+        summery.notansweridx=[]; 
+        summery.timerActive=true;
+        summery.examActive=true;
+        summery.isInIt=true;
+        summery.timetaken=0;
+        summery.progressurl="{{url()->current()}}";
+        summery.save()
+    }
+
     /*
         var progressurl="{{$user->progress("exam-{$exam->id}-topic-{$category->id}-progress-url","")}}";
-        let storage = JSON.parse(localStorage.getItem("topic-test-summery"))||{};
+        
         let summery = new Proxy({...storage,save:function(target){ localStorage.setItem("topic-test-summery",JSON.stringify(summery));return true; } }, {
             get: function(target, propertyName) {
                 return target[propertyName] || null;
@@ -275,7 +312,9 @@
                 target[propertyName] = value; 
                 return true;
             }
-        });    
+        });   
+        
+        */
         function toglepreviewpage(){
             summery.timerActive=!summery.timerActive; 
             $('#question-preview-page').slideToggle()
@@ -349,7 +388,7 @@
             } else {
                 return url; // Return null if no match found
             }
-        } 
+        }  
         async function verifyquestion(question,ans){
             const csrf= $('meta[name="csrf-token"]').attr('content'); 
             var response=await fetch("{{route('topic-test.topic.verify',['category'=>$category->slug])}}", {
@@ -371,7 +410,7 @@
                 delete summery.verifydx[question];
             }
             summery.save()
-        }
+        } 
         function refreshstatus(idx,status){
             $(`.question-item[data-idx="${idx}"]`).removeClass('status-not-answered').removeClass('status-answered');
             $(`#show-all .question-item[data-idx="${idx}"]`).addClass(`status-${status}`);
@@ -382,9 +421,10 @@
             $('#answered-nav').text(summery.answeridx.length)
             $('#not-answered-nav').text(summery.notansweridx.length)
         }
+         
          function loadlesson(pageurl=null){ 
              
-            $.get(pageurl||"{{ route('topic-test.confirmshow',['category'=>$category->slug]) }}",function(res){
+            $.get(pageurl,function(res){
                 $('.pagination-arrow').hide();
                 $('#lesson-footer-pagination').html('')
                 summery.timerActive=true;
@@ -442,7 +482,7 @@
                         } 
                         summery.currentSlug=v.slug;
                         summery.save()
-                        $.get(pageurl||"{{ route('topic-test.confirmshow',['category'=>$category->slug]) }}",{question:v.slug},function(ans){
+                        $.get(pageurl,{question:v.slug},function(ans){
                             $(`#mcq-${lesseonId}-list`).html('')
                             $.each(ans,function(ai,av){
                                 $(`#mcq-${lesseonId}-list`).append(`
@@ -479,24 +519,11 @@
 
             },'json').fail(function(xhr,status,error){
                 showToast("Error: " + error, 'danger'); 
-            })
-
-            const csrf= $('meta[name="csrf-token"]').attr('content'); 
-            progressurl=pageurl; 
-            fetch("{{route('progress')}}", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': csrf,
-                    'X-Requested-With': 'XMLHttpRequest'
-                },
-                body: JSON.stringify({
-                    name:"exam-{{$exam->id}}-topic-{{$category->id}}-progress-url",
-                    value:progressurl
-                }),
-            }); 
-                 
+            }) 
+            summery.progressurl=pageurl;   
+            summery.save()                 
          }
+         /*
          async function updateprogress(callback){  
             try { 
                 const csrf= $('meta[name="csrf-token"]').attr('content');  
@@ -630,10 +657,10 @@
                 window.location.href=url;
             }
         }
+            */
          $(function(){  
-            loadlesson(progressurl) 
+            loadlesson(summery.progressurl) 
             $('.lesson-left button.left-btn,.lesson-right button.right-btn').click(function(){   
-                console.log('oooooo')
                 const pageurl=$(this).data('pageurl');  
                 updateandsave(function(){
                     loadlesson(pageurl)
@@ -679,7 +706,6 @@
                 localStorage.removeItem("topic-test-summery")
                 exitconfirm($(this).attr("href")); 
             }) 
-         })
-         */
+         }) 
     </script>
 @endpush
