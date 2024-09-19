@@ -125,20 +125,22 @@
 	        // agree: "Please accept our policy"
 	    },
 	    errorElement: "div",
+        validClass:"is-invalid",
+        errorClass:"invalid-feedback",
 	    errorPlacement: function ( error, element ) { 
             if(element.next(error).length==0){
                 error.insertAfter(element) 
             }
             element.next(error).addClass( "invalid-feedback" ); 
 	    },
-	    highlight: function ( element, errorClass, validClass ) {
-	        $( element ).addClass( "is-invalid" ).removeClass( "is-valid" );
-            console.log(errorClass,validClass)
-	    },
-	    unhighlight: function (element, errorClass, validClass) {
-            console.log(errorClass,validClass)
-	        $( element ).addClass( "is-valid" ).removeClass( "is-invalid" );
-	    }
+	    // highlight: function ( element, errorClass, validClass ) {
+	    //     $( element ).addClass( "is-invalid" ).removeClass( "is-valid" );
+        //     console.log(errorClass,validClass)
+	    // },
+	    // unhighlight: function (element, errorClass, validClass) {
+        //     console.log(errorClass,validClass)
+	    //     $( element ).addClass( "is-valid" ).removeClass( "is-invalid" );
+	    // }
 	});
 </script>
 @endpush
