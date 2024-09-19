@@ -12,9 +12,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('hashtags', function (Blueprint $table) {
-            $table->id(); // Auto-incrementing ID
-            $table->string('hashtag')->unique(); // Hashtag text with a unique constraint
-            $table->timestamps(); // Created at and updated at timestamps
+            $table->id();  
+            $table->string('hashtag');
+            $table->unsignedBigInteger('post_id')->nullable();
+            $table->timestamps();  
         });
     }
 

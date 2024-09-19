@@ -9,7 +9,12 @@ class Hashtag extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['hashtag'];
+    protected $fillable = ['hashtag', 'post_id'];
+
+    public function post()
+    {
+        return $this->belongsTo(Post::class);
+    }
 
     // Prevent mass assignment vulnerabilities
     protected $guarded = [];
