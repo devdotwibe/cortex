@@ -127,7 +127,7 @@
 	    errorElement: "div",
 	    errorPlacement: function ( error, element ) { 
 	        error.addClass( "invalid-feedback" );
-            error.insertAfter(element) 
+            // error.insertAfter(element) 
             console.log(error)
 	    },
 	    highlight: function ( element, errorClass, validClass ) {
