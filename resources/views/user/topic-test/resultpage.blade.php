@@ -34,6 +34,9 @@
         
                                 <p>Next Step: Review and Improve</p>
                                 <div class="exam-mark-bottom">
+                                    @if (session("exam-retry-".$userExamReview->id))
+                                        <a class="btn btn-warning btn-lg" id="review-link" href="{{route('topic-test.retry',$userExamReview->slug)}}">Retry In-Correct</a>
+                                    @endif
                                     <a class="btn btn-warning btn-lg" id="review-link" href="{{route('topic-test.preview',$userExamReview->slug)}}">Review Set</a>
                                     <a href="{{route('topic-test.index')}}" class="btn btn-outline-dark btn-lg">Exit Set</a>
                                 </div>
