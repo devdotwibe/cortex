@@ -300,21 +300,7 @@
         summery.progressurl="{{url()->current()}}";
         summery.save()
     // }
-
-    /*
-        var progressurl="{{$user->progress("exam-{$exam->id}-topic-{$category->id}-progress-url","")}}";
-        
-        let summery = new Proxy({...storage,save:function(target){ localStorage.setItem("topic-test-summery",JSON.stringify(summery));return true; } }, {
-            get: function(target, propertyName) {
-                return target[propertyName] || null;
-            },
-            set: function(target, propertyName, value) {
-                target[propertyName] = value; 
-                return true;
-            }
-        });   
-        
-        */
+ 
         function toglepreviewpage(){
             summery.timerActive=!summery.timerActive; 
             $('#question-preview-page').slideToggle()
