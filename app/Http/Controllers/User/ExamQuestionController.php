@@ -148,10 +148,11 @@ class ExamQuestionController extends Controller
             }
             return UserReviewQuestion::whereIn('review_type',['mcq'])->where('user_id',$user->id)->where('user_exam_review_id',$userExamReview->id)->paginate(1);
         }
-        $useranswer=UserReviewQuestion::leftJoin('user_review_answers','user_review_answers.user_review_question_id','user_review_questions.id')->where('user_answer',true)
-                        ->whereIn('review_type',['mcq'])
-                        ->where('user_id',$user->id)
-                        ->where('user_exam_review_id',$userExamReview->id)
+        $useranswer=UserReviewQuestion::leftJoin('user_review_answers','user_review_answers.user_review_question_id','user_review_questions.id')
+                        ->where('user_review_answers.user_answer',true)
+                        ->whereIn('user_review_questions.review_type',['mcq'])
+                        ->where('user_review_questions.user_id',$user->id)
+                        ->where('user_review_questions.user_exam_review_id',$userExamReview->id)
                         ->select('user_review_questions.id','user_review_questions.time_taken','user_review_answers.iscorrect')->get();
         print_r($useranswer);exit;
         return view("user.question-bank.preview",compact('category','exam','subCategory','setname','user','userExamReview','useranswer'));
