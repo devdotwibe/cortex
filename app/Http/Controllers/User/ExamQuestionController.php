@@ -150,10 +150,10 @@ class ExamQuestionController extends Controller
         }
         $useranswer=UserReviewQuestion::whereIn('review_type',['mcq'])->where('user_id',$user->id)->where('user_exam_review_id',$userExamReview->id)->select('id',UserReviewAnswer::where('user_exam_review_id',$userExamReview->id)->where('user_review_question_id')->select('user_answer'),'time_taken')
         ->addSelect([
-            'iscorrect' => UserReviewAnswer::select('iscorrect')->where('user_answer',true)
+            'iscorrect' =>( optional(UserReviewAnswer::where('user_answer',true)
                 ->whereColumn('user_review_answers.user_review_question_id', 'user_review_questions.id')
                 ->where('user_exam_review_id', $userExamReview->id)
-                ->limit(1)  // Limit to one answer if there might be multiple
+                ->first())->iscorrect??false)
         ])->get();
         print_r($useranswer);exit;
         return view("user.question-bank.preview",compact('category','exam','subCategory','setname','user','userExamReview','useranswer'));
