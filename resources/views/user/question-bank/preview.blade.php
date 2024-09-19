@@ -53,7 +53,7 @@
                                     <div class="mcq-group">
                                         <h5><span>{{$exam->subtitle($category->id,"Topic ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h5>
                                         <div class="mcq-title-text" ${v.title_text?"":'style="display:none"'}>
-                                            ${v.title_text}
+                                            ${v.title_text||""}
                                         </div>
                                         <div id="mcq-${lesseonId}">
                                             ${v.note||""}
@@ -61,7 +61,7 @@
                                     </div>
                                     <div class="mcq-group-right">
                                         <div  class="mcq-description">
-                                            ${v.sub_question}
+                                            ${v.sub_question||""}
                                         </div>
                                         <div id="mcq-${lesseonId}-ans" class="form-group">
                                             <div class="form-data" >
