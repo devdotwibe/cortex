@@ -155,7 +155,7 @@ class ExamQuestionController extends Controller
                 ->where('user_exam_review_id', $userExamReview->id)
                 ->limit(1)  // Limit to one answer if there might be multiple
         ])->get();
-        print_r($useranswer);
+        print_r($useranswer);exit;
         return view("user.question-bank.preview",compact('category','exam','subCategory','setname','user','userExamReview','useranswer'));
     }
 
