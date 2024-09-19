@@ -184,14 +184,14 @@ class LiveClassController extends Controller
                                         <label class="form-check-label" for="active-toggle-'.$data->id.'">Active</label>
                                     </div>'; 
                         case 'pending';
-                            return '<span class="badge text-bg-warning">'.ucfirst($data->status).'</span>';
+                            return '<span class="badge bg-warning">'.ucfirst($data->status).'</span>';
                         case 'rejected';
-                            return '<span class="badge text-bg-danger">'.ucfirst($data->status).'</span>';
+                            return '<span class="badge bg-danger">'.ucfirst($data->status).'</span>';
                         default:
-                            return '<span class="badge text-bg-secondary">'.ucfirst($data->status).'</span>'; 
+                            return '<span class="badge bg-secondary">'.ucfirst($data->status).'</span>'; 
                     } 
                 }else{
-                    return '<span class="badge text-bg-danger"> Deleted User </span>'; 
+                    return '<span class="badge bg-danger"> Deleted User </span>'; 
                 }
             })->buildTable(['timeslottext','statushtml','termhtml']);
         }
