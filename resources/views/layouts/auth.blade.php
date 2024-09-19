@@ -24,7 +24,14 @@
     <script src="{{asset("assets/js/jquery-3.7.0.min.js")}}"></script>
     <script src="{{asset("assets/js/popper.min.js")}}"></script> 
     <script src="{{asset("assets/js/jquery.validate.min.js")}}"></script>
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')  // Fetch the CSRF token
+            }
+        });
 
+    </script>
 
     @stack('footer-script')
 </body>

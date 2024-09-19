@@ -99,7 +99,24 @@
 	        },
 	        email: {
 	            required: true,
-	            email: true
+	            email: true,
+                // remote: {
+                //     url: "check-email.php",  
+                //     type: "post",
+                //     data: {
+                //         email: function() {
+                //             return $(`[name="email"]`).val();
+                //         } 
+                //     }, 
+                //     dataFilter: function(response) {
+                //         var json = JSON.parse(response);
+                //         if (json.valid) {
+                //             return true;  
+                //         } else {
+                //             return json.message[];  
+                //         }
+                //     }
+                // }
 	        },
             re_password: {
                 required: true,
@@ -130,7 +147,8 @@
             },  
 	        email: {
 	            required: "Please enter your email",
-	            email: "Please enter a valid email address"
+	            email: "Please enter a valid email address",
+                // remote: "This email is already in use" 
 	        }, 
 	        // agree: "Please accept our policy"
 	    },
