@@ -80,14 +80,14 @@ class MainController extends Controller
                     })->where('iscorrect',true)->where('user_answer',true)->count();
                     $bgcolor="#FFFFFF";
                     $borderColor="#E1E1E1";
+                    if($date->format('Y-m-d')==date('Y-m-d')){
+                        $bgcolor="#E1E1E1";
+                    }
                     if($cnt>0){
                         $borderColor="#91C188";
                         if($cnt>30){
                             $borderColor="#4B9773";
                         } 
-                        if($date->format('Y-m-d')==date('Y-m-d')){
-                            $bgcolor="#E1E1E1";
-                        }
                         if(Reminder::where("remind_date",$date->format('Y-m-d'))->where('user_id',$user->id)->count()>0){
                             $bgcolor="#FFCD56"; 
                         }
