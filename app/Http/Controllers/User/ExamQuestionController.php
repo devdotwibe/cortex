@@ -156,7 +156,7 @@ class ExamQuestionController extends Controller
                         ->select('user_review_questions.id','user_review_questions.time_taken','user_review_answers.iscorrect')->get();
         $examtime=0;
         if($user->progress("exam-review-".$userExamReview->id."-timed",'')=="timed"){
-            $times=$user->progress("exam-review-".$userExamReview->id."-time_of_exam",'0:0');
+            $times=explode(':',$user->progress("exam-review-".$userExamReview->id."-time_of_exam",'0:0'));
             if(count($times)>0){
                 $examtime+=intval(trim($times[0]??"0"))*60;
                 $examtime+=intval(trim($times[1]??"0"));
