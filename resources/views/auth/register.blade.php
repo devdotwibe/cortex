@@ -127,6 +127,7 @@
 	    errorElement: "div",
 	    errorPlacement: function ( error, element ) { 
 	        error.addClass( "invalid-feedback" );
+            console.log(error,element)
 	        // if ( element.prop( "type" ) === "checkbox" ) {
 	        //     error.insertAfter(element.next( "label" ));
 	        // } else {
