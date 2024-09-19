@@ -10,7 +10,7 @@
                 <div class="progress-main">
 
                     <div class="exam-exit ">
-                        <a href="{{route('home-work.show',$homeWork->slug)}}">
+                        <a href="{{route('home-work.show',$homeWork->slug)}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
                             <img src="{{asset("assets/images/exiticon-wht.svg")}}" alt="exiticon">
                         </a>
                     </div> 
@@ -23,7 +23,7 @@
                     </div>
                     <div class="menu-icon"> 
                         <a onclick="toglepreviewpage()" >
-                            <img src="{{asset("assets/images/menu.svg")}}" alt="exiticon">
+                            <img src="{{asset("assets/images/menu.svg")}}" alt="menu">
                         </a>
                     </div>
                 </div>

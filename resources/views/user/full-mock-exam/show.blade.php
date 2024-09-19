@@ -7,7 +7,7 @@
             <div class="exam-progress-inner-item exam-left">
                 <div class="progress-main">
 
-                    <div class="exam-exit ">
+                    <div class="exam-exit "  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
                         <a href="{{route('full-mock-exam.index')}}">
                             <img src="{{asset("assets/images/exiticon-wht.svg")}}" alt="exiticon">
                         </a>
@@ -34,8 +34,8 @@
                         <span id="menu-text" >Question 0 of 0</span>
                     </div>
                     <div class="menu-icon"> 
-                        <a onclick="toglepreviewpage()" >
-                            <img src="{{asset("assets/images/menu.svg")}}" alt="exiticon">
+                        <a onclick="toglepreviewpage()"  >
+                            <img src="{{asset("assets/images/menu.svg")}}" alt="menu">
                         </a>
                     </div>
                 </div>
