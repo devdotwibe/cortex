@@ -135,6 +135,7 @@
 	        $( element ).addClass( "is-invalid" ).removeClass( "is-valid" );
 	    },
 	    unhighlight: function (element, errorClass, validClass) {
+            console.log(errorClass,validClass)
 	        $( element ).addClass( "is-valid" ).removeClass( "is-invalid" );
 	    }
 	});
