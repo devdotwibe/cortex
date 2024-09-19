@@ -152,7 +152,7 @@ class ExamQuestionController extends Controller
                         ->whereIn('review_type',['mcq'])
                         ->where('user_id',$user->id)
                         ->where('user_exam_review_id',$userExamReview->id)
-                        ->select('user_review_question_id.id','user_review_question_id.time_taken','user_review_answers.iscorrect')->get();
+                        ->select('user_review_questions.id','user_review_questions.time_taken','user_review_answers.iscorrect')->get();
         print_r($useranswer);exit;
         return view("user.question-bank.preview",compact('category','exam','subCategory','setname','user','userExamReview','useranswer'));
     }
