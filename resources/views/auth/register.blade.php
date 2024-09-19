@@ -101,6 +101,11 @@
 	            required: true,
 	            email: true
 	        },
+            re_password: {
+                required: true,
+                minlength: 6,
+                equalTo: '[name="password"]'  
+            },
 	        // agree: "required"
 	    },
 	    messages: {
@@ -117,7 +122,12 @@
 	        password: {
 	            required: "Please provide a password",
 	            minlength: "Your password must be at least 6 characters long"
-	        },  
+	        },
+            re_password: {
+                required: "Please confirm your password",
+                minlength: "Your password must be at least 6 characters long",
+                equalTo: "Passwords do not match"   
+            },  
 	        email: {
 	            required: "Please enter your email",
 	            email: "Please enter a valid email address"
@@ -133,6 +143,12 @@
             }
             element.next(error).addClass( "invalid-feedback" ); 
 	    },
+        onkeyup: function(element) {
+            $(element).valid();
+        },
+        onchange: function(element) {
+            $(element).valid();
+        }
 	});
 </script>
 @endpush
