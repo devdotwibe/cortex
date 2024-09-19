@@ -154,8 +154,18 @@ class ExamQuestionController extends Controller
                         ->where('user_review_questions.user_id',$user->id)
                         ->where('user_review_questions.user_exam_review_id',$userExamReview->id)
                         ->select('user_review_questions.id','user_review_questions.time_taken','user_review_answers.iscorrect')->get();
-        print_r($useranswer);exit;
-        return view("user.question-bank.preview",compact('category','exam','subCategory','setname','user','userExamReview','useranswer'));
+        $examtime=0;
+        if($user->progress("exam-review-".$userExamReview->id."-timed",'')=="timed"){
+            $times=$user->progress("exam-review-".$userExamReview->id."-time_of_exam",'0:0');
+            if(count($times)>0){
+                $examtime+=intval(trim($times[0]??"0"))*60;
+                $examtime+=intval(trim($times[1]??"0"));
+            }
+            if($examtime>0&&count($useranswer)>0){
+                $examtime=$examtime/count($useranswer);
+            }
+        }
+        return view("user.question-bank.preview",compact('category','exam','subCategory','setname','user','userExamReview','useranswer','examtime'));
     }
 
     public function setreview(Request $request,Category $category,SubCategory $subCategory,Setname $setname){
@@ -223,6 +233,7 @@ class ExamQuestionController extends Controller
         $user->setProgress("exam-review-".$review->id."-flags",$request->input("flags",'[]'));
         $user->setProgress("exam-review-".$review->id."-times",$request->input("times",'[]'));
         $user->setProgress("exam-review-".$review->id."-passed",$request->input("passed",'0'));
+        $user->setProgress("exam-review-".$review->id."-time_of_exam",$setname->time_of_exam);
         $lessons=SubCategory::where('category_id',$category->id)->get();
         $lessencount=count($lessons);
         $totalprogres=0;
