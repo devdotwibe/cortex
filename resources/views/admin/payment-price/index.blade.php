@@ -16,23 +16,34 @@
             <!-- Tabs Navigation -->
             <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link @if (session('__payment_price___', 'payment') == 'payment') active @endif" id="section-price-tab"
-                        data-bs-toggle="tab" href="#section-price" role="tab" aria-controls="section-price"
-                        @if (session('__payment_price___', 'payment') == 'payment') aria-selected="true" @else aria-selected="false" @endif>Section
-                        1</a>
-                </li>
-                <li class="nav-item" role="presentation">
                     <a class="nav-link @if (session('__payment_price___', '') == 'section1') active @endif" id="section1-tab"
                         data-bs-toggle="tab" href="#section1" role="tab" aria-controls="section1"
                         @if (session('__payment_price___', '') == 'section1') aria-selected="true" @else aria-selected="false" @endif>Section
+                        1</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link @if (session('__payment_price___', 'payment') == 'payment') active @endif" id="section-price-tab"
+                        data-bs-toggle="tab" href="#section-price" role="tab" aria-controls="section-price"
+                        @if (session('__payment_price___', 'payment') == 'payment') aria-selected="true" @else aria-selected="false" @endif>Section
                         2</a>
                 </li>
+              
                 {{-- <li class="nav-item" role="presentation">
                     <a class="nav-link @if (session('__payment_price___', '') == 'section2') active @endif" id="section2-tab"
                         data-bs-toggle="tab" href="#section2" role="tab" aria-controls="section2"
                         @if (session('__payment_price___', '') == 'section2') aria-selected="true" @else aria-selected="false" @endif>Section
                         3</a>
                 </li> --}}
+
+
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link @if (session('__payment_price___', '') == 'section3') active @endif" id="section3-tab"
+                        data-bs-toggle="tab" href="#section3" role="tab" aria-controls="section3"
+                        @if (session('__payment_price___', '') == 'section3') aria-selected="true" @else aria-selected="false" @endif>Section
+                        3</a>
+                </li>
+
+
 
             </ul>
 
@@ -735,7 +746,7 @@
                                             <div id="imagePreviewContainer"
                                                 style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
                                                 @if (isset($price) && $price->image)
-                                                    <img id="imagePreview" src="{{ url('uploads/' . $price->image) }}"
+                                                    <img id="imagePreview" src="{{ url('d0/' . $price->image) }}"
                                                         alt="Image Preview" style="width: 100%; height: auto;">
                                                 @else
                                                     <img id="imagePreview" src="#" alt="Image Preview"
@@ -743,6 +754,56 @@
                                                 @endif
                                             </div>
                                         </div>
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="pricetitle">Price  Title</label>
+                                                <textarea class="form-control texteditor" name="pricetitle" id="pricetitle">
+                                    {{ old('pricetitle', optional($price)->pricetitle) }}
+                                    
+                                </textarea>
+                                            </div>
+                                        </div>
+
+
+                                          <!-- Price Button Label -->
+                                          <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="form-data">
+                                                    <div class="forms-inputs mb-4">
+                                                        <label for="pricetitlebuttonlabel">Pricetitle Button Label</label>
+                                                        <input type="text" name="pricetitlebuttonlabel"
+                                                            id="pricetitlebuttonlabel"
+                                                            value="{{ old('pricetitlebuttonlabel', optional($price)->pricetitlebuttonlabel) }}"
+                                                            class="form-control" placeholder="Price Button Label">
+                                                        @error('pricetitlebuttonlabel')
+                                                            <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Price Button Link -->
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="form-data">
+                                                    <div class="forms-inputs mb-4">
+                                                        <label for="pricetitlebuttonlink">Pricetitle Button Link</label>
+                                                        <input type="text" name="pricetitlebuttonlink" id="pricetitlebuttonlink"
+                                                            value="{{ old('pricetitlebuttonlink', optional($price)->pricetitlebuttonlink) }}"
+                                                            class="form-control" placeholder="Price Button Link">
+                                                        @error('pricetitlebuttonlink')
+                                                            <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
 
                                         <!-- Save Button -->
                                         <div class="col-md-12">
@@ -759,7 +820,126 @@
                 </div>
 
 
+
+
+
+
+
+                <div class="tab-pane fade @if (session('__payment_price___', 'payment') == 'section3') show active @endif" id="section3"
+                    role="tabpanel" aria-labelledby="section3-tab">
+                    <div class="row">
+                        <div class="card">
+                            <div class="card-body">
+                                <form action="{{ route('admin.payment-price.section3') }}" method="POST"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="row">
+
+
+
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="form-data">
+                                                    <div class="forms-inputs mb-4">
+                                                        <label for="grouptitle">Group Title</label>
+                                                        <input type="text" name="grouptitle"
+                                                            id="grouptitle"
+                                                            value="{{ old('grouptitle', optional($price)->grouptitle) }}"
+                                                            class="form-control" placeholder="Group Title">
+                                                        @error('grouptitle')
+                                                            <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+                                        <!-- Price Banner Title -->
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="feelingtitle">Feeling Title</label>
+                                                <textarea class="form-control texteditor" name="feelingtitle" id="feelingtitle">
+                                    {{ old('feelingtitle', optional($price)->feelingtitle) }}
+                                    
+                                </textarea>
+                                            </div>
+                                        </div>
+
+
+                                     
+
+                                      
+
+                                        <!-- Image Upload -->
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="form-data">
+                                                    <div class="forms-inputs mb-4">
+                                                        <label for="feelingimage">Feeling Image</label>
+                                                        <input type="file" name="feelingimage" id="feelingimage"
+                                                            class="form-control"
+                                                            onchange="previewImage(event, 'imagePreview')">
+                                                        @error('feelingimage')
+                                                            <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Image Preview -->
+                                        <div class="form-group">
+                                            <label for="feelingimagePreview">Image Preview</label>
+                                            <div id="feelingimagePreview"
+                                                style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
+                                                @if (isset($price) && $price->image)
+                                                    <img id="feelingimagePreview" src="{{ url('d0/' . $price->feelingimagePreview) }}"
+                                                        alt="Image Preview" style="width: 100%; height: auto;">
+                                                @else
+                                                    <img id="feelingimagePreview" src="#" alt="Image Preview"
+                                                        style="display: none; width: 100%; height: auto;">
+                                                @endif
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="coursetitle">Our Course  Title</label>
+                                                <textarea class="form-control texteditor" name="coursetitle" id="coursetitle">
+                                    {{ old('coursetitle', optional($price)->ourcoursetitle) }}
+                                    
+                                </textarea>
+                                            </div>
+                                        </div>
+
+
+                                         
+
+                                        <!-- Save Button -->
+                                        <div class="col-md-12 mb-3">
+                                            <button type="submit" class="btn btn-primary" name="section"
+                                                value="section3">Save</button>
+                                        </div>
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+                
+
             </div>
+            
     </section>
 
 @endsection
@@ -796,6 +976,24 @@
 @endpush
 
 @push('footer-script')
+<script>
+    function previewImage(event, previewId) {
+        var reader = new FileReader();
+        var imagePreview = document.getElementById(previewId);
+        
+        reader.onload = function() {
+            if (imagePreview) {
+                imagePreview.src = reader.result;
+                imagePreview.style.display = 'block';
+            }
+        };
+
+        if (event.target.files && event.target.files[0]) {
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    }
+</script>
+
     <script>
 
         // $('.start-datepicker').datepicker({

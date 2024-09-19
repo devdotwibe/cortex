@@ -10,6 +10,7 @@ use App\Support\Plugin\Payment;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str; 
 
 class SubscriptionPaymentController extends Controller
@@ -146,6 +147,9 @@ class SubscriptionPaymentController extends Controller
             'pricebuttonlabel' => 'nullable|string|max:255',
             'pricebuttonlink' => 'nullable|url|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048',
+            'pricetitle' => 'nullable|string',
+            'pricetitlebuttonlabel' => 'nullable|string|max:255',
+            'pricetitlebuttonlink' => 'nullable|url|max:255',
         ]);
     
         // Retrieve the first record or create a new one
@@ -159,15 +163,23 @@ class SubscriptionPaymentController extends Controller
         $price->pricebannertitle = $request->input('pricebannertitle');
         $price->pricebuttonlabel = $request->input('pricebuttonlabel');
         $price->pricebuttonlink = $request->input('pricebuttonlink');
-    
+        $price->pricetitle = $request->input('pricetitle');
+        $price->pricetitlebuttonlabel = $request->input('pricetitlebuttonlabel');
+        $price->pricetitlebuttonlink = $request->input('pricetitlebuttonlink');
         // Handle image upload
+        // if ($request->hasFile('image')) {
+        //     // Generate a unique name for the image and store it
+        //     $imageName = "price/" . $request->file('image')->hashName();
+        //     $request->file('image')->storeAs('public/', $imageName); // Store image in 'public/price' directory
+        //     $price->image = $imageName;
+        // }
+
+
         if ($request->hasFile('image')) {
-            // Generate a unique name for the image and store it
             $imageName = "price/" . $request->file('image')->hashName();
-            $request->file('image')->storeAs('public/price', $imageName); // Store image in 'public/price' directory
+            Pricing::put('price', $request->file('image'));
             $price->image = $imageName;
         }
-
 
 
     
@@ -178,6 +190,64 @@ class SubscriptionPaymentController extends Controller
         return redirect()->route('admin.payment-price.index')->with('success', 'Price information has been successfully saved.');
     }
     
+
+
+    public function storesection3(Request $request)
+
+    {
+
+        
+        Session::put("__payment_price___","section3"); 
+        // Validate the request data for price information
+        $request->validate([
+            'feelingtitle' => 'nullable|string',
+           
+            'feelingimage' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048',
+            'coursetitle' => 'nullable|string',
+            'grouptitle' => 'nullable|string',
+           
+        ]);
+    
+        // Retrieve the first record or create a new one
+        $price = Pricing::first();
+    
+        if (empty($price)) {
+            $price = new Pricing;
+        }
+    
+        // Update fields
+        $price->feelingtitle = $request->input('feelingtitle');
+      
+        $price->ourcoursetitle = $request->input('coursetitle');
+        $price->grouptitle = $request->input('grouptitle');
+     
+        // Handle image upload
+        if ($request->hasFile('feelingimage')) {
+            // Generate a unique name for the image and store it
+            $imageName = "price/" . $request->file('feelingimage')->hashName();
+            $request->file('feelingimage')->storeAs('public/price', $imageName); // Store image in 'public/price' directory
+            $price->feelingimage = $imageName;
+        }
+
+
+        // if ($request->hasFile('image')) {
+        //     $imageName = "price/" . $request->file('image')->hashName();
+        //     Pricing::put('price', $request->file('image'));
+        //     $price->image = $imageName;
+        // }
+
+
+    
+        // Save the price record
+        $price->save();
+    
+        // Redirect with success message
+        return redirect()->route('admin.payment-price.index')->with('success', 'Price information has been successfully saved.');
+    }
+    
+
+
+
 
     public function update(Request $request,SubscriptionPlan $subscriptionPlan){
         $field=$subscriptionPlan->slug;
