@@ -317,7 +317,7 @@
             scales: {
                 y: {
                     beginAtZero: true, 
-                    max:100,
+                    max:101,
                     grid: {
                         display: false
                     }, 
