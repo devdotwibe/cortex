@@ -585,10 +585,11 @@
                 callback(data);
             }
          } 
+            */
 
          async function lessonreviewconfirm(){
             const csrf= $('meta[name="csrf-token"]').attr('content'); 
-            // currentprogress=(summery.questionids.length*100/summery.totalcount)
+            currentprogress=(summery.questionids.length*100/summery.totalcount)
             await fetch("{{route('progress')}}", {
                 method: 'POST',
                 headers: {
@@ -613,6 +614,7 @@
             summery.examActive=false; 
             summery.save()
          }
+         /*
          async function updateandsave(callback){ 
             if($('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length>0){
                 $('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]:checked').each(function(){
