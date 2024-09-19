@@ -333,7 +333,7 @@ class TopicExamController extends Controller
                     $question = Question::findSlug($request->question);
                     return Answer::where('question_id', $question->id)->get(['slug', 'title']);
                 }
-                return Question::whereIn('id',UserReviewAnswer::where("",$userExamReview->id)->where("user_answer",true)->where('iscorrect',false)->select('question_id'))->where('exam_id', $exam->id)->where('category_id', $category->id)->paginate(1, ['slug', 'title', 'description', 'duration']);
+                return Question::whereIn('id',UserReviewAnswer::where("user_exam_review_id",$userExamReview->id)->where("user_answer",true)->where('iscorrect',false)->select('question_id'))->where('exam_id', $exam->id)->where('category_id', $category->id)->paginate(1, ['slug', 'title', 'description', 'duration']);
             }
             $questioncount = Question::whereIn('id',UserReviewAnswer::where("user_exam_review_id",$userExamReview->id)->where("user_answer",true)->where('iscorrect',false)->select('question_id'))->where('exam_id', $exam->id)->where('category_id', $category->id)->count();
             $endtime = 1*$questioncount;
