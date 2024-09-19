@@ -133,6 +133,7 @@
 	    },
 	    highlight: function ( element, errorClass, validClass ) {
 	        $( element ).addClass( "is-invalid" ).removeClass( "is-valid" );
+            console.log(errorClass,validClass)
 	    },
 	    unhighlight: function (element, errorClass, validClass) {
             console.log(errorClass,validClass)
