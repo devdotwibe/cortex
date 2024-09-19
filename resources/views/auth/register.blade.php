@@ -21,7 +21,7 @@
                         <span>{{$message}}</span>
                     </div>
                     @enderror
-                    <form action="{{url()->current()}}" class="form" method="post">
+                    <form action="{{url()->current()}}" id="register-form" class="form" method="post">
                         @csrf
                         <div class="form-group">
                             <div class="form-data">
@@ -78,3 +78,67 @@
     </div>
 </section>
 @endsection
+
+@push("footer-script")
+<script>
+    $( "#register-form" ).validate( {
+	    rules: {
+	        first_name: {
+                required:true,
+	            minlength: 3
+            },
+	        last_name: {
+                required:true
+            }, 
+	        schooling_year: {
+                required:true
+            }, 
+	        password: {
+	            required: true,
+	            minlength: 6
+	        },
+	        email: {
+	            required: true,
+	            email: true
+	        },
+	        // agree: "required"
+	    },
+	    messages: {
+	        first_name: {
+	            required: "Please enter your first name",
+	            minlength: "Your first name must consist of at least 2 characters"
+	        },
+	        last_name: {
+	            required: "Please enter your last name", 
+	        },  
+	        schooling_year: {
+	            required: "Please enter your last name", 
+	        },  
+	        password: {
+	            required: "Please provide a password",
+	            minlength: "Your password must be at least 6 characters long"
+	        },  
+	        email: {
+	            required: "Please enter your email",
+	            email: "Please enter a valid email address"
+	        }, 
+	        // agree: "Please accept our policy"
+	    },
+	    errorElement: "div",
+	    errorPlacement: function ( error, element ) { 
+	        error.addClass( "invalid-feedback" );
+	        if ( element.prop( "type" ) === "checkbox" ) {
+	            error.insertAfter(element.next( "label" ));
+	        } else {
+	            error.insertAfter(element.next(".pmd-textfield-focused"));
+	        }
+	    },
+	    highlight: function ( element, errorClass, validClass ) {
+	        $( element ).addClass( "is-invalid" ).removeClass( "is-valid" );
+	    },
+	    unhighlight: function (element, errorClass, validClass) {
+	        $( element ).addClass( "is-valid" ).removeClass( "is-invalid" );
+	    }
+	});
+</script>
+@endpush
