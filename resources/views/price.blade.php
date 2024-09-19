@@ -182,7 +182,7 @@
             </div>
         </div>
     </section>
-    <section class="contact-wrapp">
+    <section class="contact-wrapp" id="our-courses">
         <div class="container">
             <div class="contact-row">
                 <h3 class="highlight">Our Courses</h3>
