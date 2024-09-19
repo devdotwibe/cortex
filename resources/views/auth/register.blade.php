@@ -127,8 +127,9 @@
 	    errorElement: "div",
 	    errorPlacement: function ( error, element ) { 
 	        error.addClass( "invalid-feedback" );
-            error.insertAfter(element) 
-            console.log(element.next(error))
+            if(element.next(error).length==0){
+                error.insertAfter(element)  
+            }
 	    },
 	    highlight: function ( element, errorClass, validClass ) {
 	        $( element ).addClass( "is-invalid" ).removeClass( "is-valid" );
