@@ -126,10 +126,10 @@
 	    },
 	    errorElement: "div",
 	    errorPlacement: function ( error, element ) { 
-	        error.addClass( "invalid-feedback" );
             if(element.next(error).length==0){
-                error.insertAfter(element)  
+                error.insertAfter(element) 
             }
+            element.next(error).addClass( "invalid-feedback" ); 
 	    },
 	    highlight: function ( element, errorClass, validClass ) {
 	        $( element ).addClass( "is-invalid" ).removeClass( "is-valid" );
