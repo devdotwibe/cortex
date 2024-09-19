@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('price', function (Blueprint $table) {
+        Schema::table('pricings', function (Blueprint $table) {
             $table->text('grouptitle')->nullable(); // Add 'grouptitle' column, allowing null values
         });
     }
