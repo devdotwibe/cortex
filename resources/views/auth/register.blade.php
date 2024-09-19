@@ -35,34 +35,34 @@
                                 <div class="forms-inputs mb-4">
                                     <input autocomplete="off" name="last_name" type="text" placeholder="Enter your last name" value="{{old('last_name')}}" class="form-control @error('last_name') is-invalid @enderror " >
                                     @error('last_name')
-                                    <div id="first_name-error" class="error invalid-feedback">{{$message}}</div>
+                                    <div id="last_name-error" class="error invalid-feedback">{{$message}}</div>
                                     @enderror
                                 </div>
 
                                 <div class="forms-inputs mb-4">
                                     <input autocomplete="off" name="email" type="text" placeholder="Enter your email" value="{{old('email')}}" class="form-control @error('email') is-invalid @enderror " >
                                     @error('email')
-                                    <div id="first_name-error" class="error invalid-feedback">{{$message}}</div>
+                                    <div id="email-error" class="error invalid-feedback">{{$message}}</div>
                                     @enderror
                                 </div>
 
                                 <div class="forms-inputs mb-4">
                                     <input autocomplete="off" name="schooling_year" type="text" placeholder="Enter your Current Grade" value="{{old('schooling_year')}}" class="form-control @error('schooling_year') is-invalid @enderror " >
                                     @error('schooling_year')
-                                    <div id="first_name-error" class="error invalid-feedback">{{$message}}</div>
+                                    <div id="schooling_year-error" class="error invalid-feedback">{{$message}}</div>
                                     @enderror
                                 </div>
 
                                 <div class="forms-inputs mb-4">
                                     <input autocomplete="off" name="password" type="password" placeholder="Enter your password" class="form-control @error('password') is-invalid @enderror " >
                                     @error('password')
-                                    <div id="first_name-error" class="error invalid-feedback">{{$message}}</div>
+                                    <div id="password-error" class="error invalid-feedback">{{$message}}</div>
                                     @enderror
                                 </div>
                                 <div class="forms-inputs mb-4">
                                     <input autocomplete="off" name="re_password" type="password" placeholder="Re-enter password" class="form-control @error('re_password') is-invalid @enderror " >
                                     @error('re_password')
-                                    <div id="first_name-error" class="error invalid-feedback">{{$message}}</div>
+                                    <div id="re_password-error" class="error invalid-feedback">{{$message}}</div>
                                     @enderror
                                 </div>
                                 <div class="mb-3">
