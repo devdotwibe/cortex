@@ -18,6 +18,7 @@ use App\Trait\ResourceController;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
 class ExamQuestionController extends Controller
@@ -147,7 +148,15 @@ class ExamQuestionController extends Controller
             }
             return UserReviewQuestion::whereIn('review_type',['mcq'])->where('user_id',$user->id)->where('user_exam_review_id',$userExamReview->id)->paginate(1);
         }
-        return view("user.question-bank.preview",compact('category','exam','subCategory','setname','user','userExamReview'));
+        $useranswer=UserReviewQuestion::whereIn('review_type',['mcq'])->where('user_id',$user->id)->where('user_exam_review_id',$userExamReview->id)->select('id',UserReviewAnswer::where('user_exam_review_id',$userExamReview->id)->where('user_review_question_id')->select('user_answer'),'time_taken')
+        ->addSelect([
+            'iscorrect' => UserReviewAnswer::select('iscorrect')->where('user_answer',true)
+                ->whereColumn('user_review_answers.user_review_question_id', 'user_review_questions.id')
+                ->where('user_exam_review_id', $userExamReview->id)
+                ->limit(1)  // Limit to one answer if there might be multiple
+        ])->get();
+        print_r($useranswer);
+        return view("user.question-bank.preview",compact('category','exam','subCategory','setname','user','userExamReview','useranswer'));
     }
 
     public function setreview(Request $request,Category $category,SubCategory $subCategory,Setname $setname){
