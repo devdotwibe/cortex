@@ -7,14 +7,19 @@
         <div class="container">
             <div class="banner-row">
                 <div class="banner-col1">
-                    <h1>The ultimate writing 
-                        <span>course for exams.</span>
-                    </h1>
-                    <p>Australia's most powerful Thinking Skills platform with over 2000 questions</p>
-                    <a href="" class="banner-btn1">BEGIN YOUR LEARNING</a>
+                    
+                    @if (!empty($price->pricebannertitle))
+                    {!! $price->pricebannertitle !!}
+                @endif
+                @if (!empty($price->pricebuttonlink) && !empty($price->pricebuttonlabel))
+                <a href="{{ $price->pricebuttonlink }}" class="banner-btn1">{{ $price->pricebuttonlabel }}</a>
+            @endif
                 </div>
                 <div class="banner-col2">
                     <div class="banner-img">
+                        {{-- @if (!empty($price->image))
+                        <img src="{{ url('d0/' . $price->image) }}" alt="Header Image">
+                    @endif --}}
                         <img src="{{asset('assets/images/home3-banner.png')}}" alt="">
                         <span class="banner-shape"><img src="{{asset("assets/images/bgcircleheader.png")}}" alt=""></span>
                     </div>
@@ -27,9 +32,13 @@
         <div class="container">
             <div class="price-row1">
                 <div class="gif"><img src="{{asset("assets/images/loader.gif")}}" alt=""></div>
-                <h2>Access a Thinking Skills Test for Free</h2>
-                <p>No payment details required</p>
-                <a href="{{route('login')}}" class="join-btn">Join for free</a>
+                @if (!empty($price->pricetitle))
+                {!! $price->pricetitle !!}
+            @endif
+                {{-- <a href="{{route('login')}}" class="join-btn">Join for free</a> --}}
+                @if (!empty($price->pricetitlebuttonlink) && !empty($price->pricetitlebuttonlabel))
+                <a href="{{ $price->pricetitlebuttonlink }}" class="join-btn">{{ $price->pricetitlebuttonlabel }}</a>
+            @endif
             </div>
 
             <div class="price-row2">
@@ -163,7 +172,9 @@
                 </div> --}}
             </div>
             <div class="note">
-                <h3><span>GROUP:</span> More than 1000 questions to practise from that covers all areas of Thinking Skills. </h3>
+                <h3> @if (!empty($price->grouptitle))
+                    {!! $price->grouptitle !!}
+                @endif</h3>
             </div>
         </div>
     </section>
@@ -173,11 +184,15 @@
         <div class="container">
             <div class="unsure-row">
                 <div class="unsure-icon">
+                    {{-- @if (!empty($price->feelingimage))
+                        <img src="{{ url('d0/' . $price->feelingimage) }}" alt="">
+                    @endif --}}
                     <img src="./assets/images/image 45.png" alt="">
                 </div>
                 <div class="unsure-content">
-                    <h2>Feeling Unsure?</h2>
-                    <p>All products by Cortex Online are backed by our 14-day money back guarantee.</p>
+                    @if (!empty($price->feelingtitle))
+                    {!! $price->feelingtitle !!}
+                @endif
                 </div>
             </div>
         </div>
@@ -185,8 +200,9 @@
     <section class="contact-wrapp" id="our-courses">
         <div class="container">
             <div class="contact-row">
-                <h3 class="highlight">Our Courses</h3>
-                <h2>Need help? Have a question?</h2>
+                @if (!empty($price->ourcoursetitle))
+                    {!! $price->ourcoursetitle !!}
+                @endif
 
                 <div  class="btn-success"></div>
                 <div class="alert alert-success alert-dismissible fade"id="form-messages">

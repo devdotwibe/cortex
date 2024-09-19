@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\banner;
 use App\Models\CouponOffer;
 use App\Models\Course;
+use App\Models\Pricing;
 use App\Models\Courses;
 use App\Models\Feature;
 use App\Models\OurProcess;
@@ -49,7 +50,6 @@ class HomeController extends Controller
 
 
         $ourprocess = OurProcess::get();
-
 
 
         return view("welcome",compact('banner','feature','courses','feed','faq','ourprocess'));
@@ -239,7 +239,9 @@ class HomeController extends Controller
                 $iqry->whereNotNull('end_plan')->whereDate('end_plan','>=',Carbon::now()->toDateString());
             });
         })->get();
-        return view("price",compact('subscriptionPlans'));
+        
+        $price = Pricing::first();
+        return view("price",compact('subscriptionPlans','price'));
     }
     public function verifycoupon(Request $request){
         $request->validate([ 
