@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up()
 {
-    Schema::table('price', function (Blueprint $table) {
+    Schema::table('pricings', function (Blueprint $table) {
         $table->text('pricetitle')->nullable();
         $table->string('pricetitlebuttonlabel')->nullable();
         $table->string('pricetitlebuttonlink')->nullable();

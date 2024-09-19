@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('price', function (Blueprint $table) {
+        Schema::table('pricings', function (Blueprint $table) {
             $table->text('feelingtitle')->nullable();      // Add 'feelingtitle' as text
             $table->string('feelingimage')->nullable();    // Add 'feelingimage' as string for storing image path
             $table->text('ourcoursetitle')->nullable();    // Add 'ourcoursetitle' as text
