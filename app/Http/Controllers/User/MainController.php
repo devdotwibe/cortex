@@ -89,7 +89,7 @@ class MainController extends Controller
                             $bgcolor="#E1E1E1";
                         }
                         if(Reminder::where("remind_date",$date->format('Y-m-d'))->where('user_id',$user->id)->count()>0){
-                            $bgcolor="#FC0317"; 
+                            $bgcolor="#FFCD56"; 
                         }
                     }else{
                         if(Reminder::where("remind_date",$date->format('Y-m-d'))->where('user_id',$user->id)->count()>0){
