@@ -28,41 +28,41 @@
                                 <div class="forms-inputs mb-4">
                                     <input autocomplete="off" name="first_name" type="text" placeholder="Enter your first name" value="{{old('first_name')}}" class="form-control @error('first_name') is-invalid @enderror " >
                                     @error('first_name')
-                                    <div class="invalid-feedback">{{$message}}</div>
+                                    <div id="first_name-error" class="error invalid-feedback">{{$message}}</div>
                                     @enderror
                                 </div>
 
                                 <div class="forms-inputs mb-4">
                                     <input autocomplete="off" name="last_name" type="text" placeholder="Enter your last name" value="{{old('last_name')}}" class="form-control @error('last_name') is-invalid @enderror " >
                                     @error('last_name')
-                                    <div class="invalid-feedback">{{$message}}</div>
+                                    <div id="first_name-error" class="error invalid-feedback">{{$message}}</div>
                                     @enderror
                                 </div>
 
                                 <div class="forms-inputs mb-4">
                                     <input autocomplete="off" name="email" type="text" placeholder="Enter your email" value="{{old('email')}}" class="form-control @error('email') is-invalid @enderror " >
                                     @error('email')
-                                    <div class="invalid-feedback">{{$message}}</div>
+                                    <div id="first_name-error" class="error invalid-feedback">{{$message}}</div>
                                     @enderror
                                 </div>
 
                                 <div class="forms-inputs mb-4">
                                     <input autocomplete="off" name="schooling_year" type="text" placeholder="Enter your Current Grade" value="{{old('schooling_year')}}" class="form-control @error('schooling_year') is-invalid @enderror " >
                                     @error('schooling_year')
-                                    <div class="invalid-feedback">{{$message}}</div>
+                                    <div id="first_name-error" class="error invalid-feedback">{{$message}}</div>
                                     @enderror
                                 </div>
 
                                 <div class="forms-inputs mb-4">
                                     <input autocomplete="off" name="password" type="password" placeholder="Enter your password" class="form-control @error('password') is-invalid @enderror " >
                                     @error('password')
-                                    <div class="invalid-feedback">{{$message}}</div>
+                                    <div id="first_name-error" class="error invalid-feedback">{{$message}}</div>
                                     @enderror
                                 </div>
                                 <div class="forms-inputs mb-4">
                                     <input autocomplete="off" name="re_password" type="password" placeholder="Re-enter password" class="form-control @error('re_password') is-invalid @enderror " >
                                     @error('re_password')
-                                    <div class="invalid-feedback">{{$message}}</div>
+                                    <div id="first_name-error" class="error invalid-feedback">{{$message}}</div>
                                     @enderror
                                 </div>
                                 <div class="mb-3">
@@ -127,19 +127,14 @@
 	    errorElement: "div",
 	    errorPlacement: function ( error, element ) { 
 	        error.addClass( "invalid-feedback" );
-            error.insertAfter(element)
-	        // if ( element.prop( "type" ) === "checkbox" ) {
-	        //     error.insertAfter(element.next( "label" ));
-	        // } else {
-	        //     error.insertAfter(element.next(".pmd-textfield-focused"));
-	        // }
+            error.insertAfter(element) 
 	    },
-	    // highlight: function ( element, errorClass, validClass ) {
-	    //     $( element ).addClass( "is-invalid" ).removeClass( "is-valid" );
-	    // },
-	    // unhighlight: function (element, errorClass, validClass) {
-	    //     $( element ).addClass( "is-valid" ).removeClass( "is-invalid" );
-	    // }
+	    highlight: function ( element, errorClass, validClass ) {
+	        $( element ).addClass( "is-invalid" ).removeClass( "is-valid" );
+	    },
+	    unhighlight: function (element, errorClass, validClass) {
+	        $( element ).addClass( "is-valid" ).removeClass( "is-invalid" );
+	    }
 	});
 </script>
 @endpush
