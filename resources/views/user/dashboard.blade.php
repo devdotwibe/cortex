@@ -291,6 +291,9 @@
             if(info.event&&info.event.extendedProps){
                 $('#calendar-title').text(info.event.extendedProps.elTitle||"")
             }            
+        },
+        dayHeaderFormat: {  
+            day: 'narrow'
         }
     });
     calendar.render(); 
