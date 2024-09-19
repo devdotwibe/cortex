@@ -191,7 +191,7 @@ class LiveClassController extends Controller
                             return '<span class="badge text-bg-secondary">'.ucfirst($data->status).'</span>'; 
                     } 
                 }else{
-                    return '<span class="badge text-bg-secondary">'.ucfirst($data->status).'</span>'; 
+                    return '<span class="badge text-bg-danger"> Deleted User </span>'; 
                 }
             })->buildTable(['timeslottext','statushtml','termhtml']);
         }
