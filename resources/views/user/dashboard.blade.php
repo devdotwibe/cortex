@@ -292,8 +292,9 @@
                 $('#calendar-title').text(info.event.extendedProps.elTitle||"")
             }            
         },
-        dayHeaderFormat: {  
-            day: 'narrow'
+        dayHeaderContent: function(arg) { 
+            const dayNames = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+            return dayNames[arg.date.getDay()];
         }
     });
     calendar.render(); 
