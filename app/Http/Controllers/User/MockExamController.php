@@ -119,7 +119,7 @@ class MockExamController extends Controller
         $user->setProgress("exam-review-".$review->id."-flags",$request->input("flags",'[]'));
         $user->setProgress("exam-review-".$review->id."-times",$request->input("times",'[]'));
         $user->setProgress("exam-review-".$review->id."-passed",$request->input("passed",'0'));
-         
+        $user->setProgress("exam-review-".$review->id."-time_of_exam",$exam->time_of_exam);
         if($user->progress('exam-'.$exam->id.'-complete-date',"")==""){
             $user->setProgress('exam-'.$exam->id.'-complete-date',date('Y-m-d H:i:s'));
         }
@@ -177,7 +177,24 @@ class MockExamController extends Controller
             }
             return UserReviewQuestion::whereIn('review_type',['mcq'])->where('user_exam_review_id',$userExamReview->id)->where('user_id',$user->id)->paginate(1);
         }
-        return view("user.full-mock-exam.preview",compact('exam','user','userExamReview'));
+        $useranswer=UserReviewQuestion::leftJoin('user_review_answers','user_review_answers.user_review_question_id','user_review_questions.id')
+                        ->where('user_review_answers.user_answer',true)
+                        ->whereIn('user_review_questions.review_type',['mcq'])
+                        ->where('user_review_questions.user_id',$user->id)
+                        ->where('user_review_questions.user_exam_review_id',$userExamReview->id)
+                        ->select('user_review_questions.id','user_review_questions.time_taken','user_review_answers.iscorrect')->get();
+        $examtime=0;
+        if($user->progress("exam-review-".$userExamReview->id."-timed",'')=="timed"){
+            $times=explode(':',$user->progress("exam-review-".$userExamReview->id."-time_of_exam",'0:0'));
+            if(count($times)>0){
+                $examtime+=intval(trim($times[0]??"0"))*60;
+                $examtime+=intval(trim($times[1]??"0"));
+            }
+            if($examtime>0&&count($useranswer)>0){
+                $examtime=$examtime/count($useranswer);
+            }
+        }
+        return view("user.full-mock-exam.preview",compact('exam','user','userExamReview','useranswer','examtime'));
     }
     public function examhistory(Request $request,Exam $exam){
         /**
