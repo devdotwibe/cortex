@@ -280,6 +280,8 @@
             return true;
         }
     });
+    summery.timerActive=true;
+    summery.examActive=true;    
     if(!summery.isInIt){
         summery.totalcount={{$questioncount??0}};
         summery.questionids=[]; 
@@ -293,13 +295,11 @@
 
         summery.answeridx=[];
         summery.notansweridx=[]; 
-        summery.timerActive=true;
-        summery.examActive=true;
         summery.isInIt=true;
         summery.timetaken=0;
         summery.progressurl="{{url()->current()}}";
-        summery.save()
     }
+    summery.save()
  
         function toglepreviewpage(){
             summery.timerActive=!summery.timerActive; 
