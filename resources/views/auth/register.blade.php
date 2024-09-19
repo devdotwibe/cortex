@@ -161,9 +161,9 @@
             }
             element.next(error).addClass( "invalid-feedback" ); 
 	    },
-        onkeyup: function(element) {
-            $(element).valid();
-        },
+        // onkeyup: function(element) {
+        //     $(element).valid();
+        // },
         onchange: function(element) {
             $(element).valid();
         }
