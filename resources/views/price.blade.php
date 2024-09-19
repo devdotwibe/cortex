@@ -197,7 +197,7 @@
             </div>
         </div>
     </section>
-    <section class="contact-wrapp">
+    <section class="contact-wrapp" id="our-courses">
         <div class="container">
             <div class="contact-row">
                 @if (!empty($price->ourcoursetitle))

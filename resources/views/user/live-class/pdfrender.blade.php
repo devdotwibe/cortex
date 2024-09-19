@@ -5,7 +5,7 @@
         <div class="container-wrap" id="question-answer-page">
             <div class="lesson">
                 <a class="lesson-exit float-start"
-                    href="{{ route('live-class.privateclass.lessonshow', ['live' => $user->slug, 'lesson_material' => $lessonMaterial->slug]) }}">
+                    href="{{ route('live-class.privateclass.lessonshow', ['live' => $user->slug, 'lesson_material' => $lessonMaterial->slug]) }}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip" >
                     <img src="{{ asset('assets/images/exiticon.svg') }}" alt="exiticon">
                 </a>
                 <div class="lesson-title">
