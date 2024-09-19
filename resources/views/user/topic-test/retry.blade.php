@@ -280,7 +280,7 @@
             return true;
         }
     });
-    if(!summery.isInIt){
+    // if(!summery.isInIt){
         summery.totalcount={{$questioncount??0}};
         summery.questionids=[]; 
         summery.timercurrent={};
@@ -299,7 +299,7 @@
         summery.timetaken=0;
         summery.progressurl="{{url()->current()}}";
         summery.save()
-    }
+    // }
 
     /*
         var progressurl="{{$user->progress("exam-{$exam->id}-topic-{$category->id}-progress-url","")}}";
