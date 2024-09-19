@@ -125,8 +125,8 @@
 	        // agree: "Please accept our policy"
 	    },
 	    errorElement: "div",
-        validClass:"is-invalid",
-        errorClass:"invalid-feedback",
+        validClass:"is-valid",
+        errorClass:"is-invalid",
 	    errorPlacement: function ( error, element ) { 
             if(element.next(error).length==0){
                 error.insertAfter(element) 
