@@ -10,5 +10,5 @@ use Illuminate\Database\Eloquent\Model;
 class Pricing extends Model
 {
     use HasFactory;
-    protected $table = 'price';
+    // protected $table = 'price';
 }
