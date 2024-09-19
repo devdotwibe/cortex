@@ -27,16 +27,15 @@
                             <div class="form-data">
                                 <div class="forms-inputs mb-4">
                                     <input autocomplete="off" name="first_name" type="text" placeholder="Enter your first name" value="{{old('first_name')}}" class="form-control @error('first_name') is-invalid @enderror " >
-                                    @error('first_name')
-                                    <div class="invalid-feedback">{{$message}}</div>
-                                    @enderror
+                                    <div class="invalid-feedback">@error('first_name'){{$message}}@enderror</div>
+                                    
                                 </div>
 
                                 <div class="forms-inputs mb-4">
                                     <input autocomplete="off" name="last_name" type="text" placeholder="Enter your last name" value="{{old('last_name')}}" class="form-control @error('last_name') is-invalid @enderror " >
-                                    @error('last_name')
-                                    <div class="invalid-feedback">{{$message}}</div>
-                                    @enderror
+                                    
+                                    <div class="invalid-feedback">@error('last_name'){{$message}}@enderror</div>
+                                    
                                 </div>
 
                                 <div class="forms-inputs mb-4">
