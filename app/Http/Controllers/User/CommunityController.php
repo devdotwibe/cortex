@@ -20,12 +20,25 @@ class CommunityController extends Controller
 {
     public function posts(Request $request)
     {
+
+
+        $hashtags = Hashtag::groupBy('hashtag')->pluck('hashtag');
+
+
+        $hashtag = $request->input('hashtag');
+
+
         /**
          *  @var User
          */
         $user = Auth::user();
+
         if ($request->ajax()) {
-            $posts = Post::where('id', '>', 0)->orderBy('id', 'DESC')->paginate();
+            $post = Post::where('id', '>', 0);
+            if (!empty($hashtag)) {
+                $post->whereIn('id', Hashtag::where('hashtag', 'like', "%$hashtag%")->select('post_id'));
+            }
+            $posts = $post->where('user_id', $user->id)->orderBy('id', 'DESC')->paginate();
             $results = [];
             foreach ($posts->items() as $row) {
                 $options = [];
