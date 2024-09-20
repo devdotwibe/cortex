@@ -740,7 +740,7 @@
                                             </div>
                                         </div>
 
-                                        <!-- Image Preview -->
+                                        {{-- <!-- Image Preview -->
                                         <div class="form-group">
                                             <label for="imagePreview">Image Preview</label>
                                             <div id="imagePreviewContainer"
@@ -753,7 +753,7 @@
                                                         style="display: none; width: 100%; height: auto;">
                                                 @endif
                                             </div>
-                                        </div>
+                                        </div> --}}
 
                                         <div class="col-md-12">
                                             <div class="form-group">
@@ -892,7 +892,7 @@
                                         </div>
 
                                         <!-- Image Preview -->
-                                        <div class="form-group">
+                                        {{-- <div class="form-group">
                                             <label for="feelingimagePreview">Image Preview</label>
                                             <div id="feelingimagePreview"
                                                 style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
@@ -904,7 +904,7 @@
                                                         style="display: none; width: 100%; height: auto;">
                                                 @endif
                                             </div>
-                                        </div>
+                                        </div> --}}
 
                                         <div class="col-md-12">
                                             <div class="form-group">

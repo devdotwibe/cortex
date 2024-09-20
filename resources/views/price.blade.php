@@ -191,10 +191,10 @@
         <div class="container">
             <div class="unsure-row">
                 <div class="unsure-icon">
-                    {{-- @if (!empty($price->feelingimage))
+                    @if (!empty($price->feelingimage))
                         <img src="{{ url('d0/' . $price->feelingimage) }}" alt="">
-                    @endif --}}
-                    <img src="./assets/images/image 45.png" alt="">
+                    @endif
+                    {{-- <img src="./assets/images/image 45.png" alt=""> --}}
                 </div>
                 <div class="unsure-content">
                     @if (!empty($price->feelingtitle))
