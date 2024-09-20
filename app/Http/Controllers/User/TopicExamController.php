@@ -416,15 +416,15 @@ class TopicExamController extends Controller
             ]);
 
             dispatch(new SubmitRetryReview($review,session("exam-retry-questions" . $userExamReview->id,[]),$answers));
+
+            Session::put($attemt,null);
+            Session::put("exam-retry-" . $userExamReview->id,null);
+            Session::put("exam-retry-questions" . $userExamReview->id,[]);
             if ($questioncnt > $passed) {
                 $key = md5("exam-retry-repeat-" . $review->id);
                 Session::put("exam-retry-" . $userExamReview->id, $key);
                 Session::put("exam-retry-questions" . $userExamReview->id, json_decode($questions));
                 Session::put($key, []);
-            }else{
-                Session::remove($attemt);
-                Session::remove("exam-retry-" . $userExamReview->id);
-                Session::remove("exam-retry-questions" . $userExamReview->id);
             } 
             return redirect()->route('topic-test.retry.result', ['user_exam_review'=>$userExamReview->slug,'exam_retry_review'=>$review->slug])->with("success", "Topic Test Submited")->with("review", $review->id);
         }
