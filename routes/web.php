@@ -146,6 +146,7 @@ Route::middleware(['auth', 'isUser'])->group(function () {
             Route::post('/fetch/{attemt}/progress', [TopicExamController::class, 'getprogress'])->name('attemtprogress');
             Route::post('/update/{attemt}/progress', [TopicExamController::class, 'updateprogress'])->name('updateprogress');
             Route::post('/retry/{user_exam_review}/submit', [TopicExamController::class, 'retrysubmit'])->name('retry.submit');
+            Route::get('/retry/{user_exam_review}/attempt/{exam_retry_review}/result', [TopicExamController::class, 'retryresult'])->name('retry.result');
         });
 
         Route::prefix('full-mock-exam')->name('full-mock-exam.')->group(function () {
