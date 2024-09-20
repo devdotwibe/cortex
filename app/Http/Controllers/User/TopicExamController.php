@@ -322,7 +322,7 @@ class TopicExamController extends Controller
             })
             ->addColumn('retries',function($data){
                 return '<a href="'.route('topic-test.retryhistory', $data->slug) .'" class="btn btn-icons view_btn">
-                            <img src="'.asset("assets/images/view.svg").'" alt="">
+                            <img src="'.asset("assets/images/eye.svg").'" alt="">
                         </a>';
             })
             ->addColumn('action', function ($data) {
