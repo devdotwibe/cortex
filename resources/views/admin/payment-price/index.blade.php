@@ -43,7 +43,12 @@
                         3</a>
                 </li>
 
-
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link @if (session('__payment_price___', '') == 'section4') active @endif" id="section4-tab"
+                        data-bs-toggle="tab" href="#section4" role="tab" aria-controls="section4"
+                        @if (session('__payment_price___', '') == 'section4') aria-selected="true" @else aria-selected="false" @endif>Section
+                        4</a>
+                </li>
 
             </ul>
 
@@ -933,7 +938,119 @@
                 </div>
 
 
+                <div class="tab-pane fade @if (session('__payment_price___', 'payment') == 'section4') show active @endif" id="section4"
+                role="tabpanel" aria-labelledby="section4-tab">
+                <div class="row">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="{{ route('admin.payment-price.section4') }}" method="POST"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <div class="row">
 
+
+
+   <!-- Fourth Section Fields -->
+   <div class="col-md-12">
+    <div class="form-group">
+        <div class="form-data">
+            <div class="forms-inputs mb-4">
+                <label for="exceltitle">Excel Title</label>
+
+                    <textarea class="form-control texteditor" name="exceltitle" id="exceltitle">{{ old('exceltitle', optional($price)->exceltitle) }}</textarea>
+                @error('exceltitle')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Excel Button Label -->
+<div class="col-md-12">
+    <div class="form-group">
+        <div class="form-data">
+            <div class="forms-inputs mb-4">
+                <label for="excelbuttonlabel">Excel Button Label</label>
+                <input type="text" name="excelbuttonlabel"
+                    id="excelbuttonlabel"
+                    value="{{ old('excelbuttonlabel', optional($price)->excelbuttonlabel) }}"
+                    class="form-control" placeholder="Excel Button Label">
+                @error('excelbuttonlabel')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Excel Button Link -->
+<div class="col-md-12">
+    <div class="form-group">
+        <div class="form-data">
+            <div class="forms-inputs mb-4">
+                <label for="excelbuttonlink">Excel Button Link</label>
+                <input type="text" name="excelbuttonlink" id="excelbuttonlink"
+                    value="{{ old('excelbuttonlink', optional($price)->excelbuttonlink) }}"
+                    class="form-control" placeholder="Excel Button Link">
+                @error('excelbuttonlink')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Excel Image -->
+<div class="col-md-12">
+    <div class="form-group">
+        <div class="form-data">
+            <div class="forms-inputs mb-4">
+                <label for="excelimage">Excel Image</label>
+                <input type="file" name="excelimage" id="excelimage"
+                    class="form-control"
+                    onchange="previewImage(event, 'excelImagePreview')">
+                @error('excelimage')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- <!-- Image Preview -->
+<div class="form-group">
+    <label for="excelImagePreview">Image Preview</label>
+    <div id="imagePreviewContainer"
+        style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
+        @if (isset($price) && $price->excelimage)
+            <img id="excelImagePreview"
+                src="{{ url('d0/' . $price->excelimage) }}"
+                alt="Excel Image Preview" style="width: 100%; height: auto;">
+        @else
+            <img id="excelImagePreview" src="#" alt="Excel Image Preview"
+                style="display: none; width: 100%; height: auto;">
+        @endif
+    </div>
+</div> --}}
+
+
+
+                                    <!-- Save Button -->
+                                    <div class="col-md-12 mb-3">
+                                        <button type="submit" class="btn btn-primary" name="section"
+                                            value="section4">Save</button>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
                 

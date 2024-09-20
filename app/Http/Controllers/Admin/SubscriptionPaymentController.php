@@ -233,10 +233,57 @@ class SubscriptionPaymentController extends Controller
         $price->save();
     
         // Redirect with success message
-        return redirect()->route('admin.payment-price.index')->with('success', 'Price information has been successfully saved.');
+        return redirect()->route('admin.payment-price.index')->with('success', 'Section 3 has been successfully saved.');
     }
     
 
+
+
+
+    public function storesection4(Request $request)
+
+    {
+
+        
+        Session::put("__payment_price___","section4"); 
+        // Validate the request data for price information
+        $request->validate([
+            'exceltitle' => 'nullable|string',
+           
+            'excelimage' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048',
+            'excelbuttonlabel' => 'nullable|string',
+            'excelbuttonlink' => 'nullable|string',
+           
+        ]);
+    
+        // Retrieve the first record or create a new one
+        $price = Pricing::first();
+    
+        if (empty($price)) {
+            $price = new Pricing;
+        }
+    
+        // Update fields
+        $price->exceltitle = $request->input('exceltitle');
+      
+        $price->excelbuttonlabel = $request->input('excelbuttonlabel');
+        $price->excelbuttonlink = $request->input('excelbuttonlink');
+     
+       
+
+        if ($request->hasFile('excelimage')) {
+            $imageName = "price/" . $request->file('excelimage')->hashName();
+            Storage::put('price', $request->file('excelimage'));
+            $price->excelimage = $imageName;
+        }
+    
+        // Save the price record
+        $price->save();
+    
+        // Redirect with success message
+        return redirect()->route('admin.payment-price.index')->with('success', 'Section 4 has been successfully saved.');
+    }
+    
 
 
 

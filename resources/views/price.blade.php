@@ -186,6 +186,30 @@
         </div>
     </section>
 
+    <section class="learning-wrapp">
+        <div class="container">
+            <div class="learning-row">
+                <div class="learning-col1">
+                    @if (!empty($price->exceltitle))
+                    {!! $price->exceltitle !!}
+                @endif
+
+                @if (!empty($price->excelbuttonlink) && !empty($price->excelbuttonlabel))
+                <a href="{{ $price->excelbuttonlink }}"
+                    class="learning-btn">{{ $price->excelbuttonlabel }}</a>
+            @endif
+
+
+                </div>
+                <div class="learning-col2">
+                    @if (!empty($price->excelimage))
+                        <img src="{{ url('d0/' . $price->excelimage) }}" alt="Header Image">
+                    @endif
+                </div>
+            </div>
+        </div>
+    </section>
+
 
     <section class="unsure-wrapp">
         <div class="container">

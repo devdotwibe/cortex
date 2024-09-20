@@ -92,7 +92,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::post('/',[SubscriptionPaymentController::class,'store'])->name('store');
             Route::post('/section-1', [SubscriptionPaymentController::class, 'storesection1'])->name('section1');
             Route::post('/section-3', [SubscriptionPaymentController::class, 'storesection3'])->name('section3');
-
+            Route::post('/section-4', [SubscriptionPaymentController::class, 'storesection4'])->name('section4');
             Route::put('/{subscription_plan}/update',[SubscriptionPaymentController::class,'update'])->name('update');
             Route::delete('/{subscription_plan}/destroy',[SubscriptionPaymentController::class,'destroy'])->name('destroy');
         });
