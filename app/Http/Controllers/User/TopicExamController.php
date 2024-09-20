@@ -426,7 +426,7 @@ class TopicExamController extends Controller
                 Session::remove("exam-retry-" . $userExamReview->id);
                 Session::remove("exam-retry-questions" . $userExamReview->id);
             } 
-            return redirect()->route('topic-test.retry.result', ['user_exam_review'=>$userExamReview->id,'exam_retry_review'=>$review->slug])->with("success", "Topic Test Submited")->with("review", $review->id);
+            return redirect()->route('topic-test.retry.result', ['user_exam_review'=>$userExamReview->slug,'exam_retry_review'=>$review->slug])->with("success", "Topic Test Submited")->with("review", $review->id);
         }
         return redirect()->route('topic-test.index');
     }
