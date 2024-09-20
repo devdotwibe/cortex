@@ -22,7 +22,7 @@
 </section>
 <section class="post-section" >
 
-    <div class="container">
+    {{-- <div class="container">
         <div class="row">
             <!-- Left Sidebar for Hashtags -->
             <div class="col-md-3">
@@ -30,14 +30,14 @@
                 <ul class="list-group">
                     @foreach ($hashtags as $hashtag)
                         <li class="list-group-item">
-                            <a href="{{ route('community.index', ['hashtag' => $hashtag]) }}">{{ $hashtag }}</a>
+                            <a href="{{ route('community.post.index', ['hashtag' => $hashtag]) }}">{{ $hashtag }}</a>
                         </li>
                     @endforeach
                 </ul>
             </div>
      
         </div>
-    </div>
+    </div> --}}
 
 
     <div class="post-container" id="post-item-list">
