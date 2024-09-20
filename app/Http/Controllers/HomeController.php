@@ -185,7 +185,7 @@ class HomeController extends Controller
         $request->validate(['email' => 'required|email']);
         if(!User::where('email', $request->email)->exists()){
 
-            return redirect()->back()->with('mail-error','User not match our Records.');
+            return redirect()->back()->with('mail-error','The provided credentials do not match our records.');
         }
 
         $status = Password::sendResetLink(

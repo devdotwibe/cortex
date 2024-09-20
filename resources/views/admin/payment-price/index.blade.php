@@ -746,7 +746,7 @@
                                             </div>
                                         </div>
 
-                                        {{-- <!-- Image Preview -->
+                                        <!-- Image Preview -->
                                         <div class="form-group">
                                             <label for="imagePreview">Image Preview</label>
                                             <div id="imagePreviewContainer"
@@ -759,7 +759,7 @@
                                                         style="display: none; width: 100%; height: auto;">
                                                 @endif
                                             </div>
-                                        </div> --}}
+                                        </div>
 
                                         <div class="col-md-12">
                                             <div class="form-group">
@@ -888,7 +888,7 @@
                                                         <label for="feelingimage">Feeling Image</label>
                                                         <input type="file" name="feelingimage" id="feelingimage"
                                                             class="form-control"
-                                                            onchange="previewImage(event, 'imagePreview')">
+                                                            onchange="previewImage(event, 'feelingimagePreview')">
                                                         @error('feelingimage')
                                                             <div class="text-danger">{{ $message }}</div>
                                                         @enderror
@@ -898,19 +898,21 @@
                                         </div>
 
                                         <!-- Image Preview -->
-                                        {{-- <div class="form-group">
+                                        <div class="form-group">
                                             <label for="feelingimagePreview">Image Preview</label>
-                                            <div id="feelingimagePreview"
+                                            <div id="feelingimageContainer"
                                                 style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
                                                 @if (isset($price) && $price->image)
-                                                    <img id="feelingimagePreview" src="{{ url('d0/' . $price->feelingimagePreview) }}"
+                                                    <img id="feelingimagePreview" src="{{ url('d0/' . $price->feelingimage) }}"
                                                         alt="Image Preview" style="width: 100%; height: auto;">
                                                 @else
                                                     <img id="feelingimagePreview" src="#" alt="Image Preview"
                                                         style="display: none; width: 100%; height: auto;">
                                                 @endif
                                             </div>
-                                        </div> --}}
+                                        </div> 
+
+
 
                                         <div class="col-md-12">
                                             <div class="form-group">
@@ -1022,7 +1024,7 @@
     </div>
 </div>
 
-{{-- <!-- Image Preview -->
+<!-- Image Preview -->
 <div class="form-group">
     <label for="excelImagePreview">Image Preview</label>
     <div id="imagePreviewContainer"
@@ -1036,7 +1038,7 @@
                 style="display: none; width: 100%; height: auto;">
         @endif
     </div>
-</div> --}}
+</div>
 
 
 
@@ -1111,6 +1113,23 @@
         }
     }
 </script>
+{{-- <script>
+    function previewImage1(event, previewId) {
+        var reader = new FileReader();
+        var imagePreview = document.getElementById(previewId);
+        
+        reader.onload = function() {
+            if (imagePreview) {
+                imagePreview.src = reader.result;
+                imagePreview.style.display = 'block';
+            }
+        };
+
+        if (event.target.files && event.target.files[0]) {
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    }
+</script> --}}
 
     <script>
 
