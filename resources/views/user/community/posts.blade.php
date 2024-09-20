@@ -140,7 +140,8 @@
         },'json');
     }
     $(function(){
-        loadpost("{{route('community.index',['ref'=>'ajax'])}}");
+        // loadpost("{{route('community.index',['ref'=>'ajax'])}}");
+        loadpost("{{url()->full()}}");
         $('#load-more-btn').click(function(){
             loadpost($('#load-more-btn').data('url'))
         })
