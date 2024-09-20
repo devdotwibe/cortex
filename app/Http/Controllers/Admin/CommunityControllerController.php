@@ -21,16 +21,9 @@ class CommunityControllerController extends Controller
     
     public function index(Request $request){ 
 
-
-
-        // $posts = $hashtag 
-        //     ? Post::where('hashtags', 'like', "%$hashtag%")->get()
-        //     : Post::all();
-    
         $hashtags = Hashtag::groupBy('hashtag')->pluck('hashtag');
     
-        // return view('community.index', compact('posts', 'hashtags'));
-
+       
         $hashtag = $request->input('hashtag');
 
 
