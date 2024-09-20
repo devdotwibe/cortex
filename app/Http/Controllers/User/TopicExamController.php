@@ -328,7 +328,7 @@ class TopicExamController extends Controller
             ->addColumn('action', function ($data) {
                 return '<a type="button" href="' . route('topic-test.complete', $data->slug) . '" class="btn btn-warning btn-sm">Review</a>';
             })
-            ->rawColumns(['action'])
+            ->rawColumns(['action','retries'])
             ->with('url', route('topic-test.show', [
                 'category' => $category->slug,
             ]))
