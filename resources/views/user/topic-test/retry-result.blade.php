@@ -122,6 +122,9 @@
 
 
 @push('footer-script')  
+    <script>
+        localStorage.removeItem("topic-test-summery-retry")
+    </script>
     {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script> 
         $(document).ready(function() {

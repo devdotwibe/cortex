@@ -124,6 +124,7 @@
 @push('footer-script')  
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script> 
+        localStorage.removeItem("topic-test-summery-retry")
         $(document).ready(function() {
 
             const ctx = document.getElementById('myChart').getContext('2d');
