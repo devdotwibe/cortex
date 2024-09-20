@@ -101,8 +101,7 @@
                     <tr>
                         <th>Sl.No</th>
                         <th>Date</th>
-                        <th>Progress</th>
-                        <th>Retries</th>
+                        <th>Progress</th> 
                         <th></th>
                     </tr>
                 </thead>
