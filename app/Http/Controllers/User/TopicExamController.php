@@ -157,7 +157,7 @@ class TopicExamController extends Controller
         if ($questioncnt > $passed) {
             $key = md5("exam-retry-" . $review->id);
             Session::put("exam-retry-" . $review->id, $key);
-            Session::put("exam-retry-questions" . $review->id, json_decode($questions));
+            Session::put("exam-retry-questions" . $review->id, json_decode($questions,true));
             Session::put($key, []);
         }
         if ($request->ajax()) {
@@ -417,15 +417,16 @@ class TopicExamController extends Controller
 
             dispatch(new SubmitRetryReview($review,session("exam-retry-questions" . $userExamReview->id,[]),$answers));
 
-            Session::put($attemt,null);
-            Session::put("exam-retry-" . $userExamReview->id,null);
-            Session::put("exam-retry-questions" . $userExamReview->id,[]);
             if ($questioncnt > $passed) {
                 $key = md5("exam-retry-repeat-" . $review->id);
                 Session::put("exam-retry-" . $userExamReview->id, $key);
-                Session::put("exam-retry-questions" . $userExamReview->id, json_decode($questions));
+                Session::put("exam-retry-questions" . $userExamReview->id, array_merge(session("exam-retry-questions" . $userExamReview->id,[]),json_decode($questions,true)));
                 Session::put($key, []);
-            } 
+            } else{
+                Session::put($attemt,null);
+                Session::put("exam-retry-" . $userExamReview->id,null);
+                Session::put("exam-retry-questions" . $userExamReview->id,[]);
+            }
             return redirect()->route('topic-test.retry.result', ['user_exam_review'=>$userExamReview->slug,'exam_retry_review'=>$review->slug])->with("success", "Topic Test Submited")->with("review", $review->id);
         }
         return redirect()->route('topic-test.index');
