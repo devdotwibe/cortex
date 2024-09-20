@@ -52,11 +52,11 @@
 <div class="modal fade" id="review-history-modal" tabindex="-1" role="dialog" aria-labelledby="Label" aria-hidden="true">
     <div class="modal-dialog ">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"><span  id="review-history-label" ></span></h5>
+            <div class="modal-header" id="main-modal-body">
+                <h5 class="modal-title"><span  class="review-history-label" ></span></h5>
                 <button type="button" class="close" data-bs-dismiss="modal"    aria-label="Close"><span  aria-hidden="true">&times;</span></button>
             </div>
-            <div class="modal-body"> 
+            <div class="modal-body" > 
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="table-outer" id="attemt-list">
@@ -65,6 +65,22 @@
                     </div>
                 </div>
                 @guest('admin') <a type="button" href="" id="restart-btn"  class="btn btn-dark">Re-Start Topic</a> @endguest
+            </div>
+        </div>
+
+        <div class="modal-content" id="retry-modal-body" style="display: none">
+            <div class="modal-header">
+                <h5 class="modal-title"><span  class="review-history-label" ></span></h5>
+                <button type="button" class="close" onclick="toggleretry()" ><span  aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body" > 
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="table-outer" id="attemt-retry-list">
+                             
+                        </div> 
+                    </div>
+                </div> 
             </div>
         </div>
     </div>
@@ -78,8 +94,99 @@
             window.location.href=url;
         }
     }
+    function loadretry(url){
+        $('#attemt-retry-list').html(`
+            <table id="attemt-retry-list-table" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Sl.No</th>
+                        <th>Date</th>
+                        <th>Progress</th>
+                        <th>Retries</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody >
+
+                </tbody>
+            </table>
+        `)
+        toggleretry()
+        $('#attemt-retry-list-table').DataTable({
+            processing: true,
+            serverSide: true,
+            searching: false,
+            bFilter: false,                
+            ajax: {
+                url:url
+            },
+            order: [
+                [0, 'DESC']
+            ],
+            initComplete: function() {
+                var info = this.api().page.info(); 
+                var json = this.api().ajax.json();  
+                if (info.pages > 1) {
+                    $("#attemt-retry-list-table_wrapper .pagination").show();
+                } else {
+                    $("#attemt-retry-list-table_wrapper .pagination").hide();
+                }
+                if (info.recordsTotal > 0) {
+                    $("#attemt-retry-list-table_wrapper #attemt-retry-list-table_info").show();
+                } else {
+                    $("#attemt-retry-list-table_wrapper #attemt-retry-list-table_info").hide();
+                } 
+            },
+            drawCallback: function() {
+                var info = this.api().page.info();
+                var json = this.api().ajax.json(); 
+                if (info.pages > 1) {
+                    $("#attemt-retry-list-table_wrapper .pagination").show();
+                } else {
+                    $("#attemt-retry-list-table_wrapper .pagination").hide();
+                }
+                if (info.recordsTotal > 0) {
+                    $("#attemt-retry-list-table_wrapper #attemt-retry-list-table_info").show();
+                } else {
+                    $("#attemt-retry-list-table_wrapper #attemt-retry-list-table_info").hide();
+                } 
+            },
+            columns: [ 
+
+                {
+                    data: 'DT_RowIndex',
+                    name: 'id',
+                    orderable: true,
+                    searchable: false,
+                },
+                {
+                    data: 'date',
+                    name: 'created_at',
+                    orderable: true,
+                    searchable: false,
+                },
+                {
+                    data: 'progress',
+                    name: 'progress',
+                    orderable: true,
+                    searchable: false,
+                }, 
+                {
+                    data: 'action', 
+                    orderable: false,
+                    searchable: false, 
+                },
+            ],
+        })
+
+    }
+    function toggleretry(){
+        $('#main-modal-body,#retry-modal-body').slideToggle();
+    }
 
     function loadlessonsetreviews(url){
+        $('#main-modal-body').show()
+        $('#retry-modal-body').hide()
         $('#attemt-list').html(`
             <table id="attemt-list-table" style="width:100%">
                 <thead>
@@ -87,6 +194,7 @@
                         <th>Sl.No</th>
                         <th>Date</th>
                         <th>Progress</th>
+                        <th>Retries</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -111,7 +219,7 @@
                 var info = this.api().page.info(); 
                 var json = this.api().ajax.json();
                 $('#restart-btn').attr('href', json.url);
-                $('#review-history-label').html(` ${json.name} `)
+                $('.review-history-label').html(` ${json.name} `)
                 if (info.pages > 1) {
                     $("#attemt-list-table_wrapper .pagination").show();
                 } else {
@@ -127,7 +235,7 @@
                 var info = this.api().page.info();
                 var json = this.api().ajax.json();
                 $('#restart-btn').attr('href', json.url);
-                $('#review-history-label').html(` ${json.name} `)
+                $('.review-history-label').html(` ${json.name} `)
                 if (info.pages > 1) {
                     $("#attemt-list-table_wrapper .pagination").show();
                 } else {
@@ -156,6 +264,12 @@
                 {
                     data: 'progress',
                     name: 'progress',
+                    orderable: true,
+                    searchable: false,
+                },
+                {
+                    data: 'retries',
+                    name: 'retries',
                     orderable: true,
                     searchable: false,
                 },

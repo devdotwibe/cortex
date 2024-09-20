@@ -268,6 +268,35 @@ class TopicExamController extends Controller
             return response()->json(["iscorrect" => true]);
         }
     }
+    public function retryhistory(Request $request,UserExamReview $userExamReview){
+
+        /**
+         * @var User
+         */
+        $user = Auth::user();
+        $exam = Exam::where("name", 'topic-test')->first();
+        if (empty($exam)) {
+            $exam = Exam::store([
+                "title" => "Topic Test",
+                "name" => "topic-test",
+            ]);
+            $exam = Exam::find($exam->id);
+        }
+
+        return DataTables::of(ExamRetryReview::where('user_id', $user->id)->where('user_exam_review_id', $userExamReview->id)->where('exam_id', $exam->id)->select('slug', 'created_at', 'progress'))
+            ->addColumn('progress', function ($data) {
+                return $data->progress . "%";
+            })
+            ->addColumn('date', function ($data) {
+                return Carbon::parse($data->created_at)->format('Y-m-d h:i a');
+            }) 
+            ->addColumn('action', function ($data) use($userExamReview){
+                return '<a type="button" href="' . route('topic-test.retry.preview', ['user_exam_review' => $userExamReview->slug, 'exam_retry_review' => $data->slug]) . '" class="btn btn-warning btn-sm">Review</a>';
+            })
+            ->rawColumns(['action'])  
+            ->addIndexColumn()
+            ->make(true);
+    }
 
     public function topichistory(Request $request, Category $category)
     {
@@ -290,6 +319,11 @@ class TopicExamController extends Controller
             })
             ->addColumn('date', function ($data) {
                 return Carbon::parse($data->created_at)->format('Y-m-d h:i a');
+            })
+            ->addColumn('retries',function($data){
+                return '<a href="'.route('topic-test.retryhistory', $data->slug) .'" class="btn btn-icons view_btn">
+                            <img src="'.asset("assets/images/view.svg").'" alt="">
+                        </a>';
             })
             ->addColumn('action', function ($data) {
                 return '<a type="button" href="' . route('topic-test.complete', $data->slug) . '" class="btn btn-warning btn-sm">Review</a>';
