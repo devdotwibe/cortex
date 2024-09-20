@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\SubmitRetryReview;
 use App\Jobs\SubmitReview;
 use App\Models\Answer;
 use App\Models\Category;
@@ -394,35 +395,35 @@ class TopicExamController extends Controller
                 $exam = Exam::find($exam->id);
             }
             $answers=Session::get($attemt,[]);
-            $review = ExamRetryReview::store([
-                "title" => "Topic Test",
-                "name" => "topic-test",
-                "progress" => $user->progress("exam-" . $exam->id . "-topic-" . $category->id, 0),
-                "user_id" => $user->id,
-                "exam_id" => $exam->id,
-                "category_id" => $category->id,
-            ]);
             $passed = $request->input("passed", '0');
             $questions = $request->input("questions", '[]');
-            $questioncnt = Question::where('exam_id', $exam->id)->where('category_id', $category->id)->count();
-            $user->setProgress("exam-review-" . $review->id . "-timed", 'timed');
-            $user->setProgress("exam-review-" . $review->id . "-timetaken", $request->input("timetaken", '0'));
-            $user->setProgress("exam-review-" . $review->id . "-flags", $request->input("flags", '[]'));
-            $user->setProgress("exam-review-" . $review->id . "-times", $request->input("times", '[]'));
-            $user->setProgress("exam-review-" . $review->id . "-questions", $questions);
-            $user->setProgress("exam-review-" . $review->id . "-passed", $passed);
-            $user->setProgress("exam-review-" . $review->id . "-time_of_exam", $category->time_of_exam);
+            $questioncnt = Question::whereNotIn('slug',session("exam-retry-questions" . $userExamReview->id,[]))->where('exam_id', $exam->id)->where('category_id', $category->id)->count();
+            $review = ExamRetryReview::store([
+                "title" => "Topic Test",
+                "name" => "topic-test", 
+                "user_id" => $user->id,
+                "exam_id" => $exam->id,
+                "progress"=>($passed*100)/$questioncnt,
+                "timetaken"=> $request->input("timetaken", '0'),
+                "flags"=> $request->input("flags", '[]'),
+                "times"=> $request->input("times", '[]'),
+                "passed"=> $passed,
+                "questions"=> $questions,
+                "time_of_exam"=>"$questioncnt:00",
+                "user_exam_review_id" => $userExamReview->id,
+                "category_id" => $category->id,
+            ]);
 
-            if ($user->progress('exam-' . $exam->id . '-topic-' . $category->id . '-complete-date', "") == "") {
-                $user->setProgress('exam-' . $exam->id . '-topic-' . $category->id . '-complete-date', date('Y-m-d H:i:s'));
-            }
-            $user->setProgress("exam-" . $exam->id . "-topic-" . $category->id . "-complete-review", 'yes');
-            dispatch(new SubmitReview($review));
+            dispatch(new SubmitRetryReview($review,session("exam-retry-questions" . $userExamReview->id,[]),$answers));
             if ($questioncnt > $passed) {
-                $key = md5("exam-retry-" . $review->id);
-                Session::put("exam-retry-" . $review->id, $key);
-                Session::put("exam-retry-questions" . $review->id, json_decode($questions));
+                $key = md5("exam-retry-repeat-" . $review->id);
+                Session::put("exam-retry-" . $userExamReview->id, $key);
+                Session::put("exam-retry-questions" . $userExamReview->id, json_decode($questions));
                 Session::put($key, []);
+            }else{
+                Session::remove($attemt);
+                Session::remove("exam-retry-" . $userExamReview->id);
+                Session::remove("exam-retry-questions" . $userExamReview->id);
             }
             if ($request->ajax()) {
                 return response()->json(["success" => "Topic Test Submited", "preview" => route('topic-test.preview', $review->slug)]);
