@@ -22,6 +22,10 @@
             <!-- Left Sidebar for Hashtags -->
             <div class="col-md-3">
                 <h4>Hashtags</h4>
+                 
+                 <a href="{{ route('admin.community.index') }}" class="btn btn-primary mb-3"> Back to All</a>
+
+
                 <ul class="list-group">
                     @foreach ($hashtags as $hashtag)
                         <li class="list-group-item">
