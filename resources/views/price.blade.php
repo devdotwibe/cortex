@@ -186,6 +186,27 @@
         </div>
     </section>
 
+
+    <section class="unsure-wrapp">
+        <div class="container">
+            <div class="unsure-row">
+                <div class="unsure-icon">
+                    @if (!empty($price->feelingimage))
+                        <img src="{{ url('d0/' . $price->feelingimage) }}" alt="">
+                    @endif
+                    {{-- <img src="./assets/images/image 45.png" alt=""> --}}
+                </div>
+                <div class="unsure-content">
+                    @if (!empty($price->feelingtitle))
+                        {!! $price->feelingtitle !!}
+                    @endif
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    
     <section class="learning-wrapp">
         <div class="container">
             <div class="learning-row">
@@ -210,24 +231,6 @@
         </div>
     </section>
 
-
-    <section class="unsure-wrapp">
-        <div class="container">
-            <div class="unsure-row">
-                <div class="unsure-icon">
-                    @if (!empty($price->feelingimage))
-                        <img src="{{ url('d0/' . $price->feelingimage) }}" alt="">
-                    @endif
-                    {{-- <img src="./assets/images/image 45.png" alt=""> --}}
-                </div>
-                <div class="unsure-content">
-                    @if (!empty($price->feelingtitle))
-                        {!! $price->feelingtitle !!}
-                    @endif
-                </div>
-            </div>
-        </div>
-    </section>
     <section class="contact-wrapp" id="our-courses">
         <div class="container">
             <div class="contact-row">
