@@ -285,7 +285,7 @@ class TopicExamController extends Controller
 
         return DataTables::of(ExamRetryReview::where('user_id', $user->id)->where('user_exam_review_id', $userExamReview->id)->where('exam_id', $exam->id)->select('slug', 'created_at', 'progress'))
             ->addColumn('progress', function ($data) {
-                return $data->progress . "%";
+                return round($data->progress,2) . "%";
             })
             ->addColumn('date', function ($data) {
                 return Carbon::parse($data->created_at)->format('Y-m-d h:i a');
