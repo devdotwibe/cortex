@@ -34,13 +34,13 @@
                         @if (session('__payment_price___', '') == 'section2') aria-selected="true" @else aria-selected="false" @endif>Section
                         3</a>
                 </li> --}}
+
                 <li class="nav-item" role="presentation">
                     <a class="nav-link @if (session('__payment_price___', '') == 'section4') active @endif" id="section4-tab"
                         data-bs-toggle="tab" href="#section4" role="tab" aria-controls="section4"
                         @if (session('__payment_price___', '') == 'section4') aria-selected="true" @else aria-selected="false" @endif>Section
                         3</a>
                 </li>
-
 
                 <li class="nav-item" role="presentation">
                     <a class="nav-link @if (session('__payment_price___', '') == 'section3') active @endif" id="section3-tab"
@@ -49,12 +49,7 @@
                         4</a>
                 </li>
 
-                <li class="nav-item" role="presentation">
-                    <a class="nav-link @if (session('__payment_price___', '') == 'section4') active @endif" id="section4-tab"
-                        data-bs-toggle="tab" href="#section4" role="tab" aria-controls="section4"
-                        @if (session('__payment_price___', '') == 'section4') aria-selected="true" @else aria-selected="false" @endif>Section
-                        4</a>
-                </li>
+              
 
             </ul>
 
