@@ -352,7 +352,7 @@ class TopicExamController extends Controller
         $user=Auth::user(); 
         return [
             "name"=>$request->input('name'),
-            "value"=> session($attemt,[])[$request->input('name')]
+            "value"=> session($attemt,[])[$request->input('name','')]??""
         ];
     }
 }

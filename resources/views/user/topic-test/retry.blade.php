@@ -577,7 +577,7 @@
                     'X-Requested-With': 'XMLHttpRequest'
                 },
                 body: JSON.stringify({
-                    name:"exam-{{$exam->id}}-topic-{{$category->id}}-answer-of-"+question,
+                    name:question,
                     value:''
                 }),
             }); 
