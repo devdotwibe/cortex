@@ -8,6 +8,7 @@ use App\Jobs\SubmitReview;
 use App\Models\Answer;
 use App\Models\Category;
 use App\Models\Exam;
+use App\Models\ExamRetryAnswer;
 use App\Models\ExamRetryQuestion;
 use App\Models\ExamRetryReview;
 use App\Models\Question;
@@ -157,7 +158,7 @@ class TopicExamController extends Controller
         if ($questioncnt > $passed) {
             $key = md5("exam-retry-" . $review->id);
             Session::put("exam-retry-" . $review->id, $key);
-            Session::put("exam-retry-questions" . $review->id, json_decode($questions,true));
+            Session::put("exam-retry-questions" . $review->id, json_decode($questions, true));
             Session::put($key, []);
         }
         if ($request->ajax()) {
@@ -192,7 +193,7 @@ class TopicExamController extends Controller
             $chartbackgroundColor[] = $passed == $row->mark ? "#ef9b10" : '#dfdfdf';
             $chartdata[] = $row->marked_users;
         }
-        $attemtcount = UserExamReview::where('exam_id', $userExamReview->exam_id)->where('category_id', $userExamReview->category_id)->where('user_id', $user->id)->where('id','<',$userExamReview->id)->count()+1;
+        $attemtcount = UserExamReview::where('exam_id', $userExamReview->exam_id)->where('category_id', $userExamReview->category_id)->where('user_id', $user->id)->where('id', '<', $userExamReview->id)->count() + 1;
         $categorylist = Category::all();
         return view('user.topic-test.resultpage', compact('chartdata', 'chartbackgroundColor', 'chartlabel', 'categorylist', 'userExamReview', 'passed', 'attemttime', 'questioncount', 'attemtcount'));
 
@@ -339,50 +340,52 @@ class TopicExamController extends Controller
                     $question = Question::findSlug($request->question);
                     return Answer::where('question_id', $question->id)->get(['slug', 'title']);
                 }
-                return Question::whereNotIn('slug',session("exam-retry-questions" . $userExamReview->id,[]))->where('exam_id', $exam->id)->where('category_id', $category->id)->paginate(1, ['slug', 'title', 'description', 'duration']);
+                return Question::whereNotIn('slug', session("exam-retry-questions" . $userExamReview->id, []))->where('exam_id', $exam->id)->where('category_id', $category->id)->paginate(1, ['slug', 'title', 'description', 'duration']);
             }
-            $questioncount = Question::whereNotIn('slug',session("exam-retry-questions" . $userExamReview->id,[]))->where('exam_id', $exam->id)->where('category_id', $category->id)->count();
-            $endtime = 1*$questioncount;
+            $questioncount = Question::whereNotIn('slug', session("exam-retry-questions" . $userExamReview->id, []))->where('exam_id', $exam->id)->where('category_id', $category->id)->count();
+            $endtime = 1 * $questioncount;
             $attemtcount = UserExamReview::where('exam_id', $exam->id)->where('user_id', $user->id)->where('category_id', $category->id)->count() + 1;
-            return view("user.topic-test.retry", compact('category', 'exam', 'user', 'questioncount', 'endtime', 'attemtcount','userExamReview'));
+            return view("user.topic-test.retry", compact('category', 'exam', 'user', 'questioncount', 'endtime', 'attemtcount', 'userExamReview'));
         }
         return redirect()->route('topic-test.index')->with("error", "Retry Attempt Failed");
     }
-    function updateprogress(Request $request,$attemt){
+    public function updateprogress(Request $request, $attemt)
+    {
         $request->validate([
-            "name"=>['required']
+            "name" => ['required'],
         ]);
         /**
          *  @var User
          */
-        $user=Auth::user(); 
-        $answers=Session::get($attemt,[]);
-        $answers[$request->input('name','')]=$request->input('value','');
-        Session::put($attemt,$answers);
+        $user = Auth::user();
+        $answers = Session::get($attemt, []);
+        $answers[$request->input('name', '')] = $request->input('value', '');
+        Session::put($attemt, $answers);
         return [
-            "name"=>$request->input('name',''),
-            "value"=> $request->input('value','')
+            "name" => $request->input('name', ''),
+            "value" => $request->input('value', ''),
         ];
     }
-    function getprogress(Request $request,$attemt){
+    public function getprogress(Request $request, $attemt)
+    {
         $request->validate([
-            "name"=>['required']
+            "name" => ['required'],
         ]);
         /**
          *  @var User
          */
-        $user=Auth::user(); 
+        $user = Auth::user();
         return [
-            "name"=>$request->input('name'),
-            "value"=> session($attemt,[])[$request->input('name','')]??""
+            "name" => $request->input('name'),
+            "value" => session($attemt, [])[$request->input('name', '')] ?? ""
         ];
     }
 
-    public function retrysubmit(Request $request,  UserExamReview $userExamReview)
+    public function retrysubmit(Request $request, UserExamReview $userExamReview)
     {
         if (session("exam-retry-" . $userExamReview->id)) {
             $category = Category::find($userExamReview->category_id);
-            $attemt=session("exam-retry-" . $userExamReview->id);
+            $attemt = session("exam-retry-" . $userExamReview->id);
             /**
              * @var User
              */
@@ -395,51 +398,51 @@ class TopicExamController extends Controller
                 ]);
                 $exam = Exam::find($exam->id);
             }
-            $answers=Session::get($attemt,[]);
+            $answers = Session::get($attemt, []);
             $passed = $request->input("passed", '0');
             $questions = $request->input("questions", '[]');
-            $questioncnt = Question::whereNotIn('slug',session("exam-retry-questions" . $userExamReview->id,[]))->where('exam_id', $exam->id)->where('category_id', $category->id)->count();
+            $questioncnt = Question::whereNotIn('slug', session("exam-retry-questions" . $userExamReview->id, []))->where('exam_id', $exam->id)->where('category_id', $category->id)->count();
             $review = ExamRetryReview::store([
                 "title" => "Topic Test",
-                "name" => "topic-test", 
+                "name" => "topic-test",
                 "user_id" => $user->id,
                 "exam_id" => $exam->id,
-                "progress"=>($passed*100)/$questioncnt,
-                "timetaken"=> $request->input("timetaken", '0'),
-                "flags"=> $request->input("flags", '[]'),
-                "times"=> $request->input("times", '[]'),
-                "passed"=> $passed,
-                "questions"=> $questions,
-                "time_of_exam"=>"$questioncnt:00",
+                "progress" => ($passed * 100) / $questioncnt,
+                "timetaken" => $request->input("timetaken", '0'),
+                "flags" => $request->input("flags", '[]'),
+                "times" => $request->input("times", '[]'),
+                "passed" => $passed,
+                "questions" => $questions,
+                "time_of_exam" => "$questioncnt:00",
                 "user_exam_review_id" => $userExamReview->id,
                 "category_id" => $category->id,
             ]);
 
-            dispatch(new SubmitRetryReview($review,session("exam-retry-questions" . $userExamReview->id,[]),$answers));
+            dispatch(new SubmitRetryReview($review, session("exam-retry-questions" . $userExamReview->id, []), $answers));
 
             if ($questioncnt > $passed) {
                 $key = md5("exam-retry-repeat-" . $review->id);
                 Session::put("exam-retry-" . $userExamReview->id, $key);
-                Session::put("exam-retry-questions" . $userExamReview->id, array_merge(session("exam-retry-questions" . $userExamReview->id,[]),json_decode($questions,true)));
+                Session::put("exam-retry-questions" . $userExamReview->id, array_merge(session("exam-retry-questions" . $userExamReview->id, []), json_decode($questions, true)));
                 Session::put($key, []);
-            } else{
-                Session::put($attemt,null);
-                Session::put("exam-retry-" . $userExamReview->id,null);
-                Session::put("exam-retry-questions" . $userExamReview->id,[]);
+            } else {
+                Session::put($attemt, null);
+                Session::put("exam-retry-" . $userExamReview->id, null);
+                Session::put("exam-retry-questions" . $userExamReview->id, []);
             }
-            return redirect()->route('topic-test.retry.result', ['user_exam_review'=>$userExamReview->slug,'exam_retry_review'=>$review->slug])->with("success", "Topic Test Submited")->with("review", $review->id);
+            return redirect()->route('topic-test.retry.result', ['user_exam_review' => $userExamReview->slug, 'exam_retry_review' => $review->slug])->with("success", "Topic Test Submited")->with("review", $review->id);
         }
         return redirect()->route('topic-test.index');
     }
-    public function retryresult(Request $request,UserExamReview $userExamReview,ExamRetryReview $examRetryReview){
-
+    public function retryresult(Request $request, UserExamReview $userExamReview, ExamRetryReview $examRetryReview)
+    {
 
         /**
          * @var User
          */
-        $user = Auth::user(); 
-        $tmtk = intval($examRetryReview->timetaken?? 0);
-        $passed =  $examRetryReview->passed??0;
+        $user = Auth::user();
+        $tmtk = intval($examRetryReview->timetaken ?? 0);
+        $passed = $examRetryReview->passed ?? 0;
 
         $m = sprintf("%02d", intval($tmtk / 60));
         $s = sprintf("%02d", intval($tmtk % 60));
@@ -457,11 +460,54 @@ class TopicExamController extends Controller
         //     $chartbackgroundColor[] = $passed == $row->mark ? "#ef9b10" : '#dfdfdf';
         //     $chartdata[] = $row->marked_users;
         // }
-        $attemtcount = ExamRetryReview::where('user_exam_review_id', $userExamReview->id)->where('user_id', $user->id)->where('id','<',$examRetryReview->id)->count()+1;
+        $attemtcount = ExamRetryReview::where('user_exam_review_id', $userExamReview->id)->where('user_id', $user->id)->where('id', '<', $examRetryReview->id)->count() + 1;
         $categorylist = Category::all();
 
+        return view('user.topic-test.retry-result', compact('passed', 'categorylist', 'questioncount', 'attemttime', 'attemtcount', 'userExamReview', 'examRetryReview'));
+    }
 
+    public function retrypreview(Request $request, UserExamReview $userExamReview, ExamRetryReview $examRetryReview)
+    {
 
-        return view('user.topic-test.retry-result',compact('passed','categorylist','questioncount','attemttime','attemtcount','userExamReview','examRetryReview'));
+        $category = Category::find($examRetryReview->category_id);
+
+        $exam = Exam::where("name", 'topic-test')->first();
+        if (empty($exam)) {
+            $exam = Exam::store([
+                "title" => "Topic Test",
+                "name" => "topic-test",
+            ]);
+            $exam = Exam::find($exam->id);
+        }
+        /**
+         * @var User
+         */
+        $user = Auth::user();
+        $user->setProgress("review-recent-link", route('topic-test.retry.preview', ['user_exam_review' => $userExamReview->slug, 'exam_retry_review' => $examRetryReview->slug]));
+        if ($request->ajax()) {
+            if (!empty($request->question)) {
+                $question = ExamRetryQuestion::findSlug($request->question);
+                return ExamRetryAnswer::where('exam_retry_question_id', $question->id)->get();
+            }
+            return ExamRetryQuestion::whereIn('review_type', ['mcq'])->where('exam_retry_review_id', $examRetryReview->id)->where('user_id', $user->id)->paginate(1);
+        }
+        $useranswer = ExamRetryQuestion::leftJoin('exam_retry_answers', 'exam_retry_answers.exam_retry_question_id', 'exam_retry_questions.id')
+            ->where('exam_retry_answers.user_answer', true)
+            ->whereIn('exam_retry_questions.review_type', ['mcq'])
+            ->where('exam_retry_questions.user_id', $user->id)
+            ->where('exam_retry_questions.exam_retry_review_id', $examRetryReview->id)
+            ->select('exam_retry_questions.id', 'exam_retry_questions.time_taken', 'exam_retry_answers.iscorrect')->get();
+        $examtime = 0;
+
+        $times = explode(':', $examRetryReview->time_of_exam ?? '0:0');
+        if (count($times) > 0) {
+            $examtime += intval(trim($times[0] ?? "0")) * 60;
+            $examtime += intval(trim($times[1] ?? "0"));
+        }
+        if ($examtime > 0 && count($useranswer) > 0) {
+            $examtime = $examtime / count($useranswer);
+        }
+        return view("user.topic-test.retry-preview", compact('category', 'exam', 'user', 'userExamReview', 'useranswer', 'examtime', 'examRetryReview'));
+
     }
 }
