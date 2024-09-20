@@ -508,52 +508,15 @@
             }) 
             summery.progressurl=pageurl;   
             summery.save()                 
-         }
-         /*
-         async function updateprogress(callback){  
-            try { 
-                const csrf= $('meta[name="csrf-token"]').attr('content');  
-                var currentprogress=(summery.questionids.length*100/summery.totalcount)
-                const response1 = await fetch("{{route('progress')}}", {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': csrf,
-                        'X-Requested-With': 'XMLHttpRequest'
-                    },
-                    body: JSON.stringify({
-                        name:"exam-{{$exam->id}}-topic-{{$category->id}}-progress-ids",
-                        value:JSON.stringify(summery.questionids)
-                    }),
-                });  
-
-                const response2 = await fetch("{{route('progress')}}", {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': csrf,
-                        'X-Requested-With': 'XMLHttpRequest'
-                    },
-                    body: JSON.stringify({
-                        name:"exam-{{$exam->id}}-topic-{{$category->id}}",
-                        value:currentprogress
-                    }),
-                }); 
-                if (!response2.ok) {
-                    showToast("Error: " + response2.status, 'danger'); 
-                }  
-                callback()
-            } catch (error) { 
-                showToast("Error: " + error, 'danger'); 
-            }
-         }
+         }  
          async function updatequestionanswer(question,ans){
             summery.questionids.push(question);
             summery.questionids=summery.questionids.filter(function(value, index, array){
                 return array.indexOf(value) === index;
             })
+            summery.save();
             const csrf= $('meta[name="csrf-token"]').attr('content'); 
-            const response = await fetch("{{route('progress')}}", {
+            const response = await fetch("{{route('topic-test.updateprogress',session('exam-retry-' . $userExamReview->id,''))}}", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -561,12 +524,11 @@
                     'X-Requested-With': 'XMLHttpRequest'
                 },
                 body: JSON.stringify({
-                    name:"exam-{{$exam->id}}-topic-{{$category->id}}-answer-of-"+question,
+                    name:question,
                     value:ans
                 }),
             }); 
-         }
-            */
+         } 
          async function refreshquestionanswer(question,callback){
             const csrf= $('meta[name="csrf-token"]').attr('content'); 
             const response = await fetch("{{route('topic-test.attemtprogress',session('exam-retry-' . $userExamReview->id,''))}}", {
@@ -615,6 +577,7 @@
             summery.examActive=false; 
             summery.save()
          }
+            */
          async function updateandsave(callback){ 
             if($('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length>0){
                 $('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]:checked').each(function(){
@@ -634,8 +597,9 @@
                     summery.save()
                 })
             } 
-            updateprogress(callback) 
+            callback() 
          }
+
           
          async function exitconfirm(url){
             if(await showConfirm({ 
@@ -645,7 +609,6 @@
                 window.location.href=url;
             }
         }
-            */
          $(function(){  
             loadlesson(summery.progressurl) 
             $('.lesson-left button.left-btn,.lesson-right button.right-btn').click(function(){   
