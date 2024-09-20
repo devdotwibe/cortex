@@ -321,7 +321,7 @@ class TopicExamController extends Controller
                 return Carbon::parse($data->created_at)->format('Y-m-d h:i a');
             })
             ->addColumn('retries',function($data){
-                return '<a href="'.route('topic-test.retryhistory', $data->slug) .'" class="btn btn-icons view_btn">
+                return '<a onclick="loadretry('."'".route('topic-test.retryhistory', $data->slug) ."'".')" class="btn btn-icons view_btn">
                             <img src="'.asset("assets/images/eye.svg").'" alt="">
                         </a>';
             })
