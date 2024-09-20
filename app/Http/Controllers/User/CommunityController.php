@@ -7,6 +7,7 @@ use App\Models\CommentLike;
 use App\Models\Poll;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Hashtag;
 use App\Models\PollOption;
 use App\Models\PostComment;
 use App\Models\PostLike;
@@ -80,6 +81,15 @@ class CommunityController extends Controller
     }
 
     public function index(Request $request){
+        $hashtags = Hashtag::groupBy('hashtag')->pluck('hashtag');
+        $hashtag = $request->input('hashtag');
+        if($request->ajax()){   
+            $posts=Post::where('id','>',0);
+            if(!empty($hashtag))
+            {
+                $posts->whereIn('id',Hashtag::where('hashtag', 'like', "%$hashtag%")->select ('post_id'));
+            }
+        
         /**
          *  @var User
          */
@@ -508,11 +518,50 @@ class CommunityController extends Controller
             }
         }
         PollOption::where('post_id',$post->id)->whereNotIn('id',$ids)->delete();
+
+        preg_match_all('/#\w+/',  $data['description'], $hashtags);
+        $extractedHashtags = $hashtags[0]; 
+        $hashIds=[];
+        foreach ($extractedHashtags as $hashtag) {
+            
+           $hash= Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id'=>$post->id]);
+           $hashIds[]=$hash->id;
+        }
+        Hashtag::where('post_id',$post->id)->whereNotIn('id',$hashIds)->delete();
+
+
         return redirect()->route('community.index')->with('success',"Post updated");
     }
     public function destroy(Request $request,Post $post){ 
         $post->delete();
         return redirect()->route('community.index')->with('success',"Post Deleted");
     }
+ 
+    
+    public function store2(Request $request)
+    {
+        $post = Post::create([
+            'description' => $request->description,
+            'hashtags' => json_encode($this->extractHashtags($request->description)),
+            // Other fields
+        ]);
+    
+        // Update or create hashtags
+        foreach ($post->hashtags as $hashtag) {
+            Hashtag::firstOrCreate(['hashtag' => $hashtag]);
+        }
+    
+        // Redirect or return response
+    }
+    
+    private function extractHashtags($text)
+    {
+        preg_match_all('/#\w+/', $text, $matches);
+        return array_unique($matches[0]);
+    }
+    
+   
+    
+    
     
 }
