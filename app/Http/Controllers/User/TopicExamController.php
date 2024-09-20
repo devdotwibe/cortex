@@ -461,6 +461,6 @@ class TopicExamController extends Controller
 
 
 
-        return view('user.topic-test.retry-result',compact('categorylist','questioncount','attemttime','attemtcount','userExamReview','examRetryReview'));
+        return view('user.topic-test.retry-result',compact('passed','categorylist','questioncount','attemttime','attemtcount','userExamReview','examRetryReview'));
     }
 }
