@@ -34,7 +34,7 @@
             return result;
         }
         function loadlessonreview(reviewurl){ 
-            $.get(reviewurl||"{{ route('topic-test.retry.preview',$userExamReview->slug) }}",function(res){
+            $.get(reviewurl||"{{ route('topic-test.retry.preview', ['user_exam_review' => $userExamReview->slug, 'exam_retry_review' => $examRetryReview->slug]) }}",function(res){
                 $('.pagination-arrow').hide();
                 $('#lesson-footer-pagination').html('')
                 const lesseonId=generateRandomId(10); 
@@ -86,7 +86,7 @@
                             </div>
                         </div>
                     `).fadeIn();
-                    $.get("{{ route('topic-test.retry.preview',$userExamReview->slug) }}",{question:v.slug},function(ans){
+                    $.get("{{ route('topic-test.retry.preview', ['user_exam_review' => $userExamReview->slug, 'exam_retry_review' => $examRetryReview->slug]) }}",{question:v.slug},function(ans){
                         $(`#mcq-${lesseonId}-list`).html('')
                         $(`#mcq-${lesseonId}-list-progress`).html('')
                         $.each(ans,function(ai,av){
