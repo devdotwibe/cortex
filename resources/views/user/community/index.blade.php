@@ -27,7 +27,17 @@
             <!-- Left Sidebar for Hashtags -->
             <div class="col-md-3">
                 <h4>SPACES</h4>
-                <a href="{{ route('community.post.index') }}" class="btn btn-primary mb-3"> Back to All</a>
+
+                  <!-- Link styled as a textbox -->
+               <div class="mb-3">
+                <label for="backtoall" class="form-label"></label>
+                <a href="{{ route('admin.community.index') }}" id="backtoall" class="form-control text-decoration-none" style="display: block; padding: 10px; background-color: #f8f9fa; border: 1px solid #ced4da; border-radius: .25rem;">
+                    #Backtoall
+                </a>
+            </div>
+
+
+                {{-- <a href="{{ route('community.post.index') }}" class="btn btn-primary mb-3"> Back to All</a> --}}
                 <ul class="list-group">
                     @foreach ($hashtags as $hashtag)
                         <li class="list-group-item">
