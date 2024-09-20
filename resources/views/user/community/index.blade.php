@@ -21,6 +21,24 @@
     </div>
 </section>
 <section class="post-section" >
+
+    <div class="container">
+        <div class="row">
+            <!-- Left Sidebar for Hashtags -->
+            <div class="col-md-3">
+                <h4>Hashtags</h4>
+                <ul class="list-group">
+                    @foreach ($hashtags as $hashtag)
+                        <li class="list-group-item">
+                            <a href="{{ route('admin.community.index', ['hashtag' => $hashtag]) }}">{{ $hashtag }}</a>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+     
+        </div>
+    </div>
+    
     <div class="post-container" id="post-item-list">
         
     </div> 
