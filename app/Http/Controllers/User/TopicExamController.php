@@ -429,7 +429,7 @@ class TopicExamController extends Controller
         }
         return redirect()->route('topic-test.index');
     }
-    public function retryresult(Request $request,UserExamReview $userExamReview){
-        
+    public function retryresult(Request $request,UserExamReview $userExamReview,ExamRetryReview $examRetryReview){
+        return view('user.topic-test.retry-result',compact('userExamReview','examRetryReview'));
     }
 }
