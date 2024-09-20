@@ -233,7 +233,7 @@ class SubscriptionPaymentController extends Controller
         $price->save();
     
         // Redirect with success message
-        return redirect()->route('admin.payment-price.index')->with('success', 'Section 3 has been successfully saved.');
+        return redirect()->route('admin.payment-price.index')->with('success', 'Section 4 has been successfully saved.');
     }
     
 
@@ -281,7 +281,7 @@ class SubscriptionPaymentController extends Controller
         $price->save();
     
         // Redirect with success message
-        return redirect()->route('admin.payment-price.index')->with('success', 'Section 4 has been successfully saved.');
+        return redirect()->route('admin.payment-price.index')->with('success', 'Section 3 has been successfully saved.');
     }
     
 

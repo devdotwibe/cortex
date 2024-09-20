@@ -37,7 +37,11 @@
                         {{ session('status') }}
                     </div>
                     @endsession
-
+                    @session('mail-error')
+                    <div class="alert alert-danger">
+                        {{ session('mail-error') }}
+                    </div>
+                    @endsession
                     <form action="{{url()->current()}}" class="form" method="post">
                         @csrf 
                         <div class="form-group">
