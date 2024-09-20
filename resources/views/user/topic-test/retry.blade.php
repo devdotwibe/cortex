@@ -229,7 +229,7 @@
     </div>
 </section>
 <div style="display: none;opacity: 0;">
-    <form action="{{route('topic-test.retry.submit',['category'=>$category->slug])}}" method="post" id="finish-exam-confirmed-form">
+    <form action="{{route('topic-test.retry.submit',['user_exam_review'=>$userExamReview->slug])}}" method="post" id="finish-exam-confirmed-form">
         @csrf
         <input type="hidden" name="timed" id="finish-exam-confirmed-form-timed" value="" >
         <input type="hidden" name="timetaken" id="finish-exam-confirmed-form-timetaken" value="" >
