@@ -51,8 +51,8 @@
  
 <div class="modal fade" id="review-history-modal" tabindex="-1" role="dialog" aria-labelledby="Label" aria-hidden="true">
     <div class="modal-dialog ">
-        <div class="modal-content">
-            <div class="modal-header" id="main-modal-body">
+        <div class="modal-content"  id="main-modal-body">
+            <div class="modal-header">
                 <h5 class="modal-title"><span  class="review-history-label" ></span></h5>
                 <button type="button" class="close" data-bs-dismiss="modal"    aria-label="Close"><span  aria-hidden="true">&times;</span></button>
             </div>
