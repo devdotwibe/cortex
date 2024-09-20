@@ -342,6 +342,22 @@ class TopicExamController extends Controller
         }
         return redirect()->route('topic-test.index')->with("error", "Retry Attempt Failed");
     }
+    function updateprogress(Request $request,$attemt){
+        $request->validate([
+            "name"=>['required']
+        ]);
+        /**
+         *  @var User
+         */
+        $user=Auth::user(); 
+        $answers=Session::get($attemt,[]);
+        $answers[$request->input('name','')]=$request->input('value','');
+        Session::put($attemt,$answers);
+        return [
+            "name"=>$request->input('name',''),
+            "value"=> $request->input('value','')
+        ];
+    }
     function getprogress(Request $request,$attemt){
         $request->validate([
             "name"=>['required']
