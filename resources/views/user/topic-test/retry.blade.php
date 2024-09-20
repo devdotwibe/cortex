@@ -117,7 +117,7 @@
                                             <div class="question-list">
                                                 @for ($i = 1; $i <= ($questioncount??0); $i++)
                                                     <div class="question-item" data-idx="{{$i}}">
-                                                        <button class="item-group" onclick="loadlesson('{{ route('topic-test.confirmshow',['category'=>$category->slug,'page'=>$i]) }}')">
+                                                        <button class="item-group" onclick="loadlesson('{{route('topic-test.retry',['user_exam_review'=>$userExamReview->slug,'page'=>$i]) }}')">
                                                             <img src="{{asset('assets/images/flaged.svg')}}" alt="all">
                                                             <span>{{$i}}</span> 
                                                         </button>
@@ -139,7 +139,7 @@
                                             <div class="question-list">
                                                 @for ($i = 1; $i <= ($questioncount??0); $i++)
                                                     <div class="question-item" data-idx="{{$i}}">
-                                                        <button class="item-group" onclick="loadlesson('{{ route('topic-test.confirmshow',['category'=>$category->slug,'page'=>$i]) }}')">
+                                                        <button class="item-group" onclick="loadlesson('{{ route('topic-test.retry',['user_exam_review'=>$userExamReview->slug,'page'=>$i]) }}')">
                                                             <img src="{{asset('assets/images/flaged.svg')}}" alt="all">
                                                             <span>{{$i}}</span>
                                                         </button>
@@ -161,7 +161,7 @@
                                             <div class="question-list">
                                                 @for ($i = 1; $i <= ($questioncount??0); $i++)
                                                     <div class="question-item" data-idx="{{$i}}">
-                                                        <button class="item-group" onclick="loadlesson('{{ route('topic-test.confirmshow',['category'=>$category->slug,'page'=>$i]) }}')">
+                                                        <button class="item-group" onclick="loadlesson('{{ route('topic-test.retry',['user_exam_review'=>$userExamReview->slug,'page'=>$i]) }}')">
                                                             <img src="{{asset('assets/images/flaged.svg')}}" alt="all">
                                                             <span>{{$i}}</span> 
                                                         </button>
@@ -184,7 +184,7 @@
                                             <div class="question-list">
                                                 @for ($i = 1; $i <= ($questioncount??0); $i++)
                                                     <div class="question-item status-not-read"  data-idx="{{$i}}">
-                                                        <button class="item-group" onclick="loadlesson('{{ route('topic-test.confirmshow',['category'=>$category->slug,'page'=>$i]) }}')">
+                                                        <button class="item-group" onclick="loadlesson('{{ route('topic-test.retry',['user_exam_review'=>$userExamReview->slug,'page'=>$i]) }}')">
                                                             <img src="{{asset('assets/images/flaged.svg')}}" alt="all">
                                                             <span>{{$i}}</span> 
                                                         </button>
@@ -206,7 +206,7 @@
                                             <div class="question-list">
                                                 @for ($i = 1; $i <= ($questioncount??0); $i++)
                                                     <div class="question-item" data-idx="{{$i}}">
-                                                        <button class="item-group" onclick="loadlesson('{{ route('topic-test.confirmshow',['category'=>$category->slug,'page'=>$i]) }}')">
+                                                        <button class="item-group" onclick="loadlesson('{{ route('topic-test.retry',['user_exam_review'=>$userExamReview->slug,'page'=>$i]) }}')">
                                                              
                                                                 <img src="{{asset('assets/images/flaged.svg')}}" alt="all">
                                                                 <span>{{$i}}</span>
@@ -297,7 +297,7 @@
         summery.notansweridx=[]; 
         summery.isInIt=true;
         summery.timetaken=0;
-        summery.progressurl="{{url()->current()}}";
+        summery.progressurl="{{route('topic-test.retry',$userExamReview->slug)}}";
     }
     summery.save()
  
@@ -548,23 +548,8 @@
                 callback(data);
             }
          } 
-            /*
 
          async function lessonreviewconfirm(){
-            const csrf= $('meta[name="csrf-token"]').attr('content'); 
-            // currentprogress=(summery.questionids.length*100/summery.totalcount)
-            await fetch("{{route('progress')}}", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': csrf,
-                    'X-Requested-With': 'XMLHttpRequest'
-                },
-                body: JSON.stringify({
-                    name:"exam-{{$exam->id}}-topic-{{$category->id}}-complete-review",
-                    value:'pending'
-                }),
-            }); 
             $('#finish-exam-confirm').modal('hide') 
             var timed="timed";             
             $('#finish-exam-confirmed-form-timed').val(timed)
@@ -577,7 +562,6 @@
             summery.examActive=false; 
             summery.save()
          }
-            */
          async function updateandsave(callback){ 
             if($('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length>0){
                 $('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]:checked').each(function(){
@@ -654,7 +638,7 @@
             $('.exam-exit a').click(function(e){
                 e.preventDefault();
                 e.stopPropagation(); 
-                localStorage.removeItem("topic-test-summery")
+                localStorage.removeItem("topic-test-summery-retry")
                 exitconfirm($(this).attr("href")); 
             }) 
          }) 
