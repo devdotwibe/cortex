@@ -566,9 +566,10 @@
                 }),
             }); 
          }
+            */
          async function refreshquestionanswer(question,callback){
             const csrf= $('meta[name="csrf-token"]').attr('content'); 
-            const response = await fetch("{{route('getprogress')}}", {
+            const response = await fetch("{{route('topic-test.attemtprogress',session('exam-retry-' . $userExamReview->id,''))}}", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -585,6 +586,7 @@
                 callback(data);
             }
          } 
+            /*
 
          async function lessonreviewconfirm(){
             const csrf= $('meta[name="csrf-token"]').attr('content'); 
