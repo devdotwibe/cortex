@@ -166,22 +166,22 @@ class SubscriptionPaymentController extends Controller
         $price->pricetitle = $request->input('pricetitle');
         $price->pricetitlebuttonlabel = $request->input('pricetitlebuttonlabel');
         $price->pricetitlebuttonlink = $request->input('pricetitlebuttonlink');
-        // Handle image upload
-        // if ($request->hasFile('image')) {
-        //     // Generate a unique name for the image and store it
-        //     $imageName = "price/" . $request->file('image')->hashName();
-        //     $request->file('image')->storeAs('public/', $imageName); // Store image in 'public/price' directory
-        //     $price->image = $imageName;
-        // }
-
+        
+    
 
         if ($request->hasFile('image')) {
             $imageName = "price/" . $request->file('image')->hashName();
-            Pricing::put('price', $request->file('image'));
+            Storage::put('price', $request->file('image'));
             $price->image = $imageName;
         }
 
 
+
+      
+
+
+
+       
     
         // Save the price record
         $price->save();
@@ -221,22 +221,13 @@ class SubscriptionPaymentController extends Controller
         $price->ourcoursetitle = $request->input('coursetitle');
         $price->grouptitle = $request->input('grouptitle');
      
-        // Handle image upload
+       
+
         if ($request->hasFile('feelingimage')) {
-            // Generate a unique name for the image and store it
             $imageName = "price/" . $request->file('feelingimage')->hashName();
-            $request->file('feelingimage')->storeAs('public/price', $imageName); // Store image in 'public/price' directory
+            Storage::put('price', $request->file('feelingimage'));
             $price->feelingimage = $imageName;
         }
-
-
-        // if ($request->hasFile('image')) {
-        //     $imageName = "price/" . $request->file('image')->hashName();
-        //     Pricing::put('price', $request->file('image'));
-        //     $price->image = $imageName;
-        // }
-
-
     
         // Save the price record
         $price->save();
