@@ -424,12 +424,12 @@ class TopicExamController extends Controller
                 Session::remove($attemt);
                 Session::remove("exam-retry-" . $userExamReview->id);
                 Session::remove("exam-retry-questions" . $userExamReview->id);
-            }
-            if ($request->ajax()) {
-                return response()->json(["success" => "Topic Test Submited", "preview" => route('topic-test.preview', $review->slug)]);
-            }
-            return redirect()->route('topic-test.complete', $review->slug)->with("success", "Topic Test Submited")->with("review", $review->id);
+            } 
+            return redirect()->route('retry.result', ['user_exam_review'=>$userExamReview->id,'exam_retry_review'=>$review->slug])->with("success", "Topic Test Submited")->with("review", $review->id);
         }
         return redirect()->route('topic-test.index');
+    }
+    public function retryresult(Request $request,UserExamReview $userExamReview){
+        
     }
 }
