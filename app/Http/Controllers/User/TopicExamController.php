@@ -8,6 +8,7 @@ use App\Jobs\SubmitReview;
 use App\Models\Answer;
 use App\Models\Category;
 use App\Models\Exam;
+use App\Models\ExamRetryQuestion;
 use App\Models\ExamRetryReview;
 use App\Models\Question;
 use App\Models\User;
@@ -191,7 +192,7 @@ class TopicExamController extends Controller
             $chartbackgroundColor[] = $passed == $row->mark ? "#ef9b10" : '#dfdfdf';
             $chartdata[] = $row->marked_users;
         }
-        $attemtcount = UserExamReview::where('exam_id', $userExamReview->exam_id)->where('category_id', $userExamReview->category_id)->where('user_id', $user->id)->count();
+        $attemtcount = UserExamReview::where('exam_id', $userExamReview->exam_id)->where('category_id', $userExamReview->category_id)->where('user_id', $user->id)->where('id','<',$userExamReview->id)->count()+1;
         $categorylist = Category::all();
         return view('user.topic-test.resultpage', compact('chartdata', 'chartbackgroundColor', 'chartlabel', 'categorylist', 'userExamReview', 'passed', 'attemttime', 'questioncount', 'attemtcount'));
 
@@ -437,29 +438,29 @@ class TopicExamController extends Controller
          */
         $user = Auth::user(); 
         $tmtk = intval($examRetryReview->timetaken?? 0);
-        $passed = $user->progress("exam-review-" . $userExamReview->id . "-passed", 0);
+        $passed =  $examRetryReview->passed??0;
 
         $m = sprintf("%02d", intval($tmtk / 60));
         $s = sprintf("%02d", intval($tmtk % 60));
 
         $attemttime = "$m:$s";
-        $questioncount = UserReviewQuestion::where('user_exam_review_id', $userExamReview->id)->count();
-        $chartlabel = [];
-        $chartbackgroundColor = [];
-        $chartdata = [];
-        foreach (UserReviewAnswer::select('mark', DB::raw('count(mark) as marked_users'))->fromSub(function ($query) use ($userExamReview) {
-            $query->from('user_review_answers')->where('user_exam_review_id', '<=', $userExamReview->id)->whereIn('user_exam_review_id', UserExamReview::where('name', 'topic-test')->where('user_exam_review_id', '<=', $userExamReview->id)->where('exam_id', $userExamReview->exam_id)->where('category_id', $userExamReview->category_id)->groupBy('user_id')->select(DB::raw('MAX(id)')))
-            ->where('iscorrect', true)->where('user_answer', true)->select(DB::raw('count(user_id) as mark'));
-        }, 'subquery')->groupBy('mark')->get() as $row) {
-            $chartlabel[] = strval($row->mark);
-            $chartbackgroundColor[] = $passed == $row->mark ? "#ef9b10" : '#dfdfdf';
-            $chartdata[] = $row->marked_users;
-        }
-        $attemtcount = UserExamReview::where('exam_id', $userExamReview->exam_id)->where('category_id', $userExamReview->category_id)->where('user_id', $user->id)->count();
+        $questioncount = ExamRetryQuestion::where('exam_retry_review_id', $examRetryReview->id)->count();
+        // $chartlabel = [];
+        // $chartbackgroundColor = [];
+        // $chartdata = [];
+        // foreach (UserReviewAnswer::select('mark', DB::raw('count(mark) as marked_users'))->fromSub(function ($query) use ($userExamReview) {
+        //     $query->from('user_review_answers')->where('user_exam_review_id', '<=', $userExamReview->id)->whereIn('user_exam_review_id', UserExamReview::where('name', 'topic-test')->where('user_exam_review_id', '<=', $userExamReview->id)->where('exam_id', $userExamReview->exam_id)->where('category_id', $userExamReview->category_id)->groupBy('user_id')->select(DB::raw('MAX(id)')))
+        //     ->where('iscorrect', true)->where('user_answer', true)->select(DB::raw('count(user_id) as mark'));
+        // }, 'subquery')->groupBy('mark')->get() as $row) {
+        //     $chartlabel[] = strval($row->mark);
+        //     $chartbackgroundColor[] = $passed == $row->mark ? "#ef9b10" : '#dfdfdf';
+        //     $chartdata[] = $row->marked_users;
+        // }
+        $attemtcount = ExamRetryReview::where('user_exam_review_id', $userExamReview->id)->where('user_id', $user->id)->where('id','<',$examRetryReview->id)->count()+1;
         $categorylist = Category::all();
 
 
 
-        return view('user.topic-test.retry-result',compact('userExamReview','examRetryReview'));
+        return view('user.topic-test.retry-result',compact('categorylist','questioncount','attemttime','attemtcount','userExamReview','examRetryReview'));
     }
 }
