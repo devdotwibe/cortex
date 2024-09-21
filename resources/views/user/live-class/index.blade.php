@@ -12,9 +12,9 @@
         <div class="container">
             <div class="row">
 
-                <div class="col-md-6">
+                <div class="col-md-6 private-class">
 
-                    <div class="card">
+                    <div class="card private-class-card">
                         <div class="card-body">
                             <a href="{{ route('live-class.privateclass', $user->slug) }}">
                                 <div class="category">
@@ -55,9 +55,9 @@
                     </div>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-6 workshop">
 
-                    <div class="card">
+                    <div class="card workshop-card">
                         <div class="card-body">
                             <a href="{{ route('live-class.workshop', $user->slug) }}">
                                 <div class="category">
