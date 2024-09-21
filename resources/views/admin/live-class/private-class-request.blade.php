@@ -265,10 +265,22 @@
         })
         $('#timeslot-list').select2({
             data:[
-                ["text"=>"Saturday 9:30 - 11:30 a.m (Online)","value"=>"Saturday 9:30 - 11:30 a.m (Online)"],
-                ["text"=>"Saturday 12 - 2 p.m","value"=>"Saturday 12 - 2 p.m"],
-                ["text"=>"Sunday 9:30 - 11:30 a.m","value"=>"Sunday 9:30 - 11:30 a.m"],
-                ["text"=>"Sunday 12 - 2 p.m","value"=>"Sunday 12 - 2 p.m"]
+                {
+                    text:"Saturday 9:30 - 11:30 a.m (Online)",
+                    value:"Saturday 9:30 - 11:30 a.m (Online)"
+                },
+                {
+                    text:"Saturday 12 - 2 p.m",
+                    value:"Saturday 12 - 2 p.m"
+                },
+                {
+                    text:"Sunday 9:30 - 11:30 a.m",
+                    value:"Sunday 9:30 - 11:30 a.m"
+                },
+                {
+                    text:"Sunday 12 - 2 p.m",
+                    value:"Sunday 12 - 2 p.m"
+                },
             ],
         })
     })
