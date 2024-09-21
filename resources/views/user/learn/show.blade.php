@@ -5,7 +5,7 @@
 <section class="header_nav">
     <div class="header_wrapp">
         <div class="header_title"> 
-            <h3><span>{{$exam->subtitle($category->id,"Module ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h3>
+            <h2><span>{{$exam->subtitle($category->id,"Module ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h2>
         </div>
     </div>
 </section>
