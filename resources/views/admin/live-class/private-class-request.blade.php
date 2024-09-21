@@ -267,11 +267,7 @@
         $('#timeslot-list').val("").select2({
             placeholder:"Select an Timeslot",
             allowClear: true,
-            data:[
-                {
-                    text:"",
-                    id:""
-                },
+            data:[ 
                 {
                     text:"Saturday 9:30 - 11:30 a.m (Online)",
                     id:"Saturday 9:30 - 11:30 a.m (Online)"
@@ -293,7 +289,7 @@
             if (requesttable != null) {
                 requesttable.ajax.reload()
             }
-        })
+        }).val("").change()
     })
      
     </script>
