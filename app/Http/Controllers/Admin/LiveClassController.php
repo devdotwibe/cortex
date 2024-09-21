@@ -163,8 +163,8 @@ class LiveClassController extends Controller
                 $action="";
                 if($data->status=="pending"&&!empty($data->user)){
                     $action.='
-                    <a  class="btn btn-danger btn-sm" href="'.route("admin.live-class.request.reject",$data->slug).'" > Reject </a> 
-                    <a  class="btn btn-success btn-sm" href="'.route("admin.live-class.request.accept",$data->slug).'" > Accept </a> 
+                    <a  class="btn btn-danger btn-sm" onclick="rejectrequest('."'".route("admin.live-class.request.reject",$data->slug)."'".')" > Reject </a> 
+                    <a  class="btn btn-success btn-sm" onclick="acceptrequest('."'".route("admin.live-class.request.accept",$data->slug)."'".')" > Accept </a> 
                     ';
                 }
                 $action.='
@@ -205,6 +205,11 @@ class LiveClassController extends Controller
         return view('admin.live-class.private-class-request',compact('live_class'));
 
     }
+    public function private_class_request_show(Request $request,PrivateClass $privateClass){
+        $privateClass->rejectUrl=route("admin.live-class.request.reject",$privateClass->slug);
+        $privateClass->acceptUrl=route("admin.live-class.request.accept",$privateClass->slug);
+        return $privateClass;
+    }
     public function private_class_request_status(Request $request,PrivateClass $privateClass){
         $privateClass->update(['is_valid'=>$privateClass->is_valid?false:true]);
 
@@ -219,7 +224,10 @@ class LiveClassController extends Controller
         }
     }
     public function private_class_request_accept(Request $request,PrivateClass $privateClass){
-        $privateClass->update(['status'=>"approved"]);
+        $request->validate([
+            'timeslot'=>['required','array']
+        ]);
+        $privateClass->update(['status'=>"approved","timeslot"=>$request->input('timeslot',[])]);
 
         if($request->ajax()){
             return response()->json(["success"=>"Request has been successfully approved"]);
