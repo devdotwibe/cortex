@@ -105,11 +105,84 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="user-acceptreq-modal" tabindex="-1" role="dialog" aria-labelledby="user-acceptreqLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="user-acceptreqLablel">Confirm Student Time Slot</h5>
+                <button type="button" class="close" data-bs-dismiss="modal"  aria-label="Close"><span  aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body"> 
+                <form action="" method="post" id="user-acceptreq-form">
+                    @csrf
+                    <div class="row">
+                        <div class="col-md-12" id="user-acceptreq-table">
+    
+                        </div>
+                    </div>
+                    <div class="row">
+                        <p>Are you sure you want to proceed with this action?</p>
+                        <div class="col-md-12">
+                            <button type="button"  class="btn btn-outline-dark m-1" data-bs-dismiss="modal"  aria-label="Close" >Close</button> 
+                            <button type="submit"  class="btn btn-dark m-1" >Accept</button> 
+                        </div>
+                    </div>
+                </form>
+            </div> 
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="user-rejectreq-modal" tabindex="-1" role="dialog" aria-labelledby="user-rejectreqLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="user-rejectreqLablel">Reject Student Time Slot</h5>
+                <button type="button" class="close" data-bs-dismiss="modal"  aria-label="Close"><span  aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body"> 
+                <form action="" method="post" id="user-rejectreq-form">
+                    @csrf
+                    <div class="row">
+                        <div class="col-md-12" id="user-rejectreq-table">
+    
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p>Are you sure you want to proceed with this action?</p>
+                            <button type="button"  class="btn btn-outline-dark m-1" data-bs-dismiss="modal"  aria-label="Close" >Close</button> 
+                            <button type="submit"  class="btn btn-dark m-1" >Reject</button> 
+                        </div>
+                    </div>
+                </form>
+            </div> 
+        </div>
+    </div>
+</div>
 @endpush
 @push('footer-script')
     <script> 
 
     var requesttable = null;
+    var timeslotlist=[ 
+            {
+                text:"Saturday 9:30 - 11:30 a.m (Online)",
+                id:"Saturday 9:30 - 11:30 a.m (Online)"
+            },
+            {
+                text:"Saturday 12 - 2 p.m",
+                id:"Saturday 12 - 2 p.m"
+            },
+            {
+                text:"Sunday 9:30 - 11:30 a.m",
+                id:"Sunday 9:30 - 11:30 a.m"
+            },
+            {
+                text:"Sunday 12 - 2 p.m",
+                id:"Sunday 12 - 2 p.m"
+            },
+    ]
     function requesttableinit(table) {
         requesttable = table
     }
@@ -119,6 +192,60 @@
                 requesttable.ajax.reload()
             }
         })
+    }
+    async function rejectrequest(url){
+        $.get(url,function(res){
+            $('#user-rejectreq-form').attr('action',res.rejectUrl)
+            // var str='';
+            // $.each(timeslotlist,function(k,v){
+            //     str=`
+            //     <div class="form-check">
+            //         <input type="checkbox" name="timeslot[]" class="form-check-input"  id="user-rejectreq-${k}" value="${v.id}" ${(res.timeslot||[]).includes()}  disabled >
+            //         <label for="user-rejectreq-${k}">${v.text}</label>
+            //     </div>
+            //     `
+            // })
+            // $('#user-rejectreq-table').html(`
+            //     <div class="form-group">
+            //         <div class="form-data">
+            //             <div class="forms-inputs mb-4"> 
+            //                 <div class="check-group form-control">
+            //                     ${str}
+            //                 </div>
+            //             </div>
+            //         </div>
+            //     </div>
+            // `)
+            $('#user-rejectreq-modal').modal('show')
+        },'json')
+
+    }
+    async function acceptrequest(url){
+        $.get(url,function(res){
+            $('#user-acceptreq-form').attr('action',res.acceptUrl)
+            var str='';
+            $.each(timeslotlist,function(k,v){
+                str+=`
+                <div class="form-check">
+                    <input type="checkbox" name="timeslot[]" class="form-check-input"  id="user-acceptreq-${k}" value="${v.id}" ${(res.timeslot||[]).includes(v.id)?"checked":""} >
+                    <label for="user-acceptreq-${k}">${v.text}</label>
+                </div>
+                `
+            })
+            $('#user-acceptreq-table').html(`
+                <div class="form-group">
+                    <div class="form-data">
+                        <div class="forms-inputs mb-4"> 
+                            <div class="check-group form-control" id="user-acceptreq-form-timeslot">
+                                ${str}
+                            </div>
+                            <div id="user-acceptreq-form-timeslot-error" class="invalid-feedback"></div> 
+                        </div>
+                    </div>
+                </div>
+            `)
+            $('#user-acceptreq-modal').modal('show')
+        },'json')
     }
     function hideaction(d){
         $('.multi-user-action').hide();
@@ -267,29 +394,50 @@
         $('#timeslot-list').val("").select2({
             placeholder:"Select an Timeslot",
             allowClear: true,
-            data:[ 
-                {
-                    text:"Saturday 9:30 - 11:30 a.m (Online)",
-                    id:"Saturday 9:30 - 11:30 a.m (Online)"
-                },
-                {
-                    text:"Saturday 12 - 2 p.m",
-                    id:"Saturday 12 - 2 p.m"
-                },
-                {
-                    text:"Sunday 9:30 - 11:30 a.m",
-                    id:"Sunday 9:30 - 11:30 a.m"
-                },
-                {
-                    text:"Sunday 12 - 2 p.m",
-                    id:"Sunday 12 - 2 p.m"
-                },
-            ],
+            data:timeslotlist,
         }).change(function(){
             if (requesttable != null) {
                 requesttable.ajax.reload()
             }
         }).val("").change()
+        $('#user-acceptreq-form').submit(function(e){
+            e.preventDefault()
+            $.post($(this).attr('action'),$(this).serialize(),function(res){
+                if(res.success){
+                    showToast(res.success||"Time slot Accepted",'success'); 
+                }
+
+                if (requesttable != null) {
+                    requesttable.ajax.reload()
+                }
+                $('#user-acceptreq-modal').modal('hide')
+            },'json').fail(function(xhr){
+                try {
+                    let res = JSON.parse(xht.responseText); 
+                    $.each(res.errors,function(k,v){
+                        $(`#user-acceptreq-form-${k}`).addClass('is-invalid')
+                        $(`#user-acceptreq-form-${k}-error`).text(v[0])
+                    })
+                } catch (error) {
+                    
+                }
+            })
+            return false;
+        })
+
+        $('#user-rejectreq-form').submit(function(e){
+            e.preventDefault()
+            $.post($(this).attr('action'),$(this).serialize(),function(res){
+                if(res.success){
+                    showToast(res.success||"Time slot Rejected",'success'); 
+                    $('#user-rejectreq-modal').modal('hide')
+                }
+                if (requesttable != null) {
+                    requesttable.ajax.reload()
+                }
+            },'json')
+            return false;
+        })
     })
      
     </script>
