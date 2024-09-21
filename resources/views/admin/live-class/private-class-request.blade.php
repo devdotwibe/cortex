@@ -9,7 +9,7 @@
         </div> 
         <div class="header_content">
             <div class="form-group">
-               <select  id="timeslot-list" class="select2 form-control" data-placeholder="Select an Timeslot" data-allow-clear="true" ></select>
+               <select  id="timeslot-list" class="select2 form-control" data-allow-clear="true" ></select>
             </div>
        </div>    
         <div class="header_right">
@@ -265,22 +265,23 @@
             })
         })
         $('#timeslot-list').select2({
+            placeholder:"Select an Timeslot",
             data:[
                 {
                     text:"Saturday 9:30 - 11:30 a.m (Online)",
-                    value:"Saturday 9:30 - 11:30 a.m (Online)"
+                    id:"Saturday 9:30 - 11:30 a.m (Online)"
                 },
                 {
                     text:"Saturday 12 - 2 p.m",
-                    value:"Saturday 12 - 2 p.m"
+                    id:"Saturday 12 - 2 p.m"
                 },
                 {
                     text:"Sunday 9:30 - 11:30 a.m",
-                    value:"Sunday 9:30 - 11:30 a.m"
+                    id:"Sunday 9:30 - 11:30 a.m"
                 },
                 {
                     text:"Sunday 12 - 2 p.m",
-                    value:"Sunday 12 - 2 p.m"
+                    id:"Sunday 12 - 2 p.m"
                 },
             ],
         }).change(function(){
