@@ -1855,9 +1855,9 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 
 
 .exam-container .question-bank-review .lesson #lesson-footer-pagination button.btn.btn-secondary {background: #FBAE1E; border: 1px solid #FBAE1E; opacity: 1; margin: 0 5px;}
-.exam-container .question-bank-review .lesson #lesson-footer-pagination button.status-good.btn { background: #F8EAC6;  border: 1px solid #F8EAC6;  color: #000;}
-.exam-container .question-bank-review .lesson #lesson-footer-pagination  button.status-exelent.btn { background: #AEEFA0;  border: 1px solid #AEEFA0; color: #000;}
-.exam-container .question-bank-review .lesson #lesson-footer-pagination button.status-bad.btn { background: #EFC9C6;  border: 1px solid #EFC9C6;  color: #000;}
+.exam-container .question-bank-review .lesson #lesson-footer-pagination button.status-good.btn { background: #F8EAC6;  border: 1px solid #F8EAC6;  color: #000;padding: .375rem 0; width: 40px;}
+.exam-container .question-bank-review .lesson #lesson-footer-pagination  button.status-exelent.btn { background: #AEEFA0;  border: 1px solid #AEEFA0; color: #000;padding: .375rem 0; width: 40px;}
+.exam-container .question-bank-review .lesson #lesson-footer-pagination button.status-bad.btn { background: #EFC9C6;  border: 1px solid #EFC9C6;  color: #000;padding: .375rem 0; width: 40px;}
 .exam-container .question-bank-review .lesson #lesson-footer-pagination button.btn.btn-secondary:hover { background: none; color: #FBAE1E;}
 .exam-container .question-bank-review .lesson #lesson-footer-pagination button.status-good.btn:hover { color: #F8EAC6;}
 .exam-container .question-bank-review .lesson #lesson-footer-pagination button.status-exelent.btn:hover { color: #AEEFA0;}
