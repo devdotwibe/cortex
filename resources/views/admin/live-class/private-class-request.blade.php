@@ -122,6 +122,7 @@
     }
     function hideaction(d){
         $('.multi-user-action').hide();
+        d.timeslot=$('#timeslot-list').val()
         return d;
     }
     function s2ab(s) { 
@@ -282,6 +283,10 @@
                     value:"Sunday 12 - 2 p.m"
                 },
             ],
+        }).change(function(){
+            if (requesttable != null) {
+                requesttable.ajax.reload()
+            }
         })
     })
      
