@@ -176,11 +176,10 @@
     
                         </div>
                     </div>
-                    <div class="row">
-                        <p>Are you sure you want to proceed with this action?</p>
+                    <div class="row"> 
                         <div class="col-md-12">
                             <button type="button"  class="btn btn-outline-dark m-1" data-bs-dismiss="modal"  aria-label="Close" >Close</button> 
-                            <button type="submit"  class="btn btn-dark m-1" >Accept</button> 
+                            <button type="submit"  class="btn btn-dark m-1" >Update</button> 
                         </div>
                     </div>
                 </form>
