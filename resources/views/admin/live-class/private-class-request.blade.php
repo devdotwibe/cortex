@@ -160,6 +160,33 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="user-updatetreq-modal" tabindex="-1" role="dialog" aria-labelledby="user-updatetreqLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="user-updatetreqLablel">Confirm Student Time Slot</h5>
+                <button type="button" class="close" data-bs-dismiss="modal"  aria-label="Close"><span  aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body"> 
+                <form action="" method="post" id="user-updatetreq-form">
+                    @csrf
+                    <div class="row">
+                        <div class="col-md-12" id="user-updatetreq-table">
+    
+                        </div>
+                    </div>
+                    <div class="row"> 
+                        <div class="col-md-12">
+                            <button type="button"  class="btn btn-outline-dark m-1" data-bs-dismiss="modal"  aria-label="Close" >Close</button> 
+                            <button type="submit"  class="btn btn-dark m-1" >Update</button> 
+                        </div>
+                    </div>
+                </form>
+            </div> 
+        </div>
+    </div>
+</div>
 @endpush
 @push('footer-script')
     <script> 
@@ -193,7 +220,7 @@
             }
         })
     }
-    async function rejectrequest(url){
+    function rejectrequest(url){
         $.get(url,function(res){
             $('#user-rejectreq-form').attr('action',res.rejectUrl)
             // var str='';
@@ -220,7 +247,37 @@
         },'json')
 
     }
-    async function acceptrequest(url){
+
+    function updaterequest(url){
+        $.get(url,function(res){
+            $('#user-updatetreq-form').attr('action',res.updateUrl)
+            var str='';
+            $.each(timeslotlist,function(k,v){
+                str+=`
+                <div class="form-check">
+                    <input type="checkbox" name="timeslot[]" class="form-check-input"  id="user-updatetreq-${k}" value="${v.id}" ${(res.timeslot||[]).includes(v.id)?"checked":""} >
+                    <label for="user-updatetreq-${k}">${v.text}</label>
+                </div>
+                `
+            })
+            $('#user-updatetreq-table').html(`
+                <div class="form-group">
+                    <div class="form-data">
+                        <div class="forms-inputs mb-4"> 
+                            <div class="check-group form-control" id="user-updatetreq-form-timeslot">
+                                ${str}
+                            </div>
+                            <div id="user-updatetreq-form-timeslot-error" class="invalid-feedback"></div> 
+                        </div>
+                    </div>
+                </div>
+            `)
+            $('#user-updatetreq-modal').modal('show')
+        },'json')
+
+    }
+    
+    function acceptrequest(url){
         $.get(url,function(res){
             $('#user-acceptreq-form').attr('action',res.acceptUrl)
             var str='';
@@ -436,6 +493,31 @@
                     requesttable.ajax.reload()
                 }
             },'json')
+            return false;
+        })
+
+        $('#user-updatetreq-form').submit(function(e){
+            e.preventDefault()
+            $.post($(this).attr('action'),$(this).serialize(),function(res){
+                if(res.success){
+                    showToast(res.success||"Time slot Accepted",'success'); 
+                }
+
+                if (requesttable != null) {
+                    requesttable.ajax.reload()
+                }
+                $('#user-updatetreq-modal').modal('hide')
+            },'json').fail(function(xhr){
+                try {
+                    let res = JSON.parse(xht.responseText); 
+                    $.each(res.errors,function(k,v){
+                        $(`#user-updatetreq-form-${k}`).addClass('is-invalid')
+                        $(`#user-updatetreq-form-${k}-error`).text(v[0])
+                    })
+                } catch (error) {
+                    
+                }
+            })
             return false;
         })
     })
