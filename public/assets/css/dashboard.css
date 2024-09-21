@@ -1916,6 +1916,8 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .live-class-section .card.workshop-card h3 { font-size: 24px; color: #334CA9; margin: 0 0 20px;}
 
 
+.learn-inner-section .lesson .lesson-body { margin: 0;}
+
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
 
