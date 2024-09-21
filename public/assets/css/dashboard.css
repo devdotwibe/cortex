@@ -1795,7 +1795,7 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .exam-container .question-bank-review .lesson #lesson-footer-pagination { margin: 30px 0; display: inline-block;}
 .exam-container .question-bank-review .lesson #lesson-footer-pagination button.btn { display: inline-block;}
 .exam-container .question-bank-review .lesson .lesson-body .mcq-container .mcq-group-right .mcq-explanation { font-size: 20px; font-weight: 600; margin: 0 0 20px;}
-.exam-container .question-bank-review .lesson .lesson-body .mcq-container .mcq-group h5 { font-weight: 600; font-size: 17px; margin: 0 0 16px 30px; padding: 2px 5px; border-left: 3px solid #ef9b10;}
+.exam-container .question-bank-review .lesson .lesson-body .mcq-container .mcq-group h5 { font-weight: 600; font-size: 17px; margin: 0 0 16px 35px; padding: 2px 5px; border-left: 3px solid #ef9b10;}
 
 
 .card-links {border: none; border-radius: 10px;}
