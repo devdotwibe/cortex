@@ -1903,6 +1903,18 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 
 
 
+.live-class-section { background: #FFFFFF; margin: 20px 0 0; padding: 40px 30px; border-radius: 20px;}
+.live-class-section .private-class-card { border: 1px solid #3F8D26; border-radius: 20px;}
+.live-class-section .card.workshop-card { border: 1px solid #334CA9; border-radius: 20px;}
+.live-class-section .card .card-body { padding: 40px;}
+.live-class-section .card .card-body .category-image { width: 100%; margin: 0 auto 20px; max-width: 250px; height: 260px;}
+.live-class-section .card .card-body .category-content { width: 100%; flex: none;}
+.live-class-section .card .card-body .category-image img { width: 100%; height: 100%;  object-fit: contain;}
+.live-class-section .private-class-card .card-body .category h3 { font-size: 24px; color: #3F8D26; margin: 0 0 20px;}
+.live-class-section .card .card-body .category { justify-content: center;}
+.live-class-section .card .card-body .category p { font-size: 20px; color: #4A4A4A; line-height: 1.56;}
+.live-class-section .card.workshop-card h3 { font-size: 24px; color: #334CA9; margin: 0 0 20px;}
+
 
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
