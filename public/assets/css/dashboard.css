@@ -1899,6 +1899,9 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .private-wrap .private-content .card .card-body button.btn.btn-dark:hover { color: #FBAE1E; background: none;}
 .private-wrap .private-content .card .card-body .btn.btn-secondary { color: #000000; background: none; border: 1px solid #000000; padding: 8px 20px;}
 .private-wrap .private-content .card .card-body .btn.btn-secondary:hover {background: #000000;color: #ffffff;}
+.private-wrap .private-content .card .card-body .forms-inputs .form-check input:checked{background: url(../images/checkyellow.svg) no-repeat center / 25px;border: none;}
+
+
 
 
 @media screen and (max-width:1500px) {
