@@ -225,7 +225,7 @@
             $('#user-acceptreq-form').attr('action',res.acceptUrl)
             var str='';
             $.each(timeslotlist,function(k,v){
-                str=`
+                str+=`
                 <div class="form-check">
                     <input type="checkbox" name="timeslot[]" class="form-check-input"  id="user-acceptreq-${k}" value="${v.id}" ${(res.timeslot||[]).includes(v.id)} >
                     <label for="user-acceptreq-${k}">${v.text}</label>
