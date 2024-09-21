@@ -269,6 +269,10 @@
             allowClear: true,
             data:[
                 {
+                    text:"",
+                    id:""
+                },
+                {
                     text:"Saturday 9:30 - 11:30 a.m (Online)",
                     id:"Saturday 9:30 - 11:30 a.m (Online)"
                 },
