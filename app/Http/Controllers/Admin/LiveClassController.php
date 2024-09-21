@@ -153,6 +153,12 @@ class LiveClassController extends Controller
             self::reset();
             self::$model=PrivateClass::class;
             self::$defaultActions=[''];
+            if(!empty($request->timeslot)){
+                $slot= $request->timeslot;
+                $this->where(function($qry)use($slot){
+                    $qry->whereJsonContains('timeslot',$slot);
+                });
+            }
             return $this->addAction(function($data){
                 $action="";
                 if($data->status=="pending"&&!empty($data->user)){
