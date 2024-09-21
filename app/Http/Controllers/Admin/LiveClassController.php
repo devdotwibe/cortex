@@ -167,6 +167,13 @@ class LiveClassController extends Controller
                     <a  class="btn btn-success btn-sm" onclick="acceptrequest('."'".route("admin.live-class.request.show",$data->slug)."'".')" > Accept </a> 
                     ';
                 }
+                if($data->status=="approved"&&!empty($data->user)){
+                        $action.='
+                        <a  class="btn btn-icons" onclick="updaterequest('."'".route("admin.live-class.request.show",$data->slug)."'".')">
+                            <img src="'.asset("assets/images/edit.svg").'" alt="">
+                        </a> 
+                    ';
+                }
                 $action.='
                  <a  class="btn btn-icons dlt_btn" data-delete="'.route("admin.live-class.request.destroy",$data->slug).'">
                     <img src="'.asset("assets/images/delete.svg").'" alt="">
@@ -208,6 +215,7 @@ class LiveClassController extends Controller
     public function private_class_request_show(Request $request,PrivateClass $privateClass){
         $privateClass->rejectUrl=route("admin.live-class.request.reject",$privateClass->slug);
         $privateClass->acceptUrl=route("admin.live-class.request.accept",$privateClass->slug);
+        $privateClass->updateUrl=route("admin.live-class.request.update",$privateClass->slug);
         return $privateClass;
     }
     public function private_class_request_status(Request $request,PrivateClass $privateClass){
@@ -233,6 +241,17 @@ class LiveClassController extends Controller
             return response()->json(["success"=>"Request has been successfully approved"]);
         }  
         return redirect()->back()->with('success','Request has been successfully approved');
+    }
+    public function private_class_request_update(Request $request,PrivateClass $privateClass){
+        $data=$request->validate([
+            'timeslot'=>['required','array']
+        ]);
+        $privateClass->update($data);
+
+        if($request->ajax()){
+            return response()->json(["success"=>"Timeslote has been successfully updated"]);
+        }  
+        return redirect()->back()->with('success','Timeslote has been successfully updated');
     }
     public function private_class_request_reject(Request $request,PrivateClass $privateClass){
         $privateClass->update(['status'=>"rejected"]);
