@@ -406,6 +406,10 @@
                 if(res.success){
                     showToast(res.success||"Time slot Accepted",'success'); 
                 }
+
+                if (requesttable != null) {
+                    requesttable.ajax.reload()
+                }
                 $('#user-acceptreq-modal').modal('hide')
             },'json').fail(function(xhr){
                 try {
@@ -427,6 +431,9 @@
                 if(res.success){
                     showToast(res.success||"Time slot Rejected",'success'); 
                     $('#user-rejectreq-modal').modal('hide')
+                }
+                if (requesttable != null) {
+                    requesttable.ajax.reload()
                 }
             },'json')
             return false;
