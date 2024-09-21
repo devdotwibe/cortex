@@ -8,7 +8,7 @@
             </div>
         </div>
     </section>
-    <section class="content_section">
+    <section class="content_section live-class-section">
         <div class="container">
             <div class="row">
 

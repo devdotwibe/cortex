@@ -1,51 +1,58 @@
 @extends('layouts.user')
 @section('title', $exam->subtitle($category->id,"Module ".($category->getIdx()+1)).':'.$category->name)
 @section('content')
-<section class="container">
-    <div class="container-wrap">
-        <div class="lesson">
-            <div class="lesson-title">
-                <h3><span>{{$exam->subtitle($category->id,"Module ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h3>
-            </div>
-            <div class="lesson-body">
-                <div class="row" id="lesson-list">
-                    @forelse ($lessons as $k => $item)
-                    <div class="col-md-6"> 
-                        @if ($user->is_free_access||(optional($user->subscription())->status??"")=="subscribed"||$k == 0)
-                            <a @if ($user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$item->id.'-complete-review',"no") == "yes") 
+
+<section class="header_nav">
+    <div class="header_wrapp">
+        <div class="header_title"> 
+            <h2><span>{{$exam->subtitle($category->id,"Module ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h2>
+        </div>
+    </div>
+</section>
+<section class="content_section learn-inner-section">
+    <div class="container">
+        <div class="container-wrap">
+            <div class="lesson">
+                <div class="lesson-body">
+                    <div class="row" id="lesson-list">
+                        @forelse ($lessons as $k => $item)
+                        <div class="col-md-6"> 
+                            @if ($user->is_free_access||(optional($user->subscription())->status??"")=="subscribed"||$k == 0)
+                                <a @if ($user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$item->id.'-complete-review',"no") == "yes") 
+                                    
+                                    @elseif ($user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$item->id.'-complete-date',"") == "")
+                                    @guest('admin')   href="{{ route('learn.lesson.show', ["category" => $category->slug, "sub_category" => $item->slug]) }}" @endguest
+                                @else
+                                    href="#" onclick="loadlessonreviews('{{ route('learn.lesson.history', ['category' => $category->slug, 'sub_category' => $item->slug]) }}', {{$k+1}}); return false;"
+                                @endif> 
+                            @else
+                            <a href="{{route('pricing.index')}}">
+                            @endif
+                            <div class="lesson-row">
+                                <div class="lesson-row-title">
+                                    <span class="lesson-line">Lesson {{$k+1}}</span>
+                                    <h3>: {{ $item->name }} </h3>
+                                    <h4>{{ round($user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$item->id,0), 2) }}%</h4>
+                                </div>
+                                {{-- <div class="lesson-row-subtitle"> --}}
                                 
-                                @elseif ($user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$item->id.'-complete-date',"") == "")
-                                @guest('admin')   href="{{ route('learn.lesson.show', ["category" => $category->slug, "sub_category" => $item->slug]) }}" @endguest
-                               @else
-                                   href="#" onclick="loadlessonreviews('{{ route('learn.lesson.history', ['category' => $category->slug, 'sub_category' => $item->slug]) }}', {{$k+1}}); return false;"
-                               @endif> 
-                        @else
-                        <a href="{{route('pricing.index')}}">
-                        @endif
-                        <div class="lesson-row">
-                            <div class="lesson-row-title">
-                                <span class="lesson-line">Lesson {{$k+1}}</span>
-                                <h3>: {{ $item->name }} </h3>
-                                <h4>{{ round($user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$item->id,0), 2) }}%</h4>
+                                {{-- </div> --}}
                             </div>
-                            {{-- <div class="lesson-row-subtitle"> --}}
-                               
-                            {{-- </div> --}}
+                            </a>
                         </div>
-                        </a>
-                    </div>
-                    @empty
-                    <div class="col-md-12">
-                        <div class="empty-row">
-                            <span class="text-muted">Empty item</span>
+                        @empty
+                        <div class="col-md-12">
+                            <div class="empty-row">
+                                <span class="text-muted">Empty item</span>
+                            </div>
                         </div>
+                        @endforelse
                     </div>
-                    @endforelse
                 </div>
             </div>
         </div>
     </div>
-</section>
+</div>
 @endsection
 
 @push('modals')

@@ -7,7 +7,7 @@
             <div class="exam-progress-inner-item exam-left">
                 <div class="progress-main">
 
-                    <div class="exam-exit ">
+                    <div class="exam-exit "  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
                         <a href="{{route('full-mock-exam.index')}}">
                             <img src="{{asset("assets/images/exiticon-wht.svg")}}" alt="exiticon">
                         </a>
@@ -34,8 +34,8 @@
                         <span id="menu-text" >Question 0 of 0</span>
                     </div>
                     <div class="menu-icon"> 
-                        <a onclick="toglepreviewpage()" >
-                            <img src="{{asset("assets/images/menu.svg")}}" alt="exiticon">
+                        <a onclick="toglepreviewpage()"  >
+                            <img src="{{asset("assets/images/menu.svg")}}" alt="menu">
                         </a>
                     </div>
                 </div>
@@ -53,11 +53,8 @@
         </div>
         
     </div>
-    <div class="container-wrap" id="question-answer-page">
-        <div class="lesson">  
-            <div class="lesson-title">
-                <h3><span>{{$exam->title}}</span></h3>
-            </div>
+    <div class="container-wrap mcq-container-wrap full-mock-exam" id="question-answer-page">
+        <div class="lesson">   
             <div class="lesson-body"> 
                 <div class="row" id="lesson-questionlist-list" style="display: none">
                 </div>
@@ -415,15 +412,26 @@
                                         <span>${v.title||""}</span>
                                     </div>
                                     <div class="mcq-container">
-                                        <div id="mcq-${lesseonId}" class="mcq-description">
-                                            ${v.description}
-                                        </div>
-                                        <div class="mcq-answer">
-                                            <div id="mcq-${lesseonId}-ans" class="form-group" >
-                                                <div class="form-data" >
-                                                    <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list"> 
-                                                        
-                                                    </div> 
+                                        <div class="mcq-group">
+                                            <h5><span>{{$exam->title}}</span></h5>
+                                            <div class="mcq-title-text" ${v.title_text?"":'style="display:none"'}>
+                                                ${v.title_text}
+                                            </div>
+                                            <div id="mcq-${lesseonId}" class="mcq-description">
+                                                ${v.description}
+                                            </div>
+                                        </div> 
+                                        <div class="mcq-group-right">
+                                            <div  class="mcq-description">
+                                                ${v.sub_question}
+                                            </div> 
+                                            <div class="mcq-answer">
+                                                <div id="mcq-${lesseonId}-ans" class="form-group" >
+                                                    <div class="form-data" >
+                                                        <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list"> 
+                                                            
+                                                        </div> 
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

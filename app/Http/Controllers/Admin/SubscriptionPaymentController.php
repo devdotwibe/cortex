@@ -10,6 +10,7 @@ use App\Support\Plugin\Payment;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str; 
 
 class SubscriptionPaymentController extends Controller
@@ -146,6 +147,9 @@ class SubscriptionPaymentController extends Controller
             'pricebuttonlabel' => 'nullable|string|max:255',
             'pricebuttonlink' => 'nullable|url|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048',
+            'pricetitle' => 'nullable|string',
+            'pricetitlebuttonlabel' => 'nullable|string|max:255',
+            'pricetitlebuttonlink' => 'nullable|url|max:255',
         ]);
     
         // Retrieve the first record or create a new one
@@ -159,25 +163,129 @@ class SubscriptionPaymentController extends Controller
         $price->pricebannertitle = $request->input('pricebannertitle');
         $price->pricebuttonlabel = $request->input('pricebuttonlabel');
         $price->pricebuttonlink = $request->input('pricebuttonlink');
+        $price->pricetitle = $request->input('pricetitle');
+        $price->pricetitlebuttonlabel = $request->input('pricetitlebuttonlabel');
+        $price->pricetitlebuttonlink = $request->input('pricetitlebuttonlink');
+        
     
-        // Handle image upload
+
         if ($request->hasFile('image')) {
-            // Generate a unique name for the image and store it
             $imageName = "price/" . $request->file('image')->hashName();
-            $request->file('image')->storeAs('public/price', $imageName); // Store image in 'public/price' directory
+            Storage::put('price', $request->file('image'));
             $price->image = $imageName;
         }
 
 
 
+      
+
+
+
+       
     
         // Save the price record
         $price->save();
     
         // Redirect with success message
-        return redirect()->route('admin.payment-price.index')->with('success', 'Price information has been successfully saved.');
+        return redirect()->route('admin.payment-price.index')->with('success', 'Section 1  has been successfully saved.');
     }
     
+
+
+    public function storesection3(Request $request)
+
+    {
+
+        
+        Session::put("__payment_price___","section3"); 
+        // Validate the request data for price information
+        $request->validate([
+            'feelingtitle' => 'nullable|string',
+           
+            'feelingimage' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048',
+            'coursetitle' => 'nullable|string',
+            'grouptitle' => 'nullable|string',
+           
+        ]);
+    
+        // Retrieve the first record or create a new one
+        $price = Pricing::first();
+    
+        if (empty($price)) {
+            $price = new Pricing;
+        }
+    
+        // Update fields
+        $price->feelingtitle = $request->input('feelingtitle');
+      
+        $price->ourcoursetitle = $request->input('coursetitle');
+        $price->grouptitle = $request->input('grouptitle');
+     
+       
+
+        if ($request->hasFile('feelingimage')) {
+            $imageName = "price/" . $request->file('feelingimage')->hashName();
+            Storage::put('price', $request->file('feelingimage'));
+            $price->feelingimage = $imageName;
+        }
+    
+        // Save the price record
+        $price->save();
+    
+        // Redirect with success message
+        return redirect()->route('admin.payment-price.index')->with('success', 'Section 4 has been successfully saved.');
+    }
+    
+
+
+
+
+    public function storesection4(Request $request)
+
+    {
+
+        
+        Session::put("__payment_price___","section4"); 
+        // Validate the request data for price information
+        $request->validate([
+            'exceltitle' => 'nullable|string',
+           
+            'excelimage' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048',
+            'excelbuttonlabel' => 'nullable|string',
+            'excelbuttonlink' => 'nullable|string',
+           
+        ]);
+    
+        // Retrieve the first record or create a new one
+        $price = Pricing::first();
+    
+        if (empty($price)) {
+            $price = new Pricing;
+        }
+    
+        // Update fields
+        $price->exceltitle = $request->input('exceltitle');
+      
+        $price->excelbuttonlabel = $request->input('excelbuttonlabel');
+        $price->excelbuttonlink = $request->input('excelbuttonlink');
+     
+       
+
+        if ($request->hasFile('excelimage')) {
+            $imageName = "price/" . $request->file('excelimage')->hashName();
+            Storage::put('price', $request->file('excelimage'));
+            $price->excelimage = $imageName;
+        }
+    
+        // Save the price record
+        $price->save();
+    
+        // Redirect with success message
+        return redirect()->route('admin.payment-price.index')->with('success', 'Section 3 has been successfully saved.');
+    }
+    
+
+
 
     public function update(Request $request,SubscriptionPlan $subscriptionPlan){
         $field=$subscriptionPlan->slug;

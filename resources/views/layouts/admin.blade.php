@@ -312,22 +312,16 @@
                         if (file) {
                             handleFileUpload(file).then(function(res) {
                                 if(res.mime_type.startsWith('image/')){
-                                    editor.insertHtml(`
-                                    <figure class="image-area">
-                                        <img alt="" src="${res.url}" width="600" height="400"  />
-                                    </figure>
+                                    editor.insertHtml(` 
+                                        <img alt="" src="${res.url}" width="600" height="400"  /> 
                                     `);
                                 }else if(res.mime_type.startsWith('video/')){
-                                    editor.insertHtml(`
-                                    <figure class="video-area">
-                                        <video alt="" controls src="${res.url}" type="${res.mime_type}" />
-                                    </figure>
+                                    editor.insertHtml(` 
+                                        <video alt="" controls src="${res.url}" type="${res.mime_type}" /> 
                                     `);
                                 }else{
-                                    editor.insertHtml(`
-                                    <figure class="frame-area">
-                                        <iframe alt="" src="${res.url}"  width="600" height="400" frameborder="0" type="${res.mime_type}" > </iframe>
-                                    </figure>
+                                    editor.insertHtml(` 
+                                        <iframe alt="" src="${res.url}"  width="600" height="400" frameborder="0" type="${res.mime_type}" > </iframe> 
                                     `);
                                 }
 

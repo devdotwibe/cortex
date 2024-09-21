@@ -2,14 +2,11 @@
 @section('title', $exam->subtitle($category->id,"Topic ".($category->getIdx()+1)).':'.$category->name)
 @section('content')
 <section class="exam-container">
-    <div class="container-wrap">
+    <div class="container-wrap mcq-container-wrap topic-test-review">
         <div class="lesson">            
-            <a class="lesson-exit float-start" href="{{route('topic-test.index')}}">
+            <a class="lesson-exit float-start" href="{{route('topic-test.index')}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
                 <img src="{{asset("assets/images/exiticon.svg")}}" alt="exiticon">
-            </a>
-            <div class="lesson-title">
-                <h3><span>{{$exam->subtitle($category->id,"Topic ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h3>
-            </div>
+            </a> 
             <div class="lesson-body"> 
                 <div class="row" id="lesson-questionlist-list" style="display: none">
                 </div>
@@ -24,6 +21,7 @@
 @push('footer-script') 
 
 <script>
+        var useranswers=@json($useranswer);
         function generateRandomId(length) {
             const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
             let result = '';
@@ -48,29 +46,40 @@
                                     <span>${v.title||""}</span>
                                 </div>
                                 <div class="mcq-container">
-                                    <div id="mcq-${lesseonId}">
-                                        ${v.note||""}
-                                    </div>
-                                    <div id="mcq-${lesseonId}-ans" class="form-group">
-                                        <div class="form-data" >
-                                            <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list"> 
-                                                
-                                            </div> 
+                                    <div class="mcq-group">
+                                        <h5><span>{{$exam->subtitle($category->id,"Topic ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h5>
+                                        <div class="mcq-title-text" ${v.title_text?"":'style="display:none"'}>
+                                            ${v.title_text||""}
                                         </div>
-                                    </div>
-                                    <div id="mcq-${lesseonId}-explanation"> 
-                                        <label>Correct Answer <span id="mcq-${lesseonId}-correct"></span></label>
-                                        ${v.explanation||''}
-                                    </div>
+                                        <div id="mcq-${lesseonId}">
+                                            ${v.note||""}
+                                        </div>
+                                    </div> 
+                                    <div class="mcq-group-right">
+                                        <div  class="mcq-description">
+                                            ${v.sub_question||""}
+                                        </div>
+                                        <div id="mcq-${lesseonId}-ans" class="form-group">
+                                            <div class="form-data" >
+                                                <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list"> 
+                                                    
+                                                </div> 
+                                            </div>
+                                        </div>
+                                        <div id="mcq-${lesseonId}-explanation"> 
+                                            <label>Correct Answer <span id="mcq-${lesseonId}-correct"></span></label>
+                                            ${v.explanation||''}
+                                        </div>
 
-                                    <div id="mcq-${lesseonId}-ans-progress" class="form-group">
-                                        <div class="form-data" >
-                                            <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list-progress"> 
-                                                
-                                            </div> 
-                                        </div>
-                                        <div>
-                                            <p>You spent ${v.time_taken||0} seconds on this question. The average student spent ${v.total_user_taken_time||0} seconds on this question<p>
+                                        <div id="mcq-${lesseonId}-ans-progress" class="form-group">
+                                            <div class="form-data" >
+                                                <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list-progress"> 
+                                                    
+                                                </div> 
+                                            </div>
+                                            <div>
+                                                <p>You spent ${v.time_taken||0} seconds on this question. The average student spent ${v.total_user_taken_time||0} seconds on this question<p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -108,13 +117,23 @@
                 }) 
                 if(res.total>1){
                      $.each(res.links,function(k,v){
+                        let linkstatus="";
+                        if(k!=0&&k!=res.links.length&&useranswers[k-1]){
+                            linkstatus='status-bad';
+                            if(useranswers[k-1].iscorrect){
+                                linkstatus="status-good";
+                                if(useranswers[k-1].time_taken<{{$examtime}}){
+                                    linkstatus="status-exelent";
+                                }
+                            }
+                        }
                         if(v.active||!v.url){
                             $('#lesson-footer-pagination').append(`
-                                <button class="btn btn-secondary ${v.active?"active":""}" disabled  >${v.label}</button>
+                                <button class="${linkstatus} btn btn-secondary ${v.active?"active":""}" disabled  >${v.label}</button>
                             `)
                         }else{
                             $('#lesson-footer-pagination').append(`
-                                <button class="btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
+                                <button class="${linkstatus} btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
                             `)
                         }
                      })

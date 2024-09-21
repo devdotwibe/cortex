@@ -8,7 +8,7 @@
                 <div class="progress-main">
 
                     <div class="exam-exit ">
-                        <a   href="{{route('topic-test.index')}}">
+                        <a   href="{{route('topic-test.index')}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
                             <img src="{{asset("assets/images/exiticon-wht.svg")}}" alt="exiticon">
                         </a>
                     </div>
@@ -53,11 +53,8 @@
         </div>
         
     </div>
-    <div class="container-wrap" id="question-answer-page">
-        <div class="lesson">  
-            <div class="lesson-title">
-                <h3><span>{{$exam->subtitle($category->id,"Topic ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h3>
-            </div>
+    <div class="container-wrap mcq-container-wrap topic-test" id="question-answer-page">
+        <div class="lesson"> 
             <div class="lesson-body"> 
                 <div class="row" id="lesson-questionlist-list" style="display: none">
                 </div>
@@ -239,6 +236,7 @@
         <input type="hidden" name="flags" id="finish-exam-confirmed-form-flags" value="" >
         <input type="hidden" name="times" id="finish-exam-confirmed-form-times" value="" >
         <input type="hidden" name="passed" id="finish-exam-confirmed-form-passed" value="" > 
+        <input type="hidden" name="questions" id="finish-exam-confirmed-form-questions" value="" > 
     </form>
 </div>
 
@@ -412,15 +410,26 @@
                                         <span>${v.title||""}</span>
                                     </div>
                                     <div class="mcq-container">
-                                        <div id="mcq-${lesseonId}" class="mcq-description">
-                                            ${v.description}
-                                        </div>
-                                        <div class="mcq-answer">
-                                            <div id="mcq-${lesseonId}-ans" class="form-group" >
-                                                <div class="form-data" >
-                                                    <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list"> 
-                                                        
-                                                    </div> 
+                                        <div class="mcq-group">
+                                            <h5><span>{{$exam->subtitle($category->id,"Topic ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h5>
+                                            <div class="mcq-title-text" ${v.title_text?"":'style="display:none"'}>
+                                                ${v.title_text||""}
+                                            </div>
+                                            <div id="mcq-${lesseonId}" class="mcq-description">
+                                                ${v.description||""}
+                                            </div>
+                                        </div> 
+                                        <div class="mcq-group-right">
+                                            <div  class="mcq-description">
+                                                ${v.sub_question||""}
+                                            </div>
+                                            <div class="mcq-answer">
+                                                <div id="mcq-${lesseonId}-ans" class="form-group" >
+                                                    <div class="form-data" >
+                                                        <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list"> 
+                                                            
+                                                        </div> 
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -586,6 +595,7 @@
             $('#finish-exam-confirmed-form-flags').val(JSON.stringify(summery.flagcurrent))
             $('#finish-exam-confirmed-form-times').val(JSON.stringify(summery.timercurrent))
             $('#finish-exam-confirmed-form-passed').val(Object.keys(summery.verifydx).length); 
+            $('#finish-exam-confirmed-form-questions').val(JSON.stringify(Object.keys(summery.verifydx))); 
             $('#finish-exam-confirmed-form').submit();
             summery.timerActive=false;
             summery.examActive=false; 

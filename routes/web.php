@@ -142,6 +142,13 @@ Route::middleware(['auth', 'isUser'])->group(function () {
             Route::middleware('subscription:topic-test')->get('/{category}/review', [TopicExamController::class, 'topicreview'])->name('topic.review');
             Route::get('/attempt/{user_exam_review}/preview', [TopicExamController::class, 'preview'])->name('preview');
             Route::get('/{user_exam_review}/complete', [TopicExamController::class, 'topiccomplete'])->name('complete');
+            Route::get('/{user_exam_review}/retry', [TopicExamController::class, 'topicretry'])->name('retry');
+            Route::post('/fetch/{attemt}/progress', [TopicExamController::class, 'getprogress'])->name('attemtprogress');
+            Route::post('/update/{attemt}/progress', [TopicExamController::class, 'updateprogress'])->name('updateprogress');
+            Route::post('/retry/{user_exam_review}/submit', [TopicExamController::class, 'retrysubmit'])->name('retry.submit');
+            Route::get('/retry/{user_exam_review}/attempt/{exam_retry_review}/result', [TopicExamController::class, 'retryresult'])->name('retry.result');
+            Route::get('/retry/{user_exam_review}/attempt/{exam_retry_review}/preview', [TopicExamController::class, 'retrypreview'])->name('retry.preview');
+            Route::get('/retry/{user_exam_review}/history', [TopicExamController::class, 'retryhistory'])->name('retryhistory');
         });
 
         Route::prefix('full-mock-exam')->name('full-mock-exam.')->group(function () {

@@ -45,12 +45,12 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <button class="btn btn-warning" type="submit" onclick="return updateaction{{ $tableid }}('updateaction')" >Submit</button>
+                                <button class="btn btn-warning" type="button" onclick="return updateaction{{ $tableid }}('updateaction')" >Submit</button>
                             </div> 
                         </div>
                         @endif
                         <div class="delete-action">
-                            <button class="btn btn-danger" type="submit" onclick="return updateaction{{ $tableid }}('deleteaction')">
+                            <button class="btn btn-danger" type="button" onclick="return updateaction{{ $tableid }}('deleteaction')">
                                 Delete All
                             </button>                            
                         </div>
@@ -96,13 +96,25 @@
 @push('footer-script')
    
     <script>
-        function updateaction{{ $tableid }}(v){
+        async function updateaction{{ $tableid }}(v){
             if(v==='deleteaction'){
                 $('#deleteaction{{ $tableid }}').val('deleteaction')
+                if (await showConfirm({
+                    title: "Are you sure you want to delete these records?"
+                })) { 
+                    $(`#table-{{ $tableid }}-bulk-action-form`).submit()
+                }
             }else{
                 $('#deleteaction{{ $tableid }}').val('')
+                if (await showConfirm({
+                    title: "Are you sure you want to take action on these records?"
+                })) { 
+                    $(`#table-{{ $tableid }}-bulk-action-form`).submit()
+                }
             }
+            return false;
         }
+ 
         $(document).ready(function() {
             $('#table-{{ $tableid }}-delete').on('hidden.bs.modal', function (e) {
                 

@@ -291,6 +291,10 @@
             if(info.event&&info.event.extendedProps){
                 $('#calendar-title').text(info.event.extendedProps.elTitle||"")
             }            
+        },
+        dayHeaderContent: function(arg) { 
+            const dayNames = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+            return dayNames[arg.date.getDay()];
         }
     });
     calendar.render(); 
@@ -317,7 +321,7 @@
             scales: {
                 y: {
                     beginAtZero: true, 
-                    max:100,
+                    max:110,
                     grid: {
                         display: false
                     }, 

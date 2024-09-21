@@ -21,12 +21,12 @@
                                                 <span id="time-taken">{{$attemttime}}</span>
                                             </div> 
                                             <div class="mark-label">
-                                                <span>Attemt Number :</span>
+                                                <span>Retry Number :</span>
                                                 <span>#{{$attemtcount}}</span>
                                             </div> 
                                             <div class="mark-label">
-                                                <span>Attemt Date :</span>
-                                                <span>@if(!empty($userExamReview->created_at)) {{$userExamReview->created_at->format('d M Y')}} @endif</span>
+                                                <span>Retry Date :</span>
+                                                <span>@if(!empty($examRetryReview->created_at)) {{$examRetryReview->created_at->format('d M Y')}} @endif</span>
                                             </div> 
                                         </div> 
                                     </div>
@@ -37,7 +37,7 @@
                                     @if (session("exam-retry-".$userExamReview->id))
                                         <a class="btn btn-warning btn-lg" id="review-link" href="{{route('topic-test.retry',$userExamReview->slug)}}">Retry In-Correct</a>
                                     @endif
-                                    <a class="btn btn-warning btn-lg" id="review-link" href="{{route('topic-test.preview',$userExamReview->slug)}}">Review Set</a>
+                                    <a class="btn btn-warning btn-lg" id="review-link" href="{{route('topic-test.retry.preview', ['user_exam_review' => $userExamReview->slug, 'exam_retry_review' => $examRetryReview->slug])}}">Review Set</a>
                                     <a href="{{route('topic-test.index')}}" class="btn btn-outline-dark btn-lg">Exit Set</a>
                                 </div>
                             </div>
@@ -68,8 +68,8 @@
                                                 <th>Marks</th>
                                                 <td>{{$passed}}/{{$questioncount}}</td>
                                                 @foreach ($categorylist as $item)
-                                                    @if ($userExamReview->categoryCount($item->id)>0)
-                                                    <td>{{$userExamReview->categoryMark($item->id)}}/{{$userExamReview->categoryCount($item->id)}}</td>
+                                                    @if ($examRetryReview->categoryCount($item->id)>0)
+                                                    <td>{{$examRetryReview->categoryMark($item->id)}}/{{$examRetryReview->categoryCount($item->id)}}</td>
                                                     @else
                                                     <td></td>
                                                     @endif
@@ -77,17 +77,17 @@
                                             </tr>
                                             <tr>
                                                 <th>Average</th>
-                                                <td>{{$userExamReview->avgMark()}}</td>
+                                                <td>{{$examRetryReview->avgMark()}}</td>
                                                 @foreach ($categorylist as $item)
                                                 <td></td>
                                                 @endforeach 
                                             </tr>
                                             <tr>
                                                 <th>Average Time <br>Per Question</th>
-                                                <td>{{$userExamReview->avgTime()}}</td>
+                                                <td>{{$examRetryReview->avgTime()}}</td>
                                                 @foreach ($categorylist as $item)
-                                                    @if ($userExamReview->avgTime($item->id)>0)
-                                                        <td>{{$userExamReview->avgTime($item->id)}}</td>
+                                                    @if ($examRetryReview->avgTime($item->id)>0)
+                                                        <td>{{$examRetryReview->avgTime($item->id)}}</td>
                                                     @else
                                                         <td></td>
                                                     @endif                                                                                                   
@@ -96,17 +96,17 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="overview-title">
+                                {{-- <div class="overview-title">
                                     <h5>Ranking</h5>
                                     <h3>Top {{round($passed*100/$questioncount,2)}}%</h3>
-                                </div>
-                                <div class="overview-graph">
+                                </div> --}}
+                                {{-- <div class="overview-graph">
                                     <div class="overview-graph-body">
                                         <div class="overview-graph-inner"> 
                                             <canvas id="myChart" class="overview-graph-bar" width="100%" ></canvas>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -122,9 +122,11 @@
 
 
 @push('footer-script')  
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script> 
+    <script>
         localStorage.removeItem("topic-test-summery-retry")
+    </script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script> 
         $(document).ready(function() {
 
             const ctx = document.getElementById('myChart').getContext('2d');
@@ -158,5 +160,5 @@
                 },
             });
         })
-    </script>
+    </script> --}}
 @endpush

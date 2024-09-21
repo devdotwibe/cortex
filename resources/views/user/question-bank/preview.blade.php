@@ -4,7 +4,7 @@
 <section class="exam-container">
     <div class="container-wrap mcq-container-wrap question-bank-review">
         <div class="lesson">            
-            <a class="lesson-exit float-start" href="{{route('question-bank.show',$category->slug)}}">
+            <a class="lesson-exit float-start" href="{{route('question-bank.show',$category->slug)}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
                 <img src="{{asset("assets/images/exiticon.svg")}}" alt="exiticon">
             </a>
             {{-- <div class="lesson-title">
@@ -24,6 +24,7 @@
 @push('footer-script') 
 
 <script>
+        var useranswers=@json($useranswer);
         var timelist=@json(json_decode($user->progress("exam-reviewed-".$userExamReview->id."-times",'[]')));
         function generateRandomId(length) {
             const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -50,9 +51,9 @@
                                 </div>
                                 <div class="mcq-container">
                                     <div class="mcq-group">
-                                        <h3><span>{{$exam->subtitle($category->id,"Topic ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h3>
+                                        <h5><span>{{$exam->subtitle($category->id,"Topic ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h5>
                                         <div class="mcq-title-text" ${v.title_text?"":'style="display:none"'}>
-                                            ${v.title_text}
+                                            ${v.title_text||""}
                                         </div>
                                         <div id="mcq-${lesseonId}">
                                             ${v.note||""}
@@ -60,7 +61,7 @@
                                     </div>
                                     <div class="mcq-group-right">
                                         <div  class="mcq-description">
-                                            ${v.sub_question}
+                                            ${v.sub_question||""}
                                         </div>
                                         <div id="mcq-${lesseonId}-ans" class="form-group">
                                             <div class="form-data" >
@@ -108,7 +109,7 @@
                                 <div class="form-progress-ans ans-${av.iscorrect?"select":"no-select"}"> 
                                     <div class="form-progress">       
                                         <label for="user-answer-${lesseonId}-ans-progress-item-${ai}" >${ letter }</label>
-                                        <progress id="user-answer-${lesseonId}-ans-progress-item-${ai}" max="100" value="${av.total_user_answered||0}"></progress> <span>${av.total_user_answered||0}%</span>
+                                        <progress id="user-answer-${lesseonId}-ans-progress-item-${ai}" max="100" value="${av.total_user_answered||0}"></progress> <span>${((av.total_user_answered||0)*1).toFixed(2)}%</span>
                                     </div>  
                                 </div>
                             `)
@@ -121,13 +122,23 @@
                 }) 
                 if(res.total>1){
                      $.each(res.links,function(k,v){
+                        let linkstatus="";
+                        if(k!=0&&k!=res.links.length&&useranswers[k-1]){
+                            linkstatus='status-bad';
+                            if(useranswers[k-1].iscorrect){
+                                linkstatus="status-good";
+                                if(useranswers[k-1].time_taken<{{$examtime}}){
+                                    linkstatus="status-exelent";
+                                }
+                            }
+                        }
                         if(v.active||!v.url){
                             $('#lesson-footer-pagination').append(`
-                                <button class="btn btn-secondary ${v.active?"active":""}" disabled  >${v.label}</button>
+                                <button class="${linkstatus} btn btn-secondary ${v.active?"active":""}" disabled  >${v.label}</button>
                             `)
                         }else{
                             $('#lesson-footer-pagination').append(`
-                                <button class="btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
+                                <button class="${linkstatus} btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
                             `)
                         }
                      })

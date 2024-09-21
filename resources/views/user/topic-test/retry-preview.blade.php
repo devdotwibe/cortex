@@ -1,10 +1,10 @@
 @extends('layouts.exam')
-@section('title', $exam->title)
+@section('title', $exam->subtitle($category->id,"Topic ".($category->getIdx()+1)).':'.$category->name)
 @section('content')
 <section class="exam-container">
-    <div class="container-wrap mcq-container-wrap full-mock-exam-review">
+    <div class="container-wrap mcq-container-wrap topic-test-review">
         <div class="lesson">            
-            <a class="lesson-exit float-start" href="{{route('full-mock-exam.index')}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
+            <a class="lesson-exit float-start" href="{{route('topic-test.index')}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
                 <img src="{{asset("assets/images/exiticon.svg")}}" alt="exiticon">
             </a> 
             <div class="lesson-body"> 
@@ -34,7 +34,7 @@
             return result;
         }
         function loadlessonreview(reviewurl){ 
-            $.get(reviewurl||"{{ route('full-mock-exam.preview',$userExamReview->slug) }}",function(res){
+            $.get(reviewurl||"{{ route('topic-test.retry.preview', ['user_exam_review' => $userExamReview->slug, 'exam_retry_review' => $examRetryReview->slug]) }}",function(res){
                 $('.pagination-arrow').hide();
                 $('#lesson-footer-pagination').html('')
                 const lesseonId=generateRandomId(10); 
@@ -47,9 +47,9 @@
                                 </div>
                                 <div class="mcq-container">
                                     <div class="mcq-group">
-                                        <h5><span>{{$exam->title}}</span></h5>
+                                        <h5><span>{{$exam->subtitle($category->id,"Topic ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h5>
                                         <div class="mcq-title-text" ${v.title_text?"":'style="display:none"'}>
-                                            ${v.title_text||}
+                                            ${v.title_text||""}
                                         </div>
                                         <div id="mcq-${lesseonId}">
                                             ${v.note||""}
@@ -57,8 +57,8 @@
                                     </div> 
                                     <div class="mcq-group-right">
                                         <div  class="mcq-description">
-                                            ${v.sub_question||}
-                                        </div> 
+                                            ${v.sub_question||""}
+                                        </div>
                                         <div id="mcq-${lesseonId}-ans" class="form-group">
                                             <div class="form-data" >
                                                 <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list"> 
@@ -71,7 +71,7 @@
                                             ${v.explanation||''}
                                         </div>
 
-                                        <div id="mcq-${lesseonId}-ans-progress" class="form-group">
+                                        {{-- <div id="mcq-${lesseonId}-ans-progress" class="form-group">
                                             <div class="form-data" >
                                                 <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list-progress"> 
                                                     
@@ -80,13 +80,13 @@
                                             <div>
                                                 <p>You spent ${v.time_taken||0} seconds on this question. The average student spent ${v.total_user_taken_time||0} seconds on this question<p>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                             </div>
                         </div>
                     `).fadeIn();
-                    $.get("{{ route('full-mock-exam.preview',$userExamReview->slug) }}",{question:v.slug},function(ans){
+                    $.get("{{ route('topic-test.retry.preview', ['user_exam_review' => $userExamReview->slug, 'exam_retry_review' => $examRetryReview->slug]) }}",{question:v.slug},function(ans){
                         $(`#mcq-${lesseonId}-list`).html('')
                         $(`#mcq-${lesseonId}-list-progress`).html('')
                         $.each(ans,function(ai,av){
