@@ -3,7 +3,10 @@
 @section('content')
 <section class="container set-container">
     <div class="container-wrap">
-        <div class="lesson">
+        <div class="lesson">                  
+            <a class="lesson-exit float-start" href="{{route('question-bank.index')}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
+                <img src="{{asset("assets/images/exiticon.svg")}}" alt="exiticon">
+            </a> 
             <div class="lesson-title">
                 <h3><span>{{$exam->subtitle($category->id,"Topic ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h3>
             </div> 
