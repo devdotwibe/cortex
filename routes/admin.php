@@ -237,6 +237,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::get('/',[LiveClassController::class,'index'])->name('index');
 
             Route::post('/',[LiveClassController::class,'store'])->name('store');
+            Route::post('/private/class/{private_class}/requests/show',[LiveClassController::class,'private_class_request_show'])->name('request.show');
             Route::post('/private/class/{private_class}/requests/accept',[LiveClassController::class,'private_class_request_accept'])->name('request.accept');
             Route::post('/private/class/{private_class}/requests/reject',[LiveClassController::class,'private_class_request_reject'])->name('request.reject');
             Route::get('/private/class/{private_class}/requests/status',[LiveClassController::class,'private_class_request_status'])->name('request.status');

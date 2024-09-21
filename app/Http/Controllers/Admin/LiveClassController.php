@@ -163,8 +163,8 @@ class LiveClassController extends Controller
                 $action="";
                 if($data->status=="pending"&&!empty($data->user)){
                     $action.='
-                    <a  class="btn btn-danger btn-sm" onclick="rejectrequest('."'".route("admin.live-class.request.reject",$data->slug)."'".')" > Reject </a> 
-                    <a  class="btn btn-success btn-sm" onclick="acceptrequest('."'".route("admin.live-class.request.accept",$data->slug)."'".')" > Accept </a> 
+                    <a  class="btn btn-danger btn-sm" onclick="rejectrequest('."'".route("admin.live-class.request.show",$data->slug)."'".')" > Reject </a> 
+                    <a  class="btn btn-success btn-sm" onclick="acceptrequest('."'".route("admin.live-class.request.show",$data->slug)."'".')" > Accept </a> 
                     ';
                 }
                 $action.='
