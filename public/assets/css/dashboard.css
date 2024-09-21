@@ -1680,6 +1680,7 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 #review-history-modal .modal-content .modal-body {padding: 0;}
 #review-history-modal .modal-content .table-outer table { min-width: 418px;}
 #review-history-modal .modal-dialog {max-width: 700px;}
+#review-history-modal .modal-content .table-outer::-webkit-scrollbar { display: none;}
 
 
 
