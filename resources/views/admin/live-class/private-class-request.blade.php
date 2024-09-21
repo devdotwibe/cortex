@@ -264,8 +264,9 @@
 
             })
         })
-        $('#timeslot-list').select2({
+        $('#timeslot-list').val("").select2({
             placeholder:"Select an Timeslot",
+            allowClear: true,
             data:[
                 {
                     text:"Saturday 9:30 - 11:30 a.m (Online)",
