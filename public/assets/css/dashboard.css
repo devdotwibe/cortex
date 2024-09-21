@@ -1874,6 +1874,19 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .exam-container .question-bank-review .lesson #lesson-footer-pagination button.status-bad.btn.active { font-weight: 600;  border-color: #fda7a0;}
 
 
+
+.workshop-wrap .workshop-content {width: 100%;}
+.workshop-wrap .workshop-content h2 { font-size: 20px; font-weight: 700;  margin: 0 0 14px;}
+.workshop-wrap .workshop-content p {font-size: 20px;line-height: 1.5; margin: 0 0 15px;}
+.workshop-wrap .workshop-content p strong { font-weight: bold;}
+.workshop-wrap .workshop-content ul { width: 100%;}
+.workshop-wrap .workshop-content ul li { font-size: 20px; line-height: 1.5; margin: 0 0 15px; padding-left: 15px; position: relative;}
+.workshop-wrap .workshop-content ul li:before { content: "\2022"; position: relative; left: -10px;}
+.workshop-action .btn { background: #FBAE1E; color: #fff; border: 1px solid #FBAE1E;  padding: 8px 24px;  font-weight: 500;}
+.workshop-action .btn:hover { background: none; color: #FBAE1E;}
+
+
+
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
 
