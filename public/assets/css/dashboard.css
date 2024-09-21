@@ -1863,9 +1863,9 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .exam-container .question-bank-review .lesson #lesson-footer-pagination button.status-exelent.btn:hover { color: #AEEFA0;}
 .exam-container .question-bank-review .lesson #lesson-footer-pagination button.status-bad.btn:hover { color: #EFC9C6;}
 
-.exam-container .question-bank-review .lesson #lesson-footer-pagination button.status-good.btn.active { color: #ffd770; font-weight: 500; border-color: #ffd770;}
-.exam-container .question-bank-review .lesson #lesson-footer-pagination button.status-exelent.btn.active { color: #90f07c;font-weight: 500;  border-color: #90f07c;}
-.exam-container .question-bank-review .lesson #lesson-footer-pagination button.status-bad.btn.active { color: #fda7a0;font-weight: 500;  border-color: #fda7a0;}
+.exam-container .question-bank-review .lesson #lesson-footer-pagination button.status-good.btn.active {  font-weight: 500; border-color: #ffd770;}
+.exam-container .question-bank-review .lesson #lesson-footer-pagination button.status-exelent.btn.active { font-weight: 500;  border-color: #90f07c;}
+.exam-container .question-bank-review .lesson #lesson-footer-pagination button.status-bad.btn.active { font-weight: 500;  border-color: #fda7a0;}
 
 
 @media screen and (max-width:1500px) {
