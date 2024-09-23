@@ -31,9 +31,7 @@
                                 <h2>{{ $item->name }}</h2>
                             </div>
                             <div class="lesson-row-sets"> 
-                                @foreach ($item->setname()->whereHas('questions',function($qry)use($exam){
-                                    $qry->where('exam_id',$exam->id);
-                                })->get() as $sk=> $set)
+                                @foreach ($item->setname()->has('questions')->get() as $sk=> $set)
                                     <div class="sets-item">
                                         @if ($user->is_free_access||(optional($user->subscription())->status??"")=="subscribed"||($k == 0&&$sk==0)) 
                                         <a @if($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$item->id.'-set-'.$set->id.'-complete-review',"no")=="yes") @elseif($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$item->id.'-set-'.$set->id.'-complete-date',"")=="")  @guest('admin') onclick="confimexam('{{route('question-bank.set.show',['category'=>$category->slug,'sub_category'=>$item->slug,'setname'=>$set->slug])}}')" @endguest @else onclick="loadlessonsetreviews('{{route('question-bank.set.history',['category'=>$category->slug,'sub_category'=>$item->slug,'setname'=>$set->slug])}}')" @endif >
