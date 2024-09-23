@@ -134,7 +134,7 @@ class HomeController extends Controller
         return redirect()->route('login')->with('success', " Account created Succesfully");
     }
     public function verifyemail($id,$hash){
-        $user=User::find($id);
+        $user=User::findOrFail($id);
         if($hash==sha1($user->email)&&!$user->hasVerifiedEmail()){
             $user->markEmailAsVerified();
             event(new Verified($user));
