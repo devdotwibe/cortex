@@ -154,7 +154,7 @@
                                         <div id="note-${lesseonId}-ans" class="form-group">
                                             <div class="form-data">
                                                 <div class="forms-inputs mb-4">
-                                                    <input type="text" name="answer" data-question="${v.slug}" id="user-answer-${lesseonId}" value="" class="form-control" placeholder="Write your answer hear" aria-placeholder="Write your answer hear" >
+                                                    <input type="text" name="answer" data-question="${v.slug}" id="user-answer-${lesseonId}" value="" class="form-control" placeholder="Write your answer hear" aria-placeholder="Write your answer hear" autocomplete="off" >
                                                     <div class="invalid-feedback" id="error-answer-field" >The field is required</div>
                                                 </div>
                                             </div>
