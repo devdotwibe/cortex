@@ -1414,7 +1414,14 @@ section.post-section .post-item .post-actions a.post-action-btn span{
 }
 .analytic-exam .analytic-exam-category{
   overflow-y: auto; 
+  height: 75vh !important;
 }
+
+.analytic-exam .analytic-exam-category::-webkit-scrollbar {width: 7px;}
+.analytic-exam .analytic-exam-category::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 6px;}
+.analytic-exam .analytic-exam-category::-webkit-scrollbar-thumb { background: #FBAE1E;border-radius: 6px;}
+
+
 .analytic-exam .analytic-exam-category .analytic-exam-category-item,.analytic-exam .analytic-exam-category .analytic-exam-category-item .exam-overview ,.analytic-exam .analytic-exam-category .analytic-exam-category-item .exam-overview .exam-overview-content{
   height: auto;
 }
@@ -1776,12 +1783,12 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 
 
 
-.exam-container .question-bank {padding: 0; max-width: 100%;}
-.exam-container .question-bank .lesson .lesson-body .mcq-container {width: 100%; padding: 50px; display: flex; flex-wrap: wrap; justify-content: space-between; position: relative;}
-.exam-container .question-bank .lesson .lesson-body .mcq-container .mcq-group { width: 50%; padding: 0 35px 0 0;}
-.exam-container .question-bank .lesson .lesson-body .mcq-container .mcq-answer { width: 50%; padding: 0 0 0 35px;}
-.exam-container .question-bank .lesson .lesson-body .mcq-container:after { content: ""; position: absolute; width: 1px; height: 100%; top: 0; left: 50%; transform: translateX(-50%); background: #1599f2;}
-.exam-container .question-bank .lesson .lesson-body .mcq-container .mcq-group h3 {font-size: 20px; font-weight: 500; color: #000000; margin: 0 0 20px;}
+.exam-container .mcq-container-wrap {padding: 0; max-width: 100%;}
+.exam-container .mcq-container-wrap .lesson .lesson-body .mcq-container {width: 100%; padding: 50px; display: flex; flex-wrap: wrap; justify-content: space-between; position: relative;}
+.exam-container .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group { width: 50%; padding: 0 35px 0 0;}
+.exam-container .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer { width: 50%; padding: 0 0 0 35px;}
+.exam-container .mcq-container-wrap .lesson .lesson-body .mcq-container:after { content: ""; position: absolute; width: 1px; height: 100%; top: 0; left: 50%; transform: translateX(-50%); background: #1599f2;}
+.exam-container .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group h3 {font-size: 20px; font-weight: 500; color: #000000; margin: 0 0 20px;}
 
 
 .exam-container .question-bank-review { max-width: 100%; padding: 0; position: relative;}
@@ -1922,6 +1929,13 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .learn-inner-section .lesson .lesson-body { margin: 0;}
 
 .exam-container .container-wrap .lesson .lesson-body .mcq-group h5 {font-size: 20px;  font-weight: 500; color: #000000; margin: 0 0 20px;}
+
+
+.content_section .row { margin: 0;}
+.content_section .card { border: none; border-radius: 10px;}
+
+
+.header_nav .header_wrapp .header_content select.form-control {border: 1px solid #E6E6E6; height: 43px; padding: 8px 22px 8px 8px; background: url(../images/chevron-down.svg) no-repeat center; background-size: 12px; background-position-x: 95%;}
 
 
 @media screen and (max-width:1500px) {

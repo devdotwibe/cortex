@@ -18,7 +18,7 @@
         </div>
     </div>
 </section>
-<section class="content_section">
+<section class="content_section admin_section">
     <div class="container">
         <div class="row">
             <x-ajax-table :coloumns='[

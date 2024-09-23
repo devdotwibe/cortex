@@ -19,7 +19,7 @@
         </div>
     </div>
 </section>
-<section class="content_section">
+<section class="content_section admin_section">
     <div class="container">
         <div class="row">
            
@@ -150,7 +150,7 @@
 </section>
 
 
-<section class="content_section" id="subcategory-content-section" style="display: none">
+<section class="content_section admin_section" id="subcategory-content-section" style="display: none">
     <div class="container">
         <div class="row" id="subcategory-list">
 

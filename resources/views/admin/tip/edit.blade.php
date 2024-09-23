@@ -10,7 +10,7 @@
     </div>
 </section>
 
-<section class="content_section">
+<section class="content_section admin_section">
     <div class="container">
         <div class="row">
             <div class="card">
