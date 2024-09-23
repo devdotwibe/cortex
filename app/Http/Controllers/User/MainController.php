@@ -262,7 +262,8 @@ class MainController extends Controller
         ];
     }
     public function logout(Request $request){
-        Auth::logout();
+        Auth::guard('web')->logout();
+        Auth::guard('admin')->logout();
         $request->session()->invalidate();
         $request->session()->regenerate();
         $request->session()->regenerateToken();
