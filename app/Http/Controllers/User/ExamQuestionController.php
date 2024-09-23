@@ -312,6 +312,9 @@ class ExamQuestionController extends Controller
             ->addColumn('progress',function($data){
                 return $data->progress."%";
             })
+            ->addColumn('timed',function($data)use($user){
+                return $user->progress("exam-review-".$data->id."-timed");
+            })
             ->addColumn('date',function($data){
                 return Carbon::parse($data->created_at)->format('Y-m-d h:i a');
             })
