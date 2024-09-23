@@ -1924,6 +1924,10 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .exam-container .container-wrap .lesson .lesson-body .mcq-group h5 {font-size: 20px;  font-weight: 500; color: #000000; margin: 0 0 20px;}
 
 
+.content_section .row { margin: 0;}
+.content_section .card { border: none; border-radius: 10px;}
+
+
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
 
