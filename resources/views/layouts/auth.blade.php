@@ -11,6 +11,7 @@
     <title> 
         @hasSection('title') @yield('title') | @endif   {{config('app.name')}}
     </title>
+    <link rel="shortcut icon" href="{{ asset("assets/images/favicon.png") }}" type="image/x-icon">
     <link rel="stylesheet" href="{{asset("assets/css/bootstrap.min.css")}}"> 
     <link rel="stylesheet" href="{{asset("assets/css/style.css")}}"> 
 </head>
