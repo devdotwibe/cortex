@@ -459,6 +459,8 @@
         }).val("").change()
         $('#user-acceptreq-form').submit(function(e){
             e.preventDefault()
+            $('.form-control').removeClass('is-invalid')
+            $('.invalid-feedback').text('')
             $.post($(this).attr('action'),$(this).serialize(),function(res){
                 if(res.success){
                     showToast(res.success||"Time slot Accepted",'success'); 
@@ -470,7 +472,7 @@
                 $('#user-acceptreq-modal').modal('hide')
             },'json').fail(function(xhr){
                 try {
-                    let res = JSON.parse(xht.responseText); 
+                    let res = JSON.parse(xhr.responseText); 
                     $.each(res.errors,function(k,v){
                         $(`#user-acceptreq-form-${k}`).addClass('is-invalid')
                         $(`#user-acceptreq-form-${k}-error`).text(v[0])
@@ -498,6 +500,8 @@
 
         $('#user-updatetreq-form').submit(function(e){
             e.preventDefault()
+            $('.form-control').removeClass('is-invalid')
+            $('.invalid-feedback').text('')
             $.post($(this).attr('action'),$(this).serialize(),function(res){
                 if(res.success){
                     showToast(res.success||"Time slot Accepted",'success'); 
