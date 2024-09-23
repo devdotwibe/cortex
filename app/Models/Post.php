@@ -19,7 +19,7 @@ class Post extends Model
         'type', 
         'image', 
         'video', 
-        'user_id',  
+        'userid',  
         'status',
         'visible_status',
     ];
@@ -35,6 +35,9 @@ class Post extends Model
     }
     public function likes(){
         return $this->hasMany(PostLike::class);
+    }
+    public function hashtaglist(){
+        return $this->hasMany(Hashtag::class);
     }
     public function comments(){
         return $this->hasMany(PostComment::class);

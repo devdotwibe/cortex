@@ -36,7 +36,7 @@ class PagesController extends Controller
     {
         // Validate the request data for Section 1
         $request->validate([
-            'title' => 'required|string|max:255',
+            'title1' => 'required|string|max:255',
             'subtitle' => 'required|nullable|string|max:255',
             'content' => 'required|nullable|string',
             'buttonlabel' => 'required|nullable|string|max:255',
@@ -52,7 +52,7 @@ class PagesController extends Controller
             $banner = new Banner;
         }
 
-        $banner->title = $request->input('title');
+        $banner->title = $request->input('title1');
         $banner->subtitle = $request->input('subtitle');
         $banner->content = $request->input('content');
         $banner->buttonlabel = $request->input('buttonlabel');

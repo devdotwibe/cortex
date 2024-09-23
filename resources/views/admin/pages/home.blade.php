@@ -83,7 +83,7 @@
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
                                                         <label for="title">Title</label>
-                                                        <input type="text" name="title" id="title"
+                                                        <input type="text" name="title1" id="title"
                                                             value="{{ old('title', optional($banner)->title) }}"
                                                             class="form-control" placeholder="Title">
                                                         @error('title')
