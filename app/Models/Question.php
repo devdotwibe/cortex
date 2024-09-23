@@ -22,7 +22,9 @@ class Question extends Model
         'sub_category_set',
         'slug',
         'explanation',
-        'visible_status'
+        'visible_status',
+        'title_text',
+        'sub_question'
     ];
     public function category(){
         return $this->belongsTo(Category::class);
