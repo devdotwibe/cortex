@@ -102,6 +102,7 @@
                         <th>Sl.No</th>
                         <th>Date</th>
                         <th>Progress</th>
+                        <th>Timed</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -171,6 +172,12 @@
                     {
                         data: 'progress',
                         name: 'progress',
+                        orderable: true,
+                        searchable: false,
+                    },
+                    {
+                        data: 'timed',
+                        name: 'timed',
                         orderable: true,
                         searchable: false,
                     },
