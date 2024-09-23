@@ -1940,7 +1940,7 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 
 
 .admin_section .table-outer table thead tr th { background: #1989F8;}
-.admin_section .table-outer table .form-check {padding: 0;}
+.admin_section .table-outer table .form-check {padding: 0; min-height: inherit; margin: 5px 0 0;}
 .admin_section .table-outer table .form-check input { border: 1.5px solid #FBAE1E; border-radius: 2px; width: 17px; height: 17px;}
 .admin_section .table-outer table { min-width: 1300px;}
 .admin_section .table-outer { overflow-x: auto;}
