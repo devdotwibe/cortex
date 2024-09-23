@@ -509,15 +509,12 @@
                 $('#user-updatetreq-modal').modal('hide')
             },'json').fail(function(xhr){
                 try {
-                    let res = JSON.parse(xht.responseText); 
-                    console.log("res",res)
-                    $.each(res.errors,function(k,v){
-                        console.log(k,v)
+                    let res = JSON.parse(xhr.responseText);  
+                    $.each(res.errors,function(k,v){ 
                         $(`#user-updatetreq-form-${k}`).addClass('is-invalid')
                         $(`#user-updatetreq-form-${k}-error`).text(v[0])
                     })
-                } catch (error) {
-                    console.log("rses",error)
+                } catch (error) { 
                     
                 }
             })
