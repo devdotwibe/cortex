@@ -565,17 +565,25 @@ class CommunityController extends Controller
         }
         PollOption::where('post_id', $post->id)->whereNotIn('id', $ids)->delete();
 
-        preg_match_all('/#\w+/',  $data['description'], $hashtags);
-        $extractedHashtags = $hashtags[0];
-        $hashIds = [];
+        // preg_match_all('/#\w+/',  $data['description'], $hashtags);
+        // $extractedHashtags = $hashtags[0];
+        // $hashIds = [];
+        // foreach ($extractedHashtags as $hashtag) {
+
+        //     $hash = Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
+        //     $hashIds[] = $hash->id;
+        // }
+        // Hashtag::where('post_id', $post->id)->whereNotIn('id', $hashIds)->delete();
+
+        $hashIds=[];
+        $extractedHashtags = array_map('trim', explode(',', $request->input('hashtag','')));
         foreach ($extractedHashtags as $hashtag) {
-
-            $hash = Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
-            $hashIds[] = $hash->id;
+            if (!empty($hashtag)) {
+                $hash=Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
+                $hashIds[]=$hash->id;
+            }
         }
-        Hashtag::where('post_id', $post->id)->whereNotIn('id', $hashIds)->delete();
-
-
+        Hashtag::where('post_id',$post->id)->whereNotIn('id',$hashIds)->delete();
         return redirect()->route('community.index')->with('success', "Post updated");
     }
     public function destroy(Request $request, Post $post)
