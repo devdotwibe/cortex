@@ -221,13 +221,19 @@ class CommunityController extends Controller
         }
 
 
-        // Extract and store hashtags from the description
-        preg_match_all('/#\w+/', $data['description'], $hashtags);
-        $extractedHashtags = $hashtags[0];
-        foreach ($extractedHashtags as $hashtag) {
-            Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
-        }
-
+        // // Extract and store hashtags from the description
+        // preg_match_all('/#\w+/', $data['description'], $hashtags);
+        // $extractedHashtags = $hashtags[0];
+        // foreach ($extractedHashtags as $hashtag) {
+        //     Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
+        // }
+ // Split hashtags by commas or spaces   
+ $extractedHashtags = array_map('trim', explode(',', $request->input('hashtag','')));
+ foreach ($extractedHashtags as $hashtag) {
+     if (!empty($hashtag)) {
+         Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
+     }
+ }
 
         return redirect()->route('community.index')->with('success', "Post published");
     }
