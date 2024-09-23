@@ -55,7 +55,7 @@
                                             ${v.note||""}
                                         </div>
                                     </div> 
-                                    <div class="mcq-group-right">
+                                    <div class="mcq-answer mcq-group-right">
                                         <div  class="mcq-description">
                                             ${v.sub_question||""}
                                         </div>

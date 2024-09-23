@@ -421,18 +421,16 @@
                                                 ${v.description}
                                             </div>
                                         </div> 
-                                        <div class="mcq-group-right">
+                                        <div class="mcq-answer mcq-group-right">
                                             <div  class="mcq-description">
                                                 ${v.sub_question||""}
-                                            </div> 
-                                            <div class="mcq-answer">
-                                                <div id="mcq-${lesseonId}-ans" class="form-group" >
-                                                    <div class="form-data" >
-                                                        <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list"> 
-                                                            
-                                                        </div> 
-                                                    </div>
-                                                </div>
+                                            </div>  
+                                            <div id="mcq-${lesseonId}-ans" class="form-group" >
+                                                <div class="form-data" >
+                                                    <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list"> 
+                                                        
+                                                    </div> 
+                                                </div> 
                                             </div>
                                         </div>
                                     </div>
