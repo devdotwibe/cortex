@@ -46,6 +46,11 @@
                             {!! $post->description !!}
                         `;
                     </script> 
+                     <div class="post-hashtags" id="post-hashtags">
+                        @foreach ($post->hashtaglist as $t)
+                            <span class="badge bg-secondary">{{$t->hashtag}}</span>
+                        @endforeach
+                    </div>
                     @php
                         $tvotes=$post->pollOption->sum('votes');
                     @endphp
