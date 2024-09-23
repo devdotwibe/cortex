@@ -31,7 +31,7 @@
                                 <h2>{{ $item->name }}</h2>
                             </div>
                             <div class="lesson-row-sets"> 
-                                @foreach ($item->setname()->has('questions',function($qry)use($exam){
+                                @foreach ($item->setname()->whereHas('questions',function($qry)use($exam){
                                     $qry->where('exam_id',$exam->id);
                                 })->get() as $sk=> $set)
                                     <div class="sets-item">
