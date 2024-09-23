@@ -227,6 +227,12 @@ class ExamQuestionController extends Controller
             "category_id"=>$category->id,
             "sub_category_id"=>$subCategory->id,
             "sub_category_set"=>$setname->id,
+            "timed"=>$request->input("timed",'timed'),
+            "timetaken"=>$request->input("timetaken",'0'),
+            "flags"=>$request->input("flags",'[]'),
+            "times"=>$request->input("times",'[]'),
+            "passed"=>$request->input("passed",'0'),
+            "time_of_exam"=>$setname->time_of_exam,
         ]);
         $user->setProgress("exam-review-".$review->id."-timed",$request->input("timed",'timed'));
         $user->setProgress("exam-review-".$review->id."-timetaken",$request->input("timetaken",'0'));
