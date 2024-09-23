@@ -129,6 +129,8 @@
                         <img src="${v.image}" alt="">
                     `;
                 }
+                let hashtag = '';
+                console.log(v.hashtags);
 
                 $('#post-item-list').append(`
                     <div class="post-item" id="post-item-${v.slug}">  
@@ -150,6 +152,9 @@
                         </div>
                         <div class="post-content">
                             ${v.description||""}
+                        </div>
+                         <div class="post-content">
+                            ${v.hashtags||""}
                         </div>
                         <div class="poll-options">
                             ${polloption}
