@@ -1655,7 +1655,7 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 
 .table-outer { width: 100%; background: #fff;box-shadow: 1px -1px 20px 8px #0000000A; padding: 10px; border-radius: 10px;}
 .table-outer table { width: 100%;}
-.table-outer table thead tr th { padding: 12px; background: #000; color: #fff;}
+.table-outer table thead tr th { padding: 12px; background: #000; color: #fff;vertical-align: middle;}
 .table-outer table tbody tr { border-bottom: 1px solid rgb(0 0 0 / 10%);}
 .table-outer table tbody tr:last-child {border-bottom: none;}
 .table-outer table tbody tr td { padding: 8px 12px; vertical-align: middle;}
