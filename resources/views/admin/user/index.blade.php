@@ -6,12 +6,24 @@
         <div class="header_title">
             <h2>Users</h2>
         </div>
+
+        <div class="header_content">
+            <div class="form-group">
+                <select id="user-filter" class="form-control">
+                    <option value="">All users</option>
+                    <option value="free-users">Free users</option>
+                    <option value="paid-users">Paid users</option>
+                    <option value="student-users">Student users</option>
+                </select>
+            </div>
+        </div>
         <div class="header_right">
             <ul class="nav_bar">
                 <li class="nav_item"><a href="{{route('admin.subscriber.index')}}" class="nav_link btn">Subscriber</a></li>
             </ul>
         </div>
     </div>
+    
 </section>
 {{-- <section class="content_section admin_section">
     <div class="container">
