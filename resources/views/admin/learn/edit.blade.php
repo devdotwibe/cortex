@@ -7,16 +7,7 @@
             <h2>{{ $category->name }}</h2>
         </div> 
     </div>
-</section>
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+</section> 
 <section class="invite-wrap mt-2">
     <div class="container">
        
