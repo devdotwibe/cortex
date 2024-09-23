@@ -44,7 +44,7 @@
     <div class="container-wrap" id="question-answer-page">
         <div class="lesson">  
             <div class="lesson-title">
-                <h3><span>{{$homeWorkBook->title}}</span></h3>
+                <h5><span>{{$homeWorkBook->title}}</span></h5>
             </div>
             <div class="lesson-body"> 
                 <div class="row" id="lesson-questionlist-list" style="display: none">

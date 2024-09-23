@@ -10,7 +10,7 @@
                 </a>
                 <div class="lesson-title">
                     <button class="btn btn-danger btn-sm float-end" onclick="printdata()">Print</button>
-                    <h3><span>{{ ucfirst($subLessonMaterial->pdf_name) }}</h3>
+                    <h5><span>{{ ucfirst($subLessonMaterial->pdf_name) }}</h5>
                 </div>
                 <div class="lesson-body">
                     <div id="lesson-pdf-body" class="lesson-pdf-body"> 

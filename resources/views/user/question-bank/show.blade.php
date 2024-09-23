@@ -8,7 +8,7 @@
                 <img src="{{asset("assets/images/exiticon.svg")}}" alt="exiticon">
             </a> 
             <div class="lesson-title">
-                <h3><span>{{$exam->subtitle($category->id,"Topic ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h3>
+                <h5><span>{{$exam->subtitle($category->id,"Topic ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h5>
             </div> 
             <div class="lesson-option">
                 <div class="option-toggle">

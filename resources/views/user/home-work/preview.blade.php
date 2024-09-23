@@ -8,7 +8,7 @@
                 <img src="{{asset("assets/images/exiticon.svg")}}" alt="exiticon">
             </a>
             <div class="lesson-title">
-                <h3><span>{{$homeWorkBook->title}}</span></h3>
+                <h5><span>{{$homeWorkBook->title}}</span></h5>
             </div>
             <div class="lesson-body"> 
                 <div class="row" id="lesson-questionlist-list" style="display: none">
