@@ -39,11 +39,12 @@ class MainController extends Controller
         ]);
     }
     public function logout(Request $request){
+        Auth::guard('web')->logout();
         Auth::guard('admin')->logout();
         $request->session()->invalidate();
         $request->session()->regenerate();
         $request->session()->regenerateToken();
-        return redirect()->route('admin.login');
+        return redirect()->route('login');
     }
 
     public function uploadstatus(Request $request,$tag){ 

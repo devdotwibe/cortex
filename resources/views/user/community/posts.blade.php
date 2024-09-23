@@ -35,14 +35,17 @@
                 </a>
             </div>
 
-                {{-- <a href="{{ route('community.index') }}" class="btn btn-primary mb-3"> Back to All</a> --}}
-                <ul class="list-group">
+              
+            <div class="d-flex flex-wrap"> <!-- Added d-flex and flex-wrap for inline display -->
+                <ul class="list-group" style="flex-direction: row; list-style: none; padding-left: 0;"> <!-- Inline list with no bullets -->
                     @foreach ($hashtags as $hashtag)
-                        <li class="list-group-item">
+                        <li class="list-group-item d-inline-block" style="margin-right: 10px; border: none;"> <!-- Display as inline block and remove border -->
                             <a href="{{ route('community.index', ['hashtag' => $hashtag]) }}">{{ $hashtag }}</a>
                         </li>
                     @endforeach
                 </ul>
+            </div>
+            
             </div>
      
         </div>

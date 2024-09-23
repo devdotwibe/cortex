@@ -9,7 +9,7 @@
         <div class="critical-reasoning-col1">
             @forelse ($tips as $index => $tip)
                 <div class="critical-reasoning-row1">
-                    <h3 data-target="tab{{ $index + 1 }}">{{ strip_tags($tip->tip) }}</h3>
+                    <h3 data-target="tab{{ $index + 1 }}">{!!$tip->tip!!}</h3>
                 </div>
             @empty
                 <p>No tips available.</p>
@@ -20,8 +20,8 @@
         <div class="critical-reasoning-col2">
             @forelse ($tips as $index => $tip)
                 <div class="critical-reasoning-conten" id="tab{{ $index + 1 }}">
-                    <p>{{ strip_tags($tip->content) }}</p>
-                    <p>{{ strip_tags($tip->advice) }}</p>
+                    <p>{!! $tip->content !!}</p>
+                    <p>{!! $tip->advice !!}</p>
                 </div>
             @empty
                 <p>No content available.</p>

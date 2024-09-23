@@ -7,7 +7,7 @@
             <h2>{{ $category->name }}</h2>
         </div> 
     </div>
-</section>
+</section> 
 <section class="invite-wrap mt-2">
     <div class="container">
        

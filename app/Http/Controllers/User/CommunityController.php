@@ -140,6 +140,7 @@ class CommunityController extends Controller
                     "title" => $row->title,
                     "type" => $row->type,
                     "description" => $row->description,
+                    "hashtags"=>$row->hashtaglist()->pluck('hashtag'),
                     "likes" => $row->likes()->count(),
                     "comments" => $row->comments()->whereNull('post_comment_id')->count(),
                     "image" => $row->image,
@@ -221,13 +222,19 @@ class CommunityController extends Controller
         }
 
 
-        // Extract and store hashtags from the description
-        preg_match_all('/#\w+/', $data['description'], $hashtags);
-        $extractedHashtags = $hashtags[0];
-        foreach ($extractedHashtags as $hashtag) {
-            Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
-        }
-
+        // // Extract and store hashtags from the description
+        // preg_match_all('/#\w+/', $data['description'], $hashtags);
+        // $extractedHashtags = $hashtags[0];
+        // foreach ($extractedHashtags as $hashtag) {
+        //     Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
+        // }
+ // Split hashtags by commas or spaces   
+ $extractedHashtags = array_map('trim', explode(',', $request->input('hashtag','')));
+ foreach ($extractedHashtags as $hashtag) {
+     if (!empty($hashtag)) {
+         Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
+     }
+ }
 
         return redirect()->route('community.index')->with('success', "Post published");
     }
@@ -559,17 +566,25 @@ class CommunityController extends Controller
         }
         PollOption::where('post_id', $post->id)->whereNotIn('id', $ids)->delete();
 
-        preg_match_all('/#\w+/',  $data['description'], $hashtags);
-        $extractedHashtags = $hashtags[0];
-        $hashIds = [];
+        // preg_match_all('/#\w+/',  $data['description'], $hashtags);
+        // $extractedHashtags = $hashtags[0];
+        // $hashIds = [];
+        // foreach ($extractedHashtags as $hashtag) {
+
+        //     $hash = Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
+        //     $hashIds[] = $hash->id;
+        // }
+        // Hashtag::where('post_id', $post->id)->whereNotIn('id', $hashIds)->delete();
+
+        $hashIds=[];
+        $extractedHashtags = array_map('trim', explode(',', $request->input('hashtag','')));
         foreach ($extractedHashtags as $hashtag) {
-
-            $hash = Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
-            $hashIds[] = $hash->id;
+            if (!empty($hashtag)) {
+                $hash=Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
+                $hashIds[]=$hash->id;
+            }
         }
-        Hashtag::where('post_id', $post->id)->whereNotIn('id', $hashIds)->delete();
-
-
+        Hashtag::where('post_id',$post->id)->whereNotIn('id',$hashIds)->delete();
         return redirect()->route('community.index')->with('success', "Post updated");
     }
     public function destroy(Request $request, Post $post)

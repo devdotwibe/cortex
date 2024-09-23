@@ -233,6 +233,13 @@ class LearnController extends Controller
                     $learn_data=$request->validate([
                         "category_id"=>['required'],
                         "sub_category_id"=>['required'],
+                        "note"=>['required'], 
+                    ]);
+                    break;
+                case 'short_notes':
+                    $learn_data=$request->validate([
+                        "category_id"=>['required'],
+                        "sub_category_id"=>['required'],
                         "short_question"=>['required'],
                         "short_answer"=>["required"],
                     ]);

@@ -26,5 +26,9 @@ class Setname extends Model
     {
         return $this->belongsTo(SubCategory::class);
     }
+    public function questions()
+    {
+        return $this->hasMany(Question::class,'sub_category_set');
+    }
    
 }

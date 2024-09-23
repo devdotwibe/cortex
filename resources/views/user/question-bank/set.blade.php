@@ -289,7 +289,7 @@
         var examActive=true;
         var timetaken=0;
         function toglepreviewpage(){
-            timerActive=!timerActive; 
+            // timerActive=!timerActive; 
             $('#question-preview-page').slideToggle()
             $('#question-answer-page').fadeToggle()
         }
@@ -422,15 +422,15 @@
                                         <div class="mcq-group">
                                             <h3><span>{{$exam->subtitle($category->id,"Topic ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h3>
                                             <div class="mcq-title-text" ${v.title_text?"":'style="display:none"'}>
-                                                ${v.title_text}
+                                                ${v.title_text||""}
                                             </div>
                                             <div id="mcq-${lesseonId}" class="mcq-description">
-                                                ${v.description}
+                                                ${v.description||""}
                                             </div>
                                         </div>
                                         <div class="mcq-answer">
                                             <div  class="mcq-description">
-                                                ${v.sub_question}
+                                                ${v.sub_question||""}
                                             </div>
                                             <div id="mcq-${lesseonId}-ans" class="form-group" >
                                                 <div class="form-data" >

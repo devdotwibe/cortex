@@ -279,10 +279,10 @@
             
         }
         function toglepreviewpage(){
-            summery.timerActive=!summery.timerActive; 
+            // summery.timerActive=!summery.timerActive; 
             $('#question-preview-page').slideToggle()
             $('#question-answer-page').fadeToggle()
-            summery.save();
+            // summery.save();
         }
         function d2s(number){
             return (number??0).toLocaleString('en-US', { minimumIntegerDigits: 2 })
@@ -415,7 +415,7 @@
                                         <div class="mcq-group">
                                             <h5><span>{{$exam->title}}</span></h5>
                                             <div class="mcq-title-text" ${v.title_text?"":'style="display:none"'}>
-                                                ${v.title_text}
+                                                ${v.title_text||""}
                                             </div>
                                             <div id="mcq-${lesseonId}" class="mcq-description">
                                                 ${v.description}
@@ -423,7 +423,7 @@
                                         </div> 
                                         <div class="mcq-group-right">
                                             <div  class="mcq-description">
-                                                ${v.sub_question}
+                                                ${v.sub_question||""}
                                             </div> 
                                             <div class="mcq-answer">
                                                 <div id="mcq-${lesseonId}-ans" class="form-group" >

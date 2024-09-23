@@ -277,10 +277,10 @@
             }
         });    
         function toglepreviewpage(){
-            summery.timerActive=!summery.timerActive; 
+            // summery.timerActive=!summery.timerActive; 
             $('#question-preview-page').slideToggle()
             $('#question-answer-page').fadeToggle()
-            summery.save()
+            // summery.save()
         }
         function d2s(number){
             return (number??0).toLocaleString('en-US', { minimumIntegerDigits: 2 })

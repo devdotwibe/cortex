@@ -99,7 +99,7 @@ class SubmitReview implements ShouldQueue
                     $user_answer=$user->progress("exam-".$exam->id."-module-".$category->id."-lesson-".$subCategory->id."-answer-of-".$learn->slug,"");
                     break;
                 case 'mcq': 
-                    $note=$learn->short_question; 
+                    $note=$learn->mcq_question; 
                     $user_answer=$user->progress("exam-".$exam->id."-module-".$category->id."-lesson-".$subCategory->id."-answer-of-".$learn->slug,"");
                     break;
                 default:
