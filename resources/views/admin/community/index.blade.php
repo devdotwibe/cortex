@@ -1,79 +1,94 @@
 @extends('layouts.admin')
 @section('title', 'Community')
-@section('content') 
-<section class="header_nav">
-    <div class="header_wrapp">
-        <div class="header_title">
-            <h2>Community</h2>
-        </div>      
-        <div class="header_right">
-            <ul class="nav_bar">
-                <li class="nav_item"><a href="{{route('admin.community.report.index')}}" class="nav_link btn">Reported Post</a></li>
-                <li class="nav_item"><a href="{{route('admin.community.post.create')}}" class="nav_link btn">Create Post</a></li>
-            </ul>
-        </div>
-    </div>
-</section>
-
-<section class="post-section" >
-
-    <div class="container">
-        <div class="row">
-            <!-- Left Sidebar for Hashtags -->
-            <div class="col-md-3">
-                <h4>SPACES</h4>
-                 
-
-               <!-- Link styled as a textbox -->
-               <div class="mb-3">
-                <label for="backtoall" class="form-label"></label>
-                <a href="{{ route('admin.community.index') }}" id="backtoall" class="form-control text-decoration-none" style="display: block; padding: 10px; background-color: #f8f9fa; border: 1px solid #ced4da; border-radius: .25rem;">
-                    #Backtoall
-                </a>
+@section('content')
+    <section class="header_nav">
+        <div class="header_wrapp">
+            <div class="header_title">
+                <h2>Community</h2>
             </div>
+            <div class="header_right">
+                <ul class="nav_bar">
+                    <li class="nav_item"><a href="{{ route('admin.community.report.index') }}" class="nav_link btn">Reported
+                            Post</a></li>
+                    <li class="nav_item"><a href="{{ route('admin.community.post.create') }}" class="nav_link btn">Create
+                            Post</a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
 
-                 {{-- <a href="{{ route('admin.community.index') }}" class="btn btn-primary mb-3"> Back to All</a> --}}
-                 {{-- <a href="{{ route('admin.community.index') }}">#Backtoall</a> --}}
+    <section class="post-section">
+
+        <div class="container">
+            <div class="row">
+                <!-- Left Sidebar for Hashtags -->
+                <div class="col-md-3">
+                    <h4>SPACES</h4>
 
 
-                <ul class="list-group">
+                    <!-- Link styled as a textbox -->
+                    <div class="mb-3">
+                        <label for="backtoall" class="form-label"></label>
+                        <a href="{{ route('admin.community.index') }}" id="backtoall"
+                            class="form-control text-decoration-none"
+                            style="display: block; padding: 10px; background-color: #f8f9fa; border: 1px solid #ced4da; border-radius: .25rem;">
+                            #Backtoall
+                        </a>
+                    </div>
+
+
+
+                    {{-- <ul class="list-group">
                     @foreach ($hashtags as $hashtag)
                         <li class="list-group-item">
                             <a href="{{ route('admin.community.index', ['hashtag' => $hashtag]) }}">{{ $hashtag }}</a>
                         </li>
                     @endforeach
-                </ul>
+                </ul> --}}
+
+                    <!-- Hashtag List - Updated to display in a single line -->
+                    <div class="d-flex flex-wrap"> <!-- Added d-flex and flex-wrap to allow wrapping -->
+                        <ul class="list-group" style="flex-direction: row; "> <!-- Display inline with flex -->
+                            @foreach ($hashtags as $hashtag)
+                                <li class="list-group-item d-inline-block" style="margin-right: 10px;">
+                                    <a
+                                        href="{{ route('admin.community.index', ['hashtag' => $hashtag]) }}">{{ $hashtag }}</a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+
+
+
             </div>
-     
         </div>
-    </div>
-    <div class="post-container" id="post-item-list">
-        
-    </div> 
-    <div class="post-action">
-        <button id="load-more-btn" class="btn btn-outline-dark" style="display: none"> Load More </button>
-    </div>
-</section>
+        <div class="post-container" id="post-item-list">
+
+        </div>
+        <div class="post-action">
+            <button id="load-more-btn" class="btn btn-outline-dark" style="display: none"> Load More </button>
+        </div>
+    </section>
 
 @endsection
 
 
 @push('footer-script')
+    <script>
+        function loadpost(url) {
+            $.get(url, function(res) {
+                if (res.next) {
+                    $('#load-more-btn').show().data('url', res.next)
+                } else {
+                    $('#load-more-btn').hide().data('url', null);
+                }
+                $.each(res.data, function(k, v) {
+                    let polloption = ``;
+                    if (v.vote) {
 
-<script>
-    function loadpost(url){
-        $.get(url,function(res){
-            if(res.next){
-                $('#load-more-btn').show().data('url',res.next)
-            }else{
-                $('#load-more-btn').hide().data('url',null);
-            }
-            $.each(res.data,function(k,v){
-                let polloption=``;
-                if(v.vote){
-
-                    $.each(v.poll||[],function(pk,pv){ 
-                        polloption+=`
+                        $.each(v.poll || [], function(pk, pv) {
+                            polloption += `
                         <div class="form-check ${v.vote.option==pv.slug?"voted":"vote"}">
                             <input class="form-check-input" type="radio" name="${v.slug}" id="poll-${v.slug}-option-${pv.slug}" value="${pv.slug}"  >
                             <label class="form-check-label" for="poll-${v.slug}-option-${pv.slug}">
@@ -85,11 +100,11 @@
                             </label>
                         </div>
                         `;
-                    })
-                }else{
+                        })
+                    } else {
 
-                    $.each(v.poll||[],function(pk,pv){
-                        polloption+=`
+                        $.each(v.poll || [], function(pk, pv) {
+                            polloption += `
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="${v.slug}" id="poll-${v.slug}-option-${pv.slug}" value="${pv.slug}" >
                             <label class="form-check-label" for="poll-${v.slug}-option-${pv.slug}">
@@ -101,21 +116,21 @@
                             </label>
                         </div>
                         `;
-                    })
-                }
-                
-                let imagehtml='';
-                if(v.image){
-                    imagehtml=`
+                        })
+                    }
+
+                    let imagehtml = '';
+                    if (v.image) {
+                        imagehtml = `
                         <img src="${v.image}" alt="">
                     `;
-                }
+                    }
 
-                $('#post-item-list').append(`
+                    $('#post-item-list').append(`
                     <div class="post-item" id="post-item-${v.slug}">  
                         <div class="post-header">
                             <div class="avathar">
-                                <img src="{{asset("assets/images/User-blk.png")}}" alt="img">
+                                <img src="{{ asset('assets/images/User-blk.png') }}" alt="img">
                             </div>
                             <div class="title">
                                 <h3>${v.user.name||""}</h3>
@@ -139,20 +154,19 @@
                             ${imagehtml}
                         </div>
                         <div class="post-actions">
-                            <a class="post-action-btn like-btn btn" ><img src="{{asset('assets/images/like.svg')}}" slt="comment"> <span>${v.likes}</span></a>
-                            <a class="post-action-btn comment-btn btn"  ><img src="{{asset('assets/images/comment1.svg')}}" slt="comment"> <span>${v.comments}</span></a>
+                            <a class="post-action-btn like-btn btn" ><img src="{{ asset('assets/images/like.svg') }}" slt="comment"> <span>${v.likes}</span></a>
+                            <a class="post-action-btn comment-btn btn"  ><img src="{{ asset('assets/images/comment1.svg') }}" slt="comment"> <span>${v.comments}</span></a>
                         </div>
                     </div>
                 `)
+                })
+            }, 'json');
+        }
+        $(function() {
+            loadpost("{{ url()->full() }}");
+            $('#load-more-btn').click(function() {
+                loadpost($('#load-more-btn').data('url'))
             })
-        },'json');
-    }
-    $(function(){
-        loadpost("{{url()->full()}}");
-        $('#load-more-btn').click(function(){
-            loadpost($('#load-more-btn').data('url'))
         })
-    })
-</script>
-     
+    </script>
 @endpush

@@ -37,8 +37,8 @@
             </div>
 
 
-                {{-- <a href="{{ route('community.post.index') }}" class="btn btn-primary mb-3"> Back to All</a> --}}
-                <ul class="list-group">
+              
+                {{-- <ul class="list-group">
                     @foreach ($hashtags as $hashtag)
                         <li class="list-group-item">
                             <a href="{{ route('community.post.index', ['hashtag' => $hashtag]) }}">{{ $hashtag }}</a>
@@ -48,7 +48,23 @@
             </div>
      
         </div>
+    </div> --}}
+
+    <div class="d-flex flex-wrap"> <!-- Added d-flex and flex-wrap to allow wrapping -->
+        <ul class="list-group" style="flex-direction: row; "> <!-- Display inline with flex -->
+            @foreach ($hashtags as $hashtag)
+                <li class="list-group-item d-inline-block" style="margin-right: 10px;">
+                    <a href="{{ route('community.post.index', ['hashtag' => $hashtag]) }}">{{ $hashtag }}</a>
+                </li>
+            @endforeach
+        </ul>
     </div>
+
+</div>
+     
+</div>
+</div> 
+
 
     <div class="post-container" id="post-item-list">
         
