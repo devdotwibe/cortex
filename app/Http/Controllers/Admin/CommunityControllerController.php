@@ -53,6 +53,7 @@ class CommunityControllerController extends Controller
                     "title"=>$row->title,
                     "type"=>$row->type,
                     "description"=>$row->description,
+                   "hashtags"=>$row->hashtaglist()->pluck('hashtag'),
                     "likes"=>$row->likes()->count(),
                     "comments"=>$row->comments()->whereNull('post_comment_id')->count(),
                     "image"=>$row->image,
@@ -126,6 +127,9 @@ class CommunityControllerController extends Controller
 
     public function store(Request $request)
 {
+
+
+    // dd('exit');
     /**
      * @var Admin
      */
@@ -135,21 +139,25 @@ class CommunityControllerController extends Controller
     if ($type == "post") {
         $data = $request->validate([
             'type' => ["required"],
-            'description' => ["required"],
-            'image' => ["nullable"],
+             'description' => ["required"],
+          
+            'image' => ["nullable"], 
         ]);
     } else {
         $data = $request->validate([
             'description' => ["required"],
+          
             'type' => ["required"],
             'option' => ["required", 'array', 'min:2', 'max:5'],
             'option.*' => ["required", 'max:255'],
-            'image' => ["nullable"],
+            'image' => ["nullable"], 
         ], [
             'option.required' => "This field is required",
             'option.*.required' => "This field is required",
         ]);
     }
+
+   
 
     $data['status'] = "publish";
     $data['admin_id'] = $admin->id;
@@ -166,13 +174,23 @@ class CommunityControllerController extends Controller
             ]);
         }
     }
+ 
+    // // Extract and store hashtags from the description
+    // preg_match_all('/#\w+/', $data['description'], $hashtags);
+    // $extractedHashtags = $hashtags[0]; 
+    // foreach ($extractedHashtags as $hashtag) {
+    //     Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id'=>$post->id]);
+    // }
 
-    // Extract and store hashtags from the description
-    preg_match_all('/#\w+/', $data['description'], $hashtags);
-    $extractedHashtags = $hashtags[0]; 
-    foreach ($extractedHashtags as $hashtag) {
-        Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id'=>$post->id]);
-    }
+
+    // Extract and store hashtags from the hashtag input
+        // Split hashtags by commas or spaces   
+        $extractedHashtags = array_map('trim', explode(',', $request->input('hashtag','')));
+        foreach ($extractedHashtags as $hashtag) {
+            if (!empty($hashtag)) {
+                Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
+            }
+        }
 
     return redirect()->route('admin.community.index')->with('success', "Post published");
 }
@@ -243,12 +261,14 @@ class CommunityControllerController extends Controller
             $data=$request->validate([ 
                 'type'=>["required"],
                 'description'=>["required"], 
+                 
                 'image'=>["nullable"], 
             ]);
         }else{
 
             $data=$request->validate([
                 'description'=>["required"], 
+                
                 'type'=>["required"], 
                 'option'=>["required",'array','min:2','max:5'],
                 'option.*'=>["required",'max:255'],
@@ -284,13 +304,22 @@ class CommunityControllerController extends Controller
         }
         PollOption::where('post_id',$post->id)->whereNotIn('id',$ids)->delete();
  
-        preg_match_all('/#\w+/',  $data['description'], $hashtags);
-        $extractedHashtags = $hashtags[0]; 
-        $hashIds=[];
-        foreach ($extractedHashtags as $hashtag) {
+        // preg_match_all('/#\w+/',  $data['description'], $hashtags);
+        // $extractedHashtags = $hashtags[0]; 
+        // $hashIds=[];
+        // foreach ($extractedHashtags as $hashtag) {
             
-           $hash= Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id'=>$post->id]);
-           $hashIds[]=$hash->id;
+        //    $hash= Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id'=>$post->id]);
+        //    $hashIds[]=$hash->id;
+        // }
+        // Hashtag::where('post_id',$post->id)->whereNotIn('id',$hashIds)->delete();
+        $hashIds=[];
+        $extractedHashtags = array_map('trim', explode(',', $request->input('hashtag','')));
+        foreach ($extractedHashtags as $hashtag) {
+            if (!empty($hashtag)) {
+                $hash=Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
+                $hashIds[]=$hash->id;
+            }
         }
         Hashtag::where('post_id',$post->id)->whereNotIn('id',$hashIds)->delete();
         return redirect()->route('admin.community.index')->with('success',"Post updated");

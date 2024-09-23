@@ -48,7 +48,7 @@
 
                     <!-- Hashtag List - Updated to display in a single line -->
                     <div class="d-flex flex-wrap"> <!-- Added d-flex and flex-wrap to allow wrapping -->
-                        <ul class="list-group" style="flex-direction: row; "> <!-- Display inline with flex -->
+                        <ul class="list-group" style="flex-direction: row;flex-wrap: wrap; "> <!-- Display inline with flex -->
                             @foreach ($hashtags as $hashtag)
                                 <li class="list-group-item d-inline-block" style="margin-right: 10px;">
                                     <a
@@ -125,6 +125,8 @@
                         <img src="${v.image}" alt="">
                     `;
                     }
+                    let hashtag = '';
+                    console.log(v.hashtags);
 
                     $('#post-item-list').append(`
                     <div class="post-item" id="post-item-${v.slug}">  
@@ -146,6 +148,9 @@
                         </div>
                         <div class="post-content">
                             ${v.description||""}
+                        </div>
+                         <div class="post-content">
+                            ${v.hashtags||""}
                         </div>
                         <div class="poll-options">
                             ${polloption}
