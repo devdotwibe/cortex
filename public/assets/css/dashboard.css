@@ -1692,7 +1692,8 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .set-container .lesson .lesson-row { border: 1px solid #C8C8C8; text-align: center;}
 .set-container .lesson .lesson-row .lesson-row-sets { justify-content: center;}
 .set-container .lesson .lesson-row .lesson-row-title { margin: 0 0 20px;}
-.set-container .lesson .lesson-row .lesson-row-sets .sets-item { border: 1px solid #90C3A0; padding: 5px 12px; font-size: 19px;}
+.set-container .lesson .lesson-row .lesson-row-sets .sets-item { border: 1px solid #90C3A0; padding: 0; font-size: 19px;}
+.set-container .lesson .lesson-row .lesson-row-sets .sets-item .sets-title {padding: 5px 12px; display: inline-block;}
 .set-container .lesson .lesson-row .lesson-row-sets .sets-item:hover {background: #D1ECD9;}
 .set-container .lesson .lesson-row:hover { border-color: #FBAE1E;}
 .set-container .option-toggle {margin: 50px 0;}
