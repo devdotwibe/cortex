@@ -27,7 +27,7 @@
         </div>
     </section>
 
-    <section class="price-wrapp">
+    <section class="price-wrapp" id="subscription" >
         <div class="container">
             <div class="price-row1">
                 <div class="gif"><img src="{{ asset('assets/images/loader.gif') }}" alt=""></div>
