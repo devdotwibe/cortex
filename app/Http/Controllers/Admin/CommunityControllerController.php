@@ -139,14 +139,22 @@ class CommunityControllerController extends Controller
     if ($type == "post") {
         $data = $request->validate([
             'type' => ["required"],
-             'description' => ["required"],
-          
+            //  'description' => ["required"],
+            'description' => ["required", function ($attribute, $value, $fail) {
+                if (preg_match('/#/', $value)) {
+                    $fail('Hashtags are not allowed in the description.');
+                }
+            }],
             'image' => ["nullable"], 
         ]);
     } else {
         $data = $request->validate([
-            'description' => ["required"],
-          
+            // 'description' => ["required"],
+          'description' => ["required", function ($attribute, $value, $fail) {
+        if (preg_match('/#/', $value)) {
+            $fail('Hashtags are not allowed in the description.');
+        }
+    }],
             'type' => ["required"],
             'option' => ["required", 'array', 'min:2', 'max:5'],
             'option.*' => ["required", 'max:255'],
@@ -260,14 +268,23 @@ class CommunityControllerController extends Controller
         if($type=="post"){
             $data=$request->validate([ 
                 'type'=>["required"],
-                'description'=>["required"], 
-                 
+                // 'description'=>["required"], 
+                 'description' => ["required", function ($attribute, $value, $fail) {
+        if (preg_match('/#/', $value)) {
+            $fail('Hashtags are not allowed in the description.');
+        }
+    }],
                 'image'=>["nullable"], 
             ]);
         }else{
 
             $data=$request->validate([
-                'description'=>["required"], 
+                // 'description'=>["required"],
+                'description' => ["required", function ($attribute, $value, $fail) {
+                    if (preg_match('/#/', $value)) {
+                        $fail('Hashtags are not allowed in the description.');
+                    }
+                }], 
                 
                 'type'=>["required"], 
                 'option'=>["required",'array','min:2','max:5'],

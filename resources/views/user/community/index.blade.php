@@ -235,6 +235,8 @@
                 imagehtml=`
                     <img src="${v.image}" alt="">
                 `;
+                let hashtag = '';
+                console.log(v.hashtags);
             }
             $(id).html(`
             <div class="post-header">
@@ -255,6 +257,9 @@
             </div>
             <div class="post-content">
                 ${v.description||""}
+            </div>
+             <div class="post-content">
+                ${v.hashtags||""}
             </div>
             <div class="poll-options">
                 ${polloption}
