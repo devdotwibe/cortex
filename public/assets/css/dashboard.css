@@ -1416,6 +1416,12 @@ section.post-section .post-item .post-actions a.post-action-btn span{
   overflow-y: auto; 
   height: 75vh !important;
 }
+
+.analytic-exam .analytic-exam-category::-webkit-scrollbar {width: 7px;}
+.analytic-exam .analytic-exam-category::-webkit-scrollbar-track { background: #f1f1f1;}
+.analytic-exam .analytic-exam-category::-webkit-scrollbar-thumb { background: #FBAE1E;}
+
+
 .analytic-exam .analytic-exam-category .analytic-exam-category-item,.analytic-exam .analytic-exam-category .analytic-exam-category-item .exam-overview ,.analytic-exam .analytic-exam-category .analytic-exam-category-item .exam-overview .exam-overview-content{
   height: auto;
 }
