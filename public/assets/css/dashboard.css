@@ -1938,6 +1938,15 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .header_nav .header_wrapp .header_content select.form-control {border: 1px solid #E6E6E6; height: 43px; padding: 8px 22px 8px 8px; background: url(../images/chevron-down.svg) no-repeat center; background-size: 12px; background-position-x: 95%;}
 
 
+
+.admin_section .table-outer table thead tr th { background: #1989F8;}
+.admin_section .table-outer table .form-check {padding: 0;}
+.admin_section .table-outer table .form-check input { border: 1.5px solid #FBAE1E; border-radius: 2px; width: 17px; height: 17px;}
+.admin_section .table-outer table { min-width: 1300px;}
+.admin_section .table-outer { overflow-x: auto;}
+
+
+
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
 
