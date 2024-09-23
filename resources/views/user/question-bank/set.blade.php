@@ -289,7 +289,7 @@
         var examActive=true;
         var timetaken=0;
         function toglepreviewpage(){
-            timerActive=!timerActive; 
+            // timerActive=!timerActive; 
             $('#question-preview-page').slideToggle()
             $('#question-answer-page').fadeToggle()
         }
