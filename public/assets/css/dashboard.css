@@ -1920,6 +1920,9 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 
 .learn-inner-section .lesson .lesson-body { margin: 0;}
 
+.exam-container .container-wrap .lesson .lesson-body .mcq-group h5 {font-size: 20px;  font-weight: 500; color: #000000; margin: 0 0 20px;}
+
+
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
 
