@@ -77,4 +77,37 @@
 <script>
     CKEDITOR.replaceAll('texteditor');
 </script>
+<script>
+    CKEDITOR.replace('tip');
+    CKEDITOR.replace('advice');
+
+    function limitLines(textarea, maxLines) {
+        const lines = textarea.value.split('\n');
+        if (lines.length > maxLines) {
+            textarea.value = lines.slice(0, maxLines).join('\n');
+        }
+    }
+
+    function validateLines() {
+        const tipTextarea = document.getElementById('tip');
+        const adviceTextarea = document.getElementById('advice');
+        
+        const tipLines = tipTextarea.value.split('\n').length;
+        const adviceLines = adviceTextarea.value.split('\n').length;
+
+        if (tipLines > 3) {
+            alert("Tip can only have up to 3 lines.");
+            return false;
+        }
+        
+        if (adviceLines > 3) {
+            alert("Advice can only have up to 3 lines.");
+            return false;
+        }
+        
+        return true;
+    }
+</script>
+
+
 @endpush
