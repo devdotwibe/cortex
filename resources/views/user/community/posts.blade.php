@@ -20,34 +20,31 @@
         </div>
     </div>
 </section>
-<section class="post-section" >
+
+
+
+
+<section class="post-section">
 
     <div class="container">
         <div class="row">
             <!-- Left Sidebar for Hashtags -->
             <div class="col-md-3">
                 <h4>SPACES</h4>
-                  <!-- Link styled as a textbox -->
-               <div class="mb-3">
-                <label for="backtoall" class="form-label"></label>
-                <a href="{{ route('community.index') }}" id="backtoall" class="form-control text-decoration-none" style="display: block; padding: 10px; background-color: #f8f9fa; border: 1px solid #ced4da; border-radius: .25rem;">
-                    #Backtoall
-                </a>
-            </div>
-
-{{--               
-            <div class="d-flex flex-wrap"> <!-- Added d-flex and flex-wrap for inline display -->
-                <ul class="list-group" style="flex-direction: row; list-style: none; padding-left: 0;"> <!-- Inline list with no bullets -->
-                    @foreach ($hashtags as $hashtag)
-                        <li class="list-group-item d-inline-block" style="margin-right: 10px; border: none;"> <!-- Display as inline block and remove border -->
-                            <a href="{{ route('community.index', ['hashtag' => $hashtag]) }}">{{ $hashtag }}</a>
-                        </li>
-                    @endforeach
-                </ul>
-            </div> --}}
 
 
+                <!-- Link styled as a textbox -->
+                <div class="mb-3">
+                    <label for="backtoall" class="form-label"></label>
+                    <a href="{{ route('community.index') }}" id="backtoall"
+                        class="form-control text-decoration-none"
+                        style="display: block; padding: 10px; background-color: #f8f9fa; border: 1px solid #ced4da; border-radius: .25rem;">
+                        #Backtoall
+                    </a>
+                </div>
 
+
+            <!-- Hashtag List - Updated to display in a single line -->
             <div class="d-flex flex-wrap"> <!-- Added d-flex and flex-wrap to allow wrapping -->
                 <ul class="list-group" style="flex-direction: row;flex-wrap: wrap; "> <!-- Display inline with flex -->
                     @foreach ($hashtags as $hashtag)
@@ -58,184 +55,91 @@
                     @endforeach
                 </ul>
             </div>
-        
-
-
-
-            
-            </div>
-     
         </div>
-    </div>
 
 
-    <div class="post-container" id="post-item-list">
-        
-    </div> 
-    <div class="post-action">
-        <button id="load-more-btn" class="btn btn-outline-dark" style="display: none"> Load More </button>
+
     </div>
+</div>
+
+<div class="post-container" id="post-item-list">
+
+</div>
+<div class="post-action">
+    <button id="load-more-btn" class="btn btn-outline-dark" style="display: none"> Load More </button>
+</div>
 </section>
 
 @endsection
 
 
 @push('footer-script')
-
 <script>
-    function loadpost(url){
-        $.get(url,function(res){
-            if(res.next){
-                $('#load-more-btn').show().data('url',res.next)
-            }else{
-                $('#load-more-btn').hide().data('url',null);
-            }
-            $.each(res.data,function(k,v){
-                let polloption=``;
-                if(v.vote){
+function loadpost(url) {
+    $.get(url, function(res) {
+        if (res.next) {
+            $('#load-more-btn').show().data('url', res.next)
+        } else {
+            $('#load-more-btn').hide().data('url', null);
+        }
+        $.each(res.data, function(k, v) {
+            let polloption = ``;
+            if (v.vote) {
 
-                    $.each(v.poll||[],function(pk,pv){ 
-                        polloption+=`
-                        <div class="form-check ${v.vote.option==pv.slug?"voted":"vote"}">
-                            <input class="form-check-input" type="radio" name="${v.slug}" id="poll-${v.slug}-option-${pv.slug}" value="${pv.slug}" onchange="likevote('${pv.voteUrl}','#post-item-${v.slug}')" >
-                            <label class="form-check-label" for="poll-${v.slug}-option-${pv.slug}">
-                                ${pv.option}
-                                <span id="poll-${v.slug}-option-${pv.slug}-percentage">(${pv.percentage}%)</span>
-                                <div class="poll-graph-bar-wrapper">
-                                    <div class="poll-graph-bar" id="poll-${v.slug}-option-${pv.slug}-bar" style="width: ${pv.percentage}%;"></div>
-                                </div>
-                            </label>
+                $.each(v.poll || [], function(pk, pv) {
+                    polloption += `
+                <div class="form-check ${v.vote.option==pv.slug?"voted":"vote"}">
+                    <input class="form-check-input" type="radio" name="${v.slug}" id="poll-${v.slug}-option-${pv.slug}" value="${pv.slug}"  >
+                    <label class="form-check-label" for="poll-${v.slug}-option-${pv.slug}">
+                        ${pv.option}
+                        <span id="poll-${v.slug}-option-${pv.slug}-percentage">(${pv.percentage}%)</span>
+                        <div class="poll-graph-bar-wrapper">
+                            <div class="poll-graph-bar" id="poll-${v.slug}-option-${pv.slug}-bar" style="width: ${pv.percentage}%;"></div>
                         </div>
-                        `;
-                    })
-                }else{
-
-                    $.each(v.poll||[],function(pk,pv){
-                        polloption+=`
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="${v.slug}" id="poll-${v.slug}-option-${pv.slug}" value="${pv.slug}" onchange="likevote('${pv.voteUrl}','#post-item-${v.slug}')">
-                            <label class="form-check-label" for="poll-${v.slug}-option-${pv.slug}">
-                                ${pv.option}
-                                <span id="poll-${v.slug}-option-${pv.slug}-percentage">(${pv.percentage}%)</span>
-                                <div class="poll-graph-bar-wrapper">
-                                    <div class="poll-graph-bar" id="poll-${v.slug}-option-${pv.slug}-bar" style="width: ${pv.percentage}%;"></div>
-                                </div>
-                            </label>
-                        </div>
-                        `;
-                    })
-                }
-                let imagehtml='';
-                if(v.image){
-                    imagehtml=`
-                        <img src="${v.image}" alt="">
-                    `;
-                }
-                let hashtag = '';
-                    console.log(v.hashtags);
-
-
-                $('#post-item-list').append(`
-                    <div class="post-item" id="post-item-${v.slug}"> 
-                        <a href="${v.showUrl}">
-                            <div class="post-header">
-                                <div class="avathar">
-                                    <img src="{{asset("assets/images/User-blk.png")}}" alt="img">
-                                </div>
-                                <div class="title">
-                                    <h3>${v.user.name||""}</h3>
-                                    <span>${v.createdAt}</span>
-                                </div>
-                            </div>
-                            <div class="post-title">
-                                ${v.title||""}
-                            </div>
-                            <div class="post-content">
-                                ${v.description||""}
-                            </div>
-                             <div class="post-content">
-                            ${v.hashtags||""}
-                        </div>
-                        </a>
-                        <div class="poll-options">
-                            ${polloption}
-                        </div>
-                        <a href="${v.showUrl}">
-                            <div class="post-image">
-                                ${imagehtml}
-                            </div>
-                        </a>
-                        <div class="post-actions">
-                            <a class="post-action-btn like-btn" onclick="likevote('${v.likeUrl}','#post-item-${v.slug}')"><img src="${v.liked?"{{asset('assets/images/liked.svg')}}":"{{asset('assets/images/like.svg')}}"}" slt="comment"> <span>${v.likes}</span></a>
-                            <a class="post-action-btn comment-btn" href="${v.showUrl}"><img src="{{asset('assets/images/comment1.svg')}}" slt="comment"> <span>${v.comments}</span></a>
-                        </div>
-                    </div>
-                `)
-            })
-        },'json');
-    }
-    $(function(){
-        // loadpost("{{route('community.index',['ref'=>'ajax'])}}");
-        loadpost("{{url()->full()}}");
-        $('#load-more-btn').click(function(){
-            loadpost($('#load-more-btn').data('url'))
-        })
-    })
-    function likevote(url,id) {
-        $.get(url,function(v){
-            let polloption=``;
-            if(v.vote){
-
-                $.each(v.poll||[],function(pk,pv){ 
-                    polloption+=`
-                    <div class="form-check ${v.vote.option==pv.slug?"voted":"vote"}">
-                        <input class="form-check-input" type="radio" name="${v.slug}" id="poll-${v.slug}-option-${pv.slug}" value="${pv.slug}" onchange="likevote('${pv.voteUrl}','#post-item-${v.slug}')" >
-                        <label class="form-check-label" for="poll-${v.slug}-option-${pv.slug}">
-                            ${pv.option}
-                            <span id="poll-${v.slug}-option-${pv.slug}-percentage">(${pv.percentage}%)</span>
-                            <div class="poll-graph-bar-wrapper">
-                                <div class="poll-graph-bar" id="poll-${v.slug}-option-${pv.slug}-bar" style="width: ${pv.percentage}%;"></div>
-                            </div>
-                        </label>
-                    </div>
-                    `;
+                    </label>
+                </div>
+                `;
                 })
-            }else{
+            } else {
 
-                $.each(v.poll||[],function(pk,pv){
-                    polloption+=`
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="${v.slug}" id="poll-${v.slug}-option-${pv.slug}" value="${pv.slug}" onchange="likevote('${pv.voteUrl}','#post-item-${v.slug}')">
-                        <label class="form-check-label" for="poll-${v.slug}-option-${pv.slug}">
-                            ${pv.option}
-                            <span id="poll-${v.slug}-option-${pv.slug}-percentage">(${pv.percentage}%)</span>
-                            <div class="poll-graph-bar-wrapper">
-                                <div class="poll-graph-bar" id="poll-${v.slug}-option-${pv.slug}-bar" style="width: ${pv.percentage}%;"></div>
-                            </div>
-                        </label>
-                    </div>
-                    `;
+                $.each(v.poll || [], function(pk, pv) {
+                    polloption += `
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="${v.slug}" id="poll-${v.slug}-option-${pv.slug}" value="${pv.slug}" >
+                    <label class="form-check-label" for="poll-${v.slug}-option-${pv.slug}">
+                        ${pv.option}
+                        <span id="poll-${v.slug}-option-${pv.slug}-percentage">(${pv.percentage}%)</span>
+                        <div class="poll-graph-bar-wrapper">
+                            <div class="poll-graph-bar" id="poll-${v.slug}-option-${pv.slug}-bar" style="width: ${pv.percentage}%;"></div>
+                        </div>
+                    </label>
+                </div>
+                `;
                 })
             }
 
-            let imagehtml='';
-                if(v.image){
-                    imagehtml=`
-                        <img src="${v.image}" alt="">
-                    `;
-                    
-                    let hashtag = '';
-                    console.log(v.hashtags);
-                }
-            $(id).html(`
-            <a href="${v.showUrl}">
+            let imagehtml = '';
+            if (v.image) {
+                imagehtml = `
+                <img src="${v.image}" alt="">
+            `;
+            }
+            let hashtag = '';
+            console.log(v.hashtags);
+
+            $('#post-item-list').append(`
+            <div class="post-item" id="post-item-${v.slug}">  
                 <div class="post-header">
                     <div class="avathar">
-                        <img src="{{asset("assets/images/User-blk.png")}}" alt="img">
+                        <img src="{{ asset('assets/images/User-blk.png') }}" alt="img">
                     </div>
                     <div class="title">
                         <h3>${v.user.name||""}</h3>
                         <span>${v.createdAt}</span>
+                    </div>
+                    <div class="action">
+                        <a class="btn btn-outline-dark" href="${v.showUrl}">View</a>
+                        <a class="btn btn-dark" href="${v.editUrl}">edit</a>
                     </div>
                 </div>
                 <div class="post-title">
@@ -247,22 +151,26 @@
                  <div class="post-content">
                     ${v.hashtags||""}
                 </div>
-            </a>
                 <div class="poll-options">
                     ${polloption}
                 </div>
-            <a href="${v.showUrl}">
                 <div class="post-image">
                     ${imagehtml}
                 </div>
-            </a>
-            <div class="post-actions">
-                <a class="post-action-btn like-btn" onclick="likevote('${v.likeUrl}','#post-item-${v.slug}')"><img src="${v.liked?"{{asset('assets/images/liked.svg')}}":"{{asset('assets/images/like.svg')}}"}" slt="comment"> <span>${v.likes}</span></a>
-                <a class="post-action-btn comment-btn" href="${v.showUrl}"><img src="{{asset('assets/images/comment1.svg')}}" slt="comment"> <span>${v.comments}</span></a>
+                <div class="post-actions">
+                    <a class="post-action-btn like-btn btn" ><img src="{{ asset('assets/images/like.svg') }}" slt="comment"> <span>${v.likes}</span></a>
+                    <a class="post-action-btn comment-btn btn"  ><img src="{{ asset('assets/images/comment1.svg') }}" slt="comment"> <span>${v.comments}</span></a>
+                </div>
             </div>
-            `)
+        `)
         })
-    }
+    }, 'json');
+}
+$(function() {
+    loadpost("{{ url()->full() }}");
+    $('#load-more-btn').click(function() {
+        loadpost($('#load-more-btn').data('url'))
+    })
+})
 </script>
-     
 @endpush
