@@ -54,7 +54,7 @@ class CommunityController extends Controller
                         'voteUrl' => route('community.poll.vote', $opt->slug),
                     ];
                 }
-                $vote = Poll::where('user_id', $user->id)->where('post_id', $row->id)->first();
+                $vote = Poll::where('post_id', $row->id)->first();
                 if (!empty($vote)) {
                     $vote = [
                         'slug' => $vote->slug,
