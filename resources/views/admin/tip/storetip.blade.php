@@ -19,7 +19,6 @@
             <div class="card">
                 <div class="card-body">
                     <form action="{{ route('admin.tip.store', $tip->id) }}" class="form" id="frmvk3a41725017844" method="post">
-                       
                         @csrf
 
                         <div class="row">
@@ -35,7 +34,9 @@
                                     <div class="form-data">
                                         <div class="forms-inputs mb-4">
                                             <label for="tip">Tip</label>
-                                            <textarea name="tip" id="tip" class="form-control texteditor" rows="5">{{ old('tip', $tip->tip) }}</textarea>
+                                            {{-- <textarea name="tip" id="tip" class="form-control texteditor" rows="5">{{ old('tip', $tip->tip) }}</textarea> --}}
+                                            <textarea name="tip" id="tip" class="form-control texteditor limited-height" rows="5">{{ old('tip', $tip->tip) }}</textarea>
+
                                             @error('tip')
                                                 <div class="text-danger mt-2">{{ $message }}</div>
                                             @enderror
@@ -76,50 +77,18 @@
 
 @push('footer-script')
 <script>
-    CKEDITOR.replace('tip', {
-        on: {
-            change: function(evt) {
-                limitLines(this, 3);
-            }
+    CKEDITOR.replaceAll('texteditor');
+</script>
+<script>
+    function limitLines(textarea) {
+        const lines = textarea.value.split('\n');
+        if (lines.length > 3) {
+            // Limit to the first 3 lines and adjust the textarea value
+            textarea.value = lines.slice(0, 3).join('\n');
         }
-    });
-
-    CKEDITOR.replace('advice', {
-        on: {
-            change: function(evt) {
-                limitLines(this, 3);
-            }
-        }
-    });
-
-    function limitLines(editor, maxLines) {
-        const text = editor.getData();
-        const lines = text.split('\n');
-
-        if (lines.length > maxLines) {
-            const limitedText = lines.slice(0, maxLines).join('\n');
-            editor.setData(limitedText);
-        }
-    }
-
-    function validateLines() {
-        const tipEditor = CKEDITOR.instances.tip;
-        const adviceEditor = CKEDITOR.instances.advice;
-        
-        const tipLines = tipEditor.getData().split('\n').length;
-        const adviceLines = adviceEditor.getData().split('\n').length;
-
-        if (tipLines > 3) {
-            alert("Tip can only have up to 3 lines.");
-            return false;
-        }
-        
-        if (adviceLines > 3) {
-            alert("Advice can only have up to 3 lines.");
-            return false;
-        }
-        
-        return true;
     }
 </script>
+
+
+
 @endpush
