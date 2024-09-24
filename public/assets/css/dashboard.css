@@ -1959,6 +1959,8 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .table-section .table-outer table thead tr th:first-child { border-radius: 10px 0 0 0;}
 .table-section .table-outer table thead tr th:last-child { border-radius: 0 10px 0 0;}
 
+.learn_show .table-outer table { min-width: 830px;}
+
 
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
