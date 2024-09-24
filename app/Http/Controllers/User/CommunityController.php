@@ -20,7 +20,7 @@ class CommunityController extends Controller
 {
     public function posts(Request $request)
     {
-
+dd(exit);
 
         $hashtags = Hashtag::groupBy('hashtag')->pluck('hashtag');
     
