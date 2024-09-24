@@ -94,6 +94,26 @@ class TipsController extends Controller
 
 
 
+// public function update(Request $request, $id)
+// {
+//     // Validate the incoming request data
+//     $validatedData = $request->validate([
+//         'tip' => 'nullable|string|max:65535',
+//         'advice' => 'nullable|string|max:65535',
+//     ]);
+
+//     // Find the tip by ID
+//     $tip = Tips::findOrFail($id);
+
+//     // Update the tip and advice fields
+//     $tip->tip = $request->input('tip');
+//     $tip->advice = $request->input('advice');
+//     $tip->save();
+
+//     // Redirect or respond as needed
+//     return redirect()->route('admin.tip.create', $tip->category_id)->with('success', 'Tip and advice updated successfully.');
+// }
+
 public function update(Request $request, $id)
 {
     // Validate the incoming request data
@@ -106,14 +126,13 @@ public function update(Request $request, $id)
     $tip = Tips::findOrFail($id);
 
     // Update the tip and advice fields
-    $tip->tip = $request->input('tip');
-    $tip->advice = $request->input('advice');
+    $tip->tip = $request->input('tip');  // Ensure this contains the full HTML including images
+    $tip->advice = $request->input('advice');  // Same for advice
     $tip->save();
 
-    // Redirect or respond as needed
+    // Redirect back to the create route with success message
     return redirect()->route('admin.tip.create', $tip->category_id)->with('success', 'Tip and advice updated successfully.');
 }
-
 
 public function del_tip(Request $request,Tips $tip)
 {
