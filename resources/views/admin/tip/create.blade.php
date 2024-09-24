@@ -100,8 +100,24 @@
             },
             columns: [
                 { data: 'DT_RowIndex', name: 'id', orderable: true, searchable: false },
-                { data: 'tip', name: 'tip', orderable: true, searchable: true },
-                { data: 'advice', name: 'advice', orderable: true, searchable: true },
+                { 
+                    data: 'tip', 
+                    name: 'tip', 
+                    orderable: true, 
+                    searchable: true,
+                    render: function(data, type, row) {
+                        return $('<div/>').html(data).text(); // Decode HTML entities for 'tip'
+                    }
+                },
+                { 
+                    data: 'advice', 
+                    name: 'advice', 
+                    orderable: true, 
+                    searchable: true,
+                    render: function(data, type, row) {
+                        return $('<div/>').html(data).text(); // Decode HTML entities for 'advice'
+                    }
+                },
                 { data: 'action', name: 'action', orderable: false, searchable: false }
             ]
         });
@@ -112,22 +128,17 @@
         $('#table_faq_delete').modal('show');
     }
 
-
-
     function updatesubfaq(url) {
-
-            $.get(url, function(res) {
-
-                $('#name-error-table-subcategory-form-create').text("")
-                $('#name-table-subcategory-form-create').val(res.question).removeClass("is-invalid")
-                $('#name-table-subcategory-form-create-ans').val(res.answer).removeClass("is-invalid")
-                $('#subcategory').data('save', "update")
-                $('#subcategory').attr('action', res.updateUrl)
-                $('#table-subcategory-form-clear').show()
-                $('#table-subcategory-form-submit').text(' Update ')
-            }, 'json')
-        }
-
+        $.get(url, function(res) {
+            $('#name-error-table-subcategory-form-create').text("")
+            $('#name-table-subcategory-form-create').val(res.question).removeClass("is-invalid")
+            $('#name-table-subcategory-form-create-ans').val(res.answer).removeClass("is-invalid")
+            $('#subcategory').data('save', "update")
+            $('#subcategory').attr('action', res.updateUrl)
+            $('#table-subcategory-form-clear').show()
+            $('#table-subcategory-form-submit').text(' Update ')
+        }, 'json')
+    }
 
 </script>
 @endpush
