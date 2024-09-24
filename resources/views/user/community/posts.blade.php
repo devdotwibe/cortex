@@ -241,6 +241,9 @@
                 <div class="post-content">
                     ${v.description||""}
                 </div>
+                 <div class="post-content">
+                    ${v.hashtags||""}
+                </div>
             </a>
                 <div class="poll-options">
                     ${polloption}
