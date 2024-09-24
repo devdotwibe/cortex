@@ -1988,6 +1988,7 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 
 .invite-wrap .row .card .card-body .col-md-4 .forms-inputs .select2.select2-container .selection .select2-selection .select2-selection__rendered {
   height: 100%;
+  padding: 11px 20px 11px 11px;
 }
 
 .invite-wrap .row .card .card-body .col-md-4 .forms-inputs .select2.select2-container .selection .select2-selection .select2-selection__arrow {
@@ -1995,6 +1996,7 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
   transform: translateY(-50%);
   background: url(../images/chevron-down.svg) no-repeat center;
   background-size: 12px;
+  right: 5px;
 }
 
 .invite-wrap .row .card .card-body .col-md-4 .forms-inputs .select2.select2-container .selection .select2-selection .select2-selection__arrow b {
