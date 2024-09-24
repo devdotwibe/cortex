@@ -18,12 +18,10 @@ use Illuminate\Support\Facades\Auth;
 
 class CommunityController extends Controller
 {
+
+    
     public function posts(Request $request)
     {
-
-
-        $hashtags = Hashtag::groupBy('hashtag')->pluck('hashtag');
-
 
         $hashtag = $request->input('hashtag');
 
@@ -33,73 +31,75 @@ class CommunityController extends Controller
          */
         $user = Auth::user();
 
-        if ($request->ajax()) {
-            $post = Post::where('id', '>', 0);
-            if (!empty($hashtag)) {
-                $post->whereIn('id', Hashtag::where('hashtag', 'like', "%$hashtag%")->select('post_id'));
-            }
-            $posts = $post->orderBy('id', 'DESC')->paginate();
-            $results = [];
-            foreach ($posts->items() as $row) {
-                $options = [];
-                $tvotes = $row->pollOption->sum('votes');
-                foreach ($row->pollOption as $opt) {
-                    $options[] = [
-                        "slug" => $opt->slug,
-                        "option" => $opt->option,
-                        "votes" => $opt->votes,
-                        'percentage' => $tvotes > 0 ? round(($opt->votes * 100) / $tvotes, 2) : 0,
-                        'voteUrl' => route('community.poll.vote', $opt->slug),
-                    ];
-                }
-                $vote = Poll::where('user_id', $user->id)->where('post_id', $row->id)->first();
-                if (!empty($vote)) {
-                    $vote = [
-                        'slug' => $vote->slug,
-                        'option' => optional($vote->pollOption)->slug,
-                    ];
-                }
-                $results[] = [
-                    "slug" => $row->slug,
-                    "title" => $row->title,
-                    "type" => $row->type,
-                    "description" => $row->description,
-                    "likes" => $row->likes()->count(),
-                    "comments" => $row->comments()->whereNull('post_comment_id')->count(),
-                    "image" => $row->image,
-                    "video" => $row->video,
-                    "status" => $row->status,
-                    "vote" => $vote,
-                    "poll" => $options,
-                    "showUrl" => route('community.post.show', $row->slug),
-                    "createdAt" => $row->created_at->diffInMinutes(now()) > 1 ? $row->created_at->diffForHumans(now(), true) . " ago" : 'Just Now',
-                    "user" => [
-                        "name" => optional($row->user)->name ?? optional($row->admin)->name ?? "(deleted user)"
-                    ],
-                    "liked" => $row->likes()->where('user_id', $user->id)->count() > 0 ? true : false,
-                    "likeUrl" => route('community.post.like', $row->slug),
+        $hashtags = Hashtag::groupBy('hashtag')->pluck('hashtag');
+    
+       
+        $hashtag = $request->input('hashtag');
 
+
+        if($request->ajax()){   
+            $posts=Post::where('id','>',0);
+            // if(!empty($hashtag))
+            // {
+            //     $posts->whereIn('id',Hashtag::where('hashtag', 'like', "%$hashtag%")->select ('post_id'));
+            // }
+
+
+            $posts=$posts->orderBy('id','DESC')->paginate();
+            $results=[];
+            foreach ($posts->items() as $row) { 
+                $options=[];
+                $tvotes=$row->pollOption->sum('votes');
+                foreach($row->pollOption as $opt){
+                    $options[]=[
+                        "slug"=>$opt->slug,
+                        "option"=>$opt->option,
+                        "votes"=>$opt->votes,
+                        'percentage'=>$tvotes>0?round(($opt->votes*100)/$tvotes,2):0,
+                    ];
+                }
+                $results[]=[
+                    "slug"=>$row->slug,
+                    "title"=>$row->title,
+                    "type"=>$row->type,
+                    "description"=>$row->description,
+                   "hashtags"=>$row->hashtaglist()->pluck('hashtag'),
+                    "likes"=>$row->likes()->count(),
+                    "comments"=>$row->comments()->whereNull('post_comment_id')->count(),
+                    "image"=>$row->image,
+                    "video"=>$row->video,
+                    "status"=>$row->status,
+                    "poll"=>$options,
+                    "showUrl"=>route('admin.community.post.show',$row->slug),
+                    "createdAt"=>$row->created_at->diffInMinutes(now())>1? $row->created_at->diffForHumans(now(), true)." ago":'Just Now',
+                    "user"=>[
+                        "name"=>optional($row->user)->name
+                    ],
+                    "editUrl"=>route('admin.community.post.edit',$row->slug),
+                     
                 ];
             }
-            return [
+            return [ 
                 'current_page' => $posts->currentPage(),
                 'total_pages' => $posts->lastPage(),
                 'total_items' => $posts->total(),
                 'items_per_page' => $posts->perPage(),
-                'data' => $results,
+                'data' => $results, 
                 'prev' => $posts->previousPageUrl(),
                 'next' => $posts->nextPageUrl()
             ];
-        }
+        } 
+
         return view('user.community.posts', compact('user','hashtags'));
     }
 
     public function index(Request $request)
     {
+        // dd('hi');
 
         $hashtags = Hashtag::groupBy('hashtag')->pluck('hashtag');
-
-
+    
+       
         $hashtag = $request->input('hashtag');
 
 
@@ -109,65 +109,57 @@ class CommunityController extends Controller
          */
         $user = Auth::user();
 
-        if ($request->ajax()) {
-            $post = Post::where('id', '>', 0);
-            if (!empty($hashtag)) {
-                $post->whereIn('id', Hashtag::where('hashtag', 'like', "%$hashtag%")->select('post_id'));
+      if($request->ajax()){   
+            $posts=Post::where('id','>',0);
+            if(!empty($hashtag))
+            {
+                $posts->whereIn('id',Hashtag::where('hashtag', 'like', "%$hashtag%")->select ('post_id'));
             }
-            $posts = $post->where('user_id', $user->id)->orderBy('id', 'DESC')->paginate();
-            $results = [];
-            foreach ($posts->items() as $row) {
-                $options = [];
-                $tvotes = $row->pollOption->sum('votes');
-                foreach ($row->pollOption as $opt) {
-                    $options[] = [
-                        "slug" => $opt->slug,
-                        "option" => $opt->option,
-                        "votes" => $opt->votes,
-                        'percentage' => $tvotes > 0 ? round(($opt->votes * 100) / $tvotes, 2) : 0,
-                        'voteUrl' => route('community.poll.vote', $opt->slug),
+
+            $posts=$posts->orderBy('id','DESC')->paginate();
+            $results=[];
+            foreach ($posts->items() as $row) { 
+                $options=[];
+                $tvotes=$row->pollOption->sum('votes');
+                foreach($row->pollOption as $opt){
+                    $options[]=[
+                        "slug"=>$opt->slug,
+                        "option"=>$opt->option,
+                        "votes"=>$opt->votes,
+                        'percentage'=>$tvotes>0?round(($opt->votes*100)/$tvotes,2):0,
                     ];
                 }
-                $vote = Poll::where('user_id', $user->id)->where('post_id', $row->id)->first();
-                if (!empty($vote)) {
-                    $vote = [
-                        'slug' => $vote->slug,
-                        'option' => optional($vote->pollOption)->slug,
-                    ];
-                }
-                $results[] = [
-                    "slug" => $row->slug,
-                    "title" => $row->title,
-                    "type" => $row->type,
-                    "description" => $row->description,
-                    "hashtags"=>$row->hashtaglist()->pluck('hashtag'),
-                    "likes" => $row->likes()->count(),
-                    "comments" => $row->comments()->whereNull('post_comment_id')->count(),
-                    "image" => $row->image,
-                    "video" => $row->video,
-                    "status" => $row->status,
-                    "vote" => $vote,
-                    "poll" => $options,
-                    "showUrl" => route('community.post.show', $row->slug),
-                    "createdAt" => $row->created_at->diffInMinutes(now()) > 1 ? $row->created_at->diffForHumans(now(), true) . " ago" : 'Just Now',
-                    "user" => [
-                        "name" => optional($row->user)->name ?? optional($row->admin)->name ?? "(deleted user)"
+                $results[]=[
+                    "slug"=>$row->slug,
+                    "title"=>$row->title,
+                    "type"=>$row->type,
+                    "description"=>$row->description,
+                   "hashtags"=>$row->hashtaglist()->pluck('hashtag'),
+                    "likes"=>$row->likes()->count(),
+                    "comments"=>$row->comments()->whereNull('post_comment_id')->count(),
+                    "image"=>$row->image,
+                    "video"=>$row->video,
+                    "status"=>$row->status,
+                    "poll"=>$options,
+                    "showUrl"=>route('user.community.post.show',$row->slug),
+                    "createdAt"=>$row->created_at->diffInMinutes(now())>1? $row->created_at->diffForHumans(now(), true)." ago":'Just Now',
+                    "user"=>[
+                        "name"=>optional($row->user)->name
                     ],
-                    "liked" => $row->likes()->where('user_id', $user->id)->count() > 0 ? true : false,
-                    "likeUrl" => route('community.post.like', $row->slug),
-                    "editUrl" => $row->user_id == $user->id ? route('community.post.edit', $row->slug) : null,
+                    "editUrl"=>route('user.community.post.edit',$row->slug),
+                     
                 ];
             }
-            return [
+            return [ 
                 'current_page' => $posts->currentPage(),
                 'total_pages' => $posts->lastPage(),
                 'total_items' => $posts->total(),
                 'items_per_page' => $posts->perPage(),
-                'data' => $results,
+                'data' => $results, 
                 'prev' => $posts->previousPageUrl(),
                 'next' => $posts->nextPageUrl()
             ];
-        }
+        } 
         return view('user.community.index', compact('user','hashtags'));
     }
     public function create(Request $request)
@@ -187,13 +179,23 @@ class CommunityController extends Controller
         if ($type == "post") {
             $data = $request->validate([
                 'type' => ["required"],
-                'description' => ["required"],
+                // 'description' => ["required"],
+                'description' => ["required", function ($attribute, $value, $fail) {
+                    if (preg_match('/#/', $value)) {
+                        $fail('Hashtags are not allowed in the description.');
+                    }
+                }],
                 'image' => ["nullable"],
             ]);
         } else {
 
             $data = $request->validate([
-                'description' => ["required"],
+                // 'description' => ["required"],
+                'description' => ["required", function ($attribute, $value, $fail) {
+                    if (preg_match('/#/', $value)) {
+                        $fail('Hashtags are not allowed in the description.');
+                    }
+                }],
                 'type' => ["required"],
                 'option' => ["required", 'array', 'min:2', 'max:5'],
                 'option.*' => ["required", 'max:255'],
@@ -524,13 +526,23 @@ class CommunityController extends Controller
         if ($type == "post") {
             $data = $request->validate([
                 'type' => ["required"],
-                'description' => ["required"],
+                // 'description' => ["required"],
+                'description' => ["required", function ($attribute, $value, $fail) {
+                    if (preg_match('/#/', $value)) {
+                        $fail('Hashtags are not allowed in the description.');
+                    }
+                }],
                 'image' => ["nullable"],
             ]);
         } else {
 
             $data = $request->validate([
-                'description' => ["required"],
+                // 'description' => ["required"],
+                'description' => ["required", function ($attribute, $value, $fail) {
+                    if (preg_match('/#/', $value)) {
+                        $fail('Hashtags are not allowed in the description.');
+                    }
+                }],
                 'type' => ["required"],
                 'option' => ["required", 'array', 'min:2', 'max:5'],
                 'option.*' => ["required", 'max:255'],
