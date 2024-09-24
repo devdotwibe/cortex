@@ -14,7 +14,7 @@
             @empty
                 <p>No tips available.</p>
             @endforelse
-        </div>s
+        </div>
 
         <!-- Right Column: Advice Content -->
         <div class="critical-reasoning-col2">

@@ -19,7 +19,6 @@
             <div class="card">
                 <div class="card-body">
                     <form action="{{ route('admin.tip.store', $tip->id) }}" class="form" id="frmvk3a41725017844" method="post">
-                       
                         @csrf
 
                         <div class="row">
@@ -76,50 +75,6 @@
 
 @push('footer-script')
 <script>
-    CKEDITOR.replace('tip', {
-        on: {
-            change: function(evt) {
-                limitLines(this, 3);
-            }
-        }
-    });
-
-    CKEDITOR.replace('advice', {
-        on: {
-            change: function(evt) {
-                limitLines(this, 3);
-            }
-        }
-    });
-
-    function limitLines(editor, maxLines) {
-        const text = editor.getData();
-        const lines = text.split('\n');
-
-        if (lines.length > maxLines) {
-            const limitedText = lines.slice(0, maxLines).join('\n');
-            editor.setData(limitedText);
-        }
-    }
-
-    function validateLines() {
-        const tipEditor = CKEDITOR.instances.tip;
-        const adviceEditor = CKEDITOR.instances.advice;
-        
-        const tipLines = tipEditor.getData().split('\n').length;
-        const adviceLines = adviceEditor.getData().split('\n').length;
-
-        if (tipLines > 3) {
-            alert("Tip can only have up to 3 lines.");
-            return false;
-        }
-        
-        if (adviceLines > 3) {
-            alert("Advice can only have up to 3 lines.");
-            return false;
-        }
-        
-        return true;
-    }
+    CKEDITOR.replaceAll('texteditor');
 </script>
 @endpush
