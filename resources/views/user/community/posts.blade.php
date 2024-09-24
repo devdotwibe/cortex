@@ -36,7 +36,7 @@
                 <!-- Link styled as a textbox -->
                 <div class="mb-3">
                     <label for="backtoall" class="form-label"></label>
-                    <a href="{{ route('community.index') }}" id="backtoall"
+                    <a href="{{ route('admin.community.index') }}" id="backtoall"
                         class="form-control text-decoration-none"
                         style="display: block; padding: 10px; background-color: #f8f9fa; border: 1px solid #ced4da; border-radius: .25rem;">
                         #Backtoall
@@ -44,30 +44,38 @@
                 </div>
 
 
-            <!-- Hashtag List - Updated to display in a single line -->
-            <div class="d-flex flex-wrap"> <!-- Added d-flex and flex-wrap to allow wrapping -->
-                <ul class="list-group" style="flex-direction: row;flex-wrap: wrap; "> <!-- Display inline with flex -->
-                    @foreach ($hashtags as $hashtag)
-                        <li class="list-group-item d-inline-block" style="margin-right: 10px;">
-                            <a
-                                href="{{ route('community.index', ['hashtag' => $hashtag]) }}">{{ $hashtag }}</a>
-                        </li>
-                    @endforeach
-                </ul>
+
+                {{-- <ul class="list-group">
+                @foreach ($hashtags as $hashtag)
+                    <li class="list-group-item">
+                        <a href="{{ route('admin.community.index', ['hashtag' => $hashtag]) }}">{{ $hashtag }}</a>
+                    </li>
+                @endforeach
+            </ul> --}}
+
+                <!-- Hashtag List - Updated to display in a single line -->
+                <div class="d-flex flex-wrap"> <!-- Added d-flex and flex-wrap to allow wrapping -->
+                    <ul class="list-group" style="flex-direction: row;flex-wrap: wrap; "> <!-- Display inline with flex -->
+                        @foreach ($hashtags as $hashtag)
+                            <li class="list-group-item d-inline-block" style="margin-right: 10px;">
+                                <a
+                                    href="{{ route('admin.community.index', ['hashtag' => $hashtag]) }}">{{ $hashtag }}</a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
             </div>
+
+
+
         </div>
-
-
+    </div>
+    <div class="post-container" id="post-item-list">
 
     </div>
-</div>
-
-<div class="post-container" id="post-item-list">
-
-</div>
-<div class="post-action">
-    <button id="load-more-btn" class="btn btn-outline-dark" style="display: none"> Load More </button>
-</div>
+    <div class="post-action">
+        <button id="load-more-btn" class="btn btn-outline-dark" style="display: none"> Load More </button>
+    </div>
 </section>
 
 @endsection
@@ -75,102 +83,104 @@
 
 @push('footer-script')
 <script>
-function loadpost(url) {
-    $.get(url, function(res) {
-        if (res.next) {
-            $('#load-more-btn').show().data('url', res.next)
-        } else {
-            $('#load-more-btn').hide().data('url', null);
+    
+        function loadpost(url) {
+            $.get(url, function(res) {
+                if (res.next) {
+                    $('#load-more-btn').show().data('url', res.next)
+                } else {
+                    $('#load-more-btn').hide().data('url', null);
+                }
+                $.each(res.data, function(k, v) {
+                    let polloption = ``;
+                    if (v.vote) {
+
+                        $.each(v.poll || [], function(pk, pv) {
+                            polloption += `
+                        <div class="form-check ${v.vote.option==pv.slug?"voted":"vote"}">
+                            <input class="form-check-input" type="radio" name="${v.slug}" id="poll-${v.slug}-option-${pv.slug}" value="${pv.slug}"  >
+                            <label class="form-check-label" for="poll-${v.slug}-option-${pv.slug}">
+                                ${pv.option}
+                                <span id="poll-${v.slug}-option-${pv.slug}-percentage">(${pv.percentage}%)</span>
+                                <div class="poll-graph-bar-wrapper">
+                                    <div class="poll-graph-bar" id="poll-${v.slug}-option-${pv.slug}-bar" style="width: ${pv.percentage}%;"></div>
+                                </div>
+                            </label>
+                        </div>
+                        `;
+                        })
+                    } else {
+
+                        $.each(v.poll || [], function(pk, pv) {
+                            polloption += `
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="${v.slug}" id="poll-${v.slug}-option-${pv.slug}" value="${pv.slug}" >
+                            <label class="form-check-label" for="poll-${v.slug}-option-${pv.slug}">
+                                ${pv.option}
+                                <span id="poll-${v.slug}-option-${pv.slug}-percentage">(${pv.percentage}%)</span>
+                                <div class="poll-graph-bar-wrapper">
+                                    <div class="poll-graph-bar" id="poll-${v.slug}-option-${pv.slug}-bar" style="width: ${pv.percentage}%;"></div>
+                                </div>
+                            </label>
+                        </div>
+                        `;
+                        })
+                    }
+
+                    let imagehtml = '';
+                    if (v.image) {
+                        imagehtml = `
+                        <img src="${v.image}" alt="">
+                    `;
+                    }
+                    let hashtag = '';
+                    console.log(v.hashtags);
+
+                    $('#post-item-list').append(`
+                    <div class="post-item" id="post-item-${v.slug}">  
+                        <div class="post-header">
+                            <div class="avathar">
+                                <img src="{{ asset('assets/images/User-blk.png') }}" alt="img">
+                            </div>
+                            <div class="title">
+                                <h3>${v.user.name||""}</h3>
+                                <span>${v.createdAt}</span>
+                            </div>
+                            <div class="action">
+                                <a class="btn btn-outline-dark" href="${v.showUrl}">View</a>
+                                <a class="btn btn-dark" href="${v.editUrl}">edit</a>
+                            </div>
+                        </div>
+                        <div class="post-title">
+                            ${v.title||""}
+                        </div>
+                        <div class="post-content">
+                            ${v.description||""}
+                        </div>
+                         <div class="post-content">
+                            ${v.hashtags||""}
+                        </div>
+                        <div class="poll-options">
+                            ${polloption}
+                        </div>
+                        <div class="post-image">
+                            ${imagehtml}
+                        </div>
+                        <div class="post-actions">
+                            <a class="post-action-btn like-btn btn" ><img src="{{ asset('assets/images/like.svg') }}" slt="comment"> <span>${v.likes}</span></a>
+                            <a class="post-action-btn comment-btn btn"  ><img src="{{ asset('assets/images/comment1.svg') }}" slt="comment"> <span>${v.comments}</span></a>
+                        </div>
+                    </div>
+                `)
+                })
+            }, 'json');
         }
-        $.each(res.data, function(k, v) {
-            let polloption = ``;
-            if (v.vote) {
-
-                $.each(v.poll || [], function(pk, pv) {
-                    polloption += `
-                <div class="form-check ${v.vote.option==pv.slug?"voted":"vote"}">
-                    <input class="form-check-input" type="radio" name="${v.slug}" id="poll-${v.slug}-option-${pv.slug}" value="${pv.slug}"  >
-                    <label class="form-check-label" for="poll-${v.slug}-option-${pv.slug}">
-                        ${pv.option}
-                        <span id="poll-${v.slug}-option-${pv.slug}-percentage">(${pv.percentage}%)</span>
-                        <div class="poll-graph-bar-wrapper">
-                            <div class="poll-graph-bar" id="poll-${v.slug}-option-${pv.slug}-bar" style="width: ${pv.percentage}%;"></div>
-                        </div>
-                    </label>
-                </div>
-                `;
-                })
-            } else {
-
-                $.each(v.poll || [], function(pk, pv) {
-                    polloption += `
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="${v.slug}" id="poll-${v.slug}-option-${pv.slug}" value="${pv.slug}" >
-                    <label class="form-check-label" for="poll-${v.slug}-option-${pv.slug}">
-                        ${pv.option}
-                        <span id="poll-${v.slug}-option-${pv.slug}-percentage">(${pv.percentage}%)</span>
-                        <div class="poll-graph-bar-wrapper">
-                            <div class="poll-graph-bar" id="poll-${v.slug}-option-${pv.slug}-bar" style="width: ${pv.percentage}%;"></div>
-                        </div>
-                    </label>
-                </div>
-                `;
-                })
-            }
-
-            let imagehtml = '';
-            if (v.image) {
-                imagehtml = `
-                <img src="${v.image}" alt="">
-            `;
-            }
-            let hashtag = '';
-            console.log(v.hashtags);
-
-            $('#post-item-list').append(`
-            <div class="post-item" id="post-item-${v.slug}">  
-                <div class="post-header">
-                    <div class="avathar">
-                        <img src="{{ asset('assets/images/User-blk.png') }}" alt="img">
-                    </div>
-                    <div class="title">
-                        <h3>${v.user.name||""}</h3>
-                        <span>${v.createdAt}</span>
-                    </div>
-                    <div class="action">
-                        <a class="btn btn-outline-dark" href="${v.showUrl}">View</a>
-                        <a class="btn btn-dark" href="${v.editUrl}">edit</a>
-                    </div>
-                </div>
-                <div class="post-title">
-                    ${v.title||""}
-                </div>
-                <div class="post-content">
-                    ${v.description||""}
-                </div>
-                 <div class="post-content">
-                    ${v.hashtags||""}
-                </div>
-                <div class="poll-options">
-                    ${polloption}
-                </div>
-                <div class="post-image">
-                    ${imagehtml}
-                </div>
-                <div class="post-actions">
-                    <a class="post-action-btn like-btn btn" ><img src="{{ asset('assets/images/like.svg') }}" slt="comment"> <span>${v.likes}</span></a>
-                    <a class="post-action-btn comment-btn btn"  ><img src="{{ asset('assets/images/comment1.svg') }}" slt="comment"> <span>${v.comments}</span></a>
-                </div>
-            </div>
-        `)
+        $(function() {
+            loadpost("{{ url()->full() }}");
+            $('#load-more-btn').click(function() {
+                loadpost($('#load-more-btn').data('url'))
+            })
         })
-    }, 'json');
-}
-$(function() {
-    loadpost("{{ url()->full() }}");
-    $('#load-more-btn').click(function() {
-        loadpost($('#load-more-btn').data('url'))
-    })
-})
-</script>
+    </script>
+
 @endpush
