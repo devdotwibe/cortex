@@ -1960,6 +1960,11 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .table-section .table-outer table thead tr th:last-child { border-radius: 0 10px 0 0;}
 
 .learn_show .table-outer table { min-width: 830px;}
+.admin_section table tr td .form-check .form-check-box:checked {
+  background: url(../images/check-solid.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 
 
 @media screen and (max-width:1500px) {
