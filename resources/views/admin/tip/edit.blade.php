@@ -43,8 +43,4 @@
     CKEDITOR.replace('tip');
     CKEDITOR.replace('advice');
 </script>
-
-<script>
-    CKEDITOR.replaceAll('texteditor');
-</script>
 @endpush
