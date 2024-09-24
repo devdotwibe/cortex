@@ -223,6 +223,9 @@
                     imagehtml=`
                         <img src="${v.image}" alt="">
                     `;
+                    
+                    let hashtag = '';
+                    console.log(v.hashtags);
                 }
             $(id).html(`
             <a href="${v.showUrl}">
