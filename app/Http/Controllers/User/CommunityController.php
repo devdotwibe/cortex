@@ -21,12 +21,19 @@ class CommunityController extends Controller
     public function posts(Request $request)
     {
 
+
         $hashtags = Hashtag::groupBy('hashtag')->pluck('hashtag');
-    
-       
+
+
         $hashtag = $request->input('hashtag');
 
 
+        /**
+         *  @var User
+         */
+        $user = Auth::user();
+
+       
         if($request->ajax()){   
             $posts=Post::where('id','>',0);
             if(!empty($hashtag))
@@ -60,12 +67,12 @@ class CommunityController extends Controller
                     "video"=>$row->video,
                     "status"=>$row->status,
                     "poll"=>$options,
-                    "showUrl"=>route('admin.community.post.show',$row->slug),
+                    "showUrl"=>route('user.community.post.show',$row->slug),
                     "createdAt"=>$row->created_at->diffInMinutes(now())>1? $row->created_at->diffForHumans(now(), true)." ago":'Just Now',
                     "user"=>[
                         "name"=>optional($row->user)->name
                     ],
-                    "editUrl"=>route('admin.community.post.edit',$row->slug),
+                    "editUrl"=>route('user.community.post.edit',$row->slug),
                      
                 ];
             }
@@ -79,9 +86,8 @@ class CommunityController extends Controller
                 'next' => $posts->nextPageUrl()
             ];
         } 
-
-        $user = Auth::user();
-        return view('user.community.posts', compact('hashtags','user'));
+        // return view('user.community.posts', compact('user','hashtags'));
+        return view('admin.community.index',compact('hashtags'));
     }
 
     public function index(Request $request)
