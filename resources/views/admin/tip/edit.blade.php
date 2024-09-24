@@ -39,8 +39,12 @@
 @endsection
 
 @push('footer-script')
-<script>
+{{-- <script>
     CKEDITOR.replace('tip');
     CKEDITOR.replace('advice');
+</script> --}}
+
+<script>
+    CKEDITOR.replaceAll('texteditor');
 </script>
 @endpush
