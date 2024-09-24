@@ -17,19 +17,19 @@ class TipsAndAdviceController extends Controller
         return view('user.TipsandAdvise.index', compact('categories'));
     }
 
+
     public function tip_show($id)
     {
-        // Fetch the selected category along with its tips
-        $category = Category::with('tips')->findOrFail($id);
+        // Fetch the selected category
+        $category = Category::findOrFail($id)->where('');
 
-        // If the category has no tips, redirect or show an error
-        if ($category->tips->isEmpty()) {
-            return redirect()->route('tipsandadvise.index')->with('error', 'No tips available for this category.');
-        }
+        // Fetch the tips related to the selected category
+        $tips = $category->tips; // Assuming you have a relationship defined in Category model
 
-        // Pass the category and tips to the view
-        return view('user.TipsandAdvise.tips_n_advice', compact('category', 'tips'));
+        // Pass the tips and category to the view
+        return view('user.TipsandAdvise.tips_n_advice', compact('tips', 'category'));
     }
 }
+
 
 
