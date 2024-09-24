@@ -19,11 +19,11 @@
                         @csrf
                         <div class="form-group">
                             <label for="tip">Tip</label>
-                            <textarea name="tip" id="tip" class="form-control texteditor" rows="5">{{ old('tip', strip_tags($tip->tip)) }}</textarea>
+                            <textarea name="tip" id="tip" class="form-control texteditor" rows="5">{{ old('tip', $tip->tip) }}</textarea>
                         </div>
                         <div class="form-group">
                             <label for="advice">Advice</label>
-                            <textarea name="advice" id="advice" class="form-control texteditor" rows="5">{{ old('advice', strip_tags($tip->advice)) }}</textarea>
+                            <textarea name="advice" id="advice" class="form-control texteditor" rows="5">{{ old('advice', $tip->advice) }}</textarea>
                         </div>
                         <div class="mb-3">
                             <a href="{{ route('admin.tip.index') }}" class="btn btn-secondary">Cancel</a>
@@ -43,4 +43,6 @@
     CKEDITOR.replace('tip');
     CKEDITOR.replace('advice');
 </script>
+
+
 @endpush
