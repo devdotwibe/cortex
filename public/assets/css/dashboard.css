@@ -1961,9 +1961,9 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 
 .learn_show .table-outer table { min-width: 830px;}
 .admin_section table tr td .form-check .form-check-box:checked {
-  background: url(../images/check-solid.svg);
+  background: url(../images/check-solid.svg) center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
 }
 
 
