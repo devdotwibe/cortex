@@ -80,7 +80,7 @@ class CommunityController extends Controller
                 'next' => $posts->nextPageUrl()
             ];
         } 
-        return view('user.community.posts', compact('user','hashtags'));
+        return view('user.community.posts', compact('hashtags'));
     }
 
     public function index(Request $request)
