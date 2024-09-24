@@ -23,75 +23,63 @@ class CommunityController extends Controller
 
 
         $hashtags = Hashtag::groupBy('hashtag')->pluck('hashtag');
-
-
+    
+       
         $hashtag = $request->input('hashtag');
 
 
-        /**
-         *  @var User
-         */
-        $user = Auth::user();
-
-        if ($request->ajax()) {
-            $post = Post::where('id', '>', 0);
-            if (!empty($hashtag)) {
-                $post->whereIn('id', Hashtag::where('hashtag', 'like', "%$hashtag%")->select('post_id'));
+        if($request->ajax()){   
+            $posts=Post::where('id','>',0);
+            if(!empty($hashtag))
+            {
+                $posts->whereIn('id',Hashtag::where('hashtag', 'like', "%$hashtag%")->select ('post_id'));
             }
-            $posts = $post->orderBy('id', 'DESC')->paginate();
-            $results = [];
-            foreach ($posts->items() as $row) {
-                $options = [];
-                $tvotes = $row->pollOption->sum('votes');
-                foreach ($row->pollOption as $opt) {
-                    $options[] = [
-                        "slug" => $opt->slug,
-                        "option" => $opt->option,
-                        "votes" => $opt->votes,
-                        'percentage' => $tvotes > 0 ? round(($opt->votes * 100) / $tvotes, 2) : 0,
-                        'voteUrl' => route('community.poll.vote', $opt->slug),
-                    ];
-                }
-                $vote = Poll::where('user_id', $user->id)->where('post_id', $row->id)->first();
-                if (!empty($vote)) {
-                    $vote = [
-                        'slug' => $vote->slug,
-                        'option' => optional($vote->pollOption)->slug,
-                    ];
-                }
-                $results[] = [
-                    "slug" => $row->slug,
-                    "title" => $row->title,
-                    "type" => $row->type,
-                    "description" => $row->description,
-                    "hashtags"=>$row->hashtaglist()->pluck('hashtag'),
-                    "likes" => $row->likes()->count(),
-                    "comments" => $row->comments()->whereNull('post_comment_id')->count(),
-                    "image" => $row->image,
-                    "video" => $row->video,
-                    "status" => $row->status,
-                    "vote" => $vote,
-                    "poll" => $options,
-                    "showUrl" => route('community.post.show', $row->slug),
-                    "createdAt" => $row->created_at->diffInMinutes(now()) > 1 ? $row->created_at->diffForHumans(now(), true) . " ago" : 'Just Now',
-                    "user" => [
-                        "name" => optional($row->user)->name ?? optional($row->admin)->name ?? "(deleted user)"
-                    ],
-                    "liked" => $row->likes()->where('user_id', $user->id)->count() > 0 ? true : false,
-                    "likeUrl" => route('community.post.like', $row->slug),
 
+
+            $posts=$posts->orderBy('id','DESC')->paginate();
+            $results=[];
+            foreach ($posts->items() as $row) { 
+                $options=[];
+                $tvotes=$row->pollOption->sum('votes');
+                foreach($row->pollOption as $opt){
+                    $options[]=[
+                        "slug"=>$opt->slug,
+                        "option"=>$opt->option,
+                        "votes"=>$opt->votes,
+                        'percentage'=>$tvotes>0?round(($opt->votes*100)/$tvotes,2):0,
+                    ];
+                }
+                $results[]=[
+                    "slug"=>$row->slug,
+                    "title"=>$row->title,
+                    "type"=>$row->type,
+                    "description"=>$row->description,
+                   "hashtags"=>$row->hashtaglist()->pluck('hashtag'),
+                    "likes"=>$row->likes()->count(),
+                    "comments"=>$row->comments()->whereNull('post_comment_id')->count(),
+                    "image"=>$row->image,
+                    "video"=>$row->video,
+                    "status"=>$row->status,
+                    "poll"=>$options,
+                    "showUrl"=>route('admin.community.post.show',$row->slug),
+                    "createdAt"=>$row->created_at->diffInMinutes(now())>1? $row->created_at->diffForHumans(now(), true)." ago":'Just Now',
+                    "user"=>[
+                        "name"=>optional($row->user)->name
+                    ],
+                    "editUrl"=>route('admin.community.post.edit',$row->slug),
+                     
                 ];
             }
-            return [
+            return [ 
                 'current_page' => $posts->currentPage(),
                 'total_pages' => $posts->lastPage(),
                 'total_items' => $posts->total(),
                 'items_per_page' => $posts->perPage(),
-                'data' => $results,
+                'data' => $results, 
                 'prev' => $posts->previousPageUrl(),
                 'next' => $posts->nextPageUrl()
             ];
-        }
+        } 
         return view('user.community.posts', compact('user','hashtags'));
     }
 
