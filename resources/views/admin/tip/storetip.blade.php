@@ -18,7 +18,8 @@
         <div class="row">
             <div class="card">
                 <div class="card-body">
-                    <form action="{{ route('admin.tip.store') }}" class="form" id="frmvk3a41725017844" method="post" onsubmit="return validateLines()">
+                    {{-- <form action="{{ route('admin.tip.store') }}" class="form" id="frmvk3a41725017844" method="post" onsubmit="return validateLines()"> --}}
+                        <form action="{{ route('admin.tip.store', $tip->id) }}" class="form" id="frmvk3a41725017844" method="post">
                         @csrf
 
                         <div class="row">
