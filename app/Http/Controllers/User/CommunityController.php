@@ -99,6 +99,7 @@ class CommunityController extends Controller
 
     public function index(Request $request)
     {
+        dd('hi');
 
         $hashtags = Hashtag::groupBy('hashtag')->pluck('hashtag');
 
