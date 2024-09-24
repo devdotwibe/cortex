@@ -20,7 +20,6 @@ class CommunityController extends Controller
 {
     public function posts(Request $request)
     {
-dd(exit);
 
         $hashtags = Hashtag::groupBy('hashtag')->pluck('hashtag');
     
@@ -80,7 +79,9 @@ dd(exit);
                 'next' => $posts->nextPageUrl()
             ];
         } 
-        return view('user.community.posts', compact('hashtags'));
+
+        $user = Auth::user();
+        return view('user.community.posts', compact('hashtags','user'));
     }
 
     public function index(Request $request)
