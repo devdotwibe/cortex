@@ -118,8 +118,8 @@ class CommunityController extends Controller
             if (!empty($hashtag)) {
                 $post->whereIn('id', Hashtag::where('hashtag', 'like', "%$hashtag%")->select('post_id'));
             }
-            $posts = $post->orderBy('id', 'DESC')->paginate();
-            // $posts=$posts->orderBy('id','DESC')->paginate();
+            $posts = $post->where('user_id', $user->id)->orderBy('id', 'DESC')->paginate();
+            
             $results = [];
             foreach ($posts->items() as $row) {
                 $options = [];
@@ -145,7 +145,7 @@ class CommunityController extends Controller
                     "title" => $row->title,
                     "type" => $row->type,
                     "description" => $row->description,
-                    "hashtags"=>$row->hashtaglist()->pluck('hashtag'),
+                    // "hashtags"=>$row->hashtaglist()->pluck('hashtag'),
                     "likes" => $row->likes()->count(),
                     "comments" => $row->comments()->whereNull('post_comment_id')->count(),
                     "image" => $row->image,
