@@ -66,8 +66,8 @@ class TipsController extends Controller
         // Validate the incoming request data
         $validatedData = $request->validate([
 
-            'tip' => 'required|nullable|string|max:65535',
-            'advice' => 'required|nullable|string|max:65535',
+            'tip' => 'required|nullable|string|max:300',
+            'advice' => 'required|nullable|string|max:300',
         ]);
 
         $tips = new Tips;

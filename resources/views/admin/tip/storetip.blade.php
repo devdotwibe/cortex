@@ -34,9 +34,7 @@
                                     <div class="form-data">
                                         <div class="forms-inputs mb-4">
                                             <label for="tip">Tip</label>
-                                            {{-- <textarea name="tip" id="tip" class="form-control texteditor" rows="5">{{ old('tip', $tip->tip) }}</textarea> --}}
-                                            <textarea name="tip" id="tip" class="form-control texteditor limited-height" rows="5">{{ old('tip', $tip->tip) }}</textarea>
-
+                                            <textarea name="tip" id="tip" class="form-control texteditor" rows="5">{{ old('tip', $tip->tip) }}</textarea>
                                             @error('tip')
                                                 <div class="text-danger mt-2">{{ $message }}</div>
                                             @enderror
@@ -79,16 +77,4 @@
 <script>
     CKEDITOR.replaceAll('texteditor');
 </script>
-<script>
-    function limitLines(textarea) {
-        const lines = textarea.value.split('\n');
-        if (lines.length > 3) {
-            // Limit to the first 3 lines and adjust the textarea value
-            textarea.value = lines.slice(0, 3).join('\n');
-        }
-    }
-</script>
-
-
-
 @endpush
