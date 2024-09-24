@@ -45,7 +45,7 @@ class CommunityController extends Controller
             // }
 
 
-            $posts=$posts->orderBy('id','DESC')->paginate();
+            // $posts=$posts->orderBy('id','DESC')->paginate();
             $results=[];
             foreach ($posts->items() as $row) { 
                 $options=[];
