@@ -23,6 +23,7 @@ class CommunityController extends Controller
     public function posts(Request $request)
     {
 
+        dd('fg');
         $hashtag = $request->input('hashtag');
 
 
