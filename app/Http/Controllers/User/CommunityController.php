@@ -87,7 +87,7 @@ class CommunityController extends Controller
             ];
         } 
         // return view('user.community.posts', compact('user','hashtags'));
-        return view('admin.community.index',compact('hashtags'));
+        return view('user.community.index',compact('hashtags'));
     }
 
     public function index(Request $request)
