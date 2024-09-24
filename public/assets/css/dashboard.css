@@ -1945,12 +1945,14 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .admin_section .table-outer table { min-width: 1300px;}
 .admin_section .table-outer { overflow-x: auto;}
 .admin_section .table-outer table .form-check input.form-check-input {margin: 2px 10px 0 0;}
+.admin_section .table-outer table thead tr th:first-child { border-radius: 10px 0 0 0;}
+.admin_section .table-outer table thead tr th:last-child { border-radius: 0 10px 0 0;}
 
 .table-section { margin: 30px 0 0;}
 .table-section .table-outer table thead tr th { background: #1989F8;}
 .table-section .table-outer table .form-check {padding: 0; min-height: inherit; margin: 5px 0 0;}
 .table-section .table-outer table .form-check input.form-check-box { border: 1.5px solid #FBAE1E; border-radius: 2px; width: 17px; height: 17px;}
-.table-section .table-outer table { min-width: 1300px;}
+.table-section .table-outer table { min-width: 1240px;}
 .table-section .table-outer { overflow-x: auto;}
 .table-section .table-outer table .form-check input.form-check-input {margin: 2px 10px 0 0;}
 .table-section { margin: 30px 0 0;}
