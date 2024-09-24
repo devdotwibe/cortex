@@ -1966,6 +1966,84 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
   background-size: contain;
 }
 
+.invite-wrap .row {
+  margin: 0;
+}
+
+.invite-wrap .row .card {
+  background: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 0;
+}
+
+.invite-wrap .row .card .card-body .col-md-4 .forms-inputs .select2.select2-container {
+  width: 100% !important;
+}
+
+.invite-wrap .row .card .card-body .col-md-4 .forms-inputs .select2.select2-container .selection .select2-selection {
+  height: 52px;
+  border: 1px solid rgba(188, 188, 188, 1);
+}
+
+.invite-wrap .row .card .card-body .col-md-4 .forms-inputs .select2.select2-container .selection .select2-selection .select2-selection__rendered {
+  height: 100%;
+}
+
+.invite-wrap .row .card .card-body .col-md-4 .forms-inputs .select2.select2-container .selection .select2-selection .select2-selection__arrow {
+  top: 50%;
+  transform: translateY(-50%);
+  background: url(../images/chevron-down.svg) no-repeat center;
+  background-size: 12px;
+}
+
+.invite-wrap .row .card .card-body .col-md-4 .forms-inputs .select2.select2-container .selection .select2-selection .select2-selection__arrow b {
+  border: none;
+}
+
+.invite-wrap .row .card .card-body .col-md-4 .forms-inputs input {
+  height: 52px;
+  border: 1px solid rgba(188, 188, 188, 1);
+  padding: 11px;
+}
+
+.invite-wrap .row .card .card-body .col-md-4 .forms-inputs label {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0 0 10px;
+}
+
+.invite-wrap .row .card .card-body .btn.btn-secondary {
+  background: none;
+  color: #000;
+  border: 1px solid #000;
+  font-size: 18px;
+  padding: 8px 20px;
+  font-weight: 500;
+}
+
+.invite-wrap .row .card .card-body .btn.btn-secondary:hover {
+  background: #000;
+  color: #ffff;
+}
+
+.invite-wrap .row .card .card-body button.btn.btn-dark {
+  background: #FBAE1E;
+  border: 1px solid #FBAE1E;
+  padding: 8px 20px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.invite-wrap .row .card .card-body button.btn.btn-dark:hover {
+  background: none;
+  color: #FBAE1E;
+}
+
+.invite-wrap .row .card .card-body .mb-3 {
+  padding: 0 10px;
+}
+
 
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
