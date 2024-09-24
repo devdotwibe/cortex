@@ -88,7 +88,7 @@ class CommunityController extends Controller
         } 
         // return view('user.community.posts', compact('user','hashtags'));
         $user = Auth::user();
-        return view('user.community.index',compact('hashtags'));
+        return view('user.community.index',compact('hashtags','user'));
     }
 
     public function index(Request $request)
