@@ -28,17 +28,26 @@ class PrivateClassHomeWorkController extends Controller
         $homeWorks=HomeWork::whereIn('id',TermAccess::where('type','home-work')->where('user_id',$user->id)->select('term_id'))->get();
         return view('user.home-work.index',compact('homeWorks','user'));
     }
-    public function show(Request $request,HomeWork $homeWork){
+    public function show(Request $request, HomeWork $homeWork){
         /**
          *  @var User
          */
-        $user=Auth::user();
-        if(TermAccess::where('type','home-work')->where('term_id',$homeWork->id)->where('user_id',$user->id)->count()==0){
+        $user = Auth::user();
+        
+        // Check if the user has access to this home work
+        if (TermAccess::where('type', 'home-work')->where('term_id', $homeWork->id)->where('user_id', $user->id)->count() == 0) {
             return abort(404);
         }
-        $booklets=HomeWorkBook::where('home_work_id',$homeWork->id)->get();
-        return view('user.home-work.show',compact('homeWork','booklets','user'));
+        
+        // Get the home work booklets related to the current home work
+        $booklets = HomeWorkBook::where('home_work_id', $homeWork->id)->get();
+    
+        // Check if there are no booklets
+        $hasBooklets = $booklets->isNotEmpty(); // This will be true if there are booklets
+    
+        return view('user.home-work.show', compact('homeWork', 'booklets', 'user', 'hasBooklets'));
     }
+    
     public function booklet(Request $request,HomeWork $homeWork,HomeWorkBook $homeWorkBook){ 
         /**
          *  @var User
