@@ -18,7 +18,7 @@
         <div class="row">
             <div class="card">
                 <div class="card-body">
-                    <form action="{{ route('admin.tip.store', $tip->id) }}" class="form" id="frmvk3a41725017844" method="post">
+                    <form action="{{ route('admin.tip.store') }}" class="form" id="frmvk3a41725017844" method="post" onsubmit="return validateLines()">
                         @csrf
 
                         <div class="row">
@@ -34,7 +34,7 @@
                                     <div class="form-data">
                                         <div class="forms-inputs mb-4">
                                             <label for="tip">Tip</label>
-                                            <textarea name="tip" id="tip" class="form-control texteditor" rows="5">{{ old('tip', $tip->tip) }}</textarea>
+                                            <textarea name="tip" id="tip" class="form-control texteditor" rows="5" oninput="limitLines(this, 3)">{{ old('tip', $tip->tip) }}</textarea>
                                             @error('tip')
                                                 <div class="text-danger mt-2">{{ $message }}</div>
                                             @enderror
@@ -48,7 +48,7 @@
                                     <div class="form-data">
                                         <div class="forms-inputs mb-4">
                                             <label for="advice">Advice</label>
-                                            <textarea name="advice" id="advice" class="form-control texteditor" rows="5">{{ old('advice', $tip->advice) }}</textarea>
+                                            <textarea name="advice" id="advice" class="form-control texteditor" rows="5" oninput="limitLines(this, 3)">{{ old('advice', $tip->advice) }}</textarea>
                                             @error('advice')
                                                 <div class="text-danger mt-2">{{ $message }}</div>
                                             @enderror
@@ -56,11 +56,10 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
 
                         <div class="mb-3">
-                            <a href="{{ route('admin.tip.create', $tip->id) }}"  class="btn btn-secondary">Cancel</a>
+                            <a href="{{ route('admin.tip.create') }}" class="btn btn-secondary">Cancel</a>
                             <button type="submit" class="btn btn-dark">Save</button>
                         </div>
 
@@ -76,6 +75,7 @@
 @push('footer-script')
 <script>
     CKEDITOR.replaceAll('texteditor');
+
     function limitLines(textarea, maxLines) {
         const lines = textarea.value.split('\n');
         if (lines.length > maxLines) {
