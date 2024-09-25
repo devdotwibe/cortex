@@ -160,17 +160,19 @@ class LiveClassController extends Controller
                 });
             }
 
-            // if(!empty($request->termname)){
-            //     $termname= $request->termname;
+            if(!empty($request->termname)){
+                $termname= $request->termname;
 
-            //     $this->where('')
-            // }
-
-
-            if(!empty($request->termname)) {
-                $termname = $request->termname;
-                $this->where('term_name', $termname); // Ensure the term name filter is applied correctly
+                $this->whereIn('user_id',HomeWork::where('term_name',$termname)->pluck('user_id'))
+                ->whereIn('user_id',ClassDetail::where('term_name',$termname)->pluck('user_id'))
+                ->whereIn('user_id',LessonMaterial::where('term_name',$termname)->pluck('user_id'))
+                ->whereIn('user_id',LessonRecording::where('term_name',$termname)->pluck('user_id'));
+                
             }
+
+
+            
+            
 
             return $this->addAction(function($data){
                 $action="";
