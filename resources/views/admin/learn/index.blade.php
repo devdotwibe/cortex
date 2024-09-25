@@ -60,6 +60,17 @@
                                 <div class="invalid-feedback">The field is required</div>
                             </div>
                         </div>
+                        <div class="form-data">
+                            <div class="forms-inputs mb-4">
+                                <label for="question-bank-category-icon-input">Icon</label>
+                                <input type="hidden" name="icon" value="" id="question-bank-category-icon"  >
+                                <input type="file"  id="question-bank-category-icon-input" class="form-control " placeholder="Icon" aria-placeholder="Icon" >
+                                <div class="invalid-feedback">The field is required</div>
+                            </div>
+                            <div id="question-bank-category-icon-preview">
+
+                            </div>
+                        </div>
                      </div>
                     <button type="button" data-bs-dismiss="modal" class="btn btn-secondary mr-1">Cancel</button>
                     <button type="submit" class="btn btn-dark ml-1">Save</button>
@@ -78,6 +89,11 @@
             $('#question-bank-subtitleLablel').text($(element).data('title'))
             $('#question-bank-category-title').val($(element).data('subtitle')).removeClass('is-invalid')
             $('#question-bank-category-id').val($(element).data('category'))
+            $('#question-bank-category-icon-input').val('')
+            $('#question-bank-category-icon').val('')
+            $('#question-bank-category-icon-preview').html(`
+            <img src="${$(element).data('icon')}" class="img img-thumbnail">
+            `)
             $('#question-bank-subtitle').modal('show')
          }
          $(function(){
