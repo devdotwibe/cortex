@@ -71,8 +71,10 @@ class ExamController extends Controller
     }
     public function examoptionssave(Request $request){
         $request->validate([
-            'description'=>'required'
+            'description'=>'required',
+            'title'=>'required',
         ]);
+        OptionHelper::setData("exam_simulator_title", $request->title);
         OptionHelper::setData("exam_simulator_description", $request->description);
         return redirect()->back()->with("success","Exam Simulator Description Updated");
     }
