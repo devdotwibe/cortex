@@ -14,6 +14,7 @@ class ExamCategoryTitle extends Model
         'title',
         'exam_id',
         'category_id', 
-        'slug'
+        'slug',
+        'icon'
     ];
 }
