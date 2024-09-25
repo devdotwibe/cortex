@@ -377,19 +377,6 @@ private function extractHashtags($text)
     return array_unique($matches[0]);
 }
 
-// public function index2(Request $request)
-// {
-//     $hashtag = $request->input('hashtag');
-
-//     $posts = $hashtag 
-//         ? Post::where('hashtags', 'like', "%$hashtag%")->get()
-//         : Post::all();
-
-//     $hashtags = Hashtag::pluck('hashtag');
-
-//     return view('community.index', compact('posts', 'hashtags'));
-// }
-
 
 
     

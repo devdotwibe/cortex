@@ -12,6 +12,21 @@
                <select  id="timeslot-list" class="select2 form-control" data-allow-clear="true" ></select>
             </div>
        </div>    
+       <div class="header_content">
+        <div class="form-group">
+
+            <select id="term-list" class="select2 form-control" data-allow-clear="true">
+
+                <option value="">Select Term</option> 
+                @foreach($terms as $term)
+                    <option value="{{ $term->id }}">{{ $term->name }}</option>
+                @endforeach
+
+
+            </select>
+        </div>
+    </div>
+    
         <div class="header_right">
             <ul class="nav_bar"> 
                 <li class="nav_item"  >
@@ -528,4 +543,6 @@
      
     </script>
     
+
+   
 @endpush

@@ -209,7 +209,10 @@ class LiveClassController extends Controller
             })->buildTable(['timeslottext','statushtml','termhtml']);
         }
         $live_class =  LiveClassPage::first();
-        return view('admin.live-class.private-class-request',compact('live_class'));
+
+        $terms = ClassDetail::get();
+
+        return view('admin.live-class.private-class-request',compact('live_class','terms'));
 
     }
     public function private_class_request_show(Request $request,PrivateClass $privateClass){
