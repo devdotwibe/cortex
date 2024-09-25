@@ -243,7 +243,7 @@ class LiveClassController extends Controller
             }
         }
 
-        $terms[] = $terms1->concat($terms2)->concat($terms3)->concat($terms4);
+        $allTerms = $terms1->concat($terms2)->concat($terms3)->concat($terms4);
 
         return view('admin.live-class.private-class-request',compact('live_class','terms'));
 
