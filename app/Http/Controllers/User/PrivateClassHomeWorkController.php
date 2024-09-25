@@ -28,37 +28,61 @@ class PrivateClassHomeWorkController extends Controller
         $homeWorks=HomeWork::whereIn('id',TermAccess::where('type','home-work')->where('user_id',$user->id)->select('term_id'))->get();
         return view('user.home-work.index',compact('homeWorks','user'));
     }
-    public function show(Request $request,HomeWork $homeWork){       
-        /**
-         *  @var User
-         */
-        $user=Auth::user();
-        if(TermAccess::where('type','home-work')->where('term_id',$homeWork->id)->where('user_id',$user->id)->count()==0){
-            return abort(404);
-        }
+    // public function show(Request $request,HomeWork $homeWork){       
+    //     /**
+    //      *  @var User
+    //      */
+    //     $user=Auth::user();
+    //     if(TermAccess::where('type','home-work')->where('term_id',$homeWork->id)->where('user_id',$user->id)->count()==0){
+    //         return abort(404);
+    //     }
        
 
 
-        $lessons=HomeWorkBook::where('category_id',$homeWork->id)->whereHas('setname',function($qry)use($homeWork){
-            $qry->whereHas("questions",function($qry)use($homeWork){
-                $qry->where('exam_id',$homeWork->id);
-            });
-        })->get();
+    //     $lessons=HomeWorkBook::where('category_id',$homeWork->id)->whereHas('setname',function($qry)use($homeWork){
+    //         $qry->whereHas("questions",function($qry)use($homeWork){
+    //             $qry->where('exam_id',$homeWork->id);
+    //         });
+    //     })->get();
 
-        /**
-         *  @var User
-         */
-        $user=Auth::user();
-
+       
 
 
 
 
         
-        // $booklets=HomeWorkBook::where('home_work_id',HomeWork::where('id',$homeWork->id)->whereNotNull('term_name')->pluck('id'))->whereNotNull('title')->get();
-        return view('user.home-work.show',compact('homeWork','booklets','user'));
-    }
+    //     // $booklets=HomeWorkBook::where('home_work_id',HomeWork::where('id',$homeWork->id)->whereNotNull('term_name')->pluck('id'))->whereNotNull('title')->get();
+    //     return view('user.home-work.show',compact('homeWork','booklets','user'));
+    // }
     
+    public function show(Request $request, HomeWork $homeWork)
+{
+    /**
+     *  @var User
+     */
+    $user = Auth::user();
+
+    // Check if the user has access to the specified homework
+    if (TermAccess::where('type', 'home-work')
+                  ->where('term_id', $homeWork->id)
+                  ->where('user_id', $user->id)
+                  ->count() === 0) {
+        return abort(404); // Abort with a 404 error if no access
+    }
+
+    // Retrieve lessons (or booklets) associated with the homework
+    $lessons = HomeWorkBook::where('home_work_id', $homeWork->id) // Assuming `home_work_id` exists
+        ->whereHas('setname', function ($qry) use ($homeWork) {
+            $qry->whereHas('questions', function ($qry) use ($homeWork) {
+                $qry->where('exam_id', $homeWork->id);
+            });
+        })
+        ->get();
+
+    // Return the view with the homework, lessons (or booklets), and user data
+    return view('user.home-work.show', compact('homeWork', 'lessons', 'user'));
+}
+
     public function booklet(Request $request,HomeWork $homeWork,HomeWorkBook $homeWorkBook){ 
         /**
          *  @var User
