@@ -210,9 +210,14 @@ class LiveClassController extends Controller
         }
         $live_class =  LiveClassPage::first();
 
-        $terms = ClassDetail::get();
+        $terms1 = ClassDetail::get();
+        $terms2 = LessonMaterial::get();
+        $terms3 = HomeWork::get();
+        $terms4 = LessonRecording::get();
 
-        return view('admin.live-class.private-class-request',compact('live_class','terms'));
+        $allTerms = $terms1->concat($terms2)->concat($terms3)->concat($terms4);
+
+        return view('admin.live-class.private-class-request',compact('live_class','allTerms'));
 
     }
     public function private_class_request_show(Request $request,PrivateClass $privateClass){
