@@ -29,7 +29,6 @@ class PrivateClassHomeWorkController extends Controller
         return view('user.home-work.index',compact('homeWorks','user'));
     }
     public function show(Request $request,HomeWork $homeWork){
-        
         /**
          *  @var User
          */
@@ -37,7 +36,7 @@ class PrivateClassHomeWorkController extends Controller
         if(TermAccess::where('type','home-work')->where('term_id',$homeWork->id)->where('user_id',$user->id)->count()==0){
             return abort(404);
         }
-        dd('hi');
+       
         $booklets=HomeWorkBook::where('home_work_id',HomeWork::where('id',$homeWork->id)->whereNotNull('term_name')->pluck('id'))->whereNotNull('title')->get();
         return view('user.home-work.show',compact('homeWork','booklets','user'));
     }
