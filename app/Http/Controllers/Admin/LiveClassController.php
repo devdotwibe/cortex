@@ -209,7 +209,7 @@ class LiveClassController extends Controller
             })->addColumn('timeslottext',function($data){
                 return implode('<br> ',$data->timeslot);
             })->addColumn('termhtml',function($data){
-                if(!empty($data->user)){       
+                if(!empty($data->user)&&$data->status=="approved"){       
                     return '<a  onclick="usertermlist('."'".route('admin.user.termslist', $data->user->slug)."'".')" class="btn btn-icons view_btn">+</a>';
                 }else{
                     return '';
