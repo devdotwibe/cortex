@@ -163,11 +163,12 @@ class LiveClassController extends Controller
             if(!empty($request->termname)){
                 $termname= $request->termname;
 
-                $this->whereIn('user_id',User::where('id',HomeWork::where('term_name',$termname)->select('user_id'))->pluck('slug'))
+                $this->whereIn('user_id',User::where('slug',HomeWork::where('term_name',$termname)->select('slug'))->pluck('slug'))
 
-                ->whereIn('user_id',User::where('id',ClassDetail::where('term_name',$termname)->select('user_id'))->pluck('slug'))
-                ->whereIn('user_id',User::where('id',LessonMaterial::where('term_name',$termname)->select('user_id'))->pluck('slug'))
-                ->whereIn('user_id',User::where('id',LessonRecording::where('term_name',$termname)->select('user_id'))->pluck('slug'));
+                ->whereIn('user_id',User::where('slug',ClassDetail::where('term_name',$termname)->select('slug'))->pluck('slug'))
+                ->whereIn('user_id',User::where('slug',LessonMaterial::where('term_name',$termname)->select('slug'))->pluck('slug'))
+                ->whereIn('user_id',User::where('slug',LessonRecording::where('term_name',$termname)->select('slug'))->pluck('slug'))
+                ;
                 
             }
 
