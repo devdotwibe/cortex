@@ -210,10 +210,38 @@ class LiveClassController extends Controller
         }
         $live_class =  LiveClassPage::first();
 
+        $terms = [];
+
+        // Retrieve terms from the models
         $terms1 = ClassDetail::get();
         $terms2 = LessonMaterial::get();
         $terms3 = HomeWork::get();
         $terms4 = LessonRecording::get();
+        
+        // Collect unique terms from $terms1
+        foreach ($terms1 as $item) {
+            $terms[] = $item->term_name;
+        }
+        
+        // Collect unique terms from $terms2
+        foreach ($terms2 as $item) {
+            if (!in_array($item->term_name, $terms)) { // Use in_array() to check existence
+                $terms[] = $item->term_name;
+            }
+        }
+        
+        // You can repeat similar logic for $terms3 and $terms4 if needed
+        foreach ($terms3 as $item) {
+            if (!in_array($item->term_name, $terms)) {
+                $terms[] = $item->term_name;
+            }
+        }
+        
+        foreach ($terms4 as $item) {
+            if (!in_array($item->term_name, $terms)) {
+                $terms[] = $item->term_name;
+            }
+        }
 
         $allTerms = $terms1->concat($terms2)->concat($terms3)->concat($terms4);
 
