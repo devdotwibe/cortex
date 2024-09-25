@@ -44,11 +44,11 @@ trait ResourceController
         return $this;
     }
     public function whereHas(...$condition){
-        self::$whereInCondition[]=$condition;
+        self::$whereHasCondition[]=$condition;
         return $this;
     }
     public function whereIn(...$condition){
-        self::$whereHasCondition[]=$condition;
+        self::$whereInCondition[]=$condition;
         return $this;
     }
     public function buildSelectOption($searchfield="name",$limit=12){
