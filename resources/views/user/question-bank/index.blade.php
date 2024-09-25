@@ -22,7 +22,7 @@
                         <div class="card-body">
                             <div class="category">
                                 <div class="category-image">
-                                    <img src="{{asset("assets/images/User-red.png")}}">
+                                    <img src="{{$exam->examIcon($item->id,asset("assets/images/User-red.png"))}}">
                                 </div>
                                 <div class="category-content">
                                     <h5><span id="category-content-subtitle-{{$item->id}}"> {{$exam->subtitle($item->id,"Topic ".($item->getIdx()+1))}} </span></h5>
