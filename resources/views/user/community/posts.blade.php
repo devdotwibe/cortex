@@ -20,6 +20,7 @@
         </div>
     </div>
 </section>
+
 <section class="post-section" >
 
     <div class="container">
@@ -131,6 +132,9 @@
                         <img src="${v.image}" alt="">
                     `;
                 }
+                let hashtag = '';
+                    console.log(v.hashtags);
+
 
                 $('#post-item-list').append(`
                     <div class="post-item" id="post-item-${v.slug}"> 
@@ -150,6 +154,9 @@
                             <div class="post-content">
                                 ${v.description||""}
                             </div>
+                             <div class="post-content">
+                            ${v.hashtags||""}
+                        </div>
                         </a>
                         <div class="poll-options">
                             ${polloption}
@@ -217,6 +224,9 @@
                     imagehtml=`
                         <img src="${v.image}" alt="">
                     `;
+
+                    let hashtag = '';
+                    console.log(v.hashtags);
                 }
             $(id).html(`
             <a href="${v.showUrl}">
@@ -234,6 +244,9 @@
                 </div>
                 <div class="post-content">
                     ${v.description||""}
+                </div>
+                 <div class="post-content">
+                    ${v.hashtags||""}
                 </div>
             </a>
                 <div class="poll-options">

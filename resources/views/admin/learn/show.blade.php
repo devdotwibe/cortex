@@ -5,7 +5,7 @@
     <div class="header_wrapp">
         <div class="header_title">
             <h2>{{$category->name}}</h2>
-        </div>
+        </div
         <div class="header_content">
              <div class="form-group">
                 <select  id="subcat-list" class="select2 form-control" data-placeholder="Select an Sub Category" data-allow-clear="true" data-ajax--url="{{route('admin.learn.create',$category->slug)}}"></select>
@@ -18,7 +18,7 @@
         </div>
     </div>
 </section>
-<section class="content_section admin_section">
+<section class="content_section admin_section learn_show">
     <div class="container">
         <div class="row">
             <x-ajax-table :coloumns='[
