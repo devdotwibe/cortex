@@ -41,6 +41,10 @@ class QuestionBankController extends Controller
             "category_id"=>['required'],
             "title"=>['required'],
         ]);
+        $icon=$request->icon;
+        if(!empty($icon)){
+            $data['icon']=$icon=="delete"?"":$icon;
+        }
         $categorytitle=ExamCategoryTitle::where('exam_id',$data['exam_id'])->where('category_id',$data['category_id'])->first();
         if(empty($categorytitle)){
             $categorytitle=ExamCategoryTitle::store($data);
