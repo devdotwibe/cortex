@@ -161,20 +161,50 @@ class LiveClassController extends Controller
                 });
             }
 
-            if(!empty($request->termname)){
-                $termname= $request->termname;
+            // if(!empty($request->termname)){
+            //     $termname= $request->termname;
 
-                $this->whereIn('user_id',TermAccess::where('type','home-work')->where('term_id',HomeWork::where('term_name',$termname)->select('id'))->pluck('user_id'))
-
-
-                     ->whereIn('user_id',TermAccess::where('type','class-detail')->where('term_id',ClassDetail::where('term_name',$termname)->select('id'))->pluck('user_id'))
-                     -> whereIn('user_id',TermAccess::where('type','lesson-material')->where('term_id',LessonMaterial::where('term_name',$termname)->select('id'))->pluck('user_id'))
-                     -> whereIn('user_id',TermAccess::where('type','lesson-recording')->where('term_id',LessonRecording::where('term_name',$termname)->select('id'))->pluck('user_id'))
+            //     $this->whereIn('user_id',TermAccess::where('type','home-work')->where('term_id',HomeWork::where('term_name',$termname)->select('id'))->select('user_id'))
 
 
-                ;
+            //          ->whereIn('user_id',TermAccess::where('type','class-detail')->where('term_id',ClassDetail::where('term_name',$termname)->select('id'))->select('user_id'))
+            //          -> whereIn('user_id',TermAccess::where('type','lesson-material')->where('term_id',LessonMaterial::where('term_name',$termname)->select('id'))->select('user_id'))
+            //          -> whereIn('user_id',TermAccess::where('type','lesson-recording')->where('term_id',LessonRecording::where('term_name',$termname)->select('id'))->select('user_id'))
+
+
+            //     ;
                 
+            // }
+
+            if (!empty($request->termname)) {
+                $termname = $request->termname;
+            
+                // Get user IDs for each type and term name
+                $homeworkUserIds = TermAccess::where('type', 'home-work')
+                    ->whereIn('term_id', HomeWork::where('term_name', $termname)->pluck('id'))
+                    ->pluck('user_id');
+            
+                $classDetailUserIds = TermAccess::where('type', 'class-detail')
+                    ->whereIn('term_id', ClassDetail::where('term_name', $termname)->pluck('id'))
+                    ->pluck('user_id');
+            
+                $lessonMaterialUserIds = TermAccess::where('type', 'lesson-material')
+                    ->whereIn('term_id', LessonMaterial::where('term_name', $termname)->pluck('id'))
+                    ->pluck('user_id');
+            
+                $lessonRecordingUserIds = TermAccess::where('type', 'lesson-recording')
+                    ->whereIn('term_id', LessonRecording::where('term_name', $termname)->pluck('id'))
+                    ->pluck('user_id');
+            
+                // Intersect the user IDs from all queries
+                $userIds = $homeworkUserIds->intersect($classDetailUserIds)
+                    ->intersect($lessonMaterialUserIds)
+                    ->intersect($lessonRecordingUserIds);
+            
+                // Use the intersected user IDs in your main query
+                $this->whereIn('user_id', $userIds);
             }
+            
 
 
             
