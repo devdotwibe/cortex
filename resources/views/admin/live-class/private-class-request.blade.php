@@ -19,7 +19,7 @@
 
                 <option value="">Select Term</option> 
                 @foreach($terms as $term)
-                    <option value="{{ $term->id }}">{{ $term->name }}</option>
+                    <option value="{{ $term->id }}">{{ $term->term_name }}</option>
                 @endforeach
 
 
