@@ -18,7 +18,7 @@
             <select id="term-list" class="select2 form-control" data-allow-clear="true">
 
                 <option value="">Select Term</option> 
-                @foreach($allTerms  as $term)
+                @foreach($terms[]  as $term)
                     <option value="{{ $term->id }}">{{ $term->term_name }}</option>
                 @endforeach
 
