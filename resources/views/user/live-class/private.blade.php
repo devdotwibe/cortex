@@ -19,7 +19,7 @@
                     @if (empty($user->privateClass))
                   @guest('admin')  <a class="btn btn-outline-warning m-2" href="{{route('live-class.privateclass.form',$user->slug)}}">Register</a> @endguest
                     @elseif($user->privateClass->status!="approved")
-                    <span class="btn btn-outline-warning">{{ucfirst($user->privateClass->status)}}</span>
+                    <span class="btn btn-outline-warning">@if($user->privateClass->status=="pending") You are under verification, Please wait. @else {{ucfirst($user->privateClass->status)}} @endif</span>
                     @else
                     <a class="btn btn-warning m-2" href="{{route('live-class.privateclass.room',$user->slug)}}">Enter</a>
                     @endif 
