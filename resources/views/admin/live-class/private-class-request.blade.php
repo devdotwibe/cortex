@@ -15,7 +15,7 @@
        <div class="header_content">
         <div class="form-group">
 
-            <select id="term-list" class="select2 form-control" data-allow-clear="true">
+            <select id="term-list" class="select2 form-control" data-allow-clear="true" onchange="termchange()">
 
                 <option value="">Select Term</option> 
                 @foreach($terms  as $term)
@@ -321,8 +321,18 @@
     }
     function hideaction(d){
         $('.multi-user-action').hide();
-        d.timeslot=$('#timeslot-list').val()
+        d.timeslot=$('#timeslot-list').val();
+        d.termname=$('#term-list').val();
+
         return d;
+    }
+
+    function termchange()
+    {
+        if (requesttable != null) {
+            
+                requesttable.ajax.reload()
+        }
     }
     function s2ab(s) { 
         var buf = new ArrayBuffer(s.length); //convert s to arrayBuffer
