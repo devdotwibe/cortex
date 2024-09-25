@@ -37,7 +37,19 @@ class PrivateClassHomeWorkController extends Controller
             return abort(404);
         }
        
-        $booklets=HomeWorkBook::where('home_work_id',HomeWork::where('id',$homeWork->id)->whereNotNull('term_name')->pluck('id'))->whereNotNull('title')->get();
+
+
+        $booklets=HomeWorkBook::where('home_work_id',$homeWork->id)->whereHas('term_name',function($qry)use($homeWork){
+            $qry->whereHas("questions",function($qry)use($homeWork){
+                $qry->where('exam_id',$homeWork->id);
+            });
+        })->get();
+
+        /**
+         *  @var User
+         */
+        $user=Auth::user();
+
         return view('user.home-work.show',compact('homeWork','booklets','user'));
     }
     
