@@ -94,7 +94,7 @@
             $('#question-bank-category-icon-preview').html(`
                 <div class="image-group">
                     <img src="${$(element).data('icon')}" class="img img-thumbnail">
-                    <button type="button" onclick="removeicon('${formID}')">
+                    <button type="button" onclick="removeicon('question-bank-category')">
                         <img src="{{ asset('assets/images/delete-icon.svg') }}" alt="">
                     </button>
                 </div>
