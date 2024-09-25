@@ -164,15 +164,20 @@ class LiveClassController extends Controller
             if(!empty($request->termname)){
                 $termname= $request->termname;
 
-                $this->whereIn('user_id',TermAccess::where('type','home-work')->where('term_id',HomeWork::where('term_name',$termname)->select('id'))->select('user_id'))
+                $this->where(function($qry)use($termname){
+
+                    $qry->whereIn('user_id',TermAccess::where('type','home-work')->where('term_id',HomeWork::where('term_name',$termname)->select('id'))->select('user_id'))
 
 
-                     ->whereIn('user_id',TermAccess::where('type','class-detail')->where('term_id',ClassDetail::where('term_name',$termname)->select('id'))->select('user_id'))
-                     -> whereIn('user_id',TermAccess::where('type','lesson-material')->where('term_id',LessonMaterial::where('term_name',$termname)->select('id'))->select('user_id'))
-                     -> whereIn('user_id',TermAccess::where('type','lesson-recording')->where('term_id',LessonRecording::where('term_name',$termname)->select('id'))->select('user_id'))
+                    ->orWhereIn('user_id',TermAccess::where('type','class-detail')->where('term_id',ClassDetail::where('term_name',$termname)->select('id'))->select('user_id'))
+                    -> orWhereIn('user_id',TermAccess::where('type','lesson-material')->where('term_id',LessonMaterial::where('term_name',$termname)->select('id'))->select('user_id'))
+                    -> orWhereIn('user_id',TermAccess::where('type','lesson-recording')->where('term_id',LessonRecording::where('term_name',$termname)->select('id'))->select('user_id'))
 
 
-                ;
+               ;
+                });
+                
+                
                 
             }
 
