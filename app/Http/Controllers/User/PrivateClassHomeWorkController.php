@@ -28,42 +28,18 @@ class PrivateClassHomeWorkController extends Controller
         $homeWorks=HomeWork::whereIn('id',TermAccess::where('type','home-work')->where('user_id',$user->id)->select('term_id'))->get();
         return view('user.home-work.index',compact('homeWorks','user'));
     }
-    // public function show(Request $request,HomeWork $homeWork){
-    //     /**
-    //      *  @var User
-    //      */
-    //     $user=Auth::user();
-    //     if(TermAccess::where('type','home-work')->where('term_id',$homeWork->id)->where('user_id',$user->id)->count()==0){
-    //         return abort(404);
-    //     }
-    //     $booklets=HomeWorkBook::where('home_work_id',HomeWork::where('id',$homeWork->id)->whereNotNull('term_name')->pluck('id'))->whereNotNull('title')->get();
-    //     return view('user.home-work.show',compact('homeWork','booklets','user'));
-    // }
-    public function show(Request $request, HomeWork $homeWork)
-{
-    /**
-     *  @var User
-     */
-    $user = Auth::user();
-
-    // Check if user has access to the homework
-    if (TermAccess::where('type', 'home-work')->where('term_id', $homeWork->id)->where('user_id', $user->id)->count() == 0) {
-        return abort(404);
+    public function show(Request $request,HomeWork $homeWork){
+        /**
+         *  @var User
+         */
+        $user=Auth::user();
+        if(TermAccess::where('type','home-work')->where('term_id',$homeWork->id)->where('user_id',$user->id)->count()==0){
+            return abort(404);
+        }
+        $booklets=HomeWorkBook::where('home_work_id',HomeWork::where('id',$homeWork->id)->whereNotNull('term_name')->pluck('id'))->whereNotNull('title')->get();
+        return view('user.home-work.show',compact('homeWork','booklets','user'));
     }
-
-    // Check if term_name exists, otherwise handle accordingly
-    if (empty($homeWork->term_name)) {
-        $booklets = collect(); // Return an empty collection if term_name doesn't exist
-    } else {
-        // Fetch the booklets only if term_name is not null
-        $booklets = HomeWorkBook::where('home_work_id', $homeWork->id)
-            ->whereNotNull('title')
-            ->get();
-    }
-
-    return view('user.home-work.show', compact('homeWork', 'booklets', 'user'));
-}
-
+    
     public function booklet(Request $request,HomeWork $homeWork,HomeWorkBook $homeWorkBook){ 
         /**
          *  @var User
