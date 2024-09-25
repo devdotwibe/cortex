@@ -19,7 +19,7 @@
                         <div class="card-body">
                             <div class="category">
                                 <div class="category-image">
-                                    <img src="{{$exam->examIcon($item->id,asset("assets/images/User-red.png"))}}">
+                                    <img src="{{$exam->examIcon($item->id,asset("assets/images/User-red.png"))}}" id="category-content-icon-{{$item->id}}">
                                 </div>
                                 <div class="category-content">
                                     <h5><span id="category-content-subtitle-{{$item->id}}"> {{$exam->subtitle($item->id,"Module ".($item->getIdx()+1))}} </span> <i id="category-content-subtitle-edit-{{$item->id}}" onclick="editsubtitle(event,this)" data-title="{{$item->name}}" data-icon="{{$exam->examIcon($item->id,asset("assets/images/User-red.png"))}}" data-subtitle="{{$exam->subtitle($item->id,"Module ".($item->getIdx()+1))}}" data-category="{{$item->id}}"><img src="{{asset('assets/images/pen.png')}}" width="15" alt=""> </i></h5>
@@ -162,6 +162,7 @@
                     form.reset()
                     $('#category-content-subtitle-'+res.category_id).text(res.title)
                     $('#category-content-subtitle-edit-'+res.category_id).data('subtitle',res.title)
+                    $('#category-content-icon-'+res.category_id).attr('src',res.icon)
                     $('#question-bank-subtitle').modal('hide')
                     showToast('Subtitle has been successfully updated', 'success');
                 },'json').fail(function(){
