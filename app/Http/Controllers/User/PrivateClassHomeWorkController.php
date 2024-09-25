@@ -28,34 +28,18 @@ class PrivateClassHomeWorkController extends Controller
         $homeWorks=HomeWork::whereIn('id',TermAccess::where('type','home-work')->where('user_id',$user->id)->select('term_id'))->get();
         return view('user.home-work.index',compact('homeWorks','user'));
     }
-    public function show(Request $request, HomeWork $homeWork)
-    {
+    public function show(Request $request,HomeWork $homeWork){       
         /**
          *  @var User
          */
-        $user = Auth::user();
-    
-        // Check if the user has access to the specified homework
-        if (TermAccess::where('type', 'home-work')
-                      ->where('term_id', $homeWork->id)
-                      ->where('user_id', $user->id)
-                      ->count() === 0) {
-            return abort(404); // Abort with a 404 error if no access
+        $user=Auth::user();
+        if(TermAccess::where('type','home-work')->where('term_id',$homeWork->id)->where('user_id',$user->id)->count()==0){
+            return abort(404);
         }
-    
-        // Retrieve booklets associated with the homework that have a title and a valid term name
-        $booklets = HomeWorkBook::where('home_work_id', $homeWork->id)
-                                ->whereNotNull('title')
-                                ->whereHas('homeWork', function($query) {
-                                    $query->whereNotNull('term_name');
-                                })
-                                ->get();
-    
-        // Return the view with the homework, booklets, and user data
-        return view('user.home-work.show', compact('homeWork', 'booklets', 'user'));
+       
+        $booklets=HomeWorkBook::where('home_work_id',HomeWork::where('id',$homeWork->id)->whereNotNull('term_name')->pluck('id'))->whereNotNull('title')->get();
+        return view('user.home-work.show',compact('homeWork','booklets','user'));
     }
-    
-    
     
     public function booklet(Request $request,HomeWork $homeWork,HomeWorkBook $homeWorkBook){ 
         /**
