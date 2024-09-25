@@ -9,6 +9,7 @@ use App\Models\LessonMaterial;
 use App\Models\LessonRecording;
 use App\Models\LiveClassPage;
 use App\Models\PrivateClass;
+use App\Models\TermAccess;
 use App\Models\User;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
@@ -163,7 +164,13 @@ class LiveClassController extends Controller
             if(!empty($request->termname)){
                 $termname= $request->termname;
 
-                $this->whereIn('user_id',User::where('slug',HomeWork::where('term_name',$termname)->select('slug'))->pluck('slug'))
+                $this->whereIn('user_id',TermAccess::where('type','home-work')->where('term_id',HomeWork::where('term_name',$termname)->select('id'))->select('user_id'))
+
+
+                     ->whereIn('user_id',TermAccess::where('type','class-detail')->where('term_id',ClassDetail::where('term_name',$termname)->select('id'))->select('user_id'))
+                     -> whereIn('user_id',TermAccess::where('type','lesson-material')->where('term_id',LessonMaterial::where('term_name',$termname)->select('id'))->select('user_id'))
+                     -> whereIn('user_id',TermAccess::where('type','lesson-recording')->where('term_id',LessonRecording::where('term_name',$termname)->select('id'))->select('user_id'))
+
 
                 ->whereIn('user_id',User::where('slug',ClassDetail::where('term_name',$termname)->select('slug'))->pluck('slug'))
                 ->whereIn('user_id',User::where('slug',LessonMaterial::where('term_name',$termname)->select('slug'))->pluck('slug'))
