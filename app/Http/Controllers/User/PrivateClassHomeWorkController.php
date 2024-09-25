@@ -40,7 +40,7 @@ class PrivateClassHomeWorkController extends Controller
     //     $booklets=HomeWorkBook::where('home_work_id',HomeWork::where('id',$homeWork->id)->whereNotNull('term_name')->pluck('id'))->whereNotNull('title')->get();
     //     return view('user.home-work.show',compact('homeWork','booklets','user'));
     // }
-    $booklets = HomeWorkBook::whereHas('homeWork', function($qry) use ($homeWork) {
+    $booklets = HomeWorkBook::whereHas('HomeWork', function($qry) use ($homeWork) {
         $qry->where('id', $homeWork->id)
             ->whereNotNull('term_name');
     })->whereNotNull('title')->get();
