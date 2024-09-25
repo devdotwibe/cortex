@@ -64,7 +64,7 @@
                             <div class="forms-inputs mb-4">
                                 <label for="question-bank-category-icon">Icon</label>
                                 <input type="hidden" name="icon" value="" id="question-bank-category-icon-input"  >
-                                <input type="file"  id="question-bank-category-icon" class="form-control " placeholder="Icon" aria-placeholder="Icon" >
+                                <input type="file" onchange="iconchange(event)"  id="question-bank-category-icon" class="form-control " placeholder="Icon" aria-placeholder="Icon" >
                                 <div class="invalid-feedback">The field is required</div>
                             </div>
                             <div id="question-bank-category-icon-preview">
@@ -162,6 +162,7 @@
                     form.reset()
                     $('#category-content-subtitle-'+res.category_id).text(res.title)
                     $('#category-content-subtitle-edit-'+res.category_id).data('subtitle',res.title)
+                    $('#category-content-subtitle-edit-'+res.category_id).data('icon',res.icon)
                     $('#category-content-icon-'+res.category_id).attr('src',res.icon)
                     $('#question-bank-subtitle').modal('hide')
                     showToast('Subtitle has been successfully updated', 'success');
