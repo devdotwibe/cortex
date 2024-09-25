@@ -51,6 +51,9 @@ class QuestionBankController extends Controller
         }else{
             $categorytitle->update($data);
         }
+        if(!empty($icon)){
+            $data['icon']=$icon=="delete"?"":url('d0/'.$icon);
+        }
         return $data;
     }
     public function show(Request $request,Setname $setname){
