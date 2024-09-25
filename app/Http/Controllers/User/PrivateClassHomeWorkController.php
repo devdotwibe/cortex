@@ -38,7 +38,7 @@ class PrivateClassHomeWorkController extends Controller
         }
        
 
-        $booklets = HomeWorkBook::whereIn('homeWork', function ($query) use ($homeWork) {
+        $booklets = HomeWorkBook::whereIn('id', function ($query) use ($homeWork) {
             $query->where('id', $homeWork->id)
                   ->whereNotNull('term_name');
         })
