@@ -167,9 +167,9 @@ class LiveClassController extends Controller
                 $this->whereIn('user_id',TermAccess::where('type','home-work')->where('term_id',HomeWork::where('term_name',$termname)->select('id'))->select('user_id'))
 
 
-                     ->whereIn('user_id',TermAccess::where('term_id',ClassDetail::where('term_name',$termname)->select('id'))->select('user_id'))
-                     -> whereIn('user_id',TermAccess::where('term_id',LessonMaterial::where('term_name',$termname)->select('id'))->select('user_id'))
-                     -> whereIn('user_id',TermAccess::where('term_id',LessonRecording::where('term_name',$termname)->select('id'))->select('user_id'))
+                     ->whereIn('user_id',TermAccess::where('type','class-detail')->where('term_id',ClassDetail::where('term_name',$termname)->select('id'))->select('user_id'))
+                     -> whereIn('user_id',TermAccess::where('type','lesson-material')->where('term_id',LessonMaterial::where('term_name',$termname)->select('id'))->select('user_id'))
+                     -> whereIn('user_id',TermAccess::where('type','lesson-recording')->where('term_id',LessonRecording::where('term_name',$termname)->select('id'))->select('user_id'))
 
 
                 ;
