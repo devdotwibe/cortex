@@ -4,6 +4,9 @@
 <section class="exam-container">
     <div class="summery-wrap"> 
         <div class="summery-title">
+            <h1>{{get_option('exam_simulator_title')}}</h1>
+        </div>
+        <div class="summery-title">
             {{$exam->title}}
         </div>
         <div class="summery-content">
