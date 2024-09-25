@@ -9,33 +9,34 @@
     </div>
 </section>
 
-
 <section class="content_section">
     <div class="container">
         <div class="row">
-            @foreach ($booklets as  $k=>$item)
+            @foreach ($booklets as $k => $item)
             <div class="col-md-6">
                 <div class="card mb-3">
                     <div class="card-body">
                         @if ($user->progress("home-work-{$homeWork->id}-booklet-{$item->id}-complete-review", 'no') == 'yes')
-
-                        @elseif($user->progress("home-work-{$homeWork->id}-booklet-{$item->id}-complete-date", '') == '')
-                        @guest('admin')  <a  onclick="confimbooklet('{{route('home-work.booklet',['home_work'=>$homeWork->slug,'home_work_book'=>$item->slug])}}','{{$item->title}}')"> @endguest
+                            {{-- Completed Review, No action needed --}}
+                        @elseif ($user->progress("home-work-{$homeWork->id}-booklet-{$item->id}-complete-date", '') == '')
+                            @guest('admin')
+                                <a href="javascript:void(0);" onclick="confirmBooklet('{{route('home-work.booklet', ['home_work' => $homeWork->slug, 'home_work_book' => $item->slug])}}', '{{$item->title}}')">
+                            @endguest
                         @else
-                        <a  onclick="loadbooklethistory('{{route('home-work.history',['home_work'=>$homeWork->slug,'home_work_book'=>$item->slug])}}','{{$item->title}}')">
+                            <a href="javascript:void(0);" onclick="loadBookletHistory('{{route('home-work.history', ['home_work' => $homeWork->slug, 'home_work_book' => $item->slug])}}', '{{$item->title}}')">
                         @endif
                             <div class="category">
                                 <div class="category-content"> 
                                     <h4>{{$item->title}}</h4> 
                                 </div>
                                 <div class="category-image">
-                                    <img src="{{ asset('assets/images/file-text.svg') }}">
+                                    <img src="{{ asset('assets/images/file-text.svg') }}" alt="Booklet Icon">
                                 </div> 
                             </div>
                         </a>
                     </div>
                 </div>
-            </div>                
+            </div>
             @endforeach
         </div>
     </div>
