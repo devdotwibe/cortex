@@ -159,6 +159,19 @@ class LiveClassController extends Controller
                     $qry->whereJsonContains('timeslot',$slot);
                 });
             }
+
+            // if(!empty($request->termname)){
+            //     $termname= $request->termname;
+
+            //     $this->where('')
+            // }
+
+
+            if(!empty($request->termname)) {
+                $termname = $request->termname;
+                $this->where('term_name', $termname); // Ensure the term name filter is applied correctly
+            }
+
             return $this->addAction(function($data){
                 $action="";
                 if($data->status=="pending"&&!empty($data->user)){
