@@ -39,7 +39,7 @@ class PrivateClassHomeWorkController extends Controller
        
 
 
-        $booklets=HomeWorkBook::where('home_work_id',$homeWork->id)->whereHas('setname',function($qry)use($homeWork){
+        $booklets=HomeWorkBook::where('home_work_id',$homeWork->id)->whereHas('homeWork',function($qry)use($homeWork){
             $qry->whereHas("questions",function($qry)use($homeWork){
                 $qry->where('exam_id',$homeWork->id);
             });
