@@ -29,7 +29,7 @@ class PrivateClassHomeWorkController extends Controller
         return view('user.home-work.index',compact('homeWorks','user'));
     }
     public function show(Request $request,HomeWork $homeWork){
-        print('dd');
+        dd('hi');
         /**
          *  @var User
          */
