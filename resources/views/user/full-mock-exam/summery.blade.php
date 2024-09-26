@@ -4,6 +4,14 @@
 <section class="exam-container">
     <div class="summery-wrap"> 
         <div class="summery-title">
+            <div class="back-btn" id="back-btn" style="display: block"> <!-- Ensure proper display value -->
+                <a href="{{ route('full-mock-exam.index') }}">
+                    <img src="{{ asset('assets/images/exiticon.svg') }}" alt="">
+                </a>
+            </div>
+            <h1>{{get_option('exam_simulator_title')}}</h1>
+        </div>
+        <div class="summery-title">
             {{$exam->title}}
         </div>
         <div class="summery-content">

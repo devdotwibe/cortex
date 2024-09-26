@@ -18,6 +18,7 @@ use App\Models\PrivateClass;
 use App\Models\Setname;
 use App\Models\TermAccess;
 use App\Models\UserProgress;
+use App\Models\UserSubscription;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
@@ -37,7 +38,7 @@ class UserController extends Controller
                         break;
                     case 'paid-users': 
                         $this->where(function($qry){
-                            $qry->whereIn("id",UserProgress::where('name','stripe.subscription.payment.amount')->where('value','paid')->select('user_id'));
+                            $qry->whereIn("id",UserSubscription::where('status','subscribed')->select('user_id'));
                             $qry->orWhere("is_free_access",true);
                         });
                         break;

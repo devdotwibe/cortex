@@ -19,7 +19,8 @@ class Post extends Model
         'type', 
         'image', 
         'video', 
-        'userid',  
+        'user_id', 
+        'admin_id', 
         'status',
         'visible_status',
     ];

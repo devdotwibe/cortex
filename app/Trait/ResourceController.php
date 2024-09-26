@@ -20,6 +20,8 @@ trait ResourceController
     protected static $actions=[];
     protected static $whereCondition=[];
     protected static $whereHasCondition=[];
+
+    protected static $whereInCondition=[];
     protected static $defaultActions=['view','edit','delete'];
 
     public static function reset(){
@@ -31,6 +33,7 @@ trait ResourceController
      $actions=[];
      $whereCondition=[];
      $whereHasCondition=[];
+     $whereInCondition=[];
     }
     public function addAction(callable $action){
         self::$actions[]=$action;
@@ -44,11 +47,20 @@ trait ResourceController
         self::$whereHasCondition[]=$condition;
         return $this;
     }
+    public function whereIn(...$condition){
+        self::$whereInCondition[]=$condition;
+        return $this;
+    }
     public function buildSelectOption($searchfield="name",$limit=12){
         $query=app(self::$model)->query();
         foreach(self::$whereCondition as $condition){
             $query->where(...$condition);
         }
+
+        foreach(self::$whereInCondition as $condition){
+            $query->whereIn(...$condition);
+        }
+
         foreach(self::$whereHasCondition as $condition){
             if(count($condition)==1){
                 $query->has($condition[0]);

@@ -1,5 +1,5 @@
 @extends('layouts.exam')
-@section('title', $exam->subtitle($category->id,"Topic ".($category->getIdx()+1)).':'.$category->name)
+@section('title', $exam->title)
 @section('content')
 <section class="exam-container">
     <div class="exam-progress">
@@ -8,7 +8,7 @@
                 <div class="progress-main">
 
                     <div class="exam-exit ">
-                        <a   href="{{route('topic-test.index')}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
+                        <a   href="{{route('full-mock-exam.index')}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
                             <img src="{{asset("assets/images/exiticon-wht.svg")}}" alt="exiticon">
                         </a>
                     </div>
@@ -53,7 +53,7 @@
         </div>
         
     </div>
-    <div class="container-wrap mcq-container-wrap topic-test" id="question-answer-page">
+    <div class="container-wrap mcq-container-wrap full-mock-exam" id="question-answer-page">
         <div class="lesson"> 
             <div class="lesson-body"> 
                 <div class="row" id="lesson-questionlist-list" style="display: none">
@@ -117,7 +117,7 @@
                                             <div class="question-list">
                                                 @for ($i = 1; $i <= ($questioncount??0); $i++)
                                                     <div class="question-item" data-idx="{{$i}}">
-                                                        <button class="item-group" onclick="updateandsave(function(){loadlesson('{{ route('topic-test.confirmshow',['category'=>$category->slug,'page'=>$i]) }}');})">
+                                                        <button class="item-group" onclick="loadlesson('{{route('full-mock-exam.retry',['user_exam_review'=>$userExamReview->slug,'page'=>$i]) }}')">
                                                             <img src="{{asset('assets/images/flaged.svg')}}" alt="all">
                                                             <span>{{$i}}</span> 
                                                         </button>
@@ -139,7 +139,7 @@
                                             <div class="question-list">
                                                 @for ($i = 1; $i <= ($questioncount??0); $i++)
                                                     <div class="question-item" data-idx="{{$i}}">
-                                                        <button class="item-group" onclick="updateandsave(function(){loadlesson('{{ route('topic-test.confirmshow',['category'=>$category->slug,'page'=>$i]) }}');})">
+                                                        <button class="item-group" onclick="loadlesson('{{ route('full-mock-exam.retry',['user_exam_review'=>$userExamReview->slug,'page'=>$i]) }}')">
                                                             <img src="{{asset('assets/images/flaged.svg')}}" alt="all">
                                                             <span>{{$i}}</span>
                                                         </button>
@@ -161,7 +161,7 @@
                                             <div class="question-list">
                                                 @for ($i = 1; $i <= ($questioncount??0); $i++)
                                                     <div class="question-item" data-idx="{{$i}}">
-                                                        <button class="item-group" onclick="updateandsave(function(){loadlesson('{{ route('topic-test.confirmshow',['category'=>$category->slug,'page'=>$i]) }}');})">
+                                                        <button class="item-group" onclick="loadlesson('{{ route('full-mock-exam.retry',['user_exam_review'=>$userExamReview->slug,'page'=>$i]) }}')">
                                                             <img src="{{asset('assets/images/flaged.svg')}}" alt="all">
                                                             <span>{{$i}}</span> 
                                                         </button>
@@ -184,7 +184,7 @@
                                             <div class="question-list">
                                                 @for ($i = 1; $i <= ($questioncount??0); $i++)
                                                     <div class="question-item status-not-read"  data-idx="{{$i}}">
-                                                        <button class="item-group" onclick="updateandsave(function(){loadlesson('{{ route('topic-test.confirmshow',['category'=>$category->slug,'page'=>$i]) }}');})">
+                                                        <button class="item-group" onclick="loadlesson('{{ route('full-mock-exam.retry',['user_exam_review'=>$userExamReview->slug,'page'=>$i]) }}')">
                                                             <img src="{{asset('assets/images/flaged.svg')}}" alt="all">
                                                             <span>{{$i}}</span> 
                                                         </button>
@@ -206,7 +206,7 @@
                                             <div class="question-list">
                                                 @for ($i = 1; $i <= ($questioncount??0); $i++)
                                                     <div class="question-item" data-idx="{{$i}}">
-                                                        <button class="item-group" onclick="updateandsave(function(){loadlesson('{{ route('topic-test.confirmshow',['category'=>$category->slug,'page'=>$i]) }}');})">
+                                                        <button class="item-group" onclick="loadlesson('{{ route('full-mock-exam.retry',['user_exam_review'=>$userExamReview->slug,'page'=>$i]) }}')">
                                                              
                                                                 <img src="{{asset('assets/images/flaged.svg')}}" alt="all">
                                                                 <span>{{$i}}</span>
@@ -229,7 +229,7 @@
     </div>
 </section>
 <div style="display: none;opacity: 0;">
-    <form action="{{route('topic-test.topic.submit',['category'=>$category->slug])}}" method="post" id="finish-exam-confirmed-form">
+    <form action="{{route('full-mock-exam.retry.submit',['user_exam_review'=>$userExamReview->slug])}}" method="post" id="finish-exam-confirmed-form">
         @csrf
         <input type="hidden" name="timed" id="finish-exam-confirmed-form-timed" value="" >
         <input type="hidden" name="timetaken" id="finish-exam-confirmed-form-timetaken" value="" >
@@ -265,17 +265,43 @@
 @push('footer-script') 
 
     <script> 
-        var progressurl="{{$user->progress("exam-{$exam->id}-topic-{$category->id}-progress-url","")}}";
-        let storage = JSON.parse(localStorage.getItem("topic-test-summery"))||{};
-        let summery = new Proxy({...storage,save:function(target){ localStorage.setItem("topic-test-summery",JSON.stringify(summery));return true; } }, {
-            get: function(target, propertyName) {
-                return target[propertyName] || null;
-            },
-            set: function(target, propertyName, value) {
-                target[propertyName] = value; 
-                return true;
-            }
-        });    
+    let storage = JSON.parse(localStorage.getItem("full-mock-exam-summery-retry"))||{};
+    let summery = new Proxy({
+        ...storage,
+        save:function(target){ 
+            localStorage.setItem("full-mock-exam-summery-retry",JSON.stringify(summery));
+            return true; 
+        }
+    }, {
+        get: function(target, propertyName) {
+            return target[propertyName] || null;
+        },
+        set: function(target, propertyName, value) {
+            target[propertyName] = value;
+            return true;
+        }
+    });
+    summery.timerActive=true;
+    summery.examActive=true;    
+    if(!summery.isInIt){
+        summery.totalcount={{$questioncount??0}};
+        summery.questionids=[]; 
+        summery.timercurrent={};
+        summery.flagcurrent={};
+        summery.endTime={{$endtime}}*60; 
+        summery.currentSlug=""; 
+        summery.flagdx={};
+        summery.verifydx={};
+        summery.cudx=1;
+
+        summery.answeridx=[];
+        summery.notansweridx=[]; 
+        summery.isInIt=true;
+        summery.timetaken=0;
+        summery.progressurl="{{route('full-mock-exam.retry',$userExamReview->slug)}}";
+    }
+    summery.save()
+ 
         function toglepreviewpage(){
             // summery.timerActive=!summery.timerActive; 
             $('#question-preview-page').slideToggle()
@@ -349,10 +375,10 @@
             } else {
                 return url; // Return null if no match found
             }
-        } 
+        }  
         async function verifyquestion(question,ans){
             const csrf= $('meta[name="csrf-token"]').attr('content'); 
-            var response=await fetch("{{route('topic-test.topic.verify',['category'=>$category->slug])}}", {
+            var response=await fetch("{{route('full-mock-exam.verify',$exam->slug)}}", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -371,7 +397,7 @@
                 delete summery.verifydx[question];
             }
             summery.save()
-        }
+        } 
         function refreshstatus(idx,status){
             $(`.question-item[data-idx="${idx}"]`).removeClass('status-not-answered').removeClass('status-answered');
             $(`#show-all .question-item[data-idx="${idx}"]`).addClass(`status-${status}`);
@@ -382,9 +408,10 @@
             $('#answered-nav').text(summery.answeridx.length)
             $('#not-answered-nav').text(summery.notansweridx.length)
         }
+         
          function loadlesson(pageurl=null){ 
              
-            $.get(pageurl||"{{ route('topic-test.confirmshow',['category'=>$category->slug]) }}",function(res){
+            $.get(pageurl,function(res){
                 $('.pagination-arrow').hide();
                 $('#lesson-footer-pagination').html('')
                 summery.timerActive=true;
@@ -411,7 +438,7 @@
                                     </div>
                                     <div class="mcq-container">
                                         <div class="mcq-group">
-                                            <h5><span>{{$exam->subtitle($category->id,"Topic ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h5>
+                                            <h5><span>{{$exam->title}}</span></h5>
                                             <div class="mcq-title-text" ${v.title_text?"":'style="display:none"'}>
                                                 ${v.title_text||""}
                                             </div>
@@ -440,7 +467,7 @@
                         } 
                         summery.currentSlug=v.slug;
                         summery.save()
-                        $.get(pageurl||"{{ route('topic-test.confirmshow',['category'=>$category->slug]) }}",{question:v.slug},function(ans){
+                        $.get(pageurl,{question:v.slug},function(ans){
                             $(`#mcq-${lesseonId}-list`).html('')
                             $.each(ans,function(ai,av){
                                 $(`#mcq-${lesseonId}-list`).append(`
@@ -477,68 +504,18 @@
 
             },'json').fail(function(xhr,status,error){
                 showToast("Error: " + error, 'danger'); 
-            })
-
-            const csrf= $('meta[name="csrf-token"]').attr('content'); 
-            progressurl=pageurl; 
-            fetch("{{route('progress')}}", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': csrf,
-                    'X-Requested-With': 'XMLHttpRequest'
-                },
-                body: JSON.stringify({
-                    name:"exam-{{$exam->id}}-topic-{{$category->id}}-progress-url",
-                    value:progressurl
-                }),
-            }); 
-                 
-         }
-         async function updateprogress(callback){  
-            try { 
-                const csrf= $('meta[name="csrf-token"]').attr('content');  
-                var currentprogress=(summery.questionids.length*100/summery.totalcount)
-                const response1 = await fetch("{{route('progress')}}", {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': csrf,
-                        'X-Requested-With': 'XMLHttpRequest'
-                    },
-                    body: JSON.stringify({
-                        name:"exam-{{$exam->id}}-topic-{{$category->id}}-progress-ids",
-                        value:JSON.stringify(summery.questionids)
-                    }),
-                });  
-
-                const response2 = await fetch("{{route('progress')}}", {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': csrf,
-                        'X-Requested-With': 'XMLHttpRequest'
-                    },
-                    body: JSON.stringify({
-                        name:"exam-{{$exam->id}}-topic-{{$category->id}}",
-                        value:currentprogress
-                    }),
-                }); 
-                if (!response2.ok) {
-                    showToast("Error: " + response2.status, 'danger'); 
-                }  
-                callback()
-            } catch (error) { 
-                showToast("Error: " + error, 'danger'); 
-            }
-         }
+            }) 
+            summery.progressurl=pageurl;   
+            summery.save()                 
+         }  
          async function updatequestionanswer(question,ans){
             summery.questionids.push(question);
             summery.questionids=summery.questionids.filter(function(value, index, array){
                 return array.indexOf(value) === index;
             })
+            summery.save();
             const csrf= $('meta[name="csrf-token"]').attr('content'); 
-            const response = await fetch("{{route('progress')}}", {
+            const response = await fetch("{{route('full-mock-exam.updateprogress',session('exam-retry-' . $userExamReview->id,''))}}", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -546,14 +523,14 @@
                     'X-Requested-With': 'XMLHttpRequest'
                 },
                 body: JSON.stringify({
-                    name:"exam-{{$exam->id}}-topic-{{$category->id}}-answer-of-"+question,
+                    name:question,
                     value:ans
                 }),
             }); 
-         }
+         } 
          async function refreshquestionanswer(question,callback){
             const csrf= $('meta[name="csrf-token"]').attr('content'); 
-            const response = await fetch("{{route('getprogress')}}", {
+            const response = await fetch("{{route('full-mock-exam.attemtprogress',session('exam-retry-' . $userExamReview->id,''))}}", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -561,7 +538,7 @@
                     'X-Requested-With': 'XMLHttpRequest'
                 },
                 body: JSON.stringify({
-                    name:"exam-{{$exam->id}}-topic-{{$category->id}}-answer-of-"+question,
+                    name:question,
                     value:''
                 }),
             }); 
@@ -572,20 +549,6 @@
          } 
 
          async function lessonreviewconfirm(){
-            const csrf= $('meta[name="csrf-token"]').attr('content'); 
-            // currentprogress=(summery.questionids.length*100/summery.totalcount)
-            await fetch("{{route('progress')}}", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': csrf,
-                    'X-Requested-With': 'XMLHttpRequest'
-                },
-                body: JSON.stringify({
-                    name:"exam-{{$exam->id}}-topic-{{$category->id}}-complete-review",
-                    value:'pending'
-                }),
-            }); 
             $('#finish-exam-confirm').modal('hide') 
             var timed="timed";             
             $('#finish-exam-confirmed-form-timed').val(timed)
@@ -618,8 +581,9 @@
                     summery.save()
                 })
             } 
-            updateprogress(callback) 
+            callback() 
          }
+
           
          async function exitconfirm(url){
             if(await showConfirm({ 
@@ -630,9 +594,8 @@
             }
         }
          $(function(){  
-            loadlesson(progressurl) 
+            loadlesson(summery.progressurl) 
             $('.lesson-left button.left-btn,.lesson-right button.right-btn').click(function(){   
-                console.log('oooooo')
                 const pageurl=$(this).data('pageurl');  
                 updateandsave(function(){
                     loadlesson(pageurl)
@@ -675,9 +638,9 @@
             $('.exam-exit a').click(function(e){
                 e.preventDefault();
                 e.stopPropagation(); 
-                localStorage.removeItem("topic-test-summery")
+                localStorage.removeItem("full-mock-exam-summery-retry")
                 exitconfirm($(this).attr("href")); 
             }) 
-         })
+         }) 
     </script>
 @endpush

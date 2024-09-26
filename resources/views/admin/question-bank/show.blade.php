@@ -4,7 +4,17 @@
 <section class="header_nav">
     <div class="header_wrapp">
         <div class="header_title">
-            <h2>{{$category->name}} -> {{$subcategory->name}} -> {{ $setname->name }} -> Questions</h2>
+
+            
+            {{-- <h2>{{$category->name}} -> {{$subcategory->name}} -> {{ $setname->name }} -> Questions</h2> --}}
+
+            <h2>
+                <a href="{{ route('admin.question-bank.index') }}">{{$category->name}}</a> -> 
+                <a href="{{ route('admin.question-bank.index', ['id' => $category->slug,'type' =>'subcategory']) }}">{{$subcategory->name}}</a> -> 
+                {{ $setname->name }} -> Questions
+            </h2>
+            
+
         </div>
          
         <div class="header_right">

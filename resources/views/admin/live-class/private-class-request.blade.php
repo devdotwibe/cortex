@@ -12,6 +12,21 @@
                <select  id="timeslot-list" class="select2 form-control" data-allow-clear="true" ></select>
             </div>
        </div>    
+       <div class="header_content">
+        <div class="form-group">
+
+            <select id="term-list" class="select2 form-control" data-allow-clear="true" onchange="termchange()">
+
+                <option value="">Select Term</option> 
+                @foreach($terms  as $term)
+                    <option value="{{ $term }}">{{ $term }}</option>
+                @endforeach
+
+
+            </select>
+        </div>
+    </div>
+    
         <div class="header_right">
             <ul class="nav_bar"> 
                 <li class="nav_item"  >
@@ -306,8 +321,18 @@
     }
     function hideaction(d){
         $('.multi-user-action').hide();
-        d.timeslot=$('#timeslot-list').val()
+        d.timeslot=$('#timeslot-list').val();
+        d.termname=$('#term-list').val();
+
         return d;
+    }
+
+    function termchange()
+    {
+        if (requesttable != null) {
+            
+                requesttable.ajax.reload()
+        }
     }
     function s2ab(s) { 
         var buf = new ArrayBuffer(s.length); //convert s to arrayBuffer
@@ -528,4 +553,6 @@
      
     </script>
     
+
+   
 @endpush

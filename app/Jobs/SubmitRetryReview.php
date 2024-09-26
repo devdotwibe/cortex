@@ -115,5 +115,47 @@ class SubmitRetryReview implements ShouldQueue
     }
     private function fullMockExamHandle(){
 
+        $user=User::find($this->review->user_id);
+        $exam=Exam::find($this->review->exam_id); 
+        $takentime=json_decode($user->progress($this->review->times),true);
+        $takentimereview=[]; 
+        foreach (Question::whereNotIn('slug',$this->questions)->where('exam_id',$exam->id)->get() as $k=> $question) {
+              
+            $user_answer=$this->answers[$question->slug]??"";
+
+            $revquestion=ExamRetryQuestion::store([
+                'title'=>$question->title, 
+                'user_exam_review_id'=>$this->review->user_exam_review_id,
+                'exam_retry_review_id'=>$this->review->id,
+                'review_type'=>'mcq',
+                'note'=>$question->description, 
+                'explanation'=>$question->explanation, 
+                'currect_answer'=>'', 
+                'user_answer'=>$user_answer,  
+                'exam_id'=> $this->review->exam_id,
+                'question_id'=> $question->id,
+                'title_text'=> $question->title_text,
+                'sub_question'=> $question->sub_question,
+                'user_id'=>$this->review->user_id,
+                'time_taken'=>$takentime[$question->slug]??0
+            ]);
+            
+            // $takentimereview[$revquestion->slug]=$takentime[$question->slug]??0;
+            
+            foreach($question->answers as $ans){
+                ExamRetryAnswer::store([
+                    'exam_retry_review_id'=>$this->review->id,
+                    'user_exam_review_id'=>$this->review->user_exam_review_id,
+                    'exam_retry_question_id'=>$revquestion->id,
+                    'title'=>$ans->title,
+                    'iscorrect'=>$ans->iscorrect,
+                    'user_answer'=>(($ans->slug==$user_answer)?true:false),
+                    'exam_id'=> $this->review->exam_id,
+                    'question_id'=> $question->id,
+                    'answer_id'=> $ans->id,
+                    'user_id'=>$this->review->user_id,
+                ]); 
+            }  
+        }
     }
 }

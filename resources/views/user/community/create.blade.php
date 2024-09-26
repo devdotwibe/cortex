@@ -29,6 +29,12 @@
 <section class="header_nav"    >
     <div class="header_wrapp">
         <div class="header_title">
+
+            <div class="back-btn" id="back-btn" style="display: block"> <!-- Ensure proper display value -->
+                <a href="{{ route('community.index') }}">
+                    <img src="{{ asset('assets/images/exiticon.svg') }}" alt="">
+                </a>
+            </div>
             <h2> Post</h2>
         </div>
     </div>

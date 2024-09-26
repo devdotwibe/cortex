@@ -30,6 +30,14 @@ class Exam extends Model
     public function subtitle($id,$defaultTitle){
         return optional($this->categoryTitle()->where("category_id",$id)->first())->title??$defaultTitle;
     }
+    public function examIcon($id,$defaultIcon){
+        $icon=optional($this->categoryTitle()->where("category_id",$id)->first())->icon;
+        if(!empty($icon)){
+            return url("d0/$icon");
+        }else{
+            return $defaultIcon;
+        } 
+    }
     public function categoryTitle(){
         return $this->hasMany(ExamCategoryTitle::class);
     }

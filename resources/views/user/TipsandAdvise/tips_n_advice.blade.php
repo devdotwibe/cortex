@@ -3,6 +3,11 @@
 @section('content')
 
 <div class="critical-reasoning">
+    <div class="back-btn" id="back-btn" style="display: block"> <!-- Ensure proper display value -->
+        <a href="{{ route('tipsandadvise.index') }}">
+            <img src="{{ asset('assets/images/exiticon.svg') }}" alt="">
+        </a>
+    </div>
     <h2>Tips And Advice</h2>
     <div class="critical-reasoning-row">
         <!-- Left Column: List of Tips -->

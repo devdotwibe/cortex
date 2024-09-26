@@ -9,10 +9,7 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="exam-result">
-                            <div class="exam-result-content"> 
-                                <div class="exam-title">
-                                    <h3>{{$userExamReview->title}}</h3>
-                                </div>
+                            <div class="exam-result-content">  
                                 <div class="exam-mark-body">
                                     <div class="mark-title">
                                         <h3>Attempt details</h3>
@@ -33,6 +30,9 @@
         
                                 <p>Next Step: Review and Improve</p>
                                 <div class="exam-mark-bottom">
+                                    @if (session("exam-retry-".$userExamReview->id))
+                                        <a class="btn btn-warning btn-lg"  href="{{route('full-mock-exam.retry',$userExamReview->slug)}}">Retry In-Correct</a>
+                                    @endif
                                     <a class="btn btn-warning btn-lg" id="review-link" href="{{route('full-mock-exam.preview',$userExamReview->slug)}}">Review Set</a>
                                     <a href="{{route('full-mock-exam.index')}}" class="btn btn-outline-dark btn-lg">Exit Set</a>
                                 </div>

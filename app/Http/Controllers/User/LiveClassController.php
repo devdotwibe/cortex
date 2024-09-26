@@ -7,6 +7,7 @@ use App\Models\ClassDetail;
 use App\Models\LessonMaterial;
 use App\Models\LiveClassPage;
 use App\Models\PrivateClass;
+use App\Models\Settings;
 use App\Models\SubClassDetail;
 use App\Models\SubLessonMaterial;
 use App\Models\TermAccess;
@@ -57,7 +58,8 @@ class LiveClassController extends Controller
          */
         $user=Auth::user();
         $live_class =  LiveClassPage::first(); 
-        return view('user.live-class.private',compact('user','live_class'));
+        $setting = Settings::first();
+        return view('user.live-class.private',compact('user','live_class','setting'));
     }
  
     public function privateclassform(Request  $request){

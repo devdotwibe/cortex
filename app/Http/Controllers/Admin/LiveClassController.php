@@ -9,6 +9,7 @@ use App\Models\LessonMaterial;
 use App\Models\LessonRecording;
 use App\Models\LiveClassPage;
 use App\Models\PrivateClass;
+use App\Models\TermAccess;
 use App\Models\User;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
@@ -159,6 +160,31 @@ class LiveClassController extends Controller
                     $qry->whereJsonContains('timeslot',$slot);
                 });
             }
+
+            if(!empty($request->termname)){
+                $termname= $request->termname;
+
+                $this->where(function($qry)use($termname){
+
+                    $qry->whereIn('user_id',TermAccess::where('type','home-work')->where('term_id',HomeWork::where('term_name',$termname)->select('id'))->select('user_id'))
+
+
+                    ->orWhereIn('user_id',TermAccess::where('type','class-detail')->where('term_id',ClassDetail::where('term_name',$termname)->select('id'))->select('user_id'))
+                    -> orWhereIn('user_id',TermAccess::where('type','lesson-material')->where('term_id',LessonMaterial::where('term_name',$termname)->select('id'))->select('user_id'))
+                    -> orWhereIn('user_id',TermAccess::where('type','lesson-recording')->where('term_id',LessonRecording::where('term_name',$termname)->select('id'))->select('user_id'))
+
+
+               ;
+                });
+                
+                
+                
+            }
+
+
+            
+            
+
             return $this->addAction(function($data){
                 $action="";
                 if($data->status=="pending"&&!empty($data->user)){
@@ -183,7 +209,7 @@ class LiveClassController extends Controller
             })->addColumn('timeslottext',function($data){
                 return implode('<br> ',$data->timeslot);
             })->addColumn('termhtml',function($data){
-                if(!empty($data->user)){       
+                if(!empty($data->user)&&$data->status=="approved"){       
                     return '<a  onclick="usertermlist('."'".route('admin.user.termslist', $data->user->slug)."'".')" class="btn btn-icons view_btn">+</a>';
                 }else{
                     return '';
@@ -209,7 +235,43 @@ class LiveClassController extends Controller
             })->buildTable(['timeslottext','statushtml','termhtml']);
         }
         $live_class =  LiveClassPage::first();
-        return view('admin.live-class.private-class-request',compact('live_class'));
+
+        $terms = [];
+
+        // Retrieve terms from the models
+        $terms1 = ClassDetail::get();
+        $terms2 = LessonMaterial::get();
+        $terms3 = HomeWork::get();
+        $terms4 = LessonRecording::get();
+        
+        // Collect unique terms from $terms1
+        foreach ($terms1 as $item) {
+            $terms[] = $item->term_name;
+        }
+        
+        // Collect unique terms from $terms2
+        foreach ($terms2 as $item) {
+            if (!in_array($item->term_name, $terms)) { // Use in_array() to check existence
+                $terms[] = $item->term_name;
+            }
+        }
+        
+        // You can repeat similar logic for $terms3 and $terms4 if needed
+        foreach ($terms3 as $item) {
+            if (!in_array($item->term_name, $terms)) {
+                $terms[] = $item->term_name;
+            }
+        }
+        
+        foreach ($terms4 as $item) {
+            if (!in_array($item->term_name, $terms)) {
+                $terms[] = $item->term_name;
+            }
+        }
+
+        $allTerms = $terms1->concat($terms2)->concat($terms3)->concat($terms4);
+
+        return view('admin.live-class.private-class-request',compact('live_class','terms'));
 
     }
     public function private_class_request_show(Request $request,PrivateClass $privateClass){

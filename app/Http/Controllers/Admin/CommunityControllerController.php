@@ -48,7 +48,7 @@ class CommunityControllerController extends Controller
                         'percentage'=>$tvotes>0?round(($opt->votes*100)/$tvotes,2):0,
                     ];
                 }
-                $results[]=[
+                $results[]=[ 
                     "slug"=>$row->slug,
                     "title"=>$row->title,
                     "type"=>$row->type,
@@ -129,7 +129,7 @@ class CommunityControllerController extends Controller
 {
 
 
-    // dd('exit');
+    
     /**
      * @var Admin
      */
@@ -376,19 +376,6 @@ private function extractHashtags($text)
     preg_match_all('/#\w+/', $text, $matches);
     return array_unique($matches[0]);
 }
-
-// public function index2(Request $request)
-// {
-//     $hashtag = $request->input('hashtag');
-
-//     $posts = $hashtag 
-//         ? Post::where('hashtags', 'like', "%$hashtag%")->get()
-//         : Post::all();
-
-//     $hashtags = Hashtag::pluck('hashtag');
-
-//     return view('community.index', compact('posts', 'hashtags'));
-// }
 
 
 

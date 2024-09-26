@@ -40,7 +40,7 @@
                     </div>
                 </div>
             </div>
-            <div class="exam-right exam-progress-inner-item">
+            {{-- <div class="exam-right exam-progress-inner-item">
                 <div class="progress-main">
                     <div class="bookmark">
                         <a class="" id="bookmark-current" >
@@ -49,7 +49,7 @@
                         </a>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
         
     </div>
@@ -72,6 +72,19 @@
         <div class="lesson-left pagination-arrow" style="display: none" >
             <button class="button left-btn"><img src="{{asset('assets/images/leftarrow.svg')}}" alt="<"> Back </button>
         </div>
+
+
+        <div class="exam-right exam-progress-inner-item">
+            <div class="progress-main">
+                <div class="bookmark">
+                    <a class="" id="bookmark-current" >
+                        <img class="active-img" src="{{asset("assets/images/bookmark.svg")}}" alt="bookmark">
+                        <img class="inactive-img" src="{{asset("assets/images/bookmarkfill.svg")}}" alt="bookmark">
+                    </a>
+                </div>
+            </div>
+        </div>
+        
         <div class="lesson-right pagination-arrow" style="display:none">
             <button class="button right-btn"> Next <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
         </div>
@@ -120,7 +133,7 @@
                                             <div class="question-list">
                                                 @for ($i = 1; $i <= ($questioncount??0); $i++)
                                                     <div class="question-item" data-idx="{{$i}}">
-                                                        <button class="item-group" onclick="loadlesson('{{ route('question-bank.set.show',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug,'page'=>$i]) }}')">
+                                                        <button class="item-group" onclick="updateandsave(function(){loadlesson('{{ route('question-bank.set.show',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug,'page'=>$i]) }}');})">
                                                             <img src="{{asset('assets/images/flaged.svg')}}" alt="all">
                                                             <span>{{$i}}</span> 
                                                         </button>
@@ -142,7 +155,7 @@
                                             <div class="question-list">
                                                 @for ($i = 1; $i <= ($questioncount??0); $i++)
                                                     <div class="question-item" data-idx="{{$i}}">
-                                                        <button class="item-group" onclick="loadlesson('{{ route('question-bank.set.show',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug,'page'=>$i]) }}')">
+                                                        <button class="item-group" onclick="updateandsave(function(){loadlesson('{{ route('question-bank.set.show',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug,'page'=>$i]) }}');})">
                                                             <img src="{{asset('assets/images/flaged.svg')}}" alt="all">
                                                             <span>{{$i}}</span>
                                                         </button>
@@ -164,7 +177,7 @@
                                             <div class="question-list">
                                                 @for ($i = 1; $i <= ($questioncount??0); $i++)
                                                     <div class="question-item" data-idx="{{$i}}">
-                                                        <button class="item-group" onclick="loadlesson('{{ route('question-bank.set.show',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug,'page'=>$i]) }}')">
+                                                        <button class="item-group" onclick="updateandsave(function(){loadlesson('{{ route('question-bank.set.show',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug,'page'=>$i]) }}');})">
                                                             <img src="{{asset('assets/images/flaged.svg')}}" alt="all">
                                                             <span>{{$i}}</span> 
                                                         </button>
@@ -187,7 +200,7 @@
                                             <div class="question-list">
                                                 @for ($i = 1; $i <= ($questioncount??0); $i++)
                                                     <div class="question-item status-not-read"  data-idx="{{$i}}">
-                                                        <button class="item-group" onclick="loadlesson('{{ route('question-bank.set.show',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug,'page'=>$i]) }}')">
+                                                        <button class="item-group" onclick="updateandsave(function(){loadlesson('{{ route('question-bank.set.show',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug,'page'=>$i]) }}');})">
                                                             <img src="{{asset('assets/images/flaged.svg')}}" alt="all">
                                                             <span>{{$i}}</span> 
                                                         </button>
@@ -209,7 +222,7 @@
                                             <div class="question-list">
                                                 @for ($i = 1; $i <= ($questioncount??0); $i++)
                                                     <div class="question-item" data-idx="{{$i}}">
-                                                        <button class="item-group" onclick="loadlesson('{{ route('question-bank.set.show',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug,'page'=>$i]) }}')">
+                                                        <button class="item-group" onclick="updateandsave(function(){loadlesson('{{ route('question-bank.set.show',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug,'page'=>$i]) }}');})">
                                                              
                                                                 <img src="{{asset('assets/images/flaged.svg')}}" alt="all">
                                                                 <span>{{$i}}</span>

@@ -103,8 +103,6 @@ Route::middleware(['auth', 'isUser'])->group(function () {
 
     Route::middleware('verified')->group(function(){
 
-        Route::get('/tips-n-advice', [UserMainController::class, 'tips_n_advice'])->name('tips-n-advice');
-
         Route::prefix('payment')->name('payment.')->group(function () {
             Route::get('/workshop', [StripePaymentController::class, 'workshop'])->name('workshop');
             Route::get('/subscription', [StripePaymentController::class, 'subscription'])->name('subscription');
@@ -161,6 +159,14 @@ Route::middleware(['auth', 'isUser'])->group(function () {
             Route::middleware('subscription:full-mock-exam')->get('/{exam}/review', [MockExamController::class, 'examreview'])->name('review');
             Route::get('/attempt/{user_exam_review}/preview', [MockExamController::class, 'preview'])->name('preview');
             Route::get('/{user_exam_review}/complete', [MockExamController::class, 'examcomplete'])->name('complete');
+            
+            Route::get('/{user_exam_review}/retry', [MockExamController::class, 'mocexamretry'])->name('retry');
+            Route::post('/fetch/{attemt}/progress', [MockExamController::class, 'getprogress'])->name('attemtprogress');
+            Route::post('/update/{attemt}/progress', [MockExamController::class, 'updateprogress'])->name('updateprogress');
+            Route::post('/retry/{user_exam_review}/submit', [MockExamController::class, 'retrysubmit'])->name('retry.submit');
+            Route::get('/retry/{user_exam_review}/attempt/{exam_retry_review}/result', [MockExamController::class, 'retryresult'])->name('retry.result');
+            Route::get('/retry/{user_exam_review}/attempt/{exam_retry_review}/preview', [MockExamController::class, 'retrypreview'])->name('retry.preview');
+            Route::get('/retry/{user_exam_review}/history', [MockExamController::class, 'retryhistory'])->name('retryhistory');
         });
 
         Route::middleware('subscription')->group(function () {
@@ -202,6 +208,7 @@ Route::middleware(['auth', 'isUser'])->group(function () {
 
             Route::prefix('community')->name('community.')->group(function () {
                 Route::get('/', [CommunityController::class, 'posts'])->name('index');
+                Route::get('/ajaxindex', [CommunityController::class, 'posts'])->name('ajaxindex');
                 Route::resource('/post', CommunityController::class);
                 Route::get('/poll/{poll_option}/vote', [CommunityController::class, 'pollVote'])->name('poll.vote');
                 Route::get('/post/{post}/like', [CommunityController::class, 'postLike'])->name('post.like');
