@@ -5,7 +5,7 @@
         <div class="header_wrapp">
             <div class="header_title">
                 <div class="back-btn" id="back-btn" style="display: block"> <!-- Ensure proper display value -->
-                    <a href="{{ route('live-class.private-class',$live_class->slug) }}">
+                    <a href="{{ route('live-class.privateclass',$live_class->slug) }}">
                       
                         <img src="{{ asset('assets/images/exiticon.svg') }}" alt="">
                     </a>
