@@ -30,6 +30,7 @@ class ExamQuestionController extends Controller
         self::reset();
         self::$model = Category::class;
 
+        Session::remove("question-bank-attempt");
         $exam=Exam::where("name",'question-bank')->first();
         if(empty($exam)){
             $exam=Exam::store([
@@ -52,6 +53,7 @@ class ExamQuestionController extends Controller
 
     public function show(Request $request,Category $category){
 
+        Session::remove("question-bank-attempt");
         $exam=Exam::where("name",'question-bank')->first();
         if(empty($exam)){
             $exam=Exam::store([
