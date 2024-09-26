@@ -6,7 +6,7 @@
         <div class="header_title">
             <div class="header_title">
                 <div class="back-btn" id="back-btn" style="display">
-                    <a href="{{ route('learn.index') }}"><img src="{{asset('assets/images/leftarrowblack.svg')}}" alt=""></a>
+                    <a href="{{ route('admin.learn.index') }}"><img src="{{asset('assets/images/leftarrowblack.svg')}}" alt=""></a>
                 </div>
                 
             <h2>{{$category->name}}</h2>
