@@ -7,7 +7,7 @@
         <div class="header_title"> 
             <div class="back-btn" id="back-btn" style="display: block"> <!-- Ensure proper display value -->
                 <a href="{{ route('learn.index') }}">
-                    <img src="{{ asset('assets/images/leftarrowblack.svg') }}" alt="">
+                    <img src="{{ asset('assets/images/exiticon.svg') }}" alt="">
                 </a>
             </div>
             <h2><span>{{$exam->subtitle($category->id,"Module ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h2>
