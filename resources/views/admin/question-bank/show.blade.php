@@ -97,14 +97,14 @@
         $('#category-content-section,#subcategory-content-section').slideToggle()
         $('#back-btn').fadeToggle()
     }
-    function pagetoggle2(){
-        $('#subcategory-content-section,#subcategory-content-section').slideToggle()
-        $('#back-btn').fadeToggle()
-    }
-    function pagetoggle3(){
-        $('#subcategory-content-section,#subcategory-content-section').slideToggle()
-        $('#back-btn').fadeToggle()
-    }
+    // function pagetoggle2(){
+    //     $('#subcategory-content-section,#subcategory-content-section').slideToggle()
+    //     $('#back-btn').fadeToggle()
+    // }
+    // function pagetoggle3(){
+    //     $('#subcategory-content-section,#subcategory-content-section').slideToggle()
+    //     $('#back-btn').fadeToggle()
+    // }
 
 
         var questiontable = null;
