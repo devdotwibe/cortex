@@ -4,7 +4,7 @@
 
 <div class="critical-reasoning">
     <div class="back-btn" id="back-btn" style="display: block"> <!-- Ensure proper display value -->
-        <a href="{{ route('tips-n-advice.tips-n-advice') }}">
+        <a href="{{ route('tips-n-advice') }}">
             <img src="{{ asset('assets/images/exiticon.svg') }}" alt="">
         </a>
     </div>
