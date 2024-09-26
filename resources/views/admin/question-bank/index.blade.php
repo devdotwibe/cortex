@@ -156,22 +156,12 @@
 
 @push('footer-script')
 <script>
-
-        $(function(){
-
-        var type ={{request('type')}};
-
-        console.log(type,'dt');
-
-        });
-
-        var activedata={};
-        var subcatsettable = null;
-
-    // function beforeajaxcallsub(data) {
-    //     data.subcategory = activedata['subcategory']||"";
-    //     return data;
-    // }
+    var activedata={};
+    var subcatsettable = null;
+    function beforeajaxcallsub(data) {
+        data.subcategory = activedata['subcategory']||"";
+        return data;
+    }
     function deletecallbackbefore(){
         $('#sub-category-create-modal').modal('hide');
     }
@@ -436,5 +426,14 @@
             });
         })
     })
+
+
+    $(function(){
+
+var type ={{request('type')}};
+
+console.log(type,'dt');
+
+});
 </script>
 @endpush
