@@ -402,7 +402,7 @@ class MockExamController extends Controller
         if ($examtime > 0 && count($useranswer) > 0) {
             $examtime = $examtime / count($useranswer);
         }
-        return view("user.full-mock-exam.retry-preview", compact('category', 'exam', 'user', 'userExamReview', 'useranswer', 'examtime', 'examRetryReview'));
+        return view("user.full-mock-exam.retry-preview", compact(  'exam', 'user', 'userExamReview', 'useranswer', 'examtime', 'examRetryReview'));
 
     }
 }
