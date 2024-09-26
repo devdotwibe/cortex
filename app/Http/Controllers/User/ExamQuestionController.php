@@ -75,6 +75,7 @@ class ExamQuestionController extends Controller
     }
     public function setattempt(Request $request,Category $category,SubCategory $subCategory,Setname $setname){
         Session::put("question-bank-attempt",$setname->slug);
+        return redirect()->route('question-bank.set.attempt',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug]);
     }
     public function setshow(Request $request,Category $category,SubCategory $subCategory,Setname $setname){
         if(session("question-bank-attempt")){
