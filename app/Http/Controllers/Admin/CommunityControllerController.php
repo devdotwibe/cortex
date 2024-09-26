@@ -49,6 +49,7 @@ class CommunityControllerController extends Controller
                     ];
                 }
                 $results[]=[
+                    "row"=>$row,
                     "slug"=>$row->slug,
                     "title"=>$row->title,
                     "type"=>$row->type,
