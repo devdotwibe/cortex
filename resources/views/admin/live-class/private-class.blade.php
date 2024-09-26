@@ -4,6 +4,11 @@
 <section class="header_nav">
     <div class="header_wrapp">
         <div class="header_title">
+            <div class="back-btn" id="back-btn" style="display: block"> <!-- Ensure proper display value -->
+                <a href="{{ route('admin.live-class.index') }}">
+                    <img src="{{ asset('assets/images/leftarrowblack.svg') }}" alt="">
+                </a>
+            </div>
             @if(!empty($live_class->class_title_1))
 
             <h2>{{ $live_class->class_title_1 }}</h2>
