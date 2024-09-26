@@ -3,7 +3,6 @@
 @section('content')
 <section class="header_nav">
     <div class="header_wrapp">
-       
             <h2>Learn</h2>
         </div>
     </div>
