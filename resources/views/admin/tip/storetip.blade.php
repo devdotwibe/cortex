@@ -6,7 +6,7 @@
     <div class="header_wrapp">
         <div class="header_title">
             <div class="back-btn" id="back-btn" style="display: block"> <!-- Ensure proper display value -->
-                <a href="{{ route('admin.{tip}/create') }}">
+                <a href="{{ route('admin.{tip}.create') }}">
                     <img src="{{ asset('assets/images/leftarrowblack.svg') }}" alt="">
                 </a>
             </div>
