@@ -15,7 +15,7 @@
                     <div class="timer exam-timer">
                         <div class="minute">
                             <span class="runner">00</span>
-                            <span>Mins1</span>
+                            <span>Mins</span>
                         </div>
                         <div class="seperator">
                             <span>:</span>
@@ -72,6 +72,20 @@
         <div class="lesson-left pagination-arrow" style="display: none" >
             <button class="button left-btn"><img src="{{asset('assets/images/leftarrow.svg')}}" alt="<"> Back </button>
         </div>
+
+
+        <div class="exam-right exam-progress-inner-item">
+            <div class="progress-main">
+                <div class="bookmark">
+                    <a class="" id="bookmark-current" >
+                        <img class="active-img" src="{{asset("assets/images/bookmark.svg")}}" alt="bookmark">
+                        <img class="inactive-img" src="{{asset("assets/images/bookmarkfill.svg")}}" alt="bookmark">
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        
         <div class="lesson-right pagination-arrow" style="display:none">
             <button class="button right-btn"> Next <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
         </div>
