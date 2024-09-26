@@ -161,7 +161,7 @@
 
             var type ={{request('type')}};
 
-            console.log(type);
+            console.log(type,'dt');
 
         });
 
