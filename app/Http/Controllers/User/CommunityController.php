@@ -166,7 +166,7 @@ class CommunityController extends Controller
                 'next' => $posts->nextPageUrl()
             ];
         }
-        $hashtags = Hashtag::where('post_id', Post::where('user_id',$user->id)->select('id'))->groupBy('hashtag')->pluck('hashtag');
+        $hashtags = Hashtag::whereIn('post_id', Post::where('user_id',$user->id)->select('id'))->groupBy('hashtag')->pluck('hashtag');
 
 
         return view('user.community.index', compact('user','hashtags'));
