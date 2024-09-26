@@ -10,7 +10,7 @@
         </div> --}}
         <div class="header_title">
             <h2>
-                <a href="{{ route('admin.question-bank', $category->id) }}">
+                <a href="{{ route('admin.question-bank.index', $category->id) }}">
                     {{$category->name}}
                 </a>
                 ->
