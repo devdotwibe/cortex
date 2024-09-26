@@ -103,8 +103,6 @@ Route::middleware(['auth', 'isUser'])->group(function () {
 
     Route::middleware('verified')->group(function(){
 
-        Route::get('/tips-n-advice', [UserMainController::class, 'tips_n_advice'])->name('tipsandadvice');
-
         Route::prefix('payment')->name('payment.')->group(function () {
             Route::get('/workshop', [StripePaymentController::class, 'workshop'])->name('workshop');
             Route::get('/subscription', [StripePaymentController::class, 'subscription'])->name('subscription');
