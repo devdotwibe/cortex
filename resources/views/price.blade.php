@@ -239,6 +239,10 @@
                 @endif
 
                 <div class="btn-success"></div>
+
+                <a href="#our-courses" class="btn btn-primary"></a>
+
+
                 <div class="alert alert-success alert-dismissible fade"id="form-messages">
 
                     Thank you for your message. We will get back to you soon.
@@ -413,7 +417,7 @@
                         $('#last_name_error').text(errors.last_name);
                         $('#phone_number_error').text(errors.phone_number);
                         $('#email_error').text(errors.email);
-                        $('#message_error').text(errors.message);
+                        $('#message_error').text(errors.message);   
                     }
                 });
             });
