@@ -31,7 +31,7 @@
         <div class="header_title">
 
             <div class="back-btn" id="back-btn" style="display: block"> <!-- Ensure proper display value -->
-                <a href="{{ route('community.post') }}">
+                <a href="{{ route('community.index') }}">
                     <img src="{{ asset('assets/images/exiticon.svg') }}" alt="">
                 </a>
             </div>
