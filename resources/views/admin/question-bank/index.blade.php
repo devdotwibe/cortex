@@ -156,6 +156,15 @@
 
 @push('footer-script')
 <script>
+
+        $(function(){
+
+            var type ={{request('type')}};
+
+            console.log(type);
+
+        });
+
     var activedata={};
     var subcatsettable = null;
     function beforeajaxcallsub(data) {
