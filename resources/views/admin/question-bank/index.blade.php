@@ -159,14 +159,15 @@
 
         $(function(){
 
-            var type ={{request('type')}};
+        var type ={{request('type')}};
 
-            console.log(type,'dt');
+        console.log(type,'dt');
 
         });
 
-    var activedata={};
-    var subcatsettable = null;
+        var activedata={};
+        var subcatsettable = null;
+
     function beforeajaxcallsub(data) {
         data.subcategory = activedata['subcategory']||"";
         return data;
