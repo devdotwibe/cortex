@@ -6,23 +6,19 @@
         <div class="header_title">
 
           
-            
-            <h2>{{$category->name}}  
-                <a onclick="pagetoggle1()">-></a>
-            
-             {{$subcategory->name}}   
-                <a onclick="pagetoggle2()">-></a>
+{{--             
+            <h2> 
+
+                <a onclick="pagetoggle1()">{{$category->name}} -></a>
         
-             {{ $setname->name }}  
-                <a onclick="pagetoggle3()">-></a>
+                <a onclick="pagetoggle2()"> {{$subcategory->name}} -></a>
+        
+             
+                <a onclick="pagetoggle3()">{{ $setname->name }}  -></a>
       
              Questions</h2>
 
-           
-
-            
-
-        </div>
+        </div> --}}
 
         
          
