@@ -14,11 +14,11 @@
                     {{$category->name}}
                 </a>
                 ->
-                <a href="{{ route('subcategory.show', [$category->id, $subcategory->id]) }}">
+                <a href="{{ route('', [$category->id, $subcategory->id]) }}">
                     {{$subcategory->name}}
                 </a>
                 ->
-                <a href="{{ route('setname.show', [$category->id, $subcategory->id, $setname->id]) }}">
+                <a href="{{ route('', [$category->id, $subcategory->id, $setname->id]) }}">
                     {{ $setname->name }}
                 </a>
                 -> Questions
