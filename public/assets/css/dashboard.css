@@ -1947,6 +1947,9 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .admin_section .table-outer table .form-check input.form-check-input {margin: 2px 10px 0 0;}
 .admin_section .table-outer table thead tr th:first-child { border-radius: 10px 0 0 0;}
 .admin_section .table-outer table thead tr th:last-child { border-radius: 0 10px 0 0;}
+.admin_section .table-outer table  tbody tr { border: none;}
+.admin_section .table-outer table tbody tr td { padding: 15px 12px;}
+
 
 .table-section { margin: 30px 0 0;}
 .table-section .table-outer table thead tr th { background: #1989F8;}

@@ -9,8 +9,8 @@
             {{-- <h2>{{$category->name}} -> {{$subcategory->name}} -> {{ $setname->name }} -> Questions</h2> --}}
 
             <h2>
-                <a href="{{ route('admin.question-bank.index', ['id' => $category->id]) }}">{{$category->name}}</a> -> 
-                <a href="{{ route('admin.question-bank.index', ['id' => $subcategory->id]) }}">{{$subcategory->name}}</a> -> 
+                <a href="{{ route('admin.question-bank.index') }}">{{$category->name}}</a> -> 
+                <a href="{{ route('admin.question-bank.index', ['id' => $category->slug,'type' =>'subcategory']) }}">{{$subcategory->name}}</a> -> 
                 {{ $setname->name }} -> Questions
             </h2>
             

@@ -426,5 +426,12 @@
             });
         })
     })
+
+
+    $(function(){
+        @if(request('id'))
+        loadsubcategory('{{route('admin.question-bank.subcategory',request('id'))}}')
+        @endif
+    });
 </script>
 @endpush
