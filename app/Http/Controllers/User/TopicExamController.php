@@ -138,6 +138,12 @@ class TopicExamController extends Controller
             "user_id" => $user->id,
             "exam_id" => $exam->id,
             "category_id" => $category->id,
+            "timed"=>'timed',
+            "timetaken"=>$request->input("timetaken",'0'),
+            "flags"=>$request->input("flags",'[]'),
+            "times"=>$request->input("times",'[]'),
+            "passed"=>$request->input("passed",'0'),
+            "time_of_exam"=>$category->time_of_exam,
         ]);
         $passed = $request->input("passed", '0');
         $questions = $request->input("questions", '[]');
