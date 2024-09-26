@@ -4,23 +4,28 @@
 <section class="header_nav">
     <div class="header_wrapp">
         <div class="header_title">
-            <div class="back-btn" id="back-btn" style="display">
-                <a href="{{ route('admin.learn.index') }}"><img src="{{asset('assets/images/leftarrowblack.svg')}}" alt=""></a>
+            <div class="back-btn" id="back-btn" style="display: block"> <!-- Ensure proper display value -->
+                <a href="{{ route('admin.learn.index') }}">
+                    <img src="{{ asset('assets/images/leftarrowblack.svg') }}" alt="">
+                </a>
             </div>
-            <h2>{{$category->name}}</h2>
-        </div
+            <h2>{{ $category->name }}</h2>
+        </div> <!-- Closing tag added here -->
         <div class="header_content">
-             <div class="form-group">
-                <select  id="subcat-list" class="select2 form-control" data-placeholder="Select an Sub Category" data-allow-clear="true" data-ajax--url="{{route('admin.learn.create',$category->slug)}}"></select>
-             </div>
+            <div class="form-group">
+                <select id="subcat-list" class="select2 form-control" data-placeholder="Select a Sub Category" data-allow-clear="true" data-ajax--url="{{ route('admin.learn.create', $category->slug) }}"></select>
+            </div>
         </div>
         <div class="header_right">
             <ul class="nav_bar">
-                <li class="nav_item"><a href="{{route('admin.learn.create', $category->slug)}}" class="nav_link btn">Add Lesssons</a></li>
+                <li class="nav_item">
+                    <a href="{{ route('admin.learn.create', $category->slug) }}" class="nav_link btn">Add Lessons</a>
+                </li>
             </ul>
         </div>
     </div>
 </section>
+
 <section class="content_section admin_section learn_show">
     <div class="container">
         <div class="row">
