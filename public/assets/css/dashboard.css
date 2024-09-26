@@ -2050,12 +2050,13 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 }
 
 .header_nav .header_wrapp .header_content .select2-container--default .select2-selection--single .select2-selection__rendered {
-  padding: 8px 22px 8px 10px;
+  padding: 8px 30px 8px 10px;
 }
 
 .header_nav .header_wrapp .header_content .select2-container--default .select2-selection--single {
-  border: 1px solid #E6E6E6;
+  border: 1px solid #BCBCBC;
   height: 43px;
+  border-radius: 10px;
 }
 
 .header_nav .header_wrapp .header_content .select2-container--default .select2-selection--single .select2-selection__rendered .select2-selection__placeholder {
@@ -2067,6 +2068,7 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
   transform: translateY(-50%);
   background: url(../images/chevron-down.svg) no-repeat center;
   background-size: 12px;
+  right: 5px;
 }
 
 .header_nav .header_wrapp .header_content .select2-container--default .select2-selection--single .select2-selection__arrow b {
