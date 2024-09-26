@@ -9,10 +9,7 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="exam-result">
-                            <div class="exam-result-content"> 
-                                <div class="exam-title">
-                                    <h3>{{$userExamReview->title}}</h3>
-                                </div>
+                            <div class="exam-result-content">  
                                 <div class="exam-mark-body">
                                     <div class="mark-title">
                                         <h3>Attempt details</h3>

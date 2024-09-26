@@ -1,5 +1,5 @@
 @extends('layouts.exam')
-@section('title', 'Congratulation on Completing the Exam!')
+@section('title', 'Congratulation on Completing the '.$userExamReview->title)
 @section('content')  
 
 <section class="modal-expand modal-expand-result" id="question-complete-page" >
