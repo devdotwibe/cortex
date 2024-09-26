@@ -161,6 +161,14 @@ Route::middleware(['auth', 'isUser'])->group(function () {
             Route::middleware('subscription:full-mock-exam')->get('/{exam}/review', [MockExamController::class, 'examreview'])->name('review');
             Route::get('/attempt/{user_exam_review}/preview', [MockExamController::class, 'preview'])->name('preview');
             Route::get('/{user_exam_review}/complete', [MockExamController::class, 'examcomplete'])->name('complete');
+            
+            Route::get('/{user_exam_review}/retry', [MockExamController::class, 'mocexamretry'])->name('retry');
+            Route::post('/fetch/{attemt}/progress', [MockExamController::class, 'getprogress'])->name('attemtprogress');
+            Route::post('/update/{attemt}/progress', [MockExamController::class, 'updateprogress'])->name('updateprogress');
+            Route::post('/retry/{user_exam_review}/submit', [MockExamController::class, 'retrysubmit'])->name('retry.submit');
+            Route::get('/retry/{user_exam_review}/attempt/{exam_retry_review}/result', [MockExamController::class, 'retryresult'])->name('retry.result');
+            Route::get('/retry/{user_exam_review}/attempt/{exam_retry_review}/preview', [MockExamController::class, 'retrypreview'])->name('retry.preview');
+            Route::get('/retry/{user_exam_review}/history', [MockExamController::class, 'retryhistory'])->name('retryhistory');
         });
 
         Route::middleware('subscription')->group(function () {
