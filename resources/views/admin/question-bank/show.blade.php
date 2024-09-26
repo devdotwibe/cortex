@@ -3,7 +3,7 @@
 @section('content')
 <section class="header_nav">
     <div class="header_wrapp">
-        <div class="header_title">
+        {{-- <div class="header_title">
 
           
             
@@ -22,7 +22,9 @@
 
             
 
-        </div>
+        </div> --}}
+
+        
          
         <div class="header_right">
             <ul class="nav_bar">
@@ -95,14 +97,14 @@
         $('#category-content-section,#subcategory-content-section').slideToggle()
         $('#back-btn').fadeToggle()
     }
-    // function pagetoggle2(){
-    //     $('#subcategory-content-section',#).slideToggle()
-    //     $('#back-btn').fadeToggle()
-    // }
-    // function pagetoggle3(){
-    //     $('#category-content-section,#subcategory-content-section').slideToggle()
-    //     $('#back-btn').fadeToggle()
-    // }
+    function pagetoggle2(){
+        $('#subcategory-content-section,#subcategory-content-section').slideToggle()
+        $('#back-btn').fadeToggle()
+    }
+    function pagetoggle3(){
+        $('#subcategory-content-section,#subcategory-content-section').slideToggle()
+        $('#back-btn').fadeToggle()
+    }
 
 
         var questiontable = null;
