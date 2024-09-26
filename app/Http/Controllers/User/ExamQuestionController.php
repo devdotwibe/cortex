@@ -19,6 +19,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Yajra\DataTables\Facades\DataTables;
 
 class ExamQuestionController extends Controller
@@ -72,63 +73,71 @@ class ExamQuestionController extends Controller
         $user=Auth::user();
         return view("user.question-bank.show",compact('category','exam','lessons','user'));
     }
+    public function setattempt(Request $request,Category $category,SubCategory $subCategory,Setname $setname){
+        Session::put("question-bank-attempt",$setname->slug);
+    }
     public function setshow(Request $request,Category $category,SubCategory $subCategory,Setname $setname){
+        if(session("question-bank-attempt")){
+            $exam=Exam::where("name",'question-bank')->first();
+            if(empty($exam)){
+                $exam=Exam::store([
+                    "title"=>"Question Bank",
+                    "name"=>"question-bank",
+                ]);
+                $exam=Exam::find( $exam->id );
+            }
 
-        $exam=Exam::where("name",'question-bank')->first();
-        if(empty($exam)){
-            $exam=Exam::store([
-                "title"=>"Question Bank",
-                "name"=>"question-bank",
-            ]);
-            $exam=Exam::find( $exam->id );
-        }
-
-        /**
-         * @var User
-         */
-        $user=Auth::user();
-        $user->setProgress("attempt-recent-link",route('question-bank.show',['category'=>$category->slug]));
-        if($request->ajax()){
-            if($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$subCategory->id.'-set-'.$setname->id.'-complete-date',"")==""){
-                $lessons=SubCategory::where('category_id',$category->id)->get();
-                $lessencount=count($lessons);
-                $totalprogres=0;
-                foreach ($lessons as $lesson) {
-                    $sets=Setname::where('category_id',$category->id)->where('sub_category_id',$lesson->id)->get();
-                    $setcount=count($sets);
-                    $catprogres=0;
-                    foreach ($sets as $sitm) {
-                        $catprogres+=$user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$lesson->id.'-set-'.$sitm->id,0);
+            /**
+             * @var User
+             */
+            $user=Auth::user();
+            $user->setProgress("attempt-recent-link",route('question-bank.show',['category'=>$category->slug]));
+            if($request->ajax()){
+                if($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$subCategory->id.'-set-'.$setname->id.'-complete-date',"")==""){
+                    $lessons=SubCategory::where('category_id',$category->id)->get();
+                    $lessencount=count($lessons);
+                    $totalprogres=0;
+                    foreach ($lessons as $lesson) {
+                        $sets=Setname::where('category_id',$category->id)->where('sub_category_id',$lesson->id)->get();
+                        $setcount=count($sets);
+                        $catprogres=0;
+                        foreach ($sets as $sitm) {
+                            $catprogres+=$user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$lesson->id.'-set-'.$sitm->id,0);
+                        }
+                        $user->setProgress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$lesson->id,$catprogres>0?($catprogres/$setcount):0);
+                        $totalprogres+=$catprogres;
                     }
-                    $user->setProgress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$lesson->id,$catprogres>0?($catprogres/$setcount):0);
-                    $totalprogres+=$catprogres;
+                    $user->setProgress('exam-'.$exam->id.'-topic-'.$category->id,$totalprogres/$lessencount);
                 }
-                $user->setProgress('exam-'.$exam->id.'-topic-'.$category->id,$totalprogres/$lessencount);
-            }
 
-            if(!empty($request->question)){
-                $question=Question::findSlug($request->question);
-                return Answer::where('question_id',$question->id)->get(['slug','title']);
+                if(!empty($request->question)){
+                    $question=Question::findSlug($request->question);
+                    return Answer::where('question_id',$question->id)->get(['slug','title']);
+                }
+                return Question::where('exam_id',$exam->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->paginate(1,['slug','title','description','duration']);
             }
-            return Question::where('exam_id',$exam->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->paginate(1,['slug','title','description','duration']);
+            $questioncount=Question::where('exam_id',$exam->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->count();
+            $endtime=0;
+            $times=explode(':',$setname->time_of_exam);
+            if(count($times)>0){
+                $endtime+=intval(trim($times[0]??"0"))*60;
+                $endtime+=intval(trim($times[1]??"0"));
+            }
+            foreach (Question::where('exam_id',$exam->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->get() as $d) {
+                $user->setProgress("exam-{$exam->id}-topic-{$category->id}-lesson-{$subCategory->id}-set-{$setname->id}-answer-of-{$d->slug}",null);
+            }
+            $attemtcount=UserExamReview::where('exam_id',$exam->id)->where('user_id',$user->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->count()+1;
+            return view("user.question-bank.set",compact('category','exam','subCategory','user','setname','questioncount','endtime','attemtcount'));
         }
-        $questioncount=Question::where('exam_id',$exam->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->count();
-        $endtime=0;
-        $times=explode(':',$setname->time_of_exam);
-        if(count($times)>0){
-            $endtime+=intval(trim($times[0]??"0"))*60;
-            $endtime+=intval(trim($times[1]??"0"));
+        else{
+            return  redirect()->route('question-bank.index')->with("error","Question set not initialized");
         }
-        foreach (Question::where('exam_id',$exam->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->get() as $d) {
-            $user->setProgress("exam-{$exam->id}-topic-{$category->id}-lesson-{$subCategory->id}-set-{$setname->id}-answer-of-{$d->slug}",null);
-        }
-        $attemtcount=UserExamReview::where('exam_id',$exam->id)->where('user_id',$user->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->count()+1;
-        return view("user.question-bank.set",compact('category','exam','subCategory','user','setname','questioncount','endtime','attemtcount'));
     }
     public function preview(Request $request,UserExamReview $userExamReview){
         $category=Category::find($userExamReview->category_id);
         $subCategory=SubCategory::find($userExamReview->sub_category_id);
         $setname=Setname::find($userExamReview->sub_category_set);
+        Session::remove("question-bank-attempt");
 
         $exam=Exam::where("name",'question-bank')->first();
         if(empty($exam)){
@@ -171,7 +180,7 @@ class ExamQuestionController extends Controller
     }
 
     public function setreview(Request $request,Category $category,SubCategory $subCategory,Setname $setname){
-
+        Session::remove("question-bank-attempt");
         $exam=Exam::where("name",'question-bank')->first();
         if(empty($exam)){
             $exam=Exam::store([
@@ -261,12 +270,14 @@ class ExamQuestionController extends Controller
         }
         $user->setProgress("exam-".$exam->id."-topic-".$category->id."-lesson-".$subCategory->id.'-set-'.$setname->id."-complete-review",'yes');
         dispatch(new SubmitReview($review));
+        Session::remove("question-bank-attempt");
         if($request->ajax()){
             return  response()->json(["success"=>"Question set Submited","preview"=>route('question-bank.preview',$review->slug)]);
         }
         return  redirect()->route('question-bank.set.complete',$review->slug)->with("success","Question set Submited")->with("review",$review->id);
     }
     public function setcomplete(Request $request,UserExamReview $userExamReview){ 
+        Session::remove("question-bank-attempt");
         /**
          * @var User
          */
@@ -286,6 +297,7 @@ class ExamQuestionController extends Controller
         
     }
     public function sethistory(Request $request,Category $category,SubCategory $subCategory,Setname $setname){
+        Session::remove("question-bank-attempt");
         /**
          * @var User
          */
