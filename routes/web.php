@@ -210,7 +210,7 @@ Route::middleware(['auth', 'isUser'])->group(function () {
 
             Route::prefix('community')->name('community.')->group(function () {
                 Route::get('/', [CommunityController::class, 'posts'])->name('index');
-                Route::get('/ajaxindex', [CommunityController::class, 'posts'])->name('ajaxindex');
+                Route::get('/', [CommunityController::class, 'posts'])->name('ajaxindex');
                 Route::resource('/post', CommunityController::class);
                 Route::get('/poll/{poll_option}/vote', [CommunityController::class, 'pollVote'])->name('poll.vote');
                 Route::get('/post/{post}/like', [CommunityController::class, 'postLike'])->name('post.like');
