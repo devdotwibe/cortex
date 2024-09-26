@@ -4,6 +4,11 @@
 <section class="header_nav">
     <div class="header_wrapp">
         <div class="header_title">
+            <div class="header_title">
+                <div class="back-btn" id="back-btn" style="display: none">
+                    <a href="{{ route('admin.learn') }}"><img src="{{asset('assets/images/leftarrowblack.svg')}}" alt=""></a>
+                </div>
+                
             <h2>{{$category->name}}</h2>
         </div
         <div class="header_content">

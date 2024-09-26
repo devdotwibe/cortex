@@ -3,12 +3,8 @@
 @section('content')
 <section class="header_nav">
     <div class="header_wrapp">
-        <div class="header_title">
-            <div class="back-btn" id="back-btn" style="display: none">
-                <a href="{{ url()->previous() }}"><img src="{{asset('assets/images/leftarrowblack.svg')}}" alt=""></a>
-            </div>
-            
-            <h2>Learn1</h2>
+       
+            <h2>Learn</h2>
         </div>
     </div>
 </section>
