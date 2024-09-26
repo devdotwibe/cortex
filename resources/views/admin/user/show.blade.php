@@ -10,7 +10,7 @@
                 @if (!$user->hasVerifiedEmail())
                 <span class="badge bg-danger">Email Not Verified</span> 
                 @else
-                <span class="badge bg-success">Email Not Verified</span> 
+                <span class="badge bg-success">Email Verified</span> 
                 @endif
             </div>
     </div>
