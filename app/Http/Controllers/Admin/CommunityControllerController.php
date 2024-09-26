@@ -48,8 +48,7 @@ class CommunityControllerController extends Controller
                         'percentage'=>$tvotes>0?round(($opt->votes*100)/$tvotes,2):0,
                     ];
                 }
-                $results[]=[
-                    "row"=>$row,
+                $results[]=[ 
                     "slug"=>$row->slug,
                     "title"=>$row->title,
                     "type"=>$row->type,
