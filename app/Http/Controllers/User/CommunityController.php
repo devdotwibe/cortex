@@ -239,13 +239,13 @@ class CommunityController extends Controller
         // foreach ($extractedHashtags as $hashtag) {
         //     Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
         // }
- // Split hashtags by commas or spaces   
- $extractedHashtags = array_map('trim', explode(',', $request->input('hashtag','')));
- foreach ($extractedHashtags as $hashtag) {
-     if (!empty($hashtag)) {
-         Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
-     }
- }
+        // Split hashtags by commas or spaces   
+        $extractedHashtags = array_map('trim', explode(',', $request->input('hashtag','')));
+        foreach ($extractedHashtags as $hashtag) {
+            if (!empty($hashtag)) {
+                Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
+            }
+        }
 
         return redirect()->route('community.index')->with('success', "Post published");
     }
