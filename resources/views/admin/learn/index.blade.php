@@ -3,6 +3,7 @@
 @section('content')
 <section class="header_nav">
     <div class="header_wrapp">
+        <div class="header_title">
             <h2>Learn</h2>
         </div>
     </div>
