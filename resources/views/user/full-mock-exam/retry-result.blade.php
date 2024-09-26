@@ -1,5 +1,5 @@
 @extends('layouts.exam')
-@section('title', 'Congratulation on Completing the Topic!')
+@section('title', 'Congratulation on Completing the Exam!')
 @section('content')  
 
 <section class="modal-expand modal-expand-result" id="question-complete-page" >
@@ -35,10 +35,10 @@
                                 <p>Next Step: Review and Improve</p>
                                 <div class="exam-mark-bottom">
                                     @if (session("exam-retry-".$userExamReview->id))
-                                        <a class="btn btn-warning btn-lg" id="review-link" href="{{route('topic-test.retry',$userExamReview->slug)}}">Retry In-Correct</a>
+                                        <a class="btn btn-warning btn-lg" id="review-link" href="{{route('full-mock-exam.retry',$userExamReview->slug)}}">Retry In-Correct</a>
                                     @endif
-                                    <a class="btn btn-warning btn-lg" id="review-link" href="{{route('topic-test.retry.preview', ['user_exam_review' => $userExamReview->slug, 'exam_retry_review' => $examRetryReview->slug])}}">Review Set</a>
-                                    <a href="{{route('topic-test.index')}}" class="btn btn-outline-dark btn-lg">Exit Set</a>
+                                    <a class="btn btn-warning btn-lg" id="review-link" href="{{route('full-mock-exam.retry.preview', ['user_exam_review' => $userExamReview->slug, 'exam_retry_review' => $examRetryReview->slug])}}">Review Set</a>
+                                    <a href="{{route('full-mock-exam.index')}}" class="btn btn-outline-dark btn-lg">Exit Set</a>
                                 </div>
                             </div>
                         </div>
@@ -123,7 +123,7 @@
 
 @push('footer-script')  
     <script>
-        localStorage.removeItem("topic-test-summery-retry")
+        localStorage.removeItem("full-mock-exam-summery-retry")
     </script>
     {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script> 
