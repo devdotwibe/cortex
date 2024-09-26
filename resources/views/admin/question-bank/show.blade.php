@@ -8,13 +8,13 @@
           
             
             <h2>{{$category->name}}  
-                <a onclick="pagetoggle()"><img src="{{asset('assets/images/leftarrowblack.svg')}}" alt=""></a>
+                <a onclick="pagetoggle1()">-></a>
             
              {{$subcategory->name}}   
-                <a onclick="pagetoggle()"><img src="{{asset('assets/images/leftarrowblack.svg')}}" alt=""></a>
+                <a onclick="pagetoggle2()">-></a>
         
              {{ $setname->name }}  
-                <a onclick="pagetoggle()"><img src="{{asset('assets/images/leftarrowblack.svg')}}" alt=""></a>
+                <a onclick="pagetoggle3()">-></a>
       
              Questions</h2>
 
@@ -91,6 +91,20 @@
 
 @push('footer-script')
     <script>
+         function pagetoggle1(){
+        $('#category-content-section,#subcategory-content-section').slideToggle()
+        $('#back-btn').fadeToggle()
+    }
+    // function pagetoggle2(){
+    //     $('#subcategory-content-section',#).slideToggle()
+    //     $('#back-btn').fadeToggle()
+    // }
+    // function pagetoggle3(){
+    //     $('#category-content-section,#subcategory-content-section').slideToggle()
+    //     $('#back-btn').fadeToggle()
+    // }
+
+
         var questiontable = null;
         // const eventSource = null;
         // var isrefresh=false;
