@@ -222,6 +222,7 @@ class CommunityController extends Controller
 
         $data['user_id'] = $user->id;
         $data['status'] = "publish";
+        print_r($data);exit;
         $post = Post::store($data);
         if ($request->type == "poll") {
             foreach ($request->input('option', []) as $k => $v) {
@@ -239,13 +240,13 @@ class CommunityController extends Controller
         // foreach ($extractedHashtags as $hashtag) {
         //     Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
         // }
- // Split hashtags by commas or spaces   
- $extractedHashtags = array_map('trim', explode(',', $request->input('hashtag','')));
- foreach ($extractedHashtags as $hashtag) {
-     if (!empty($hashtag)) {
-         Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
-     }
- }
+        // Split hashtags by commas or spaces   
+        $extractedHashtags = array_map('trim', explode(',', $request->input('hashtag','')));
+        foreach ($extractedHashtags as $hashtag) {
+            if (!empty($hashtag)) {
+                Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
+            }
+        }
 
         return redirect()->route('community.index')->with('success', "Post published");
     }
