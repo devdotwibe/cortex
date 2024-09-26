@@ -121,7 +121,8 @@ Route::middleware(['auth', 'isUser'])->group(function () {
         Route::prefix('question-bank')->name('question-bank.')->group(function () {
             Route::get('/', [ExamQuestionController::class, 'index'])->name('index');
             Route::middleware('subscription:question-bank')->get('/{category}', [ExamQuestionController::class, 'show'])->name('show');
-            Route::middleware('subscription:question-bank')->get('/{category}/{sub_category}/set/{setname}', [ExamQuestionController::class, 'setshow'])->name('set.show');
+            Route::middleware('subscription:question-bank')->get('/{category}/{sub_category}/set/{setname}/attempt', [ExamQuestionController::class, 'setattempt'])->name('set.show');
+            Route::middleware('subscription:question-bank')->get('/{category}/{sub_category}/set/{setname}', [ExamQuestionController::class, 'setshow'])->name('set.attempt');
             Route::get('/{category}/{sub_category}/set/{setname}/history', [ExamQuestionController::class, 'sethistory'])->name('set.history');
             Route::middleware('subscription:question-bank')->post('/{category}/{sub_category}/set/{setname}/submit', [ExamQuestionController::class, 'setsubmit'])->name('set.submit');
             Route::middleware('subscription:question-bank')->post('/{category}/{sub_category}/set/{setname}/verify', [ExamQuestionController::class, 'setverify'])->name('set.verify');
