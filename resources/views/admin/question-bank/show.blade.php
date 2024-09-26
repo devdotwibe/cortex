@@ -5,14 +5,14 @@
     <div class="header_wrapp">
         <div class="header_title">
 
-           
+            <h2>
                 <a onclick="pagetoggle()">{{$category->name}}<img src="{{asset('assets/images/leftarrowblack.svg')}}" alt=""></a>
 
                 <a onclick="pagetoggle()"> {{$subcategory->name}}<img src="{{asset('assets/images/leftarrowblack.svg')}}" alt=""></a>
 
                 <a onclick="pagetoggle()">{{ $setname->name }}<img src="{{asset('assets/images/leftarrowblack.svg')}}" alt=""></a>
           
-
+                Questions</h2>
             {{-- <h2>{{$category->name}} -> {{$subcategory->name}} -> {{ $setname->name }} -> Questions</h2> --}}
 
            
