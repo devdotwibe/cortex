@@ -314,21 +314,14 @@ class MockExamController extends Controller
              * @var User
              */
             $user = Auth::user();
-            $exam = Exam::where("name", 'full-mock-exam')->first();
-            if (empty($exam)) {
-                $exam = Exam::store([
-                    "title" => "Topic Test",
-                    "name" => "full-mock-exam",
-                ]);
-                $exam = Exam::find($exam->id);
-            }
+            $exam=Exam::find( $userExamReview->exam_id ); 
             $answers = Session::get($attemt, []);
             $passed = $request->input("passed", '0');
             $questions = $request->input("questions", '[]');
             $questioncnt = Question::whereNotIn('slug', session("exam-retry-questions" . $userExamReview->id, []))->where('exam_id', $exam->id)->count();
             $review = ExamRetryReview::store([
-                "title" => "Topic Test",
-                "name" => "full-mock-exam",
+                "title" => $exam->title,
+                "name" => $exam->name,
                 "user_id" => $user->id,
                 "exam_id" => $exam->id,
                 "progress" => ($passed * 100) / $questioncnt,
@@ -359,7 +352,6 @@ class MockExamController extends Controller
     }
     public function retryresult(Request $request, UserExamReview $userExamReview, ExamRetryReview $examRetryReview)
     {
-
         /**
          * @var User
          */
@@ -380,20 +372,13 @@ class MockExamController extends Controller
 
     public function retrypreview(Request $request, UserExamReview $userExamReview, ExamRetryReview $examRetryReview)
     {
-  
-        $exam = Exam::where("name", 'full-mock-exam')->first();
-        if (empty($exam)) {
-            $exam = Exam::store([
-                "title" => "Topic Test",
-                "name" => "full-mock-exam",
-            ]);
-            $exam = Exam::find($exam->id);
-        }
+   
+        $exam=Exam::find( $userExamReview->exam_id );  
         /**
          * @var User
          */
         $user = Auth::user();
-        $user->setProgress("review-recent-link", route('topic-test.retry.preview', ['user_exam_review' => $userExamReview->slug, 'exam_retry_review' => $examRetryReview->slug]));
+        $user->setProgress("review-recent-link", route('full-mock-exam.retry.preview', ['user_exam_review' => $userExamReview->slug, 'exam_retry_review' => $examRetryReview->slug]));
         if ($request->ajax()) {
             if (!empty($request->question)) {
                 $question = ExamRetryQuestion::findSlug($request->question);
@@ -417,7 +402,7 @@ class MockExamController extends Controller
         if ($examtime > 0 && count($useranswer) > 0) {
             $examtime = $examtime / count($useranswer);
         }
-        return view("user.topic-test.retry-preview", compact('category', 'exam', 'user', 'userExamReview', 'useranswer', 'examtime', 'examRetryReview'));
+        return view("user.full-mock-exam.retry-preview", compact('category', 'exam', 'user', 'userExamReview', 'useranswer', 'examtime', 'examRetryReview'));
 
     }
 }
