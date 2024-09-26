@@ -40,7 +40,7 @@ class MockExamController extends Controller
         /**
          *  @var User
          */
-        $user=Auth::user();
+        $user=Auth::user(); 
         return view("user.full-mock-exam.index",compact('exams','user'));
     } 
     public function show(Request $request,Exam $exam){
