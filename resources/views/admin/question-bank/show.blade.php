@@ -7,15 +7,15 @@
 
           
             
-            <h2>{{$category->name}}   <div class="back-btn"  id="back-btn" >
+            <h2>{{$category->name}}  
                 <a onclick="pagetoggle()"><img src="{{asset('assets/images/leftarrowblack.svg')}}" alt=""></a>
-            </div>
-             {{$subcategory->name}}   <div class="back-btn"  id="back-btn" >
+            
+             {{$subcategory->name}}   
                 <a onclick="pagetoggle()"><img src="{{asset('assets/images/leftarrowblack.svg')}}" alt=""></a>
-            </div>
-             {{ $setname->name }}  <div class="back-btn"  id="back-btn" >
+        
+             {{ $setname->name }}  
                 <a onclick="pagetoggle()"><img src="{{asset('assets/images/leftarrowblack.svg')}}" alt=""></a>
-            </div>
+      
              Questions</h2>
 
            
