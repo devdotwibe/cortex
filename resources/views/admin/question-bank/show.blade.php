@@ -4,16 +4,8 @@
 <section class="header_nav">
     <div class="header_wrapp">
         <div class="header_title">
-
             
-            {{-- <h2>{{$category->name}} -> {{$subcategory->name}} -> {{ $setname->name }} -> Questions</h2> --}}
-
-            <h2>
-                <a href="{{ route('category.route', ['id' => $category->id]) }}">{{$category->name}}</a> -> 
-                <a href="{{ route('subcategory.route', ['id' => $subcategory->id]) }}">{{$subcategory->name}}</a> -> 
-                <a href="{{ route('setname.route', ['id' => $setname->id]) }}">{{ $setname->name }}</a> -> Questions
-            </h2>
-            
+            <h2>{{$category->name}} -> {{$subcategory->name}} -> {{ $setname->name }} -> Questions</h2>
         </div>
          
         <div class="header_right">
