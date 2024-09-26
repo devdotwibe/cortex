@@ -102,7 +102,7 @@
                 <div class="footer-row">
                     <div class="footer-col1">
                         <a href="" class="footer-brand">
-                            <img src="./assets/images/footer-logo.svg" alt="">
+                            <img src="{{asset('assets/images/footer-logo.svg')}}" alt="">
                         </a>
                     </div>
                     <div class="footer-col2">
