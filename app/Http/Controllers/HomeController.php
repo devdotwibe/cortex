@@ -269,7 +269,7 @@ class HomeController extends Controller
                             </p>"
             ]);
         }
-        return throw ValidationException::withMessages(["coupon"=>["Coupon Not Available"]]);
+        return throw ValidationException::withMessages(["coupon"=>["Invalid Coupon Code"]]);
     }
     public function combo_mail(Request $request){
         $request->validate([
