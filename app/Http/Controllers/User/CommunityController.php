@@ -222,6 +222,7 @@ class CommunityController extends Controller
 
         $data['user_id'] = $user->id;
         $data['status'] = "publish";
+        print_r( $data);
         $post = Post::store($data);
         if ($request->type == "poll") {
             foreach ($request->input('option', []) as $k => $v) {
@@ -231,7 +232,7 @@ class CommunityController extends Controller
                 ]);
             }
         }
-        print_r($post);exit;
+        print_r($post); 
 
 
         // // Extract and store hashtags from the description
