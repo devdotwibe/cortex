@@ -8,7 +8,7 @@
                 <a href="{{ url()->previous() }}"><img src="{{asset('assets/images/leftarrowblack.svg')}}" alt=""></a>
             </div>
             
-            <h2>Learn</h2>
+            <h2>Learn1</h2>
         </div>
     </div>
 </section>
