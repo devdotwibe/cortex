@@ -15,7 +15,7 @@
                     <div class="timer exam-timer">
                         <div class="minute">
                             <span class="runner">00</span>
-                            <span>Mins</span>
+                            <span>Mins1</span>
                         </div>
                         <div class="seperator">
                             <span>:</span>
