@@ -4,6 +4,12 @@
 <section class="header_nav">
     <div class="header_wrapp">
         <div class="header_title">
+            <div class="back-btn" id="back-btn" style="display: block"> <!-- Ensure proper display value -->
+                <a href="{{ route('live-class.privateclass.lesson',$user->slug) }}">
+                  
+                    <img src="{{ asset('assets/images/exiticon.svg') }}" alt="">
+                </a>
+            </div>
             <h2>Term {{$lessonMaterial->getIdx()+1}} :Lesson Details </h2>
         </div>
     </div>
