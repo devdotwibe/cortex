@@ -378,7 +378,7 @@
         }  
         async function verifyquestion(question,ans){
             const csrf= $('meta[name="csrf-token"]').attr('content'); 
-            var response=await fetch("{{route('full-mock-exam.topic.verify')}}", {
+            var response=await fetch("{{route('full-mock-exam.verify',$exam->slug)}}", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
