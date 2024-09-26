@@ -5,7 +5,7 @@
     <div class="header_wrapp">
         <div class="header_title">
             <div class="header_title">
-                <div class="back-btn" id="back-btn" style="display: none">
+                <div class="back-btn" id="back-btn" style="display">
                     <a href="{{ route('learn.index') }}"><img src="{{asset('assets/images/leftarrowblack.svg')}}" alt=""></a>
                 </div>
                 
