@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('title', $category->name)
 @section('content')
-<section class="header_nav">
+<section class="header_nav learn-nav">
     <div class="header_wrapp">
         <div class="header_title">
             <div class="back-btn" id="back-btn" style="display: block"> <!-- Ensure proper display value -->
