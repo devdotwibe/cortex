@@ -142,7 +142,7 @@
                     </a>
                     <ul class="side-dropdown-menu" >
                         <li class="side-item {{request()->is('admin/category') ?'active':''}} "><a href="{{ route('admin.category.index') }}">Category</a></li>
-                        <li class="side-item {{request()->is('admin/exam') ? 'active':''}} "><a href="{{route('admin.exam.options')}}">Exam Simulator</a></li>
+                        <li class="side-item {{request()->is('admin/full-mock-exam-options') ? 'active':''}} "><a href="{{route('admin.exam.options')}}">Exam Simulator</a></li>
                         <li class="side-item {{request()->is('admin/payment') ? 'active':''}} "><a href="{{route('admin.payment.index')}}">Payment</a></li>
                         <li class="side-item {{request()->is('admin/payment-price') ? 'active':''}} "><a href="{{route('admin.payment-price.index')}}">Price</a></li>
                         <li class="side-item {{request()->is('admin/coupon') ? 'active':''}} "><a href="{{route('admin.coupon.index')}}">Coupon and Settings</a></li>
@@ -161,7 +161,7 @@
                     </a>
                 </li>
                 <li class="side-item side-dropdown ">
-                    <a class="side-dropdown-toggle" >
+                    <a class="side-dropdown-toggle {{request()->is('admin/topic-test*') ||request()->is('admin/exam*')?"active":""}}"  >
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/iconshover/examsimulator.svg")}}" alt="Dashboard">
                         </span>
@@ -170,7 +170,7 @@
                         </span>
                         Exam Simulator
                     </a>
-                    <ul class="side-dropdown-menu" >
+                    <ul class="side-dropdown-menu" @if(!(request()->is('admin/topic-test*') ||request()->is('admin/exam*'))) style="diplay:none" @endif>
                         <li class="side-item {{request()->is('admin/topic-test*') ? 'active':''}} "><a href="{{route('admin.topic-test.index')}}">Topic Test</a></li>
                         <li class="side-item {{request()->is('admin/exam*') ? 'active':''}} "><a href="{{route('admin.exam.index')}}">Full Mock Exam</a></li>
                     </ul>
