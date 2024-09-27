@@ -19,6 +19,10 @@ class SubscribeUsersController extends Controller
         if($request->ajax()){ 
             self::$model=UserSubscription::class;
             self::$defaultActions=[''];  
+            if(!empty($request->plan)){
+                $plan=SubscriptionPlan::findSlug($request->plan);
+                $this->where('subscription_plan_id',$plan->id);
+            }
             return $this->whereHas('user')
                 ->addColumn("usermail",function($data){
                     return $data->user->email;
@@ -33,6 +37,7 @@ class SubscribeUsersController extends Controller
                     return optional(SubscriptionPlan::find($data->subscription_plan_id))->title;
                 })->buildTable();
         }
-        return view('admin.subscriber.index');
+        $plans=SubscriptionPlan::where('is_external',false)->get();
+        return view('admin.subscriber.index',compact('plans'));
     }
 }

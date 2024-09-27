@@ -8,10 +8,10 @@
         </div> 
         <div class="header_content">
              <div class="form-group">
-                <select  id="cat-list" onchange="changeyear()" class="select2 form-control" data-placeholder="Select an Year" data-allow-clear="true" >
-                     @for ($i = 2024; $i < (date('Y')+2); $i++)
-                         <option value="{{$i}}-{{$i+1}}">June {{$i}} - May {{$i+1}}</option>
-                     @endfor
+                <select  id="cat-list" onchange="changeplan()" class="select2 form-control" data-placeholder="Select an Plan" data-allow-clear="true" >
+                     @foreach ($plans as $item)
+                     <option value="{{$item->slug}}">{{ucfirst($item->title)}}</option>                         
+                     @endforeach 
                 </select>
              </div>
         </div> 
@@ -41,13 +41,13 @@
         function usertableinit(table) {
             usertable = table
         }
-        function changeyear(){ 
+        function changeplan(){ 
             if (usertable != null) {
                 usertable.ajax.reload()
             } 
         }
         function usertableajaxbefoire(data) {
-            data.year=$('#cat-list').val()
+            data.plan=$('#cat-list').val()
         }
     </script>
 @endpush
