@@ -109,16 +109,12 @@
 @push('footer-script')  
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-       function togglegraph(v) {
-            $('.analytic-item.active').slideToggle().removeClass('active');
-            $(`#${v}`).slideToggle().addClass('active');
-
-            if (v === "mock-exam-result") {
-                $("#mock-exam-dropdown").show(); // Show dropdown for mock exams
-                loadexamgraph(""); // Clear previously loaded exam data
-            } else {
-                $("#mock-exam-dropdown").hide(); // Hide dropdown for other options
+        function togglegrapg(v){
+            $(`.analytic-item.active,#${v}`).slideToggle().toggleClass('active');
+            if(v=="mock-exam-result"){
+                loadexamgrapg("{{url()->current()}}")
             }
+            
         }
         function generateRandomId(length) {
             const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
