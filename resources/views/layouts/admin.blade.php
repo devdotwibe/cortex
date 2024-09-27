@@ -149,7 +149,7 @@
                     </ul>
                 </li> 
 
-                <li class="side-item {{request()->is('admin/question-bank') ? 'active':''}}">
+                <li class="side-item {{request()->is('admin/question-bank*') ? 'active':''}}">
                     <a href="{{ route('admin.question-bank.index') }}">
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/iconshover/questionbank.svg")}}" alt="Dashboard">
