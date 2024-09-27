@@ -125,6 +125,13 @@
 @push('footer-script')  
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
+        function loadSelectedExam(examId) {
+    if(examId) {
+        const url = `{{url()->current()}}?exam_id=${examId}`;
+        loadexamgrapg(url);
+    }
+}
+
         function togglegrapg(v){
             $(`.analytic-item.active,#${v}`).slideToggle().toggleClass('active');
             if(v=="mock-exam-result"){
