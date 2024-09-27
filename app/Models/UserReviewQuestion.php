@@ -24,7 +24,9 @@ class UserReviewQuestion extends Model
         'exam_id',
         'question_id',
         'user_id',
-        'time_taken'
+        'time_taken',
+        'title_text',
+        'sub_question'
     ];
     protected $hidden = ['user_id', 'id','exam_id','question_id','user_exam_review_id'];
 
