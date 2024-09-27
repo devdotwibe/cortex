@@ -17,6 +17,8 @@ class AnalyticsController extends Controller
          */
         $user=Auth::user(); 
         $category = Category::all();  
+        $mockExams = Exam::where('name', "full-mock-exam")->get(); // Get all relevant exams
+
         if($request->ajax()){
             $page=$request->page??1;
             $data = Exam::where('name',"full-mock-exam")->skip($page-1)->take(1)->first();
@@ -49,6 +51,6 @@ class AnalyticsController extends Controller
                 "prev"=>$prev,
             ];
         }
-        return view('user.analytics.index',compact('category'));   
+        return view('user.analytics.index',compact('category','mockExams'));   
     }
 }
