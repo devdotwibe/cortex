@@ -2185,6 +2185,7 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .choice.mcq_section .forms-inputs .input-group .input-group-prepend:has(input:checked) label.choice-label {
   background: url(../images/checkyellow.svg) no-repeat center;
   background-size: 100%;
+  border: none;
 }
 .choice.mcq_section .forms-inputs .input-group .input-group-prepend input[type='radio'] {
   width: auto;
