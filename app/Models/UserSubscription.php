@@ -23,4 +23,10 @@ class UserSubscription extends Model
         'status',
         'pay_by'
     ];
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+    public function payer(){
+        return $this->belongsTo(User::class,'id','pay_by');
+    }
 }
