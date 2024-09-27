@@ -67,6 +67,7 @@
         var totalcount={{$learncount??0}};
         var questionids={!! $user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$subCategory->id."-progress-ids",'[]') !!};
         var progressurl="{{$user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$subCategory->id.'-progress-url','')}}";
+        var examPlayers={};
         function generateRandomId(length) {
             const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
             let result = '';
@@ -113,15 +114,24 @@
                                     </div>
                                     <div class="video-container">
                                         <div class="videoframe" id="vimo-videoframe-${lesseonId}">
-                                            <iframe src="https://player.vimeo.com/video/${vimeoid}?byline=0&keyboard=0&dnt=1&app_id=${lesseonId}" width="100%" height="500" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" title="${v.title}" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                                            
                                         </div>
                                         <div class="forms-inputs">
-                                            <input type="hidden" name="answer" data-question="${v.slug}" value="Y"/>
+                                            <input type="hidden" name="answer" data-question="${v.slug}" value="N"  id="user-answer-${lesseonId}-vimo" />
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         `).fadeIn();
+                        examPlayers[v.slug]=new Vimeo.Player(`vimo-videoframe-${lesseonId}`,{
+                            id: vimeoid,
+                            width: "100%",
+                            controls: true
+                        })
+                        examPlayers[v.slug].getDuration().then(function(duration) {
+                            console.log('Duration:', duration);
+                        });
+                        /* {{-- <iframe src="https://player.vimeo.com/video/${vimeoid}?byline=0&keyboard=0&dnt=1&app_id=${lesseonId}" width="100%" height="500" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" title="${v.title}" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> --}} */
                     }
 
                     if(v.learn_type=="notes"){
