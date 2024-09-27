@@ -303,6 +303,7 @@
 
         if(page =='back')
         {
+            $('#review-history-modal').modal('show');
             $('#retry-modal-body').show();
         }
         });
