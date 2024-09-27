@@ -49,26 +49,11 @@
                                 @endforeach
                             </div>
                         </div>
-                        {{-- <div class="analytic-item" id="mock-exam-result" style="display: none">
-                            <div class="analytic-exam" id="analytic-exam"> 
-                            </div> 
-                        </div> --}}
-
                         <div class="analytic-item" id="mock-exam-result" style="display: none">
-                            <div class="form-group">
-                                <label for="mock-exam-select">Select Mock Exam:</label>
-                                <select class="form-control" id="mock-exam-select" onchange="loadExamGraph(this.value)">
-                                    <option value="">-- Select an Exam --</option>
-                                    @foreach ($mockExams as $mockExam)
-                                        <option value="{{ $mockExam->id }}">{{ $mockExam->title }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
                             <div class="analytic-exam" id="analytic-exam"> 
                             </div> 
                         </div>
-
-                        
+  
                         <div class="analytic-item" id="question-bank-result" style="display: none">
                             <div class="row">
                                 @foreach ($category as $item)
@@ -206,6 +191,17 @@
                                             <div class="overview-left">${prevbtn}</div>
                                             <div class="overview-center"><h3>${res.data.title||''} </h3></div>
                                             <div class="overview-right">${nextbtn}</div>
+                                        </div>
+                                        <div class="overview-title text-center">
+                                            <div class="overview-dropdown">
+                                                <div class="list-group">
+                                                    @foreach($mockExams as $k=> $item)
+                                                    <div class="list-item"> 
+                                                        <a onclick="loadexamgrapg('{{route('analytics.index',["page"=>$k+1])}}')">{{$item->title}}</a>
+                                                    </div>
+                                                    @endforeach
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="overview-graph">
                                             <div class="overview-graph-body">
