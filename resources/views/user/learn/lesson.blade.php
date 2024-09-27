@@ -59,6 +59,9 @@
 
 @push('footer-script')
 
+
+    {{-- <script src="https://player.vimeo.com/api/player.js"></script> --}}
+    <script src="{{asset("assets/js/player.js")}}"></script>
     <script>
         var currentprogress={{$user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$subCategory->id,0)}};
         var totalcount={{$learncount??0}};
