@@ -83,6 +83,17 @@ class TopicExamController extends Controller
         Session::put("topic-test-attempt",$category->slug);
         return view("user.topic-test.summery", compact('category', 'exam', 'user', 'questioncount', 'endtime', 'attemtcount'));
     }
+    public function questions(Request $request,Category $category){
+        $exam = Exam::where("name", 'topic-test')->first();
+        if (empty($exam)) {
+            $exam = Exam::store([
+                "title" => "Topic Test",
+                "name" => "topic-test",
+            ]);
+            $exam = Exam::find($exam->id);
+        }
+        return Question::with('answers')->where('exam_id', $exam->id)->where('category_id', $category->id)->paginate(50);
+    }
 
     public function confirmshow(Request $request, Category $category)
     {
