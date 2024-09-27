@@ -23,17 +23,17 @@
                 <li class="nav_item import-upload-btn" @if(get_option('question-bank-import-question','')=="started") style="display: none" @endif>
                     <x-ajax-import 
                         :url="route('admin.question-bank.import',$setname->slug)" 
-                        :fields='[                         
-                        ["name"=>"title_text","label"=>"Title Text"], 
-                        ["name"=>"description","label"=>"Left Question"], 
-                        ["name"=>"sub_question","label"=>"Right Question"], 
-                        ["name"=>"answer_1","label"=>"Option A"],
-                        ["name"=>"answer_2","label"=>"Option B"],
-                        ["name"=>"answer_3","label"=>"Option C"],
-                        ["name"=>"answer_4","label"=>"Option D"],
-                        ["name"=>"iscorrect","label"=>"Correct Answer"],
-                        ["name"=>"explanation","label"=>"Explanation"],
-                    ]' onupdate="importupdate" ></x-ajax-import>
+                        :fields='[
+                            ["name"=>"title_text","label"=>"Title Text"], 
+                            ["name"=>"description","label"=>"Left Question"], 
+                            ["name"=>"sub_question","label"=>"Right Question"], 
+                            ["name"=>"answer_1","label"=>"Option A"],
+                            ["name"=>"answer_2","label"=>"Option B"],
+                            ["name"=>"answer_3","label"=>"Option C"],
+                            ["name"=>"answer_4","label"=>"Option D"],
+                            ["name"=>"iscorrect","label"=>"Correct Answer"],
+                            ["name"=>"explanation","label"=>"Explanation"],
+                        ]' onupdate="importupdate" ></x-ajax-import>
                 </li> 
                 <li class="nav_item import-cancel-btn" @if(get_option('question-bank-import-question','')!=="started") style="display: none" @endif >
                     <a href="{{route('admin.uploadcancel','question-bank-import-question')}}">
