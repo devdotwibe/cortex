@@ -90,7 +90,7 @@
                         </div>
                     </div>
                 </div>
-                @guest('admin') <a type="button" href="" id="restart-btn" class="btn btn-dark">Re-Start Lesson</a> @endguest
+                @guest('admin') <a type="button" href="" id="restart-btn" class="btn btn-dark">Continue Lesson</a> @endguest
             </div>
         </div>
     </div>
