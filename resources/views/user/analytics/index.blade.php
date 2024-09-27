@@ -162,48 +162,74 @@
                 },
             });
         }
-        async function loadexamgrapg(url){
-             await $.get(url,function(res){ 
-                const lesseonId=generateRandomId(10); 
-                let nextbtn = '';
-                let prevbtn = '';
-                if(res.next){
-                    nextbtn = `<a class="next-btn"  onclick="loadexamgrapg('${res.next}')"><img src="{{asset('assets/images/rightarrows1.svg')}}" alt="next" ></a>`;
-                }
-                if(res.prev){
-                    prevbtn = `<a class="prev-btn"  onclick="loadexamgrapg('${res.prev}')"><img src="{{asset('assets/images/leftarrows1.svg')}}" alt="prev" ></a>`;
-                }
-                $('#analytic-exam').html(`
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="analytic-exam-item" id="analytic-exam-item-${lesseonId}">
-                                <div class="exam-overview" > 
-                                    <div class="exam-overview-content">
-                                        <div class="overview-title text-center">
-                                            <div class="overview-left">${prevbtn}</div>
-                                            <div class="overview-center"><h3>${res.data.title||''} </h3></div>
-                                            <div class="overview-right">${nextbtn}</div>
-                                        </div>
-                                        <div class="overview-graph">
-                                            <div class="overview-graph-body">
-                                                <div class="overview-graph-inner"> 
-                                                    <canvas id="mock-exam-chart-${lesseonId}" data-avg="${res.data.avg||0}" data-mrk="${res.data.mark||0}" data-max="${res.data.max||0}" class="overview-graph-bar overview-graph-bar-mock-exam" width="100%" ></canvas>
-                                                </div>
-                                            </div>
+        async function loadexamgrapg(url) {
+    await $.get(url, function(res) {
+        const lessonId = generateRandomId(10);
+        let nextbtn = '';
+        let prevbtn = '';
+
+        // Create the dropdown options
+        const dropdownOptions = `
+            <select class="form-control" onchange="handleDropdownChange(this.value)">
+                <option value="">Select an Option</option>
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option>
+                <option value="option3">Option 3</option>
+            </select>
+        `;
+
+        if (res.next) {
+            nextbtn = `<a class="next-btn" onclick="loadexamgrapg('${res.next}')"><img src="{{asset('assets/images/rightarrows1.svg')}}" alt="next"></a>`;
+        }
+        if (res.prev) {
+            prevbtn = `<a class="prev-btn" onclick="loadexamgrapg('${res.prev}')"><img src="{{asset('assets/images/leftarrows1.svg')}}" alt="prev"></a>`;
+        }
+        
+        $('#analytic-exam').html(`
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="analytic-exam-item" id="analytic-exam-item-${lessonId}">
+                        <div class="exam-overview">
+                            <div class="exam-overview-content">
+                                <div class="overview-title text-center">
+                                    <div class="overview-left">${prevbtn}</div>
+                                    <div class="overview-center">
+                                        <h3>${res.data.title || ''}</h3>
+                                    </div>
+                                    <div class="overview-right">${nextbtn}</div>
+                                </div>
+                                <div class="overview-dropdown text-center">
+                                    ${dropdownOptions}
+                                </div>
+                                <div class="overview-graph">
+                                    <div class="overview-graph-body">
+                                        <div class="overview-graph-inner">
+                                            <canvas id="mock-exam-chart-${lessonId}" data-avg="${res.data.avg || 0}" data-mrk="${res.data.mark || 0}" data-max="${res.data.max || 0}" class="overview-graph-bar overview-graph-bar-mock-exam" width="100%"></canvas>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4"> 
-                            <div class="analytic-exam-sidebar" >
-                                <div class="analytic-exam-category" id="analytic-exam-category-${lesseonId}">
-                                    
-                                </div>
-                            </div>
-                        </div>
                     </div>
-                `)  
+                </div>
+                <div class="col-md-4">
+                    <div class="analytic-exam-sidebar">
+                        <div class="analytic-exam-category" id="analytic-exam-category-${lessonId}"></div>
+                    </div>
+                </div>
+            </div>
+        `);
+
+        // Your existing code to append categories goes here...
+    }, 'json');
+}
+
+// Add a function to handle the dropdown change
+function handleDropdownChange(value) {
+    console.log("Selected value:", value);
+    // Implement your logic based on the selected option
+}
+
                 $.each(res.data.category,function(k,v){
                     $('#analytic-exam-category-'+lesseonId).append(`
                         <div class="analytic-exam-category-item">
