@@ -86,7 +86,7 @@
                     </a>
                 </li>
 
-                <li class="side-item {{request()->is('learn') ? 'active' :''}}">
+                <li class="side-item {{request()->is('learn*') ? 'active' :''}}">
                     <a href="{{ route('learn.index') }}">
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/iconshover/learn.svg")}}" alt="Dashboard">
@@ -98,7 +98,7 @@
                     </a>
                 </li>
 
-                <li class="side-item {{request()->is('question-bank') ? 'active':''}}">
+                <li class="side-item {{request()->is('question-bank*') ? 'active':''}}">
                     <a href="{{ route('question-bank.index') }}">
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/iconshover/questionbank.svg")}}" alt="Dashboard">
@@ -125,7 +125,7 @@
                     </ul>
                 </li>
 
-                <li class="side-item {{request()->is('live-class') ? 'active':''}}">
+                <li class="side-item {{request()->is('live-class*') ? 'active':''}}">
                     <a href="{{ route('live-class.index') }}">
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/iconshover/onlineteaching.svg")}}" alt="Dashboard">
@@ -149,7 +149,7 @@
                     </a>
                 </li>
                 @guest('admin')
-                <li class="side-item {{request()->is('community') ? 'active':''}}">
+                <li class="side-item {{request()->is('community*') ? 'active':''}}">
                     <a href="{{ route('community.index') }}">
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/iconshover/community.svg")}}" alt="Dashboard">
