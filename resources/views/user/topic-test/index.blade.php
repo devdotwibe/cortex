@@ -295,18 +295,21 @@
         // },'json')
     }
 
-    $(function(){
-        
-        var page = "{{request('page')}}";
+    $(function() {
+    var page = "{{ request('page') }}";
+    var slug = "{{ request('slug') }}";  // Ensure slug is set properly if needed
 
-        console.log(page);
+    console.log(page);
 
-        if(page =='back')
-        {
-            $('#review-history-modal').modal('show');
-            $('#retry-modal-body').show();
-        }
-        });
+    if(page === 'back') {
+        $('#review-history-modal').modal('show');
+        $('#retry-modal-body').show();
+
+        // Assuming loadretry is defined elsewhere
+        loadretry('{{ route('topic-test.retryhistory', request('slug')) }}');
+    }
+});
+
 
         
     </script>
