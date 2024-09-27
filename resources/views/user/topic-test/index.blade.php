@@ -294,8 +294,7 @@
         //     $('#review-history-modal').modal('show')
         // },'json')
     }
-    </script>
-    <script>
+
 
     @if(!empty(request('slug')))
 
@@ -315,8 +314,6 @@
         });
 
     @endif
-
-    </script>
 
 
         
