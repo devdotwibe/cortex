@@ -102,7 +102,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
-                                                            <button type="submit" class="btn btn-dark"
+                                                            <button type="submit" class="btn btn-dark workshop"
                                                                 id="workshop-payment-form-submit"
                                                                 name="workshop-payment-form-submit" value="Save">
                                                                 Save</button>
@@ -184,11 +184,11 @@
                                                                         <div class="form-data">
                                                                             <div class="forms-inputs mb-4">
                                                                                 <label
-                                                                                    for="{{ $item->slug }}-icon">Icon</label>
+                                                                                    class="file-upload" for="{{ $item->slug }}-icon"><img src="{{asset('assets/images/upfile.png')}}"></label>
                                                                                 <input type="file"
                                                                                     id="{{ $item->slug }}-icon"
                                                                                     data-form="{{ $item->slug }}"
-                                                                                    class="form-control icon-file @error($item->slug . '.icon') is-invalid @enderror">
+                                                                                    class="form-control icon-file @error($item->slug . '.icon') is-invalid @enderror" style="display:none">
                                                                                 <input type="hidden"
                                                                                     id="{{ $item->slug }}-icon-input"
                                                                                     name="{{ $item->slug }}[icon]"
@@ -406,9 +406,11 @@
                                                             </div>
                                                             <div class="row">
                                                                 <div class="col-md-12">
-                                                                    <button type="submit" class="btn btn-dark"
+                                                                    <button type="submit" class="btn btn-dark subscribe" 
                                                                         name="subscription_plan"
                                                                         value="{{ $item->slug }}"> Save</button>
+
+                                                                        
                                                                 </div>
                                                             </div>
                                                         </form>
@@ -814,7 +816,7 @@
                                         <!-- Save Button -->
                                         <div class="col-md-12">
                                             <div class="mb-3">
-                                                <button type="submit" class="btn btn-dark"      value="save">Save</button>
+                                                <button type="submit" class="btn btn-dark price"      value="save">Save</button>
                                             </div>
                                         </div>
 
@@ -929,7 +931,7 @@
 
                                         <!-- Save Button -->
                                         <div class="col-md-12 mb-3">
-                                            <button type="submit" class="btn btn-primary" name="section"
+                                            <button type="submit" class="btn btn-primary course" name="section"
                                                 value="section3">Save</button>
                                         </div>
 
@@ -1044,7 +1046,7 @@
 
                                     <!-- Save Button -->
                                     <div class="col-md-12 mb-3">
-                                        <button type="submit" class="btn btn-primary" name="section"
+                                        <button type="submit" class="btn btn-primary excel" name="section"
                                             value="section4">Save</button>
                                     </div>
 

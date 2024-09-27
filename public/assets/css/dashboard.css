@@ -2210,6 +2210,111 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .choice.mcq_section .forms-inputs .input-group .input-group-append button.btn.btn-danger {padding: 0;background: none;border: none;}
 
 
+
+.payment-wrap .nav.nav-tabs {
+  border: none;
+  margin: 0 0 20px;
+}
+
+.payment-wrap .nav.nav-tabs li.nav-item {
+  background: #F5F5F5;
+}
+
+.payment-wrap .nav.nav-tabs li.nav-item .nav-link {
+  padding: 8px 20px;
+  font-size: 18px;
+  color: #000;
+}
+
+.payment-wrap .nav.nav-tabs li.nav-item .nav-link.active {
+  background: #ffff;
+  border: 1px solid #BFBEBE;
+  border-radius: 5px;
+}
+
+.payment-wrap .tab-content .tab-pane .card .card-body {
+  padding: 0;
+}
+
+.payment-wrap .tab-content .tab-pane .card .card-body .col-md-12 {
+  padding: 0;
+}
+
+.payment-wrap .tab-content .tab-pane .card .card-body label {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0 0 10px;
+}
+
+.payment-wrap .tab-content .tab-pane .card .card-body .form-group {
+  margin: 0 0 24px;
+}
+
+.payment-wrap .tab-content .col-md-12 {
+  padding: 0;
+}
+
+.payment-wrap .tab-content .tab-pane  .payment-title h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 15px;
+}
+
+.payment-wrap .tab-content .tab-pane .payment-workshop .amout-item {
+  margin: 0 0;
+  padding: 0 0;
+}
+
+.payment-wrap .tab-content .tab-pane .payment-workshop .amout-item .col-md-8 {
+  padding: 0 0 0;
+  width: 75%;
+}
+
+.payment-wrap .tab-content .tab-pane .payment-workshop .amout-item .col-md-4 {
+  width: 25%;
+}
+
+.payment-wrap .tab-content .tab-pane .payment-workshop .amout-item input {
+  height: 52px;
+  border: 1px solid rgba(188, 188, 188, 1);
+  padding: 11px;
+  border-radius: 10px;
+}
+
+.payment-wrap .tab-content .tab-pane .payment-workshop .amout-item .btn.btn-dark {
+  padding: 13px 20px;
+}
+
+.payment-wrap .nav.nav-tabs li.nav-item button#add-price-tab {
+  margin: 0 0 0 20px;
+}
+
+.payment-wrap .tab-content .amount-form .amout-item {
+  padding: 0 0 0;
+  margin: 0 0 0;
+}
+
+.payment-wrap .tab-content .amount-form .amout-item .form-group label {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0 0 10px;
+}
+
+.payment-wrap .tab-content .amount-form .amout-item .form-group input[type="text"] {
+  height: 52px;
+  border: 1px solid rgba(188, 188, 188, 1);
+  padding: 11px;
+  border-radius: 10px;
+}
+
+.payment-wrap .tab-content .amount-form .amout-item .form-group label {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0 0 10px;
+}
+
+
+
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
 
