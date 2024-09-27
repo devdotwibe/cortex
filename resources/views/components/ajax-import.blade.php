@@ -126,7 +126,7 @@
                         })
                         options = "<option value=''>--Select--</option>";
                         $.each(field_keys, function(skey, sop) {
-                            options += "<option value='" + sop + "'>" + sop + "</option>"
+                            options += "<option value='" + sop.trim() + "'>" + sop + "</option>"
                         })
                         $('.import-{{ $id }}-fields').html(options)
                     }
