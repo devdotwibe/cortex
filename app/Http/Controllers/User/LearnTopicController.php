@@ -176,7 +176,8 @@ class LearnTopicController extends Controller
         ->where('sub_category_id', $subCategory->id)
         ->count();
 
-    return view('user.learn.lesson', compact('category', 'exam', 'subCategory', 'user', 'learncount'));
+        return view('user.learn.lesson', compact('category', 'exam', 'subCategory', 'user', 'learncount'));
+
 }
 
 
