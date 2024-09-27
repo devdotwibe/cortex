@@ -120,10 +120,10 @@
                                     field_keys.push(key.trim())
                                 })
                                 $.each(exceljson, function(rkey, row) {
-                                    import_{{ $id }}_data.push(row)
-                                    console.log(row)
+                                    import_{{ $id }}_data.push(Object.entries(row).reduce((acc, [key, value]) => { acc[key.trim()] = value; return acc; }, {})) 
                                 })
                             }
+                            
                         })
                         options = "<option value=''>--Select--</option>";
                         $.each(field_keys, function(skey, sop) {
