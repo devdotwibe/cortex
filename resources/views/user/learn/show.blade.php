@@ -98,22 +98,20 @@
                         </div>
                         {{-- @guest('admin') <a type="button" href="" id="restart-btn" class="btn btn-dark">Continue Lesson</a> @endguest --}}
                         @guest('admin')
-                            @php
-                                // Assuming there's a function to get the user's lesson progress
-                                $lessonProgress = $user->progress(
-                                    'exam-' . $exam->id . '-module-' . $category->id . '-lesson-' . $item->id,
-                                    0,
-                                );
-                            @endphp
-                            <a type="button" href="" id="restart-btn" class="btn btn-dark">
-                                @if ($lessonProgress < 100 && $lessonProgress > 0)
-                                    Continue Lesson
-                                @else
-                                    Restart Lesson
-                                @endif
-                            </a>
-                        @endguest
-
+                        @php
+                            // Check if the user has restarted the lesson but not completed it
+                            $lessonComplete = $user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$item->id.'-complete-date', '') != '';
+                            $lessonRestarted = $user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$item->id.'-restarted', 'no') == 'yes';
+                        @endphp
+                        <a type="button" href="" id="restart-btn" class="btn btn-dark">
+                            @if ($lessonRestarted && !$lessonComplete)
+                                Continue Lesson
+                            @else
+                                Restart Lesson
+                            @endif
+                        </a>
+                    @endguest
+                    
                     </div>
                 </div>
             </div>
