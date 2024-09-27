@@ -99,18 +99,22 @@
                         {{-- @guest('admin') <a type="button" href="" id="restart-btn" class="btn btn-dark">Continue Lesson</a> @endguest --}}
                         @guest('admin')
                         @php
-                            // Check if the user has restarted the lesson but not completed it
-                            $lessonComplete = $user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$item->id.'-complete-date', '') != '';
-                            $lessonRestarted = $user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$item->id.'-restarted', 'no') == 'yes';
+                            // Assuming there are two functions for tracking lesson status:
+                            // - 'complete-date' stores the date when the lesson was completed.
+                            // - 'complete-review' checks if the review has been completed.
+                    
+                            $lessonComplete = $user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$item->id.'-complete-date', "") != "";
+                            $lessonReview = $user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$item->id.'-complete-review', "no") == "yes";
                         @endphp
                         <a type="button" href="" id="restart-btn" class="btn btn-dark">
-                            @if ($lessonRestarted && !$lessonComplete)
-                                Continue Lesson
-                            @else
+                            @if ($lessonComplete && $lessonReview)
                                 Restart Lesson
+                            @else
+                                Continue Lesson
                             @endif
                         </a>
                     @endguest
+                    
                     
                     </div>
                 </div>
