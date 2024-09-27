@@ -174,32 +174,29 @@
                     prevbtn = `<a class="prev-btn"  onclick="loadexamgrapg('${res.prev}')"><img src="{{asset('assets/images/leftarrows1.svg')}}" alt="prev" ></a>`;
                 }
                 $('#analytic-exam').html(`
-    <div class="row">
-        <div class="col-md-8">
-            <div class="analytic-exam-item" id="analytic-exam-item-${lesseonId}">
-                <div class="exam-overview"> 
-                    <div class="exam-overview-content">
-                        <div class="overview-title text-center">
-                            <div class="overview-left">${prevbtn}</div>
-                            <div class="overview-center">
-                                <h3>${res.data.title || ''}</h3>
-                                ${dropdownHtml} <!-- Add dropdown here -->
-                            </div>
-                            <div class="overview-right">${nextbtn}</div>
-                        </div>
-                        <div class="overview-graph">
-                            <div class="overview-graph-body">
-                                <div class="overview-graph-inner"> 
-                                    <canvas id="mock-exam-chart-${lesseonId}" data-avg="${res.data.avg || 0}" data-mrk="${res.data.mark || 0}" data-max="${res.data.max || 0}" class="overview-graph-bar overview-graph-bar-mock-exam" width="100%" ></canvas>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="analytic-exam-item" id="analytic-exam-item-${lesseonId}">
+                                <div class="exam-overview" > 
+                                    <div class="exam-overview-content">
+                                        <div class="overview-title text-center">
+                                            <div class="overview-left">${prevbtn}</div>
+                                            <div class="overview-center"><h3>${res.data.title||''} </h3></div>
+                                            <div class="overview-right">${nextbtn}</div>
+                                        </div>
+                                        <div class="overview-graph">
+                                            <div class="overview-graph-body">
+                                                <div class="overview-graph-inner"> 
+                                                    <canvas id="mock-exam-chart-${lesseonId}" data-avg="${res.data.avg||0}" data-mrk="${res.data.mark||0}" data-max="${res.data.max||0}" class="overview-graph-bar overview-graph-bar-mock-exam" width="100%" ></canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4"> 
-            <div class="analytic-exam-sidebar">
+                        <div class="col-md-4"> 
+                            <div class="analytic-exam-sidebar" >
                                 <div class="analytic-exam-category" id="analytic-exam-category-${lesseonId}">
                                     
                                 </div>
