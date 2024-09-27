@@ -93,6 +93,8 @@ class ImportQuestions implements ShouldQueue
                     "sub_category_id"=>optional($this->subCategory)->id,
                     "sub_category_set"=>optional($this->setname)->id,
                     "description"=>$row[$this->fields['description']],
+                    "title_text"=>$row[$this->fields['title_text']],
+                    "sub_question"=>$row[$this->fields['sub_question']],
                     "explanation"=>$row[$this->fields['explanation']]
                 ]);
             } else{
@@ -103,7 +105,9 @@ class ImportQuestions implements ShouldQueue
                     "sub_category_id"=>optional($this->subCategory)->id,
                     "sub_category_set"=>optional($this->setname)->id,
                     "description"=>$row[$this->fields['description']],
-                    "explanation"=>$row[$this->fields['explanation']]
+                    "explanation"=>$row[$this->fields['explanation']],
+                    "title_text"=>$row[$this->fields['title_text']],
+                    "sub_question"=>$row[$this->fields['sub_question']],
                 ]);
             }
             Answer::store([
