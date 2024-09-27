@@ -2307,6 +2307,12 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
   border-radius: 10px;
 }
 
+.payment-wrap .tab-content .amount-form .amout-item .form-group label {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0 0 10px;
+}
+
 
 
 @media screen and (max-width:1500px) {
