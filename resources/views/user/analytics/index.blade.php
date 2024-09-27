@@ -116,7 +116,9 @@
         loadexamgrapg(url);
     }
 }
-
+        function toggleshow(v){
+            $(v).slideToggle()
+        }
         function togglegrapg(v){
             $(`.analytic-item.active,#${v}`).slideToggle().toggleClass('active');
             if(v=="mock-exam-result"){
@@ -189,10 +191,10 @@
                                     <div class="exam-overview-content">
                                         <div class="overview-title text-center">
                                             <div class="overview-left">${prevbtn}</div>
-                                            <div class="overview-center"><h3>${res.data.title||''} </h3></div>
+                                            <div class="overview-center" onclick="toggleshow('#analytic-exam-item-${lesseonId}-dropdown')" ><h3>${res.data.title||''} </h3></div>
                                             <div class="overview-right">${nextbtn}</div>
                                         </div>
-                                        <div class="overview-title text-center">
+                                        <div class="overview-title text-center" style="display:none" id="analytic-exam-item-${lesseonId}-dropdown" >
                                             <div class="overview-dropdown">
                                                 <div class="list-group">
                                                     @foreach($mockExams as $k=> $item)
