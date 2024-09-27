@@ -214,6 +214,7 @@ class UserController extends Controller
     }
 
     public function destroy(Request $request,User $user){
+        PrivateClass::where('user_id',$user->id)->delete();
         $user->delete();
         if($request->ajax()){
             return response()->json(["success"=>"User deleted success"]);
