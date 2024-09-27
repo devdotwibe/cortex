@@ -105,7 +105,7 @@
                     </a>
                 </li>
 
-
+{{-- 
                 <li class="side-item {{request()->is('admin/learn') ? 'active':''}}">
                     <a href="{{ route('admin.learn.index') }}">
                         <span class="side-icon" >
@@ -116,7 +116,19 @@
                         </span>
                         Learn
                     </a>
+                </li> --}}
+                <li class="side-item {{ request()->is('admin/learn*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.learn.index') }}">
+                        <span class="side-icon">
+                            <img src="{{ asset('assets/images/iconshover/learn.svg') }}" alt="Learn Icon">
+                        </span>
+                        <span class="active-icon">
+                            <img src="{{ asset('assets/images/icons/learn.svg') }}" alt="Learn Active Icon">
+                        </span>
+                        Learn
+                    </a>
                 </li>
+                
 
                 <li class="side-item side-dropdown ">
                     <a class="side-dropdown-toggle" >
