@@ -294,5 +294,29 @@
         //     $('#review-history-modal').modal('show')
         // },'json')
     }
+
+
+    @if(!empty(request('slug')))
+
+        $(function() {
+            var page = "{{ request('page') }}";
+            var slug = "{{ request('slug') }}";  // Ensure slug is set properly if needed
+            console.log(page);
+
+            if(page === 'back') {
+                
+                $('#review-history-modal').modal('show');
+                // $('#retry-modal-body').show();
+                // $('#main-modal-body').modal('show');
+
+                // Assuming loadretry is defined elsewhere
+                loadretry('{{ route('topic-test.retryhistory', request('slug')) }}');
+            }
+        });
+
+    @endif
+
+
+        
     </script>
 @endpush
