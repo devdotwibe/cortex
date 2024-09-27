@@ -117,7 +117,7 @@ class ExamQuestionController extends Controller
                     $question=Question::findSlug($request->question);
                     return Answer::where('question_id',$question->id)->get(['slug','title']);
                 }
-                return Question::where('exam_id',$exam->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->paginate(1,['slug','title','description','duration']);
+                return Question::where('exam_id',$exam->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->paginate(1,['slug','title','description','duration','title_text','sub_question']);
             }
             $questioncount=Question::where('exam_id',$exam->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->count();
             $endtime=0;

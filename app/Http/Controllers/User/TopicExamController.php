@@ -106,7 +106,7 @@ class TopicExamController extends Controller
                     $question = Question::findSlug($request->question);
                     return Answer::where('question_id', $question->id)->get(['slug', 'title']);
                 }
-                return Question::where('exam_id', $exam->id)->where('category_id', $category->id)->paginate(1, ['slug', 'title', 'description', 'duration']);
+                return Question::where('exam_id', $exam->id)->where('category_id', $category->id)->paginate(1, ['slug', 'title', 'description', 'duration','title_text','sub_question']);
             }
             $questioncount = Question::where('exam_id', $exam->id)->where('category_id', $category->id)->count();
             $endtime = 0;
