@@ -23,7 +23,7 @@ class SubscribeUsersController extends Controller
                     return $data->user->email;
                 })
                 ->addColumn("username",function($data){
-                    return $data->user->ename;
+                    return $data->user->name;
                 })
                 ->addColumn('plan',function($data){
                     return optional(SubscriptionPlan::find($data->subscription_plan_id))->title;
