@@ -215,14 +215,14 @@
                 initComplete: function(settings) {
                     var info = this.api().page.info();
                     if (info.pages > 1) {
-                        $("#table-{{ $tableid }}_wrapper .dataTables_paginate").show();
+                        $("#table-{{ $tableid }}_wrapper .pagination").show();
                     } else {
-                        $("#table-{{ $tableid }}_wrapper .dataTables_paginate").hide();
+                        $("#table-{{ $tableid }}_wrapper .pagination").hide();
                     }
                     if (info.recordsTotal > 0) { 
-                        $("#table-{{ $tableid }}_wrapper .pagination").show();
+                        $("#table-{{ $tableid }}_wrapper .table_info").show();
                     } else { 
-                        $("#table-{{ $tableid }}_wrapper .pagination").hide();
+                        $("#table-{{ $tableid }}_wrapper .table_info").hide();
                     }
                     if (info.recordsTotal > 1){
                         $('#table-{{ $tableid }}-bulk-box').show()
@@ -244,14 +244,14 @@
                 drawCallback: function() {
                     var info = this.api().page.info();
                     if (info.pages > 1) {
-                        $("#table-{{ $tableid }}_wrapper .dataTables_paginate").show();
-                    } else {
-                        $("#table-{{ $tableid }}_wrapper .dataTables_paginate").hide();
-                    }
-                    if (info.recordsTotal > 0) {
                         $("#table-{{ $tableid }}_wrapper .pagination").show();
                     } else {
                         $("#table-{{ $tableid }}_wrapper .pagination").hide();
+                    }
+                    if (info.recordsTotal > 0) {
+                        $("#table-{{ $tableid }}_wrapper .table_info").show();
+                    } else {
+                        $("#table-{{ $tableid }}_wrapper .table_info").hide();
                     }
                     if (info.recordsTotal > 1){
                         $('#table-{{ $tableid }}_wrapper #table-{{ $tableid }}-bulk-box').show()
