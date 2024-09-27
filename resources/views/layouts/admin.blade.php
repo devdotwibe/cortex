@@ -171,8 +171,8 @@
                         Exam Simulator
                     </a>
                     <ul class="side-dropdown-menu" >
-                        <li class="side-item {{request()->is('admin/topic-test') ? 'active':''}} "><a href="{{route('admin.topic-test.index')}}">Topic Test</a></li>
-                        <li class="side-item {{request()->is('admin/exam') ? 'active':''}} "><a href="{{route('admin.exam.index')}}">Full Mock Exam</a></li>
+                        <li class="side-item {{request()->is('admin/topic-test*') ? 'active':''}} "><a href="{{route('admin.topic-test.index')}}">Topic Test</a></li>
+                        <li class="side-item {{request()->is('admin/exam*') ? 'active':''}} "><a href="{{route('admin.exam.index')}}">Full Mock Exam</a></li>
                     </ul>
                 </li>
 
