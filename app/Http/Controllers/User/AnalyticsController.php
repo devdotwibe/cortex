@@ -49,8 +49,6 @@ class AnalyticsController extends Controller
                 "prev"=>$prev,
             ];
         }
-
-        
-        return view('user.analytics.index',compact('category','mockExams'));   
+        return view('user.analytics.index',compact('category'));   
     }
 }
