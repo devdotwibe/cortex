@@ -26,7 +26,7 @@
                 ["th"=>"Email","name"=>"usermail","data"=>"usermail"], 
                 ["th"=>"Plan","name"=>"plan","data"=>"plan"], 
                 ["th"=>"Amount","name"=>"amount","data"=>"amount"], 
-                ["th"=>"Expire","name"=>"expire_at","data"=>"expire_at"], 
+                ["th"=>"Expire","name"=>"expire_at","data"=>"expire"], 
                 ["th"=>"Pay Id","name"=>"payment_id","data"=>"payment_id"], 
             ]' tableinit="usertableinit" beforeajax="usertableajaxbefoire"/>
         </div>

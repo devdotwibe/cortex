@@ -10,6 +10,7 @@ use App\Models\UserProgress;
 use App\Models\UserSubscription;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class SubscribeUsersController extends Controller
 {
@@ -24,6 +25,9 @@ class SubscribeUsersController extends Controller
                 })
                 ->addColumn("username",function($data){
                     return $data->user->name;
+                })
+                ->addColumn("expire",function($data){
+                    return Carbon::parse($data->expire_at)->format("Y-m-d");
                 })
                 ->addColumn('plan',function($data){
                     return optional(SubscriptionPlan::find($data->subscription_plan_id))->title;
