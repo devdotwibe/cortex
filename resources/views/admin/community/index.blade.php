@@ -31,26 +31,14 @@
                         <label for="backtoall" class="form-label"></label>
                         <a href="{{ route('admin.community.index') }}" id="backtoall"
                             class="form-control text-decoration-none"
-                            style="display: block; padding: 10px; background-color: #f8f9fa; border: 1px solid #ced4da; border-radius: .25rem;">
+                            >
                             #Backtoall
                         </a>
-                    </div>
-
-
-
-                    {{-- <ul class="list-group">
-                    @foreach ($hashtags as $hashtag)
-                        <li class="list-group-item">
-                            <a href="{{ route('admin.community.index', ['hashtag' => $hashtag]) }}">{{ $hashtag }}</a>
-                        </li>
-                    @endforeach
-                </ul> --}}
-
-                    <!-- Hashtag List - Updated to display in a single line -->
-                    <div class="d-flex flex-wrap"> <!-- Added d-flex and flex-wrap to allow wrapping -->
-                        <ul class="list-group" style="flex-direction: row;flex-wrap: wrap; "> <!-- Display inline with flex -->
+                    </div>  
+                    <div class="d-flex flex-wrap">  
+                        <ul class="list-group"  >  
                             @foreach ($hashtags as $hashtag)
-                                <li class="list-group-item d-inline-block" style="margin-right: 10px;">
+                                <li class="list-group-item d-inline-block" >
                                     <a
                                         href="{{ route('admin.community.index', ['hashtag' => $hashtag]) }}">{{ $hashtag }}</a>
                                 </li>
