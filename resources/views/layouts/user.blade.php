@@ -175,7 +175,7 @@
                  </li>
 
 
-                 <li class="side-item {{request()->is('tipsandadvice') ? 'active':''}}">
+                 <li class="side-item {{request()->is('tipsandadvice*') ? 'active':''}}">
 
                     <a href="{{route('tipsandadvise.index')}}">
                          <span class="side-icon" >
