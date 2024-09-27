@@ -220,9 +220,9 @@
                         $("#table-{{ $tableid }}_wrapper .pagination").hide();
                     }
                     if (info.recordsTotal > 0) { 
-                        $("#table-{{ $tableid }}_wrapper .table_info").show();
+                        $("#table-{{ $tableid }}_wrapper .dt-info").show();
                     } else { 
-                        $("#table-{{ $tableid }}_wrapper .table_info").hide();
+                        $("#table-{{ $tableid }}_wrapper .dt-info").hide();
                     }
                     if (info.recordsTotal > 1){
                         $('#table-{{ $tableid }}-bulk-box').show()
