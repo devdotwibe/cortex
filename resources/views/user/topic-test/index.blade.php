@@ -299,6 +299,8 @@
         
         var page = "{{request('page')}}";
 
+        console.log(page);
+
         if(page =='back')
         {
             $('#retry-modal-body').show();
