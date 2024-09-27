@@ -189,7 +189,7 @@
                 </li>
 
 
-                <li class="side-item {{request()->is('admin/community') ? 'active':''}}">
+                <li class="side-item {{request()->is('admin/community*') ? 'active':''}}">
                     <a href="{{ route('admin.community.index') }}">
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/iconshover/community.svg")}}" alt="Dashboard">
