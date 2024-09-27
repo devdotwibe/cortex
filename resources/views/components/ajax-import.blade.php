@@ -117,16 +117,17 @@
                             });
                             if (exceljson.length > 0) {
                                 $.each(Object.keys(exceljson[0]), function(kkey, key) {
-                                    field_keys.push(key)
+                                    field_keys.push(key.trim())
                                 })
                                 $.each(exceljson, function(rkey, row) {
-                                    import_{{ $id }}_data.push(row)
+                                    import_{{ $id }}_data.push(Object.entries(row).reduce((acc, [key, value]) => { acc[key.trim()] = value; return acc; }, {})) 
                                 })
                             }
+                            
                         })
                         options = "<option value=''>--Select--</option>";
                         $.each(field_keys, function(skey, sop) {
-                            options += "<option value='" + sop.trim() + "'>" + sop + "</option>"
+                            options += "<option value='" + sop + "'>" + sop + "</option>"
                         })
                         $('.import-{{ $id }}-fields').html(options)
                     }
