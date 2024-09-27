@@ -105,7 +105,7 @@
                     </a>
                 </li>
 
-
+{{-- 
                 <li class="side-item {{request()->is('admin/learn') ? 'active':''}}">
                     <a href="{{ route('admin.learn.index') }}">
                         <span class="side-icon" >
@@ -116,9 +116,21 @@
                         </span>
                         Learn
                     </a>
+                </li> --}}
+                <li class="side-item {{ request()->is('admin/learn*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.learn.index') }}">
+                        <span class="side-icon">
+                            <img src="{{ asset('assets/images/iconshover/learn.svg') }}" alt="Learn Icon">
+                        </span>
+                        <span class="active-icon">
+                            <img src="{{ asset('assets/images/icons/learn.svg') }}" alt="Learn Active Icon">
+                        </span>
+                        Learn
+                    </a>
                 </li>
+                
 
-                <li class="side-item side-dropdown ">
+                {{-- <li class="side-item side-dropdown ">
                     <a class="side-dropdown-toggle" >
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/iconshover/options.svg")}}" alt="Dashboard">
@@ -130,14 +142,33 @@
                     </a>
                     <ul class="side-dropdown-menu" >
                         <li class="side-item {{request()->is('admin/category') ?'active':''}} "><a href="{{ route('admin.category.index') }}">Category</a></li>
-                        <li class="side-item {{request()->is('admin/exam') ? 'active':''}} "><a href="{{route('admin.exam.options')}}">Exam Simulator</a></li>
+                        <li class="side-item {{request()->is('admin/exam') ? 'active':''}} "><a href="{{route('admin.exam.index')}}">Exam Simulator</a></li>
                         <li class="side-item {{request()->is('admin/payment') ? 'active':''}} "><a href="{{route('admin.payment.index')}}">Payment</a></li>
                         <li class="side-item {{request()->is('admin/payment-price') ? 'active':''}} "><a href="{{route('admin.payment-price.index')}}">Price</a></li>
                         <li class="side-item {{request()->is('admin/coupon') ? 'active':''}} "><a href="{{route('admin.coupon.index')}}">Coupon and Settings</a></li>
                     </ul>
-                </li> 
+                </li>  --}}
+                <li class="side-item side-dropdown {{ request()->is('admin/category') || request()->is('admin/exam') || request()->is('admin/payment') || request()->is('admin/payment-price') || request()->is('admin/coupon') ? 'active' : '' }}">
+                    <a class="side-dropdown-toggle">
+                        <span class="side-icon">
+                            <img src="{{ asset('assets/images/iconshover/options.svg') }}" alt="Options">
+                        </span>
+                        <span class="active-icon">
+                            <img src="{{ asset('assets/images/icons/options.svg') }}" alt="Options Active">
+                        </span>
+                        Options
+                    </a>
+                    <ul class="side-dropdown-menu">
+                        <li class="side-item {{ request()->is('admin/category') ? 'active' : '' }}"><a href="{{ route('admin.category.index') }}">Category</a></li>
+                        <li class="side-item {{ request()->is('admin/exam') ? 'active' : '' }}"><a href="{{ route('admin.exam.index') }}">Exam Simulator</a></li>
+                        <li class="side-item {{ request()->is('admin/payment') ? 'active' : '' }}"><a href="{{ route('admin.payment.index') }}">Payment</a></li>
+                        <li class="side-item {{ request()->is('admin/payment-price') ? 'active' : '' }}"><a href="{{ route('admin.payment-price.index') }}">Price</a></li>
+                        <li class="side-item {{ request()->is('admin/coupon') ? 'active' : '' }}"><a href="{{ route('admin.coupon.index') }}">Coupon and Settings</a></li>
+                    </ul>
+                </li>
+                
 
-                <li class="side-item {{request()->is('admin/question-bank') ? 'active':''}}">
+                <li class="side-item {{request()->is('admin/question-bank*') ? 'active':''}}">
                     <a href="{{ route('admin.question-bank.index') }}">
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/iconshover/questionbank.svg")}}" alt="Dashboard">
@@ -159,12 +190,12 @@
                         Exam Simulator
                     </a>
                     <ul class="side-dropdown-menu" >
-                        <li class="side-item {{request()->is('admin/topic-test') ? 'active':''}} "><a href="{{route('admin.topic-test.index')}}">Topic Test</a></li>
-                        <li class="side-item {{request()->is('admin/exam') ? 'active':''}} "><a href="{{route('admin.exam.index')}}">Full Mock Exam</a></li>
+                        <li class="side-item {{request()->is('admin/topic-test*') ? 'active':''}} "><a href="{{route('admin.topic-test.index')}}">Topic Test</a></li>
+                        <li class="side-item {{request()->is('admin/exam*') ? 'active':''}} "><a href="{{route('admin.exam.index')}}">Full Mock Exam</a></li>
                     </ul>
                 </li>
 
-                <li class="side-item {{request()->is('admin/live-class') ? 'active':''}}">
+                <li class="side-item {{request()->is('admin/live-class*') ? 'active':''}}">
                     <a href="{{ route('admin.live-class.index') }}">
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/iconshover/onlineteaching.svg")}}" alt="Dashboard">
@@ -177,7 +208,7 @@
                 </li>
 
 
-                <li class="side-item {{request()->is('admin/community') ? 'active':''}}">
+                <li class="side-item {{request()->is('admin/community*') ? 'active':''}}">
                     <a href="{{ route('admin.community.index') }}">
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/iconshover/community.svg")}}" alt="Dashboard">

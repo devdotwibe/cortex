@@ -32,7 +32,7 @@ class MockExamController extends Controller
     public function index(Request $request){
         self::reset();
         self::$model = Exam::class; 
-
+        Session::remove("full-mock-exam-attempt");
         $exams=$this->where("name",'full-mock-exam')->where(function($qry){
             $qry->whereIn("id",Question::select('exam_id'));
         })->buildPagination();
@@ -61,32 +61,36 @@ class MockExamController extends Controller
         }
         $user->setProgress('exam-'.$exam->id.'-progress-url',null);
         $attemtcount=UserExamReview::where('exam_id',$exam->id)->where('user_id',$user->id)->count()+1;
-         
+        Session::put("full-mock-exam-attempt",$exam->slug);
         return view("user.full-mock-exam.summery",compact('exam','user','questioncount','endtime','attemtcount'));
     }
     public function confirmshow(Request $request,Exam $exam){ 
-        
-        /**
-         * @var User
-         */
-        $user=Auth::user(); 
-        if($request->ajax()){ 
-            if(!empty($request->question)){
-                $question=Question::findSlug($request->question);
-                return Answer::where('question_id',$question->id)->get(['slug','title']);
+        if(session("full-mock-exam-attempt")){
+            /**
+             * @var User
+             */
+            $user=Auth::user(); 
+            if($request->ajax()){ 
+                if(!empty($request->question)){
+                    $question=Question::findSlug($request->question);
+                    return Answer::where('question_id',$question->id)->get(['slug','title']);
+                }
+                return Question::where('exam_id',$exam->id)->paginate(1,['slug','title','description','duration','title_text','sub_question']);
             }
-            return Question::where('exam_id',$exam->id)->paginate(1,['slug','title','description','duration']);
+            $questioncount=Question::where('exam_id',$exam->id)->count();
+            $endtime=0;
+            $times=explode(':',$exam->time_of_exam);
+            if(count($times)>0){
+                $endtime+=intval(trim($times[0]??"0"))*60;
+                $endtime+=intval(trim($times[1]??"0"));
+            } 
+            $attemtcount=UserExamReview::where('exam_id',$exam->id)->where('user_id',$user->id)->count()+1;
+            
+            return view("user.full-mock-exam.show",compact('exam','user','questioncount','endtime','attemtcount'));
         }
-        $questioncount=Question::where('exam_id',$exam->id)->count();
-        $endtime=0;
-        $times=explode(':',$exam->time_of_exam);
-        if(count($times)>0){
-            $endtime+=intval(trim($times[0]??"0"))*60;
-            $endtime+=intval(trim($times[1]??"0"));
-        } 
-        $attemtcount=UserExamReview::where('exam_id',$exam->id)->where('user_id',$user->id)->count()+1;
-         
-        return view("user.full-mock-exam.show",compact('exam','user','questioncount','endtime','attemtcount'));
+        else{
+            return  redirect()->route('full-mock-exam.index')->with("error","Exam not initialized");
+        }
     } 
 
     public function examverify(Request $request,Exam $exam){
@@ -139,6 +143,7 @@ class MockExamController extends Controller
         }
         $user->setProgress("exam-".$exam->id."-complete-review",'yes');
         dispatch(new SubmitReview($review)); 
+        Session::remove("full-mock-exam-attempt");
         if ($questioncnt > $passed) {
             $key = md5("exam-retry-" . $review->id);
             Session::put("exam-retry-" . $review->id, $key);
@@ -153,6 +158,7 @@ class MockExamController extends Controller
 
 
     public function examcomplete(Request $request,UserExamReview $userExamReview){ 
+        Session::remove("full-mock-exam-attempt");
         /**
          * @var User
          */
@@ -185,6 +191,7 @@ class MockExamController extends Controller
     }
     public function preview(Request $request,UserExamReview $userExamReview){
         $exam=Exam::find( $userExamReview->exam_id );
+        Session::remove("full-mock-exam-attempt");
         /**
          * @var User
          */
@@ -217,6 +224,7 @@ class MockExamController extends Controller
         return view("user.full-mock-exam.preview",compact('exam','user','userExamReview','useranswer','examtime'));
     }
     public function examhistory(Request $request,Exam $exam){
+        Session::remove("full-mock-exam-attempt");
         /**
          * @var User
          */
@@ -263,6 +271,7 @@ class MockExamController extends Controller
     }
 
     public function retryhistory(Request $request,UserExamReview $userExamReview){
+        Session::remove("full-mock-exam-attempt");
 
         /**
          * @var User

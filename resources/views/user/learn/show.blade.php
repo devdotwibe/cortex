@@ -90,7 +90,14 @@
                         </div>
                     </div>
                 </div>
-                @guest('admin') <a type="button" href="" id="restart-btn" class="btn btn-dark">Re-Start Lesson</a> @endguest
+                {{-- @guest('admin') <a type="button" href="" id="restart-btn" class="btn btn-dark">Re-Start Lesson</a> @endguest --}}
+                @guest('admin')
+                <a type="button" href="" id="restart-btn" class="btn btn-dark">
+                    Restart Lesson
+                </a>
+            @endguest
+
+
             </div>
         </div>
     </div>
@@ -99,6 +106,31 @@
 @endpush
 
 @push('footer-script') 
+<script>
+    // Get the lesson ID from the server-side to the client-side
+    const lessonId = "{{ $item->id }}"; // Ensure this variable is passed from the controller
+    const activeLessonId = localStorage.getItem('activeLesson');
+
+    // Check if the user has an active lesson in localStorage
+    if (activeLessonId === lessonId) {
+        // If the active lesson matches the current lesson, change the button text
+        document.getElementById('restart-btn').innerText = "Continue Lesson";
+    }
+
+    // Function to set active lesson when the lesson starts
+    function setActiveLesson() {
+        localStorage.setItem('activeLesson', lessonId);
+    }
+
+    // Call this function when the lesson starts
+    // You might call it when the user clicks a button to start the lesson
+    // Example: setActiveLesson();
+
+    // Optional: Clear the active lesson when the lesson is completed
+    function clearActiveLesson() {
+        localStorage.removeItem('activeLesson');
+    }
+</script>
 <script>
  
     function loadlessonreviews(url, i) {
