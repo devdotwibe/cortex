@@ -143,8 +143,8 @@
                             id: vimeoid,
                             width: "100%",
                             controls: true
-                        })
-                        vimeoinput="user-answer-${lesseonId}-vimo";
+                        });
+                        vimeoinput=`user-answer-${lesseonId}-vimo`;
                         examPlayers[v.slug].getDuration().then(function(duration) { 
                             vimeotime=duration;
                         });
