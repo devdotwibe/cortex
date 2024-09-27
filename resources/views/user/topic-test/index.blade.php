@@ -304,7 +304,8 @@
             console.log(page);
 
             if(page === 'back') {
-                // $('#review-history-modal').modal('show');
+                
+                $('#review-history-modal').modal('show');
                 // $('#retry-modal-body').show();
                 // $('#main-modal-body').modal('show');
 
