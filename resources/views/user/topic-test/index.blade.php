@@ -305,8 +305,8 @@
             console.log(page);
 
             if(page === 'back') {
-                $('#review-history-modal').modal('show');
-                $('#retry-modal-body').show();
+                // $('#review-history-modal').modal('show');
+                // $('#retry-modal-body').show();
 
                 // Assuming loadretry is defined elsewhere
                 loadretry('{{ route('topic-test.retryhistory', request('slug')) }}');
