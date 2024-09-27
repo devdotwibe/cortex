@@ -134,6 +134,7 @@ Route::middleware(['auth', 'isUser'])->group(function () {
         Route::prefix('topic-test')->name('topic-test.')->group(function () {
             Route::get('/', [TopicExamController::class, 'index'])->name('index');
             Route::middleware('subscription:topic-test')->get('/{category}', [TopicExamController::class, 'show'])->name('show');
+            Route::middleware('subscription:topic-test')->get('/{category}/questions', [TopicExamController::class, 'questions'])->name('questions');
             Route::middleware('subscription:topic-test')->get('/{category}/attempt', [TopicExamController::class, 'confirmshow'])->name('confirmshow');
             Route::get('/{category}/history', [TopicExamController::class, 'topichistory'])->name('topic.history');
             Route::middleware('subscription:topic-test')->post('/{category}/submit', [TopicExamController::class, 'topicsubmit'])->name('topic.submit');

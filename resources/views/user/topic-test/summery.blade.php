@@ -19,7 +19,7 @@
             {!! get_option("exam_simulator_description") !!}
         </div>
         <div class="summery-action">
-            <a href="{{route('topic-test.confirmshow',$category->slug)}}" class="btn btn-warning btn-sm"> Ready To Start </a>
+            <a onclick="loadquestions('{{route('topic-test.confirmshow',$category->slug)}}')" class="btn btn-warning btn-sm"> Ready To Start </a>
         </div>
     </div> 
 </section> 
@@ -54,6 +54,12 @@
         summery.timetaken=0;
 
         localStorage.setItem("topic-test-summery",JSON.stringify(summery)) 
+        function loadquestions(redirect,url=null){
+            if(url==null){
+                url="{{route('topic-test.questions',$category->slug)}}";
+            }
+            $.get(url,function(res){},'json')
+        }
     </script>
 
 @endpush
