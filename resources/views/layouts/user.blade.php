@@ -175,9 +175,9 @@
                  </li>
 
 
-                 <li class="side-item {{request()->is('tipsandadvise') ? 'active':''}}">
+                 <li class="side-item {{request()->is('tipsandadvice') ? 'active':''}}">
 
-                    <a href="{{route('tipsandadvise.index')}}">
+                    <a href="{{route('tipsandadvice.index')}}">
                          <span class="side-icon" >
                              <img src="{{asset("assets/images/iconshover/tipsandadvice.svg")}}" alt="Dashboard">
                          </span>
