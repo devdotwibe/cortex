@@ -2111,6 +2111,77 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
   margin: 0 0 10px;
 }
 
+.short_section label {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0 0 10px;
+}
+
+
+.note_section label {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0 0 10px;
+}
+
+.short_section label {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0 0 10px;
+}
+
+.mcq_section label {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0 0 10px;
+}
+
+.choice.mcq_section {
+  background: none;
+  padding: 0 15px;
+  border: none;
+}
+
+.choice.mcq_section h3 {
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0 0 10px;
+}
+
+.choice.mcq_section .forms-inputs {width: 100%;}
+
+.choice.mcq_section .forms-inputs .input-group {
+  width: 100%;
+  position: relative;
+}
+
+.choice.mcq_section .forms-inputs .input-group input {
+  width: 100%;
+}
+
+.choice.mcq_section .forms-inputs .input-group .input-group-prepend {
+  position: absolute;
+  right: 0;
+  z-index: 1;
+}
+
+.choice.mcq_section .forms-inputs .input-group .input-group-prepend .choice-label {
+  min-width: inherit;
+  width: 25px;
+  height: 25px;
+  border: 2px solid #FBAE1E;
+  margin: 0;
+  display: block;
+  border-radius: 3px;
+}
+
+.choice.mcq_section .forms-inputs .input-group .input-group-prepend:has(input:checked) label.choice-label {
+  background: url(../images/checkyellow.svg) no-repeat center;
+  background-size: 100%;
+}
+
+
+
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
 
