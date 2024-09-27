@@ -188,7 +188,7 @@
                                                                                 <input type="file"
                                                                                     id="{{ $item->slug }}-icon"
                                                                                     data-form="{{ $item->slug }}"
-                                                                                    class="form-control icon-file @error($item->slug . '.icon') is-invalid @enderror">
+                                                                                    class="form-control icon-file @error($item->slug . '.icon') is-invalid @enderror" style="display:none">
                                                                                 <input type="hidden"
                                                                                     id="{{ $item->slug }}-icon-input"
                                                                                     name="{{ $item->slug }}[icon]"
