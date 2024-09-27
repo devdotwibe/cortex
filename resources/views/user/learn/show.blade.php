@@ -96,24 +96,8 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- @guest('admin') <a type="button" href="" id="restart-btn" class="btn btn-dark">Continue Lesson</a> @endguest --}}
-                        @guest('admin')
-                            @php
-                                // Assuming there's a function to get the user's lesson progress
-                                $lessonProgress = $user->progress(
-                                    'exam-' . $exam->id . '-module-' . $category->id . '-lesson-' . $item->id,
-                                    0,
-                                );
-                            @endphp
-                            <a type="button" href="" id="restart-btn" class="btn btn-dark">
-                                @if ($lessonProgress < 100 && $lessonProgress > 0)
-                                    Continue Lesson
-                                @else
-                                    Restart Lesson
-                                @endif
-                            </a>
-                        @endguest
-
+                        @guest('admin') <a type="button" href="" id="restart-btn" class="btn btn-dark">Continue Lesson</a> @endguest
+                       
                     </div>
                 </div>
             </div>
