@@ -67,7 +67,21 @@
         var totalcount={{$learncount??0}};
         var questionids={!! $user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$subCategory->id."-progress-ids",'[]') !!};
         var progressurl="{{$user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$subCategory->id.'-progress-url','')}}";
-        var examPlayers={};
+        var examPlayers={}; 
+        var vimeotime=0;
+        var vimeoinput=null;
+
+        function learntimer(){
+            if(vimeotime>0&&vimeoinput!=null){
+                if(vimeotime>10){
+                    $(`#${vimeoinput}`).val('N')
+                }else{
+                    $(`#${vimeoinput}`).val('Y')
+                }
+                vimeotime--;
+            }
+        }
+
         function generateRandomId(length) {
             const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
             let result = '';
@@ -96,6 +110,8 @@
                 $('.pagination-arrow').hide();
                 $('#lesson-footer-pagination').html('')
                 $('#exam-container').removeClass('exam-video')
+                vimeoinput=null;
+                vimeotime=0;
                 const lesseonId=generateRandomId(10);
                 $.each(res.data,function(k,v){
 
@@ -128,8 +144,9 @@
                             width: "100%",
                             controls: true
                         })
-                        examPlayers[v.slug].getDuration().then(function(duration) {
-                            console.log('Duration:', duration);
+                        vimeoinput="user-answer-${lesseonId}-vimo";
+                        examPlayers[v.slug].getDuration().then(function(duration) { 
+                            vimeotime=duration;
                         });
                         /* {{-- <iframe src="https://player.vimeo.com/video/${vimeoid}?byline=0&keyboard=0&dnt=1&app_id=${lesseonId}" width="100%" height="500" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" title="${v.title}" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> --}} */
                     }
@@ -495,6 +512,8 @@
                     $('#finish-exam-confirm').modal('show')
                 })
             });
+
+            setInterval(learntimer, 1000);
          })
     </script>
 @endpush
