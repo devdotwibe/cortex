@@ -303,7 +303,7 @@
         {
             $('#retry-modal-body').show();
         }
-        })
+        });
 
         
     </script>
