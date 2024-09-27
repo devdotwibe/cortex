@@ -78,43 +78,107 @@ class LearnTopicController extends Controller
         $user=Auth::user();
         return view("user.learn.show",compact('category','exam','lessons','user'));
     }
-    public function lessonshow(Request $request,Category $category,SubCategory $subCategory){
+    // public function lessonshow(Request $request,Category $category,SubCategory $subCategory){
 
-        $exam=Exam::where("name",'learn')->first();
-        if(empty($exam)){
-            $exam=Exam::store([
-                "title"=>"Learn",
-                "name"=>"learn",
-            ]);
-            $exam=Exam::find( $exam->id );
-        }
+    //     $exam=Exam::where("name",'learn')->first();
+    //     if(empty($exam)){
+    //         $exam=Exam::store([
+    //             "title"=>"Learn",
+    //             "name"=>"learn",
+    //         ]);
+    //         $exam=Exam::find( $exam->id );
+    //     }
 
-        /**
-         * @var User
-         */
-        $user=Auth::user();
+    //     /**
+    //      * @var User
+    //      */
+    //     $user=Auth::user();
 
-        $user->setProgress("attempt-recent-link",route('learn.lesson.show',['category'=>$category->slug,'sub_category'=>$subCategory->slug]));
-        if($request->ajax()){
-            if($user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$subCategory->id.'-complete-date',"")==""){
-                $lessons=SubCategory::where('category_id',$category->id)->get();
-                $lessencount=count($lessons);
-                $totalprogres=0;
-                foreach ($lessons as $lesson) {
-                    $totalprogres+=$user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$lesson->id,0);
-                }
-                $user->setProgress('exam-'.$exam->id.'-module-'.$category->id,$totalprogres/$lessencount);
-            }
+    //     $user->setProgress("attempt-recent-link",route('learn.lesson.show',['category'=>$category->slug,'sub_category'=>$subCategory->slug]));
+    //     if($request->ajax()){
+    //         if($user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$subCategory->id.'-complete-date',"")==""){
+    //             $lessons=SubCategory::where('category_id',$category->id)->get();
+    //             $lessencount=count($lessons);
+    //             $totalprogres=0;
+    //             foreach ($lessons as $lesson) {
+    //                 $totalprogres+=$user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$lesson->id,0);
+    //             }
+    //             $user->setProgress('exam-'.$exam->id.'-module-'.$category->id,$totalprogres/$lessencount);
+    //         }
 
-            if(!empty($request->question)){
-                $learn=Learn::findSlug($request->question);
-                return LearnAnswer::where('learn_id',$learn->id)->get(['slug','title']);
-            }
-            return Learn::where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->paginate(1,['slug','learn_type','title','short_question','video_url','note','mcq_question']);
-        }
-        $learncount=Learn::where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->count();
-        return view("user.learn.lesson",compact('category','exam','subCategory','user','learncount'));
+    //         if(!empty($request->question)){
+    //             $learn=Learn::findSlug($request->question);
+    //             return LearnAnswer::where('learn_id',$learn->id)->get(['slug','title']);
+    //         }
+    //         return Learn::where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->paginate(1,['slug','learn_type','title','short_question','video_url','note','mcq_question']);
+    //     }
+    //     $learncount=Learn::where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->count();
+    //     return view("user.learn.lesson",compact('category','exam','subCategory','user','learncount'));
+    // }
+
+
+    public function lessonshow(Request $request, Category $category, SubCategory $subCategory)
+{
+    $exam = Exam::where('name', 'learn')->first();
+    
+    if (empty($exam)) {
+        $exam = Exam::create([
+            'title' => 'Learn',
+            'name' => 'learn',
+        ]);
+        $exam = Exam::find($exam->id);
     }
+
+    /**
+     * @var User
+     */
+    $user = Auth::user();
+
+    // Set user's recent lesson link progress
+    $user->setProgress('attempt-recent-link', route('learn.lesson.show', ['category' => $category->slug, 'sub_category' => $subCategory->slug]));
+
+    // Check if the lesson is completed
+    $isLessonCompleted = $user->progress('exam-' . $exam->id . '-module-' . $category->id . '-lesson-' . $subCategory->id . '-complete-date', "") != "";
+
+    // If the lesson is completed, clear the session; otherwise, set the current lesson in session
+    if ($isLessonCompleted) {
+        session()->forget('active_lesson');
+    } else {
+        session()->put('active_lesson', $subCategory->id);
+    }
+
+    // If request is AJAX
+    if ($request->ajax()) {
+        // Calculate and update overall progress for the module
+        if (!$isLessonCompleted) {
+            $lessons = SubCategory::where('category_id', $category->id)->get();
+            $lessencount = count($lessons);
+            $totalprogres = 0;
+
+            foreach ($lessons as $lesson) {
+                $totalprogres += $user->progress('exam-' . $exam->id . '-module-' . $category->id . '-lesson-' . $lesson->id, 0);
+            }
+
+            $user->setProgress('exam-' . $exam->id . '-module-' . $category->id, $totalprogres / $lessencount);
+        }
+
+        if (!empty($request->question)) {
+            $learn = Learn::findSlug($request->question);
+            return LearnAnswer::where('learn_id', $learn->id)->get(['slug', 'title']);
+        }
+
+        return Learn::where('category_id', $category->id)
+            ->where('sub_category_id', $subCategory->id)
+            ->paginate(1, ['slug', 'learn_type', 'title', 'short_question', 'video_url', 'note', 'mcq_question']);
+    }
+
+    $learncount = Learn::where('category_id', $category->id)
+        ->where('sub_category_id', $subCategory->id)
+        ->count();
+
+    return view('user.learn.lesson', compact('category', 'exam', 'subCategory', 'user', 'learncount'));
+}
+
 
     public function preview(Request $request,UserExamReview $userExamReview){
         $category=Category::find($userExamReview->category_id);

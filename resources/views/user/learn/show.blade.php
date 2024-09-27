@@ -96,8 +96,18 @@
                                 </div>
                             </div>
                         </div>
-                        @guest('admin') <a type="button" href="" id="restart-btn" class="btn btn-dark">Continue Lesson</a> @endguest
+                        {{-- @guest('admin') <a type="button" href="" id="restart-btn" class="btn btn-dark">Continue Lesson</a> @endguest --}}
                        
+                        @guest('admin')
+    <a type="button" href="" id="restart-btn" class="btn btn-dark">
+        @if (session()->get('active_lesson') == $subCategory->id)
+            Continue Lesson
+        @else
+            Restart Lesson
+        @endif
+    </a>
+@endguest
+
                     </div>
                 </div>
             </div>
