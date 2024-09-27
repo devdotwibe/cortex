@@ -311,6 +311,7 @@ nav.navbar .dropdown .nav-link.dropdown-toggle:after {
 .category .category-image {
   width: 90px;
   transition: all .25s ease-in-out;
+  margin: 0 15px 0 0;
 }
 .category .category-content {
   width: 75%;
