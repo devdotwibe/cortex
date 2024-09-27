@@ -49,10 +49,26 @@
                                 @endforeach
                             </div>
                         </div>
+                        {{-- <div class="analytic-item" id="mock-exam-result" style="display: none">
+                            <div class="analytic-exam" id="analytic-exam"> 
+                            </div> 
+                        </div> --}}
+
                         <div class="analytic-item" id="mock-exam-result" style="display: none">
+                            <div class="form-group">
+                                <label for="mock-exam-select">Select Mock Exam:</label>
+                                <select class="form-control" id="mock-exam-select" onchange="loadExamGraph(this.value)">
+                                    <option value="">-- Select an Exam --</option>
+                                    @foreach ($mockExams as $mockExam)
+                                        <option value="{{ $mockExam->id }}">{{ $mockExam->title }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="analytic-exam" id="analytic-exam"> 
                             </div> 
                         </div>
+
+                        
                         <div class="analytic-item" id="question-bank-result" style="display: none">
                             <div class="row">
                                 @foreach ($category as $item)
