@@ -2092,6 +2092,20 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
   display: none;
 }
 
+.video_section label {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0 0 10px;
+}
+
+.video_section  input {
+  height: 52px;
+  border: 1px solid rgba(188, 188, 188, 1);
+  padding: 11px;
+  border-radius: 10px;
+}
+
+
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
 
