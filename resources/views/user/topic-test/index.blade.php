@@ -295,20 +295,25 @@
         // },'json')
     }
 
-    $(function() {
-    var page = "{{ request('page') }}";
-    var slug = "{{ request('slug') }}";  // Ensure slug is set properly if needed
 
-    console.log(page);
+    @if(!empty(request('slug')))
 
-    if(page === 'back') {
-        $('#review-history-modal').modal('show');
-        $('#retry-modal-body').show();
+        $(function() {
+            var page = "{{ request('page') }}";
+            var slug = "{{ request('slug') }}";  // Ensure slug is set properly if needed
 
-        // Assuming loadretry is defined elsewhere
-        loadretry('{{ route('topic-test.retryhistory', request('slug')) }}');
-    }
-});
+            console.log(page);
+
+            if(page === 'back') {
+                // $('#review-history-modal').modal('show');
+                // $('#retry-modal-body').show();
+
+                // Assuming loadretry is defined elsewhere
+                loadretry('{{ route('topic-test.retryhistory', request('slug')) }}');
+            }
+        });
+
+    @endif
 
 
         
