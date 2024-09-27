@@ -2157,12 +2157,19 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 
 .choice.mcq_section .forms-inputs .input-group input {
   width: 100%;
+  box-shadow: none;
+  background: none;
+  height: 52px;
+  border: 1px solid rgba(188, 188, 188, 1);
+  padding: 11px;
+  border-radius: 10px !important;
 }
 
 .choice.mcq_section .forms-inputs .input-group .input-group-prepend {
   position: absolute;
-  right: 0;
+  right: 50px;
   z-index: 1;
+  top: 13px;
 }
 
 .choice.mcq_section .forms-inputs .input-group .input-group-prepend .choice-label {
@@ -2179,7 +2186,27 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
   background: url(../images/checkyellow.svg) no-repeat center;
   background-size: 100%;
 }
+.choice.mcq_section .forms-inputs .input-group .input-group-prepend input[type='radio'] {
+  width: auto;
+  height: auto;
+  padding: 0;
+  border: none;
+}
 
+.choice.mcq_section .forms-inputs .input-group .input-group-prepend input[type='radio'] {
+  width: auto;
+  height: auto;
+  padding: 0;
+  border: none;
+}
+
+.choice.mcq_section .forms-inputs .input-group .input-group-append {
+  position: absolute;
+  right: 7px;
+  top: 12px;
+}
+
+.choice.mcq_section .forms-inputs .input-group .input-group-append button.btn.btn-danger {padding: 0;background: none;border: none;}
 
 
 @media screen and (max-width:1500px) {
