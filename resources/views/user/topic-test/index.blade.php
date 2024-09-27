@@ -295,26 +295,16 @@
         // },'json')
     }
 
-    // $(function(){
-    //     retry-modal-body
-    //     })
+    $(function(){
+        
+        var page = {{request('page')}};
 
-        $(function() {
-    // Assuming 'retry-modal-body' is the ID or class of a modal element
-    $('#retry-modal-body').on('show.bs.modal', function (event) {
-        // Event triggered when the modal is shown
-        // You can modify the modal content or perform any action
-        console.log('Modal is shown');
-    });
+        if(page =='back')
+        {
+            $('#retry-modal-body').show();
+        }
+        })
 
-    // Retry logic or button click handler
-    $('#retry-button').on('click', function() {
-        // Logic to handle retry action
-        console.log('Retry button clicked');
-    });
-});
-
-
-
+        
     </script>
 @endpush
