@@ -92,6 +92,9 @@ class User extends Authenticatable implements MustVerifyEmail
     public function subscription(){
         return UserSubscription::where('user_id',$this->id)->orderBy('id','DESC')->first();
     } 
+    public function userSubscription(){
+        return $this->hasMany(UserSubscription::class);
+    }
 
 
     public function sendEmailVerificationNotification()

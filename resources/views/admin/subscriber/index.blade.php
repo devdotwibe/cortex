@@ -22,11 +22,12 @@
         <div class="row">
             <x-ajax-table :action='false' :coloumns='[
                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
-                ["th"=>"Name","name"=>"name","data"=>"name"],
-                ["th"=>"Email","name"=>"email","data"=>"email"], 
+                ["th"=>"Name","name"=>"username","data"=>"username"],
+                ["th"=>"Email","name"=>"usermail","data"=>"usermail"], 
                 ["th"=>"Plan","name"=>"plan","data"=>"plan"], 
                 ["th"=>"Amount","name"=>"amount","data"=>"amount"], 
-                ["th"=>"Pay Id","name"=>"payid","data"=>"payid"], 
+                ["th"=>"Expire","name"=>"expire_at","data"=>"expire_at"], 
+                ["th"=>"Pay Id","name"=>"payment_id","data"=>"payment_id"], 
             ]' tableinit="usertableinit" beforeajax="usertableajaxbefoire"/>
         </div>
     </div>
