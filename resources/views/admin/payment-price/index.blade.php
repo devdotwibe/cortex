@@ -184,7 +184,7 @@
                                                                         <div class="form-data">
                                                                             <div class="forms-inputs mb-4">
                                                                                 <label
-                                                                                    for="{{ $item->slug }}-icon">Icon</label>
+                                                                                    for="{{ $item->slug }}-icon">Icon1</label>
                                                                                 <input type="file"
                                                                                     id="{{ $item->slug }}-icon"
                                                                                     data-form="{{ $item->slug }}"
