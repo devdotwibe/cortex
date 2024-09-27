@@ -176,7 +176,7 @@
                     </ul>
                 </li>
 
-                <li class="side-item {{request()->is('admin/live-class') ? 'active':''}}">
+                <li class="side-item {{request()->is('admin/live-class*') ? 'active':''}}">
                     <a href="{{ route('admin.live-class.index') }}">
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/iconshover/onlineteaching.svg")}}" alt="Dashboard">
