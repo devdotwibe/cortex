@@ -297,7 +297,7 @@
 
     $(function(){
         
-        var page = {{request('page')}};
+        var page = "{{request('page')}}";
 
         if(page =='back')
         {
