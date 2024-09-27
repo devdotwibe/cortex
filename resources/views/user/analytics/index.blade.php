@@ -179,11 +179,19 @@
                             <div class="analytic-exam-item" id="analytic-exam-item-${lesseonId}">
                                 <div class="exam-overview" > 
                                     <div class="exam-overview-content">
-                                        <div class="overview-title text-center">
-                                            <div class="overview-left">${prevbtn}</div>
-                                            <div class="overview-center"><h3>${res.data.title||''} </h3></div>
-                                            <div class="overview-right">${nextbtn}</div>
-                                        </div>
+                                       <div class="overview-title text-center">
+    <div class="overview-dropdown">
+        <select id="exam-selection" onchange="loadExam(this.value)">
+            <option value="">Select Exam</option>
+            <option value="${res.data.id}">${res.data.title || ''}</option>
+            <!-- You can dynamically generate options here based on res.data.categories or other data -->
+            @foreach($categories as $category)
+                <option value="{{ $category->id }}">{{ ucfirst($category->name) }}</option>
+            @endforeach
+        </select>
+    </div>
+</div>
+
                                         <div class="overview-graph">
                                             <div class="overview-graph-body">
                                                 <div class="overview-graph-inner"> 
