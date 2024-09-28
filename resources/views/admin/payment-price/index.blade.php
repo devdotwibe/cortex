@@ -916,9 +916,11 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="feelingimage">Feeling Image</label>
+                                                        <label for="feelingimage"  class="file-upload" >Feeling Image  <br>
+                                                            <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                                alt="Upload Icon"> </label>
                                                         <input type="file" name="feelingimage" id="feelingimage"
-                                                            class="form-control"
+                                                            class="form-control"  style="display: none;"
                                                             onchange="previewImage(event, 'feelingimagePreview')">
                                                         @error('feelingimage')
                                                             <div class="text-danger">{{ $message }}</div>
@@ -927,6 +929,9 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                   
+
 
                                         <!-- Image Preview -->
                                         <div class="form-group">
@@ -1044,9 +1049,10 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="excelimage">Excel Image</label>
+                                                        <label for="excelimage" class="file-upload">Excel Image <br>   <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                            alt="Upload Icon"> </label>
                                                         <input type="file" name="excelimage" id="excelimage"
-                                                            class="form-control"
+                                                            class="form-control" style="display: none;"
                                                             onchange="previewImage(event, 'excelImagePreview')">
                                                         @error('excelimage')
                                                             <div class="text-danger">{{ $message }}</div>
@@ -1056,6 +1062,8 @@
                                             </div>
                                         </div>
 
+
+                                       
                                         <!-- Image Preview -->
                                         <div class="form-group">
                                             <label for="excelImagePreview">Image Preview</label>

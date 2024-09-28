@@ -106,8 +106,10 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="image">Image</label>
-                                                        <input type="file" class="form-control" name="image"
+                                                        <label for="image" class="file-upload">Image <br>
+                                                            <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                                alt="Upload Icon"></label>
+                                                        <input type="file" class="form-control" style="display: none;" name="image"
                                                             id="imageInput" onchange="previewImage()">
                                                         @error('image')
                                                             <div class="text-danger">{{ $message }}</div>
@@ -116,6 +118,10 @@
                                                 </div>
                                             </div>
                                         </div>
+
+
+
+
 
                                         <div class="form-group">
                                             <label for="imagePreview">Image Preview</label>
@@ -279,11 +285,15 @@
                                     </div>
 
                                     <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="logicalimage">Logical Image</label>
-                                            <input type="file" class="form-control" name="logicalimage">
+                                        <div class="form-group" class="file-upload">
+                                            <label for="logicalimage">Logical Image  <br>
+                                                <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                    alt="Upload Icon"></label>
+                                            <input type="file" class="form-control" style="display: none;" name="logicalimage" id="logicalimage">
                                         </div>
                                     </div>
+
+
 
 
 
@@ -351,12 +361,15 @@
 
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="criticalimage">Critical Image</label>
-                                            <input type="file" class="form-control" name="criticalimage">
+                                            <label for="criticalimage"  class="file-upload">Critical Image <br>
+                                                <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                    alt="Upload Icon"></label>
+                                            <input type="file" class="form-control" style="display: none;" name="criticalimage" id="criticalimage">
                                         </div>
                                     </div>
 
 
+ 
 
                                     <!-- Preview Image Container -->
                                     <div class="form-group">
@@ -416,10 +429,14 @@
 
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="abstractimage">Abstract Image</label>
-                                            <input type="file" class="form-control" name="abstractimage">
+                                            <label for="abstractimage" class="file-upload">Abstract Image <br>
+                                                <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                    alt="Upload Icon"></label>
+                                            <input type="file" class="form-control" style="display: none;" name="abstractimage" id="abstractimage">
                                         </div>
                                     </div>
+
+
 
                                     <!-- Preview Image Container -->
                                     <div class="form-group">
@@ -476,12 +493,27 @@
                                         </div>
                                     </div>
 
+                                    {{-- <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="numericalimage" class="file-upload">Numerical Image  <br>
+                                                <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                    alt="Upload Icon"></label>
+                                            <input type="file" class="form-control" style="display: none;" name="numericalimage">
+                                        </div>
+                                    </div> --}}
+
+
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="numericalimage">Numerical Image</label>
-                                            <input type="file" class="form-control" name="numericalimage">
+                                            <label for="numericalimage" class="file-upload">Numerical Image  <br>
+                                                <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
+                                            </label>
+                                            <input type="file" class="form-control" style="display: none;" name="numericalimage" id="numericalimage">
                                         </div>
                                     </div>
+                                    
+
+
 
                                     <!-- Preview Image Container -->
                                     <!-- Preview Image Container -->
@@ -698,11 +730,17 @@
 
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="topicimage">Topic Image</label>
-                                            <input type="file" class="form-control" name="topicimage">
+                                            <label for="topicimage" class="file-upload">Topic Image  <br>
+                                                <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                    alt="Upload Icon"> </label>
+                                            <input type="file" class="form-control"  style="display: none;" name="topicimage" id="topicimage">
                                         </div>
                                     </div>
                                 </div>
+
+                                
+ 
+
                                 <!-- Preview Image Container -->
                                 <!-- Preview Image Container -->
                                 <div class="form-group">
@@ -843,10 +881,18 @@
 
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="privateimage">Private Image</label>
-                                                <input type="file" class="form-control" name="privateimage">
+                                                <label for="privateimage"  class="file-upload">Private Image <br>
+                                                    <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                        alt="Upload Icon"> </label>
+                                                <input type="file" class="form-control" style="display: none;" name="privateimage" id="privateimage">
                                             </div>
                                         </div>
+
+
+
+  
+
+
 
                                         <!-- Preview Image Container -->
                                         <div class="form-group">

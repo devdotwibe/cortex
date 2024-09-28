@@ -160,9 +160,11 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="image">Upload Image</label>
+                                                        <label for="image"  class="file-upload">Upload Image  <br>
+                                                            <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                                alt="Upload Icon"> </label>
                                                         <input type="file" name="image" id="image"
-                                                            class="form-control"
+                                                            class="form-control"  style="display: none;"
                                                             onchange="previewImage(event, 'imagePreview')">
                                                         @error('image')
                                                             <div class="text-danger">{{ $message }}</div>
@@ -171,6 +173,12 @@
                                                 </div>
                                             </div>
                                         </div>
+
+
+                                                              
+                        
+
+                                                                
 
                                         <!-- Preview Image Container -->
                                         <div class="form-group">
@@ -251,10 +259,12 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="learnimage">Learn Image</label>
+                                                        <label for="learnimage"  class="file-upload">Learn Image  <br>
+                                                            <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                                alt="Upload Icon"></label>
                                                         <input type="file" name="learnimage" id="learnimage"
                                                             value="{{ old('learnimage', optional($banner)->learnimage) }}"
-                                                            class="form-control"
+                                                            class="form-control"  style="display: none;"
                                                             onchange="previewImage(event, 'learnImagePreview')">
                                                         @error('learnimage')
                                                             <div class="text-danger">{{ $message }}</div>
@@ -263,6 +273,8 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                       
 
                                         <!-- Preview Learn Image Container -->
                                         <div class="form-group">
@@ -313,10 +325,12 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="practiseimage">Practice Image</label>
+                                                        <label for="practiseimage"  class="file-upload">Practice Image <br>
+                                                            <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                                alt="Upload Icon"> </label>
                                                         <input type="file" name="practiseimage" id="practiseimage"
                                                             value="{{ old('practiseimage', optional($banner)->practiseimage) }}"
-                                                            class="form-control"
+                                                            class="form-control" style="display: none;"
                                                             onchange="previewImage(event, 'practiseImagePreview')">
                                                         @error('practiseimage')
                                                             <div class="text-danger">{{ $message }}</div>
@@ -325,6 +339,11 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                         
+
+
+
                                         <div class="form-group">
                                             <label for="practiseImagePreview">Practice Image Preview</label>
                                             <div id="imagePreviewContainer"
@@ -375,10 +394,12 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="prepareimage">Prepare Image</label>
+                                                        <label for="prepareimage" class="file-upload">Prepare Image  <br>
+                                                            <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                                alt="Upload Icon"></label>
                                                         <input type="file" name="prepareimage" id="prepareimage"
                                                             value="{{ old('prepareimage', optional($banner)->prepareimage) }}"
-                                                            class="form-control"
+                                                            class="form-control" style="display: none;"
                                                             onchange="previewImage(event, 'prepareImagePreview')">
                                                         @error('prepareimage')
                                                             <div class="text-danger">{{ $message }}</div>
@@ -387,6 +408,10 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                         
+
+
                                         <div class="form-group">
                                             <label for="prepareImagePreview">Prepare Image Preview</label>
                                             <div id="imagePreviewContainer"
@@ -437,10 +462,12 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="reviewimage">Review Image</label>
+                                                        <label for="reviewimage" class="file-upload">Review Image  <br>
+                                                            <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                                alt="Upload Icon"> </label>
                                                         <input type="file" name="reviewimage" id="reviewimage"
                                                             value="{{ old('reviewimage', optional($banner)->reviewimage) }}"
-                                                            class="form-control"
+                                                            class="form-control" style="display: none;"
                                                             onchange="previewImage(event, 'reviewImagePreview')">
                                                         @error('reviewimage')
                                                             <div class="text-danger">{{ $message }}</div>
@@ -449,6 +476,30 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                         <!-- Image Upload -->
+                                         <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="form-data">
+                                                    <div class="forms-inputs mb-4">
+                                                        <label for="image" class="file-upload">
+                                                            Upload Image
+                                                            <br>
+                                                            <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                                alt="Upload Icon">
+                                                        </label>
+                                                        <input type="file" name="image" id="image"
+                                                            class="form-control" style="display: none;"
+                                                            onchange="previewImage(event, 'imagePreview')">
+                                                        @error('image')
+                                                            <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
                                         <div class="form-group">
                                             <label for="reviewImagePreview">Review Image Preview</label>
                                             <div id="imagePreviewContainer"
@@ -617,11 +668,13 @@
                                                         <div class="form-group">
                                                             <div class="form-data">
                                                                 <div class="forms-inputs mb-4">
-                                                                    <label for="featureimage">Feature Image</label>
+                                                                    <label for="featureimage" class="file-upload">Feature Image <br>
+                                                                        <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                                            alt="Upload Icon"> </label>
                                                                     <input type="hidden" name="featureids[]"
                                                                         value="{{ old('featureids.' . $k, $item->id ?? '') }}">
                                                                     <input type="file" name="featureimageupdate[]"
-                                                                        class="form-control"
+                                                                        class="form-control" style="display: none;"
                                                                         onchange="previewFeatureImage(event)">
 
                                                                     @if (!empty($item->image))
@@ -642,8 +695,6 @@
                                                             </div>
                                                         </div>
                                                     </div>
-
-
 
 
 
@@ -693,29 +744,32 @@
                                                         </div>
                                                     </div>
 
-                                                    <!-- Feature Image -->
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <div class="form-data">
-                                                                <div class="forms-inputs mb-4">
-                                                                    <label for="featureimage">Feature Image</label>
-                                                                    <input type="hidden" name="featureids[]"
-                                                                        value="{{ $item->id }}">
-                                                                    <input type="file" name="featureimageupdate[]"
-                                                                        class="form-control"
-                                                                        onchange="previewFeatureImage(event)">
-                                                                    @if (!empty($item->image))
-                                                                        <img src="{{ url('d0/' . $item->image) }}"
-                                                                            alt="Feature Image"
-                                                                            style="max-width: 100px; margin-top: 10px;">
-                                                                    @endif
-                                                                    @error('featureimage')
-                                                                        <div class="text-danger">{{ $message }}</div>
-                                                                    @enderror
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                <!-- Feature Image -->
+<div class="col-md-12">
+    <div class="form-group">
+        <div class="form-data">
+            <div class="forms-inputs mb-4">
+                <label for="featureimage-{{ $item->id }}" class="file-upload">Feature Image  <br>
+                    <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon"> 
+                </label>
+                <input type="hidden" name="featureids[]" value="{{ $item->id }}">
+                <input type="file" id="featureimage-{{ $item->id }}" name="featureimageupdate[]"
+                    class="form-control" style="display: none;" onchange="previewFeatureImage(event)">
+                @if (!empty($item->image))
+                    <img src="{{ url('d0/' . $item->image) }}" alt="Feature Image"
+                        style="max-width: 100px; margin-top: 10px;">
+                @endif
+                @error('featureimage')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
 
                                                     <button type="button" class="btn btn-danger"
                                                         onclick="removeDiv(this, 'close-{{ $item->id }}')"
@@ -845,15 +899,20 @@
 
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="analyticsimage">Analytics Image</label>
+                                                <label for="analyticsimage"  class="file-upload">Analytics Image <br>
+                                                    <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                        alt="Upload Icon"> </label>
                                                 <input type="file" name="analyticsimage" id="analyticsimage"
-                                                    class="form-control"
+                                                    class="form-control" style="display: none;"
                                                     onchange="previewImage(event, 'analyticsImagePreview')">
                                                 @error('analyticsimage')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
 
+
+
+                                             
 
 
 
@@ -906,14 +965,22 @@
 
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="anytimeimage">Anytime Image</label>
+                                                <label for="anytimeimage"  class="file-upload">Anytime Image <br>
+                                                    <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                        alt="Upload Icon"></label>
                                                 <input type="file" name="anytimeimage" id="anytimeimage"
-                                                    class="form-control"
+                                                    class="form-control" style="display: none;"
                                                     onchange="previewImage(event, 'anytimeImagePreview')">
                                                 @error('anytimeimage')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
+
+
+                                           
+
+
+
                                             <div class="form-group">
                                                 <label for="anytimeImagePreview">Anytime Image Preview</label>
                                                 <div id="anytimeImagePreviewContainer"
@@ -957,14 +1024,22 @@
 
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="unlimitedimage">Unlimited Image</label>
+                                                <label for="unlimitedimage"  class="file-upload">Unlimited Image <br>
+                                                    <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                        alt="Upload Icon"></label>
                                                 <input type="file" name="unlimitedimage" id="unlimitedimage"
-                                                    class="form-control"
+                                                    class="form-control" style="display: none;"
                                                     onchange="previewImage(event, 'unlimitedImagePreview')">
                                                 @error('unlimitedimage')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
+
+
+                                            
+
+
+
                                             <div class="form-group">
                                                 <label for="unlimitedImagePreview">Unlimited Image Preview</label>
                                                 <div id="unlimitedImagePreviewContainer"
@@ -1008,14 +1083,19 @@
 
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="liveimage">Live Image</label>
+                                                <label for="liveimage" class="file-upload">Live Image  <br>
+                                                    <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                        alt="Upload Icon"> </label>
                                                 <input type="file" name="liveimage" id="liveimage"
-                                                    class="form-control"
+                                                    class="form-control"  style="display: none;"
                                                     onchange="previewImage(event, 'liveImagePreview')">
                                                 @error('liveimage')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
+
+                                             
+
                                             <div class="form-group">
                                                 <label for="liveImagePreview">Live Image Preview</label>
                                                 <div id="liveImagePreviewContainer"
@@ -1154,9 +1234,11 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="excelimage">Excel Image</label>
+                                                        <label for="excelimage" class="file-upload">Excel Image  <br>
+                                                            <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                                alt="Upload Icon"></label>
                                                         <input type="file" name="excelimage" id="excelimage"
-                                                            class="form-control"
+                                                            class="form-control" style="display: none;"
                                                             onchange="previewImage(event, 'excelImagePreview')">
                                                         @error('excelimage')
                                                             <div class="text-danger">{{ $message }}</div>
@@ -1165,6 +1247,11 @@
                                                 </div>
                                             </div>
                                         </div>
+
+
+                                        
+
+
 
                                         <!-- Image Preview -->
                                         <div class="form-group">
