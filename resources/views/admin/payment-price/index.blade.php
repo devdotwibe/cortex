@@ -184,7 +184,7 @@
                                                                         <div class="form-data">
                                                                             <div class="forms-inputs mb-4">
                                                                                 <label
-                                                                                    class="file-upload" for="{{ $item->slug }}-icon"><img src="{{asset('assets/images/upfile.svg')}}"></label>
+                                                                                    class="file-upload" for="{{ $item->slug }}-icon">Upload Image<img src="{{asset('assets/images/upfile.svg')}}"></label>
                                                                                 <input type="file"
                                                                                     id="{{ $item->slug }}-icon"
                                                                                     data-form="{{ $item->slug }}"
