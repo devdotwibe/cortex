@@ -139,12 +139,13 @@ class CommunityControllerController extends Controller
     if ($type == "post") {
         $data = $request->validate([
             'type' => ["required"],
-            //  'description' => ["required"],
+           
             'description' => ["required", function ($attribute, $value, $fail) {
                 if (preg_match('/#/', $value)) {
                     $fail('Hashtags are not allowed in the description.');
                 }
             }],
+            'hashtag' => ["nullable", 'string', 'max:500'],
             'image' => ["nullable"], 
         ]);
     } else {
@@ -278,6 +279,7 @@ foreach ($extractedHashtags as $hashtag) {
         }
     }],
                 'image'=>["nullable"], 
+                'hashtag' => ["nullable", 'string', 'max:500'],
             ]);
         }else{
 
