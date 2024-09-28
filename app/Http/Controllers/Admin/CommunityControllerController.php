@@ -193,13 +193,14 @@ class CommunityControllerController extends Controller
 
     // Extract and store hashtags from the hashtag input
        // Split hashtags by commas, spaces, or a combination of both
-$extractedHashtags = array_filter(preg_split('/[,\s]+/', $request->input('hashtag', '')));
+$extractedHashtags = array_filter(array_map('trim', preg_split('/[,\s]+/', $request->input('hashtag', ''))));
 
 foreach ($extractedHashtags as $hashtag) {
     if (!empty($hashtag)) {
         Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
     }
 }
+
 
 
     return redirect()->route('admin.community.index')->with('success', "Post published");
