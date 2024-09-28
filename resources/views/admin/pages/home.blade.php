@@ -197,7 +197,7 @@
                                         <!-- Save Button -->
                                         <div class="col-md-12">
                                             <div class="mb-3">
-                                                <button type="submit" class="btn btn-dark" name="section"
+                                                <button type="submit" class="btn btn-dark banner" name="section"
                                                     value="save">Save</button>
                                             </div>
                                         </div>
@@ -539,7 +539,7 @@
 
                                         <!-- Submit Button -->
                                         <div class="col-md-12 mb-3">
-                                            <button type="submit" class="btn btn-primary" name="section"
+                                            <button type="submit" class="btn btn-primary review" name="section"
                                                 value="section2">Save</button>
                                         </div>
 
@@ -811,9 +811,10 @@
                                                 <div class="form-group">
                                                     <div class="form-data">
                                                         <div class="forms-inputs mb-4">
-                                                            <label for="featureimage">Feature Image</label>
+                                                            <label for="featureimage" class="file-upload">Feature Image <br>  <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                                alt="Upload Icon"> </label>
                                                             <input type="file" name="featureimage[]"
-                                                                class="form-control"
+                                                                class="form-control" style="display: none;"
                                                                 onchange="previewFeatureImage(event)">
                                                             @error('featureimage')
                                                                 <div class="text-danger">{{ $message }}</div>
@@ -824,7 +825,6 @@
                                             </div>
 
                                         @endif
-
 
                                         <!-- Add Feature Button -->
 
@@ -838,7 +838,7 @@
 
                                         <!-- Submit Button -->
                                         <div class="col-md-12 mb-3">
-                                            <button type="submit" class="btn btn-primary" name="section"
+                                            <button type="submit" class="btn btn-primary feature" name="section"
                                                 value="section3">Save</button>
                                         </div>
 
@@ -1127,7 +1127,7 @@
 
 
                                         <div class="col-md-12 mb-3">
-                                            <button type="submit" class="btn btn-primary" name="section"
+                                            <button type="submit" class="btn btn-primary content" name="section"
                                                 value="section7">Save</button>
                                         </div>
 
@@ -1274,7 +1274,7 @@
 
                                         <!-- Submit Button -->
                                         <div class="col-md-12 mb-3">
-                                            <button type="submit" class="btn btn-primary" name="section"
+                                            <button type="submit" class="btn btn-primary excel" name="section"
                                                 value="section4">Save</button>
                                         </div>
                                     </div>
@@ -1500,7 +1500,7 @@
 
                                         <!-- Submit Button -->
                                         <div class="col-md-12 mb-3">
-                                            <button type="submit" class="btn btn-primary" name="section"
+                                            <button type="submit" class="btn btn-primary course" name="section"
                                                 value="section5">Save</button>
                                         </div>
                                     </div>
@@ -1884,7 +1884,7 @@
 
                                         <!-- Submit Button -->
                                         <div class="col-md-12 mb-3">
-                                            <button type="submit" class="btn btn-primary" name="section"
+                                            <button type="submit" class="btn btn-primary feed" name="section"
                                                 value="section6">Save</button>
                                         </div>
                                     </div>
@@ -2191,7 +2191,7 @@
 
                                     <!-- Submit Button -->
                                     <div class="col-md-12 mb-3">
-                                        <button type="submit" class="btn btn-primary" name="section"
+                                        <button type="submit" class="btn btn-primary process" name="section"
                                             value="section8">Save</button>
                                     </div>
 
@@ -2263,12 +2263,14 @@
                         <textarea name="featurecontentupdate[]" id="featurecontent${featureIndex}" class="form-control" rows="5" placeholder="Feature Description"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="featureimage_${featureIndex}">Feature Image</label>
-                        <input type="file" name="featureimageupdate[]" id="featureimage_${featureIndex}" class="form-control" onchange="previewFeatureImage(event)">
+                        <label for="featureimage_${featureIndex}" class="file-upload">Feature Image <br>   <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                            alt="Upload Icon"> </label>
+                        <input type="file" name="featureimageupdate[]" id="featureimage_${featureIndex}" class="form-control"  style="display: none;" onchange="previewFeatureImage(event)">
                     </div>
                 </div>
             `;
 
+            
                             document.getElementById('featuresContainer').insertAdjacentHTML('beforeend', featureHTML);
                         });
 
@@ -2338,8 +2340,9 @@
 
                 <!-- Image Field -->
                 <div class="form-group">
-                    <label for="image_${feedIndex}">Image</label>
-                    <input type="file" name="image[]" id="image_${feedIndex}" class="form-control" onchange="previewFeedImage(event)">
+                    <label for="image_${feedIndex}" class="file-upload">Image  <br>   <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                            alt="Upload Icon"></label>
+                    <input type="file" name="image[]" id="image_${feedIndex}" class="form-control"  style="display: none;" onchange="previewFeedImage(event)">
                 </div>
 
                 <!-- Close Button -->
@@ -2429,11 +2432,12 @@
     </div>
 
     <div class="form-group">
-        <label for="ourprocessimage${processIndex}">Our Process Icon</label>
-        <input type="file" name="ourprocessimageupdate[]" id="ourprocessimage${processIndex}" class="form-control" onchange="previewFeatureImage(event)">
+        <label for="ourprocessimage${processIndex}" class="file-upload">Our Process Icon  <br> <img src="{{ asset('assets/images/upfile.svg') }}"</label>
+        <input type="file" name="ourprocessimageupdate[]" id="ourprocessimage${processIndex}" class="form-control" style="display: none;" onchange="previewFeatureImage(event)">
     </div>
 </div>
 `;
+
 
 
         let container = document.getElementById('processContainer');

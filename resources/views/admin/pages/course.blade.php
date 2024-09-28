@@ -145,7 +145,7 @@
 
                                         <div class="col-md-12">
                                             <div class="mb-3">
-                                                <button type="submit" class="btn btn-dark" name="section"
+                                                <button type="submit" class="btn btn-dark learn" name="section"
                                                     value="save">Save</button>
                                             </div>
 
@@ -182,7 +182,7 @@
 
                         <div class="col-md-12">
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary" name="section"
+                                <button type="submit" class="btn btn-primary coursetitle" name="section"
                                     value="save">Save</button>
                             </div>
                         </div>
@@ -325,7 +325,7 @@
 
 
                                 </div>
-                                <button type="submit" class="btn btn-dark" name="sub_section"
+                                <button type="submit" class="btn btn-dark logical" name="sub_section"
                                     value="tab1_save">Save</button>
                             </form>
                         </div>
@@ -392,7 +392,7 @@
 
 
                                 </div>
-                                <button type="submit" class="btn btn-dark" name="sub_section"
+                                <button type="submit" class="btn btn-dark critical" name="sub_section"
                                     value="tab2_save">Save</button>
                             </form>
                         </div>
@@ -459,7 +459,7 @@
 
 
                                 </div>
-                                <button type="submit" class="btn btn-dark" name="sub_section"
+                                <button type="submit" class="btn btn-dark abstract" name="sub_section"
                                     value="tab3_save">Save</button>
                             </form>
                         </div>
@@ -537,7 +537,7 @@
 
 
                                 </div>
-                                <button type="submit" class="btn btn-dark" name="sub_section"
+                                <button type="submit" class="btn btn-dark numerical" name="sub_section"
                                     value="tab4_save">Save</button>
                             </form>
                         </div>
@@ -660,7 +660,7 @@
                                     </div>
                                 </div>
 
-                                <button type="submit" class="btn btn-dark" name="sub_section"
+                                <button type="submit" class="btn btn-dark lrn" name="sub_section"
                                     value="tab1_save">Save</button>
                             </form>
                         </div>
@@ -715,7 +715,7 @@
                                     </div>
                                 </div>
 
-                                <button type="submit" class="btn btn-dark" name="sub_section"
+                                <button type="submit" class="btn btn-dark qbank" name="sub_section"
                                     value="tab2_save">Save</button>
                             </form>
                         </div>
@@ -770,7 +770,7 @@
                                     </div>
                                 </div>
 
-                                <button type="submit" class="btn btn-dark" name="sub_section"
+                                <button type="submit" class="btn btn-dark topic" name="sub_section"
                                     value="tab3_save">Save</button>
                             </form>
                         </div>
@@ -825,7 +825,7 @@
                                     </div>
                                 </div>
 
-                                <button type="submit" class="btn btn-dark" name="sub_section"
+                                <button type="submit" class="btn btn-dark fullmock" name="sub_section"
                                     value="tab4_save">Save</button>
                             </form>
                         </div>
@@ -935,7 +935,7 @@
 
                                         <div class="col-md-12">
                                             <div class="mb-3">
-                                                <button type="submit" class="btn btn-dark" name="section5"
+                                                <button type="submit" class="btn btn-dark privat" name="section5"
                                                     value="save">Save</button>
                                             </div>
 
