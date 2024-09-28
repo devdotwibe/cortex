@@ -606,7 +606,7 @@ class CommunityController extends Controller
             }
         }
         Hashtag::where('post_id',$post->id)->whereNotIn('id',$hashIds)->delete();
-        return redirect()->route('community.index')->with('success', "Post updated");
+        return redirect()->route('community.edit')->with('success', "Post updated");
     }
     public function destroy(Request $request, Post $post)
     {
