@@ -140,7 +140,7 @@ class CommunityControllerController extends Controller
         $data = $request->validate([
             'type' => ["required"],
            
-           'description' => ["required", "max:300", function ($attribute, $value, $fail) {
+           'description' => ["required", 'string', "max:300", function ($attribute, $value, $fail) {
     if (preg_match('/#/', $value)) {
         $fail('Hashtags are not allowed in the description.');
     }
@@ -152,7 +152,7 @@ class CommunityControllerController extends Controller
     } else {
         $data = $request->validate([
             // 'description' => ["required"],
-          'description' => ["required", "max:300", function ($attribute, $value, $fail) {
+          'description' => ["required", 'string', "max:300", function ($attribute, $value, $fail) {
     if (preg_match('/#/', $value)) {
         $fail('Hashtags are not allowed in the description.');
     }
@@ -275,7 +275,7 @@ foreach ($extractedHashtags as $hashtag) {
             $data=$request->validate([ 
                 'type'=>["required"],
                 // 'description'=>["required"], 
-                 'description' => ["required", "max:300", function ($attribute, $value, $fail) {
+                 'description' => ["required",  'string',"max:300", function ($attribute, $value, $fail) {
     if (preg_match('/#/', $value)) {
         $fail('Hashtags are not allowed in the description.');
     }
@@ -287,7 +287,7 @@ foreach ($extractedHashtags as $hashtag) {
         }else{
 
             $data=$request->validate([
-               'description' => ["required", "max:300", function ($attribute, $value, $fail) {
+               'description' => ["required", 'string', "max:300", function ($attribute, $value, $fail) {
     if (preg_match('/#/', $value)) {
         $fail('Hashtags are not allowed in the description.');
     }
