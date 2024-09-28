@@ -76,7 +76,7 @@
                                 <form action="{{ route('admin.page.store') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
-
+                                    <div class="section1">
                                         <!-- First Section Fields -->
                                         <div class="col-md-12">
                                             <div class="form-group">
@@ -103,20 +103,6 @@
                                                             value="{{ old('subtitle', optional($banner)->subtitle) }}"
                                                             class="form-control" placeholder="Subtitle">
                                                         @error('subtitle')
-                                                            <div class="text-danger">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-12 note_section">
-                                            <div class="form-group">
-                                                <div class="form-data">
-                                                    <div class="forms-inputs mb-4">
-                                                        <label for="content">Content</label>
-                                                        <textarea name="content" id="content" class="form-control" rows="5">{{ old('content', optional($banner)->content) }}</textarea>
-                                                        @error('content')
                                                             <div class="text-danger">{{ $message }}</div>
                                                         @enderror
                                                     </div>
@@ -156,6 +142,32 @@
                                             </div>
                                         </div>
 
+ <!-- Save Button -->
+ <div class="col-md-12">
+    <div class="mb-3">
+        <button type="submit" class="btn btn-dark banner" name="section"
+            value="save">Save</button>
+    </div>
+</div>
+
+
+</div>
+<div class=sec1>
+                                        <div class="col-md-12 note_section">
+                                            <div class="form-group">
+                                                <div class="form-data">
+                                                    <div class="forms-inputs mb-4">
+                                                        <label for="content">Content</label>
+                                                        <textarea name="content" id="content" class="form-control" rows="5">{{ old('content', optional($banner)->content) }}</textarea>
+                                                        @error('content')
+                                                            <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                       
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <div class="form-data">
@@ -194,14 +206,8 @@
                                                 @endif
                                             </div>
                                         </div>
-                                        <!-- Save Button -->
-                                        <div class="col-md-12">
-                                            <div class="mb-3">
-                                                <button type="submit" class="btn btn-dark banner" name="section"
-                                                    value="save">Save</button>
-                                            </div>
-                                        </div>
-
+                                       
+                                    </div>
                                     </div>
                                 </form>
                             </div>
@@ -477,28 +483,7 @@
                                             </div>
                                         </div>
 
-                                         <!-- Image Upload -->
-                                         <div class="col-md-12">
-                                            <div class="form-group">
-                                                <div class="form-data">
-                                                    <div class="forms-inputs mb-4">
-                                                        <label for="image" class="file-upload">
-                                                            Upload Image
-                                                            <br>
-                                                            <img src="{{ asset('assets/images/upfile.svg') }}"
-                                                                alt="Upload Icon">
-                                                        </label>
-                                                        <input type="file" name="image" id="image"
-                                                            class="form-control" style="display: none;"
-                                                            onchange="previewImage(event, 'imagePreview')">
-                                                        @error('image')
-                                                            <div class="text-danger">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
+                                        
 
                                         <div class="form-group">
                                             <label for="reviewImagePreview">Review Image Preview</label>
