@@ -140,22 +140,24 @@ class CommunityControllerController extends Controller
         $data = $request->validate([
             'type' => ["required"],
            
-            'description' => ["required", function ($attribute, $value, $fail) {
-                if (preg_match('/#/', $value)) {
-                    $fail('Hashtags are not allowed in the description.');
-                }
-            }],
+           'description' => ["required", "max:300", function ($attribute, $value, $fail) {
+    if (preg_match('/#/', $value)) {
+        $fail('Hashtags are not allowed in the description.');
+    }
+}],
+
             'hashtag' => ["nullable", 'string', 'max:500'],
             'image' => ["nullable"], 
         ]);
     } else {
         $data = $request->validate([
             // 'description' => ["required"],
-          'description' => ["required", function ($attribute, $value, $fail) {
-        if (preg_match('/#/', $value)) {
-            $fail('Hashtags are not allowed in the description.');
-        }
-    }],
+          'description' => ["required", "max:300", function ($attribute, $value, $fail) {
+    if (preg_match('/#/', $value)) {
+        $fail('Hashtags are not allowed in the description.');
+    }
+}],
+
             'type' => ["required"],
             'option' => ["required", 'array', 'min:2', 'max:5'],
             'option.*' => ["required", 'max:255'],
@@ -273,23 +275,24 @@ foreach ($extractedHashtags as $hashtag) {
             $data=$request->validate([ 
                 'type'=>["required"],
                 // 'description'=>["required"], 
-                 'description' => ["required", function ($attribute, $value, $fail) {
-        if (preg_match('/#/', $value)) {
-            $fail('Hashtags are not allowed in the description.');
-        }
-    }],
+                 'description' => ["required", "max:300", function ($attribute, $value, $fail) {
+    if (preg_match('/#/', $value)) {
+        $fail('Hashtags are not allowed in the description.');
+    }
+}],
+
                 'image'=>["nullable"], 
                 'hashtag' => ["nullable", 'string', 'max:500'],
             ]);
         }else{
 
             $data=$request->validate([
-                // 'description'=>["required"],
-                'description' => ["required", function ($attribute, $value, $fail) {
-                    if (preg_match('/#/', $value)) {
-                        $fail('Hashtags are not allowed in the description.');
-                    }
-                }], 
+               'description' => ["required", "max:300", function ($attribute, $value, $fail) {
+    if (preg_match('/#/', $value)) {
+        $fail('Hashtags are not allowed in the description.');
+    }
+}],
+
                 
                 'type'=>["required"], 
                 'option'=>["required",'array','min:2','max:5'],
