@@ -2435,6 +2435,7 @@
 </div>
 `;
 
+
         let container = document.getElementById('processContainer');
         container.insertAdjacentHTML('beforeend', processHTML);
 
