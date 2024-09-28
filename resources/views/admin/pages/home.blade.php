@@ -1686,10 +1686,12 @@
                                                         <div class="form-group">
                                                             <div class="form-data">
                                                                 <div class="forms-inputs mb-4">
-                                                                    <label for="image">Image</label>
+                                                                    <label for="image" class="file-upload">Image <br>
+                                                                        <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                                            alt="Upload Icon"> </label>
 
                                                                     <input type="file" name="imageupdate[]"
-                                                                        class="form-control"
+                                                                        class="form-control" style="display: none;"
                                                                         onchange="previewFeatureImage(event)">
 
                                                                     @error('imageupdate.' . $k)
@@ -1702,7 +1704,8 @@
 
 
 
-
+                                                  
+            
 
 
 
@@ -1769,11 +1772,13 @@
                                                     <!-- Image -->
                                                     <div class="col-md-12">
                                                         <div class="form-group">
-                                                            <label for="image">Image</label>
+                                                            <label for="image"  class="file-upload">Image <br>
+                                                                <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                                    alt="Upload Icon"> </label>
                                                             <input type="hidden" name="feedids[]"
                                                                 value="{{ $item->id }}">
                                                             <input type="file" name="imageupdate[]"
-                                                                class="form-control"
+                                                                class="form-control"  style="display: none;"
                                                                 onchange="previewFeatureImage(event)">
                                                             @if (!empty($item->image))
                                                                 <img src="{{ url('d0/' . $item->image) }}"
@@ -1785,6 +1790,19 @@
                                                             @enderror
                                                         </div>
                                                     </div>
+
+
+{{--                                                     
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label for="privateimage"  class="file-upload">Private Image <br>
+                                                                <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                                    alt="Upload Icon"> </label>
+                                                            <input type="file" class="form-control" style="display: none;" name="privateimage" id="privateimage">
+                                                        </div>
+                                                    </div> --}}
+            
+
 
                                                     <!-- Remove Button -->
                                                     <div class="col-md-12 mb-3">
@@ -2076,29 +2094,33 @@
 
 
 
-                                                <!-- Feature Image -->
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <div class="form-data">
-                                                            <div class="forms-inputs mb-4">
-                                                                <label for="ourprocessimage">Process Icon</label>
-                                                                <input type="hidden" name="processids[]"
-                                                                    value="{{ $item->id }}">
-                                                                <input type="file" name="ourprocessimageupdate[]"
-                                                                    class="form-control"
-                                                                    onchange="previewFeatureImage(event)">
-                                                                @if (!empty($item->ourprocessimage))
-                                                                    <img src="{{ url('d0/' . $item->ourprocessimage) }}"
-                                                                        alt="Feature Image"
-                                                                        style="max-width: 100px; margin-top: 10px;">
-                                                                @endif
-                                                                @error('ourprocessimageupdate')
-                                                                    <div class="text-danger">{{ $message }}</div>
-                                                                @enderror
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                              <!-- Feature Image -->
+<div class="col-md-12">
+    <div class="form-group">
+        <div class="form-data">
+            <div class="forms-inputs mb-4">
+                <label for="ourprocessimage-{{ $item->id }}" class="file-upload">Process Icon <br>
+                    <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
+                </label>
+                <input type="hidden" name="processids[]" value="{{ $item->id }}">
+                <input type="file" id="ourprocessimage-{{ $item->id }}" name="ourprocessimageupdate[]"
+                    class="form-control" style="display: none;" onchange="previewFeatureImage(event)">
+                @if (!empty($item->ourprocessimage))
+                    <img src="{{ url('d0/' . $item->ourprocessimage) }}" alt="Feature Image"
+                        style="max-width: 100px; margin-top: 10px;">
+                @endif
+                @error('ourprocessimageupdate')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+                                                
+        
 
                                                 <button type="button" class="btn btn-danger"
                                                     onclick="removeDiv(this, 'close-{{ $item->id }}')"
@@ -2135,9 +2157,11 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="ourprocessimage">Process Icon</label>
+                                                        <label for="ourprocessimage"  class="file-upload">Process Icon <br>
+                                                            <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                                alt="Upload Icon"> </label>
                                                         <input type="file" name="ourprocessimage[]"
-                                                            class="form-control"
+                                                            class="form-control"  style="display: none;"
                                                             onchange="previewFeatureImage(event)">
                                                         @error('ourprocessimage')
                                                             <div class="text-danger">{{ $message }}</div>
@@ -2149,6 +2173,11 @@
 
                                     @endif
 
+                                
+
+
+
+                                    
 
                                     <!-- Add Feature Button -->
 
