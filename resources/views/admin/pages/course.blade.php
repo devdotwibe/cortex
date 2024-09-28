@@ -630,11 +630,16 @@
 
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="learnimage">Learn Image</label>
-                                            <input type="file" class="form-control" name="learnimage">
+                                            <label for="learnimage" class="file-upload">Learn Image  <br>
+                                                <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                    alt="Upload Icon"> </label>
+                                            <input type="file" class="form-control" style="display: none;" name="learnimage" id="learnimage">
                                         </div>
                                     </div>
                                 </div>
+
+
+
 
                                 <!-- Preview Image Container -->
                                 <!-- Preview Image Container -->
@@ -680,11 +685,16 @@
 
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="questionbankimage">Question Bank Image</label>
-                                            <input type="file" class="form-control" name="questionbankimage">
+                                            <label for="questionbankimage" class="file-upload">Question Bank Image <br>
+                                                <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                    alt="Upload Icon"> </label>
+                                            <input type="file" class="form-control" style="display: none;" name="questionbankimage" id="questionbankimage">
                                         </div>
                                     </div>
                                 </div>
+
+                                
+                              
                                 <!-- Preview Image Container -->
                                 <!-- Preview Image Container -->
                                 <div class="form-group">
@@ -785,11 +795,16 @@
 
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="fullmockimage">Full Mock Image</label>
-                                            <input type="file" class="form-control" name="fullmockimage">
+                                            <label for="fullmockimage" class="file-upload">Full Mock Image  <br>
+                                                <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                    alt="Upload Icon"> </label>
+                                            <input type="file" class="form-control"  style="display: none;" name="fullmockimage" id="fullmockimage">
                                         </div>
                                     </div>
                                 </div>
+
+                             
+
                                 <!-- Preview Image Container -->
                                 <!-- Preview Image Container -->
                                 <div class="form-group">
