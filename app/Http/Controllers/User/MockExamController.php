@@ -156,23 +156,18 @@ class MockExamController extends Controller
     public function examverify(Request $request,Exam $exam){
         $request->validate([
             "question"=>'required'
-        ]);
-        if(session("full-mock-exam-attempt")){
-            $attemt=UserExam::findSlug(session("full-mock-exam-attempt"));
-            /**
-            * @var User
-            */
-            $user=Auth::user();   
-            $question=UserExamQuestion::findSlug($request->question);
-            $ans=UserExamAnswer::findSlug($request->answer);
-            if(empty($ans)||$ans->exam_id!=$exam->id||$ans->user_exam_question_id!=$question->id||!$ans->iscorrect){
-                return response()->json(["iscorrect"=>false]);
-            }else{
-                return response()->json(["iscorrect"=>true]);
-            }
+        ]); 
+        /**
+        * @var User
+        */
+        $user=Auth::user();   
+        $question=UserExamQuestion::findSlug($request->question);
+        $ans=UserExamAnswer::findSlug($request->answer);
+        if(empty($ans)||$ans->exam_id!=$exam->id||$ans->user_exam_question_id!=$question->id||!$ans->iscorrect){
+            return response()->json(["iscorrect"=>false]);
         }else{
-            abort(403);
-        }
+            return response()->json(["iscorrect"=>true]);
+        } 
     }
 
     public function examsubmit(Request $request,Exam $exam){
