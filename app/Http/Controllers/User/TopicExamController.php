@@ -215,7 +215,7 @@ class TopicExamController extends Controller
             ]);
             $passed = $request->input("passed", '0');
             $questions = $request->input("questions", '[]');
-            $questioncnt = Question::where('exam_id', $exam->id)->where('category_id', $category->id)->count();
+            $questioncnt = UserExamQuestion::where('user_exam_id', $attemt->id)->count();
             $user->setProgress("exam-review-" . $review->id . "-timed", 'timed');
             $user->setProgress("exam-review-" . $review->id . "-timetaken", $request->input("timetaken", '0'));
             $user->setProgress("exam-review-" . $review->id . "-flags", $request->input("flags", '[]'));
