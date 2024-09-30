@@ -14,15 +14,8 @@
 
 
 
-       <!-- Settings Section -->
-       <section class="settings-wrap mt-4">
+    <section class="header_nav">
         <div class="header_wrapp">
-            {{-- <div class="header_title">
-                <h2>Settings</h2>
-            </div>
-             --}}
-        </div>
-        <div class="settings-content">
             <form action="{{ route('admin.coupon.setting') }}" method="post" id="settings-form">
                 @csrf
                 <div class="row">
@@ -40,13 +33,9 @@
                     <button type="submit" class="btn btn-dark m-1">Save</button>
                 </div>
                 
-            </form>
-        </div>
-    </section>
+            </form> 
 
 
-    <section class="header_nav">
-        <div class="header_wrapp">
             <div class="header_title">
                 <h2>Coupon</h2>
                 <li class="nav_item"><a data-bs-toggle="modal" data-bs-target="#coupen-modal" class="nav_link btn">+ Add
