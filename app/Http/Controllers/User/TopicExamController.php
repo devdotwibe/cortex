@@ -147,6 +147,7 @@ class TopicExamController extends Controller
     public function confirmshow(Request $request, Category $category)
     {
         if(session("topic-test-attempt")){
+            $attemt=UserExam::findSlug(session("topic-test-attempt"));
             $exam = Exam::where("name", 'topic-test')->first();
             if (empty($exam)) {
                 $exam = Exam::store([
@@ -163,12 +164,12 @@ class TopicExamController extends Controller
             if ($request->ajax()) {
 
                 if (!empty($request->question)) {
-                    $question = Question::findSlug($request->question);
-                    return Answer::where('question_id', $question->id)->get(['slug', 'title']);
+                    $question = UserExamQuestion::findSlug($request->question);
+                    return UserExamAnswer::where('user_exam_question_id', $question->id)->get(['slug', 'title']);
                 }
-                return Question::where('exam_id', $exam->id)->where('category_id', $category->id)->paginate(1, ['slug', 'title', 'description', 'duration','title_text','sub_question']);
+                return UserExamQuestion::where('user_exam_id', $attemt->id)->paginate(1, ['slug', 'title', 'description', 'duration','title_text','sub_question']);
             }
-            $questioncount = Question::where('exam_id', $exam->id)->where('category_id', $category->id)->count();
+            $questioncount = UserExamQuestion::where('user_exam_id', $attemt->id)->where('exam_id', $exam->id)->count();
             $endtime = 0;
             $times = explode(':', $category->time_of_exam);
             if (count($times) > 0) {
@@ -184,59 +185,69 @@ class TopicExamController extends Controller
     }
     public function topicsubmit(Request $request, Category $category)
     {
-        /**
-         * @var User
-         */
-        $user = Auth::user();
-        $exam = Exam::where("name", 'topic-test')->first();
-        if (empty($exam)) {
-            $exam = Exam::store([
+        if(session("topic-test-attempt")){
+            $attemt=UserExam::findSlug(session("topic-test-attempt"));
+            /**
+             * @var User
+             */
+            $user = Auth::user();
+            $exam = Exam::where("name", 'topic-test')->first();
+            if (empty($exam)) {
+                $exam = Exam::store([
+                    "title" => "Topic Test",
+                    "name" => "topic-test",
+                ]);
+                $exam = Exam::find($exam->id);
+            }
+            $review = UserExamReview::store([
                 "title" => "Topic Test",
                 "name" => "topic-test",
+                "progress" => $user->progress("exam-" . $exam->id . "-topic-" . $category->id, 0),
+                "user_id" => $user->id,
+                "exam_id" => $exam->id,
+                "category_id" => $category->id,
+                "timed"=>'timed',
+                "timetaken"=>$request->input("timetaken",'0'),
+                "flags"=>$request->input("flags",'[]'),
+                "times"=>$request->input("times",'[]'),
+                "passed"=>$request->input("passed",'0'),
+                "time_of_exam"=>$category->time_of_exam,
             ]);
-            $exam = Exam::find($exam->id);
-        }
-        $review = UserExamReview::store([
-            "title" => "Topic Test",
-            "name" => "topic-test",
-            "progress" => $user->progress("exam-" . $exam->id . "-topic-" . $category->id, 0),
-            "user_id" => $user->id,
-            "exam_id" => $exam->id,
-            "category_id" => $category->id,
-            "timed"=>'timed',
-            "timetaken"=>$request->input("timetaken",'0'),
-            "flags"=>$request->input("flags",'[]'),
-            "times"=>$request->input("times",'[]'),
-            "passed"=>$request->input("passed",'0'),
-            "time_of_exam"=>$category->time_of_exam,
-        ]);
-        $passed = $request->input("passed", '0');
-        $questions = $request->input("questions", '[]');
-        $questioncnt = Question::where('exam_id', $exam->id)->where('category_id', $category->id)->count();
-        $user->setProgress("exam-review-" . $review->id . "-timed", 'timed');
-        $user->setProgress("exam-review-" . $review->id . "-timetaken", $request->input("timetaken", '0'));
-        $user->setProgress("exam-review-" . $review->id . "-flags", $request->input("flags", '[]'));
-        $user->setProgress("exam-review-" . $review->id . "-times", $request->input("times", '[]'));
-        $user->setProgress("exam-review-" . $review->id . "-questions", $questions);
-        $user->setProgress("exam-review-" . $review->id . "-passed", $passed);
-        $user->setProgress("exam-review-" . $review->id . "-time_of_exam", $category->time_of_exam);
+            $passed = $request->input("passed", '0');
+            $questions = $request->input("questions", '[]');
+            $questioncnt = Question::where('exam_id', $exam->id)->where('category_id', $category->id)->count();
+            $user->setProgress("exam-review-" . $review->id . "-timed", 'timed');
+            $user->setProgress("exam-review-" . $review->id . "-timetaken", $request->input("timetaken", '0'));
+            $user->setProgress("exam-review-" . $review->id . "-flags", $request->input("flags", '[]'));
+            $user->setProgress("exam-review-" . $review->id . "-times", $request->input("times", '[]'));
+            $user->setProgress("exam-review-" . $review->id . "-questions", $questions);
+            $user->setProgress("exam-review-" . $review->id . "-passed", $passed);
+            $user->setProgress("exam-review-" . $review->id . "-time_of_exam", $category->time_of_exam);
 
-        if ($user->progress('exam-' . $exam->id . '-topic-' . $category->id . '-complete-date', "") == "") {
-            $user->setProgress('exam-' . $exam->id . '-topic-' . $category->id . '-complete-date', date('Y-m-d H:i:s'));
+            if ($user->progress('exam-' . $exam->id . '-topic-' . $category->id . '-complete-date', "") == "") {
+                $user->setProgress('exam-' . $exam->id . '-topic-' . $category->id . '-complete-date', date('Y-m-d H:i:s'));
+            }
+            $user->setProgress("exam-" . $exam->id . "-topic-" . $category->id . "-complete-review", 'yes');
+            dispatch(new SubmitReview($review));
+            Session::remove("topic-test-attempt");
+            if ($questioncnt > $passed) {
+                $key = md5("exam-retry-" . $review->id);
+                Session::put("exam-retry-" . $review->id, $key);
+                Session::put("exam-retry-questions" . $review->id, json_decode($questions, true));
+                Session::put($key, []);
+            }
+            if ($request->ajax()) {
+                return response()->json(["success" => "Topic Test Submited", "preview" => route('topic-test.preview', $review->slug)]);
+            }
+            return redirect()->route('topic-test.complete', $review->slug)->with("success", "Topic Test Submited")->with("review", $review->id);
+        }else{
+            if ($request->ajax()) {
+                return response()->json([
+                    'error'=>"Topic not initialized"
+                ]);
+            }
+            return  redirect()->route('topic-test.index')->with("error","Topic not initialized");
         }
-        $user->setProgress("exam-" . $exam->id . "-topic-" . $category->id . "-complete-review", 'yes');
-        dispatch(new SubmitReview($review));
-        Session::remove("topic-test-attempt");
-        if ($questioncnt > $passed) {
-            $key = md5("exam-retry-" . $review->id);
-            Session::put("exam-retry-" . $review->id, $key);
-            Session::put("exam-retry-questions" . $review->id, json_decode($questions, true));
-            Session::put($key, []);
-        }
-        if ($request->ajax()) {
-            return response()->json(["success" => "Topic Test Submited", "preview" => route('topic-test.preview', $review->slug)]);
-        }
-        return redirect()->route('topic-test.complete', $review->slug)->with("success", "Topic Test Submited")->with("review", $review->id);
     }
 
     public function topiccomplete(Request $request, UserExamReview $userExamReview)
