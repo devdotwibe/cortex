@@ -13,6 +13,9 @@
 
                     {{ __("We’re excited to let you know that your subscription payment has been processed successfully. Thank you for choosing") }} {{config('app.name')}}
                    
+                    <div class="mt-4">
+                        <a href="{{ route('user.dashboard') }}" class="btn btn-primary">{{ __('Close') }}</a>
+                    </div>
                 </div>
             </div>
 
