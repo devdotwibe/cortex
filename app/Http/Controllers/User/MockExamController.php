@@ -373,9 +373,9 @@ class MockExamController extends Controller
                 return UserExamQuestion::whereNotIn('slug', session("exam-retry-questions" . $userExamReview->id, []))->where('user_exam_id', $userExamReview->ticket)->paginate(1, ['slug', 'title', 'description', 'duration']);
             }
             $questioncount = UserExamQuestion::whereNotIn('slug', session("exam-retry-questions" . $userExamReview->id, []))->where('user_exam_id', $userExamReview->ticket)->count();
-            $endtime = 1 * $questioncount;
-            $attemtcount = UserExamReview::where('exam_id', $exam->id)->where('user_id', $user->id)->count() + 1;
-            return view("user.full-mock-exam.retry", compact(  'exam', 'user', 'questioncount', 'endtime', 'attemtcount', 'userExamReview'));
+            // $endtime = 1 * $questioncount;
+            // $attemtcount = UserExamReview::where('exam_id', $exam->id)->where('user_id', $user->id)->count() + 1;
+            // return view("user.full-mock-exam.retry", compact(  'exam', 'user', 'questioncount', 'endtime', 'attemtcount', 'userExamReview'));
         }
         return redirect()->route('full-mock-exam.index')->with("error", "Retry Attempt Failed");
     }
