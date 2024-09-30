@@ -228,7 +228,7 @@ class TopicExamController extends Controller
                 $user->setProgress('exam-' . $exam->id . '-topic-' . $category->id . '-complete-date', date('Y-m-d H:i:s'));
             }
             $user->setProgress("exam-" . $exam->id . "-topic-" . $category->id . "-complete-review", 'yes');
-            dispatch(new SubmitReview($review));
+            dispatch(new SubmitReview($review,$attemt));
             Session::remove("topic-test-attempt");
             if ($questioncnt > $passed) {
                 $key = md5("exam-retry-" . $review->id);
