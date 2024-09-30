@@ -18,7 +18,7 @@
             {!! get_option("exam_simulator_description") !!}
         </div>
         <div class="summery-action">
-            <a href="{{route('full-mock-exam.confirmshow',$exam->slug)}}" class="btn btn-warning btn-sm"> Ready To Start </a>
+            <a onclick="loadquestions('{{route('full-mock-exam.confirmshow',$exam->slug)}}')" class="btn btn-warning btn-sm"> Ready To Start </a>
         </div>
     </div> 
 </section> 
@@ -53,6 +53,30 @@
         summery.timetaken=0;
 
         localStorage.setItem("full-mock-exam-summery",JSON.stringify(summery)) 
+        localStorage.removeItem("full-mock-exam-summery-retry")
+
+        async function loadquestions(redirect,url=null){
+            $('.loading-wrap').show()
+            const csrf= $('meta[name="csrf-token"]').attr('content')
+            if(url==null){
+                url="{{route('full-mock-exam.questions',session('full-mock-exam-attempt'))}}";
+            }  
+            const response = await fetch(url, {
+                method: 'GET',
+                headers:{
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrf,
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            }); 
+ 
+            const data = await response.json(); 
+            if(data.next_page_url){
+                await loadquestions(redirect,data.next_page_url)
+            }else{
+                window.location.href=redirect;
+            }      
+        }
     </script>
 
 @endpush

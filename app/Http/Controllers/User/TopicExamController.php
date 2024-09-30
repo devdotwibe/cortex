@@ -13,6 +13,9 @@ use App\Models\ExamRetryQuestion;
 use App\Models\ExamRetryReview;
 use App\Models\Question;
 use App\Models\User;
+use App\Models\UserExam;
+use App\Models\UserExamAnswer;
+use App\Models\UserExamQuestion;
 use App\Models\UserExamReview;
 use App\Models\UserReviewAnswer;
 use App\Models\UserReviewQuestion;
@@ -22,6 +25,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class TopicExamController extends Controller
@@ -80,24 +84,70 @@ class TopicExamController extends Controller
         }
         $user->setProgress("exam-{$exam->id}-topic-{$category->id}-progress-url", null);
         $attemtcount = UserExamReview::where('exam_id', $exam->id)->where('user_id', $user->id)->where('category_id', $category->id)->count() + 1;
-        Session::put("topic-test-attempt",$category->slug);
+        $attemt=UserExam::store([ 
+            'name'=>$exam->name,
+            'title'=>$exam->title,
+            'timed'=>"timed",
+            'user_id'=>$user->id,
+            'exam_id'=>$exam->id,
+            'progress'=>0,
+            'category_id'=>$category->id,
+            'time_of_exam'=>$category->time_of_exam, 
+        ]);
+        Session::put("topic-test-attempt",$attemt->slug); 
         return view("user.topic-test.summery", compact('category', 'exam', 'user', 'questioncount', 'endtime', 'attemtcount'));
     }
-    public function questions(Request $request,Category $category){
-        $exam = Exam::where("name", 'topic-test')->first();
-        if (empty($exam)) {
-            $exam = Exam::store([
-                "title" => "Topic Test",
-                "name" => "topic-test",
+    public function questions(Request $request,UserExam $userExam){
+        if(session("topic-test-attempt")){
+            /**
+             * @var User
+             */
+            $user = Auth::user();
+            $exam = Exam::find($userExam->exam_id);
+            $category =Category::find($userExam->category_id); 
+            $questions=Question::with('answers')->where('exam_id', $exam->id)->where('category_id', $category->id)->paginate(50);
+            foreach ($questions as $question) {
+                $userQuestion=UserExamQuestion::store([
+                    'title'=>$question->title, 
+                    'description'=>$question->description, 
+                    'duration'=>$question->duration, 
+                    'exam_id'=>$userExam->exam_id, 
+                    'user_exam_id'=>$userExam->id, 
+                    'category_id'=>$question->category_id, 
+                    'sub_category_id'=>$question->sub_category_id, 
+                    'sub_category_set'=>$question->sub_category_set,  
+                    'explanation'=>$question->explanation,  
+                    'title_text'=>$question->title_text, 
+                    'sub_question'=>$question->sub_question, 
+                    'question_id'=>$question->id,
+                    'user_id'=>$user->id
+                ]);
+                foreach($question->answers as $answer){
+                    UserExamAnswer::store([
+                        'title'=>$answer->title, 
+                        'description'=>$answer->description,  
+                        'user_exam_question_id'=>$userQuestion->id, 
+                        'iscorrect'=>$answer->iscorrect, 
+                        'question_id'=>$question->id,
+                        'answer_id'=>$answer->id,
+                        'user_id'=>$user->id,
+                        'exam_id'=>$userExam->exam_id, 
+                        'user_exam_id'=>$userExam->id, 
+                    ]);
+                }
+            }
+            return response()->json([
+                'next_page_url'=>$questions->nextPageUrl()
             ]);
-            $exam = Exam::find($exam->id);
-        }
-        return Question::with('answers')->where('exam_id', $exam->id)->where('category_id', $category->id)->paginate(50);
+        }else{
+            abort(403);
+        }        
     }
 
     public function confirmshow(Request $request, Category $category)
     {
         if(session("topic-test-attempt")){
+            $attemt=UserExam::findSlug(session("topic-test-attempt"));
             $exam = Exam::where("name", 'topic-test')->first();
             if (empty($exam)) {
                 $exam = Exam::store([
@@ -114,12 +164,12 @@ class TopicExamController extends Controller
             if ($request->ajax()) {
 
                 if (!empty($request->question)) {
-                    $question = Question::findSlug($request->question);
-                    return Answer::where('question_id', $question->id)->get(['slug', 'title']);
+                    $question = UserExamQuestion::findSlug($request->question);
+                    return UserExamAnswer::where('user_exam_question_id', $question->id)->get(['slug', 'title']);
                 }
-                return Question::where('exam_id', $exam->id)->where('category_id', $category->id)->paginate(1, ['slug', 'title', 'description', 'duration','title_text','sub_question']);
+                return UserExamQuestion::where('user_exam_id', $attemt->id)->paginate(1, ['slug', 'title', 'description', 'duration','title_text','sub_question']);
             }
-            $questioncount = Question::where('exam_id', $exam->id)->where('category_id', $category->id)->count();
+            $questioncount = UserExamQuestion::where('user_exam_id', $attemt->id)->where('exam_id', $exam->id)->count();
             $endtime = 0;
             $times = explode(':', $category->time_of_exam);
             if (count($times) > 0) {
@@ -135,59 +185,70 @@ class TopicExamController extends Controller
     }
     public function topicsubmit(Request $request, Category $category)
     {
-        /**
-         * @var User
-         */
-        $user = Auth::user();
-        $exam = Exam::where("name", 'topic-test')->first();
-        if (empty($exam)) {
-            $exam = Exam::store([
+        if(session("topic-test-attempt")){
+            $attemt=UserExam::findSlug(session("topic-test-attempt"));
+            /**
+             * @var User
+             */
+            $user = Auth::user();
+            $exam = Exam::where("name", 'topic-test')->first();
+            if (empty($exam)) {
+                $exam = Exam::store([
+                    "title" => "Topic Test",
+                    "name" => "topic-test",
+                ]);
+                $exam = Exam::find($exam->id);
+            }
+            $review = UserExamReview::store([
+                "ticket" => session("topic-test-attempt"),
                 "title" => "Topic Test",
                 "name" => "topic-test",
+                "progress" => $user->progress("exam-" . $exam->id . "-topic-" . $category->id, 0),
+                "user_id" => $user->id,
+                "exam_id" => $exam->id,
+                "category_id" => $category->id,
+                "timed"=>'timed',
+                "timetaken"=>$request->input("timetaken",'0'),
+                "flags"=>$request->input("flags",'[]'),
+                "times"=>$request->input("times",'[]'),
+                "passed"=>$request->input("passed",'0'),
+                "time_of_exam"=>$category->time_of_exam,
             ]);
-            $exam = Exam::find($exam->id);
-        }
-        $review = UserExamReview::store([
-            "title" => "Topic Test",
-            "name" => "topic-test",
-            "progress" => $user->progress("exam-" . $exam->id . "-topic-" . $category->id, 0),
-            "user_id" => $user->id,
-            "exam_id" => $exam->id,
-            "category_id" => $category->id,
-            "timed"=>'timed',
-            "timetaken"=>$request->input("timetaken",'0'),
-            "flags"=>$request->input("flags",'[]'),
-            "times"=>$request->input("times",'[]'),
-            "passed"=>$request->input("passed",'0'),
-            "time_of_exam"=>$category->time_of_exam,
-        ]);
-        $passed = $request->input("passed", '0');
-        $questions = $request->input("questions", '[]');
-        $questioncnt = Question::where('exam_id', $exam->id)->where('category_id', $category->id)->count();
-        $user->setProgress("exam-review-" . $review->id . "-timed", 'timed');
-        $user->setProgress("exam-review-" . $review->id . "-timetaken", $request->input("timetaken", '0'));
-        $user->setProgress("exam-review-" . $review->id . "-flags", $request->input("flags", '[]'));
-        $user->setProgress("exam-review-" . $review->id . "-times", $request->input("times", '[]'));
-        $user->setProgress("exam-review-" . $review->id . "-questions", $questions);
-        $user->setProgress("exam-review-" . $review->id . "-passed", $passed);
-        $user->setProgress("exam-review-" . $review->id . "-time_of_exam", $category->time_of_exam);
+            $passed = $request->input("passed", '0');
+            $questions = $request->input("questions", '[]');
+            $questioncnt = UserExamQuestion::where('user_exam_id', $attemt->id)->count();
+            $user->setProgress("exam-review-" . $review->id . "-timed", 'timed');
+            $user->setProgress("exam-review-" . $review->id . "-timetaken", $request->input("timetaken", '0'));
+            $user->setProgress("exam-review-" . $review->id . "-flags", $request->input("flags", '[]'));
+            $user->setProgress("exam-review-" . $review->id . "-times", $request->input("times", '[]'));
+            $user->setProgress("exam-review-" . $review->id . "-questions", $questions);
+            $user->setProgress("exam-review-" . $review->id . "-passed", $passed);
+            $user->setProgress("exam-review-" . $review->id . "-time_of_exam", $category->time_of_exam);
 
-        if ($user->progress('exam-' . $exam->id . '-topic-' . $category->id . '-complete-date', "") == "") {
-            $user->setProgress('exam-' . $exam->id . '-topic-' . $category->id . '-complete-date', date('Y-m-d H:i:s'));
+            if ($user->progress('exam-' . $exam->id . '-topic-' . $category->id . '-complete-date', "") == "") {
+                $user->setProgress('exam-' . $exam->id . '-topic-' . $category->id . '-complete-date', date('Y-m-d H:i:s'));
+            }
+            $user->setProgress("exam-" . $exam->id . "-topic-" . $category->id . "-complete-review", 'yes');
+            dispatch(new SubmitReview($review,$attemt));
+            Session::remove("topic-test-attempt");
+            if ($questioncnt > $passed) {
+                $key = md5("exam-retry-" . $review->id);
+                Session::put("exam-retry-" . $review->id, $key);
+                Session::put("exam-retry-questions" . $review->id, json_decode($questions, true));
+                Session::put($key, []);
+            }
+            if ($request->ajax()) {
+                return response()->json(["success" => "Topic Test Submited", "preview" => route('topic-test.preview', $review->slug)]);
+            }
+            return redirect()->route('topic-test.complete', $review->slug)->with("success", "Topic Test Submited")->with("review", $review->id);
+        }else{
+            if ($request->ajax()) {
+                return response()->json([
+                    'error'=>"Topic not initialized"
+                ]);
+            }
+            return  redirect()->route('topic-test.index')->with("error","Topic not initialized");
         }
-        $user->setProgress("exam-" . $exam->id . "-topic-" . $category->id . "-complete-review", 'yes');
-        dispatch(new SubmitReview($review));
-        Session::remove("topic-test-attempt");
-        if ($questioncnt > $passed) {
-            $key = md5("exam-retry-" . $review->id);
-            Session::put("exam-retry-" . $review->id, $key);
-            Session::put("exam-retry-questions" . $review->id, json_decode($questions, true));
-            Session::put($key, []);
-        }
-        if ($request->ajax()) {
-            return response()->json(["success" => "Topic Test Submited", "preview" => route('topic-test.preview', $review->slug)]);
-        }
-        return redirect()->route('topic-test.complete', $review->slug)->with("success", "Topic Test Submited")->with("review", $review->id);
     }
 
     public function topiccomplete(Request $request, UserExamReview $userExamReview)
@@ -284,9 +345,9 @@ class TopicExamController extends Controller
             ]);
             $exam = Exam::find($exam->id);
         }
-        $question = Question::findSlug($request->question);
-        $ans = Answer::findSlug($request->answer);
-        if (empty($ans) || $ans->exam_id != $exam->id || $ans->question_id != $question->id || !$ans->iscorrect) {
+        $question = UserExamQuestion::findSlug($request->question);
+        $ans = UserExamAnswer::findSlug($request->answer);
+        if (empty($ans) || $ans->exam_id != $exam->id || $ans->user_exam_question_id != $question->id || !$ans->iscorrect) {
             return response()->json(["iscorrect" => false]);
         } else {
             return response()->json(["iscorrect" => true]);
@@ -395,18 +456,20 @@ class TopicExamController extends Controller
                 $exam = Exam::find($exam->id);
             }
 
+            $userExam=UserExam::findSlug($userExamReview->ticket);
+
             /**
              * @var User
              */
             $user = Auth::user();
             if ($request->ajax()) {
                 if (!empty($request->question)) {
-                    $question = Question::findSlug($request->question);
-                    return Answer::where('question_id', $question->id)->get(['slug', 'title']);
+                    $question = UserExamQuestion::findSlug($request->question);
+                    return UserExamAnswer::where('user_exam_question_id', $question->id)->get(['slug', 'title']);
                 }
-                return Question::whereNotIn('slug', session("exam-retry-questions" . $userExamReview->id, []))->where('exam_id', $exam->id)->where('category_id', $category->id)->paginate(1, ['slug', 'title', 'description', 'duration']);
+                return UserExamQuestion::whereNotIn('slug', session("exam-retry-questions" . $userExamReview->id, []))->where('user_exam_id',$userExam->id)->paginate(1, ['slug', 'title', 'description', 'duration']);
             }
-            $questioncount = Question::whereNotIn('slug', session("exam-retry-questions" . $userExamReview->id, []))->where('exam_id', $exam->id)->where('category_id', $category->id)->count();
+            $questioncount = UserExamQuestion::whereNotIn('slug', session("exam-retry-questions" . $userExamReview->id, []))->where('user_exam_id',$userExam->id)->count();
             $endtime = 1 * $questioncount;
             $attemtcount = UserExamReview::where('exam_id', $exam->id)->where('user_id', $user->id)->where('category_id', $category->id)->count() + 1;
             return view("user.topic-test.retry", compact('category', 'exam', 'user', 'questioncount', 'endtime', 'attemtcount', 'userExamReview'));
@@ -449,6 +512,7 @@ class TopicExamController extends Controller
     {
         if (session("exam-retry-" . $userExamReview->id)) {
             $category = Category::find($userExamReview->category_id);
+            $userExam=UserExam::findSlug($userExamReview->ticket);
             $attemt = session("exam-retry-" . $userExamReview->id);
             /**
              * @var User
@@ -465,13 +529,13 @@ class TopicExamController extends Controller
             $answers = Session::get($attemt, []);
             $passed = $request->input("passed", '0');
             $questions = $request->input("questions", '[]');
-            $questioncnt = Question::whereNotIn('slug', session("exam-retry-questions" . $userExamReview->id, []))->where('exam_id', $exam->id)->where('category_id', $category->id)->count();
+            $questioncnt = UserExamQuestion::whereNotIn('slug', session("exam-retry-questions" . $userExamReview->id, []))->where('user_exam_id',$userExam->id)->count();
             $review = ExamRetryReview::store([
                 "title" => "Topic Test",
                 "name" => "topic-test",
                 "user_id" => $user->id,
                 "exam_id" => $exam->id,
-                "progress" => ($passed * 100) / $questioncnt,
+                "progress" =>$questioncnt>0&&$passed>0? ($passed * 100) / $questioncnt:0,
                 "timetaken" => $request->input("timetaken", '0'),
                 "flags" => $request->input("flags", '[]'),
                 "times" => $request->input("times", '[]'),

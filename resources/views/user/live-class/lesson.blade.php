@@ -29,7 +29,7 @@
                                     <h4>{{$item->pdf_name}}</h4> 
                                 </div>
                                 <div class="category-image">
-                                    <img src="{{ asset('assets/images/pdf.svg') }}">
+                                    <img src="{{ asset('assets/images/pdf.png') }}">
                                 </div> 
                             </div>
                         </a>

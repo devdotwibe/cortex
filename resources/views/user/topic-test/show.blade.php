@@ -365,6 +365,7 @@
                 }),
             }); 
             const data = await response.json(); 
+             
             if(data.iscorrect){
                 summery.verifydx[question]=true;
             }else{

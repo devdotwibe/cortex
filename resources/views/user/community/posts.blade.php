@@ -31,28 +31,17 @@
                   <!-- Link styled as a textbox -->
                <div class="mb-3">
                 <label for="backtoall" class="form-label"></label>
-                <a href="{{ route('community.index') }}" id="backtoall" class="form-control text-decoration-none" style="display: block; padding: 10px; background-color: #f8f9fa; border: 1px solid #ced4da; border-radius: .25rem;">
+                <a href="{{ route('community.index') }}" id="backtoall" class="form-control text-decoration-none" >
                     #Backtoall
                 </a>
             </div>
+ 
 
-{{--               
-            <div class="d-flex flex-wrap"> <!-- Added d-flex and flex-wrap for inline display -->
-                <ul class="list-group" style="flex-direction: row; list-style: none; padding-left: 0;"> <!-- Inline list with no bullets -->
+
+            <div class="d-flex flex-wrap">  
+                <ul class="list-group" > 
                     @foreach ($hashtags as $hashtag)
-                        <li class="list-group-item d-inline-block" style="margin-right: 10px; border: none;"> <!-- Display as inline block and remove border -->
-                            <a href="{{ route('community.index', ['hashtag' => $hashtag]) }}">{{ $hashtag }}</a>
-                        </li>
-                    @endforeach
-                </ul>
-            </div> --}}
-
-
-
-            <div class="d-flex flex-wrap"> <!-- Added d-flex and flex-wrap to allow wrapping -->
-                <ul class="list-group" style="flex-direction: row;flex-wrap: wrap; "> <!-- Display inline with flex -->
-                    @foreach ($hashtags as $hashtag)
-                        <li class="list-group-item d-inline-block" style="margin-right: 10px;">
+                        <li class="list-group-item d-inline-block" >
                             <a
                                 href="{{ route('community.index', ['hashtag' => $hashtag]) }}">{{ $hashtag }}</a>
                         </li>

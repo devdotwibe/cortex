@@ -150,7 +150,7 @@ class PagesController extends Controller
 
             'featuresubtitleupdate.*' => 'required|nullable|string',
             'featurecontentupdate.*' => 'required|nullable|max:255',
-            'featureimageupdate.*' => 'required|nullable|image|max:2048', // Validate image
+            'featureimageupdate.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048',
 
             //  ,['featuresubtitleupdate.*.required' =>'this field is required.']);
 
@@ -397,7 +397,7 @@ class PagesController extends Controller
             'nameupdate.*' => 'required|string|max:255',
             'starratingupdate.*' => 'required|string',
             'reviewupdate.*' => 'required|string',
-            'imageupdate.*' => 'required|image|max:2048',
+            'imageupdate.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048',
 
 
         ], [
@@ -599,7 +599,7 @@ class PagesController extends Controller
         'ourprocesstitle' => 'required|nullable|max:255',
         'ourprocesssubtitle' => 'required|nullable|max:255',
         'ourprocessheadingupdate.*' => 'required|nullable|string',
-        'ourprocessimageupdate.*' => 'required|nullable|image|max:2048', // Validate image
+        'ourprocessimageupdate.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048',
     ], [
         'ourprocessheadingupdate.*.required' => 'The Process Heading field is required.',
         'ourprocessimageupdate.*.required' => 'The process image field is required.',

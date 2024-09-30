@@ -134,7 +134,7 @@ Route::middleware(['auth', 'isUser'])->group(function () {
         Route::prefix('topic-test')->name('topic-test.')->group(function () {
             Route::get('/', [TopicExamController::class, 'index'])->name('index');
             Route::middleware('subscription:topic-test')->get('/{category}', [TopicExamController::class, 'show'])->name('show');
-            Route::middleware('subscription:topic-test')->get('/{category}/questions', [TopicExamController::class, 'questions'])->name('questions');
+            Route::get('/{user_exam}/questions', [TopicExamController::class, 'questions'])->name('questions');
             Route::middleware('subscription:topic-test')->get('/{category}/attempt', [TopicExamController::class, 'confirmshow'])->name('confirmshow');
             Route::get('/{category}/history', [TopicExamController::class, 'topichistory'])->name('topic.history');
             Route::middleware('subscription:topic-test')->post('/{category}/submit', [TopicExamController::class, 'topicsubmit'])->name('topic.submit');
@@ -154,6 +154,7 @@ Route::middleware(['auth', 'isUser'])->group(function () {
         Route::prefix('full-mock-exam')->name('full-mock-exam.')->group(function () {
             Route::get('/', [MockExamController::class, 'index'])->name('index');
             Route::middleware('subscription:full-mock-exam')->get('/{exam}', [MockExamController::class, 'show'])->name('show');
+            Route::get('/{user_exam}/questions', [MockExamController::class, 'questions'])->name('questions');
             Route::middleware('subscription:full-mock-exam')->get('/{exam}/attempt', [MockExamController::class, 'confirmshow'])->name('confirmshow');
             Route::get('/{exam}/history', [MockExamController::class, 'examhistory'])->name('history');
             Route::middleware('subscription:full-mock-exam')->post('/{exam}/submit', [MockExamController::class, 'examsubmit'])->name('submit');
@@ -179,6 +180,8 @@ Route::middleware(['auth', 'isUser'])->group(function () {
                 Route::get('/{live}/workshop', [LiveClassController::class, 'workshop'])->name('workshop');
                 Route::get('/{live}/workshop/form', [LiveClassController::class, 'workshopform'])->name('workshop.form');
                 Route::get('/{live}/private-class', [LiveClassController::class, 'privateclass'])->name('privateclass');
+
+
                 Route::get('/{live}/private-class/form', [LiveClassController::class, 'privateclassform'])->name('privateclass.form');
                 Route::post('/{live}/private-class/form', [LiveClassController::class, 'privateclassformsubmit']);
 
@@ -277,3 +280,8 @@ Route::get('/privacy', [UserPrivacyController::class, 'index'])->name('privacy.i
 
 Route::get('/terms', [UserTermsController::class, 'index'])->name('terms.index');
 
+
+
+Route::fallback(function () {
+    return redirect('/'); // Redirect to the landing page
+});

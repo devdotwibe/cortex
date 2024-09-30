@@ -23,48 +23,23 @@
 <section class="post-section" >
 
     <div class="container">
-        <div class="row">
-            <!-- Left Sidebar for Hashtags -->
+        <div class="row"> 
             <div class="col-md-3">
                 <h4>SPACES</h4>
-
-                  <!-- Link styled as a textbox -->
+ 
                <div class="mb-3">
                 <label for="backtoall" class="form-label"></label>
-                <a href="{{ route('community.post.index') }}" id="backtoall" class="form-control text-decoration-none" style="display: block; padding: 10px; background-color: #f8f9fa; border: 1px solid #ced4da; border-radius: .25rem;">
+                <a href="{{ route('community.post.index') }}" id="backtoall" class="form-control text-decoration-none" >
                     #Backtoall
                 </a>
             </div>
+ 
 
 
-              
-                {{-- <ul class="list-group">
-                    @foreach ($hashtags as $hashtag)
-                        <li class="list-group-item">
-                            <a href="{{ route('community.post.index', ['hashtag' => $hashtag]) }}">{{ $hashtag }}</a>
-                        </li>
-                    @endforeach
-                </ul>
-            </div>
-     
-        </div>
-    </div> --}}
-
-    {{-- <div class="d-flex flex-wrap"> <!-- Added d-flex and flex-wrap to allow wrapping -->
-        <ul class="list-group" style="flex-direction: row; "> <!-- Display inline with flex -->
+    <div class="d-flex flex-wrap"> 
+        <ul class="list-group"  > 
             @foreach ($hashtags as $hashtag)
-                <li class="list-group-item d-inline-block" style="margin-right: 10px;">
-                    <a href="{{ route('community.post.index', ['hashtag' => $hashtag]) }}">{{ $hashtag }}</a>
-                </li>
-            @endforeach
-        </ul>
-    </div> --}}
-
-
-    <div class="d-flex flex-wrap"> <!-- Added d-flex and flex-wrap to allow wrapping -->
-        <ul class="list-group" style="flex-direction: row;flex-wrap: wrap; "> <!-- Display inline with flex -->
-            @foreach ($hashtags as $hashtag)
-                <li class="list-group-item d-inline-block" style="margin-right: 10px;">
+                <li class="list-group-item d-inline-block"  >
                     <a
                         href="{{ route('community.post.index', ['hashtag' => $hashtag]) }}">{{ $hashtag }}</a>
                 </li>

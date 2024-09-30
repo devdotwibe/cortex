@@ -13,6 +13,9 @@ use App\Models\ExamRetryQuestion;
 use App\Models\ExamRetryReview;
 use App\Models\Question;
 use App\Models\User;
+use App\Models\UserExam;
+use App\Models\UserExamAnswer;
+use App\Models\UserExamQuestion;
 use App\Models\UserExamReview;
 use App\Models\UserReviewAnswer;
 use App\Models\UserReviewQuestion;
@@ -61,23 +64,80 @@ class MockExamController extends Controller
         }
         $user->setProgress('exam-'.$exam->id.'-progress-url',null);
         $attemtcount=UserExamReview::where('exam_id',$exam->id)->where('user_id',$user->id)->count()+1;
-        Session::put("full-mock-exam-attempt",$exam->slug);
+        $attemt=UserExam::store([ 
+            'name'=>$exam->name,
+            'title'=>$exam->title,
+            'timed'=>"timed",
+            'user_id'=>$user->id,
+            'exam_id'=>$exam->id,
+            'progress'=>0, 
+            'time_of_exam'=>$exam->time_of_exam, 
+        ]);
+        Session::put("full-mock-exam-attempt",$attemt->slug);
         return view("user.full-mock-exam.summery",compact('exam','user','questioncount','endtime','attemtcount'));
     }
+
+    public function questions(Request $request,UserExam $userExam){
+        if(session("full-mock-exam-attempt")){
+            /**
+             * @var User
+             */
+            $user = Auth::user();
+            $exam = Exam::find($userExam->exam_id); 
+            $questions=Question::with('answers')->where('exam_id', $exam->id)->paginate(50);
+            foreach ($questions as $question) {
+                $userQuestion=UserExamQuestion::store([
+                    'title'=>$question->title, 
+                    'description'=>$question->description, 
+                    'duration'=>$question->duration, 
+                    'exam_id'=>$userExam->exam_id, 
+                    'user_exam_id'=>$userExam->id, 
+                    'category_id'=>$question->category_id, 
+                    'sub_category_id'=>$question->sub_category_id, 
+                    'sub_category_set'=>$question->sub_category_set,  
+                    'explanation'=>$question->explanation,  
+                    'title_text'=>$question->title_text, 
+                    'sub_question'=>$question->sub_question, 
+                    'question_id'=>$question->id,
+                    'user_id'=>$user->id
+                ]);
+                foreach($question->answers as $answer){
+                    UserExamAnswer::store([
+                        'title'=>$answer->title, 
+                        'description'=>$answer->description,  
+                        'user_exam_question_id'=>$userQuestion->id, 
+                        'iscorrect'=>$answer->iscorrect, 
+                        'question_id'=>$question->id,
+                        'answer_id'=>$answer->id,
+                        'user_id'=>$user->id,
+                        'exam_id'=>$userExam->exam_id, 
+                        'user_exam_id'=>$userExam->id, 
+                    ]);
+                }
+            }
+            return response()->json([
+                'next_page_url'=>$questions->nextPageUrl()
+            ]);
+        }else{
+            abort(403);
+        }        
+    }
+
     public function confirmshow(Request $request,Exam $exam){ 
         if(session("full-mock-exam-attempt")){
+            $attemt=UserExam::findSlug(session("full-mock-exam-attempt"));
             /**
              * @var User
              */
             $user=Auth::user(); 
             if($request->ajax()){ 
                 if(!empty($request->question)){
-                    $question=Question::findSlug($request->question);
-                    return Answer::where('question_id',$question->id)->get(['slug','title']);
+                    $question=UserExamQuestion::findSlug($request->question);
+                    return UserExamAnswer::where('user_exam_question_id',$question->id)->get(['slug','title']);
                 }
-                return Question::where('exam_id',$exam->id)->paginate(1,['slug','title','description','duration','title_text','sub_question']);
+                return UserExamQuestion::where('user_exam_id',$attemt->id)->paginate(1,['slug','title','description','duration','title_text','sub_question']);
             }
-            $questioncount=Question::where('exam_id',$exam->id)->count();
+            $questioncount=UserExamQuestion::where('user_exam_id',$attemt->id)->count();
             $endtime=0;
             $times=explode(':',$exam->time_of_exam);
             if(count($times)>0){
@@ -96,64 +156,68 @@ class MockExamController extends Controller
     public function examverify(Request $request,Exam $exam){
         $request->validate([
             "question"=>'required'
-        ]);
+        ]); 
         /**
         * @var User
         */
-       $user=Auth::user();   
-        $question=Question::findSlug($request->question);
-        $ans=Answer::findSlug($request->answer);
-        if(empty($ans)||$ans->exam_id!=$exam->id||$ans->question_id!=$question->id||!$ans->iscorrect){
+        $user=Auth::user();   
+        $question=UserExamQuestion::findSlug($request->question);
+        $ans=UserExamAnswer::findSlug($request->answer);
+        if(empty($ans)||$ans->exam_id!=$exam->id||$ans->user_exam_question_id!=$question->id||!$ans->iscorrect){
             return response()->json(["iscorrect"=>false]);
         }else{
             return response()->json(["iscorrect"=>true]);
-        }
+        } 
     }
 
     public function examsubmit(Request $request,Exam $exam){
-        /**
-         * @var User
-         */
-        $user=Auth::user(); 
-        $review=UserExamReview::store([
-            "title"=>$exam->title,
-            "name"=>$exam->name,
-            "progress"=>$user->progress("exam-".$exam->id,0),
-            "user_id"=>$user->id,
-            "exam_id"=>$exam->id,  
-            "timed"=>'timed',
-            "timetaken"=>$request->input("timetaken",'0'),
-            "flags"=>$request->input("flags",'[]'),
-            "times"=>$request->input("times",'[]'),
-            "passed"=>$request->input("passed",'0'),
-            "time_of_exam"=>$exam->time_of_exam, 
-        ]); 
-        $passed = $request->input("passed", '0');
-        $questions = $request->input("questions", '[]');
-        $questioncnt = Question::where('exam_id', $exam->id)->count();
-        $user->setProgress("exam-review-".$review->id."-timed",'timed');
-        $user->setProgress("exam-review-".$review->id."-timetaken",$request->input("timetaken",'0'));
-        $user->setProgress("exam-review-".$review->id."-flags",$request->input("flags",'[]'));
-        $user->setProgress("exam-review-".$review->id."-times",$request->input("times",'[]'));
-        $user->setProgress("exam-review-".$review->id."-questions", $questions);
-        $user->setProgress("exam-review-".$review->id."-passed",$passed);
-        $user->setProgress("exam-review-".$review->id."-time_of_exam",$exam->time_of_exam);
-        if($user->progress('exam-'.$exam->id.'-complete-date',"")==""){
-            $user->setProgress('exam-'.$exam->id.'-complete-date',date('Y-m-d H:i:s'));
+        if(session("full-mock-exam-attempt")){
+            $attemt=UserExam::findSlug(session("full-mock-exam-attempt"));
+            /**
+             * @var User
+             */
+            $user=Auth::user(); 
+            $review=UserExamReview::store([
+                "ticket" => session("full-mock-exam-attempt"),
+                "title"=>$exam->title,
+                "name"=>$exam->name,
+                "progress"=>$user->progress("exam-".$exam->id,0),
+                "user_id"=>$user->id,
+                "exam_id"=>$exam->id,  
+                "timed"=>'timed',
+                "timetaken"=>$request->input("timetaken",'0'),
+                "flags"=>$request->input("flags",'[]'),
+                "times"=>$request->input("times",'[]'),
+                "passed"=>$request->input("passed",'0'),
+                "time_of_exam"=>$exam->time_of_exam, 
+            ]); 
+            $passed = $request->input("passed", '0');
+            $questions = $request->input("questions", '[]');
+            $questioncnt = UserExamQuestion::where('user_exam_id', $attemt->id)->count();
+            $user->setProgress("exam-review-".$review->id."-timed",'timed');
+            $user->setProgress("exam-review-".$review->id."-timetaken",$request->input("timetaken",'0'));
+            $user->setProgress("exam-review-".$review->id."-flags",$request->input("flags",'[]'));
+            $user->setProgress("exam-review-".$review->id."-times",$request->input("times",'[]'));
+            $user->setProgress("exam-review-".$review->id."-questions", $questions);
+            $user->setProgress("exam-review-".$review->id."-passed",$passed);
+            $user->setProgress("exam-review-".$review->id."-time_of_exam",$exam->time_of_exam);
+            if($user->progress('exam-'.$exam->id.'-complete-date',"")==""){
+                $user->setProgress('exam-'.$exam->id.'-complete-date',date('Y-m-d H:i:s'));
+            }
+            $user->setProgress("exam-".$exam->id."-complete-review",'yes');
+            dispatch(new SubmitReview($review,$attemt)); 
+            Session::remove("full-mock-exam-attempt");
+            if ($questioncnt > $passed) {
+                $key = md5("exam-retry-" . $review->id);
+                Session::put("exam-retry-" . $review->id, $key);
+                Session::put("exam-retry-questions" . $review->id, json_decode($questions, true));
+                Session::put($key, []);
+            }
+            if($request->ajax()){
+                return  response()->json(["success"=>$exam->title." Submited","preview"=>route('full-mock-exam.preview',$review->slug)]);    
+            }
+            return  redirect()->route('full-mock-exam.complete',$review->slug)->with("success",$exam->title." Submited")->with("review",$review->id);
         }
-        $user->setProgress("exam-".$exam->id."-complete-review",'yes');
-        dispatch(new SubmitReview($review)); 
-        Session::remove("full-mock-exam-attempt");
-        if ($questioncnt > $passed) {
-            $key = md5("exam-retry-" . $review->id);
-            Session::put("exam-retry-" . $review->id, $key);
-            Session::put("exam-retry-questions" . $review->id, json_decode($questions, true));
-            Session::put($key, []);
-        }
-        if($request->ajax()){
-            return  response()->json(["success"=>$exam->title." Submited","preview"=>route('full-mock-exam.preview',$review->slug)]);    
-        }
-        return  redirect()->route('full-mock-exam.complete',$review->slug)->with("success",$exam->title." Submited")->with("review",$review->id);
     }
 
 
@@ -297,18 +361,19 @@ class MockExamController extends Controller
     {
         if (session("exam-retry-" . $userExamReview->id)) { 
             $exam=Exam::find( $userExamReview->exam_id );
+            $userExam=UserExam::findSlug($userExamReview->ticket);
             /**
              * @var User
              */
             $user = Auth::user();
             if ($request->ajax()) {
                 if (!empty($request->question)) {
-                    $question = Question::findSlug($request->question);
-                    return Answer::where('question_id', $question->id)->get(['slug', 'title']);
+                    $question = UserExamQuestion::findSlug($request->question);
+                    return UserExamAnswer::where('user_exam_question_id', $question->id)->get(['slug', 'title']);
                 }
-                return Question::whereNotIn('slug', session("exam-retry-questions" . $userExamReview->id, []))->where('exam_id', $exam->id)->paginate(1, ['slug', 'title', 'description', 'duration']);
+                return UserExamQuestion::whereNotIn('slug', session("exam-retry-questions" . $userExamReview->id, []))->where('user_exam_id', $userExam->id)->paginate(1, ['slug', 'title', 'description', 'duration']);
             }
-            $questioncount = Question::whereNotIn('slug', session("exam-retry-questions" . $userExamReview->id, []))->where('exam_id', $exam->id)->count();
+            $questioncount = UserExamQuestion::whereNotIn('slug', session("exam-retry-questions" . $userExamReview->id, []))->where('user_exam_id', $userExam->id)->count();
             $endtime = 1 * $questioncount;
             $attemtcount = UserExamReview::where('exam_id', $exam->id)->where('user_id', $user->id)->count() + 1;
             return view("user.full-mock-exam.retry", compact(  'exam', 'user', 'questioncount', 'endtime', 'attemtcount', 'userExamReview'));
@@ -351,6 +416,7 @@ class MockExamController extends Controller
     {
         if (session("exam-retry-" . $userExamReview->id)) { 
             $attemt = session("exam-retry-" . $userExamReview->id);
+            $userExam=UserExam::findSlug($userExamReview->ticket);
             /**
              * @var User
              */
@@ -359,13 +425,13 @@ class MockExamController extends Controller
             $answers = Session::get($attemt, []);
             $passed = $request->input("passed", '0');
             $questions = $request->input("questions", '[]');
-            $questioncnt = Question::whereNotIn('slug', session("exam-retry-questions" . $userExamReview->id, []))->where('exam_id', $exam->id)->count();
+            $questioncnt = UserExamQuestion::whereNotIn('slug', session("exam-retry-questions" . $userExamReview->id, []))->where('user_exam_id', $userExam->id)->count();
             $review = ExamRetryReview::store([
                 "title" => $exam->title,
                 "name" => $exam->name,
                 "user_id" => $user->id,
                 "exam_id" => $exam->id,
-                "progress" => ($passed * 100) / $questioncnt,
+                "progress" => $questioncnt>0&&$passed>0?(($passed * 100) / $questioncnt):0,
                 "timetaken" => $request->input("timetaken", '0'),
                 "flags" => $request->input("flags", '[]'),
                 "times" => $request->input("times", '[]'),

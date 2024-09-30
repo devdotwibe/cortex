@@ -9,6 +9,8 @@ use App\Models\Question;
 use App\Models\Setname;
 use App\Models\SubCategory;
 use App\Models\User;
+use App\Models\UserExam;
+use App\Models\UserExamQuestion;
 use App\Models\UserExamReview;
 use App\Models\UserReviewAnswer;
 use App\Models\UserReviewQuestion;
@@ -31,12 +33,19 @@ class SubmitReview implements ShouldQueue
     protected $review; 
 
     /**
+     * 
+     * @var UserExam|null
+     */
+    protected $userexam;
+
+    /**
      * Summary of __construct
      * @param UserExamReview $review
      */
-    public function __construct($review)
+    public function __construct($review,$userexam=null)
     {
         $this->review=$review;
+        $this->userexam=$userexam;
     }
 
     /**
@@ -197,7 +206,7 @@ class SubmitReview implements ShouldQueue
         $category=Category::find($this->review->category_id);  
         $takentime=json_decode($user->progress("exam-review-".$this->review->id."-times",'[]'),true);
         $takentimereview=[];
-        foreach (Question::where('exam_id',$exam->id)->where('category_id',$category->id)->get() as $k=> $question) {
+        foreach (UserExamQuestion::where('user_exam_id',$this->userexam->id)->get() as $k=> $question) {
               
             $user_answer=$user->progress("exam-".$exam->id."-topic-".$category->id."-answer-of-".$question->slug,"");
 
@@ -210,7 +219,7 @@ class SubmitReview implements ShouldQueue
                 'currect_answer'=>'', 
                 'user_answer'=>$user_answer,  
                 'exam_id'=> $this->review->exam_id,
-                'question_id'=> $question->id,
+                'question_id'=> $question->question_id,
                 'title_text'=> $question->title_text,
                 'sub_question'=> $question->sub_question,
                 'user_id'=>$this->review->user_id,
@@ -227,8 +236,8 @@ class SubmitReview implements ShouldQueue
                     'iscorrect'=>$ans->iscorrect,
                     'user_answer'=>(($ans->slug==$user_answer)?true:false),
                     'exam_id'=> $this->review->exam_id,
-                    'question_id'=> $question->id,
-                    'answer_id'=> $ans->id,
+                    'question_id'=> $question->question_id,
+                    'answer_id'=> $ans->answer_id,
                     'user_id'=>$this->review->user_id,
                 ]); 
             } 
@@ -245,7 +254,7 @@ class SubmitReview implements ShouldQueue
         $exam=Exam::find($this->review->exam_id);   
         $takentime=json_decode($user->progress("exam-review-".$this->review->id."-times",'[]'),true);
         $takentimereview=[];
-        foreach (Question::where('exam_id',$exam->id)->get() as $k=> $question) {
+        foreach (UserExamQuestion::where('user_exam_id',$this->userexam->id)->get() as $k=> $question) {
               
             $user_answer=$user->progress("exam-".$exam->id."-answer-of-".$question->slug,"");
             
@@ -258,7 +267,7 @@ class SubmitReview implements ShouldQueue
                 'currect_answer'=>'', 
                 'user_answer'=>$user_answer,  
                 'exam_id'=> $this->review->exam_id,
-                'question_id'=> $question->id,
+                'question_id'=> $question->question_id,
                 'title_text'=> $question->title_text,
                 'sub_question'=> $question->sub_question,
                 'user_id'=>$this->review->user_id,
@@ -275,7 +284,7 @@ class SubmitReview implements ShouldQueue
                     'user_answer'=>(($ans->slug==$user_answer)?true:false),
                     'exam_id'=> $this->review->exam_id,
                     'question_id'=> $question->id,
-                    'answer_id'=> $ans->id,
+                    'answer_id'=> $ans->answer_id,
                     'user_id'=>$this->review->user_id,
                 ]); 
             } 

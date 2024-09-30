@@ -11,6 +11,7 @@ class UserExamReview extends Model
 {
     use HasFactory,ResourceModel;
     protected $fillable = [
+        'ticket',
         'slug',
         'title',
         'name', 
@@ -20,6 +21,12 @@ class UserExamReview extends Model
         'category_id', 
         'sub_category_id', 
         'sub_category_set',
+        'timed',
+        'timetaken',
+        'flags',
+        'times',
+        'passed',
+        'time_of_exam'
     ];
     public function categoryMark($id){ 
         return UserReviewAnswer::where('user_exam_review_id',$this->id)->where('exam_id',$this->exam_id)->whereIn('question_id',Question::where("category_id",$id)->where('exam_id',$this->exam_id)->select('id'))->where('iscorrect',true)->where('user_answer',true)->count();

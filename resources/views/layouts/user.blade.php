@@ -177,7 +177,7 @@
 
                  <li class="side-item {{request()->is('tipsandadvice*') ? 'active':''}}">
 
-                    <a href="{{route('tipsandadvise.index')}}">
+                    <a @if(auth('admin')->check()&&!(auth('web')->user()->is_free_access)&&(optional(auth('web')->user()->subscription())->status??"")=="subscribed") data-bs-toggle="modal" data-bs-target="#adminsub" @else href="{{route('tipsandadvise.index')}}" @endif >
                          <span class="side-icon" >
                              <img src="{{asset("assets/images/iconshover/tipsandadvice.svg")}}" alt="Dashboard">
                          </span>

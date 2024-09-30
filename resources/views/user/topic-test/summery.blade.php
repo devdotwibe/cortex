@@ -26,6 +26,7 @@
 @endsection
 
 @push('footer-script') 
+ 
 
     <script> 
         let summery = new Proxy({}, {
@@ -48,17 +49,33 @@
         summery.cudx=1;
 
         summery.answeridx=[];
-        summery.notansweridx=[]; 
+        summery.notansweridx=[];  
         summery.timerActive=true;
         summery.examActive=true;
         summery.timetaken=0;
-
         localStorage.setItem("topic-test-summery",JSON.stringify(summery)) 
-        function loadquestions(redirect,url=null){
+  
+        async function loadquestions(redirect,url=null){
+            $('.loading-wrap').show()
+            const csrf= $('meta[name="csrf-token"]').attr('content')
             if(url==null){
-                url="{{route('topic-test.questions',$category->slug)}}";
-            }
-            $.get(url,function(res){},'json')
+                url="{{route('topic-test.questions',session('topic-test-attempt'))}}";
+            }  
+            const response = await fetch(url, {  
+                method: 'GET',
+                headers:{
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrf,
+                    'X-Requested-With': 'XMLHttpRequest'
+                } 
+            }); 
+ 
+            const data = await response.json(); 
+            if(data.next_page_url){
+                await loadquestions(redirect,data.next_page_url)
+            }else{
+                window.location.href=redirect;
+            }      
         }
     </script>
 

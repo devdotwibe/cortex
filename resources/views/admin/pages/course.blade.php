@@ -106,8 +106,10 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="image">Image</label>
-                                                        <input type="file" class="form-control" name="image"
+                                                        <label for="image" class="file-upload">Image <br>
+                                                            <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                                alt="Upload Icon"></label>
+                                                        <input type="file" class="form-control" style="display: none;" name="image"
                                                             id="imageInput" onchange="previewImage()">
                                                         @error('image')
                                                             <div class="text-danger">{{ $message }}</div>
@@ -116,6 +118,10 @@
                                                 </div>
                                             </div>
                                         </div>
+
+
+
+
 
                                         <div class="form-group">
                                             <label for="imagePreview">Image Preview</label>
@@ -139,7 +145,7 @@
 
                                         <div class="col-md-12">
                                             <div class="mb-3">
-                                                <button type="submit" class="btn btn-dark" name="section"
+                                                <button type="submit" class="btn btn-dark learn" name="section"
                                                     value="save">Save</button>
                                             </div>
 
@@ -176,7 +182,7 @@
 
                         <div class="col-md-12">
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary" name="section"
+                                <button type="submit" class="btn btn-primary coursetitle" name="section"
                                     value="save">Save</button>
                             </div>
                         </div>
@@ -279,11 +285,15 @@
                                     </div>
 
                                     <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="logicalimage">Logical Image</label>
-                                            <input type="file" class="form-control" name="logicalimage">
+                                        <div class="form-group" class="file-upload">
+                                            <label for="logicalimage">Logical Image  <br>
+                                                <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                    alt="Upload Icon"></label>
+                                            <input type="file" class="form-control" style="display: none;" name="logicalimage" id="logicalimage">
                                         </div>
                                     </div>
+
+
 
 
 
@@ -315,7 +325,7 @@
 
 
                                 </div>
-                                <button type="submit" class="btn btn-dark" name="sub_section"
+                                <button type="submit" class="btn btn-dark logical" name="sub_section"
                                     value="tab1_save">Save</button>
                             </form>
                         </div>
@@ -351,12 +361,15 @@
 
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="criticalimage">Critical Image</label>
-                                            <input type="file" class="form-control" name="criticalimage">
+                                            <label for="criticalimage"  class="file-upload">Critical Image <br>
+                                                <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                    alt="Upload Icon"></label>
+                                            <input type="file" class="form-control" style="display: none;" name="criticalimage" id="criticalimage">
                                         </div>
                                     </div>
 
 
+ 
 
                                     <!-- Preview Image Container -->
                                     <div class="form-group">
@@ -379,7 +392,7 @@
 
 
                                 </div>
-                                <button type="submit" class="btn btn-dark" name="sub_section"
+                                <button type="submit" class="btn btn-dark critical" name="sub_section"
                                     value="tab2_save">Save</button>
                             </form>
                         </div>
@@ -416,10 +429,14 @@
 
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="abstractimage">Abstract Image</label>
-                                            <input type="file" class="form-control" name="abstractimage">
+                                            <label for="abstractimage" class="file-upload">Abstract Image <br>
+                                                <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                    alt="Upload Icon"></label>
+                                            <input type="file" class="form-control" style="display: none;" name="abstractimage" id="abstractimage">
                                         </div>
                                     </div>
+
+
 
                                     <!-- Preview Image Container -->
                                     <div class="form-group">
@@ -442,7 +459,7 @@
 
 
                                 </div>
-                                <button type="submit" class="btn btn-dark" name="sub_section"
+                                <button type="submit" class="btn btn-dark abstract" name="sub_section"
                                     value="tab3_save">Save</button>
                             </form>
                         </div>
@@ -476,12 +493,27 @@
                                         </div>
                                     </div>
 
+                                    {{-- <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="numericalimage" class="file-upload">Numerical Image  <br>
+                                                <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                    alt="Upload Icon"></label>
+                                            <input type="file" class="form-control" style="display: none;" name="numericalimage">
+                                        </div>
+                                    </div> --}}
+
+
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="numericalimage">Numerical Image</label>
-                                            <input type="file" class="form-control" name="numericalimage">
+                                            <label for="numericalimage" class="file-upload">Numerical Image  <br>
+                                                <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
+                                            </label>
+                                            <input type="file" class="form-control" style="display: none;" name="numericalimage" id="numericalimage">
                                         </div>
                                     </div>
+                                    
+
+
 
                                     <!-- Preview Image Container -->
                                     <!-- Preview Image Container -->
@@ -505,7 +537,7 @@
 
 
                                 </div>
-                                <button type="submit" class="btn btn-dark" name="sub_section"
+                                <button type="submit" class="btn btn-dark numerical" name="sub_section"
                                     value="tab4_save">Save</button>
                             </form>
                         </div>
@@ -598,11 +630,16 @@
 
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="learnimage">Learn Image</label>
-                                            <input type="file" class="form-control" name="learnimage">
+                                            <label for="learnimage" class="file-upload">Learn Image  <br>
+                                                <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                    alt="Upload Icon"> </label>
+                                            <input type="file" class="form-control" style="display: none;" name="learnimage" id="learnimage">
                                         </div>
                                     </div>
                                 </div>
+
+
+
 
                                 <!-- Preview Image Container -->
                                 <!-- Preview Image Container -->
@@ -623,7 +660,7 @@
                                     </div>
                                 </div>
 
-                                <button type="submit" class="btn btn-dark" name="sub_section"
+                                <button type="submit" class="btn btn-dark lrn" name="sub_section"
                                     value="tab1_save">Save</button>
                             </form>
                         </div>
@@ -648,11 +685,16 @@
 
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="questionbankimage">Question Bank Image</label>
-                                            <input type="file" class="form-control" name="questionbankimage">
+                                            <label for="questionbankimage" class="file-upload">Question Bank Image <br>
+                                                <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                    alt="Upload Icon"> </label>
+                                            <input type="file" class="form-control" style="display: none;" name="questionbankimage" id="questionbankimage">
                                         </div>
                                     </div>
                                 </div>
+
+                                
+                              
                                 <!-- Preview Image Container -->
                                 <!-- Preview Image Container -->
                                 <div class="form-group">
@@ -673,7 +715,7 @@
                                     </div>
                                 </div>
 
-                                <button type="submit" class="btn btn-dark" name="sub_section"
+                                <button type="submit" class="btn btn-dark qbank" name="sub_section"
                                     value="tab2_save">Save</button>
                             </form>
                         </div>
@@ -698,11 +740,17 @@
 
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="topicimage">Topic Image</label>
-                                            <input type="file" class="form-control" name="topicimage">
+                                            <label for="topicimage" class="file-upload">Topic Image  <br>
+                                                <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                    alt="Upload Icon"> </label>
+                                            <input type="file" class="form-control"  style="display: none;" name="topicimage" id="topicimage">
                                         </div>
                                     </div>
                                 </div>
+
+                                
+ 
+
                                 <!-- Preview Image Container -->
                                 <!-- Preview Image Container -->
                                 <div class="form-group">
@@ -722,7 +770,7 @@
                                     </div>
                                 </div>
 
-                                <button type="submit" class="btn btn-dark" name="sub_section"
+                                <button type="submit" class="btn btn-dark topic" name="sub_section"
                                     value="tab3_save">Save</button>
                             </form>
                         </div>
@@ -747,11 +795,16 @@
 
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="fullmockimage">Full Mock Image</label>
-                                            <input type="file" class="form-control" name="fullmockimage">
+                                            <label for="fullmockimage" class="file-upload">Full Mock Image  <br>
+                                                <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                    alt="Upload Icon"> </label>
+                                            <input type="file" class="form-control"  style="display: none;" name="fullmockimage" id="fullmockimage">
                                         </div>
                                     </div>
                                 </div>
+
+                             
+
                                 <!-- Preview Image Container -->
                                 <!-- Preview Image Container -->
                                 <div class="form-group">
@@ -772,7 +825,7 @@
                                     </div>
                                 </div>
 
-                                <button type="submit" class="btn btn-dark" name="sub_section"
+                                <button type="submit" class="btn btn-dark fullmock" name="sub_section"
                                     value="tab4_save">Save</button>
                             </form>
                         </div>
@@ -843,10 +896,18 @@
 
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="privateimage">Private Image</label>
-                                                <input type="file" class="form-control" name="privateimage">
+                                                <label for="privateimage"  class="file-upload">Private Image <br>
+                                                    <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                        alt="Upload Icon"> </label>
+                                                <input type="file" class="form-control" style="display: none;" name="privateimage" id="privateimage">
                                             </div>
                                         </div>
+
+
+
+  
+
+
 
                                         <!-- Preview Image Container -->
                                         <div class="form-group">
@@ -874,7 +935,7 @@
 
                                         <div class="col-md-12">
                                             <div class="mb-3">
-                                                <button type="submit" class="btn btn-dark" name="section5"
+                                                <button type="submit" class="btn btn-dark privat" name="section5"
                                                     value="save">Save</button>
                                             </div>
 

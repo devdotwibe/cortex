@@ -27,7 +27,7 @@
                         @if (session('__payment_price___', 'payment') == 'payment') aria-selected="true" @else aria-selected="false" @endif>Section
                         2</a>
                 </li>
-              
+
                 {{-- <li class="nav-item" role="presentation">
                     <a class="nav-link @if (session('__payment_price___', '') == 'section2') active @endif" id="section2-tab"
                         data-bs-toggle="tab" href="#section2" role="tab" aria-controls="section2"
@@ -49,7 +49,7 @@
                         4</a>
                 </li>
 
-              
+
 
             </ul>
 
@@ -102,7 +102,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
-                                                            <button type="submit" class="btn btn-dark"
+                                                            <button type="submit" class="btn btn-dark workshop"
                                                                 id="workshop-payment-form-submit"
                                                                 name="workshop-payment-form-submit" value="Save">
                                                                 Save</button>
@@ -131,10 +131,10 @@
                                     </li>
                                 @endforeach
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link bg-dark @if (session('__payment_price_form___','') == 'payment'||count($plans)==0) active @endif"
+                                    <button class="nav-link bg-dark @if (session('__payment_price_form___', '') == 'payment' || count($plans) == 0) active @endif"
                                         id="add-price-tab" data-bs-toggle="tab" data-bs-target="#add-price" type="button"
                                         role="tab" aria-controls="add-price"
-                                        @if (session('__payment_price_form___','') == 'payment'||count($plans)==0)aria-selected="true" @else aria-selected="false" @endif>
+                                        @if (session('__payment_price_form___', '') == 'payment' || count($plans) == 0) aria-selected="true" @else aria-selected="false" @endif>
                                         <img src="{{ asset('assets/images/plus.svg') }}" alt=""><span
                                             class="text-white p-2">Add Subscription</span>
                                     </button>
@@ -183,12 +183,15 @@
                                                                     <div class="form-group">
                                                                         <div class="form-data">
                                                                             <div class="forms-inputs mb-4">
-                                                                                <label
-                                                                                    for="{{ $item->slug }}-icon">Icon</label>
+                                                                                <label class="file-upload"
+                                                                                    for="{{ $item->slug }}-icon">Upload
+                                                                                    Image <br>
+                                                                                    <img src="{{ asset('assets/images/upfile.svg') }}"></label>
                                                                                 <input type="file"
                                                                                     id="{{ $item->slug }}-icon"
                                                                                     data-form="{{ $item->slug }}"
-                                                                                    class="form-control icon-file @error($item->slug . '.icon') is-invalid @enderror">
+                                                                                    class="form-control icon-file @error($item->slug . '.icon') is-invalid @enderror"
+                                                                                    style="display:none">
                                                                                 <input type="hidden"
                                                                                     id="{{ $item->slug }}-icon-input"
                                                                                     name="{{ $item->slug }}[icon]"
@@ -310,8 +313,7 @@
                                                                                             name="{{ $item->slug }}[start_plan]"
                                                                                             class="form-control datepicker start-datepicker @error($item->slug . '.start_plan') is-invalid @enderror"
                                                                                             value="{{ old($item->slug . '.start_plan', $item->start_plan) }}"  data-target="#{{ $item->slug }}-end_plan"  readonly>
-                                                                                        @error($item->slug .
-                                                                                            '.start_plan')
+                                                                                        @error($item->slug . '.start_plan')
                                                                                             <div class="invalid-feedback">
                                                                                                 {{ $message }} </div>
                                                                                         @enderror
@@ -324,14 +326,15 @@
                                                                                 <div class="form-data">
                                                                                     <div class="forms-inputs mb-4">
                                                                                         <label
-                                                                                            for="{{ $item->slug }}-end_plan">End Plan</label>
+                                                                                            for="{{ $item->slug }}-end_plan">End
+                                                                                            Plan</label>
                                                                                         <input type="text"
                                                                                             id="{{ $item->slug }}-end_plan"
                                                                                             name="{{ $item->slug }}[end_plan]"
                                                                                             class="form-control datepicker end-datepicker @error($item->slug . '.end_plan') is-invalid @enderror"
-                                                                                            value="{{ old($item->slug . '.end_plan', $item->end_plan) }}" readonly>
-                                                                                        @error($item->slug .
-                                                                                            '.end_plan')
+                                                                                            value="{{ old($item->slug . '.end_plan', $item->end_plan) }}"
+                                                                                            readonly>
+                                                                                        @error($item->slug . '.end_plan')
                                                                                             <div class="invalid-feedback">
                                                                                                 {{ $message }} </div>
                                                                                         @enderror
@@ -406,9 +409,11 @@
                                                             </div>
                                                             <div class="row">
                                                                 <div class="col-md-12">
-                                                                    <button type="submit" class="btn btn-dark"
+                                                                    <button type="submit" class="btn btn-dark subscribe"
                                                                         name="subscription_plan"
                                                                         value="{{ $item->slug }}"> Save</button>
+
+
                                                                 </div>
                                                             </div>
                                                         </form>
@@ -419,7 +424,7 @@
 
                                     </div>
                                 @endforeach
-                                <div class="tab-pane fade  @if (session('__payment_price_form___','') == 'payment'||count($plans)==0) show active @endif "
+                                <div class="tab-pane fade  @if (session('__payment_price_form___', '') == 'payment' || count($plans) == 0) show active @endif "
                                     id="add-price" role="tabpanel" aria-labelledby="add-price-tab">
                                     <div class="amount-form">
                                         <div class="amout-item">
@@ -573,13 +578,14 @@
                                                                         <div class="form-group">
                                                                             <div class="form-data">
                                                                                 <div class="forms-inputs mb-4">
-                                                                                    <label
-                                                                                        for="payment-end_plan">End Plan</label>
+                                                                                    <label for="payment-end_plan">End
+                                                                                        Plan</label>
                                                                                     <input type="text"
                                                                                         id="payment-end_plan"
                                                                                         name="payment[end_plan]"
                                                                                         class="form-control datepicker end-datepicker @error('payment.end_plan') is-invalid @enderror"
-                                                                                        value="{{ old('payment.end_plan') }}" readonly>
+                                                                                        value="{{ old('payment.end_plan') }}"
+                                                                                        readonly>
                                                                                     @error('payment.end_plan')
                                                                                         <div class="invalid-feedback">
                                                                                             {{ $message }} </div>
@@ -729,7 +735,7 @@
                                             </div>
                                         </div>
 
-                                        <!-- Image Upload -->
+                                        {{-- <!-- Image Upload -->
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <div class="form-data">
@@ -744,7 +750,31 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div> --}}
+                                        <!-- Image Upload -->
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="form-data">
+                                                    <div class="forms-inputs mb-4">
+                                                        <label for="image" class="file-upload">
+                                                            Upload Image
+                                                            <br>
+                                                            <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                                alt="Upload Icon">
+                                                        </label>
+                                                        <input type="file" name="image" id="image"
+                                                            class="form-control" style="display: none;"
+                                                            onchange="previewImage(event, 'imagePreview')">
+                                                        @error('image')
+                                                            <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
+
+
+
 
                                         <!-- Image Preview -->
                                         <div class="form-group">
@@ -763,7 +793,7 @@
 
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="pricetitle">Price  Title</label>
+                                                <label for="pricetitle">Price Title</label>
                                                 <textarea class="form-control texteditor" name="pricetitle" id="pricetitle">
                                     {{ old('pricetitle', optional($price)->pricetitle) }}
                                     
@@ -772,8 +802,8 @@
                                         </div>
 
 
-                                          <!-- Price Button Label -->
-                                          <div class="col-md-12">
+                                        <!-- Price Button Label -->
+                                        <div class="col-md-12">
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
@@ -796,7 +826,8 @@
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
                                                         <label for="pricetitlebuttonlink">Pricetitle Button Link</label>
-                                                        <input type="text" name="pricetitlebuttonlink" id="pricetitlebuttonlink"
+                                                        <input type="text" name="pricetitlebuttonlink"
+                                                            id="pricetitlebuttonlink"
                                                             value="{{ old('pricetitlebuttonlink', optional($price)->pricetitlebuttonlink) }}"
                                                             class="form-control" placeholder="Price Button Link">
                                                         @error('pricetitlebuttonlink')
@@ -814,7 +845,8 @@
                                         <!-- Save Button -->
                                         <div class="col-md-12">
                                             <div class="mb-3">
-                                                <button type="submit" class="btn btn-dark"      value="save">Save</button>
+                                                <button type="submit" class="btn btn-dark price"
+                                                    value="save">Save</button>
                                             </div>
                                         </div>
 
@@ -849,8 +881,7 @@
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
                                                         <label for="grouptitle">Group Title</label>
-                                                        <input type="text" name="grouptitle"
-                                                            id="grouptitle"
+                                                        <input type="text" name="grouptitle" id="grouptitle"
                                                             value="{{ old('grouptitle', optional($price)->grouptitle) }}"
                                                             class="form-control" placeholder="Group Title">
                                                         @error('grouptitle')
@@ -876,18 +907,20 @@
                                         </div>
 
 
-                                     
 
-                                      
+
+
 
                                         <!-- Image Upload -->
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="feelingimage">Feeling Image</label>
+                                                        <label for="feelingimage"  class="file-upload" >Feeling Image  <br>
+                                                            <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                                alt="Upload Icon"> </label>
                                                         <input type="file" name="feelingimage" id="feelingimage"
-                                                            class="form-control"
+                                                            class="form-control"  style="display: none;"
                                                             onchange="previewImage(event, 'feelingimagePreview')">
                                                         @error('feelingimage')
                                                             <div class="text-danger">{{ $message }}</div>
@@ -897,26 +930,30 @@
                                             </div>
                                         </div>
 
+                   
+
+
                                         <!-- Image Preview -->
                                         <div class="form-group">
                                             <label for="feelingimagePreview">Image Preview</label>
                                             <div id="feelingimageContainer"
                                                 style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
                                                 @if (isset($price) && $price->image)
-                                                    <img id="feelingimagePreview" src="{{ url('d0/' . $price->feelingimage) }}"
+                                                    <img id="feelingimagePreview"
+                                                        src="{{ url('d0/' . $price->feelingimage) }}"
                                                         alt="Image Preview" style="width: 100%; height: auto;">
                                                 @else
                                                     <img id="feelingimagePreview" src="#" alt="Image Preview"
                                                         style="display: none; width: 100%; height: auto;">
                                                 @endif
                                             </div>
-                                        </div> 
+                                        </div>
 
 
 
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="coursetitle">Our Course  Title</label>
+                                                <label for="coursetitle">Our Course Title</label>
                                                 <textarea class="form-control texteditor" name="coursetitle" id="coursetitle">
                                     {{ old('coursetitle', optional($price)->ourcoursetitle) }}
                                     
@@ -925,11 +962,11 @@
                                         </div>
 
 
-                                         
+
 
                                         <!-- Save Button -->
                                         <div class="col-md-12 mb-3">
-                                            <button type="submit" class="btn btn-primary" name="section"
+                                            <button type="submit" class="btn btn-primary course" name="section"
                                                 value="section3">Save</button>
                                         </div>
 
@@ -942,124 +979,127 @@
 
 
                 <div class="tab-pane fade @if (session('__payment_price___', 'payment') == 'section4') show active @endif" id="section4"
-                role="tabpanel" aria-labelledby="section4-tab">
-                <div class="row">
-                    <div class="card">
-                        <div class="card-body">
-                            <form action="{{ route('admin.payment-price.section4') }}" method="POST"
-                                enctype="multipart/form-data">
-                                @csrf
-                                <div class="row">
+                    role="tabpanel" aria-labelledby="section4-tab">
+                    <div class="row">
+                        <div class="card">
+                            <div class="card-body">
+                                <form action="{{ route('admin.payment-price.section4') }}" method="POST"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="row">
 
 
 
-   <!-- Fourth Section Fields -->
-   <div class="col-md-12">
-    <div class="form-group">
-        <div class="form-data">
-            <div class="forms-inputs mb-4">
-                <label for="exceltitle">Excel Title</label>
+                                        <!-- Fourth Section Fields -->
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="form-data">
+                                                    <div class="forms-inputs mb-4">
+                                                        <label for="exceltitle">Excel Title</label>
 
-                    <textarea class="form-control texteditor" name="exceltitle" id="exceltitle">{{ old('exceltitle', optional($price)->exceltitle) }}</textarea>
-                @error('exceltitle')
-                    <div class="text-danger">{{ $message }}</div>
-                @enderror
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-<!-- Excel Button Label -->
-<div class="col-md-12">
-    <div class="form-group">
-        <div class="form-data">
-            <div class="forms-inputs mb-4">
-                <label for="excelbuttonlabel">Excel Button Label</label>
-                <input type="text" name="excelbuttonlabel"
-                    id="excelbuttonlabel"
-                    value="{{ old('excelbuttonlabel', optional($price)->excelbuttonlabel) }}"
-                    class="form-control" placeholder="Excel Button Label">
-                @error('excelbuttonlabel')
-                    <div class="text-danger">{{ $message }}</div>
-                @enderror
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Excel Button Link -->
-<div class="col-md-12">
-    <div class="form-group">
-        <div class="form-data">
-            <div class="forms-inputs mb-4">
-                <label for="excelbuttonlink">Excel Button Link</label>
-                <input type="text" name="excelbuttonlink" id="excelbuttonlink"
-                    value="{{ old('excelbuttonlink', optional($price)->excelbuttonlink) }}"
-                    class="form-control" placeholder="Excel Button Link">
-                @error('excelbuttonlink')
-                    <div class="text-danger">{{ $message }}</div>
-                @enderror
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Excel Image -->
-<div class="col-md-12">
-    <div class="form-group">
-        <div class="form-data">
-            <div class="forms-inputs mb-4">
-                <label for="excelimage">Excel Image</label>
-                <input type="file" name="excelimage" id="excelimage"
-                    class="form-control"
-                    onchange="previewImage(event, 'excelImagePreview')">
-                @error('excelimage')
-                    <div class="text-danger">{{ $message }}</div>
-                @enderror
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Image Preview -->
-<div class="form-group">
-    <label for="excelImagePreview">Image Preview</label>
-    <div id="imagePreviewContainer"
-        style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
-        @if (isset($price) && $price->excelimage)
-            <img id="excelImagePreview"
-                src="{{ url('d0/' . $price->excelimage) }}"
-                alt="Excel Image Preview" style="width: 100%; height: auto;">
-        @else
-            <img id="excelImagePreview" src="#" alt="Excel Image Preview"
-                style="display: none; width: 100%; height: auto;">
-        @endif
-    </div>
-</div>
+                                                        <textarea class="form-control texteditor" name="exceltitle" id="exceltitle">{{ old('exceltitle', optional($price)->exceltitle) }}</textarea>
+                                                        @error('exceltitle')
+                                                            <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
 
 
-                                    <!-- Save Button -->
-                                    <div class="col-md-12 mb-3">
-                                        <button type="submit" class="btn btn-primary" name="section"
-                                            value="section4">Save</button>
+
+                                        <!-- Excel Button Label -->
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="form-data">
+                                                    <div class="forms-inputs mb-4">
+                                                        <label for="excelbuttonlabel">Excel Button Label</label>
+                                                        <input type="text" name="excelbuttonlabel"
+                                                            id="excelbuttonlabel"
+                                                            value="{{ old('excelbuttonlabel', optional($price)->excelbuttonlabel) }}"
+                                                            class="form-control" placeholder="Excel Button Label">
+                                                        @error('excelbuttonlabel')
+                                                            <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Excel Button Link -->
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="form-data">
+                                                    <div class="forms-inputs mb-4">
+                                                        <label for="excelbuttonlink">Excel Button Link</label>
+                                                        <input type="text" name="excelbuttonlink" id="excelbuttonlink"
+                                                            value="{{ old('excelbuttonlink', optional($price)->excelbuttonlink) }}"
+                                                            class="form-control" placeholder="Excel Button Link">
+                                                        @error('excelbuttonlink')
+                                                            <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Excel Image -->
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="form-data">
+                                                    <div class="forms-inputs mb-4">
+                                                        <label for="excelimage" class="file-upload">Excel Image <br>   <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                            alt="Upload Icon"> </label>
+                                                        <input type="file" name="excelimage" id="excelimage"
+                                                            class="form-control" style="display: none;"
+                                                            onchange="previewImage(event, 'excelImagePreview')">
+                                                        @error('excelimage')
+                                                            <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                       
+                                        <!-- Image Preview -->
+                                        <div class="form-group">
+                                            <label for="excelImagePreview">Image Preview</label>
+                                            <div id="imagePreviewContainer"
+                                                style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
+                                                @if (isset($price) && $price->excelimage)
+                                                    <img id="excelImagePreview"
+                                                        src="{{ url('d0/' . $price->excelimage) }}"
+                                                        alt="Excel Image Preview" style="width: 100%; height: auto;">
+                                                @else
+                                                    <img id="excelImagePreview" src="#" alt="Excel Image Preview"
+                                                        style="display: none; width: 100%; height: auto;">
+                                                @endif
+                                            </div>
+                                        </div>
+
+
+
+                                        <!-- Save Button -->
+                                        <div class="col-md-12 mb-3">
+                                            <button type="submit" class="btn btn-primary excel" name="section"
+                                                value="section4">Save</button>
+                                        </div>
+
                                     </div>
-
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+
+
+
             </div>
 
-
-                
-
-            </div>
-            
     </section>
 
 @endsection
@@ -1096,24 +1136,24 @@
 @endpush
 
 @push('footer-script')
-<script>
-    function previewImage(event, previewId) {
-        var reader = new FileReader();
-        var imagePreview = document.getElementById(previewId);
-        
-        reader.onload = function() {
-            if (imagePreview) {
-                imagePreview.src = reader.result;
-                imagePreview.style.display = 'block';
-            }
-        };
+    <script>
+        function previewImage(event, previewId) {
+            var reader = new FileReader();
+            var imagePreview = document.getElementById(previewId);
 
-        if (event.target.files && event.target.files[0]) {
-            reader.readAsDataURL(event.target.files[0]);
+            reader.onload = function() {
+                if (imagePreview) {
+                    imagePreview.src = reader.result;
+                    imagePreview.style.display = 'block';
+                }
+            };
+
+            if (event.target.files && event.target.files[0]) {
+                reader.readAsDataURL(event.target.files[0]);
+            }
         }
-    }
-</script>
-{{-- <script>
+    </script>
+    {{-- <script>
     function previewImage1(event, previewId) {
         var reader = new FileReader();
         var imagePreview = document.getElementById(previewId);
@@ -1132,7 +1172,6 @@
 </script> --}}
 
     <script>
-
         // $('.start-datepicker').datepicker({
         //     dateFormat:'yy-mm-dd',
         //     minDate:0,
@@ -1143,9 +1182,10 @@
         //     }
         // });
         $('.end-datepicker').datepicker({
-            dateFormat:'yy-mm-dd',
-            minDate:0
+            dateFormat: 'yy-mm-dd',
+            minDate: 0
         });
+
         function changeaction(e, c) {
             $(e).hide();
             $(e + (c ? "-ext" : "-amount")).fadeIn()

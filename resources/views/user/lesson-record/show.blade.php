@@ -24,7 +24,7 @@
                                     <h4>{{$item->title}}</h4> 
                                 </div>
                                 <div class="category-image">
-                                    <img src="{{ asset('assets/images/video-clip.svg') }}">
+                                    <img src="{{ asset('assets/images/video-clip.png') }}">
                                 </div> 
                             </div>
                         </a>
