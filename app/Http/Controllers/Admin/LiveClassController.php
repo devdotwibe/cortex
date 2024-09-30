@@ -195,9 +195,7 @@ class LiveClassController extends Controller
                 }
                 if($data->status=="approved"&&!empty($data->user)){
                         $action.='
-                        <a  class="btn btn-icons" onclick="updaterequest('."'".route("admin.live-class.request.show",$data->slug)."'".')">
-                            <img src="'.asset("assets/images/edit.svg").'" alt="">
-                        </a> 
+                       
                     ';
                 }
                 $action.='
