@@ -351,20 +351,23 @@
             }
         } 
         async function verifyquestion(question,ans){
-            const csrf= $('meta[name="csrf-token"]').attr('content'); 
-            var response=await fetch("{{route('topic-test.topic.verify',['category'=>$category->slug])}}", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': csrf,
-                    'X-Requested-With': 'XMLHttpRequest'
-                },
-                body: JSON.stringify({
-                    question:question,
-                    answer:ans
-                }),
-            }); 
-            const data = await response.json(); 
+            // const csrf= $('meta[name="csrf-token"]').attr('content'); 
+            // var response=await fetch("{{route('topic-test.topic.verify',['category'=>$category->slug])}}", {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //         'X-CSRF-TOKEN': csrf,
+            //         'X-Requested-With': 'XMLHttpRequest'
+            //     },
+            //     body: JSON.stringify({
+            //         question:question,
+            //         answer:ans
+            //     }),
+            // }); 
+            // const data = await response.json();
+            
+            // const data=summery.exam[question];
+             
             if(data.iscorrect){
                 summery.verifydx[question]=true;
             }else{
