@@ -63,6 +63,9 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::post('/user/bulk/update',[UserController::class,'bulkupdate'])->name('user.bulkupdate');
         Route::get('/user/{user}/getdata',[UserController::class,'getdata'])->name('user.students');
         Route::get('/user/{user}/spectate',[UserController::class,'userspectate'])->name('user.spectate');
+
+
+        Route::get('/user/{user}/spectate1',[UserController::class,'userspectate1'])->name('user.spectate1');
         Route::get('/user/{user}/comunity',[UserController::class,'usercomunity'])->name('user.comunity');
         Route::get('/user/{user}/freeaccess',[UserController::class,'freeaccess'])->name('user.freeaccess');
         Route::get('/user/{user}/termslist',[UserController::class,'termslist'])->name('user.termslist');

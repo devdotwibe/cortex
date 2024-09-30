@@ -379,4 +379,5 @@ class LiveClassController extends Controller
         return ["termsList"=>$terms,"userList"=>$users];
     }
 
+
 }
