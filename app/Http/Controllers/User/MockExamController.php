@@ -163,9 +163,9 @@ class MockExamController extends Controller
             * @var User
             */
             $user=Auth::user();   
-            $question=Question::findSlug($request->question);
-            $ans=Answer::findSlug($request->answer);
-            if(empty($ans)||$ans->exam_id!=$exam->id||$ans->question_id!=$question->id||!$ans->iscorrect){
+            $question=UserExamQuestion::findSlug($request->question);
+            $ans=UserExamAnswer::findSlug($request->answer);
+            if(empty($ans)||$ans->exam_id!=$exam->id||$ans->user_exam_question_id!=$question->id||!$ans->iscorrect){
                 return response()->json(["iscorrect"=>false]);
             }else{
                 return response()->json(["iscorrect"=>true]);
