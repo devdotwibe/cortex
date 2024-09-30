@@ -105,6 +105,7 @@ class TopicExamController extends Controller
             $user = Auth::user();
             $exam = Exam::find($userExam->exam_id);
             $category =Category::find($userExam->category_id);
+            return [$userExam,$exam,$user,$category];
             $questions=Question::with('answers')->where('exam_id', $exam->id)->where('category_id', $category->id)->paginate(50);
             foreach ($questions as $question) {
                 $userQuestion=UserExamQuestion::store([
