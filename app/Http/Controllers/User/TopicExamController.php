@@ -215,7 +215,7 @@ class TopicExamController extends Controller
             ]);
             $passed = $request->input("passed", '0');
             $questions = $request->input("questions", '[]');
-            $questioncnt = Question::where('exam_id', $exam->id)->where('category_id', $category->id)->count();
+            $questioncnt = UserExamQuestion::where('user_exam_id', $attemt->id)->count();
             $user->setProgress("exam-review-" . $review->id . "-timed", 'timed');
             $user->setProgress("exam-review-" . $review->id . "-timetaken", $request->input("timetaken", '0'));
             $user->setProgress("exam-review-" . $review->id . "-flags", $request->input("flags", '[]'));
@@ -228,7 +228,7 @@ class TopicExamController extends Controller
                 $user->setProgress('exam-' . $exam->id . '-topic-' . $category->id . '-complete-date', date('Y-m-d H:i:s'));
             }
             $user->setProgress("exam-" . $exam->id . "-topic-" . $category->id . "-complete-review", 'yes');
-            dispatch(new SubmitReview($review));
+            dispatch(new SubmitReview($review,$attemt));
             Session::remove("topic-test-attempt");
             if ($questioncnt > $passed) {
                 $key = md5("exam-retry-" . $review->id);
@@ -344,9 +344,9 @@ class TopicExamController extends Controller
             ]);
             $exam = Exam::find($exam->id);
         }
-        $question = Question::findSlug($request->question);
-        $ans = Answer::findSlug($request->answer);
-        if (empty($ans) || $ans->exam_id != $exam->id || $ans->question_id != $question->id || !$ans->iscorrect) {
+        $question = UserExamQuestion::findSlug($request->question);
+        $ans = UserExamAnswer::findSlug($request->answer);
+        if (empty($ans) || $ans->exam_id != $exam->id || $ans->user_exam_question_id != $question->id || !$ans->iscorrect) {
             return response()->json(["iscorrect" => false]);
         } else {
             return response()->json(["iscorrect" => true]);

@@ -27,4 +27,7 @@ class UserExamQuestion extends Model
         'user_id',
         'question_id'
     ];
+    public function answers(){
+        return $this->hasMany(UserExamAnswer::class);
+    }
 }
