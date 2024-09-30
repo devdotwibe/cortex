@@ -55,7 +55,7 @@
         summery.timetaken=0;
         localStorage.setItem("topic-test-summery",JSON.stringify(summery)) 
   
-        function loadquestions(redirect,url=null){
+        async function loadquestions(redirect,url=null){
             $('.loading-wrap').show()
             const csrf= $('meta[name="csrf-token"]').attr('content')
             if(url==null){
