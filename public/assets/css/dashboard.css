@@ -1914,8 +1914,8 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 
 
 .live-class-section { background: #FFFFFF; margin: 20px 0 0; padding: 40px 30px; border-radius: 20px;}
-.live-class-section .private-class-card { border: 1px solid #3F8D26; border-radius: 20px; transition: all .25s ease-in-out;}
-.live-class-section .card.workshop-card { border: 1px solid #334CA9; border-radius: 20px; transition: all .25s ease-in-out;}
+.live-class-section .card.private-class-card { border: 1px solid #3F8D26; border-radius: 20px ; transition: all .25s ease-in-out; height: 100%;}
+.live-class-section .card.workshop-card { border: 1px solid #334CA9; border-radius: 20px; transition: all .25s ease-in-out; height: 100%;}
 .live-class-section .card .card-body { padding: 40px;}
 .live-class-section .card .card-body .category-image { width: 100%; margin: 0 auto 20px; max-width: 250px; height: 260px;}
 .live-class-section .card .card-body .category-content { width: 100%; flex: none;}
@@ -2324,6 +2324,32 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
   border-radius: 6px !important;
   color: #bcbcbc;
   margin: 0 0 20px;
+}
+
+.admin_section .table-outer table tfoot tr td button.btn.btn-warning {
+  background: #FBAE1E;
+  border: 1px solid #FBAE1E;
+  color: #fff;
+  font-size: 16px;
+  padding: 9px 20px;
+}
+
+.admin_section .table-outer table tfoot tr td button.btn.btn-danger {
+  background: none;
+  border: 1px solid #000000;
+  color: #000000;
+  font-size: 16px;
+  padding: 9px 20px;
+}
+
+.admin_section .table-outer table tfoot tr td button.btn.btn-warning:hover {
+  background: none;
+  color: #FBAE1E;
+}
+
+.admin_section .table-outer table tfoot tr td button.btn.btn-danger:hover {
+  color: #ffff;
+  background: #000000;
 }
 
 
