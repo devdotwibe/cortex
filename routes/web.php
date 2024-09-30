@@ -134,7 +134,7 @@ Route::middleware(['auth', 'isUser'])->group(function () {
         Route::prefix('topic-test')->name('topic-test.')->group(function () {
             Route::get('/', [TopicExamController::class, 'index'])->name('index');
             Route::middleware('subscription:topic-test')->get('/{category}', [TopicExamController::class, 'show'])->name('show');
-            Route::middleware('subscription:topic-test')->get('/{user_exam}/questions', [TopicExamController::class, 'questions'])->name('questions');
+            Route::middleware('subscription:topic-test')->get('/{category}/questions', [TopicExamController::class, 'questions'])->name('questions');
             Route::middleware('subscription:topic-test')->get('/{category}/attempt', [TopicExamController::class, 'confirmshow'])->name('confirmshow');
             Route::get('/{category}/history', [TopicExamController::class, 'topichistory'])->name('topic.history');
             Route::middleware('subscription:topic-test')->post('/{category}/submit', [TopicExamController::class, 'topicsubmit'])->name('topic.submit');
@@ -178,7 +178,7 @@ Route::middleware(['auth', 'isUser'])->group(function () {
                 Route::get('/{live}', [LiveClassController::class, 'show'])->name('show');
                 Route::get('/{live}/workshop', [LiveClassController::class, 'workshop'])->name('workshop');
                 Route::get('/{live}/workshop/form', [LiveClassController::class, 'workshopform'])->name('workshop.form');
-                Route::get('/{live}/private-class/', [LiveClassController::class, 'privateclass'])->name('privateclass');
+                Route::get('/{live}/private-class', [LiveClassController::class, 'privateclass'])->name('privateclass');
                 Route::get('/{live}/private-class/form', [LiveClassController::class, 'privateclassform'])->name('privateclass.form');
                 Route::post('/{live}/private-class/form', [LiveClassController::class, 'privateclassformsubmit']);
 
