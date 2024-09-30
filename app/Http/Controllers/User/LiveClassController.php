@@ -52,11 +52,19 @@ class LiveClassController extends Controller
         }
     }
 
-    public function privateclass(Request  $request){
+    public function privateclass(Request  $request,$live,$user){
         /**
          * @var User
          */
-        $user=Auth::user();
+        if(!empty($user))
+        {
+            $user=User::findSlug($user);
+        }
+        else
+        {
+            $user=Auth::user();
+        }
+       
         $live_class =  LiveClassPage::first(); 
         $setting = Settings::first();
         return view('user.live-class.private',compact('user','live_class','setting'));
