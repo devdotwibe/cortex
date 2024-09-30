@@ -193,9 +193,17 @@ class LiveClassController extends Controller
                     <a  class="btn btn-success btn-sm" onclick="acceptrequest('."'".route("admin.live-class.request.show",$data->slug)."'".')" > Accept </a> 
                     ';
                 }
+
+                $action.='
+                <a href="'.route("admin.user.spectate",$data->slug).'" target="_blank" rel="noreferrer" class="btn btn-icons spectate_btn">
+                        <img src="'.asset("assets/images/spectate.svg").'" alt="">
+                    </a>';
+
                 if($data->status=="approved"&&!empty($data->user)){
                         $action.='
-                       
+                        <a  class="btn btn-icons" onclick="updaterequest('."'".route("admin.live-class.request.show",$data->slug)."'".')">
+                            <img src="'.asset("assets/images/edit.svg").'" alt="">
+                        </a> 
                     ';
                 }
                 $action.='
