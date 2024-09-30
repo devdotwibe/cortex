@@ -118,6 +118,7 @@ class TopicExamController extends Controller
                     'explanation'=>$question->explanation,  
                     'title_text'=>$question->title_text, 
                     'sub_question'=>$question->sub_question, 
+                    'question_id'=>$question->id,
                     'user_id'=>$user->id
                 ]);
                 foreach($question->answers as $answer){
