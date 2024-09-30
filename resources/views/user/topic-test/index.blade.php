@@ -300,7 +300,8 @@
 
         $(function() {
             var page = "{{ request('page') }}";
-            var slug = "{{ request('slug') }}";  // Ensure slug is set properly if needed
+            var slug = "{{ request('slug') }}";  
+            var category = "{{ request('category') }}";  // Ensure slug is set properly if needed
             console.log(page);
 
             if(page === 'back') {
@@ -310,7 +311,7 @@
                 // $('#main-modal-body').modal('show');
 
                 // Assuming loadretry is defined elsewhere
-                loadlessonsetreviews('{{ route('topic-test.topic.history', request('slug')) }}');
+                loadlessonsetreviews('{{ route('topic-test.topic.history', request('category')) }}');
                 
                 loadretry('{{ route('topic-test.retryhistory', request('slug')) }}');
             }
