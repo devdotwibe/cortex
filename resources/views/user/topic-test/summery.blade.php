@@ -74,7 +74,7 @@
             if(data.next_page_url){
                 await loadquestions(redirect,data.next_page_url)
             }else{
-                // window.location.href=redirect;
+                window.location.href=redirect;
             }      
         }
     </script>
