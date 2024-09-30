@@ -78,7 +78,7 @@ class MockExamController extends Controller
     }
 
     public function questions(Request $request,UserExam $userExam){
-        if(session("topic-test-attempt")){
+        if(session("full-mock-exam-attempt")){
             /**
              * @var User
              */
