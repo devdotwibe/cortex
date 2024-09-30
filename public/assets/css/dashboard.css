@@ -1914,7 +1914,7 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 
 
 .live-class-section { background: #FFFFFF; margin: 20px 0 0; padding: 40px 30px; border-radius: 20px;}
-.live-class-section .private-class-card { border: 1px solid #3F8D26; border-radius: 20px; transition: all .25s ease-in-out;}
+.live-class-section .card.private-class-card { border: 1px solid #3F8D26; border-radius: 20px ; transition: all .25s ease-in-out;}
 .live-class-section .card.workshop-card { border: 1px solid #334CA9; border-radius: 20px; transition: all .25s ease-in-out;}
 .live-class-section .card .card-body { padding: 40px;}
 .live-class-section .card .card-body .category-image { width: 100%; margin: 0 auto 20px; max-width: 250px; height: 260px;}
