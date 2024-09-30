@@ -364,9 +364,7 @@
                     answer:ans
                 }),
             }); 
-            const data = await response.json();
-            
-            const data=summery.exam[question];
+            const data = await response.json(); 
              
             if(data.iscorrect){
                 summery.verifydx[question]=true;
