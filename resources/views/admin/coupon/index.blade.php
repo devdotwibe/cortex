@@ -34,9 +34,10 @@
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                             <div id="email_address-error" class="invalid-feedback"></div>
-                            <button type="submit" class="btn btn-dark m-1">Save</button>
+                           
                         </div>
                     </div>
+                    <button type="submit" class="btn btn-dark m-1">Save</button>
                 </div>
                 
             </form>
