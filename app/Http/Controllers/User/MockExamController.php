@@ -434,7 +434,7 @@ class MockExamController extends Controller
                 "name" => $exam->name,
                 "user_id" => $user->id,
                 "exam_id" => $exam->id,
-                "progress" => ($passed * 100) / $questioncnt,
+                "progress" => $questioncnt>0&&$passed>0?(($passed * 100) / $questioncnt):0,
                 "timetaken" => $request->input("timetaken", '0'),
                 "flags" => $request->input("flags", '[]'),
                 "times" => $request->input("times", '[]'),
