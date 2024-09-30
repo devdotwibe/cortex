@@ -4,7 +4,7 @@
 <section class="exam-container">
     <div class="container-wrap mcq-container-wrap topic-test-review">
         <div class="lesson">            
-            <a class="lesson-exit float-start" href="{{route('topic-test.index',['page'=>'back','slug'=>$userExamReview->slug])}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
+            <a class="lesson-exit float-start" href="{{route('topic-test.index',['page'=>'back','slug'=>$userExamReview->slug,'category'=>$category->slug])}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
                 <img src="{{asset("assets/images/exiticon.svg")}}" alt="exiticon">
             </a> 
             <div class="lesson-body"> 

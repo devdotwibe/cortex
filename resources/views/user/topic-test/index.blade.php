@@ -310,6 +310,8 @@
                 // $('#main-modal-body').modal('show');
 
                 // Assuming loadretry is defined elsewhere
+                loadlessonsetreviews('{{ route('topic-test.topic.history', request('slug')) }}');
+                
                 loadretry('{{ route('topic-test.retryhistory', request('slug')) }}');
             }
         });
