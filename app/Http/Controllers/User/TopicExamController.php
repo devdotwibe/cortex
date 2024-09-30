@@ -128,7 +128,6 @@ class TopicExamController extends Controller
                         'description'=>$answer->description,  
                         'user_exam_question_id'=>$userQuestion->id, 
                         'iscorrect'=>$answer->iscorrect, 
-                        'user_answer'=>$answer->user_answer, 
                         'question_id'=>$question->id,
                         'answer_id'=>$answer->id,
                         'user_id'=>$user->id,
