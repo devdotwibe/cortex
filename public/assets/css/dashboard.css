@@ -2314,6 +2314,19 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 }
 
 
+.admin_section .table-outer table tfoot tr td select {
+  width: 100%;
+  box-shadow: none;
+  background: none;
+  height: 52px;
+  border: 1px solid rgba(188, 188, 188, 1);
+  padding: 11px;
+  border-radius: 6px !important;
+  color: #bcbcbc;
+  margin: 0 0 20px;
+}
+
+
 
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
