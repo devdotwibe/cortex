@@ -2347,7 +2347,7 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
   color: #FBAE1E;
 }
 
-.admin_section .table-outer table tfoot tr td button.btn.btn-danger {
+.admin_section .table-outer table tfoot tr td button.btn.btn-danger:hover {
   color: #ffff;
   background: #000000;
 }
