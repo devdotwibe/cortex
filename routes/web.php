@@ -277,3 +277,8 @@ Route::get('/privacy', [UserPrivacyController::class, 'index'])->name('privacy.i
 
 Route::get('/terms', [UserTermsController::class, 'index'])->name('terms.index');
 
+
+
+Route::fallback(function () {
+    return redirect('/'); // Redirect to the landing page
+});
