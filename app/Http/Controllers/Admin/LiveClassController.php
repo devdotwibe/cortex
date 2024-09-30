@@ -195,7 +195,7 @@ class LiveClassController extends Controller
                 }
 
                 $action.='
-                <a href="'.route("admin.user.spectate",$data->slug).'" target="_blank" rel="noreferrer" class="btn btn-icons spectate_btn">
+                <a href="'.route("admin.live-class.{live}/private-class",$data->slug).'" target="_blank" rel="noreferrer" class="btn btn-icons spectate_btn">
                         <img src="'.asset("assets/images/spectate.svg").'" alt="">
                     </a>';
 
