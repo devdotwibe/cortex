@@ -13,8 +13,8 @@ class UserExamAnswer extends Model
     protected $fillable = [
         'title', 
         'description',
-        'user_exam_review_id',  
-        'user_review_question_id', 
+        'user_exam_id',  
+        'user_exam_question_id', 
         'iscorrect', 
         'user_answer',
         'slug',

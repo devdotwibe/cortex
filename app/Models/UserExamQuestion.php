@@ -24,6 +24,7 @@ class UserExamQuestion extends Model
         'visible_status',
         'title_text',
         'sub_question',
-        'user_id'
+        'user_id',
+        'question_id'
     ];
 }

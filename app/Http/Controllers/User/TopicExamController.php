@@ -14,6 +14,7 @@ use App\Models\ExamRetryReview;
 use App\Models\Question;
 use App\Models\User;
 use App\Models\UserExam;
+use App\Models\UserExamAnswer;
 use App\Models\UserExamQuestion;
 use App\Models\UserExamReview;
 use App\Models\UserReviewAnswer;
@@ -118,15 +119,15 @@ class TopicExamController extends Controller
                     'explanation'=>$question->explanation,  
                     'title_text'=>$question->title_text, 
                     'sub_question'=>$question->sub_question, 
+                    'question_id'=>$question->id,
                     'user_id'=>$user->id
                 ]);
                 foreach($question->answers as $answer){
-                    UserReviewAnswer::store([
+                    UserExamAnswer::store([
                         'title'=>$answer->title, 
                         'description'=>$answer->description,  
                         'user_exam_question_id'=>$userQuestion->id, 
                         'iscorrect'=>$answer->iscorrect, 
-                        'user_answer'=>$answer->user_answer, 
                         'question_id'=>$question->id,
                         'answer_id'=>$answer->id,
                         'user_id'=>$user->id,

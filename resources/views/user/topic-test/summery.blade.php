@@ -54,62 +54,40 @@
         summery.examActive=true;
         summery.timetaken=0;
         localStorage.setItem("topic-test-summery",JSON.stringify(summery)) 
-
-        var examWorker=new Worker('{{asset("assets/js/worker.js")}}');
-        worker.onmessage = function(e) {
-            const { action, data } = e.data;
-
-            switch (action) {
-                case 'examInitialized':
-                    console.log('Exam data initialized:', data);
-                    break;
-                case 'error':
-                    console.error('Error:', data);
-                    break;
-                default:
-                    console.warn('Unknown action:', action);
-            }
-        }; 
-        worker.onerror = function(error) {
-            console.error('Worker error:', error);
-        };
-
-        function loadquestions(redirect,url=null){
+  
+        async function loadquestions(redirect,url=null){
+            $('.loading-wrap').show()
             const csrf= $('meta[name="csrf-token"]').attr('content')
             if(url==null){
                 url="{{route('topic-test.questions',session('topic-test-attempt'))}}";
-            } 
-            worker.postMessage({ 
-                action: 'initExam', 
-                data: { 
-                    url: url,
-                    method: 'GET',
-                    headers:{
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': csrf,
-                        'X-Requested-With': 'XMLHttpRequest'
-                    } 
-                }
-            });
+            }  
+            const response = await fetch(url, {  
+                method: 'GET',
+                headers:{
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrf,
+                    'X-Requested-With': 'XMLHttpRequest'
+                } 
+            }); 
  
-            // const data = await response.json(); 
-            // if(data.data){
-            //     $.each(data.data,function(k,v){ 
-            //         summery.exam[v.slug]={
-            //             slug:v.slug, 
-            //             title:v.title,
-            //             description:v.description,
-            //             duration:v.duration,
-            //             title_text:v.title_text,
-            //             sub_question:v.sub_question
-            //         }
-            //     }) 
-            //     if(data.next_page_url){
-            //         await loadquestions(redirect,data.next_page_url)
-            //     }else{
-            //         window.location.href=redirect;
-            //     }
-            // }            
+            const data = await response.json(); 
+            if(data.data){
+                $.each(data.data,function(k,v){ 
+                    summery.exam[v.slug]={
+                        slug:v.slug, 
+                        title:v.title,
+                        description:v.description,
+                        duration:v.duration,
+                        title_text:v.title_text,
+                        sub_question:v.sub_question
+                    }
+                }) 
+                if(data.next_page_url){
+                    await loadquestions(redirect,data.next_page_url)
+                }else{
+                    window.location.href=redirect;
+                }
+            }            
         }
     </script>
 
