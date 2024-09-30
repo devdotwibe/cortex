@@ -307,10 +307,7 @@
             if(page === 'back') {
                 
                 $('#review-history-modal').modal('show');
-                // $('#retry-modal-body').show();
-                // $('#main-modal-body').modal('show');
-
-                // Assuming loadretry is defined elsewhere
+               
                 loadlessonsetreviews('{{ route('topic-test.topic.history', request('category')) }}');
                 
                 loadretry('{{ route('topic-test.retryhistory', request('slug')) }}');
