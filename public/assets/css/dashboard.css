@@ -2326,6 +2326,32 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
   margin: 0 0 20px;
 }
 
+.admin_section .table-outer table tfoot tr td button.btn.btn-warning {
+  background: #FBAE1E;
+  border: 1px solid #FBAE1E;
+  color: #fff;
+  font-size: 16px;
+  padding: 9px 20px;
+}
+
+.admin_section .table-outer table tfoot tr td button.btn.btn-danger {
+  background: none;
+  border: 1px solid #000000;
+  color: #000000;
+  font-size: 16px;
+  padding: 9px 20px;
+}
+
+.admin_section .table-outer table tfoot tr td button.btn.btn-warning:hover {
+  background: none;
+  color: #FBAE1E;
+}
+
+.admin_section .table-outer table tfoot tr td button.btn.btn-danger {
+  color: #ffff;
+  background: #000000;
+}
+
 
 
 @media screen and (max-width:1500px) {
