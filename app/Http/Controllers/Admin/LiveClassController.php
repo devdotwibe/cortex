@@ -194,10 +194,12 @@ class LiveClassController extends Controller
                     ';
                 }
 
+                if(!empty($data->user)){
                 $action.='
-                <a href="'.route("live-class.privateclass",$data->slug).'" target="_blank" rel="noreferrer" class="btn btn-icons spectate_btn">
+                <a href="'.route("live-class.privateclass",$data->slug,$data->user).'" target="_blank" rel="noreferrer" class="btn btn-icons spectate_btn">
                         <img src="'.asset("assets/images/spectate.svg").'" alt="">
                     </a>';
+                }
 
                 if($data->status=="approved"&&!empty($data->user)){
                         $action.='
