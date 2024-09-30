@@ -53,6 +53,7 @@
         summery.timetaken=0;
 
         localStorage.setItem("full-mock-exam-summery",JSON.stringify(summery)) 
+        localStorage.removeItem("full-mock-exam-summery-retry")
 
         async function loadquestions(redirect,url=null){
             $('.loading-wrap').show()
