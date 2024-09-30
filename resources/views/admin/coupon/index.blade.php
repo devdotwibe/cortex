@@ -51,13 +51,10 @@
         <div class="header_wrapp">
             <div class="header_title">
                 <h2>Coupon</h2>
+                <li class="nav_item"><a data-bs-toggle="modal" data-bs-target="#coupen-modal" class="nav_link btn">+ Add
+                    New</a></li>
             </div>
-            <div class="header_right">
-                <ul class="nav_bar">
-                    <li class="nav_item"><a data-bs-toggle="modal" data-bs-target="#coupen-modal" class="nav_link btn">+ Add
-                            New</a></li>
-                </ul>
-            </div>
+            
         </div>
     </section>
     
