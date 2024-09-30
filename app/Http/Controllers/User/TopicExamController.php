@@ -13,6 +13,8 @@ use App\Models\ExamRetryQuestion;
 use App\Models\ExamRetryReview;
 use App\Models\Question;
 use App\Models\User;
+use App\Models\UserExam;
+use App\Models\UserExamQuestion;
 use App\Models\UserExamReview;
 use App\Models\UserReviewAnswer;
 use App\Models\UserReviewQuestion;
@@ -22,6 +24,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class TopicExamController extends Controller
@@ -80,19 +83,64 @@ class TopicExamController extends Controller
         }
         $user->setProgress("exam-{$exam->id}-topic-{$category->id}-progress-url", null);
         $attemtcount = UserExamReview::where('exam_id', $exam->id)->where('user_id', $user->id)->where('category_id', $category->id)->count() + 1;
-        Session::put("topic-test-attempt",$category->slug);
+        $attemt=UserExam::store([ 
+            'name'=>$exam->name,
+            'title'=>$exam->title,
+            'timed'=>"timed",
+            'user_id'=>$user->id,
+            'exam_id'=>$exam->id,
+            'progress'=>0,
+            'category_id'=>$category->id,
+            'time_of_exam'=>$category->time_of_exam, 
+        ]);
+        Session::put("topic-test-attempt",$attemt->slug); 
         return view("user.topic-test.summery", compact('category', 'exam', 'user', 'questioncount', 'endtime', 'attemtcount'));
     }
-    public function questions(Request $request,Category $category){
-        $exam = Exam::where("name", 'topic-test')->first();
-        if (empty($exam)) {
-            $exam = Exam::store([
-                "title" => "Topic Test",
-                "name" => "topic-test",
+    public function questions(Request $request,UserExam $userExam){
+        if(session("topic-test-attempt")){
+            /**
+             * @var User
+             */
+            $user = Auth::user();
+            $exam = Exam::find($userExam->exam_id);
+            $category =Category::find($userExam->category_id);
+            $questions=Question::with('answers')->where('exam_id', $exam->id)->where('category_id', $category->id)->paginate(50);
+            foreach ($questions as $question) {
+                $userQuestion=UserExamQuestion::store([
+                    'title'=>$question->title, 
+                    'description'=>$question->description, 
+                    'duration'=>$question->duration, 
+                    'exam_id'=>$userExam->exam_id, 
+                    'user_exam_id'=>$userExam->id, 
+                    'category_id'=>$question->category_id, 
+                    'sub_category_id'=>$question->sub_category_id, 
+                    'sub_category_set'=>$question->sub_category_set,  
+                    'explanation'=>$question->explanation,  
+                    'title_text'=>$question->title_text, 
+                    'sub_question'=>$question->sub_question, 
+                    'user_id'=>$user->id
+                ]);
+                foreach($question->answers as $answer){
+                    UserReviewAnswer::store([
+                        'title'=>$answer->title, 
+                        'description'=>$answer->description,  
+                        'user_exam_question_id'=>$userQuestion->id, 
+                        'iscorrect'=>$answer->iscorrect, 
+                        'user_answer'=>$answer->user_answer, 
+                        'question_id'=>$question->id,
+                        'answer_id'=>$answer->id,
+                        'user_id'=>$user->id,
+                        'exam_id'=>$userExam->exam_id, 
+                        'user_exam_id'=>$userExam->id, 
+                    ]);
+                }
+            }
+            return response()->json([
+                'next_page_url'=>$questions->nextPageUrl()
             ]);
-            $exam = Exam::find($exam->id);
-        }
-        return Question::with('answers')->where('exam_id', $exam->id)->where('category_id', $category->id)->paginate(50);
+        }else{
+            abort(403);
+        }        
     }
 
     public function confirmshow(Request $request, Category $category)
