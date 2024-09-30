@@ -71,23 +71,11 @@
             }); 
  
             const data = await response.json(); 
-            if(data.data){
-                $.each(data.data,function(k,v){ 
-                    summery.exam[v.slug]={
-                        slug:v.slug, 
-                        title:v.title,
-                        description:v.description,
-                        duration:v.duration,
-                        title_text:v.title_text,
-                        sub_question:v.sub_question
-                    }
-                }) 
-                if(data.next_page_url){
-                    await loadquestions(redirect,data.next_page_url)
-                }else{
-                    window.location.href=redirect;
-                }
-            }            
+            if(data.next_page_url){
+                await loadquestions(redirect,data.next_page_url)
+            }else{
+                window.location.href=redirect;
+            }      
         }
     </script>
 
