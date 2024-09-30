@@ -147,7 +147,7 @@ class UserController extends Controller
 
     public function userspectate1(Request $request,User $user){
         Auth::guard('web')->login($user);
-        return redirect('/userspectate1');
+        return redirect()->route('live-class.privateclass',$user->slug);
     }
     public function usercomunity(Request $request,User $user){
         $user->update([
