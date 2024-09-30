@@ -144,6 +144,11 @@ class UserController extends Controller
         Auth::guard('web')->login($user);
         return redirect('/dashboard');
     }
+
+    public function userspectate1(Request $request,User $user){
+        Auth::guard('web')->login($user);
+        return redirect('/dashboard');
+    }
     public function usercomunity(Request $request,User $user){
         $user->update([
             'post_status'=>$user->post_status=="active"?"banned":"active"
