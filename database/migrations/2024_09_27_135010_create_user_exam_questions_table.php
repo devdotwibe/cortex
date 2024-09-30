@@ -21,7 +21,7 @@ return new class extends Migration
             $table->id();
             $table->string('slug')->unique();
             $table->string('title')->nullable();
-            $table->test('description')->nullable();
+            $table->text('description')->nullable();
             $table->string('duration')->nullable();
             $table->foreignIdFor(Exam::class);
             $table->foreignIdFor( UserExam::class);
