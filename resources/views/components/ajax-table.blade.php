@@ -45,15 +45,21 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <button class="btn btn-warning" type="button" onclick="return updateaction{{ $tableid }}('updateaction')" >Submit</button>
+                                <button class="btn btn-warning" type="button" onclick="return updateaction{{ $tableid }}('updateaction')" >Submit</button> 
+                                <button class="btn btn-danger" type="button" onclick="return updateaction{{ $tableid }}('deleteaction')">
+                                    Delete All
+                                </button>
                             </div> 
                         </div>
-                        @endif
+                        @else
                         <div class="delete-action">
                             <button class="btn btn-danger" type="button" onclick="return updateaction{{ $tableid }}('deleteaction')">
                                 Delete All
                             </button>                            
                         </div>
+
+                        @endif
+                        
                         <input type="hidden" name="deleteaction" id="deleteaction{{ $tableid }}" value="" >
 
                     </div>
