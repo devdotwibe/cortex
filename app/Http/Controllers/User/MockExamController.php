@@ -377,7 +377,7 @@ class MockExamController extends Controller
             // $attemtcount = UserExamReview::where('exam_id', $exam->id)->where('user_id', $user->id)->count() + 1;
             // return view("user.full-mock-exam.retry", compact(  'exam', 'user', 'questioncount', 'endtime', 'attemtcount', 'userExamReview'));
         }
-        return redirect()->route('full-mock-exam.index')->with("error", "Retry Attempt Failed");
+        // return redirect()->route('full-mock-exam.index')->with("error", "Retry Attempt Failed");
     }
     public function updateprogress(Request $request, $attemt)
     {
