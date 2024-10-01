@@ -40,8 +40,8 @@
                 @endif
             </div>
 
-            <div class="price-row2">
-                <a href="#our-plans"></a>
+            <div class="price-row2" id="our-plans">
+            
                 @foreach ($subscriptionPlans as $plan)
                     <div class="price-col1">
                         <ss style="display: none">@json($plan)</ss>
