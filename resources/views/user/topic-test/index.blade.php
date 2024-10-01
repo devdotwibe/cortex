@@ -33,7 +33,8 @@
                                                 <a   class="btn btn-primary" onclick="loadlessonsetreviews('{{route('topic-test.topic.history',$item->slug)}}')">REVIEW</a>
                                             @endif
                                         @else
-                                            <a class="btn btn-warning" href="{{route('pricing.index')}}">ATTEMPT</a>
+                                            <a class="btn btn-warning" href="{{route('pricing.index')}}#our-plans">ATTEMPT</a>
+                                           
                                         @endif 
                                     </div>
                                 </div>
