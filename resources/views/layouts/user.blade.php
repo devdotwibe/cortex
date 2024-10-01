@@ -251,27 +251,29 @@
     @stack('before-script')
     <script>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Target the analytics link element
-        const analyticsLink = document.querySelector('a[data-bs-target="#adminsubModal"]');
-        
-        // Add a click event listener to provide additional user feedback if required
-        if (analyticsLink) {
-            analyticsLink.addEventListener('click', function(event) {
-                // Check if the modal should be shown (based on server-side rendered data attributes)
-                if (this.getAttribute('data-bs-toggle') === 'modal') {
-                    console.log("Subscription required to access Analytics.");
-                    // You could also dynamically adjust the modal content if needed
-                    const modalBody = document.querySelector('#adminsubModal .modal-body');
-                    if (modalBody) {
-                        modalBody.innerHTML = 'Please subscribe to access the Analytics section.';
-                    }
-                }
-            });
-        }
+
+
+    // Function to show the modal
+    function showSubscriptionModal() {
+        // Get the modal by its ID and show it using Bootstrap's JS API
+        const myModal = new bootstrap.Modal(document.getElementById('adminsubModal'), {
+            backdrop: 'static', // Optional: Prevent closing when clicking outside the modal
+            keyboard: false // Optional: Prevent closing when pressing the ESC key
+        });
+        myModal.show();
+    }
+
+    // Example: Call the function on a button click
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById('showModalButton').addEventListener('click', function() {
+            showSubscriptionModal();
+        });
     });
 </script>
+
+
+
+
 
 
         $.ajaxSetup({
