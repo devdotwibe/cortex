@@ -223,7 +223,7 @@ class LearnTopicController extends Controller
             $data[]=[
                 'slug'=>$row->slug,
                 'date'=>Carbon::parse($row->created_at)->format('Y-m-d h:i a'),
-                'progress'=>$row->progress,
+                'progress'=>round($row->progress,2),
                 'url'=>route('learn.preview',$row->slug),
             ];
         }
