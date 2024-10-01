@@ -261,4 +261,13 @@ class UserController extends Controller
 
         return response()->json(['error' => 'Invalid request'], 400);
     }
+
+
+    public function importuser(Request $request,Setname $setname){ 
+        $request->validate([
+            'import_fields'=>['required'],
+            'import_fields.*'=>['required'],
+            'import_datas'=>['required','file','mimes:json']
+        ]);
+}
 }
