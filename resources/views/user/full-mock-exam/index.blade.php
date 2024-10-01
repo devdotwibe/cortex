@@ -31,7 +31,8 @@
 
 
                                         @else
-                                        <a class="btn btn-warning action-btn" href="{{route('pricing.index')}}">ATTEMPT</a>
+                                        <a class="btn btn-warning action-btn" href="{{route('pricing.index')}}#our-plans">ATTEMPT</a>
+                                       
                                         @endif
                                     </div>
                                 @endforeach
