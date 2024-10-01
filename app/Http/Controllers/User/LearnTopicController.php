@@ -76,7 +76,11 @@ class LearnTopicController extends Controller
         foreach (SubCategory::where('category_id',$category->id)->where(function($qry){
             $qry->whereIn("id",Learn::select('sub_category_id'));
         })->get() as $row) {
-            $row->progress=UserExamReview::whereIn("id",UserExamReview::where('exam_id',$exam->id)->where('user_id',$user->id)->where('category_id',$row->category_id)->groupBy('sub_category_id')->select(DB::raw('MAX(id)')) )->where('user_id',$user->id)->where('category_id',$row->category_id)->where('sub_category_id',$row->id)->where('exam_id',$exam->id)->avg('progress');
+            if(UserExamReview::whereIn("id",UserExamReview::where('exam_id',$exam->id)->where('user_id',$user->id)->where('category_id',$row->category_id)->groupBy('sub_category_id')->select(DB::raw('MAX(id)')) )->where('user_id',$user->id)->where('category_id',$row->category_id)->where('sub_category_id',$row->id)->where('exam_id',$exam->id)->count()==0){
+                $row->progress=$user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$row->id,0);
+            }else{
+                $row->progress=UserExamReview::whereIn("id",UserExamReview::where('exam_id',$exam->id)->where('user_id',$user->id)->where('category_id',$row->category_id)->groupBy('sub_category_id')->select(DB::raw('MAX(id)')) )->where('user_id',$user->id)->where('category_id',$row->category_id)->where('sub_category_id',$row->id)->where('exam_id',$exam->id)->avg('progress');
+            }
             $lessons[]=$row;
         }
 
