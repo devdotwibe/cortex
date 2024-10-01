@@ -78,8 +78,8 @@
             <div class="progress-main">
                 <div class="bookmark">
                     <a class="" id="bookmark-current" >
-                        <img class="active-img" src="{{asset("assets/images/bookmark.svg")}}" alt="bookmark">
-                        <img class="inactive-img" src="{{asset("assets/images/bookmarkfill.svg")}}" alt="bookmark">
+                        <img class="active-img" src="{{asset("assets/images/bookmark.png")}}" alt="bookmark">
+                        <img class="inactive-img" src="{{asset("assets/images/bookmarkfill.png")}}" alt="bookmark">
                     </a>
                 </div>
             </div>
