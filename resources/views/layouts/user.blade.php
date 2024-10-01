@@ -140,7 +140,7 @@
 
                 <li class="side-item {{request()->is('analytics') ? 'active':''}}">
                 
-                        <a @if(auth('admin')->check()&&!(auth('web')->user()->is_free_access)&&(optional(auth('web')->user()->subscription())->status??"")=="subscribed") data-bs-toggle="adminsubModalLabel" data-bs-target="#adminsubModal" @else href="{{route('analytics.index')}}" @endif >
+                        <a @if(auth('admin')->check()&&!(auth('web')->user()->is_free_access)&&(optional(auth('web')->user()->subscription())->status??"")=="subscribed") data-bs-toggle="modal" data-bs-target="#adminsubModal" @else href="{{route('analytics.index')}}" @endif >
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/iconshover/analytics.svg")}}" alt="Dashboard">
                         </span>
@@ -247,8 +247,33 @@
     </div>
 </div>
 
+
     @stack('before-script')
     <script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Target the analytics link element
+        const analyticsLink = document.querySelector('a[data-bs-target="#adminsubModal"]');
+        
+        // Add a click event listener to provide additional user feedback if required
+        if (analyticsLink) {
+            analyticsLink.addEventListener('click', function(event) {
+                // Check if the modal should be shown (based on server-side rendered data attributes)
+                if (this.getAttribute('data-bs-toggle') === 'modal') {
+                    console.log("Subscription required to access Analytics.");
+                    // You could also dynamically adjust the modal content if needed
+                    const modalBody = document.querySelector('#adminsubModal .modal-body');
+                    if (modalBody) {
+                        modalBody.innerHTML = 'Please subscribe to access the Analytics section.';
+                    }
+                }
+            });
+        }
+    });
+</script>
+
+
         $.ajaxSetup({
              headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
