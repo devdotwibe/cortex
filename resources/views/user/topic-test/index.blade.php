@@ -33,8 +33,7 @@
                                                 <a   class="btn btn-primary" onclick="loadlessonsetreviews('{{route('topic-test.topic.history',$item->slug)}}')">REVIEW</a>
                                             @endif
                                         @else
-                                        <a class="btn btn-warning" onclick="showSubscriptionNotification()">ATTEMPT</a>
-                                            {{-- <a class="btn btn-warning" href="{{route('pricing.index')}}">ATTEMPT</a> --}}
+                                            <a class="btn btn-warning" href="{{route('pricing.index')}}">ATTEMPT</a>
                                         @endif 
                                     </div>
                                 </div>
@@ -50,27 +49,6 @@
 
 @push('modals')
  
-
-<!-- Subscription Modal -->
-<div class="modal fade" id="subscriptionModal" tabindex="-1" role="dialog" aria-labelledby="subscriptionModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="subscriptionModalLabel">Notification</h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Candidate Not Subscriber Plan
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="modal fade" id="review-history-modal" tabindex="-1" role="dialog" aria-labelledby="Label" aria-hidden="true">
     <div class="modal-dialog ">
         <div class="modal-content"  id="main-modal-body">
@@ -111,10 +89,6 @@
 
 @push('footer-script') 
     <script>  
-       function showSubscriptionNotification() {
-        $('#subscriptionModal').modal('show'); // Show the modal using Bootstrap
-    }
-
     async function confimexam(url){
         if(await showConfirm({ title:"Start the Topic" })){
             window.location.href=url;
