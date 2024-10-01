@@ -126,7 +126,8 @@
                 </li>
 
                 <li class="side-item {{request()->is('live-class*') ? 'active':''}}">
-                    <a href="{{ route('live-class.index') }}">
+                    
+                        <a @if(auth('admin')->check()&&!(auth('web')->user()->is_free_access)&&(optional(auth('web')->user()->subscription())->status??"")=="subscribed") data-bs-toggle="modal" data-bs-target="#adminsubModal" @else href="{{route('live-class.index')}}" @endif >
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/iconshover/onlineteaching.svg")}}" alt="Dashboard">
                         </span>
@@ -138,7 +139,8 @@
                 </li>
 
                 <li class="side-item {{request()->is('analytics') ? 'active':''}}">
-                    <a href="{{ route('analytics.index') }}">
+                
+                        <a @if(auth('admin')->check()&&!(auth('web')->user()->is_free_access)&&(optional(auth('web')->user()->subscription())->status??"")=="subscribed") data-bs-toggle="adminsubModalLabel" data-bs-target="#adminsubModal" @else href="{{route('analytics.index')}}" @endif >
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/iconshover/analytics.svg")}}" alt="Dashboard">
                         </span>
@@ -150,7 +152,8 @@
                 </li>
                 @guest('admin')
                 <li class="side-item {{request()->is('community*') ? 'active':''}}">
-                    <a href="{{ route('community.index') }}">
+                  
+                        <a @if(auth('admin')->check()&&!(auth('web')->user()->is_free_access)&&(optional(auth('web')->user()->subscription())->status??"")=="subscribed") data-bs-toggle="modal" data-bs-target="#adminsubModal" @else href="{{route('community.index')}}" @endif >
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/iconshover/community.svg")}}" alt="Dashboard">
                         </span>
