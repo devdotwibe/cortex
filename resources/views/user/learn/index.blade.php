@@ -48,6 +48,10 @@
     </div>
 </section>
 
+
+@endsection
+
+@push('modals') 
 <!-- Notification Modal -->
 <div class="modal fade" id="subscriptionModal" tabindex="-1" aria-labelledby="subscriptionModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -64,10 +68,7 @@
             </div>
         </div>
     </div>
-</div>
-@endsection
-
-@push('modals')  
+</div> 
 @endpush
 
 
