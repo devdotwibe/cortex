@@ -22,7 +22,7 @@
                 <li class="nav_item"><a href="{{ route('admin.subscriber.index') }}" class="nav_link btn">Subscriber</a></li>
                 <li class="nav_item import-upload-btn" @if(get_option('user-import', '') == "started") style="display: none" @endif>
                     <x-ajax-import 
-                        :url="route('admin.user.import')" 
+                        :url="route('admin.import')" 
                         :fields='[
                             ["name"=>"first_name","label"=>"First Name"], 
                             ["name"=>"last_name","label"=>"Last Name"], 
