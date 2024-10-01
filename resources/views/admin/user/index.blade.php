@@ -19,29 +19,28 @@
         </div>
         <div class="header_right">
             <ul class="nav_bar">
-                <li class="nav_item"><a href="{{route('admin.subscriber.index')}}" class="nav_link btn">Subscriber</a></li>
-                <li class="nav_item import-upload-btn" @if(get_option('user-import','')=="started") style="display: none" @endif>
+                <li class="nav_item"><a href="{{ route('admin.subscriber.index') }}" class="nav_link btn">Subscriber</a></li>
+                <li class="nav_item import-upload-btn" @if(get_option('user-import', '') == "started") style="display: none" @endif>
                     <x-ajax-import 
-                        :url="route('admin.user.import',$setname->slug)" 
+                        :url="route('admin.user.import')" 
                         :fields='[
                             ["name"=>"first_name","label"=>"First Name"], 
-                             ["name"=>"last_name","label"=>"Last Name"], 
-                             ["name"=>"email_address","label"=>"Email Address"], 
+                            ["name"=>"last_name","label"=>"Last Name"], 
+                            ["name"=>"email_address","label"=>"Email Address"], 
                             ["name"=>"expiry_date","label"=>"Expiry Date in Calendar"],
-                        ]' onupdate="importupdate" ></x-ajax-import>
+                        ]' onupdate="importupdate"></x-ajax-import>
                 </li> 
-                <li class="nav_item import-cancel-btn" @if(get_option('user-import','')!=="started") style="display: none" @endif >
-                    <a href="{{route('admin.uploadcancel','user-import')}}">
+                <li class="nav_item import-cancel-btn" @if(get_option('user-import', '') !== "started") style="display: none" @endif>
+                    <a href="{{ route('admin.uploadcancel', 'user-import') }}">
                         <p id="import-cancel-btn-text">0 % Complete</p>
                         <span class="btn btn-danger">Cancel</span>
                     </a>
                 </li>
-                
             </ul>
         </div>
     </div>
-    
 </section>
+
 {{-- <section class="content_section admin_section">
     <div class="container">
         <div class="row">
