@@ -125,7 +125,19 @@
                     </ul>
                 </li>
 
-              
+                <li class="side-item {{request()->is('live-class*') ? 'active':''}}">
+                    
+                        <a @if(auth('admin')->check()&&!(auth('web')->user()->is_free_access)&&(optional(auth('web')->user()->subscription())->status??"")=="subscribed") data-bs-toggle="modal" data-bs-target="#adminsubModal" @else href="{{route('live-class.index')}}" @endif >
+                        <span class="side-icon" >
+                            <img src="{{asset("assets/images/iconshover/onlineteaching.svg")}}" alt="Dashboard">
+                        </span>
+                        <span class="active-icon">
+                            <img src="{{asset("assets/images/icons/onlineteaching.svg")}}" alt="Dashboard">
+                        </span>
+                        Live Teaching
+                    </a>
+                </li>
+
                 <li class="side-item {{request()->is('analytics') ? 'active':''}}">
                 
                         <a @if(auth('admin')->check()&&!(auth('web')->user()->is_free_access)&&(optional(auth('web')->user()->subscription())->status??"")=="subscribed") data-bs-toggle="modal" data-bs-target="#adminsubModal" @else href="{{route('analytics.index')}}" @endif >
@@ -238,7 +250,6 @@
 
     @stack('before-script')
     <script>
-        
         $.ajaxSetup({
              headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
