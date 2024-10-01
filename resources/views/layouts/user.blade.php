@@ -139,8 +139,8 @@
                 </li>
 
                 <li class="side-item {{request()->is('analytics') ? 'active':''}}">
-                
-                        <a @if(auth('admin')->check()&&!(auth('web')->user()->is_free_access)&&(optional(auth('web')->user()->subscription())->status??"")=="subscribed") data-bs-toggle="modal" data-bs-target="#adminsubModal" @else href="{{route('analytics.index')}}" @endif >
+                    <a @if(auth('admin')->check() &&!(auth('web')->user()->is_free_access) && (optional(auth('web')->user()->subscription())->status ?? "") == "subscribed") href="{{ route('analytics.index') }}" @else data-bs-toggle="modal" data-bs-target="#adminsubModal" @endif >
+                        {{-- <a @if(auth('admin')->check()&&!(auth('web')->user()->is_free_access)&&(optional(auth('web')->user()->subscription())->status??"")=="subscribed") data-bs-toggle="modal" data-bs-target="#adminsubModal" @else href="{{route('analytics.index')}}" @endif > --}}
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/iconshover/analytics.svg")}}" alt="Dashboard">
                         </span>
