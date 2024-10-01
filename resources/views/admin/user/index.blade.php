@@ -20,6 +20,7 @@
         <div class="header_right">
             <ul class="nav_bar">
                 <li class="nav_item"><a href="{{route('admin.subscriber.index')}}" class="nav_link btn">Subscriber</a></li>
+                <li class="nav_item import-upload-btn" @if(get_option('question-bank-import-question','')=="started") style="display: none" @endif>
             </ul>
         </div>
     </div>
