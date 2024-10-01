@@ -27,6 +27,7 @@
                             ["name"=>"first_name","label"=>"First Name"], 
                             ["name"=>"last_name","label"=>"Last Name"], 
                             ["name"=>"email_address","label"=>"Email Address"], 
+                            ["name"=>"expiry_date","label"=>"Expiry Date"], 
                         
                         ]' onupdate="importupdate"></x-ajax-import>
                 </li> 

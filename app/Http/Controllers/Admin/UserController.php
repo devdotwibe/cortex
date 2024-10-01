@@ -20,6 +20,7 @@ use App\Models\TermAccess;
 use App\Models\UserProgress;
 use App\Models\UserSubscription;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -263,11 +264,35 @@ class UserController extends Controller
     }
 
 
-    public function importuser(Request $request){ 
-        $request->validate([
-            'import_fields'=>['required'],
-            'import_fields.*'=>['required'],
-            'import_datas'=>['required','file','mimes:json']
-        ]);
-}
+   
+
+
+public function importuser(Request $request){ 
+    $request->validate([
+        'import_fields'=>['required'],
+        'import_fields.*'=>['required'],
+        'import_datas'=>['required','file','mimes:json']
+    ]);
+
+    $file = $request->file('import_datas');
+    $name = $file->hashName();
+    Storage::put("importfile", $file);
+
+
+    
+    
+
+    // dispatch(new User(
+    //     firstname:$firstname,
+    //     lastname:$lastname,    
+    //     emailaddress:$email,
+      
+    //     fields:$request->import_fields
+    // ));
+
+    return response()->json([
+        'success'=>"Import started"
+    ]);
+} 
+
 }

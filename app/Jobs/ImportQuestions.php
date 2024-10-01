@@ -81,7 +81,7 @@ class ImportQuestions implements ShouldQueue
         $datalist=Storage::json("importfile/{$this->filename}")??[];
         $count=count($datalist);  
         foreach ($datalist as $i => $row) { 
-            if(OptionHelper::getData("{$this->exam->name}-import-question","")=="stop"){
+            if(OptionHelper::getData("{$this->exam->name}-import-question","stop")=="stop"){
                 break;
             }
             $row=$datalist[$i];  
