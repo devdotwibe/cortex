@@ -66,6 +66,9 @@
 
 @push('footer-script')
     <script>
+  let import_{{ $id }}_data = [];
+  let userImportData = []; // Array to hold user data
+        
         let import_{{ $id }}_data = [];
         $('.import-{{ $id }}-fields').change(function(e) {
             selected_val = [];
@@ -96,6 +99,7 @@
         })
         $('#import-{{ $id }}-file').change(function(e) {
             import_{{ $id }}_data = [];
+            userImportData = []; // Reset user data on new file selection
             file = e.target.files[0];
             if (file) {
                 if (typeof(FileReader) != "undefined") {
