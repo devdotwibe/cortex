@@ -142,13 +142,13 @@ class LiveClassController extends Controller
 
     }
 
-    // public function private_class_create()
-    // {
+    public function private_class_create()
+    {
 
-    //     $live_class =  LiveClassPage::first();
+        $live_class =  LiveClassPage::first();
 
-    //     return view('admin.live-class.private-class',compact('live_class'));
-    // }
+        return view('admin.live-class.private-class',compact('live_class'));
+    }
     public function private_class_request(Request $request){
         if($request->ajax()){
             self::reset();
