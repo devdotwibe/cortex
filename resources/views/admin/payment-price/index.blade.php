@@ -945,21 +945,6 @@
                                         </div>
                                     </div>
 
-
-
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="coursetitle">Our Course Title</label>
-                                            <textarea class="form-control texteditor" name="coursetitle" id="coursetitle">
-                                {{ old('coursetitle', optional($price)->ourcoursetitle) }}
-                                
-                            </textarea>
-                                        </div>
-                                    </div>
-
-
-
-
                                     <!-- Save Button -->
                                     <div class="col-md-12 mb-3">
                                         <button type="submit" class="btn btn-primary course" name="section"
@@ -1075,6 +1060,16 @@
                                                     <img id="excelImagePreview" src="#" alt="Excel Image Preview"
                                                         style="display: none; width: 100%; height: auto;">
                                                 @endif
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="coursetitle">Our Course Title</label>
+                                                <textarea class="form-control texteditor" name="coursetitle" id="coursetitle">
+                                                    {{ old('coursetitle', optional($price)->ourcoursetitle) }}
+                                                    
+                                                </textarea>
                                             </div>
                                         </div>
 
