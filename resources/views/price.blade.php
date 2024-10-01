@@ -239,9 +239,9 @@
                     {!! $price->ourcoursetitle !!}
                 @endif
 
-                <div class="btn-success"></div>
+                <div class="btn-success" id="our-courses"></div>
 
-                <a href="#our-courses"></a>
+                {{-- <a href="#our-courses"></a> --}}
 
 
                 <div class="alert alert-success alert-dismissible fade"id="form-messages">
