@@ -126,8 +126,8 @@
                 </li>
 
                 <li class="side-item {{request()->is('live-class*') ? 'active':''}}">
-                    
-                        <a @if(auth('admin')->check()&&!(auth('web')->user()->is_free_access)&&(optional(auth('web')->user()->subscription())->status??"")=="subscribed") data-bs-toggle="modal" data-bs-target="#adminsubModal" @else href="{{route('live-class.index')}}" @endif >
+                    <a @if(auth('admin')->check() &&!(auth('web')->user()->is_free_access) && (optional(auth('web')->user()->subscription())->status ?? "") == "subscribed") href="{{ route('live-class.index') }}" @else data-bs-toggle="modal" data-bs-target="#adminsubModal" @endif >
+
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/iconshover/onlineteaching.svg")}}" alt="Dashboard">
                         </span>
@@ -140,7 +140,7 @@
 
                 <li class="side-item {{request()->is('analytics') ? 'active':''}}">
                     <a @if(auth('admin')->check() &&!(auth('web')->user()->is_free_access) && (optional(auth('web')->user()->subscription())->status ?? "") == "subscribed") href="{{ route('analytics.index') }}" @else data-bs-toggle="modal" data-bs-target="#adminsubModal" @endif >
-                        {{-- <a @if(auth('admin')->check()&&!(auth('web')->user()->is_free_access)&&(optional(auth('web')->user()->subscription())->status??"")=="subscribed") data-bs-toggle="modal" data-bs-target="#adminsubModal" @else href="{{route('analytics.index')}}" @endif > --}}
+                        
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/iconshover/analytics.svg")}}" alt="Dashboard">
                         </span>
@@ -153,7 +153,8 @@
                 @guest('admin')
                 <li class="side-item {{request()->is('community*') ? 'active':''}}">
                   
-                        <a @if(auth('admin')->check()&&!(auth('web')->user()->is_free_access)&&(optional(auth('web')->user()->subscription())->status??"")=="subscribed") data-bs-toggle="modal" data-bs-target="#adminsubModal" @else href="{{route('community.index')}}" @endif >
+
+                            <a @if(auth('admin')->check() &&!(auth('web')->user()->is_free_access) && (optional(auth('web')->user()->subscription())->status ?? "") == "subscribed") href="{{ route('community.index') }}" @else data-bs-toggle="modal" data-bs-target="#adminsubModal" @endif >
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/iconshover/community.svg")}}" alt="Dashboard">
                         </span>
@@ -180,7 +181,7 @@
 
                  <li class="side-item {{request()->is('tipsandadvice*') ? 'active':''}}">
 
-                    {{-- <a @if(auth('admin')->check()&&!(auth('web')->user()->is_free_access)&&(optional(auth('web')->user()->subscription())->status??"")=="subscribed") data-bs-toggle="modal" data-bs-target="#adminsubModal" @else href="{{route('tipsandadvise.index')}}" @endif > --}}
+                  
                         <a @if(auth('admin')->check() &&!(auth('web')->user()->is_free_access) && (optional(auth('web')->user()->subscription())->status ?? "") == "subscribed") href="{{ route('tipsandadvise.index') }}" @else data-bs-toggle="modal" data-bs-target="#adminsubModal" @endif >
 
                          <span class="side-icon" >
