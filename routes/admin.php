@@ -64,7 +64,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::get('/user/{user}/getdata',[UserController::class,'getdata'])->name('user.students');
         Route::get('/user/{user}/spectate',[UserController::class,'userspectate'])->name('user.spectate');
 
-        Route::post('/{setname}/import',[UserController::class,'importuser'])->name('import');
+        Route::post('/import',[UserController::class,'importuser'])->name('import');
 
 
 
