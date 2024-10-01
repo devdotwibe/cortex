@@ -59,10 +59,11 @@ class LearnTopicController extends Controller
         return view("user.learn.index",compact('categorys','exam','user'));
 
     }
-    public function show(Request $request,Category $category){
-        $lessons=SubCategory::where('category_id',$category->id)->where(function($qry){
-            $qry->whereIn("id",Learn::select('sub_category_id'));
-        })->get();
+    public function show(Request $request,Category $category){ 
+        /**
+         *  @var User
+         */
+        $user=Auth::user();
         $exam=Exam::where("name",'learn')->first();
         if(empty($exam)){
             $exam=Exam::store([
@@ -71,11 +72,14 @@ class LearnTopicController extends Controller
             ]);
             $exam=Exam::find( $exam->id );
         }
+        $lessons=[];
+        foreach (SubCategory::where('category_id',$category->id)->where(function($qry){
+            $qry->whereIn("id",Learn::select('sub_category_id'));
+        })->get() as $row) {
+            $row->progress=UserExamReview::whereIn("id",UserExamReview::where('exam_id',$exam->id)->where('user_id',$user->id)->where('category_id',$row->category_id)->groupBy('sub_category_id')->select(DB::raw('MAX(id)')) )->where('user_id',$user->id)->where('category_id',$row->category_id)->where('sub_category_id',$row->id)->where('exam_id',$exam->id)->avg('progress');
+            $lessons[]=$row;
+        }
 
-        /**
-         *  @var User
-         */
-        $user=Auth::user();
         return view("user.learn.show",compact('category','exam','lessons','user'));
     }
     public function lessonshow(Request $request,Category $category,SubCategory $subCategory){

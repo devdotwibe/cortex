@@ -37,7 +37,7 @@
                                 <div class="lesson-row-title">
                                     <span class="lesson-line">Lesson {{$k+1}}</span>
                                     <h3>: {{ $item->name }} </h3>
-                                    <h4>{{ round($user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$item->id,0), 2) }}%</h4>
+                                    <h4>{{  $item->progress }}%</h4>
                                 </div>
                                 {{-- <div class="lesson-row-subtitle"> --}}
                                 
