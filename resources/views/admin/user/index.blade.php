@@ -27,7 +27,7 @@
                             ["name"=>"first_name","label"=>"First Name"], 
                             ["name"=>"last_name","label"=>"Last Name"], 
                             ["name"=>"email_address","label"=>"Email Address"], 
-                            ["name"=>"expiry_date","label"=>"Expiry Date in Calendar"],
+                            {{-- ["name"=>"expiry_date","label"=>"Expiry Date in Calendar"], --}}
                         ]' onupdate="importupdate"></x-ajax-import>
                 </li> 
                 <li class="nav_item import-cancel-btn" @if(get_option('user-import', '') !== "started") style="display: none" @endif>
