@@ -249,6 +249,18 @@
 
 
     @stack('before-script')
+
+
+    <script>
+        $(document).ready(function() {
+            // Show the modal when button is clicked
+            $('#showModalButton').click(function() {
+                $('#adminsubModal').modal('show'); // Show the modal using jQuery
+            });
+        });
+     </script>
+
+     
     <script>
         $.ajaxSetup({
              headers: {
