@@ -177,7 +177,7 @@
 
                  <li class="side-item {{request()->is('tipsandadvice*') ? 'active':''}}">
 
-                    <a @if(auth('admin')->check()&&!(auth('web')->user()->is_free_access)&&(optional(auth('web')->user()->subscription())->status??"")=="subscribed") data-bs-toggle="modal" data-bs-target="#adminsub" @else href="{{route('tipsandadvise.index')}}" @endif >
+                    <a @if(auth('admin')->check()&&!(auth('web')->user()->is_free_access)&&(optional(auth('web')->user()->subscription())->status??"")=="subscribed") data-bs-toggle="modal" data-bs-target="#adminsubModal" @else href="{{route('tipsandadvise.index')}}" @endif >
                          <span class="side-icon" >
                              <img src="{{asset("assets/images/iconshover/tipsandadvice.svg")}}" alt="Dashboard">
                          </span>
@@ -226,6 +226,23 @@
  
 
     @stack('modals')
+<!-- Modal -->
+<div class="modal fade" id="adminsubModal" tabindex="-1" aria-labelledby="adminsubModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="adminsubModalLabel">Subscription Required</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Candidate Not Subscriber Plan
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
     @stack('before-script')
     <script>
