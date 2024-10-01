@@ -138,7 +138,7 @@
                     </a>
                 </li>
 
-                <li class="side-item {{request()->is('analytics') ? 'active':''}}">
+                {{-- <li class="side-item {{request()->is('analytics') ? 'active':''}}">
                 
                         <a @if(auth('admin')->check()&&!(auth('web')->user()->is_free_access)&&(optional(auth('web')->user()->subscription())->status??"")=="subscribed") data-bs-toggle="modal" data-bs-target="#adminsubModal" @else href="{{route('analytics.index')}}" @endif >
                         <span class="side-icon" >
@@ -149,7 +149,7 @@
                         </span>
                         Analytics
                     </a>
-                </li>
+                </li> --}}
                 @guest('admin')
                 <li class="side-item {{request()->is('community*') ? 'active':''}}">
                   
