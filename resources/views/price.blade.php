@@ -240,7 +240,7 @@
 
                 <div class="btn-success"></div>
 
-                
+                <a href="#our-courses"></a>
 
 
                 <div class="alert alert-success alert-dismissible fade"id="form-messages">
