@@ -12,16 +12,16 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        // $middleware->append(NoCache::class);
+        $middleware->append(NoCache::class);
         $middleware->validateCsrfTokens(except: [
             'stripe/*',
         ]);
-        // $middleware->alias([
-        //     'isAdmin' => \App\Http\Middleware\IsAdmin::class,
-        //     'isUser' => \App\Http\Middleware\IsUser::class,
-        //     'hasPrivateClass' => \App\Http\Middleware\HasAvailablePrivateClass::class,
-        //     'subscription' => \App\Http\Middleware\SubscriptionCheck::class,
-        // ]);
+        $middleware->alias([
+            'isAdmin' => \App\Http\Middleware\IsAdmin::class,
+            'isUser' => \App\Http\Middleware\IsUser::class,
+            'hasPrivateClass' => \App\Http\Middleware\HasAvailablePrivateClass::class,
+            'subscription' => \App\Http\Middleware\SubscriptionCheck::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
