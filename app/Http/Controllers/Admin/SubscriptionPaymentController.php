@@ -203,7 +203,6 @@ class SubscriptionPaymentController extends Controller
             'feelingtitle' => 'nullable|string',
            
             'feelingimage' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048',
-            'coursetitle' => 'nullable|string',
             'grouptitle' => 'nullable|string',
            
         ]);
@@ -218,11 +217,8 @@ class SubscriptionPaymentController extends Controller
         // Update fields
         $price->feelingtitle = $request->input('feelingtitle');
       
-        $price->ourcoursetitle = $request->input('coursetitle');
         $price->grouptitle = $request->input('grouptitle');
      
-       
-
         if ($request->hasFile('feelingimage')) {
             $imageName = "price/" . $request->file('feelingimage')->hashName();
             Storage::put('price', $request->file('feelingimage'));
@@ -233,7 +229,7 @@ class SubscriptionPaymentController extends Controller
         $price->save();
     
         // Redirect with success message
-        return redirect()->route('admin.payment-price.index')->with('success', 'Section 4 has been successfully saved.');
+        return redirect()->route('admin.payment-price.index')->with('success', 'Section 3 has been successfully saved.');
     }
     
 
@@ -253,6 +249,7 @@ class SubscriptionPaymentController extends Controller
             'excelimage' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048',
             'excelbuttonlabel' => 'nullable|string',
             'excelbuttonlink' => 'nullable|string',
+            'coursetitle' => 'nullable|string',
            
         ]);
     
@@ -263,7 +260,8 @@ class SubscriptionPaymentController extends Controller
             $price = new Pricing;
         }
     
-        // Update fields
+        $price->ourcoursetitle = $request->input('coursetitle');
+
         $price->exceltitle = $request->input('exceltitle');
       
         $price->excelbuttonlabel = $request->input('excelbuttonlabel');
@@ -281,7 +279,7 @@ class SubscriptionPaymentController extends Controller
         $price->save();
     
         // Redirect with success message
-        return redirect()->route('admin.payment-price.index')->with('success', 'Section 3 has been successfully saved.');
+        return redirect()->route('admin.payment-price.index')->with('success', 'Section 4 has been successfully saved.');
     }
     
 
