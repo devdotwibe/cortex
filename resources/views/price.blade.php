@@ -240,7 +240,7 @@
 
                 <div class="btn-success"></div>
 
-                <a href="#our-courses" class="btn btn-primary"></a>
+                
 
 
                 <div class="alert alert-success alert-dismissible fade"id="form-messages">
@@ -251,7 +251,7 @@
 
 
 
-                {{-- <form id="contact_form" action="" method="post">
+                <form id="contact_form" action="" method="post">
                     @csrf <!-- Include the CSRF token -->
                     <div class="text-fields">
                         <div class="text-field">
@@ -281,7 +281,7 @@
                         <button type="submit" class="submit-btn">Submit</button>
                     </div>
 
-                </form> --}}
+                </form>
             </div>
         </div>
     </section>
