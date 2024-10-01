@@ -41,6 +41,7 @@
             </div>
 
             <div class="price-row2">
+                <a href="#our-plans"></a>
                 @foreach ($subscriptionPlans as $plan)
                     <div class="price-col1">
                         <ss style="display: none">@json($plan)</ss>

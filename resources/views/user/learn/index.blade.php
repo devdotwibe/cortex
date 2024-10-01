@@ -16,7 +16,8 @@
                 @if ($user->is_free_access||(optional($user->subscription())->status??"")=="subscribed"||$k == 0)
                 <a href="{{ route('learn.show', $item->slug) }}">
                 @else
-                <a href="{{route('pricing.index')}}">
+                {{-- <a href="{{route('pricing.index')}}"> --}}
+                    <a href="{{ route('pricing.index') }}#our-plans">
                 @endif
                     <div class="card">
                         <div class="card-body">
