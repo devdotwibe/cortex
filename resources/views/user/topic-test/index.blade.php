@@ -88,6 +88,11 @@
 @endpush
 
 @push('footer-script') 
+<script>
+    function showSubscriptionNotification() {
+        $('#subscriptionModal').modal('show'); // Show the modal using Bootstrap
+    }
+</script>
     <script>  
     async function confimexam(url){
         if(await showConfirm({ title:"Start the Topic" })){
