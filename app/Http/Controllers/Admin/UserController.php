@@ -263,7 +263,7 @@ class UserController extends Controller
     }
 
 
-    public function importuser(Request $request,Setname $setname){ 
+    public function importuser(Request $request){ 
         $request->validate([
             'import_fields'=>['required'],
             'import_fields.*'=>['required'],
