@@ -53,7 +53,11 @@ class LearnTopicController extends Controller
         foreach($this->whereHas('subcategories',function($qry){
             $qry->whereIn("id",Learn::select('sub_category_id'));
         })->buildResult() as $row){
-            $row->progress=UserExamReview::whereIn("id",UserExamReview::where('exam_id',$exam->id)->where('user_id',$user->id)->where('category_id',$row->id)->groupBy('sub_category_id')->select(DB::raw('MAX(id)')) )->where('user_id',$user->id)->where('category_id',$row->id)->where('exam_id',$exam->id)->avg('progress');
+            if(UserExamReview::whereIn("id",UserExamReview::where('exam_id',$exam->id)->where('user_id',$user->id)->where('category_id',$row->id)->groupBy('sub_category_id')->select(DB::raw('MAX(id)')) )->where('user_id',$user->id)->where('category_id',$row->id)->where('exam_id',$exam->id)->count()==0){
+                $row->progress=$user->progress('exam-'.$exam->id.'-module-'.$row->id,0);
+            }else{
+                $row->progress=UserExamReview::whereIn("id",UserExamReview::where('exam_id',$exam->id)->where('user_id',$user->id)->where('category_id',$row->id)->groupBy('sub_category_id')->select(DB::raw('MAX(id)')) )->where('user_id',$user->id)->where('category_id',$row->id)->where('exam_id',$exam->id)->avg('progress');
+            }
             $categorys[]=$row;
         }
         return view("user.learn.index",compact('categorys','exam','user'));
