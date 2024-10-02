@@ -2409,6 +2409,73 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
   border-radius: 10px;
 }
 
+.invite-wrap > .container {
+  background: #FFFFFF;
+  padding: 10px 20px;
+  box-shadow: 4px 0px 16px 0px #0000000A;
+  border-radius: 10px;
+}
+
+.invite-wrap > .container .nav-tabs {
+  border: none;
+  margin: 0 0 20px;
+}
+
+.invite-wrap > .container .nav-tabs li.nav-item {
+  background: #F5F5F5;
+}
+
+.invite-wrap > .container .nav-tabs li.nav-item .nav-link {
+  padding: 8px 20px;
+  font-size: 18px;
+  color: #000;
+}
+
+.invite-wrap > .container .nav-tabs li.nav-item .nav-link.active {
+  background: #ffff;
+  border: 1px solid #BFBEBE;
+  border-radius: 5px;
+}
+
+.invite-wrap > .container .tab-content .tab-pane .card .card-body {
+  padding: 0;
+}
+
+.invite-wrap > .container .tab-content .tab-pane .card .card-body .section1 {
+  width: 50%;
+}
+
+.invite-wrap > .container .tab-content .tab-pane .card .card-body .sec1 {
+  width: 50%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.invite-wrap > .container .tab-content .tab-pane .card .card-body .sec1 .col-md-12:nth-child(2) {
+  width: 48%;
+  margin-right: 4%;
+}
+
+.invite-wrap > .container .tab-content .tab-pane .card .card-body label.file-upload {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  border: 1px solid #BCBCBC;
+  border-radius: 10px;
+}
+
+.invite-wrap > .container .tab-content .tab-pane .card .card-body label.file-upload img {
+  padding: 10% 38%;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #EFEFEF;
+  border-radius: 10px;
+}
+
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
 
