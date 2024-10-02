@@ -82,8 +82,9 @@
               
                 <div class="text-fields">
                     <label>Expiry Date: </label>
-                    <input type="date" class="form-control" name="expiry_date" id="expiry_date">
+                    <input type="date" class="form-control" name="expiry_date" id="expiry_date" min="{{ date('Y-m-d') }}">
                 </div>
+                
 
                    <input type="hidden" name="file_path" id="file_path" value="">
                     <input type="hidden" name="id" id="import_user_id" value="">
