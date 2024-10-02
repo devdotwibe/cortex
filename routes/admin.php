@@ -66,7 +66,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
         Route::post('/import',[UserController::class,'import_users_from_csv'])->name('import_users_from_csv');
 
-
+        Route::post('/import1',[UserController::class,'import_users_from_csv_submit'])->name('import_users_from_csv_submit');
 
 
 
