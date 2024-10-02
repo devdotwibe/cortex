@@ -283,7 +283,7 @@ public function import_users_from_csv(Request $request)
 
         $filePath = storage_path('app/' . $imageName);
 
-        
+
         $data = array_map('str_getcsv', file($filePath));
 
 
@@ -334,7 +334,7 @@ public function import_users_from_csv_submit(Request $request)
 
                 $usersub->status = "imported_user";
                 $usersub->user_id = $user->id;
-                $usersub->end_plan = $request->endplan;
+                $usersub->end_plan = $request->expiry_date;
                 
                 $usersub->save();
             }
