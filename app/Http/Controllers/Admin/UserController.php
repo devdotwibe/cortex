@@ -299,7 +299,6 @@ public function import_users_from_csv(Request $request)
 public function import_users_from_csv_submit(Request $request)
 {
 
-    dd( $request->expiry_date);
     $datas = json_decode($request->input('datas'), true);
     $filePath = $request->input('path');
     $csvData = array_map('str_getcsv', file($filePath));
@@ -335,7 +334,7 @@ public function import_users_from_csv_submit(Request $request)
 
                 $usersub->status = "imported_user";
                 $usersub->user_id = $user->id;
-                $usersub->end_plan = $request->expiry_date;
+                $usersub->expire_at = $request->expiry_date;
                 
                 $usersub->save();
             }
