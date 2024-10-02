@@ -82,7 +82,7 @@
               
                 <div class="text-fields">
                     <label>Expiry Date: </label>
-                    <input type="date" class="datepicker end-datepicker" name="expiry_date" id="expiry_date" min="{{ date('Y-m-d') }}">
+                    <input type="text" class="datepicker end-datepicker" name="expiry_date" id="expiry_date" readonly>
                 </div>
                 
 
