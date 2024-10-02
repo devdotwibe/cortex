@@ -372,7 +372,7 @@ public function import_users_from_csv_submit(Request $request)
         }
             $user->password = "";
             $user->name = "";
-            $user->subscription_plan_id = "";
+            // $user->subscription_plan_id = "";
             $user->save();
             if ($user->save()) {
 
