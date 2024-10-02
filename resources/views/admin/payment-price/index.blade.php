@@ -792,6 +792,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="first">
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="pricetitle">Price Title</label>
@@ -801,8 +802,9 @@
                                 </textarea>
                                             </div>
                                         </div>
+                                    </div>
 
-
+                                <div class="sec">
                                         <!-- Price Button Label -->
                                         <div class="col-md-12">
                                             <div class="form-group">
@@ -839,7 +841,7 @@
                                             </div>
                                         </div>
 
-
+                                    </div>
 
 
 

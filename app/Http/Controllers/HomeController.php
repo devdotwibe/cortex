@@ -240,6 +240,7 @@ class HomeController extends Controller
             });
         })->get();
         
+        
         $price = Pricing::first();
         return view("price",compact('subscriptionPlans','price'));
     }
