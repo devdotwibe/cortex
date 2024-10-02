@@ -759,6 +759,8 @@
         <div class="form-data">
             <div class="forms-inputs mb-4">
                 <label for="image" class="file-upload">
+                    Upload Image
+                    <br>
                     <img src="{{ asset('assets/images/upfile.svg') }}"
                         alt="Upload Icon">
                 </label>
