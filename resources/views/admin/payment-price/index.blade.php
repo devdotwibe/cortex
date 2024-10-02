@@ -897,7 +897,7 @@
                                     </div>
 
 
-
+                                    <div class="first">
 
                                     <!-- Price Banner Title -->
                                     <div class="col-md-12">
@@ -912,7 +912,7 @@
 
 
 
-
+                                </div>
 
 
                                     <!-- Image Upload -->
@@ -1073,7 +1073,7 @@
                                                 </div>
                                             </div>
 
-                                            
+                                            <div class="sec">
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="coursetitle">Our Course Title</label>
@@ -1083,6 +1083,7 @@
                                                 </textarea>
                                             </div>
                                         </div>
+                                    </div>
 
 
 
