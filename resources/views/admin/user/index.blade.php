@@ -46,7 +46,7 @@
                 <form action="#" name="import_user" id="import_user" method="post"  enctype="multipart/form-data">
                     @csrf
                                 <div class="col-md-8">
-                                    <input type="file" accept=".csv" name="file_upload" id="file_upload" class="form-control">
+                                    <input type="file" accept=".csv,.xlsx" name="file_upload" id="file_upload" class="form-control">
                                 </div>
 {{--
                             </form> --}}
