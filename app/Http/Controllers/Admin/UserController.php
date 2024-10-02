@@ -278,22 +278,7 @@ public function importuser(Request $request){
 
     $import_fields[] = $request->import_fields;
 
-    foreach($import_fields as $k=> $item)
-    {
-       
-        foreach($item as $k)
-        {
-            dd( $k);
-        }
-           
-        
-       
-    }
-
-    $first_name = $import_fields['first_name'];
-
-    dd( $first_name);
-
+   dd($file);
 
     $name = $file->hashName();
     // Storage::put(path: "importfile", $file);
