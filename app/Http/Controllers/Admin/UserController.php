@@ -332,6 +332,8 @@ public function import_users_from_csv_submit(Request $request)
 
                 $usersub->status = "imported_user";
                 $usersub->user_id = $user->id;
+                $usersub->end_plan = $request->endplan;
+                
                 $usersub->save();
             }
 

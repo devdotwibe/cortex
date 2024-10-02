@@ -82,7 +82,7 @@
               
                 <div class="text-fields">
                     <label>Expiry Date: </label>
-                    <input type="date" class="form-control" name="expiry_date" id="expiry_date" min="{{ date('Y-m-d') }}">
+                    <input type="date" class="datepicker end-datepicker" name="expiry_date" id="expiry_date" min="{{ date('Y-m-d') }}">
                 </div>
                 
 
@@ -359,7 +359,7 @@
         var formData = new FormData(this);
         var datas = {};
     
-        $('select').each(function() {
+        $('.import-fields').each(function() {
             var fieldName = $(this).attr('name');
             console.log(fieldName);
             var selectedValue = $(this).val();
@@ -369,13 +369,16 @@
                 datas[fieldName] = selectedValue;
             }
         });
-    
+        var endplan =  $("#expiry_date").val();
+
         var path = $("#file_path").val();
         console.log(path);
         var path = $("#file_path").val();
     var requestData = new FormData();
     
     requestData.append('path', path);
+
+    requestData.append('endplan', endplan);
     
     requestData.append('datas', JSON.stringify(datas));
     
@@ -408,6 +411,11 @@
         });
     });
     
+
+    $('.end-datepicker').datepicker({
+            dateFormat: 'yy-mm-dd',
+            minDate: 0
+        });
     </script>
 
 
