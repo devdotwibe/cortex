@@ -699,9 +699,8 @@
                                 </textarea>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div class="row1">
+
                                         <!-- Price Button Label -->
                                         <div class="col-md-12">
                                             <div class="form-group">
@@ -737,7 +736,22 @@
                                             </div>
                                         </div>
 
-                                       
+                                        {{-- <!-- Image Upload -->
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="form-data">
+                                                    <div class="forms-inputs mb-4">
+                                                        <label for="image">Upload Image</label>
+                                                        <input type="file" name="image" id="image"
+                                                            class="form-control"
+                                                            onchange="previewImage(event, 'imagePreview')">
+                                                        @error('image')
+                                                            <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> --}}
                                         <!-- Image Upload -->
                                         <div class="col-md-12">
                                             <div class="form-group">
@@ -777,7 +791,7 @@
                                                 @endif
                                             </div>
                                         </div>
-                                    </div>
+
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="pricetitle">Price Title</label>
