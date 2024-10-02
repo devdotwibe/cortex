@@ -278,6 +278,11 @@ public function importuser(Request $request){
 
     $import_fields[] = $request->import_fields;
 
+    foreach($import_fields as $item)
+    {
+        dd( $item);
+    }
+
     $first_name = $import_fields['first_name'];
 
     dd( $first_name);
