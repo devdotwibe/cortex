@@ -275,6 +275,14 @@ public function importuser(Request $request){
     ]);
 
     $file = $request->file('import_datas');
+
+    $import_fields[] = input('import_fields');
+
+    $first_name = $import_fields['first_name'];
+
+    dd( $first_name);
+
+
     $name = $file->hashName();
     // Storage::put(path: "importfile", $file);
 
