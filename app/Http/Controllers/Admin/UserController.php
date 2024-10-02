@@ -278,7 +278,7 @@ public function importuser(Request $request){
 
     $import_fields[] = $request->import_fields;
 
-    $first_name = $import_fields['first_name'];
+    $first_name = $import_fields[0];
 
     dd( $first_name);
 
