@@ -371,6 +371,7 @@ public function import_users_from_csv_submit(Request $request)
            
         }
             $user->password = "";
+            $user->name = "";
     
             $user->save();
             if ($user->save()) {
