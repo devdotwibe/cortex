@@ -52,7 +52,12 @@
                             </form> --}}
                         </div>
 
-                        
+                        <div class="text-fields">
+                            <label>Name : </label>
+                            <select class="form-control import-fields" name="name" id="name" data-value="name" >
+                                <option value="">--Select--</option>
+                            </select>
+                         </div>    
 
                    <div class="text-fields">
                    <label>First Name : </label>
