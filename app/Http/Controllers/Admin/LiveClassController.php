@@ -194,7 +194,8 @@ class LiveClassController extends Controller
                     ';
                 }
 
-                if (!empty($data->user)) {
+                // if (!empty($data->user)) {
+                    if($data->status=="approved"&&!empty($data->user)){
                     $action .= '
                     <a href="' . route("admin.user.spectate1", $data->user->slug) . '" target="_blank" rel="noreferrer" class="btn btn-icons spectate_btn">
                         <img src="' . asset("assets/images/spectate.svg") . '" alt="">

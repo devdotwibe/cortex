@@ -40,7 +40,8 @@
                 @endif
             </div>
 
-            <div class="price-row2">
+            <div class="price-row2" id="our-plans">
+            
                 @foreach ($subscriptionPlans as $plan)
                     <div class="price-col1">
                         <ss style="display: none">@json($plan)</ss>
@@ -238,9 +239,9 @@
                     {!! $price->ourcoursetitle !!}
                 @endif
 
-                <div class="btn-success"></div>
+                <div class="btn-success" id="our-courses"></div>
 
-                <a href="#our-courses" class="btn btn-primary"></a>
+                {{-- <a href="#our-courses"></a> --}}
 
 
                 <div class="alert alert-success alert-dismissible fade"id="form-messages">

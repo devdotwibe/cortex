@@ -64,6 +64,11 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::get('/user/{user}/getdata',[UserController::class,'getdata'])->name('user.students');
         Route::get('/user/{user}/spectate',[UserController::class,'userspectate'])->name('user.spectate');
 
+        Route::post('/import',[UserController::class,'import_users_from_csv'])->name('import_users_from_csv');
+
+        Route::post('/import1',[UserController::class,'import_users_from_csv_submit'])->name('import_users_from_csv_submit');
+
+
 
         Route::get('/user/{user}/spectate1',[UserController::class,'userspectate1'])->name('user.spectate1');
         Route::get('/user/{user}/comunity',[UserController::class,'usercomunity'])->name('user.comunity');
@@ -165,6 +170,8 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::get('/report-post/{report_post}', [PostReportController::class,'show'])->name('report.show');
             Route::get('/report-post/{user}/ban-user', [PostReportController::class,'banuser'])->name('report.banuser');
             Route::get('/report-post/{post}/block-post', [PostReportController::class,'hidepost'])->name('report.hidepost');
+
+
 
             
             

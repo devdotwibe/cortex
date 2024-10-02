@@ -36,19 +36,20 @@
                 </li> --}}
 
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link @if (session('__payment_price___', '') == 'section4') active @endif" id="section4-tab"
-                        data-bs-toggle="tab" href="#section4" role="tab" aria-controls="section4"
-                        @if (session('__payment_price___', '') == 'section4') aria-selected="true" @else aria-selected="false" @endif>Section
+                    <a class="nav-link @if (session('__payment_price___', '') == 'section3') active @endif" id="section3-tab"
+                        data-bs-toggle="tab" href="#section3" role="tab" aria-controls="section3"
+                        @if (session('__payment_price___', '') == 'section3') aria-selected="true" @else aria-selected="false" @endif>Section
                         3</a>
                 </li>
 
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link @if (session('__payment_price___', '') == 'section3') active @endif" id="section3-tab"
-                        data-bs-toggle="tab" href="#section3" role="tab" aria-controls="section3"
-                        @if (session('__payment_price___', '') == 'section3') aria-selected="true" @else aria-selected="false" @endif>Section
+                    <a class="nav-link @if (session('__payment_price___', '') == 'section4') active @endif" id="section4-tab"
+                        data-bs-toggle="tab" href="#section4" role="tab" aria-controls="section4"
+                        @if (session('__payment_price___', '') == 'section4') aria-selected="true" @else aria-selected="false" @endif>Section
                         4</a>
                 </li>
 
+               
 
 
             </ul>
@@ -686,7 +687,7 @@
                                     @csrf
                                     <div class="row">
 
-
+                                    <div class="first">
 
                                         <!-- Price Banner Title -->
                                         <div class="col-md-12">
@@ -698,8 +699,8 @@
                                 </textarea>
                                             </div>
                                         </div>
-
-
+                                    </div>
+                                            <div class="sec">
                                         <!-- Price Button Label -->
                                         <div class="col-md-12">
                                             <div class="form-group">
@@ -790,7 +791,7 @@
                                                 @endif
                                             </div>
                                         </div>
-
+                                    </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="pricetitle">Price Title</label>
@@ -857,129 +858,111 @@
                     </div>
                 </div>
 
-
-
-
-
-
-
                 <div class="tab-pane fade @if (session('__payment_price___', 'payment') == 'section3') show active @endif" id="section3"
                     role="tabpanel" aria-labelledby="section3-tab">
-                    <div class="row">
-                        <div class="card">
-                            <div class="card-body">
-                                <form action="{{ route('admin.payment-price.section3') }}" method="POST"
-                                    enctype="multipart/form-data">
-                                    @csrf
-                                    <div class="row">
+
+                <div class="row">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="{{ route('admin.payment-price.section3') }}" method="POST"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <div class="row">
 
 
 
 
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <div class="form-data">
-                                                    <div class="forms-inputs mb-4">
-                                                        <label for="grouptitle">Group Title</label>
-                                                        <input type="text" name="grouptitle" id="grouptitle"
-                                                            value="{{ old('grouptitle', optional($price)->grouptitle) }}"
-                                                            class="form-control" placeholder="Group Title">
-                                                        @error('grouptitle')
-                                                            <div class="text-danger">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-
-
-                                        <!-- Price Banner Title -->
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="feelingtitle">Feeling Title</label>
-                                                <textarea class="form-control texteditor" name="feelingtitle" id="feelingtitle">
-                                    {{ old('feelingtitle', optional($price)->feelingtitle) }}
-                                    
-                                </textarea>
-                                            </div>
-                                        </div>
-
-
-
-
-
-
-                                        <!-- Image Upload -->
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <div class="form-data">
-                                                    <div class="forms-inputs mb-4">
-                                                        <label for="feelingimage"  class="file-upload" >Feeling Image  <br>
-                                                            <img src="{{ asset('assets/images/upfile.svg') }}"
-                                                                alt="Upload Icon"> </label>
-                                                        <input type="file" name="feelingimage" id="feelingimage"
-                                                            class="form-control"  style="display: none;"
-                                                            onchange="previewImage(event, 'feelingimagePreview')">
-                                                        @error('feelingimage')
-                                                            <div class="text-danger">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                   
-
-
-                                        <!-- Image Preview -->
+                                    <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="feelingimagePreview">Image Preview</label>
-                                            <div id="feelingimageContainer"
-                                                style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
-                                                @if (isset($price) && $price->image)
-                                                    <img id="feelingimagePreview"
-                                                        src="{{ url('d0/' . $price->feelingimage) }}"
-                                                        alt="Image Preview" style="width: 100%; height: auto;">
-                                                @else
-                                                    <img id="feelingimagePreview" src="#" alt="Image Preview"
-                                                        style="display: none; width: 100%; height: auto;">
-                                                @endif
+                                            <div class="form-data">
+                                                <div class="forms-inputs mb-4">
+                                                    <label for="grouptitle">Group Title</label>
+                                                    <input type="text" name="grouptitle" id="grouptitle"
+                                                        value="{{ old('grouptitle', optional($price)->grouptitle) }}"
+                                                        class="form-control" placeholder="Group Title">
+                                                    @error('grouptitle')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
                                             </div>
                                         </div>
-
-
-
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="coursetitle">Our Course Title</label>
-                                                <textarea class="form-control texteditor" name="coursetitle" id="coursetitle">
-                                    {{ old('coursetitle', optional($price)->ourcoursetitle) }}
-                                    
-                                </textarea>
-                                            </div>
-                                        </div>
-
-
-
-
-                                        <!-- Save Button -->
-                                        <div class="col-md-12 mb-3">
-                                            <button type="submit" class="btn btn-primary course" name="section"
-                                                value="section3">Save</button>
-                                        </div>
-
                                     </div>
-                                </form>
-                            </div>
+
+
+
+
+                                    <!-- Price Banner Title -->
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="feelingtitle">Feeling Title</label>
+                                            <textarea class="form-control texteditor" name="feelingtitle" id="feelingtitle">
+                                {{ old('feelingtitle', optional($price)->feelingtitle) }}
+                                
+                            </textarea>
+                                        </div>
+                                    </div>
+
+
+
+
+
+
+                                    <!-- Image Upload -->
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div class="form-data">
+                                                <div class="forms-inputs mb-4">
+                                                    <label for="feelingimage"  class="file-upload" >Feeling Image  <br>
+                                                        <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                            alt="Upload Icon"> </label>
+                                                    <input type="file" name="feelingimage" id="feelingimage"
+                                                        class="form-control"  style="display: none;"
+                                                        onchange="previewImage(event, 'feelingimagePreview')">
+                                                    @error('feelingimage')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+               
+
+
+                                    <!-- Image Preview -->
+                                    <div class="form-group">
+                                        <label for="feelingimagePreview">Image Preview</label>
+                                        <div id="feelingimageContainer"
+                                            style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
+                                            @if (isset($price) && $price->image)
+                                                <img id="feelingimagePreview"
+                                                    src="{{ url('d0/' . $price->feelingimage) }}"
+                                                    alt="Image Preview" style="width: 100%; height: auto;">
+                                            @else
+                                                <img id="feelingimagePreview" src="#" alt="Image Preview"
+                                                    style="display: none; width: 100%; height: auto;">
+                                            @endif
+                                        </div>
+                                    </div>
+
+                                    <!-- Save Button -->
+                                    <div class="col-md-12 mb-3">
+                                        <button type="submit" class="btn btn-primary course" name="section"
+                                            value="section3">Save</button>
+                                    </div>
+
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
+            </div>
 
 
-                <div class="tab-pane fade @if (session('__payment_price___', 'payment') == 'section4') show active @endif" id="section4"
-                    role="tabpanel" aria-labelledby="section4-tab">
+               
+            <div class="tab-pane fade @if (session('__payment_price___', 'payment') == 'section4') show active @endif" id="section4"
+                         role="tabpanel" aria-labelledby="section4-tab">
+
                     <div class="row">
                         <div class="card">
                             <div class="card-body">
@@ -1080,6 +1063,16 @@
                                             </div>
                                         </div>
 
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="coursetitle">Our Course Title</label>
+                                                <textarea class="form-control texteditor" name="coursetitle" id="coursetitle">
+                                                    {{ old('coursetitle', optional($price)->ourcoursetitle) }}
+                                                    
+                                                </textarea>
+                                            </div>
+                                        </div>
+
 
 
                                         <!-- Save Button -->
@@ -1094,8 +1087,6 @@
                         </div>
                     </div>
                 </div>
-
-
 
 
             </div>

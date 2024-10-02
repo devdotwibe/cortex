@@ -20,6 +20,8 @@ use App\Models\TermAccess;
 use App\Models\UserProgress;
 use App\Models\UserSubscription;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -147,7 +149,7 @@ class UserController extends Controller
 
     public function userspectate1(Request $request,User $user){
         Auth::guard('web')->login($user);
-        return redirect()->route('live-class.privateclass',$user->slug);
+        return redirect()->route('live-class.privateclass.room',$user->slug);
     }
     public function usercomunity(Request $request,User $user){
         $user->update([
@@ -261,4 +263,127 @@ class UserController extends Controller
 
         return response()->json(['error' => 'Invalid request'], 400);
     }
+
+
+   
+
+
+// public function importuser(Request $request){ 
+//     $request->validate([
+//         'import_fields'=>['required'],
+//         'import_fields.*'=>['required'],
+//         'import_datas'=>['required','file','mimes:json']
+//     ]);
+
+//     $file = $request->file('import_datas');
+
+//     $import_fields[] = $request->import_fields;
+
+//    dd($file);
+
+//     $name = $file->hashName();
+//     // Storage::put(path: "importfile", $file);
+
+
+    
+    
+
+//     // dispatch(new User(
+//     //     firstname:$firstname,
+//     //     lastname:$lastname,    
+//     //     emailaddress:$email,
+      
+//     //     fields:$request->import_fields
+//     // ));
+
+//     // return response()->json([
+//     //     'success'=>"Import started"
+//     // ]);
+// } 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+public function import_users_from_csv(Request $request)
+{
+    // dd($request->all());
+    //exit();
+    $file = $request->file('file_upload');
+
+    if (!empty($file)) {
+        $avatar = "files";
+        $imageName = $avatar . "/" . $file->hashName();
+        Storage::put($imageName, file_get_contents($file));
+
+        $filePath = storage_path('app/' . $imageName);
+        $data = array_map('str_getcsv', file($filePath));
+
+
+
+
+      
+        return response()->json(["data" => $data, "filepath" => $filePath]);
+    }
+
+
+    return response()->json(['message' => 'No file uploaded'], 400);
+}
+public function import_users_from_csv_submit(Request $request)
+{
+
+    $datas = json_decode($request->input('datas'), true);
+    $filePath = $request->input('path');
+    $csvData = array_map('str_getcsv', file($filePath));
+    $reversedData = array_reverse($csvData);
+    //$columnNames = array_shift($csvData);
+    $columnNames = array_pop($reversedData);
+
+    // $profile = new Profile();
+    // $user = new User();
+
+    foreach ($reversedData as $row) {
+
+        $usersub = new UserSubscription();
+        $user = new User();
+
+        foreach ($datas as $fieldName => $csvColumn) {
+
+            $userColumns = Schema::getColumnListing('users');
+
+            $csvColumnIndex = array_search($csvColumn, $columnNames);
+
+
+            if ($csvColumnIndex !== false && in_array($fieldName, $userColumns, true)) {
+                $user->{$fieldName} = $row[$csvColumnIndex];
+            }
+           
+        }
+            $user->password = "";
+           
+            // $user->subscription_plan_id = "";
+            $user->save();
+            if ($user->save()) {
+
+                $usersub->status = "imported_user";
+                $usersub->user_id = $user->id;
+                $usersub->save();
+            }
+
+    }
+
+    return response()->json($csvData);
+}
+
 }

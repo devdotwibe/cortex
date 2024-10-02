@@ -14,15 +14,8 @@
 
 
 
-       <!-- Settings Section -->
-       <section class="settings-wrap mt-4">
+    <section class="header_nav settings">
         <div class="header_wrapp">
-            {{-- <div class="header_title">
-                <h2>Settings</h2>
-            </div>
-             --}}
-        </div>
-        <div class="settings-content">
             <form action="{{ route('admin.coupon.setting') }}" method="post" id="settings-form">
                 @csrf
                 <div class="row">
@@ -34,30 +27,21 @@
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                             <div id="email_address-error" class="invalid-feedback"></div>
+                           
                         </div>
                     </div>
+                    <button type="submit" class="btn btn-dark m-1">Save</button>
                 </div>
-                <div class="row mt-2">
-                    <div class="col-md-12">
-                        <button type="submit" class="btn btn-dark m-1">Save</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </section>
+                
+            </form> 
 
 
-    <section class="header_nav">
-        <div class="header_wrapp">
             <div class="header_title">
                 <h2>Coupon</h2>
+                <li class="nav_item"><a data-bs-toggle="modal" data-bs-target="#coupen-modal" class="nav_link btn">+ Add
+                    New</a></li>
             </div>
-            <div class="header_right">
-                <ul class="nav_bar">
-                    <li class="nav_item"><a data-bs-toggle="modal" data-bs-target="#coupen-modal" class="nav_link btn">+ Add
-                            New</a></li>
-                </ul>
-            </div>
+            
         </div>
     </section>
     
