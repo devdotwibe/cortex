@@ -304,15 +304,15 @@
                     console.log(response);
                     $("#file_path").val(response["filepath"]);
                     // Assuming response is an array of strings
-                    $("select").empty();
-                    $("select").append("<option value=''>--Select--</option>");
+                    $(".import-fields").empty();
+                    $(".import-fields").append("<option value=''>--Select--</option>");
                     //$("select").append("<option value=''>__empty__</option>");
     
     
                    // $("#file_upload").val('');
                     response["data"][0].forEach(function(data) {
     
-                        $("select").append("<option value='"+data+"'>" + data + "</option>");
+                        $(".import-fields").append("<option value='"+data+"'>" + data + "</option>");
                     });
                 },
                 error: function(xhr, status, error) {
