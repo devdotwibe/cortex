@@ -276,7 +276,7 @@ public function importuser(Request $request){
 
     $file = $request->file('import_datas');
     $name = $file->hashName();
-    Storage::put("importfile", $file);
+    // Storage::put(path: "importfile", $file);
 
 
     
