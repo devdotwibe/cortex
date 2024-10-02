@@ -80,20 +80,11 @@
                    </select>
                 </div>
               
-
-                
-
-
-{{--
-                    @foreach($profile_fields as $profile_field)
-                    <div class="text-fields">
-                    <label> {{str_replace('_', '', ucwords($profile_field, '_'))}}</label>
-                    <select class="form-control import-fields" name="{{$profile_field}}" id="{{$profile_field}}" data-value="{{$profile_field}}">
-                        <option value="">--Select--</option>
-                    </select>
-
+                <div class="text-fields">
+                    <label>Expiry Date: </label>
+                    <input type="date" class="form-control" name="expiry_date" id="expiry_date">
                 </div>
-                    @endforeach --}}
+
                    <input type="hidden" name="file_path" id="file_path" value="">
                     <input type="hidden" name="id" id="import_user_id" value="">
                     <button class="btn btn-danger" type="submit"  aria-label="Confirm">Import
