@@ -67,12 +67,7 @@
                             </form> --}}
                         </div>
 
-                         <div class="text-fields">
-                            <label>Client Number : </label>
-                            <select class="form-control import-fields" name="client_id" id="client_id" data-value="client_id" >
-                                <option value="">--Select--</option>
-                            </select>
-                         </div>
+                        
 
                    <div class="text-fields">
                    <label>First Name : </label>
@@ -86,62 +81,17 @@
                         <option value="">--Select--</option>
                     </select>
                  </div>
-                 <div class="text-fields">
-                    <label>Address Line :</label>
-                    <select class="form-control import-fields" name="address_line" id="address_line" data-value="address_line">
-                        <option value="">--Select--</option>
-                    </select>
-                 </div>
-                 <div class="text-fields">
-                    <label>City :</label>
-                    <select class="form-control import-fields" name="city" id="city" data-value="city">
-                        <option value="">--Select--</option>
-                    </select>
-                 </div>
-                 <div class="text-fields">
-                    <label>State :</label>
-                    <select class="form-control import-fields" name="address_line_two" id="address_line_two" data-value="address_line_two">
-                        <option value="">--Select--</option>
-                    </select>
-                 </div>
-                 <div class="text-fields">
-                    <label>Country:</label>
-                    <select class="form-control import-fields" name="state" id="state" data-value="state">
-                        <option value="">--Select--</option>
-                    </select>
-                 </div>
-                 <div class="text-fields">
-                    <label>PostCode:</label>
-                    <select class="form-control import-fields" name="postal_address" id="postal_address" data-value="postal_address">
-                        <option value="">--Select--</option>
-                    </select>
-                 </div>
-
-                 <div class="text-fields">
-                    <label>Date of Birth: </label>
-                    <select class="form-control import-fields" name="date_of_birth" id="date_of_birth" data-value="date_of_birth" >
-                        <option value="">--Select--</option>
-                    </select>
-                 </div>
+                
+                
                 <div class="text-fields">
                    <label>Email Address :</label>
                    <select class="form-control import-fields" name="email" id="email" data-value="email">
                        <option value="">--Select--</option>
                    </select>
                 </div>
-                <div class="text-fields">
-                    <label>Phone Number :</label>
-                    <select class="form-control import-fields" name="phone" id="phone" data-value="phone">
-                        <option value="">--Select--</option>
-                    </select>
-                 </div>
+              
 
-                 <div class="text-fields">
-                    <label>Occupation :</label>
-                    <select class="form-control import-fields" name="occupation" id="occupation" data-value="occupation">
-                        <option value="">--Select--</option>
-                    </select>
-                 </div>
+                
 
 
 {{--

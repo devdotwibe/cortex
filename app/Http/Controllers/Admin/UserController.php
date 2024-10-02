@@ -267,37 +267,128 @@ class UserController extends Controller
    
 
 
-public function importuser(Request $request){ 
-    $request->validate([
-        'import_fields'=>['required'],
-        'import_fields.*'=>['required'],
-        'import_datas'=>['required','file','mimes:json']
-    ]);
+// public function importuser(Request $request){ 
+//     $request->validate([
+//         'import_fields'=>['required'],
+//         'import_fields.*'=>['required'],
+//         'import_datas'=>['required','file','mimes:json']
+//     ]);
 
-    $file = $request->file('import_datas');
+//     $file = $request->file('import_datas');
 
-    $import_fields[] = $request->import_fields;
+//     $import_fields[] = $request->import_fields;
 
-   dd($file);
+//    dd($file);
 
-    $name = $file->hashName();
-    // Storage::put(path: "importfile", $file);
+//     $name = $file->hashName();
+//     // Storage::put(path: "importfile", $file);
 
 
     
     
 
-    // dispatch(new User(
-    //     firstname:$firstname,
-    //     lastname:$lastname,    
-    //     emailaddress:$email,
+//     // dispatch(new User(
+//     //     firstname:$firstname,
+//     //     lastname:$lastname,    
+//     //     emailaddress:$email,
       
-    //     fields:$request->import_fields
-    // ));
+//     //     fields:$request->import_fields
+//     // ));
 
-    // return response()->json([
-    //     'success'=>"Import started"
-    // ]);
-} 
+//     // return response()->json([
+//     //     'success'=>"Import started"
+//     // ]);
+// } 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+public function import_users_from_csv(Request $request)
+{
+    // dd($request->all());
+    //exit();
+    $file = $request->file('file_upload');
+
+    if (!empty($file)) {
+        $avatar = "files";
+        $imageName = $avatar . "/" . $file->hashName();
+        Storage::put($imageName, file_get_contents($file));
+
+        $filePath = storage_path('app/' . $imageName);
+        $data = array_map('str_getcsv', file($filePath));
+
+
+
+
+      
+        return response()->json(["data" => $data, "filepath" => $filePath]);
+    }
+
+
+    return response()->json(['message' => 'No file uploaded'], 400);
+}
+public function import_users_from_csv_submit(Request $request)
+{
+
+    $datas = json_decode($request->input('datas'), true);
+    $filePath = $request->input('path');
+    $csvData = array_map('str_getcsv', file($filePath));
+    $reversedData = array_reverse($csvData);
+    //$columnNames = array_shift($csvData);
+    $columnNames = array_pop($reversedData);
+
+    // $profile = new Profile();
+    // $user = new User();
+
+    foreach ($reversedData as $row) {
+        $profile = new Profile();
+        $user = new User();
+
+        foreach ($datas as $fieldName => $csvColumn) {
+
+            $userColumns = Schema::getColumnListing('users');
+
+            $csvColumnIndex = array_search($csvColumn, $columnNames);
+
+
+            if ($csvColumnIndex !== false && in_array($fieldName, $userColumns, true)) {
+                $user->{$fieldName} = $row[$csvColumnIndex];
+            }
+            if ($csvColumnIndex !== false && !in_array($fieldName, $userColumns, true)) {
+
+                $profile->{$fieldName} = $row[$csvColumnIndex];
+            }
+        }
+        $user->password = "";
+        $user->name = $request->first_name;
+
+        if(empty($profile->client_id)|| (Profile::where('client_id',$profile->client_id)->count()==0 && User::where('email',$user->email)->count()==0 ))
+        { 
+
+            $user->save();
+            if ($user->save()) {
+                $profile->user_type = "imported_user";
+                $profile->user_id = $user->id;
+                $profile->save();
+            }
+
+        }
+
+    }
+
+    return response()->json($csvData);
+}
 
 }
