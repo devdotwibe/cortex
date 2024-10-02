@@ -753,49 +753,47 @@
                                             </div>
                                         </div> --}}
                                       
+   <!-- Image Upload -->
+   <div class="col-md-12">
+    <div class="form-group">
+        <div class="form-data">
+            <div class="forms-inputs mb-4">
+                <label for="image" class="file-upload">
+                    <img src="{{ asset('assets/images/upfile.svg') }}"
+                        alt="Upload Icon">
+                </label>
+                <input type="file" name="image" id="image"
+                    class="form-control" style="display: none;"
+                    onchange="previewImage(event, 'imagePreview')">
+                @error('image')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Image Preview -->
+<div class="form-group">
+    <label for="imagePreview">Image Preview</label>
+    <div id="imagePreviewContainer"
+        style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
+        @if (isset($price) && $price->image)
+            <img id="imagePreview" src="{{ url('d0/' . $price->image) }}"
+                alt="Image Preview" style="width: 100%; height: auto;">
+        @else
+            <img id="imagePreview" src="#" alt="Image Preview"
+                style="display: none; width: 100%; height: auto;">
+        @endif
+    </div>
+</div>
 
                                     </div>
 
-                                      <!-- Image Upload -->
-                                      <div class="col-md-12">
-                                        <div class="form-group">
-                                            <div class="form-data">
-                                                <div class="forms-inputs mb-4">
-                                                    <label for="image" class="file-upload">
-                                                        Upload Image
-                                                        <br>
-                                                        <img src="{{ asset('assets/images/upfile.svg') }}"
-                                                            alt="Upload Icon">
-                                                    </label>
-                                                    <input type="file" name="image" id="image"
-                                                        class="form-control" style="display: none;"
-                                                        onchange="previewImage(event, 'imagePreview')">
-                                                    @error('image')
-                                                        <div class="text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-
-
-                                    <!-- Image Preview -->
-                                    <div class="form-group">
-                                        <label for="imagePreview">Image Preview</label>
-                                        <div id="imagePreviewContainer"
-                                            style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
-                                            @if (isset($price) && $price->image)
-                                                <img id="imagePreview" src="{{ url('d0/' . $price->image) }}"
-                                                    alt="Image Preview" style="width: 100%; height: auto;">
-                                            @else
-                                                <img id="imagePreview" src="#" alt="Image Preview"
-                                                    style="display: none; width: 100%; height: auto;">
-                                            @endif
-                                        </div>
-                                    </div>
-
+                                   
 
 
                                     <div class="first">
