@@ -20,6 +20,7 @@ use App\Models\TermAccess;
 use App\Models\UserProgress;
 use App\Models\UserSubscription;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
@@ -353,7 +354,8 @@ public function import_users_from_csv_submit(Request $request)
     // $user = new User();
 
     foreach ($reversedData as $row) {
-        $profile = new Profile();
+
+        $usersub = new UserSubscription();
         $user = new User();
 
         foreach ($datas as $fieldName => $csvColumn) {
@@ -366,25 +368,17 @@ public function import_users_from_csv_submit(Request $request)
             if ($csvColumnIndex !== false && in_array($fieldName, $userColumns, true)) {
                 $user->{$fieldName} = $row[$csvColumnIndex];
             }
-            if ($csvColumnIndex !== false && !in_array($fieldName, $userColumns, true)) {
-
-                $profile->{$fieldName} = $row[$csvColumnIndex];
-            }
+           
         }
-        $user->password = "";
-        $user->name = $request->first_name;
-
-        if(empty($profile->client_id)|| (Profile::where('client_id',$profile->client_id)->count()==0 && User::where('email',$user->email)->count()==0 ))
-        { 
-
+            $user->password = "";
+    
             $user->save();
             if ($user->save()) {
-                $profile->user_type = "imported_user";
-                $profile->user_id = $user->id;
-                $profile->save();
-            }
 
-        }
+                $usersub->status = "imported_user";
+                $usersub->user_id = $user->id;
+                $usersub->save();
+            }
 
     }
 
