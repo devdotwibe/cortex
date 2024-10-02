@@ -82,7 +82,7 @@
               
                 <div class="text-fields">
                     <label>Expiry Date: </label>
-                    <input type="text" class="datepicker end-datepicker" name="expiry_date" id="expiry_date" readonly>
+                    <input type="text" class="form-control datepicker end-datepicker" name="expiry_date" id="expiry_date" readonly>
                 </div>
                 
 
