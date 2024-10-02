@@ -687,7 +687,7 @@
                                     @csrf
                                     <div class="row">
 
-                                    <div>
+                                    <div class="first">
 
                                         <!-- Price Banner Title -->
                                         <div class="col-md-12">
@@ -700,7 +700,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                            <div>
+                                            <div class="sec">
                                         <!-- Price Button Label -->
                                         <div class="col-md-12">
                                             <div class="form-group">
