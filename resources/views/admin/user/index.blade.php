@@ -17,7 +17,7 @@
                 </select>
             </div>
         </div>
-        <div class="header_right">
+        {{-- <div class="header_right">
             <ul class="nav_bar">
                 <li class="nav_item"><a href="{{ route('admin.subscriber.index') }}" class="nav_link btn">Subscriber</a></li>
                 <li class="nav_item import-upload-btn" @if(get_option('user-import', '') == "started") style="display: none" @endif>
@@ -38,7 +38,141 @@
                     </a>
                 </li>
             </ul>
+        </div> --}}
+
+
+        
+<div class="modal fade" id="import_user_modal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" >
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Import</h4>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <img src="{{asset('assets/images/x-circle.svg')}}" alt="">
+                </button>
+            </div>
+            <div class="modal-body" style="max-height: 400px; overflow-y: auto;">
+
+
+                        <div class="col-md-12 d-flex justify-content-end">
+                            {{-- <form id="import_users" name="import_users" method="POST"  enctype="multipart/form-data" class="d-flex align-items-center">
+                                @csrf --}}
+
+                <form action="#" name="import_user" id="import_user" method="post"  enctype="multipart/form-data">
+                    @csrf
+                                <div class="col-md-8">
+                                    <input type="file" accept=".csv" name="file_upload" id="file_upload" class="form-control">
+                                </div>
+{{--
+                            </form> --}}
+                        </div>
+
+                         <div class="text-fields">
+                            <label>Client Number : </label>
+                            <select class="form-control import-fields" name="client_id" id="client_id" data-value="client_id" >
+                                <option value="">--Select--</option>
+                            </select>
+                         </div>
+
+                   <div class="text-fields">
+                   <label>First Name : </label>
+                   <select class="form-control import-fields" name="first_name" id="first_name" data-value="first_name" >
+                       <option value="">--Select--</option>
+                   </select>
+                </div>
+                <div class="text-fields">
+                    <label>Last Name : </label>
+                    <select class="form-control import-fields" name="last_name" id="last_name" data-value="last_name" >
+                        <option value="">--Select--</option>
+                    </select>
+                 </div>
+                 <div class="text-fields">
+                    <label>Address Line :</label>
+                    <select class="form-control import-fields" name="address_line" id="address_line" data-value="address_line">
+                        <option value="">--Select--</option>
+                    </select>
+                 </div>
+                 <div class="text-fields">
+                    <label>City :</label>
+                    <select class="form-control import-fields" name="city" id="city" data-value="city">
+                        <option value="">--Select--</option>
+                    </select>
+                 </div>
+                 <div class="text-fields">
+                    <label>State :</label>
+                    <select class="form-control import-fields" name="address_line_two" id="address_line_two" data-value="address_line_two">
+                        <option value="">--Select--</option>
+                    </select>
+                 </div>
+                 <div class="text-fields">
+                    <label>Country:</label>
+                    <select class="form-control import-fields" name="state" id="state" data-value="state">
+                        <option value="">--Select--</option>
+                    </select>
+                 </div>
+                 <div class="text-fields">
+                    <label>PostCode:</label>
+                    <select class="form-control import-fields" name="postal_address" id="postal_address" data-value="postal_address">
+                        <option value="">--Select--</option>
+                    </select>
+                 </div>
+
+                 <div class="text-fields">
+                    <label>Date of Birth: </label>
+                    <select class="form-control import-fields" name="date_of_birth" id="date_of_birth" data-value="date_of_birth" >
+                        <option value="">--Select--</option>
+                    </select>
+                 </div>
+                <div class="text-fields">
+                   <label>Email Address :</label>
+                   <select class="form-control import-fields" name="email" id="email" data-value="email">
+                       <option value="">--Select--</option>
+                   </select>
+                </div>
+                <div class="text-fields">
+                    <label>Phone Number :</label>
+                    <select class="form-control import-fields" name="phone" id="phone" data-value="phone">
+                        <option value="">--Select--</option>
+                    </select>
+                 </div>
+
+                 <div class="text-fields">
+                    <label>Occupation :</label>
+                    <select class="form-control import-fields" name="occupation" id="occupation" data-value="occupation">
+                        <option value="">--Select--</option>
+                    </select>
+                 </div>
+
+
+{{--
+                    @foreach($profile_fields as $profile_field)
+                    <div class="text-fields">
+                    <label> {{str_replace('_', '', ucwords($profile_field, '_'))}}</label>
+                    <select class="form-control import-fields" name="{{$profile_field}}" id="{{$profile_field}}" data-value="{{$profile_field}}">
+                        <option value="">--Select--</option>
+                    </select>
+
+                </div>
+                    @endforeach --}}
+                   <input type="hidden" name="file_path" id="file_path" value="">
+                    <input type="hidden" name="id" id="import_user_id" value="">
+                    <button class="btn btn-danger" type="submit"  aria-label="Confirm">Import
+                        <div class="spinner-border spinner-border-sm text-primary import_load_service" id="import_load_service" role="status" style="display:none;">
+                            <span class="sr-only"></span>
+                        </div>
+                    </button>
+                    <button class="btn btn-warning" type="button" data-bs-dismiss="modal" aria-label="Cancel">Cancel</button>
+                </form>
+
+            </div>
+
         </div>
+    </div>
+</div>
+
+
+
+
     </div>
 </section>
 
@@ -203,4 +337,147 @@
             })
         })
     </script>
+
+
+
+
+
+<script>
+    $(document).on("change", "#file_upload", function() {
+        console.log("on cjhash");
+        var formData = new FormData();
+        var fileInput = $('#file_upload')[0];
+    
+        if (fileInput.files.length > 0) {
+            formData.append('file_upload', fileInput.files[0]);
+    
+            $.ajax({
+                url: '{{ route('admin.import_users_from_csv')}}',
+                type: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    console.log(response);
+                    $("#file_path").val(response["filepath"]);
+                    // Assuming response is an array of strings
+                    $("select").empty();
+                    $("select").append("<option value=''>--Select--</option>");
+                    //$("select").append("<option value=''>__empty__</option>");
+    
+    
+                   // $("#file_upload").val('');
+                    response["data"][0].forEach(function(data) {
+    
+                        $("select").append("<option value='"+data+"'>" + data + "</option>");
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+        } else {
+            console.log('No file selected.');
+        }
+    });
+    
+    
+        $(document).on("click",".option-btn", function() { 
+     
+            $(this).hide(); 
+            $(this).siblings('.btn-inner').show();
+        });
+       
+        $(document).on("click", function(event) {
+            if (!$(event.target).closest(".btn-inner, .option-btn").length) {
+                $(".btn-inner").hide();
+                $(".option-btn").show(); 
+            }
+        });
+    
+        // $(document).ready(function() {
+        // $(".option-btn").hover(
+        //     function() {
+        //         console.log("Button hovered");
+        //         console.log("Siblings:", $(this).siblings());
+        //         $(this).hide();
+        //         $(this).siblings('.btn-inner').show();
+        //     },
+        //         function() {
+        //             $(this).show();
+        //             $(this).siblings('.btn-inner').hide();
+        //         }
+        //     );
+        // });
+    
+    
+    
+    
+    
+    </script>
+    
+    <script>
+    $(document).on("submit", "#import_user", function(e) {
+        e.preventDefault();
+        $("#import_load_servimport-fieldsice").css("display","block");
+    
+        var formData = new FormData(this);
+        var datas = {};
+    
+        $('select').each(function() {
+            var fieldName = $(this).attr('name');
+            console.log(fieldName);
+            var selectedValue = $(this).val();
+            console.log(selectedValue);
+    
+            if (fieldName && selectedValue) {
+                datas[fieldName] = selectedValue;
+            }
+        });
+    
+        var path = $("#file_path").val();
+        console.log(path);
+        var path = $("#file_path").val();
+    var requestData = new FormData();
+    
+    requestData.append('path', path);
+    
+    requestData.append('datas', JSON.stringify(datas));
+    
+    for (var pair of formData.entries()) {
+        requestData.append(pair[0], pair[1]);
+    }
+    
+        $.ajax({
+            url: '{{ route('admin.import_users_from_csv_submit')}}',
+            type: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            data:requestData,
+    
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                // console.log(response);
+                $(".import-fields").val('');
+                $("#import_user_modal").modal("hide");
+                $("#load_service").css("display","none");
+                $("#import_load_service").css("display","none");
+    
+                $('#user-table').DataTable().ajax.reload();
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    });
+    
+    </script>
+
+
+
 @endpush
