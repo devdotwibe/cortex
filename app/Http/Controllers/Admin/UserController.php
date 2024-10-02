@@ -282,6 +282,8 @@ public function import_users_from_csv(Request $request)
         Storage::put($imageName, file_get_contents($file));
 
         $filePath = storage_path('app/' . $imageName);
+
+        
         $data = array_map('str_getcsv', file($filePath));
 
 

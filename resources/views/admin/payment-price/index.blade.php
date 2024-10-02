@@ -914,7 +914,7 @@
 
                                 </div>
 
-
+                                    <div class="sec">
                                     <!-- Image Upload -->
                                     <div class="col-md-12">
                                         <div class="form-group">
@@ -952,7 +952,7 @@
                                             @endif
                                         </div>
                                     </div>
-
+                                </div>
                                     <!-- Save Button -->
                                     <div class="col-md-12 mb-3">
                                         <button type="submit" class="btn btn-primary course" name="section"
