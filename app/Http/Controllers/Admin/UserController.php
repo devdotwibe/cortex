@@ -276,7 +276,7 @@ public function importuser(Request $request){
 
     $file = $request->file('import_datas');
 
-    $import_fields[] = input('import_fields');
+    $import_fields[] = $request->import_fields;
 
     $first_name = $import_fields['first_name'];
 
