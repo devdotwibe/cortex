@@ -280,10 +280,9 @@ public function importuser(Request $request){
 
     foreach($import_fields as $k=> $item)
     {
-        if($k==1)
-        {
-            dd( $item);
-        }
+       
+            dd( $item->first_name);
+        
        
     }
 
