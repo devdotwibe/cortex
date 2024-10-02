@@ -1034,44 +1034,44 @@
                                                 </div>
                                             </div>
                                         </div>
+  <!-- Excel Image -->
+  <div class="col-md-12">
+    <div class="form-group">
+        <div class="form-data">
+            <div class="forms-inputs mb-4">
+                <label for="excelimage" class="file-upload">Excel Image <br>   <img src="{{ asset('assets/images/upfile.svg') }}"
+                    alt="Upload Icon"> </label>
+                <input type="file" name="excelimage" id="excelimage"
+                    class="form-control" style="display: none;"
+                    onchange="previewImage(event, 'excelImagePreview')">
+                @error('excelimage')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+        </div>
+    </div>
+</div>
 
+
+
+<!-- Image Preview -->
+<div class="form-group">
+    <label for="excelImagePreview">Image Preview</label>
+    <div id="imagePreviewContainer"
+        style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
+        @if (isset($price) && $price->excelimage)
+            <img id="excelImagePreview"
+                src="{{ url('d0/' . $price->excelimage) }}"
+                alt="Excel Image Preview" style="width: 100%; height: auto;">
+        @else
+            <img id="excelImagePreview" src="#" alt="Excel Image Preview"
+                style="display: none; width: 100%; height: auto;">
+        @endif
+    </div>
+</div>
                              
                                     </div>
-                                               <!-- Excel Image -->
-                                               <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <div class="form-data">
-                                                        <div class="forms-inputs mb-4">
-                                                            <label for="excelimage" class="file-upload">Excel Image <br>   <img src="{{ asset('assets/images/upfile.svg') }}"
-                                                                alt="Upload Icon"> </label>
-                                                            <input type="file" name="excelimage" id="excelimage"
-                                                                class="form-control" style="display: none;"
-                                                                onchange="previewImage(event, 'excelImagePreview')">
-                                                            @error('excelimage')
-                                                                <div class="text-danger">{{ $message }}</div>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-    
-    
-                                           
-                                            <!-- Image Preview -->
-                                            <div class="form-group">
-                                                <label for="excelImagePreview">Image Preview</label>
-                                                <div id="imagePreviewContainer"
-                                                    style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
-                                                    @if (isset($price) && $price->excelimage)
-                                                        <img id="excelImagePreview"
-                                                            src="{{ url('d0/' . $price->excelimage) }}"
-                                                            alt="Excel Image Preview" style="width: 100%; height: auto;">
-                                                    @else
-                                                        <img id="excelImagePreview" src="#" alt="Excel Image Preview"
-                                                            style="display: none; width: 100%; height: auto;">
-                                                    @endif
-                                                </div>
-                                            </div>
+                                             
 
                                             <div class="sec">
                                         <div class="col-md-12">
