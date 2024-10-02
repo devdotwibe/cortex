@@ -290,9 +290,9 @@ public function importuser(Request $request){
     //     fields:$request->import_fields
     // ));
 
-    return response()->json([
-        'success'=>"Import started"
-    ]);
+    // return response()->json([
+    //     'success'=>"Import started"
+    // ]);
 } 
 
 }
