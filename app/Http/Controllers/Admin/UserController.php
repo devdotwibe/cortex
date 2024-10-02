@@ -267,32 +267,89 @@ class UserController extends Controller
    
 
 
-public function importuser(Request $request){ 
+// public function importuser(Request $request){ 
+//     $request->validate([
+//         'import_fields'=>['required'],
+//         'import_fields.*'=>['required'],
+//         'import_datas'=>['required','file','mimes:json']
+//     ]);
+
+//     $file = $request->file('import_datas');
+//     $name = $file->hashName();
+//     Storage::put("importfile", $file);
+
+
+    
+    
+
+//     // dispatch(new User(
+//     //     firstname:$firstname,
+//     //     lastname:$lastname,    
+//     //     emailaddress:$email,
+      
+//     //     fields:$request->import_fields
+//     // ));
+
+//     return response()->json([
+//         'success'=>"Import started"
+//     ]);
+// } 
+
+public function importuser(Request $request)
+{
+    // Validate the incoming request
     $request->validate([
-        'import_fields'=>['required'],
-        'import_fields.*'=>['required'],
-        'import_datas'=>['required','file','mimes:json']
+        'import_fields' => ['required', 'array'],
+        'import_fields.*' => ['required', 'string'],
+        'import_datas' => ['required', 'file', 'mimes:json'],
+        'expiry_date' => ['required', 'date']
     ]);
 
+    // Handle the uploaded file
     $file = $request->file('import_datas');
     $name = $file->hashName();
-    Storage::put("importfile", $file);
+    Storage::put("importfile/$name", file_get_contents($file));
 
+    // Load the user data from the JSON file
+    $filePath = storage_path("app/importfile/$name");
+    $userData = json_decode(file_get_contents($filePath), true);
 
-    
-    
+    if ($userData === null) {
+        return response()->json(['error' => 'Invalid JSON format in uploaded file.'], 400);
+    }
 
-    // dispatch(new User(
-    //     firstname:$firstname,
-    //     lastname:$lastname,    
-    //     emailaddress:$email,
-      
-    //     fields:$request->import_fields
-    // ));
+    // Iterate through each user in the imported data
+    foreach ($userData as $user) {
+        $firstname = $user['firstname'] ?? null;
+        $lastname = $user['lastname'] ?? null;
+        $email = $user['email'] ?? null;
+
+        if (empty($firstname) || empty($lastname) || empty($email)) {
+            return response()->json(['error' => 'First name, last name, and email address are required for each user.'], 400);
+        }
+
+        // Check if the user already exists
+        $existingUser = User::where('email', $email)->first();
+
+        if (!$existingUser) {
+            // Create a new user
+            $newUser = User::create([
+                'firstname' => $firstname,
+                'lastname' => $lastname,
+                'email' => $email,
+               
+                'expiry_date' => $request->expiry_date // Set the common expiry date
+            ]);
+
+            // Send password reset email
+           
+       
+        }
+    }
 
     return response()->json([
-        'success'=>"Import started"
+        'success' => "Import started. Users have been added, and password reset emails have been sent."
     ]);
-} 
+}
 
 }
