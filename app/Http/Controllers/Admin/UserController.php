@@ -265,53 +265,7 @@ class UserController extends Controller
     }
 
 
-   
-
-
-// public function importuser(Request $request){ 
-//     $request->validate([
-//         'import_fields'=>['required'],
-//         'import_fields.*'=>['required'],
-//         'import_datas'=>['required','file','mimes:json']
-//     ]);
-
-//     $file = $request->file('import_datas');
-
-//     $import_fields[] = $request->import_fields;
-
-//    dd($file);
-
-//     $name = $file->hashName();
-//     // Storage::put(path: "importfile", $file);
-
-
-    
-    
-
-//     // dispatch(new User(
-//     //     firstname:$firstname,
-//     //     lastname:$lastname,    
-//     //     emailaddress:$email,
-      
-//     //     fields:$request->import_fields
-//     // ));
-
-//     // return response()->json([
-//     //     'success'=>"Import started"
-//     // ]);
-// } 
-
-
-
-
-
-
-
-
-
-
-
-
+  
 
 
 
