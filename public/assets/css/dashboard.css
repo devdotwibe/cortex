@@ -2542,6 +2542,11 @@ nav.navbar { padding-left: 60px;}
 .payment-wrap .tab-content .tab-pane .card .card-body .sec { width: 100%;}
 .payment-wrap .tab-content .tab-pane .card .card-body .col-md-12 { width: 100%;}
 
+.payment-wrap .tab-content .tab-pane .card .card-body .sec .col-md-12 {
+  width: 48%;
+  margin: 0 4% 0 0;
+}
+
 }
 
 @media screen and (max-width:600px){
@@ -2559,5 +2564,10 @@ nav.navbar { padding-left: 60px;}
 .invite-wrap .row > div { padding: 0;}
 
 .payment-wrap .tab-content .tab-pane .card .card-body .sec .col-md-12:nth-child(3) {width: 100%;}
+
+.payment-wrap .tab-content .tab-pane .card .card-body .sec .col-md-12 {
+  width: 100%;
+  margin: 0 0 0 0;
+}
 
 }
