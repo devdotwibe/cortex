@@ -345,10 +345,6 @@ public function import_users_from_csv_submit(Request $request)
         }
             $user->name = $name[0] ."". $name[1];
 
-             // Skip saving the user if the email is empty or already exists
-    if (empty($user->email) || User::where('email', $user->email)->exists()) {
-        continue;
-    }
 
             $user->password = "";
 
