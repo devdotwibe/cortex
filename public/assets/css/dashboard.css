@@ -2564,6 +2564,10 @@ nav.navbar { padding: 10px 6%;}
   margin: 0 4% 0 0;
 }
 
+.payment-wrap .tab-content a.float-end {
+  float: left !important;
+}
+
 }
 
 @media screen and (max-width:600px){
