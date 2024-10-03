@@ -2516,7 +2516,7 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .sidebar-menu .line { width: 100%; position: relative; display: inline-block; height: 2px; background: #1989f8; transition: all .25s ease-in-out;}
 .sidebar-menu .line:before { content: ""; width: 100%; position: absolute; display: inline-block; height: 2px; background: #1989f8; top: -10px; transition: all .25s ease-in-out;}
 .sidebar-menu .line:after { content: ""; width: 100%; position: absolute; display: inline-block; height: 2px; background: #1989f8; top: 10px; transition: all .25s ease-in-out;}
-nav.navbar { padding-left: 60px;}
+nav.navbar { padding: 10px 6%;}
 .side_bar.show { margin-left: 0;}
 .sidebar-menu .active .line { background: transparent;}
 .sidebar-menu .active .line:before { top: 0; transform: rotate(-45deg);}
