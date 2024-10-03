@@ -2470,6 +2470,7 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
   padding: 15px;
   border: 1px solid #BCBCBC;
   border-radius: 10px;
+  max-width: 300px;
 }
 
 .invite-wrap > .container .tab-content .tab-pane .card .card-body label.file-upload img {
