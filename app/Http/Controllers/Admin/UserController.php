@@ -22,6 +22,7 @@ use App\Models\UserSubscription;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -344,5 +345,65 @@ public function import_users_from_csv_submit(Request $request)
 
     return response()->json($csvData);
 }
+
+
+public function import_users_from_csv_submit(Request $request)
+{
+    // Parse the JSON input for data field mappings
+    $datas = json_decode($request->input('datas'), true);
+
+    // Read the CSV file from the provided path
+    $filePath = $request->input('path');
+    $csvData = array_map('str_getcsv', file($filePath));
+    $reversedData = array_reverse($csvData);
+
+    // Extract the column names from the CSV
+    $columnNames = array_pop($reversedData);
+
+    // Start a database transaction to ensure data consistency
+    DB::beginTransaction();
+
+    try {
+        // Loop through each row in the CSV
+        foreach ($reversedData as $row) {
+            // Create new instances for User and UserSubscription
+            $user = new User();
+            $userColumns = Schema::getColumnListing('users');
+
+            // Map CSV columns to user model fields
+            foreach ($datas as $fieldName => $csvColumn) {
+                $csvColumnIndex = array_search($csvColumn, $columnNames);
+                if ($csvColumnIndex !== false && in_array($fieldName, $userColumns, true)) {
+                    $user->{$fieldName} = $row[$csvColumnIndex];
+                }
+            }
+
+            // Set additional properties and hash password if needed
+            $user->password = bcrypt('default_password'); // Set a default password or handle password properly
+
+            // Save user and proceed only if the user is saved successfully
+            if ($user->save()) {
+                $usersub = new UserSubscription();
+                $usersub->status = "imported_user";
+                $usersub->user_id = $user->id;
+                $usersub->expire_at = $request->expiry_date;
+                $usersub->save();
+            }
+        }
+
+        // Commit the transaction if everything is successful
+        DB::commit();
+
+        return response()->json(['message' => 'All users imported successfully', 'data' => $csvData]);
+    } catch (\Exception $e) {
+        // Rollback the transaction in case of an error
+        DB::rollBack();
+
+       
+
+        return response()->json(['message' => 'Error importing users', 'error' => $e->getMessage()], 500);
+    }
+}
+
 
 }
