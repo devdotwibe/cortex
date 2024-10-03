@@ -471,18 +471,7 @@ public function import_users_from_csv_submit(Request $request)
             if ($csvColumnIndex !== false && in_array($fieldName, $userColumns, true)) {
                 $user->{$fieldName} = $row[$csvColumnIndex];
 
-        //         if($user->first_name ==$row[$csvColumnIndex])
-        //         {
-        //             $name[] = $row[$csvColumnIndex];
-        //         }
-
-        //         if($user->last_name ==$row[$csvColumnIndex])
-        //         {
-        //             $name[] = $row[$csvColumnIndex];
-        //         }
-        //     }
-           
-        // }
+       
          // Capture first name and last name separately
          if ($fieldName === 'first_name') {
             $firstName = $row[$csvColumnIndex]; // Save first name
@@ -512,7 +501,8 @@ public function import_users_from_csv_submit(Request $request)
 
     }
 
-    return response()->json($csvData);
+    // return response()->json($csvData);
+    return response()->json(['success' => 'Import process has started successfully']);
 }
 
 
