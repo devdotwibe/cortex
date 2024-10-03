@@ -463,8 +463,8 @@ public function import_users_from_csv_submit(Request $request)
 
 
               $user->name = trim($firstName . ' ' . $lastName); 
-              $user->password = "";t
-            $user->save();
+              $user->password = "";
+               $user->save();
 
     $usersub->status = "subscribed";
     $usersub->user_id = $user->id;
