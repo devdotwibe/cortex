@@ -296,95 +296,53 @@ public function import_users_from_csv(Request $request)
 
     return response()->json(['message' => 'No file uploaded'], 400);
 }
-// public function import_users_from_csv_submit(Request $request)
-// {
-
-
-//     $datas = json_decode($request->input('datas'), true);
-
-
-
-//     $filePath = $request->input('path');
-//     $csvData = array_map('str_getcsv', file($filePath));
-//     $reversedData = array_reverse($csvData);
-  
-//     $columnNames = array_pop($reversedData);
- 
-//     foreach ($reversedData as $row) {
-
-//         $usersub = new UserSubscription();
-//         $user = new User();
-
-//         foreach ($datas as $fieldName => $csvColumn) {
-
-//             $userColumns = Schema::getColumnListing('users');
-
-//             $csvColumnIndex = array_search($csvColumn, $columnNames);
-
-
-//             if ($csvColumnIndex !== false && in_array($fieldName, $userColumns, true)) {
-//                 $user->{$fieldName} = $row[$csvColumnIndex];
-//             }
-           
-//         }
-//             $user->password = "";
-           
-           
-//             $user->save();
-//             if ($user->save()) {
-
-//                 $usersub->status = "imported_user";
-//                 $usersub->user_id = $user->id;
-//                 $usersub->expire_at = $request->expiry_date;
-                
-//                 $usersub->save();
-//             }
-
-//     }
-
-//     return response()->json($csvData);
-// }
-
 public function import_users_from_csv_submit(Request $request)
 {
-    // Parse the JSON input for data field mappings
+
+
     $datas = json_decode($request->input('datas'), true);
 
-    // Read the CSV file from the provided path
+
+
     $filePath = $request->input('path');
     $csvData = array_map('str_getcsv', file($filePath));
     $reversedData = array_reverse($csvData);
   
-    // Extract the column names from the CSV
     $columnNames = array_pop($reversedData);
-
-    // Loop through each row in the CSV
+ 
     foreach ($reversedData as $row) {
-        $user = new User();
-        $userColumns = Schema::getColumnListing('users');
 
-        // Map CSV columns to user model fields
+        $usersub = new UserSubscription();
+        $user = new User();
+
         foreach ($datas as $fieldName => $csvColumn) {
+
+            $userColumns = Schema::getColumnListing('users');
+
             $csvColumnIndex = array_search($csvColumn, $columnNames);
+
+
             if ($csvColumnIndex !== false && in_array($fieldName, $userColumns, true)) {
                 $user->{$fieldName} = $row[$csvColumnIndex];
             }
+           
         }
+            $user->password = "";
+           
+           
+            // $user->save();
+            if ($user->save()) {
 
-        // Set additional properties and save user
-        $user->password = ""; // Ensure this is properly hashed if needed
-        if ($user->save()) {
-            // Create a user subscription if user is successfully saved
-            $usersub = new UserSubscription();
-            $usersub->status = "imported_user";
-            $usersub->user_id = $user->id;
-            $usersub->expire_at = $request->expiry_date;
-            $usersub->save();
-        }
+                $usersub->status = "imported_user";
+                $usersub->user_id = $user->id;
+                $usersub->expire_at = $request->expiry_date;
+                
+                $usersub->save();
+            }
+
     }
 
-    return response()->json(['message' => 'All users imported successfully', 'data' => $csvData]);
+    return response()->json($csvData);
 }
-
 
 }
