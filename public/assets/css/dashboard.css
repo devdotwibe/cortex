@@ -2534,10 +2534,14 @@ nav.navbar { padding-left: 60px;}
 .exam-overview .exam-overview-content { margin: 20px 0 0;}
 
 .payment-wrap .nav.nav-tabs li.nav-item .nav-link {font-size: 18px; padding: 8px 18px;}
+.payment-wrap .nav.nav-tabs li.nav-item button#add-price-tab {margin: 12px 0 0;}
 
 
 }
 
 @media screen and (max-width:600px){
 .private-wrap .private-content .card .card-body .row .col-md-12 {width: 100%;}
+
+.payment-wrap .nav.nav-tabs li.nav-item .nav-link {font-size: 13px;}
+
 }
