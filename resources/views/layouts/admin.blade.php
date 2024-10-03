@@ -65,6 +65,10 @@
                     <a class="nav-link dropdown-toggle" href="#" id="navbarLogin" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span>{{auth('admin')->user()->name}}</span>
                     </a>
+                    {{-- <a class="nav-link dropdown-toggle" href="#" id="navbarLogin" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span>{{ auth('admin')->check() && !empty(auth('admin')->user()->name) ? auth('admin')->user()->name : 'Guest' }}</span>
+                    </a> --}}
+                    
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarLogin">
                        
                         <a class="dropdown-item" href="{{route('admin.dashboard')}}">Dashboard</a>
