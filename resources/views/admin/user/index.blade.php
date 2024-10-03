@@ -46,18 +46,18 @@
                 <form action="#" name="import_user" id="import_user" method="post"  enctype="multipart/form-data">
                     @csrf
                                 <div class="col-md-8">
-                                    <input type="file" accept=".csv" name="file_upload" id="file_upload" class="form-control">
+                                    <input type="file" accept=".csv,.xlsx" name="file_upload" id="file_upload" class="form-control">
                                 </div>
 {{--
                             </form> --}}
                         </div>
 
-                        <div class="text-fields">
+                        {{-- <div class="text-fields">
                             <label>Name : </label>
                             <select class="form-control import-fields" name="name" id="name" data-value="name" >
                                 <option value="">--Select--</option>
                             </select>
-                         </div>    
+                         </div>     --}}
 
                    <div class="text-fields">
                    <label>First Name : </label>
@@ -79,10 +79,17 @@
                        <option value="">--Select--</option>
                    </select>
                 </div>
-              
+
+                <div class="text-fields">
+                    <label>Grade :</label>
+                    <select class="form-control import-fields" name="grade" id="grade" data-value="grade">
+                        <option value="">--Select--</option>
+                    </select>
+                 </div>
+                
                 <div class="text-fields">
                     <label>Expiry Date: </label>
-                    <input type="date" class="form-control" name="expiry_date" id="expiry_date" min="{{ date('Y-m-d') }}">
+                    <input type="text" class="form-control datepicker end-datepicker" name="expiry_date" id="expiry_date" readonly>
                 </div>
                 
 
@@ -215,6 +222,10 @@
 </div>
 @endpush
 @push('footer-script')
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+
     <script>
 
         var usertable = null;
@@ -273,7 +284,7 @@
 
 
 
-
+{{-- 
 <script>
     $(document).on("change", "#file_upload", function() {
         console.log("on cjhash");
@@ -350,7 +361,7 @@
     
     
     </script>
-    
+{{--     
     <script>
     $(document).on("submit", "#import_user", function(e) {
         e.preventDefault();
@@ -359,7 +370,7 @@
         var formData = new FormData(this);
         var datas = {};
     
-        $('select').each(function() {
+        $('.import-fields').each(function() {
             var fieldName = $(this).attr('name');
             console.log(fieldName);
             var selectedValue = $(this).val();
@@ -369,13 +380,16 @@
                 datas[fieldName] = selectedValue;
             }
         });
-    
+        var endplan =  $("#expiry_date").val();
+
         var path = $("#file_path").val();
         console.log(path);
         var path = $("#file_path").val();
     var requestData = new FormData();
     
     requestData.append('path', path);
+
+    requestData.append('endplan', endplan);
     
     requestData.append('datas', JSON.stringify(datas));
     
@@ -408,8 +422,159 @@
         });
     });
     
-    </script>
+
+    $('.end-datepicker').datepicker({
+            dateFormat: 'yy-mm-dd',
+            minDate: 0
+        });
+    </script> --}}
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+
+jQuery(document).on("change", "#file_upload", function() {
+    console.log("on change");
+
+    var fileInput = $('#file_upload')[0];
+
+    if (fileInput.files.length > 0) {
+        var file = fileInput.files[0];
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            var data = new Uint8Array(e.target.result); 
+            var workbook = XLSX.read(data, { type: 'array' }); 
+            var firstSheet = workbook.Sheets[workbook.SheetNames[0]]; 
+            var parsedData = XLSX.utils.sheet_to_json(firstSheet, { header: 1 }); 
+            parsedData = parsedData.filter(function(v,k){
+                const uniqueArray = [...new Set(v)];
+                return uniqueArray.length > 1;
+            }); 
+            var upfile=new Blob([JSON.stringify(parsedData)], { type: 'application/json' })
+            const newfile = new File([upfile], 'ib-import.json', { type:'application/json' });
+
+           
+        var formData = new FormData();
+      
+            formData.append('file_upload', newfile);
+
+            $.ajax({
+                url: '{{ route('admin.import_users_from_csv')}}',
+                type: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                data: formData,
+
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    console.log(response);
+                    $("#file_path").val(response["filepath"]);
+                  
+                    $("select.import-fields").empty();
+                    $("select.import-fields").append("<option value=''>--Select--</option>");
+                  
+                    response["data"].forEach(function(data) {
+
+                        $("select.import-fields").append("<option value='"+data+"'>" + data + "</option>");
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            }); 
+        };
+
+        // Read the file as binary
+        reader.readAsArrayBuffer(file);
+    } else {
+        console.log('No file selected.');
+    }
+  })
+
+
+        jQuery(document).on("submit", "#import_user", function(e) {
+
+                e.preventDefault();
+
+                var formData = new FormData(this);
+                var datas = {};
+
+                 var endplan =  $("#expiry_date").val();
+
+                $('select').each(function() {
+                    var fieldName = $(this).attr('name');
+                    console.log(fieldName);
+                    var selectedValue = $(this).val();
+                    console.log(selectedValue);
+
+                    if (fieldName && selectedValue) {
+                        datas[fieldName] = selectedValue;
+                    }
+                });
+
+                var path = $("#file_path").val();
+
+                console.log(path);
+            
+            var requestData = new FormData();
+
+            requestData.append('endplan', endplan);
+
+            requestData.append('path', path);
+
+            requestData.append('datas', JSON.stringify(datas));
+
+
+            for (var pair of formData.entries()) {
+                requestData.append(pair[0], pair[1]);
+
+            }
+           
+
+                $.ajax({
+                    url: '{{ route('admin.import_users_from_csv_submit')}}',
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    data:requestData,
+
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        // console.log(response);
+                        $(".import-fields").val('');
+                        $("#import_user_modal").modal("hide");
+                        $("#load_service").css("display","none");
+                        $("#import_load_service").css("display","none");
+
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
+
+            $('.end-datepicker').datepicker({
+            dateFormat: 'yy-mm-dd',
+            minDate: 0
+        });
+
+        </script>
 @endpush
