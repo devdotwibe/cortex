@@ -2283,10 +2283,12 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 
 .payment-wrap .tab-content .tab-pane .payment-workshop .amout-item .btn.btn-dark {
   padding: 13px 20px;
+
 }
 
 .payment-wrap .nav.nav-tabs li.nav-item button#add-price-tab {
   margin: 0 0 0 20px;
+  border-radius: 6px;
 }
 
 .payment-wrap .tab-content .amount-form .amout-item {
@@ -2511,6 +2513,13 @@ nav.navbar { padding-left: 60px;}
 .sidebar-menu .active .line:before { top: 0; transform: rotate(-45deg);}
 .sidebar-menu .active .line:after { top: 0; transform: rotate(45deg);}
 
+.payment-wrap .nav.nav-tabs li.nav-item .nav-link {font-size: 16px;}
+.payment-wrap .nav.nav-tabs li.nav-item .nav-link {font-size: 14px;}
+.payment-wrap .nav.nav-tabs li.nav-item button#add-price-tab img {width: 12px;}
+.payment-wrap .tab-content .amount-form .amout-item .form-group label { font-size: 15px;}
+.payment-wrap .tab-content .tab-pane .payment-title h3 {font-size: 18px;}
+
+
 }
 
 @media screen and (max-width:767px) {
@@ -2526,8 +2535,23 @@ nav.navbar { padding-left: 60px;}
 .exam-overview .vl { display: none;}
 .exam-overview .exam-overview-content { margin: 20px 0 0;}
 
+.payment-wrap .nav.nav-tabs li.nav-item .nav-link {font-size: 18px; padding: 8px 18px;}
+.payment-wrap .nav.nav-tabs li.nav-item button#add-price-tab {margin: 12px 0 0;}
+
+
 }
 
 @media screen and (max-width:600px){
 .private-wrap .private-content .card .card-body .row .col-md-12 {width: 100%;}
+
+.payment-wrap .nav.nav-tabs li.nav-item .nav-link {font-size: 13px;}
+
+}
+
+
+@media screen and (max-width:480px) {
+.payment-wrap .tab-content .tab-pane .payment-workshop .amout-item .col-md-8 {width: 100%;}
+.payment-wrap .tab-content .tab-pane .payment-workshop .amout-item .col-md-4 {width: 100%; padding: 0;}
+.payment-wrap .tab-content .tab-pane .payment-workshop .amout-item .col-md-8 .forms-inputs.mb-4 { margin: 0 0 15px !important;}
+
 }
