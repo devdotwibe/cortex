@@ -363,7 +363,7 @@ public function import_users_from_csv_submit(Request $request)
            
             $user->save();
 
-            $usersub->status = "imported_user";
+            $usersub->status = "subscribed";
             $usersub->user_id = $user->id;
             $usersub->expire_at = $request->expiry_date;
             $usersub->subscription_plan_id =0;
