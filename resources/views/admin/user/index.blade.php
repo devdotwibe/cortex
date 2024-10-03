@@ -357,7 +357,7 @@
     
     
     </script>
-    
+{{--     
     <script>
     $(document).on("submit", "#import_user", function(e) {
         e.preventDefault();
@@ -423,8 +423,187 @@
             dateFormat: 'yy-mm-dd',
             minDate: 0
         });
-    </script>
+    </script> --}}
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+
+jQuery(document).on("change", "#file_upload", function() {
+    console.log("on change");
+
+    var fileInput = $('#file_upload')[0];
+
+    if (fileInput.files.length > 0) {
+        var file = fileInput.files[0];
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            var data = new Uint8Array(e.target.result); 
+            var workbook = XLSX.read(data, { type: 'array' }); 
+            var firstSheet = workbook.Sheets[workbook.SheetNames[0]]; 
+            var parsedData = XLSX.utils.sheet_to_json(firstSheet, { header: 1 }); 
+            parsedData = parsedData.filter(function(v,k){
+                const uniqueArray = [...new Set(v)];
+                return uniqueArray.length > 1;
+            }); 
+            var upfile=new Blob([JSON.stringify(parsedData)], { type: 'application/json' })
+            const newfile = new File([upfile], 'ib-import.json', { type:'application/json' });
+
+           
+        var formData = new FormData();
+        var endplan =  $("#expiry_date").val();
+            formData.append('file_upload', newfile);
+
+            $.ajax({
+                url: '{{ route('admin.import_file_fetch')}}',
+                type: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    console.log(response);
+                    $("#file_path").val(response["filepath"]);
+                  
+                    $("select.import-fields").empty();
+                    $("select.import-fields").append("<option value=''>--Select--</option>");
+                  
+                    response["data"].forEach(function(data) {
+
+                        $("select.import-fields").append("<option value='"+data+"'>" + data + "</option>");
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            }); 
+        };
+
+        // Read the file as binary
+        reader.readAsArrayBuffer(file);
+    } else {
+        console.log('No file selected.');
+    }
+  })
+
+    <?php /** jQuery(document).on("change", "#file_upload", function() {
+
+        console.log("on change");
+
+        var formData = new FormData();
+
+        var fileInput = $('#file_upload')[0];
+
+        if (fileInput.files.length > 0) {
+
+            formData.append('file_upload', fileInput.files[0]);
+
+            $.ajax({
+                url: '{{ route('admin.import_file_fetch')}}',
+                type: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    console.log(response);
+                    $("#file_path").val(response["filepath"]);
+                  
+                    $("select.import-fields").empty();
+                    $("select.import-fields").append("<option value=''>--Select--</option>");
+                  
+                    response["data"].forEach(function(data) {
+
+                        $("select.import-fields").append("<option value='"+data+"'>" + data + "</option>");
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+        } else {
+            console.log('No file selected.');
+        }
+    }); */ ?>
+
+        jQuery(document).on("submit", "#import_user", function(e) {
+
+                e.preventDefault();
+
+                var formData = new FormData(this);
+                var datas = {};
+
+                var state = $('#state').val(); 
+
+                $('select').each(function() {
+                    var fieldName = $(this).attr('name');
+                    console.log(fieldName);
+                    var selectedValue = $(this).val();
+                    console.log(selectedValue);
+
+                    if (fieldName && selectedValue) {
+                        datas[fieldName] = selectedValue;
+                    }
+                });
+
+                var path = $("#file_path").val();
+
+                console.log(path);
+            
+            var requestData = new FormData();
+
+            requestData.append('state', state);
+
+            requestData.append('path', path);
+
+            requestData.append('datas', JSON.stringify(datas));
+
+
+            for (var pair of formData.entries()) {
+                requestData.append(pair[0], pair[1]);
+
+            }
+           
+
+                $.ajax({
+                    url: '{{ route('admin.import_users_from_csv_submit')}}',
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    data:requestData,
+
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        // console.log(response);
+                        $(".import-fields").val('');
+                        $("#import_user_modal").modal("hide");
+                        $("#load_service").css("display","none");
+                        $("#import_load_service").css("display","none");
+
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
 @endpush
