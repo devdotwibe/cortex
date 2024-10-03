@@ -2538,6 +2538,9 @@ nav.navbar { padding-left: 60px;}
 .payment-wrap .nav.nav-tabs li.nav-item .nav-link {font-size: 18px; padding: 8px 18px;}
 .payment-wrap .nav.nav-tabs li.nav-item button#add-price-tab {margin: 12px 0 0;}
 
+.payment-wrap .tab-content .tab-pane .card .card-body .first {width: 100%;}
+.payment-wrap .tab-content .tab-pane .card .card-body .sec { width: 100%;}
+.payment-wrap .tab-content .tab-pane .card .card-body .col-md-12 { width: 100%;}
 
 }
 
