@@ -347,50 +347,43 @@ public function import_users_from_csv(Request $request)
 
 public function import_users_from_csv_submit(Request $request)
 {
-    // Get the CSV data and reverse it to make processing easier
+    // Parse the JSON input for data field mappings
     $datas = json_decode($request->input('datas'), true);
+
+    // Read the CSV file from the provided path
     $filePath = $request->input('path');
     $csvData = array_map('str_getcsv', file($filePath));
     $reversedData = array_reverse($csvData);
   
-    // Extract column names
+    // Extract the column names from the CSV
     $columnNames = array_pop($reversedData);
- 
-    // Iterate through each row of the CSV
+
+    // Loop through each row in the CSV
     foreach ($reversedData as $row) {
         $user = new User();
-        $usersub = new UserSubscription();
+        $userColumns = Schema::getColumnListing('users');
 
+        // Map CSV columns to user model fields
         foreach ($datas as $fieldName => $csvColumn) {
-            // Get columns in 'users' table
-            $userColumns = Schema::getColumnListing('users');
-            
-            // Find the column index in the CSV
             $csvColumnIndex = array_search($csvColumn, $columnNames);
-
-            // Check if the column exists and the field name is valid
             if ($csvColumnIndex !== false && in_array($fieldName, $userColumns, true)) {
                 $user->{$fieldName} = $row[$csvColumnIndex];
             }
         }
-       
-        // Set the password if needed or keep it empty for now
-        $user->password = bcrypt('default_password'); // Set a default password or generate it
 
-        // Save the user
-        $user->save();
-
-        // After saving the user, save the subscription
-        if ($user->exists) {
+        // Set additional properties and save user
+        $user->password = ""; // Ensure this is properly hashed if needed
+        if ($user->save()) {
+            // Create a user subscription if user is successfully saved
+            $usersub = new UserSubscription();
             $usersub->status = "imported_user";
             $usersub->user_id = $user->id;
             $usersub->expire_at = $request->expiry_date;
-            
             $usersub->save();
         }
     }
 
-    return response()->json(['message' => 'All users imported successfully', 'csvData' => $csvData]);
+    return response()->json(['message' => 'All users imported successfully', 'data' => $csvData]);
 }
 
 
