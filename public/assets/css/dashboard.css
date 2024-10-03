@@ -2554,6 +2554,7 @@ nav.navbar { padding: 10px 6%;}
 .payment-wrap .nav.nav-tabs li.nav-item .nav-link {font-size: 18px; padding: 8px 18px;}
 .payment-wrap .nav.nav-tabs li.nav-item button#add-price-tab {margin: 0 0 0;}
 .payment-wrap .nav.nav-tabs#priceTab li.nav-item { width: 48%;  margin:0 4% 4% 0;}
+.payment-wrap .nav.nav-tabs#priceTab li.nav-item:nth-child(2n) {margin-right: 0;}
 .payment-wrap .nav.nav-tabs#priceTab li.nav-item .nav-link { width: 100%;}
 
 .payment-wrap .tab-content .tab-pane .card .card-body .first {width: 100%;}
