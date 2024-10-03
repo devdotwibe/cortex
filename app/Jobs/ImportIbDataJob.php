@@ -9,12 +9,13 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Schema;
-use App\Models\IbImport;
+
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use App\Models\User;
+use App\Models\UserSubscription;
 
 class ImportIbDataJob implements ShouldQueue
 {
@@ -22,15 +23,11 @@ class ImportIbDataJob implements ShouldQueue
 
     protected $datas;
     protected $filePath;
-   
 
- 
-    public function __construct( $datas,  $filePath )
+    public function __construct($datas, $filePath)
     {
-
         $this->datas = $datas;
         $this->filePath = $filePath;
-        
     }
 
     /**
@@ -40,69 +37,38 @@ class ImportIbDataJob implements ShouldQueue
      */
     public function handle()
     {
-       
-        // $data = Excel::toArray([], $this->filePath);
-
         try {
+            $sheetData = json_decode(Storage::get($this->filePath), true);
+            $columnNames = $sheetData[0];
 
-                $sheetData = json_decode(Storage::get($this->filePath),true);
-
-
-                $columnNames =$sheetData[0];
-
-                // $excel_data = $this->parsedData;
-
-                foreach ($sheetData as $k=> $row) {
-                    
-                    if($k!=0){
-                        
-                    $ib_import = new User;  
+            foreach ($sheetData as $k => $row) {
+                if ($k != 0) {
+                    $user = new User;
+                    $usersub = new UserSubscription();
 
                     foreach ($this->datas as $fieldName => $xlsxColumn) {
-                    
-                        $userColumns = Schema::getColumnListing('ib_imports');
-
-                    
+                        $userColumns = Schema::getColumnListing('users');
                         $XlxsColumnIndex = array_search($xlsxColumn, $columnNames);
 
-                    
-                            if ($XlxsColumnIndex !== false && in_array($fieldName, $userColumns, true)) {
-
-                                if (isset($row[$XlxsColumnIndex])) {
-                            
-                                  
-
-                                    
-                                    
-
-                                        $value = $row[$XlxsColumnIndex];
-                                    
-                        
-                                
-                                    if(is_string($value))
-                                    {
-                                        $value = str_replace('/', ',', $value);
-                                    }
-
-                                    
-                                    $ib_import->{$fieldName} = $value;
-                                }
-                              
-                            
+                        if ($XlxsColumnIndex !== false && in_array($fieldName, $userColumns, true)) {
+                            if (isset($row[$XlxsColumnIndex])) {
+                                $user->{$fieldName} = $row[$XlxsColumnIndex];
+                            }
                         }
                     }
-                    
-                    $ib_import->save();
-                    }
+
+                    $user->save();
+
+                    $usersub->status = "subscribed";
+                    $usersub->user_id = $user->id;
+                    $usersub->expire_at = $this->datas['expiry_date']; // Assuming $this->datas contains 'expiry_date' key
+                    $usersub->subscription_plan_id = 0;
+                    $usersub->pay_by = 0;
+                    $usersub->save();
                 }
+            }
+        } catch (\Exception $e) {
+            Log::error('Error importing IB data: ' . $e->getMessage());
         }
-        catch (\Exception $e) {
-           
-           
-    
-            // throw $e;
-        }
-
     }
-
 }
