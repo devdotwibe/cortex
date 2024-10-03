@@ -325,13 +325,33 @@ public function import_users_from_csv_submit(Request $request)
             if ($csvColumnIndex !== false && in_array($fieldName, $userColumns, true)) {
                 $user->{$fieldName} = $row[$csvColumnIndex];
             }
+
+            $name[]="";
+
+            if ($csvColumnIndex !== false && in_array($fieldName, $userColumns, true)) {
+                $user->{$fieldName} = $row[$csvColumnIndex];
+
+                if($user->first_name ==$row[$csvColumnIndex])
+                {
+                    $name[] = $row[$csvColumnIndex];
+                }
+
+                if($user->last_name ==$row[$csvColumnIndex])
+                {
+                    $name[] = $row[$csvColumnIndex];
+                }
+            }
            
         }
+            $user->name = $name[0] ."". $name[1];
+
             $user->password = "";
+
+
            
            
             $user->save();
-            
+
             $usersub->status = "imported_user";
             $usersub->user_id = $user->id;
             $usersub->expire_at = $request->expiry_date;
