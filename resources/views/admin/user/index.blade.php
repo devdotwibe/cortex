@@ -80,6 +80,12 @@
                    </select>
                 </div>
 
+                <div class="text-fields">
+                    <label>Grade :</label>
+                    <select class="form-control import-fields" name="grade" id="grade" data-value="grade">
+                        <option value="">--Select--</option>
+                    </select>
+                 </div>
                 
                 <div class="text-fields">
                     <label>Expiry Date: </label>
