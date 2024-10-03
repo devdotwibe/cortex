@@ -331,14 +331,12 @@ public function import_users_from_csv_submit(Request $request)
            
            
             $user->save();
-            if ($user->save()) {
-
-                $usersub->status = "imported_user";
-                $usersub->user_id = $user->id;
-                $usersub->expire_at = $request->expiry_date;
-                
-                $usersub->save();
-            }
+            
+            $usersub->status = "imported_user";
+            $usersub->user_id = $user->id;
+            $usersub->expire_at = $request->expiry_date;
+            
+            $usersub->save();
 
     }
 
