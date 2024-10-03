@@ -2283,10 +2283,12 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 
 .payment-wrap .tab-content .tab-pane .payment-workshop .amout-item .btn.btn-dark {
   padding: 13px 20px;
+
 }
 
 .payment-wrap .nav.nav-tabs li.nav-item button#add-price-tab {
   margin: 0 0 0 20px;
+  border-radius: 6px;
 }
 
 .payment-wrap .tab-content .amount-form .amout-item {
