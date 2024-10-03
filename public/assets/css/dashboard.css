@@ -2478,6 +2478,15 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
   border-radius: 10px;
 }
 
+.payment-wrap .tab-content .tab-pane#section4 .card .card-body .sec .col-md-12 {
+  width: 100%;
+  margin: 0 0 0;
+}
+
+.payment-wrap .tab-content .tab-pane#section4 .card .card-body .sec .col-md-12:nth-child(3n) {
+  width: 48%;
+  margin: 0 4% 0 0;
+}
 
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
@@ -2568,6 +2577,12 @@ nav.navbar { padding-left: 60px;}
 .payment-wrap .tab-content .tab-pane .card .card-body .sec .col-md-12 {
   width: 100%;
   margin: 0 0 0 0;
+  
+}
+
+.payment-wrap .tab-content .tab-pane#section4 .card .card-body .sec .col-md-12:nth-child(3n) {
+  width: 100%;
+  margin: 0;
 }
 
 }
