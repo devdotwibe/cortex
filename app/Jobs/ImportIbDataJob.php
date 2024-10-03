@@ -76,7 +76,8 @@ class ImportIbDataJob implements ShouldQueue
     
                     $usersub->status = "subscribed";
                     $usersub->user_id = $user->id;
-                    $usersub->expire_at = $this->datas['expiry_date'] ?? null; // Assuming 'expiry_date' is in $datas
+                    // $usersub->expire_at =$this->datas->expiry_date;
+                    $usersub->expire_at = $this->datas['expiry_date']; 
                     $usersub->subscription_plan_id = 0;
                     $usersub->pay_by = 0;
                     $usersub->save();
