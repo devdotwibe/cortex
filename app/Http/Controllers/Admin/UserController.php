@@ -296,13 +296,85 @@ public function import_users_from_csv(Request $request)
 
     return response()->json(['message' => 'No file uploaded'], 400);
 }
+// public function import_users_from_csv_submit(Request $request)
+// {
+
+
+//     $datas = json_decode($request->input('datas'), true);
+
+
+
+//     $filePath = $request->input('path');
+//     $csvData = array_map('str_getcsv', file($filePath));
+//     $reversedData = array_reverse($csvData);
+  
+//     $columnNames = array_pop($reversedData);
+ 
+//     foreach ($reversedData as $row) {
+
+//         $usersub = new UserSubscription();
+//         $user = new User();
+
+//         foreach ($datas as $fieldName => $csvColumn) {
+
+//             $userColumns = Schema::getColumnListing('users');
+
+//             $csvColumnIndex = array_search($csvColumn, $columnNames);
+
+
+//             if ($csvColumnIndex !== false && in_array($fieldName, $userColumns, true)) {
+//                 $user->{$fieldName} = $row[$csvColumnIndex];
+//             }
+
+//             $name[]="";
+
+//             if ($csvColumnIndex !== false && in_array($fieldName, $userColumns, true)) {
+//                 $user->{$fieldName} = $row[$csvColumnIndex];
+
+//                 if($user->first_name ==$row[$csvColumnIndex])
+//                 {
+//                     $name[] = $row[$csvColumnIndex];
+//                 }
+
+//                 if($user->last_name ==$row[$csvColumnIndex])
+//                 {
+//                     $name[] = $row[$csvColumnIndex];
+//                 }
+//             }
+           
+//         }
+//             $user->name = $name[0] ."". $name[1];
+
+
+//             $user->password = "";
+
+
+           
+           
+//             $user->save();
+
+//             $usersub->status = "imported_user";
+//             $usersub->user_id = $user->id;
+//             $usersub->expire_at = $request->expiry_date;
+//             $usersub->subscription_plan_id = $request->subscription_plan_id;
+//             $usersub->pay_by = $request->pay_by;
+//             $usersub->save();
+
+//     }
+
+//     return response()->json($csvData);
+// }
+
+
 public function import_users_from_csv_submit(Request $request)
 {
-
+    // Validate the required fields
+    $request->validate([
+        'subscription_plan_id' => 'required',
+        'pay_by' => 'required',
+    ]);
 
     $datas = json_decode($request->input('datas'), true);
-
-
 
     $filePath = $request->input('path');
     $csvData = array_map('str_getcsv', file($filePath));
@@ -311,59 +383,40 @@ public function import_users_from_csv_submit(Request $request)
     $columnNames = array_pop($reversedData);
  
     foreach ($reversedData as $row) {
-
         $usersub = new UserSubscription();
         $user = new User();
 
+        $name = [];
+
         foreach ($datas as $fieldName => $csvColumn) {
-
             $userColumns = Schema::getColumnListing('users');
-
             $csvColumnIndex = array_search($csvColumn, $columnNames);
 
-
-            if ($csvColumnIndex !== false && in_array($fieldName, $userColumns, true)) {
-                $user->{$fieldName} = $row[$csvColumnIndex];
-            }
-
-            $name[]="";
-
             if ($csvColumnIndex !== false && in_array($fieldName, $userColumns, true)) {
                 $user->{$fieldName} = $row[$csvColumnIndex];
 
-                if($user->first_name ==$row[$csvColumnIndex])
-                {
-                    $name[] = $row[$csvColumnIndex];
-                }
-
-                if($user->last_name ==$row[$csvColumnIndex])
-                {
+                if ($fieldName == 'first_name' || $fieldName == 'last_name') {
                     $name[] = $row[$csvColumnIndex];
                 }
             }
-           
         }
-            $user->name = $name[0] ."". $name[1];
 
+        $user->name = implode(' ', $name);
+        $user->password = ""; // Set a default value or hash if required
 
-            $user->password = "";
+        $user->save();
 
-
-           
-           
-            $user->save();
-
+        if ($user->exists) {
             $usersub->status = "imported_user";
             $usersub->user_id = $user->id;
             $usersub->expire_at = $request->expiry_date;
             $usersub->subscription_plan_id = $request->subscription_plan_id;
             $usersub->pay_by = $request->pay_by;
             $usersub->save();
-
+        }
     }
 
     return response()->json($csvData);
 }
-
 
 }
