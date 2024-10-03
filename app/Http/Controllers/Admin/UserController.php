@@ -434,74 +434,135 @@ public function import_users_from_csv(Request $request)
 
 // }
 
+// public function import_users_from_csv_submit(Request $request)
+// {
+
+
+//     $datas = json_decode($request->input('datas'), true);
+
+
+
+//     $filePath = $request->input('path');
+//     dispatch(new ImportIbDataJob($datas, $filePath));
+
+//     $csvData = array_map('str_getcsv', file($filePath));
+//     $reversedData = array_reverse($csvData);
+  
+//     $columnNames = array_pop($reversedData);
+ 
+//     foreach ($reversedData as $row) {
+
+//         $usersub = new UserSubscription();
+//         $user = new User();
+
+//         foreach ($datas as $fieldName => $csvColumn) {
+
+//             $userColumns = Schema::getColumnListing('users');
+
+//             $csvColumnIndex = array_search($csvColumn, $columnNames);
+
+
+//             if ($csvColumnIndex !== false && in_array($fieldName, $userColumns, true)) {
+//                 $user->{$fieldName} = $row[$csvColumnIndex];
+//             }
+
+//             $name[]="";
+
+//             if ($csvColumnIndex !== false && in_array($fieldName, $userColumns, true)) {
+//                 $user->{$fieldName} = $row[$csvColumnIndex];
+
+       
+//          // Capture first name and last name separately
+//          if ($fieldName === 'first_name') {
+//             $firstName = $row[$csvColumnIndex]; // Save first name
+//         } elseif ($fieldName === 'last_name') {
+//             $lastName = $row[$csvColumnIndex]; // Save last name
+//         }
+//     }
+// }
+//             // $user->name = $name[0] ."". $name[1];
+//             $user->name = trim($firstName . ' ' . $lastName); // Combine and trim spaces
+
+            
+
+//             $user->password = "";
+
+
+           
+           
+//             $user->save();
+
+//             $usersub->status = "subscribed";
+//             $usersub->user_id = $user->id;
+//             $usersub->expire_at = $request->expiry_date;
+//             $usersub->subscription_plan_id =0;
+//             $usersub->pay_by = 0;
+//             $usersub->save();
+
+//     }
+
+//     // return response()->json($csvData);
+//     return response()->json(['success' => 'Import process has started successfully']);
+// }
+
+
+
 public function import_users_from_csv_submit(Request $request)
 {
-
-
     $datas = json_decode($request->input('datas'), true);
-
-
-
     $filePath = $request->input('path');
+
+    // Check if the file exists
+    if (!file_exists($filePath)) {
+        return response()->json(['error' => 'CSV file not found'], 404);
+    }
+
     dispatch(new ImportIbDataJob($datas, $filePath));
 
     $csvData = array_map('str_getcsv', file($filePath));
     $reversedData = array_reverse($csvData);
-  
     $columnNames = array_pop($reversedData);
- 
-    foreach ($reversedData as $row) {
 
+    foreach ($reversedData as $row) {
         $usersub = new UserSubscription();
         $user = new User();
 
+        $firstName = ''; // Initialize first name
+        $lastName = '';  // Initialize last name
+
         foreach ($datas as $fieldName => $csvColumn) {
-
             $userColumns = Schema::getColumnListing('users');
-
             $csvColumnIndex = array_search($csvColumn, $columnNames);
 
-
             if ($csvColumnIndex !== false && in_array($fieldName, $userColumns, true)) {
                 $user->{$fieldName} = $row[$csvColumnIndex];
+
+                // Capture first name and last name separately
+                if ($fieldName === 'first_name') {
+                    $firstName = $row[$csvColumnIndex]; // Save first name
+                } elseif ($fieldName === 'last_name') {
+                    $lastName = $row[$csvColumnIndex]; // Save last name
+                }
             }
-
-            $name[]="";
-
-            if ($csvColumnIndex !== false && in_array($fieldName, $userColumns, true)) {
-                $user->{$fieldName} = $row[$csvColumnIndex];
-
-       
-         // Capture first name and last name separately
-         if ($fieldName === 'first_name') {
-            $firstName = $row[$csvColumnIndex]; // Save first name
-        } elseif ($fieldName === 'last_name') {
-            $lastName = $row[$csvColumnIndex]; // Save last name
         }
-    }
-}
-            // $user->name = $name[0] ."". $name[1];
-            $user->name = trim($firstName . ' ' . $lastName); // Combine and trim spaces
 
-            
-
-            $user->password = "";
-
-
-           
-           
+        $user->name = trim($firstName . ' ' . $lastName); // Combine and trim spaces
+        $user->password = ""; // Set appropriate password handling here
+       
+        try {
             $user->save();
-
             $usersub->status = "subscribed";
             $usersub->user_id = $user->id;
             $usersub->expire_at = $request->expiry_date;
-            $usersub->subscription_plan_id =0;
+            $usersub->subscription_plan_id = 0;
             $usersub->pay_by = 0;
             $usersub->save();
-
+        } catch (\Exception $e) {
+            // Handle the exception (log it, return error response, etc.)
+            return response()->json(['error' => 'Failed to save user or subscription: ' . $e->getMessage()], 500);
+        }
     }
 
-    // return response()->json($csvData);
     return response()->json(['success' => 'Import process has started successfully']);
 }
 
