@@ -309,7 +309,7 @@ public function import_users_from_csv_submit(Request $request)
     $reversedData = array_reverse($csvData);
     //$columnNames = array_shift($csvData);
     $columnNames = array_pop($reversedData);
-    dd($reversedData);
+    // dd($reversedData);
 
     // $profile = new Profile();
     // $user = new User();
