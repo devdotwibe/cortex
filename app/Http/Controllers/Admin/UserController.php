@@ -417,28 +417,11 @@ public function import_users_from_csv(Request $request)
     return response()->json(['message' => 'No file uploaded'], 400);
 }
 
-
-// public function import_users_from_csv_submit(Request $request)
-// {
-
-//     $datas = json_decode($request->input('datas'), true);
-
-//     $filePath = $request->input('path','');
-
-
-//     dispatch(new ImportIbDataJob($datas, $filePath));
-
-    
-
-//     return response()->json(['success' => 'Import process has started successfully']);
-
-// }
-
 public function import_users_from_csv_submit(Request $request)
 {
 
 
-    $datas = json_decode($request->input('datas'), true);
+    $datas = json_decode($request->input('data'), true);
 
 
 
