@@ -222,6 +222,10 @@
 </div>
 @endpush
 @push('footer-script')
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+
     <script>
 
         var usertable = null;
@@ -426,7 +430,7 @@
     </script> --}}
 
 
- --}}
+
 
 
 
@@ -465,7 +469,7 @@ jQuery(document).on("change", "#file_upload", function() {
 
            
         var formData = new FormData();
-        var endplan =  $("#expiry_date").val();
+      
             formData.append('file_upload', newfile);
 
             $.ajax({
@@ -475,6 +479,7 @@ jQuery(document).on("change", "#file_upload", function() {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
                 data: formData,
+
                 processData: false,
                 contentType: false,
                 success: function(response) {
@@ -502,47 +507,6 @@ jQuery(document).on("change", "#file_upload", function() {
     }
   })
 
-    <?php /** jQuery(document).on("change", "#file_upload", function() {
-
-        console.log("on change");
-
-        var formData = new FormData();
-
-        var fileInput = $('#file_upload')[0];
-
-        if (fileInput.files.length > 0) {
-
-            formData.append('file_upload', fileInput.files[0]);
-
-            $.ajax({
-                url: '{{ route('admin.import_file_fetch')}}',
-                type: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    console.log(response);
-                    $("#file_path").val(response["filepath"]);
-                  
-                    $("select.import-fields").empty();
-                    $("select.import-fields").append("<option value=''>--Select--</option>");
-                  
-                    response["data"].forEach(function(data) {
-
-                        $("select.import-fields").append("<option value='"+data+"'>" + data + "</option>");
-                    });
-                },
-                error: function(xhr, status, error) {
-                    console.error(xhr.responseText);
-                }
-            });
-        } else {
-            console.log('No file selected.');
-        }
-    }); */ ?>
 
         jQuery(document).on("submit", "#import_user", function(e) {
 
@@ -551,7 +515,7 @@ jQuery(document).on("change", "#file_upload", function() {
                 var formData = new FormData(this);
                 var datas = {};
 
-                var state = $('#state').val(); 
+                 var endplan =  $("#expiry_date").val();
 
                 $('select').each(function() {
                     var fieldName = $(this).attr('name');
@@ -570,7 +534,7 @@ jQuery(document).on("change", "#file_upload", function() {
             
             var requestData = new FormData();
 
-            requestData.append('state', state);
+            requestData.append('endplan', endplan);
 
             requestData.append('path', path);
 

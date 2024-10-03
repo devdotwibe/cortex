@@ -391,13 +391,48 @@ class UserController extends Controller
 
 
 
+
+
+
+
+// public function import_users_from_csv(Request $request)
+// {
+//     // dd($request->all());
+//     //exit();
+//     $file = $request->file('file_upload');
+
+//     if (!empty($file)) {
+//         $avatar = "files";
+//         $imageName = $avatar . "/" . $file->hashName();
+//         Storage::put($imageName, file_get_contents($file));
+
+//         $filePath = storage_path('app/' . $imageName);
+
+
+//         $data = array_map('str_getcsv', file($filePath));
+
+
+
+
+      
+//         return response()->json(["data" => $data, "filepath" => $filePath]);
+//     }
+
+
+
+
+
+
+
+
+
 public function import_users_from_csv(Request $request)
 {
 
-    // $parsedData = json_decode($request->input('parsed_data'), true);
-    // try { 
+    
         if ($request->hasFile('file_upload')) {
             $file = $request->file('file_upload');
+            
 
             $avathar = "files";
             $filePath = $avathar . "/".md5(time())."." . $file->getClientOriginalExtension() ;   
