@@ -421,11 +421,9 @@ public function import_users_from_csv_submit(Request $request)
 
    $experidate = $request->expiry_date;
 
-   dd($experidate);
-
     $filePath = $request->input('path','');
 
-    dispatch(job: new ImportIbDataJob($datas, $filePath));
+    dispatch(job: new ImportIbDataJob($datas, $filePath,$experidate));
 
 
     return response()->json(['success' => 'Import process has started successfully']);

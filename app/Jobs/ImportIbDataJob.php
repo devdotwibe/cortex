@@ -24,14 +24,18 @@ class ImportIbDataJob implements ShouldQueue
 
     protected $datas;
     protected $filePath;
+
+    protected $experidate;
+    
    
 
  
-    public function __construct( $datas,  $filePath )
+    public function __construct( $datas,  $filePath,$experidate )
     {
 
         $this->datas = $datas;
         $this->filePath = $filePath;
+        $this->experidate = $experidate;
         
     }
 
@@ -76,7 +80,7 @@ class ImportIbDataJob implements ShouldQueue
 
                 $usersub->status = "subscribed";
                 $usersub->user_id = $user->id;
-                $usersub->expire_at = $request->expiry_date;
+                $usersub->expire_at =$this->experidate;
                 // $usersub->expire_at = $this->datas['expiry_date'] ?? date("yy-mm-dd"); // Assuming 'expiry_date' is in $datas
                 $usersub->subscription_plan_id = 0;
                 $usersub->pay_by = 0;
