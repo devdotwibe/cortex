@@ -302,13 +302,14 @@ public function import_users_from_csv_submit(Request $request)
 
     $datas = json_decode($request->input('datas'), true);
 
-    dd($datas);
+    // dd($datas);
 
     $filePath = $request->input('path');
     $csvData = array_map('str_getcsv', file($filePath));
     $reversedData = array_reverse($csvData);
     //$columnNames = array_shift($csvData);
     $columnNames = array_pop($reversedData);
+    dd($reversedData);
 
     // $profile = new Profile();
     // $user = new User();
