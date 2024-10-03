@@ -2553,5 +2553,6 @@ nav.navbar { padding-left: 60px;}
 .payment-wrap .tab-content .tab-pane .payment-workshop .amout-item .col-md-8 {width: 100%;}
 .payment-wrap .tab-content .tab-pane .payment-workshop .amout-item .col-md-4 {width: 100%; padding: 0;}
 .payment-wrap .tab-content .tab-pane .payment-workshop .amout-item .col-md-8 .forms-inputs.mb-4 { margin: 0 0 15px !important;}
+.invite-wrap .row > div { padding: 0;}
 
 }
