@@ -2491,7 +2491,7 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 }
 
 .payment-wrap .nav.nav-tabs#priceTab li.nav-item .nav-link .text-white {
-  padding: 0 0 0 5px;
+  padding: 0 0 0 5px !important;
 }
 
 @media screen and (max-width:1500px) {
