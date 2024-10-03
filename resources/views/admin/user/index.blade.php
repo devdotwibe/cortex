@@ -469,7 +469,7 @@ jQuery(document).on("change", "#file_upload", function() {
             formData.append('file_upload', newfile);
 
             $.ajax({
-                url: '{{ route('admin.import_file_fetch')}}',
+                url: '{{ route('admin.import_users_from_csv_submit')}}',
                 type: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
