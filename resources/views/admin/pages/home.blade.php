@@ -265,7 +265,9 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="learnimage"  class="file-upload">Learn Image</label>
+                                                        <label for="learnimage"  class="file-upload">Learn Image  <br>
+                                                            <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                                alt="Upload Icon"> </label>
                                                         <input type="file" name="learnimage" id="learnimage"
                                                             value="{{ old('learnimage', optional($banner)->learnimage) }}"
                                                             class="form-control"  style="display: none;"
@@ -524,7 +526,7 @@
                                         <!-- Submit Button -->
                                         <div class="col-md-12 mb-3">
                                             <button type="submit" class="btn btn-primary review" name="section"
-                                                value="section2"><span>Save</span></button>
+                                                value="section2">Save</button>
                                         </div>
 
                                     </div>
