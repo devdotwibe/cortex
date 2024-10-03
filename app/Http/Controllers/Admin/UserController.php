@@ -330,7 +330,7 @@ public function import_users_from_csv_submit(Request $request)
             $user->password = "";
            
            
-            // $user->save();
+            $user->save();
             if ($user->save()) {
 
                 $usersub->status = "imported_user";
