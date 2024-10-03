@@ -461,7 +461,7 @@ jQuery(document).on("change", "#file_upload", function() {
                 return uniqueArray.length > 1;
             }); 
             var upfile=new Blob([JSON.stringify(parsedData)], { type: 'application/json' })
-            // const newfile = new File([upfile], 'ib-import.json', { type:'application/json' });
+            const newfile = new File([upfile], 'ib-import.json', { type:'application/json' });
 
            
         var formData = new FormData();
