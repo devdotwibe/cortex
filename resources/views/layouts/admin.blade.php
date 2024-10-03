@@ -75,11 +75,11 @@
             </ul>
         </div>
     </nav>
-  
+    <div class="side-nav-toggle">
+        <button class="btn btn-close-toggle"><img src="{{asset("assets/images/close.svg")}}" alt="close"></button>
+    </div>
     <aside class="side_bar">
-        <div class="side-nav-toggle">
-            <button class="btn btn-close-toggle"><img src="{{asset("assets/images/close.svg")}}" alt="close"></button>
-        </div>
+       
         <div class="sidebar-content js-simplebar">
             <ul class="sidebar-nav">
                 {{-- <li class="side-item {{request()->is('admin/dashboard') ?'active':''}}">
