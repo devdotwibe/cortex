@@ -419,7 +419,9 @@ public function import_users_from_csv_submit(Request $request)
 
     $datas = json_decode($request->input('datas'), true);
 
-    dd($datas);
+   $experidate = $request->expiry_date;
+
+   dd($experidate);
 
     $filePath = $request->input('path','');
 
