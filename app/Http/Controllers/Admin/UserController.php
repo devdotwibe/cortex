@@ -419,6 +419,8 @@ public function import_users_from_csv_submit(Request $request)
 
     $datas = json_decode($request->input('datas'), true);
 
+    dd($datas);
+
     $filePath = $request->input('path','');
 
     dispatch(job: new ImportIbDataJob($datas, $filePath));
