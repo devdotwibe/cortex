@@ -2490,6 +2490,10 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
   margin: 0 4% 0 0;
 }
 
+.payment-wrap .nav.nav-tabs#priceTab li.nav-item .nav-link .text-white {
+  padding: 0 0 0 5px;
+}
+
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
 
