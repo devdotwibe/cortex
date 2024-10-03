@@ -273,7 +273,7 @@
   width: 100%;
   height: auto;
 }
-nav.navbar { width: 100%;padding: 10px; position: fixed;background: #ffff;z-index: 100;box-shadow: 4px 0px 16px 0px #0000000A;left: 0;border-radius: 0 0 0 0;top: 0; border-bottom: 1px solid #dadada;}
+nav.navbar { width: 100%;padding: 10px 30px; position: fixed;background: #ffff;z-index: 100;box-shadow: 4px 0px 16px 0px #0000000A;left: 0;border-radius: 0 0 0 0;top: 0; border-bottom: 1px solid #dadada;}
 .navbar-brand img{height: 50px;}
 main{ margin-top:87px;}
 .category{
@@ -2218,6 +2218,7 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 
 .payment-wrap .nav.nav-tabs li.nav-item {
   background: #F5F5F5;
+  border-radius: .25rem;
 }
 
 .payment-wrap .nav.nav-tabs li.nav-item .nav-link {
@@ -2400,6 +2401,7 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
   padding: 15px;
   border: 1px solid #BCBCBC;
   border-radius: 10px;
+  max-width: 300px;
 }
 
 .payment-wrap .tab-content .amount-form .amout-item .form-group label.file-upload img {
@@ -2478,6 +2480,19 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
   border-radius: 10px;
 }
 
+.payment-wrap .tab-content .tab-pane#section4 .card .card-body .sec .col-md-12 {
+  width: 100%;
+  margin: 0 0 0;
+}
+
+.payment-wrap .tab-content .tab-pane#section4 .card .card-body .sec .col-md-12:nth-child(3n) {
+  width: 48%;
+  margin: 0 4% 0 0;
+}
+
+.payment-wrap .nav.nav-tabs#priceTab li.nav-item .nav-link .text-white {
+  padding: 0 0 0 5px !important;
+}
 
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
@@ -2507,7 +2522,7 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .sidebar-menu .line { width: 100%; position: relative; display: inline-block; height: 2px; background: #1989f8; transition: all .25s ease-in-out;}
 .sidebar-menu .line:before { content: ""; width: 100%; position: absolute; display: inline-block; height: 2px; background: #1989f8; top: -10px; transition: all .25s ease-in-out;}
 .sidebar-menu .line:after { content: ""; width: 100%; position: absolute; display: inline-block; height: 2px; background: #1989f8; top: 10px; transition: all .25s ease-in-out;}
-nav.navbar { padding-left: 60px;}
+nav.navbar { padding: 10px 6%;}
 .side_bar.show { margin-left: 0;}
 .sidebar-menu .active .line { background: transparent;}
 .sidebar-menu .active .line:before { top: 0; transform: rotate(-45deg);}
@@ -2536,7 +2551,9 @@ nav.navbar { padding-left: 60px;}
 .exam-overview .exam-overview-content { margin: 20px 0 0;}
 
 .payment-wrap .nav.nav-tabs li.nav-item .nav-link {font-size: 18px; padding: 8px 18px;}
-.payment-wrap .nav.nav-tabs li.nav-item button#add-price-tab {margin: 12px 0 0;}
+.payment-wrap .nav.nav-tabs li.nav-item button#add-price-tab {margin: 0 0 0;}
+.payment-wrap .nav.nav-tabs#priceTab li.nav-item { width: 50%;  margin: 0 0 0;}
+.payment-wrap .nav.nav-tabs#priceTab li.nav-item .nav-link { width: 100%;}
 
 .payment-wrap .tab-content .tab-pane .card .card-body .first {width: 100%;}
 .payment-wrap .tab-content .tab-pane .card .card-body .sec { width: 100%;}
@@ -2568,6 +2585,17 @@ nav.navbar { padding-left: 60px;}
 .payment-wrap .tab-content .tab-pane .card .card-body .sec .col-md-12 {
   width: 100%;
   margin: 0 0 0 0;
+  
+}
+
+.payment-wrap .tab-content .tab-pane#section4 .card .card-body .sec .col-md-12:nth-child(3n) {
+  width: 100%;
+  margin: 0;
+}
+
+.payment-wrap .nav.nav-tabs li.nav-item .nav-link {
+  font-size: 12px;
+  padding: 8px;
 }
 
 }
