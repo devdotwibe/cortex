@@ -9,7 +9,8 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Schema;
-use App\Models\IbImport;
+use App\Models\UserSubscription;
+
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
@@ -41,8 +42,6 @@ class ImportIbDataJob implements ShouldQueue
     public function handle()
     {
        
-        // $data = Excel::toArray([], $this->filePath);
-
         try {
 
                 $sheetData = json_decode(Storage::get($this->filePath),true);
@@ -55,12 +54,13 @@ class ImportIbDataJob implements ShouldQueue
                 foreach ($sheetData as $k=> $row) {
                     
                     if($k!=0){
-                        
-                    $ib_import = new User;  
+                        $usersub = new UserSubscription();
+                       $user = new User;  
+                   
 
                     foreach ($this->datas as $fieldName => $xlsxColumn) {
                     
-                        $userColumns = Schema::getColumnListing('ib_imports');
+                        $userColumns = Schema::getColumnListing('users');
 
                     
                         $XlxsColumnIndex = array_search($xlsxColumn, $columnNames);
@@ -69,32 +69,26 @@ class ImportIbDataJob implements ShouldQueue
                             if ($XlxsColumnIndex !== false && in_array($fieldName, $userColumns, true)) {
 
                                 if (isset($row[$XlxsColumnIndex])) {
-                            
-                                  
-
                                     
-                                    
-
-                                        $value = $row[$XlxsColumnIndex];
-                                    
-                        
-                                
-                                    if(is_string($value))
-                                    {
-                                        $value = str_replace('/', ',', $value);
-                                    }
-
-                                    
-                                    $ib_import->{$fieldName} = $value;
+                                    $user->{$fieldName} = $row[$XlxsColumnIndex];
                                 }
                               
                             
                         }
                     }
                     
-                    $ib_import->save();
-                    }
+                    $user->save();
+
+            $usersub->status = "subscribed";
+            $usersub->user_id = $user->id;
+            $usersub->expire_at = $request->expiry_date;
+            $usersub->subscription_plan_id =0;
+            $usersub->pay_by = 0;
+            $usersub->save();
+
+
                 }
+            }
         }
         catch (\Exception $e) {
            
