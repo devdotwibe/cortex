@@ -2573,6 +2573,22 @@ nav.navbar { padding: 10px 6%;}
   padding: 0;
 }
 
+.invite-wrap > .container .tab-content .tab-pane .card .card-body .section1 {
+  width: 100%;
+}
+
+.invite-wrap > .container .tab-content .tab-pane .card .card-body .sec1 {
+  width: 100%;
+}
+
+.invite-wrap > .container .tab-content .tab-pane .card .card-body .sec1 .note_section {
+  width: 100%;
+}
+.invite-wrap > .container .nav-tabs li.nav-item .nav-link {
+  font-size: 16px;
+  padding: 8px 15px;
+}
+
 }
 
 @media screen and (max-width:600px){
@@ -2605,6 +2621,11 @@ nav.navbar { padding: 10px 6%;}
 .payment-wrap .nav.nav-tabs li.nav-item .nav-link {
   font-size: 12px;
   padding: 8px;
+}
+
+.invite-wrap > .container .tab-content .tab-pane .card .card-body .sec1 .col-md-12:nth-child(2) {
+  width: 100%;
+  margin: 0 0 0;
 }
 
 }
