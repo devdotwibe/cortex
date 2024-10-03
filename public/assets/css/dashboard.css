@@ -2511,6 +2511,13 @@ nav.navbar { padding-left: 60px;}
 .sidebar-menu .active .line:before { top: 0; transform: rotate(-45deg);}
 .sidebar-menu .active .line:after { top: 0; transform: rotate(45deg);}
 
+.payment-wrap .nav.nav-tabs li.nav-item .nav-link {font-size: 16px;}
+.payment-wrap .nav.nav-tabs li.nav-item .nav-link {font-size: 14px;}
+.payment-wrap .nav.nav-tabs li.nav-item button#add-price-tab img {width: 12px;}
+.payment-wrap .tab-content .amount-form .amout-item .form-group label { font-size: 15px;}
+.payment-wrap .tab-content .tab-pane .payment-title h3 {font-size: 18px;}
+
+
 }
 
 @media screen and (max-width:767px) {
@@ -2525,6 +2532,9 @@ nav.navbar { padding-left: 60px;}
 
 .exam-overview .vl { display: none;}
 .exam-overview .exam-overview-content { margin: 20px 0 0;}
+
+.payment-wrap .nav.nav-tabs li.nav-item .nav-link {font-size: 18px; padding: 8px 18px;}
+
 
 }
 
