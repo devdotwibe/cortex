@@ -72,8 +72,8 @@ class ImportIbDataJob implements ShouldQueue
                             
                                   
 
-                                      
-                                
+                                    
+                                    
 
                                         $value = $row[$XlxsColumnIndex];
                                     

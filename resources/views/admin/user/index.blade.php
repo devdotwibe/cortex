@@ -280,7 +280,7 @@
 
 
 
-
+{{-- 
 <script>
     $(document).on("change", "#file_upload", function() {
         console.log("on cjhash");
@@ -426,7 +426,7 @@
     </script> --}}
 
 
-
+ --}}
 
 
 
@@ -469,7 +469,7 @@ jQuery(document).on("change", "#file_upload", function() {
             formData.append('file_upload', newfile);
 
             $.ajax({
-                url: '{{ route('admin.import_users_from_csv_submit')}}',
+                url: '{{ route('admin.import_users_from_csv')}}',
                 type: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
@@ -606,4 +606,11 @@ jQuery(document).on("change", "#file_upload", function() {
                     }
                 });
             });
+
+            $('.end-datepicker').datepicker({
+            dateFormat: 'yy-mm-dd',
+            minDate: 0
+        });
+
+        </script>
 @endpush
