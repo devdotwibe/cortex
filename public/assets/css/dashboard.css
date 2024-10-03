@@ -2594,6 +2594,9 @@ nav.navbar { padding: 10px 6%;}
 .payment-wrap .tab-content .tab-pane .payment-workshop .amout-item .col-md-8 {
   padding: 0 10px 0 0 !important;
 }
+.payment-wrap .nav.nav-tabs#priceTab {
+  margin: 0 0 0;
+}
 
 }
 
