@@ -2285,6 +2285,7 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 
 .payment-wrap .tab-content .tab-pane .payment-workshop .amout-item .btn.btn-dark {
   padding: 13px 20px;
+  border-radius: 10px;
 
 }
 
@@ -2592,7 +2593,6 @@ nav.navbar { padding: 10px 6%;}
 
 .payment-wrap .tab-content .tab-pane .payment-workshop .amout-item .col-md-8 {
   padding: 0 10px 0 0 !important;
-  width: 75%;
 }
 
 }
@@ -2633,5 +2633,7 @@ nav.navbar { padding: 10px 6%;}
   width: 100%;
   margin: 0 0 0;
 }
-
+.payment-wrap .tab-content .tab-pane .payment-workshop .amout-item .col-md-8 {
+  padding: 0 0 0 0 !important;
+}
 }
