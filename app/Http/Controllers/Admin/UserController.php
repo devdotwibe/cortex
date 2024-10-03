@@ -345,62 +345,52 @@ public function import_users_from_csv(Request $request)
 //     return response()->json($csvData);
 // }
 
-
 public function import_users_from_csv_submit(Request $request)
 {
-    // Validate the required inputs
-    $request->validate([
-        'datas' => 'required|json',
-        'path' => 'required|string',
-        'expiry_date' => 'required|date',
-    ]);
-
-    // Decode the datas JSON into an associative array
+    // Get the CSV data and reverse it to make processing easier
     $datas = json_decode($request->input('datas'), true);
-
-    // Check if the file exists and is readable
     $filePath = $request->input('path');
-    if (!file_exists($filePath) || !is_readable($filePath)) {
-        return response()->json(['error' => 'File not found or not readable'], 400);
-    }
-
-    // Load and reverse CSV data
     $csvData = array_map('str_getcsv', file($filePath));
-    if (empty($csvData)) {
-        return response()->json(['error' => 'CSV file is empty'], 400);
-    }
-
     $reversedData = array_reverse($csvData);
-    $columnNames = array_pop($reversedData); // Extract the header row
-
+  
+    // Extract column names
+    $columnNames = array_pop($reversedData);
+ 
+    // Iterate through each row of the CSV
     foreach ($reversedData as $row) {
-        $usersub = new UserSubscription();
         $user = new User();
+        $usersub = new UserSubscription();
 
-        // Set user data from CSV
         foreach ($datas as $fieldName => $csvColumn) {
+            // Get columns in 'users' table
             $userColumns = Schema::getColumnListing('users');
+            
+            // Find the column index in the CSV
             $csvColumnIndex = array_search($csvColumn, $columnNames);
 
-            // Only set the value if the column exists in the CSV and the field exists in the users table
-            if ($csvColumnIndex !== false && in_array($fieldName, $userColumns, true) && isset($row[$csvColumnIndex])) {
+            // Check if the column exists and the field name is valid
+            if ($csvColumnIndex !== false && in_array($fieldName, $userColumns, true)) {
                 $user->{$fieldName} = $row[$csvColumnIndex];
             }
         }
+       
+        // Set the password if needed or keep it empty for now
+        $user->password = bcrypt('default_password'); // Set a default password or generate it
 
-        // Set a default password (should be hashed)
-        $user->password = bcrypt('default_password'); // Replace 'default_password' with an appropriate value
+        // Save the user
+        $user->save();
 
-        // Save the user and user subscription
-        if ($user->save()) {
+        // After saving the user, save the subscription
+        if ($user->exists) {
             $usersub->status = "imported_user";
             $usersub->user_id = $user->id;
             $usersub->expire_at = $request->expiry_date;
+            
             $usersub->save();
         }
     }
 
-    return response()->json(['success' => 'Users imported successfully']);
+    return response()->json(['message' => 'All users imported successfully', 'csvData' => $csvData]);
 }
 
 
