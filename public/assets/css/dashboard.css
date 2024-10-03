@@ -2584,7 +2584,10 @@ nav.navbar { padding: 10px 6%;}
 .invite-wrap > .container .tab-content .tab-pane .card .card-body .sec1 .note_section {
   width: 100%;
 }
-
+.invite-wrap > .container .nav-tabs li.nav-item .nav-link {
+  font-size: 16px;
+  padding: 8px 15px;
+}
 
 }
 
