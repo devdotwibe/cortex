@@ -421,7 +421,7 @@ public function import_users_from_csv_submit(Request $request)
 {
 
 
-    $datas = json_decode($request->input('data'), true);
+    $datas = json_decode($request->input('datas'), true);
 
 
 
