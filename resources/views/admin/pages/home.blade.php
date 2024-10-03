@@ -266,8 +266,8 @@
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
                                                         <label for="learnimage"  class="file-upload">Learn Image  <br>
-                                                            <span src="{{ asset('assets/images/upfile.svg') }}"
-                                                                alt="Upload Icon"></label>
+                                                            <span> <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                                alt="Upload Icon"></span> </label>
                                                         <input type="file" name="learnimage" id="learnimage"
                                                             value="{{ old('learnimage', optional($banner)->learnimage) }}"
                                                             class="form-control"  style="display: none;"
