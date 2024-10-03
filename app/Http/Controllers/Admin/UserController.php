@@ -448,17 +448,28 @@ public function import_users_from_csv_submit(Request $request)
                         if (isset($row[$XlxsColumnIndex])) {
                             
                             $user->{$fieldName} = $row[$XlxsColumnIndex];
+
+                            if ($fieldName === 'first_name') {
+                            $firstName = $row[$XlxsColumnIndex]; // Save first name
+                            } elseif ($fieldName === 'last_name') {
+                                $lastName = $row[$XlxsColumnIndex]; // Save last name
+                            }
                         }
+
                     
                     
                 }
             }
-            
-            $user->save();
+
+
+              $user->name = trim($firstName . ' ' . $lastName); 
+              $user->password = "";
+               $user->save();
 
     $usersub->status = "subscribed";
     $usersub->user_id = $user->id;
-    $usersub->expire_at =$datas->expiry_date;
+    // $usersub->expire_at =$datas->expiry_date;
+    $usersub->expire_at = $request->expiry_date;
     $usersub->subscription_plan_id =0;
     $usersub->pay_by = 0;
     $usersub->save();
