@@ -421,7 +421,6 @@ public function import_users_from_csv_submit(Request $request)
 
     $filePath = $request->input('path','');
 
-dd($datas);
     dispatch(job: new ImportIbDataJob($datas, $filePath));
 
 
