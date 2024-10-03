@@ -2573,6 +2573,19 @@ nav.navbar { padding: 10px 6%;}
   padding: 0;
 }
 
+.invite-wrap > .container .tab-content .tab-pane .card .card-body .section1 {
+  width: 100%;
+}
+
+.invite-wrap > .container .tab-content .tab-pane .card .card-body .sec1 {
+  width: 100%;
+}
+
+.invite-wrap > .container .tab-content .tab-pane .card .card-body .sec1 .note_section {
+  width: 100%;
+}
+
+
 }
 
 @media screen and (max-width:600px){
