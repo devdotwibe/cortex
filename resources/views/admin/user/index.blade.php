@@ -527,7 +527,7 @@ jQuery(document).on("change", "#file_upload", function() {
                         datas[fieldName] = selectedValue;
                     }
                 });
-
+              
                 var path = $("#file_path").val();
 
                 console.log(path);
