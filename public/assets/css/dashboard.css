@@ -273,7 +273,7 @@
   width: 100%;
   height: auto;
 }
-nav.navbar { width: 100%;padding: 10px; position: fixed;background: #ffff;z-index: 100;box-shadow: 4px 0px 16px 0px #0000000A;left: 0;border-radius: 0 0 0 0;top: 0; border-bottom: 1px solid #dadada;}
+nav.navbar { width: 100%;padding: 10px 30px; position: fixed;background: #ffff;z-index: 100;box-shadow: 4px 0px 16px 0px #0000000A;left: 0;border-radius: 0 0 0 0;top: 0; border-bottom: 1px solid #dadada;}
 .navbar-brand img{height: 50px;}
 main{ margin-top:87px;}
 .category{
