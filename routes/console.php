@@ -1,6 +1,7 @@
 <?php
 
 use App\Jobs\ExpireSubscription;
+use App\Jobs\ImportIbDataJob;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schedule;
@@ -10,3 +11,9 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote')->hourly();
 
 Schedule::job(new ExpireSubscription)->yearlyOn(5, 31, '00:15');
+
+
+$schedule->job(new ImportIbDataJob($datas, $filePath))->everyFiveMinutes();
+
+
+
