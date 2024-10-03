@@ -2620,4 +2620,9 @@ nav.navbar { padding: 10px 6%;}
   padding: 8px;
 }
 
+.invite-wrap > .container .tab-content .tab-pane .card .card-body .sec1 .col-md-12:nth-child(2) {
+  width: 100%;
+  margin: 0 0 0;
+}
+
 }
