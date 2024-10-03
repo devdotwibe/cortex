@@ -421,65 +421,8 @@ public function import_users_from_csv_submit(Request $request)
 
     $filePath = $request->input('path','');
 
-    $sheetData = json_decode(Storage::get($filePath),true);
 
-
-        $columnNames =$sheetData[0];
-
-        // $excel_data = $this->parsedData;
-
-        foreach ($sheetData as $k=> $row) {
-            
-            if($k!=0){
-                $usersub = new UserSubscription();
-            $user = new User;  
-        
-
-            foreach ($datas as $fieldName => $xlsxColumn) {
-            
-                $userColumns = Schema::getColumnListing('users');
-
-            
-                $XlxsColumnIndex = array_search($xlsxColumn, $columnNames);
-
-            
-                    if ($XlxsColumnIndex !== false && in_array($fieldName, $userColumns, true)) {
-
-                        if (isset($row[$XlxsColumnIndex])) {
-                            
-                            $user->{$fieldName} = $row[$XlxsColumnIndex];
-
-                            if ($fieldName === 'first_name') {
-                            $firstName = $row[$XlxsColumnIndex]; // Save first name
-                            } elseif ($fieldName === 'last_name') {
-                                $lastName = $row[$XlxsColumnIndex]; // Save last name
-                            }
-                        }
-
-                    
-                    
-                }
-            }
-
-
-              $user->name = trim($firstName . ' ' . $lastName); 
-              $user->password = "";
-               $user->save();
-
-    $usersub->status = "subscribed";
-    $usersub->user_id = $user->id;
-    // $usersub->expire_at =$datas->expiry_date;
-    $usersub->expire_at = $request->expiry_date;
-    $usersub->subscription_plan_id =0;
-    $usersub->pay_by = 0;
-    $usersub->save();
-
-
-        }
-    }
-
-
-    // dispatch(job: new ImportIbDataJob($datas, $filePath));
+    dispatch(job: new ImportIbDataJob($datas, $filePath));
 
 
     return response()->json(['success' => 'Import process has started successfully']);
