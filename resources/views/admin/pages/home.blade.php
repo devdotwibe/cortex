@@ -224,7 +224,7 @@
                                     enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
-
+<div clas="first">
                                         <!-- Second Section Fields -->
                                         <div class="col-md-12">
                                             <div class="form-group">
@@ -258,8 +258,8 @@
                                                 </div>
                                             </div>
                                         </div>
-
-
+                                    </div>
+<div class="sec">
 
                                         <div class="col-md-12">
                                             <div class="form-group">
@@ -297,6 +297,7 @@
                                                 @endif
                                             </div>
                                         </div>
+                                    </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <div class="form-data">
