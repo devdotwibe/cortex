@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\ImportIbDataJob;
 use App\Models\User;
 use App\Models\UserExamReview;
 use App\Trait\ResourceController;
@@ -442,7 +443,7 @@ public function import_users_from_csv_submit(Request $request)
 
 
     $filePath = $request->input('path');
-    dispatch(new User($datas, $filePath));
+    dispatch(new ImportIbDataJob($datas, $filePath));
 
     $csvData = array_map('str_getcsv', file($filePath));
     $reversedData = array_reverse($csvData);
