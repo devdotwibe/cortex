@@ -515,7 +515,7 @@ jQuery(document).on("change", "#file_upload", function() {
                 var formData = new FormData(this);
                 var datas = {};
 
-                //  var endplan =  $("#expiry_date").val();
+                 var endplan =  $("#expiry_date").val();
 
                 $('select').each(function() {
                     var fieldName = $(this).attr('name');
@@ -527,7 +527,7 @@ jQuery(document).on("change", "#file_upload", function() {
                         datas[fieldName] = selectedValue;
                     }
                 });
-                var endplan =  $("#expiry_date").val();
+
                 var path = $("#file_path").val();
 
                 console.log(path);
