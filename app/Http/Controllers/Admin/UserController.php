@@ -509,26 +509,16 @@ public function import_users_from_csv(Request $request)
 
 public function import_users_from_csv_submit(Request $request)
 {
+ 
     $datas = json_decode($request->input('datas'), true);
+
+
+
     $filePath = $request->input('path');
-
-    // Check if the file exists
-    if (!file_exists($filePath)) {
-        return response()->json(['error' => 'CSV file not found'], 404);
-    }
-
-    dispatch(new ImportIbDataJob($datas, $filePath));
-
     $csvData = array_map('str_getcsv', file($filePath));
     $reversedData = array_reverse($csvData);
+  
     $columnNames = array_pop($reversedData);
-
-    foreach ($reversedData as $row) {
-        $usersub = new UserSubscription();
-        $user = new User();
-
-        $firstName = ''; // Initialize first name
-        $lastName = '';  // Initialize last name
 
         foreach ($datas as $fieldName => $csvColumn) {
             $userColumns = Schema::getColumnListing('users');
