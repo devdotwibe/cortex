@@ -10,6 +10,7 @@ use Illuminate\Queue\SerializesModels;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Schema;
 use App\Models\UserSubscription;
+use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -81,7 +82,7 @@ class ImportIbDataJob implements ShouldQueue
 
             $usersub->status = "subscribed";
             $usersub->user_id = $user->id;
-            $usersub->expire_at = $request->expiry_date;
+            $usersub->expire_at =$this->datas->expiry_date;
             $usersub->subscription_plan_id =0;
             $usersub->pay_by = 0;
             $usersub->save();
