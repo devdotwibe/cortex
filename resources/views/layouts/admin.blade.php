@@ -67,7 +67,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarLogin">
                        
-                        <a class="dropdown-item" href="{{route('admin.dashboard')}}">Dashboard</a>
+                        <a class="dropdown-item" href="{{route('admin.dashboard')}}">Dashboard1</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{route('admin.logout')}}">Log Out </a>
                     </div>
