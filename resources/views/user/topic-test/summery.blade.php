@@ -19,7 +19,7 @@
 
 
         <label for="time_of_exam-table-category-form-create">Exam Duration (HH:MM)</label>
-        <input type="text" id="time_of_exam-table-category-form-create" value="{{ $exam->duration }}" readonly> <!-- Displaying the fetched duration -->
+        <input type="text" id="time_of_exam-table-category-form-create" value="{{ $category->time_of_exam }}" readonly> <!-- Displaying the fetched duration -->
 
 
         <div class="summery-content">
