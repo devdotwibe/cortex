@@ -18,7 +18,7 @@
         </div>
 
         <div class="time-of-exam">
-            <label for="time_of_exam-table-category-form-create">Total Time</label>
+            <label for="time_of_exam-table-category-form-create">Time</label>
             <input type="text" id="time_of_exam-table-category-form-create" value="{{ $category->time_of_exam }}" readonly> <!-- Displaying the fetched duration -->
         </div>
 
