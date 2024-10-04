@@ -86,6 +86,20 @@
                     </a>
                 </li>
 
+                <!-- New items added below -->
+        <li class="side-item">
+            <span class="side-label">Thinking Skills NSW</span>
+        </li>
+        <li class="side-item">
+            <span class="side-label">
+                @php
+                    $subscriptionStatus = Auth::user()->subscription_status ?? 'Free Trial';
+                @endphp
+                {{ $subscriptionStatus == 'premium' ? 'Premium' : 'Free Trial' }}
+            </span>
+        </li>
+        
+
                 <li class="side-item {{request()->is('learn*') ? 'active' :''}}">
                     <a href="{{ route('learn.index') }}">
                         <span class="side-icon" >
