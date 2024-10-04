@@ -164,7 +164,7 @@
                         Question Bank
                     </a>
                 </li>
-                <li class="side-item side-dropdown {{ request()->is('admin/topic-test*') || request()->is('admin/exam*') ? 'active' : '' }}">
+                <li class="side-item side-dropdown {{ request()->is('admin/topic-test*') || request()->is('admin/exam*') ? 'active open' : '' }}">
                     <a class="side-dropdown-toggle {{ request()->is('admin/topic-test*') || request()->is('admin/exam*') ? 'active' : '' }}">
                         <span class="side-icon">
                             <img src="{{ asset('assets/images/iconshover/examsimulator.svg') }}" alt="Dashboard">
