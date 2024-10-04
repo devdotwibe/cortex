@@ -24,6 +24,8 @@ use App\Http\Controllers\User\TopicExamController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
+use Illuminate\Support\Str;
+
 /**
  *
  * Development
@@ -289,11 +291,13 @@ Route::get('/terms', [UserTermsController::class, 'index'])->name('terms.index')
 // });
 
 Route::fallback(function () {
- 
-    dd('request');
-    if (request()->is('learn*')) {
-        return redirect()->to('dashboard');
-    } else {
-        return redirect('/');
+    // Get the current request URI
+    $currentUri = request()->path();
+
+    // Check if the URI starts with the prefix "learn"
+    if (Str::startsWith($currentUri, 'learn')) {
+        return redirect('/dashboard');
     }
+
+    return redirect('/');
 });
