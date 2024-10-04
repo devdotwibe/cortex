@@ -368,11 +368,23 @@
             event.preventDefault();
             event.stopPropagation();
 
-            if(term =='class_detail')
-            {
-                $('#add_term_name').text('Class Details');
-            }
+           
             
+
+            if (term == 'class_detail') {
+    $('#add_term_name').text('Class Details');
+} else if (term == 'lesson_material') {
+    $('#add_term_name').text('Lesson Material');
+} else if (term == 'home_work') {
+    $('#add_term_name').text('Home Work Submission');
+} else if (term == 'lesson_recording') {
+    $('#add_term_name').text('Lesson Recording');
+} else {
+    $('#add_term_name').text('Add Term');
+}
+
+
+
             $('#private-class-booklet-modal-content').hide()
             $('#private-class-modal-content').show()
 
