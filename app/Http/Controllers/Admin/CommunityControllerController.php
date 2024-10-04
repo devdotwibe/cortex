@@ -185,10 +185,18 @@ class CommunityControllerController extends Controller
             ]);
         }
     }
-    $extractedHashtags = array_filter(array_map('trim', explode(' ', $request->input('hashtag', ''))));
-    
-// $extractedHashtags = array_filter(array_map('trim', preg_split('/[\s]+/', $request->input('hashtag', ''))));
+ 
+    // // Extract and store hashtags from the description
+    // preg_match_all('/#\w+/', $data['description'], $hashtags);
+    // $extractedHashtags = $hashtags[0]; 
+    // foreach ($extractedHashtags as $hashtag) {
+    //     Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id'=>$post->id]);
+    // }
 
+
+    // Extract and store hashtags from the hashtag input
+       // Split hashtags by commas, spaces, or a combination of both
+$extractedHashtags = array_filter(array_map('trim', preg_split('/[,\s]+/', $request->input('hashtag', ''))));
 
 foreach ($extractedHashtags as $hashtag) {
     if (!empty($hashtag)) {
@@ -332,8 +340,7 @@ foreach ($extractedHashtags as $hashtag) {
         // Hashtag::where('post_id',$post->id)->whereNotIn('id',$hashIds)->delete();
         $hashIds=[];
         // $extractedHashtags = array_map('trim', explode(',', $request->input('hashtag','')));
-        $extractedHashtags = array_filter(array_map('trim', explode(' ', $request->input('hashtag', ''))));
-        // $extractedHashtags = array_filter(array_map('trim', preg_split('/[\s]+/', $request->input('hashtag', ''))));
+        $extractedHashtags = array_filter(array_map('trim', preg_split('/[,\s]+/', $request->input('hashtag', ''))));
         foreach ($extractedHashtags as $hashtag) {
             if (!empty($hashtag)) {
                 $hash=Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
