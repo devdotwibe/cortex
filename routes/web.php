@@ -289,7 +289,8 @@ Route::get('/terms', [UserTermsController::class, 'index'])->name('terms.index')
 // });
 
 Route::fallback(function () {
-    // Check if the request URI starts with 'learn'
+ 
+    dd('request');
     if (request()->is('learn*')) {
         return redirect()->to('dashboard');
     } else {
