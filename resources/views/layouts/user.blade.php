@@ -87,6 +87,11 @@
                 </li>
                 <li class="side-item">
                     <span class="side-label">
+                        Thinking Skills NSW
+                    </span>
+                </li>
+                <li class="side-item">
+                    <span class="side-label">
                         @php
                             $user = Auth::user();
                             $subscriptionStatus = optional($user->subscription())->status ?? 'Free Trial';
@@ -94,6 +99,7 @@
                         {{ $user->is_free_access ? 'Free Trial' : ($subscriptionStatus === 'subscribed' ? 'Premium' : 'Free Trial') }}
                     </span>
                 </li>
+                
                 
         
 
