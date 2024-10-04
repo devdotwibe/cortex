@@ -372,7 +372,8 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::post('/{user}/user-update-term',[UserAccessController::class,'user_update'])->name('user.update');
             Route::post('/multi-user-update',[UserAccessController::class,'multi_user_update'])->name('multi-user.update');
         });
-    });
+
+
     Route::prefix('settings')->name('settings.')->group(function () {
         Route::get('/',[SettingsController::class,'index'])->name('index');
         Route::post('/store',[SettingsController::class,'store'])->name('store');
@@ -549,7 +550,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
    
 
-
+});
 
 
 });
