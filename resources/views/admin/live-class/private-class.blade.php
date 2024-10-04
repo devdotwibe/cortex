@@ -70,7 +70,7 @@
                                 </div>
                                 <div class="category-content">
                                     {{-- <h5><span >  </span> <img src="{{asset('assets/images/pen.png')}}" width="15" alt=""></h5> --}}
-                                    <h3>Lesson Material1</h3>
+                                    <h3>Lesson Material</h3>
                                 </div>
                                 <div class="category-action">
 
@@ -172,7 +172,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content" id="private-class-modal-content" >
             <div class="modal-header">
-                <h5 class="modal-title" id="sub-category-set-createLabel">Add Term</h5>
+                <h5 class="modal-title" id="add_term_name"></h5>
                 <button type="button" class="close" data-bs-dismiss="modal" >
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -367,6 +367,12 @@
         {
             event.preventDefault();
             event.stopPropagation();
+
+            if(term =='class_detail')
+            {
+                $('#add_term_name').text('Class Details');
+            }
+            
             $('#private-class-booklet-modal-content').hide()
             $('#private-class-modal-content').show()
 
