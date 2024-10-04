@@ -23,9 +23,6 @@ use App\Http\Controllers\User\TipsAndAdviceController;
 use App\Http\Controllers\User\TopicExamController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Log;
-
-use Illuminate\Support\Str;
 
 /**
  *
@@ -285,23 +282,9 @@ Route::get('/terms', [UserTermsController::class, 'index'])->name('terms.index')
 
 
 
-// Route::fallback(function () {
-
-
-//     return redirect('/'); 
-// });
-
 Route::fallback(function () {
-    // Get the current request URI
-    $currentUri = request()->path();
-    
-    // Log the current URI for debugging purposes
-    Log::info('Fallback route triggered for URI: ' . $currentUri);
 
-    // Check if the URI starts with the prefix "learn"
-    if (Str::startsWith($currentUri, 'learn')) {
-        return redirect('/dashboard');
-    }
 
-    return redirect('/');
+    return redirect('/'); 
 });
+
