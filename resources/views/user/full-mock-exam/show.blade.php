@@ -40,16 +40,7 @@
                     </div>
                 </div>
             </div>
-            <div class="exam-right exam-progress-inner-item">
-                <div class="progress-main">
-                    <div class="bookmark">
-                        <a class="" id="bookmark-current" >
-                            {{-- <img class="active-img" src="{{asset("assets/images/bookmark.png")}}" alt="bookmark">
-                            <img class="inactive-img" src="{{asset("assets/images/bookmarkfill.png")}}" alt="bookmark"> --}}
-                        </a>
-                    </div>
-                </div>
-            </div>
+           
         </div>
         
     </div>
@@ -71,6 +62,16 @@
         </div>
         <div class="lesson-right pagination-arrow" style="display:none">
             <button class="button right-btn"> Next <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
+        </div>
+        <div class="exam-right exam-progress-inner-item">
+            <div class="progress-main">
+                <div class="bookmark">
+                    <a class="" id="bookmark-current" >
+                        <img class="active-img" src="{{asset("assets/images/bookmark.png")}}" alt="bookmark">
+                        <img class="inactive-img" src="{{asset("assets/images/bookmarkfill.png")}}" alt="bookmark">
+                    </a>
+                </div>
+            </div>
         </div>
         <div class="lesson-finish pagination-arrow" style="display:none">
             <button class="button finish-btn" > Finish Set <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
