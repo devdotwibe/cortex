@@ -75,9 +75,13 @@
             </ul>
         </div>
     </nav>
-    <div class="side-nav-toggle">
+    {{-- <div class="side-nav-toggle">
         <button class="btn btn-close-toggle"><img src="{{asset("assets/images/close.svg")}}" alt="close"></button>
+    </div> --}}
+    <div class="side-nav-toggle">
+        <button class="btn btn-close-toggle"><span>Close</span></button>
     </div>
+    
     <aside class="side_bar">
        
         <div class="sidebar-content js-simplebar">
