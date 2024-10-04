@@ -92,12 +92,14 @@
         </li>
         <li class="side-item">
             <span class="side-label">
-                @php
-                    $subscriptionStatus = Auth::user()->subscription_status ?? 'Free Trial';
-                @endphp
-                {{ $subscriptionStatus == 'premium' ? 'Premium' : 'Free Trial' }}
+                @if(Auth::user()->is_free_access)
+                    Free
+                @else
+                    Premium
+                @endif
             </span>
         </li>
+        
         
 
                 <li class="side-item {{request()->is('learn*') ? 'active' :''}}">
