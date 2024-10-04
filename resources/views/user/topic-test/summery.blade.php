@@ -15,9 +15,9 @@
 
 
         
-        <div class="summery-title">
+        {{-- <div class="summery-title">
             <h2>{{$exam->subtitle($category->id,"Topic ".($category->getIdx()+1))}}:{{$category->name}}</h2>
-        </div>
+        </div> --}}
         <div class="summery-content">
             {!! get_option("exam_simulator_description") !!}
         </div>
