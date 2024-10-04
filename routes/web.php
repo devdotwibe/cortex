@@ -282,11 +282,11 @@ Route::get('/terms', [UserTermsController::class, 'index'])->name('terms.index')
 
 
 
-Route::fallback(function () {
+// Route::fallback(function () {
 
 
-    return redirect('/'); 
-});
+//     return redirect('/'); 
+// });
 
 Route::fallback(function () {
     // Check if the request URI starts with 'learn'
