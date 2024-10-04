@@ -85,21 +85,16 @@
                         Home
                     </a>
                 </li>
-
-                <!-- New items added below -->
-        <li class="side-item">
-            <span class="side-label">Thinking Skills NSW</span>
-        </li>
-        <li class="side-item">
-            <span class="side-label">
-                @if(Auth::user()->is_free_access)
-                    Free
-                @else
-                    Premium
-                @endif
-            </span>
-        </li>
-        
+                <li class="side-item">
+                    <span class="side-label">
+                        @php
+                            $user = Auth::user();
+                            $subscriptionStatus = optional($user->subscription())->status ?? 'Free Trial';
+                        @endphp
+                        {{ $user->is_free_access ? 'Free Trial' : ($subscriptionStatus === 'subscribed' ? 'Premium' : 'Free Trial') }}
+                    </span>
+                </li>
+                
         
 
                 <li class="side-item {{request()->is('learn*') ? 'active' :''}}">
