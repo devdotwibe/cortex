@@ -283,5 +283,16 @@ Route::get('/terms', [UserTermsController::class, 'index'])->name('terms.index')
 
 
 Route::fallback(function () {
-    return redirect('/'); // Redirect to the landing page
+
+
+    return redirect('/'); 
+});
+
+Route::fallback(function () {
+    // Check if the request URI starts with 'learn'
+    if (request()->is('learn*')) {
+        return redirect()->to('dashboard');
+    } else {
+        return redirect('/');
+    }
 });
