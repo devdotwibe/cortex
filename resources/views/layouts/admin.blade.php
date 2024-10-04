@@ -61,17 +61,10 @@
                         <a class="dropdown-item" href="#">Something else here</a>
                     </div>
                 </li> --}}
-                {{-- <li class="nav-item dropdown">
+                <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarLogin" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span>{{auth('admin')->user()->name}}</span>
-                    </a> --}}
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarLogin" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        @if(auth('admin')->check() && !empty(auth('admin')->user()->name))
-                            <span>{{ auth('admin')->user()->name }}</span>
-                        @endif
                     </a>
-                    
-                    
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarLogin">
                        
                         <a class="dropdown-item" href="{{route('admin.dashboard')}}">Dashboard</a>
