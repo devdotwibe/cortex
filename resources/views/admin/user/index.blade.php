@@ -564,6 +564,12 @@ jQuery(document).on("change", "#file_upload", function() {
                         $("#load_service").css("display","none");
                         $("#import_load_service").css("display","none");
 
+                         usertableinit(); 
+       
+                        usertablefilter();
+         
+
+
                     },
                     error: function(xhr, status, error) {
                         console.error(xhr.responseText);
