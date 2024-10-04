@@ -19,7 +19,7 @@
                     <a href="{{ route('verification.resend') }}" class="btn btn-link p-0 m-0 align-baseline">{{ __('click here to request another') }}</a>.
 
                     <br><br>
-                    <a href="{{ route('dashboard') }}" class="btn btn-primary">{{ __('Back to Dashboard') }}</a>
+                    <a href="{{ route('dashboard') }}" class="btn btn-primary">Back to Dashboard</a>
                 </div>
             </div>
         </div>
