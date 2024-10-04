@@ -82,7 +82,7 @@
                         <span class="active-icon">
                             <img src="{{asset("assets/images/icons/dashboard.svg")}}" alt="Dashboard">
                         </span>
-                        Dashboard
+                        Home
                     </a>
                 </li>
 
