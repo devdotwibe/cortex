@@ -139,7 +139,7 @@
                         </span>
                         Exam Simulator
                     </a>
-                    <ul class="side-dropdown-menu">
+                    <ul class="side-dropdown-menu" style="{{ request()->is('topic-test') || request()->is('full-mock-exam') ? 'display: block;' : '' }}">
                         <li class="side-item {{ request()->is('topic-test') ? 'active' : '' }}">
                             <a href="{{ route('topic-test.index') }}">Topic Test</a>
                         </li>
@@ -148,6 +148,7 @@
                         </li>
                     </ul>
                 </li>
+                
                 
 
                 <li class="side-item {{request()->is('live-class*') ? 'active':''}}">
