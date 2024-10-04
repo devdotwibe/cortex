@@ -12,7 +12,7 @@
     <div class="container"> 
         <x-edit-form name="admin.exam"  :id="$exam->slug" btnsubmit="Save" :fields='[
             ["name"=>"title","size"=>9,"value"=>$exam->title],  
-            ["name"=>"time_of_exam","label"=>"Time Of Exam ( Hr : Min )","placeholder"=>"Time Of Exam ","size"=>3,"type"=>"maskinput","options"=>["placeholder"=>"HH : MM","mask"=>"^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$"],"value"=>$exam->time_of_exam],
+            ["name"=>"time_of_exam","label"=>"Time Of Exam ( HH : MM )","placeholder"=>"Time Of Exam ","size"=>3,"type"=>"maskinput","options"=>["placeholder"=>"HH : MM","mask"=>"^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$"],"value"=>$exam->time_of_exam],
         ]' />
         {{-- <x-edit-form name="admin.exam"  :id="$exam->slug" btnsubmit="Save" :fields='[
             ["name"=>"title","size"=>8], 
