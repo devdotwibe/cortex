@@ -126,21 +126,26 @@
                         Question Bank
                     </a>
                 </li>
-                <li class="side-item side-dropdown">
-                    <a class="side-dropdown-toggle" >
-                        <span class="side-icon" >
-                            <img src="{{asset("assets/images/iconshover/examsimulator.svg")}}" alt="Dashboard">
+                <li class="side-item side-dropdown {{ request()->is('topic-test') || request()->is('full-mock-exam') ? 'open' : '' }}">
+                    <a class="side-dropdown-toggle">
+                        <span class="side-icon">
+                            <img src="{{ asset('assets/images/iconshover/examsimulator.svg') }}" alt="Dashboard">
                         </span>
                         <span class="active-icon">
-                            <img src="{{asset("assets/images/icons/examsimulator.svg")}}" alt="Dashboard">
+                            <img src="{{ asset('assets/images/icons/examsimulator.svg') }}" alt="Dashboard">
                         </span>
                         Exam Simulator
                     </a>
-                    <ul class="side-dropdown-menu" >
-                        <li class="side-item {{request()->is('topic-test') ? 'active':''}}" ><a href="{{route('topic-test.index')}}">Topic Test</a></li>
-                        <li class="side-item {{request()->is('full-mock-exam') ? 'active':''}}"><a href="{{route('full-mock-exam.index')}}">Full Mock Exam</a></li>
+                    <ul class="side-dropdown-menu">
+                        <li class="side-item {{ request()->is('topic-test') ? 'active' : '' }}">
+                            <a href="{{ route('topic-test.index') }}">Topic Test</a>
+                        </li>
+                        <li class="side-item {{ request()->is('full-mock-exam') ? 'active' : '' }}">
+                            <a href="{{ route('full-mock-exam.index') }}">Full Mock Exam</a>
+                        </li>
                     </ul>
                 </li>
+                
 
                 <li class="side-item {{request()->is('live-class*') ? 'active':''}}">
                     {{-- <a @if(auth('admin')->check() &&!(auth('web')->user()->is_free_access) && (optional(auth('web')->user()->subscription())->status ?? "") == "subscribed") href="{{ route('live-class.index') }}" @else data-bs-toggle="modal" data-bs-target="#adminsubModal" @endif > --}}
