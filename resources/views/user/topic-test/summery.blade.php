@@ -10,8 +10,11 @@
                 </a>
             </div>
 
-            <h1>{{get_option('exam_simulator_title')}}</h1>
+            {{-- <h1>{{get_option('exam_simulator_title')}}</h1> --}}
         </div>
+
+
+
         <div class="summery-title">
             <h2>{{$exam->subtitle($category->id,"Topic ".($category->getIdx()+1))}}:{{$category->name}}</h2>
         </div>
