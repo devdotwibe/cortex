@@ -70,7 +70,7 @@
                                 </div>
                                 <div class="category-content">
                                     {{-- <h5><span >  </span> <img src="{{asset('assets/images/pen.png')}}" width="15" alt=""></h5> --}}
-                                    <h3>Lesson Material</h3>
+                                    <h3>Lesson Material1</h3>
                                 </div>
                                 <div class="category-action">
 
