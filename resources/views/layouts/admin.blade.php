@@ -374,6 +374,10 @@
                    $('.side-dropdown-menu').css('display', 'block');
         
                }
+               else
+               {
+                $('.side-dropdown-menu').css('display', 'none');
+               }
            });
         
         
