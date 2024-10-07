@@ -133,7 +133,8 @@
                                     <img src="{{asset("assets/images/User-blk.png")}}" alt="img">
                                 </div>
                                 <div class="title">
-                                    <h3>${v.user.name||""}</h3>
+                                    
+                                     <h3>${capitalizeFirstLetter(v.user.name) || ""}</h3>
                                     <span>${v.createdAt}</span>
                                 </div>
                             </div>
@@ -253,6 +254,9 @@
             `)
         })
     }
+    function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 </script>
      
 @endpush
