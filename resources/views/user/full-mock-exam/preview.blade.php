@@ -119,11 +119,11 @@
                      $.each(res.links,function(k,v){
                         let linkstatus="";
                         if(k!=0&&k!=res.links.length&&useranswers[k-1]){
-                            linkstatus='status-bad1';
+                            linkstatus='status-bad';
                             if(useranswers[k-1].iscorrect){
-                                linkstatus="status-good1";
+                                linkstatus="status-good";
                                 if(useranswers[k-1].time_taken<{{$examtime}}){
-                                    linkstatus="status-exelent1";
+                                    linkstatus="status-exelent";
                                 }
                             }
                         }
