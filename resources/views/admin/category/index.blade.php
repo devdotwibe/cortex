@@ -64,7 +64,11 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content" id="sub-category-modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="sub-category-createLabel">Add Sub Category1</h5>
+                    {{-- <h5 class="modal-title" id="sub-category-createLabel">Add Sub Category</h5> --}}
+                    <h5 class="modal-title" id="sub-category-createLabel">
+                        Add <span id="category-name"></span> Subcategory
+                    </h5>
+                    
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -152,6 +156,13 @@
 
 @push('footer-script')
     <script>
+
+function updateSubcategoryModalTitle(selectedCategory) {
+    document.getElementById('category-name-placeholder').innerText = selectedCategory;
+}
+
+
+
         var cattable = null;
         var subcattable = null;
         var subcatsettable = null;
