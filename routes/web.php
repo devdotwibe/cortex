@@ -216,7 +216,7 @@ Route::middleware(['auth', 'isUser'])->group(function () {
                 Route::get('/ajaxindex', [CommunityController::class, 'posts'])->name('ajaxindex');
                 Route::resource('/post', CommunityController::class);
 
-                Route::post('/post', [ProfileController::class, 'update']);
+                Route::post('/post', [CommunityController::class, 'update']);
 
 
                 Route::get('/poll/{poll_option}/vote', [CommunityController::class, 'pollVote'])->name('poll.vote');
