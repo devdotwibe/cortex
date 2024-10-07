@@ -299,6 +299,8 @@
                 console.log('active');
                 $('.side-dropdown-menu').css('display', 'block');
 
+                $('.side-dropdown-menu').show();
+
                 $('.side-dropdown-menu').text('tedst');
             }
         });
