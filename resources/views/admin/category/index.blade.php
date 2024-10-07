@@ -236,6 +236,9 @@
         function subcategorylist(url, slug) {
             activedata['category'] = slug; 
             $('#table-subcategory-form-create').data('createurl', url);
+            var cat = $(this).data('id');
+
+            $('#sub-category-createLabel').text(cat);
             clearsubcategory();
             $('#sub-category-create-modal').modal('show');
             subcattable.ajax.reload() 
