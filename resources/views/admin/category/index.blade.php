@@ -233,6 +233,17 @@
             $('#table-category-form-submit').text(' Add + ')
         }
 
+        // function subcategorylist(url, slug) {
+        //     activedata['category'] = slug; 
+        //     $('#table-subcategory-form-create').data('createurl', url);
+        //     var cat = $(this).attr('data-id');
+           
+        //     $('#sub-category-createLabel').text(cat);
+        //     clearsubcategory();
+        //     $('#sub-category-create-modal').modal('show');
+        //     subcattable.ajax.reload() 
+        // }
+
         function subcategorylist(url, slug) {
     // Update the active data with the selected category slug
     activedata['category'] = slug;
@@ -241,7 +252,7 @@
     $('#table-subcategory-form-create').data('createurl', url);
 
     // Use the slug value instead of trying to access a 'data-id' attribute from the wrong context
-    $('#sub-category-createLabel').text(slug);
+    $('#sub-category-createLabel').text(data-id);
 
     // Clear subcategory form or data
     clearsubcategory();
