@@ -14,11 +14,11 @@
                 <div class="option-toggle">
                     <div class="option-item">
                         <label for="option-timed" class="option-item-label">TIMED</label>
-                        <input type="radio" name="timed" id="option-timed" value="timed" checked onchange="changemode(this.value)" >
+                        <input type="radio" name="timed" id="option-timed" value="timed" checked onchange="changemode(this.value,'timed')" >
                     </div>
                     <div class="option-item">
                         <label for="option-untimed" class="option-item-label">UNTIMED</label>
-                        <input type="radio" name="timed" id="option-untimed" value="untimed" onchange="changemode(this.value)">
+                        <input type="radio" name="timed" id="option-untimed" value="untimed" onchange="changemode(this.value,'untimed')">
                     </div>
                 </div>
             </div>
@@ -91,11 +91,11 @@
 // Initialize the local storage with "timed" mode
 localStorage.setItem("question-bank", "timed");
 
-function changemode(v) {
+function changemode(v,time) {
     localStorage.setItem("question-bank", v);
 
     // Set linkstatus based on the selected mode
-    if (v === "timed") {
+    if (time === "timed") {
         linkstatus = "status-good";  
     } else {
         linkstatus = ""; 
