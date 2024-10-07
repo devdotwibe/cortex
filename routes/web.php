@@ -217,7 +217,7 @@ Route::middleware(['auth', 'isUser'])->group(function () {
                 Route::resource('/post', CommunityController::class);
 
                
-                Route::get('/post', [CommunityController::class, 'update'])->name('update');
+               
 
                 Route::get('/poll/{poll_option}/vote', [CommunityController::class, 'pollVote'])->name('poll.vote');
                 Route::get('/post/{post}/like', [CommunityController::class, 'postLike'])->name('post.like');
