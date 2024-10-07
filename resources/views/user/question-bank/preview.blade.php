@@ -126,10 +126,10 @@
                         if(k!=0&&k!=res.links.length&&useranswers[k-1]){
                             linkstatus='status-bad';
                             if(useranswers[k-1].iscorrect){
-                                linkstatus="status-good";
-                                // if(useranswers[k-1].time_taken<{{$examtime}}){
-                                //     linkstatus="status-exelent";
-                                // }
+                                // linkstatus="status-good";
+                                if(useranswers[k-1].time_taken<{{$examtime}}){
+                                    linkstatus="status-exelent";
+                                }
                             }
                         }
                         if(v.active||!v.url){
