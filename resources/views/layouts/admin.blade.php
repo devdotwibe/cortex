@@ -362,6 +362,24 @@
     <script src="{{ asset('assets/js/custom.js') }}"></script>
     <script lang="javascript" src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
 
+
+    <script>
+
+        $(document).ready(function() {
+               
+               console.log('test');
+               if ($('.side-dropdown-menu .side-item.active').length) {
+        
+                   console.log('active');
+                   $('.side-dropdown-menu').css('display', 'block');
+        
+               }
+           });
+        
+        
+            </script>
+
+            
     @stack('footer-script')
 </body>
 
