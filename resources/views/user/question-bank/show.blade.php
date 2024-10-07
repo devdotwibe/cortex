@@ -86,15 +86,27 @@
 @endpush
 @push('footer-script') 
     <script> 
-    localStorage.setItem("question-bank", "timed");
-    function changemode(v){
-        localStorage.setItem("question-bank", v);
+    let linkstatus = ""; 
+
+// Initialize the local storage with "timed" mode
+localStorage.setItem("question-bank", "timed");
+
+function changemode(v) {
+    localStorage.setItem("question-bank", v);
+
+    // Set linkstatus based on the selected mode
+    if (v === "timed") {
+        linkstatus = "status-good";  
+    } else {
+        linkstatus = ""; 
     }
-    async function confimexam(url){
-        if(await showConfirm({ title:"Start the question set" })){
-            window.location.href=url;
-        }
+}
+
+async function confimexam(url) {
+    if (await showConfirm({ title: "Start the question set" })) {
+        window.location.href = url;
     }
+}
 
     function loadlessonsetreviews(url){
         $('#attemt-list').html(`
