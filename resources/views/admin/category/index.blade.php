@@ -233,31 +233,16 @@
             $('#table-category-form-submit').text(' Add + ')
         }
 
-        // function subcategorylist(url, slug) {
-        //     activedata['category'] = slug; 
-        //     $('#table-subcategory-form-create').data('createurl', url);
-        //     var cat = $(this).data('id');
+        function subcategorylist(url, slug) {
+            activedata['category'] = slug; 
+            $('#table-subcategory-form-create').data('createurl', url);
+            var cat = $(this).data('id');
            
-        //     $('#sub-category-createLabel').text(cat);
-        //     clearsubcategory();
-        //     $('#sub-category-create-modal').modal('show');
-        //     subcattable.ajax.reload() 
-        // }
-
-        function subcategorylist(url, slug, cat) {
-    activedata['category'] = slug; 
-    $('#table-subcategory-form-create').data('createurl', url);
-    
-    // Use the provided `cat` parameter instead of `$(this).data('id')`.
-    $('#sub-category-createLabel').text(cat);
-    
-    clearsubcategory(); // Assuming this function clears some fields before showing the modal.
-    $('#sub-category-create-modal').modal('show');
-
-    // Assuming `subcattable` is a DataTable instance, `.ajax.reload()` should be called like this:
-    subcattable.ajax.reload();
-}
-
+            $('#sub-category-createLabel').text(cat);
+            clearsubcategory();
+            $('#sub-category-create-modal').modal('show');
+            subcattable.ajax.reload() 
+        }
 
 
         function updatesubcategory(url) {
