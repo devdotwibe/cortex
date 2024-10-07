@@ -14,11 +14,11 @@
                 <div class="option-toggle">
                     <div class="option-item">
                         <label for="option-timed" class="option-item-label">TIMED</label>
-                        <input type="radio" name="timed" id="option-timed" value="timed" checked onchange="changemode(this.value,'timed')" >
+                        <input type="radio" name="timed" id="option-timed" value="timed" checked onchange="changemode(this.value)" >
                     </div>
                     <div class="option-item">
                         <label for="option-untimed" class="option-item-label">UNTIMED</label>
-                        <input type="radio" name="timed" id="option-untimed" value="untimed" onchange="changemode(this.value,'untimed')">
+                        <input type="radio" name="timed" id="option-untimed" value="untimed" onchange="changemode(this.value)">
                     </div>
                 </div>
             </div>
@@ -86,27 +86,15 @@
 @endpush
 @push('footer-script') 
     <script> 
-    let linkstatus = ""; 
-
-// Initialize the local storage with "timed" mode
-localStorage.setItem("question-bank", "timed");
-
-function changemode(v,time) {
-    localStorage.setItem("question-bank", v);
-
-    // Set linkstatus based on the selected mode
-    if (time === "timed") {
-        linkstatus = "status-good";  
-    } else {
-        linkstatus = ""; 
+    localStorage.setItem("question-bank", "timed");
+    function changemode(v){
+        localStorage.setItem("question-bank", v);
     }
-}
-
-async function confimexam(url) {
-    if (await showConfirm({ title: "Start the question set" })) {
-        window.location.href = url;
+    async function confimexam(url){
+        if(await showConfirm({ title:"Start the question set" })){
+            window.location.href=url;
+        }
     }
-}
 
     function loadlessonsetreviews(url){
         $('#attemt-list').html(`
