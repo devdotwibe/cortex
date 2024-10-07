@@ -216,6 +216,8 @@ Route::middleware(['auth', 'isUser'])->group(function () {
                 Route::get('/ajaxindex', [CommunityController::class, 'posts'])->name('ajaxindex');
                 Route::resource('/post', CommunityController::class);
 
+                
+
                
                
 

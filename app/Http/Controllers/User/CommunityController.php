@@ -527,6 +527,7 @@ class CommunityController extends Controller
         /**
          *  @var User
          */
+        dd('edit');
         $user = Auth::user();
         return view('user.community.edit', compact('post', 'user'));
     }
