@@ -236,7 +236,7 @@
         // function subcategorylist(url, slug) {
         //     activedata['category'] = slug; 
         //     $('#table-subcategory-form-create').data('createurl', url);
-        //     var cat = $(this).attr('data-id');
+        //     var cat = $(this).data('id');
            
         //     $('#sub-category-createLabel').text(cat);
         //     clearsubcategory();
@@ -244,25 +244,20 @@
         //     subcattable.ajax.reload() 
         // }
 
-        function subcategorylist(url, slug) {
-    // Update the active data with the selected category slug
-    activedata['category'] = slug;
-
-    // Set the 'createurl' data attribute to the provided URL
+        function subcategorylist(url, slug, cat) {
+    activedata['category'] = slug; 
     $('#table-subcategory-form-create').data('createurl', url);
-
-    // Use the slug value instead of trying to access a 'data-id' attribute from the wrong context
-    $('#sub-category-createLabel').text(slug);
-
-    // Clear subcategory form or data
-    clearsubcategory();
-
-    // Show the modal for creating a subcategory
+    
+    // Use the provided `cat` parameter instead of `$(this).data('id')`.
+    $('#sub-category-createLabel').text(cat);
+    
+    clearsubcategory(); // Assuming this function clears some fields before showing the modal.
     $('#sub-category-create-modal').modal('show');
 
-    // Reload the subcategory table data
-    subcattable.ajax.reload();
+    // Assuming `subcattable` is a DataTable instance, `.ajax.reload()` should be called like this:
+    subcattable.ajax.reload(null, false);
 }
+
 
 
         function updatesubcategory(url) {
