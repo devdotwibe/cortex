@@ -33,7 +33,7 @@
 
             return result;
         }
-        function loadlessonreview(reviewurl){ 
+        // function loadlessonreview(reviewurl){ 
             $.get(reviewurl||"{{ route('full-mock-exam.preview',$userExamReview->slug) }}",function(res){
                 $('.pagination-arrow').hide();
                 $('#lesson-footer-pagination').html('')
