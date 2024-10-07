@@ -252,7 +252,7 @@
     $('#table-subcategory-form-create').data('createurl', url);
 
     // Use the slug value instead of trying to access a 'data-id' attribute from the wrong context
-    $('#sub-category-createLabel').text(data-id);
+    $('#sub-category-createLabel').text(slug);
 
     // Clear subcategory form or data
     clearsubcategory();

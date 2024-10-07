@@ -30,6 +30,8 @@ class CategoryController extends Controller
             return $this->addAction(function($data){ 
                 $action= ' 
                     <a onclick="subcategorylist(\''.route('admin.add_subcatecory', $data->slug).'\', \''.$data->slug.'\')" class="btn btn-icons view_btn" data-id="'.$data->name.'">+</a>
+
+
                     <a onclick="updatecategory('."'".route('admin.category.edit', $data->slug)."'".')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>
                 ';
                 if(empty($data->subcategories) || count($data->subcategories) == 0)
