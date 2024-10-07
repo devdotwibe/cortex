@@ -70,6 +70,9 @@
 @push('footer-script')
 
 <script>
+
+
+
     function loadpost(url){
         $.get(url,function(res){
             if(res.next){
@@ -128,9 +131,9 @@
                             <div class="avathar">
                                 <img src="{{asset("assets/images/User-blk.png")}}" alt="img">
                             </div>
-                            <div class="title">
-                                <h3>${v.user.name||""}</h3>
-                                <span>${v.createdAt}</span>
+                           <div class="title">
+                      <h3>${capitalizeFirstLetter(v.user.name) || ""}</h3>
+                    <span>${v.createdAt}</span>
                             </div>
                             <div class="action">
                                 <a class="btn btn-outline-dark" href="${v.showUrl}">View</a>
@@ -249,6 +252,11 @@
             `)
         })
     }
+
+    function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 </script>
      
 @endpush
