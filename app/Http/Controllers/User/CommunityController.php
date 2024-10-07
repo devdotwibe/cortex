@@ -307,7 +307,7 @@ class CommunityController extends Controller
                 ],
                 "poll" => $options,
                 "user_id_row" => $row->user_id,
-                    "user_id" =>$user->id,
+                "user_id" =>$user->id,
                 "showUrl" => route('community.post.show', $row->slug),
                 "createdAt" => $row->created_at->diffInMinutes(now()) > 1 ? $row->created_at->diffForHumans(now(), true) . " ago" : 'Just Now',
                 "user" => [
