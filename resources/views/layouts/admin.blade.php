@@ -164,7 +164,7 @@
                         Question Bank
                     </a>
                 </li>
-                {{-- <li class="side-item side-dropdown ">
+                <li class="side-item side-dropdown ">
                     <a class="side-dropdown-toggle {{request()->is('admin/topic-test*') ||request()->is('admin/exam*')?"active":""}}"  >
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/iconshover/examsimulator.svg")}}" alt="Dashboard">
@@ -178,30 +178,7 @@
                         <li class="side-item {{request()->is('admin/topic-test*') ? 'active':''}} "><a href="{{route('admin.topic-test.index')}}">Topic Test</a></li>
                         <li class="side-item {{request()->is('admin/exam*') ? 'active':''}} "><a href="{{route('admin.exam.index')}}">Full Mock Exam</a></li>
                     </ul>
-                </li> --}}
-
-                <li class="side-item side-dropdown {{ request()->is('topic-test') || request()->is('full-mock-exam') ? 'open' : '' }}">
-                    <a class="side-dropdown-toggle">
-                        <span class="side-icon">
-                            <img src="{{ asset('assets/images/iconshover/examsimulator.svg') }}" alt="Dashboard">
-                        </span>
-                        <span class="active-icon">
-                            <img src="{{ asset('assets/images/icons/examsimulator.svg') }}" alt="Dashboard">
-                        </span>
-                        Exam Simulator
-                    </a>
-                    <ul class="side-dropdown-menu" style="{{ request()->is('topic-test') || request()->is('full-mock-exam') ? 'display: block;' : '' }}">
-                        <li class="side-item {{ request()->is('topic-test') ? 'active' : '' }}">
-                            <a href="{{ route('topic-test.index') }}">Topic Test</a>
-                        </li>
-                        <li class="side-item {{ request()->is('full-mock-exam') ? 'active' : '' }}">
-                            <a href="{{ route('full-mock-exam.index') }}">Full Mock Exam</a>
-                        </li>
-                    </ul>
                 </li>
-
-                
-
 
                 <li class="side-item {{request()->is('admin/live-class*') ? 'active':''}}">
                     <a href="{{ route('admin.live-class.index') }}">
@@ -384,21 +361,7 @@
     <script src="{{ asset('assets/js/jquery.inputmask.min.js') }}"></script>
     <script src="{{ asset('assets/js/custom.js') }}"></script>
     <script lang="javascript" src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
-    <script>
 
-$(document).ready(function() {
-       
-       console.log('test');
-       if ($('.side-dropdown-menu .side-item.active').length) {
-
-           console.log('active');
-           $('.side-dropdown-menu').css('display', 'block');
-
-       }
-   });
-
-
-    </script>
     @stack('footer-script')
 </body>
 

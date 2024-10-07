@@ -146,8 +146,6 @@ class CommunityController extends Controller
                     "status" => $row->status,
                     "vote" => $vote,
                     "poll" => $options,
-                    "user_id_row" => $row->user_id,
-                    "user_id" =>$user->id,
                     "showUrl" => route('community.post.show', $row->slug),
                     "createdAt" => $row->created_at->diffInMinutes(now()) > 1 ? $row->created_at->diffForHumans(now(), true) . " ago" : 'Just Now',
                     "user" => [
@@ -306,8 +304,6 @@ class CommunityController extends Controller
                     'option' => optional($vote->pollOption)->slug,
                 ],
                 "poll" => $options,
-                "user_id_row" => $row->user_id,
-                "user_id" =>$user->id,
                 "showUrl" => route('community.post.show', $row->slug),
                 "createdAt" => $row->created_at->diffInMinutes(now()) > 1 ? $row->created_at->diffForHumans(now(), true) . " ago" : 'Just Now',
                 "user" => [
@@ -370,8 +366,6 @@ class CommunityController extends Controller
                 "status" => $row->status,
                 "vote" => $vote,
                 "poll" => $options,
-                "user_id_row" => $row->user_id,
-                    "user_id" =>$user->id,
                 "showUrl" => route('community.post.show', $row->slug),
                 "createdAt" => $row->created_at->diffInMinutes(now()) > 1 ? $row->created_at->diffForHumans(now(), true) . " ago" : 'Just Now',
                 "user" => [
