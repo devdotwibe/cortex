@@ -255,7 +255,7 @@
     $('#sub-category-create-modal').modal('show');
 
     // Assuming `subcattable` is a DataTable instance, `.ajax.reload()` should be called like this:
-    subcattable.ajax.reload(null, false);
+    subcattable.ajax.reload();
 }
 
 
