@@ -174,7 +174,7 @@
                         </span>
                         Exam Simulator
                     </a>
-                    <ul class="side-dropdown-menuj" @if(!(request()->is('admin/topic-test*') ||request()->is('admin/exam*'))) @else style="diplay:none" @endif>
+                    <ul class="side-dropdown-menu" @if(!(request()->is('admin/topic-test*') ||request()->is('admin/exam*'))) @else style="diplay:none" @endif>
                         <li class="side-item {{request()->is('admin/topic-test*') ? 'active':''}} "><a href="{{route('admin.topic-test.index')}}">Topic Test</a></li>
                         <li class="side-item {{request()->is('admin/exam*') ? 'active':''}} "><a href="{{route('admin.exam.index')}}">Full Mock Exam</a></li>
                     </ul>
