@@ -237,6 +237,7 @@
             activedata['category'] = slug; 
             $('#table-subcategory-form-create').data('createurl', url);
             var cat = $(this).data('id');
+            console.log(cat);
 
             $('#sub-category-createLabel').text(cat);
             clearsubcategory();
