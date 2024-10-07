@@ -368,7 +368,7 @@
         $(document).ready(function() {
                
                console.log('test');
-               if ($('.side-dropdown-menu .side-item.active').length) {
+               if ($('.side-dropdown-menu1 .side-item.active').length) {
         
                    console.log('active');
                    $('.side-dropdown-menu1').css('display', 'block');
