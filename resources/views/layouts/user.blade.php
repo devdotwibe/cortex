@@ -292,8 +292,11 @@
 
 
         $(document).ready(function() {
-        // Check if any child items have the active class
+       
+            console.log('test');
             if ($('.side-dropdown-menu .side-item.active').length) {
+
+                console.log('active');
                 $('.side-dropdown-menu').css('display', 'block');
             }
         });
