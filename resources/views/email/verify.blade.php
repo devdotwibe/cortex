@@ -1,7 +1,8 @@
 @extends('layouts.email')
 @section('content')
 
-Dear {{ $name }},
+Dear {{ ucfirst($name) }},
+
 
 
 <br>
