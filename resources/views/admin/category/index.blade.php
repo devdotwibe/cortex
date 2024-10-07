@@ -233,10 +233,9 @@
             $('#table-category-form-submit').text(' Add + ')
         }
 
-        function subcategorylist(url, slug) {
+        function subcategorylist(url, slug,cat) {
             activedata['category'] = slug; 
             $('#table-subcategory-form-create').data('createurl', url);
-            var cat = $(this).data('id');
            
             $('#sub-category-createLabel').text(cat);
             clearsubcategory();
