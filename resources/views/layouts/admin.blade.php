@@ -174,7 +174,7 @@
                         </span>
                         Exam Simulator
                     </a>
-                    <ul class="side-dropdown-menu1" @if(!(request()->is('admin/topic-test*') ||request()->is('admin/exam*'))) @else style="diplay:none" @endif>
+                    <ul class="side-dropdown-menu" @if(!(request()->is('admin/topic-test*') ||request()->is('admin/exam*'))) @else style="diplay:none" @endif>
                         <li class="side-item {{request()->is('admin/topic-test*') ? 'active':''}} "><a href="{{route('admin.topic-test.index')}}">Topic Test</a></li>
                         <li class="side-item {{request()->is('admin/exam*') ? 'active':''}} "><a href="{{route('admin.exam.index')}}">Full Mock Exam</a></li>
                     </ul>
@@ -368,10 +368,10 @@
         $(document).ready(function() {
                
                console.log('test');
-               if ($('.side-dropdown-menu1 .side-item.active').length) {
+               if ($('.side-dropdown-menu .side-item.active').length) {
         
                    console.log('active');
-                   $('.side-dropdown-menu1').css('display', 'block');
+                   $('.side-dropdown-menu').css('display', 'block');
         
                }
            });
