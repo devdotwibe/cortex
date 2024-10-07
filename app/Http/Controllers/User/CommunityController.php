@@ -153,7 +153,7 @@ class CommunityController extends Controller
                     ],
                     "liked" => $row->likes()->where('user_id', $user->id)->count() > 0 ? true : false,
                     "likeUrl" => route('community.post.like', $row->slug),
-                    "editUrl" => $row->user_id == $user->id ? route('community.post.edit', $row->slug) : null,
+                    "editUrl" => $row->user_id == $user->id ? route('community.post.edit', $row->slug),
                 ];
             }
             return [
@@ -311,7 +311,7 @@ class CommunityController extends Controller
                 ],
                 "liked" => $row->likes()->where('user_id', $user->id)->count() > 0 ? true : false,
                 "likeUrl" => route('community.post.like', $row->slug),
-                "editUrl" => $row->user_id == $user->id ? route('community.post.edit', $row->slug) : null,
+                "editUrl" => $row->user_id == $user->id ? route('community.post.edit', $row->slug),
             ]);
         } else {
             return redirect()->back()->with('success', "Voted");
@@ -373,7 +373,7 @@ class CommunityController extends Controller
                 ],
                 "liked" => $row->likes()->where('user_id', $user->id)->count() > 0 ? true : false,
                 "likeUrl" => route('community.post.like', $row->slug),
-                "editUrl" => $row->user_id == $user->id ? route('community.post.edit', $row->slug) : null,
+                "editUrl" => $row->user_id == $user->id ? route('community.post.edit', $row->slug),
             ]);
         } else {
             return redirect()->back()->with('success', $row->likes()->where('user_id', $user->id)->count() > 0 ? "Liked" : "Removed");
@@ -527,7 +527,6 @@ class CommunityController extends Controller
         /**
          *  @var User
          */
-        dd('edit');
         $user = Auth::user();
         return view('user.community.edit', compact('post', 'user'));
     }
