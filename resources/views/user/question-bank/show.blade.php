@@ -85,16 +85,30 @@
 </div>
 @endpush
 @push('footer-script') 
-    <script> 
+<script>
+    // Declare the linkstatus variable
+    let linkstatus = ""; 
+
+    // Initialize the local storage with "timed" mode
     localStorage.setItem("question-bank", "timed");
-    function changemode(v){
+
+    function changemode(v) {
         localStorage.setItem("question-bank", v);
-    }
-    async function confimexam(url){
-        if(await showConfirm({ title:"Start the question set" })){
-            window.location.href=url;
+
+        // Set linkstatus based on the selected mode
+        if (v === "timed") {
+            linkstatus = "status-good";  
+        } else {
+            linkstatus = ""; 
         }
     }
+
+    async function confimexam(url) {
+        if (await showConfirm({ title: "Start the question set" })) {
+            window.location.href = url;
+        }
+    }
+</script>
 
     function loadlessonsetreviews(url){
         $('#attemt-list').html(`
