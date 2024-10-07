@@ -289,6 +289,15 @@
                 $('#adminsubModal').modal('show'); // Show the modal using jQuery
             });
         });
+
+
+        $(document).ready(function() {
+        // Check if any child items have the active class
+            if ($('.side-dropdown-menu .side-item.active').length) {
+                $('.side-dropdown-menu').css('display', 'block');
+            }
+        });
+
      </script>
 
 
