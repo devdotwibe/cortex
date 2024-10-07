@@ -365,6 +365,8 @@
 
     <script>
 
+       
+
 $(document).ready(function() {
     // Loop through each .side-dropdown-menu to check if it has an active item
     $('.side-dropdown-menu').each(function() {
