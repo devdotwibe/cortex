@@ -233,32 +233,17 @@
             $('#table-category-form-submit').text(' Add + ')
         }
 
-        // function subcategorylist(url, slug) {
-        //     activedata['category'] = slug; 
-        //     $('#table-subcategory-form-create').data('createurl', url);
-        //     var cat = $(this).attr('data-id');
-        //     console.log(cat);
-
-        //     $('#sub-category-createLabel').text(cat);
-        //     clearsubcategory();
-        //     $('#sub-category-create-modal').modal('show');
-        //     subcattable.ajax.reload() 
-        // }
-
         function subcategorylist(url, slug, element) {
-    activedata['category'] = slug;
-    $('#table-subcategory-form-create').data('createurl', url);
-    
-    // Use the element passed to get the data-id
-    var cat = $(element).attr('data-id');
-    console.log(cat);
+            activedata['category'] = slug; 
+            $('#table-subcategory-form-create').data('createurl', url);
+            var cat = $(element).attr('data-id');
+            console.log(cat);
 
-    $('#sub-category-createLabel').text(cat);
-    clearsubcategory();
-    $('#sub-category-create-modal').modal('show');
-    subcattable.ajax.reload();
-}
-
+            $('#sub-category-createLabel').text(cat);
+            clearsubcategory();
+            $('#sub-category-create-modal').modal('show');
+            subcattable.ajax.reload() 
+        }
 
         function updatesubcategory(url) {
             $.get(url, function(res) {
