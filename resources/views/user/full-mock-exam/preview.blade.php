@@ -118,15 +118,15 @@
                 if(res.total>1){
                      $.each(res.links,function(k,v){
                         let linkstatus="";
-                        // if(k!=0&&k!=res.links.length&&useranswers[k-1]){
-                        //     linkstatus='status-bad';
-                        //     if(useranswers[k-1].iscorrect){
-                        //         // linkstatus="status-good";
-                        //         if(useranswers[k-1].time_taken<{{$examtime}}){
-                        //             linkstatus="status-exelent";
-                        //         }
-                        //     }
-                        // }
+                        if(k!=0&&k!=res.links.length&&useranswers[k-1]){
+                            linkstatus='status-bad1';
+                            if(useranswers[k-1].iscorrect){
+                                linkstatus="status-good1";
+                                if(useranswers[k-1].time_taken<{{$examtime}}){
+                                    linkstatus="status-exelent1";
+                                }
+                            }
+                        }
                         if(v.active||!v.url){
                             $('#lesson-footer-pagination').append(`
                                 <button class="${linkstatus} btn btn-secondary ${v.active?"active":""}" disabled  >${v.label}</button>
