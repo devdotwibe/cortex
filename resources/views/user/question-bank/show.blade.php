@@ -89,6 +89,13 @@
     localStorage.setItem("question-bank", "timed");
     function changemode(v){
         localStorage.setItem("question-bank", v);
+
+
+        if (v === "timed") {
+        linkstatus = "status-good";  
+    } else {
+        linkstatus = ""; 
+    }
     }
     async function confimexam(url){
         if(await showConfirm({ title:"Start the question set" })){
