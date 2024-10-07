@@ -123,8 +123,8 @@
                                 <img src="{{ asset('assets/images/User-blk.png') }}" alt="img">
                             </div>
                             <div class="title">
+                                <h3>${v.user.name||""}</h3>
                                
-                                <span>${v.createdAt}</span>
                             </div>
                             <div class="action">
                                 <a class="btn btn-outline-dark" href="${v.showUrl}">View</a>
