@@ -371,7 +371,7 @@
                if ($('.side-dropdown-menu1 .side-item.active').length) {
         
                    console.log('active');
-                   $('.side-dropdown-menu1').css('display', 'block');
+                   $('.side-dropdown-menu').css('display', 'block');
         
                }
            });
