@@ -165,7 +165,7 @@
                     </a>
                 </li>
                 <li class="side-item side-dropdown">
-                    <a class="side-dropdown-toggle {{ isActiveRoute(['admin/topic-test*', 'admin/exam*']) }}">
+                    <a class="side-dropdown-toggle {{ request()->is('admin/topic-test*') || request()->is('admin/exam*') ? 'active' : '' }}">
                         <span class="side-icon">
                             <img src="{{ asset('assets/images/iconshover/examsimulator.svg') }}" alt="Dashboard">
                         </span>
@@ -174,11 +174,11 @@
                         </span>
                         Exam Simulator
                     </a>
-                    <ul class="side-dropdown-menu" style="{{ isDropdownOpen(['admin/topic-test*', 'admin/exam*']) ? 'display: block;' : 'display: none;' }}">
-                        <li class="side-item {{ isActiveRoute('admin/topic-test*') }}">
+                    <ul class="side-dropdown-menu" style="{{ request()->is('admin/topic-test*') || request()->is('admin/exam*') ? 'display: block;' : 'display: none;' }}">
+                        <li class="side-item {{ request()->is('admin/topic-test*') ? 'active' : '' }}">
                             <a href="{{ route('admin.topic-test.index') }}">Topic Test</a>
                         </li>
-                        <li class="side-item {{ isActiveRoute('admin/exam*') }}">
+                        <li class="side-item {{ request()->is('admin/exam*') ? 'active' : '' }}">
                             <a href="{{ route('admin.exam.index') }}">Full Mock Exam</a>
                         </li>
                     </ul>
@@ -368,31 +368,20 @@
     <script lang="javascript" src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
 
 
-    
-<script>
-if (!function_exists('isActiveRoute')) {
-    function isActiveRoute($routes, $output = "active") {
-        foreach ((array)$routes as $route) {
-            if (request()->is($route)) {
-                return $output;
-            }
-        }
-        return "";
-    }
-}
 
-// Create a helper function to determine dropdown visibility
-if (!function_exists('isDropdownOpen')) {
-    function isDropdownOpen($routes) {
-        foreach ((array)$routes as $route) {
-            if (request()->is($route)) {
-                return true;
-            }
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Check if any side item inside the dropdown has the 'active' class
+        if ($('.side-dropdown-menu .side-item.active').length) {
+            // Make sure the parent dropdown menu is visible
+            $('.side-dropdown-menu').css('display', 'block');
         }
-        return false;
-    }
-}
+    });
 </script>
+
+
+
     @stack('footer-script')
 </body>
 
