@@ -49,6 +49,7 @@
                     <a class="nav-link dropdown-toggle" id="navbarLogin" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span>{{ ucfirst(auth('web')->user()->name) }}</span>
                     </a>
+                   
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarLogin">
                         <a class="dropdown-item" href="{{route('dashboard')}}">Dashboard</a>
                         @guest('admin')
