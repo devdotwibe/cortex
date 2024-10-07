@@ -290,21 +290,6 @@
             });
         });
 
-
-        $(document).ready(function() {
-       
-            console.log('test');
-            if ($('.side-dropdown-menu .side-item.active').length) {
-
-                console.log('active');
-                $('.side-dropdown-menu').css('display', 'block');
-
-                $('.side-dropdown-menu').show();
-
-                $('.side-dropdown-menu').text('tedst');
-            }
-        });
-
      </script>
 
 
@@ -400,7 +385,28 @@
     <script src="{{ asset('assets/js/datatables.min.js') }}"></script>
     <script src="{{ asset('assets/js/custom.js') }}"></script>
     <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+
+    <script>
+
+$(document).ready(function() {
+       
+       console.log('test');
+       if ($('.side-dropdown-menu .side-item.active').length) {
+
+           console.log('active');
+           $('.side-dropdown-menu').css('display', 'block');
+
+           $('.side-dropdown-menu').show();
+
+           $('.side-dropdown-menu').text('tedst');
+       }
+   });
+
+   
+    </script>
     @stack('footer-script')
+
+    
 </body>
 
 </html>
