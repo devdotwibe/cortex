@@ -60,6 +60,12 @@
         <div class="lesson-left pagination-arrow" style="display: none" >
             <button class="button left-btn"><img src="{{asset('assets/images/leftarrow.svg')}}" alt="<"> Back </button>
         </div>
+        <div class="bookmark">
+            <a class="" id="bookmark-current" >
+                <img class="active-img" src="{{asset("assets/images/bookmark.png")}}" alt="bookmark">
+                <img class="inactive-img" src="{{asset("assets/images/bookmarkfill.png")}}" alt="bookmark">
+            </a>
+        </div>
         <div class="lesson-right pagination-arrow" style="display:none">
             <button class="button right-btn"> Next <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
         </div>
