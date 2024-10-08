@@ -96,9 +96,7 @@
                         
                         Thinking Skills NSW
                     </span>
-                </li>
-                <li class="side-item">
-                    <span class="side-label">
+                    <span class="side-trail">
                         @php
                             $user = Auth::user();
                             $subscriptionStatus = optional($user->subscription())->status ?? 'Free Trial';
@@ -213,7 +211,11 @@
 
                 <li class="side-item {{request()->is('support') ? 'active':''}}">
 
-                    <a href="{{route('support.index')}}">
+                    {{-- <a href="{{route('support.index')}}"> --}}
+                        <a href="{{ route('support.index') }}" id="supportModalLink" onclick="showLockedModal()">Support</a>
+                       
+
+                    {{-- <a @if(auth('admin')->check() &&!(auth('web')->user()->is_free_access) && (optional(auth('web')->user()->subscription())->status ?? "") !== "subscribed") data-bs-toggle="modal" data-bs-target="#adminsubModal"  @else href="{{ route('support.index') }}" @endif > --}}
                          <span class="side-icon" >
                              <img src="{{asset("assets/images/iconshover/support.svg")}}" alt="Dashboard">
                          </span>
@@ -301,6 +303,28 @@
     </div>
 </div>
 
+
+
+<!-- Locked Content Modal -->
+<div id="lockedModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Content Locked</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeLockedModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>The content is locked and a subscription is required.</p>
+            </div>
+            <div class="modal-footer">
+                <a href="{{ route('pricing.index') }}#our-plans" class="btn btn-primary">View Pricing Plans</a>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeLockedModal()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
     @stack('before-script')
 
@@ -424,6 +448,18 @@ $(document).ready(function() {
 
 
     </script>
+
+<script>
+    function showLockedModal() {
+        document.getElementById('lockedModal').style.display = 'block';
+    }
+    
+    function closeLockedModal() {
+        document.getElementById('lockedModal').style.display = 'none';
+    }
+    </script>
+
+
     @stack('footer-script')
 
     
