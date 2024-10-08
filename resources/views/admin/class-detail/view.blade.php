@@ -5,6 +5,12 @@
     <div class="header_wrapp">
 
         <div class="header_title">
+            <div class="back-btn" id="back-btn" style="display: block"> <!-- Ensure proper display value -->
+                <a href="{{ route('admin.live-class.private_class_create') }}">
+                    <img src="{{ asset('assets/images/leftarrowblack.svg') }}" alt="">
+                </a>
+            </div>
+            
 
             <h2> Class Details -> {{ $class_detail->term_name  }}</h2>
         </div>
