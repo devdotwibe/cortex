@@ -212,9 +212,10 @@
                 <li class="side-item {{request()->is('support') ? 'active':''}}">
 
                     {{-- <a href="{{route('support.index')}}"> --}}
+                        <a href="{{ route('support.index') }}" id="supportModalLink" onclick="showLockedModal()">Support</a>
                        
 
-                    <a @if(auth('admin')->check() &&!(auth('web')->user()->is_free_access) && (optional(auth('web')->user()->subscription())->status ?? "") !== "subscribed") data-bs-toggle="modal" data-bs-target="#adminsubModal"  @else href="{{ route('support.index') }}" @endif >
+                    {{-- <a @if(auth('admin')->check() &&!(auth('web')->user()->is_free_access) && (optional(auth('web')->user()->subscription())->status ?? "") !== "subscribed") data-bs-toggle="modal" data-bs-target="#adminsubModal"  @else href="{{ route('support.index') }}" @endif > --}}
                          <span class="side-icon" >
                              <img src="{{asset("assets/images/iconshover/support.svg")}}" alt="Dashboard">
                          </span>
