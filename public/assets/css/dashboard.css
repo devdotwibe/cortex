@@ -1712,7 +1712,7 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 #review-history-modal .modal-content .btn#restart-btn:hover { color: #000; background: none;}
 #review-history-modal .modal-content .modal-body {padding: 0;}
 #review-history-modal .modal-content .table-outer table { min-width: 418px;}
-#review-history-modal .modal-dialog {max-width: 700px; top: 50%; transform: translateY(-50%);}
+#review-history-modal .modal-dialog {max-width: 900px; top: 50%; transform: translateY(-50%);}
 #review-history-modal .modal-content .table-outer::-webkit-scrollbar { display: none;}
 #review-history-modal .modal-content .table-outer table .btn-icons.view_btn { padding: 0; display: inline-block; border: none; background: none; width: 25px; height: 25px;}
 
@@ -2595,6 +2595,17 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 #intensive-workshop-payment-modal .modal-content .modal-body .btn.btn-dark:hover { background: none; color: #000;}
 #intensive-workshop-payment-modal .modal-content .modal-body .btn.btn-secondary:hover { background: #8F8F8F; color: #fff;}
 #intensive-workshop-payment-modal .modal-content .modal-header button.close { background: none; color: #000; width: auto; height: auto; font-size: 40px; font-weight: 300; position: absolute;  right: 15px; top: 0;}
+
+
+
+.lesson-pagination .exam-right.exam-progress-inner-item {margin: 0 20px 0 auto;}
+.lesson-pagination  .lesson-right.pagination-arrow {margin-left: 0;}
+.lesson-pagination .exam-right.exam-progress-inner-item .progress-main {min-width: inherit;}
+.lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark { width: 100%; position: relative;}
+.lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark img { width: 100%;display: block; transition: all .25s ease-in-out;}
+.lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark  img.inactive-img { position: absolute; top: 0; left: 0; opacity: 0;}
+.lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark .active img.inactive-img { opacity: 1;}
+.lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark a { cursor: pointer;}
 
 
 @media screen and (max-width:1500px) {
