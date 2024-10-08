@@ -1614,7 +1614,7 @@ section.post-section .post-container .post-item .post-content{
 
 .side_bar { width: 105px;height: 100vh;padding: 30px 0; position: fixed;background: #ffff;z-index: 99;box-shadow: 4px 0px 16px 0px #0000000A;left: 0;border-radius: 0 10px 10px 0;top: 80px;     border: 1px solid #dadada; transition: all .25s ease-in-out;}
 .side-bar-logo {margin: 0 0 20px;}
-button.btn-slider { position: absolute; right: -20px; top: 50%; transform: translateY(-50%) rotate(180deg); z-index: 9; padding: 0; width: 30px; height: 30px;transition: all .25s ease-in-out;}
+button.btn-slider { position: absolute; right: -20px; top: 50%; transform: translateY(-50%); z-index: 9; padding: 0; width: 30px; height: 30px;transition: all .25s ease-in-out;}
 .side_bar .sidebar-content .sidebar-nav { width: 270px;}
 button.btn-slider img { display: block;}
 .side-nav-toggle {display: none;}
@@ -1640,7 +1640,7 @@ aside.side_bar .side-item.status { display: none !important;}
 aside.side_bar.slider-btn .menutext { display: block !important;}
 aside.side_bar.slider-btn .side-item.status { display: block !important;}
 
-aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(0);}
+aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg);}
 
 .content_outer {width: 100%;padding-left: 300px;padding-right: 30px;min-height: 100vh;padding-top: 0;padding-bottom: 30px;transition: all .25s ease-in-out;}
 .sidebar-collapsed .content_outer {padding-left: 135px;}
