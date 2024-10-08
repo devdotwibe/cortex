@@ -211,14 +211,7 @@
 
                 <li class="side-item {{request()->is('support') ? 'active':''}}">
                        
-
-                
-                        <a 
-                        @if(auth('admin')->check() && !(auth('web')->user()->is_free_access) && (optional(auth('web')->user()->subscription())->status ?? "") !== "subscribed") 
-                            href="javascript:void(0);" onclick="showLockedModal()" 
-                        @else 
-                            href="{{ route('support.index') }}" 
-                        @endif>
+                    <a href="{{route('support.index')}}">
 
 
                          <span class="side-icon" >
