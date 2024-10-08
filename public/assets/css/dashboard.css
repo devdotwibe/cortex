@@ -1712,7 +1712,7 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 #review-history-modal .modal-content .btn#restart-btn:hover { color: #000; background: none;}
 #review-history-modal .modal-content .modal-body {padding: 0;}
 #review-history-modal .modal-content .table-outer table { min-width: 418px;}
-#review-history-modal .modal-dialog {max-width: 700px; top: 50%; transform: translateY(-50%);}
+#review-history-modal .modal-dialog {max-width: 900px; top: 50%; transform: translateY(-50%);}
 #review-history-modal .modal-content .table-outer::-webkit-scrollbar { display: none;}
 #review-history-modal .modal-content .table-outer table .btn-icons.view_btn { padding: 0; display: inline-block; border: none; background: none; width: 25px; height: 25px;}
 
