@@ -765,6 +765,7 @@ border-radius: 7px;
   align-items: center;
   justify-content: space-between;
   padding: 5px 5%;
+  position: relative;
 }
 .exam-progress>.exam-progress-inner>.exam-left {
   width: auto;
@@ -779,10 +780,15 @@ border-radius: 7px;
   float: right;
 }
 .exam-progress>.exam-progress-inner>.exam-center {
-  width: auto;
+  width: fit-content;
   height: 100%;
   display: inline-block;
   float: none;
+  position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    top: 0;
 }
 .progress-main {
   min-width: 350px;
