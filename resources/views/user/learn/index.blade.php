@@ -4,7 +4,7 @@
 <section class="header_nav">
     <div class="header_wrapp">
         <div class="header_title">
-            <h2>Learn1</h2>
+            <h2>Learn</h2>
         </div>
     </div>
 </section>
@@ -16,7 +16,8 @@
                 @if ($user->is_free_access||(optional($user->subscription())->status??"")=="subscribed"||$k == 0)
                 <a href="{{ route('learn.show', $item->slug) }}">
                 @else
-                    <a href="{{ route('pricing.index') }}#our-plans">
+                    {{-- <a href="{{ route('pricing.index') }}#our-plans"> --}}
+                        <a href="javascript:void(0);" onclick="showLockedModal()">
                 @endif
                     <div class="card">
                         <div class="card-body">
@@ -49,6 +50,28 @@
 @endsection
 
 @push('modals')  
+
+<!-- Locked Content Modal -->
+<div id="lockedModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Content Locked</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeLockedModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>This content is locked. To access it, please subscribe to one of our plans.</p>
+            </div>
+            <div class="modal-footer">
+                <a href="{{ route('pricing.index') }}#our-plans" class="btn btn-primary">View Pricing Plans</a>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeLockedModal()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endpush
 
 @push('footer-script') 
