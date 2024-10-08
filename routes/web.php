@@ -172,7 +172,6 @@ Route::middleware(['auth', 'isUser'])->group(function () {
             Route::get('/retry/{user_exam_review}/history', [MockExamController::class, 'retryhistory'])->name('retryhistory');
         });
 
-        
         Route::middleware('subscription')->group(function () {
 
             Route::prefix('live-class')->name('live-class.')->group(function () {
