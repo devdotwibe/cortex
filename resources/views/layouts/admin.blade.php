@@ -345,7 +345,7 @@ $(function() {
     initializeSidebar();
 });
 
-
+</script>
     <script>
         $.ajaxSetup({
              headers: {
