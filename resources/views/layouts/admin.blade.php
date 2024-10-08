@@ -37,7 +37,7 @@
 
 </head>
 
-<body>
+<body class="sliderbody">
     <div class="loading-wrap" style="display: none">
         <div class="loading-container">
             <div class="loading-image"><img src="{{asset('assets/images/loader.svg')}}" alt=""></div>
@@ -75,6 +75,8 @@
             </ul>
         </div>
     </nav>
+   
+
     {{-- <div class="side-nav-toggle">
         <button class="btn btn-close-toggle"><img src="{{asset("assets/images/close.svg")}}" alt="close"></button>
     </div> --}}
@@ -83,6 +85,8 @@
     </div>
     
     <aside class="side_bar">
+
+        <button class="btn btn-slider" onclick="ChangeMenu()"><img src="{{asset("assets/images/menu-arrow.svg")}}" alt="slider"></button>
        
         <div class="sidebar-content js-simplebar">
             <ul class="sidebar-nav">
@@ -300,6 +304,52 @@
     @stack('modals')
 
     @stack('before-script')
+
+
+
+    <script>
+
+        
+
+        function ChangeMenu() {
+
+            
+            $('.sliderbody').toggleClass('slider-active');
+
+   
+    
+    // Get the current state and save it in localStorage
+   
+    const isCollapsed1 = $('.sliderbody').hasClass('slider-active');
+
+
+   
+
+    localStorage.setItem('sidebarCollapsed1', isCollapsed1);
+}
+
+// Function to initialize sidebar state based on localStorage
+function initializeSidebar() {
+
+    
+
+    const isCollapsed1 = localStorage.getItem('sidebarCollapsed1') === 'true';
+
+  
+
+    if (isCollapsed1) {
+        $('.sliderbody').addClass('slider-active');
+    } else {
+        $('.sliderbody').removeClass('slider-active');
+    }
+}
+
+// Call the initialize function on page load
+$(function() {
+    initializeSidebar();
+});
+
+</script>
     <script>
         $.ajaxSetup({
              headers: {
