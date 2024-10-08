@@ -32,7 +32,8 @@
 
 </head>
 
-<body>
+<body class="sliderbody">
+
     <div class="loading-wrap" style="display: none">
         <div class="loading-container">
             <div class="loading-image"><img src="{{asset('assets/images/loader.svg')}}" alt=""></div>
@@ -326,37 +327,66 @@
 
     @stack('before-script')
 
-<script>
-    function ChangeMenu() {
-        $('.side_bar').toggleClass('slider-btn');
-        
-        // Toggle class on body as well
-        $('body').toggleClass('sidebar-collapsed');
-        
-        // Get the current state and save it in localStorage
-        const isCollapsed = $('.side_bar').hasClass('slider-btn');
-        localStorage.setItem('sidebarCollapsed', isCollapsed);
+
+    <script>
+
+        // function ChangeMenu()
+        // {
+        //     $('.side_bar').toggleClass('slider-btn');
+        // }
+
+        function ChangeMenu() {
+
+            
+            $('.sliderbody').toggleClass('slider-active');
+
+    $('.side_bar').toggleClass('slider-btn');
+    
+    // Get the current state and save it in localStorage
+    const isCollapsed = $('.side_bar').hasClass('slider-btn');
+    const isCollapsed1 = $('.sliderbody').hasClass('slider-active');
+
+
+    localStorage.setItem('sidebarCollapsed', isCollapsed);
+
+    localStorage.setItem('sidebarCollapsed1', isCollapsed1);
+}
+
+// Function to initialize sidebar state based on localStorage
+function initializeSidebar() {
+
+    const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+
+    const isCollapsed1 = localStorage.getItem('sidebarCollapsed1') === 'true';
+
+    // Apply the class based on stored state
+    if (isCollapsed) {
+        $('.side_bar').addClass('slider-btn');
+    } else {
+        $('.side_bar').removeClass('slider-btn');
     }
-    
-    // Function to initialize sidebar and body state based on localStorage
-    function initializeSidebar() {
-        const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
-    
-        // Apply the class based on stored state
-        if (isCollapsed) {
-            $('.side_bar').addClass('slider-btn');
-            $('body').addClass('sidebar-collapsed');
-        } else {
-            $('.side_bar').removeClass('slider-btn');
-            $('body').removeClass('sidebar-collapsed');
-        }
+
+    if (isCollapsed1) {
+        $('.sliderbody').addClass('slider-active');
+    } else {
+        $('.sliderbody').removeClass('slider-active');
     }
-    
-    // Call the initialize function on page load
-    $(document).ready(function() {
-        initializeSidebar();
-    });
-    </script>
+}
+
+// Call the initialize function on page load
+$(document).ready(function() {
+    initializeSidebar();
+});
+
+
+        $(document).ready(function() {
+          
+            $('#showModalButton').click(function() {
+                $('#adminsubModal').modal('show'); // Show the modal using jQuery
+            });
+        });
+
+     </script>
 
 
     <script>
