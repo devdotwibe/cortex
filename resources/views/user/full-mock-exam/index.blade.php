@@ -32,7 +32,7 @@
 
                                         @else
                                         {{-- <a class="btn btn-warning action-btn" href="{{route('pricing.index')}}#our-plans">ATTEMPT</a> --}}
-                                        <a class="btn btn-warning" href="javascript:void(0);" onclick="showLockedModal()">ATTEMPT</a>
+                                        <a class="btn btn-warning action-btn" href="javascript:void(0);" onclick="showLockedModal()">ATTEMPT</a>
                                        
                                         @endif
                                     </div>
