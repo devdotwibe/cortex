@@ -156,7 +156,7 @@
                                     <img src="{{ asset('assets/images/iconshover/topictesthover.svg') }}" alt="Topic Test">
                                 </span>
                                 <span class="active-icon">
-                                    <img src="{{ asset('assets/images/icons/topictestgf.svg') }}" alt="Topic Test Active">
+                                    <img src="{{ asset('assets/images/icons/topictest.svg') }}" alt="Topic Test Active">
                                 </span>
                                 <span class="menutext">Topic Test</span>
                             </a>
