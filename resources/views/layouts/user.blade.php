@@ -336,10 +336,36 @@
 
     <script>
 
-        function ChangeMenu()
-        {
-            $('.side_bar').toggleClass('slider-btn');
-        }
+        // function ChangeMenu()
+        // {
+        //     $('.side_bar').toggleClass('slider-btn');
+        // }
+
+        function ChangeMenu() {
+    $('.side_bar').toggleClass('slider-btn');
+    
+    // Get the current state and save it in localStorage
+    const isCollapsed = $('.side_bar').hasClass('slider-btn');
+    localStorage.setItem('sidebarCollapsed', isCollapsed);
+}
+
+// Function to initialize sidebar state based on localStorage
+function initializeSidebar() {
+    const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+
+    // Apply the class based on stored state
+    if (isCollapsed) {
+        $('.side_bar').addClass('slider-btn');
+    } else {
+        $('.side_bar').removeClass('slider-btn');
+    }
+}
+
+// Call the initialize function on page load
+$(document).ready(function() {
+    initializeSidebar();
+});
+
 
         $(document).ready(function() {
           
