@@ -155,11 +155,11 @@
                         </span>
                     </a>
                     <ul class="side-dropdown-menu" >
-                        <li class="side-item {{request()->is('admin/category') ?'active':''}} "><a href="{{ route('admin.category.index') }}">Category</a></li>
-                        <li class="side-item {{request()->is('admin/full-mock-exam-options') ? 'active':''}} "><a href="{{route('admin.exam.options')}}">Exam Simulator</a></li>
-                        <li class="side-item {{request()->is('admin/payment') ? 'active':''}} "><a href="{{route('admin.payment.index')}}">Payment</a></li>
-                        <li class="side-item {{request()->is('admin/payment-price') ? 'active':''}} "><a href="{{route('admin.payment-price.index')}}">Price</a></li>
-                        <li class="side-item {{request()->is('admin/coupon') ? 'active':''}} "><a href="{{route('admin.coupon.index')}}">Coupon and Settings</a></li>
+                        <li class="side-item {{request()->is('admin/category') ?'active':''}} "><a href="{{ route('admin.category.index') }}"> <span class="menutext">Category</span></a></li>
+                        <li class="side-item {{request()->is('admin/full-mock-exam-options') ? 'active':''}} "><a href="{{route('admin.exam.options')}}"> <span class="menutext">Exam Simulator</span></a></li>
+                        <li class="side-item {{request()->is('admin/payment') ? 'active':''}} "><a href="{{route('admin.payment.index')}}"> <span class="menutext">Payment</span></a></li>
+                        <li class="side-item {{request()->is('admin/payment-price') ? 'active':''}} "><a href="{{route('admin.payment-price.index')}}"> <span class="menutext">Price</span></a></li>
+                        <li class="side-item {{request()->is('admin/coupon') ? 'active':''}} "><a href="{{route('admin.coupon.index')}}"> <span class="menutext">Coupon and Settings</span></a></li>
                     </ul>
                 </li> 
 
