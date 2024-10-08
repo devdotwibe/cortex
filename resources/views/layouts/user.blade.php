@@ -71,7 +71,7 @@
 
     <aside class="side_bar">
 
-        <button class="btn btn-slider"><img src="{{asset("assets/images/menu-arrow.svg")}}" alt="slider"></button>
+        <button class="btn btn-slider" onclick="ChangeMenu()"><img src="{{asset("assets/images/menu-arrow.svg")}}" alt="slider"></button>
 
         <div class="side-nav-toggle">
             <button class="btn btn-close-toggle"><img src="{{asset("assets/images/close.svg")}}" alt="close"></button>
@@ -335,6 +335,12 @@
 
 
     <script>
+
+        function ChangeMenu()
+        {
+            $('.side_bar').addClass('slider-btn');
+        }
+
         $(document).ready(function() {
           
             $('#showModalButton').click(function() {
