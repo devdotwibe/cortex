@@ -75,6 +75,8 @@
             </ul>
         </div>
     </nav>
+   
+
     {{-- <div class="side-nav-toggle">
         <button class="btn btn-close-toggle"><img src="{{asset("assets/images/close.svg")}}" alt="close"></button>
     </div> --}}
@@ -83,6 +85,8 @@
     </div>
     
     <aside class="side_bar">
+
+        <button class="btn btn-slider" onclick="ChangeMenu()"><img src="{{asset("assets/images/menu-arrow.svg")}}" alt="slider"></button>
        
         <div class="sidebar-content js-simplebar">
             <ul class="sidebar-nav">
