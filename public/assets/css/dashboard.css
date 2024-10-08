@@ -2538,6 +2538,21 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
   display: none;
 }
 
+.sidebar-content ul li.side-item .side-label.menutext {
+  padding: 10px 10px 10px 30px;
+  display: inline-block;
+}
+
+.sidebar-content ul li.side-item .side-trail {
+  font-size: 14px;
+  color: #872727;
+  font-weight: 600;
+  background: #87272733;
+  display: inline-block;
+  padding: 6px;
+  border-radius: 6px;
+}
+
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
 
