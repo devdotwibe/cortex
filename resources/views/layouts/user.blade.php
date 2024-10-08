@@ -91,7 +91,7 @@
                     </span>
                     </a>
                 </li>
-                <li class="side-item">
+                <li class="side-item status">
                     <span class="side-label menutext">
                         
                         Thinking Skills NSW
