@@ -36,7 +36,7 @@ class LiveClassController extends Controller
          */
         $user=Auth::user();
         $live_class =  LiveClassPage::first(); 
-        return view('user.live-class.workshop',compact('user','$live_class->slug'));
+        return view('user.live-class.workshop',compact('user',$live_class->slug));
     }
  
     public function workshopform(Request  $request){
