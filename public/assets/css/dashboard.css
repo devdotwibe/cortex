@@ -1634,9 +1634,9 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .sidebar-content ul li.side-item a:hover .side-icon {opacity: 1;}
 .sidebar-content ul li.side-item a:hover .active-icon {opacity: 0;}
 .sidebar-content ul li.side-item.logout a.log-out:hover { color: #ffffff !important;}
-aside.side_bar.slider-btn {width: 105px;}
-aside.side_bar.slider-btn .menutext { display: none;}
-aside.side_bar.slider-btn .side-item.status { display: none;}
+aside.side_bar.slider-btn {width: 105px !important;}
+aside.side_bar.slider-btn .menutext { display: none !important;}
+aside.side_bar.slider-btn .side-item.status { display: none !important;}
 
 aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(0);}
 
