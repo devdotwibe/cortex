@@ -230,10 +230,11 @@ Route::middleware(['auth', 'isUser'])->group(function () {
             Route::post('/post/{post}/report', [CommunityController::class, 'postReport'])->name('post.report');
         });
 
-       
+        Route::prefix('analytics')->name('analytics.')->group(function () {
+            Route::get('/', [AnalyticsController::class, 'index'])->name('index');
+        });
 
     });
-
 
 
 
@@ -295,9 +296,9 @@ Route::middleware(['auth', 'isUser'])->group(function () {
         //         Route::post('/post/{post}/report', [CommunityController::class, 'postReport'])->name('post.report');
         //     });
 
-            Route::prefix('analytics')->name('analytics.')->group(function () {
-                Route::get('/', [AnalyticsController::class, 'index'])->name('index');
-            });
+        //     Route::prefix('analytics')->name('analytics.')->group(function () {
+        //         Route::get('/', [AnalyticsController::class, 'index'])->name('index');
+        //     });
 
         // });
 
