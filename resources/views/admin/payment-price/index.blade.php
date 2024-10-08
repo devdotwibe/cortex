@@ -990,6 +990,7 @@
 
                                                         <textarea class="form-control texteditor" name="exceltitle" id="exceltitle">{{ old('exceltitle', optional($price)->exceltitle) }}</textarea>
                                                         @error('exceltitle')
+                                                        
                                                             <div class="text-danger">{{ $message }}</div>
                                                         @enderror
                                                     </div>
