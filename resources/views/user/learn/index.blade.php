@@ -75,5 +75,15 @@
 @endpush
 
 @push('footer-script') 
+
+<script>
+function showLockedModal() {
+    document.getElementById('lockedModal').style.display = 'block';
+}
+
+function closeLockedModal() {
+    document.getElementById('lockedModal').style.display = 'none';
+}
+</script>
  
 @endpush
