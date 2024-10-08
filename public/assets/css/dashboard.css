@@ -2497,11 +2497,13 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
   padding: 0 0 0 5px !important;
 }
 
-.warning-container .alert-warning p {
+.warning-container .alert-warning p.userverify {
   font-size: 20px;
   color: #FF0000;
   padding-left: 35px;
   background: url(../images/material-symbols_warning.svg) top left no-repeat;
+  background-size: 22px;
+    background-position-y: 3px;
 }
 
 @media screen and (max-width:1500px) {
