@@ -164,7 +164,7 @@
                         Question Bank
                     </a>
                 </li>
-                <li class="side-item side-dropdown ">
+                {{-- <li class="side-item side-dropdown ">
                     <a class="side-dropdown-toggle {{request()->is('admin/topic-test*') ||request()->is('admin/exam*')?"active":""}}"  >
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/iconshover/examsimulator.svg")}}" alt="Dashboard">
@@ -178,7 +178,44 @@
                         <li class="side-item {{request()->is('admin/topic-test*') ? 'active':''}} "><a href="{{route('admin.topic-test.index')}}">Topic Test</a></li>
                         <li class="side-item {{request()->is('admin/exam*') ? 'active':''}} "><a href="{{route('admin.exam.index')}}">Full Mock Exam</a></li>
                     </ul>
+                </li> --}}
+
+                <li class="side-item side-dropdown">
+                    <a class="side-dropdown-toggle {{ request()->is('admin/topic-test*') || request()->is('admin/exam*') ? 'active' : '' }}">
+                        <span class="side-icon">
+                            <img src="{{ asset('assets/images/iconshover/examsimulator.svg') }}" alt="Exam Simulator">
+                        </span>
+                        <span class="active-icon">
+                            <img src="{{ asset('assets/images/icons/examsimulator.svg') }}" alt="Exam Simulator">
+                        </span>
+                        Exam Simulator
+                    </a>
+                    <ul class="side-dropdown-menu" style="{{ !(request()->is('admin/topic-test*') || request()->is('admin/exam*')) ? 'display: none;' : '' }}">
+                        <li class="side-item {{ request()->is('admin/topic-test*') ? 'active' : '' }}">
+                            <a href="{{ route('admin.topic-test.index') }}">
+                                <span class="side-icon">
+                                    <img src="{{ asset('assets/images/iconshover/topictesthover.svg') }}" alt="Topic Test">
+                                </span>
+                                <span class="active-icon">
+                                    <img src="{{ asset('assets/images/icons/topictest.svg') }}" alt="Topic Test Active">
+                                </span>
+                                Topic Test
+                            </a>
+                        </li>
+                        <li class="side-item {{ request()->is('admin/exam*') ? 'active' : '' }}">
+                            <a href="{{ route('admin.exam.index') }}">
+                                <span class="side-icon">
+                                    <img src="{{ asset('assets/images/iconshover/mockexamhover.svg') }}" alt="Full Mock Exam">
+                                </span>
+                                <span class="active-icon">
+                                    <img src="{{ asset('assets/images/icons/mockexam.svg') }}" alt="Full Mock Exam Active">
+                                </span>
+                                Full Mock Exam
+                            </a>
+                        </li>
+                    </ul>
                 </li>
+                
 
                 <li class="side-item {{request()->is('admin/live-class*') ? 'active':''}}">
                     <a href="{{ route('admin.live-class.index') }}">
