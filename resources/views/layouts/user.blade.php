@@ -214,7 +214,7 @@
                     {{-- <a href="{{route('support.index')}}"> --}}
                         <a 
                         @if(auth('admin')->check() && !(auth('web')->user()->is_free_access) && (optional(auth('web')->user()->subscription())->status ?? "") !== "subscribed") 
-                            data-bs-toggle="modal" data-bs-target="#adminsubModal1" 
+                            data-bs-toggle="modal" data-bs-target="#adminsubModal" 
                         @else 
                             href="{{ route('support.index') }}" 
                         @endif
@@ -289,7 +289,7 @@
 
     @stack('modals')
 <!-- Modal -->
-<div class="modal fade" id="adminsubModal1" tabindex="-1" aria-labelledby="adminsubModalLabel" aria-hidden="true">
+<div class="modal fade" id="adminsubModal" tabindex="-1" aria-labelledby="adminsubModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -336,7 +336,7 @@
         $(document).ready(function() {
           
             $('#showModalButton').click(function() {
-                $('#adminsubModal1').modal('show'); // Show the modal using jQuery
+                $('#adminsubModal').modal('show'); // Show the modal using jQuery
             });
         });
 
