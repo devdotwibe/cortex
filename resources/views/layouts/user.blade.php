@@ -388,12 +388,12 @@ function initializeSidebar() {
 }
 
 // Call the initialize function on page load
-$(document).ready(function() {
+$(function() {
     initializeSidebar();
 });
 
 
-        $(document).ready(function() {
+        $(function() {
           
             $('#showModalButton').click(function() {
                 $('#adminsubModal').modal('show'); // Show the modal using jQuery
