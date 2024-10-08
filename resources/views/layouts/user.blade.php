@@ -71,7 +71,7 @@
 
     <aside class="side_bar">
 
-        <button class="btn btn-slider"><img src="{{asset("assets/images/menu-arrow.svg")}}" alt="slider"></button>
+        <button class="btn btn-slider" onclick="ChangeMenu()"><img src="{{asset("assets/images/menu-arrow.svg")}}" alt="slider"></button>
 
         <div class="side-nav-toggle">
             <button class="btn btn-close-toggle"><img src="{{asset("assets/images/close.svg")}}" alt="close"></button>
@@ -91,7 +91,7 @@
                     </span>
                     </a>
                 </li>
-                <li class="side-item">
+                <li class="side-item status">
                     <span class="side-label menutext">
                         
                         Thinking Skills NSW
@@ -210,12 +210,17 @@
                 </li>
 
                 <li class="side-item {{request()->is('support') ? 'active':''}}">
-
-                    {{-- <a href="{{route('support.index')}}"> --}}
-                        <a href="{{ route('support.index') }}" id="supportModalLink" onclick="showLockedModal()">Support</a>
                        
 
-                    {{-- <a @if(auth('admin')->check() &&!(auth('web')->user()->is_free_access) && (optional(auth('web')->user()->subscription())->status ?? "") !== "subscribed") data-bs-toggle="modal" data-bs-target="#adminsubModal"  @else href="{{ route('support.index') }}" @endif > --}}
+                
+                        <a 
+                        @if(auth('admin')->check() && !(auth('web')->user()->is_free_access) && (optional(auth('web')->user()->subscription())->status ?? "") !== "subscribed") 
+                            href="javascript:void(0);" onclick="showLockedModal()" 
+                        @else 
+                            href="{{ route('support.index') }}" 
+                        @endif>
+
+
                          <span class="side-icon" >
                              <img src="{{asset("assets/images/iconshover/support.svg")}}" alt="Dashboard">
                          </span>
@@ -330,6 +335,38 @@
 
 
     <script>
+
+        // function ChangeMenu()
+        // {
+        //     $('.side_bar').toggleClass('slider-btn');
+        // }
+
+        function ChangeMenu() {
+    $('.side_bar').toggleClass('slider-btn');
+    
+    // Get the current state and save it in localStorage
+    const isCollapsed = $('.side_bar').hasClass('slider-btn');
+    localStorage.setItem('sidebarCollapsed', isCollapsed);
+}
+
+// Function to initialize sidebar state based on localStorage
+function initializeSidebar() {
+    const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+
+    // Apply the class based on stored state
+    if (isCollapsed) {
+        $('.side_bar').addClass('slider-btn');
+    } else {
+        $('.side_bar').removeClass('slider-btn');
+    }
+}
+
+// Call the initialize function on page load
+$(document).ready(function() {
+    initializeSidebar();
+});
+
+
         $(document).ready(function() {
           
             $('#showModalButton').click(function() {
