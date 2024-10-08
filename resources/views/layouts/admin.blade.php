@@ -109,7 +109,9 @@
                         <span class="active-icon">
                             <img src="{{asset("assets/images/icons/user.svg")}}" alt="Users">
                         </span>
+                        <span class="menutext">
                         Users
+                        </span>
                     </a>
                 </li>
 
@@ -133,7 +135,9 @@
                         <span class="active-icon">
                             <img src="{{ asset('assets/images/icons/learn.svg') }}" alt="Learn Active Icon">
                         </span>
+                        <span class="menutext">
                         Learn
+                        </span>
                     </a>
                 </li>
                 
@@ -146,7 +150,9 @@
                         <span class="active-icon">
                             <img src="{{asset("assets/images/icons/options.svg")}}" alt="Dashboard">
                         </span>
+                        <span class="menutext">
                         Options
+                        </span>
                     </a>
                     <ul class="side-dropdown-menu" >
                         <li class="side-item {{request()->is('admin/category') ?'active':''}} "><a href="{{ route('admin.category.index') }}">Category</a></li>
@@ -165,7 +171,9 @@
                         <span class="active-icon">
                             <img src="{{asset("assets/images/icons/questionbank.svg")}}" alt="Dashboard">
                         </span>
+                        <span class="menutext">
                         Question Bank
+                        </span>
                     </a>
                 </li>
                 {{-- <li class="side-item side-dropdown ">
@@ -192,7 +200,9 @@
                         <span class="active-icon">
                             <img src="{{ asset('assets/images/icons/examsimulator.svg') }}" alt="Exam Simulator">
                         </span>
+                        <span class="menutext">
                         Exam Simulator
+                        </span>
                     </a>
                     <ul class="side-dropdown-menu" style="{{ !(request()->is('admin/topic-test*') || request()->is('admin/exam*')) ? 'display: none;' : '' }}">
                         <li class="side-item {{ request()->is('admin/topic-test*') ? 'active' : '' }}">
@@ -203,7 +213,9 @@
                                 <span class="active-icon">
                                     <img src="{{ asset('assets/images/icons/topictest.svg') }}" alt="Topic Test Active">
                                 </span>
+                                <span class="menutext">
                                 Topic Test
+                                </span>
                             </a>
                         </li>
                         <li class="side-item {{ request()->is('admin/exam*') ? 'active' : '' }}">
@@ -214,7 +226,9 @@
                                 <span class="active-icon">
                                     <img src="{{ asset('assets/images/icons/mockexam.svg') }}" alt="Full Mock Exam Active">
                                 </span>
+                                <span class="menutext">
                                 Full Mock Exam
+                                </span>
                             </a>
                         </li>
                     </ul>
@@ -229,7 +243,9 @@
                         <span class="active-icon">
                             <img src="{{asset("assets/images/icons/onlineteaching.svg")}}" alt="Dashboard">
                         </span>
+                        <span class="menutext">
                         Live Teaching
+                        </span>
                     </a>
                 </li>
 
@@ -242,7 +258,9 @@
                         <span class="active-icon">
                             <img src="{{asset("assets/images/icons/community.svg")}}" alt="Dashboard">
                         </span>
+                        <span class="menutext">
                         Community
+                        </span>
                     </a>
                 </li>
 
@@ -254,18 +272,20 @@
                         <span class="active-icon">
                             <img src="{{asset("assets/images/icons/pages.svg")}}" alt="Dashboard">
                         </span>
+                        <span class="menutext">
                         Pages
+                        </span>
                     </a>
                     <ul class="side-dropdown-menu" >
-                        <li class="side-item {{request()->is('admin/page') ?'active':''}} "><a href="{{ route('admin.page.index') }}">Home</a></li>
-                        <li class="side-item {{request()->is('admin/faq') ? 'active':''}} "><a href="{{route('admin.faq.index')}}">FAQ</a></li>
-                        <li class="side-item {{request()->is('admin/support') ? 'active':''}} "><a href="{{route('admin.support.index')}}">Support</a></li>
-                        <li class="side-item {{request()->is('admin/tip') ? 'active':''}} "><a href="{{route('admin.tip.index')}}">Tips and Advice</a></li>
+                        <li class="side-item {{request()->is('admin/page') ?'active':''}} "><a href="{{ route('admin.page.index') }}"> <span class="menutext">Home</span></a></li>
+                        <li class="side-item {{request()->is('admin/faq') ? 'active':''}} "><a href="{{route('admin.faq.index')}}"> <span class="menutext">FAQ</span></a></li>
+                        <li class="side-item {{request()->is('admin/support') ? 'active':''}} "><a href="{{route('admin.support.index')}}"> <span class="menutext">Support</span></a></li>
+                        <li class="side-item {{request()->is('admin/tip') ? 'active':''}} "><a href="{{route('admin.tip.index')}}"> <span class="menutext">Tips and Advice</span></a></li>
 
-                        <li class="side-item {{request()->is('admin/course') ? 'active':''}} "><a href="{{route('admin.course.index')}}">Course</a></li>
+                        <li class="side-item {{request()->is('admin/course') ? 'active':''}} "><a href="{{route('admin.course.index')}}"> <span class="menutext">Course</span></a></li>
 
-                        <li class="side-item {{request()->is('admin/privacy') ? 'active':''}} "><a href="{{route('admin.privacy.index')}}">Privacy Policy</a></li>
-                        <li class="side-item {{request()->is('admin/terms') ? 'active':''}} "><a href="{{route('admin.terms.index')}}">Terms & Conditions</a></li>
+                        <li class="side-item {{request()->is('admin/privacy') ? 'active':''}} "><a href="{{route('admin.privacy.index')}}"> <span class="menutext">Privacy Policy</span></a></li>
+                        <li class="side-item {{request()->is('admin/terms') ? 'active':''}} "><a href="{{route('admin.terms.index')}}"> <span class="menutext">Terms & Conditions</span></a></li>
                     </ul>
                 </li>
 
@@ -288,7 +308,7 @@
                         </span>
                         <span class="active-icon">
                             <img src="{{asset("assets/images/log-out-1.svg")}}" alt="log-out">
-                        </span> Log Out
+                        </span>  <span class="menutext">Log Out</span>
                     </a>
                 </li>
             </ul>
