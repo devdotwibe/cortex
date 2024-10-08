@@ -236,6 +236,11 @@ Route::middleware(['auth', 'isUser'])->group(function () {
 
     });
 
+    Route::prefix('support')->name('support.')->group(function () {
+        Route::get('/', [SupportController::class, 'index'])->name('index');
+        Route::resource('/post',SupportController ::class);
+
+    });
 
 
     
@@ -307,11 +312,11 @@ Route::middleware(['auth', 'isUser'])->group(function () {
 
 
 
-        Route::prefix('support')->name('support.')->group(function () {
-            Route::get('/', [SupportController::class, 'index'])->name('index');
-            Route::resource('/post',SupportController ::class);
+        // Route::prefix('support')->name('support.')->group(function () {
+        //     Route::get('/', [SupportController::class, 'index'])->name('index');
+        //     Route::resource('/post',SupportController ::class);
 
-        });
+        // });
 
 
         Route::prefix('tipsandadvice')->name('tipsandadvise.')->group(function () {
