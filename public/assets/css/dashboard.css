@@ -2497,6 +2497,13 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
   padding: 0 0 0 5px !important;
 }
 
+.warning-container .alert-warning p {
+  font-size: 20px;
+  color: #FF0000;
+  padding-left: 35px;
+  background: url(../images/material-symbols_warning.svg) top left no-repeat;
+}
+
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
 
