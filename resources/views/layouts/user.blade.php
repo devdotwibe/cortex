@@ -70,6 +70,9 @@
     </div>
 
     <aside class="side_bar">
+
+        <button class="btn btn-slider"><img src="{{asset("assets/images/menu-arrow.svg")}}" alt="slider"></button>
+
         <div class="side-nav-toggle">
             <button class="btn btn-close-toggle"><img src="{{asset("assets/images/close.svg")}}" alt="close"></button>
         </div>
@@ -83,11 +86,14 @@
                         <span class="active-icon">
                             <img src="{{asset("assets/images/icons/dashboard.svg")}}" alt="Dashboard">
                         </span>
+                        <span class="menutext">
                         Home
+                    </span>
                     </a>
                 </li>
                 <li class="side-item">
-                    <span class="side-label">
+                    <span class="side-label menutext">
+                        
                         Thinking Skills NSW
                     </span>
                 </li>
@@ -112,7 +118,9 @@
                         <span class="active-icon">
                             <img src="{{asset("assets/images/icons/learn.svg")}}" alt="Dashboard">
                         </span>
+                        <span class="menutext">
                         Learn
+                        </span>
                     </a>
                 </li>
 
@@ -124,7 +132,9 @@
                         <span class="active-icon">
                             <img src="{{asset("assets/images/icons/questionbank.svg")}}" alt="Dashboard">
                         </span>
+                        <span class="menutext">
                         Question Bank
+                        </span>
                     </a>
                 </li>
                
@@ -138,14 +148,16 @@
         <span class="active-icon">
             <img src="{{ asset('assets/images/icons/examsimulator.svg') }}" alt="Dashboard">
         </span>
+        <span class="menutext">
         Exam Simulator
+        </span>
     </a>
     <ul class="side-dropdown-menu" style="{{ request()->is('topic-test') || request()->is('full-mock-exam') ? 'display: block;' : '' }}">
         <li class="side-item {{ request()->is('topic-test') ? 'active' : '' }}">
-            <a href="{{ route('topic-test.index') }}">Topic Test</a>
+            <a href="{{ route('topic-test.index') }}"><span class="menutext"> Topic Test </span></a>
         </li>
         <li class="side-item {{ request()->is('full-mock-exam') ? 'active' : '' }}">
-            <a href="{{ route('full-mock-exam.index') }}">Full Mock Exam</a>
+            <a href="{{ route('full-mock-exam.index') }}"> <span class="menutext"> Full Mock Exam </span> </a>
         </li>
     </ul>
 </li>
@@ -161,7 +173,9 @@
                         <span class="active-icon">
                             <img src="{{asset("assets/images/icons/onlineteaching.svg")}}" alt="Dashboard">
                         </span>
+                        <span class="menutext">
                         Live Teaching
+                        </span>
                     </a>
                 </li>
 
@@ -175,7 +189,9 @@
                         <span class="active-icon">
                             <img src="{{asset("assets/images/icons/analytics.svg")}}" alt="Dashboard">
                         </span>
+                        <span class="menutext">
                         Analytics
+                        </span>
                     </a>
                 </li>
                 @guest('admin')
@@ -189,7 +205,9 @@
                         <span class="active-icon">
                             <img src="{{asset("assets/images/icons/community.svg")}}" alt="Dashboard">
                         </span>
+                        <span class="menutext">
                         Community
+                        </span>
                     </a>
                 </li>
 
@@ -202,7 +220,9 @@
                          <span class="active-icon">
                              <img src="{{asset("assets/images/icons/support.svg")}}" alt="Dashboard">
                          </span>
+                         <span class="menutext">
                          Support
+                         </span>
                      </a>
                  </li>
 
@@ -219,7 +239,9 @@
                          <span class="active-icon">
                              <img src="{{asset("assets/images/icons/tipsandadvice.svg")}}" alt="Dashboard">
                          </span>
+                         <span class="menutext">
                          Tips And Advise
+                         </span>
                      </a>
                  </li>
 
@@ -230,7 +252,8 @@
                         </span>
                         <span class="active-icon">
                             <img src="{{asset("assets/images/log-out-1.svg")}}" alt="log-out">
-                        </span> Log Out
+                        </span>
+                        <span class="menutext"> Log Out </span>
                     </a>
                 </li>
                 @endguest
