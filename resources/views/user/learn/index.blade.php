@@ -62,7 +62,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>This content is locked. To access it, please subscribe to one of our plans.</p>
+                <p>The content is locked and a subscription is required.</p>
             </div>
             <div class="modal-footer">
                 <a href="{{ route('pricing.index') }}#our-plans" class="btn btn-primary">View Pricing Plans</a>
