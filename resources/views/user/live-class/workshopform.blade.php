@@ -5,7 +5,7 @@
     <div class="header_wrapp">
         <div class="header_title">
             <div class="back-btn" >
-                <a href="{{route('live-class.workshop',$live_class->slugk)}}"><img src="{{asset('assets/images/leftarrowblack.svg')}}" alt=""></a>
+                <a href="{{route('live-class.workshop',$live_class->slug)}}"><img src="{{asset('assets/images/leftarrowblack.svg')}}" alt=""></a>
             </div>
             <h2>Live Class - {{($live_class->class_title_2??' Intensive Workshop ')}}</h2>
         </div>
