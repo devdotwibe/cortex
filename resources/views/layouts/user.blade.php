@@ -326,48 +326,37 @@
 
     @stack('before-script')
 
-
-    <script>
-
-        // function ChangeMenu()
-        // {
-        //     $('.side_bar').toggleClass('slider-btn');
-        // }
-
-        function ChangeMenu() {
-    $('.side_bar').toggleClass('slider-btn');
-    
-    // Get the current state and save it in localStorage
-    const isCollapsed = $('.side_bar').hasClass('slider-btn');
-    localStorage.setItem('sidebarCollapsed', isCollapsed);
-}
-
-// Function to initialize sidebar state based on localStorage
-function initializeSidebar() {
-    const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
-
-    // Apply the class based on stored state
-    if (isCollapsed) {
-        $('.side_bar').addClass('slider-btn');
-    } else {
-        $('.side_bar').removeClass('slider-btn');
+<script>
+    function ChangeMenu() {
+        $('.side_bar').toggleClass('slider-btn');
+        
+        // Toggle class on body as well
+        $('body').toggleClass('sidebar-collapsed');
+        
+        // Get the current state and save it in localStorage
+        const isCollapsed = $('.side_bar').hasClass('slider-btn');
+        localStorage.setItem('sidebarCollapsed', isCollapsed);
     }
-}
-
-// Call the initialize function on page load
-$(document).ready(function() {
-    initializeSidebar();
-});
-
-
-        $(document).ready(function() {
-          
-            $('#showModalButton').click(function() {
-                $('#adminsubModal').modal('show'); // Show the modal using jQuery
-            });
-        });
-
-     </script>
+    
+    // Function to initialize sidebar and body state based on localStorage
+    function initializeSidebar() {
+        const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+    
+        // Apply the class based on stored state
+        if (isCollapsed) {
+            $('.side_bar').addClass('slider-btn');
+            $('body').addClass('sidebar-collapsed');
+        } else {
+            $('.side_bar').removeClass('slider-btn');
+            $('body').removeClass('sidebar-collapsed');
+        }
+    }
+    
+    // Call the initialize function on page load
+    $(document).ready(function() {
+        initializeSidebar();
+    });
+    </script>
 
 
     <script>
