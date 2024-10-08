@@ -302,6 +302,7 @@ nav.navbar .dropdown .nav-link.dropdown-toggle {
   background-position-x: 100%;
   background-size: 12px;
   color: #000;
+  font-size: 18px;
 }
 
 nav.navbar .dropdown .nav-link.dropdown-toggle:after {
@@ -2512,6 +2513,29 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
   display: inline-block;
   padding: 0;
   margin: 10px 0 0 35px;
+}
+
+.navbar-expand .navbar-nav .dropdown-menu {
+  border: 1px solid #1989F8;
+  border-radius: 10px;
+  text-align: center;
+  padding: 0;
+  overflow: hidden;
+}
+
+.navbar-expand .navbar-nav .dropdown-menu .dropdown-item {
+  font-size: 18px;
+  color: #000000;
+  padding: 8px 15px;
+}
+
+.navbar-expand .navbar-nav .dropdown-menu .dropdown-item:hover {
+  background: #EAF5FF;
+  color: #1989F8;
+}
+
+.navbar-expand .navbar-nav .dropdown-menu .dropdown-divider {
+  display: none;
 }
 
 @media screen and (max-width:1500px) {
