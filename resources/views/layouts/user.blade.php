@@ -96,9 +96,7 @@
                         
                         Thinking Skills NSW
                     </span>
-                </li>
-                <li class="side-item">
-                    <span class="side-label">
+                    <span class="side-trail">
                         @php
                             $user = Auth::user();
                             $subscriptionStatus = optional($user->subscription())->status ?? 'Free Trial';
