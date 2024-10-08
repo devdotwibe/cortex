@@ -172,10 +172,14 @@ Route::middleware(['auth', 'isUser'])->group(function () {
             Route::get('/retry/{user_exam_review}/history', [MockExamController::class, 'retryhistory'])->name('retryhistory');
         });
 
+        Route::prefix('live-class')->name('live-class.')->group(function () {
+            Route::get('/', [LiveClassController::class, 'index'])->name('index');
+        });
+
         Route::middleware('subscription')->group(function () {
 
             Route::prefix('live-class')->name('live-class.')->group(function () {
-                Route::get('/', [LiveClassController::class, 'index'])->name('index');
+                // Route::get('/', [LiveClassController::class, 'index'])->name('index');
                 Route::get('/{live}', [LiveClassController::class, 'show'])->name('show');
                 Route::get('/{live}/workshop', [LiveClassController::class, 'workshop'])->name('workshop');
                 Route::get('/{live}/workshop/form', [LiveClassController::class, 'workshopform'])->name('workshop.form');
