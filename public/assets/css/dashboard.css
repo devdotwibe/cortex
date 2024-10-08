@@ -2554,7 +2554,7 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(0);}
 
 .sidebar-content ul li.side-item .side-label.menutext {
   padding: 10px 10px 10px 30px;
-  display: inline-block;
+  display: inline-block !important;
 }
 
 .sidebar-content ul li.side-item .side-trail {
