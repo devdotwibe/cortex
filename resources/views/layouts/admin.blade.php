@@ -305,10 +305,7 @@
 
     <script>
 
-        // function ChangeMenu()
-        // {
-        //     $('.side_bar').toggleClass('slider-btn');
-        // }
+        
 
         function ChangeMenu() {
 
@@ -348,7 +345,7 @@ $(function() {
     initializeSidebar();
 });
 
-</script>
+
     <script>
         $.ajaxSetup({
              headers: {
