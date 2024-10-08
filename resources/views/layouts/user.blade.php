@@ -338,7 +338,7 @@
 
         function ChangeMenu()
         {
-            $('.side_bar').addClass('slider-btn');
+            $('.side_bar').toggleClass('slider-btn');
         }
 
         $(document).ready(function() {
