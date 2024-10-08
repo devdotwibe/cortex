@@ -23,7 +23,7 @@
                     <x-ajax-import 
                         :url="route('admin.full-mock-exam.import',$exam->slug)" 
                         :fields='[ 
-                        ["name"=>"category","label"=>"Topic"], 
+                        ["name"=>"category","label"=>"Category"], 
                         ["name"=>"title_text","label"=>"Title Text"], 
                         ["name"=>"description","label"=>"Left Question"], 
                         ["name"=>"sub_question","label"=>"Right Question"], 
