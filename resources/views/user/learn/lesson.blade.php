@@ -19,7 +19,7 @@
         </div>
     </div>
 </section>
-<section class="exam-footer">
+<section class="exam-footer examclass">
     <div class="lesson-pagination">
         <div class="lesson-left pagination-arrow" style="display: none" >
             <button class="button left-btn"><img src="{{asset('assets/images/leftarrow.svg')}}" alt="<"> Back </button>
