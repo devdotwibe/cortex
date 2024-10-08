@@ -30,14 +30,27 @@ class LiveClassController extends Controller
         $live_class =  LiveClassPage::first(); 
         return view('user.live-class.index',compact('live_class','user'));
     }
-    public function workshop(Request  $request){
-        /**
-         * @var User
-         */
-        $user=Auth::user();
-        $live_class =  LiveClassPage::first(); 
-        return view('user.live-class.workshop',compact('user',$live_class->slug));
-    }
+    // public function workshop(Request  $request){
+    //     /**
+    //      * @var User
+    //      */
+    //     $user=Auth::user();
+    //     $live_class =  LiveClassPage::first(); 
+    //     return view('user.live-class.workshop',compact('user',$live_class->slug));
+    // }
+
+
+    public function workshop(Request $request)
+{
+    /**
+     * @var User
+     */
+    $user = Auth::user();
+    $live_class = LiveClassPage::first(); 
+    $slug = $live_class->slug;
+    return view('user.live-class.workshop', compact('user', 'slug'));
+}
+
  
     public function workshopform(Request  $request){
         /**
