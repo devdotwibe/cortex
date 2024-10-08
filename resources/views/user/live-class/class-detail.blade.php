@@ -10,7 +10,7 @@
                     <img src="{{ asset('assets/images/exiticon.svg') }}" alt="">
                 </a>
             </div>
-            <h2>Class Details1 </h2>
+            <h2>Class Details </h2>
         </div>
     </div>
 </section>
