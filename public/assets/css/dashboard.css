@@ -1612,8 +1612,10 @@ section.post-section .post-container .post-item .post-content{
 
 
 
-.side_bar { width: 270px;height: 100vh;padding: 30px 0;overflow: hidden;position: fixed;background: #ffff;z-index: 99;box-shadow: 4px 0px 16px 0px #0000000A;left: 0;border-radius: 0 10px 10px 0;top: 80px;     border: 1px solid #dadada;}
+.side_bar { width: 270px;height: 100vh;padding: 30px 0; position: fixed;background: #ffff;z-index: 99;box-shadow: 4px 0px 16px 0px #0000000A;left: 0;border-radius: 0 10px 10px 0;top: 80px;     border: 1px solid #dadada;}
 .side-bar-logo {margin: 0 0 20px;}
+button.btn-slider { position: absolute; right: -20px; top: 50%; transform: translateY(-50%) rotate(180deg); z-index: 9; padding: 0; width: 30px; height: 30px;}
+button.btn-slider img { display: block;}
 .side-nav-toggle {display: none;}
 .sidebar-content {overflow: auto;height: 100%;padding: 0 0 50px;}
 .sidebar-content::-webkit-scrollbar {display: none;}
