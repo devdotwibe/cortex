@@ -2608,6 +2608,10 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark a { cursor: pointer;}
 
 
+.support-content { background: #FFFFFF; padding: 20px 20px; box-shadow: 4px 0px 16px 0px #0000000A; border-radius: 10px; margin: 16px 0 20px !important;}
+.support-content p { font-size: 20px; line-height: 1.5; margin: 0 0 15px;}
+
+
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
 
