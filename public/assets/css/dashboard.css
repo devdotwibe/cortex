@@ -1612,7 +1612,7 @@ section.post-section .post-container .post-item .post-content{
 
 
 
-.side_bar { width: 270px;height: 100vh;padding: 30px 0; position: fixed;background: #ffff;z-index: 99;box-shadow: 4px 0px 16px 0px #0000000A;left: 0;border-radius: 0 10px 10px 0;top: 80px;     border: 1px solid #dadada;}
+.side_bar { width: 270px;height: 100vh;padding: 30px 0; position: fixed;background: #ffff;z-index: 99;box-shadow: 4px 0px 16px 0px #0000000A;left: 0;border-radius: 0 10px 10px 0;top: 80px;     border: 1px solid #dadada; transition: all .25s ease-in-out;}
 .side-bar-logo {margin: 0 0 20px;}
 button.btn-slider { position: absolute; right: -20px; top: 50%; transform: translateY(-50%) rotate(180deg); z-index: 9; padding: 0; width: 30px; height: 30px;}
 button.btn-slider img { display: block;}
@@ -1633,6 +1633,12 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .sidebar-content ul li.side-item a:hover .side-icon {opacity: 1;}
 .sidebar-content ul li.side-item a:hover .active-icon {opacity: 0;}
 .sidebar-content ul li.side-item.logout a.log-out:hover { color: #ffffff !important;}
+aside.side_bar.slider-btn {width: 105px;}
+aside.side_bar.slider-btn .menutext { display: none;}
+aside.side_bar.slider-btn .side-item.status { display: none;}
+
+aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(0);}
+
 .content_outer {width: 100%;padding-left: 300px;padding-right: 30px;min-height: 100vh;padding-top: 0;padding-bottom: 30px;}
 .header_nav {width: 100%;float: left;padding: 20px;background: #ffff;box-shadow: 4px 0px 16px 0px #0000000A;border-radius: 0 0 10px 10px;}
 .header_nav .header_wrapp {display: flex;width: 100%;flex-wrap: wrap;justify-content: space-between;align-items: center; gap: 10px;}
