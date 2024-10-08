@@ -84,7 +84,7 @@
         <button class="btn btn-close-toggle"><span>Close</span></button>
     </div>
     
-    <aside class="side_bar">
+    <aside class="side_bar" >
 
         <button class="btn btn-slider" onclick="ChangeMenu()"><img src="{{asset("assets/images/menu-arrow.svg")}}" alt="slider"></button>
        
@@ -327,23 +327,27 @@
 
 
 
+   
     <script>
 
-        
+        // function ChangeMenu()
+        // {
+        //     $('.side_bar').toggleClass('slider-btn');
+        // }
 
         function ChangeMenu() {
 
             
             $('.sliderbody').toggleClass('slider-active');
 
-   
+    $('.side_bar').toggleClass('slider-btn');
     
     // Get the current state and save it in localStorage
-   
+    const isCollapsed = $('.side_bar').hasClass('slider-btn');
     const isCollapsed1 = $('.sliderbody').hasClass('slider-active');
 
 
-   
+    localStorage.setItem('sidebarCollapsed', isCollapsed);
 
     localStorage.setItem('sidebarCollapsed1', isCollapsed1);
 }
@@ -351,11 +355,16 @@
 // Function to initialize sidebar state based on localStorage
 function initializeSidebar() {
 
-    
+    const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
 
     const isCollapsed1 = localStorage.getItem('sidebarCollapsed1') === 'true';
 
-  
+    // Apply the class based on stored state
+    if (isCollapsed) {
+        $('.side_bar').addClass('slider-btn');
+    } else {
+        $('.side_bar').removeClass('slider-btn');
+    }
 
     if (isCollapsed1) {
         $('.sliderbody').addClass('slider-active');
@@ -368,7 +377,6 @@ function initializeSidebar() {
 $(function() {
     initializeSidebar();
 });
-
 </script>
     <script>
         $.ajaxSetup({
