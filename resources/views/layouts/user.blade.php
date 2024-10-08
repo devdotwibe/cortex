@@ -139,28 +139,42 @@
                
 
 
-               <li class="side-item side-dropdown {{ request()->is('topic-test') || request()->is('full-mock-exam') ? 'open' : '' }}">
-    <a class="side-dropdown-toggle">
-        <span class="side-icon">
-            <img src="{{ asset('assets/images/iconshover/examsimulator.svg') }}" alt="Dashboard">
-        </span>
-        <span class="active-icon">
-            <img src="{{ asset('assets/images/icons/examsimulator.svg') }}" alt="Dashboard">
-        </span>
-        <span class="menutext">
-        Exam Simulator
-        </span>
-    </a>
-    <ul class="side-dropdown-menu" style="{{ request()->is('topic-test') || request()->is('full-mock-exam') ? 'display: block;' : '' }}">
-        <li class="side-item {{ request()->is('topic-test') ? 'active' : '' }}">
-            <a href="{{ route('topic-test.index') }}"><span class="menutext"> Topic Test </span></a>
-        </li>
-        <li class="side-item {{ request()->is('full-mock-exam') ? 'active' : '' }}">
-            <a href="{{ route('full-mock-exam.index') }}"> <span class="menutext"> Full Mock Exam </span> </a>
-        </li>
-    </ul>
-</li>
-
+                <li class="side-item side-dropdown {{ request()->is('topic-test') || request()->is('full-mock-exam') ? 'open' : '' }}">
+                    <a class="side-dropdown-toggle">
+                        <span class="side-icon">
+                            <img src="{{ asset('assets/images/iconshover/examsimulator.svg') }}" alt="Exam Simulator">
+                        </span>
+                        <span class="active-icon">
+                            <img src="{{ asset('assets/images/icons/examsimulator.svg') }}" alt="Exam Simulator">
+                        </span>
+                        <span class="menutext">Exam Simulator</span>
+                    </a>
+                    <ul class="side-dropdown-menu" style="{{ request()->is('topic-test') || request()->is('full-mock-exam') ? 'display: block;' : '' }}">
+                        <li class="side-item {{ request()->is('topic-test') ? 'active' : '' }}">
+                            <a href="{{ route('topic-test.index') }}">
+                                <span class="side-icon">
+                                    <img src="{{ asset('assets/images/iconshover/topictesthover.svg') }}" alt="Topic Test">
+                                </span>
+                                <span class="active-icon">
+                                    <img src="{{ asset('assets/images/icons/topictest.svg') }}" alt="Topic Test Active">
+                                </span>
+                                <span class="menutext">Topic Test</span>
+                            </a>
+                        </li>
+                        <li class="side-item {{ request()->is('full-mock-exam') ? 'active' : '' }}">
+                            <a href="{{ route('full-mock-exam.index') }}">
+                                <span class="side-icon">
+                                    <img src="{{ asset('assets/images/iconshover/mockexamhover.svg') }}" alt="Full Mock Exam">
+                                </span>
+                                <span class="active-icon">
+                                    <img src="{{ asset('assets/images/icons/mockexam.svg') }}" alt="Full Mock Exam Active">
+                                </span>
+                                <span class="menutext">Full Mock Exam</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                
                 
 
                 <li class="side-item {{request()->is('live-class*') ? 'active':''}}">
