@@ -1665,6 +1665,8 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(0);}
 .dash_card:hover h3 {color: #fff;}
 .dash_card:nth-child(4n) { margin-right: 0;}
 
+.content_section .row > .row { padding: 0;}
+
 .table-outer { width: 100%; background: #fff;box-shadow: 1px -1px 20px 8px #0000000A; padding: 10px; border-radius: 10px;}
 .table-outer table { width: 100%;}
 .table-outer table thead tr th { padding: 12px; background: #000; color: #fff;vertical-align: middle;}
