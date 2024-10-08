@@ -1643,7 +1643,7 @@ aside.side_bar.slider-btn .side-item.status { display: block !important;}
 aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg);}
 
 .content_outer {width: 100%;padding-left: 135px;padding-right: 30px;min-height: 100vh;padding-top: 0;padding-bottom: 30px;transition: all .25s ease-in-out;}
-.sidebar-collapsed .content_outer {padding-left: 300px;}
+.slider-active .content_outer {padding-left: 300px;}
 .header_nav {width: 100%;float: left;padding: 20px;background: #ffff;box-shadow: 4px 0px 16px 0px #0000000A;border-radius: 0 0 10px 10px;}
 .header_nav .header_wrapp {display: flex;width: 100%;flex-wrap: wrap;justify-content: space-between;align-items: center; gap: 10px;}
 .header_nav .header_wrapp .header_title {width: auto;float: left;}
