@@ -127,7 +127,7 @@
             //         if (v.iscorrect) {
             //             linkstatus = "status-good";  // If correct, change to 'status-good'
             //         }
-            //     }if (res.total > 1) {
+                if (res.total > 1) {
     $.each(res.links, function(k, v) {
         let linkstatus = 'status-bad';  // Default status as 'status-bad'
         
