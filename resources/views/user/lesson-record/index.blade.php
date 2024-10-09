@@ -4,13 +4,7 @@
 <section class="header_nav">
     <div class="header_wrapp">
         <div class="header_title">
-            <div class="back-btn" id="back-btn" style="display: block"> <!-- Ensure proper display value -->
-                <a href="{{ route('live-class.privateclass.room',$user->slug) }}">
-                  
-                    <img src="{{ asset('assets/images/exiticon.svg') }}" alt="">
-                </a>
-            </div>
-            <h2>Lesson Recording</h2>
+            <h2>Lesson Recording1</h2>
         </div>
     </div>
 </section>
