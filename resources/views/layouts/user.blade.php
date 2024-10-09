@@ -224,7 +224,28 @@
                     </a>
                 </li>
 
-                <li class="side-item {{request()->is('support') ? 'active':''}}">
+               
+
+
+                 <li class="side-item {{request()->is('tipsandadvice*') ? 'active':''}}">
+
+                  
+                        <a @if(auth('admin')->check() &&!(auth('web')->user()->is_free_access) && (optional(auth('web')->user()->subscription())->status ?? "") !== "subscribed") data-bs-toggle="modal" data-bs-target="#adminsubModal"  @else href="{{ route('tipsandadvise.index') }}" @endif >
+                            {{-- <a @if(auth('admin')->check()&&!(auth('web')->user()->is_free_access)&&(optional(auth('web')->user()->subscription())->status??"")=="subscribed") data-bs-toggle="modal" data-bs-target="#adminsubModal" @else href="{{route('tipsandadvise.index')}}" @endif > --}}
+
+                         <span class="side-icon" >
+                             <img src="{{asset("assets/images/iconshover/tipsandadvice.svg")}}" alt="Dashboard">
+                         </span>
+                         <span class="active-icon">
+                             <img src="{{asset("assets/images/icons/tipsandadvice.svg")}}" alt="Dashboard">
+                         </span>
+                         <span class="menutext">
+                         Tips And Advice
+                         </span>
+                     </a>
+                 </li>
+<div class="supportsection">
+                 <li class="side-item {{request()->is('support') ? 'active':''}}">
                        
                     <a href="{{route('support.index')}}">
 
@@ -241,25 +262,6 @@
                      </a>
                  </li>
 
-
-                 <li class="side-item {{request()->is('tipsandadvice*') ? 'active':''}}">
-
-                  
-                        <a @if(auth('admin')->check() &&!(auth('web')->user()->is_free_access) && (optional(auth('web')->user()->subscription())->status ?? "") !== "subscribed") data-bs-toggle="modal" data-bs-target="#adminsubModal"  @else href="{{ route('tipsandadvise.index') }}" @endif >
-                            {{-- <a @if(auth('admin')->check()&&!(auth('web')->user()->is_free_access)&&(optional(auth('web')->user()->subscription())->status??"")=="subscribed") data-bs-toggle="modal" data-bs-target="#adminsubModal" @else href="{{route('tipsandadvise.index')}}" @endif > --}}
-
-                         <span class="side-icon" >
-                             <img src="{{asset("assets/images/iconshover/tipsandadvice.svg")}}" alt="Dashboard">
-                         </span>
-                         <span class="active-icon">
-                             <img src="{{asset("assets/images/icons/tipsandadvice.svg")}}" alt="Dashboard">
-                         </span>
-                         <span class="menutext">
-                         Tips And Advise
-                         </span>
-                     </a>
-                 </li>
-
                 <li class="side-item logout">
                     <a href="{{route('logout')}}" class="log-out">
                         <span class="side-icon">
@@ -271,6 +273,8 @@
                         <span class="menutext"> Log Out </span>
                     </a>
                 </li>
+
+            </div>
                 @endguest
             </ul>
         </div>
@@ -417,6 +421,14 @@ $(function() {
         });
         function handleFileUpload(file){
             return new Promise((resolve, reject) => {
+                const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+
+// Validate file type
+if (!allowedTypes.includes(file.type)) {
+    reject({ code: 400, status: 'Invalid File Type', error: 'Only JPG, JPEG, and PNG formats are allowed.' });
+    showToast('Upload failed. Only JPG, JPEG, and PNG formats are allowed.', 'danger', true);
+    return;
+}
                 var formData = new FormData();
                 formData.append("file", file);
                 formData.append("foldername", "ckeditor");
@@ -521,6 +533,14 @@ $(document).ready(function() {
         document.getElementById('lockedModal').style.display = 'none';
     }
     </script>
+
+<script>
+    $(document).ready(function() {
+        var note = $('<p><strong>Note:</strong> Supported Image formats: jpg, png, jpeg</p>');
+        $('#editor').prepend(note);  // Adds the note to the editor
+    });
+    </script>
+    
 
 
     @stack('footer-script')

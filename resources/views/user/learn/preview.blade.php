@@ -116,15 +116,25 @@
                         },'json')
                     }
                 }) 
-                if(res.total>1){
-                     $.each(res.links,function(k,v){
+                if (res.total > 1) {
+            $.each(res.links, function(k, v) {
+                let linkstatus = "";
+
+               
+                // Removing 'useranswers' logic, setting default classes
+                if (k != 0 && k != res.links.length) {
+                    linkstatus = 'status-bad';  // Default status as 'status-bad'
+                    if (v.iscorrect) {
+                        linkstatus = "status-good";  // If correct, change to 'status-good'
+                    }
+                }
                         if(v.active||!v.url){
                             $('#lesson-footer-pagination').append(`
-                                <button class="btn btn-secondary ${v.active?"active":""}" disabled  >${v.label}</button>
+                                <button class="btn btn-secondary  ${linkstatus} ${v.active?"active":""}" disabled  >${v.label}</button>
                             `)
                         }else{
                             $('#lesson-footer-pagination').append(`
-                                <button class="btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
+                                <button class="btn btn-secondary ${linkstatus}" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
                             `)
                         }
                      })

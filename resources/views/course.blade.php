@@ -3,6 +3,8 @@
 
 @section('content')
 
+
+
     <section class="banner-wrapp banner-wrapp2">
         <div class="container">
             <div class="banner-row">
@@ -13,6 +15,12 @@
                 @if (!empty($course->buttonlink) && !empty($course->buttonlabel))
                 <a href="{{ $course->buttonlink }}" class="banner-btn1">{{ $course->buttonlabel }}</a>
             @endif
+            
+
+            
+
+
+
                 </div>
                 <div class="banner-col2">
                     <div class="banner-img">
