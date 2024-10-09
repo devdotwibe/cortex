@@ -421,6 +421,14 @@ $(function() {
         });
         function handleFileUpload(file){
             return new Promise((resolve, reject) => {
+                const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+
+// Validate file type
+if (!allowedTypes.includes(file.type)) {
+    reject({ code: 400, status: 'Invalid File Type', error: 'Only JPG, JPEG, and PNG formats are allowed.' });
+    showToast('Upload failed. Only JPG, JPEG, and PNG formats are allowed.', 'danger', true);
+    return;
+}
                 var formData = new FormData();
                 formData.append("file", file);
                 formData.append("foldername", "ckeditor");
@@ -525,6 +533,14 @@ $(document).ready(function() {
         document.getElementById('lockedModal').style.display = 'none';
     }
     </script>
+
+<script>
+    $(document).ready(function() {
+        var note = $('<p><strong>Note:</strong> Supported Image formats: jpg, png, jpeg</p>');
+        $('#editor').prepend(note);  // Adds the note to the editor
+    });
+    </script>
+    
 
 
     @stack('footer-script')
