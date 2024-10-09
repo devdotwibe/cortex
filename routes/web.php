@@ -210,7 +210,7 @@ Route::middleware(['auth', 'isUser'])->group(function () {
                 Route::get('/', [LessonRecordVideoController::class, 'index'])->name('index');
                 Route::get('/{lesson_recording}', [LessonRecordVideoController::class, 'show'])->name('show');
             });
-        });
+        // });
 
         Route::prefix('community')->name('community.')->group(function () {
             Route::get('/', [CommunityController::class, 'posts'])->name('index');
