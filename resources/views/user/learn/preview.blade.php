@@ -116,25 +116,18 @@
                         },'json')
                     }
                 }) 
-            //     if (res.total > 1) {
-            // $.each(res.links, function(k, v) {
-            //     let linkstatus = "";
+                if (res.total > 1) {
+            $.each(res.links, function(k, v) {
+                let linkstatus = "";
 
                
-            //     // Removing 'useranswers' logic, setting default classes
-            //     if (k != 0 && k != res.links.length) {
-            //         linkstatus = 'status-bad';  // Default status as 'status-bad'
-            //         if (v.iscorrect) {
-            //             linkstatus = "status-good";  // If correct, change to 'status-good'
-            //         }
-                if (res.total > 1) {
-    $.each(res.links, function(k, v) {
-        let linkstatus = 'status-bad';  // Default status as 'status-bad'
-        
-        // Assuming res.data contains correctness information for each question
-        if (k != 0 && k != res.links.length && res.data[k-1].iscorrect) {
-            linkstatus = "status-good";  // If the answer is correct, change to 'status-good'
-        }
+                // Removing 'useranswers' logic, setting default classes
+                if (k != 0 && k != res.links.length) {
+                    linkstatus = 'status-bad';  // Default status as 'status-bad'
+                    if (k != 0 && k != res.links.length && res.data[k-1].iscorrect)  {
+                        linkstatus = "status-good";  // If correct, change to 'status-good'
+                    }
+                }
                         if(v.active||!v.url){
                             $('#lesson-footer-pagination').append(`
                                 <button class="btn btn-secondary  ${linkstatus} ${v.active?"active":""}" disabled  >${v.label}</button>
