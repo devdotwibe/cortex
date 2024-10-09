@@ -178,10 +178,10 @@
                         <li class="side-item {{request()->is('admin/category') ? 'active' : ''}}">
                             <a href="{{ route('admin.category.index') }}">
                                 <span class="side-icon">
-                                    <img src="{{ asset('assets/images/iconshover/categoryyellow.svg') }}" alt="Category">
+                                    <img src="{{ asset('assets/images/iconshover/category.svg') }}" alt="Category">
                                 </span>
                                 <span class="active-icon">
-                                    <img src="{{ asset('assets/images/icons/category.svg') }}" alt="Category Active">
+                                    <img src="{{ asset('assets/images/icons/categoryyellow.svg') }}" alt="Category Active">
                                 </span>
                                 <span class="menutext">Category</span>
                             </a>
