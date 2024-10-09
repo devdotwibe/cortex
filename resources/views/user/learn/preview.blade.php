@@ -120,6 +120,7 @@
             $.each(res.links, function(k, v) {
                 let linkstatus = "";
 
+                console.log(v);
                 // Removing 'useranswers' logic, setting default classes
                 if (k != 0 && k != res.links.length) {
                     linkstatus = 'status-bad';  // Default status as 'status-bad'
