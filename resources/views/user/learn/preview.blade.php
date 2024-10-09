@@ -121,12 +121,17 @@
                 let linkstatus = "";  
 
                 
-                if (k != 0 && k != res.links.length && useranswers[k - 1]) {
-                    linkstatus = "status-bad";
-                    if (useranswers[k - 1].iscorrect) {
-                        linkstatus = "status-good";  
-                    }
-                }
+                if(k!=0&&k!=res.links.length&&useranswers[k-1]){
+                            linkstatus='status-bad';
+                            if(useranswers[k-1].iscorrect){
+
+                              
+                                linkstatus="status-good";
+
+                                @endif
+
+                            }
+                        }
                         if(v.active||!v.url){
                             $('#lesson-footer-pagination').append(`
                                 <button class="btn btn-secondary ${v.active?"active":""}" disabled  >${v.label}</button>
