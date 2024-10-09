@@ -2648,6 +2648,18 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .private_section .card .card-body .category .card-box { display: flex; flex-wrap: wrap; align-items: flex-start;}
 
 
+#live-private-modal .modal-dialog { max-width: 1000px;}
+#live-private-modal .modal-dialog .modal-header { border: none;}
+#live-private-modal .modal-dialog .modal-body {border: none;}
+#live-private-modal .modal-dialog .modal-body .card {border: none;}
+#live-private-modal .modal-dialog .modal-body .card label { font-weight: 600; margin: 0 0 10px;}
+
+#live-intensive-modal .modal-dialog { max-width: 1000px;}
+#live-intensive-modal .modal-dialog .modal-header { border: none;}
+#live-intensive-modal .modal-dialog .modal-body {border: none;}
+#live-intensive-modal .modal-dialog .modal-body .card {border: none;}
+#live-intensive-modal .modal-dialog .modal-body .card label { font-weight: 600; margin: 0 0 10px;}
+
 
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
