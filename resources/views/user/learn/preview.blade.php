@@ -124,15 +124,11 @@
                             linkstatus='status-bad';
                             if(useranswers[k-1].iscorrect){
 
-                                @if($examtime ==0)
-
-                                linkstatus="";
-
-                                @else
+                               
 
                                 linkstatus="status-good";
 
-                                @endif
+                              
 
 
                                 if(useranswers[k-1].time_taken<{{$examtime}}){
