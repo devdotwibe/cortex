@@ -178,10 +178,34 @@ Route::middleware(['auth', 'isUser'])->group(function () {
         Route::prefix('live-class')->name('live-class.')->group(function () {
             Route::get('/', [LiveClassController::class, 'index'])->name('index');
             Route::get('/{live}', [LiveClassController::class, 'show'])->name('show');
+            Route::get('/{live}/workshop', [LiveClassController::class, 'workshop'])->name('workshop');
+            Route::get('/{live}/workshop/form', [LiveClassController::class, 'workshopform'])->name('workshop.form');
             Route::get('/{live}/private-class', [LiveClassController::class, 'privateclass'])->name('privateclass');
-           
+
+
+            Route::get('/{live}/private-class/form', [LiveClassController::class, 'privateclassform'])->name('privateclass.form');
+            Route::post('/{live}/private-class/form', [LiveClassController::class, 'privateclassformsubmit']);
+
+            Route::middleware('hasPrivateClass')->group(function () {
+                Route::get('/{live}/private-class/room', [LiveClassController::class, 'privateclassroom'])->name('privateclass.room');
+                Route::get('/{live}/private-class/details', [LiveClassController::class, 'privateclassdetails'])->name('privateclass.details');
+                Route::get('/{live}/private-class/{class_detail}/term', [LiveClassController::class, 'privateclassterm'])->name('privateclass.term');
+                Route::get('/{live}/private-class/lesson', [LiveClassController::class, 'privateclasslesson'])->name('privateclass.lesson');
+                Route::get('/{live}/private-class/lesson/{lesson_material}/show', [LiveClassController::class, 'privateclasslessonshow'])->name('privateclass.lessonshow');
+                Route::get('/{live}/private-class/lesson/{sub_lesson_material}.pdf', [LiveClassController::class, 'privateclasslessonpdf'])->name('privateclass.lessonpdf');
+                Route::get('/{live}/private-class/lesson/{sub_lesson_material}/load/{file}', [LiveClassController::class, 'privateclasslessonpdfload'])->name('privateclass.lessonpdf.load');
+            });
         });
-       
+        Route::middleware('hasPrivateClass')->group(function () {
+            Route::prefix('home-work')->name('home-work.')->group(function () {
+                Route::get('/', [PrivateClassHomeWorkController::class, 'index'])->name('index');
+                Route::get('/{home_work}', [PrivateClassHomeWorkController::class, 'show'])->name('show');
+                Route::get('/{home_work}/booklet/{home_work_book}', [PrivateClassHomeWorkController::class, 'booklet'])->name('booklet');
+                Route::get('/{home_work}/booklet/{home_work_book}/history', [PrivateClassHomeWorkController::class, 'booklethistory'])->name('history');
+                Route::post('/{home_work}/booklet/{home_work_book}/verify', [PrivateClassHomeWorkController::class, 'bookletverify'])->name('booklet.verify');
+                Route::post('/{home_work}/booklet/{home_work_book}/submit', [PrivateClassHomeWorkController::class, 'bookletsubmit'])->name('booklet.submit');
+                Route::get('/attempt/booklet/{home_work_review}/preview', [PrivateClassHomeWorkController::class, 'preview'])->name('preview');
+            });
             Route::prefix('lesson-record')->name('lesson-record.')->group(function () {
                 Route::get('/', [LessonRecordVideoController::class, 'index'])->name('index');
                 Route::get('/{lesson_recording}', [LessonRecordVideoController::class, 'show'])->name('show');
@@ -223,27 +247,27 @@ Route::middleware(['auth', 'isUser'])->group(function () {
     
         Route::middleware('subscription')->group(function () {
 
-            Route::prefix('live-class')->name('live-class.')->group(function () {
+        //     Route::prefix('live-class')->name('live-class.')->group(function () {
         //         Route::get('/', [LiveClassController::class, 'index'])->name('index');
-                // Route::get('/{live}', [LiveClassController::class, 'show'])->name('show');
-                Route::get('/{live}/workshop', [LiveClassController::class, 'workshop'])->name('workshop');
-                Route::get('/{live}/workshop/form', [LiveClassController::class, 'workshopform'])->name('workshop.form');
-                // Route::get('/{live}/private-class', [LiveClassController::class, 'privateclass'])->name('privateclass');
+        //         Route::get('/{live}', [LiveClassController::class, 'show'])->name('show');
+        //         Route::get('/{live}/workshop', [LiveClassController::class, 'workshop'])->name('workshop');
+        //         Route::get('/{live}/workshop/form', [LiveClassController::class, 'workshopform'])->name('workshop.form');
+        //         Route::get('/{live}/private-class', [LiveClassController::class, 'privateclass'])->name('privateclass');
 
 
-                Route::get('/{live}/private-class/form', [LiveClassController::class, 'privateclassform'])->name('privateclass.form');
-                Route::post('/{live}/private-class/form', [LiveClassController::class, 'privateclassformsubmit']);
+        //         Route::get('/{live}/private-class/form', [LiveClassController::class, 'privateclassform'])->name('privateclass.form');
+        //         Route::post('/{live}/private-class/form', [LiveClassController::class, 'privateclassformsubmit']);
 
-                Route::middleware('hasPrivateClass')->group(function () {
-                    Route::get('/{live}/private-class/room', [LiveClassController::class, 'privateclassroom'])->name('privateclass.room');
-                    Route::get('/{live}/private-class/details', [LiveClassController::class, 'privateclassdetails'])->name('privateclass.details');
-                    Route::get('/{live}/private-class/{class_detail}/term', [LiveClassController::class, 'privateclassterm'])->name('privateclass.term');
-                    Route::get('/{live}/private-class/lesson', [LiveClassController::class, 'privateclasslesson'])->name('privateclass.lesson');
-                    Route::get('/{live}/private-class/lesson/{lesson_material}/show', [LiveClassController::class, 'privateclasslessonshow'])->name('privateclass.lessonshow');
-                    Route::get('/{live}/private-class/lesson/{sub_lesson_material}.pdf', [LiveClassController::class, 'privateclasslessonpdf'])->name('privateclass.lessonpdf');
-                    Route::get('/{live}/private-class/lesson/{sub_lesson_material}/load/{file}', [LiveClassController::class, 'privateclasslessonpdfload'])->name('privateclass.lessonpdf.load');
-                });
-            });
+        //         Route::middleware('hasPrivateClass')->group(function () {
+        //             Route::get('/{live}/private-class/room', [LiveClassController::class, 'privateclassroom'])->name('privateclass.room');
+        //             Route::get('/{live}/private-class/details', [LiveClassController::class, 'privateclassdetails'])->name('privateclass.details');
+        //             Route::get('/{live}/private-class/{class_detail}/term', [LiveClassController::class, 'privateclassterm'])->name('privateclass.term');
+        //             Route::get('/{live}/private-class/lesson', [LiveClassController::class, 'privateclasslesson'])->name('privateclass.lesson');
+        //             Route::get('/{live}/private-class/lesson/{lesson_material}/show', [LiveClassController::class, 'privateclasslessonshow'])->name('privateclass.lessonshow');
+        //             Route::get('/{live}/private-class/lesson/{sub_lesson_material}.pdf', [LiveClassController::class, 'privateclasslessonpdf'])->name('privateclass.lessonpdf');
+        //             Route::get('/{live}/private-class/lesson/{sub_lesson_material}/load/{file}', [LiveClassController::class, 'privateclasslessonpdfload'])->name('privateclass.lessonpdf.load');
+        //         });
+        //     });
         //     Route::middleware('hasPrivateClass')->group(function () {
         //         Route::prefix('home-work')->name('home-work.')->group(function () {
         //             Route::get('/', [PrivateClassHomeWorkController::class, 'index'])->name('index');
