@@ -412,6 +412,7 @@ button.close {
   box-shadow: 4px 0px 16px 0px #0000000A;
   border-radius: 10px;
   max-width: 1320px;
+  min-height: calc(100vh - 230px);
 }
 .lesson .lesson-title {
   margin: 0 30px 0 35px;
@@ -929,6 +930,7 @@ border-radius: 7px;
   background: #ffff;
   box-shadow: 4px 0px 16px 0px #0000000A;
   border-radius: 10px;
+  min-height: calc(100vh - 245px);
 }
 .tabbody .question-list {
   width:100%;
