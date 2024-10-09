@@ -142,7 +142,7 @@
                 </li>
                 
 
-                <li class="side-item side-dropdown ">
+                {{-- <li class="side-item side-dropdown ">
                     <a class="side-dropdown-toggle" >
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/iconshover/options.svg")}}" alt="Dashboard">
@@ -161,7 +161,86 @@
                         <li class="side-item {{request()->is('admin/payment-price') ? 'active':''}} "><a href="{{route('admin.payment-price.index')}}"> <span class="menutext">Price</span></a></li>
                         <li class="side-item {{request()->is('admin/coupon') ? 'active':''}} "><a href="{{route('admin.coupon.index')}}"> <span class="menutext">Coupon and Settings</span></a></li>
                     </ul>
-                </li> 
+                </li>  --}}
+
+                <li class="side-item side-dropdown">
+                    <a class="side-dropdown-toggle">
+                        <span class="side-icon">
+                            <img src="{{asset('assets/images/iconshover/options.svg')}}" alt="Dashboard">
+                        </span>
+                        <span class="active-icon">
+                            <img src="{{asset('assets/images/icons/options.svg')}}" alt="Dashboard">
+                        </span>
+                        <span class="menutext">Options</span>
+                    </a>
+                    <ul class="side-dropdown-menu">
+                        <!-- Category -->
+                        <li class="side-item {{request()->is('admin/category') ? 'active' : ''}}">
+                            <a href="{{ route('admin.category.index') }}">
+                                <span class="side-icon">
+                                    <img src="{{ asset('assets/images/iconshover/categoryyellow.svg') }}" alt="Category">
+                                </span>
+                                <span class="active-icon">
+                                    <img src="{{ asset('assets/images/icons/category.svg') }}" alt="Category Active">
+                                </span>
+                                <span class="menutext">Category</span>
+                            </a>
+                        </li>
+                
+                        <!-- Exam Simulator -->
+                        <li class="side-item {{request()->is('admin/full-mock-exam-options') ? 'active' : ''}}">
+                            <a href="{{ route('admin.exam.options') }}">
+                                <span class="side-icon">
+                                    <img src="{{ asset('assets/images/iconshover/examsimulatoryellow.svg') }}" alt="Exam Simulator">
+                                </span>
+                                <span class="active-icon">
+                                    <img src="{{ asset('assets/images/icons/examsimulator5.svg') }}" alt="Exam Simulator Active">
+                                </span>
+                                <span class="menutext">Exam Simulator</span>
+                            </a>
+                        </li>
+                
+                        <!-- Payment -->
+                        <li class="side-item {{request()->is('admin/payment') ? 'active' : ''}}">
+                            <a href="{{ route('admin.payment.index') }}">
+                                <span class="side-icon">
+                                    <img src="{{ asset('assets/images/iconshover/paymentyellow.svg') }}" alt="Payment">
+                                </span>
+                                <span class="active-icon">
+                                    <img src="{{ asset('assets/images/icons/payment.svg') }}" alt="Payment Active">
+                                </span>
+                                <span class="menutext">Payment</span>
+                            </a>
+                        </li>
+                
+                        <!-- Price -->
+                        <li class="side-item {{request()->is('admin/payment-price') ? 'active' : ''}}">
+                            <a href="{{ route('admin.payment-price.index') }}">
+                                <span class="side-icon">
+                                    <img src="{{ asset('assets/images/iconshover/pricehoveryellow.svg') }}" alt="Price">
+                                </span>
+                                <span class="active-icon">
+                                    <img src="{{ asset('assets/images/icons/price.svg') }}" alt="Price Active">
+                                </span>
+                                <span class="menutext">Price</span>
+                            </a>
+                        </li>
+                
+                        <!-- Coupon and Settings -->
+                        <li class="side-item {{request()->is('admin/coupon') ? 'active' : ''}}">
+                            <a href="{{ route('admin.coupon.index') }}">
+                                <span class="side-icon">
+                                    <img src="{{ asset('assets/images/iconshover/couponhoveryellow.svg') }}" alt="Coupon and Settings">
+                                </span>
+                                <span class="active-icon">
+                                    <img src="{{ asset('assets/images/icons/coupon1.svg') }}" alt="Coupon and Settings Active">
+                                </span>
+                                <span class="menutext">Coupon and Settings</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                
 
                 <li class="side-item {{request()->is('admin/question-bank*') ? 'active':''}}">
                     <a href="{{ route('admin.question-bank.index') }}">
