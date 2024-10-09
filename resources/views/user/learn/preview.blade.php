@@ -24,6 +24,7 @@
 @push('footer-script') 
 
 <script>
+      var useranswers=@json($useranswer);
         function generateRandomId(length) {
             const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
             let result = '';
@@ -117,13 +118,21 @@
                     }
                 }) 
                 if (res.total > 1) {
-    $.each(res.links, function(k, v) {
-        let linkstatus = 'status-bad';  // Default status
+            $.each(res.links, function(k, v) {
+                let linkstatus="";
+                        if(k!=0&&k!=res.links.length&&useranswers[k-1]){
+                            linkstatus='status-bad';
+                            if(useranswers[k-1].iscorrect){
 
-        // Check if the link is correct (this assumes v.iscorrect is defined for each link)
-        if (v.iscorrect) {
-            linkstatus = "status-good";  // Change to 'status-good' if the link is correct
-        }
+                            
+                                linkstatus="status-good";
+
+
+                                if(useranswers[k-1].time_taken<{{$examtime}}){
+                                    linkstatus="status-exelent";
+                                }
+                            }
+                        }
                         if(v.active||!v.url){
                             $('#lesson-footer-pagination').append(`
                                 <button class="btn btn-secondary  ${linkstatus} ${v.active?"active":""}" disabled  >${v.label}</button>
@@ -144,5 +153,6 @@
          })
 
 </script>
+
 
 @endpush
