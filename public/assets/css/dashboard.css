@@ -1891,19 +1891,21 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month table tbody tr td.fc-day.fc-day-today.fc-daygrid-day .fc-daygrid-day-frame .fc-daygrid-day-events .fc-event {background: #a3a3a3 !important;}
 
 
-.exam-container .question-bank-review .lesson #lesson-footer-pagination button.btn.btn-secondary {background: #FBAE1E; border: 1px solid #FBAE1E; opacity: 1; margin: 0 5px;}
-.exam-container .question-bank-review .lesson #lesson-footer-pagination button.status-good.btn { background: #F8EAC6;  border: 1px solid #F8EAC6;  color: #000;padding: .375rem 0; width: 40px;}
-.exam-container .question-bank-review .lesson #lesson-footer-pagination  button.status-exelent.btn { background: #AEEFA0;  border: 1px solid #AEEFA0; color: #000;padding: .375rem 0; width: 40px;}
-.exam-container .question-bank-review .lesson #lesson-footer-pagination button.status-bad.btn { background: #EFC9C6;  border: 1px solid #EFC9C6;  color: #000;padding: .375rem 0; width: 40px;}
-.exam-container .question-bank-review .lesson #lesson-footer-pagination button.btn.btn-secondary:hover { background: none; color: #FBAE1E;}
-.exam-container .question-bank-review .lesson #lesson-footer-pagination button.status-good.btn:hover { color: #F8EAC6;}
-.exam-container .question-bank-review .lesson #lesson-footer-pagination button.status-exelent.btn:hover { color: #AEEFA0;}
-.exam-container .question-bank-review .lesson #lesson-footer-pagination button.status-bad.btn:hover { color: #EFC9C6;}
+.lesson #lesson-footer-pagination button.btn.btn-secondary {background: #FBAE1E; border: 1px solid #FBAE1E; opacity: 1; margin: 0 5px;}
+.lesson #lesson-footer-pagination button.status-good.btn { background: #F8EAC6;  border: 1px solid #F8EAC6;  color: #000;padding: .375rem 0; width: 40px;}
+.lesson #lesson-footer-pagination  button.status-exelent.btn { background: #AEEFA0;  border: 1px solid #AEEFA0; color: #000;padding: .375rem 0; width: 40px;}
+.lesson #lesson-footer-pagination button.status-bad.btn { background: #EFC9C6;  border: 1px solid #EFC9C6;  color: #000;padding: .375rem 0; width: 40px;}
+.lesson #lesson-footer-pagination button.btn.btn-secondary:hover { background: none; color: #FBAE1E;}
+.lesson #lesson-footer-pagination button.status-good.btn:hover { color: #F8EAC6;}
+.lesson #lesson-footer-pagination button.status-exelent.btn:hover { color: #AEEFA0;}
+.lesson #lesson-footer-pagination button.status-bad.btn:hover { color: #EFC9C6;}
 
-.exam-container .question-bank-review .lesson #lesson-footer-pagination button.status-good.btn.active {  font-weight: 600; border-color: #ffd770;}
-.exam-container .question-bank-review .lesson #lesson-footer-pagination button.status-exelent.btn.active { font-weight: 600;  border-color: #90f07c;}
-.exam-container .question-bank-review .lesson #lesson-footer-pagination button.status-bad.btn.active { font-weight: 600;  border-color: #fda7a0;}
-
+.lesson #lesson-footer-pagination button.status-good.btn.active {  font-weight: 600; border-color: #ffd770;}
+.lesson #lesson-footer-pagination button.status-exelent.btn.active { font-weight: 600;  border-color: #90f07c;}
+.lesson #lesson-footer-pagination button.status-bad.btn.active { font-weight: 600;  border-color: #fda7a0;}
+.lesson #lesson-footer-pagination button.status-check.btn { border: 1px solid #6c757d; background: #6c757d;}
+.lesson #lesson-footer-pagination button.status-check.btn.active { color: #6c757d;  background: none;}
+.lesson #lesson-footer-pagination button.status-check.btn:hover {color: #6c757d; background: none;}
 
 
 .workshop-wrap .workshop-content {width: 100%;}
@@ -2542,6 +2544,8 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
   text-align: center;
   padding: 0;
   overflow: hidden;
+  left: inherit;
+  right: 0;
 }
 
 .navbar-expand .navbar-nav .dropdown-menu .dropdown-item {
