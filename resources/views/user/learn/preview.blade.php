@@ -116,17 +116,8 @@
                         },'json')
                     }
                 }) 
-                if(res.total > 1){
-            $.each(res.links, function(k, v){
-                let linkstatus = "";  // Initialize the class as empty
-
-                // Apply status classes based on user answers
-                if (k != 0 && k != res.links.length && useranswers[k - 1]) {
-                    linkstatus = "status-bad";
-                    if (useranswers[k - 1].iscorrect) {
-                        linkstatus = "status-good";  // Mark as 'good' if correct
-                    }
-                }
+                if(res.total>1){
+                     $.each(res.links,function(k,v){
                         if(v.active||!v.url){
                             $('#lesson-footer-pagination').append(`
                                 <button class="btn btn-secondary ${v.active?"active":""}" disabled  >${v.label}</button>
