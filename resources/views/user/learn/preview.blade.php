@@ -124,7 +124,7 @@
                 // Removing 'useranswers' logic, setting default classes
                 if (k != 0 && k != res.links.length) {
                     linkstatus = 'status-bad';  // Default status as 'status-bad'
-                    if (k != 0 && k != res.links.length && res.data[k-1].iscorrect)  {
+                    if (v.iscorrect) {
                         linkstatus = "status-good";  // If correct, change to 'status-good'
                     }
                 }
