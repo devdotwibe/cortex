@@ -116,26 +116,60 @@
                         },'json')
                     }
                 }) 
-                if(res.total>1){
-                     $.each(res.links,function(k,v){
-                        if(v.active||!v.url){
-                            $('#lesson-footer-pagination').append(`
-                                <button class="btn btn-secondary ${v.active?"active":""}" disabled  >${v.label}</button>
-                            `)
-                        }else{
-                            $('#lesson-footer-pagination').append(`
-                                <button class="btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
-                            `)
-                        }
-                     })
-                } 
-            },'json')
+        //         if(res.total>1){
+        //              $.each(res.links,function(k,v){
+        //                 if(v.active||!v.url){
+        //                     $('#lesson-footer-pagination').append(`
+        //                         <button class="btn btn-secondary ${v.active?"active":""}" disabled  >${v.label}</button>
+        //                     `)
+        //                 }else{
+        //                     $('#lesson-footer-pagination').append(`
+        //                         <button class="btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
+        //                     `)
+        //                 }
+        //              })
+        //         } 
+        //     },'json')
 
-         }
+        //  }
 
-         $(function(){
-            loadlessonreview()
-         })
+        //  $(function(){
+        //     loadlessonreview()
+        //  })
+
+        if (res.total > 1) {
+    $.each(res.links, function(k, v) {
+        let linkstatus = "";
+        
+        // Assuming 'useranswers' contains data about the answers
+        if (k != 0 && k != res.links.length && useranswers[k - 1]) {
+            linkstatus = 'status-bad';  // Default to 'status-bad'
+            
+            if (useranswers[k - 1].iscorrect) {
+                linkstatus = "status-good";  // If the answer is correct, change to 'status-good'
+            }
+        }
+
+        // Appending the pagination buttons with dynamic classes
+        if (v.active || !v.url) {
+            $('#lesson-footer-pagination').append(`
+                <button class="btn btn-secondary ${v.active ? "active" : ""} ${linkstatus}" disabled>${v.label}</button>
+            `);
+        } else {
+            $('#lesson-footer-pagination').append(`
+                <button class="btn btn-secondary ${linkstatus}" onclick="loadlessonreview('${v.url}')">${v.label}</button>
+            `);
+        }
+    });
+}
+
+$('.lesson-end').show();
+}, 'json')
+
+$(function() {
+    loadlessonreview();
+});
+
 
 </script>
 
