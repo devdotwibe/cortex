@@ -8,7 +8,7 @@
             </div>
         </div>
     </section>
-    <section class="content_section admin_section">
+    <section class="content_section admin_section private_section">
         <div class="container">
             <div class="row">
 
