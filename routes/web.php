@@ -183,8 +183,8 @@ Route::middleware(['auth', 'isUser'])->group(function () {
             Route::get('/{live}/private-class', [LiveClassController::class, 'privateclass'])->name('privateclass');
 
 
-            Route::get('/{live}/private-class/form', [LiveClassController::class, 'privateclassform'])->name('privateclass.form');
-            Route::post('/{live}/private-class/form', [LiveClassController::class, 'privateclassformsubmit']);
+            // Route::get('/{live}/private-class/form', [LiveClassController::class, 'privateclassform'])->name('privateclass.form');
+            // Route::post('/{live}/private-class/form', [LiveClassController::class, 'privateclassformsubmit']);
 
             // Route::middleware('hasPrivateClass')->group(function () {
             //     Route::get('/{live}/private-class/room', [LiveClassController::class, 'privateclassroom'])->name('privateclass.room');
@@ -255,8 +255,8 @@ Route::middleware(['auth', 'isUser'])->group(function () {
         //         Route::get('/{live}/private-class', [LiveClassController::class, 'privateclass'])->name('privateclass');
 
 
-        //         Route::get('/{live}/private-class/form', [LiveClassController::class, 'privateclassform'])->name('privateclass.form');
-        //         Route::post('/{live}/private-class/form', [LiveClassController::class, 'privateclassformsubmit']);
+                Route::get('/{live}/private-class/form', [LiveClassController::class, 'privateclassform'])->name('privateclass.form');
+                Route::post('/{live}/private-class/form', [LiveClassController::class, 'privateclassformsubmit']);
 
                 Route::middleware('hasPrivateClass')->group(function () {
                     Route::get('/{live}/private-class/room', [LiveClassController::class, 'privateclassroom'])->name('privateclass.room');
