@@ -42,7 +42,7 @@
                 const lesseonId=generateRandomId(10); 
                 $.each(res.data,function(k,v){ 
                     if(v.review_type=="short_notes"){
-                        $('#lesson-questionlist-list').html(
+                        $('#lesson-questionlist-list').html(`
                             <div class="col-md-12">
                                 <div class="note-row" >
                                     <div class="note-title">
@@ -67,12 +67,12 @@
                                     </div>
                                 </div>
                             </div>
-                        ).fadeIn();  
+                        `).fadeIn();  
                     }
                     if(v.review_type=="mcq"){ 
-                        $('#lesson-questionlist-list').html(
+                        $('#lesson-questionlist-list').html(`
                             <div class="col-md-12">
-                                <div class="mcq-row status-check" >
+                                <div class="mcq-row" >
                                     <div class="mcq-title">
                                         <span>${v.title||""}</span>
                                     </div>
@@ -94,13 +94,13 @@
                                     </div>
                                 </div>
                             </div>
-                        ).fadeIn();
-                        $(#mcq-${lesseonId}-list).html('')
+                        `).fadeIn();
+                        $(`#mcq-${lesseonId}-list`).html('')
                         $.get("{{ route('question-bank.preview',$userExamReview->slug) }}",{question:v.slug},function(ans){
-                            $(#mcq-${lesseonId}-list).html('')
+                            $(`#mcq-${lesseonId}-list`).html('')
                             $.each(ans,function(ai,av){
                                 const letter = String.fromCharCode(ai + 'A'.charCodeAt(0))
-                                $(#mcq-${lesseonId}-list).append(
+                                $(`#mcq-${lesseonId}-list`).append(`
                                 <div class="form-check-ans">
                                     <span class="question-user-ans ${av.iscorrect?"correct":"wrong"}" data-ans="${av.slug}"></span>
                                     <div class="form-check">
@@ -108,9 +108,9 @@
                                         <label for="user-answer-${lesseonId}-ans-item-${ai}" >${ letter }. ${av.title}</label>
                                     </div>  
                                 </div>
-                                )
+                                `)
                                 if(av.iscorrect){
-                                    $(#mcq-${lesseonId}-correct).text(: ${ letter } )
+                                    $(`#mcq-${lesseonId}-correct`).text(`: ${ letter } `)
                                 }
                             }) 
                         },'json')
@@ -128,14 +128,14 @@
                         linkstatus = "status-good";  // If correct, change to 'status-good'
                     }
                 }
-                if(v.active||!v.url){
-                            $('#lesson-footer-pagination').append(
-                                <button class="${linkstatus} btn btn-secondary ${v.active?"active":""}" disabled  >${v.label}</button>
-                            )
+                        if(v.active||!v.url){
+                            $('#lesson-footer-pagination').append(`
+                                <button class="btn btn-secondary  ${linkstatus} ${v.active?"active":""}" disabled  >${v.label}</button>
+                            `)
                         }else{
-                            $('#lesson-footer-pagination').append(
+                            $('#lesson-footer-pagination').append(`
                                 <button class="btn btn-secondary ${linkstatus}" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
-                            )
+                            `)
                         }
                      })
                 } 
@@ -148,3 +148,5 @@
          })
 
 </script>
+
+@endpush

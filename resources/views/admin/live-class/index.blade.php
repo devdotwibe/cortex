@@ -12,7 +12,7 @@
         <div class="container">
             <div class="row">
 
-                <div class="col-md-6 pt-4">
+                <div class="col-md-6 pt-4 privateclass workshopclass">
 
                     <div class="card">
                         <div class="card-body">
@@ -160,7 +160,7 @@
 
                 </div>
 
-                <div class="col-md-6 pt-4">
+                <div class="col-md-6 pt-4 privateclass workshopclass">
 
                     <div class="card">
 
