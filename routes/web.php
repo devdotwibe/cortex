@@ -177,10 +177,7 @@ Route::middleware(['auth', 'isUser'])->group(function () {
 
         Route::prefix('live-class')->name('live-class.')->group(function () {
             Route::get('/', [LiveClassController::class, 'index'])->name('index');
-          
-
-
-
+           
         });
         Route::middleware('hasPrivateClass')->group(function () {
             Route::prefix('home-work')->name('home-work.')->group(function () {
@@ -253,7 +250,7 @@ Route::middleware(['auth', 'isUser'])->group(function () {
                     Route::get('/{live}/private-class/lesson/{sub_lesson_material}.pdf', [LiveClassController::class, 'privateclasslessonpdf'])->name('privateclass.lessonpdf');
                     Route::get('/{live}/private-class/lesson/{sub_lesson_material}/load/{file}', [LiveClassController::class, 'privateclasslessonpdfload'])->name('privateclass.lessonpdf.load');
                 });
-        //     });
+            });
         //     Route::middleware('hasPrivateClass')->group(function () {
         //         Route::prefix('home-work')->name('home-work.')->group(function () {
         //             Route::get('/', [PrivateClassHomeWorkController::class, 'index'])->name('index');
