@@ -1642,7 +1642,7 @@ span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-
 .sidebar-content ul li.side-item.active .active-icon {opacity: 0;}
 .sidebar-content ul li.side-item a:hover .side-icon {opacity: 1;}
 .sidebar-content ul li.side-item a:hover .active-icon {opacity: 0;}
-.sidebar-content ul li.side-item.logout a.log-out:hover { color: #ffffff !important;}
+.sidebar-content ul li.side-item.logout a.log-out:hover { color: #000000 !important;}
 aside.side_bar.slider-btn {width: 270px !important;}
 aside.side_bar .menutext { display: none !important;}
 aside.side_bar .side-item.status { display: none !important;}
