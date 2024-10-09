@@ -127,7 +127,7 @@
                             linkstatus='status-bad';
                             if(useranswers[k-1].iscorrect){
 
-                                // @if($examtime ==0)
+                               {{-- @if($examtime ==0) --}}
 
                                 // linkstatus="";
 
