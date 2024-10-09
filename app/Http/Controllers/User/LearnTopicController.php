@@ -152,12 +152,14 @@ class LearnTopicController extends Controller
             }
             return UserReviewQuestion::whereIn('review_type',['mcq','short_notes'])->where('user_exam_review_id',$userExamReview->id)->paginate(1,['title','note','slug','review_type','user_answer','currect_answer','explanation']);
         }
+
         $useranswer=UserReviewQuestion::leftJoin('user_review_answers','user_review_answers.user_review_question_id','user_review_questions.id')
         ->where('user_review_answers.user_answer',true)
         ->whereIn('user_review_questions.review_type',['mcq'])
         ->where('user_review_questions.user_id',$user->id)
         ->where('user_review_questions.user_exam_review_id',$userExamReview->id)
         ->select('user_review_questions.id','user_review_questions.time_taken','user_review_answers.iscorrect')->get();
+        dd($useranswer);
         return view("user.learn.preview",compact('category','exam','subCategory','user','userExamReview','useranswer'));
     }
     
