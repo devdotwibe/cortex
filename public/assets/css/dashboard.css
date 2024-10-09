@@ -2544,6 +2544,8 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
   text-align: center;
   padding: 0;
   overflow: hidden;
+  left: inherit;
+  right: 0;
 }
 
 .navbar-expand .navbar-nav .dropdown-menu .dropdown-item {
