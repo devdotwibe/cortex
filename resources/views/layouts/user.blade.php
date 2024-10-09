@@ -240,7 +240,7 @@
                              <img src="{{asset("assets/images/icons/tipsandadvice.svg")}}" alt="Dashboard">
                          </span>
                          <span class="menutext">
-                         Tips And Advice
+                         Tips And Advise
                          </span>
                      </a>
                  </li>
