@@ -128,14 +128,7 @@
                             if(useranswers[k-1].iscorrect){
 
                             
-
-                                // linkstatus="";
-
-                                // @else
-
                                 linkstatus="status-good";
-
-                                // @endif
 
 
                                 if(useranswers[k-1].time_taken<{{$examtime}}){
