@@ -178,18 +178,10 @@ Route::middleware(['auth', 'isUser'])->group(function () {
         Route::prefix('live-class')->name('live-class.')->group(function () {
             Route::get('/', [LiveClassController::class, 'index'])->name('index');
             Route::get('/{live}', [LiveClassController::class, 'show'])->name('show');
+            Route::get('/{live}/private-class', [LiveClassController::class, 'privateclass'])->name('privateclass');
            
         });
-        Route::middleware('hasPrivateClass')->group(function () {
-            Route::prefix('home-work')->name('home-work.')->group(function () {
-                Route::get('/', [PrivateClassHomeWorkController::class, 'index'])->name('index');
-                Route::get('/{home_work}', [PrivateClassHomeWorkController::class, 'show'])->name('show');
-                Route::get('/{home_work}/booklet/{home_work_book}', [PrivateClassHomeWorkController::class, 'booklet'])->name('booklet');
-                Route::get('/{home_work}/booklet/{home_work_book}/history', [PrivateClassHomeWorkController::class, 'booklethistory'])->name('history');
-                Route::post('/{home_work}/booklet/{home_work_book}/verify', [PrivateClassHomeWorkController::class, 'bookletverify'])->name('booklet.verify');
-                Route::post('/{home_work}/booklet/{home_work_book}/submit', [PrivateClassHomeWorkController::class, 'bookletsubmit'])->name('booklet.submit');
-                Route::get('/attempt/booklet/{home_work_review}/preview', [PrivateClassHomeWorkController::class, 'preview'])->name('preview');
-            });
+       
             Route::prefix('lesson-record')->name('lesson-record.')->group(function () {
                 Route::get('/', [LessonRecordVideoController::class, 'index'])->name('index');
                 Route::get('/{lesson_recording}', [LessonRecordVideoController::class, 'show'])->name('show');
@@ -236,7 +228,7 @@ Route::middleware(['auth', 'isUser'])->group(function () {
                 // Route::get('/{live}', [LiveClassController::class, 'show'])->name('show');
                 Route::get('/{live}/workshop', [LiveClassController::class, 'workshop'])->name('workshop');
                 Route::get('/{live}/workshop/form', [LiveClassController::class, 'workshopform'])->name('workshop.form');
-                Route::get('/{live}/private-class', [LiveClassController::class, 'privateclass'])->name('privateclass');
+                // Route::get('/{live}/private-class', [LiveClassController::class, 'privateclass'])->name('privateclass');
 
 
                 Route::get('/{live}/private-class/form', [LiveClassController::class, 'privateclassform'])->name('privateclass.form');
