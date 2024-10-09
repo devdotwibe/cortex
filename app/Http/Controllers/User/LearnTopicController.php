@@ -159,7 +159,7 @@ class LearnTopicController extends Controller
         ->where('user_review_questions.user_id',$user->id)
         ->where('user_review_questions.user_exam_review_id',$userExamReview->id)
         ->select('user_review_questions.id','user_review_questions.time_taken','user_review_answers.iscorrect')->get();
-        dd($useranswer);
+        
         return view("user.learn.preview",compact('category','exam','subCategory','user','userExamReview','useranswer'));
     }
     
