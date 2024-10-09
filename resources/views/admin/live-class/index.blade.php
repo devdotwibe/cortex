@@ -160,7 +160,7 @@
 
                 </div>
 
-                <div class="col-md-6 pt-4 intensivework">
+                <div class="col-md-6 pt-4 privateclass intensivework">
 
                     <div class="card">
 
