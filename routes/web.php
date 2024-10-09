@@ -206,10 +206,10 @@ Route::middleware(['auth', 'isUser'])->group(function () {
         //         Route::post('/{home_work}/booklet/{home_work_book}/submit', [PrivateClassHomeWorkController::class, 'bookletsubmit'])->name('booklet.submit');
         //         Route::get('/attempt/booklet/{home_work_review}/preview', [PrivateClassHomeWorkController::class, 'preview'])->name('preview');
         //     });
-            Route::prefix('lesson-record')->name('lesson-record.')->group(function () {
-                Route::get('/', [LessonRecordVideoController::class, 'index'])->name('index');
-                Route::get('/{lesson_recording}', [LessonRecordVideoController::class, 'show'])->name('show');
-            });
+            // Route::prefix('lesson-record')->name('lesson-record.')->group(function () {
+            //     Route::get('/', [LessonRecordVideoController::class, 'index'])->name('index');
+            //     Route::get('/{lesson_recording}', [LessonRecordVideoController::class, 'show'])->name('show');
+            // });
         });
 
         Route::prefix('community')->name('community.')->group(function () {
@@ -278,10 +278,10 @@ Route::middleware(['auth', 'isUser'])->group(function () {
                     Route::post('/{home_work}/booklet/{home_work_book}/submit', [PrivateClassHomeWorkController::class, 'bookletsubmit'])->name('booklet.submit');
                     Route::get('/attempt/booklet/{home_work_review}/preview', [PrivateClassHomeWorkController::class, 'preview'])->name('preview');
                 });
-        //         Route::prefix('lesson-record')->name('lesson-record.')->group(function () {
-        //             Route::get('/', [LessonRecordVideoController::class, 'index'])->name('index');
-        //             Route::get('/{lesson_recording}', [LessonRecordVideoController::class, 'show'])->name('show');
-        //         });
+                Route::prefix('lesson-record')->name('lesson-record.')->group(function () {
+                    Route::get('/', [LessonRecordVideoController::class, 'index'])->name('index');
+                    Route::get('/{lesson_recording}', [LessonRecordVideoController::class, 'show'])->name('show');
+                });
         //     });
 
         //     Route::prefix('community')->name('community.')->group(function () {
