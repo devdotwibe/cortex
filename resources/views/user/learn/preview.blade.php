@@ -128,7 +128,7 @@
                               
                                 linkstatus="status-good";
 
-                                @endif
+                              
 
                             }
                         }
