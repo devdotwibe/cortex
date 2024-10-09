@@ -224,22 +224,7 @@
                     </a>
                 </li>
 
-                <li class="side-item {{request()->is('support') ? 'active':''}}">
-                       
-                    <a href="{{route('support.index')}}">
-
-
-                         <span class="side-icon" >
-                             <img src="{{asset("assets/images/iconshover/support.svg")}}" alt="Dashboard">
-                         </span>
-                         <span class="active-icon">
-                             <img src="{{asset("assets/images/icons/support.svg")}}" alt="Dashboard">
-                         </span>
-                         <span class="menutext">
-                         Support
-                         </span>
-                     </a>
-                 </li>
+               
 
 
                  <li class="side-item {{request()->is('tipsandadvice*') ? 'active':''}}">
@@ -259,6 +244,23 @@
                          </span>
                      </a>
                  </li>
+<div class="supportsection">
+                 <li class="side-item {{request()->is('support') ? 'active':''}}">
+                       
+                    <a href="{{route('support.index')}}">
+
+
+                         <span class="side-icon" >
+                             <img src="{{asset("assets/images/iconshover/support.svg")}}" alt="Dashboard">
+                         </span>
+                         <span class="active-icon">
+                             <img src="{{asset("assets/images/icons/support.svg")}}" alt="Dashboard">
+                         </span>
+                         <span class="menutext">
+                         Support
+                         </span>
+                     </a>
+                 </li>
 
                 <li class="side-item logout">
                     <a href="{{route('logout')}}" class="log-out">
@@ -271,6 +273,8 @@
                         <span class="menutext"> Log Out </span>
                     </a>
                 </li>
+
+            </div>
                 @endguest
             </ul>
         </div>
