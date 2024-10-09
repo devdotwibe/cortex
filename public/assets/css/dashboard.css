@@ -1622,18 +1622,20 @@ section.post-section .post-container .post-item .post-content{
 .side_bar { width: 105px;height: 100vh;padding: 30px 0; position: fixed;background: #ffff;z-index: 99;box-shadow: 4px 0px 16px 0px #0000000A;left: 0;border-radius: 0 10px 10px 0;top: 80px;     border: 1px solid #dadada; transition: all .25s ease-in-out;}
 .side-bar-logo {margin: 0 0 20px;}
 button.btn-slider { position: absolute; right: -20px; top: 50%; transform: translateY(-50%); z-index: 9; padding: 0; width: 30px; height: 30px;transition: all .25s ease-in-out;}
-.side_bar .sidebar-content .sidebar-nav { width: 270px;}
+.side_bar .sidebar-content .sidebar-nav { width: 270px;height: calc(100vh - 117px); display: flex; flex-wrap: wrap; flex-direction: column;}
 button.btn-slider img { display: block;}
 .side-nav-toggle {display: none;}
 .sidebar-content {overflow: hidden; overflow-y: auto;height: 100%;padding: 0 0 50px;}
 .sidebar-content::-webkit-scrollbar {display: none;}
-.sidebar-content ul li.side-item{margin: 0 0 2px;}
+.sidebar-content ul li.side-item{margin: 0 0 2px; width: 100%;}
+.side_bar .sidebar-content .supportsection { width: 100%; margin: auto 0 0 0; position: relative; padding: 25px 0 0;}
+.side_bar .sidebar-content .supportsection:before {content: "";position: absolute; width: 90%; background: rgb(30 30 30 / 10%); height: 1px; top: 15px; left: 50%; transform: translateX(-50%);}
 .sidebar-content ul li.side-item a {padding: 10px 30px;display: flex;align-items: center;color: #000;cursor: pointer;position: relative;border-radius: 0; border: 1px solid transparent;}
 .sidebar-content ul li.side-item a:hover {background: #EFEFEF;color: #FFCD56;  border: 1px solid #dadada;}
 .sidebar-content ul li.side-item.active a {background: #EFEFEF;color: #FFCD56;  border: 1px solid #dadada;}
-.sidebar-content ul li.side-item.logout {padding: 25px 0 0 0;position: relative;}
+.sidebar-content ul li.side-item.logout {padding: 0 0 0 0;position: relative;}
 .sidebar-content ul li.side-item a.log-out {color: #ec5e5e;}
-.sidebar-content ul li.side-item.logout:after {content: "";position: absolute;width: 60%;background: rgb(30 30 30 / 10%);height: 1px;top: 15px;}
+.sidebar-content ul li.side-item.logout:after {content: "";position: absolute;width: 60%;background: rgb(30 30 30 / 10%);height: 1px;top: 15px; display: none;}
 span.side-icon {display: inline-block;  width: 25px;  margin-right: 10px;padding-top: 3px; opacity: 0;}
 span.active-icon {display: inline-block;width: 25px;margin-right: 10px; padding-top: 3px;position: absolute; opacity: 1;}
 .sidebar-content ul li.side-item.active .side-icon { opacity: 1;}
