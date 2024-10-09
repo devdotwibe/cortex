@@ -1,29 +1,30 @@
 @extends('layouts.exam')
-@section('title', $exam->subtitle($category->id,"Module ".($category->getIdx()+1)).':'.$category->name)
+@section('title', $exam->subtitle($category->id, 'Module ' . ($category->getIdx() + 1)) . ':' . $category->name)
 @section('content')
-<section class="exam-container">
-    <div class="container-wrap">
-        <div class="lesson">            
-            <a class="lesson-exit float-start" href="{{route('learn.show',$category->slug)}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
-                <img src="{{asset("assets/images/exiticon.svg")}}" alt="exiticon">
-            </a>
-            <div class="lesson-title">
-                <h5><span>{{$exam->subtitle($category->id,"Module ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h5>
-            </div>
-            <div class="lesson-body"> 
-                <div class="row" id="lesson-questionlist-list" style="display: none">
+    <section class="exam-container">
+        <div class="container-wrap">
+            <div class="lesson">
+                <a class="lesson-exit float-start" href="{{ route('learn.show', $category->slug) }}" title="Exit"
+                    data-title="Exit" aria-label="Exit" data-toggle="tooltip">
+                    <img src="{{ asset('assets/images/exiticon.svg') }}" alt="exiticon">
+                </a>
+                <div class="lesson-title">
+                    <h5><span>{{ $exam->subtitle($category->id, 'Module ' . ($category->getIdx() + 1)) }}</span><span> :
+                        </span><span>{{ $category->name }}</span></h5>
+                </div>
+                <div class="lesson-body">
+                    <div class="row" id="lesson-questionlist-list" style="display: none">
+                    </div>
+                </div>
+                <div class="lesson-footer" id="lesson-footer-pagination">
                 </div>
             </div>
-            <div class="lesson-footer" id="lesson-footer-pagination"> 
-            </div>           
         </div>
-    </div> 
-</section> 
+    </section>
 @endsection
 
-@push('footer-script') 
-
-<script>
+@push('footer-script')
+    <script>
         function generateRandomId(length) {
             const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
             let result = '';
@@ -35,13 +36,14 @@
 
             return result;
         }
-        function loadlessonreview(reviewurl){
-            $.get(reviewurl||"{{ route('learn.preview',$userExamReview->slug) }}",function(res){
+
+        function loadlessonreview(reviewurl) {
+            $.get(reviewurl || "{{ route('learn.preview', $userExamReview->slug) }}", function(res) {
                 $('.pagination-arrow').hide();
                 $('#lesson-footer-pagination').html('')
-                const lesseonId=generateRandomId(10); 
-                $.each(res.data,function(k,v){ 
-                    if(v.review_type=="short_notes"){
+                const lesseonId = generateRandomId(10);
+                $.each(res.data, function(k, v) {
+                    if (v.review_type == "short_notes") {
                         $('#lesson-questionlist-list').html(`
                             <div class="col-md-12">
                                 <div class="note-row" >
@@ -67,9 +69,9 @@
                                     </div>
                                 </div>
                             </div>
-                        `).fadeIn();  
+                        `).fadeIn();
                     }
-                    if(v.review_type=="mcq"){ 
+                    if (v.review_type == "mcq") {
                         $('#lesson-questionlist-list').html(`
                             <div class="col-md-12">
                                 <div class="mcq-row" >
@@ -96,9 +98,11 @@
                             </div>
                         `).fadeIn();
                         $(`#mcq-${lesseonId}-list`).html('')
-                        $.get("{{ route('question-bank.preview',$userExamReview->slug) }}",{question:v.slug},function(ans){
+                        $.get("{{ route('question-bank.preview', $userExamReview->slug) }}", {
+                            question: v.slug
+                        }, function(ans) {
                             $(`#mcq-${lesseonId}-list`).html('')
-                            $.each(ans,function(ai,av){
+                            $.each(ans, function(ai, av) {
                                 const letter = String.fromCharCode(ai + 'A'.charCodeAt(0))
                                 $(`#mcq-${lesseonId}-list`).append(`
                                 <div class="form-check-ans">
@@ -109,43 +113,43 @@
                                     </div>  
                                 </div>
                                 `)
-                                if(av.iscorrect){
+                                if (av.iscorrect) {
                                     $(`#mcq-${lesseonId}-correct`).text(`: ${ letter } `)
                                 }
-                            }) 
-                        },'json')
+                            })
+                        }, 'json')
                     }
-                }) 
+                })
                 if (res.total > 1) {
-            $.each(res.links, function(k, v) {
-                let linkstatus = "";
+                    $.each(res.links, function(k, v) {
+                        let linkstatus = "";
 
-             
-                if (k != 0 && k != res.links.length) {
-                    linkstatus = 'status-bad';  
-                    if (v.iscorrect) {
-                        linkstatus = "status-good";  
-                    }
-                }
-                        if(v.active||!v.url){
+                        // Assuming 'useranswers' contains data about the answers
+                        if (k != 0 && k != res.links.length && useranswers[k - 1]) {
+                            linkstatus = 'status-bad'; // Default to 'status-bad'
+
+                            if (useranswers[k - 1].iscorrect) {
+                                linkstatus =
+                                "status-good"; // If the answer is correct, change to 'status-good'
+                            }
+                        }
+                        if (v.active || !v.url) {
                             $('#lesson-footer-pagination').append(`
                                 <button class="btn btn-secondary ${v.active?"active":""}" disabled  >${v.label}</button>
                             `)
-                        }else{
+                        } else {
                             $('#lesson-footer-pagination').append(`
                                 <button class="btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
                             `)
                         }
-                     })
-                } 
-            },'json')
+                    })
+                }
+            }, 'json')
 
-         }
+        }
 
-         $(function(){
+        $(function() {
             loadlessonreview()
-         })
-
-</script>
-
+        })
+    </script>
 @endpush
