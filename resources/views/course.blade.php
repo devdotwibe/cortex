@@ -3,6 +3,8 @@
 
 @section('content')
 
+
+
     <section class="banner-wrapp banner-wrapp2">
         <div class="container">
             <div class="banner-row">
