@@ -116,22 +116,17 @@
                         },'json')
                     }
                 }) 
-                if(res.total > 1){
-            $.each(res.links, function(k, v){
-                let linkstatus = "";  
+                if (res.total > 1) {
+            $.each(res.links, function(k, v) {
+                let linkstatus = "";
 
-                
-                if(k!=0&&k!=res.links.length&&useranswers[k-1]){
-                            linkstatus='status-bad';
-                            if(useranswers[k-1].iscorrect){
-
-                              
-                                linkstatus="status-good";
-
-                              
-
-                            }
-                        }
+                // Removing 'useranswers' logic, setting default classes
+                if (k != 0 && k != res.links.length) {
+                    linkstatus = 'status-bad';  // Default status as 'status-bad'
+                    if (v.iscorrect) {
+                        linkstatus = "status-good";  // If correct, change to 'status-good'
+                    }
+                }
                         if(v.active||!v.url){
                             $('#lesson-footer-pagination').append(`
                                 <button class="btn btn-secondary ${v.active?"active":""}" disabled  >${v.label}</button>
