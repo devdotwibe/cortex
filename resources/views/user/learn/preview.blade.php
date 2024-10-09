@@ -120,7 +120,7 @@
             $.each(res.links, function(k, v) {
                 let linkstatus = "";
 
-                console.log(v);
+                console.log(res);
                 
                 // Removing 'useranswers' logic, setting default classes
                 if (k != 0 && k != res.links.length) {
