@@ -22,7 +22,14 @@
                 </div>
                 <div class="workshop-action"> 
                     @if (empty($user->privateClass))
-                  @guest('admin')  <a class="btn btn-outline-warning m-2" href="{{route('live-class.privateclass.form',$user->slug)}}">Register</a> @endguest
+                  {{-- @guest('admin')  
+                  
+                  <a class="btn btn-outline-warning m-2" href="{{route('live-class.privateclass.form',$user->slug)}}">Register</a>
+                  
+                  @endguest --}}
+                  @guest('admin')  
+                  <a class="btn btn-outline-warning m-2" href="#" onclick="showLockedModal()">Register</a>
+              @endguest
                     @elseif($user->privateClass->status!="approved")
                     @if($user->privateClass->status=="pending") <p class="text-warning"> You are under verification, Please wait.</p> @elseif($user->privateClass->status=="rejected") <p class="text-danger" >Your are rejected by admin, Please <a @if(!empty(optional($setting)->emailaddress)) href="mailto:{{optional($setting)->emailaddress}}" @endif >contact Admin {{ optional($setting)->emailaddress }}</a> for further details.</p> @else <span class="btn btn-outline-warning"> {{ucfirst($user->privateClass->status)}} </span> @endif
                     @else
@@ -34,4 +41,47 @@
     </div>
 </section>
 @endsection
+
+
+@push('modals')  
+
+<!-- Locked Content Modal -->
+<div id="lockedModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Content Locked</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeLockedModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>The content is locked and a subscription is required.</p>
+            </div>
+            <div class="modal-footer">
+                <a href="{{ route('pricing.index') }}#our-plans" class="btn btn-primary">View Pricing Plans</a>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeLockedModal()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@endpush
+
+@push('footer-script') 
+
+<script>
+function showLockedModal() {
+    document.getElementById('lockedModal').style.display = 'block';
+}
+
+function closeLockedModal() {
+    document.getElementById('lockedModal').style.display = 'none';
+}
+</script>
+ 
+@endpush
+
+
+
  
