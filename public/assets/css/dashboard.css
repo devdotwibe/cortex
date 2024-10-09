@@ -1903,7 +1903,9 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .lesson #lesson-footer-pagination button.status-good.btn.active {  font-weight: 600; border-color: #ffd770;}
 .lesson #lesson-footer-pagination button.status-exelent.btn.active { font-weight: 600;  border-color: #90f07c;}
 .lesson #lesson-footer-pagination button.status-bad.btn.active { font-weight: 600;  border-color: #fda7a0;}
-
+.lesson #lesson-footer-pagination button.status-check.btn { border: 1px solid #6c757d; background: #6c757d;}
+.lesson #lesson-footer-pagination button.status-check.btn.active { color: #6c757d;  background: none;}
+.lesson #lesson-footer-pagination button.status-check.btn:hover {color: #6c757d; background: none;}
 
 
 .workshop-wrap .workshop-content {width: 100%;}
