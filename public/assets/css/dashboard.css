@@ -2629,6 +2629,8 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 
 .mcq-title-text {width: 100%; padding: 20px 20px 10px; border: 1px solid #414141; border-radius: 10px; margin: 0 0 20px;}
 
+.modal { background: rgb(0 0 0 / 50%);}
+
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
 
