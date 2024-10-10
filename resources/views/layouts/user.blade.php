@@ -248,13 +248,14 @@
 
                  <li class="side-item {{request()->is('tipsandadvice*') ? 'active':''}}">
                     <a 
-                        @if(auth('web')->check() && auth('web')->user()->is_free_access && (optional(auth('web')->user()->subscription())->status ?? "") !== "subscribed")
-                            data-bs-toggle="modal" 
-                            data-bs-target="#lockedModal" {{-- For free users without a subscription --}}
-                        @else
-                            href="{{ route('tipsandadvise.index') }}" {{-- Subscribed users and admins go to the actual route --}}
-                        @endif
-                    >
+                    
+                    @if(auth('web')->check() && auth('web')->user()->is_free_access) {{-- Check if the user is authenticated and has free access --}}
+                        data-bs-toggle="modal" 
+                        data-bs-target="#lockedModal" {{-- Show the modal for free users --}}
+                    @else
+                        href="{{ route('tipsandadvise.index') }}" {{-- Subscribed users will access the actual route --}}
+                    @endif
+                >
                         <span class="side-icon">
                             <img src="{{ asset('assets/images/iconshover/tipsandadvice.svg') }}" alt="Dashboard">
                         </span>
