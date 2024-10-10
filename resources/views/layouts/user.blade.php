@@ -227,29 +227,35 @@
                
 
 
-                 <li class="side-item {{request()->is('tipsandadvice*') ? 'active':''}}">
-
-                  
+                <li class="side-item {{ request()->is('tipsandadvice*') ? 'active' : '' }}">
                     <a 
-                    @if(auth('web')->check() && (auth('web')->user()->is_free_access) && (optional(auth('web')->user()->subscription())->status ?? "") !== "subscribed") 
-                        
-                    @else 
-                        href="{{ route('tipsandadvise.index') }}" 
-                    @endif 
-                >
-                           
-
-                         <span class="side-icon" >
-                             <img src="{{asset("assets/images/iconshover/tipsandadvice.svg")}}" alt="Dashboard">
-                         </span>
-                         <span class="active-icon">
-                             <img src="{{asset("assets/images/icons/tipsandadvice.svg")}}" alt="Dashboard">
-                         </span>
-                         <span class="menutext">
-                         Tips And Advice
-                         </span>
-                     </a>
-                 </li>
+                        {{-- For Admin users who don't have free access and are not subscribed --}}
+                        @if(auth('admin')->check() && !(auth('web')->user()->is_free_access) && (optional(auth('web')->user()->subscription())->status ?? "") !== "subscribed") 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#adminsubModal" 
+                
+                        {{-- For regular (web) users who are free and not subscribed --}}
+                        @elseif(auth('web')->check() && auth('web')->user()->is_free_access && (optional(auth('web')->user()->subscription())->status ?? "") !== "subscribed") 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#lockedModal" {{-- Free user will see this modal --}}
+                
+                        {{-- For subscribed users --}}
+                        @else 
+                            href="{{ route('tipsandadvise.index') }}" {{-- Redirect to Tips and Advice page --}}
+                        @endif 
+                    >
+                        <span class="side-icon">
+                            <img src="{{ asset('assets/images/iconshover/tipsandadvice.svg') }}" alt="Dashboard">
+                        </span>
+                        <span class="active-icon">
+                            <img src="{{ asset('assets/images/icons/tipsandadvice.svg') }}" alt="Dashboard">
+                        </span>
+                        <span class="menutext">
+                            Tips And Advice
+                        </span>
+                    </a>
+                </li>
+                
 <div class="supportsection">
                  <li class="side-item {{request()->is('support') ? 'active':''}}">
                        
