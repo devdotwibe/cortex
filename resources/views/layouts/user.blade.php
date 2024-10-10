@@ -352,7 +352,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Content Locked</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeLockedModal()">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeLockedModal1()">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -361,7 +361,7 @@
             </div>
             <div class="modal-footer">
                 <a href="{{ route('pricing.index') }}#our-plans" class="btn btn-primary">View Pricing Plans</a>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeLockedModal()">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeLockedModal1()">Close</button>
             </div>
         </div>
     </div>
@@ -553,7 +553,7 @@ $(document).ready(function() {
         document.getElementById('lockedModal1').style.display = 'block';
     }
     
-    function closeLockedModal() {
+    function closeLockedModal1() {
         
         $('#lockedModal1').modal('hide');
     }
