@@ -236,6 +236,7 @@
                 
                         {{-- For regular (web) users who are free and not subscribed --}}
                         @elseif(auth('web')->check() && auth('web')->user()->is_free_access && (optional(auth('web')->user()->subscription())->status ?? "") !== "subscribed") 
+                        {{ dd('web user detected') }}
                             data-bs-toggle="modal" 
                             data-bs-target="#lockedModal" {{-- Free user will see this modal --}}
                 
