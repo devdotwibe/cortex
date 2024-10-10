@@ -315,7 +315,7 @@
 
 
 @push('modals')
-    <div class="modal fade" id="live-private-modal" tabindex="-1" role="dialog"
+    <div class="modal fade live-modal" id="live-private-modal" tabindex="-1" role="dialog"
         aria-labelledby="live-class-modalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
