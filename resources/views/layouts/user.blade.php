@@ -251,7 +251,7 @@
                     
                     <a @if(!auth('admin')->check() && !(auth('web')->user()->is_free_access) && (optional(auth('web')->user()->subscription())->status ?? "") !== "subscribed") 
                         data-bs-toggle="modal" 
-                        data-bs-target="#lockedModal" {{-- Show the modal for free users --}}
+                        data-bs-target="#lockedModal1" {{-- Show the modal for free users --}}
                     @else
                         href="{{ route('tipsandadvise.index') }}" {{auth('web')->user()->is_free_access}} terdt {{optional(auth('web')->user()->subscription())->status }}{{-- Subscribed users will access the actual route --}}
                     @endif
