@@ -1650,8 +1650,8 @@ aside.side_bar .menutext { display: none !important;}
 aside.side_bar .side-item.status { display: none !important;}
 aside.side_bar.slider-btn .menutext { display: block !important;}
 aside.side_bar.slider-btn .side-item.status { display: block !important;}
-.sidebar-content ul li.side-item a.side-dropdown-toggle {background: url(../images/chevron-down.svg) no-repeat center / 10px; background-position-x: 95%;}
-.sidebar-content ul li.side-item a.side-dropdown-toggle.active {background: url(../images/chevron-up.svg) no-repeat center / 10px; background-position-x: 95%;}
+.sidebar-content ul li.side-item a.side-dropdown-toggle {background: url(../images/chevron-down.svg) no-repeat center / 10px; background-position-x: 90%;}
+.sidebar-content ul li.side-item a.side-dropdown-toggle.active {background: url(../images/chevron-up.svg) no-repeat center / 10px; background-position-x: 90%;}
 
 aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg);}
 
