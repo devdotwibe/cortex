@@ -139,7 +139,7 @@
                
 
 
-                <li class="side-item side-dropdown {{ request()->is('topic-test') || request()->is('full-mock-exam') ? '' : '' }}">
+                {{-- <li class="side-item side-dropdown {{ request()->is('topic-test') || request()->is('full-mock-exam') ? '' : '' }}">
                     <a class="side-dropdown-toggle">
                         <span class="side-icon">
                             <img src="{{ asset('assets/images/iconshover/examsimulator.svg') }}" alt="Exam Simulator">
@@ -173,7 +173,45 @@
                             </a>
                         </li>
                     </ul>
+                </li> --}}
+
+
+                <li class="side-item side-dropdown {{ request()->is('topic-test') || request()->is('full-mock-exam') ? '' : '' }}">
+                    <a class="side-dropdown-toggle" href="javascript:void(0)">
+                        <span class="side-icon">
+                            <img src="{{ asset('assets/images/iconshover/examsimulator.svg') }}" alt="Exam Simulator">
+                        </span>
+                        <span class="active-icon">
+                            <img src="{{ asset('assets/images/icons/examsimulator.svg') }}" alt="Exam Simulator">
+                        </span>
+                        <span class="menutext">Exam Simulator</span>
+                    </a>
+                    <ul class="side-dropdown-menu">
+                        <li class="side-item {{ request()->is('topic-test') ? 'active' : '' }}">
+                            <a href="{{ route('topic-test.index') }}">
+                                <span class="side-icon">
+                                    <img src="{{ asset('assets/images/iconshover/topictesthover.svg') }}" alt="Topic Test">
+                                </span>
+                                <span class="active-icon">
+                                    <img src="{{ asset('assets/images/icons/topictest.svg') }}" alt="Topic Test Active">
+                                </span>
+                                <span class="menutext">Topic Test</span>
+                            </a>
+                        </li>
+                        <li class="side-item {{ request()->is('full-mock-exam') ? 'active' : '' }}">
+                            <a href="{{ route('full-mock-exam.index') }}">
+                                <span class="side-icon">
+                                    <img src="{{ asset('assets/images/iconshover/mockexamhover.svg') }}" alt="Full Mock Exam">
+                                </span>
+                                <span class="active-icon">
+                                    <img src="{{ asset('assets/images/icons/mockexam.svg') }}" alt="Full Mock Exam Active">
+                                </span>
+                                <span class="menutext">Full Mock Exam</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
+                
                 
                 
 
@@ -536,22 +574,38 @@ if (!allowedTypes.includes(file.type)) {
 
     <script>
 
-// $(document).ready(function() {
-//     // Loop through each .side-dropdown-menu to check if it has an active item
-//     $('.side-dropdown-menu').each(function() {
-//         if ($(this).find('.side-item.active').length) {
-//             $(this).css('display', 'block'); // Show only this dropdown menu if it has an active item
-//         } else {
-//             $(this).css('display', 'none');  // Hide other dropdown menus
-//         }
-//     });
-// });
+$(document).ready(function() {
+    // Check if any dropdown contains an active item on page load
+    $('.side-dropdown-menu').each(function() {
+        if ($(this).find('.side-item.active').length) {
+            $(this).css('display', 'block');  // Keep open only the dropdown with the active item
+        } else {
+            $(this).css('display', 'none');   // Hide others
+        }
+    });
 
+    // Toggle the dropdown on clicking the Exam Simulator link
+    $('.side-dropdown-toggle').on('click', function(e) {
+        e.preventDefault();
+        var dropdownMenu = $(this).next('.side-dropdown-menu');
+        
+        // Close other open dropdowns
+        $('.side-dropdown-menu').not(dropdownMenu).slideUp();
+        
+        // Toggle the clicked dropdown
+        dropdownMenu.slideToggle();
+    });
+
+    // Collapse the dropdown when navigating away from the current page
+    $('.side-item a').on('click', function() {
+        $('.side-dropdown-menu').slideUp();
+    });
+});
 
 
     </script>
 
-{{-- <script>
+<script>
     function showLockedModal() {
         document.getElementById('lockedModal1').style.display = 'block';
     }
@@ -560,7 +614,7 @@ if (!allowedTypes.includes(file.type)) {
         
         $('#lockedModal1').modal('hide');
     }
-    </script> --}}
+    </script>
 
 <script>
     $(document).ready(function() {
