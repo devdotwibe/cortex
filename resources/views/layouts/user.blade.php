@@ -231,13 +231,11 @@
 
                   
                     <a 
-                    
-                    @if(auth('web')->check() && auth('web')->user()->is_free_access && (optional(auth('web')->user()->subscription())->status ?? "") !== "subscribed")
-                        data-bs-toggle="modal" 
-                        data-bs-target="#lockedModal" {{-- For free users without a subscription --}}
+                    @if(auth('web')->check() && (auth('web')->user()->is_free_access) && (optional(auth('web')->user()->subscription())->status ?? "") !== "subscribed") 
+                        
                     @else 
                         href="{{ route('tipsandadvise.index') }}" 
-                    @endif 
+                    
                 >
                            
 
