@@ -937,7 +937,7 @@ border-radius: 7px;
   display:flex;
   flex-wrap:wrap;
   padding: 10px 0px;
-  justify-content: center;
+  justify-content: left;
 }
 .tabbody .question-item {
   display: inline-flex;
