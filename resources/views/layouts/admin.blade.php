@@ -663,7 +663,10 @@ $(document).ready(function() {
         var maxSize = 5 * 1024 * 1024; // 5MB in bytes
 
         if (file && file.size > maxSize) {
-            alert('File size exceeds 5MB. Please select a smaller file.');
+
+            var note1 = $('<p><strong>Note:</strong> File size exceeds 5MB. Please select a smaller file.</p>');
+            $('#editor').prepend(note1); 
+            // alert('File size exceeds 5MB. Please select a smaller file.');
             $(this).val(''); // Clear the input
         }
     });
