@@ -247,9 +247,9 @@
 
 
                  <li class="side-item {{request()->is('tipsandadvice*') ? 'active':''}}">
-                    <a 
                     
-                    @if(auth('web')->check() && auth('web')->user()->is_free_access) {{-- Check if the user is authenticated and has free access --}}
+                    
+                    <a @if(!auth('admin')->check() && (auth('web')->user()->is_free_access) && (optional(auth('web')->user()->subscription())->status ?? "") !== "subscribed") 
                         data-bs-toggle="modal" 
                         data-bs-target="#lockedModal" {{-- Show the modal for free users --}}
                     @else
