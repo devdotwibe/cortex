@@ -254,6 +254,7 @@ class MockExamController extends Controller
         
     }
     public function preview(Request $request,UserExamReview $userExamReview){
+        dd('id');
         $exam=Exam::find( $userExamReview->exam_id );
         Session::remove("full-mock-exam-attempt");
         /**

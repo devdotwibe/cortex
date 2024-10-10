@@ -129,6 +129,7 @@ class LearnTopicController extends Controller
     }
 
     public function preview(Request $request,UserExamReview $userExamReview){
+        dd('id');
         $category=Category::find($userExamReview->category_id);
         $subCategory=SubCategory::find($userExamReview->sub_category_id);
 
