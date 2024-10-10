@@ -174,9 +174,7 @@
                         </li>
                     </ul>
                 </li>
-
-
-            
+                
                 
 
                 <li class="side-item {{request()->is('live-class*') ? 'active':''}}">
@@ -536,23 +534,52 @@ if (!allowedTypes.includes(file.type)) {
     <script src="{{ asset('assets/js/custom.js') }}"></script>
     <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 
-    <script>
+    {{-- <script>
 
 $(document).ready(function() {
-    // Loop through each .side-dropdown-menu to check if it has an active item
-    $('.side-dropdown-menu').each(function() {
-        if ($(this).find('.side-item.active').length) {
-            $(this).css('display', 'block'); // Show only this dropdown menu if it has an active item
-        } else {
-            $(this).css('display', 'none');  // Hide other dropdown menus
-        }
-    });
-});
+       
+       console.log('test');
+       if ($('.side-dropdown-menu .side-item.active').length) {
+
+           console.log('active');
+           $('.side-dropdown-menu').css('display', 'block');
+
+       }
+   });
 
 
+    </script> --}}
+
+
+    <script>
+
+       
+
+        $(document).ready(function() {
+            // Loop through each .side-dropdown-menu to check if it has an active item
+            $('.side-dropdown-menu').each(function() {
+                if ($(this).find('.side-item.active').length) {
+                    $(this).css('display', 'block'); // Show only this dropdown menu if it has an active item
+                } else {
+                    $(this).css('display', 'none');  // Hide other dropdown menus
+                }
+            });
+        });
+        
+                
+                
+                    </script>
+
+<script>
+    function showLockedModal() {
+        document.getElementById('lockedModal1').style.display = 'block';
+    }
+    
+    function closeLockedModal1() {
+        
+        $('#lockedModal1').modal('hide');
+    }
     </script>
-
-
 
 <script>
     $(document).ready(function() {
