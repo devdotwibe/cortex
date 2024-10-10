@@ -139,8 +139,8 @@
                
 
 
-                <li class="side-item side-dropdown {{ request()->is('topic-test') || request()->is('full-mock-exam') ? 'active' : '' }}">
-                    <a class="side-dropdown-toggle">
+                <li class="side-item side-dropdown ">
+                    <a class="side-dropdown-toggle {{ request()->is('topic-test') || request()->is('full-mock-exam') ? 'active' : '' }}">
                         <span class="side-icon">
                             <img src="{{ asset('assets/images/iconshover/examsimulator.svg') }}" alt="Exam Simulator">
                         </span>
