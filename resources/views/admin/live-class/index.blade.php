@@ -331,7 +331,7 @@
                         <x-general-form :url="route('admin.live-class.private_class')" btnsubmit="Save" :fields="[
                             [
                                 'name' => 'private_class',
-                                'label' => 'Description1',
+                                'label' => 'Description',
                                 'placeholder' => 'Description',
                                 'size' => 12,
                                 'type' => 'editor',
