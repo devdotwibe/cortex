@@ -589,11 +589,15 @@ $(document).ready(function() {
         e.preventDefault();
         var dropdownMenu = $(this).next('.side-dropdown-menu');
         
-        // Close other open dropdowns
-        $('.side-dropdown-menu').not(dropdownMenu).slideUp();
-        
-        // Toggle the clicked dropdown
-        dropdownMenu.slideToggle();
+        // Close the dropdown if we're on a specific page (topic-test or full-mock-exam)
+        if (window.location.pathname === '/topic-test' || window.location.pathname === '/full-mock-exam') {
+            // Collapse the dropdown if in topic-test or full-mock-exam
+            dropdownMenu.slideUp();
+        } else {
+            // Otherwise, toggle the clicked dropdown and close others
+            $('.side-dropdown-menu').not(dropdownMenu).slideUp();
+            dropdownMenu.slideToggle();
+        }
     });
 
     // Collapse the dropdown when navigating away from the current page
