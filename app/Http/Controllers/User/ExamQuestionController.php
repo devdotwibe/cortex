@@ -137,6 +137,9 @@ class ExamQuestionController extends Controller
         }
     }
     public function preview(Request $request,UserExamReview $userExamReview){
+        // dd($userExamReview->id);
+
+
         $category=Category::find($userExamReview->category_id);
         $subCategory=SubCategory::find($userExamReview->sub_category_id);
         $setname=Setname::find($userExamReview->sub_category_set);

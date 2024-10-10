@@ -307,7 +307,7 @@
                         error: function(xhr, status, error) { 
                             $('#image').val("")
                             $('#selected-files').html(oldhtml)
-                            updateToast(toastId, 'Upload failed.', 'danger');
+                            updateToast(toastId, 'File size exceeds 5MB. Please select a smaller file.', 'danger');
                             try {
                                 var ermsg= JSON.parse(xhr.responseText)
                                 if(ermsg.errors){

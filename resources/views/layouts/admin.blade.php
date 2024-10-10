@@ -575,7 +575,7 @@ if (!allowedTypes.includes(file.type)) {
                     },
                     error: function(xhr, status, error) {
                         var errorMessage = xhr.status + ': ' + xhr.statusText + '\n' + xhr.responseText;
-                        updateToast(toastId, 'Upload failed.', 'danger');
+                        updateToast(toastId, 'File size exceeds 5MB. Please select a smaller file.', 'danger');
                         // reject(errorMessage)
                         reject({code:xhr.status,status:xhr.statusText,error:xhr.responseText})
                     }
@@ -663,7 +663,10 @@ $(document).ready(function() {
         var maxSize = 5 * 1024 * 1024; // 5MB in bytes
 
         if (file && file.size > maxSize) {
-            alert('File size exceeds 5MB. Please select a smaller file.');
+
+            var note1 = $('<p><strong>Note:</strong> File size exceeds 5MB. Please select a smaller file.</p>');
+            $('#editor').prepend(note1); 
+            // alert('File size exceeds 5MB. Please select a smaller file.');
             $(this).val(''); // Clear the input
         }
     });

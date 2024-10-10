@@ -139,7 +139,7 @@
                
 
 
-                <li class="side-item side-dropdown {{ request()->is('topic-test') || request()->is('full-mock-exam') ? 'open' : '' }}">
+                <li class="side-item side-dropdown {{ request()->is('topic-test') || request()->is('full-mock-exam') ? 'active' : '' }}">
                     <a class="side-dropdown-toggle">
                         <span class="side-icon">
                             <img src="{{ asset('assets/images/iconshover/examsimulator.svg') }}" alt="Exam Simulator">
@@ -454,13 +454,14 @@ if (!allowedTypes.includes(file.type)) {
     showToast('Upload failed. Only JPG, JPEG, and PNG formats are allowed.', 'danger', true);
     return;
 }
+
                 var formData = new FormData();
                 formData.append("file", file);
                 formData.append("foldername", "ckeditor");
                 var toastId = showToast('Uploading... 0%', 'info', false);
 
                 $.ajax({
-                    url : "{{route('upload')}}",
+                    url : "{{route('admin.upload')}}",
                     type : 'POST',
                     data : formData,
                     processData: false,
@@ -482,7 +483,7 @@ if (!allowedTypes.includes(file.type)) {
                     },
                     error: function(xhr, status, error) {
                         var errorMessage = xhr.status + ': ' + xhr.statusText + '\n' + xhr.responseText;
-                        updateToast(toastId, 'Upload failed.', 'danger');
+                        updateToast(toastId, 'File size exceeds 5MB. Please select a smaller file.', 'danger');
                         // reject(errorMessage)
                         reject({code:xhr.status,status:xhr.statusText,error:xhr.responseText})
                     }
@@ -562,10 +563,24 @@ $(document).ready(function() {
 
 <script>
     $(document).ready(function() {
-        var note = $('<p><strong>Note:</strong> Supported Image formats: jpg, png, jpeg</p>');
-        $('#editor').prepend(note);  // Adds the note to the editor
-    });
-    </script>
+      var note = $('<p><strong>Note:</strong> Supported Image formats: jpg, png, jpeg. Max size: 5MB</p>');
+      $('#editor').prepend(note);  // Adds the note to the editor
+  
+      $('#image-upload').on('change', function() {
+          var file = this.files[0];  // Get the selected file
+          var maxSize = 5 * 1024 * 1024; // 5MB in bytes
+  
+          if (file && file.size > maxSize) {
+  
+              var note1 = $('<p><strong>Note:</strong> File size exceeds 5MB. Please select a smaller file.</p>');
+              $('#editor').prepend(note1); 
+              // alert('File size exceeds 5MB. Please select a smaller file.');
+              $(this).val(''); // Clear the input
+          }
+      });
+  });
+  
+      </script>
     
 
 

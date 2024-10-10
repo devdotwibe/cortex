@@ -120,9 +120,6 @@
                     },'json')
                      
                 }) 
-
-                console.log(res);
-                console.log(useranswers);
                 if(res.total>1){
                      $.each(res.links,function(k,v){
                         let linkstatus="";
