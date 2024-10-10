@@ -149,9 +149,11 @@ class PrivateClassHomeWorkController extends Controller
             return abort(404);
         }
         return DataTables::of(HomeWorkReview::where('user_id',$user->id)->where('home_work_id',$homeWork->id)->where('home_work_book_id',$homeWorkBook->id)->select('slug','created_at','progress'))
-            ->addColumn('progress',function($data){
-                return $data->progress."%";
-            })
+        ->addColumn('progress',function($data){
+
+            $numberformat=number_format($data->progress,2);
+            return $numberformat."%";
+        })
             ->addColumn('date',function($data){
                 return Carbon::parse($data->created_at)->format('Y-m-d h:i a');
             })
