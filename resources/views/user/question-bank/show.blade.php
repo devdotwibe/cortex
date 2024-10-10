@@ -103,7 +103,7 @@
                     <tr>
                         <th>Sl.No</th>
                         <th>Date</th>
-                        <th>Progress</th>
+                        <th>Score</th>
                         <th>Timed</th>
                         <th></th>
                     </tr>

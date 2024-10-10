@@ -309,7 +309,8 @@ class MockExamController extends Controller
         // ];
         return DataTables::of(UserExamReview::where('user_id',$user->id)->where('exam_id',$exam->id)->select('slug','created_at','progress'))
             ->addColumn('progress',function($data){
-                return $data->progress."%";
+                $numberformat=number_format($data->progress,2);
+                return $numberformat."%";
             })
             ->addColumn('date',function($data){
                 return Carbon::parse($data->created_at)->format('Y-m-d h:i a');

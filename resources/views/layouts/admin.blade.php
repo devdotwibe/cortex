@@ -343,30 +343,97 @@
                     </a>
                 </li>
 
-                <li class="side-item side-dropdown ">
-                    <a class="side-dropdown-toggle" >
-                        <span class="side-icon" >
-                            <img src="{{asset("assets/images/iconshover/pages.svg")}}" alt="Dashboard">
+                <li class="side-item side-dropdown">
+                    <a class="side-dropdown-toggle">
+                        <span class="side-icon">
+                            <img src="{{ asset('assets/images/iconshover/pages.svg') }}" alt="Pages">
                         </span>
                         <span class="active-icon">
-                            <img src="{{asset("assets/images/icons/pages.svg")}}" alt="Dashboard">
+                            <img src="{{ asset('assets/images/icons/pages.svg') }}" alt="Pages Active">
                         </span>
-                        <span class="menutext">
-                        Pages
-                        </span>
+                        <span class="menutext">Pages</span>
                     </a>
-                    <ul class="side-dropdown-menu" >
-                        <li class="side-item {{request()->is('admin/page') ?'active':''}} "><a href="{{ route('admin.page.index') }}"> <span class="menutext">Home</span></a></li>
-                        <li class="side-item {{request()->is('admin/faq') ? 'active':''}} "><a href="{{route('admin.faq.index')}}"> <span class="menutext">FAQ</span></a></li>
-                        <li class="side-item {{request()->is('admin/support') ? 'active':''}} "><a href="{{route('admin.support.index')}}"> <span class="menutext">Support</span></a></li>
-                        <li class="side-item {{request()->is('admin/tip') ? 'active':''}} "><a href="{{route('admin.tip.index')}}"> <span class="menutext">Tips and Advice</span></a></li>
-
-                        <li class="side-item {{request()->is('admin/course') ? 'active':''}} "><a href="{{route('admin.course.index')}}"> <span class="menutext">Course</span></a></li>
-
-                        <li class="side-item {{request()->is('admin/privacy') ? 'active':''}} "><a href="{{route('admin.privacy.index')}}"> <span class="menutext">Privacy Policy</span></a></li>
-                        <li class="side-item {{request()->is('admin/terms') ? 'active':''}} "><a href="{{route('admin.terms.index')}}"> <span class="menutext">Terms & Conditions</span></a></li>
+                    <ul class="side-dropdown-menu">
+                        <li class="side-item {{ request()->is('admin/page') ? 'active' : '' }}">
+                            <a href="{{ route('admin.page.index') }}">
+                                <span class="side-icon">
+                                    <img src="{{ asset('assets/images/iconshover/homehover.svg') }}" alt="Home">
+                                </span>
+                                <span class="active-icon">
+                                    <img src="{{ asset('assets/images/icons/home.svg') }}" alt="Home Active">
+                                </span>
+                                <span class="menutext">Home</span>
+                            </a>
+                        </li>
+                        <li class="side-item {{ request()->is('admin/faq') ? 'active' : '' }}">
+                            <a href="{{ route('admin.faq.index') }}">
+                                <span class="side-icon">
+                                    <img src="{{ asset('assets/images/iconshover/faqhover.svg') }}" alt="FAQ">
+                                </span>
+                                <span class="active-icon">
+                                    <img src="{{ asset('assets/images/icons/faq.svg') }}" alt="FAQ Active">
+                                </span>
+                                <span class="menutext">FAQ</span>
+                            </a>
+                        </li>
+                        <li class="side-item {{ request()->is('admin/support') ? 'active' : '' }}">
+                            <a href="{{ route('admin.support.index') }}">
+                                <span class="side-icon">
+                                    <img src="{{ asset('assets/images/iconshover/support.svg') }}" alt="Support">
+                                </span>
+                                <span class="active-icon">
+                                    <img src="{{ asset('assets/images/icons/support.svg') }}" alt="Support Active">
+                                </span>
+                                <span class="menutext">Support</span>
+                            </a>
+                        </li>
+                        <li class="side-item {{ request()->is('admin/tip') ? 'active' : '' }}">
+                            <a href="{{ route('admin.tip.index') }}">
+                                <span class="side-icon">
+                                    <img src="{{ asset('assets/images/iconshover/tipsandadvice.svg') }}" alt="Tips and Advice">
+                                </span>
+                                <span class="active-icon">
+                                    <img src="{{ asset('assets/images/icons/tipsandadvice.svg') }}" alt="Tips and Advice Active">
+                                </span>
+                                <span class="menutext">Tips and Advice</span>
+                            </a>
+                        </li>
+                        <li class="side-item {{ request()->is('admin/course') ? 'active' : '' }}">
+                            <a href="{{ route('admin.course.index') }}">
+                                <span class="side-icon">
+                                    <img src="{{ asset('assets/images/iconshover/coursehover.svg') }}" alt="Course">
+                                </span>
+                                <span class="active-icon">
+                                    <img src="{{ asset('assets/images/icons/course.svg') }}" alt="Course Active">
+                                </span>
+                                <span class="menutext">Course</span>
+                            </a>
+                        </li>
+                        <li class="side-item {{ request()->is('admin/privacy') ? 'active' : '' }}">
+                            <a href="{{ route('admin.privacy.index') }}">
+                                <span class="side-icon">
+                                    <img src="{{ asset('assets/images/iconshover/privacyhover.svg') }}" alt="Privacy Policy">
+                                </span>
+                                <span class="active-icon">
+                                    <img src="{{ asset('assets/images/icons/privacy.svg') }}" alt="Privacy Policy Active">
+                                </span>
+                                <span class="menutext">Privacy Policy</span>
+                            </a>
+                        </li>
+                        <li class="side-item {{ request()->is('admin/terms') ? 'active' : '' }}">
+                            <a href="{{ route('admin.terms.index') }}">
+                                <span class="side-icon">
+                                    <img src="{{ asset('assets/images/iconshover/termshover.svg') }}" alt="Terms & Conditions">
+                                </span>
+                                <span class="active-icon">
+                                    <img src="{{ asset('assets/images/icons/terms.svg') }}" alt="Terms & Conditions Active">
+                                </span>
+                                <span class="menutext">Terms & Conditions</span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
+                
 
                 {{-- <li class="side-item {{request()->is('admin/faq') ? 'active':''}}">
                     <a href="{{ route('admin.faq.index') }}">
@@ -587,10 +654,21 @@ $(document).ready(function() {
 
 
 <script>
-    $(document).ready(function() {
-        var note = $('<p><strong>Note:</strong> Supported Image formats: jpg, png, jpeg</p>');
-        $('#editor').prepend(note);  // Adds the note to the editor
+  $(document).ready(function() {
+    var note = $('<p><strong>Note:</strong> Supported Image formats: jpg, png, jpeg. Max size: 5MB</p>');
+    $('#editor').prepend(note);  // Adds the note to the editor
+
+    $('#image-upload').on('change', function() {
+        var file = this.files[0];  // Get the selected file
+        var maxSize = 5 * 1024 * 1024; // 5MB in bytes
+
+        if (file && file.size > maxSize) {
+            alert('File size exceeds 5MB. Please select a smaller file.');
+            $(this).val(''); // Clear the input
+        }
     });
+});
+
     </script>
     
 

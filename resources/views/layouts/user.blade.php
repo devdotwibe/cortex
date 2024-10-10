@@ -227,11 +227,11 @@
                
 
 
-                 <li class="side-item {{request()->is('tipsandadvice*') ? 'active':''}}">
+                 {{-- <li class="side-item {{request()->is('tipsandadvice*') ? 'active':''}}">
 
                   
                         <a @if(auth('admin')->check() &&!(auth('web')->user()->is_free_access) && (optional(auth('web')->user()->subscription())->status ?? "") !== "subscribed") data-bs-toggle="modal" data-bs-target="#adminsubModal"  @else href="{{ route('tipsandadvise.index') }}" @endif >
-                            {{-- <a @if(auth('admin')->check()&&!(auth('web')->user()->is_free_access)&&(optional(auth('web')->user()->subscription())->status??"")=="subscribed") data-bs-toggle="modal" data-bs-target="#adminsubModal" @else href="{{route('tipsandadvise.index')}}" @endif > --}}
+                          
 
                          <span class="side-icon" >
                              <img src="{{asset("assets/images/iconshover/tipsandadvice.svg")}}" alt="Dashboard">
@@ -243,7 +243,31 @@
                          Tips And Advice
                          </span>
                      </a>
-                 </li>
+                 </li> --}}
+
+
+                 <li class="side-item {{request()->is('tipsandadvice*') ? 'active':''}}">
+                    
+                    
+                    <a @if(!auth('admin')->check() && !(auth('web')->user()->is_free_access) && (optional(auth('web')->user()->subscription())->status ?? "") !== "subscribed") 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#lockedModal1" {{-- Show the modal for free users --}}
+                    @else
+                        href="{{ route('tipsandadvise.index') }}" {{auth('web')->user()->is_free_access}} terdt {{optional(auth('web')->user()->subscription())->status }}{{-- Subscribed users will access the actual route --}}
+                    @endif
+                >
+                        <span class="side-icon">
+                            <img src="{{ asset('assets/images/iconshover/tipsandadvice.svg') }}" alt="Dashboard">
+                        </span>
+                        <span class="active-icon">
+                            <img src="{{ asset('assets/images/icons/tipsandadvice.svg') }}" alt="Dashboard">
+                        </span>
+                        <span class="menutext">
+                            Tips And Advice
+                        </span>
+                    </a>
+                </li>
+                
 <div class="supportsection">
                  <li class="side-item {{request()->is('support') ? 'active':''}}">
                        
@@ -322,13 +346,14 @@
 
 
 
+
 <!-- Locked Content Modal -->
-<div id="lockedModal" class="modal" tabindex="-1" role="dialog">
+<div id="lockedModal1" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Content Locked</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeLockedModal()">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeLockedModal1()">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -337,7 +362,7 @@
             </div>
             <div class="modal-footer">
                 <a href="{{ route('pricing.index') }}#our-plans" class="btn btn-primary">View Pricing Plans</a>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeLockedModal()">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeLockedModal1()">Close</button>
             </div>
         </div>
     </div>
@@ -526,11 +551,12 @@ $(document).ready(function() {
 
 <script>
     function showLockedModal() {
-        document.getElementById('lockedModal').style.display = 'block';
+        document.getElementById('lockedModal1').style.display = 'block';
     }
     
-    function closeLockedModal() {
-        document.getElementById('lockedModal').style.display = 'none';
+    function closeLockedModal1() {
+        
+        $('#lockedModal1').modal('hide');
     }
     </script>
 

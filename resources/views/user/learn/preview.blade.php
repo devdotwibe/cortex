@@ -117,9 +117,12 @@
                         },'json')
                     }
                 }) 
+                console.log(res);
+                console.log(useranswers);
                 if (res.total > 1) {
             $.each(res.links, function(k, v) {
                 let linkstatus="";
+                console.log(res.links.length);
                         if(k!=0&&k!=res.links.length&&useranswers[k-1]){
                             linkstatus='status-bad';
                             if(useranswers[k-1].iscorrect){
@@ -130,6 +133,8 @@
 
                                 
                             }
+
+                            
                         }
                         if(v.active||!v.url){
                             $('#lesson-footer-pagination').append(`
