@@ -139,7 +139,7 @@
                
 
 
-                {{-- <li class="side-item side-dropdown {{ request()->is('topic-test') || request()->is('full-mock-exam') ? '' : '' }}">
+                <li class="side-item side-dropdown {{ request()->is('topic-test') || request()->is('full-mock-exam') ? 'open' : '' }}">
                     <a class="side-dropdown-toggle">
                         <span class="side-icon">
                             <img src="{{ asset('assets/images/iconshover/examsimulator.svg') }}" alt="Exam Simulator">
@@ -173,48 +173,12 @@
                             </a>
                         </li>
                     </ul>
-                </li> --}}
-
-
-              
-                <li class="side-item side-dropdown {{ request()->is('topic-test') || request()->is('full-mock-exam') ? 'open' : '' }}"> 
-                    <a class="side-dropdown-toggle" href="javascript:void(0)">
-                        <span class="side-icon">
-                            <img src="{{ asset('assets/images/iconshover/examsimulator.svg') }}" alt="Exam Simulator">
-                        </span>
-                        <span class="active-icon">
-                            <img src="{{ asset('assets/images/icons/examsimulator.svg') }}" alt="Exam Simulator">
-                        </span>
-                        <span class="menutext">Exam Simulator</span>
-                    </a>
-                    <ul class="side-dropdown-menu">
-                        <li class="side-item {{ request()->is('topic-test') ? 'active' : '' }}">
-                            <a href="{{ route('topic-test.index') }}">
-                                <span class="side-icon">
-                                    <img src="{{ asset('assets/images/iconshover/topictesthover.svg') }}" alt="Topic Test">
-                                </span>
-                                <span class="active-icon">
-                                    <img src="{{ asset('assets/images/icons/topictest.svg') }}" alt="Topic Test Active">
-                                </span>
-                                <span class="menutext">Topic Test</span>
-                            </a>
-                        </li>
-                        <li class="side-item {{ request()->is('full-mock-exam') ? 'active' : '' }}">
-                            <a href="{{ route('full-mock-exam.index') }}">
-                                <span class="side-icon">
-                                    <img src="{{ asset('assets/images/iconshover/mockexamhover.svg') }}" alt="Full Mock Exam">
-                                </span>
-                                <span class="active-icon">
-                                    <img src="{{ asset('assets/images/icons/mockexam.svg') }}" alt="Full Mock Exam Active">
-                                </span>
-                                <span class="menutext">Full Mock Exam</span>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
 
+
+            
                 
-                
+
                 <li class="side-item {{request()->is('live-class*') ? 'active':''}}">
                    
                         <a @if(auth('admin')->check() &&!(auth('web')->user()->is_free_access) && (optional(auth('web')->user()->subscription())->status ?? "") !== "subscribed") data-bs-toggle="modal" data-bs-target="#adminsubModal"  @else href="{{ route('live-class.index') }}" @endif >  
@@ -586,34 +550,10 @@ $(document).ready(function() {
 });
 
 
-
     </script>
 
-    <script>
 
-$(document).ready(function() {
-    // Show or hide the dropdowns based on active items
-    $('.side-dropdown-menu').each(function() {
-        if ($(this).find('.side-item.active').length) {
-            $(this).show();  // Ensure it's visible if an item is active
-        } else {
-            $(this).hide();  // Hide if no active items
-        }
-    });
 
-    // Handle click event on the dropdown toggle
-    $('.side-dropdown-toggle').on('click', function() {
-        var $dropdownMenu = $(this).siblings('.side-dropdown-menu');
-        
-        // Close all other dropdowns
-        $('.side-dropdown-menu').not($dropdownMenu).slideUp();
-        
-        // Toggle current dropdown
-        $dropdownMenu.stop(true, true).slideToggle();
-    });
-});
-
-</script>
 <script>
     $(document).ready(function() {
       var note = $('<p><strong>Note:</strong> Supported Image formats: jpg, png, jpeg. Max size: 5MB</p>');
