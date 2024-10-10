@@ -227,7 +227,7 @@
                
 
 
-                 {{-- <li class="side-item {{request()->is('tipsandadvice*') ? 'active':''}}">
+                 <li class="side-item {{request()->is('tipsandadvice*') ? 'active':''}}">
 
                   
                         <a @if(auth('admin')->check() &&!(auth('web')->user()->is_free_access) && (optional(auth('web')->user()->subscription())->status ?? "") !== "subscribed") data-bs-toggle="modal" data-bs-target="#adminsubModal"  @else href="{{ route('tipsandadvise.index') }}" @endif >
@@ -243,33 +243,30 @@
                          Tips And Advice
                          </span>
                      </a>
-                 </li> --}}
+                 </li>
 
 
-                 <a 
-    @if(auth('admin')->check() && !(auth('web')->user()->is_free_access) && (optional(auth('web')->user()->subscription())->status ?? "") !== "subscribed") 
-        data-bs-toggle="modal" 
-        data-bs-target="#adminsubModal" 
-    @elseif(auth('web')->check() && auth('web')->user()->is_free_access && (optional(auth('web')->user()->subscription())->status ?? "") !== "subscribed")
-        data-bs-toggle="modal" 
-        data-bs-target="#lockedModal" {{-- For free users without a subscription --}}
-    @else 
-        href="{{ route('tipsandadvise.index') }}" 
-    @endif 
->
-    <span class="side-icon">
-        <img src="{{ asset('assets/images/iconshover/tipsandadvice.svg') }}" alt="Dashboard">
-    </span>
-    <span class="active-icon">
-        <img src="{{ asset('assets/images/icons/tipsandadvice.svg') }}" alt="Dashboard">
-    </span>
-    <span class="menutext">
-        Tips And Advice
-    </span>
-</a>
-
-
-
+                 <li class="side-item {{request()->is('tipsandadvice*') ? 'active':''}}">
+                    <a 
+                        @if(auth('web')->check() && auth('web')->user()->is_free_access && (optional(auth('web')->user()->subscription())->status ?? "") !== "subscribed")
+                            data-bs-toggle="modal" 
+                            data-bs-target="#lockedModal" {{-- For free users without a subscription --}}
+                        @else
+                            href="{{ route('tipsandadvise.index') }}" {{-- Subscribed users and admins go to the actual route --}}
+                        @endif
+                    >
+                        <span class="side-icon">
+                            <img src="{{ asset('assets/images/iconshover/tipsandadvice.svg') }}" alt="Dashboard">
+                        </span>
+                        <span class="active-icon">
+                            <img src="{{ asset('assets/images/icons/tipsandadvice.svg') }}" alt="Dashboard">
+                        </span>
+                        <span class="menutext">
+                            Tips And Advice
+                        </span>
+                    </a>
+                </li>
+                
 <div class="supportsection">
                  <li class="side-item {{request()->is('support') ? 'active':''}}">
                        
