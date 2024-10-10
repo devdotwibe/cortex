@@ -128,7 +128,7 @@
                     <tr>
                         <th>Sl.No</th>
                         <th>Date</th>
-                        <th>Progress</th> 
+                        <th>Score</th> 
                         <th></th>
                     </tr>
                 </thead>
