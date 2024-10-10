@@ -587,10 +587,21 @@ $(document).ready(function() {
 
 
 <script>
-    $(document).ready(function() {
-        var note = $('<p><strong>Note:</strong> Supported Image formats: jpg, png, jpeg</p>');
-        $('#editor').prepend(note);  // Adds the note to the editor
+  $(document).ready(function() {
+    var note = $('<p><strong>Note:</strong> Supported Image formats: jpg, png, jpeg. Max size: 5MB</p>');
+    $('#editor').prepend(note);  // Adds the note to the editor
+
+    $('#image-upload').on('change', function() {
+        var file = this.files[0];  // Get the selected file
+        var maxSize = 5 * 1024 * 1024; // 5MB in bytes
+
+        if (file && file.size > maxSize) {
+            alert('File size exceeds 5MB. Please select a smaller file.');
+            $(this).val(''); // Clear the input
+        }
     });
+});
+
     </script>
     
 
