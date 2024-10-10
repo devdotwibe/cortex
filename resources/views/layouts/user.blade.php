@@ -187,7 +187,7 @@
                         </span>
                         <span class="menutext">Exam Simulator</span>
                     </a>
-                    <ul class="side-dropdown-menu" style="{{ request()->is('topic-test') || request()->is('full-mock-exam') ? 'display: block;' : 'display: none;' }}">
+                    <ul class="side-dropdown-menu">
                         <li class="side-item {{ request()->is('topic-test') ? 'active' : '' }}">
                             <a href="{{ route('topic-test.index') }}">
                                 <span class="side-icon">
@@ -212,8 +212,9 @@
                         </li>
                     </ul>
                 </li>
-                
 
+                
+                
                 <li class="side-item {{request()->is('live-class*') ? 'active':''}}">
                    
                         <a @if(auth('admin')->check() &&!(auth('web')->user()->is_free_access) && (optional(auth('web')->user()->subscription())->status ?? "") !== "subscribed") data-bs-toggle="modal" data-bs-target="#adminsubModal"  @else href="{{ route('live-class.index') }}" @endif >  
@@ -588,35 +589,31 @@ $(document).ready(function() {
 
     </script>
 
-<script>
-    $(document).ready(function() {
-        // Handle dropdown open/close behavior when clicking the parent "Exam Simulator"
-        $('.side-dropdown-toggle').on('click', function() {
-            var $dropdownMenu = $(this).siblings('.side-dropdown-menu');
-            var isVisible = $dropdownMenu.is(':visible');
-            
-            // Close all other open dropdowns
-            $('.side-dropdown-menu').slideUp();
-            
-            // Toggle the clicked dropdown's visibility
-            if (!isVisible) {
-                $dropdownMenu.slideDown();
-            } else {
-                $dropdownMenu.slideUp();
-            }
-        });
-    
-        // Ensure active item dropdowns are displayed on page load
-        $('.side-dropdown-menu').each(function() {
-            if ($(this).find('.side-item.active').length) {
-                $(this).css('display', 'block');
-            } else {
-                $(this).css('display', 'none');
-            }
-        });
-    });
-    </script>
+    <script>
 
+$(document).ready(function() {
+    // Show or hide the dropdowns based on active items
+    $('.side-dropdown-menu').each(function() {
+        if ($(this).find('.side-item.active').length) {
+            $(this).show();  // Ensure it's visible if an item is active
+        } else {
+            $(this).hide();  // Hide if no active items
+        }
+    });
+
+    // Handle click event on the dropdown toggle
+    $('.side-dropdown-toggle').on('click', function() {
+        var $dropdownMenu = $(this).siblings('.side-dropdown-menu');
+        
+        // Close all other dropdowns
+        $('.side-dropdown-menu').not($dropdownMenu).slideUp();
+        
+        // Toggle current dropdown
+        $dropdownMenu.stop(true, true).slideToggle();
+    });
+});
+
+</script>
 <script>
     $(document).ready(function() {
       var note = $('<p><strong>Note:</strong> Supported Image formats: jpg, png, jpeg. Max size: 5MB</p>');
