@@ -554,7 +554,8 @@ $(document).ready(function() {
     }
     
     function closeLockedModal() {
-        document.getElementById('lockedModal').style.display = 'none';
+        
+        $('lockedModal').modal('hide');
     }
     </script>
 
