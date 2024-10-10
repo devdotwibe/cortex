@@ -575,7 +575,7 @@ if (!allowedTypes.includes(file.type)) {
                     },
                     error: function(xhr, status, error) {
                         var errorMessage = xhr.status + ': ' + xhr.statusText + '\n' + xhr.responseText;
-                        updateToast(toastId, 'Upload failed.', 'danger');
+                        updateToast(toastId, 'File size exceeds 5MB. Please select a smaller file.', 'danger');
                         // reject(errorMessage)
                         reject({code:xhr.status,status:xhr.statusText,error:xhr.responseText})
                     }
