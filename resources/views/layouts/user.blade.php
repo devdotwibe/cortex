@@ -227,7 +227,7 @@
                
 
 
-                 <li class="side-item {{request()->is('tipsandadvice*') ? 'active':''}}">
+                 {{-- <li class="side-item {{request()->is('tipsandadvice*') ? 'active':''}}">
 
                   
                         <a @if(auth('admin')->check() &&!(auth('web')->user()->is_free_access) && (optional(auth('web')->user()->subscription())->status ?? "") !== "subscribed") data-bs-toggle="modal" data-bs-target="#adminsubModal"  @else href="{{ route('tipsandadvise.index') }}" @endif >
@@ -243,7 +243,7 @@
                          Tips And Advice
                          </span>
                      </a>
-                 </li>
+                 </li> --}}
 
 
                  <li class="side-item {{request()->is('tipsandadvice*') ? 'active':''}}">
