@@ -139,7 +139,7 @@
                
 
 
-                <li class="side-item side-dropdown {{ request()->is('topic-test') || request()->is('full-mock-exam') ? 'open' : '' }}">
+                <li class="side-item side-dropdown {{ request()->is('topic-test') || request()->is('full-mock-exam') ? '' : '' }}">
                     <a class="side-dropdown-toggle">
                         <span class="side-icon">
                             <img src="{{ asset('assets/images/iconshover/examsimulator.svg') }}" alt="Exam Simulator">
@@ -536,22 +536,22 @@ if (!allowedTypes.includes(file.type)) {
 
     <script>
 
-$(document).ready(function() {
-    // Loop through each .side-dropdown-menu to check if it has an active item
-    $('.side-dropdown-menu').each(function() {
-        if ($(this).find('.side-item.active').length) {
-            $(this).css('display', 'block'); // Show only this dropdown menu if it has an active item
-        } else {
-            $(this).css('display', 'none');  // Hide other dropdown menus
-        }
-    });
-});
+// $(document).ready(function() {
+//     // Loop through each .side-dropdown-menu to check if it has an active item
+//     $('.side-dropdown-menu').each(function() {
+//         if ($(this).find('.side-item.active').length) {
+//             $(this).css('display', 'block'); // Show only this dropdown menu if it has an active item
+//         } else {
+//             $(this).css('display', 'none');  // Hide other dropdown menus
+//         }
+//     });
+// });
 
 
 
     </script>
 
-<script>
+{{-- <script>
     function showLockedModal() {
         document.getElementById('lockedModal1').style.display = 'block';
     }
@@ -560,7 +560,7 @@ $(document).ready(function() {
         
         $('#lockedModal1').modal('hide');
     }
-    </script>
+    </script> --}}
 
 <script>
     $(document).ready(function() {
