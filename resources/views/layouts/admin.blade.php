@@ -587,20 +587,28 @@ $(document).ready(function() {
 
 
 <script>
-  $(document).ready(function() {
+$(document).ready(function() {
     var note = $('<p><strong>Note:</strong> Supported Image formats: jpg, png, jpeg. Max size: 5MB</p>');
-    $('#editor').prepend(note);  // Adds the note to the editor
+    $('#editor').prepend(note);  // Adds the initial note to the editor
 
     $('#image-upload').on('change', function() {
         var file = this.files[0];  // Get the selected file
         var maxSize = 5 * 1024 * 1024; // 5MB in bytes
 
+        // Remove the previous error note if it exists
+        $('#file-size-error').remove();
+
         if (file && file.size > maxSize) {
             alert('File size exceeds 5MB. Please select a smaller file.');
             $(this).val(''); // Clear the input
+
+            // Add the error note after the file input
+            var errorNote = $('<p id="file-size-error" style="color: red;"><strong>File size exceeds 5MB. Please select a smaller file.</strong></p>');
+            $('#editor').append(errorNote);  // Append the error message below the editor
         }
     });
 });
+
 
     </script>
     
