@@ -536,17 +536,6 @@ if (!allowedTypes.includes(file.type)) {
 
     <script>
 
-// $(document).ready(function() {
-       
-//        console.log('test');
-//        if ($('.side-dropdown-menu .side-item.active').length) {
-
-//            console.log('active');
-//            $('.side-dropdown-menu').css('display', 'block');
-
-//        }
-//    });
-
 $(document).ready(function() {
     // Loop through each .side-dropdown-menu to check if it has an active item
     $('.side-dropdown-menu').each(function() {
