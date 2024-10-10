@@ -19,15 +19,15 @@
 
     <section class="post-section">
 
-        <div class="container">
+        <div class="post-container1">
             <div class="row">
                 <!-- Left Sidebar for Hashtags -->
-                <div class="col-md-3">
+                <div class="post-col1">
                     <h4>SPACES</h4>
 
 
                     <!-- Link styled as a textbox -->
-                    <div class="mb-3">
+                    <div class="mb-3 back-btn-wrapp">
                         <label for="backtoall" class="form-label"></label>
                         <a href="{{ route('admin.community.index') }}" id="backtoall"
                             class="form-control text-decoration-none"
@@ -35,7 +35,7 @@
                             #Backtoall
                         </a>
                     </div>  
-                    <div class="d-flex flex-wrap">  
+                    <div class="hashtag-wrapp">  
                         <ul class="list-group"  >  
                             @foreach ($hashtags as $hashtag)
                                 <li class="list-group-item d-inline-block" >
