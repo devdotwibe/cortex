@@ -401,10 +401,10 @@
                         <li class="side-item {{ request()->is('admin/course') ? 'active' : '' }}">
                             <a href="{{ route('admin.course.index') }}">
                                 <span class="side-icon">
-                                    <img src="{{ asset('assets/images/iconshover/course.svg') }}" alt="Course">
+                                    <img src="{{ asset('assets/images/iconshover/coursehover.svg') }}" alt="Course">
                                 </span>
                                 <span class="active-icon">
-                                    <img src="{{ asset('assets/images/icons/coursehover.svg') }}" alt="Course Active">
+                                    <img src="{{ asset('assets/images/icons/course.svg') }}" alt="Course Active">
                                 </span>
                                 <span class="menutext">Course</span>
                             </a>
