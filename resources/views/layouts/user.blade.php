@@ -536,16 +536,28 @@ if (!allowedTypes.includes(file.type)) {
 
     <script>
 
-$(document).ready(function() {
+// $(document).ready(function() {
        
-       console.log('test');
-       if ($('.side-dropdown-menu .side-item.active').length) {
+//        console.log('test');
+//        if ($('.side-dropdown-menu .side-item.active').length) {
 
-           console.log('active');
-           $('.side-dropdown-menu').css('display', 'block');
+//            console.log('active');
+//            $('.side-dropdown-menu').css('display', 'block');
 
-       }
-   });
+//        }
+//    });
+
+$(document).ready(function() {
+    // Loop through each .side-dropdown-menu to check if it has an active item
+    $('.side-dropdown-menu').each(function() {
+        if ($(this).find('.side-item.active').length) {
+            $(this).css('display', 'block'); // Show only this dropdown menu if it has an active item
+        } else {
+            $(this).css('display', 'none');  // Hide other dropdown menus
+        }
+    });
+});
+
 
 
     </script>
