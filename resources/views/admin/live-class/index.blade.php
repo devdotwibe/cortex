@@ -315,7 +315,7 @@
 
 
 @push('modals')
-    <div class="modal fade" id="live-private-modal" tabindex="-1" role="dialog"
+    <div class="modal fade live-modal" id="live-private-modal" tabindex="-1" role="dialog"
         aria-labelledby="live-class-modalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -326,18 +326,65 @@
                             aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
+                    <div class="modal-row">
+                        <div class="modal-col1">
+                            <x-general-form :url="route('admin.live-class.private_class')" btnsubmit="Save" :fields="[
+                                [
+                                    'name' => 'private_class',
+                                    'label' => 'Description',
+                                    'placeholder' => 'Description',
+                                    'size' => 12,
+                                    'type' => 'editor',
+                                    'value' => $live_class->private_class ?? '',
+                                ],
+                            ]" />
+                        </div>
 
-                    <div class="container">
-                        <x-general-form :url="route('admin.live-class.private_class')" btnsubmit="Save" :fields="[
-                            [
-                                'name' => 'private_class',
-                                'label' => 'Description',
-                                'placeholder' => 'Description',
-                                'size' => 12,
-                                'type' => 'editor',
-                                'value' => $live_class->private_class ?? '',
-                            ],
-                        ]" />
+                        <div class="modal-col1">
+                            <form action="">
+                                <div class="form-row">
+                                    <div class="text-field">
+                                        <input type="text" name="" id="" >
+                                        <button class="add-btn">+ Add</button>
+                                    </div>
+                                    <div class="text-field-preview">
+                                        <p>SAT <span>(9:30 - 11:30 AM)</span></p>
+                                        <div class="user-icons">
+                                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt="">
+                                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""></span>
+                                            </span>
+                                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt="">
+                                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""></span>
+                                            </span>
+                                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt="">
+                                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""></span>
+                                            </span>
+                                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt="">
+                                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""></span>
+                                            </span>
+                                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt="">
+                                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""></span>
+                                            </span>
+                                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt="">
+                                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""></span>
+                                            </span>
+                                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt="">
+                                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""></span>
+                                            </span>
+                                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt="">
+                                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""></span>
+                                            </span>
+                                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt="">
+                                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""></span>
+                                            </span>
+                                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt="">
+                                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""></span>
+                                            </span>
+                                        </div>
+                                    </div>                                    
+                                </div>
+                            </form>
+                        </div>
                     </div>
 
                 </div>
