@@ -2661,6 +2661,15 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 #live-intensive-modal .modal-dialog .modal-body .card label { font-weight: 600; margin: 0 0 10px;}
 
 
+.timetable-wrapp {width: 100%;}
+.timetable-wrapp p {font-size: 20px; line-height: 1.5; margin: 0 0 15px;}
+.timetable-wrapp p strong { font-weight: bold;}
+.timetable-wrapp .timetable-row {width: 100%;display: flex;flex-wrap: wrap;align-items: center;padding: 15px; border: 1px solid #BCBCBC; border-radius: 5px; margin: 0 0 22px; justify-content: space-between;}
+.timetable-wrapp .timetable-row p { line-height: normal; margin: 0 0 0;}
+.timetable-wrapp .timetable-row .user-icons {width: auto;}
+.timetable-wrapp .timetable-row .user-icons .user-icon { display: inline-block; width: 20px; margin: 0 0 0 8px;}
+
+
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
 
