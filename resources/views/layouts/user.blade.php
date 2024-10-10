@@ -235,7 +235,7 @@
                         
                     @else 
                         href="{{ route('tipsandadvise.index') }}" 
-                    
+                    @endif 
                 >
                            
 
