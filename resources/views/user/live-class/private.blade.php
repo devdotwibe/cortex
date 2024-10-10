@@ -20,6 +20,39 @@
                 <div class="workshop-content">
                     {!! $live_class->private_class??""!!}
                 </div>
+                <div class="timetable-wrapp">
+                    <p><strong>Timetable</strong></p>
+                    <div class="timetable-row">
+                        <p>SAT <span>(9:30 - 11:30 AM)</span></p>
+                        <div class="user-icons">
+                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""></span>
+                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""></span>
+                        </div>
+                    </div>
+                    <div class="timetable-row">
+                        <p>SUN <span>(9:30 - 11:30 AM)</span></p>
+                        <div class="user-icons">
+                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""></span>
+                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""></span>
+                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""></span>
+                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""></span>
+                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""></span>
+                        </div>
+                    </div>
+                </div>
                 <div class="workshop-action"> 
                     @if (empty($user->privateClass))
                   {{-- @guest('admin')  
