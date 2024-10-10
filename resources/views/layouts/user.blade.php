@@ -176,49 +176,42 @@
                 </li> --}}
 
 
-                <li class="side-item side-dropdown">
-                    <a class="side-dropdown-toggle {{ request()->is('admin/topic-test*') || request()->is('admin/exam*') ? 'active' : '' }}">
+              
+                <li class="side-item side-dropdown {{ request()->is('topic-test') || request()->is('full-mock-exam') ? 'open' : '' }}"> 
+                    <a class="side-dropdown-toggle" href="javascript:void(0)">
                         <span class="side-icon">
                             <img src="{{ asset('assets/images/iconshover/examsimulator.svg') }}" alt="Exam Simulator">
                         </span>
                         <span class="active-icon">
                             <img src="{{ asset('assets/images/icons/examsimulator.svg') }}" alt="Exam Simulator">
                         </span>
-                        <span class="menutext">
-                        Exam Simulator
-                        </span>
+                        <span class="menutext">Exam Simulator</span>
                     </a>
-                    <ul class="side-dropdown-menu" style="{{ !(request()->is('admin/topic-test*') || request()->is('admin/exam*')) ? 'display: none;' : '' }}">
-                        <li class="side-item {{ request()->is('admin/topic-test*') ? 'active' : '' }}">
-                            <a href="{{ route('admin.topic-test.index') }}">
+                    <ul class="side-dropdown-menu" style="{{ request()->is('topic-test') || request()->is('full-mock-exam') ? 'display: block;' : 'display: none;' }}">
+                        <li class="side-item {{ request()->is('topic-test') ? 'active' : '' }}">
+                            <a href="{{ route('topic-test.index') }}">
                                 <span class="side-icon">
                                     <img src="{{ asset('assets/images/iconshover/topictesthover.svg') }}" alt="Topic Test">
                                 </span>
                                 <span class="active-icon">
                                     <img src="{{ asset('assets/images/icons/topictest.svg') }}" alt="Topic Test Active">
                                 </span>
-                                <span class="menutext">
-                                Topic Test
-                                </span>
+                                <span class="menutext">Topic Test</span>
                             </a>
                         </li>
-                        <li class="side-item {{ request()->is('admin/exam*') ? 'active' : '' }}">
-                            <a href="{{ route('admin.exam.index') }}">
+                        <li class="side-item {{ request()->is('full-mock-exam') ? 'active' : '' }}">
+                            <a href="{{ route('full-mock-exam.index') }}">
                                 <span class="side-icon">
                                     <img src="{{ asset('assets/images/iconshover/mockexamhover.svg') }}" alt="Full Mock Exam">
                                 </span>
                                 <span class="active-icon">
                                     <img src="{{ asset('assets/images/icons/mockexam.svg') }}" alt="Full Mock Exam Active">
                                 </span>
-                                <span class="menutext">
-                                Full Mock Exam
-                                </span>
+                                <span class="menutext">Full Mock Exam</span>
                             </a>
                         </li>
                     </ul>
                 </li>
-                
-                
                 
 
                 <li class="side-item {{request()->is('live-class*') ? 'active':''}}">
@@ -592,17 +585,36 @@ $(document).ready(function() {
 });
 
 
+
     </script>
 
 <script>
-    function showLockedModal() {
-        document.getElementById('lockedModal1').style.display = 'block';
-    }
+    $(document).ready(function() {
+        // Handle dropdown open/close behavior when clicking the parent "Exam Simulator"
+        $('.side-dropdown-toggle').on('click', function() {
+            var $dropdownMenu = $(this).siblings('.side-dropdown-menu');
+            var isVisible = $dropdownMenu.is(':visible');
+            
+            // Close all other open dropdowns
+            $('.side-dropdown-menu').slideUp();
+            
+            // Toggle the clicked dropdown's visibility
+            if (!isVisible) {
+                $dropdownMenu.slideDown();
+            } else {
+                $dropdownMenu.slideUp();
+            }
+        });
     
-    function closeLockedModal1() {
-        
-        $('#lockedModal1').modal('hide');
-    }
+        // Ensure active item dropdowns are displayed on page load
+        $('.side-dropdown-menu').each(function() {
+            if ($(this).find('.side-item.active').length) {
+                $(this).css('display', 'block');
+            } else {
+                $(this).css('display', 'none');
+            }
+        });
+    });
     </script>
 
 <script>
