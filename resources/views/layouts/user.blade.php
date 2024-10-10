@@ -347,7 +347,7 @@
 
 
 <!-- Locked Content Modal -->
-<div id="lockedModal" class="modal" tabindex="-1" role="dialog">
+<div id="lockedModal1" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -550,12 +550,12 @@ $(document).ready(function() {
 
 <script>
     function showLockedModal() {
-        document.getElementById('lockedModal').style.display = 'block';
+        document.getElementById('lockedModal1').style.display = 'block';
     }
     
     function closeLockedModal() {
         
-        $('#lockedModal').modal('hide');
+        $('#lockedModal1').modal('hide');
     }
     </script>
 
