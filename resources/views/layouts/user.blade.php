@@ -176,37 +176,43 @@
                 </li> --}}
 
 
-                <li class="side-item side-dropdown {{ request()->is('topic-test') || request()->is('full-mock-exam') ? '' : '' }}">
-                    <a class="side-dropdown-toggle" href="javascript:void(0)">
+                <li class="side-item side-dropdown">
+                    <a class="side-dropdown-toggle {{ request()->is('admin/topic-test*') || request()->is('admin/exam*') ? 'active' : '' }}">
                         <span class="side-icon">
                             <img src="{{ asset('assets/images/iconshover/examsimulator.svg') }}" alt="Exam Simulator">
                         </span>
                         <span class="active-icon">
                             <img src="{{ asset('assets/images/icons/examsimulator.svg') }}" alt="Exam Simulator">
                         </span>
-                        <span class="menutext">Exam Simulator</span>
+                        <span class="menutext">
+                        Exam Simulator
+                        </span>
                     </a>
-                    <ul class="side-dropdown-menu">
-                        <li class="side-item {{ request()->is('topic-test') ? 'active' : '' }}">
-                            <a href="{{ route('topic-test.index') }}">
+                    <ul class="side-dropdown-menu" style="{{ !(request()->is('admin/topic-test*') || request()->is('admin/exam*')) ? 'display: none;' : '' }}">
+                        <li class="side-item {{ request()->is('admin/topic-test*') ? 'active' : '' }}">
+                            <a href="{{ route('admin.topic-test.index') }}">
                                 <span class="side-icon">
                                     <img src="{{ asset('assets/images/iconshover/topictesthover.svg') }}" alt="Topic Test">
                                 </span>
                                 <span class="active-icon">
                                     <img src="{{ asset('assets/images/icons/topictest.svg') }}" alt="Topic Test Active">
                                 </span>
-                                <span class="menutext">Topic Test</span>
+                                <span class="menutext">
+                                Topic Test
+                                </span>
                             </a>
                         </li>
-                        <li class="side-item {{ request()->is('full-mock-exam') ? 'active' : '' }}">
-                            <a href="{{ route('full-mock-exam.index') }}">
+                        <li class="side-item {{ request()->is('admin/exam*') ? 'active' : '' }}">
+                            <a href="{{ route('admin.exam.index') }}">
                                 <span class="side-icon">
                                     <img src="{{ asset('assets/images/iconshover/mockexamhover.svg') }}" alt="Full Mock Exam">
                                 </span>
                                 <span class="active-icon">
                                     <img src="{{ asset('assets/images/icons/mockexam.svg') }}" alt="Full Mock Exam Active">
                                 </span>
-                                <span class="menutext">Full Mock Exam</span>
+                                <span class="menutext">
+                                Full Mock Exam
+                                </span>
                             </a>
                         </li>
                     </ul>
@@ -575,34 +581,13 @@ if (!allowedTypes.includes(file.type)) {
     <script>
 
 $(document).ready(function() {
-    // Check if any dropdown contains an active item on page load
+    // Loop through each .side-dropdown-menu to check if it has an active item
     $('.side-dropdown-menu').each(function() {
         if ($(this).find('.side-item.active').length) {
-            $(this).css('display', 'block');  // Keep open only the dropdown with the active item
+            $(this).css('display', 'block'); // Show only this dropdown menu if it has an active item
         } else {
-            $(this).css('display', 'none');   // Hide others
+            $(this).css('display', 'none');  // Hide other dropdown menus
         }
-    });
-
-    // Toggle the dropdown on clicking the Exam Simulator link
-    $('.side-dropdown-toggle').on('click', function(e) {
-        e.preventDefault();
-        var dropdownMenu = $(this).next('.side-dropdown-menu');
-        
-        // Close the dropdown if we're on a specific page (topic-test or full-mock-exam)
-        if (window.location.pathname === '/topic-test' || window.location.pathname === '/full-mock-exam') {
-            // Collapse the dropdown if in topic-test or full-mock-exam
-            dropdownMenu.slideUp();
-        } else {
-            // Otherwise, toggle the clicked dropdown and close others
-            $('.side-dropdown-menu').not(dropdownMenu).slideUp();
-            dropdownMenu.slideToggle();
-        }
-    });
-
-    // Collapse the dropdown when navigating away from the current page
-    $('.side-item a').on('click', function() {
-        $('.side-dropdown-menu').slideUp();
     });
 });
 
