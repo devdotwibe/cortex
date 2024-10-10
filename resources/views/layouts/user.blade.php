@@ -555,7 +555,7 @@ $(document).ready(function() {
 
        
 
-      
+        $(document).ready(function() {
             // Loop through each .side-dropdown-menu to check if it has an active item
             $('.side-dropdown-menu').each(function() {
                 if ($(this).find('.side-item.active').length) {
@@ -564,7 +564,7 @@ $(document).ready(function() {
                     $(this).css('display', 'none');  // Hide other dropdown menus
                 }
             });
-       
+        });
         
                 
                 
