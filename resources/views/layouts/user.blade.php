@@ -555,7 +555,7 @@ $(document).ready(function() {
     
     function closeLockedModal() {
         
-        $('lockedModal').modal('hide');
+        $('#lockedModal').modal('hide');
     }
     </script>
 
