@@ -29,7 +29,7 @@ dd($timetables);
             'starttime' => 'required',
             'endtime' => 'required',
             'day' => 'required',
-            'count' => 'required|integer|min:1',
+            'count' => 'nullable',
             'starttime_am_pm' => 'required', // Validate AM/PM for start time
             'endtime_am_pm' => 'required',   // Validate AM/PM for end time
         ]);
