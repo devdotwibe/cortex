@@ -11,6 +11,7 @@ use App\Models\LiveClassPage;
 use App\Models\PrivateClass;
 use App\Models\TermAccess;
 use App\Models\User;
+use App\Models\Timetable;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -23,8 +24,8 @@ class LiveClassController extends Controller
     {
 
         $live_class =  LiveClassPage::first();
-
-        return view('admin.live-class.index',compact('live_class'));
+        $timetables = Timetable::all();
+        return view('admin.live-class.index',compact('live_class','timetables'));
     }
 
     public function store(Request $request)

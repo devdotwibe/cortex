@@ -340,51 +340,86 @@
                             ]" />
                         </div>
 
+
                         <div class="modal-col1">
-                            <form action="">
+                            <form action="{{ route('admin.timetable.store') }}" method="POST">
+                                @csrf
                                 <div class="form-row">
+                                    <!-- Day Picker -->
                                     <div class="text-field">
-                                        <input type="text" name="" id="" >
-                                        <button class="add-btn">+ Add</button>
+                                        <label for="day">Select Day:</label>
+                                        <select name="day" id="day" class="form-control">
+                                            <option value="Monday">Monday</option>
+                                            <option value="Tuesday">Tuesday</option>
+                                            <option value="Wednesday">Wednesday</option>
+                                            <option value="Thursday">Thursday</option>
+                                            <option value="Friday">Friday</option>
+                                            <option value="Saturday">Saturday</option>
+                                            <option value="Sunday">Sunday</option>
+                                        </select>
                                     </div>
-                                    <div class="text-field-preview">
-                                        <p>SAT <span>(9:30 - 11:30 AM)</span></p>
-                                        <div class="user-icons">
-                                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
-                                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                                            </span>
-                                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
-                                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                                            </span>
-                                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
-                                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                                            </span>
-                                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
-                                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                                            </span>
-                                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
-                                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                                            </span>
-                                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
-                                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                                            </span>
-                                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
-                                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                                            </span>
-                                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
-                                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                                            </span>
-                                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
-                                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                                            </span>
-                                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
-                                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                                            </span>
-                                        </div>
-                                    </div>                                    
+                        
+                                  
+    
+                                   <div class="text-field">
+                                    <label for="starttime">Start Time:</label>
+                                    <input type="text" 
+                                           name="starttime" 
+                                           id="starttime" 
+                                           class="form-control" 
+                                           placeholder="HH : MM" 
+                                           data-mask="^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$" 
+                                           required>
+                                           <select name="starttime_am_pm" id="starttime_am_pm" class="form-control" required>
+                                            <option value="AM">AM</option>
+                                            <option value="PM">PM</option>
+                                        </select>
+                                </div>
+                                
+
+    <!-- End Time Picker -->
+    <div class="text-field">
+        <label for="endtime">End Time:</label>
+        <input type="text" 
+               name="endtime" 
+               id="endtime" 
+               class="form-control" 
+               placeholder="HH : MM" 
+               data-mask="^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$" 
+               required>
+               <select name="endtime_am_pm" id="endtime_am_pm" class="form-control" required>
+                <option value="AM">AM</option>
+                <option value="PM">PM</option>
+            </select>
+    </div>           
+                                    <!-- Count Input -->
+                                    <div class="text-field">
+                                        <label for="count">Number of Users:</label>
+                                        <input type="number" name="count" id="count" class="form-control" min="1" required>
+                                    </div>
+                        
+                                    <button class="add-btn" type="submit">+ Add</button>
                                 </div>
                             </form>
                         </div>
+
+                        
+
+                        <div class="text-field-preview">
+                            @foreach ($timetables as $timetable)
+                                <p>{{ $timetable->day }} <span>({{ $timetable->starttime }} - {{ $timetable->endtime }})</span></p>
+                                <div class="user-icons">
+                                    @for ($i = 1; $i <= $timetable->count; $i++)
+                                        <span class="user-icon">
+                                            <img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                            <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                                        </span>
+                                    @endfor
+                                </div>
+                            @endforeach
+                        </div>
+                        
+                        
                     </div>
 
                 </div>
@@ -529,4 +564,12 @@
 
         });
     </script>
+
+<script>
+    $(document).ready(function(){
+        $("#starttime").inputmask("99 : 99", { placeholder: "HH : MM" });
+        $("#endtime").inputmask("99 : 99", { placeholder: "HH : MM" });
+    });
+    </script>
+    
 @endpush

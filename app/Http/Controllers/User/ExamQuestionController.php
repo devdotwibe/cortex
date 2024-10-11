@@ -337,8 +337,15 @@ class ExamQuestionController extends Controller
         return DataTables::of(UserExamReview::where('user_id',$user->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->where('exam_id',$exam->id)->select('slug','created_at','progress'))
             ->addColumn('progress',function($data){
 
-                $numberformat=number_format($data->progress,2);
-                return $numberformat."%";
+                // $numberformat=number_format($data->progress,2);
+                // return $numberformat."%";
+
+                if ($data->progress == 100) {
+                    return "100%"; // Return without decimals
+                } else {
+                    $numberformat = number_format($data->progress, 2);
+                    return $numberformat . "%";
+                }
             })
             ->addColumn('timed',function($data)use($user){
                 return ucfirst($user->progress("exam-review-".(optional(UserExamReview::findSlug($data->slug))->id??"")."-timed"));
