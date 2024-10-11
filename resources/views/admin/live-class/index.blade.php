@@ -519,44 +519,26 @@
 
 <script>
 
-
-
 $(function() {
-
-$('.user-icon').click(function() {
-
-    var index = $(this).data('index');
-
-   $('#client_rating').val(index);
-
-    $('.user-icon').each(function(i) {
-
-        if (i < index) {
-            $(this).hide();
-            $('.active-icon').eq(i).show();
-        } else {
-
-            $(this).show();
-            $('.active-icon').eq(i).hide();
-        }
-    });
-});
-
-$('.active-icon').click(function() {
-
+    $('.user-icon').click(function() {
         var index = $(this).data('index');
-
         $('#client_rating').val(index);
 
+        // Show active icons for the clicked index and hide others
         $('.active-icon').each(function(i) {
-
             if (i < index) {
-                $(this).show();
-                $('.user-icon').eq(i).hide();
+                $(this).show(); // Show active icons for the selected index
             } else {
+                $(this).hide(); // Hide active icons for indices greater than the selected index
+            }
+        });
 
-                $(this).hide();
-                $('.user-icon').eq(i).show();
+        // Hide the user icons corresponding to the active ones displayed
+        $('.user-icon').each(function(i) {
+            if (i < index) {
+                $(this).hide(); // Hide user icons for the selected index
+            } else {
+                $(this).show(); // Show user icons for indices greater than the selected index
             }
         });
     });
