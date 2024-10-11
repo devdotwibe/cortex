@@ -400,36 +400,36 @@
                                     </div>
 
                                     <div class="user-icons">
-                                        <span class="user-icon" id="grey1" data-index="1"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                        <span class="user-icon" id="grey1" data-index="1"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""> </span>
                                             <span class="active-icon" id="star1" data-index="1" style="display:none;"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                                        </span>
-                                        <span class="user-icon" id="grey2" data-index="2"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                       
+                                        <span class="user-icon" id="grey2" data-index="2"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""> </span>
                                             <span class="active-icon" id="star2" data-index="2" style="display:none;"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                                        </span>
-                                        <span class="user-icon" id="grey3" data-index="3"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                        
+                                        <span class="user-icon" id="grey3" data-index="3"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""> </span>
                                             <span class="active-icon" id="star3" data-index="3" style="display:none;"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                                        </span>
-                                        <span class="user-icon" id="grey4" data-index="4"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                       
+                                        <span class="user-icon" id="grey4" data-index="4"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""> </span>
                                             <span class="active-icon" id="star4" data-index="4" style="display:none;"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                                        </span>
-                                        <span class="user-icon" id="grey5" data-index="5"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                        
+                                        <span class="user-icon" id="grey5" data-index="5"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""> </span>
                                             <span class="active-icon" id="star5" data-index="5" style="display:none;"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                                        </span>
-                                        <span class="user-icon" id="grey6" data-index="6"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                       
+                                        <span class="user-icon" id="grey6" data-index="6"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""> </span>
                                             <span class="active-icon" id="star6" data-index="6" style="display:none;"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                                        </span>
-                                        <span class="user-icon" id="grey7" data-index="7"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                       
+                                        <span class="user-icon" id="grey7" data-index="7"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""> </span>
                                             <span class="active-icon" id="star7" data-index="7" style="display:none;"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                                        </span>
-                                        <span class="user-icon" id="grey8" data-index="8"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                        
+                                        <span class="user-icon" id="grey8" data-index="8"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""> </span>
                                             <span class="active-icon" id="star8" data-index="8" style="display:none;"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                                        </span>
-                                        <span class="user-icon" id="grey9" data-index="9"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                        
+                                        <span class="user-icon" id="grey9" data-index="9"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""> </span>
                                             <span class="active-icon" id="star9" data-index="9" style="display:none;"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                                        </span>
-                                        <span class="user-icon" id="grey10" data-index="10"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                        
+                                        <span class="user-icon" id="grey10" data-index="10"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""> </span>
                                             <span class="active-icon" id="star10" data-index="10" style="display:none;"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                                        </span>
+                                        
                                     </div>
                                     <div class="error text-danger" data-review="client_rating"></div>
                         
