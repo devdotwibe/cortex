@@ -21,7 +21,7 @@
                                                 <span id="time-taken">{{$attemttime}}</span>
                                             </div> 
                                             <div class="mark-label">
-                                                <span>Retry Number :</span>
+                                                <span>Retry of Attempt :</span>
                                                 <span>#{{$attemtcount}}</span>
                                             </div> 
                                             <div class="mark-label">
