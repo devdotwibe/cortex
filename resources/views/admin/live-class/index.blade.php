@@ -458,6 +458,21 @@
 
 @push('footer-script')
     <script>
+
+$(document).ready(function(){
+        $('.timepicker').timepicker({
+    timeFormat: 'h:mm p',
+    interval: 1,
+    minTime: '10',
+    maxTime: '6:00pm',
+    defaultTime: '11',
+    startTime: '10:00',
+    dynamic: true,
+    dropdown: true,
+    scrollbar: true
+});
+
+        });
         $(document).ready(function() {
 
             @error('intensive_class')
@@ -559,20 +574,7 @@
 
         });
 
-        $(document).ready(function(){
-        $('.timepicker').timepicker({
-    timeFormat: 'h:mm p',
-    interval: 1,
-    minTime: '10',
-    maxTime: '6:00pm',
-    defaultTime: '11',
-    startTime: '10:00',
-    dynamic: true,
-    dropdown: true,
-    scrollbar: true
-});
-
-        });
+    
     </script>
 
 
