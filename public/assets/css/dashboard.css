@@ -2701,7 +2701,7 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .post-section .post-row .post-container1 .post-col1 .hashtag-wrapp .list-group { width: 100%;}
 .post-section .post-row .post-container1 .post-col1 .hashtag-wrapp .list-group li.list-group-item { border: none; padding: 0; margin: 0 0 15px;}
 .post-section .post-row .post-container1 .post-col1 .hashtag-wrapp .list-group li.list-group-item a { padding: 10px; display: block; color: #000; background: #FFEAC2; border-radius: 10px; word-break: break-all;}
-.post-section .post-row .post-container { width: 50%; padding: 25px; background: #ffff; border-radius: 10px;}
+.post-section .post-row .post-container { width: 40%; padding: 25px; background: #ffff; border-radius: 10px;}
 .post-section .post-row .post-container .post-item { padding: 0; margin: 0 0 40px; border: none;}
 .post-section .post-row .post-container .post-item .post-header { margin: 0 0 22px;}
 .post-section .post-row .post-container .post-item .post-header .title { flex: 1 0 0;}
@@ -2713,6 +2713,11 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .post-section .post-row .post-container .post-item .post-image { width: 100%; margin: 0 0 20px; text-align: center;}
 .post-section .post-row .post-container .post-item .post-image img {  width: auto;}
 .post-section .post-row .post-container .post-item .post-actions .post-action-btn {padding: 0; margin: 0 10px  0 0;}
+.post-search { width: 28%; margin: 0 0 0 2%; background: #fff; padding: 10px 15px; border-radius: 10px; height: 100%;}
+.post-search .text-field { width: 100%; position: relative;}
+.post-search .text-field input { width: 100%; height: 45px; color: #838383; font-size: 18px; padding-right: 35px;}
+.post-search .text-field input::placeholder { color: #838383;}
+.post-search .text-field .search-btn { background: none; border: none; width: 30px; position: absolute; right: 0; top: 50%; transform: translateY(-50%);}
 
 .exam-container .summery-wrap .summery-title {width: 100%; font-size: 20px; font-weight: 600;display: flex; margin: 0 0 20px;}
 
