@@ -365,15 +365,15 @@
                                     <label for="starttime">Start Time:</label>
                                     <input type="text" 
                                            name="starttime" 
-                                           id="" 
+                                          
                                            class="form-control timepicker" 
-                                           placeholder="" 
                                          
-                                           readonly>
+                                         
+                                           >
                                          
                                 </div>
 
-    <!-- End Time Picker -->
+    {{-- <!-- End Time Picker -->
     <div class="text-field">
         <label for="endtime">End Time:</label>
         <input type="text" 
@@ -387,7 +387,7 @@
                 <option value="AM">AM</option>
                 <option value="PM">PM</option>
             </select>
-    </div>           
+    </div>            --}}
                                     <!-- Count Input -->
                                     <div class="text-field">
                                         <label for="count">Number of Users:</label>
