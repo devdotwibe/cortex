@@ -2713,6 +2713,8 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .post-section .post-row .post-container .post-item .post-image img {  width: auto;}
 .post-section .post-row .post-container .post-item .post-actions .post-action-btn {padding: 0; margin: 0 10px  0 0;}
 
+.exam-container .summery-wrap .summery-title {width: 100%; font-size: 20px; font-weight: 600;display: flex; margin: 0 0 20px;}
+
 
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
