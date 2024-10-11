@@ -409,7 +409,7 @@
                                         <span class="user-icon" id="grey3" data-index="3"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
                                             <span class="active-icon" id="star3" data-index="3" style="display:none;"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
                                         </span>
-                                        <span class="user-icon" id="grey4" data-index="4><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                        <span class="user-icon" id="grey4" data-index="4"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
                                             <span class="active-icon" id="star4" data-index="4" style="display:none;"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
                                         </span>
                                         <span class="user-icon" id="grey5" data-index="5"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
