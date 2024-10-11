@@ -98,17 +98,17 @@ class CommunityController extends Controller
     public function index(Request $request)
     {
 
-        /**
-         *  @var User
-         */
-        $user = Auth::user();
-        $hashtags = Hashtag::where('user_id', $user->id)->groupBy('hashtag')->pluck('hashtag');
+        $hashtags = Hashtag::groupBy('hashtag')->pluck('hashtag');
 
 
         $hashtag = $request->input('hashtag');
 
 
 
+        /**
+         *  @var User
+         */
+        $user = Auth::user();
 
         if ($request->ajax()) {
             $post = Post::where('id', '>', 0);
