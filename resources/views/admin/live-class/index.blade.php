@@ -366,16 +366,7 @@
                                     </div> --}}
 
                                    <!-- Time Of Exam Input -->
-    <div class="text-field">
-        <label for="time_of_exam">Time Of Exam:</label>
-        <input type="text" 
-               name="time_of_exam" 
-               id="time_of_exam" 
-               class="form-control" 
-               placeholder="Time Of Exam (HH : MM)" 
-               required>
-    </div>
-
+    
     <!-- Start Time Input -->
     <div class="text-field">
         <label for="starttime">Start Time:</label>
