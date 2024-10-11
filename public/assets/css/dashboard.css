@@ -2716,6 +2716,17 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 
 .exam-container .summery-wrap .summery-title {width: 100%; font-size: 20px; font-weight: 600;display: flex; margin: 0 0 20px;}
 
+.invite-wrap .table-outer {padding: 0; box-shadow: none;overflow-x: auto;}
+.invite-wrap .table-outer table thead tr th { background: #1989F8;}
+.invite-wrap .table-outer table .form-check {padding: 0; min-height: inherit; margin: 5px 0 0;}
+.invite-wrap .table-outer table .form-check input.form-check-box { border: 1.5px solid #FBAE1E; border-radius: 2px; width: 17px; height: 17px;}
+.invite-wrap .table-outer table {min-width: 700px;}
+.invite-wrap .table-outer table .form-check input.form-check-input {margin: 2px 10px 0 0;}
+.invite-wrap .table-outer table thead tr th:first-child { border-radius: 10px 0 0 0;}
+.invite-wrap .table-outer table thead tr th:last-child { border-radius: 0 10px 0 0;}
+.invite-wrap .table-outer table  tbody tr { border: none;}
+.invite-wrap .table-outer table tbody tr td { padding: 15px 12px;}
+.invite-wrap .table-outer table .form-check input.form-check-box:checked { background: url(../images/check-solid.svg) center; background-repeat: no-repeat; background-size: contain;}
 
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
