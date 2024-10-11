@@ -39,8 +39,10 @@ dd($timetables);
     
         // Create a new Timetable entry in the database
         Timetable::create([
-            'starttime' => $request->starttime . ' ' . $request->starttime_am_pm,
-            'endtime' => $request->endtime . ' ' . $request->endtime_am_pm,
+            'starttime' => $request->starttime,
+            'endtime' => $request->endtime,
+            'starttime_am_pm' =>$request->starttime_am_pm,
+            'endtime_am_pm' =>$request->endtime_am_pm,
             'day' => $request->day,
             'classtime' => $classtime,
             'count' => $request->count,
