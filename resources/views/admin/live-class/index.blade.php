@@ -365,11 +365,11 @@
                                     <label for="starttime">Start Time:</label>
                                     <input type="text" 
                                            name="starttime" 
-                                           id="starttime" 
+                                           id="" 
                                            class="form-control timepicker" 
-                                           placeholder="HH : MM" 
+                                           placeholder="" 
                                          
-                                           required>
+                                           readonly>
                                          
                                 </div>
 
