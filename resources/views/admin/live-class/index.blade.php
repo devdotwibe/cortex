@@ -399,79 +399,38 @@
                                         <input type="hidden" name="count" id="client_rating"> 
                                     </div>
 
-                                   <!-- User Icons -->
-            <div class="user-icons">
-                <span class="user-icon" id="grey1" data-index="1">
-                    <img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
-                </span>
-                <span class="active-icon" id="star1" data-index="1" style="display:none;">
-                    <img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt="">
-                </span>
-
-                <span class="user-icon" id="grey2" data-index="2">
-                    <img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
-                </span>
-                <span class="active-icon" id="star2" data-index="2" style="display:none;">
-                    <img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt="">
-                </span>
-
-                <span class="user-icon" id="grey3" data-index="3">
-                    <img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
-                </span>
-                <span class="active-icon" id="star3" data-index="3" style="display:none;">
-                    <img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt="">
-                </span>
-
-                <span class="user-icon" id="grey4" data-index="4">
-                    <img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
-                </span>
-                <span class="active-icon" id="star4" data-index="4" style="display:none;">
-                    <img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt="">
-                </span>
-
-                <span class="user-icon" id="grey5" data-index="5">
-                    <img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
-                </span>
-                <span class="active-icon" id="star5" data-index="5" style="display:none;">
-                    <img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt="">
-                </span>
-
-                <span class="user-icon" id="grey6" data-index="6">
-                    <img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
-                </span>
-                <span class="active-icon" id="star6" data-index="6" style="display:none;">
-                    <img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt="">
-                </span>
-
-                <span class="user-icon" id="grey7" data-index="7">
-                    <img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
-                </span>
-                <span class="active-icon" id="star7" data-index="7" style="display:none;">
-                    <img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt="">
-                </span>
-
-                <span class="user-icon" id="grey8" data-index="8">
-                    <img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
-                </span>
-                <span class="active-icon" id="star8" data-index="8" style="display:none;">
-                    <img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt="">
-                </span>
-
-                <span class="user-icon" id="grey9" data-index="9">
-                    <img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
-                </span>
-                <span class="active-icon" id="star9" data-index="9" style="display:none;">
-                    <img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt="">
-                </span>
-
-                <span class="user-icon" id="grey10" data-index="10">
-                    <img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
-                </span>
-                <span class="active-icon" id="star10" data-index="10" style="display:none;">
-                    <img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt="">
-                </span>
-            </div>
-
+                                    <div class="user-icons">
+                                        <span class="user-icon" id="grey1" data-index="1"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""> </span>
+                                            <span class="active-icon" id="star1" data-index="1" style="display:none;"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                                       
+                                        <span class="user-icon" id="grey2" data-index="2"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""> </span>
+                                            <span class="active-icon" id="star2" data-index="2" style="display:none;"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                                        
+                                        <span class="user-icon" id="grey3" data-index="3"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""> </span>
+                                            <span class="active-icon" id="star3" data-index="3" style="display:none;"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                                       
+                                        <span class="user-icon" id="grey4" data-index="4"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""> </span>
+                                            <span class="active-icon" id="star4" data-index="4" style="display:none;"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                                        
+                                        <span class="user-icon" id="grey5" data-index="5"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""> </span>
+                                            <span class="active-icon" id="star5" data-index="5" style="display:none;"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                                       
+                                        <span class="user-icon" id="grey6" data-index="6"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""> </span>
+                                            <span class="active-icon" id="star6" data-index="6" style="display:none;"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                                       
+                                        <span class="user-icon" id="grey7" data-index="7"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""> </span>
+                                            <span class="active-icon" id="star7" data-index="7" style="display:none;"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                                        
+                                        <span class="user-icon" id="grey8" data-index="8"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""> </span>
+                                            <span class="active-icon" id="star8" data-index="8" style="display:none;"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                                        
+                                        <span class="user-icon" id="grey9" data-index="9"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""> </span>
+                                            <span class="active-icon" id="star9" data-index="9" style="display:none;"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                                        
+                                        <span class="user-icon" id="grey10" data-index="10"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""> </span>
+                                            <span class="active-icon" id="star10" data-index="10" style="display:none;"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                                        
+                                    </div>
                                     <div class="error text-danger" data-review="client_rating"></div>
                         
                                     <button class="add-btn" type="submit">+ Add</button>
@@ -560,43 +519,56 @@
 
 <script>
 
+
+
+<script>
 $(function() {
+    // Function to handle user icon clicks
     $('.user-icon').click(function() {
+        // Get the index of the clicked icon
         var index = $(this).data('index');
-
-        // Update the hidden input value to the selected index
+        
+        // Set the value of the hidden input to the clicked index
         $('#client_rating').val(index);
-
-        // Show active icons up to the selected index and hide others
+        
+        // Loop through all user icons
         $('.user-icon, .active-icon').each(function(i) {
             if (i < index) {
+                // Show the solid icon for all icons less than the clicked index
                 $(this).hide(); // Hide regular icon
                 $('.active-icon').eq(i).show(); // Show solid icon
             } else {
+                // Show the regular icon for all icons equal or greater than the clicked index
                 $(this).show(); // Show regular icon
                 $('.active-icon').eq(i).hide(); // Hide solid icon
             }
         });
     });
-
+    
+    // Optional: Handle clicks on active icons to toggle them off
     $('.active-icon').click(function() {
         var index = $(this).data('index');
-
-        // Update the hidden input value to the selected index
         $('#client_rating').val(index);
-
-        // Show active icons up to the selected index and hide others
-        $('.active-icon, .user-icon').each(function(i) {
-            if (i < index) {
-                $(this).show(); // Show solid icon
-                $('.user-icon').eq(i).hide(); // Hide regular icon
-            } else {
-                $(this).hide(); // Hide solid icon
-                $('.user-icon').eq(i).show(); // Show regular icon
+        
+        // Hide solid icon and show the regular icon at the clicked index
+        $(this).hide();
+        $('.user-icon').eq(index).show();
+        
+        // Update the count value
+        var currentCount = parseInt($('#client_rating').val());
+        $('#client_rating').val(currentCount - 1);
+        
+        // Reset the active icons based on the current count
+        $('.active-icon').each(function(i) {
+            if (i >= index) {
+                $(this).hide();
+                $('.user-icon').eq(i).show();
             }
         });
     });
 });
+</script>
+
 
 
 </script>
