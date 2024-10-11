@@ -366,14 +366,11 @@
                                     <input type="text" 
                                            name="starttime" 
                                            id="starttime" 
-                                           class="form-control" 
+                                           class="form-control timepicker" 
                                            placeholder="HH : MM" 
-                                           data-mask="^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$" 
+                                         
                                            required>
-                                           <select name="starttime_ampm" id="starttime_ampm" class="form-control" required>
-                                            <option value="AM">AM</option>
-                                            <option value="PM">PM</option>
-                                        </select>
+                                         
                                 </div>
 
     <!-- End Time Picker -->
@@ -561,13 +558,23 @@
             });
 
         });
+
+        $(document).ready(function(){
+        $('.timepicker').timepicker({
+    timeFormat: 'h:mm p',
+    interval: 1,
+    minTime: '10',
+    maxTime: '6:00pm',
+    defaultTime: '11',
+    startTime: '10:00',
+    dynamic: true,
+    dropdown: true,
+    scrollbar: true
+});
+
+        });
     </script>
 
-<script>
-    $(document).ready(function(){
-        $("#starttime").inputmask("99 : 99", { placeholder: "HH : MM" });
-        $("#endtime").inputmask("99 : 99", { placeholder: "HH : MM" });
-    });
-    </script>
+
     
 @endpush
