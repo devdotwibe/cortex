@@ -405,7 +405,7 @@
 
                         
 
-                        <div class="text-field-preview">
+                        {{-- <div class="text-field-preview">
                             @foreach ($timetables as $timetable)
                             <p>{{ $timetable->day }} 
                                 <span>({{ $timetable->starttime }} {{ $timetable->starttime_am_pm }} - {{ $timetable->endtime }} {{ $timetable->endtime_am_pm }})</span>
@@ -420,8 +420,39 @@
                                     @endfor
                                 </div>
                             @endforeach
+                        </div> --}}
+                        <div class="user-icons">
+                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                            </span>
+                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                            </span>
+                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                            </span>
+                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                            </span>
+                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                            </span>
+                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                            </span>
+                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                            </span>
+                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                            </span>
+                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                            </span>
+                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                            </span>
                         </div>
-                        
                         
                     </div>
 
