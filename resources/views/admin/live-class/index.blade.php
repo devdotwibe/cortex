@@ -515,53 +515,63 @@
 @endpush
 
 @push('footer-script')
-
-
 <script>
-
-
-
+    
 $(function() {
-
-$('.user-icon').click(function() {
-
-    var index = $(this).data('index');
-
-   $('#client_rating').val(index);
-
-    $('.user-icon').each(function(i) {
-
-        if (i < index) {
-            $(this).hide();
-            $('.active-icon').eq(i).show();
-        } else {
-
-            $(this).show();
-            $('.active-icon').eq(i).hide();
-        }
-    });
-});
-
-$('.active-icon').click(function() {
-
+    $('.user-icon').click(function() {
         var index = $(this).data('index');
 
+        // Set the count input with the clicked index value
         $('#client_rating').val(index);
 
-        $('.active-icon').each(function(i) {
-
+        // Loop through the user icons to toggle classes based on the clicked index
+        $('.user-icon, .active-icon').each(function(i) {
             if (i < index) {
-                $(this).show();
-                $('.user-icon').eq(i).hide();
+                $(this).hide(); // Hide the inactive user icons
+                $('.active-icon').eq(i).show(); // Show the corresponding active icons
             } else {
+                $(this).show(); // Show the remaining user icons
+                $('.active-icon').eq(i).hide(); // Hide the corresponding active icons
+            }
+        });
 
-                $(this).hide();
-                $('.user-icon').eq(i).show();
+        // Change class to active for the first 'index' images
+        $('.user-icon').each(function(i) {
+            if (i < index) {
+                $(this).addClass('active'); // Add active class
+            } else {
+                $(this).removeClass('active'); // Remove active class
+            }
+        });
+    });
+
+    $('.active-icon').click(function() {
+        var index = $(this).data('index');
+
+        // Set the count input with the clicked index value
+        $('#client_rating').val(index);
+
+        // Loop through the active icons to toggle classes based on the clicked index
+        $('.active-icon, .user-icon').each(function(i) {
+            if (i < index) {
+                $(this).show(); // Show the active icons
+                $('.user-icon').eq(i).hide(); // Hide the corresponding user icons
+            } else {
+                $(this).hide(); // Hide the remaining active icons
+                $('.user-icon').eq(i).show(); // Show the remaining user icons
+            }
+        });
+
+        // Change class to active for the first 'index' images
+        $('.user-icon').each(function(i) {
+            if (i < index) {
+                $(this).addClass('active'); // Add active class
+            } else {
+                $(this).removeClass('active'); // Remove active class
             }
         });
     });
 });
-
 
 
 </script>
