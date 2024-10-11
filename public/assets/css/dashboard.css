@@ -946,8 +946,8 @@ border-radius: 7px;
   aspect-ratio: 1 / 1;
   overflow: hidden;
   box-sizing: border-box;
-  width:50px;
-  margin:5px;
+  width:60px;
+  margin:5px 10px;
   border:2px solid #f0f0f0;
   border-radius: 5px;
   background-color: #ffffff;
@@ -1007,6 +1007,7 @@ border-radius: 7px;
   width:max-content;
   padding: 0 10px;
   margin: auto;
+  max-width: 800px;
 }
 .question-tab .nav-link{
   color: #212121;
@@ -1023,6 +1024,12 @@ border-radius: 7px;
 .question-tab .nav-item .nav-link.active {
   border-bottom:5px solid #1599f2;
 }
+
+.question-preview-body .tab-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
 .nav-status{
   width:40px;
   display: inline-flex;
