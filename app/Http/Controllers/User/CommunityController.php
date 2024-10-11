@@ -102,15 +102,12 @@ class CommunityController extends Controller
          *  @var User
          */
         $user = Auth::user();
-        $hashtags = Hashtag::where('user_id', $user->id)->groupBy('hashtag')->pluck('hashtag');
-
-
         $hashtag = $request->input('hashtag');
 
 
 
 
-        if ($request->ajax()) {
+        if ($request->ajax() && (!empty($request->ref)) ) {
             $post = Post::where('id', '>', 0);
             if (!empty($hashtag)) {
                 $post->whereIn('id', Hashtag::where('hashtag', 'like', "%$hashtag%")->select('post_id'));
@@ -169,6 +166,9 @@ class CommunityController extends Controller
                 'next' => $posts->nextPageUrl()
             ];
         }
+        $hashtags = Hashtag::whereIn('post_id', Post::where('user_id',$user->id)->select('id'))->groupBy('hashtag')->pluck('hashtag');
+
+
         return view('user.community.index', compact('user','hashtags'));
     }
     public function create(Request $request)
@@ -189,18 +189,19 @@ class CommunityController extends Controller
             $data = $request->validate([
                 'type' => ["required"],
                 // 'description' => ["required"],
-                'description' => ["required", function ($attribute, $value, $fail) {
+                'description' => ["required", 'string', "max:300", function ($attribute, $value, $fail) {
                     if (preg_match('/#/', $value)) {
                         $fail('Hashtags are not allowed in the description.');
                     }
                 }],
+                'hashtag' => ["nullable", 'string', 'max:500'],
                 'image' => ["nullable"],
             ]);
         } else {
 
             $data = $request->validate([
                 // 'description' => ["required"],
-                'description' => ["required", function ($attribute, $value, $fail) {
+                'description' => ["required", 'string', "max:300", function ($attribute, $value, $fail) {
                     if (preg_match('/#/', $value)) {
                         $fail('Hashtags are not allowed in the description.');
                     }
@@ -240,7 +241,7 @@ class CommunityController extends Controller
         //     Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
         // }
         // Split hashtags by commas or spaces   
-        $extractedHashtags = array_map('trim', explode(',', $request->input('hashtag','')));
+        $extractedHashtags = array_filter(array_map('trim', preg_split('/[,\s]+/', $request->input('hashtag', ''))));
         foreach ($extractedHashtags as $hashtag) {
             if (!empty($hashtag)) {
                 Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
@@ -536,18 +537,19 @@ class CommunityController extends Controller
             $data = $request->validate([
                 'type' => ["required"],
                 // 'description' => ["required"],
-                'description' => ["required", function ($attribute, $value, $fail) {
+                'description' => ["required", 'string', "max:300", function ($attribute, $value, $fail) {
                     if (preg_match('/#/', $value)) {
                         $fail('Hashtags are not allowed in the description.');
                     }
                 }],
+                'hashtag' => ["nullable", 'string', 'max:500'],
                 'image' => ["nullable"],
             ]);
         } else {
 
             $data = $request->validate([
                 // 'description' => ["required"],
-                'description' => ["required", function ($attribute, $value, $fail) {
+                'description' => ["required", 'string', "max:300", function ($attribute, $value, $fail) {
                     if (preg_match('/#/', $value)) {
                         $fail('Hashtags are not allowed in the description.');
                     }
@@ -598,7 +600,7 @@ class CommunityController extends Controller
         // Hashtag::where('post_id', $post->id)->whereNotIn('id', $hashIds)->delete();
 
         $hashIds=[];
-        $extractedHashtags = array_map('trim', explode(',', $request->input('hashtag','')));
+        $extractedHashtags = array_filter(array_map('trim', preg_split('/[,\s]+/', $request->input('hashtag', ''))));
         foreach ($extractedHashtags as $hashtag) {
             if (!empty($hashtag)) {
                 $hash=Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
