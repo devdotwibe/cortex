@@ -53,20 +53,5 @@ dd($timetables);
         // Redirect back with a success message
         return redirect()->back()->with('success', 'Timetable added successfully!');
     }
-
-
-    public function saveCount(Request $request)
-{
-    $timetable = Timetable::find($request->timetable_id);
-
-    if ($timetable) {
-        $timetable->count = $request->count;
-        $timetable->save();
-
-        return response()->json(['success' => true, 'message' => 'Count saved successfully!']);
-    }
-
-    return response()->json(['success' => false, 'message' => 'Timetable not found'], 404);
-}
-
+    
 }    

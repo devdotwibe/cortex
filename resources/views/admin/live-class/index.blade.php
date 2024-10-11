@@ -359,24 +359,40 @@
                                         </select>
                                     </div>
                         
-                                    <div class="text-field">
-                                        <label for="starttime">Start Time:</label>
-                                        <input type="text" name="starttime" id="starttime" class="form-control" placeholder="HH : MM" required>
-                                        <select name="starttime_am_pm" id="starttime_am_pm" class="form-control" required>
+                                  
+    
+                                   <div class="text-field">
+                                    <label for="starttime">Start Time:</label>
+                                    <input type="text" 
+                                           name="starttime" 
+                                           id="starttime" 
+                                           class="form-control" 
+                                           placeholder="HH : MM" 
+                                           data-mask="^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$" 
+                                           required>
+                                           <select name="starttime_am_pm" id="starttime_am_pm" class="form-control" required>
                                             <option value="AM">AM</option>
                                             <option value="PM">PM</option>
                                         </select>
-                                    </div>
-                        
-                                    <div class="text-field">
-                                        <label for="endtime">End Time:</label>
-                                        <input type="text" name="endtime" id="endtime" class="form-control" placeholder="HH : MM" required>
-                                        <select name="endtime_am_pm" id="endtime_am_pm" class="form-control" required>
-                                            <option value="AM">AM</option>
-                                            <option value="PM">PM</option>
-                                        </select>
-                                    </div>
-                        
+                                </div>
+                                
+
+    <!-- End Time Picker -->
+    <div class="text-field">
+        <label for="endtime">End Time:</label>
+        <input type="text" 
+               name="endtime" 
+               id="endtime" 
+               class="form-control" 
+               placeholder="HH : MM" 
+               data-mask="^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$" 
+               required>
+               <select name="endtime_am_pm" id="endtime_am_pm" class="form-control" required>
+                <option value="AM">AM</option>
+                <option value="PM">PM</option>
+            </select>
+    </div>           
+                                    <!-- Count Input -->
                                     <div class="text-field">
                                         <label for="count">Number of Users:</label>
                                         <input type="number" name="count" id="count" class="form-control" min="1" required>
@@ -386,30 +402,26 @@
                                 </div>
                             </form>
                         </div>
+
                         
+
                         <div class="text-field-preview">
                             @foreach ($timetables as $timetable)
                             <p>{{ $timetable->day }} 
                                 <span>({{ $timetable->starttime }} {{ $timetable->starttime_am_pm }} - {{ $timetable->endtime }} {{ $timetable->endtime_am_pm }})</span>
                             </p>
                             
-                            <div class="user-icons">
-                                @for ($i = 1; $i <= $timetable->count; $i++)
-                                    <span class="user-icon" data-index="{{ $i }}" data-timetable-id="{{ $timetable->id }}">
-                                        <img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="user-icon-{{ $i }}" class="regular-user">
-                                        <span class="active-icon">
-                                            <img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt="active-icon-{{ $i }}" class="solid-user d-none">
+                                <div class="user-icons">
+                                    @for ($i = 1; $i <= $timetable->count; $i++)
+                                        <span class="user-icon">
+                                            <img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                            <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
                                         </span>
-                                    </span>
-                                @endfor
-                            </div>
-
-                               <!-- Save Button -->
-    <button class="save-btn" data-timetable-id="{{ $timetable->id }}" type="button">Save</button>
-    @endforeach
-</div>
-
-
+                                    @endfor
+                                </div>
+                            @endforeach
+                        </div>
+                        
                         
                     </div>
 
@@ -453,57 +465,6 @@
 @endpush
 
 @push('footer-script')
-
-<script>
-    // JavaScript to handle click events on the icons and save functionality
-    document.addEventListener('DOMContentLoaded', function() {
-        document.querySelectorAll('.user-icon').forEach(function(icon) {
-            icon.addEventListener('click', function() {
-                let clickedIndex = parseInt(this.getAttribute('data-index'));
-                let timetableId = this.getAttribute('data-timetable-id');
-
-                // Highlight the clicked and previous icons
-                document.querySelectorAll(`[data-timetable-id="${timetableId}"] .user-icon`).forEach(function(item, index) {
-                    if (index < clickedIndex) {
-                        item.querySelector('.regular-user').classList.add('d-none');
-                        item.querySelector('.solid-user').classList.remove('d-none');
-                    } else {
-                        item.querySelector('.regular-user').classList.remove('d-none');
-                        item.querySelector('.solid-user').classList.add('d-none');
-                    }
-                });
-            });
-        });
-
-        // Save the number of solid icons on click
-        document.querySelectorAll('.save-btn').forEach(function(saveBtn) {
-            saveBtn.addEventListener('click', function() {
-                let timetableId = this.getAttribute('data-timetable-id');
-                let solidCount = document.querySelectorAll(`[data-timetable-id="${timetableId}"] .solid-user:not(.d-none)`).length;
-
-                // Send an AJAX request to save the count
-                fetch("{{ route('admin.timetable.saveCount') }}", {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    body: JSON.stringify({
-                        timetable_id: timetableId,
-                        count: solidCount
-                    })
-                }).then(response => response.json())
-                .then(data => {
-                    alert('Count saved successfully!');
-                }).catch(error => {
-                    console.error('Error saving count:', error);
-                });
-            });
-        });
-    });
-</script>
-
-
     <script>
         $(document).ready(function() {
 
