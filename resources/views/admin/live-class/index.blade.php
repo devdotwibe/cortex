@@ -407,16 +407,21 @@
                         <div class="text-field-preview">
                             @foreach ($timetables as $timetable)
                                 <p>{{ $timetable->day }} <span>({{ $timetable->starttime }} - {{ $timetable->endtime }})</span></p>
-                                <div class="user-icons">
+                                <div class="user-icons" id="user-icons-{{ $timetable->id }}">
                                     @for ($i = 1; $i <= $timetable->count; $i++)
-                                        <span class="user-icon">
-                                            <img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
-                                            <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                                        <span class="user-icon" data-index="{{ $i }}">
+                                            <img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="Regular User" class="regular-user">
+                                            <span class="active-icon" style="display: none;">
+                                                <img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt="Solid User">
+                                            </span>
                                         </span>
                                     @endfor
                                 </div>
                             @endforeach
                         </div>
+
+                        <!-- Add a save button -->
+<button id="save-btn" class="add-btn">Save Changes</button>
                         
                     </div>
 
@@ -460,6 +465,46 @@
 @endpush
 
 @push('footer-script')
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function(){
+    // Click event for user icons to toggle between regular and solid user icons
+    $('.user-icon').on('click', function() {
+        const index = $(this).data('index');
+        const userIcons = $(this).parent(); // Get the parent user-icons div
+
+        // Check the number of solid icons already displayed
+        const solidCount = userIcons.find('.active-icon:visible').length;
+
+        // Toggle user icon
+        if (solidCount < {{ $timetable->count }}) {
+            $(this).find('.regular-user').hide();
+            $(this).find('.active-icon').show();
+        } else {
+            alert("Maximum users reached for this time slot.");
+        }
+    });
+
+    // Save button click event
+    $('#save-btn').on('click', function() {
+        // Collect data (you may want to send this to your server via AJAX)
+        const userStates = {};
+
+        $('.user-icons').each(function() {
+            const timetableId = $(this).attr('id').split('-')[2]; // Get timetable ID
+            const solidCount = $(this).find('.active-icon:visible').length;
+
+            userStates[timetableId] = solidCount; // Store the count of solid icons for each timetable
+        });
+
+        console.log("Saving user states:", userStates);
+        // You can make an AJAX call here to save the data to your server
+    });
+});
+</script>
+
+
     <script>
         $(document).ready(function() {
 
