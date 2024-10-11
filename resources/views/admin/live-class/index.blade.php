@@ -398,6 +398,39 @@
                                   
                                         <input type="hidden" name="count" id="client_rating"> 
                                     </div>
+
+                                    <div class="user-icons">
+                                        <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                            <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                                        </span>
+                                        <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                            <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                                        </span>
+                                        <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                            <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                                        </span>
+                                        <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                            <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                                        </span>
+                                        <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                            <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                                        </span>
+                                        <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                            <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                                        </span>
+                                        <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                            <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                                        </span>
+                                        <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                            <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                                        </span>
+                                        <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                            <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                                        </span>
+                                        <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                            <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                                        </span>
+                                    </div>
                         
                                     <button class="add-btn" type="submit">+ Add</button>
                                 </div>
@@ -425,38 +458,7 @@
 
 
 
-                        <div class="user-icons">
-                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
-                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                            </span>
-                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
-                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                            </span>
-                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
-                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                            </span>
-                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
-                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                            </span>
-                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
-                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                            </span>
-                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
-                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                            </span>
-                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
-                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                            </span>
-                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
-                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                            </span>
-                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
-                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                            </span>
-                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
-                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                            </span>
-                        </div>
+                     
 
 
 
