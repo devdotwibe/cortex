@@ -431,6 +431,7 @@
                                             <span class="active-icon" id="star10" data-index="10" style="display:none;"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
                                         </span>
                                     </div>
+                                    <div class="error text-danger" data-review="client_rating"></div>
                         
                                     <button class="add-btn" type="submit">+ Add</button>
                                 </div>
