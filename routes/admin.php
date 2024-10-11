@@ -556,6 +556,8 @@ Route::name('admin.')->prefix('admin')->group(function(){
        
         Route::post('/', [TimetableController::class, 'store'])->name('store');
 
+        
+
        
 
     });
