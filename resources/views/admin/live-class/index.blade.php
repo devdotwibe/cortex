@@ -367,18 +367,18 @@
 
                                    <!-- Time Of Exam Input -->
     
-    <!-- Start Time Input -->
-    <div class="text-field">
-        <label for="starttime">Start Time:</label>
-        <input type="text" 
-               name="starttime" 
-               id="starttime" 
-               class="form-control" 
-               placeholder="HH : MM" 
-               required>
-    </div>
+                                   <div class="text-field">
+                                    <label for="starttime">Start Time:</label>
+                                    <input type="text" 
+                                           name="starttime" 
+                                           id="starttime" 
+                                           class="form-control" 
+                                           placeholder="HH : MM" 
+                                           data-mask="^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$" 
+                                           required>
+                                </div>
 
-    <!-- End Time Input -->
+    <!-- End Time Picker -->
     <div class="text-field">
         <label for="endtime">End Time:</label>
         <input type="text" 
@@ -386,9 +386,9 @@
                id="endtime" 
                class="form-control" 
                placeholder="HH : MM" 
+               data-mask="^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$" 
                required>
-    </div>
-                        
+    </div>           
                                     <!-- Count Input -->
                                     <div class="text-field">
                                         <label for="count">Number of Users:</label>
