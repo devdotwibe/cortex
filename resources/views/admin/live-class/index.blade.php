@@ -365,15 +365,18 @@
                                     <label for="starttime">Start Time:</label>
                                     <input type="text" 
                                            name="starttime" 
-                                          
-                                           class="form-control timepicker" 
-                                         
-                                         
-                                           >
-                                         
+                                           id="starttime" 
+                                           class="form-control" 
+                                           placeholder="HH : MM" 
+                                           data-mask="^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$" 
+                                           required>
+                                           <select name="starttime_ampm" id="starttime_ampm" class="form-control" required>
+                                            <option value="AM">AM</option>
+                                            <option value="PM">PM</option>
+                                        </select>
                                 </div>
 
-    {{-- <!-- End Time Picker -->
+    <!-- End Time Picker -->
     <div class="text-field">
         <label for="endtime">End Time:</label>
         <input type="text" 
@@ -387,7 +390,7 @@
                 <option value="AM">AM</option>
                 <option value="PM">PM</option>
             </select>
-    </div>            --}}
+    </div>           
                                     <!-- Count Input -->
                                     <div class="text-field">
                                         <label for="count">Number of Users:</label>
@@ -457,29 +460,7 @@
 @endpush
 
 @push('footer-script')
-
-<script>
-
-$(document).ready(function(){
-        $('.timepicker').timepicker({
-    timeFormat: 'h:mm p',
-    interval: 1,
-    minTime: '10',
-    maxTime: '6:00pm',
-    defaultTime: '11',
-    startTime: '10:00',
-    dynamic: true,
-    dropdown: true,
-    scrollbar: true
-});
-
-        });
-        
-        </script>
-
-
     <script>
-        
         $(document).ready(function() {
 
             @error('intensive_class')
@@ -580,10 +561,13 @@ $(document).ready(function(){
             });
 
         });
-
-    
     </script>
 
-
+<script>
+    $(document).ready(function(){
+        $("#starttime").inputmask("99 : 99", { placeholder: "HH : MM" });
+        $("#endtime").inputmask("99 : 99", { placeholder: "HH : MM" });
+    });
+    </script>
     
 @endpush
