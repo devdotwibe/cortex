@@ -520,43 +520,48 @@
 <script>
 
 
+
 $(function() {
-    $('.user-icon').click(function() {
-        var index = $(this).data('index');
 
-        // Update the hidden input value to the selected index
-        $('#client_rating').val(index);
+$('.user-icon').click(function() {
 
-        // Show active icons up to the selected index and hide others
-        $('.user-icon, .active-icon').each(function(i) {
-            if (i < index) {
-                $(this).hide(); // Hide regular icon
-                $('.active-icon').eq(i).show(); // Show solid icon
-            } else {
-                $(this).show(); // Show regular icon
-                $('.active-icon').eq(i).hide(); // Hide solid icon
-            }
-        });
+    var index = $(this).data('index');
+
+   $('#client_rating').val(index);
+
+    $('.user-icon').each(function(i) {
+
+        if (i < index) {
+            $(this).hide();
+            $('.active-icon').eq(i).show();
+        } else {
+
+            $(this).show();
+            $('.active-icon').eq(i).hide();
+        }
     });
+});
 
-    $('.active-icon').click(function() {
+$('.active-icon').click(function() {
+
         var index = $(this).data('index');
 
-        // Update the hidden input value to the selected index
         $('#client_rating').val(index);
 
-        // Show active icons up to the selected index and hide others
-        $('.active-icon, .user-icon').each(function(i) {
+        $('.active-icon').each(function(i) {
+
             if (i < index) {
-                $(this).show(); // Show solid icon
-                $('.user-icon').eq(i).hide(); // Hide regular icon
+                $(this).show();
+                $('.user-icon').eq(i).hide();
             } else {
-                $(this).hide(); // Hide solid icon
-                $('.user-icon').eq(i).show(); // Show regular icon
+
+                $(this).hide();
+                $('.user-icon').eq(i).show();
             }
         });
     });
 });
+
 
 
 </script>
