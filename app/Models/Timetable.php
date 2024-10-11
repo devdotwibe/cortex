@@ -12,5 +12,13 @@ class Timetable extends Model
     protected $table = 'timetable';
 
     // Fillable fields
-    protected $fillable = ['starttime', 'endtime', 'day', 'classtime', 'count'];
+    protected $fillable = [
+        'starttime', 
+        'endtime', 
+        'starttime_am_pm', 
+        'endtime_am_pm', 
+        'day', 
+        'classtime', 
+        'count'
+    ];
 }
