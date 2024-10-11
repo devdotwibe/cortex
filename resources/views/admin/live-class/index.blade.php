@@ -386,10 +386,16 @@
                placeholder="HH : MM" 
                data-mask="^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$" 
                required>
-               <select name="endtime_am_pm" id="endtime_am_pm" class="form-control" required>
+               {{-- <select name="endtime_am_pm" id="endtime_am_pm" class="form-control" required>
+                <option value="AM">AM</option>
+                <option value="PM">PM</option>
+            </select> --}}
+            <select name="endtime_am_pm" id="endtime_am_pm" class="form-control" required>
+                <option value="" selected disabled>Select</option>
                 <option value="AM">AM</option>
                 <option value="PM">PM</option>
             </select>
+            
     </div>           
                                     <!-- Count Input -->
                                     <div class="text-field">
