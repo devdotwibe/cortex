@@ -521,53 +521,46 @@
 
 
 
-<script>
 $(function() {
-    // Function to handle user icon clicks
-    $('.user-icon').click(function() {
-        // Get the index of the clicked icon
-        var index = $(this).data('index');
-        
-        // Set the value of the hidden input to the clicked index
-        $('#client_rating').val(index);
-        
-        // Loop through all user icons
-        $('.user-icon, .active-icon').each(function(i) {
-            if (i < index) {
-                // Show the solid icon for all icons less than the clicked index
-                $(this).hide(); // Hide regular icon
-                $('.active-icon').eq(i).show(); // Show solid icon
-            } else {
-                // Show the regular icon for all icons equal or greater than the clicked index
-                $(this).show(); // Show regular icon
-                $('.active-icon').eq(i).hide(); // Hide solid icon
-            }
-        });
+
+$('.user-icon').click(function() {
+
+    var index = $(this).data('index');
+
+   $('#client_rating').val(index);
+
+    $('.user-icon').each(function(i) {
+
+        if (i < index) {
+            $(this).hide();
+            $('.active-icon').eq(i).show();
+        } else {
+
+            $(this).show();
+            $('.active-icon').eq(i).hide();
+        }
     });
-    
-    // Optional: Handle clicks on active icons to toggle them off
-    $('.active-icon').click(function() {
+});
+
+$('.active-icon').click(function() {
+
         var index = $(this).data('index');
+
         $('#client_rating').val(index);
-        
-        // Hide solid icon and show the regular icon at the clicked index
-        $(this).hide();
-        $('.user-icon').eq(index).show();
-        
-        // Update the count value
-        var currentCount = parseInt($('#client_rating').val());
-        $('#client_rating').val(currentCount - 1);
-        
-        // Reset the active icons based on the current count
+
         $('.active-icon').each(function(i) {
-            if (i >= index) {
+
+            if (i < index) {
+                $(this).show();
+                $('.user-icon').eq(i).hide();
+            } else {
+
                 $(this).hide();
                 $('.user-icon').eq(i).show();
             }
         });
     });
 });
-</script>
 
 
 
