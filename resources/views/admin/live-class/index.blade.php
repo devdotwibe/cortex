@@ -359,59 +359,65 @@
                                         </select>
                                     </div>
                         
-                                    <!-- Start Time Picker -->
+                                  
+    
+                                   <div class="text-field">
+                                    <label for="starttime">Start Time:</label>
+                                    <input type="text" 
+                                           name="starttime" 
+                                           id="starttime" 
+                                           class="form-control" 
+                                           placeholder="HH : MM" 
+                                           data-mask="^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$" 
+                                           required>
+                                           <select name="starttime_ampm" id="starttime_ampm" class="form-control" required>
+                                            <option value="AM">AM</option>
+                                            <option value="PM">PM</option>
+                                        </select>
+                                </div>
+
+    <!-- End Time Picker -->
+    <div class="text-field">
+        <label for="endtime">End Time:</label>
+        <input type="text" 
+               name="endtime" 
+               id="endtime" 
+               class="form-control" 
+               placeholder="HH : MM" 
+               data-mask="^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$" 
+               required>
+               <select name="endtime_ampm" id="endtime_ampm" class="form-control" required>
+                <option value="AM">AM</option>
+                <option value="PM">PM</option>
+            </select>
+    </div>           
+                                    <!-- Count Input -->
                                     <div class="text-field">
-                                        <label for="starttime">Start Time:</label>
-                                        <div class="d-flex">
-                                            <input type="text" 
-                                                   name="starttime" 
-                                                   id="starttime" 
-                                                   class="form-control" 
-                                                   placeholder="HH : MM" 
-                                                   required>
-                                            <select name="starttime_ampm" id="starttime_ampm" class="form-control" required>
-                                                <option value="AM">AM</option>
-                                                <option value="PM">PM</option>
-                                            </select>
-                                        </div>
+                                        <label for="count">Number of Users:</label>
+                                        <input type="number" name="count" id="count" class="form-control" min="1" required>
                                     </div>
                         
-                                    <!-- End Time Picker -->
-                                    <div class="text-field">
-                                        <label for="endtime">End Time:</label>
-                                        <div class="d-flex">
-                                            <input type="text" 
-                                                   name="endtime" 
-                                                   id="endtime" 
-                                                   class="form-control" 
-                                                   placeholder="HH : MM" 
-                                                   required>
-                                            <select name="endtime_ampm" id="endtime_ampm" class="form-control" required>
-                                                <option value="AM">AM</option>
-                                                <option value="PM">PM</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                        
-                                    <!-- Save Button -->
                                     <button class="add-btn" type="submit">+ Add</button>
                                 </div>
                             </form>
                         </div>
+
                         
+
                         <div class="text-field-preview">
                             @foreach ($timetables as $timetable)
                                 <p>{{ $timetable->day }} <span>({{ $timetable->starttime }} - {{ $timetable->endtime }})</span></p>
-                                <div class="user-icons" data-timetable-id="{{ $timetable->id }}">
+                                <div class="user-icons">
                                     @for ($i = 1; $i <= 10; $i++) <!-- Always display 10 user icons -->
-                                        <span class="user-icon" data-index="{{ $i }}">
-                                            <img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="" class="user-icon-image">
+                                        <span class="user-icon">
+                                            <img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
                                             <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
                                         </span>
                                     @endfor
                                 </div>
                             @endforeach
                         </div>
+                        
                         
                     </div>
 
@@ -559,26 +565,10 @@
     </script>
 
 <script>
-    $(document).ready(function() {
-        // Apply input mask for start and end time fields
+    $(document).ready(function(){
         $("#starttime").inputmask("99 : 99", { placeholder: "HH : MM" });
         $("#endtime").inputmask("99 : 99", { placeholder: "HH : MM" });
-
-        // Handle click on user icons
-        $('.user-icon').on('click', function() {
-            let index = $(this).data('index');
-
-            // Change the first 'index' images to solid images
-            $(this).closest('.user-icons').find('.user-icon-image').each(function(i) {
-                if (i < index) {
-                    $(this).attr('src', "{{ asset('assets/images/fa6-solid_user.svg') }}"); // Change to solid image
-                } else {
-                    $(this).attr('src', "{{ asset('assets/images/fa6-regular_user.svg') }}"); // Reset to regular image
-                }
-            });
-        });
     });
-</script>
-
+    </script>
     
 @endpush
