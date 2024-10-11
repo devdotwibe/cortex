@@ -359,22 +359,44 @@
                                         </select>
                                     </div>
                         
-                                    <label for="{{ $startTimeField['name'] }}">{{ $startTimeField['label'] }}</label>
-    <input type="text" 
-           name="{{ $startTimeField['name'] }}" 
-           id="{{ $startTimeField['name'] }}" 
-           placeholder="{{ $startTimeField['placeholder'] }}" 
-           size="{{ $startTimeField['size'] }}"
-           class="mask-input" />
-                        
-                                    <!-- End Time Picker -->
-                                    <label for="{{ $endTimeField['name'] }}">{{ $endTimeField['label'] }}</label>
-    <input type="text" 
-           name="{{ $endTimeField['name'] }}" 
-           id="{{ $endTimeField['name'] }}" 
-           placeholder="{{ $endTimeField['placeholder'] }}" 
-           size="{{ $endTimeField['size'] }}"
-           class="mask-input" />
+                                    {{-- <!-- Start Time Picker -->
+                                    <div class="text-field">
+                                        <label for="starttime">Start Time:</label>
+                                        <input type="time" name="starttime" id="starttime" class="form-control" required>
+                                    </div> --}}
+
+                                   <!-- Time Of Exam Input -->
+    <div class="text-field">
+        <label for="time_of_exam">Time Of Exam:</label>
+        <input type="text" 
+               name="time_of_exam" 
+               id="time_of_exam" 
+               class="form-control" 
+               placeholder="Time Of Exam (HH : MM)" 
+               required>
+    </div>
+
+    <!-- Start Time Input -->
+    <div class="text-field">
+        <label for="starttime">Start Time:</label>
+        <input type="text" 
+               name="starttime" 
+               id="starttime" 
+               class="form-control" 
+               placeholder="HH : MM" 
+               required>
+    </div>
+
+    <!-- End Time Input -->
+    <div class="text-field">
+        <label for="endtime">End Time:</label>
+        <input type="text" 
+               name="endtime" 
+               id="endtime" 
+               class="form-control" 
+               placeholder="HH : MM" 
+               required>
+    </div>
                         
                                     <!-- Count Input -->
                                     <div class="text-field">
