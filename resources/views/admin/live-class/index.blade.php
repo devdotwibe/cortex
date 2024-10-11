@@ -457,7 +457,8 @@
 @endpush
 
 @push('footer-script')
-    <script>
+
+<script>
 
 $(document).ready(function(){
         $('.timepicker').timepicker({
@@ -473,6 +474,12 @@ $(document).ready(function(){
 });
 
         });
+        
+        </script>
+
+
+    <script>
+        
         $(document).ready(function() {
 
             @error('intensive_class')
