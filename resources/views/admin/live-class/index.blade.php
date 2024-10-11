@@ -408,7 +408,7 @@
                             @foreach ($timetables as $timetable)
                                 <p>{{ $timetable->day }} <span>({{ $timetable->starttime }} - {{ $timetable->endtime }})</span></p>
                                 <div class="user-icons">
-                                    @for ($i = 1; $i <= 10; $i++) <!-- Always display 10 user icons -->
+                                    @for ($i = 1; $i <= $timetable->count; $i++)
                                         <span class="user-icon">
                                             <img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
                                             <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
