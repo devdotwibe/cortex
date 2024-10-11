@@ -359,17 +359,22 @@
                                         </select>
                                     </div>
                         
-                                    <!-- Start Time Picker -->
-                                    <div class="text-field">
-                                        <label for="starttime">Start Time:</label>
-                                        <input type="time" name="starttime" id="starttime" class="form-control" required>
-                                    </div>
+                                    <label for="{{ $startTimeField['name'] }}">{{ $startTimeField['label'] }}</label>
+    <input type="text" 
+           name="{{ $startTimeField['name'] }}" 
+           id="{{ $startTimeField['name'] }}" 
+           placeholder="{{ $startTimeField['placeholder'] }}" 
+           size="{{ $startTimeField['size'] }}"
+           class="mask-input" />
                         
                                     <!-- End Time Picker -->
-                                    <div class="text-field">
-                                        <label for="endtime">End Time:</label>
-                                        <input type="time" name="endtime" id="endtime" class="form-control" required>
-                                    </div>
+                                    <label for="{{ $endTimeField['name'] }}">{{ $endTimeField['label'] }}</label>
+    <input type="text" 
+           name="{{ $endTimeField['name'] }}" 
+           id="{{ $endTimeField['name'] }}" 
+           placeholder="{{ $endTimeField['placeholder'] }}" 
+           size="{{ $endTimeField['size'] }}"
+           class="mask-input" />
                         
                                     <!-- Count Input -->
                                     <div class="text-field">
