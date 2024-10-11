@@ -102,6 +102,9 @@ class CommunityController extends Controller
          *  @var User
          */
         $user = Auth::user();
+        $hashtags = Hashtag::where('user_id', $user->id)->groupBy('hashtag')->pluck('hashtag');
+
+
         $hashtag = $request->input('hashtag');
 
 
@@ -166,9 +169,6 @@ class CommunityController extends Controller
                 'next' => $posts->nextPageUrl()
             ];
         }
-        $hashtags = Hashtag::where('post_id', Post::where('user_id',$user->id)->select('id'))->groupBy('hashtag')->pluck('hashtag');
-
-
         return view('user.community.index', compact('user','hashtags'));
     }
     public function create(Request $request)
