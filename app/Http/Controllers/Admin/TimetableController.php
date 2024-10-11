@@ -16,7 +16,7 @@ class TimetableController extends Controller
     {
         // Retrieve all timetable records from the database
         $timetables = Timetable::all();
-
+dd($timetables);
         // Return the view with timetable data
         return view('admin.live-class.index', compact('timetables'));
     }
