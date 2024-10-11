@@ -35,6 +35,7 @@ use App\Http\Controllers\Admin\SubscribeUsersController;
 use App\Http\Controllers\Admin\UserAccessController;
 use App\Http\Controllers\Admin\TipsController;  
 use App\Http\Controllers\Admin\SubscriptionPaymentController;
+use App\Http\Controllers\Admin\TimetableController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -547,7 +548,17 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
     });
 
+ 
+
     
+    Route::prefix('timetable')->name('timetable.')->group(function () {
+        Route::get('/', [TimetableController::class, 'index'])->name('index');
+       
+        Route::post('/', [TimetableController::class, 'store'])->name('store');
+
+       
+
+    });
 
    
 
