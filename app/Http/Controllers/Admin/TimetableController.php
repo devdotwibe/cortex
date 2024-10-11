@@ -30,8 +30,8 @@ dd($timetables);
             'endtime' => 'required',
             'day' => 'required',
             'count' => 'required|integer|min:1',
-            'starttime_am_pm' => 'required', // Validate AM/PM for start time
-            'endtime_am_pm' => 'required',   // Validate AM/PM for end time
+            'starttime_am_pm' => 'nullable', // Validate AM/PM for start time
+            'endtime_am_pm' => 'nullable',   // Validate AM/PM for end time
         ]);
     
          // Combine starttime, endtime, and day for the 'classtime' field
