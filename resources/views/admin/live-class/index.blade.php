@@ -395,7 +395,8 @@
                                     <!-- Count Input -->
                                     <div class="text-field">
                                         <label for="count">Number of Users:</label>
-                                        <input type="number" name="count" id="count" class="form-control" min="1" required>
+                                  
+                                        <input type="hidden" name="count" id="client_rating"> 
                                     </div>
                         
                                     <button class="add-btn" type="submit">+ Add</button>
@@ -405,7 +406,7 @@
 
                         
 
-                        <div class="text-field-preview">
+                        {{-- <div class="text-field-preview">
                             @foreach ($timetables as $timetable)
                             <p>{{ $timetable->day }} 
                                 <span>({{ $timetable->starttime }} {{ $timetable->starttime_am_pm }} - {{ $timetable->endtime }} {{ $timetable->endtime_am_pm }})</span>
@@ -420,7 +421,53 @@
                                     @endfor
                                 </div>
                             @endforeach
+                        </div> --}}
+
+
+
+                        <div class="user-icons">
+                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                            </span>
+                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                            </span>
+                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                            </span>
+                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                            </span>
+                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                            </span>
+                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                            </span>
+                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                            </span>
+                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                            </span>
+                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                            </span>
+                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                            </span>
                         </div>
+
+
+
+
+
+
+
+
+                        
+
+
                         
                         
                     </div>
@@ -465,6 +512,58 @@
 @endpush
 
 @push('footer-script')
+
+
+<script>
+
+
+
+$(function() {
+
+$('.user-icon').click(function() {
+
+    var index = $(this).data('index');
+
+   $('#client_rating').val(index);
+
+    $('.user-icon').each(function(i) {
+
+        if (i < index) {
+            $(this).hide();
+            $('.active-icon').eq(i).show();
+        } else {
+
+            $(this).show();
+            $('.active-icon').eq(i).hide();
+        }
+    });
+});
+
+$('.active-icon').click(function() {
+
+        var index = $(this).data('index');
+
+        $('#client_rating').val(index);
+
+        $('.active-icon').each(function(i) {
+
+            if (i < index) {
+                $(this).show();
+                $('.user-icon').eq(i).hide();
+            } else {
+
+                $(this).hide();
+                $('.user-icon').eq(i).show();
+            }
+        });
+    });
+});
+
+
+
+</script>
+
+
     <script>
         $(document).ready(function() {
 
