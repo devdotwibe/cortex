@@ -8,7 +8,7 @@
             </div>
         </div>
     </section>
-    <section class="invite-wrap mt-2">
+    <section class="invite-wrap mt-2 categoryclass">
         <div class="container">
             <div class="container-wrap">
                 <div class="row">
