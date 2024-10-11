@@ -516,54 +516,47 @@
 
 @push('footer-script')
 
-
 <script>
 
-
-
 $(function() {
-
-$('.user-icon').click(function() {
-
-    var index = $(this).data('index');
-
-   $('#client_rating').val(index);
-
-    $('.user-icon').each(function(i) {
-
-        if (i < index) {
-            $(this).hide();
-            $('.active-icon').eq(i).show();
-        } else {
-
-            $(this).show();
-            $('.active-icon').eq(i).hide();
-        }
-    });
-});
-
-$('.active-icon').click(function() {
-
+    // When a user icon is clicked
+    $('.user-icon').click(function() {
         var index = $(this).data('index');
-
+        
+        // Set the count value in the hidden input field
         $('#client_rating').val(index);
 
-        $('.active-icon').each(function(i) {
-
+        // Update the visibility of icons based on the clicked index
+        $('.user-icon').each(function(i) {
             if (i < index) {
-                $(this).show();
-                $('.user-icon').eq(i).hide();
+                $(this).hide(); // Hide the regular user icon
+                $('.active-icon').eq(i).show(); // Show the solid user icon
             } else {
+                $(this).show(); // Show the remaining regular user icons
+                $('.active-icon').eq(i).hide(); // Hide the remaining solid user icons
+            }
+        });
+    });
 
-                $(this).hide();
-                $('.user-icon').eq(i).show();
+    // When an active icon is clicked (optional functionality)
+    $('.active-icon').click(function() {
+        var index = $(this).data('index');
+
+        // Set the count value in the hidden input field
+        $('#client_rating').val(index);
+
+        // Update the visibility of icons based on the clicked index
+        $('.active-icon').each(function(i) {
+            if (i < index) {
+                $(this).show(); // Show the solid user icon
+                $('.user-icon').eq(i).hide(); // Hide the regular user icon
+            } else {
+                $(this).hide(); // Hide the remaining solid user icons
+                $('.user-icon').eq(i).show(); // Show the remaining regular user icons
             }
         });
     });
 });
-
-
-
 </script>
 
 
