@@ -359,13 +359,7 @@
                                         </select>
                                     </div>
                         
-                                    {{-- <!-- Start Time Picker -->
-                                    <div class="text-field">
-                                        <label for="starttime">Start Time:</label>
-                                        <input type="time" name="starttime" id="starttime" class="form-control" required>
-                                    </div> --}}
-
-                                   <!-- Time Of Exam Input -->
+                                  
     
                                    <div class="text-field">
                                     <label for="starttime">Start Time:</label>
@@ -560,4 +554,12 @@
 
         });
     </script>
+
+<script>
+    $(document).ready(function(){
+        $("#starttime").inputmask("99 : 99", { placeholder: "HH : MM" });
+        $("#endtime").inputmask("99 : 99", { placeholder: "HH : MM" });
+    });
+    </script>
+    
 @endpush
