@@ -517,7 +517,6 @@
 @push('footer-script')
 
 <script>
-
 $(function() {
     // When a user icon is clicked
     $('.user-icon').click(function() {
@@ -533,12 +532,12 @@ $(function() {
                 $('.active-icon').eq(i).show(); // Show the solid user icon
             } else {
                 $(this).show(); // Show the remaining regular user icons
-                $('.active-icon').eq(i).hide(); // Hide the remaining solid user icons
+                $('.active-icon').eq(i).hide(); // Hide the corresponding solid user icon
             }
         });
     });
 
-    // When an active icon is clicked (optional functionality)
+    // When an active icon is clicked
     $('.active-icon').click(function() {
         var index = $(this).data('index');
 
@@ -547,16 +546,17 @@ $(function() {
 
         // Update the visibility of icons based on the clicked index
         $('.active-icon').each(function(i) {
-            if (i < index) {
-                $(this).show(); // Show the solid user icon
-                $('.user-icon').eq(i).hide(); // Hide the regular user icon
+            if (i <= index) {
+                $(this).hide(); // Hide the solid user icon
+                $('.user-icon').eq(i).show(); // Show the corresponding regular user icon
             } else {
-                $(this).hide(); // Hide the remaining solid user icons
-                $('.user-icon').eq(i).show(); // Show the remaining regular user icons
+                $(this).show(); // Show the remaining solid user icons
+                $('.user-icon').eq(i).hide(); // Hide the corresponding regular user icon
             }
         });
     });
 });
+
 </script>
 
 
