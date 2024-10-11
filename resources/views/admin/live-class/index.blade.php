@@ -407,7 +407,10 @@
 
                         <div class="text-field-preview">
                             @foreach ($timetables as $timetable)
-                                <p>{{ $timetable->day }} <span>({{ $timetable->starttime }} - {{ $timetable->endtime }})</span></p>
+                            <p>{{ $timetable->day }} 
+                                <span>({{ $timetable->starttime }} {{ $timetable->starttime_am_pm }} - {{ $timetable->endtime }} {{ $timetable->endtime_am_pm }})</span>
+                            </p>
+                            
                                 <div class="user-icons">
                                     @for ($i = 1; $i <= $timetable->count; $i++)
                                         <span class="user-icon">
