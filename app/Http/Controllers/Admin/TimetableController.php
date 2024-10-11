@@ -34,10 +34,8 @@ dd($timetables);
             'endtime_am_pm' => 'required|in:AM,PM',   // Validate AM/PM for end time
         ]);
     
-        // Combine starttime, endtime, and day for the 'classtime' field
-        $classtime = $request->starttime . ' ' . $request->starttime_am_pm . ' - ' . 
-                     $request->endtime . ' ' . $request->endtime_am_pm . 
-                     ' on ' . $request->day;
+         // Combine starttime, endtime, and day for the 'classtime' field
+         $classtime = $request->starttime . ' - ' . $request->endtime . ' on ' . $request->day;
     
         // Create a new Timetable entry in the database
         Timetable::create([
