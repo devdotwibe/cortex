@@ -2729,6 +2729,9 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .invite-wrap .table-outer table .form-check input.form-check-box:checked { background: url(../images/check-solid.svg) center; background-repeat: no-repeat; background-size: contain;}
 .invite-wrap.categoryclass .row .card .card-body button.btn.btn-dark {margin: 12px 0 0;}
 
+.coupon-wrap {background: #FFFFFF; padding: 20px 10px; box-shadow: 4px 0px 16px 0px #0000000A; border-radius: 10px;}
+
+
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
 
