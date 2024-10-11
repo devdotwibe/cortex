@@ -18,8 +18,6 @@ use Illuminate\Support\Facades\Auth;
 
 class CommunityController extends Controller
 {
-
-    
     public function posts(Request $request)
     {
 
