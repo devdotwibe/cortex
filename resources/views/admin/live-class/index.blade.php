@@ -462,7 +462,7 @@
 
 $(document).ready(function(){
         $('.timepicker').timepicker({
-    timeFormat: 'h:mm ',
+    timeFormat: 'h:mm p',
     interval: 1,
     minTime: '10',
     maxTime: '6:00pm',
