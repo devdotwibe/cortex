@@ -54,7 +54,7 @@
                                             <div class="form-data">
                                                 <div class="forms-inputs mb-4">
                                                     <label for="time_of_exam-table-category-form-create">Exam Duration (HH:MM)</label>
-                                                    <input type="search" placeholder="HO:MM" name="time_of_exam" id="time_of_exam-table-category-form-create" value="{{$category->time_of_exam}}" class="form-control ">
+                                                    <input type="search" name="time_of_exam" id="time_of_exam-table-category-form-create" value="{{$category->time_of_exam}}" class="form-control ">
                                                     <div class="invalid-feedback" id="time_of_exam-error-table-category-form-create"></div>
                                                 </div>
                                             </div>
@@ -100,15 +100,15 @@
         $(function() { 
 
 
-            // $('#time_of_exam-table-category-form-create').each(function(){
-            //     var mask = $(this).data('mask');
-            //     var placeholder = $(this).data('placeholder')||" ";
-            //     $(this).inputmask({
-            //         placeholder:"HH : MM",
-            //         regex: "^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$",
-            //         showMaskOnFocus: false
-            //     });
-            // })
+            $('#time_of_exam-table-category-form-create').each(function(){
+                var mask = $(this).data('mask');
+                var placeholder = $(this).data('placeholder')||" ";
+                $(this).inputmask({
+                    placeholder:"HH : MM",
+                    regex: "^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$",
+                    showMaskOnFocus: false
+                });
+            })
         })
     </script>
 @endpush
