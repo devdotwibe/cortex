@@ -516,46 +516,48 @@
 
 @push('footer-script')
 
+
 <script>
+
+
 $(function() {
-    // When a user icon is clicked
     $('.user-icon').click(function() {
         var index = $(this).data('index');
-        
-        // Set the count value in the hidden input field
+
+        // Update the hidden input value to the selected index
         $('#client_rating').val(index);
 
-        // Update the visibility of icons based on the clicked index
-        $('.user-icon').each(function(i) {
+        // Show active icons up to the selected index and hide others
+        $('.user-icon, .active-icon').each(function(i) {
             if (i < index) {
-                $(this).hide(); // Hide the regular user icon
-                $('.active-icon').eq(i).show(); // Show the solid user icon
+                $(this).hide(); // Hide regular icon
+                $('.active-icon').eq(i).show(); // Show solid icon
             } else {
-                $(this).show(); // Show the remaining regular user icons
-                $('.active-icon').eq(i).hide(); // Hide the corresponding solid user icon
+                $(this).show(); // Show regular icon
+                $('.active-icon').eq(i).hide(); // Hide solid icon
             }
         });
     });
 
-    // When an active icon is clicked
     $('.active-icon').click(function() {
         var index = $(this).data('index');
 
-        // Set the count value in the hidden input field
+        // Update the hidden input value to the selected index
         $('#client_rating').val(index);
 
-        // Update the visibility of icons based on the clicked index
-        $('.active-icon').each(function(i) {
-            if (i <= index) {
-                $(this).hide(); // Hide the solid user icon
-                $('.user-icon').eq(i).show(); // Show the corresponding regular user icon
+        // Show active icons up to the selected index and hide others
+        $('.active-icon, .user-icon').each(function(i) {
+            if (i < index) {
+                $(this).show(); // Show solid icon
+                $('.user-icon').eq(i).hide(); // Hide regular icon
             } else {
-                $(this).show(); // Show the remaining solid user icons
-                $('.user-icon').eq(i).hide(); // Hide the corresponding regular user icon
+                $(this).hide(); // Hide solid icon
+                $('.user-icon').eq(i).show(); // Show regular icon
             }
         });
     });
 });
+
 
 </script>
 
