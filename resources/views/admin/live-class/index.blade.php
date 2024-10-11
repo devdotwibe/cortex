@@ -515,63 +515,53 @@
 @endpush
 
 @push('footer-script')
+
+
 <script>
-    
+
+
+
 $(function() {
-    $('.user-icon').click(function() {
-        var index = $(this).data('index');
 
-        // Set the count input with the clicked index value
-        $('#client_rating').val(index);
+$('.user-icon').click(function() {
 
-        // Loop through the user icons to toggle classes based on the clicked index
-        $('.user-icon, .active-icon').each(function(i) {
-            if (i < index) {
-                $(this).hide(); // Hide the inactive user icons
-                $('.active-icon').eq(i).show(); // Show the corresponding active icons
-            } else {
-                $(this).show(); // Show the remaining user icons
-                $('.active-icon').eq(i).hide(); // Hide the corresponding active icons
-            }
-        });
+    var index = $(this).data('index');
 
-        // Change class to active for the first 'index' images
-        $('.user-icon').each(function(i) {
-            if (i < index) {
-                $(this).addClass('active'); // Add active class
-            } else {
-                $(this).removeClass('active'); // Remove active class
-            }
-        });
+   $('#client_rating').val(index);
+
+    $('.user-icon').each(function(i) {
+
+        if (i < index) {
+            $(this).hide();
+            $('.active-icon').eq(i).show();
+        } else {
+
+            $(this).show();
+            $('.active-icon').eq(i).hide();
+        }
     });
+});
 
-    $('.active-icon').click(function() {
+$('.active-icon').click(function() {
+
         var index = $(this).data('index');
 
-        // Set the count input with the clicked index value
         $('#client_rating').val(index);
 
-        // Loop through the active icons to toggle classes based on the clicked index
-        $('.active-icon, .user-icon').each(function(i) {
-            if (i < index) {
-                $(this).show(); // Show the active icons
-                $('.user-icon').eq(i).hide(); // Hide the corresponding user icons
-            } else {
-                $(this).hide(); // Hide the remaining active icons
-                $('.user-icon').eq(i).show(); // Show the remaining user icons
-            }
-        });
+        $('.active-icon').each(function(i) {
 
-        // Change class to active for the first 'index' images
-        $('.user-icon').each(function(i) {
             if (i < index) {
-                $(this).addClass('active'); // Add active class
+                $(this).show();
+                $('.user-icon').eq(i).hide();
             } else {
-                $(this).removeClass('active'); // Remove active class
+
+                $(this).hide();
+                $('.user-icon').eq(i).show();
             }
         });
     });
 });
+
 
 
 </script>
