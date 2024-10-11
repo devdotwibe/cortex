@@ -392,9 +392,17 @@
                 <option value="PM">PM</option>
             </select>
     </div>           
+
+
+
+
+
+
+
                                     <!-- Count Input -->
-                                    <div class="text-field">
-                                        <label for="count">Number of Users:</label>
+                                    <div class="text-field-preview">
+                                    <!-- <p>SAT <span>(9:30 - 11:30 AM)</span></p> -->
+
                                   
                                         <input type="hidden" name="count" id="client_rating"> 
                                     </div>
