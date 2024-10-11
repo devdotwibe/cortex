@@ -30,21 +30,25 @@ dd($timetables);
             'endtime' => 'required',
             'day' => 'required',
             'count' => 'required|integer|min:1',
+            'starttime_am_pm' => 'required|in:AM,PM', // Validate AM/PM for start time
+            'endtime_am_pm' => 'required|in:AM,PM',   // Validate AM/PM for end time
         ]);
-
+    
         // Combine starttime, endtime, and day for the 'classtime' field
-        $classtime = $request->starttime . ' - ' . $request->endtime . ' on ' . $request->day;
-
+        $classtime = $request->starttime . ' ' . $request->starttime_am_pm . ' - ' . 
+                     $request->endtime . ' ' . $request->endtime_am_pm . 
+                     ' on ' . $request->day;
+    
         // Create a new Timetable entry in the database
         Timetable::create([
-            'starttime' => $request->starttime,
-            'endtime' => $request->endtime,
+            'starttime' => $request->starttime . ' ' . $request->starttime_am_pm,
+            'endtime' => $request->endtime . ' ' . $request->endtime_am_pm,
             'day' => $request->day,
             'classtime' => $classtime,
             'count' => $request->count,
         ]);
-
+    
         // Redirect back with a success message
         return redirect()->back()->with('success', 'Timetable added successfully!');
     }
-}
+}    
