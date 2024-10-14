@@ -2097,7 +2097,7 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 }
 
 .header_nav .header_wrapp .header_content .select2-container--default .select2-selection--single {
-  border: 1px solid #BCBCBC;
+  border: 1px solid #000;
   height: 43px;
   border-radius: 10px;
 }
