@@ -2849,6 +2849,10 @@ nav.navbar { padding: 10px 6%;}
 .payment-wrap .tab-content .tab-pane .card .card-body .col-md-12 { width: 100%;}
 
 .payment-wrap .tab-content .tab-pane .card .card-body .sec .col-md-12 {
+  width: 100%;
+  margin: 0 0% 0 0;
+}
+.payment-wrap .tab-content .tab-pane .card .card-body .pricesection1 .col-md-12 {
   width: 48%;
   margin: 0 4% 0 0;
 }
