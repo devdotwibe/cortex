@@ -64,16 +64,13 @@
         <div class="exam-right exam-progress-inner-item">
             <div class="progress-main">
                 <div class="bookmark">
-                    <a class="" id="bookmark-current" onclick="toggleBookmark()">
-                        <img class="active-img" src="{{ asset('assets/images/bookmark.png') }}" alt="bookmark" style="display: none;">
-                        <img class="inactive-img" src="{{ asset('assets/images/bookmarkfill.png') }}" alt="bookmark" style="display: block;">
-                        <span class="flag-text" style="display: none;">Flag</span>
-                        <span class="unflag-text">Unflag</span>
+                    <a class="" id="bookmark-current" >
+                        <img class="active-img" src="{{asset("assets/images/bookmark.png")}}" alt="bookmark">
+                        <img class="inactive-img" src="{{asset("assets/images/bookmarkfill.png")}}" alt="bookmark">
                     </a>
                 </div>
             </div>
         </div>
-        
         <div class="lesson-right pagination-arrow" style="display:none">
             <button class="button right-btn"> Next <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
         </div>
@@ -701,28 +698,4 @@
             }) 
          })
     </script>
-
-<script>
-function toggleBookmark() {
-    const activeImg = document.querySelector('.active-img');
-    const inactiveImg = document.querySelector('.inactive-img');
-    const flagText = document.querySelector('.flag-text');
-    const unflagText = document.querySelector('.unflag-text');
-
-    // Check if the active image is displayed
-    if (activeImg.style.display === 'none') {
-        // Show active image and "Flag" text
-        activeImg.style.display = 'block';
-        inactiveImg.style.display = 'none';
-        flagText.style.display = 'block';
-        unflagText.style.display = 'none';
-    } else {
-        // Show inactive image and "Unflag" text
-        activeImg.style.display = 'none';
-        inactiveImg.style.display = 'block';
-        flagText.style.display = 'none';
-        unflagText.style.display = 'block';
-    }
-}
-</script>
 @endpush
