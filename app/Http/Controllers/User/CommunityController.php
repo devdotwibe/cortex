@@ -39,7 +39,7 @@ class CommunityController extends Controller
                 $post->whereIn('id', Hashtag::where('hashtag', 'like', "%$hashtag%")->select('post_id'));
             }
             $posts = $post->orderBy('id', 'DESC')->paginate();
-            
+            dd($posts);
             $results = [];
             foreach ($posts->items() as $row) {
                 $options = [];
