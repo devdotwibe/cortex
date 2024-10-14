@@ -419,7 +419,7 @@
                 }else{
                     $("#bookmark-current").removeClass('active');
                    
-                    $("#flagtext").text('Unflag');
+                    $("#noflagtext").text('Unflag');
                     
 
                 }
@@ -687,7 +687,7 @@
                     summery.flagcurrent[summery.currentSlug]=true;
                     summery.save();
                     $("#bookmark-current").addClass('active')
-                    $("#flagtext").text('Unflag')
+                    $("#noflagtext").text('Unflag')
                     $(`#show-all .question-item[data-idx="${summery.cudx}"]`).addClass('status-flag')
                     $(`#flagged .question-item[data-idx="${summery.cudx}"]`).addClass('status-flag')
                 } 
