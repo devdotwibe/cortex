@@ -497,7 +497,7 @@
 @push('footer-script')
 
 
-<script>
+{{-- <script>
 
 $(function() {
     $('.user-icon').click(function() {
@@ -526,7 +526,7 @@ $(function() {
 
 
 
-</script>
+</script> --}}
 
 
     <script>
