@@ -418,8 +418,8 @@
                     $("#noflagtext").hide();
                 }else{
                     $("#bookmark-current").removeClass('active');
-                    $("#noflagtext").show();
-                    $("#flagtext").hide();
+                    $("#flagtext").show();
+                    $("#noflagtext").hide();
                     
 
                 }
