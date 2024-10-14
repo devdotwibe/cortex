@@ -1037,6 +1037,7 @@
                                             </div>
                                         </div>
   <!-- Excel Image -->
+  <div class="pricesection3">
   <div class="col-md-12">
     <div class="form-group">
         <div class="form-data">
@@ -1070,6 +1071,7 @@
                 style="display: none; width: 100%; height: auto;">
         @endif
     </div>
+</div>
 </div>
                              
                                     </div>
