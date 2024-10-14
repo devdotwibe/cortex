@@ -79,7 +79,7 @@ class CommunityController extends Controller
                     ],
                     "liked" => $row->likes()->where('user_id', $user->id)->count() > 0 ? true : false,
                     "likeUrl" => route('community.post.like', $row->slug),
-                    "editUrl" => "1",
+                    "editUrl" => $row->user_id == $user->id ? route('community.post.edit', $row->slug) : null,
 
                 ];
             }
@@ -113,7 +113,7 @@ class CommunityController extends Controller
             if (!empty($hashtag)) {
                 $post->whereIn('id', Hashtag::where('hashtag', 'like', "%$hashtag%")->select('post_id'));
             }
-            $posts = $post->orderBy('id', 'DESC')->paginate();
+            $posts = $post->where('user_id', $user->id)->orderBy('id', 'DESC')->paginate();
             $results = [];
             foreach ($posts->items() as $row) {
                 $options = [];
@@ -154,7 +154,7 @@ class CommunityController extends Controller
                     ],
                     "liked" => $row->likes()->where('user_id', $user->id)->count() > 0 ? true : false,
                     "likeUrl" => route('community.post.like', $row->slug),
-                    "editUrl" => "1",
+                    "editUrl" => $row->user_id == $user->id ? route('community.post.edit', $row->slug) : null,
                 ];
             }
             return [
@@ -312,7 +312,7 @@ class CommunityController extends Controller
                 ],
                 "liked" => $row->likes()->where('user_id', $user->id)->count() > 0 ? true : false,
                 "likeUrl" => route('community.post.like', $row->slug),
-                "editUrl" => "2",
+                "editUrl" => $row->user_id == $user->id ? route('community.post.edit', $row->slug) : null,
             ]);
         } else {
             return redirect()->back()->with('success', "Voted");
@@ -374,7 +374,7 @@ class CommunityController extends Controller
                 ],
                 "liked" => $row->likes()->where('user_id', $user->id)->count() > 0 ? true : false,
                 "likeUrl" => route('community.post.like', $row->slug),
-                "editUrl" => "3",
+                "editUrl" => $row->user_id == $user->id ? route('community.post.edit', $row->slug) : null,
             ]);
         } else {
             return redirect()->back()->with('success', $row->likes()->where('user_id', $user->id)->count() > 0 ? "Liked" : "Removed");
