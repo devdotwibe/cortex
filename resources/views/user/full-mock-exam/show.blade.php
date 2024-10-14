@@ -67,7 +67,7 @@
                     <a class="" id="bookmark-current" >
                         <span id="flagtext">Flag</span>
                         <img class="active-img" src="{{asset("assets/images/flag-blue.svg")}}" alt="bookmark">
-                        <span id="noflagtext">Unflag</span>
+                     
                         <img class="inactive-img" src="{{asset("assets/images/flag-red.svg")}}" alt="bookmark">
                     </a>
                 </div>
