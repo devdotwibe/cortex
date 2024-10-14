@@ -679,6 +679,7 @@
                     summery.flagcurrent[summery.currentSlug]=true;
                     summery.save();
                     $("#bookmark-current").removeClass('active');
+                    $("#flagtext").text('flag')
                     $(`#show-all .question-item[data-idx="${summery.cudx}"]`).removeClass('status-flag')
                     $(`#flagged .question-item[data-idx="${summery.cudx}"]`).removeClass('status-flag')
                 }else{
@@ -686,6 +687,7 @@
                     summery.flagcurrent[summery.currentSlug]=true;
                     summery.save();
                     $("#bookmark-current").addClass('active')
+                    $("#flagtext").text('Unflag')
                     $(`#show-all .question-item[data-idx="${summery.cudx}"]`).addClass('status-flag')
                     $(`#flagged .question-item[data-idx="${summery.cudx}"]`).addClass('status-flag')
                 } 
