@@ -441,7 +441,7 @@
                                     <!-- Delete Button (triggers form to delete the timetable entry) -->
                                     <form action="{{ route('admin.timetable.destroy', $timetable->id) }}" method="POST" style="display:inline;">
                                         @csrf
-                                        @method('DELETE')
+                                      
                                         <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this timetable entry?')">Delete</button>
                                     </form>
                                 </div>
