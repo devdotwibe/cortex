@@ -426,24 +426,14 @@
                                 <span>({{ $timetable->starttime }} {{ $timetable->starttime_am_pm }} - {{ $timetable->endtime }} {{ $timetable->endtime_am_pm }})</span>
                             </p>
                             
-                                {{-- <div class="user-icons">
+                                <div class="user-icons">
                                     @for ($i = 1; $i <= $timetable->count; $i++)
                                         <span class="user-icon">
                                             <img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
                                             <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
                                         </span>
                                     @endfor
-                                </div> --}}
-
-                                @for ($i = 1; $i <= $timetable->count; $i++)
-    <span class="user-icon">
-        <img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
-        @if ($i == 1) <!-- Check if it's the first icon -->
-            <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-        @endif
-    </span>
-@endfor
-
+                                </div>
                             @endforeach
                         </div>
 
