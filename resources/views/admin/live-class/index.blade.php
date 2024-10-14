@@ -634,8 +634,8 @@ $(function() {
 
 <script>
     $(document).ready(function(){
-        $("#starttime").inputmask("12 : 59", { placeholder: "HH : MM" });
-        $("#endtime").inputmask("12 : 59", { placeholder: "HH : MM" });
+        $("#starttime").inputmask("99 : 99", { placeholder: "HH : MM" });
+        $("#endtime").inputmask("99 : 99", { placeholder: "HH : MM" });
     });
     </script>
     
