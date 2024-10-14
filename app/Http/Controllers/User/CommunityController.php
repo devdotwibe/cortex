@@ -96,7 +96,7 @@ class CommunityController extends Controller
         return view('user.community.posts', compact('user','hashtags'));
     }
 
-    public function index(Request $request)
+    public function allpost(Request $request)
     {
 
         /**
@@ -113,7 +113,7 @@ class CommunityController extends Controller
             if (!empty($hashtag)) {
                 $post->whereIn('id', Hashtag::where('hashtag', 'like', "%$hashtag%")->select('post_id'));
             }
-            $posts = $post->where('user_id', $user->id)->orderBy('id', 'DESC')->paginate();
+            $posts = $post->orderBy('id', 'DESC')->paginate();
             $results = [];
             foreach ($posts->items() as $row) {
                 $options = [];

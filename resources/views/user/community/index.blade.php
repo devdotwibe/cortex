@@ -12,7 +12,7 @@
 
         <div class="header_right">
             <ul class="nav_bar">
-                <li class="nav_item"><a href="{{route('community.index')}}" class="nav_link btn">All Post</a></li>
+                <li class="nav_item"><a href="{{route('community.allpost')}}" class="nav_link btn">All Post</a></li>
                 @if($user->post_status=="active")
                 <li class="nav_item"><a href="{{route('community.post.create')}}" class="nav_link btn">Create Post</a></li>
                 @endif
@@ -165,7 +165,7 @@
         },'json');
     }
     $(function(){
-        loadpost("{!! route('community.ajaxindex',['ref'=>'ajax','hashtag'=>request('hashtag')]) !!}");
+        loadpost("{!! route('community.ajaxpost',['ref'=>'ajax','hashtag'=>request('hashtag')]) !!}");
         // loadpost("{{url()->full()}}");
         $('#load-more-btn').click(function(){
             loadpost($('#load-more-btn').data('url'))
