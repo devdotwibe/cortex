@@ -165,7 +165,7 @@
         },'json');
     }
     $(function(){
-        loadpost("{!! route('community.ajaxindex',['ref'=>'ajax','hashtag'=>request('hashtag')]) !!}");
+        loadpost("{!! route('community.ajaxpost',['ref'=>'ajax','hashtag'=>request('hashtag')]) !!}");
         // loadpost("{{url()->full()}}");
         $('#load-more-btn').click(function(){
             loadpost($('#load-more-btn').data('url'))

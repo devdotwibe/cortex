@@ -150,6 +150,7 @@ class TopicTestController extends Controller
             $exam=Exam::find( $exam->id );
         } 
         $category->update($data); 
+        dd($category);
         return redirect()->back()->with("success","Topic Test Time has been successfully updated");
     }
 

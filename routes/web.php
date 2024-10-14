@@ -215,13 +215,10 @@ Route::middleware(['auth', 'isUser'])->group(function () {
         Route::prefix('community')->name('community.')->group(function () {
             Route::get('/', [CommunityController::class, 'posts'])->name('index');
             Route::get('/ajaxindex', [CommunityController::class, 'posts'])->name('ajaxindex');
+            Route::get('/ajaxpost', [CommunityController::class, 'index'])->name('ajaxpost');
             Route::resource('/post', CommunityController::class);
 
-            
-
-           
-           
-
+    
             Route::get('/poll/{poll_option}/vote', [CommunityController::class, 'pollVote'])->name('poll.vote');
             Route::get('/post/{post}/like', [CommunityController::class, 'postLike'])->name('post.like');
             Route::post('/post/{post}/comment', [CommunityController::class, 'postComment'])->name('post.comment');

@@ -38,6 +38,8 @@ class CommunityController extends Controller
             if (!empty($hashtag)) {
                 $post->whereIn('id', Hashtag::where('hashtag', 'like', "%$hashtag%")->select('post_id'));
             }
+
+            
             $posts = $post->orderBy('id', 'DESC')->paginate();
             $results = [];
             foreach ($posts->items() as $row) {
@@ -79,6 +81,7 @@ class CommunityController extends Controller
                     ],
                     "liked" => $row->likes()->where('user_id', $user->id)->count() > 0 ? true : false,
                     "likeUrl" => route('community.post.like', $row->slug),
+                    "editUrl" => $row->user_id == $user->id ? route('community.post.edit', $row->slug) : null,
 
                 ];
             }

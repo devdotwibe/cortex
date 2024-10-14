@@ -392,11 +392,26 @@
                 <option value="PM">PM</option>
             </select>
     </div>           
+
+
+    <div class="text-field">
+        <label for="count">Number of Users:</label>
+        <select name="count" id="count" class="form-control" required>
+            @for ($i = 1; $i <= 10; $i++)
+                <option value="{{ $i }}">{{ $i }}</option>
+            @endfor
+        </select>
+    </div>
+    
+
+
+
+
                                     <!-- Count Input -->
-                                    <div class="text-field">
-                                        <label for="count">Number of Users:</label>
-                                        <input type="number" name="count" id="count" class="form-control" min="1" required>
-                                    </div>
+                                    {{-- <div class="text-field-preview"> --}}
+                                    <!-- <p>SAT <span>(9:30 - 11:30 AM)</span></p> -->
+
+                                  
                         
                                     <button class="add-btn" type="submit">+ Add</button>
                                 </div>
@@ -421,6 +436,21 @@
                                 </div>
                             @endforeach
                         </div>
+
+
+
+                     
+
+
+
+
+
+
+
+
+                        
+
+
                         
                         
                     </div>
@@ -465,6 +495,40 @@
 @endpush
 
 @push('footer-script')
+
+
+{{-- <script>
+
+$(function() {
+    $('.user-icon').click(function() {
+        var index = $(this).data('index');
+        $('#client_rating').val(index);
+
+        // Show active icons for the clicked index and hide others
+        $('.active-icon').each(function(i) {
+            if (i < index) {
+                $(this).show(); // Show active icons for the selected index
+            } else {
+                $(this).hide(); // Hide active icons for indices greater than the selected index
+            }
+        });
+
+        // Hide the user icons corresponding to the active ones displayed
+        $('.user-icon').each(function(i) {
+            if (i < index) {
+                $(this).hide(); // Hide user icons for the selected index
+            } else {
+                $(this).show(); // Show user icons for indices greater than the selected index
+            }
+        });
+    });
+});
+
+
+
+</script> --}}
+
+
     <script>
         $(document).ready(function() {
 
