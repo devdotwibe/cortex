@@ -414,12 +414,13 @@
                 refreshstatus(summery.cudx,'not-answered');
                 if(summery.flagdx[summery.cudx]){
                     $("#bookmark-current").addClass('active');
-                    $("#flagtext").text('Flag');
+                    $("#flagtext").text('Unflag');
                   
                 }else{
                     $("#bookmark-current").removeClass('active');
                    
-                    $("#flagtext").text('Unflag');
+                   
+                    $("#flagtext").text('Flag');
                     
 
                 }
