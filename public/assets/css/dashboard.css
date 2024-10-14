@@ -2763,10 +2763,10 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 #sub-category-create-modal .modal-dialog .modal-content .modal-header h5 {color: #218df8; font-size: 20px; margin: 0 0 0; font-weight: 600;}
 #sub-category-create-modal .modal-dialog .modal-content .close { background: #fff; color: #000; border: 2px solid #fff; font-size: 30px; line-height: 0; transition: all .25s ease-in-out; width: auto; height: auto; font-weight: 300; position: absolute; right: 15px; top: 20px;}
 #sub-category-create-modal .modal-dialog .modal-content .forms-inputs label { font-size: 16px; margin: 0 0 10px;}
-#sub-category-create-modal .modal-dialog .modal-content .modal-body .btn-dark { margin: 6px 0 0; display: inline-block; float: left;}
-#sub-category-create-modal .modal-dialog .modal-content .modal-body .btn-secondary { float: left; margin: 7px 0 0 10px;}
+#sub-category-create-modal .modal-dialog .modal-content .modal-body .btn-dark { margin: 12px 0 0; display: inline-block; float: left;}
+#sub-category-create-modal .modal-dialog .modal-content .modal-body .btn-secondary { float: left; margin: 12px 0 0 10px;}
 #sub-category-create-modal .modal-dialog .modal-content {border-radius: 10px;}
-
+#sub-category-create-modal .modal-dialog .modal-content .forms-inputs input {height: 48px; border: 1px solid rgba(188, 188, 188, 1); padding: 11px; border-radius: 10px;}
 
 .invite-wrap .forms-inputs label {font-size: 16px; margin: 0 0 10px;}
 .invite-wrap .forms-inputs input { height: 52px; border: 1px solid rgba(188, 188, 188, 1);  padding: 11px; border-radius: 10px;}
