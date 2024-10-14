@@ -105,8 +105,7 @@ class CommunityController extends Controller
         $hashtag = $request->input('hashtag');
 
 
-
-
+dd("hiiiii");
         if ($request->ajax() && (!empty($request->ref)) ) {
             $post = Post::where('id', '>', 0);
             if (!empty($hashtag)) {
