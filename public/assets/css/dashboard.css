@@ -1980,7 +1980,7 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 
 
 
-.admin_section .table-outer table thead tr th { background: #1989F8;}
+.admin_section .table-outer table thead tr th { background: #1989F8;text-align: left;}
 .admin_section .table-outer table .form-check {padding: 0; min-height: inherit; margin: 5px 0 0;}
 .admin_section .table-outer table .form-check input.form-check-box { border: 1.5px solid #FBAE1E; border-radius: 2px; width: 17px; height: 17px;}
 .admin_section .table-outer table { min-width: 1300px;}
