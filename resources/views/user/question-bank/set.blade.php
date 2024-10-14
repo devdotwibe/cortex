@@ -87,6 +87,11 @@
             </a>
         </div>
         
+
+
+      
+
+
         <div class="lesson-right pagination-arrow" style="display:none">
             <button class="button right-btn"> Next <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
         </div>
