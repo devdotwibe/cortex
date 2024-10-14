@@ -556,12 +556,17 @@ Route::name('admin.')->prefix('admin')->group(function(){
        
         Route::post('/', [TimetableController::class, 'store'])->name('store');
 
-        Route::resource("/timetable",TimetableController::class);
+       
+ // Show the form for editing a specific timetable entry
+ Route::get('/edit/{id}', [TimetableController::class, 'edit'])->name('edit');
 
-
-
-        
-
+ Route::get('/fetcheditdata/{id}', [TimetableController::class, 'fetcheditdata'])->name('fetcheditdata');
+    
+ // Update a specific timetable entry
+ Route::post('/update/{id}', [TimetableController::class, 'update'])->name('update');
+ 
+ // Delete a specific timetable entry
+ Route::delete('/delete/{id}', [TimetableController::class, 'destroy'])->name('destroy');
        
 
     });

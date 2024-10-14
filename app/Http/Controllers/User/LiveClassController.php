@@ -11,6 +11,7 @@ use App\Models\Settings;
 use App\Models\SubClassDetail;
 use App\Models\SubLessonMaterial;
 use App\Models\TermAccess;
+use App\Models\Timetable;
 use App\Models\User;
 use App\Support\Helpers\ImageHelper;
 use Illuminate\Http\Request;
@@ -60,7 +61,8 @@ class LiveClassController extends Controller
        
         $live_class =  LiveClassPage::first(); 
         $setting = Settings::first();
-        return view('user.live-class.private',compact('user','live_class','setting'));
+        $timetables = Timetable::all();
+        return view('user.live-class.private',compact('user','live_class','setting','timetables'));
     }
  
     public function privateclassform(Request  $request){

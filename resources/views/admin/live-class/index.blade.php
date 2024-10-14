@@ -342,7 +342,7 @@
 
 
                         <div class="modal-col1">
-                            <form action="{{ route('admin.timetable.store') }}" method="POST">
+                            <form action="{{ route('admin.timetable.store') }}" method="POST" id="formedit">
                                 @csrf
                                 <div class="form-row">
                                     <!-- Day Picker -->
@@ -413,43 +413,47 @@
 
                                   
                         
-                                    <button class="add-btn" type="submit">+ Add</button>
+                                    <button class="add-btn" type="submit" id="updatebutton">+ Add </button>
                                 </div>
+
+                                <div class="text-field-preview">
+                                    @foreach ($timetables as $timetable)
+                                    <p>{{ $timetable->day }} 
+                                        <span>({{ $timetable->starttime }} {{ $timetable->starttime_am_pm }} - {{ $timetable->endtime }} {{ $timetable->endtime_am_pm }})</span>
+                                    </p>
+                                    
+                                        <div class="user-icons">
+                                            @for ($i = 1; $i <= $timetable->count; $i++)
+                                                <span class="user-icon">
+                                                    <img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                                    <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                                                </span>
+                                            @endfor
+                                        </div>
+                                   
+        
+                                <div class="action-buttons">
+                                    <!-- Edit Button (links to a form to edit the timetable entry) -->
+                                    {{-- <button data-url="{{ route('admin.fetcheditdata', $timetable->id) }}" onclick="edittimetable()" class="btn btn-primary">Edit</button> --}}
+                                    <button data-url="{{ route('admin.timetable.fetcheditdata', $timetable->id) }}" onclick="edittimetable(this)" class="btn btn-primary">Edit</button>
+        
+                                    
+                                    <!-- Delete Button (triggers form to delete the timetable entry) -->
+                                    <form action="{{ route('admin.timetable.destroy', $timetable->id) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this timetable entry?')">Delete</button>
+                                    </form>
+                                </div>
+                                @endforeach
+                            </div>
+                             
                             </form>
                         </div>
 
                         
 
-                        <div class="text-field-preview">
-                            @foreach ($timetables as $timetable)
-                            <p>{{ $timetable->day }} 
-                                <span>({{ $timetable->starttime }} {{ $timetable->starttime_am_pm }} - {{ $timetable->endtime }} {{ $timetable->endtime_am_pm }})</span>
-                            </p>
-                            
-                                <div class="user-icons">
-                                    @for ($i = 1; $i <= $timetable->count; $i++)
-                                        <span class="user-icon">
-                                            <img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
-                                            <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                                        </span>
-                                    @endfor
-                                </div>
-                           
-
-                        <div class="action-buttons">
-                            <!-- Edit Button (links to a form to edit the timetable entry) -->
-                            {{-- <a href="{{ route('admin.timetable.edit', $timetable->id) }}" class="btn btn-primary">Edit</a> --}}
-                            
-                            <!-- Delete Button (triggers form to delete the timetable entry) -->
-                            <form action="{{ route('admin.timetable.destroy', $timetable->id) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this timetable entry?')">Delete</button>
-                            </form>
-                        </div>
-                        @endforeach
-                    </div>
-                     
+                
 
 
 
@@ -538,7 +542,42 @@ $(function() {
 
 </script> --}}
 
+<script>
 
+function edittimetable(button) {
+    // Get the URL from the button's data attribute
+    var url = button.getAttribute('data-url');
+    
+    // Make an AJAX request to fetch the edit data
+    $.ajax({
+        url: url,
+        type: 'GET', // Change to 'GET' since we are fetching data
+        success: function(response) {
+            $('#day').val(response.day);
+            $('#starttime').val(response.starttime);
+            $('#starttime_am_pm').val(response.starttime_am_pm);
+            $('#endtime').val(response.endtime);
+            $('#endtime_am_pm').val(response.endtime_am_pm);
+            $('#count').val(response.count);
+
+
+               // Update the form action with the timetable ID
+               $('#formedit').attr('action', '{{ route('admin.timetable.update', '') }}/' + response.id);
+
+               
+
+            $('#editModal').modal('show');
+            $("#updatebutton").text('update');
+            $("#updatebutton").text('update');
+        },
+        error: function(xhr, status, error) {
+            // Handle errors here
+            console.error('Error fetching data:', error);
+            alert('Error fetching data. Please try again.');
+        }
+    });
+}
+</script>
     <script>
         $(document).ready(function() {
 
