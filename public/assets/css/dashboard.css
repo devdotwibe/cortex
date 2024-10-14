@@ -2765,7 +2765,7 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 #sub-category-create-modal .modal-dialog .modal-content .forms-inputs label { font-size: 16px; margin: 0 0 10px;}
 #sub-category-create-modal .modal-dialog .modal-content .modal-body .btn-dark { margin: 6px 0 0; display: inline-block; float: left;}
 #sub-category-create-modal .modal-dialog .modal-content .modal-body .btn-secondary { float: left; margin: 7px 0 0 10px;}
-
+#sub-category-create-modal .modal-dialog .modal-content {border-radius: 10px;}
 
 
 
