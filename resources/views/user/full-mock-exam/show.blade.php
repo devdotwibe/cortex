@@ -417,6 +417,7 @@
                     $("#flagtext").show();
                     $("#noflagtext").hide();
                 }else{
+                    $("#bookmark-current").removeClass('active');
                     $("#noflagtext").show();
                     $("#flagtext").hide();
                     
