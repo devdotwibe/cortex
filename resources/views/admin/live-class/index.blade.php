@@ -438,7 +438,7 @@
 
                         <div class="action-buttons">
                             <!-- Edit Button (links to a form to edit the timetable entry) -->
-                            <a href="{{ route('admin.timetable.edit', $timetable->id) }}" class="btn btn-primary">Edit</a>
+                            <button class="btn btn-primary edit-btn" data-id="{{ $timetable->id }}">Edit</button>
                             
                             <!-- Delete Button (triggers form to delete the timetable entry) -->
                             <form action="{{ route('admin.timetable.destroy', $timetable->id) }}" method="POST" style="display:inline;">
@@ -446,7 +446,22 @@
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this timetable entry?')">Delete</button>
                             </form>
+
+                            <div id="edit-form-{{ $timetable->id }}" style="display:none;">
+                                <input type="text" name="day" value="{{ $timetable->day }}" id="day-{{ $timetable->id }}">
+                                <input type="text" name="starttime" value="{{ $timetable->starttime }}" id="starttime-{{ $timetable->id }}">
+                                <input type="text" name="endtime" value="{{ $timetable->endtime }}" id="endtime-{{ $timetable->id }}">
+                                <input type="text" name="count" value="{{ $timetable->count }}" id="count-{{ $timetable->id }}">
+                                <button class="btn btn-success save-btn" data-id="{{ $timetable->id }}">Save</button>
+                                <button class="btn btn-secondary cancel-btn" data-id="{{ $timetable->id }}">Cancel</button>
+                            </div>
                         </div>
+
+
+                        
+
+
+
                         @endforeach
                     </div>
                      
@@ -537,6 +552,73 @@ $(function() {
 
 
 </script> --}}
+
+
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Show the inline edit form
+        document.querySelectorAll('.edit-btn').forEach(function (button) {
+            button.addEventListener('click', function () {
+                var id = this.getAttribute('data-id');
+                document.getElementById('edit-form-' + id).style.display = 'block';
+                this.style.display = 'none'; // Hide the edit button
+            });
+        });
+
+        // Cancel the edit and hide the form
+        document.querySelectorAll('.cancel-btn').forEach(function (button) {
+            button.addEventListener('click', function () {
+                var id = this.getAttribute('data-id');
+                document.getElementById('edit-form-' + id).style.display = 'none';
+                document.querySelector('.edit-btn[data-id="' + id + '"]').style.display = 'inline'; // Show the edit button again
+            });
+        });
+
+        // Handle the save (AJAX request)
+        document.querySelectorAll('.save-btn').forEach(function (button) {
+            button.addEventListener('click', function () {
+                var id = this.getAttribute('data-id');
+                var day = document.getElementById('day-' + id).value;
+                var starttime = document.getElementById('starttime-' + id).value;
+                var endtime = document.getElementById('endtime-' + id).value;
+                var count = document.getElementById('count-' + id).value;
+
+                // AJAX request to update the timetable
+                fetch('/timetable/update/' + id, {
+                    method: 'PUT',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        day: day,
+                        starttime: starttime,
+                        endtime: endtime,
+                        count: count
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Update the timetable display
+                        document.getElementById('timetable-' + id).querySelector('p').innerHTML =
+                            day + ' <span>(' + starttime + ' - ' + endtime + ')</span>';
+
+                        // Hide the edit form
+                        document.getElementById('edit-form-' + id).style.display = 'none';
+                        document.querySelector('.edit-btn[data-id="' + id + '"]').style.display = 'inline'; // Show the edit button again
+                    } else {
+                        alert('Error updating timetable');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            });
+        });
+    });
+</script>
 
 
     <script>
