@@ -65,7 +65,9 @@
             <div class="progress-main">
                 <div class="bookmark">
                     <a class="" id="bookmark-current" >
+                        <span id="flagtext">Flag</span>
                         <img class="active-img" src="{{asset("assets/images/flag-blue.svg")}}" alt="bookmark">
+                        <span id="noflagtext">Unflag</span>
                         <img class="inactive-img" src="{{asset("assets/images/flag-red.svg")}}" alt="bookmark">
                     </a>
                 </div>
@@ -412,8 +414,14 @@
                 refreshstatus(summery.cudx,'not-answered');
                 if(summery.flagdx[summery.cudx]){
                     $("#bookmark-current").addClass('active');
+                    $("#flagtext").show();
+                    $("#noflagtext").hide();
                 }else{
                     $("#bookmark-current").removeClass('active');
+                    $("#flagtext").show();
+                    $("#noflagtext").hide();
+                    
+
                 }
                 summery.save()
                 $.each(res.data,function(k,v){ 
