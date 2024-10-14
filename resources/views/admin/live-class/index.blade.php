@@ -438,7 +438,7 @@
 
                         <div class="action-buttons">
                             <!-- Edit Button (links to a form to edit the timetable entry) -->
-                            {{-- <a href="{{ route('admin.timetable.edit', $timetable->id) }}" class="btn btn-primary">Edit</a> --}}
+                            <a href="{{ route('admin.timetable.edit', $timetable->id) }}" class="btn btn-primary">Edit</a>
                             
                             <!-- Delete Button (triggers form to delete the timetable entry) -->
                             <form action="{{ route('admin.timetable.destroy', $timetable->id) }}" method="POST" style="display:inline;">

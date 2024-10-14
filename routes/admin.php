@@ -556,11 +556,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
        
         Route::post('/', [TimetableController::class, 'store'])->name('store');
 
-        Route::resource("/timetable",TimetableController::class);
-
-
-
-        
+       
 
        
 
