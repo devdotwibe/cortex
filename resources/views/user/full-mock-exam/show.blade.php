@@ -65,7 +65,9 @@
             <div class="progress-main">
                 <div class="bookmark">
                     <a class="" id="bookmark-current" >
+                        <span class="active-img">Flag</span>
                         <img class="active-img" src="{{asset("assets/images/flag-blue.svg")}}" alt="bookmark">
+                        <span class="inactive-img">Unflag</span>
                         <img class="inactive-img" src="{{asset("assets/images/flag-red.svg")}}" alt="bookmark">
                     </a>
                 </div>
