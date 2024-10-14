@@ -215,8 +215,7 @@ Route::middleware(['auth', 'isUser'])->group(function () {
         Route::prefix('community')->name('community.')->group(function () {
             Route::get('/', [CommunityController::class, 'posts'])->name('index');
             Route::get('/ajaxindex', [CommunityController::class, 'posts'])->name('ajaxindex');
-            Route::get('/allpost', [CommunityController::class, 'allpost'])->name('allpost');
-            Route::get('/ajaxpost', [CommunityController::class, 'allpost'])->name('ajaxpost');
+            Route::get('/ajaxpost', [CommunityController::class, 'index'])->name('ajaxpost');
             Route::resource('/post', CommunityController::class);
 
     

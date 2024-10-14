@@ -96,7 +96,7 @@ class CommunityController extends Controller
         return view('user.community.posts', compact('user','hashtags'));
     }
 
-    public function allpost(Request $request)
+    public function index(Request $request)
     {
 
         /**
