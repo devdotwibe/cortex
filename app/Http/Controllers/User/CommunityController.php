@@ -79,7 +79,7 @@ class CommunityController extends Controller
                     ],
                     "liked" => $row->likes()->where('user_id', $user->id)->count() > 0 ? true : false,
                     "likeUrl" => route('community.post.like', $row->slug),
-                    "editUrl" => "1";
+                    "editUrl" => "1",
 
                 ];
             }
