@@ -14,8 +14,9 @@ class PublicBan implements Scope
      * Apply the scope to a given Eloquent query builder.
      */
     public function apply(Builder $builder, Model $model): void
-    {        
-        $adminpost = $builder->whereNotNull('admin_id');
+    {       
+        $adminbuilder =   $builder;
+        $adminpost = $adminbuilder->whereNotNull('admin_id');
 
         if(!Auth::guard('admin')->check()||session('is.logined.as','admin')=="user" || (!empty($adminpost))){
             $builder->where(function($qry){
