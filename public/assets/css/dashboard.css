@@ -2768,6 +2768,9 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 #sub-category-create-modal .modal-dialog .modal-content {border-radius: 10px;}
 
 
+.invite-wrap .forms-inputs label {font-size: 16px; margin: 0 0 10px;}
+.invite-wrap .forms-inputs input { height: 52px; border: 1px solid rgba(188, 188, 188, 1);  padding: 11px; border-radius: 10px;}
+
 
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
