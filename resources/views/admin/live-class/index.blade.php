@@ -560,7 +560,7 @@ function edittimetable(button) {
 
 
                // Update the form action with the timetable ID
-               $('#editTimetableForm').attr('action', '{{ route('admin.timetable.update', '') }}/' + response.id);
+               $('#formedit').attr('action', '{{ route('admin.timetable.update', '') }}/' + response.id);
 
                
 
