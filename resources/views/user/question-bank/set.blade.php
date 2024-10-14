@@ -74,17 +74,17 @@
         </div>
 
 
-        <div class="exam-right exam-progress-inner-item">
-            <div class="progress-main">
-                <div class="bookmark">
-                    <a class="" id="bookmark-current" >
-                        <span id="flagtext">Flag</span>
-                        <img class="active-img" src="{{asset("assets/images/flag-blue.svg")}}" alt="bookmark">
-                     
-                        <img class="inactive-img" src="{{asset("assets/images/flag-red.svg")}}" alt="bookmark">
-                    </a>
-                </div>
-            </div>
+        <div class="bookmark">
+            <a class="" id="bookmark-current" >
+                
+                
+                <span id="flagtext" class="flagclass">Flag</span>
+                <span id="flagimages" class="flagclass" >
+                <img class="active-img" src="{{asset("assets/images/flag-blue.svg")}}" alt="bookmark">
+             
+                <img class="inactive-img" src="{{asset("assets/images/flag-red.svg")}}" alt="bookmark">
+                </span>
+            </a>
         </div>
         
         <div class="lesson-right pagination-arrow" style="display:none">
@@ -427,6 +427,7 @@
                 }else{
                     $("#bookmark-current").removeClass('active');
                     $("#flagtext").text('Flag');
+                }
                 $.each(res.data,function(k,v){ 
                         $('#lesson-questionlist-list').html(`
                             <div class="col-md-12">
