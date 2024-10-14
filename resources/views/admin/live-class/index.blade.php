@@ -438,7 +438,9 @@
 
                         <div class="action-buttons">
                             <!-- Edit Button (links to a form to edit the timetable entry) -->
-                            <a href="{{ route('admin.timetable.edit', $timetable->id) }}" class="btn btn-primary">Edit</a>
+                            {{-- <button data-url="{{ route('admin.fetcheditdata', $timetable->id) }}" onclick="edittimetable()" class="btn btn-primary">Edit</button> --}}
+                            <button data-url="{{ route('admin.fetcheditdata', $timetable->id) }}" onclick="edittimetable(this)" class="btn btn-primary">Edit</button>
+
                             
                             <!-- Delete Button (triggers form to delete the timetable entry) -->
                             <form action="{{ route('admin.timetable.destroy', $timetable->id) }}" method="POST" style="display:inline;">
@@ -538,7 +540,37 @@ $(function() {
 
 </script> --}}
 
+<script>
 
+function edittimetable(button) {
+    // Get the URL from the button's data attribute
+    var url = button.getAttribute('data-url');
+    
+    // Make an AJAX request to fetch the edit data
+    $.ajax({
+        url: url,
+        type: 'GET', // Change to 'GET' since we are fetching data
+        success: function(response) {
+            // Assuming 'response' contains the timetable data
+            // Populate your form fields with the returned data
+            $('#day').val(response.day);
+            $('#starttime').val(response.starttime);
+            $('#starttime_am_pm').val(response.starttime_am_pm);
+            $('#endtime').val(response.endtime);
+            $('#endtime_am_pm').val(response.endtime_am_pm);
+            $('#count').val(response.count);
+
+            // Optionally, show the edit modal
+            $('#editModal').modal('show');
+        },
+        error: function(xhr, status, error) {
+            // Handle errors here
+            console.error('Error fetching data:', error);
+            alert('Error fetching data. Please try again.');
+        }
+    });
+}
+</script>
     <script>
         $(document).ready(function() {
 
