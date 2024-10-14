@@ -918,7 +918,7 @@ border-radius: 7px;
 
 .modal-expand {
   position: absolute;
-  top:150px;
+  top:170px;
   left:0;
   width: -webkit-fill-available;
   height:max-content;
