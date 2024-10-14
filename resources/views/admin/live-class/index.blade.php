@@ -415,43 +415,45 @@
                         
                                     <button class="add-btn" type="submit" id="updatebutton">+ Add </button>
                                 </div>
+
+                                <div class="text-field-preview">
+                                    @foreach ($timetables as $timetable)
+                                    <p>{{ $timetable->day }} 
+                                        <span>({{ $timetable->starttime }} {{ $timetable->starttime_am_pm }} - {{ $timetable->endtime }} {{ $timetable->endtime_am_pm }})</span>
+                                    </p>
+                                    
+                                        <div class="user-icons">
+                                            @for ($i = 1; $i <= $timetable->count; $i++)
+                                                <span class="user-icon">
+                                                    <img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                                    <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                                                </span>
+                                            @endfor
+                                        </div>
+                                   
+        
+                                <div class="action-buttons">
+                                    <!-- Edit Button (links to a form to edit the timetable entry) -->
+                                    {{-- <button data-url="{{ route('admin.fetcheditdata', $timetable->id) }}" onclick="edittimetable()" class="btn btn-primary">Edit</button> --}}
+                                    <button data-url="{{ route('admin.timetable.fetcheditdata', $timetable->id) }}" onclick="edittimetable(this)" class="btn btn-primary">Edit</button>
+        
+                                    
+                                    <!-- Delete Button (triggers form to delete the timetable entry) -->
+                                    <form action="{{ route('admin.timetable.destroy', $timetable->id) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this timetable entry?')">Delete</button>
+                                    </form>
+                                </div>
+                                @endforeach
+                            </div>
+                             
                             </form>
                         </div>
 
                         
 
-                        <div class="text-field-preview">
-                            @foreach ($timetables as $timetable)
-                            <p>{{ $timetable->day }} 
-                                <span>({{ $timetable->starttime }} {{ $timetable->starttime_am_pm }} - {{ $timetable->endtime }} {{ $timetable->endtime_am_pm }})</span>
-                            </p>
-                            
-                                <div class="user-icons">
-                                    @for ($i = 1; $i <= $timetable->count; $i++)
-                                        <span class="user-icon">
-                                            <img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
-                                            <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                                        </span>
-                                    @endfor
-                                </div>
-                           
-
-                        <div class="action-buttons">
-                            <!-- Edit Button (links to a form to edit the timetable entry) -->
-                            {{-- <button data-url="{{ route('admin.fetcheditdata', $timetable->id) }}" onclick="edittimetable()" class="btn btn-primary">Edit</button> --}}
-                            <button data-url="{{ route('admin.timetable.fetcheditdata', $timetable->id) }}" onclick="edittimetable(this)" class="btn btn-primary">Edit</button>
-
-                            
-                            <!-- Delete Button (triggers form to delete the timetable entry) -->
-                            <form action="{{ route('admin.timetable.destroy', $timetable->id) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this timetable entry?')">Delete</button>
-                            </form>
-                        </div>
-                        @endforeach
-                    </div>
-                     
+                
 
 
 
