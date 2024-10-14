@@ -77,6 +77,15 @@ public function destroy($id)
 }
 
 
+public function fetcheditdata($id)
+{
+    $timetable = Timetable::findOrFail($id);
+
+    return response()->json($timetable);
+}
+
+
+
 
     
 }    
