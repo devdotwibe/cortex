@@ -78,10 +78,8 @@
             <div class="progress-main">
                 <div class="bookmark">
                     <a class="" id="bookmark-current" >
-                        <span id="flagtext">Flag</span>
-                        <img class="active-img" src="{{asset("assets/images/flag-blue.svg")}}" alt="bookmark">
-                     
-                        <img class="inactive-img" src="{{asset("assets/images/flag-red.svg")}}" alt="bookmark">
+                        <img class="active-img" src="{{asset("assets/images/bookmark.png")}}" alt="bookmark">
+                        <img class="inactive-img" src="{{asset("assets/images/bookmarkfill.png")}}" alt="bookmark">
                     </a>
                 </div>
             </div>
@@ -423,10 +421,9 @@
                 refreshstatus(cudx,'not-answered');
                 if(flagdx[cudx]){
                     $("#bookmark-current").addClass('active');
-                    $("#flagtext").text('Unflag');
                 }else{
                     $("#bookmark-current").removeClass('active');
-                    $("#flagtext").text('Flag');
+                }
                 $.each(res.data,function(k,v){ 
                         $('#lesson-questionlist-list').html(`
                             <div class="col-md-12">
@@ -675,14 +672,12 @@
                     flagdx[cudx]=false;
                     flagcurrent[currentSlug]=true;
                     $("#bookmark-current").removeClass('active');
-                    $("#flagtext").text('flag')
                     $(`#show-all .question-item[data-idx="${cudx}"]`).removeClass('status-flag')
                     $(`#flagged .question-item[data-idx="${cudx}"]`).removeClass('status-flag')
                 }else{
                     flagdx[cudx]=true;
                     flagcurrent[currentSlug]=true;
                     $("#bookmark-current").addClass('active')
-                    $("#flagtext").text('Unflag')
                     $(`#show-all .question-item[data-idx="${cudx}"]`).addClass('status-flag')
                     $(`#flagged .question-item[data-idx="${cudx}"]`).addClass('status-flag')
                 } 
