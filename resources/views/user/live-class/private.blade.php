@@ -27,7 +27,10 @@
                     <p><strong>Timetable</strong></p>
                     @foreach ($timetables as $timetable)
                     <div class="timetable-row">
-                        <p>{{ $timetable['day'] }} <span>({{ $timetable['time'] }})</span></p>
+                        <p>
+                            {{ $timetable->day }} 
+                            <span>({{ $timetable->starttime }} {{ $timetable->starttime_am_pm }} - {{ $timetable->endtime }} {{ $timetable->endtime_am_pm }})</span>
+                        </p>
                         <div class="user-icons">
                             @for ($i = 0; $i < $timetable['count']; $i++)
                                 <span class="user-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
