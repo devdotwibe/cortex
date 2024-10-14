@@ -64,13 +64,16 @@
         <div class="exam-right exam-progress-inner-item">
             <div class="progress-main">
                 <div class="bookmark">
-                    <a class="" id="bookmark-current" >
-                        <img class="active-img" src="{{asset("assets/images/bookmark.png")}}" alt="bookmark">
-                        <img class="inactive-img" src="{{asset("assets/images/bookmarkfill.png")}}" alt="bookmark">
+                    <a class="" id="bookmark-current">
+                        <img class="active-img" src="{{ asset('assets/images/bookmark.png') }}" alt="bookmark">
+                        <img class="inactive-img" src="{{ asset('assets/images/bookmarkfill.png') }}" alt="bookmark">
+                        <span class="flag-text">Flag</span>
+                        <span class="unflag-text" style="display:none;">Unflag</span>
                     </a>
                 </div>
             </div>
         </div>
+        
         <div class="lesson-right pagination-arrow" style="display:none">
             <button class="button right-btn"> Next <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
         </div>
