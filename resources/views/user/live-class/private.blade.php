@@ -20,38 +20,24 @@
                 <div class="workshop-content">
                     {!! $live_class->private_class??""!!}
                 </div>
+
+
+
                 <div class="timetable-wrapp">
                     <p><strong>Timetable</strong></p>
+                    @foreach ($timetables as $timetable)
                     <div class="timetable-row">
-                        <p>SAT <span>(9:30 - 11:30 AM)</span></p>
+                        <p>{{ $timetable['day'] }} <span>({{ $timetable['time'] }})</span></p>
                         <div class="user-icons">
-                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""></span>
-                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""></span>
+                            @for ($i = 0; $i < $timetable['count']; $i++)
+                                <span class="user-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                            @endfor
+                            @for ($i = $timetable['count']; $i < 10; $i++)  <!-- Assuming a maximum of 10 users -->
+                                <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""></span>
+                            @endfor
                         </div>
                     </div>
-                    <div class="timetable-row">
-                        <p>SUN <span>(9:30 - 11:30 AM)</span></p>
-                        <div class="user-icons">
-                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""></span>
-                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""></span>
-                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""></span>
-                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""></span>
-                            <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""></span>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
                 <div class="workshop-action"> 
                     @if (empty($user->privateClass))
