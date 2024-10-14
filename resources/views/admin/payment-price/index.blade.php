@@ -183,7 +183,6 @@
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <div class="form-data">
-                                                                            <div class="pricesection1">
                                                                             <div class="forms-inputs mb-4">
                                                                                 <label class="file-upload"
                                                                                     for="{{ $item->slug }}-icon">Upload
@@ -755,8 +754,6 @@
                                         </div> --}}
                                       
    <!-- Image Upload -->
-
-   <div class="pricesection1">
    <div class="col-md-12">
     <div class="form-group">
         <div class="form-data">
@@ -794,7 +791,6 @@
                 style="display: none; width: 100%; height: auto;">
         @endif
     </div>
-</div>
 </div>
 
                                     </div>
@@ -919,10 +915,7 @@
                                 </div>
 
                                     <div class="sec">
-                                        
                                     <!-- Image Upload -->
-
-                                    <div class="pricesection3">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <div class="form-data">
@@ -960,8 +953,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-                            </div>
                                     <!-- Save Button -->
                                     <div class="col-md-12 mb-3">
                                         <button type="submit" class="btn btn-primary course" name="section"
@@ -1044,7 +1035,6 @@
                                             </div>
                                         </div>
   <!-- Excel Image -->
-  <div class="pricesection4">
   <div class="col-md-12">
     <div class="form-group">
         <div class="form-data">
@@ -1078,7 +1068,6 @@
                 style="display: none; width: 100%; height: auto;">
         @endif
     </div>
-</div>
 </div>
                              
                                     </div>
