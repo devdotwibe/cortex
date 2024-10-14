@@ -2779,7 +2779,7 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 
 .admin_section .forms-inputs label {font-size: 16px; margin: 0 0 10px;}
 .admin_section .forms-inputs input[type="search"] { height: 52px; border: 1px solid rgba(188, 188, 188, 1); padding: 11px; border-radius: 10px;}
-.admin_section button.btn.btn-dark { margin: 12px 0 0; padding: 12px 25px; border-radius: 10px;}
+.admin_section button.btn.btn-dark { margin: 6px 0 0; padding: 12px 25px; border-radius: 10px;}
 
 .payment-wrap .tab-content .tab-pane .card .card-body .pricesection1 {width: 100%; display: flex; flex-wrap: wrap;}
 .payment-wrap .tab-content .tab-pane .card .card-body .pricesection1 .col-md-12 { width: 48%; margin: 0 4% 0 0;}
