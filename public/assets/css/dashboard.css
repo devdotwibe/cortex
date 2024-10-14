@@ -766,7 +766,7 @@ border-radius: 7px;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  padding: 5px 5%;
+  padding: 15px 5%;
   position: relative;
 }
 .exam-progress>.exam-progress-inner>.exam-left {
@@ -845,13 +845,16 @@ border-radius: 7px;
   display:flex;
   flex-wrap:wrap;
   background:#fff;
-  margin:5px;
-  padding: 0px 20px;
+  margin: 0 5px;
+  padding: 15px 20px;
+  height: 100%;
 }
 .progress-menu .menu-text{
   margin:10px 5px;
   align-items:center;
   text-align:center;
+  font-size: 22px;
+  font-weight: 600;
 }
 .progress-menu .menu-icon{
   margin:5px 5px 0px 0px;
