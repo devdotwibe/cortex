@@ -181,6 +181,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
+                                                                    <div class="pricesection1">
                                                                     <div class="form-group">
                                                                         <div class="form-data">
                                                                             <div class="forms-inputs mb-4">
@@ -219,6 +220,7 @@
                                                                             </div>
                                                                         @endif
                                                                     </div>
+                                                                </div>
                                                                 </div>
                                                                 <div class="col-md-8">
                                                                     <div class="row">
@@ -754,6 +756,7 @@
                                         </div> --}}
                                       
    <!-- Image Upload -->
+   <div class="pricesection1">
    <div class="col-md-12">
     <div class="form-group">
         <div class="form-data">
@@ -791,6 +794,7 @@
                 style="display: none; width: 100%; height: auto;">
         @endif
     </div>
+</div>
 </div>
 
                                     </div>
@@ -1035,6 +1039,7 @@
                                             </div>
                                         </div>
   <!-- Excel Image -->
+  <div class="pricesection3">
   <div class="col-md-12">
     <div class="form-group">
         <div class="form-data">
@@ -1068,6 +1073,7 @@
                 style="display: none; width: 100%; height: auto;">
         @endif
     </div>
+</div>
 </div>
                              
                                     </div>
