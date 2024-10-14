@@ -342,7 +342,7 @@
 
 
                         <div class="modal-col1">
-                            <form action="{{ route('admin.timetable.store') }}" method="POST">
+                            <form action="{{ route('admin.timetable.store') }}" method="POST" id="formedit">
                                 @csrf
                                 <div class="form-row">
                                     <!-- Day Picker -->
@@ -413,7 +413,7 @@
 
                                   
                         
-                                    <button class="add-btn" type="submit">+ Add</button>
+                                    <button class="add-btn" type="submit" id="updatebutton">+ Add </button>
                                 </div>
                             </form>
                         </div>
@@ -551,8 +551,6 @@ function edittimetable(button) {
         url: url,
         type: 'GET', // Change to 'GET' since we are fetching data
         success: function(response) {
-            // Assuming 'response' contains the timetable data
-            // Populate your form fields with the returned data
             $('#day').val(response.day);
             $('#starttime').val(response.starttime);
             $('#starttime_am_pm').val(response.starttime_am_pm);
@@ -560,8 +558,15 @@ function edittimetable(button) {
             $('#endtime_am_pm').val(response.endtime_am_pm);
             $('#count').val(response.count);
 
-            // Optionally, show the edit modal
+
+               // Update the form action with the timetable ID
+               $('#editTimetableForm').attr('action', '{{ route('admin.timetable.update', '') }}/' + response.id);
+
+               
+
             $('#editModal').modal('show');
+            $("#updatebutton").text('update');
+            $("#updatebutton").text('update');
         },
         error: function(xhr, status, error) {
             // Handle errors here
