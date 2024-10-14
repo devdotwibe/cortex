@@ -396,8 +396,13 @@
 
     <div class="text-field">
         <label for="count">Number of Users:</label>
-        <input type="number" name="count" id="count" class="form-control" min="1" required>
+        <select name="count" id="count" class="form-control" required>
+            @for ($i = 1; $i <= 10; $i++)
+                <option value="{{ $i }}">{{ $i }}</option>
+            @endfor
+        </select>
     </div>
+    
 
 
 
