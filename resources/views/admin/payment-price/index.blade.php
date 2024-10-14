@@ -181,6 +181,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
+                                                                    <div class="pricesection1">
                                                                     <div class="form-group">
                                                                         <div class="form-data">
                                                                             <div class="forms-inputs mb-4">
@@ -219,6 +220,7 @@
                                                                             </div>
                                                                         @endif
                                                                     </div>
+                                                                </div>
                                                                 </div>
                                                                 <div class="col-md-8">
                                                                     <div class="row">
