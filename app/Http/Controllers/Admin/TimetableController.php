@@ -55,15 +55,13 @@ dd($timetables);
     }
 
 
+
     public function edit($id)
-    {
-        // Find the specific timetable entry by ID
-        $timetable = Timetable::findOrFail($id);
-    
-        // Return the edit view and pass the timetable data
-        return view('admin.live-class.edit', compact('timetable'));
-    }
-    
+{
+    $timetable = Timetable::findOrFail($id);
+    return view('admin.timetable.edit', compact('timetable'));
+}
+
 public function update(Request $request, $id)
 {
     $timetable = Timetable::findOrFail($id);

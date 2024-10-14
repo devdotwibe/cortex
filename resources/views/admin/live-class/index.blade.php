@@ -342,72 +342,82 @@
 
 
                         <div class="modal-col1">
-                            <form action="{{ route('timetable.update', $timetable->id) }}" method="POST">
+                            <form action="{{ route('admin.timetable.store') }}" method="POST">
                                 @csrf
-                                @method('PUT') <!-- This specifies that this form is for updating -->
-                        
                                 <div class="form-row">
                                     <!-- Day Picker -->
                                     <div class="text-field">
                                         <label for="day">Select Day:</label>
                                         <select name="day" id="day" class="form-control">
-                                            <option value="Monday" {{ $timetable->day == 'Monday' ? 'selected' : '' }}>Monday</option>
-                                            <option value="Tuesday" {{ $timetable->day == 'Tuesday' ? 'selected' : '' }}>Tuesday</option>
-                                            <option value="Wednesday" {{ $timetable->day == 'Wednesday' ? 'selected' : '' }}>Wednesday</option>
-                                            <option value="Thursday" {{ $timetable->day == 'Thursday' ? 'selected' : '' }}>Thursday</option>
-                                            <option value="Friday" {{ $timetable->day == 'Friday' ? 'selected' : '' }}>Friday</option>
-                                            <option value="Saturday" {{ $timetable->day == 'Saturday' ? 'selected' : '' }}>Saturday</option>
-                                            <option value="Sunday" {{ $timetable->day == 'Sunday' ? 'selected' : '' }}>Sunday</option>
+                                            <option value="Monday">Monday</option>
+                                            <option value="Tuesday">Tuesday</option>
+                                            <option value="Wednesday">Wednesday</option>
+                                            <option value="Thursday">Thursday</option>
+                                            <option value="Friday">Friday</option>
+                                            <option value="Saturday">Saturday</option>
+                                            <option value="Sunday">Sunday</option>
                                         </select>
                                     </div>
                         
-                                    <!-- Start Time Picker -->
-                                    <div class="text-field">
-                                        <label for="starttime">Start Time:</label>
-                                        <input type="text" 
-                                               name="starttime" 
-                                               id="starttime" 
-                                               class="form-control" 
-                                               value="{{ $timetable->starttime }}"
-                                               placeholder="HH : MM" 
-                                               required>
-                                        <select name="starttime_am_pm" id="starttime_am_pm" class="form-control" required>
-                                            <option value="AM" {{ $timetable->starttime_am_pm == 'AM' ? 'selected' : '' }}>AM</option>
-                                            <option value="PM" {{ $timetable->starttime_am_pm == 'PM' ? 'selected' : '' }}>PM</option>
+                                  
+    
+                                   <div class="text-field">
+                                    <label for="starttime">Start Time:</label>
+                                    <input type="text" 
+                                           name="starttime" 
+                                           id="starttime" 
+                                           class="form-control" 
+                                           placeholder="HH : MM" 
+                                           data-mask="^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$" 
+                                           required>
+                                           <select name="starttime_am_pm" id="starttime_am_pm" class="form-control" required>
+                                            <option value="AM">AM</option>
+                                            <option value="PM">PM</option>
                                         </select>
-                                    </div>
+                                </div>
+                                
+
+    <!-- End Time Picker -->
+    <div class="text-field">
+        <label for="endtime">End Time:</label>
+        <input type="text" 
+               name="endtime" 
+               id="endtime" 
+               class="form-control" 
+               placeholder="HH : MM" 
+               data-mask="^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$" 
+               required>
+               <select name="endtime_am_pm" id="endtime_am_pm" class="form-control" required>
+                <option value="AM">AM</option>
+                <option value="PM">PM</option>
+            </select>
+    </div>           
+
+
+    <div class="text-field">
+        <label for="count">Number of Users:</label>
+        <select name="count" id="count" class="form-control" required>
+            @for ($i = 1; $i <= 10; $i++)
+                <option value="{{ $i }}">{{ $i }}</option>
+            @endfor
+        </select>
+    </div>
+    
+
+
+
+
+                                    <!-- Count Input -->
+                                    {{-- <div class="text-field-preview"> --}}
+                                    <!-- <p>SAT <span>(9:30 - 11:30 AM)</span></p> -->
+
+                                  
                         
-                                    <!-- End Time Picker -->
-                                    <div class="text-field">
-                                        <label for="endtime">End Time:</label>
-                                        <input type="text" 
-                                               name="endtime" 
-                                               id="endtime" 
-                                               class="form-control" 
-                                               value="{{ $timetable->endtime }}"
-                                               placeholder="HH : MM" 
-                                               required>
-                                        <select name="endtime_am_pm" id="endtime_am_pm" class="form-control" required>
-                                            <option value="AM" {{ $timetable->endtime_am_pm == 'AM' ? 'selected' : '' }}>AM</option>
-                                            <option value="PM" {{ $timetable->endtime_am_pm == 'PM' ? 'selected' : '' }}>PM</option>
-                                        </select>
-                                    </div>
-                        
-                                    <!-- Number of Users -->
-                                    <div class="text-field">
-                                        <label for="count">Number of Users:</label>
-                                        <select name="count" id="count" class="form-control" required>
-                                            @for ($i = 1; $i <= 10; $i++)
-                                                <option value="{{ $i }}" {{ $timetable->count == $i ? 'selected' : '' }}>{{ $i }}</option>
-                                            @endfor
-                                        </select>
-                                    </div>
-                        
-                                    <button class="add-btn" type="submit">Update</button>
+                                    <button class="add-btn" type="submit">+ Add</button>
                                 </div>
                             </form>
                         </div>
-                        
+
                         
 
                         <div class="text-field-preview">
