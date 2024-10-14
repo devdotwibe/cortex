@@ -2622,7 +2622,7 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .lesson-pagination .exam-right.exam-progress-inner-item {margin: 0 20px 0 auto;}
 .lesson-pagination  .lesson-right.pagination-arrow {margin-left: 0;}
 .lesson-pagination .exam-right.exam-progress-inner-item .progress-main {min-width: inherit;}
-.lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark { width: 100%; position: relative;}
+.lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark { width: 100%; position: relative;border-left: 3px solid #ffff;}
 .lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark img { width: 100%;display: block; transition: all .25s ease-in-out;}
 .lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark  img.inactive-img { position: absolute; top: 0; left: 0; opacity: 0;}
 .lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark .active img.inactive-img { opacity: 1;}
