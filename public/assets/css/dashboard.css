@@ -2748,6 +2748,27 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .coupon-wrap {background: #FFFFFF; padding: 20px 10px; box-shadow: 4px 0px 16px 0px #0000000A; border-radius: 10px;}
 
 
+#sub-category-create-modal .modal-dialog .modal-content .modal-body .table-outer {padding: 0; box-shadow: none; overflow-x: auto;}
+#sub-category-create-modal .modal-dialog .modal-content .modal-body .table-outer table thead tr th { background: #1989F8;}
+#sub-category-create-modal .modal-dialog .modal-content .modal-body .table-outer table .form-check {padding: 0; min-height: inherit; margin: 5px 0 0;}
+#sub-category-create-modal .modal-dialog .modal-content .modal-body .table-outer table .form-check input.form-check-box { border: 1.5px solid #FBAE1E; border-radius: 2px; width: 17px; height: 17px;}
+#sub-category-create-modal .modal-dialog .modal-content .modal-body .table-outer table {min-width: 700px;}
+#sub-category-create-modal .modal-dialog .modal-content .modal-body .table-outer table .form-check input.form-check-input {margin: 2px 10px 0 0;}
+#sub-category-create-modal .modal-dialog .modal-content .modal-body .table-outer table thead tr th:first-child { border-radius: 10px 0 0 0;}
+#sub-category-create-modal .modal-dialog .modal-content .modal-body .table-outer table thead tr th:last-child { border-radius: 0 10px 0 0;}
+#sub-category-create-modal .modal-dialog .modal-content .modal-body .table-outer table  tbody tr { border: none;}
+#sub-category-create-modal .modal-dialog .modal-content .modal-body .table-outer table tbody tr td { padding: 15px 12px;}
+#sub-category-create-modal .modal-dialog .modal-content .modal-body .table-outer table .form-check input.form-check-box:checked { background: url(../images/check-solid.svg) center; background-repeat: no-repeat; background-size: contain;}
+#sub-category-create-modal .modal-dialog .modal-content .modal-header {border: none;}
+#sub-category-create-modal .modal-dialog .modal-content .modal-header h5 {color: #218df8; font-size: 20px; margin: 0 0 0; font-weight: 600;}
+#sub-category-create-modal .modal-dialog .modal-content .close { background: #fff; color: #000; border: 2px solid #fff; font-size: 30px; line-height: 0; transition: all .25s ease-in-out; width: auto; height: auto; font-weight: 300; position: absolute; right: 15px; top: 20px;}
+#sub-category-create-modal .modal-dialog .modal-content .forms-inputs label { font-size: 16px; margin: 0 0 10px;}
+#sub-category-create-modal .modal-dialog .modal-content .modal-body .btn-dark { margin: 6px 0 0; display: inline-block; float: left;}
+#sub-category-create-modal .modal-dialog .modal-content .modal-body .btn-secondary { float: left; margin: 7px 0 0 10px;}
+
+
+
+
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
 
