@@ -2407,6 +2407,7 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
   width: 50%;
   display: flex;
   flex-wrap: wrap;
+  flex-direction: column;
 }
 
 .payment-wrap .tab-content .tab-pane .card .card-body .sec .col-md-12:nth-child(3) {
