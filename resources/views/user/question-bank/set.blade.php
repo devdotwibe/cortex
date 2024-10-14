@@ -74,15 +74,17 @@
         </div>
 
 
-        <div class="exam-right exam-progress-inner-item">
-            <div class="progress-main">
-                <div class="bookmark">
-                    <a class="" id="bookmark-current" >
-                        <img class="active-img" src="{{asset("assets/images/bookmark.png")}}" alt="bookmark">
-                        <img class="inactive-img" src="{{asset("assets/images/bookmarkfill.png")}}" alt="bookmark">
-                    </a>
-                </div>
-            </div>
+        <div class="bookmark">
+            <a class="" id="bookmark-current" >
+                
+                
+                <span id="flagtext" class="flagclass">Flag</span>
+                <span id="flagimages" class="flagclass" >
+                <img class="active-img" src="{{asset("assets/images/flag-blue.svg")}}" alt="bookmark">
+             
+                <img class="inactive-img" src="{{asset("assets/images/flag-red.svg")}}" alt="bookmark">
+                </span>
+            </a>
         </div>
         
         <div class="lesson-right pagination-arrow" style="display:none">
@@ -421,8 +423,10 @@
                 refreshstatus(cudx,'not-answered');
                 if(flagdx[cudx]){
                     $("#bookmark-current").addClass('active');
+                    $("#flagtext").text('Unflag');
                 }else{
                     $("#bookmark-current").removeClass('active');
+                    $("#flagtext").text('Flag');
                 }
                 $.each(res.data,function(k,v){ 
                         $('#lesson-questionlist-list').html(`
@@ -672,12 +676,14 @@
                     flagdx[cudx]=false;
                     flagcurrent[currentSlug]=true;
                     $("#bookmark-current").removeClass('active');
+                    $("#flagtext").text('flag')
                     $(`#show-all .question-item[data-idx="${cudx}"]`).removeClass('status-flag')
                     $(`#flagged .question-item[data-idx="${cudx}"]`).removeClass('status-flag')
                 }else{
                     flagdx[cudx]=true;
                     flagcurrent[currentSlug]=true;
                     $("#bookmark-current").addClass('active')
+                    $("#flagtext").text('Unflag')
                     $(`#show-all .question-item[data-idx="${cudx}"]`).addClass('status-flag')
                     $(`#flagged .question-item[data-idx="${cudx}"]`).addClass('status-flag')
                 } 
