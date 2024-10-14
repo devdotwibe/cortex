@@ -64,16 +64,15 @@
         <div class="exam-right exam-progress-inner-item">
             <div class="progress-main">
                 <div class="bookmark">
-                    <a class="" id="bookmark-current">
-                        <span id="flagtext" style="display:none;">Flag</span>
-                        <img class="active-img" src="{{asset('assets/images/flag-blue.svg')}}" alt="bookmark">
-                        <span id="noflagtext" style="display:none;">Unflag</span>
-                        <img class="inactive-img" src="{{asset('assets/images/flag-red.svg')}}" alt="bookmark">
+                    <a class="" id="bookmark-current" >
+                        <span id="flagtext">Flag</span>
+                        <img class="active-img" src="{{asset("assets/images/flag-blue.svg")}}" alt="bookmark">
+                        <span id="noflagtext">Unflag</span>
+                        <img class="inactive-img" src="{{asset("assets/images/flag-red.svg")}}" alt="bookmark">
                     </a>
                 </div>
             </div>
         </div>
-        
         <div class="lesson-right pagination-arrow" style="display:none">
             <button class="button right-btn"> Next <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
         </div>
@@ -414,15 +413,16 @@
                 summery.answeridx=summery.answeridx.filter(item => item !== summery.cudx)
                 refreshstatus(summery.cudx,'not-answered');
                 if(summery.flagdx[summery.cudx]){
-    $("#bookmark-current").addClass('active');
-    $("#flagtext").show();  // Show Flag text
-    $("#noflagtext").hide(); // Hide Unflag text
-} else {
-    $("#bookmark-current").removeClass('active');
-    $("#flagtext").hide();  // Hide Flag text
-    $("#noflagtext").show(); // Show Unflag text
-}
+                    $("#bookmark-current").addClass('active');
+                    $("#flagtext").show();
+                    $("#noflagtext").hide();
+                }else{
+                    $("#bookmark-current").removeClass('active');
+                    $("#noflagtext").show();
+                    $("#flagtext").hide();
+                    
 
+                }
                 summery.save()
                 $.each(res.data,function(k,v){ 
                         $('#lesson-questionlist-list').html(`
