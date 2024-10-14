@@ -65,31 +65,9 @@ dd($timetables);
 public function update(Request $request, $id)
 {
     $timetable = Timetable::findOrFail($id);
-    
-    // Validate input as needed
-    $request->validate([
-        'starttime' => 'required',
-        'endtime' => 'required',
-        'day' => 'required',
-        'count' => 'required',
-        'starttime_am_pm' => 'required',
-        'endtime_am_pm' => 'required',
-    ]);
-    
-    // Update timetable fields
-    $timetable->update($request->all());
-
-    // Return a JSON response
-    return response()->json([
-        'message' => 'Timetable updated successfully',
-        'day' => $timetable->day,
-        'starttime' => $timetable->starttime,
-        'starttime_am_pm' => $timetable->starttime_am_pm,
-        'endtime' => $timetable->endtime,
-        'endtime_am_pm' => $timetable->endtime_am_pm,
-    ]);
+    $timetable->update($request->all()); // validate input as needed
+    return redirect()->route('admin.live-class.index')->with('success', 'Timetable updated successfully');
 }
-
 
 public function destroy($id)
 {

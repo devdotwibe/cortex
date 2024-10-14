@@ -422,36 +422,34 @@
 
                         <div class="text-field-preview">
                             @foreach ($timetables as $timetable)
-                                <div class="timetable-entry" data-id="{{ $timetable->id }}">
-                                    <p>
-                                        <span class="day">{{ $timetable->day }}</span>
-                                        <input type="text" class="edit-field starttime" value="{{ $timetable->starttime }} {{ $timetable->starttime_am_pm }}" style="display:none;">
-                                        <input type="text" class="edit-field endtime" value="{{ $timetable->endtime }} {{ $timetable->endtime_am_pm }}" style="display:none;">
-                                        <span class="time-range">({{ $timetable->starttime }} {{ $timetable->starttime_am_pm }} - {{ $timetable->endtime }} {{ $timetable->endtime_am_pm }})</span>
-                                    </p>
-                                    <div class="user-icons">
-                                        @for ($i = 1; $i <= $timetable->count; $i++)
-                                            <span class="user-icon">
-                                                <img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
-                                                <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                                            </span>
-                                        @endfor
-                                    </div>
-                        
-                                    <div class="action-buttons">
-                                        <button class="btn btn-primary edit-btn">Edit</button>
-                                        <button class="btn btn-success save-btn" style="display:none;">Save</button>
-                                        <!-- Delete Button -->
-                                        <form action="{{ route('admin.timetable.destroy', $timetable->id) }}" method="POST" style="display:inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this timetable entry?')">Delete</button>
-                                        </form>
-                                    </div>
+                            <p>{{ $timetable->day }} 
+                                <span>({{ $timetable->starttime }} {{ $timetable->starttime_am_pm }} - {{ $timetable->endtime }} {{ $timetable->endtime_am_pm }})</span>
+                            </p>
+                            
+                                <div class="user-icons">
+                                    @for ($i = 1; $i <= $timetable->count; $i++)
+                                        <span class="user-icon">
+                                            <img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                            <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                                        </span>
+                                    @endfor
                                 </div>
-                            @endforeach
+                           
+
+                        <div class="action-buttons">
+                            <!-- Edit Button (links to a form to edit the timetable entry) -->
+                            <a href="{{ route('admin.timetable.edit', $timetable->id) }}" class="btn btn-primary">Edit</a>
+                            
+                            <!-- Delete Button (triggers form to delete the timetable entry) -->
+                            <form action="{{ route('admin.timetable.destroy', $timetable->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this timetable entry?')">Delete</button>
+                            </form>
                         </div>
-                        
+                        @endforeach
+                    </div>
+                     
 
 
 
@@ -539,60 +537,6 @@ $(function() {
 
 
 </script> --}}
-
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-$(document).ready(function() {
-    // Handle the click event for the Edit button
-    $('.edit-btn').click(function() {
-        const entry = $(this).closest('.timetable-entry');
-        entry.find('.day').hide(); // Hide day text
-        entry.find('.time-range').hide(); // Hide time range text
-        entry.find('.edit-field').show(); // Show input fields
-        $(this).hide(); // Hide Edit button
-        entry.find('.save-btn').show(); // Show Save button
-    });
-
-    // Handle the click event for the Save button
-    $('.save-btn').click(function() {
-        const entry = $(this).closest('.timetable-entry');
-        const id = entry.data('id');
-        const starttime = entry.find('.starttime').val();
-        const endtime = entry.find('.endtime').val();
-        
-        // Prepare the data to be sent
-        const data = {
-            starttime: starttime.split(' ')[0],
-            starttime_am_pm: starttime.split(' ')[1],
-            endtime: endtime.split(' ')[0],
-            endtime_am_pm: endtime.split(' ')[1],
-            day: entry.find('.day').text(),
-            count: entry.find('.user-icons .user-icon').length, // Assuming count is the number of user icons
-            _token: '{{ csrf_token() }}', // Include CSRF token
-        };
-
-        // AJAX request to update the timetable
-        $.ajax({
-            url: '/admin/timetable/update/' + id,
-            method: 'PATCH',
-            data: data,
-            success: function(response) {
-                // Update the displayed values
-                entry.find('.day').text(response.day).show();
-                entry.find('.time-range').text(`(${response.starttime} ${response.starttime_am_pm} - ${response.endtime} ${response.endtime_am_pm})`).show();
-                entry.find('.edit-field').hide(); // Hide input fields
-                entry.find('.edit-btn').show(); // Show Edit button
-                entry.find('.save-btn').hide(); // Hide Save button
-                alert(response.message); // Display success message
-            },
-            error: function(xhr) {
-                alert('An error occurred while updating the timetable.');
-            }
-        });
-    });
-});
-</script>
 
 
     <script>
