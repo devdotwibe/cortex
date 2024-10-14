@@ -2779,6 +2779,8 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .payment-wrap .tab-content .tab-pane .card .card-body .pricesection1 {width: 100%; display: flex; flex-wrap: wrap;}
 .payment-wrap .tab-content .tab-pane .card .card-body .pricesection1 .col-md-12 { width: 48%; margin: 0 4% 0 0;}
 
+.payment-wrap .tab-content .tab-pane#section4 .card .card-body .sec .pricesection1 .col-md-12 {width: 48%;  margin: 0 4% 0 0;}
+
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
 
@@ -2799,6 +2801,8 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .lesson .lesson-row-title .lesson-line { font-size: 15px;}
 
 .payment-wrap .tab-content .tab-pane .card .card-body .pricesection1 .col-md-12 {width: 100%; margin: 0 0 0;}
+
+.payment-wrap .tab-content .tab-pane#section4 .card .card-body .sec .pricesection1 .col-md-12 {width: 100%;  margin: 0 0% 0 0;}
 
 }
 
@@ -2822,6 +2826,7 @@ nav.navbar { padding: 10px 6%;}
 .payment-wrap .tab-content .amount-form .amout-item .form-group label { font-size: 15px;}
 .payment-wrap .tab-content .tab-pane .payment-title h3 {font-size: 18px;}
 
+.payment-wrap .tab-content .tab-pane#section4 .card .card-body .sec .pricesection1 .col-md-12 {width: 48%;  margin: 0 4% 0 0;}
 
 }
 
@@ -2932,4 +2937,6 @@ nav.navbar { padding: 10px 6%;}
 .payment-wrap .tab-content .tab-pane .payment-workshop .amout-item .col-md-8 {
   padding: 0 0 0 0 !important;
 }
+.payment-wrap .tab-content .tab-pane#section4 .card .card-body .sec .pricesection1 .col-md-12 {width: 100%;  margin: 0 0 0 0;}
+
 }
