@@ -84,130 +84,130 @@ class CommunityControllerController extends Controller
     public function create(Request $request){
         return view('admin.community.create');
     }
-    // public function store(Request $request){
-    //     /**
-    //      * @var Admin
-    //      */
-    //     $admin=Auth::guard('admin')->user();
-    //     $type=$request->type??"post";
-    //     if($type=="post"){
-    //         $data=$request->validate([ 
-    //             'type'=>["required"],
-    //             'description'=>["required"], 
-    //             'image'=>["nullable"], 
-    //         ]);
-    //     }else{
+    public function store(Request $request){
+        /**
+         * @var Admin
+         */
+        $admin=Auth::guard('admin')->user();
+        $type=$request->type??"post";
+        if($type=="post"){
+            $data=$request->validate([ 
+                'type'=>["required"],
+                'description'=>["required"], 
+                'image'=>["nullable"], 
+            ]);
+        }else{
 
-    //         $data=$request->validate([
-    //             'description'=>["required"], 
-    //             'type'=>["required"], 
-    //             'option'=>["required",'array','min:2','max:5'],
-    //             'option.*'=>["required",'max:255'],
-    //             'image'=>["nullable"], 
-    //         ],[
-    //             'option.required'=>"This field is required",
-    //             'option.*.required'=>"This field is required",
-    //         ]);
-    //     }
+            $data=$request->validate([
+                'description'=>["required"], 
+                'type'=>["required"], 
+                'option'=>["required",'array','min:2','max:5'],
+                'option.*'=>["required",'max:255'],
+                'image'=>["nullable"], 
+            ],[
+                'option.required'=>"This field is required",
+                'option.*.required'=>"This field is required",
+            ]);
+        }
   
-    //     $data['status']="publish";
-    //     $data['admin_id']=$admin->id;
-    //     $post=Post::store($data);
-    //     if($request->type=="poll"){
-    //         foreach ($request->input('option',[]) as $k=>$v) {
-    //             PollOption::store([
-    //                 'option'=>$v,
-    //                 'post_id'=>$post->id
-    //             ]);
-    //         }
-    //     }
-    //     return redirect()->route('admin.community.index')->with('success',"Post published");
-    // }
+        $data['status']="publish";
+        $data['admin_id']=$admin->id;
+        $post=Post::store($data);
+        if($request->type=="poll"){
+            foreach ($request->input('option',[]) as $k=>$v) {
+                PollOption::store([
+                    'option'=>$v,
+                    'post_id'=>$post->id
+                ]);
+            }
+        }
+        return redirect()->route('admin.community.index')->with('success',"Post published");
+    }
 
 
-    public function store(Request $request)
-{
+//     public function store(Request $request)
+// {
 
 
     
-    /**
-     * @var Admin
-     */
-    $admin = Auth::guard('admin')->user();
-    $type = $request->type ?? "post";
+//     /**
+//      * @var Admin
+//      */
+//     $admin = Auth::guard('admin')->user();
+//     $type = $request->type ?? "post";
 
-    if ($type == "post") {
-        $data = $request->validate([
-            'type' => ["required"],
+//     if ($type == "post") {
+//         $data = $request->validate([
+//             'type' => ["required"],
            
-           'description' => ["required", 'string', "max:300", function ($attribute, $value, $fail) {
-    if (preg_match('/#/', $value)) {
-        $fail('Hashtags are not allowed in the description.');
-    }
-}],
+//            'description' => ["required", 'string', "max:300", function ($attribute, $value, $fail) {
+//     if (preg_match('/#/', $value)) {
+//         $fail('Hashtags are not allowed in the description.');
+//     }
+// }],
 
-            'hashtag' => ["nullable", 'string', 'max:500'],
-            'image' => ["nullable"], 
-        ]);
-    } else {
-        $data = $request->validate([
-            // 'description' => ["required"],
-          'description' => ["required", 'string', "max:300", function ($attribute, $value, $fail) {
-    if (preg_match('/#/', $value)) {
-        $fail('Hashtags are not allowed in the description.');
-    }
-}],
+//             'hashtag' => ["nullable", 'string', 'max:500'],
+//             'image' => ["nullable"], 
+//         ]);
+//     } else {
+//         $data = $request->validate([
+//             // 'description' => ["required"],
+//           'description' => ["required", 'string', "max:300", function ($attribute, $value, $fail) {
+//     if (preg_match('/#/', $value)) {
+//         $fail('Hashtags are not allowed in the description.');
+//     }
+// }],
 
-            'type' => ["required"],
-            'option' => ["required", 'array', 'min:2', 'max:5'],
-            'option.*' => ["required", 'max:255'],
-            'image' => ["nullable"], 
-        ], [
-            'option.required' => "This field is required",
-            'option.*.required' => "This field is required",
-        ]);
-    }
+//             'type' => ["required"],
+//             'option' => ["required", 'array', 'min:2', 'max:5'],
+//             'option.*' => ["required", 'max:255'],
+//             'image' => ["nullable"], 
+//         ], [
+//             'option.required' => "This field is required",
+//             'option.*.required' => "This field is required",
+//         ]);
+//     }
 
    
 
-    $data['status'] = "publish";
-    $data['admin_id'] = $admin->id;
+//     $data['status'] = "publish";
+//     $data['admin_id'] = $admin->id;
 
-    // Create the post
-    $post = Post::store($data);
+//     // Create the post
+//     $post = Post::store($data);
 
-    // Handle poll options if the type is "poll"
-    if($request->type=="poll"){
-        foreach ($request->input('option',[]) as $k=>$v) {
-            PollOption::store([
-                'option'=>$v,
-                'post_id'=>$post->id
-            ]);
-        }
-    }
+//     // Handle poll options if the type is "poll"
+//     if($request->type=="poll"){
+//         foreach ($request->input('option',[]) as $k=>$v) {
+//             PollOption::store([
+//                 'option'=>$v,
+//                 'post_id'=>$post->id
+//             ]);
+//         }
+//     }
  
-    // // Extract and store hashtags from the description
-    // preg_match_all('/#\w+/', $data['description'], $hashtags);
-    // $extractedHashtags = $hashtags[0]; 
-    // foreach ($extractedHashtags as $hashtag) {
-    //     Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id'=>$post->id]);
-    // }
+//     // // Extract and store hashtags from the description
+//     // preg_match_all('/#\w+/', $data['description'], $hashtags);
+//     // $extractedHashtags = $hashtags[0]; 
+//     // foreach ($extractedHashtags as $hashtag) {
+//     //     Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id'=>$post->id]);
+//     // }
 
 
-    // Extract and store hashtags from the hashtag input
-       // Split hashtags by commas, spaces, or a combination of both
-$extractedHashtags = array_filter(array_map('trim', preg_split('/[,\s]+/', $request->input('hashtag', ''))));
+//     // Extract and store hashtags from the hashtag input
+//        // Split hashtags by commas, spaces, or a combination of both
+// $extractedHashtags = array_filter(array_map('trim', preg_split('/[,\s]+/', $request->input('hashtag', ''))));
 
-foreach ($extractedHashtags as $hashtag) {
-    if (!empty($hashtag)) {
-        Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
-    }
-}
+// foreach ($extractedHashtags as $hashtag) {
+//     if (!empty($hashtag)) {
+//         Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
+//     }
+// }
 
 
 
-    return redirect()->route('admin.community.index')->with('success', "Post published");
-}
+//     return redirect()->route('admin.community.index')->with('success', "Post published");
+// }
 
 
     public function show(Request $request,Post $post){
