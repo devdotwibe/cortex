@@ -39,7 +39,6 @@ class CommunityController extends Controller
                 $post->whereIn('id', Hashtag::where('hashtag', 'like', "%$hashtag%")->select('post_id'));
             }
             $posts = $post->orderBy('id', 'DESC')->paginate();
-            dd($posts);
             $results = [];
             foreach ($posts->items() as $row) {
                 $options = [];
@@ -190,19 +189,18 @@ class CommunityController extends Controller
             $data = $request->validate([
                 'type' => ["required"],
                 // 'description' => ["required"],
-                'description' => ["required", 'string', "max:300", function ($attribute, $value, $fail) {
+                'description' => ["required", function ($attribute, $value, $fail) {
                     if (preg_match('/#/', $value)) {
                         $fail('Hashtags are not allowed in the description.');
                     }
                 }],
-                'hashtag' => ["nullable", 'string', 'max:500'],
                 'image' => ["nullable"],
             ]);
         } else {
 
             $data = $request->validate([
                 // 'description' => ["required"],
-                'description' => ["required", 'string', "max:300", function ($attribute, $value, $fail) {
+                'description' => ["required", function ($attribute, $value, $fail) {
                     if (preg_match('/#/', $value)) {
                         $fail('Hashtags are not allowed in the description.');
                     }
@@ -235,7 +233,14 @@ class CommunityController extends Controller
         }
 
 
-        $extractedHashtags = array_filter(array_map('trim', preg_split('/[,\s]+/', $request->input('hashtag', ''))));
+        // // Extract and store hashtags from the description
+        // preg_match_all('/#\w+/', $data['description'], $hashtags);
+        // $extractedHashtags = $hashtags[0];
+        // foreach ($extractedHashtags as $hashtag) {
+        //     Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
+        // }
+        // Split hashtags by commas or spaces   
+        $extractedHashtags = array_map('trim', explode(',', $request->input('hashtag','')));
         foreach ($extractedHashtags as $hashtag) {
             if (!empty($hashtag)) {
                 Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
@@ -531,19 +536,18 @@ class CommunityController extends Controller
             $data = $request->validate([
                 'type' => ["required"],
                 // 'description' => ["required"],
-                'description' => ["required", 'string', "max:300", function ($attribute, $value, $fail) {
+                'description' => ["required", function ($attribute, $value, $fail) {
                     if (preg_match('/#/', $value)) {
                         $fail('Hashtags are not allowed in the description.');
                     }
                 }],
-                'hashtag' => ["nullable", 'string', 'max:500'],
                 'image' => ["nullable"],
             ]);
         } else {
 
             $data = $request->validate([
                 // 'description' => ["required"],
-                'description' => ["required", 'string', "max:300", function ($attribute, $value, $fail) {
+                'description' => ["required", function ($attribute, $value, $fail) {
                     if (preg_match('/#/', $value)) {
                         $fail('Hashtags are not allowed in the description.');
                     }
@@ -594,7 +598,7 @@ class CommunityController extends Controller
         // Hashtag::where('post_id', $post->id)->whereNotIn('id', $hashIds)->delete();
 
         $hashIds=[];
-        $extractedHashtags = array_filter(array_map('trim', preg_split('/[,\s]+/', $request->input('hashtag', ''))));
+        $extractedHashtags = array_map('trim', explode(',', $request->input('hashtag','')));
         foreach ($extractedHashtags as $hashtag) {
             if (!empty($hashtag)) {
                 $hash=Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
@@ -602,7 +606,7 @@ class CommunityController extends Controller
             }
         }
         Hashtag::where('post_id',$post->id)->whereNotIn('id',$hashIds)->delete();
-        return redirect()->route('community.index')->with('success', "Post updated");
+        return redirect()->route('community.edit')->with('success', "Post updated");
     }
     public function destroy(Request $request, Post $post)
     {
