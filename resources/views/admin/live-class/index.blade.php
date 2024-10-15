@@ -439,7 +439,7 @@
                         <div class="action-buttons">
                             <!-- Edit Button (links to a form to edit the timetable entry) -->
                             {{-- <button data-url="{{ route('admin.fetcheditdata', $timetable->id) }}" onclick="edittimetable()" class="btn btn-primary">Edit</button> --}}
-                            {{-- <button data-url="{{ route('admin.timetable.fetcheditdata', $timetable->id) }}" onclick="edittimetable(this)" class="btn btn-primary">Edit</button> --}}
+                            <button data-url="{{ route('admin.timetable.fetcheditdata', $timetable->id) }}" onclick="edittimetable(this)" class="btn btn-primary">Edit</button>
 
                             
                             <!-- Delete Button (triggers form to delete the timetable entry) -->
