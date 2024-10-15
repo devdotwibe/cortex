@@ -547,56 +547,21 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                 type: 'POST', // Use 'POST' for submission
                 data: formData,
                 success: function(response) {
-                  
-                   
+                    // Handle success (e.g., update the timetable preview)
+                    alert('Timetable successfully updated/added!');
                     
                     // Optional: Close the modal and reset the form
                     $('#editModal').modal('hide');
                     $('#formedit')[0].reset(); // Reset the form fields
                     $("#updatebutton").text('+ Add'); // Reset button text to 'Add'
 
-                    showToast("Timetable updated Succesfully",'success')
+                    // Optionally, you can reload the timetable list or append the new entry
+                    location.reload(); // Reload the page to reflect changes, or use JS to dynamically update the DOM
                 },
                 error: function(xhr, status, error) {
                     // Handle error (e.g., display error messages)
                     console.error('Error:', error);
-                  
-                }
-            });
-        });
-    });
-</script>
-<script>
-    // Function to handle form submission via AJAX
-    $(document).ready(function() {
-        // Bind the submit event to the form
-        $('#formedit').submit(function(event) {
-            event.preventDefault(); // Prevent the form from submitting traditionally
-
-            // Get the form data
-            var formData = $(this).serialize(); // Serialize the form data
-
-            // Get the form action (this might change dynamically when editing)
-            var actionUrl = $(this).attr('action');
-
-            // Make an AJAX request
-            $.ajax({
-                url: actionUrl,
-                type: 'POST', // Use 'POST' for submission
-                data: formData,
-                success: function(response) {
-                  
-                    // Optional: Close the modal and reset the form
-                    $('#editModal').modal('hide');
-                    $('#formedit')[0].reset(); // Reset the form fields
-                    $("#updatebutton").text('+ Add'); // Reset button text to 'Add'
-                    showToast("Timetable updated Succesfully",'success')
-                  
-                },
-                error: function(xhr, status, error) {
-                    // Handle error (e.g., display error messages)
-                    console.error('Error:', error);
-                    
+                    alert('An error occurred while submitting the form. Please try again.');
                 }
             });
         });
