@@ -358,7 +358,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>The content is locked and a subscription is required.</p>
+                <p>The content is locked and a subscription is required1.</p>
             </div>
             <div class="modal-footer">
                 <a href="{{ route('pricing.index') }}#our-plans" class="btn btn-primary">View Pricing Plans</a>
