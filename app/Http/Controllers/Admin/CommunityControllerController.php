@@ -200,6 +200,16 @@ foreach ($extractedHashtags as $hashtag) {
     return redirect()->route('admin.community.index')->with('success', "Post published");
 }
 
+public function destroy($id)
+    {
+        // Find the hashtag by ID and delete it
+        $hashtag = Hashtag::findOrFail($id);
+        $hashtag->delete();
+
+        // Redirect back with a success message
+        return redirect()->back()->with('success', 'Hashtag deleted successfully.');
+    }
+
 
     public function show(Request $request,Post $post){
         if($request->ajax()){
@@ -341,7 +351,7 @@ foreach ($extractedHashtags as $hashtag) {
         Hashtag::where('post_id',$post->id)->whereNotIn('id',$hashIds)->delete();
         return redirect()->route('admin.community.index')->with('success',"Post updated");
     }
-    public function destroy(Request $request,Post $post){ 
+    public function destroyy(Request $request,Post $post){ 
         $post->delete();
         return redirect()->route('admin.community.index')->with('success',"Post Deleted");
     }
