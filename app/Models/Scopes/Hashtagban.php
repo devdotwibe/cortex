@@ -24,7 +24,7 @@ class Hashtagban implements Scope
                           $subQuery->select('id')
                                    ->from('users') // Assuming the table name is 'users'
                                    ->where('post_status', 'active');
-                      });
+                      })->orWhereNotNull('admin_id');
             });
         }
         
