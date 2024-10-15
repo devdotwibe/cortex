@@ -68,14 +68,16 @@ public function update(Request $request, $id)
 {
     $timetable = Timetable::findOrFail($id);
     $timetable->update($request->all()); // validate input as needed
-    return redirect()->route('create_timetable')->with('success', 'Timetable updated successfully');
+   
+    return redirect()->back()->with('create_timetable', 'Timetable updated successfully!');
 }
 
 public function destroy($id)
 {
     $timetable = Timetable::findOrFail($id);
     $timetable->delete();
-    return redirect()->route('create_timetable')->with('success', 'Timetable deleted successfully');
+    
+    return redirect()->back()->with('create_timetable', 'Timetable deleted successfully!');
 }
 
 
