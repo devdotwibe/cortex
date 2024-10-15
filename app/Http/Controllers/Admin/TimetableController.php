@@ -62,36 +62,14 @@ dd($timetables);
     return view('admin.timetable.edit', compact('timetable'));
 }
 
-// public function update(Request $request, $id)
-// {
-//     $timetable = Timetable::findOrFail($id);
-//     $timetable->update($request->all()); // validate input as needed
-//     return response()->json(['success'=>'success']);
-// }
-
-
-
 public function update(Request $request, $id)
 {
-    // Validate the request data
-    $validatedData = $request->validate([
-        'day' => 'required|string',
-        'starttime' => 'required|date_format:H:i',
-        'starttime_am_pm' => 'required|in:AM,PM',
-        'endtime' => 'required|date_format:H:i',
-        'endtime_am_pm' => 'required|in:AM,PM',
-        'count' => 'required|integer|min:1|max:10',
-    ]);
-
-    // Find the timetable record by ID or fail
     $timetable = Timetable::findOrFail($id);
-
-    // Update the timetable with validated data
-    $timetable->update($validatedData);
-
-    // Return success response in JSON format
-    return response()->json(['success' => 'Timetable updated successfully'], 200);
+    $timetable->update($request->all()); // validate input as needed
+    return response()->json(['success' => 'Timetable updated successfully']);
 }
+
+
 
 
 
