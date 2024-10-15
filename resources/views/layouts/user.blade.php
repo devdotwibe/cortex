@@ -572,7 +572,9 @@ $(document).ready(function() {
 
 <script>
     function showLockedModal() {
-        document.getElementById('lockedModal').style.display = 'block';
+        // document.getElementById('lockedModal').style.display = 'block';
+
+        $('#lockedModal').modal('show');
     }
     
     function closeLockedModal1() {
