@@ -16,7 +16,7 @@ class Hashtagban implements Scope
      */
     public function apply(Builder $builder, Model $model): void
     {        
-        if(!Auth::guard('admin')->check()||session('is.logined.as','admin')=="user"){
+        if(Auth::guard('admin')->check()||session('is.logined.as','admin')=="user"){
             $builder->whereIn('post_id', function($query) {
                 $query->select('id')
                       ->from('posts') // Assuming the table name is 'posts'
