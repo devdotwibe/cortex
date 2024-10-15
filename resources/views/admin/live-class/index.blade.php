@@ -523,7 +523,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                 error: function(xhr, status, error) {
                     // Handle errors here
                     console.error('Error fetching data:', error);
-                    showToast("Timetable updated Successfully", 'success');
+                    showToast("An error occurred while updating the form", 'error');
                    
                 }
             });
@@ -552,7 +552,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                 success: function(response) {
                     // Handle success (e.g., update the timetable preview)
                     // console.log('Toast function will be called.');
-                    showToast("Timetable updated Successfully", 'success');
+                    showToast("Timetable added Successfully", 'success');
                     
                     // Optional: Close the modal and reset the form
                     $('#editModal').modal('hide');
