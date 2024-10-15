@@ -544,7 +544,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
         @if(session()->has('create_timetable'))
 
         console.log('yyy');
-            $('#editModal').modal('show');
+            $('#live-private-modal').modal('show');
         @endif
 
         // Handle validation errors for 'intensive_class'
