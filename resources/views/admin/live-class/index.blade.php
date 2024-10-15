@@ -551,7 +551,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                 data: formData,
                 success: function(response) {
                     // Handle success (e.g., update the timetable preview)
-                    console.log('Toast function will be called.');
+                    // console.log('Toast function will be called.');
                     showToast("Timetable updated Successfully", 'success');
                     
                     // Optional: Close the modal and reset the form
