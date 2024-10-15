@@ -123,7 +123,6 @@
                         <img src="${v.image}" alt="">
                     `;
                     }
-                    // let hashtag = v.hashtags.join(" ");
                     let hashtag = '';
                     console.log(v.hashtags);
 
