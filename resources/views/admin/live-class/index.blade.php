@@ -538,29 +538,25 @@ These open group sessions condense the entire Thinking Skills curriculum into te
             });
         }
     </script>
-    <script>
-        $(document).ready(function() {
-
-          
-
-            @if(session()->has('create_timetable'))
+  <script>
+    $(document).ready(function() {
+        // Check if there's a session message to show the modal
+        @if(session()->has('create_timetable'))
             $('#editModal').modal('show');
-          
+        @endif
 
-            @endif
+        // Handle validation errors for 'intensive_class'
+        @error('intensive_class')
+            AddCardDetail2(event);
+        @enderror
 
-            @error('intensive_class')
+        // Handle validation errors for 'private_class'
+        @error('private_class')
+            AddCardDetail(event);
+        @enderror
+    });
+</script>
 
-                AddCardDetail2(event);
-            @enderror
-
-            @error('private_class')
-
-                AddCardDetail(event);
-            @enderror
-
-        });
-    </script>
 
     <script>
         function CardBoxOneToggle(event) {
