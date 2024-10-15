@@ -540,7 +540,7 @@ $(function() {
 
 </script> --}}
 
-<script>
+{{-- <script>
 
 function edittimetable(button) {
     // Get the URL from the button's data attribute
@@ -575,7 +575,7 @@ function edittimetable(button) {
         }
     });
 }
-</script>
+</script> --}}
     <script>
         $(document).ready(function() {
 
