@@ -51,7 +51,7 @@ dd($timetables);
         ]);
     
         // Redirect back with a success message
-        return response()->json(['success' => 'Timetable added successfully'], 200);
+        return redirect()->back()->with('success', 'Timetable added successfully!');
     }
 
 
@@ -66,22 +66,13 @@ public function update(Request $request, $id)
 {
     $timetable = Timetable::findOrFail($id);
     $timetable->update($request->all()); // validate input as needed
-     return response()->json(['success' => 'Timetable updated successfully']);
+    return redirect()->route('admin.live-class.index')->with('success', 'Timetable updated successfully');
 }
-
-
-
-
 
 public function destroy($id)
 {
-    // Find the timetable record by ID or fail
     $timetable = Timetable::findOrFail($id);
-
-    // Delete the timetable
     $timetable->delete();
-
-    // Return success response in JSON format
     return redirect()->route('admin.live-class.index')->with('success', 'Timetable deleted successfully');
 }
 
