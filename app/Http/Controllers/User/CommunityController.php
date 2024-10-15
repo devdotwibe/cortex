@@ -175,15 +175,11 @@ class CommunityController extends Controller
             ];
         }
         // $hashtags = Hashtag::whereIn('post_id', Post::where('user_id',$user->id)->select('id'))->groupBy('hashtag')->pluck('hashtag');
-        $hashtags = Hashtag::whereIn('post_id', function($query) use ($user) {
-            $query->select('id')
-                  ->from('posts') // Ensure you reference the correct posts table
-                  ->where('user_id', $user->id);
-        })
-        ->groupBy('hashtag')
-        ->pluck('hashtag');
+        $hashtags = Hashtag::whereIn('post_id', Post::where('user_id', $user->id)->select('id'))
+        ->where('hashtag', 'LIKE', '#%') // Add LIKE condition to filter hashtags starting with '#'
+        ->groupBy('hashtag') // Group by hashtag to get unique values
+        ->pluck('hashtag'); // Retrieve the hashtags as a collection
     
-
 
         return view('user.community.index', compact('user','hashtags'));
     }
