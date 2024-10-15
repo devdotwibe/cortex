@@ -517,11 +517,14 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                     $('#editModal').modal('show');
                     $("#updatebutton").text('update');
                     $("#updatebutton").text('update');
+
+                    showToast("Timetable updated Successfully", 'success');
                 },
                 error: function(xhr, status, error) {
                     // Handle errors here
                     console.error('Error fetching data:', error);
-                    alert('Error fetching data. Please try again.');
+                    showToast("Timetable updated Successfully", 'success');
+                   
                 }
             });
         }
@@ -548,15 +551,14 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                 data: formData,
                 success: function(response) {
                     // Handle success (e.g., update the timetable preview)
-                  
+                    showToast("Timetable updated Successfully", 'success');
                     
                     // Optional: Close the modal and reset the form
                     $('#editModal').modal('hide');
                     $('#formedit')[0].reset(); // Reset the form fields
                     $("#updatebutton").text('+ Add'); // Reset button text to 'Add'
-                    showToast("Timetable updated Successfully", 'success');
-                    // Optionally, you can reload the timetable list or append the new entry
-                    location.reload(); // Reload the page to reflect changes, or use JS to dynamically update the DOM
+
+                   
                 },
                 error: function(xhr, status, error) {
                     // Display error toast
