@@ -191,8 +191,7 @@ class CommunityControllerController extends Controller
         // $extractedHashtags = array_filter(array_map('trim', preg_split('/[,\s]+/', $request->input('hashtag', ''))));
 
         foreach ($extractedHashtags as $hashtag) {
-            // Only store non-empty hashtags (those that begin with '#')
-            if (!empty($hashtag) && str_starts_with($hashtag, '#')) {
+            if (!empty($hashtag)) {
                 Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
             }
         }
@@ -363,25 +362,25 @@ class CommunityControllerController extends Controller
 
 
 
-    // public function store2(Request $request)
-    // {
-    //     $post = Post::create([
-    //         'description' => $request->description,
-    //         'hashtags' => json_encode($this->extractHashtags($request->description)),
-    //         // Other fields
-    //     ]);
+    public function store2(Request $request)
+    {
+        $post = Post::create([
+            'description' => $request->description,
+            'hashtags' => json_encode($this->extractHashtags($request->description)),
+            // Other fields
+        ]);
 
-    //     // Update or create hashtags
-    //     foreach ($post->hashtags as $hashtag) {
-    //         Hashtag::firstOrCreate(['hashtag' => $hashtag]);
-    //     }
+        // Update or create hashtags
+        foreach ($post->hashtags as $hashtag) {
+            Hashtag::firstOrCreate(['hashtag' => $hashtag]);
+        }
 
-    //     // Redirect or return response
-    // }
+        // Redirect or return response
+    }
 
-    // private function extractHashtags($text)
-    // {
-    //     preg_match_all('/#\w+/', $text, $matches);
-    //     return array_unique($matches[0]);
-    // }
+    private function extractHashtags($text)
+    {
+        preg_match_all('/#\w+/', $text, $matches);
+        return array_unique($matches[0]);
+    }
 }
