@@ -123,8 +123,9 @@
                         <img src="${v.image}" alt="">
                     `;
                     }
-                    let hashtag = '';
-                    console.log(v.hashtags);
+                    let hashtag = v.hashtags.join(" ");
+                    console.log(hashtag);
+
 
                     $('#post-item-list').append(`
                     <div class="post-item" id="post-item-${v.slug}">  
