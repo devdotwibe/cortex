@@ -55,7 +55,7 @@
 
 
 <!-- Locked Content Modal -->
-<div id="lockedModal" class="modal" tabindex="-1" role="dialog">
+<div id="lockedModal2" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
