@@ -436,7 +436,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
 
 
 
-                                            <form action="{{ route('admin.timetable.destroy', $timetable->id) }}"
+                                            <form action="{{ route('admin.timetable.destroy',$timetable->id) }}"
                                                 method="POST" style="display:inline;">
                                                 @csrf
                                                 @method('DELETE') 
