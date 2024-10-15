@@ -517,7 +517,6 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                     $('#editModal').modal('show');
                     $("#updatebutton").text('update');
                     $("#updatebutton").text('update');
-                    showToast("Timetable updated Succesfully",'success')
                 },
                 error: function(xhr, status, error) {
                     // Handle errors here
@@ -528,7 +527,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
         }
     </script>
 
-{{-- 
+
 <script>
     // Function to handle form submission via AJAX
     $(document).ready(function() {
@@ -566,7 +565,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
             });
         });
     });
-</script> --}}
+</script>
 <script>
     // Function to handle form submission via AJAX
     $(document).ready(function() {
