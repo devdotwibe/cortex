@@ -447,6 +447,18 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                         </div>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
                     </div>
 
                 </div>
@@ -517,60 +529,15 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                     $('#editModal').modal('show');
                     $("#updatebutton").text('update');
                     $("#updatebutton").text('update');
-
-                    showToast("Timetable updated Successfully", 'success');
                 },
                 error: function(xhr, status, error) {
                     // Handle errors here
                     console.error('Error fetching data:', error);
-                    showToast("An error occurred while updating the form", 'error');
-                   
+                    alert('Error fetching data. Please try again.');
                 }
             });
         }
     </script>
-
-
-<script>
-    // Function to handle form submission via AJAX
-    $(document).ready(function() {
-        // Bind the submit event to the form
-        $('#formedit').submit(function(event) {
-            event.preventDefault(); // Prevent the form from submitting traditionally
-
-            // Get the form data
-            var formData = $(this).serialize(); // Serialize the form data
-
-            // Get the form action (this might change dynamically when editing)
-            var actionUrl = $(this).attr('action');
-
-            // Make an AJAX request
-            $.ajax({
-                url: actionUrl,
-                type: 'POST', // Use 'POST' for submission
-                data: formData,
-                success: function(response) {
-                    // Handle success (e.g., update the timetable preview)
-                    // console.log('Toast function will be called.');
-                    showToast("Timetable added Successfully", 'success');
-                    
-                    // Optional: Close the modal and reset the form
-                    $('#editModal').modal('hide');
-                    $('#formedit')[0].reset(); // Reset the form fields
-                    $("#updatebutton").text('+ Add'); // Reset button text to 'Add'
-
-                   
-                },
-                error: function(xhr, status, error) {
-                    // Display error toast
-                    showToast("An error occurred while submitting the form", 'error');
-                    console.error('Error:', error);
-                }
-            });
-        });
-    });
-</script>
-
     <script>
         $(document).ready(function() {
 
