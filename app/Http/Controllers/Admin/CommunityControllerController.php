@@ -363,25 +363,25 @@ class CommunityControllerController extends Controller
 
 
 
-    public function store2(Request $request)
-    {
-        $post = Post::create([
-            'description' => $request->description,
-            'hashtags' => json_encode($this->extractHashtags($request->description)),
-            // Other fields
-        ]);
+    // public function store2(Request $request)
+    // {
+    //     $post = Post::create([
+    //         'description' => $request->description,
+    //         'hashtags' => json_encode($this->extractHashtags($request->description)),
+    //         // Other fields
+    //     ]);
 
-        // Update or create hashtags
-        foreach ($post->hashtags as $hashtag) {
-            Hashtag::firstOrCreate(['hashtag' => $hashtag]);
-        }
+    //     // Update or create hashtags
+    //     foreach ($post->hashtags as $hashtag) {
+    //         Hashtag::firstOrCreate(['hashtag' => $hashtag]);
+    //     }
 
-        // Redirect or return response
-    }
+    //     // Redirect or return response
+    // }
 
-    private function extractHashtags($text)
-    {
-        preg_match_all('/#\w+/', $text, $matches);
-        return array_unique($matches[0]);
-    }
+    // private function extractHashtags($text)
+    // {
+    //     preg_match_all('/#\w+/', $text, $matches);
+    //     return array_unique($matches[0]);
+    // }
 }
