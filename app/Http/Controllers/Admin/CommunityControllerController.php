@@ -187,7 +187,7 @@ class CommunityControllerController extends Controller
     }
  
   
-$extractedHashtags = array_filter(array_map('trim', preg_split('/[,\s]+/', $request->input('hashtag', ''))));
+$extractedHashtags = array_filter(array_map('trim', preg_split('/\s+/', $request->input('hashtag', ''))));
 
 foreach ($extractedHashtags as $hashtag) {
     if (!empty($hashtag)) {
