@@ -14,7 +14,7 @@
 
 
 
-    <section class="header_nav settings">
+    <section class="header_nav">
         <div class="header_wrapp">
             <form action="{{ route('admin.coupon.setting') }}" method="post" id="settings-form">
                 @csrf
