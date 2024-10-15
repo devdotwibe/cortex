@@ -566,7 +566,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
     
  // Update a specific timetable entry
- Route::put('/update/{id}', [TimetableController::class, 'update'])->name('update');
+ Route::post('/update/{id}', [TimetableController::class, 'update'])->name('update');
  
  // Delete a specific timetable entry
  Route::delete('/delete/{id}', [TimetableController::class, 'destroy'])->name('destroy');
