@@ -348,7 +348,7 @@
 
 
 <!-- Locked Content Modal -->
-<div id="lockedModal1" class="modal" tabindex="-1" role="dialog">
+<div id="lockedModal" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -358,7 +358,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>The content is locked and a subscription is required1.</p>
+                <p>The content is locked and a subscription is required.</p>
             </div>
             <div class="modal-footer">
                 <a href="{{ route('pricing.index') }}#our-plans" class="btn btn-primary">View Pricing Plans</a>
