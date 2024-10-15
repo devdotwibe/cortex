@@ -21,12 +21,10 @@ class CommunityControllerController extends Controller
     
     public function index(Request $request){ 
 
-        // $hashtags = Hashtag::groupBy('hashtag')->pluck('hashtag');
+        $hashtags = Hashtag::groupBy('hashtag')->pluck('hashtag');
     
 
-        $hashtags = Hashtag::where('hashtag', 'LIKE', '#%')
-        ->groupBy('hashtag')
-        ->pluck('hashtag');
+        
        
         $hashtag = $request->input('hashtag');
 
