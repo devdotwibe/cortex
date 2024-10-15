@@ -36,23 +36,15 @@
                             </a>
                         </div>  
                         <div class="hashtag-wrapp">  
-                            <ul class="list-group">  
+                            <ul class="list-group"  >  
                                 @foreach ($hashtags as $hashtag)
-                                    <li class="list-group-item d-inline-block">
-                                        <span>
-                                            <a href="{{ route('admin.community.index', ['hashtag' => $hashtag]) }}">{{ $hashtag }}</a>
-                                        </span>
-                                        <!-- Add a delete button -->
-                                        <form action="{{ route('admin.community.hashtag.delete', $hashtag->id) }}" method="POST" style="display:inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this hashtag?')">Delete</button>
-                                        </form>
+                                    <li class="list-group-item d-inline-block" >
+                                        <a
+                                            href="{{ route('admin.community.index', ['hashtag' => $hashtag]) }}">{{ $hashtag }}</a>
                                     </li>
                                 @endforeach
                             </ul>
                         </div>
-                        
                     </div>
 
 
