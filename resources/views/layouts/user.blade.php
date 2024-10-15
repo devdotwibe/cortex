@@ -572,12 +572,12 @@ $(document).ready(function() {
 
 <script>
     function showLockedModal() {
-        document.getElementById('lockedModal1').style.display = 'block';
+        document.getElementById('lockedModal').style.display = 'block';
     }
     
     function closeLockedModal1() {
         
-        $('#lockedModal').modal('hide');
+        $('#lockedModal1').modal('hide');
     }
     </script>
 
