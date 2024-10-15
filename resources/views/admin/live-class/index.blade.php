@@ -359,7 +359,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                     <!-- Day Picker -->
                                     <div class="text-field">
                                         <label for="day">Select Day:</label>
-                                        <select name="day" id="day" class="form-control">
+                                        <select name="day" id="day" class="form-control" required>
                                             <option value="Monday">Monday</option>
                                             <option value="Tuesday">Tuesday</option>
                                             <option value="Wednesday">Wednesday</option>
@@ -369,35 +369,34 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                             <option value="Sunday">Sunday</option>
                                         </select>
                                     </div>
-
-
-
+                        
+                                    <!-- Start Time Picker -->
                                     <div class="text-field">
                                         <label for="starttime">Start Time:</label>
-                                        <input type="text" name="starttime" id="starttime" class="form-control"
-                                            placeholder="HH : MM" data-mask="^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$"
-                                            required>
-                                        <select name="starttime_am_pm" id="starttime_am_pm" class="form-control"
-                                            required>
-                                            <option value="AM">AM</option>
-                                            <option value="PM">PM</option>
-                                        </select>
+                                        <div class="time-picker">
+                                            <input type="text" name="starttime" id="starttime" class="form-control"
+                                                placeholder="HH : MM" data-mask="^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$" required>
+                                            <select name="starttime_am_pm" id="starttime_am_pm" class="form-control" required>
+                                                <option value="AM">AM</option>
+                                                <option value="PM">PM</option>
+                                            </select>
+                                        </div>
                                     </div>
-
-
+                        
                                     <!-- End Time Picker -->
                                     <div class="text-field">
                                         <label for="endtime">End Time:</label>
-                                        <input type="text" name="endtime" id="endtime" class="form-control"
-                                            placeholder="HH : MM" data-mask="^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$"
-                                            required>
-                                        <select name="endtime_am_pm" id="endtime_am_pm" class="form-control" required>
-                                            <option value="AM">AM</option>
-                                            <option value="PM">PM</option>
-                                        </select>
+                                        <div class="time-picker">
+                                            <input type="text" name="endtime" id="endtime" class="form-control"
+                                                placeholder="HH : MM" data-mask="^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$" required>
+                                            <select name="endtime_am_pm" id="endtime_am_pm" class="form-control" required>
+                                                <option value="AM">AM</option>
+                                                <option value="PM">PM</option>
+                                            </select>
+                                        </div>
                                     </div>
-
-
+                        
+                                    <!-- Number of Users -->
                                     <div class="text-field">
                                         <label for="count">Number of Users:</label>
                                         <select name="count" id="count" class="form-control" required>
@@ -406,47 +405,40 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                             @endfor
                                         </select>
                                     </div>
-
-
-
-                                    <button class="add-btn" type="submit" id="updatebutton">+ Add </button>
+                        
+                                    <button class="add-btn" type="submit" id="updatebutton">+ Add</button>
                                 </div>
                             </form>
                         </div>
-
-
-
+                        
                         <div class="text-field-preview">
                             @foreach ($timetables as $timetable)
-                                <p>{{ $timetable->day }}
-                                    <span>({{ $timetable->starttime }} {{ $timetable->starttime_am_pm }} -
+                                <div class="timetable-entry">
+                                    <p>{{ $timetable->day }} 
+                                        <span>({{ $timetable->starttime }} {{ $timetable->starttime_am_pm }} - 
                                         {{ $timetable->endtime }} {{ $timetable->endtime_am_pm }})</span>
-                                </p>
-
-                                <div class="user-icons">
-                                    @for ($i = 1; $i <= $timetable->count; $i++)
-                                        <span class="user-icon">
-                                            <img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
-                                            <span class="active-icon"><img
-                                                    src="{{ asset('assets/images/fa6-solid_user.svg') }}"
-                                                    alt=""></span>
-                                        </span>
-                                    @endfor
-                                </div>
-
-
-                                <div class="action-buttons">
-
-                                    <button data-url="{{ route('admin.timetable.fetcheditdata', $timetable->id) }}"
-                                        onclick="edittimetable(this)" class="btn btn-primary">Edit</button>
-
-
+                                    </p>
+                                    <div class="user-icons">
+                                        @for ($i = 1; $i <= $timetable->count; $i++)
+                                            <span class="user-icon">
+                                                <img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="User Icon">
+                                                <span class="active-icon">
+                                                    <img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt="Active User Icon">
+                                                </span>
+                                            </span>
+                                        @endfor
+                                    </div>
+                                    <div class="action-buttons">
+                                        <button data-url="{{ route('admin.timetable.fetcheditdata', $timetable->id) }}"
+                                            onclick="edittimetable(this)" class="btn btn-primary">Edit</button>
                                         <button 
-                                            onclick="deletefunction(this)"  data-url="{{ route('admin.timetable.destroy', $timetable->id) }}"  class="btn btn-primary">Delete</button>
+                                            onclick="deletefunction(this)" data-url="{{ route('admin.timetable.destroy', $timetable->id) }}" 
+                                            class="btn btn-primary">Delete</button>
+                                    </div>
                                 </div>
                             @endforeach
                         </div>
-
+                        
                     </div>
 
                 </div>
