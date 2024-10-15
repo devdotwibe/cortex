@@ -556,7 +556,9 @@ Route::name('admin.')->prefix('admin')->group(function(){
        
         Route::post('/', [TimetableController::class, 'store'])->name('store');
 
-
+       
+ // Show the form for editing a specific timetable entry
+ Route::get('/edit/{id}', [TimetableController::class, 'edit'])->name('edit');
 
        
  // Show the form for editing a specific timetable entry
@@ -569,7 +571,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
  Route::delete('/delete/{id}', [TimetableController::class, 'destroy'])->name('destroy');
        
 
-    });
+   
 
     });
 
