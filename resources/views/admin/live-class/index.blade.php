@@ -490,107 +490,45 @@ These open group sessions condense the entire Thinking Skills curriculum into te
 
 @push('footer-script')
   
-<script>
-    function edittimetable(button) {
-        // Get the URL from the button's data attribute
-        var url = button.getAttribute('data-url');
 
-        // Make an AJAX request to fetch the edit data
-        $.ajax({
-            url: url,
-            type: 'GET',
-            success: function(response) {
-                // Populate the form fields with the response data
-                $('#day').val(response.day);
-                $('#starttime').val(response.starttime);
-                $('#starttime_am_pm').val(response.starttime_am_pm);
-                $('#endtime').val(response.endtime);
-                $('#endtime_am_pm').val(response.endtime_am_pm);
-                $('#count').val(response.count);
+    <script>
+        function edittimetable(button) {
+            // Get the URL from the button's data attribute
+            var url = button.getAttribute('data-url');
 
-                // Update the form action with the timetable ID
-                $('#formedit').attr('action', '{{ route('admin.timetable.update', '') }}/' + response.id);
-
-                // Show the modal for editing
-                $('#editModal').modal('show');
-                $("#updatebutton").text('Update');
-            },
-            error: function(xhr, status, error) {
-                console.error('Error fetching data:', error);
-                showToast("An error occurred while fetching the data", 'error');
-            }
-        });
-    }
-
-    $(document).ready(function() {
-        // Bind the submit event to the form for adding/updating timetable entries
-        $('#formedit').submit(function(event) {
-            event.preventDefault(); // Prevent the form from submitting traditionally
-
-            // Get the form data
-            var formData = $(this).serialize(); // Serialize the form data
-
-            // Get the form action (this might change dynamically when editing)
-            var actionUrl = $(this).attr('action');
-
-            // Make an AJAX request for adding/updating
+            // Make an AJAX request to fetch the edit data
             $.ajax({
-                url: actionUrl,
-                type: 'POST', // Use 'POST' for submission
-                data: formData,
+                url: url,
+                type: 'GET', // Change to 'GET' since we are fetching data
                 success: function(response) {
-                    // Check if the response contains a success message
-                    if (response.success) {
-                        // Assuming 'success' means the operation was successful
-                        showToast(response.success, 'success');
+                    $('#day').val(response.day);
+                    $('#starttime').val(response.starttime);
+                    $('#starttime_am_pm').val(response.starttime_am_pm);
+                    $('#endtime').val(response.endtime);
+                    $('#endtime_am_pm').val(response.endtime_am_pm);
+                    $('#count').val(response.count);
 
-                        // If updating, find and update the existing timetable entry in the preview
-                        if (actionUrl.includes('update')) {
-                            // Update the corresponding entry in the preview section
-                            // This assumes you have some way of identifying the entry in the DOM
-                            // You may need to adjust this part based on your actual HTML structure
-                            var timetableId = actionUrl.split('/').pop(); // Extract the timetable ID from the URL
-                            $('.text-field-preview p[data-id="' + timetableId + '"]').html(`
-                                ${response.day} <span>(${response.starttime} ${response.starttime_am_pm} - ${response.endtime} ${response.endtime_am_pm})</span>
-                            `);
-                        } else {
-                            // If adding, append the new entry to the preview section
-                            var newTimetable = `
-                                <p data-id="${response.id}">
-                                    ${response.day} <span>(${response.starttime} ${response.starttime_am_pm} - ${response.endtime} ${response.endtime_am_pm})</span>
-                                </p>
-                                <div class="user-icons">
-                                    ${'<span class="user-icon"><img src="{{ asset("assets/images/fa6-regular_user.svg") }}" alt=""><span class="active-icon"><img src="{{ asset("assets/images/fa6-solid_user.svg") }}" alt=""></span></span>'.repeat(response.count)}
-                                </div>
-                                <div class="action-buttons">
-                                    <button data-url="{{ route('admin.timetable.fetcheditdata', '') }}/${response.id}" onclick="edittimetable(this)" class="btn btn-primary">Edit</button>
-                                    <form action="{{ route('admin.timetable.destroy', '') }}/${response.id}" method="POST" style="display:inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this timetable entry?')">Delete</button>
-                                    </form>
-                                </div>
-                            `;
-                            $('.text-field-preview').append(newTimetable);
-                        }
 
-                        // Close the modal and reset the form
-                        $('#editModal').modal('hide');
-                        $('#formedit')[0].reset(); // Reset the form fields
-                        $("#updatebutton").text('+ Add'); // Reset button text to 'Add'
-                    } else {
-                        showToast("An error occurred: " + response.error, 'error');
-                    }
+                    // Update the form action with the timetable ID
+                    $('#formedit').attr('action', '{{ route('admin.timetable.update', '') }}/' + response.id);
+
+
+
+                    $('#editModal').modal('show');
+                    $("#updatebutton").text('update');
+                    $("#updatebutton").text('update');
+
+                    showToast("Timetable updated Successfully", 'success');
                 },
                 error: function(xhr, status, error) {
                     // Handle errors here
-                    showToast("An error occurred while submitting the form", 'error');
-                    console.error('Error:', error);
+                    console.error('Error fetching data:', error);
+                    showToast("An error occurred while updating the form", 'error');
+                   
                 }
             });
-        });
-    });
-</script>
+        }
+    </script>
 
 
 <script>
