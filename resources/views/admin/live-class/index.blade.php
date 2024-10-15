@@ -441,30 +441,11 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                         onclick="edittimetable(this)" class="btn btn-primary">Edit</button>
 
 
-
-                                    <form action="{{ route('admin.timetable.destroy', $timetable->id) }}" method="POST"
-                                        style="display:inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger"
-                                            onclick="return confirm('Are you sure you want to delete this timetable entry?')">Delete</button>
-                                    </form>
+                                        <button 
+                                            onclick="deletefunction(this)"  data-url="{{ route('admin.timetable.destroy', $timetable->id) }}"  class="btn btn-primary">Delete</button>
                                 </div>
                             @endforeach
                         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                     </div>
 
@@ -473,6 +454,29 @@ These open group sessions condense the entire Thinking Skills curriculum into te
             </div>
         </div>
     </div>
+
+
+    <div class="modal fade" id="delete-post" tabindex="-1" role="dialog" aria-labelledby="Label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="Lablel">Delete Confirmation Required</h5>
+                    <button type="button" class="close"  data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <form action="#"  id="delete-post-form" method="post">
+                        @csrf
+                        @method("DELETE")
+                        <p>Are you sure you want to delete the record </p>
+                        <button type="button" data-bs-dismiss="modal"   class="btn btn-secondary">Cancel</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div> 
 
 
     <div class="modal fade" id="live-intensive-modal" tabindex="-1" role="dialog"
@@ -511,6 +515,20 @@ These open group sessions condense the entire Thinking Skills curriculum into te
   
 
     <script>
+
+        function deletefunction(element){
+
+            var url= $(element).data('url');
+
+            $('#delete-post-form').attr('action',url);
+
+
+            $('#live-private-modal').modal('hide');
+
+            $('#delete-post').modal('show');
+
+
+        }
         function edittimetable(button) {
             // Get the URL from the button's data attribute
             var url = button.getAttribute('data-url');
