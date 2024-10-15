@@ -330,6 +330,13 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                             aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
+
+                    @if(session()->has('create_timetable'))
+                        <div class="alert alert-success">
+                            {{ session()->get('create_timetable') }}
+                        </div>
+                    @endif
+
                     <div class="modal-row">
                         <div class="modal-col1">
                             <x-general-form :url="route('admin.live-class.private_class')" btnsubmit="Save" :fields="[
@@ -540,19 +547,17 @@ These open group sessions condense the entire Thinking Skills curriculum into te
     </script>
   <script>
     $(document).ready(function() {
-        // Check if there's a session message to show the modal
+       
         @if(session()->has('create_timetable'))
 
         console.log('yyy');
             $('#live-private-modal').modal('show');
         @endif
 
-        // Handle validation errors for 'intensive_class'
         @error('intensive_class')
             AddCardDetail2(event);
         @enderror
 
-        // Handle validation errors for 'private_class'
         @error('private_class')
             AddCardDetail(event);
         @enderror
