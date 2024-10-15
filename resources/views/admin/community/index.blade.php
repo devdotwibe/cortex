@@ -35,7 +35,7 @@
                                 #Backtoall
                             </a>
                         </div>  
-                        {{-- <div class="hashtag-wrapp">  
+                        <div class="hashtag-wrapp">  
                             <ul class="list-group"  >  
                                 @foreach ($hashtags as $hashtag)
                                     <li class="list-group-item d-inline-block" >
@@ -44,7 +44,7 @@
                                     </li>
                                 @endforeach
                             </ul>
-                        </div> --}}
+                        </div>
                     </div>
 
 
