@@ -82,7 +82,7 @@ public function destroy($id)
     $timetable->delete();
 
     // Return success response in JSON format
-    return redirect()->route('admin.timetable.index')->with('success', 'Timetable deleted successfully');
+    return redirect()->route('admin.live-class.index')->with('success', 'Timetable deleted successfully');
 }
 
 
