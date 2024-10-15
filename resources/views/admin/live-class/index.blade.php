@@ -517,6 +517,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                     $('#editModal').modal('show');
                     $("#updatebutton").text('update');
                     $("#updatebutton").text('update');
+                    showToast("Timetable updated Succesfully",'success')
                 },
                 error: function(xhr, status, error) {
                     // Handle errors here
@@ -527,7 +528,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
         }
     </script>
 
-
+{{-- 
 <script>
     // Function to handle form submission via AJAX
     $(document).ready(function() {
@@ -547,26 +548,25 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                 type: 'POST', // Use 'POST' for submission
                 data: formData,
                 success: function(response) {
-                    // Handle success (e.g., update the timetable preview)
-                    alert('Timetable successfully updated/added!');
+                  
+                   
                     
                     // Optional: Close the modal and reset the form
                     $('#editModal').modal('hide');
                     $('#formedit')[0].reset(); // Reset the form fields
                     $("#updatebutton").text('+ Add'); // Reset button text to 'Add'
 
-                    // Optionally, you can reload the timetable list or append the new entry
-                    location.reload(); // Reload the page to reflect changes, or use JS to dynamically update the DOM
+                    showToast("Timetable updated Succesfully",'success')
                 },
                 error: function(xhr, status, error) {
                     // Handle error (e.g., display error messages)
                     console.error('Error:', error);
-                    alert('An error occurred while submitting the form. Please try again.');
+                  
                 }
             });
         });
     });
-</script>
+</script> --}}
 <script>
     // Function to handle form submission via AJAX
     $(document).ready(function() {
@@ -586,21 +586,18 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                 type: 'POST', // Use 'POST' for submission
                 data: formData,
                 success: function(response) {
-                    // Handle success (e.g., update the timetable preview)
-                    alert('Timetable successfully updated/added!');
-                    
+                  
                     // Optional: Close the modal and reset the form
                     $('#editModal').modal('hide');
                     $('#formedit')[0].reset(); // Reset the form fields
                     $("#updatebutton").text('+ Add'); // Reset button text to 'Add'
-
-                    // Optionally, you can reload the timetable list or append the new entry
-                    location.reload(); // Reload the page to reflect changes, or use JS to dynamically update the DOM
+                    showToast("Timetable updated Succesfully",'success')
+                  
                 },
                 error: function(xhr, status, error) {
                     // Handle error (e.g., display error messages)
                     console.error('Error:', error);
-                    alert('An error occurred while submitting the form. Please try again.');
+                    
                 }
             });
         });
