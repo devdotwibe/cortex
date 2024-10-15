@@ -66,7 +66,7 @@ public function update(Request $request, $id)
 {
     $timetable = Timetable::findOrFail($id);
     $timetable->update($request->all()); // validate input as needed
-    return response()->json(['success' => 'Timetable updated successfully']);
+     return response()->json(['success' => 'Timetable updated successfully']);
 }
 
 
@@ -82,7 +82,7 @@ public function destroy($id)
     $timetable->delete();
 
     // Return success response in JSON format
-    return response()->json(['success' => 'Timetable deleted successfully'], 200);
+    return redirect()->route('admin.timetable.index')->with('success', 'Timetable deleted successfully');
 }
 
 
