@@ -342,7 +342,7 @@
 
 
                         <div class="modal-col1">
-                            <form action="{{ route('admin.timetable.store') }}" method="POST" id="formedit">
+                            <form action="{{ route('admin.timetable.store') }}" method="POST">
                                 @csrf
                                 <div class="form-row">
                                     <!-- Day Picker -->
@@ -413,7 +413,7 @@
 
                                   
                         
-                                    <button class="add-btn" type="submit" id="updatebutton">+ Add </button>
+                                    <button class="add-btn" type="submit">+ Add</button>
                                 </div>
                             </form>
                         </div>
@@ -438,9 +438,7 @@
 
                         <div class="action-buttons">
                             <!-- Edit Button (links to a form to edit the timetable entry) -->
-                            {{-- <button data-url="{{ route('admin.fetcheditdata', $timetable->id) }}" onclick="edittimetable()" class="btn btn-primary">Edit</button> --}}
-                            <button data-url="{{ route('admin.timetable.fetcheditdata', $timetable->id) }}" onclick="edittimetable(this)" class="btn btn-primary">Edit</button>
-
+                            <a href="{{ route('admin.timetable.edit', $timetable->id) }}" class="btn btn-primary">Edit</a>
                             
                             <!-- Delete Button (triggers form to delete the timetable entry) -->
                             <form action="{{ route('admin.timetable.destroy', $timetable->id) }}" method="POST" style="display:inline;">
@@ -540,42 +538,7 @@ $(function() {
 
 </script> --}}
 
-<script>
 
-function edittimetable(button) {
-    // Get the URL from the button's data attribute
-    var url = button.getAttribute('data-url');
-    
-    // Make an AJAX request to fetch the edit data
-    $.ajax({
-        url: url,
-        type: 'GET', // Change to 'GET' since we are fetching data
-        success: function(response) {
-            $('#day').val(response.day);
-            $('#starttime').val(response.starttime);
-            $('#starttime_am_pm').val(response.starttime_am_pm);
-            $('#endtime').val(response.endtime);
-            $('#endtime_am_pm').val(response.endtime_am_pm);
-            $('#count').val(response.count);
-
-
-               // Update the form action with the timetable ID
-               $('#formedit').attr('action', '{{ route('admin.timetable.update', '') }}/' + response.id);
-
-               
-
-            $('#editModal').modal('show');
-            $("#updatebutton").text('update');
-            $("#updatebutton").text('update');
-        },
-        error: function(xhr, status, error) {
-            // Handle errors here
-            console.error('Error fetching data:', error);
-            alert('Error fetching data. Please try again.');
-        }
-    });
-}
-</script>
     <script>
         $(document).ready(function() {
 
