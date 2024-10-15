@@ -541,6 +541,14 @@ These open group sessions condense the entire Thinking Skills curriculum into te
     <script>
         $(document).ready(function() {
 
+          
+
+            @if(session()->has('create_timetable'))
+            $('#editModal').modal('show');
+          
+
+            @endif
+
             @error('intensive_class')
 
                 AddCardDetail2(event);

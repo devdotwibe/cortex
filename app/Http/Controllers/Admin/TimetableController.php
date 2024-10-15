@@ -51,7 +51,8 @@ dd($timetables);
         ]);
     
         // Redirect back with a success message
-        return redirect()->back()->with('success', 'Timetable added successfully!');
+        
+        return redirect()->back()->with('create_timetable', 'Timetable added successfully!');
     }
 
 
