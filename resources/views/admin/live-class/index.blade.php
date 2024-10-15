@@ -548,7 +548,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                 data: formData,
                 success: function(response) {
                     // Handle success (e.g., update the timetable preview)
-                    alert('Timetable successfully updated/added!');
+                    showToast("Timetable updated Successfully", 'success');
                     
                     // Optional: Close the modal and reset the form
                     $('#editModal').modal('hide');
@@ -559,9 +559,9 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                     location.reload(); // Reload the page to reflect changes, or use JS to dynamically update the DOM
                 },
                 error: function(xhr, status, error) {
-                    // Handle error (e.g., display error messages)
+                    // Display error toast
+                    showToast("An error occurred while submitting the form", 'error');
                     console.error('Error:', error);
-                    alert('An error occurred while submitting the form. Please try again.');
                 }
             });
         });
