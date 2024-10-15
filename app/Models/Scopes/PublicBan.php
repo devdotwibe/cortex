@@ -21,6 +21,7 @@ class PublicBan implements Scope
                     $iqry->where('visible_status','show')->whereIn('user_id',User::where('post_status','active')->select('id'));
                 });
                 $qry->orWhere('user_id',Auth::id());
+                $qry->orWhereNotNull('admin_id');
             });
         }
     }
