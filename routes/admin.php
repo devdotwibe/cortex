@@ -561,8 +561,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
  Route::get('/edit/{id}', [TimetableController::class, 'edit'])->name('edit');
 
        
- // Show the form for editing a specific timetable entry
- Route::get('/edit/{id}', [TimetableController::class, 'edit'])->name('edit');
+
 
     
  // Update a specific timetable entry
