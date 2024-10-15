@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Support\Facades\Auth;
 
-class PublicBan implements Scope
+class Hashtagban implements Scope
 {
     /**
      * Apply the scope to a given Eloquent query builder.
