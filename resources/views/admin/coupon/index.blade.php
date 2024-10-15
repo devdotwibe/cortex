@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'Coupon'.'Settings')
+@section('title', 'Coupon Settings')
 @section('content')
     <section class="header_nav">
         <div class="header_wrapp">
@@ -7,12 +7,10 @@
                 <h2>Settings</h2>
             </div>
             <div class="header_right">
-              
+                <!-- Additional right-side content can be added here -->
             </div>
         </div>
     </section>
-
-
 
     <section class="header_nav settings">
         <div class="header_wrapp">
@@ -24,24 +22,19 @@
                             <label for="emailaddress">Email Address</label>
                             <input type="email" name="emailaddress" value="{{ old('emailaddress', optional($setting)->emailaddress) }}" class="form-control" id="emailaddress">
                             @error('emailaddress')
-                            <div class="text-danger">{{ $message }}</div>
-                        @enderror
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                             <div id="email_address-error" class="invalid-feedback"></div>
-                           
                         </div>
                     </div>
                     <button type="submit" class="btn btn-dark m-1">Save</button>
                 </div>
-                
-            </form> 
+            </form>
 
-
-            <div class="header_title">
+            <div class="header_title d-flex align-items-center justify-content-between">
                 <h2>Coupon</h2>
-                <li class="nav_item"><a data-bs-toggle="modal" data-bs-target="#coupen-modal" class="nav_link btn">+ Add
-                    New</a></li>
+                <a data-bs-toggle="modal" data-bs-target="#coupen-modal" class="btn btn-primary">+ Add New</a>
             </div>
-            
         </div>
     </section>
     
