@@ -542,6 +542,8 @@ These open group sessions condense the entire Thinking Skills curriculum into te
     $(document).ready(function() {
         // Check if there's a session message to show the modal
         @if(session()->has('create_timetable'))
+
+        console.log('yyy');
             $('#editModal').modal('show');
         @endif
 
