@@ -686,10 +686,10 @@ border-radius: 7px;
   left:0;
 }
 .form-check-ans  span.question-user-ans {
-  width:15px;
-  height:15px;
+  width:20px;
+  height:20px;
   border-radius:50%;
-  margin: 5px;
+  margin: 1px 5px 0 0;
 }
 /* .form-check-ans  span.question-user-ans.wrong.checked-ans{
   background-color:red;
@@ -708,14 +708,15 @@ border-radius: 7px;
   background-color:green;
 }
 .form-check-ans  span.question-user-ans.correct::after{
-  background-image: url('../images/tick.svg');
-  background-size: 10px 10px;
+  background-image: url(../images/tick.svg);
+  background-size: 14px;
   background-repeat: no-repeat;
   display: inline-block;
-  margin: 3px;
-  width: 10px;
-  height: 10px;
-  content:"";
+  margin: 0 0 0;
+  width: 20px;
+  height: 20px;
+  content: "";
+  background-position: center;
 }
 .lesson-row-sets {
   width:100%;
