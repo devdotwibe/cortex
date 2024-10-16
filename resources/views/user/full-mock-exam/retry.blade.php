@@ -47,7 +47,7 @@
                         <a class="" id="bookmark-current" >
                             
                             
-                            <span id="flagtext" class="flagclass">Flag</span>
+                            <span id="flagtext" class="flagclass tst">Flag</span>
                             <span id="flagimages" class="flagclass" >
                             <img class="active-img" src="{{asset("assets/images/flag-blue.svg")}}" alt="bookmark">
                         
