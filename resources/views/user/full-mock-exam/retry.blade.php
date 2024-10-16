@@ -58,17 +58,18 @@
                 </div>
             </div>
         
-    </div>
-    <div class="container-wrap mcq-container-wrap full-mock-exam" id="question-answer-page">
-        <div class="lesson"> 
-            <div class="lesson-body"> 
-                <div class="row" id="lesson-questionlist-list" style="display: none">
-                </div>
-            </div>
-            <div class="lesson-footer paginationclass" id="lesson-footer-pagination"> 
-            </div>           
         </div>
-    </div> 
+        <div class="container-wrap mcq-container-wrap full-mock-exam" id="question-answer-page">
+            <div class="lesson"> 
+                <div class="lesson-body"> 
+                    <div class="row" id="lesson-questionlist-list" style="display: none">
+                    </div>
+                </div>
+                <div class="lesson-footer paginationclass" id="lesson-footer-pagination"> 
+                </div>           
+            </div>
+        </div> 
+    </div>
 </section>
 <section class="exam-footer"> 
     <div class="lesson-pagination">
