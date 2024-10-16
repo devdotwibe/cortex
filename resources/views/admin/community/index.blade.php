@@ -51,8 +51,10 @@
 
                 </div>
             </div>
-            <div class="post-container" id="post-item-list">
+            <div class="post-container-wrapp">
+                <div class="post-container" id="post-item-list">
 
+                </div>
             </div>
 
             <div class="post-search">
