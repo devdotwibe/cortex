@@ -282,11 +282,21 @@
 
     <script> 
 
-        function HideTime()
-        {
-            slideToggle('#exam_timer','#hide_button');
-            
+        function HideTime() {
+            const timerDiv = $('#exam_timer');
+            const button = $('#hide_button');
+
+            timerDiv.slideToggle(400, function() {
+                
+                if (timerDiv.is(':visible')) {
+                    button.text('Hide time');
+                } else {
+                    button.text('Show time');
+                    button.insertAfter(timerDiv);
+                }
+            });
         }
+
 
         var progressurl="{{$user->progress("exam-{$exam->id}-topic-{$category->id}-progress-url","")}}";
         let storage = JSON.parse(localStorage.getItem("topic-test-summery"))||{};
