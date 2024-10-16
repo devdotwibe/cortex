@@ -12,7 +12,7 @@
                             <img src="{{asset("assets/images/exiticon-wht.svg")}}" alt="exiticon">
                         </a>
                     </div>
-                    <div class="timer exam-timer">
+                    <div class="timer exam-timer" id="exam_timer">
                         <div class="minute">
                             <span class="runner">00</span>
                             <span>Mins</span>
@@ -25,7 +25,10 @@
                             <span class="runner">00</span>
                             <span>Seconds</span>
                         </div>
-                    </div> 
+                    </div>
+
+                    <button class="btn hide-btn" id="hide_button" onclick="HideTime()">Hide time</button>
+
                 </div>
             </div>
             <div class="exam-center exam-progress-inner-item">
@@ -281,6 +284,23 @@
 @push('footer-script') 
 
     <script> 
+
+    function HideTime() {
+        
+        const timerDiv = $('#exam_timer');
+        const button = $('#hide_button');
+
+        timerDiv.slideToggle(300, function() {
+
+            if (timerDiv.is(':visible')) {
+                button.text('Hide time');
+            } else {
+                button.text('Show time');
+                button.insertAfter(timerDiv);
+            }
+        });
+    }
+
     let storage = JSON.parse(localStorage.getItem("full-mock-exam-summery-retry"))||{};
     let summery = new Proxy({
         ...storage,
