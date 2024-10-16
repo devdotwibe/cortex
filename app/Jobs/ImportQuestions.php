@@ -69,6 +69,7 @@ class ImportQuestions implements ShouldQueue
         $this->category=$category;
         $this->subCategory=$subCategory;
         $this->setname=$setname;
+      
     }
 
     /**
@@ -76,20 +77,27 @@ class ImportQuestions implements ShouldQueue
      */
     public function handle(): void
     {
+      
         OptionHelper::setData("{$this->exam->name}-import-question",'started');
         OptionHelper::setData("{$this->exam->name}-import-question-status",'progress');
         $datalist=Storage::json("importfile/{$this->filename}")??[];
-        $count=count($datalist);  
+      
+        $count=count($datalist);
+    
         foreach ($datalist as $i => $row) { 
             if(OptionHelper::getData("{$this->exam->name}-import-question","stop")=="stop"){
                 break;
             }
             $row=$datalist[$i];  
             if($this->exam->name=="full-mock-exam"){
-
+                $category = Category::firstOrCreate(
+                    ['name' => $row[$this->fields['category']]],
+               
+                );
+                $category_id = $category->id;
                 $question=Question::store([
                     "exam_id"=>$this->exam->id,
-                    "category_id"=>$row[$this->fields['category']],
+                    "category_id"=>$category_id,
                     "sub_category_id"=>optional($this->subCategory)->id,
                     "sub_category_set"=>optional($this->setname)->id,
                     "description"=>$row[$this->fields['description']],
@@ -144,4 +152,7 @@ class ImportQuestions implements ShouldQueue
         OptionHelper::setData("{$this->exam->name}-import-question-status",null);
         OptionHelper::setData("{$this->exam->name}-import-question-completed",null);
     } 
+
 }
+
+
