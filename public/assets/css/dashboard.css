@@ -2761,7 +2761,7 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .post-search .text-field input::placeholder { color: #838383;}
 .post-search .text-field .search-btn { background: none; border: none; width: 30px; position: absolute; right: 0; top: 50%; transform: translateY(-50%);}
 .post-section .post-action {width: 100%; text-align: center;}
-.post-section .post-action .btn-outline-dark {margin: 0 auto;}
+.post-section .post-action .btn-outline-dark {margin: 25px auto 0;}
 
 .exam-container .summery-wrap .summery-title {width: 100%; font-size: 20px; font-weight: 600;display: flex; margin: 0 0 20px;}
 
