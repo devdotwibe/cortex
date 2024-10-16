@@ -2730,8 +2730,8 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 
 
 
-.post-section .post-row {width: 100%;display: flex; flex-wrap: wrap; margin: 0 0 25px;}
-.post-section .post-row .post-container1 {width: 28%; margin: 0 2% 0 0; overflow-y: auto; max-height: calc(100vh - 188px);}
+.post-section .post-row {width: 100%;display: flex; flex-wrap: wrap; margin: 0 0 0;}
+.post-section .post-row .post-container1 {width: 28%; margin: 0 2% 0 0; overflow-y: auto; max-height: calc(100vh - 105px);}
 .post-section .post-row .post-container1::-webkit-scrollbar {display: none;}
 .post-section .post-row .post-container1 .post-col1 {width: 100%; background: #fff; padding: 25px; border-radius: 10px;}
 .post-section .post-row .post-container1 .row {margin: 0;}
@@ -2741,7 +2741,7 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .post-section .post-row .post-container1 .post-col1 .hashtag-wrapp .list-group { width: 100%;}
 .post-section .post-row .post-container1 .post-col1 .hashtag-wrapp .list-group li.list-group-item { border: none; padding: 0; margin: 0 0 15px;}
 .post-section .post-row .post-container1 .post-col1 .hashtag-wrapp .list-group li.list-group-item a { padding: 10px; display: block; color: #000; background: #FFEAC2; border-radius: 10px; word-break: break-all;}
-.post-section .post-row .post-container-wrapp {width: 40%;overflow-y: auto; max-height: calc(100vh - 188px);}
+.post-section .post-row .post-container-wrapp {width: 40%;overflow-y: auto; max-height: calc(100vh - 105px);}
 .post-section .post-row .post-container-wrapp::-webkit-scrollbar {display: none;}
 .post-section .post-row .post-container { width: 100%; padding: 25px; background: #ffff; border-radius: 10px;}
 .post-section .post-row .post-container .post-item { padding: 0; margin: 0 0 40px; border: none;}
