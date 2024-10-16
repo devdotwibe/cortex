@@ -410,7 +410,7 @@ button.close {
   margin:0 auto 0;
   background: #ffff;
   box-shadow: 4px 0px 16px 0px #0000000A;
-  border-radius: 10px;
+  border-radius: 0;
   max-width: 1320px;
   min-height: calc(100vh - 230px);
 }
