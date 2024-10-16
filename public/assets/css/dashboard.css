@@ -572,6 +572,9 @@ margin-left:auto;
   position: fixed;
   bottom: 0;
   left: 0;
+  width: 87%;
+    margin: 0 auto;
+    right: 0;
 }
 
 .exam-container.exam-video .container-wrap {
