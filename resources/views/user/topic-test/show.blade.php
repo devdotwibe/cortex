@@ -286,8 +286,8 @@
             const timerDiv = $('#exam_timer');
             const button = $('#hide_button');
 
-            timerDiv.slideToggle(400, function() {
-                
+            timerDiv.slideToggle(300, function() {
+
                 if (timerDiv.is(':visible')) {
                     button.text('Hide time');
                 } else {
