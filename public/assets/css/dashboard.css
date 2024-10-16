@@ -2820,6 +2820,16 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 
 .content_section.topic-section .card { margin: 0 0 20px;}
 
+.progress-main .hide-btn {
+  width: 60px;
+  height: 60px;
+  background: #fff;
+  border-radius: 50%;
+  font-size: 12px;
+  line-height: 1;
+  margin: 0 0 0 13px;
+}
+
 
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
