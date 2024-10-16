@@ -996,6 +996,8 @@ border-radius: 7px;
 }
 .tabbody .question-item.status-flag .item-group img{
   display: block;
+  width: 65%;
+  margin: -19px 0 0;
 }
 .question-preview-title,.tab-content .tabheader {
   text-align:center;
@@ -1069,6 +1071,15 @@ border-radius: 7px;
   color:#ffffff;
   border:none;
 }
+
+.nav-status.status-active img {
+  width: 65%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+
 .nav-status.status-inactive{
   background:#bcbabd;
   border:none;
