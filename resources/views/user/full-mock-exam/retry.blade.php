@@ -42,6 +42,8 @@
             </div>
            
         </div>
+    </div>
+
         <div class="container-wrap mcq-container-wrap full-mock-exam" id="question-answer-page">
             <div class="lesson"> 
                 <div class="lesson-body"> 
@@ -52,11 +54,11 @@
                 </div>           
             </div>
         </div> 
-    </div>
+    
 </section>
 <section class="exam-footer"> 
     <div class="lesson-pagination">
-        
+
         <div class="lesson-left pagination-arrow" style="display: none" >
             <button class="button left-btn"><img src="{{asset('assets/images/leftarrow.svg')}}" alt="<"> Back </button>
         </div>
