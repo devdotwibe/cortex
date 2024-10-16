@@ -2730,8 +2730,9 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 
 
 
-.post-section .post-row {width: 100%;display: flex; flex-wrap: wrap; margin: 0 0 25px;}
-.post-section .post-row .post-container1 {width: 28%; margin: 0 2% 0 0;}
+.post-section .post-row {width: 100%;display: flex; flex-wrap: wrap; margin: 0 0 0;}
+.post-section .post-row .post-container1 {width: 28%; margin: 0 2% 0 0; overflow-y: auto; max-height: calc(100vh - 105px);}
+.post-section .post-row .post-container1::-webkit-scrollbar {display: none;}
 .post-section .post-row .post-container1 .post-col1 {width: 100%; background: #fff; padding: 25px; border-radius: 10px;}
 .post-section .post-row .post-container1 .row {margin: 0;}
 .post-section .post-row .post-container1 .post-col1 h4 {font-size: 20px; font-weight: 600; color: #000;}
@@ -2740,7 +2741,9 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .post-section .post-row .post-container1 .post-col1 .hashtag-wrapp .list-group { width: 100%;}
 .post-section .post-row .post-container1 .post-col1 .hashtag-wrapp .list-group li.list-group-item { border: none; padding: 0; margin: 0 0 15px;}
 .post-section .post-row .post-container1 .post-col1 .hashtag-wrapp .list-group li.list-group-item a { padding: 10px; display: block; color: #000; background: #FFEAC2; border-radius: 10px; word-break: break-all;}
-.post-section .post-row .post-container { width: 40%; padding: 25px; background: #ffff; border-radius: 10px;}
+.post-section .post-row .post-container-wrapp {width: 40%;overflow-y: auto; max-height: calc(100vh - 105px);}
+.post-section .post-row .post-container-wrapp::-webkit-scrollbar {display: none;}
+.post-section .post-row .post-container { width: 100%; padding: 25px; background: #ffff; border-radius: 10px;}
 .post-section .post-row .post-container .post-item { padding: 0; margin: 0 0 40px; border: none;}
 .post-section .post-row .post-container .post-item .post-header { margin: 0 0 22px;}
 .post-section .post-row .post-container .post-item .post-header .title { flex: 1 0 0;}
@@ -2757,6 +2760,8 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .post-search .text-field input { width: 100%; height: 45px; color: #838383; font-size: 18px; padding-right: 35px;}
 .post-search .text-field input::placeholder { color: #838383;}
 .post-search .text-field .search-btn { background: none; border: none; width: 30px; position: absolute; right: 0; top: 50%; transform: translateY(-50%);}
+.post-section .post-action {width: 100%; text-align: center;}
+.post-section .post-action .btn-outline-dark {margin: 25px auto 0;}
 
 .exam-container .summery-wrap .summery-title {width: 100%; font-size: 20px; font-weight: 600;display: flex; margin: 0 0 20px;}
 
