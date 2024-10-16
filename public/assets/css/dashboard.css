@@ -2789,6 +2789,11 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 
 .header_nav .header_wrapp .header_right ul.nav_bar li.nav_item.import-upload-btn button.btn.btn-dark {padding: 9px 15px; border-radius: 10px;}
 
+
+
+.content_section.topic-section .card { margin: 0 0 20px;}
+
+
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
 
