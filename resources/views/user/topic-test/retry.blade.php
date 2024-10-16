@@ -61,17 +61,23 @@
         <div class="lesson-left pagination-arrow" style="display: none" >
             <button class="button left-btn"><img src="{{asset('assets/images/leftarrow.svg')}}" alt="<"> Back </button>
         </div>
-        <div class="bookmark">
-            <a class="" id="bookmark-current" >
-                
-                
-                <span id="flagtext" class="flagclass">Flag</span>
-                <span id="flagimages" class="flagclass" >
-                <img class="active-img" src="{{asset("assets/images/flag-blue.svg")}}" alt="bookmark">
-             
-                <img class="inactive-img" src="{{asset("assets/images/flag-red.svg")}}" alt="bookmark">
-                </span>
-            </a>
+
+        <div class="exam-right exam-progress-inner-item">
+            <div class="progress-main">
+
+                <div class="bookmark">
+                    <a class="" id="bookmark-current" >
+                        
+                        
+                        <span id="flagtext" class="flagclass">Flag</span>
+                        <span id="flagimages" class="flagclass" >
+                        <img class="active-img" src="{{asset("assets/images/flag-blue.svg")}}" alt="bookmark">
+                    
+                        <img class="inactive-img" src="{{asset("assets/images/flag-red.svg")}}" alt="bookmark">
+                        </span>
+                    </a>
+                </div>
+            </div>
         </div>
 
         <div class="lesson-right pagination-arrow" style="display:none">
