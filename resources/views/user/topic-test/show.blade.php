@@ -12,7 +12,7 @@
                             <img src="{{asset("assets/images/exiticon-wht.svg")}}" alt="exiticon">
                         </a>
                     </div>
-                    <div class="timer exam-timer">
+                    <div class="timer exam-timer" id="exam_timer">
                         <div class="minute">
                             <span class="runner">00</span>
                             <span>Mins</span>
@@ -26,6 +26,8 @@
                             <span>Seconds</span>
                         </div>
                     </div> 
+                    <button class="btn hide-btn" id="hide_button" onclick="HideTime()">Hide time</button>
+
                 </div>
             </div>
             <div class="exam-center exam-progress-inner-item">
@@ -279,6 +281,13 @@
 @push('footer-script') 
 
     <script> 
+
+        function HideTime()
+        {
+            slideToggle('#exam_timer','#hide_button');
+            
+        }
+
         var progressurl="{{$user->progress("exam-{$exam->id}-topic-{$category->id}-progress-url","")}}";
         let storage = JSON.parse(localStorage.getItem("topic-test-summery"))||{};
         let summery = new Proxy({...storage,save:function(target){ localStorage.setItem("topic-test-summery",JSON.stringify(summery));return true; } }, {
