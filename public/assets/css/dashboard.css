@@ -805,8 +805,6 @@ border-radius: 7px;
   flex-wrap:wrap;
   margin-left:5px;
   background: none;
-  animation: none;
-
 }
 .progress-main .timer .minute {
   width:max-content;
