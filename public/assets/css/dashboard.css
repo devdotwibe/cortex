@@ -930,24 +930,24 @@ border-radius: 7px;
 
 .modal-expand {
   position: absolute;
-  top:170px;
-  left:0;
-  width: -webkit-fill-available;
-  height:max-content;
-  background:#EEEEEE;
-  z-index:11;
+  top: 170px;
+  left: 0;
+  width: 100%;
+  height: max-content;
+  background: #EEEEEE;
+  z-index: 11;
+  padding: 0 30px;
 }
 .modal-expand.modal-expand-result {
   top:90px;
 }
 .modal-expand .container-wrap {
-  width: -webkit-fill-available;
-  float: left;
+  width: 90%;
   padding: 20px;
-  margin: 20px 30px;
+  margin: 0 auto;
   background: #ffff;
   box-shadow: 4px 0px 16px 0px #0000000A;
-  border-radius: 10px;
+  border-radius: 0;
   min-height: calc(100vh - 245px);
 }
 .tabbody .question-list {
