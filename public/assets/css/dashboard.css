@@ -753,9 +753,9 @@ border-radius: 7px;
  background-color:#ef9b10;
 }
 .exam-progress {
-  width: 100%;
+  width: 90%;
   display: block;
-  margin: 0;
+  margin: 0 auto;
   padding:0;
   height: 100%;
   background:#1599f2;
