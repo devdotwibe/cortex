@@ -320,6 +320,8 @@
                     $('.exam-timer .second .runner').text(d2s(s))
                     if(summery.endTime<=240&&summery.endTime>=230){
                         $('.exam-timer').addClass('time-up');
+                    }else if(summery.endTime<=60&&summery.endTime>=50){
+                        $('.exam-timer').addClass('time-up');
                     }else if(summery.endTime<=10){
                         $('.exam-timer').addClass('time-up');
                     }else{
