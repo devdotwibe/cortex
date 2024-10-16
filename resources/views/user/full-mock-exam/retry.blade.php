@@ -56,12 +56,11 @@
 </section>
 <section class="exam-footer"> 
     <div class="lesson-pagination">
+        
         <div class="lesson-left pagination-arrow" style="display: none" >
             <button class="button left-btn"><img src="{{asset('assets/images/leftarrow.svg')}}" alt="<"> Back </button>
         </div>
-        <div class="lesson-right pagination-arrow" style="display:none">
-            <button class="button right-btn"> Next <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
-        </div>
+        
         <div class="lesson-finish pagination-arrow" style="display:none">
             <button class="button finish-btn" > Finish Set <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
         </div>  
@@ -81,6 +80,10 @@
                     </a>
                 </div>
             </div>
+        </div>
+
+        <div class="lesson-right pagination-arrow" style="display:none">
+            <button class="button right-btn"> Next <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
         </div>
         
     </div> 
