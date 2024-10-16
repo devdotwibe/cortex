@@ -55,7 +55,7 @@
                                     <div class="form-data">
                                         <div class="forms-inputs mb-4"> 
                                             <label for="Hashtag-community-post-type">Hashtag</label> 
-                                            <textarea name="hashtag" id="Hashtag"  class="form-control texteditor @error('Hashtag') is-invalid @enderror "  rows="5">{{old('hashtag',implode(",",$post->hashtaglist()->pluck('hashtag')->toArray()))}}</textarea>
+                                            <textarea name="hashtag" id="Hashtag"  class="form-control texteditor @error('Hashtag') is-invalid @enderror "  rows="5">{{old('hashtag',implode(" ",$post->hashtaglist()->pluck('hashtag')->toArray()))}}</textarea>
                                             @error('hashtag')
                                             <div class="invalid-feedback">{{$message}}</div>
                                             @enderror

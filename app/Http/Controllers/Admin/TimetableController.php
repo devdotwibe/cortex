@@ -51,7 +51,45 @@ dd($timetables);
         ]);
     
         // Redirect back with a success message
-        return redirect()->back()->with('success', 'Timetable added successfully!');
+        
+        return redirect()->back()->with('create_timetable', 'Timetable added successfully!');
+        
     }
+
+
+
+    public function edit($id)
+{
+    $timetable = Timetable::findOrFail($id);
+    return view('admin.timetable.edit', compact('timetable'));
+}
+
+public function update(Request $request, $id)
+{
+    $timetable = Timetable::findOrFail($id);
+    $timetable->update($request->all()); // validate input as needed
+   
+    return redirect()->back()->with('create_timetable', 'Timetable updated successfully!');
+}
+
+public function destroy($id)
+{
+    $timetable = Timetable::findOrFail($id);
+    $timetable->delete();
+    
+    return redirect()->back()->with('create_timetable', 'Timetable deleted successfully!');
+}
+
+
+public function fetcheditdata($id)
+{
+    $timetable = Timetable::findOrFail($id);
+
+    return response()->json($timetable);
+}
+
+
+
+
     
 }    

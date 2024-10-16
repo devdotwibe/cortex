@@ -21,7 +21,7 @@
 
                                     <div class="category">
 
-                                        <div class="card-box"  >
+                                        <div class="card-box">
 
                                             <button onclick="CardBoxOneToggle(event)" class="btn-live-class">
                                                 <h5><img src="{{ asset('assets/images/pen.png') }}" width="15"
@@ -127,10 +127,10 @@
 
                                                     <textarea class="form-control" name="class_description_1" id="class_description_1" rows="3">
                                                     @if (!empty($live_class->class_description_1))
-                                                    {{ $live_class->class_description_1 }}
-                                                    @else
-                                                    Receive a personalised learning experience with regular feedback by enrolling with our tutors. Designed for Year 5 students.
-                                                    @endif
+{{ $live_class->class_description_1 }}
+@else
+Receive a personalised learning experience with regular feedback by enrolling with our tutors. Designed for Year 5 students.
+@endif
                                                     </textarea>
 
                                                 </div>
@@ -165,32 +165,33 @@
                     <div class="card">
 
                         <div class="card-body">
-                            <div class="row" id="card_box_2" >
+                            <div class="row" id="card_box_2">
                                 <div class="category">
 
-                                    <div class="card-box" >
-    
+                                    <div class="card-box">
+
                                         <button onclick="CardBoxTwoToggle(event)" class="btn-live-class">
-                                            <h5><img src="{{ asset('assets/images/pen.png') }}" width="15" alt="">
+                                            <h5><img src="{{ asset('assets/images/pen.png') }}" width="15"
+                                                    alt="">
                                             </h5>
                                         </button>
-    
+
                                         <button onclick="AddCardDetail2(event)" class="btn btn-dark">
                                             <h5>Add +</h5>
                                         </button>
-    
+
                                         <div class="category-image">
-    
+
                                             @if (!empty($live_class->class_image_2))
                                                 <img src="{{ url('d0/' . $live_class->class_image_2) }}">
                                             @else
                                                 <img src="{{ asset('assets/images/User-red.png') }}">
                                             @endif
-    
+
                                         </div>
-    
+
                                         <div class="category-content">
-    
+
                                             <h3>
                                                 @if (!empty($live_class->class_title_2))
                                                     {{ $live_class->class_title_2 }}
@@ -198,7 +199,7 @@
                                                     Intensive Workshop
                                                 @endif
                                             </h3>
-    
+
                                             <p>
                                                 @if (!empty($live_class->class_description_2))
                                                     {{ $live_class->class_description_2 }}
@@ -207,97 +208,100 @@
                                                     into ten intensive lessions Designed for Year 6 students
                                                 @endif
                                             </p>
-    
+
                                         </div>
-    
+
                                     </div>
-    
+
                                 </div>
                             </div>
                             <div class="row" id="card_box_form_2" style="display:none">
 
                                 <div class="card-box-form">
-                
-                                    <form method="post" action="{{ route('admin.live-class.store') }}" enctype="multipart/form-data">
+
+                                    <form method="post" action="{{ route('admin.live-class.store') }}"
+                                        enctype="multipart/form-data">
                                         @csrf
                                         <div class="category-image">
-                
+
                                             <button type="button" onclick="EditImage2()" id="edit_btn_2">X</button>
-                
+
                                             <label>Image</label>
-                
+
                                             <span id="card_image_2">
-                
+
                                                 @if (!empty($live_class->class_image_2))
                                                     <img src="{{ url('d0/' . $live_class->class_image_2) }}">
                                                 @else
                                                     <img src="{{ asset('assets/images/User-red.png') }}">
                                                 @endif
-                
+
                                             </span>
-                
+
                                             <span id="card_image_upload_2" style="display:none">
-                
-                                                <input type="file" name="class_image_2" id="class_image_2" class="form-control">
-                
+
+                                                <input type="file" name="class_image_2" id="class_image_2"
+                                                    class="form-control">
+
                                                 <div class="preview-box" id="preview-box_2"
                                                     style="width:300px; height:200px; display:none">
-                
+
                                                     <img id="preview-image_2" class="image-preview">
-                
+
                                                 </div>
-                
+
                                             </span>
-                
+
                                         </div>
-                
+
                                         <div class="form-group">
-                
+
                                             <div class="form-data">
-                
+
                                                 <div class="forms-inputs mb-4">
-                
+
                                                     <label>Title</label>
-                
-                                                    <input type="text" name="class_title_2" id="class_title_2" class="form-control"
+
+                                                    <input type="text" name="class_title_2" id="class_title_2"
+                                                        class="form-control"
                                                         value="@if (!empty($live_class->class_title_2)) {{ $live_class->class_title_2 }} @else Intensive Workshop @endif">
-                
+
                                                 </div>
-                
+
                                                 <div class="forms-inputs mb-4">
-                
+
                                                     <label>Description</label>
-                
+
                                                     <textarea class="form-control" name="class_description_2" id="class_description_2" rows="3">
                                                 @if (!empty($live_class->class_description_2))
-                                                {{ $live_class->class_description_2 }}
-                                                @else
-                                                These open group sessions condense the entire Thinking Skills curriculum into ten intensive lessions Designed for Year 6 students
-                                                @endif
+{{ $live_class->class_description_2 }}
+@else
+These open group sessions condense the entire Thinking Skills curriculum into ten intensive lessions Designed for Year 6 students
+@endif
                                                 </textarea>
-                
+
                                                 </div>
-                
+
                                             </div>
-                
+
                                         </div>
-                
+
                                         <div class="forms-inputs mb-4">
-                
+
                                             <button type="submit" class="btn btn-primary">Save</button>
-                
+
                                             <button type="button" onclick="CardBoxTwoToggle(event)"
                                                 class="btn btn-secondary">Cancel</button>
-                
+
                                         </div>
-                
-                
+
+
                                     </form>
-                
+
                                 </div>
-                
+
                             </div>
-                            
+
 
                         </div>
 
@@ -307,7 +311,7 @@
 
             </div>
 
- 
+
 
         </div>
     </section>
@@ -326,6 +330,13 @@
                             aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
+
+                    @if(session()->has('create_timetable'))
+                        <div class="alert alert-success">
+                            {{ session()->get('create_timetable') }}
+                        </div>
+                    @endif
+
                     <div class="modal-row">
                         <div class="modal-col1">
                             <x-general-form :url="route('admin.live-class.private_class')" btnsubmit="Save" :fields="[
@@ -342,7 +353,7 @@
 
 
                         <div class="modal-col1">
-                            <form action="{{ route('admin.timetable.store') }}" method="POST">
+                            <form action="{{ route('admin.timetable.store') }}" method="POST" id="formedit">
                                 @csrf
                                 <div class="form-row">
                                     <!-- Day Picker -->
@@ -358,101 +369,86 @@
                                             <option value="Sunday">Sunday</option>
                                         </select>
                                     </div>
-                        
-                                  
-    
-                                   <div class="text-field">
-                                    <label for="starttime">Start Time:</label>
-                                    <input type="text" 
-                                           name="starttime" 
-                                           id="starttime" 
-                                           class="form-control" 
-                                           placeholder="HH : MM" 
-                                           data-mask="^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$" 
-                                           required>
-                                           <select name="starttime_am_pm" id="starttime_am_pm" class="form-control" required>
+
+
+
+                                    <div class="text-field">
+                                        <label for="starttime">Start Time:</label>
+                                        <input type="text" name="starttime" id="starttime" class="form-control"
+                                            placeholder="HH : MM" data-mask="^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$"
+                                            required>
+                                        <select name="starttime_am_pm" id="starttime_am_pm" class="form-control"
+                                            required>
                                             <option value="AM">AM</option>
                                             <option value="PM">PM</option>
                                         </select>
-                                </div>
-                                
-
-    <!-- End Time Picker -->
-    <div class="text-field">
-        <label for="endtime">End Time:</label>
-        <input type="text" 
-               name="endtime" 
-               id="endtime" 
-               class="form-control" 
-               placeholder="HH : MM" 
-               data-mask="^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$" 
-               required>
-               <select name="endtime_am_pm" id="endtime_am_pm" class="form-control" required>
-                <option value="AM">AM</option>
-                <option value="PM">PM</option>
-            </select>
-    </div>           
+                                    </div>
 
 
-    <div class="text-field">
-        <label for="count">Number of Users:</label>
-        <select name="count" id="count" class="form-control" required>
-            @for ($i = 1; $i <= 10; $i++)
-                <option value="{{ $i }}">{{ $i }}</option>
-            @endfor
-        </select>
-    </div>
-    
+                                    <!-- End Time Picker -->
+                                    <div class="text-field">
+                                        <label for="endtime">End Time:</label>
+                                        <input type="text" name="endtime" id="endtime" class="form-control"
+                                            placeholder="HH : MM" data-mask="^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$"
+                                            required>
+                                        <select name="endtime_am_pm" id="endtime_am_pm" class="form-control" required>
+                                            <option value="AM">AM</option>
+                                            <option value="PM">PM</option>
+                                        </select>
+                                    </div>
+
+
+                                    <div class="text-field">
+                                        <label for="count">Number of Users:</label>
+                                        <select name="count" id="count" class="form-control" required>
+                                            @for ($i = 1; $i <= 10; $i++)
+                                                <option value="{{ $i }}">{{ $i }}</option>
+                                            @endfor
+                                        </select>
+                                    </div>
 
 
 
-
-                                    <!-- Count Input -->
-                                    {{-- <div class="text-field-preview"> --}}
-                                    <!-- <p>SAT <span>(9:30 - 11:30 AM)</span></p> -->
-
-                                  
-                        
-                                    <button class="add-btn" type="submit">+ Add</button>
+                                    <button class="add-btn" type="submit" id="updatebutton">+ Add </button>
                                 </div>
                             </form>
+                            <div class="text-field-preview">
+                                @foreach ($timetables as $timetable)
+                                    <p>{{ $timetable->day }}
+                                        <span>({{ $timetable->starttime }} {{ $timetable->starttime_am_pm }} -
+                                            {{ $timetable->endtime }} {{ $timetable->endtime_am_pm }})</span>
+                                    </p>
+    
+                                    <div class="user-icons">
+                                        @for ($i = 1; $i <= $timetable->count; $i++)
+                                            <span class="user-icon">
+                                                <img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                                <span class="active-icon"><img
+                                                        src="{{ asset('assets/images/fa6-solid_user.svg') }}"
+                                                        alt=""></span>
+                                            </span>
+                                        @endfor
+                                    </div>
+    
+    
+                                    <div class="action-buttons">
+    
+                                        <button data-url="{{ route('admin.timetable.fetcheditdata', $timetable->id) }}"
+                                            onclick="edittimetable(this)" class="btn btn-primary">Edit</button>
+    
+    
+                                            <button 
+                                                onclick="deletefunction(this)"  data-url="{{ route('admin.timetable.destroy', $timetable->id) }}"  class="btn btn-primary">Delete</button>
+                                    </div>
+                                @endforeach
+                            </div>
+
                         </div>
 
-                        
-
-                        <div class="text-field-preview">
-                            @foreach ($timetables as $timetable)
-                            <p>{{ $timetable->day }} 
-                                <span>({{ $timetable->starttime }} {{ $timetable->starttime_am_pm }} - {{ $timetable->endtime }} {{ $timetable->endtime_am_pm }})</span>
-                            </p>
-                            
-                                <div class="user-icons">
-                                    @for ($i = 1; $i <= $timetable->count; $i++)
-                                        <span class="user-icon">
-                                            <img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
-                                            <span class="active-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                                        </span>
-                                    @endfor
-                                </div>
-                            @endforeach
-                        </div>
 
 
+                       
 
-                     
-
-
-
-
-
-
-
-
-                        
-
-
-                        
-                        
                     </div>
 
                 </div>
@@ -460,6 +456,29 @@
             </div>
         </div>
     </div>
+
+
+    <div class="modal fade" id="delete-post" tabindex="-1" role="dialog" aria-labelledby="Label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="Lablel">Delete Confirmation Required</h5>
+                    <button type="button" class="close"  data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <form action="#"  id="delete-post-form" method="post">
+                        @csrf
+                        @method("DELETE")
+                        <p>Are you sure you want to delete the record </p>
+                        <button type="button" data-bs-dismiss="modal"   class="btn btn-secondary">Cancel</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div> 
 
 
     <div class="modal fade" id="live-intensive-modal" tabindex="-1" role="dialog"
@@ -495,68 +514,89 @@
 @endpush
 
 @push('footer-script')
-
-
-{{-- <script>
-
-$(function() {
-    $('.user-icon').click(function() {
-        var index = $(this).data('index');
-        $('#client_rating').val(index);
-
-        // Show active icons for the clicked index and hide others
-        $('.active-icon').each(function(i) {
-            if (i < index) {
-                $(this).show(); // Show active icons for the selected index
-            } else {
-                $(this).hide(); // Hide active icons for indices greater than the selected index
-            }
-        });
-
-        // Hide the user icons corresponding to the active ones displayed
-        $('.user-icon').each(function(i) {
-            if (i < index) {
-                $(this).hide(); // Hide user icons for the selected index
-            } else {
-                $(this).show(); // Show user icons for indices greater than the selected index
-            }
-        });
-    });
-});
-
-
-
-</script> --}}
-
+  
 
     <script>
-        $(document).ready(function() {
 
-            @error('intensive_class')
+        function deletefunction(element){
 
-                AddCardDetail2(event);
-            @enderror
+            var url= $(element).data('url');
 
-            @error('private_class')
+            $('#delete-post-form').attr('action',url);
 
-                AddCardDetail(event);
-            @enderror
 
-        });
+            $('#live-private-modal').modal('hide');
+
+            $('#delete-post').modal('show');
+
+
+        }
+        function edittimetable(button) {
+            // Get the URL from the button's data attribute
+            var url = button.getAttribute('data-url');
+
+            // Make an AJAX request to fetch the edit data
+            $.ajax({
+                url: url,
+                type: 'GET', // Change to 'GET' since we are fetching data
+                success: function(response) {
+                    $('#day').val(response.day);
+                    $('#starttime').val(response.starttime);
+                    $('#starttime_am_pm').val(response.starttime_am_pm);
+                    $('#endtime').val(response.endtime);
+                    $('#endtime_am_pm').val(response.endtime_am_pm);
+                    $('#count').val(response.count);
+
+
+                    // Update the form action with the timetable ID
+                    $('#formedit').attr('action', '{{ route('admin.timetable.update', '') }}/' + response.id);
+
+
+
+                    $('#editModal').modal('show');
+                    $("#updatebutton").text('update');
+                    $("#updatebutton").text('update');
+                },
+                error: function(xhr, status, error) {
+                    // Handle errors here
+                    console.error('Error fetching data:', error);
+                    alert('Error fetching data. Please try again.');
+                }
+            });
+        }
     </script>
+  <script>
+    $(document).ready(function() {
+       
+        @if(session()->has('create_timetable'))
+
+        console.log('yyy');
+            $('#live-private-modal').modal('show');
+        @endif
+
+        @error('intensive_class')
+            AddCardDetail2(event);
+        @enderror
+
+        @error('private_class')
+            AddCardDetail(event);
+        @enderror
+    });
+</script>
+
 
     <script>
         function CardBoxOneToggle(event) {
             event.preventDefault();
             event.stopPropagation();
-            $('#card_box_form_1,#card_box_1').slideToggle(); 
+            $('#card_box_form_1,#card_box_1').slideToggle();
         }
 
         function CardBoxTwoToggle(event) {
             event.preventDefault();
             event.stopPropagation();
-            $('#card_box_form_2,#card_box_2').slideToggle(); 
-        }  
+            $('#card_box_form_2,#card_box_2').slideToggle();
+        }
 
         function EditImage1() {
             $('#card_image_1').hide();
@@ -632,11 +672,14 @@ $(function() {
         });
     </script>
 
-<script>
-    $(document).ready(function(){
-        $("#starttime").inputmask("99 : 99", { placeholder: "HH : MM" });
-        $("#endtime").inputmask("99 : 99", { placeholder: "HH : MM" });
-    });
+    <script>
+        $(document).ready(function() {
+            $("#starttime").inputmask("99 : 99", {
+                placeholder: "HH : MM"
+            });
+            $("#endtime").inputmask("99 : 99", {
+                placeholder: "HH : MM"
+            });
+        });
     </script>
-    
 @endpush

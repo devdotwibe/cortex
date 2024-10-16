@@ -920,6 +920,7 @@
 
                                     <div class="sec">
                                     <!-- Image Upload -->
+                                    <div class="pricesection1">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <div class="form-data">
@@ -956,6 +957,7 @@
                                             @endif
                                         </div>
                                     </div>
+                                </div>
                                 </div>
                                     <!-- Save Button -->
                                     <div class="col-md-12 mb-3">
@@ -1039,7 +1041,7 @@
                                             </div>
                                         </div>
   <!-- Excel Image -->
-  <div class="pricesection3">
+  <div class="pricesection1">
   <div class="col-md-12">
     <div class="form-group">
         <div class="form-data">
