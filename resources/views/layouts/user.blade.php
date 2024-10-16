@@ -251,7 +251,7 @@
                     
                     <a @if(!auth('admin')->check() && !(auth('web')->user()->is_free_access) && (optional(auth('web')->user()->subscription())->status ?? "") !== "subscribed") 
                         data-bs-toggle="modal" 
-                        data-bs-target="#lockedModal1" {{-- Show the modal for free users --}}
+                        data-bs-target="#lockedModal" {{-- Show the modal for free users --}}
                     @else
                         href="{{ route('tipsandadvise.index') }}" {{auth('web')->user()->is_free_access}} terdt {{optional(auth('web')->user()->subscription())->status }}{{-- Subscribed users will access the actual route --}}
                     @endif
@@ -348,7 +348,7 @@
 
 
 <!-- Locked Content Modal -->
-<div id="lockedModal1" class="modal" tabindex="-1" role="dialog">
+<div id="lockedModal" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -572,12 +572,14 @@ $(document).ready(function() {
 
 <script>
     function showLockedModal() {
-        document.getElementById('lockedModal1').style.display = 'block';
+        // document.getElementById('lockedModal').style.display = 'block';
+
+        $('#lockedModal').modal('show');
     }
     
     function closeLockedModal1() {
         
-        $('#lockedModal1').modal('hide');
+        $('#lockedModal').modal('hide');
     }
     </script>
 

@@ -51,7 +51,9 @@ dd($timetables);
         ]);
     
         // Redirect back with a success message
-        return redirect()->back()->with('success', 'Timetable added successfully!');
+        
+        return redirect()->back()->with('create_timetable', 'Timetable added successfully!');
+        
     }
 
 
@@ -66,14 +68,16 @@ public function update(Request $request, $id)
 {
     $timetable = Timetable::findOrFail($id);
     $timetable->update($request->all()); // validate input as needed
-    return redirect()->route('admin.live-class.index')->with('success', 'Timetable updated successfully');
+   
+    return redirect()->back()->with('create_timetable', 'Timetable updated successfully!');
 }
 
 public function destroy($id)
 {
     $timetable = Timetable::findOrFail($id);
     $timetable->delete();
-    return redirect()->route('admin.live-class.index')->with('success', 'Timetable deleted successfully');
+    
+    return redirect()->back()->with('create_timetable', 'Timetable deleted successfully!');
 }
 
 

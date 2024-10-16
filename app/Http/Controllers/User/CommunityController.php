@@ -22,7 +22,12 @@ class CommunityController extends Controller
     {
 
 
-        $hashtags = Hashtag::groupBy('hashtag')->pluck('hashtag');
+        // $hashtags = Hashtag::groupBy('hashtag')->pluck('hashtag');
+
+        $hashtags = Hashtag::where('hashtag', 'LIKE', '#%')
+        ->groupBy('hashtag')
+        ->pluck('hashtag');
+       
 
 
         $hashtag = $request->input('hashtag');
@@ -169,8 +174,12 @@ class CommunityController extends Controller
                 'next' => $posts->nextPageUrl()
             ];
         }
-        $hashtags = Hashtag::whereIn('post_id', Post::where('user_id',$user->id)->select('id'))->groupBy('hashtag')->pluck('hashtag');
-
+        // $hashtags = Hashtag::whereIn('post_id', Post::where('user_id',$user->id)->select('id'))->groupBy('hashtag')->pluck('hashtag');
+        $hashtags = Hashtag::whereIn('post_id', Post::where('user_id', $user->id)->select('id'))
+        ->where('hashtag', 'LIKE', '#%') // Add LIKE condition to filter hashtags starting with '#'
+        ->groupBy('hashtag') // Group by hashtag to get unique values
+        ->pluck('hashtag'); // Retrieve the hashtags as a collection
+    
 
         return view('user.community.index', compact('user','hashtags'));
     }

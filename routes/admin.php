@@ -178,7 +178,8 @@ Route::name('admin.')->prefix('admin')->group(function(){
             
             Route::get('/post/{post}/comment/{post_comment}/reply', [CommunityControllerController::class, 'postCommentReplay'])->name('post.comment.reply');
             Route::delete('/post/{post}/comment/{post_comment}/delete', [CommunityControllerController::class, 'commentDestroy'])->name('post.comment.destroy');
-
+           
+            
 
             // Routes for hashtags management
     // Route::get('/hashtags', [CommunityControllerController::class, 'index'])->name('hashtags.index');
@@ -560,14 +561,20 @@ Route::name('admin.')->prefix('admin')->group(function(){
  // Show the form for editing a specific timetable entry
  Route::get('/edit/{id}', [TimetableController::class, 'edit'])->name('edit');
 
- Route::get('/fetcheditdata/{id}', [TimetableController::class, 'fetcheditdata'])->name('fetcheditdata');
+       
+
+
     
  // Update a specific timetable entry
  Route::post('/update/{id}', [TimetableController::class, 'update'])->name('update');
  
  // Delete a specific timetable entry
  Route::delete('/delete/{id}', [TimetableController::class, 'destroy'])->name('destroy');
+
+ Route::get('/fetcheditdata/{id}', [TimetableController::class, 'fetcheditdata'])->name('fetcheditdata');
        
+
+   
 
     });
 

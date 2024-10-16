@@ -15,12 +15,13 @@ class PublicBan implements Scope
      */
     public function apply(Builder $builder, Model $model): void
     {        
-        if(!Auth::guard('admin')->check()||session('is.logined.as','admin')=="user"){
+        if(Auth::guard('admin')->check()||session('is.logined.as','admin')=="user"){
             $builder->where(function($qry){
                 $qry->where(function($iqry){
                     $iqry->where('visible_status','show')->whereIn('user_id',User::where('post_status','active')->select('id'));
                 });
                 $qry->orWhere('user_id',Auth::id());
+                $qry->orWhereNotNull('admin_id');
             });
         }
     }
