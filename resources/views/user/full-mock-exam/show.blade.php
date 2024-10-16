@@ -98,7 +98,7 @@
                     <div class="col-md-12">
                         <ul class="nav nav-tabs question-tab" id="questionPreviewTab" role="tablist">
                             <li class="nav-item" role="presentation"> 
-                                <button class="nav-link active" id="show-all-tab" data-bs-toggle="tab" data-bs-target="#show-all" type="button" role="tab" aria-controls="show-all" aria-selected="true"><div class="nav-status status-active"><img src="{{asset('assets/images/showall.svg')}}" alt="all"><span></span></div> Show All</button>
+                                <button class="nav-link active" id="show-all-tab" data-bs-toggle="tab" data-bs-target="#show-all" type="button" role="tab" aria-controls="show-all" aria-selected="true"><div class="nav-status status-active"><img src="{{asset('assets/images/showall-icon.svg')}}" alt="all"><span></span></div> Show All</button>
                             </li>
                             <li class="nav-item" role="presentation"> 
                                 <button class="nav-link" id="answered-tab" data-bs-toggle="tab" data-bs-target="#answered" type="button" role="tab" aria-controls="answered" aria-selected="false"><div class="nav-status status-active" ><span id="answered-nav">0</span></div> Answered</button>
