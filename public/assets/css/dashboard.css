@@ -407,10 +407,10 @@ button.close {
   width: 90%;
   float: none;
   padding: 50px;
-  margin:50px auto 0;
+  margin:0 auto 0;
   background: #ffff;
   box-shadow: 4px 0px 16px 0px #0000000A;
-  border-radius: 10px;
+  border-radius: 0;
   max-width: 1320px;
   min-height: calc(100vh - 230px);
 }
@@ -497,7 +497,7 @@ button.close {
   display:flex;
   flex-wrap: wrap;
   margin: 0 auto;
-  width:100%;
+  width:90%;
   padding:0;
   background: #E1E4EE;
 }
@@ -520,10 +520,11 @@ margin-left:auto;
   height: 100%;
   margin:auto;
   border: none;
+  width: 200px;
 }
 
 .exam-container .container-wrap .lesson .lesson-body {
-  margin: 24px 0 0;
+  margin: 0 0 0;
 }
 
 .exam-container .container-wrap .lesson .lesson-body .video-title {
@@ -572,6 +573,8 @@ margin-left:auto;
   position: fixed;
   bottom: 0;
   left: 0;
+  width: 100%;
+  padding: 0 30px;
 }
 
 .exam-container.exam-video .container-wrap {
@@ -637,10 +640,10 @@ margin-left:auto;
 .exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check input {
   width: 20px;
   height: 20px;
-  border-radius: 3px;
+  border-radius: 50%;
   border: 1px solid;
   position: relative;
-  top: -3px;
+  top: -2px;
   box-shadow: none;
   margin-left: -43px;
 }
@@ -686,10 +689,10 @@ border-radius: 7px;
   left:0;
 }
 .form-check-ans  span.question-user-ans {
-  width:15px;
-  height:15px;
+  width:20px;
+  height:20px;
   border-radius:50%;
-  margin: 5px;
+  margin: 1px 5px 0 0;
 }
 /* .form-check-ans  span.question-user-ans.wrong.checked-ans{
   background-color:red;
@@ -708,14 +711,15 @@ border-radius: 7px;
   background-color:green;
 }
 .form-check-ans  span.question-user-ans.correct::after{
-  background-image: url('../images/tick.svg');
-  background-size: 10px 10px;
+  background-image: url(../images/tick.svg);
+  background-size: 14px;
   background-repeat: no-repeat;
   display: inline-block;
-  margin: 3px;
-  width: 10px;
-  height: 10px;
-  content:"";
+  margin: 0 0 0;
+  width: 20px;
+  height: 20px;
+  content: "";
+  background-position: center;
 }
 .lesson-row-sets {
   width:100%;
@@ -752,9 +756,9 @@ border-radius: 7px;
  background-color:#ef9b10;
 }
 .exam-progress {
-  width: 100%;
+  width: 90%;
   display: block;
-  margin: 0;
+  margin: 0 auto;
   padding:0;
   height: 100%;
   background:#1599f2;
@@ -804,8 +808,6 @@ border-radius: 7px;
   flex-wrap:wrap;
   margin-left:5px;
   background: none;
-  animation: none;
-
 }
 .progress-main .timer .minute {
   width:max-content;
@@ -909,33 +911,43 @@ border-radius: 7px;
   }
 }
 .time-up {
-  background-color: red;
-  animation: heartbeat 1s infinite;
-  text-align: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  text-decoration: blink;
+  -webkit-animation-name: blinker;
+  -webkit-animation-duration: 0.4s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: ease-in-out;
+  -webkit-animation-direction: alternate;
+}
+
+@-webkit-keyframes blinker {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 .modal-expand {
   position: absolute;
-  top:170px;
-  left:0;
-  width: -webkit-fill-available;
-  height:max-content;
-  background:#EEEEEE;
-  z-index:11;
+  top: 170px;
+  left: 0;
+  width: 100%;
+  height: max-content;
+  background: #EEEEEE;
+  z-index: 11;
+  padding: 0 30px;
 }
 .modal-expand.modal-expand-result {
   top:90px;
 }
 .modal-expand .container-wrap {
-  width: -webkit-fill-available;
-  float: left;
+  width: 90%;
   padding: 20px;
-  margin: 20px 30px;
+  margin: 0 auto;
   background: #ffff;
   box-shadow: 4px 0px 16px 0px #0000000A;
-  border-radius: 10px;
+  border-radius: 0;
   min-height: calc(100vh - 245px);
 }
 .tabbody .question-list {
@@ -995,6 +1007,8 @@ border-radius: 7px;
 }
 .tabbody .question-item.status-flag .item-group img{
   display: block;
+  width: 65%;
+  margin: -19px 0 0;
 }
 .question-preview-title,.tab-content .tabheader {
   text-align:center;
@@ -1068,6 +1082,15 @@ border-radius: 7px;
   color:#ffffff;
   border:none;
 }
+
+.nav-status.status-active img {
+  width: 65%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+
 .nav-status.status-inactive{
   background:#bcbabd;
   border:none;
@@ -2630,7 +2653,7 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark img { width: 100%;display: block; transition: all .25s ease-in-out;}
 .lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark  img.inactive-img { position: absolute; top: 0; left: 0; opacity: 0;}
 .lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark .active img.inactive-img { opacity: 1;}
-.lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark a { cursor: pointer; display: flex; flex-wrap: wrap; align-items: center; padding: 20px; justify-content: center;}
+.lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark a { cursor: pointer; display: flex; flex-wrap: wrap; align-items: center; padding: 12px 20px; justify-content: center;}
 .exam-footer .lesson-pagination .lesson-finish {margin-left: 0;}
 .lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark .flagclass {font-size: 26px; color: #000;}
 .lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark  #flagimages { width: 40px; margin: 0 0 0 20px;position: relative;}
@@ -2707,8 +2730,9 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 
 
 
-.post-section .post-row {width: 100%;display: flex; flex-wrap: wrap; margin: 0 0 25px;}
-.post-section .post-row .post-container1 {width: 28%; margin: 0 2% 0 0;}
+.post-section .post-row {width: 100%;display: flex; flex-wrap: wrap; margin: 0 0 0;}
+.post-section .post-row .post-container1 {width: 28%; margin: 0 2% 0 0; overflow-y: auto; max-height: calc(100vh - 105px);}
+.post-section .post-row .post-container1::-webkit-scrollbar {display: none;}
 .post-section .post-row .post-container1 .post-col1 {width: 100%; background: #fff; padding: 25px; border-radius: 10px;}
 .post-section .post-row .post-container1 .row {margin: 0;}
 .post-section .post-row .post-container1 .post-col1 h4 {font-size: 20px; font-weight: 600; color: #000;}
@@ -2717,7 +2741,9 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .post-section .post-row .post-container1 .post-col1 .hashtag-wrapp .list-group { width: 100%;}
 .post-section .post-row .post-container1 .post-col1 .hashtag-wrapp .list-group li.list-group-item { border: none; padding: 0; margin: 0 0 15px;}
 .post-section .post-row .post-container1 .post-col1 .hashtag-wrapp .list-group li.list-group-item a { padding: 10px; display: block; color: #000; background: #FFEAC2; border-radius: 10px; word-break: break-all;}
-.post-section .post-row .post-container { width: 40%; padding: 25px; background: #ffff; border-radius: 10px;}
+.post-section .post-row .post-container-wrapp {width: 40%;overflow-y: auto; max-height: calc(100vh - 105px);}
+.post-section .post-row .post-container-wrapp::-webkit-scrollbar {display: none;}
+.post-section .post-row .post-container { width: 100%; padding: 25px; background: #ffff; border-radius: 10px;}
 .post-section .post-row .post-container .post-item { padding: 0; margin: 0 0 40px; border: none;}
 .post-section .post-row .post-container .post-item .post-header { margin: 0 0 22px;}
 .post-section .post-row .post-container .post-item .post-header .title { flex: 1 0 0;}
@@ -2734,6 +2760,8 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .post-search .text-field input { width: 100%; height: 45px; color: #838383; font-size: 18px; padding-right: 35px;}
 .post-search .text-field input::placeholder { color: #838383;}
 .post-search .text-field .search-btn { background: none; border: none; width: 30px; position: absolute; right: 0; top: 50%; transform: translateY(-50%);}
+.post-section .post-action {width: 100%; text-align: center;}
+.post-section .post-action .btn-outline-dark {margin: 25px auto 0;}
 
 .exam-container .summery-wrap .summery-title {width: 100%; font-size: 20px; font-weight: 600;display: flex; margin: 0 0 20px;}
 
@@ -2787,6 +2815,21 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .payment-wrap .tab-content .tab-pane#section4 .card .card-body .sec .pricesection1 .col-md-12 {width: 48%;  margin: 0 4% 0 0;}
 
 .header_nav .header_wrapp .header_right ul.nav_bar li.nav_item.import-upload-btn button.btn.btn-dark {padding: 9px 15px; border-radius: 10px;}
+
+
+
+.content_section.topic-section .card { margin: 0 0 20px;}
+
+.progress-main .hide-btn {
+  width: 60px;
+  height: 60px;
+  background: #fff;
+  border-radius: 50%;
+  font-size: 12px;
+  line-height: 1;
+  margin: 0 0 0 13px;
+}
+
 
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}

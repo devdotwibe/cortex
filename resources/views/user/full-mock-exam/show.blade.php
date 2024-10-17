@@ -12,7 +12,7 @@
                             <img src="{{asset("assets/images/exiticon-wht.svg")}}" alt="exiticon">
                         </a>
                     </div>
-                    <div class="timer exam-timer">
+                    <div class="timer exam-timer" id="exam_timer">
                         <div class="minute">
                             <span class="runner">00</span>
                             <span>Mins</span>
@@ -26,6 +26,10 @@
                             <span>Seconds</span>
                         </div>
                     </div> 
+
+                    
+                    <button class="btn hide-btn" id="hide_button" onclick="HideTime()">Hide time</button>
+
                 </div>
             </div>
             <div class="exam-center exam-progress-inner-item">
@@ -65,10 +69,13 @@
             <div class="progress-main">
                 <div class="bookmark">
                     <a class="" id="bookmark-current" >
-                        <span id="flagtext">Flag</span>
+                        <span id="flagtext"  class="flagclass">Flag</span>
+
+                        <span id="flagimages" class="flagclass">
                         <img class="active-img" src="{{asset("assets/images/flag-blue.svg")}}" alt="bookmark">
                      
                         <img class="inactive-img" src="{{asset("assets/images/flag-red.svg")}}" alt="bookmark">
+                        </span>
                     </a>
                 </div>
             </div>
@@ -95,7 +102,7 @@
                     <div class="col-md-12">
                         <ul class="nav nav-tabs question-tab" id="questionPreviewTab" role="tablist">
                             <li class="nav-item" role="presentation"> 
-                                <button class="nav-link active" id="show-all-tab" data-bs-toggle="tab" data-bs-target="#show-all" type="button" role="tab" aria-controls="show-all" aria-selected="true"><div class="nav-status status-active"><img src="{{asset('assets/images/showall.svg')}}" alt="all"><span></span></div> Show All</button>
+                                <button class="nav-link active" id="show-all-tab" data-bs-toggle="tab" data-bs-target="#show-all" type="button" role="tab" aria-controls="show-all" aria-selected="true"><div class="nav-status status-active"><img src="{{asset('assets/images/showall-icon.svg')}}" alt="all"><span></span></div> Show All</button>
                             </li>
                             <li class="nav-item" role="presentation"> 
                                 <button class="nav-link" id="answered-tab" data-bs-toggle="tab" data-bs-target="#answered" type="button" role="tab" aria-controls="answered" aria-selected="false"><div class="nav-status status-active" ><span id="answered-nav">0</span></div> Answered</button>
@@ -269,6 +276,22 @@
 @push('footer-script') 
 
     <script>  
+
+        function HideTime() {
+            const timerDiv = $('#exam_timer');
+            const button = $('#hide_button');
+
+            timerDiv.slideToggle(300, function() {
+
+                if (timerDiv.is(':visible')) {
+                    button.text('Hide time');
+                } else {
+                    button.text('Show time');
+                    button.insertAfter(timerDiv);
+                }
+            });
+        }
+
         var progressurl="{{$user->progress('exam-'.$exam->id.'-progress-url','')}}";
         let storage = JSON.parse(localStorage.getItem("full-mock-exam-summery"))||{};
         let summery = new Proxy({...storage,save:function(target){ localStorage.setItem("full-mock-exam-summery",JSON.stringify(summery));return true; } }, {
@@ -457,10 +480,11 @@
                         $.get(pageurl||"{{ route('full-mock-exam.confirmshow',['exam'=>$exam->slug]) }}",{question:v.slug},function(ans){
                             $(`#mcq-${lesseonId}-list`).html('')
                             $.each(ans,function(ai,av){
+                                const letter = String.fromCharCode(ai + 'A'.charCodeAt(0))
                                 $(`#mcq-${lesseonId}-list`).append(`
                                     <div class="form-check">
                                         <input type="radio" name="answer" data-page="${summery.cudx}" data-question="${v.slug}" id="user-answer-${lesseonId}-ans-item-${ai}" value="${av.slug}" class="form-check-input"  >        
-                                        <label for="user-answer-${lesseonId}-ans-item-${ai}" >${av.title}</label>
+                                        <label for="user-answer-${lesseonId}-ans-item-${ai}" >${ letter }. ${av.title}</label>
                                     </div>  
                                 `)
                             })

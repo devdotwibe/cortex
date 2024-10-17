@@ -162,7 +162,7 @@ class LearnTopicController extends Controller
         
         return view("user.learn.preview",compact('category','exam','subCategory','user','userExamReview','useranswer'));
     }
-    
+
     public function lessonreview(Request $request,Category $category,SubCategory $subCategory){
 
         $exam=Exam::where("name",'learn')->first();
