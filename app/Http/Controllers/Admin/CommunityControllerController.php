@@ -388,7 +388,7 @@ public function search(Request $request)
 
     // Assuming you have a Post model and it has a relation to User
     $posts = Post::whereHas('user', function ($q) use ($query) {
-        $q->where('username', 'like', '%' . $query . '%');
+        $q->where('name', 'like', '%' . $query . '%');
     })->get();
 
     dd($posts);
