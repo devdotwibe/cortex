@@ -250,8 +250,8 @@
                                             <textarea class="form-control texteditor" name="logicalcontent" id="logicalcontent">{{ old('logicalcontent', optional($course)->logicalcontent) }}</textarea>
                                         </div>
                                     </div>
-                                    <div class="numericalsectionclass">
-                                    <div class="col-md-12 criticalcontentclass">
+
+                                    <div class="col-md-12">
                                         <div class="form-group" class="file-upload">
                                             <label for="logicalimage">Logical Image  <br>
                                                 <img src="{{ asset('assets/images/upfile.svg') }}"
@@ -266,15 +266,15 @@
 
 
 
-                                   
+
 
 
 
                                     <!-- Preview Image Container -->
                                     <div class="form-group">
                                         <label for="logicalImagePreview">Image Preview</label>
-                                        <div id="logicalImagePreviewContainer" class="numericalclass">
-                                          
+                                        <div id="logicalImagePreviewContainer"
+                                            style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
                                             @if (isset($course) && $course->logicalimage)
                                                 <img id="logicalImagePreview-save"
                                                     src="{{ url('d0/' . $course->logicalimage) }}" alt="Image Preview"
@@ -288,7 +288,7 @@
 
                                         </div>
                                     </div>
-                                </div>
+
 
 
                                 </div>
@@ -311,7 +311,7 @@
 
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="criticaltitle1" class="file-upload">Critical Title 1</label>
+                                            <label for="criticaltitle1">Critical Title 1</label>
                                             <input type="text" class="form-control" name="criticaltitle1"
                                                 value="{{ old('criticaltitle1', optional($course)->criticaltitle1) }}">
                                         </div>
@@ -326,9 +326,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="numericalsectionclass">
-
-                                    <div class="col-md-12  criticalcontentclass">
+                                    <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="criticalimage"  class="file-upload">Critical Image <br>
                                                 <img src="{{ asset('assets/images/upfile.svg') }}"
@@ -343,7 +341,7 @@
                                     <!-- Preview Image Container -->
                                     <div class="form-group">
                                         <label for="criticalImagePreview">Image Preview</label>
-                                        <div id="criticalImagePreviewContainer" class=numericalclass>
+                                        <div id="criticalImagePreviewContainer" class=numericalclass
                                            
                                             @if (isset($course) && $course->criticalimage)
                                                 <img id="criticalImagePreview"
@@ -397,7 +395,7 @@
                                     </div>
                                     <div class="numericalsectionclass">
 
-                                    <div class="col-md-12 criticalcontentclass">
+                                    <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="abstractimage" class="file-upload">Abstract Image <br>
                                                 <img src="{{ asset('assets/images/upfile.svg') }}"
@@ -473,7 +471,7 @@
                                     </div> --}}
 
                             <div class="numericalsectionclass">
-                                    <div class="col-md-12 criticalcontentclass">
+                                    <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="numericalimage" class="file-upload">Numerical Image  <br>
                                                 <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
