@@ -510,7 +510,7 @@
                 if(res.prev_page_url){
                     $('.lesson-left').show().find('button.left-btn').data('pageurl',res.prev_page_url);
                 }  
-                $('#menu-text').text(`Question <span> ${res.current_page} </span> of <span> ${res.total}</span>`)
+                $('#menu-text').html(`Question <span> ${res.current_page} </span> of <span> ${res.total}</span>`)
                  
 
             },'json').fail(function(xhr,status,error){
