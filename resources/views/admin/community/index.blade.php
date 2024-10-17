@@ -61,14 +61,10 @@
                 <form id="searchForm" action="">
                     <div class="text-field">
                         <input type="search" id="searchInput" placeholder="Search for Posts" aria-label="Search for Posts" oninput="performSearch()">
-                        <button type="submit" class="search-btn" disabled>
-                            <img src="{{ asset('assets/images/searc-icon.svg') }}" alt="">
-                        </button>
+                        <button type="submit" class="search-btn" disabled><img src="{{ asset('assets/images/searc-icon.svg') }}" alt=""></button>
                     </div>
                 </form>
-                <div id="searchResults" class="dropdown"> <!-- Container for displaying search results -->
-                    <!-- Dropdown results will be appended here -->
-                </div>
+                <div id="searchResults"></div> <!-- Container for displaying search results -->
             </div>
             
             
@@ -84,63 +80,56 @@
 @push('footer-script')
 
 
+
 <script>
-    $(document).ready(function() {
-      // Function to perform the search
-      function performSearch() {
-          const query = $('#searchInput').val(); // Get the input value
-  
-          if (query.length === 0) {
-              $('#searchResults').empty().hide(); // Clear results and hide if the search box is empty
-              return;
-          }
-  
-          $.ajax({
-              url: '{{ route('admin.community.search') }}', // The route to your search method
-              type: 'GET',
-              data: { query: query },
-              success: function(data) {
-                  // Clear previous results
-                  $('#searchResults').empty();
-                  
-                  // Check if any posts were returned
-                  console.log('Number of posts returned:', data.posts.length);
-                  if (data.posts.length > 0) {
-                      data.posts.forEach(post => {
-                          // Find the user by user_id
-                          const user = data.users.find(user => user.id === post.user_id);
-                          const userName = user ? user.name : 'Unknown'; // Default to 'Unknown' if user not found
-  
-                          $('#searchResults').append(`
-                              <div class="post">
-                                  <p>${userName}</p>
-                              </div>
-                          `);
-                      });
-                      $('#searchResults').show(); // Show the dropdown if results are found
-                  } else {
-                      $('#searchResults').append('<p>No results found.</p>').show(); // Show the dropdown with no results
-                  }
-              },
-              error: function(xhr) {
-                  console.error(xhr.responseText);
-                  $('#searchResults').append('<p>Error fetching results.</p>').show(); // Show error in dropdown
-              }
-          });
-      }
-  
-      // Attach the function to the input event
-      $('#searchInput').on('input', performSearch);
-      
-      // Hide dropdown on click outside
-      $(document).on('click', function(e) {
-          if (!$(e.target).closest('.post-search').length) {
-              $('#searchResults').hide(); // Hide if clicked outside
-          }
-      });
-  });
-  </script>
-  
+  $(document).ready(function() {
+    // Function to perform the search
+    function performSearch() {
+        const query = $('#searchInput').val(); // Get the input value
+
+        if (query.length === 0) {
+            $('#searchResults').empty(); // Clear results if the search box is empty
+            return;
+        }
+
+        $.ajax({
+            url: '{{ route('admin.community.search') }}', // The route to your search method
+            type: 'GET',
+            data: { query: query },
+            success: function(data) {
+                // Clear previous results
+                $('#searchResults').empty();
+                
+                // Check if any posts were returned
+                console.log('Number of posts returned:', data.posts.length);
+                if (data.posts.length > 0) {
+                    data.posts.forEach(post => {
+                        // Find the user by user_id
+                        const user = data.users.find(user => user.id === post.user_id);
+                        const userName = user ? user.name : 'Unknown'; // Default to 'Unknown' if user not found
+
+                        $('#searchResults').append(`
+                            <div class="post">
+                                <p>${userName}</p>
+                            </div>
+                        `);
+                    });
+                } else {
+                    $('#searchResults').append('<p>No results found.</p>');
+                }
+            },
+            error: function(xhr) {
+                console.error(xhr.responseText);
+                $('#searchResults').append('<p>Error fetching results.</p>');
+            }
+        });
+    }
+
+    // Attach the function to the input event
+    $('#searchInput').on('input', performSearch);
+});
+
+    </script>
     
 
 
