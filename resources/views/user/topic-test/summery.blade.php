@@ -10,7 +10,7 @@
                 </a>
             </div>
 
-            <h1>{{get_option('exam_simulator_title')}}</h1>
+            {{-- <h1>{{get_option('exam_simulator_title')}}</h1> --}}
         </div>
         
         <div class="summery-title">
