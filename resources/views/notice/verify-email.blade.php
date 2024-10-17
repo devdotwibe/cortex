@@ -3,12 +3,6 @@
 @section('content')
 <section class="exam-container" id="exam-container">
    
-</section>
-
-@endsection
-
-@push('modals')
-
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -33,6 +27,12 @@
         </div>
     </div>
 </div>
+</section>
+
+@endsection
+
+@push('modals')
+
 
 @endpush
 
