@@ -4,7 +4,7 @@
 <section class="header_nav">
     <div class="header_wrapp">
         <div class="header_title">
-            <h2>Community1</h2>
+            <h2>Community</h2>
             @if($user->post_status!=="active")
             <p class="text-danger">You have been banned by admin</p>
             @endif
@@ -22,46 +22,39 @@
 </section>
 
 <section class="post-section" >
-
-    <div class="container">
-        <div class="row">
-            <!-- Left Sidebar for Hashtags -->
-            <div class="col-md-3">
-                <h4>SPACES</h4>
-                  <!-- Link styled as a textbox -->
-               <div class="mb-3">
-                <label for="backtoall" class="form-label"></label>
-                <a href="{{ route('community.index') }}" id="backtoall" class="form-control text-decoration-none" >
-                    #Backtoall
-                </a>
+    <div class="post-row">
+        <div class="post-container1">
+            <div class="row">
+                <!-- Left Sidebar for Hashtags -->
+                <div class="post-col1">
+                    <h4>SPACES</h4>
+                    <!-- Link styled as a textbox -->
+                    <div class="mb-3 back-btn-wrapp">
+                        <label for="backtoall " class="form-label"></label>
+                        <a href="{{ route('community.index') }}" id="backtoall" class="form-control text-decoration-none" >
+                            #Backtoall
+                        </a>
+                    </div>
+                    <div class="hashtag-wrapp">  
+                        <ul class="list-group" > 
+                            @foreach ($hashtags as $hashtag)
+                                <li class="list-group-item d-inline-block" >
+                                    <a
+                                        href="{{ route('community.index', ['hashtag' => $hashtag]) }}">{{ $hashtag }}</a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>                
+                </div>        
             </div>
- 
+        </div>
 
-
-            <div class="d-flex flex-wrap">  
-                <ul class="list-group" > 
-                    @foreach ($hashtags as $hashtag)
-                        <li class="list-group-item d-inline-block" >
-                            <a
-                                href="{{ route('community.index', ['hashtag' => $hashtag]) }}">{{ $hashtag }}</a>
-                        </li>
-                    @endforeach
-                </ul>
-            </div>
-        
-
-
-
-            
-            </div>
-     
+        <div class="post-container-wrapp">
+            <div class="post-container" id="post-item-list">
+                
+            </div> 
         </div>
     </div>
-
-
-    <div class="post-container" id="post-item-list">
-        
-    </div> 
     <div class="post-action">
         <button id="load-more-btn" class="btn btn-outline-dark" style="display: none"> Load More </button>
     </div>
