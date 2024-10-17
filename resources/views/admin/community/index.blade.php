@@ -105,7 +105,7 @@
     
                             $('#searchResults').append(`
                                 <div class="post">
-                                    <h3>${hashtagName}</h3>
+                                     <p>${userName}</p>
                                    
                                     
                                 </div>
