@@ -88,47 +88,7 @@ class CommunityControllerController extends Controller
     public function create(Request $request){
         return view('admin.community.create');
     }
-    // public function store(Request $request){
-    //     /**
-    //      * @var Admin
-    //      */
-    //     $admin=Auth::guard('admin')->user();
-    //     $type=$request->type??"post";
-    //     if($type=="post"){
-    //         $data=$request->validate([ 
-    //             'type'=>["required"],
-    //             'description'=>["required"], 
-    //             'image'=>["nullable"], 
-    //         ]);
-    //     }else{
-
-    //         $data=$request->validate([
-    //             'description'=>["required"], 
-    //             'type'=>["required"], 
-    //             'option'=>["required",'array','min:2','max:5'],
-    //             'option.*'=>["required",'max:255'],
-    //             'image'=>["nullable"], 
-    //         ],[
-    //             'option.required'=>"This field is required",
-    //             'option.*.required'=>"This field is required",
-    //         ]);
-    //     }
-  
-    //     $data['status']="publish";
-    //     $data['admin_id']=$admin->id;
-    //     $post=Post::store($data);
-    //     if($request->type=="poll"){
-    //         foreach ($request->input('option',[]) as $k=>$v) {
-    //             PollOption::store([
-    //                 'option'=>$v,
-    //                 'post_id'=>$post->id
-    //             ]);
-    //         }
-    //     }
-    //     return redirect()->route('admin.community.index')->with('success',"Post published");
-    // }
-
-
+ 
     public function store(Request $request)
 {
 
@@ -358,21 +318,6 @@ foreach ($extractedHashtags as $hashtag) {
 
 
 
-//     public function search(Request $request)
-// {
-//     $query = $request->input('query');
-
-//     // Assuming you have a Post model and it has a relation to User
-//     $posts = Post::whereHas('user', function ($q) use ($query) {
-//         $q->where('name', 'like', '%' . $query . '%');
-//     })->get();
-
-//     $users=User::whereIn('id',$posts->user_id)->get();
-
-//     return response()->json(['posts'=>$posts,'users'=>$users]);
-// }
-
-
 
 public function search(Request $request)
 {
@@ -396,6 +341,13 @@ public function search(Request $request)
 
     
 
+// YourController.php
+public function getPostsByUser($id)
+{
+    $posts = Post::where('user_id', $id)->with('user')->get(); // Fetch posts by user ID
+
+    return response()->json(['posts' => $posts]);
+}
 
 
 
