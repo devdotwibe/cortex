@@ -250,7 +250,7 @@
                                             <textarea class="form-control texteditor" name="logicalcontent" id="logicalcontent">{{ old('logicalcontent', optional($course)->logicalcontent) }}</textarea>
                                         </div>
                                     </div>
-
+                                    <div class="numericalsectionclass">
                                     <div class="col-md-12">
                                         <div class="form-group" class="file-upload">
                                             <label for="logicalimage">Logical Image  <br>
@@ -288,7 +288,7 @@
 
                                         </div>
                                     </div>
-
+                                </div>
 
 
                                 </div>
