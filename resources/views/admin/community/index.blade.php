@@ -105,8 +105,7 @@
     
                             $('#searchResults').append(`
                                 <div class="post">
-                                    // <h3>${post.title}</h3>
-                                    // <p>${post.description}</p>
+                                   
                                     <p>${userName}</p>
                                 </div>
                             `);
