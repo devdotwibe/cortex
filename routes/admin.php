@@ -178,7 +178,8 @@ Route::name('admin.')->prefix('admin')->group(function(){
             
             Route::get('/post/{post}/comment/{post_comment}/reply', [CommunityControllerController::class, 'postCommentReplay'])->name('post.comment.reply');
             Route::delete('/post/{post}/comment/{post_comment}/delete', [CommunityControllerController::class, 'commentDestroy'])->name('post.comment.destroy');
-           
+            
+            Route::get('/search', [CommunityControllerController::class, 'search'])->name('search');
             
 
             // Routes for hashtags management

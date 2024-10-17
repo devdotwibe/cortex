@@ -20,52 +20,45 @@
         </div>
     </div>
 </section>
-
 <section class="post-section" >
-    <div class="post-row">
-        <div class="post-container1">
-            <div class="row"> 
-                <div class="post-col1">
-                    <h4>SPACES</h4>
-    
-                    <div class="mb-3 back-btn-wrapp">
-                        <label for="backtoall" class="form-label"></label>
-                        <a href="{{ route('community.post.index') }}" id="backtoall" class="form-control text-decoration-none" >
-                            #Backtoall
-                        </a>
-                    </div>
-    
 
-
-                    <div class="hashtag-wrapp"> 
-                        <ul class="list-group"  > 
-                            @foreach ($hashtags as $hashtag)
-                                <li class="list-group-item d-inline-block"  >
-                                    <a
-                                        href="{{ route('community.post.index', ['hashtag' => $hashtag]) }}">{{ $hashtag }}</a>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-        
+    <div class="container">
+        <div class="row"> 
+            <div class="col-md-3">
+                <h4>SPACES</h4>
+ 
+               <div class="mb-3">
+                <label for="backtoall" class="form-label"></label>
+                <a href="{{ route('community.post.index') }}" id="backtoall" class="form-control text-decoration-none" >
+                    #Backtoall
+                </a>
             </div>
-        </div> 
+ 
 
-        <div class="post-container-wrapp">
-            <div class="post-container" id="post-item-list">
-                
-            </div>
-        </div> 
-        <div class="post-search">
-            <form action="">
-                <div class="text-field">
-                    <input type="search" placeholder="Search for Posts">
-                    <button class="search-btn"><img src="{{ asset('assets/images/searc-icon.svg') }}" alt=""></button>
-                </div>
-            </form>
-        </div>
+
+    <div class="d-flex flex-wrap"> 
+        <ul class="list-group"  > 
+            @foreach ($hashtags as $hashtag)
+                <li class="list-group-item d-inline-block"  >
+                    <a
+                        href="{{ route('community.post.index', ['hashtag' => $hashtag]) }}">{{ $hashtag }}</a>
+                </li>
+            @endforeach
+        </ul>
     </div>
+
+
+
+
+</div>
+     
+</div>
+</div> 
+
+
+    <div class="post-container" id="post-item-list">
+        
+    </div> 
     <div class="post-action">
         <button id="load-more-btn" class="btn btn-outline-dark" style="display: none"> Load More </button>
     </div>
@@ -133,7 +126,7 @@
                 console.log(v.hashtags);
 
                 $('#post-item-list').append(`
-                    <div class="post-item teee" id="post-item-${v.slug}">  
+                    <div class="post-item" id="post-item-${v.slug}">  
                         <div class="post-header">
                             <div class="avathar">
                                 <img src="{{asset("assets/images/User-blk.png")}}" alt="img">
