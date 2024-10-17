@@ -391,6 +391,7 @@ public function search(Request $request)
         $q->where('username', 'like', '%' . $query . '%');
     })->get();
 
+    dd($posts);
     return response()->json($posts);
 }
 
