@@ -78,51 +78,49 @@
 
 @push('footer-script')
 
-
-
 <script>
-    $(document).ready(function() {
-        $('#searchInput').on('onkey,submit', function(e) {
-            e.preventDefault(); // Prevent the default form submission
-    
-            const query = $('#searchInput').val(); // Get the input value
-    
-            $.ajax({
-                url: '{{ route('admin.community.search') }}', // The route to your search method
-                type: 'GET',
-                data: { query: query },
-                success: function(data) {
-                    // Clear previous results
-                    $('#searchResults').empty();
-                    
-                    // Check if any posts were returned
-                    console.log('Number of posts returned:', data.posts.length);
-                    if (data.posts.length > 0) {
-                        data.posts.forEach(post => {
-                            // Find the user by user_id
-                            const user = data.users.find(user => user.id === post.user_id);
-                            const userName = user ? user.name : 'Unknown'; // Default to 'Unknown' if user not found
-    
-                            $('#searchResults').append(`
-                                <div class="post">
-                                   
-                                    <p>${userName}</p>
-                                </div>
-                            `);
-                        });
-                    } else {
-                        $('#searchResults').append('<p>No results found.</p>');
-                    }
-                },
-                error: function(xhr) {
-                    console.error(xhr.responseText);
-                    $('#searchResults').append('<p>Error fetching results.</p>');
+$(document).ready(function() {
+    $('#searchForm').on('submit', function(e) {
+        e.preventDefault(); // Prevent the default form submission
+
+        const query = $('#searchInput').val(); // Get the input value
+
+        $.ajax({
+            url: '{{ route('admin.community.search') }}', // The route to your search method
+            type: 'GET',
+            data: { query: query },
+            success: function(data) {
+                // Clear previous results
+                $('#searchResults').empty();
+                
+                // Check if any posts were returned
+                console.log('Number of posts returned:', data.posts.length);
+                if (data.posts.length > 0) {
+                    data.posts.forEach(post => {
+                        // Find the user by user_id
+                        const user = data.users.find(user => user.id === post.user_id);
+                        const userName = user ? user.name : 'Unknown'; // Default to 'Unknown' if user not found
+
+                        $('#searchResults').append(`
+                            <div class="post">
+                                <h3>${post.title}</h3>
+                                <p>${post.content}</p>
+                                <p>Posted by: ${userName}</p>
+                            </div>
+                        `);
+                    });
+                } else {
+                    $('#searchResults').append('<p>No results found.</p>');
                 }
-            });
+            },
+            error: function(xhr) {
+                console.error(xhr.responseText);
+                $('#searchResults').append('<p>Error fetching results.</p>');
+            }
         });
     });
-    </script>
-    
+});
+</script>
 
 
 
