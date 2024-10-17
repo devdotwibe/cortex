@@ -58,14 +58,15 @@
             </div>
 
             <div class="post-search">
-                <form id="searchForm" action="">
+                <form id="searchForm" action="" onsubmit="return false;">
                     <div class="text-field">
-                        <input type="search" id="searchInput" placeholder="Search for Posts" aria-label="Search for Posts">
-                        <button type="submit" class="search-btn"><img src="{{ asset('assets/images/searc-icon.svg') }}" alt=""></button>
+                        <input type="search" id="searchInput" placeholder="Search for Posts" aria-label="Search for Posts" oninput="performSearch()">
+                        <button type="submit" class="search-btn" disabled><img src="{{ asset('assets/images/searc-icon.svg') }}" alt=""></button>
                     </div>
                 </form>
-                <div id="searchResults"></div> <!-- Container for displaying search results -->
+                <div id="searchResults" class="dropdown-results"></div> <!-- Container for displaying search results -->
             </div>
+            
             
         </div>
         <div class="post-action">
@@ -81,47 +82,42 @@
 
 
 <script>
-    $(document).ready(function() {
-        $('#searchForm').on('submit', function(e) {
-            e.preventDefault(); // Prevent the default form submission
-    
-            const query = $('#searchInput').val(); // Get the input value
-    
-            $.ajax({
-                url: '{{ route('admin.community.search') }}', // The route to your search method
-                type: 'GET',
-                data: { query: query },
-                success: function(data) {
-                    // Clear previous results
-                    $('#searchResults').empty();
-                    
-                    // Check if any posts were returned
-                    console.log('Number of posts returned:', data.posts.length);
-                    if (data.posts.length > 0) {
-                        data.posts.forEach(post => {
-                            // Find the user by user_id
-                            const user = data.users.find(user => user.id === post.user_id);
-                            const userName = user ? user.name : 'Unknown'; // Default to 'Unknown' if user not found
-    
-                            $('#searchResults').append(`
-                                <div class="post">
-                                    <h3>${post.hashtags}</h3>
-                                    <p>${post.description}</p>
-                                    
-                                </div>
-                            `);
-                        });
-                    } else {
-                        $('#searchResults').append('<p>No results found.</p>');
-                    }
-                },
-                error: function(xhr) {
-                    console.error(xhr.responseText);
-                    $('#searchResults').append('<p>Error fetching results.</p>');
-                }
+ function performSearch() {
+    const query = document.getElementById('searchInput').value;
+
+    if (query.length < 2) { // Trigger search after 2 characters
+        document.getElementById('searchResults').style.display = 'none'; // Hide dropdown if input is short
+        return;
+    }
+
+    fetch(`/your-search-route?query=${encodeURIComponent(query)}`) // Update with your search route
+        .then(response => response.json())
+        .then(data => {
+            const resultsContainer = document.getElementById('searchResults');
+            resultsContainer.innerHTML = ''; // Clear previous results
+            
+            if (data.posts.length === 0) {
+                resultsContainer.style.display = 'none'; // Hide if no results
+                return;
+            }
+
+            data.posts.forEach(post => {
+                const resultItem = document.createElement('div');
+                resultItem.textContent = post.title; // Assuming you have a title attribute
+                resultItem.onclick = () => {
+                    // Handle click on search result (e.g., navigate to post)
+                    window.location.href = `/posts/${post.slug}`; // Update URL as necessary
+                };
+                resultsContainer.appendChild(resultItem);
             });
+
+            resultsContainer.style.display = 'block'; // Show results
+        })
+        .catch(error => {
+            console.error('Error fetching search results:', error);
         });
-    });
+}
+
     </script>
     
 
