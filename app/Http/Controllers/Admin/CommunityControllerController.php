@@ -284,6 +284,28 @@ class CommunityControllerController extends Controller
 
 
 
+    public function search(Request $request)
+    {
+        // Get the search input
+        $username = $request->input('username');
+    
+        // Check if a username is provided
+        if ($username) {
+            // Search posts by username using a relationship (assuming Post has a relationship with User)
+            $posts = Post::whereHas('user', function ($query) use ($username) {
+                $query->where('username', 'like', '%' . $username . '%');
+            })->get();
+        } else {
+            // If no search input, return all posts
+            $posts = Post::all();
+        }
+    
+        // Return the results to the view (assuming 'posts.index' displays posts)
+        return view('posts.index', compact('posts'));
+    }
+    
+    
+    
 
     public function store2(Request $request)
 {
@@ -305,28 +327,6 @@ private function extractHashtags($text)
 {
     preg_match_all('/#\w+/', $text, $matches);
     return array_unique($matches[0]);
-}
-
-
-
-public function search(Request $request)
-{
-    // Get the search input
-    $username = $request->input('username');
-
-    // Check if a username is provided
-    if ($username) {
-        // Search posts by username using a relationship (assuming Post has a relationship with User)
-        $posts = Post::whereHas('user', function ($query) use ($username) {
-            $query->where('username', 'like', '%' . $username . '%');
-        })->get();
-    } else {
-        // If no search input, return all posts
-        $posts = Post::all();
-    }
-
-    // Return the results to the view (assuming 'posts.index' displays posts)
-    return view('posts.index', compact('posts'));
 }
 
 
