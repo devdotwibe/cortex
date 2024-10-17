@@ -251,16 +251,14 @@
                                         </div>
                                     </div>
                                     <div class="numericalsectionclass">
-                                        <div class="col-md-12 criticalcontentclass">
-                                            <div class="form-group file-upload">
-                                                <label for="logicalimage">
-                                                    Logical Image <br>
-                                                    <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
-                                                    <input type="file" class="form-control" name="logicalimage" id="logicalimage" style="display: none;">
-                                                </label>
-                                            </div>
+                                    <div class="col-md-12 criticalcontentclass">
+                                        <div class="form-group" class="file-upload">
+                                            <label for="logicalimage">Logical Image  <br>
+                                                <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                    alt="Upload Icon"></label>
+                                            <input type="file" class="form-control" style="display: none;" name="logicalimage" id="logicalimage">
                                         </div>
-                                        
+                                    </div>
 
 
 
