@@ -165,6 +165,8 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::prefix('community')->name('community.')->group(function () {
             Route::get('/', [CommunityControllerController::class, 'index'])->name('index');
             Route::resource('/post', CommunityControllerController::class);
+
+            Route::get('/search', [CommunityControllerController::class, 'search'])->name('search');
             
             Route::get('/report-post', [PostReportController::class,'index'])->name('report.index');
             Route::delete('/report-post/{report_post}', [PostReportController::class,'destroy'])->name('report.destroy');
@@ -179,7 +181,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::get('/post/{post}/comment/{post_comment}/reply', [CommunityControllerController::class, 'postCommentReplay'])->name('post.comment.reply');
             Route::delete('/post/{post}/comment/{post_comment}/delete', [CommunityControllerController::class, 'commentDestroy'])->name('post.comment.destroy');
             
-            Route::get('/search', [CommunityControllerController::class, 'search'])->name('search');
+           
             
 
             // Routes for hashtags management
