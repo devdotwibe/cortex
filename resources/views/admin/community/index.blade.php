@@ -115,14 +115,15 @@
                         // `);
 
 
-                       
-                        $('#searchResults').append(`
-                            <select class="post-dropdown">
-                                
-                                <option value="${userName}">${userName}</option>
-                                
-                            </select>
-                        `);
+                                                
+                                                // Assuming you have a select element with the ID 'searchResults'
+                            $('#searchResults').append(`
+                                <select class="post-dropdown">
+                                    <option value="">Select a user</option>
+                                    <option value="${userName}">${userName}</option>
+                                </select>
+                            `);
+
 
 
 
