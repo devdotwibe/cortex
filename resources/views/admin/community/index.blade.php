@@ -133,7 +133,7 @@
         // Function to load posts by user
         function loadPostsByUser(userId) {
             $.ajax({
-                url: '{{ route('admin.community.posts.searchw', ['id' => '']) }}/' + userId, // Adjust the route as needed
+                url: '{{ route('admin.community.posts.search', ['id' => '']) }}/' + userId, // Adjust the route as needed
                 type: 'GET',
                 success: function(data) {
                     $('#post-item-list').empty(); // Clear existing posts
