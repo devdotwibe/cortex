@@ -807,7 +807,7 @@ border-radius: 7px;
   width:max-content;
   display:flex;
   flex-wrap:wrap;
-  margin-left:5px;
+  margin: 0 15px;
   background: none;
 }
 .progress-main .timer .minute {
@@ -815,7 +815,7 @@ border-radius: 7px;
   display:block;
 }
 .progress-main .timer   span {
-  padding:0 15px;
+  padding:0 5px;
   width:max-content;
   display:block;
   color:white;
