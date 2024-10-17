@@ -83,7 +83,7 @@ class CommunityControllerController extends Controller
                 'next' => $posts->nextPageUrl()
             ];
         } 
-        return view('admin.community.index',compact('hashtags'));
+        return view('admin.community.index',compact('hashtags','posts'));
     }
     public function create(Request $request){
         return view('admin.community.create');
@@ -284,50 +284,50 @@ class CommunityControllerController extends Controller
 
 
 
-
-    public function store2(Request $request)
-{
-    $post = Post::create([
-        'description' => $request->description,
-        'hashtags' => json_encode($this->extractHashtags($request->description)),
-        // Other fields
-    ]);
-
-    // Update or create hashtags
-    foreach ($post->hashtags as $hashtag) {
-        Hashtag::firstOrCreate(['hashtag' => $hashtag]);
+    public function search(Request $request)
+    {
+        // Get the search input
+        $username = $request->input('username');
+    
+        // Check if a username is provided
+        if ($username) {
+            // Search posts by username using a relationship (assuming Post has a relationship with User)
+            $posts = Post::whereHas('user', function ($query) use ($username) {
+                $query->where('username', 'like', '%' . $username . '%');
+            })->get();
+        } else {
+            // If no search input, return all posts
+            $posts = Post::all();
+        }
+    
+        // Return the results to the view (assuming 'posts.index' displays posts)
+        return view('admin.community.index', compact('posts'));
     }
+    
+    
+    
+                                                                                                                                         
+//     public function store2(Request $request)
+// {
+//     $post = Post::create([
+//         'description' => $request->description,
+//         'hashtags' => json_encode($this->extractHashtags($request->description)),
+//         // Other fields
+//     ]);
 
-    // Redirect or return response
-}
+//     // Update or create hashtags
+//     foreach ($post->hashtags as $hashtag) {
+//         Hashtag::firstOrCreate(['hashtag' => $hashtag]);
+//     }
 
-private function extractHashtags($text)
-{
-    preg_match_all('/#\w+/', $text, $matches);
-    return array_unique($matches[0]);
-}
+//     // Redirect or return response
+// }
 
-
-
-public function search(Request $request)
-{
-    // Get the search input
-    $username = $request->input('username');
-
-    // Check if a username is provided
-    if ($username) {
-        // Search posts by username using a relationship (assuming Post has a relationship with User)
-        $posts = Post::whereHas('user', function ($query) use ($username) {
-            $query->where('username', 'like', '%' . $username . '%');
-        })->get();
-    } else {
-        // If no search input, return all posts
-        $posts = Post::all();
-    }
-
-    // Return the results to the view (assuming 'posts.index' displays posts)
-    return view('posts.index', compact('posts'));
-}
+// private function extractHashtags($text)
+// {
+//     preg_match_all('/#\w+/', $text, $matches);
+//     return array_unique($matches[0]);
+// }
 
 
 
