@@ -133,7 +133,7 @@
                 console.log(v.hashtags);
 
                 $('#post-item-list').append(`
-                    <div class="post-item" id="post-item-${v.slug}">  
+                    <div class="post-item teee" id="post-item-${v.slug}">  
                         <div class="post-header">
                             <div class="avathar">
                                 <img src="{{asset("assets/images/User-blk.png")}}" alt="img">
