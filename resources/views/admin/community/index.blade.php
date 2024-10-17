@@ -82,52 +82,41 @@
 
 
 <script>
-  $(document).ready(function() {
-    // Function to perform the search
-    function performSearch() {
-        const query = $('#searchInput').val(); // Get the input value
+ function performSearch() {
+    const query = document.getElementById('searchInput').value;
 
-        if (query.length === 0) {
-            $('#searchResults').empty(); // Clear results if the search box is empty
-            return;
-        }
-
-        $.ajax({
-            url: '{{ route('admin.community.search') }}', // The route to your search method
-            type: 'GET',
-            data: { query: query },
-            success: function(data) {
-                // Clear previous results
-                $('#searchResults').empty();
-                
-                // Check if any posts were returned
-                console.log('Number of posts returned:', data.posts.length);
-                if (data.posts.length > 0) {
-                    data.posts.forEach(post => {
-                        // Find the user by user_id
-                        const user = data.users.find(user => user.id === post.user_id);
-                        const userName = user ? user.name : 'Unknown'; // Default to 'Unknown' if user not found
-
-                        $('#searchResults').append(`
-                            <div class="post">
-                                <p>${userName}</p>
-                            </div>
-                        `);
-                    });
-                } else {
-                    $('#searchResults').append('<p>No results found.</p>');
-                }
-            },
-            error: function(xhr) {
-                console.error(xhr.responseText);
-                $('#searchResults').append('<p>Error fetching results.</p>');
-            }
-        });
+    if (query.length < 2) { // Trigger search after 2 characters
+        document.getElementById('searchResults').style.display = 'none'; // Hide dropdown if input is short
+        return;
     }
 
-    // Attach the function to the input event
-    $('#searchInput').on('input', performSearch);
-});
+    fetch(`/your-search-route?query=${encodeURIComponent(query)}`) // Update with your search route
+        .then(response => response.json())
+        .then(data => {
+            const resultsContainer = document.getElementById('searchResults');
+            resultsContainer.innerHTML = ''; // Clear previous results
+            
+            if (data.posts.length === 0) {
+                resultsContainer.style.display = 'none'; // Hide if no results
+                return;
+            }
+
+            data.posts.forEach(post => {
+                const resultItem = document.createElement('div');
+                resultItem.textContent = post.title; // Assuming you have a title attribute
+                resultItem.onclick = () => {
+                    // Handle click on search result (e.g., navigate to post)
+                    window.location.href = `/posts/${post.slug}`; // Update URL as necessary
+                };
+                resultsContainer.appendChild(resultItem);
+            });
+
+            resultsContainer.style.display = 'block'; // Show results
+        })
+        .catch(error => {
+            console.error('Error fetching search results:', error);
+        });
+}
 
     </script>
     
