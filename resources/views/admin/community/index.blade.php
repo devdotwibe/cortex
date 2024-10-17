@@ -51,59 +51,20 @@
 
                 </div>
             </div>
-            {{-- <div class="post-container-wrapp">
-                <div class="post-container" id="post-item-list">
-
-                </div>
-            </div> --}}
-
             <div class="post-container-wrapp">
                 <div class="post-container" id="post-item-list">
-                    <!-- Display the list of posts here -->
-                    @if($posts->isEmpty())
-                        <p>No posts found for your search.</p>
-                    @else
-                        @foreach($posts as $post)
-                            <div class="post-item">
-                                <div class="post-header">
-                                    <div class="avathar">
-                                        <img src="{{ asset('assets/images/User-blk.png') }}" alt="img">
-                                    </div>
-                                    <div class="title">
-                                        <h3>{{ $post->user->name ?? 'Admin' }}</h3>
-                                        <span>{{ $post->created_at }}</span>
-                                    </div>
-                                    <div class="action">
-                                        <a class="btn btn-outline-dark" href="{{ route('admin.community.post.show', $post->id) }}">View</a>
-                                        <a class="btn btn-dark" href="{{ route('admin.community.post.edit', $post->id) }}">Edit</a>
-                                    </div>
-                                </div>
-                                <div class="post-title">
-                                    {{ $post->title }}
-                                </div>
-                                <div class="post-content">
-                                    {{ $post->description }}
-                                </div>
-                                <div class="post-hashtags">
-                                    {{ $post->hashtags }}
-                                </div>
-                            </div>
-                        @endforeach
-                    @endif
+
                 </div>
             </div>
 
             <div class="post-search">
-                <form action="{{ route('admin.community.search') }}" method="GET">
+                <form action="">
                     <div class="text-field">
-                        <input type="search" name="username" placeholder="Search by Username" value="{{ request('username') }}">
-                        <button class="search-btn">
-                            <img src="{{ asset('assets/images/searc-icon.svg') }}" alt="">
-                        </button>
+                        <input type="search" placeholder="Search for Posts">
+                        <button class="search-btn"><img src="{{ asset('assets/images/searc-icon.svg') }}" alt=""></button>
                     </div>
                 </form>
             </div>
-            
         </div>
         <div class="post-action">
             <button id="load-more-btn" class="btn btn-outline-dark" style="display: none"> Load More </button>

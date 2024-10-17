@@ -83,7 +83,7 @@ class CommunityControllerController extends Controller
                 'next' => $posts->nextPageUrl()
             ];
         } 
-        return view('admin.community.index',compact('hashtags','posts'));
+        return view('admin.community.index',compact('hashtags'));
     }
     public function create(Request $request){
         return view('admin.community.create');
@@ -129,7 +129,81 @@ class CommunityControllerController extends Controller
     // }
 
 
+    public function store(Request $request)
+{
+
+
+    
+    /**
+     * @var Admin
+     */
+    $admin = Auth::guard('admin')->user();
+    $type = $request->type ?? "post";
+
+    if ($type == "post") {
+        $data = $request->validate([
+            'type' => ["required"],
+           
+           'description' => ["required", 'string', "max:300", function ($attribute, $value, $fail) {
+    if (preg_match('/#/', $value)) {
+        $fail('Hashtags are not allowed in the description.');
+    }
+}],
+
+            'hashtag' => ["nullable", 'string', 'max:500'],
+            'image' => ["nullable"], 
+        ]);
+    } else {
+        $data = $request->validate([
+            // 'description' => ["required"],
+          'description' => ["required", 'string', "max:300", function ($attribute, $value, $fail) {
+    if (preg_match('/#/', $value)) {
+        $fail('Hashtags are not allowed in the description.');
+    }
+}],
+
+            'type' => ["required"],
+            'option' => ["required", 'array', 'min:2', 'max:5'],
+            'option.*' => ["required", 'max:255'],
+            'image' => ["nullable"], 
+        ], [
+            'option.required' => "This field is required",
+            'option.*.required' => "This field is required",
+        ]);
+    }
+
    
+
+    $data['status'] = "publish";
+    $data['admin_id'] = $admin->id;
+
+    // Create the post
+    $post = Post::store($data);
+
+    // Handle poll options if the type is "poll"
+    if($request->type=="poll"){
+        foreach ($request->input('option',[]) as $k=>$v) {
+            PollOption::store([
+                'option'=>$v,
+                'post_id'=>$post->id
+            ]);
+        }
+    }
+ 
+  
+$extractedHashtags = array_filter(array_map('trim', preg_split('/[,\s]+/', $request->input('hashtag', ''))));
+
+foreach ($extractedHashtags as $hashtag) {
+    if (!empty($hashtag)) {
+        Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
+    }
+}
+
+
+
+    return redirect()->route('admin.community.index')->with('success', "Post published");
+}
+
 
     public function show(Request $request,Post $post){
         if($request->ajax()){
@@ -284,51 +358,28 @@ class CommunityControllerController extends Controller
 
 
 
-    public function search(Request $request)
-    {
-        // Get the search input
-        $username = $request->input('username');
-    
-        // Check if a username is provided
-        if ($username) {
-            // Search posts by username using a relationship (assuming Post has a relationship with User)
-            $posts = Post::whereHas('user', function ($query) use ($username) {
-                $query->where('username', 'like', '%' . $username . '%');
-            })->get();
-        } else {
-            // If no search input, return all posts
-            $posts = Post::all();
-        }
-    
-        // Return the results to the view (assuming 'posts.index' displays posts)
-        return view('admin.community.index', compact('posts'));
+
+    public function store2(Request $request)
+{
+    $post = Post::create([
+        'description' => $request->description,
+        'hashtags' => json_encode($this->extractHashtags($request->description)),
+        // Other fields
+    ]);
+
+    // Update or create hashtags
+    foreach ($post->hashtags as $hashtag) {
+        Hashtag::firstOrCreate(['hashtag' => $hashtag]);
     }
-    
-    
-    
-                                                                                                                                         
-//     public function store2(Request $request)
-// {
-//     $post = Post::create([
-//         'description' => $request->description,
-//         'hashtags' => json_encode($this->extractHashtags($request->description)),
-//         // Other fields
-//     ]);
 
-//     // Update or create hashtags
-//     foreach ($post->hashtags as $hashtag) {
-//         Hashtag::firstOrCreate(['hashtag' => $hashtag]);
-//     }
+    // Redirect or return response
+}
 
-//     // Redirect or return response
-// }
-
-// private function extractHashtags($text)
-// {
-//     preg_match_all('/#\w+/', $text, $matches);
-//     return array_unique($matches[0]);
-// }
-
+private function extractHashtags($text)
+{
+    preg_match_all('/#\w+/', $text, $matches);
+    return array_unique($matches[0]);
+}
 
 
 
