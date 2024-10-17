@@ -34,7 +34,8 @@
             <div class="exam-center exam-progress-inner-item">
                 <div class="progress-menu">
                     <div class="menu-text">
-                        <span id="menu-text" >Question 0 of 0</span>
+                        <span id="menu-text" >Question <span> 0 </span>  of <span>0 </span> </span>
+                      
                     </div>
                     <div class="menu-icon"> 
                         <a onclick="toglepreviewpage()" >
@@ -526,8 +527,8 @@
                 if(res.prev_page_url){
                     $('.lesson-left').show().find('button.left-btn').data('pageurl',res.prev_page_url);
                 }  
-                $('#menu-text').text(`Question ${res.current_page} of ${res.total}`)
-                 
+                
+                $('#menu-text').html(`Question <span> ${res.current_page} </span> of <span> ${res.total}</span>`)
 
             },'json').fail(function(xhr,status,error){
                 showToast("Error: " + error, 'danger'); 
