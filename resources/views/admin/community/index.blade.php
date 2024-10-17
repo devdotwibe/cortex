@@ -108,11 +108,18 @@
                         const user = data.users.find(user => user.id === post.user_id);
                         const userName = user ? user.name : 'Unknown'; // Default to 'Unknown' if user not found
 
+
+                        // Assuming you have a select element with the ID 'searchResults'
                         $('#searchResults').append(`
-                            <div class="post">
-                                <p>${userName}</p>
-                            </div>
+                            <select class="post-dropdown">
+                                
+                                <option value="${userName}">${userName}</option>
+                            </select>
                         `);
+
+
+
+
                     });
                 } else {
                     $('#searchResults').append('<p>No results found.</p>');
