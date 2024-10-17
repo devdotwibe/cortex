@@ -83,7 +83,7 @@ class CommunityControllerController extends Controller
                 'next' => $posts->nextPageUrl()
             ];
         } 
-        return view('admin.community.index',compact('hashtags'));
+        return view('admin.community.index',compact('hashtags','posts'));
     }
     public function create(Request $request){
         return view('admin.community.create');
