@@ -84,7 +84,7 @@
 
 
 <script>
-  $(document).ready(function() {
+
     // Function to perform the search
     function performSearch() {
         const query = $('#searchInput').val(); // Get the input value
@@ -137,7 +137,7 @@
 
     // Attach the function to the input event
     $('#searchInput').on('input', performSearch);
-});
+
 
     </script>
     
