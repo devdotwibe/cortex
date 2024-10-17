@@ -306,7 +306,7 @@ class CommunityControllerController extends Controller
     
     
     
-
+                                                                                                                                         
 //     public function store2(Request $request)
 // {
 //     $post = Post::create([
