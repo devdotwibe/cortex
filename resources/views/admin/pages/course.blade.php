@@ -250,7 +250,7 @@
                                             <textarea class="form-control texteditor" name="logicalcontent" id="logicalcontent">{{ old('logicalcontent', optional($course)->logicalcontent) }}</textarea>
                                         </div>
                                     </div>
-                                    <div class="numericalsectionclass">
+
                                     <div class="col-md-12">
                                         <div class="form-group" class="file-upload">
                                             <label for="logicalimage">Logical Image  <br>
@@ -266,7 +266,7 @@
 
 
 
-                                   
+                                    <div class="numericalsectionclass">
 
 
 
@@ -288,7 +288,7 @@
 
                                         </div>
                                     </div>
-                                </div>
+
 
 
                                 </div>
@@ -311,7 +311,7 @@
 
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="criticaltitle1" class="file-upload">Critical Title 1</label>
+                                            <label for="criticaltitle1">Critical Title 1</label>
                                             <input type="text" class="form-control" name="criticaltitle1"
                                                 value="{{ old('criticaltitle1', optional($course)->criticaltitle1) }}">
                                         </div>
