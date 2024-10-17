@@ -486,9 +486,9 @@
                                     <!-- Preview Image Container -->
                                     <div class="form-group">
                                         <label for="numericalImagePreview">Image Preview</label>
-                                        <div id="numericalImagePreviewContainer">
+                                        <div id="numericalImagePreviewContainer" class="numericalclass">
                                             @if (isset($course) && $course->numericalimage)
-                                                <img id="numericalImagePreview" class="numericalclass"
+                                                <img id="numericalImagePreview" 
                                                     src="{{ url('d0/' . $course->numericalimage) }}" alt="Image Preview"
                                                     style="width: 100%; height: auto;">
                                                 <button type="button" onclick="removeNumericalImage(this)"
