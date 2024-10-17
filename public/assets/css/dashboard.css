@@ -2868,7 +2868,7 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .header_nav.settings .header_wrapp form button.btn.btn-dark {width: auto; margin: 0 0 0 10px !important; padding: 13px 20px;}
 .header_nav.settings .header_wrapp form .row { align-items: flex-end;}
 .header_nav.settings .header_wrapp form button.btn.btn-dark:hover { background: none; color: #000000;}
-.header_nav.settings .header_wrapp form label { font-size: 16px; margin: 0 0 8px;}
+.header_nav.settings .header_wrapp form label { font-size: 16px; margin: 0 0 8px; font-weight: 600;}
 .header_nav.settings .header_wrapp form input { height: 52px; border: 1px solid rgba(188, 188, 188, 1); padding: 11px; border-radius: 10px; min-width: 300px;}
 
 
