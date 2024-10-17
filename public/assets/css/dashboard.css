@@ -513,7 +513,7 @@ margin-left:auto;
 .lesson-pagination .button{
   display: flex;
   color: #FFF;
-  background:#6072FF;
+  background:#1789fa;
   padding:5px 15px;
   justify-content: center;
   align-items: center;
@@ -761,7 +761,7 @@ border-radius: 7px;
   margin: 0 auto;
   padding:0;
   height: 100%;
-  background:#365497;
+  background:#005d93;
 }
 .exam-progress>.exam-progress-inner {
   width: 100%;
@@ -2840,7 +2840,8 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .progress-main .hide-btn {
   width: 60px;
   height: 60px;
-  background: #fff;
+  background: #226cdc;
+  color: #ffffff;
   border-radius: 50%;
   font-size: 12px;
   line-height: 1;
