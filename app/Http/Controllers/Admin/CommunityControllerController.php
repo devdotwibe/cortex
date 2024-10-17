@@ -384,25 +384,13 @@ foreach ($extractedHashtags as $hashtag) {
 
 public function search(Request $request)
 {
-    // Validate the input query (optional)
-    $request->validate([
-        'query' => 'required|string|max:255', // You can adjust max length as necessary
-    ]);
-
     $query = $request->input('query');
 
-    // Fetch posts based on username, title, or description
-    $posts = Post::with('user') // Eager load the user relationship for efficient querying
-        ->where(function ($q) use ($query) {
-            $q->whereHas('user', function ($subQuery) use ($query) {
-                $subQuery->where('username', 'like', '%' . $query . '%');
-            })
-            ->orWhere('title', 'like', '%' . $query . '%')
-            ->orWhere('description', 'like', '%' . $query . '%');
-        })
-        ->get();
+    // Assuming you have a Post model and it has a relation to User
+    $posts = Post::whereHas('user', function ($q) use ($query) {
+        $q->where('username', 'like', '%' . $query . '%');
+    })->get();
 
-    // Return the results as a JSON response
     return response()->json($posts);
 }
 
