@@ -326,7 +326,7 @@
                                         </div>
                                     </div>
 
-                                  
+                                    <div class="numericalsectionclass">
 
                                     <div class="col-md-12">
                                         <div class="form-group">
@@ -358,7 +358,7 @@
                                             @endif
                                         </div>
                                     </div>
-
+                                </div>
 
                                 </div>
                                 <button type="submit" class="btn btn-dark critical" name="sub_section"
