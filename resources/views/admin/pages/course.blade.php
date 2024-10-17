@@ -60,7 +60,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="heading">Course Banner Title</label>
+                                                        <label for="heading" >Course Banner Title</label>
                                                         <textarea class="form-control texteditor" name="heading" id="heading">{{ old('heading', optional($course)->heading) }}</textarea>
                                                         @error('heading')
                                                             <div class="text-danger">{{ $message }}</div>
@@ -250,7 +250,7 @@
                                             <textarea class="form-control texteditor" name="logicalcontent" id="logicalcontent">{{ old('logicalcontent', optional($course)->logicalcontent) }}</textarea>
                                         </div>
                                     </div>
-
+                                    <div class="numericalsectionclass">
                                     <div class="col-md-12">
                                         <div class="form-group" class="file-upload">
                                             <label for="logicalimage">Logical Image  <br>
@@ -273,8 +273,8 @@
                                     <!-- Preview Image Container -->
                                     <div class="form-group">
                                         <label for="logicalImagePreview">Image Preview</label>
-                                        <div id="logicalImagePreviewContainer"
-                                            style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
+                                        <div id="logicalImagePreviewContainer" class="numericalclass">
+                                          
                                             @if (isset($course) && $course->logicalimage)
                                                 <img id="logicalImagePreview-save"
                                                     src="{{ url('d0/' . $course->logicalimage) }}" alt="Image Preview"
@@ -288,7 +288,7 @@
 
                                         </div>
                                     </div>
-
+                                </div>
 
 
                                 </div>
@@ -326,6 +326,8 @@
                                         </div>
                                     </div>
 
+                                    <div class="numericalsectionclass">
+
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="criticalimage"  class="file-upload">Critical Image <br>
@@ -341,7 +343,7 @@
                                     <!-- Preview Image Container -->
                                     <div class="form-group">
                                         <label for="criticalImagePreview">Image Preview</label>
-                                        <div id="criticalImagePreviewContainer" class=numericalclass
+                                        <div id="criticalImagePreviewContainer" class="numericalclass">
                                            
                                             @if (isset($course) && $course->criticalimage)
                                                 <img id="criticalImagePreview"
@@ -356,7 +358,7 @@
                                             @endif
                                         </div>
                                     </div>
-
+                                </div>
 
                                 </div>
                                 <button type="submit" class="btn btn-dark critical" name="sub_section"

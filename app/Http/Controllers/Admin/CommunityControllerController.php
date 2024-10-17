@@ -385,8 +385,8 @@ public function search(Request $request)
         })
         ->get();
 
-    // Optionally, collect unique user IDs from the posts
-    $userIds = $posts->pluck('user_id')->unique(); // Get unique user IDs from the posts
+
+    $userIds = $posts->pluck('user_id')->unique(); //
 
     // Fetch users based on the unique IDs from the posts
     $users = User::whereIn('id', $userIds)->get();
