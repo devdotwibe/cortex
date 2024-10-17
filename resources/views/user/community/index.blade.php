@@ -28,7 +28,7 @@
                 <div class="post-col1">
                     <h4>SPACES</h4>
     
-                <div class="mb-3 back-btn-wrapp">
+                    <div class="mb-3 back-btn-wrapp">
                         <label for="backtoall" class="form-label"></label>
                         <a href="{{ route('community.post.index') }}" id="backtoall" class="form-control text-decoration-none" >
                             #Backtoall
