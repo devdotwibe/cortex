@@ -2831,6 +2831,14 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 }
 
 
+.post-wrap .choice {background: none; padding: 0 15px; border: none;}
+.post-wrap .choice .input-group .input-group-append {position: absolute; right: 15px; top: 50%; transform: translateY(-50%);}
+.post-wrap .choice .input-group .input-group-append button.btn.btn-danger { width: 30px; height: 30px; padding: 5px;}
+.post-wrap .choice .choice-button button.btn.btn-dark {background: #000000 !important; border-color: #000 !important;}
+.post-wrap .choice .choice-button button.btn.btn-dark:hover {background: none !important; color: #000000 !important;}
+.post-wrap .choice .choice-button button.btn.btn-dark:hover img { filter: invert(1);}
+
+
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
 
