@@ -89,7 +89,7 @@ $(document).ready(function() {
         const query = $('#searchInput').val(); // Get the input value
 
         $.ajax({
-            url: '{{ route('search.posts') }}', // The route to your search method
+            url: '{{ route('admin.community.index') }}', // The route to your search method
             type: 'GET',
             data: { query: query },
             success: function(data) {
