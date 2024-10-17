@@ -403,13 +403,12 @@
                                         </div>
                                     </div>
 
-
-
+                                  
                                     <!-- Preview Image Container -->
                                     <div class="form-group">
                                         <label for="abstractImagePreview">Image Preview</label>
-                                        <div id="abstractImagePreviewContainer"
-                                            style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
+                                        <div id="abstractImagePreviewContainer" class="numericalclass">
+                                          
                                             @if (isset($course) && $course->abstractimage)
                                                 <img id="abstractImagePreview"
                                                     src="{{ url('d0/' . $course->abstractimage) }}" alt="Image Preview"
@@ -486,9 +485,9 @@
                                     <!-- Preview Image Container -->
                                     <div class="form-group">
                                         <label for="numericalImagePreview">Image Preview</label>
-                                        <div id="numericalImagePreviewContainer numericalclass">
+                                        <div id="numericalImagePreviewContainer" class="numericalclass">
                                             @if (isset($course) && $course->numericalimage)
-                                                <img id="numericalImagePreview"
+                                                <img id="numericalImagePreview" 
                                                     src="{{ url('d0/' . $course->numericalimage) }}" alt="Image Preview"
                                                     style="width: 100%; height: auto;">
                                                 <button type="button" onclick="removeNumericalImage(this)"
@@ -500,6 +499,7 @@
                                             @endif
                                         </div>
                                     </div>
+                                </div>
 
 
                                 </div>
