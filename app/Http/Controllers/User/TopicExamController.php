@@ -287,8 +287,8 @@ class TopicExamController extends Controller
         $attemtcount = UserExamReview::where('exam_id', $userExamReview->exam_id)->where('category_id', $userExamReview->category_id)->where('user_id', $user->id)->where('id', '<', $userExamReview->id)->count() + 1;
         $categorylist = Category::all();
      
-        return view('user.topic-test.resultpage', compact('chartdata', 'chartbackgroundColor', 'chartlabel', 'categorylist', 'userExamReview', 'passed', 'attemttime', 'questioncount', 'attemtcount'));
-        return redirect(url()->current());
+        return view('user.topic-test.resultpage', compact('chartdata', 'chartbackgroundColor', 'chartlabel', 'categorylist', 'userExamReview', 'passed', 'attemttime', 'questioncount', 'attemtcount'))->with('refresh', true);
+   
     }
 
     public function preview(Request $request, UserExamReview $userExamReview)
