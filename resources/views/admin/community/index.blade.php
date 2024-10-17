@@ -65,7 +65,7 @@
                     </div>
                 </form>
                 <div class="searchclass">
-                <select id="searchResults" name="searchres"></select> <!-- Container for displaying search results -->
+                <div id="searchResults" name="searchres"></div> <!-- Container for displaying search results -->
                 </div>
             </div>
             
