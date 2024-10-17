@@ -92,6 +92,7 @@ class ImportQuestions implements ShouldQueue
             if($this->exam->name=="full-mock-exam"){
                 $category = Category::firstOrCreate(
                     ['name' => $row[$this->fields['category']]],
+                    ['time_of_exam' => '01 : 00']
                
                 );
                 $category_id = $category->id;

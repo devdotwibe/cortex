@@ -87,6 +87,7 @@ class TopicTestController extends Controller
             $exam=Exam::store([
                 "title"=>"Topic Test",
                 "name"=>"topic-test",
+                
             ]);
             $exam=Exam::find( $exam->id );
         } 

@@ -44,8 +44,10 @@ class SubmitReview implements ShouldQueue
      */
     public function __construct($review,$userexam=null)
     {
+  
         $this->review=$review;
         $this->userexam=$userexam;
+
     }
 
     /**
@@ -53,6 +55,7 @@ class SubmitReview implements ShouldQueue
      */
     public function handle(): void
     {
+     
         switch ($this->review->name) {
             case 'learn':
                 $this->learnHandle();
@@ -78,6 +81,7 @@ class SubmitReview implements ShouldQueue
         return $vimeoid;
     }
     private function learnHandle(){
+      
         $user=User::find($this->review->user_id);
         $exam=Exam::find($this->review->exam_id);
         $category=Category::find($this->review->category_id); 
@@ -148,6 +152,7 @@ class SubmitReview implements ShouldQueue
         $user->setProgress("exam-".$exam->id."-module-".$category->id."-lesson-".$subCategory->id."-progress-url",null);
     }
     private function questionSetHandle(){
+   
         $user=User::find($this->review->user_id);
         $exam=Exam::find($this->review->exam_id);
         $category=Category::find($this->review->category_id); 
@@ -201,6 +206,7 @@ class SubmitReview implements ShouldQueue
     }
 
     private function topicTestHandle(){
+
         $user=User::find($this->review->user_id);
         $exam=Exam::find($this->review->exam_id);
         $category=Category::find($this->review->category_id);  
@@ -250,6 +256,7 @@ class SubmitReview implements ShouldQueue
         $user->setProgress("exam-".$exam->id."-topic-".$category->id."-progress-url",null);
     }
     private function fullMockExamHandle(){
+
         $user=User::find($this->review->user_id);
         $exam=Exam::find($this->review->exam_id);   
         $takentime=json_decode($user->progress("exam-review-".$this->review->id."-times",'[]'),true);

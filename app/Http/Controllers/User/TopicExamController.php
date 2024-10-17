@@ -57,7 +57,6 @@ class TopicExamController extends Controller
     }
     public function show(Request $request, Category $category)
     {
-
         $exam = Exam::where("name", 'topic-test')->first();
         if (empty($exam)) {
             $exam = Exam::store([
@@ -75,6 +74,8 @@ class TopicExamController extends Controller
         $questioncount = Question::where('exam_id', $exam->id)->where('category_id', $category->id)->count();
         $endtime = 0;
         $times = explode(':', $category->time_of_exam);
+       
+       
         if (count($times) > 0) {
             $endtime += intval(trim($times[0] ?? "0")) * 60;
             $endtime += intval(trim($times[1] ?? "0"));
@@ -84,6 +85,7 @@ class TopicExamController extends Controller
         }
         $user->setProgress("exam-{$exam->id}-topic-{$category->id}-progress-url", null);
         $attemtcount = UserExamReview::where('exam_id', $exam->id)->where('user_id', $user->id)->where('category_id', $category->id)->count() + 1;
+   
         $attemt=UserExam::store([ 
             'name'=>$exam->name,
             'title'=>$exam->title,
@@ -214,6 +216,7 @@ class TopicExamController extends Controller
                 "passed"=>$request->input("passed",'0'),
                 "time_of_exam"=>$category->time_of_exam,
             ]);
+
             $passed = $request->input("passed", '0');
             $questions = $request->input("questions", '[]');
             $questioncnt = UserExamQuestion::where('user_exam_id', $attemt->id)->count();
@@ -230,6 +233,8 @@ class TopicExamController extends Controller
             }
             $user->setProgress("exam-" . $exam->id . "-topic-" . $category->id . "-complete-review", 'yes');
             dispatch(new SubmitReview($review,$attemt));
+            Session::put("review_slug" . $review->slug);
+            Session::put("review_id" . $review->id);
             Session::remove("topic-test-attempt");
             if ($questioncnt > $passed) {
                 $key = md5("exam-retry-" . $review->id);
@@ -240,6 +245,7 @@ class TopicExamController extends Controller
             if ($request->ajax()) {
                 return response()->json(["success" => "Topic Test Submited", "preview" => route('topic-test.preview', $review->slug)]);
             }
+       
             return redirect()->route('topic-test.complete', $review->slug)->with("success", "Topic Test Submited")->with("review", $review->id);
         }else{
             if ($request->ajax()) {
@@ -264,9 +270,9 @@ class TopicExamController extends Controller
 
         $m = sprintf("%02d", intval($tmtk / 60));
         $s = sprintf("%02d", intval($tmtk % 60));
-
+        
         $attemttime = "$m:$s";
-        $questioncount = UserReviewQuestion::where('user_exam_review_id', $userExamReview->id)->count();
+        $questioncount = UserReviewQuestion::where('user_exam_review_id', $userExamReview->id)->count() ;
         $chartlabel = [];
         $chartbackgroundColor = [];
         $chartdata = [];
@@ -280,8 +286,9 @@ class TopicExamController extends Controller
         }
         $attemtcount = UserExamReview::where('exam_id', $userExamReview->exam_id)->where('category_id', $userExamReview->category_id)->where('user_id', $user->id)->where('id', '<', $userExamReview->id)->count() + 1;
         $categorylist = Category::all();
+     
         return view('user.topic-test.resultpage', compact('chartdata', 'chartbackgroundColor', 'chartlabel', 'categorylist', 'userExamReview', 'passed', 'attemttime', 'questioncount', 'attemtcount'));
-
+        return redirect(url()->current());
     }
 
     public function preview(Request $request, UserExamReview $userExamReview)
@@ -325,7 +332,7 @@ class TopicExamController extends Controller
                 $examtime = $examtime / count($useranswer);
             }
         }
-        return view("user.topic-test.preview", compact('category', 'exam', 'user', 'userExamReview', 'useranswer', 'examtime'));
+        return view("user.topic-test.preview", compact('category', 'exam', 'user', 'userExamReview', 'useranswer', 'examtime'))->with('refresh', true);;
     }
 
     public function topicverify(Request $request, Category $category)

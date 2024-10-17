@@ -63,7 +63,7 @@ class CategoryController extends Controller
 
             "name" => "required|unique:categories,name",
         ]);
-        
+        $options_data['time_of_exam'] =  '01 : 00';
         $option = new Category;
 
         $option->store($options_data);
@@ -81,12 +81,14 @@ class CategoryController extends Controller
 
                 "name" => "required|unique:categories,name,".$category->id,
             ]);
-
+       
             $category = Category::findSlug($slug);
 
             if(!empty($category))
             {
-               $category->update($edit_data);
+                $edit_data['time_of_exam'] = (!$category->time_of_exam)? '01 : 00' : $category->time_of_exam ;
+
+                $category->update($edit_data);
 
             }
 
@@ -102,8 +104,6 @@ class CategoryController extends Controller
     }
     public function show(Request $request,Category $option){
 
-        // dd($learn->slug);
-        
         return view("admin.category.show",compact('option'));
 
     }
