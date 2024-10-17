@@ -58,13 +58,13 @@
             </div>
 
             <div class="post-search">
-                <form id="searchForm" action="">
+                <form id="searchForm" action="" onsubmit="return false;">
                     <div class="text-field">
                         <input type="search" id="searchInput" placeholder="Search for Posts" aria-label="Search for Posts" oninput="performSearch()">
                         <button type="submit" class="search-btn" disabled><img src="{{ asset('assets/images/searc-icon.svg') }}" alt=""></button>
                     </div>
                 </form>
-                <div id="searchResults"></div> <!-- Container for displaying search results -->
+                <div id="searchResults" class="dropdown-results"></div> <!-- Container for displaying search results -->
             </div>
             
             
