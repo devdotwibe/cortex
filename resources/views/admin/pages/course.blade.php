@@ -250,7 +250,7 @@
                                             <textarea class="form-control texteditor" name="logicalcontent" id="logicalcontent">{{ old('logicalcontent', optional($course)->logicalcontent) }}</textarea>
                                         </div>
                                     </div>
-
+                                    <div class="numericalsectionclass">
                                     <div class="col-md-12">
                                         <div class="form-group" class="file-upload">
                                             <label for="logicalimage">Logical Image  <br>
@@ -266,15 +266,15 @@
 
 
 
-
+                                   
 
 
 
                                     <!-- Preview Image Container -->
                                     <div class="form-group">
                                         <label for="logicalImagePreview">Image Preview</label>
-                                        <div id="logicalImagePreviewContainer"
-                                            style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
+                                        <div id="logicalImagePreviewContainer" class="numericalclass">
+                                          
                                             @if (isset($course) && $course->logicalimage)
                                                 <img id="logicalImagePreview-save"
                                                     src="{{ url('d0/' . $course->logicalimage) }}" alt="Image Preview"
@@ -288,7 +288,7 @@
 
                                         </div>
                                     </div>
-
+                                </div>
 
 
                                 </div>
@@ -326,6 +326,8 @@
                                         </div>
                                     </div>
 
+                                    <div class="numericalsectionclass">
+
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="criticalimage"  class="file-upload">Critical Image <br>
@@ -341,8 +343,8 @@
                                     <!-- Preview Image Container -->
                                     <div class="form-group">
                                         <label for="criticalImagePreview">Image Preview</label>
-                                        <div id="criticalImagePreviewContainer"
-                                            style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
+                                        <div id="criticalImagePreviewContainer" class=numericalclass>
+                                           
                                             @if (isset($course) && $course->criticalimage)
                                                 <img id="criticalImagePreview"
                                                     src="{{ url('d0/' . $course->criticalimage) }}" alt="Image Preview"
@@ -393,6 +395,7 @@
                                             <textarea class="form-control texteditor" name="abstractcontent" id="abstractcontent">{{ old('abstractcontent', optional($course)->abstractcontent) }}</textarea>
                                         </div>
                                     </div>
+                                    <div class="numericalsectionclass">
 
                                     <div class="col-md-12">
                                         <div class="form-group">
@@ -403,13 +406,12 @@
                                         </div>
                                     </div>
 
-
-
+                                  
                                     <!-- Preview Image Container -->
                                     <div class="form-group">
                                         <label for="abstractImagePreview">Image Preview</label>
-                                        <div id="abstractImagePreviewContainer"
-                                            style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
+                                        <div id="abstractImagePreviewContainer" class="numericalclass">
+                                          
                                             @if (isset($course) && $course->abstractimage)
                                                 <img id="abstractImagePreview"
                                                     src="{{ url('d0/' . $course->abstractimage) }}" alt="Image Preview"
@@ -423,6 +425,7 @@
                                             @endif
                                         </div>
                                     </div>
+                                </div>
 
 
                                 </div>
