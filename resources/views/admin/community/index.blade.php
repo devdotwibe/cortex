@@ -84,7 +84,7 @@
 
 
 <script>
-
+  $(document).ready(function() {
     // Function to perform the search
     function performSearch() {
         const query = $('#searchInput').val(); // Get the input value
@@ -115,11 +115,20 @@
                         $('#searchResults').append(`
                           
                                 
-                                <a  data-id="${userName}" onclick="searchclick(`${userName}`)">${userName}</a>
+                                <option value="${userName}">${userName}</option>
                                 
                            
                         `);
 
+
+                         
+                        // $('#searchResults').append(`
+                          
+                                
+                        //         <a  data-id="${userName}" onclick="searchclick(`${userName}`)">${userName}</a>
+                                
+                           
+                        // `);
 
 
 
@@ -137,7 +146,7 @@
 
     // Attach the function to the input event
     $('#searchInput').on('input', performSearch);
-
+});
 
     </script>
     
