@@ -358,43 +358,69 @@ foreach ($extractedHashtags as $hashtag) {
 
 
 
-
-//     public function store2(Request $request)
+//     public function search(Request $request)
 // {
-//     $post = Post::create([
-//         'description' => $request->description,
-//         'hashtags' => json_encode($this->extractHashtags($request->description)),
-//         // Other fields
-//     ]);
+//     $query = $request->input('query');
 
-//     // Update or create hashtags
-//     foreach ($post->hashtags as $hashtag) {
-//         Hashtag::firstOrCreate(['hashtag' => $hashtag]);
-//     }
+//     // Assuming you have a Post model and it has a relation to User
+//     $posts = Post::whereHas('user', function ($q) use ($query) {
+//         $q->where('name', 'like', '%' . $query . '%');
+//     })->get();
 
-//     // Redirect or return response
+//     $users=User::whereIn('id',$posts->user_id)->get();
+
+//     return response()->json(['posts'=>$posts,'users'=>$users]);
 // }
 
-// private function extractHashtags($text)
-// {
-//     preg_match_all('/#\w+/', $text, $matches);
-//     return array_unique($matches[0]);
-// }
 
 
 public function search(Request $request)
 {
     $query = $request->input('query');
 
-    // Assuming you have a Post model and it has a relation to User
-    $posts = Post::whereHas('user', function ($q) use ($query) {
-        $q->where('name', 'like', '%' . $query . '%');
-    })->get();
+    // Fetch posts that have a user whose name matches the query
+    $posts = Post::with('user') // Eager load the user relationship
+        ->whereHas('user', function ($q) use ($query) {
+            $q->where('name', 'like', '%' . $query . '%');
+        })
+        ->get();
 
-    $users=User::whereIn('id',$posts->user_id)->get();
+    // Optionally, collect unique user IDs from the posts
+    $userIds = $posts->pluck('user_id')->unique(); // Get unique user IDs from the posts
 
-    return response()->json(['posts'=>$posts,'users'=>$users]);
+    // Fetch users based on the unique IDs from the posts
+    $users = User::whereIn('id', $userIds)->get();
+
+    return response()->json(['posts' => $posts, 'users' => $users]);
 }
 
     
+
+
+
+
+    public function store2(Request $request)
+{
+    $post = Post::create([
+        'description' => $request->description,
+        'hashtags' => json_encode($this->extractHashtags($request->description)),
+        // Other fields
+    ]);
+
+    // Update or create hashtags
+    foreach ($post->hashtags as $hashtag) {
+        Hashtag::firstOrCreate(['hashtag' => $hashtag]);
+    }
+
+    // Redirect or return response
+}
+
+private function extractHashtags($text)
+{
+    preg_match_all('/#\w+/', $text, $matches);
+    return array_unique($matches[0]);
+}
+
+
+
 }
