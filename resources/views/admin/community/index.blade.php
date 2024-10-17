@@ -105,9 +105,9 @@
     
                             $('#searchResults').append(`
                                 <div class="post">
-                                    <h3>${post.title}</h3>
+                                    <h3>${post.hashtags}</h3>
                                     <p>${post.description}</p>
-                                    <p>Posted by: ${userName}</p>
+                                    
                                 </div>
                             `);
                         });
