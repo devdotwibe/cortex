@@ -115,7 +115,7 @@
                         $('#searchResults').append(`
                           
                                 
-                                <option value="${userName}">${userName}</option>
+                                <a  data-id="${userName}" onclick="searchclick(this)">${userName}</a>
                                 
                            
                         `);
