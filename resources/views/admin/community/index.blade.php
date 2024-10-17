@@ -64,7 +64,9 @@
                         <button type="submit" class="search-btn" disabled><img src="{{ asset('assets/images/searc-icon.svg') }}" alt=""></button>
                     </div>
                 </form>
+                <div class="searchclass">
                 <select id="searchResults" name="searchres"></select> <!-- Container for displaying search results -->
+                </div>
             </div>
             
             
@@ -107,12 +109,6 @@
                         // Find the user by user_id
                         const user = data.users.find(user => user.id === post.user_id);
                         const userName = user ? user.name : 'Unknown'; // Default to 'Unknown' if user not found
-
-                        // $('#searchResults').append(`
-                        //     <div class="post">
-                        //         <p>${userName}</p>
-                        //     </div>
-                        // `);
 
 
                        
