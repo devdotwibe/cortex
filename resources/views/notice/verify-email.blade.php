@@ -1,5 +1,5 @@
 @extends('layouts.exam')
-@section('title', $exam->subtitle($category->id,"Module ".($category->getIdx()+1)).':'.$category->name)
+@section('title', 'Login')
 @section('content')
 <section class="exam-container" id="exam-container">
     <div class="container-wrap">
