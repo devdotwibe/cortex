@@ -1,7 +1,7 @@
 @extends('layouts.exam')
 @section('title', $exam->subtitle($category->id,"Topic ".($category->getIdx()+1)).':'.$category->name)
 @section('content')
-<section class="exam-container">
+<section class="exam-container topictestclass">
     <div class="summery-wrap"> 
         <div class="summery-title">
             <div class="back-btn" id="back-btn" style="display: block"> <!-- Ensure proper display value -->
@@ -10,7 +10,7 @@
                 </a>
             </div>
 
-            {{-- <h1>{{get_option('exam_simulator_title')}}</h1> --}}
+            <h1>{{get_option('exam_simulator_title')}}</h1>
         </div>
         
         <div class="summery-title">
