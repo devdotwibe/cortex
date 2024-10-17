@@ -192,6 +192,39 @@
 
 
 
+                    {{-- <ul class="nav nav-tabs" id="section2Tabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link @if (old('sub_section') == 'tab1' || old('sub_section') == '') active @endif @if (session('tab_1') == true) active @else @endif "
+                                id="tab1-tab" data-bs-toggle="tab" href="#tab1" role="tab" aria-controls="tab1"
+                                aria-selected="@if (old('sub_section') == 'tab1' || old('sub_section') == '') true @else false @endif">Tab 1</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link @if (old('sub_section') == 'tab2') active @endif" id="tab2-tab"
+                                data-bs-toggle="tab" href="#tab2" role="tab" aria-controls="tab2"
+                                aria-selected="@if (old('sub_section') == 'tab2') true @else false @endif">Tab 2</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link @if (old('sub_section') == 'tab3') active @endif" id="tab3-tab"
+                                data-bs-toggle="tab" href="#tab3" role="tab" aria-controls="tab3"
+                                aria-selected="@if (old('sub_section') == 'tab3') true @else false @endif">Tab 3</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link @if (old('sub_section') == 'tab4') active @endif" id="tab4-tab"
+                                data-bs-toggle="tab" href="#tab4" role="tab" aria-controls="tab4"
+                                aria-selected="@if (old('sub_section') == 'tab4') true @else false @endif">Tab 4</a>
+                        </li>
+                    </ul> --}}
+
+                    {{-- @php
+
+                        $tabs = [
+                                ['id' => 'tab1', 'name' => 'Tab 1','section' => 'tab_1'],
+                                ['id' => 'tab2', 'name' => 'Tab 2','section' => 'tab_2'],
+                                ['id' => 'tab3', 'name' => 'Tab 3','section' => 'tab_3'],
+                                ['id' => 'tab4', 'name' => 'Tab 4','section' => 'tab_4']
+                            ];
+
+                    @endphp --}}
 
                     <ul class="nav nav-tabs" id="section2Tabs" role="tablist">
                         @foreach($tabs1 as $k => $tab)
@@ -341,8 +374,8 @@
                                     <!-- Preview Image Container -->
                                     <div class="form-group">
                                         <label for="criticalImagePreview">Image Preview</label>
-                                        <div id="criticalImagePreviewContainer" class=numericalclass
-                                           
+                                        <div id="criticalImagePreviewContainer"
+                                            style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
                                             @if (isset($course) && $course->criticalimage)
                                                 <img id="criticalImagePreview"
                                                     src="{{ url('d0/' . $course->criticalimage) }}" alt="Image Preview"
@@ -393,7 +426,6 @@
                                             <textarea class="form-control texteditor" name="abstractcontent" id="abstractcontent">{{ old('abstractcontent', optional($course)->abstractcontent) }}</textarea>
                                         </div>
                                     </div>
-                                    <div class="numericalsectionclass">
 
                                     <div class="col-md-12">
                                         <div class="form-group">
@@ -404,12 +436,13 @@
                                         </div>
                                     </div>
 
-                                  
+
+
                                     <!-- Preview Image Container -->
                                     <div class="form-group">
                                         <label for="abstractImagePreview">Image Preview</label>
-                                        <div id="abstractImagePreviewContainer" class="numericalclass">
-                                          
+                                        <div id="abstractImagePreviewContainer"
+                                            style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
                                             @if (isset($course) && $course->abstractimage)
                                                 <img id="abstractImagePreview"
                                                     src="{{ url('d0/' . $course->abstractimage) }}" alt="Image Preview"
@@ -423,7 +456,6 @@
                                             @endif
                                         </div>
                                     </div>
-                                </div>
 
 
                                 </div>
@@ -470,7 +502,7 @@
                                         </div>
                                     </div> --}}
 
-                            <div class="numericalsectionclass">
+
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="numericalimage" class="file-upload">Numerical Image  <br>
@@ -487,9 +519,10 @@
                                     <!-- Preview Image Container -->
                                     <div class="form-group">
                                         <label for="numericalImagePreview">Image Preview</label>
-                                        <div id="numericalImagePreviewContainer" class="numericalclass">
+                                        <div id="numericalImagePreviewContainer"
+                                            style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
                                             @if (isset($course) && $course->numericalimage)
-                                                <img id="numericalImagePreview" 
+                                                <img id="numericalImagePreview"
                                                     src="{{ url('d0/' . $course->numericalimage) }}" alt="Image Preview"
                                                     style="width: 100%; height: auto;">
                                                 <button type="button" onclick="removeNumericalImage(this)"
@@ -501,7 +534,6 @@
                                             @endif
                                         </div>
                                     </div>
-                                </div>
 
 
                                 </div>
