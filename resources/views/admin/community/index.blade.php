@@ -103,7 +103,7 @@ $(document).ready(function() {
                             <div class="post">
                                 <h3>${post.title}</h3>
                                 <p>${post.description}</p>
-                                <p>Posted by: ${post.user.username}</p>
+                                <p>Posted by: ${post.username}</p>
                             </div>
                         `);
                     });
