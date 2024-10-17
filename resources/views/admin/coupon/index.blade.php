@@ -57,7 +57,7 @@
 
 
 
-            <div class="header_title">
+            {{-- <div class="header_title">
 
                 <h2>Coupon</h2>
 
@@ -65,7 +65,7 @@
 
                     New</a></li>
 
-            </div>
+            </div> --}}
 
             
 
