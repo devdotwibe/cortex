@@ -391,7 +391,9 @@ public function search(Request $request)
         $q->where('name', 'like', '%' . $query . '%');
     })->get();
 
-    return response()->json($posts);
+    $users=User::whereIn('id',$posts->user_id)->get();
+
+    return response()->json(['posts'=>$posts,'users'=>$users]);
 }
 
     
