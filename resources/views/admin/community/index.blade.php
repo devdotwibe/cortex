@@ -64,7 +64,7 @@
                         <button type="submit" class="search-btn" disabled><img src="{{ asset('assets/images/searc-icon.svg') }}" alt=""></button>
                     </div>
                 </form>
-                <div id="searchResults"></div> <!-- Container for displaying search results -->
+                <select id="searchResults" name="searchres"></select> <!-- Container for displaying search results -->
             </div>
             
             
@@ -117,11 +117,11 @@
 
                        
                         $('#searchResults').append(`
-                            <select class="post-dropdown">
+                          
                                 
                                 <option value="${userName}">${userName}</option>
                                 
-                            </select>
+                           
                         `);
 
 
