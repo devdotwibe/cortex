@@ -80,71 +80,52 @@
 @push('footer-script')
 
 
-
 <script>
-  $(document).ready(function() {
-    // Function to perform the search
-    function performSearch() {
-        const query = $('#searchInput').val(); // Get the input value
+    $(document).ready(function () {
+        // Function to perform the search
+        function performSearch() {
+            const query = $('#searchInput').val(); // Get the input value
 
-        if (query.length === 0) {
-            $('#searchResults').empty(); // Clear results if the search box is empty
-            return;
+            if (query.length === 0) {
+                $('#searchResults').empty(); // Clear results if the search box is empty
+                return;
+            }
+
+            $.ajax({
+                url: '{{ route('admin.community.search') }}', // The route to your search method
+                type: 'GET',
+                data: { query: query },
+                success: function (data) {
+                    // Clear previous results
+                    $('#searchResults').empty();
+
+                    // Check if any posts were returned
+                    console.log('Number of posts returned:', data.posts.length);
+                    if (data.posts.length > 0) {
+                        data.posts.forEach(post => {
+                            // Find the user by user_id
+                            const user = data.users.find(user => user.id === post.user_id);
+                            const userName = user ? user.name : 'Unknown'; // Default to 'Unknown' if user not found
+
+                            $('#searchResults').append(`
+                                <option value="${post.id}">${userName}</option>
+                            `);
+                        });
+                    } else {
+                        $('#searchResults').append('<option>No results found.</option>');
+                    }
+                },
+                error: function (xhr) {
+                    console.error(xhr.responseText);
+                    $('#searchResults').append('<option>Error fetching results.</option>');
+                }
+            });
         }
 
-        $.ajax({
-            url: '{{ route('admin.community.search') }}', // The route to your search method
-            type: 'GET',
-            data: { query: query },
-            success: function(data) {
-                // Clear previous results
-                $('#searchResults').empty();
-                
-                // Check if any posts were returned
-                console.log('Number of posts returned:', data.posts.length);
-                if (data.posts.length > 0) {
-                    data.posts.forEach(post => {
-                        // Find the user by user_id
-                        const user = data.users.find(user => user.id === post.user_id);
-                        const userName = user ? user.name : 'Unknown'; // Default to 'Unknown' if user not found
-
-                        // $('#searchResults').append(`
-                        //     <div class="post">
-                        //         <p>${userName}</p>
-                        //     </div>
-                        // `);
-
-
-                       
-                        $('#searchResults').append(`
-                          
-                                
-                                <option value="${userName}">${userName}</option>
-                                
-                           
-                        `);
-
-
-
-
-                    });
-                } else {
-                    $('#searchResults').append('<p>No results found.</p>');
-                }
-            },
-            error: function(xhr) {
-                console.error(xhr.responseText);
-                $('#searchResults').append('<p>Error fetching results.</p>');
-            }
-        });
-    }
-
-    // Attach the function to the input event
-    $('#searchInput').on('input', performSearch);
-});
-
-    </script>
-    
+        // Attach the function to the input event
+        $('#searchInput').on('input', performSearch);
+    });
+</script>
 
 
 
