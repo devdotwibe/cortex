@@ -2855,6 +2855,11 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .post-wrap .choice .choice-button button.btn.btn-dark:hover img { filter: invert(1);}
 
 
+.coupon-wrap .couponclass { width: 100%; margin: 0 0 12px;}
+.coupon-wrap .couponclass .header_title { width: 100%;display: flex; flex-wrap: wrap; justify-content: space-between;}
+.coupon-wrap .couponclass .header_title h2 { font-size: 20px; font-weight: 700;}
+.coupon-wrap .couponclass .header_title .nav_link.btn { color: #fff; background-color: #212529; border-color: #212529;}
+.coupon-wrap .couponclass .header_title .nav_link.btn:hover { background: none; color: #212529; font-size: 14px;font-weight: 600;}
 
 
 
