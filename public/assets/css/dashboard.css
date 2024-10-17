@@ -2846,6 +2846,17 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .post-wrap .choice .choice-button button.btn.btn-dark:hover img { filter: invert(1);}
 
 
+.private_section .card .card-body .category-image span { display: block;}
+.private_section .card .card-body .category-image button { width: 25px; height: 25px;border-radius: 50%;color: #fff; background: #000; border: 1px solid #0000; font-size: 14px; font-weight: 600; position: absolute; right: 0; top: 0;}
+.private_section .card .card-body .form-group .forms-inputs input {height: 52px; border: 1px solid rgba(188, 188, 188, 1); padding: 11px; border-radius: 10px;}
+.private_section .card .card-body .form-group .forms-inputs textarea { border: 1px solid rgba(188, 188, 188, 1); padding: 11px; border-radius: 10px;}
+.private_section .card .card-body .forms-inputs button.btn.btn-primary { background: #000;  border: 1px solid #000;}
+.private_section .card .card-body .forms-inputs button.btn.btn-secondary { background: none;  color: #000;  border: 1px solid #000;}
+.private_section .card .card-body .forms-inputs button.btn.btn-primary:hover { background: none; color: #000;}
+.private_section .card .card-body .forms-inputs button.btn.btn-secondary:hover {background: #000; color: #ffff;}
+
+
+
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
 
