@@ -82,7 +82,7 @@
 
 <script>
     $(document).ready(function() {
-        $('#searchForm').on('submit', function(e) {
+        $('#searchInput').on('onkey,submit', function(e) {
             e.preventDefault(); // Prevent the default form submission
     
             const query = $('#searchInput').val(); // Get the input value
