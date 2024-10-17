@@ -513,7 +513,7 @@ margin-left:auto;
 .lesson-pagination .button{
   display: flex;
   color: #FFF;
-  background:#0f97f3;
+  background:#365497;
   padding:5px 15px;
   justify-content: center;
   align-items: center;
@@ -761,7 +761,7 @@ border-radius: 7px;
   margin: 0 auto;
   padding:0;
   height: 100%;
-  background:#1599f2;
+  background:#365497;
 }
 .exam-progress>.exam-progress-inner {
   width: 100%;
