@@ -12,7 +12,7 @@
                             <img src="{{asset("assets/images/exiticon-wht.svg")}}" alt="exiticon">
                         </a>
                     </div>
-                    <div class="timer exam-timer">
+                    <div class="timer exam-timer" id="exam_timer">
                         <div class="minute">
                             <span class="runner">00</span>
                             <span>Mins</span>
@@ -25,7 +25,10 @@
                             <span class="runner">00</span>
                             <span>Seconds</span>
                         </div>
-                    </div> 
+                    </div>
+
+                    <button class="btn hide-btn" id="hide_button" onclick="HideTime()">Hide time</button>
+
                 </div>
             </div>
             <div class="exam-center exam-progress-inner-item">
@@ -41,47 +44,57 @@
                 </div>
             </div>
            
-            <div class="exam-right exam-progress-inner-item">
-                <div class="progress-main">
-                    <div class="bookmark">
-                        <a class="" id="bookmark-current" >
-                            
-                            
-                            <span id="flagtext" class="flagclass">Flag</span>
-                            <span id="flagimages" class="flagclass" >
-                            <img class="active-img" src="{{asset("assets/images/flag-blue.svg")}}" alt="bookmark">
-                        
-                            <img class="inactive-img" src="{{asset("assets/images/flag-red.svg")}}" alt="bookmark">
-                            </span>
-                        </a>
+        </div>
+    </div>
+
+        <div class="container-wrap mcq-container-wrap full-mock-exam" id="question-answer-page">
+            <div class="lesson"> 
+                <div class="lesson-body"> 
+                    <div class="row" id="lesson-questionlist-list" style="display: none">
                     </div>
                 </div>
+                <div class="lesson-footer paginationclass" id="lesson-footer-pagination"> 
+                </div>           
             </div>
-        
-    </div>
-    <div class="container-wrap mcq-container-wrap full-mock-exam" id="question-answer-page">
-        <div class="lesson"> 
-            <div class="lesson-body"> 
-                <div class="row" id="lesson-questionlist-list" style="display: none">
-                </div>
-            </div>
-            <div class="lesson-footer paginationclass" id="lesson-footer-pagination"> 
-            </div>           
-        </div>
-    </div> 
+        </div> 
+    
 </section>
 <section class="exam-footer"> 
     <div class="lesson-pagination">
+
+        <div class="exam-right exam-progress-inner-item">
+            <div class="progress-main">
+                <div class="bookmark">
+                    <a class="" id="bookmark-current" >
+                        
+                        
+                        <span id="flagtext" class="flagclass">Flag</span>
+                        <span id="flagimages" class="flagclass" >
+                        <img class="active-img" src="{{asset("assets/images/flag-blue.svg")}}" alt="bookmark">
+                    
+                        <img class="inactive-img" src="{{asset("assets/images/flag-red.svg")}}" alt="bookmark">
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
         <div class="lesson-left pagination-arrow" style="display: none" >
             <button class="button left-btn"><img src="{{asset('assets/images/leftarrow.svg')}}" alt="<"> Back </button>
         </div>
-        <div class="lesson-right pagination-arrow" style="display:none">
-            <button class="button right-btn"> Next <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
-        </div>
+        
         <div class="lesson-finish pagination-arrow" style="display:none">
             <button class="button finish-btn" > Finish Set <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
         </div>  
+
+
+        <div class="lesson-right pagination-arrow" style="display:none">
+            <button class="button right-btn"> Next <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
+        </div>
+        
     </div> 
+
+
 </section>
  
 
@@ -271,6 +284,23 @@
 @push('footer-script') 
 
     <script> 
+
+    function HideTime() {
+
+        const timerDiv = $('#exam_timer');
+        const button = $('#hide_button');
+
+        timerDiv.slideToggle(300, function() {
+
+            if (timerDiv.is(':visible')) {
+                button.text('Hide time');
+            } else {
+                button.text('Show time');
+                button.insertAfter(timerDiv);
+            }
+        });
+    }
+
     let storage = JSON.parse(localStorage.getItem("full-mock-exam-summery-retry"))||{};
     let summery = new Proxy({
         ...storage,
@@ -478,10 +508,11 @@
                         $.get(pageurl,{question:v.slug},function(ans){
                             $(`#mcq-${lesseonId}-list`).html('')
                             $.each(ans,function(ai,av){
+                                const letter = String.fromCharCode(ai + 'A'.charCodeAt(0))
                                 $(`#mcq-${lesseonId}-list`).append(`
                                     <div class="form-check">
                                         <input type="radio" name="answer" data-page="${summery.cudx}" data-question="${v.slug}" id="user-answer-${lesseonId}-ans-item-${ai}" value="${av.slug}" class="form-check-input"  >        
-                                        <label for="user-answer-${lesseonId}-ans-item-${ai}" >${av.title}</label>
+                                        <label for="user-answer-${lesseonId}-ans-item-${ai}" >${ letter }. ${av.title}</label>
                                     </div>  
                                 `)
                             })

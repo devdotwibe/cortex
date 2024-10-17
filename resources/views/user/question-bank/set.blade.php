@@ -12,7 +12,7 @@
                             <img src="{{asset("assets/images/exiticon-wht.svg")}}" alt="exiticon">
                         </a>
                     </div>
-                    <div class="timer exam-timer">
+                    <div class="timer exam-timer" id="exam_timer">
                         <div class="minute">
                             <span class="runner">00</span>
                             <span>Mins</span>
@@ -26,6 +26,9 @@
                             <span>Seconds</span>
                         </div>
                     </div> 
+
+                    <button class="btn hide-btn" id="hide_button" onclick="HideTime()">Hide time</button>
+
                 </div>
             </div>
             <div class="exam-center exam-progress-inner-item">
@@ -292,6 +295,22 @@
 @push('footer-script') 
 
     <script> 
+
+        function HideTime() {
+            const timerDiv = $('#exam_timer');
+            const button = $('#hide_button');
+
+            timerDiv.slideToggle(300, function() {
+
+                if (timerDiv.is(':visible')) {
+                    button.text('Hide time');
+                } else {
+                    button.text('Show time');
+                    button.insertAfter(timerDiv);
+                }
+            });
+        }
+
          
         var totalcount={{$questioncount??0}};
         var questionids=[];
@@ -478,10 +497,11 @@
                         $.get(pageurl||"{{ route('question-bank.set.attempt',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug]) }}",{question:v.slug},function(ans){
                             $(`#mcq-${lesseonId}-list`).html('')
                             $.each(ans,function(ai,av){
+                                const letter = String.fromCharCode(ai + 'A'.charCodeAt(0))
                                 $(`#mcq-${lesseonId}-list`).append(`
                                     <div class="form-check">
                                         <input type="radio" name="answer" data-page="${cudx}" data-question="${v.slug}" id="user-answer-${lesseonId}-ans-item-${ai}" value="${av.slug}" class="form-check-input"  >        
-                                        <label for="user-answer-${lesseonId}-ans-item-${ai}" >${av.title}</label>
+                                        <label for="user-answer-${lesseonId}-ans-item-${ai}" >${ letter }. ${av.title}</label>
                                     </div>  
                                 `)
                             })
