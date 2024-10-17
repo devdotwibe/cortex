@@ -97,6 +97,7 @@ $(document).ready(function() {
                 $('#searchResults').empty();
                 
                 // Check if any posts were returned
+                console.log('Number of posts returned:', data.length);
                 if (data.length > 0) {
                     data.forEach(post => {
                         $('#searchResults').append(`
