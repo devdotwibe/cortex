@@ -59,7 +59,10 @@
 
             <div class="post-container-wrapp">
                 <div class="post-container" id="post-item-list">
-                   
+                    <!-- Display the list of posts here -->
+                    @if($posts->isEmpty())
+                        <p>No posts found for your search.</p>
+                    @else
                         @foreach($posts as $post)
                             <div class="post-item">
                                 <div class="post-header">
