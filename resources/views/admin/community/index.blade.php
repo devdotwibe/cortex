@@ -51,57 +51,20 @@
 
                 </div>
             </div>
-            {{-- <div class="post-container-wrapp">
-                <div class="post-container" id="post-item-list">
-
-                </div>
-            </div> --}}
-
             <div class="post-container-wrapp">
                 <div class="post-container" id="post-item-list">
-                    <!-- Display the list of posts here -->
-                    @if($posts->isEmpty())
-                        <p>No posts found for your search.</p>
-                    @else
-                        @foreach($posts as $post)
-                            <div class="post-item">
-                                <div class="post-header">
-                                    <div class="avathar">
-                                        <img src="{{ asset('assets/images/User-blk.png') }}" alt="img">
-                                    </div>
-                                    <div class="title">
-                                        <h3>{{ $post->user->name ?? 'Admin' }}</h3>
-                                        <span>{{ $post->created_at }}</span>
-                                    </div>
-                                    <div class="action">
-                                        <a class="btn btn-outline-dark" href="{{ route('admin.community.post.show', $post->id) }}">View</a>
-                                        <a class="btn btn-dark" href="{{ route('admin.community.post.edit', $post->id) }}">Edit</a>
-                                    </div>
-                                </div>
-                                <div class="post-title">
-                                    {{ $post->title }}
-                                </div>
-                                <div class="post-content">
-                                    {{ $post->description }}
-                                </div>
-                                <div class="post-hashtags">
-                                    {{ $post->hashtags }}
-                                </div>
-                            </div>
-                        @endforeach
-                    @endif
+
                 </div>
             </div>
 
             <div class="post-search">
-                <form action="{{ route('admin.community.search') }}" method="GET">
+                <form id="searchForm" action="">
                     <div class="text-field">
-                        <input type="search" name="username" placeholder="Search by Username" value="{{ request('username') }}">
-                        <button class="search-btn">
-                            <img src="{{ asset('assets/images/searc-icon.svg') }}" alt="">
-                        </button>
+                        <input type="search" id="searchInput" placeholder="Search for Posts" aria-label="Search for Posts">
+                        <button type="submit" class="search-btn"><img src="{{ asset('assets/images/searc-icon.svg') }}" alt=""></button>
                     </div>
                 </form>
+                <div id="searchResults"></div> <!-- Container for displaying search results -->
             </div>
             
         </div>
@@ -114,6 +77,51 @@
 
 
 @push('footer-script')
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#searchForm').on('submit', function(e) {
+        e.preventDefault(); // Prevent the default form submission
+
+        const query = $('#searchInput').val(); // Get the input value
+
+        $.ajax({
+            url: '{{ route('admin.community.index') }}', // The route to your search method
+            type: 'GET',
+            data: { query: query },
+            success: function(data) {
+                // Clear previous results
+                $('#searchResults').empty();
+                
+                // Check if any posts were returned
+                if (data.length > 0) {
+                    data.forEach(post => {
+                        $('#searchResults').append(`
+                            <div class="post">
+                                <h3>${post.title}</h3>
+                                <p>${post.description}</p>
+                                <p>Posted by: ${post.user.name}</p>
+                            </div>
+                        `);
+                    });
+                } else {
+                    $('#searchResults').append('<p>No results found.</p>');
+                }
+            },
+            error: function(xhr) {
+                console.error(xhr.responseText);
+            }
+        });
+    });
+});
+</script>
+
+
+
+
     <script>
         function loadpost(url) {
             $.get(url, function(res) {
