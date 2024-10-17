@@ -385,13 +385,11 @@ public function search(Request $request)
         })
         ->get();
 
-    // Optionally, collect unique user IDs from the posts
-    $userIds = $posts->pluck('user_id')->unique(); // Get unique user IDs from the posts
+        $postIds = $posts->pluck('id')->unique(); //
 
-    // Fetch users based on the unique IDs from the posts
-    $users = User::whereIn('id', $userIds)->get();
+        $hashtag = Hashtag::whereIn('post_id',$postIds)->get();
 
-    return response()->json(['posts' => $posts, 'users' => $users]);
+    return response()->json(['posts' => $posts, 'hashtag' => $hashtag]);
 }
 
     

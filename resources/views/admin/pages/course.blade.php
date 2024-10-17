@@ -60,7 +60,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="heading">Course Banner Title</label>
+                                                        <label for="heading" >Course Banner Title</label>
                                                         <textarea class="form-control texteditor" name="heading" id="heading">{{ old('heading', optional($course)->heading) }}</textarea>
                                                         @error('heading')
                                                             <div class="text-danger">{{ $message }}</div>

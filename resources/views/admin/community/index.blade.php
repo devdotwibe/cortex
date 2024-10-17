@@ -100,12 +100,12 @@
                     if (data.posts.length > 0) {
                         data.posts.forEach(post => {
                             // Find the user by user_id
-                            const user = data.users.find(user => user.id === post.user_id);
-                            const userName = user ? user.name : 'Unknown'; // Default to 'Unknown' if user not found
+                            const hashtag = data.hashtag.find(hashtag => hashtag.post_id === post.id);
+                            const hashtagName = hashtag ? hashtag.hashtag : 'Unknown'; // Default to 'Unknown' if user not found
     
                             $('#searchResults').append(`
                                 <div class="post">
-                                    <h3>${post.hashtags}</h3>
+                                    <h3>${hashtagName}</h3>
                                     <p>${post.description}</p>
                                     
                                 </div>
