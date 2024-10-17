@@ -341,6 +341,13 @@ public function search(Request $request)
 
     
 
+// YourController.php
+public function getPostsByUser($id)
+{
+    $posts = Post::where('user_id', $id)->with('user')->get(); // Fetch posts by user ID
+
+    return response()->json(['posts' => $posts]);
+}
 
 
 
