@@ -58,13 +58,15 @@
             </div>
 
             <div class="post-search">
-                <form action="">
+                <form id="searchForm" action="">
                     <div class="text-field">
-                        <input type="search" placeholder="Search for Posts">
-                        <button class="search-btn"><img src="{{ asset('assets/images/searc-icon.svg') }}" alt=""></button>
+                        <input type="search" id="searchInput" placeholder="Search for Posts" aria-label="Search for Posts">
+                        <button type="submit" class="search-btn"><img src="{{ asset('assets/images/searc-icon.svg') }}" alt=""></button>
                     </div>
                 </form>
+                <div id="searchResults"></div> <!-- Container for displaying search results -->
             </div>
+            
         </div>
         <div class="post-action">
             <button id="load-more-btn" class="btn btn-outline-dark" style="display: none"> Load More </button>
@@ -75,6 +77,51 @@
 
 
 @push('footer-script')
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#searchForm').on('submit', function(e) {
+        e.preventDefault(); // Prevent the default form submission
+
+        const query = $('#searchInput').val(); // Get the input value
+
+        $.ajax({
+            url: '{{ route('search.posts') }}', // The route to your search method
+            type: 'GET',
+            data: { query: query },
+            success: function(data) {
+                // Clear previous results
+                $('#searchResults').empty();
+                
+                // Check if any posts were returned
+                if (data.length > 0) {
+                    data.forEach(post => {
+                        $('#searchResults').append(`
+                            <div class="post">
+                                <h3>${post.title}</h3>
+                                <p>${post.description}</p>
+                                <p>Posted by: ${post.user.username}</p>
+                            </div>
+                        `);
+                    });
+                } else {
+                    $('#searchResults').append('<p>No results found.</p>');
+                }
+            },
+            error: function(xhr) {
+                console.error(xhr.responseText);
+            }
+        });
+    });
+});
+</script>
+
+
+
+
     <script>
         function loadpost(url) {
             $.get(url, function(res) {

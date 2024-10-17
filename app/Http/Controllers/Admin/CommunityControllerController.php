@@ -359,29 +359,40 @@ foreach ($extractedHashtags as $hashtag) {
 
 
 
-    public function store2(Request $request)
+//     public function store2(Request $request)
+// {
+//     $post = Post::create([
+//         'description' => $request->description,
+//         'hashtags' => json_encode($this->extractHashtags($request->description)),
+//         // Other fields
+//     ]);
+
+//     // Update or create hashtags
+//     foreach ($post->hashtags as $hashtag) {
+//         Hashtag::firstOrCreate(['hashtag' => $hashtag]);
+//     }
+
+//     // Redirect or return response
+// }
+
+// private function extractHashtags($text)
+// {
+//     preg_match_all('/#\w+/', $text, $matches);
+//     return array_unique($matches[0]);
+// }
+
+
+public function search(Request $request)
 {
-    $post = Post::create([
-        'description' => $request->description,
-        'hashtags' => json_encode($this->extractHashtags($request->description)),
-        // Other fields
-    ]);
+    $query = $request->input('query');
 
-    // Update or create hashtags
-    foreach ($post->hashtags as $hashtag) {
-        Hashtag::firstOrCreate(['hashtag' => $hashtag]);
-    }
+    // Assuming you have a Post model and it has a relation to User
+    $posts = Post::whereHas('user', function ($q) use ($query) {
+        $q->where('username', 'like', '%' . $query . '%');
+    })->get();
 
-    // Redirect or return response
+    return response()->json($posts);
 }
-
-private function extractHashtags($text)
-{
-    preg_match_all('/#\w+/', $text, $matches);
-    return array_unique($matches[0]);
-}
-
-
 
     
 }
