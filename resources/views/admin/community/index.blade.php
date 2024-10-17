@@ -80,46 +80,50 @@
 
 
 
-{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
 <script>
-$(document).ready(function() {
-    $('#searchForm').on('submit', function(e) {
-        e.preventDefault(); // Prevent the default form submission
-
-        const query = $('#searchInput').val(); // Get the input value
-
-        $.ajax({
-            url: '{{ route('admin.community.search') }}', // The route to your search method
-            type: 'GET',
-            data: { query: query },
-            success: function(data) {
-                // Clear previous results
-                $('#searchResults').empty();
-                
-                // Check if any posts were returned
-                console.log('Number of posts returned:', data.post.length);
-                if (data.post.length > 0) {
-                    data.post.forEach(post => {
-                        $('#searchResults').append(`
-                            <div class="post">
-                                <h3>${post.title}</h3>
-                                <p>${post.description}</p>
-                                <p>Posted by: ${post.user.name}</p>
-                            </div>
-                        `);
-                    });
-                } else {
-                    $('#searchResults').append('<p>No results found.</p>');
+    $(document).ready(function() {
+        $('#searchForm').on('submit', function(e) {
+            e.preventDefault(); // Prevent the default form submission
+    
+            const query = $('#searchInput').val(); // Get the input value
+    
+            $.ajax({
+                url: '{{ route('admin.community.search') }}', // The route to your search method
+                type: 'GET',
+                data: { query: query },
+                success: function(data) {
+                    // Clear previous results
+                    $('#searchResults').empty();
+                    
+                    // Check if any posts were returned
+                    console.log('Number of posts returned:', data.posts.length);
+                    if (data.posts.length > 0) {
+                        data.posts.forEach(post => {
+                            // Find the user by user_id
+                            const user = data.users.find(user => user.id === post.user_id);
+                            const userName = user ? user.name : 'Unknown'; // Default to 'Unknown' if user not found
+    
+                            $('#searchResults').append(`
+                                <div class="post">
+                                    <h3>${post.hashtags}</h3>
+                                    <p>${post.description}</p>
+                                    
+                                </div>
+                            `);
+                        });
+                    } else {
+                        $('#searchResults').append('<p>No results found.</p>');
+                    }
+                },
+                error: function(xhr) {
+                    console.error(xhr.responseText);
+                    $('#searchResults').append('<p>Error fetching results.</p>');
                 }
-            },
-            error: function(xhr) {
-                console.error(xhr.responseText);
-            }
+            });
         });
     });
-});
-</script>
-
+    </script>
+    
 
 
 
