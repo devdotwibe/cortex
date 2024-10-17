@@ -2862,13 +2862,13 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .coupon-wrap .couponclass .header_title .nav_link.btn:hover { background: none; color: #212529; font-size: 14px;font-weight: 600;}
 
 
-
+.header_nav.settings {margin: 8px 0 0; border-radius: 10px;}
 .header_nav.settings .header_wrapp form {width: 100%;}
 .header_nav.settings .header_wrapp form .col-md-12 { width: 30%;}
 .header_nav.settings .header_wrapp form button.btn.btn-dark {width: auto; margin: 0 0 0 10px !important; padding: 13px 20px;}
 .header_nav.settings .header_wrapp form .row { align-items: flex-end;}
 .header_nav.settings .header_wrapp form button.btn.btn-dark:hover { background: none; color: #000000;}
-.header_nav.settings .header_wrapp form label { font-size: 16px; margin: 0 0 8px;}
+.header_nav.settings .header_wrapp form label { font-size: 16px; margin: 0 0 8px; font-weight: 600;}
 .header_nav.settings .header_wrapp form input { height: 52px; border: 1px solid rgba(188, 188, 188, 1); padding: 11px; border-radius: 10px; min-width: 300px;}
 
 
