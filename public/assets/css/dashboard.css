@@ -2878,6 +2878,10 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .invite-wrap .tab-content .tab-pane .col-md-12 .form-group button.btn.btn-primary:hover { color: #000; background: none;}
 .invite-wrap .tab-content .tab-pane .col-md-12 .form-group .file-upload { width: 100%; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; padding: 15px; border: 1px solid #BCBCBC; border-radius: 10px; max-width: 300px;}
 .invite-wrap .tab-content .tab-pane .col-md-12 .form-group .file-upload img { padding: 10% 38%; width: 100%; height: 100%; object-fit: contain; background: #EFEFEF; border-radius: 10px;}
+.invite-wrap .tab-content .tab-pane .numericalsectionclass {width: 100%; display: flex; flex-wrap: wrap;}
+.invite-wrap .tab-content .tab-pane .numericalsectionclass .col-md-12 { width: auto; margin: 0 20px 20px 0;}
+.invite-wrap .tab-content .tab-pane .numericalsectionclass  .numericalclass { width: 170px; position: relative;}
+.invite-wrap .tab-content .tab-pane .numericalsectionclass .numericalclass button.btn.btn-danger { position: absolute; right: -15px; top: -15px; background: #000; border: 1px solid #000; width: 25px; height: 25px; padding: 0; border-radius: 50%; font-size: 14px; font-weight: 500;}
 
 
 
