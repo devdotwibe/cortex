@@ -88,7 +88,7 @@
                                                         @endforeach
                                                     @endif
                                                     @if(!empty(old($item->name)))
-                                                        <option value="{{old($item->name)}}">{{old("selectval".$item->name)}}</option>
+                                                        {{-- <option value="{{old($item->name)}}">{{old("selectval".$item->name)}}</option> --}}
                                                     @endif
                                                 </select>                                                
                                                 @break
