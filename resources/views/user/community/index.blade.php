@@ -21,13 +21,13 @@
     </div>
 </section>
 <section class="post-section" >
-
-    <div class="container">
+    <div class="post-row">
+    <div class="post-container1">
         <div class="row"> 
-            <div class="col-md-3">
+            <div class="post-col1">
                 <h4>SPACES</h4>
  
-               <div class="mb-3">
+               <div class="mb-3 back-btn-wrapp">
                 <label for="backtoall" class="form-label"></label>
                 <a href="{{ route('community.post.index') }}" id="backtoall" class="form-control text-decoration-none" >
                     #Backtoall
@@ -36,7 +36,7 @@
  
 
 
-    <div class="d-flex flex-wrap"> 
+    <div class="hashtag-wrapp"> 
         <ul class="list-group"  > 
             @foreach ($hashtags as $hashtag)
                 <li class="list-group-item d-inline-block"  >
@@ -55,10 +55,12 @@
 </div>
 </div> 
 
-
+<div class="post-container-wrapp">
     <div class="post-container" id="post-item-list">
         
-    </div> 
+    </div>
+</div> 
+</div>
     <div class="post-action">
         <button id="load-more-btn" class="btn btn-outline-dark" style="display: none"> Load More </button>
     </div>
