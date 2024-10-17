@@ -56,7 +56,7 @@
 
                 </div>
             </div>
-
+<div>
             <div class="post-search">
                 <form id="searchForm" action="">
                     <div class="text-field">
@@ -68,6 +68,7 @@
                 <select id="searchResults" name="searchres"></select> <!-- Container for displaying search results -->
                 </div>
             </div>
+        </div>
             
             
         </div>
