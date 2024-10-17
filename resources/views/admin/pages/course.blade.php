@@ -266,15 +266,15 @@
 
 
 
-                                    <div class="numericalsectionclass">
+
 
 
 
                                     <!-- Preview Image Container -->
                                     <div class="form-group">
                                         <label for="logicalImagePreview">Image Preview</label>
-                                        <div id="logicalImagePreviewContainer" class="numericalclass">
-                                          
+                                        <div id="logicalImagePreviewContainer"
+                                            style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
                                             @if (isset($course) && $course->logicalimage)
                                                 <img id="logicalImagePreview-save"
                                                     src="{{ url('d0/' . $course->logicalimage) }}" alt="Image Preview"
@@ -326,8 +326,6 @@
                                         </div>
                                     </div>
 
-                                    <div class="numericalsectionclass">
-
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="criticalimage"  class="file-upload">Critical Image <br>
@@ -343,7 +341,7 @@
                                     <!-- Preview Image Container -->
                                     <div class="form-group">
                                         <label for="criticalImagePreview">Image Preview</label>
-                                        <div id="criticalImagePreviewContainer" class=numericalclass>
+                                        <div id="criticalImagePreviewContainer" class=numericalclass
                                            
                                             @if (isset($course) && $course->criticalimage)
                                                 <img id="criticalImagePreview"
