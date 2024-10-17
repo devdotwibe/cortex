@@ -54,6 +54,14 @@
                 
             </div> 
         </div>
+        <div class="post-search">
+            <form action="">
+                <div class="text-field">
+                    <input type="search" placeholder="Search for Posts">
+                    <button class="search-btn"><img src="{{ asset('assets/images/searc-icon.svg') }}" alt=""></button>
+                </div>
+            </form>
+        </div>
     </div>
     <div class="post-action">
         <button id="load-more-btn" class="btn btn-outline-dark" style="display: none"> Load More </button>
