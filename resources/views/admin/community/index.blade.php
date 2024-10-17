@@ -81,8 +81,10 @@
 
 @push('footer-script')
 
+
+
 <script>
-$(document).ready(function() {
+  $(document).ready(function() {
     // Function to perform the search
     function performSearch() {
         const query = $('#searchInput').val(); // Get the input value
@@ -99,7 +101,7 @@ $(document).ready(function() {
             success: function(data) {
                 // Clear previous results
                 $('#searchResults').empty();
-
+                
                 // Check if any posts were returned
                 console.log('Number of posts returned:', data.posts.length);
                 if (data.posts.length > 0) {
@@ -108,19 +110,22 @@ $(document).ready(function() {
                         const user = data.users.find(user => user.id === post.user_id);
                         const userName = user ? user.name : 'Unknown'; // Default to 'Unknown' if user not found
 
-                        // Create a clickable option for the user
-                        $('#searchResults').append(`
-                            <option value="${user.id}" class="search-user" data-user-id="${user.id}">${userName}</option>
-                        `);
-                    });
 
-                    // Attach click event to the newly added options
-                    $('.search-user').on('click', function() {
-                        const userId = $(this).data('user-id');
-                        loadPostsByUser(userId); // Call the function to load posts by user
+                       
+                        $('#searchResults').append(`
+                          
+                                
+                                <option value="${userName}">${userName}</option>
+                                
+                           
+                        `);
+
+
+
+
                     });
                 } else {
-                    $('#searchResults').append('<option>No results found.</option>');
+                    $('#searchResults').append('<p>No results found.</p>');
                 }
             },
             error: function(xhr) {
@@ -130,50 +135,13 @@ $(document).ready(function() {
         });
     }
 
-    // Function to load posts by user
-    function loadPostsByUser(userId) {
-        $.ajax({
-            url: '{{ route('admin.community.posts.user', ['id' => '']) }}/' + userId, // Adjust the route as needed
-            type: 'GET',
-            success: function(data) {
-                $('#post-item-list').empty(); // Clear existing posts
-                data.posts.forEach(post => {
-                    $('#post-item-list').append(`
-                        <div class="post-item" id="post-item-${post.slug}">  
-                            <div class="post-header">
-                                <div class="avathar">
-                                    <img src="{{ asset('assets/images/User-blk.png') }}" alt="img">
-                                </div>
-                                <div class="title">
-                                    <h3>${post.user.name || "Admin"}</h3>
-                                    <span>${post.createdAt}</span>
-                                </div>
-                                <div class="action">
-                                    <a class="btn btn-outline-dark" href="${post.showUrl}">View</a>
-                                    <a class="btn btn-dark" href="${post.editUrl}">Edit</a>
-                                </div>
-                            </div>
-                            <div class="post-title">${post.title || ""}</div>
-                            <div class="post-content">${post.description || ""}</div>
-                            <div class="post-actions">
-                                <a class="post-action-btn like-btn btn"><img src="{{ asset('assets/images/like.svg') }}" alt="like"> <span>${post.likes}</span></a>
-                                <a class="post-action-btn comment-btn btn"><img src="{{ asset('assets/images/comment1.svg') }}" alt="comment"> <span>${post.comments}</span></a>
-                            </div>
-                        </div>
-                    `);
-                });
-            },
-            error: function(xhr) {
-                console.error(xhr.responseText);
-                $('#post-item-list').append('<p>Error fetching posts.</p>');
-            }
-        });
-    }
-
     // Attach the function to the input event
     $('#searchInput').on('input', performSearch);
 });
-</script>
+
+    </script>
+    
+
 
 
     <script>
