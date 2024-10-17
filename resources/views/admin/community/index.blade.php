@@ -60,12 +60,13 @@
             <div class="post-search">
                 <form id="searchForm" action="">
                     <div class="text-field">
-                        <input type="search" id="searchInput" placeholder="Search for Posts" aria-label="Search for Posts">
-                        <button type="submit" class="search-btn"><img src="{{ asset('assets/images/searc-icon.svg') }}" alt=""></button>
+                        <input type="search" id="searchInput" placeholder="Search for Posts" aria-label="Search for Posts" oninput="performSearch()">
+                        <button type="submit" class="search-btn" disabled><img src="{{ asset('assets/images/searc-icon.svg') }}" alt=""></button>
                     </div>
                 </form>
                 <div id="searchResults"></div> <!-- Container for displaying search results -->
             </div>
+            
             
         </div>
         <div class="post-action">
@@ -78,12 +79,18 @@
 
 @push('footer-script')
 
-<script>
-$(document).ready(function() {
-    $('#searchForm').on('submit', function(e) {
-        e.preventDefault(); // Prevent the default form submission
 
+
+<script>
+  $(document).ready(function() {
+    // Function to perform the search
+    function performSearch() {
         const query = $('#searchInput').val(); // Get the input value
+
+        if (query.length === 0) {
+            $('#searchResults').empty(); // Clear results if the search box is empty
+            return;
+        }
 
         $.ajax({
             url: '{{ route('admin.community.search') }}', // The route to your search method
@@ -103,9 +110,7 @@ $(document).ready(function() {
 
                         $('#searchResults').append(`
                             <div class="post">
-                                <h3>${post.title}</h3>
-                                <p>${post.content}</p>
-                                <p>Posted by: ${userName}</p>
+                                <p>${userName}</p>
                             </div>
                         `);
                     });
@@ -118,9 +123,14 @@ $(document).ready(function() {
                 $('#searchResults').append('<p>Error fetching results.</p>');
             }
         });
-    });
+    }
+
+    // Attach the function to the input event
+    $('#searchInput').on('input', performSearch);
 });
-</script>
+
+    </script>
+    
 
 
 
