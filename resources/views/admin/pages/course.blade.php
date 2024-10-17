@@ -251,7 +251,7 @@
                                         </div>
                                     </div>
                                     <div class="numericalsectionclass">
-                                    <div class="col-md-12 criticalcontentclass">
+                                    <div class="col-md-12">
                                         <div class="form-group" class="file-upload">
                                             <label for="logicalimage">Logical Image  <br>
                                                 <img src="{{ asset('assets/images/upfile.svg') }}"
@@ -328,7 +328,7 @@
 
                                     <div class="numericalsectionclass">
 
-                                    <div class="col-md-12  criticalcontentclass">
+                                    <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="criticalimage"  class="file-upload">Critical Image <br>
                                                 <img src="{{ asset('assets/images/upfile.svg') }}"
@@ -397,7 +397,7 @@
                                     </div>
                                     <div class="numericalsectionclass">
 
-                                    <div class="col-md-12 criticalcontentclass">
+                                    <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="abstractimage" class="file-upload">Abstract Image <br>
                                                 <img src="{{ asset('assets/images/upfile.svg') }}"
@@ -473,7 +473,7 @@
                                     </div> --}}
 
                             <div class="numericalsectionclass">
-                                    <div class="col-md-12 criticalcontentclass">
+                                    <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="numericalimage" class="file-upload">Numerical Image  <br>
                                                 <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
