@@ -36,11 +36,7 @@
             </form> 
 
 
-            <div class="header_title">
-                <h2>Coupon</h2>
-                <li class="nav_item"><a data-bs-toggle="modal" data-bs-target="#coupen-modal" class="nav_link btn">+ Add
-                    New</a></li>
-            </div>
+            
             
         </div>
     </section>
@@ -49,6 +45,13 @@
         <div class="coupon-wrap">
             <div class="row">
                 <div class="col-md-12">
+                    <div class="couponclass">
+                    <div class="header_title">
+                        <h2>Coupon</h2>
+                        <li class="nav_item"><a data-bs-toggle="modal" data-bs-target="#coupen-modal" class="nav_link btn">+ Add
+                            New</a></li>
+                    </div>
+                </div>
                     <x-ajax-table :coloumns="[
                         ['th' => 'Date', 'name' => 'created_at', 'data' => 'date'],
                         ['th' => 'Offer Name', 'name' => 'name', 'data' => 'name'],

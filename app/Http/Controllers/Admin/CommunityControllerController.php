@@ -388,11 +388,12 @@ public function search(Request $request)
 
     // Assuming you have a Post model and it has a relation to User
     $posts = Post::whereHas('user', function ($q) use ($query) {
-        $q->where('username', 'like', '%' . $query . '%');
+        $q->where('name', 'like', '%' . $query . '%');
     })->get();
 
-    dd($posts);
-    return response()->json($posts);
+    $users=User::whereIn('id',$posts->user_id)->get();
+
+    return response()->json(['posts'=>$posts,'users'=>$users]);
 }
 
     

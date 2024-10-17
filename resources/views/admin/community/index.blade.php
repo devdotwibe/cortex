@@ -89,7 +89,7 @@ $(document).ready(function() {
         const query = $('#searchInput').val(); // Get the input value
 
         $.ajax({
-            url: '{{ route('admin.community.index') }}', // The route to your search method
+            url: '{{ route('admin.community.search') }}', // The route to your search method
             type: 'GET',
             data: { query: query },
             success: function(data) {
@@ -104,7 +104,7 @@ $(document).ready(function() {
                             <div class="post">
                                 <h3>${post.title}</h3>
                                 <p>${post.description}</p>
-                                <p>Posted by: ${post.user.username}</p>
+                                <p>Posted by: ${post.user.name}</p>
                             </div>
                         `);
                     });
