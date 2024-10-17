@@ -853,11 +853,12 @@ border-radius: 7px;
   height: 100%;
 }
 .progress-menu .menu-text{
-  margin:10px 5px;
-  align-items:center;
-  text-align:center;
-  font-size: 22px;
+  margin: 3px 13px;
+  align-items: center;
+  text-align: center;
+  font-size: 35px;
   font-weight: 600;
+  color: #005d93;
 }
 .progress-menu .menu-icon{
   margin:5px 5px 0px 0px;
