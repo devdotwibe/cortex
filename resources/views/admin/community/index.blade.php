@@ -112,23 +112,23 @@
 
 
                        
-                        $('#searchResults').append(`
-                          
-                                
-                                <option value="${userName}">${userName}</option>
-                                
-                           
-                        `);
-
-
-                         
                         // $('#searchResults').append(`
                           
                                 
-                        //         <a  data-id="${userName}" onclick="searchclick(`${userName}`)">${userName}</a>
+                        //         <option value="${userName}">${userName}</option>
                                 
                            
                         // `);
+
+
+                         
+                        $('#searchResults').append(`
+                          
+                                
+                                <a  data-id="${userName}" onclick="searchclick(`${userName}`)">${userName}</a>
+                                
+                           
+                        `);
 
 
 
