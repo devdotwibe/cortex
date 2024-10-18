@@ -59,8 +59,8 @@ class StripePaymentController extends Controller
             $user->setProgress('intensive-workshop-payment','pending');
             return redirect($payment->url);
         } catch (\Throwable $th) {
-            return redirect()->back()->with('error','Coming soon');
-            // return redirect()->back()->with('error',$th->getMessage());
+            // return redirect()->back()->with('error','Coming soon');
+            return redirect()->back()->with('error',$th->getMessage());
         }
     }
     public function workshop_payment(Request $request,User $user,$payment){
