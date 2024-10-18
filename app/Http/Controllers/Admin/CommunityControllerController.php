@@ -42,7 +42,7 @@ class CommunityControllerController extends Controller
 
             if(!empty($userid))
             {
-                $posts->where('user_id',$userid)->select('post_id');
+                $posts->where('user_id',$userid);
             }
 
 
