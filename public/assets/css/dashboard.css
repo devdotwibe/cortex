@@ -401,7 +401,6 @@ button.close {
   margin-top: 38px;
   padding: 50px 30px;
   height: 100%;
-  min-height: 89vh;
 }
 .exam-container .container-wrap {
   width: 90%;
@@ -656,7 +655,7 @@ margin-left:auto;
 
 .exam-container .container-wrap .lesson #lesson-footer-pagination {
   width: 100%;
-  margin: 30px 0 0;
+  margin: 0 0 0;
   text-align: center;
 }
 
@@ -773,7 +772,7 @@ border-radius: 7px;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  padding: 15px 5%;
+  padding: 15px 15px;
   position: relative;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;  
 }
