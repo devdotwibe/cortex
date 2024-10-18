@@ -121,8 +121,7 @@
                                                 <label for="image"  class="file-upload">Image <br>
                                                     <img src="{{ asset('assets/images/upfile.svg') }}"
                                                         alt="Upload Icon"> </label>
-                                                <input type="file" class="form-control" style="display: none;" name="image" id="imageInput" onchange="previewImage()">
-                                                
+                                                <input type="file" class="form-control" style="display: none;" name="image" id="imageInput">
                                             </div>
                                         </div>
 
