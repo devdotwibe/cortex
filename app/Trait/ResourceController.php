@@ -153,9 +153,15 @@ trait ResourceController
                     switch ($act) {
                         case 'view':
                             $action.='                            
-                                    <a href="'.route(self::$routeName.".show",$data->slug).'" class="btn btn-icons view_btn">
-                                        <img src="'.asset("assets/images/view1.svg").'" alt="">
-                                    </a>
+                                   <a href="' . route(self::$routeName . ".show", $data->slug) . '" class="btn btn-icons view_btn">
+                            <span class="adminside-icon">
+                                <img src="' . asset("assets/images/icons/mdi_incognito.svg") . '" alt="View">
+                            </span>
+                            <span class="adminactive-icon">
+                                <img src="' . asset("assets/images/iconshover/view-yellow.svg") . '" alt="View Active">
+                            </span>
+                            </a>
+
                             ';
                             break;
                         case 'edit':
