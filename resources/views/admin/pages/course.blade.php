@@ -122,9 +122,7 @@
                                                     <img src="{{ asset('assets/images/upfile.svg') }}"
                                                         alt="Upload Icon"> </label>
                                                 <input type="file" class="form-control" style="display: none;" name="image" id="imageInput" onchange="previewImage()">
-                                                @error('image')
-                                                <div class="text-danger">{{ $message }}</div>
-                                            @enderror
+                                                
                                             </div>
                                         </div>
 
