@@ -398,7 +398,7 @@ button.close {
 }
 .exam-container{
   width: 100%;
-  margin-top: 40px;
+  margin-top: 38px;
   padding: 50px 30px;
   height: 100%;
   min-height: 89vh;
@@ -762,6 +762,9 @@ border-radius: 7px;
   padding:0;
   height: 100%;
   background:#005d93;
+  position: sticky;
+  top: 88px;
+  z-index: 9;
 }
 .exam-progress>.exam-progress-inner {
   width: 100%;
