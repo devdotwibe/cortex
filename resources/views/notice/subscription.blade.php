@@ -1,6 +1,8 @@
-@extends('layouts.auth')
+@extends('layouts.exam')
 @section('title', 'Login')
-@section('content')  
+@section('content')
+<section class="exam-container" id="exam-container">
+    <div class="container-wrap">
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -35,4 +37,18 @@
         </div>
     </div>
 </div>
+
+</section>
+
 @endsection
+
+@push('modals')
+
+@endpush
+
+@push('footer-script')
+
+
+@endpush
+
+
