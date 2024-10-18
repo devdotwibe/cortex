@@ -100,7 +100,7 @@
                                             </div>
                                         </div>
 
-
+                                        <div class="numericalsectionclass">
 
                                         <div class="col-md-12">
                                             <div class="form-group">
@@ -125,8 +125,8 @@
 
                                         <div class="form-group">
                                             <label for="imagePreview">Image Preview</label>
-                                            <div id="imagePreviewContainer"
-                                                style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
+                                            <div id="imagePreviewContainer" class="numericalclass">
+                                              
                                                 @if (isset($course) && $course->image)
                                                     <img id="imagePreview-save" src="{{ url('d0/' . $course->image) }}"
                                                         alt="Image Preview" style="width: 100%; height: auto;">
@@ -140,7 +140,7 @@
                                             </div>
                                         </div>
 
-
+                                    </div>
 
 
                                         <div class="col-md-12">
