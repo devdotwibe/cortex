@@ -118,7 +118,7 @@
 
                                      <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="privateimage"  class="file-upload">Private Image <br>
+                                                <label for="image"  class="file-upload"> Image <br>
                                                     <img src="{{ asset('assets/images/upfile.svg') }}"
                                                         alt="Upload Icon"> </label>
                                                 <input type="file" class="form-control" style="display: none;" name="privateimage" id="privateimage">
