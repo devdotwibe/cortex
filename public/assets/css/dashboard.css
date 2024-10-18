@@ -2909,7 +2909,7 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 
 
 .exam-container.topictestclass .summery-wrap .summery-title h1 { font-size: 28px; border-left: 3px solid #ef9b10; padding-left: 15px; line-height: 1;}
-.exam-container.topictestclass .summery-wrap .summery-title {align-items: center;}
+.exam-container.topictestclass .summery-wrap .summery-title {align-items: center; font-weight: 600; font-size: 22px;}
 .exam-container.topictestclass .summery-wrap .summery-title .back-btn { margin: 0 10px 0 0; width: 35px; height: 35px;}
 .exam-container.topictestclass .summery-wrap h2 { font-weight: 600; font-size: 22px;}
 .exam-container.topictestclass .summery-wrap .time-of-exam { float: right; margin: -69px 0 0 auto;}
