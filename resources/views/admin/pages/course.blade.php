@@ -715,6 +715,7 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
                                 <button type="submit" class="btn btn-dark topic" name="sub_section"
                                     value="tab3_save">Save</button>
