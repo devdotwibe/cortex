@@ -132,125 +132,38 @@
     
 
 
-
     <script>
-        function loadpost(url) {
+        function loadpost(url, username = null) {
             $.get(url, function(res) {
                 if (res.next) {
-                    $('#load-more-btn').show().data('url', res.next)
+                    $('#load-more-btn').show().data('url', res.next);
                 } else {
                     $('#load-more-btn').hide().data('url', null);
                 }
+    
+                // Clear previous posts if filtering by username
+                if (username) {
+                    $('#post-item-list').empty();
+                }
+    
                 $.each(res.data, function(k, v) {
                     let polloption = ``;
                     if (v.vote) {
-
                         $.each(v.poll || [], function(pk, pv) {
                             polloption += `
-                        <div class="form-check ${v.vote.option==pv.slug?"voted":"vote"}">
-                            <input class="form-check-input" type="radio" name="${v.slug}" id="poll-${v.slug}-option-${pv.slug}" value="${pv.slug}"  >
-                            <label class="form-check-label" for="poll-${v.slug}-option-${pv.slug}">
-                                ${pv.option}
-                                <span id="poll-${v.slug}-option-${pv.slug}-percentage">(${pv.percentage}%)</span>
-                                <div class="poll-graph-bar-wrapper">
-                                    <div class="poll-graph-bar" id="poll-${v.slug}-option-${pv.slug}-bar" style="width: ${pv.percentage}%;"></div>
+                                <div class="form-check ${v.vote.option == pv.slug ? "voted" : "vote"}">
+                                    <input class="form-check-input" type="radio" name="${v.slug}" id="poll-${v.slug}-option-${pv.slug}" value="${pv.slug}">
+                                    <label class="form-check-label" for="poll-${v.slug}-option-${pv.slug}">
+                                        ${pv.option}
+                                        <span id="poll-${v.slug}-option-${pv.slug}-percentage">(${pv.percentage}%)</span>
+                                        <div class="poll-graph-bar-wrapper">
+                                            <div class="poll-graph-bar" id="poll-${v.slug}-option-${pv.slug}-bar" style="width: ${pv.percentage}%;"></div>
+                                        </div>
+                                    </label>
                                 </div>
-                            </label>
-                        </div>
-                        `;
-                        })
+                            `;
+                        });
                     } else {
-
-                        $.each(v.poll || [], function(pk, pv) {
-                            polloption += `
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="${v.slug}" id="poll-${v.slug}-option-${pv.slug}" value="${pv.slug}" >
-                            <label class="form-check-label" for="poll-${v.slug}-option-${pv.slug}">
-                                ${pv.option}
-                                <span id="poll-${v.slug}-option-${pv.slug}-percentage">(${pv.percentage}%)</span>
-                                <div class="poll-graph-bar-wrapper">
-                                    <div class="poll-graph-bar" id="poll-${v.slug}-option-${pv.slug}-bar" style="width: ${pv.percentage}%;"></div>
-                                </div>
-                            </label>
-                        </div>
-                        `;
-                        })
-                    }
-
-                    let imagehtml = '';
-                    if (v.image) {
-                        imagehtml = `
-                        <img src="${v.image}" alt="">
-                    `;
-                    }
-                    let hashtag = '';
-                    console.log(v.hashtags);
-
-                    $('#post-item-list').append(`
-                    <div class="post-item" id="post-item-${v.slug}">  
-                        <div class="post-header">
-                            <div class="avathar">
-                                <img src="{{ asset('assets/images/User-blk.png') }}" alt="img">
-                            </div>
-                            <div class="title">
-                                <h3>${v.user.name||"Admin"}</h3>
-                                <span>${v.createdAt}</span>
-                            </div>
-                            <div class="action">
-                                <a class="btn btn-outline-dark" href="${v.showUrl}">View</a>
-                                <a class="btn btn-dark" href="${v.editUrl}">edit</a>
-                            </div>
-                        </div>
-                        <div class="post-title">
-                            ${v.title||""}
-                        </div>
-                        <div class="post-content">
-                            ${v.description||""}
-                        </div>
-                         <div class="post-content">
-                            ${v.hashtags||""}
-                        </div>
-                        <div class="poll-options">
-                            ${polloption}
-                        </div>
-                        <div class="post-image">
-                            ${imagehtml}
-                        </div>
-                        <div class="post-actions">
-                            <a class="post-action-btn like-btn btn" ><img src="{{ asset('assets/images/like.svg') }}" slt="comment"> <span>${v.likes}</span></a>
-                            <a class="post-action-btn comment-btn btn"  ><img src="{{ asset('assets/images/comment1.svg') }}" slt="comment"> <span>${v.comments}</span></a>
-                        </div>
-                    </div>
-                `)
-                })
-            }, 'json');
-        }
-        $(function() {
-            loadpost("{{ url()->full() }}");
-            $('#load-more-btn').click(function() {
-                loadpost($('#load-more-btn').data('url'))
-            })
-        })
-    </script>
-
-
-
-<script>
-    function searchclick(userName) {
-        // Trigger the filtering AJAX request
-        $.ajax({
-            url: '{{ route("admin.community.search") }}', // Adjust this to your search route
-            type: 'GET',
-            data: { query: userName },
-            success: function(data) {
-                // Clear previous posts
-                $('#post-item-list').empty();
-
-                // Check if any posts are returned
-                if (data.posts.length > 0) {
-                    // Loop through the posts and append them to the list
-                    $.each(data.posts, function(k, v) {
-                        let polloption = '';
                         $.each(v.poll || [], function(pk, pv) {
                             polloption += `
                                 <div class="form-check">
@@ -262,53 +175,64 @@
                                             <div class="poll-graph-bar" id="poll-${v.slug}-option-${pv.slug}-bar" style="width: ${pv.percentage}%;"></div>
                                         </div>
                                     </label>
-                                </div>`;
-                        });
-
-                        let imagehtml = v.image ? `<img src="${v.image}" alt="">` : '';
-
-                        $('#post-item-list').append(`
-                            <div class="post-item" id="post-item-${v.slug}">
-                                <div class="post-header">
-                                    <div class="avatar">
-                                        <img src="{{ asset('assets/images/User-blk.png') }}" alt="img">
-                                    </div>
-                                    <div class="title">
-                                        <h3>${v.user.name || "Admin"}</h3>
-                                        <span>${v.createdAt}</span>
-                                    </div>
-                                    <div class="action">
-                                        <a class="btn btn-outline-dark" href="${v.showUrl}">View</a>
-                                        <a class="btn btn-dark" href="${v.editUrl}">edit</a>
-                                    </div>
                                 </div>
-                                <div class="post-title">${v.title || ""}</div>
-                                <div class="post-content">${v.description || ""}</div>
-                                <div class="poll-options">${polloption}</div>
-                                <div class="post-image">${imagehtml}</div>
-                                <div class="post-actions">
-                                    <a class="post-action-btn like-btn btn"><img src="{{ asset('assets/images/like.svg') }}" alt="like"> <span>${v.likes}</span></a>
-                                    <a class="post-action-btn comment-btn btn"><img src="{{ asset('assets/images/comment1.svg') }}" alt="comment"> <span>${v.comments}</span></a>
+                            `;
+                        });
+                    }
+    
+                    let imagehtml = '';
+                    if (v.image) {
+                        imagehtml = `<img src="${v.image}" alt="">`;
+                    }
+                    let hashtag = v.hashtags || "";
+    
+                    $('#post-item-list').append(`
+                        <div class="post-item" id="post-item-${v.slug}">  
+                            <div class="post-header">
+                                <div class="avatar">
+                                    <img src="{{ asset('assets/images/User-blk.png') }}" alt="img">
+                                </div>
+                                <div class="title">
+                                    <h3>${v.user.name || "Admin"}</h3>
+                                    <span>${v.createdAt}</span>
+                                </div>
+                                <div class="action">
+                                    <a class="btn btn-outline-dark" href="${v.showUrl}">View</a>
+                                    <a class="btn btn-dark" href="${v.editUrl}">edit</a>
                                 </div>
                             </div>
-                        `);
-                    });
-                } else {
-                    $('#post-item-list').append('<p>No posts found for this user.</p>');
-                }
-            },
-            error: function(xhr) {
-                console.error(xhr.responseText);
-                $('#post-item-list').append('<p>Error fetching posts.</p>');
-            }
+                            <div class="post-title">${v.title || ""}</div>
+                            <div class="post-content">${v.description || ""}</div>
+                            <div class="post-content">${hashtag}</div>
+                            <div class="poll-options">${polloption}</div>
+                            <div class="post-image">${imagehtml}</div>
+                            <div class="post-actions">
+                                <a class="post-action-btn like-btn btn"><img src="{{ asset('assets/images/like.svg') }}" alt="like"> <span>${v.likes}</span></a>
+                                <a class="post-action-btn comment-btn btn"><img src="{{ asset('assets/images/comment1.svg') }}" alt="comment"> <span>${v.comments}</span></a>
+                            </div>
+                        </div>
+                    `);
+                });
+            }, 'json');
+        }
+    
+        $(function() {
+            loadpost("{{ url()->full() }}");
+    
+            // Load more posts on button click
+            $('#load-more-btn').click(function() {
+                loadpost($('#load-more-btn').data('url'));
+            });
+    
+            // Attach click event to usernames
+            $(document).on('click', '.username', function() {
+                const username = $(this).data('username'); // Assume usernames have data-username attribute
+                // Call loadpost with username to filter posts
+                loadpost("{{ url()->full() }}", username);
+            });
         });
-    }
+    </script>
+    
 
-    // Attach click event handler to dynamically loaded usernames
-    $(document).on('click', 'a[data-id]', function() {
-        const userName = $(this).data('id');
-        searchclick(userName);
-    });
-</script>
 
 @endpush
