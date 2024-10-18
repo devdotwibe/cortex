@@ -606,7 +606,7 @@
                                             <input type="file" class="form-control" style="display: none;" name="learnimage" id="learnimage">
                                         </div>
                                     </div>
-                                </div>
+                                
 
 
 
@@ -629,6 +629,7 @@
                                         @endif
                                     </div>
                                 </div>
+                            </div>
                             </div>
 
                                 <button type="submit" class="btn btn-dark lrn" name="sub_section"
