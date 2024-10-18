@@ -71,17 +71,24 @@ class UserController extends Controller
                    
                             <a href="' . route('admin.user.spectate', $data->slug) . '" target="_blank" rel="noreferrer" class="btn btn-icons spectate_btn">
                     <span class="adminside-icon">
-                        <img src="' . asset('assets/images/iconshover/mdi_incognitospectate.svg') . '" alt="Spectate">
+                        <img src="' . asset('assets/images/icons/mdi_incognitospectate.svg') . '" alt="Spectate">
                     </span>
                     <span class="adminactive-icon">
-                        <img src="' . asset('assets/images/icons/mdi_incognito-yellow.svg') . '" alt="Spectate Active">
+                        <img src="' . asset('assets/images/iconshover/mdi_incognito-yellow.svg') . '" alt="Spectate Active">
                     </span>
                 </a>
 
 
-                    <a onclick="resetpassword(' . "'" . route("admin.user.resetpassword", $data->slug) . "'" . ')" class="btn btn-icons reset_btn">
-                        <img src="' . asset("assets/images/lock.svg") . '" alt="">
-                    </a>
+                    <a onclick="resetpassword(' . "'" . route('admin.user.resetpassword', $data->slug) . "'" . ')" class="btn btn-icons reset_btn">
+    <span class="adminside-icon">
+        <img src="' . asset('assets/images/iconshover/mdi_incognitospectate.svg') . '" alt="Reset Password">
+    </span>
+    <span class="adminactive-icon">
+        <img src="' . asset('assets/images/icons/mdi_incognito-yellow.svg') . '" alt="Reset Password Active">
+    </span>
+</a>
+
+
                 ';
             })->buildTable(['post_status', 'is_free_access']);
         }
