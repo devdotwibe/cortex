@@ -20,45 +20,55 @@
         </div>
     </div>
 </section>
+
 <section class="post-section" >
-
-    <div class="container">
-        <div class="row"> 
-            <div class="col-md-3">
-                <h4>SPACES</h4>
- 
-               <div class="mb-3">
-                <label for="backtoall" class="form-label"></label>
-                <a href="{{ route('community.post.index') }}" id="backtoall" class="form-control text-decoration-none" >
-                    #Backtoall
-                </a>
-            </div>
- 
-
-
-    <div class="d-flex flex-wrap"> 
-        <ul class="list-group"  > 
-            @foreach ($hashtags as $hashtag)
-                <li class="list-group-item d-inline-block"  >
-                    <a
-                        href="{{ route('community.post.index', ['hashtag' => $hashtag]) }}">{{ $hashtag }}</a>
-                </li>
-            @endforeach
-        </ul>
-    </div>
+    <div class="post-row">
+        <div class="post-container1">
+            <div class="row"> 
+                <div class="post-col1">
+                    <h4>SPACES</h4>
+    
+                    <div class="mb-3 back-btn-wrapp">
+                        <label for="backtoall" class="form-label"></label>
+                        <a href="{{ route('community.post.index') }}" id="backtoall" class="form-control text-decoration-none" >
+                            #Backtoall
+                        </a>
+                    </div>
+    
 
 
-
-
-</div>
-     
-</div>
-</div> 
-
-
-    <div class="post-container" id="post-item-list">
+                    <div class="hashtag-wrapp"> 
+                        <ul class="list-group"  > 
+                            @foreach ($hashtags as $hashtag)
+                                <li class="list-group-item d-inline-block"  >
+                                    <a
+                                        href="{{ route('community.post.index', ['hashtag' => $hashtag]) }}">{{ $hashtag }}</a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
         
-    </div> 
+            </div>
+        </div> 
+
+        <div class="post-container-wrapp">
+            <div class="post-container" id="post-item-list">
+                
+            </div>
+        </div> 
+        <div class="post-search">
+            <form id="searchForm" action="">
+                <div class="text-field">
+                    <input type="search" id="searchInput" placeholder="Search for Posts" aria-label="Search for Posts" oninput="performSearch()">
+                    <button type="submit" class="search-btn" disabled><img src="{{ asset('assets/images/searc-icon.svg') }}" alt=""></button>
+                </div>
+            </form>
+            <div class="searchclass">
+            <div id="searchResults" name="searchres"></div> <!-- Container for displaying search results -->
+            </div>
+        </div>
+    </div>
     <div class="post-action">
         <button id="load-more-btn" class="btn btn-outline-dark" style="display: none"> Load More </button>
     </div>
@@ -68,6 +78,59 @@
 
 
 @push('footer-script')
+
+
+<script>
+    $(document).ready(function() {
+      // Function to perform the search
+      function performSearch() {
+          const query = $('#searchInput').val(); // Get the input value
+  
+          if (query.length === 0) {
+              $('#searchResults').empty(); // Clear results if the search box is empty
+              return;
+          }
+  
+          $.ajax({
+              url: '{{ route('community.search') }}', // The route to your search method
+              type: 'GET',
+              data: { query: query },
+              success: function(data) {
+      // Clear previous results
+      $('#searchResults').empty();
+  
+      // Check if any users were returned
+      if (data.users.length > 0) {
+          data.users.forEach(user => {
+              const userName = user.name;
+              const userID = user.id;
+  
+              const url = "{{ route('community.index', ['user_id' => '__userID__']) }}".replace('__userID__', userID);
+  
+              // Append unique user names to the search results
+              $('#searchResults').append(`
+                  <a data-id="${userName}" href="${url}">${userName}</a>
+              `);
+          });
+      } else {
+          $('#searchResults').append('<p>No results found.</p>');
+      }
+  },
+  
+              error: function(xhr) {
+                  console.error(xhr.responseText);
+                  $('#searchResults').append('<p>Error fetching results.</p>');
+              }
+          });
+      }
+  
+      // Attach the function to the input event
+      $('#searchInput').on('input', performSearch);
+  });
+  
+      </script>
+
+      
 
 <script>
 
@@ -126,7 +189,7 @@
                 console.log(v.hashtags);
 
                 $('#post-item-list').append(`
-                    <div class="post-item" id="post-item-${v.slug}">  
+                    <div class="post-item teee" id="post-item-${v.slug}">  
                         <div class="post-header">
                             <div class="avathar">
                                 <img src="{{asset("assets/images/User-blk.png")}}" alt="img">
