@@ -2692,7 +2692,7 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .lesson-exit img { width: 100%; display: block;}
 .examclass .lesson-pagination .lesson-right.pagination-arrow { margin-left: auto;}
 
-.mcq-title-text {width: 100%; padding: 20px 20px 10px; border: 1px solid #414141; border-radius: 10px; margin: 0 0 20px;}
+.mcq-title-text {width: 100%; padding: 20px 20px 10px; border: 1px solid #414141; border-radius: 0; margin: 0 0 20px;}
 
 .modal { background: rgb(0 0 0 / 50%);}
 
@@ -2908,6 +2908,17 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .exam-container.topictestclass .summery-wrap .time-of-exam { float: right; margin: -69px 0 0 auto;}
 .exam-container.topictestclass .summery-wrap .time-of-exam label { font-size: 22px; font-weight: 600;}
 .exam-container.topictestclass .summery-wrap .time-of-exam input { font-size: 22px; font-weight: 600; width: 83px;}
+
+.questionclass .mcq-container-wrap {min-height: inherit;}
+.questionclass .mcq-container-wrap .lesson .lesson-body .mcq-container {padding: 0;  min-height: inherit;}
+.questionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group { height: calc(100vh - 245px);   padding: 50px;   overflow-y: auto;}
+.questionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer { height: calc(100vh - 245px);   padding: 50px;   overflow-y: auto;}
+.questionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group::-webkit-scrollbar {width: 10px;}
+.questionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 8px;}
+.questionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group::-webkit-scrollbar-thumb { background: #005d93; border-radius: 8px;}
+.questionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer::-webkit-scrollbar { width: 10px;}
+.questionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 8px;}
+.questionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer::-webkit-scrollbar-thumb { background: #005d93;  border-radius: 8px;}
 
 
 @media screen and (max-width:1500px) {
