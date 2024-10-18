@@ -2406,6 +2406,7 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
   border: 1px solid rgba(188, 188, 188, 1);
   padding: 11px;
   border-radius: 10px;
+  min-width: inherit;
 }
 
 .payment-wrap .tab-content .amount-form .amout-item .form-group label {
@@ -2906,6 +2907,7 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .invite-wrap .tab-content .tab-pane .numericalsectionclass .col-md-12 { width: auto; margin: 0 20px 20px 0;}
 .invite-wrap .tab-content .tab-pane .numericalsectionclass  .numericalclass { width: 170px; position: relative;}
 .invite-wrap .tab-content .tab-pane .numericalsectionclass .numericalclass button.btn.btn-danger { position: absolute; right: -15px; top: -15px; background: #000; border: 1px solid #000; width: 25px; height: 25px; padding: 0; border-radius: 50%; font-size: 14px; font-weight: 500;}
+.invite-wrap .tab-content .tab-pane .col-md-12 .form-group input[role="switch"] {min-width: inherit; height: 1em; border-radius: 2em; box-shadow: none; padding: 0;}
 
 
 .exam-container.topictestclass .summery-wrap .summery-title h1 { font-size: 28px; border-left: 3px solid #ef9b10; padding-left: 15px; line-height: 1;}
