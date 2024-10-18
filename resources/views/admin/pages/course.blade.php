@@ -606,7 +606,8 @@
                                             <input type="file" class="form-control" style="display: none;" name="learnimage" id="learnimage">
                                         </div>
                                     </div>
-                                
+                                </div>
+
 
 
 
