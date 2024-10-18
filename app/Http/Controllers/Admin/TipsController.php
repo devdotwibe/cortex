@@ -36,7 +36,19 @@ class TipsController extends Controller
                 ->addColumn("action", function ($data) {
                     return
                         '<a onclick="delsubfaq('."'".route('admin.tip.del_tip', $data->id)."'".')" class="btn btn-icons edit_btn"><img src="'.asset("assets/images/delete.svg").'" alt=""></a>'.
-                        '<a href="' . route('admin.tip.edit_subfaq', $data->id) . '" class="btn btn-icons edit_btn"><img src="' . asset('assets/images/edit.svg') . '" alt="Edit"></a>';
+                       
+
+                        '<a href="' . route('admin.tip.edit_subfaq', $data->id) . '" class="btn btn-icons edit_btn">
+                        <span class="adminside-icon">
+                          <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
+                        </span>
+                        <span class="adminactive-icon">
+                            <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active">
+                        </span>
+                    </a>';
+
+                    
+
                 })
                 ->addColumn("tip", function ($data) {
                     return strip_tags($data->tip); // Strip HTML tags from the tip

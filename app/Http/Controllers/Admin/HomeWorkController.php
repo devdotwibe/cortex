@@ -25,9 +25,18 @@ class HomeWorkController extends Controller
             return $this->where('home_work_id',$homeWork->id) 
                 ->addAction(function($data)use($homeWork){
                     return '
-                    <a href="'.route("admin.home-work.edit",["home_work"=>$homeWork->slug,"home_work_question"=>$data->slug]).'" class="btn btn-icons edit_btn">
-                        <img src="'.asset("assets/images/edit.svg").'" alt="">
-                    </a>
+                   
+
+ <a href="'.route("admin.home-work.edit",["home_work"=>$homeWork->slug,"home_work_question"=>$data->slug]).'" class="btn btn-icons edit_btn">
+    <span class="adminside-icon">
+      <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
+    </span>
+    <span class="adminactive-icon">
+        <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active">
+    </span>
+</a>
+
+
                      <a  class="btn btn-icons dlt_btn" data-delete="'.route("admin.home-work.destroy",["home_work"=>$homeWork->slug,"home_work_question"=>$data->slug]).'">
                         <img src="'.asset("assets/images/delete.svg").'" alt="">
                     </a> 
