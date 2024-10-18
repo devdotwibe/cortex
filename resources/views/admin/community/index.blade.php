@@ -225,6 +225,11 @@
                 })
             }, 'json');
         }
-       
+        $(function() {
+            loadpost("{{ url()->full() }}");
+            $('#load-more-btn').click(function() {
+                loadpost($('#load-more-btn').data('url'))
+            })
+        })
     </script>
 @endpush
