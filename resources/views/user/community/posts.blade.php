@@ -55,12 +55,15 @@
             </div> 
         </div>
         <div class="post-search">
-            <form action="">
+            <form id="searchForm" action="">
                 <div class="text-field">
-                    <input type="search" placeholder="Search for Posts">
-                    <button class="search-btn"><img src="{{ asset('assets/images/searc-icon.svg') }}" alt=""></button>
+                    <input type="search" id="searchInput" placeholder="Search for Posts" aria-label="Search for Posts" oninput="performSearch()">
+                    <button type="submit" class="search-btn" disabled><img src="{{ asset('assets/images/searc-icon.svg') }}" alt=""></button>
                 </div>
             </form>
+            <div class="searchclass">
+            <div id="searchResults" name="searchres"></div> <!-- Container for displaying search results -->
+            </div>
         </div>
     </div>
     <div class="post-action">
@@ -73,6 +76,59 @@
 
 @push('footer-script')
 
+
+
+
+<script>
+    $(document).ready(function() {
+      // Function to perform the search
+      function performSearch() {
+          const query = $('#searchInput').val(); // Get the input value
+  
+          if (query.length === 0) {
+              $('#searchResults').empty(); // Clear results if the search box is empty
+              return;
+          }
+  
+          $.ajax({
+              url: '{{ route('community.search') }}', // The route to your search method
+              type: 'GET',
+              data: { query: query },
+              success: function(data) {
+      // Clear previous results
+      $('#searchResults').empty();
+  
+      // Check if any users were returned
+      if (data.users.length > 0) {
+          data.users.forEach(user => {
+              const userName = user.name;
+              const userID = user.id;
+  
+              const url = "{{ route('admin.community.index', ['user_id' => '__userID__']) }}".replace('__userID__', userID);
+  
+              // Append unique user names to the search results
+              $('#searchResults').append(`
+                  <a data-id="${userName}" href="${url}">${userName}</a>
+              `);
+          });
+      } else {
+          $('#searchResults').append('<p>No results found.</p>');
+      }
+  },
+  
+              error: function(xhr) {
+                  console.error(xhr.responseText);
+                  $('#searchResults').append('<p>Error fetching results.</p>');
+              }
+          });
+      }
+  
+      // Attach the function to the input event
+      $('#searchInput').on('input', performSearch);
+  });
+  
+      </script>
+      
 <script>
     function loadpost(url){
         $.get(url,function(res){
