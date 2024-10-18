@@ -513,7 +513,7 @@ margin-left:auto;
 .lesson-pagination .button{
   display: flex;
   color: #FFF;
-  background:#6072FF;
+  background:#1789fa;
   padding:5px 15px;
   justify-content: center;
   align-items: center;
@@ -761,7 +761,7 @@ border-radius: 7px;
   margin: 0 auto;
   padding:0;
   height: 100%;
-  background:#365497;
+  background:#005d93;
 }
 .exam-progress>.exam-progress-inner {
   width: 100%;
@@ -807,7 +807,7 @@ border-radius: 7px;
   width:max-content;
   display:flex;
   flex-wrap:wrap;
-  margin-left:5px;
+  margin: 0 15px;
   background: none;
 }
 .progress-main .timer .minute {
@@ -815,7 +815,7 @@ border-radius: 7px;
   display:block;
 }
 .progress-main .timer   span {
-  padding:0 15px;
+  padding:0 5px;
   width:max-content;
   display:block;
   color:white;
@@ -849,16 +849,29 @@ border-radius: 7px;
   flex-wrap:wrap;
   background:#fff;
   margin: 0 5px;
-  padding: 15px 20px;
+  padding: 15px 80px;
   height: 100%;
+  align-items: center;
 }
 .progress-menu .menu-text{
-  margin:10px 5px;
-  align-items:center;
-  text-align:center;
-  font-size: 22px;
+  margin: 3px 13px;
+  align-items: center;
+  text-align: center;
+  font-size: 35px;
   font-weight: 600;
+  color: #005d93;
 }
+
+.progress-menu .menu-text #menu-text {
+  display: flex;
+  align-items: center;
+}
+
+.progress-menu .menu-text #menu-text span {
+  font-size: 45px;
+  margin: 0 10px;
+}
+
 .progress-menu .menu-icon{
   margin:5px 5px 0px 0px;
 }
@@ -2840,7 +2853,8 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .progress-main .hide-btn {
   width: 60px;
   height: 60px;
-  background: #fff;
+  background: #226cdc;
+  color: #ffffff;
   border-radius: 50%;
   font-size: 12px;
   line-height: 1;

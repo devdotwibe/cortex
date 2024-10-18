@@ -58,13 +58,15 @@
             </div>
 
             <div class="post-search">
-                <form id="searchForm" action="" onsubmit="return false;">
+                <form id="searchForm" action="">
                     <div class="text-field">
                         <input type="search" id="searchInput" placeholder="Search for Posts" aria-label="Search for Posts" oninput="performSearch()">
                         <button type="submit" class="search-btn" disabled><img src="{{ asset('assets/images/searc-icon.svg') }}" alt=""></button>
                     </div>
                 </form>
-                <div id="searchResults" class="dropdown-results"></div> <!-- Container for displaying search results -->
+                <div class="searchclass">
+                <div id="searchResults" name="searchres"></div> <!-- Container for displaying search results -->
+                </div>
             </div>
             
             
@@ -82,41 +84,52 @@
 
 
 <script>
- function performSearch() {
-    const query = document.getElementById('searchInput').value;
+  $(document).ready(function() {
+    // Function to perform the search
+    function performSearch() {
+        const query = $('#searchInput').val(); // Get the input value
 
-    if (query.length < 2) { // Trigger search after 2 characters
-        document.getElementById('searchResults').style.display = 'none'; // Hide dropdown if input is short
-        return;
+        if (query.length === 0) {
+            $('#searchResults').empty(); // Clear results if the search box is empty
+            return;
+        }
+
+        $.ajax({
+            url: '{{ route('admin.community.search') }}', // The route to your search method
+            type: 'GET',
+            data: { query: query },
+            success: function(data) {
+    // Clear previous results
+    $('#searchResults').empty();
+
+    // Check if any users were returned
+    if (data.users.length > 0) {
+        data.users.forEach(user => {
+            const userName = user.name;
+            const userID = user.id;
+
+            const url = "{{ route('admin.community.index', ['user_id' => '__userID__']) }}".replace('__userID__', userID);
+
+            // Append unique user names to the search results
+            $('#searchResults').append(`
+                <a data-id="${userName}" href="${url}">${userName}</a>
+            `);
+        });
+    } else {
+        $('#searchResults').append('<p>No results found.</p>');
+    }
+},
+
+            error: function(xhr) {
+                console.error(xhr.responseText);
+                $('#searchResults').append('<p>Error fetching results.</p>');
+            }
+        });
     }
 
-    fetch(`/your-search-route?query=${encodeURIComponent(query)}`) // Update with your search route
-        .then(response => response.json())
-        .then(data => {
-            const resultsContainer = document.getElementById('searchResults');
-            resultsContainer.innerHTML = ''; // Clear previous results
-            
-            if (data.posts.length === 0) {
-                resultsContainer.style.display = 'none'; // Hide if no results
-                return;
-            }
-
-            data.posts.forEach(post => {
-                const resultItem = document.createElement('div');
-                resultItem.textContent = post.title; // Assuming you have a title attribute
-                resultItem.onclick = () => {
-                    // Handle click on search result (e.g., navigate to post)
-                    window.location.href = `/posts/${post.slug}`; // Update URL as necessary
-                };
-                resultsContainer.appendChild(resultItem);
-            });
-
-            resultsContainer.style.display = 'block'; // Show results
-        })
-        .catch(error => {
-            console.error('Error fetching search results:', error);
-        });
-}
+    // Attach the function to the input event
+    $('#searchInput').on('input', performSearch);
+});
 
     </script>
     
@@ -222,4 +235,83 @@
             })
         })
     </script>
+
+
+
+<script>
+    function searchclick(userName) {
+        // Trigger the filtering AJAX request
+        $.ajax({
+            url: '{{ route("admin.community.search") }}', // Adjust this to your search route
+            type: 'GET',
+            data: { query: userName },
+            success: function(data) {
+                // Clear previous posts
+                $('#post-item-list').empty();
+
+                // Check if any posts are returned
+                if (data.posts.length > 0) {
+                    // Loop through the posts and append them to the list
+                    $.each(data.posts, function(k, v) {
+                        let polloption = '';
+                        $.each(v.poll || [], function(pk, pv) {
+                            polloption += `
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="${v.slug}" id="poll-${v.slug}-option-${pv.slug}" value="${pv.slug}">
+                                    <label class="form-check-label" for="poll-${v.slug}-option-${pv.slug}">
+                                        ${pv.option}
+                                        <span id="poll-${v.slug}-option-${pv.slug}-percentage">(${pv.percentage}%)</span>
+                                        <div class="poll-graph-bar-wrapper">
+                                            <div class="poll-graph-bar" id="poll-${v.slug}-option-${pv.slug}-bar" style="width: ${pv.percentage}%;"></div>
+                                        </div>
+                                    </label>
+                                </div>`;
+                        });
+
+                        let imagehtml = v.image ? `<img src="${v.image}" alt="">` : '';
+
+                        $('#post-item-list').append(`
+                            <div class="post-item" id="post-item-${v.slug}">
+                                <div class="post-header">
+                                    <div class="avatar">
+                                        <img src="{{ asset('assets/images/User-blk.png') }}" alt="img">
+                                    </div>
+                                    <div class="title">
+                                        <h3>${v.user.name || "Admin"}</h3>
+                                        <span>${v.createdAt}</span>
+                                    </div>
+                                    <div class="action">
+                                        <a class="btn btn-outline-dark" href="${v.showUrl}">View</a>
+                                        <a class="btn btn-dark" href="${v.editUrl}">edit</a>
+                                    </div>
+                                </div>
+                                <div class="post-title">${v.title || ""}</div>
+                                <div class="post-content">${v.description || ""}</div>
+                                <div class="poll-options">${polloption}</div>
+                                <div class="post-image">${imagehtml}</div>
+                                <div class="post-actions">
+                                    <a class="post-action-btn like-btn btn"><img src="{{ asset('assets/images/like.svg') }}" alt="like"> <span>${v.likes}</span></a>
+                                    <a class="post-action-btn comment-btn btn"><img src="{{ asset('assets/images/comment1.svg') }}" alt="comment"> <span>${v.comments}</span></a>
+                                </div>
+                            </div>
+                        `);
+                    });
+                } else {
+                    $('#post-item-list').append('<p>No posts found for this user.</p>');
+                }
+            },
+            error: function(xhr) {
+                console.error(xhr.responseText);
+                $('#post-item-list').append('<p>Error fetching posts.</p>');
+            }
+        });
+    }
+
+    // Attach click event handler to dynamically loaded usernames
+    $(document).on('click', 'a[data-id]', function() {
+        const userName = $(this).data('id');
+        searchclick(userName);
+    });
+</script>
+
 @endpush

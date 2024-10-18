@@ -43,11 +43,15 @@
                         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
                     <div class="modal-body">
+                        @if(get_option('stripe.workshop.payment.amount-price','0')!=0)
                         <form action="{{route('payment.workshop')}}"  id="intensive-workshop-payment-form" >
                             <p>The Live Class - {{($live_class->class_title_2??' Intensive Workshop ')}} Register Peyment required </p>
                             <button type="button" data-bs-dismiss="modal"  class="btn btn-secondary">Cancel</button>
                             <button type="submit" class="btn btn-dark">Pay Now ${{ get_option('stripe.workshop.payment.amount-price','0') }} </button>
                         </form>
+                        @else
+                            Coming soon
+                        @endif
                     </div>
 
                 </div>
