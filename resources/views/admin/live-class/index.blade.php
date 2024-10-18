@@ -422,10 +422,8 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                     <div class="user-icons">
                                         @for ($i = 1; $i <= $timetable->count; $i++)
                                             <span class="user-icon">
-                                                <img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
-                                                <span class="active-icon"><img
-                                                        src="{{ asset('assets/images/fa6-solid_user.svg') }}"
-                                                        alt=""></span>
+                                                <img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt="">
+                                               
                                             </span>
                                         @endfor
                                     </div>
