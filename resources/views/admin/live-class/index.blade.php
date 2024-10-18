@@ -410,40 +410,38 @@ These open group sessions condense the entire Thinking Skills curriculum into te
 
 
                                     <button class="add-btn" type="submit" id="updatebutton">+ Add </button>
-                                    <div class="text-field-preview">
-                                        @foreach ($timetables as $timetable)
-                                            <p>{{ $timetable->day }}
-                                                <span>({{ $timetable->starttime }} {{ $timetable->starttime_am_pm }} -
-                                                    {{ $timetable->endtime }} {{ $timetable->endtime_am_pm }})</span>
-                                            </p>
-            
-                                            <div class="user-icons">
-                                                @for ($i = 1; $i <= $timetable->count; $i++)
-                                                    <span class="user-icon">
-                                                        <img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
-                                                        <span class="active-icon"><img
-                                                                src="{{ asset('assets/images/fa6-solid_user.svg') }}"
-                                                                alt=""></span>
-                                                    </span>
-                                                @endfor
-                                            </div>
-            
-            
-                                            <div class="action-buttons">
-            
-                                                <button data-url="{{ route('admin.timetable.fetcheditdata', $timetable->id) }}"
-                                                    onclick="edittimetable(this)" class="btn btn-primary">Edit</button>
-            
-            
-                                                    <button 
-                                                        onclick="deletefunction(this)"  data-url="{{ route('admin.timetable.destroy', $timetable->id) }}"  class="btn btn-primary">Delete</button>
-                                            </div>
-                                        @endforeach
-                                    </div>
                                 </div>
-                             
                             </form>
-                           
+                            <div class="text-field-preview">
+                                @foreach ($timetables as $timetable)
+                                    <p>{{ $timetable->day }}
+                                        <span>({{ $timetable->starttime }} {{ $timetable->starttime_am_pm }} -
+                                            {{ $timetable->endtime }} {{ $timetable->endtime_am_pm }})</span>
+                                    </p>
+    
+                                    <div class="user-icons">
+                                        @for ($i = 1; $i <= $timetable->count; $i++)
+                                            <span class="user-icon">
+                                                <img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt="">
+                                                <span class="active-icon"><img
+                                                        src="{{ asset('assets/images/fa6-solid_user.svg') }}"
+                                                        alt=""></span>
+                                            </span>
+                                        @endfor
+                                    </div>
+    
+    
+                                    <div class="action-buttons">
+    
+                                        <button data-url="{{ route('admin.timetable.fetcheditdata', $timetable->id) }}"
+                                            onclick="edittimetable(this)" class="btn btn-primary">Edit</button>
+    
+    
+                                            <button 
+                                                onclick="deletefunction(this)"  data-url="{{ route('admin.timetable.destroy', $timetable->id) }}"  class="btn btn-primary">Delete</button>
+                                    </div>
+                                @endforeach
+                            </div>
 
                         </div>
 
