@@ -2921,6 +2921,22 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .questionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer::-webkit-scrollbar-thumb { background: #005d93;  border-radius: 8px;}
 
 
+
+#report-post .modal-dialog .modal-content {border-radius: 10px;padding: 30px 30px 10px;}
+#report-post .modal-dialog .modal-content .modal-header {padding: 0; border: none;}
+#report-post .modal-dialog .modal-content .modal-header h5 {color: #218df8; font-size: 20px; margin: 0 0 20px; font-weight: 600;}
+#report-post .modal-dialog .modal-content .modal-header button.close { background: #fff; color: #000;  border: 2px solid #fff; font-size: 30px; line-height: 0; transition: all .25s ease-in-out; width: auto; height: auto; font-weight: 300; position: absolute; right: 15px; top: 20px;}
+#report-post .modal-dialog .modal-content .modal-body { padding: 0;}
+#report-post .modal-dialog .modal-content .modal-body .form-group {width: 100%; margin: 0 0 20px;}
+#report-post .modal-dialog .modal-content .modal-body .form-group label { font-size: 16px; font-weight: 500; margin: 0 0 10px;}
+#report-post .modal-dialog .modal-content .modal-body .form-group select { height: 52px; border: 1px solid rgba(188, 188, 188, 1); padding: 11px; border-radius: 10px; cursor: pointer; background: url(../images/chevron-down.svg) no-repeat center /12px; background-position-x: 97%;}
+#report-post .modal-dialog .modal-content .modal-body .form-group textarea { border: 1px solid rgba(188, 188, 188, 1); padding: 11px; border-radius: 10px;}
+#report-post .modal-dialog .modal-content .modal-body .form-group button.btn.btn-secondary { background: none; color: #000000; border: 1px solid #000000;}
+#report-post .modal-dialog .modal-content .modal-body .form-group button.btn.btn-secondary:hover { background: #000000;  color: #ffffff;}
+#report-post .modal-dialog .modal-content .modal-body .form-group button.btn.btn-danger { background: #000000; color: #ffff; border: 1px solid #000000;}
+#report-post .modal-dialog .modal-content .modal-body .form-group button.btn.btn-danger:hover { background: none; color: #000000;}
+
+
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
 
