@@ -71,7 +71,7 @@ class UserController extends Controller
                         <img src="'.asset("assets/images/spectate.svg").'" alt="">
                     </a>
                     <a onclick="resetpassword('."'".route("admin.user.resetpassword",$data->slug)."'".')" class="btn btn-icons reset_btn">
-                        <img src="'.asset("assets/images/lock.svg").'" alt="">
+                        
                     </a>
                 ';
             })->buildTable(['post_status','is_free_access']);
