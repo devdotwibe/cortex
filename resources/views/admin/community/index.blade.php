@@ -58,17 +58,18 @@
             </div>
 
             <div class="post-search">
-                <form id="searchForm" action="">
+                <form id="searchForm" action="" onsubmit="return false;"> <!-- Prevent default form submission -->
                     <div class="text-field">
                         <input type="search" id="searchInput" placeholder="Search for Posts" aria-label="Search for Posts" oninput="performSearch()">
-                        <button type="submit" class="search-btn" disabled><img src="{{ asset('assets/images/searc-icon.svg') }}" alt=""></button>
+                        <button type="submit" class="search-btn" disabled>
+                            <img src="{{ asset('assets/images/searc-icon.svg') }}" alt="">
+                        </button>
                     </div>
                 </form>
                 <div class="searchclass">
-                <div id="searchResults" name="searchres"></div> <!-- Container for displaying search results -->
+                    <div id="searchResults" name="searchres"></div> <!-- Container for displaying search results -->
                 </div>
             </div>
-            
             
         </div>
         <div class="post-action">
@@ -130,7 +131,6 @@
 
     </script>
     
-
 
     <script>
         function loadpost(url, username = null) {
@@ -216,6 +216,31 @@
             }, 'json');
         }
     
+        // Function to handle the click on search results
+        function searchclick(userName) {
+            // Call loadpost with the current URL and the username to filter posts
+            loadpost("{{ url()->full() }}", userName);
+            $('#searchResults').empty(); // Clear search results after selection
+        }
+    
+        // Function to perform the search
+        function performSearch() {
+            const searchValue = $('#searchInput').val();
+            $('#searchResults').empty(); // Clear previous results
+    
+            // If the input is empty, return early
+            if (!searchValue) return;
+    
+            // Fetch matching usernames from the server (example API)
+            $.get(`/api/search?username=${searchValue}`, function(data) {
+                $.each(data, function(index, userName) {
+                    $('#searchResults').append(`
+                        <a data-id="${userName}" onclick="searchclick('${userName}')" style="display: block;">${userName}</a>
+                    `);
+                });
+            });
+        }
+    
         $(function() {
             loadpost("{{ url()->full() }}");
     
@@ -223,16 +248,7 @@
             $('#load-more-btn').click(function() {
                 loadpost($('#load-more-btn').data('url'));
             });
-    
-            // Attach click event to usernames
-            $(document).on('click', '.username', function() {
-                const username = $(this).data('username'); // Assume usernames have data-username attribute
-                // Call loadpost with username to filter posts
-                loadpost("{{ url()->full() }}", username);
-            });
         });
     </script>
-    
-
 
 @endpush
