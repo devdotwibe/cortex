@@ -410,8 +410,9 @@ These open group sessions condense the entire Thinking Skills curriculum into te
 
 
                                     <button class="add-btn" type="submit" id="updatebutton">+ Add </button>
+                                    @foreach ($timetables as $timetable)
                                     <div class="text-field-preview">
-                                        @foreach ($timetables as $timetable)
+                                     
                                             <p>{{ $timetable->day }}
                                                 <span>({{ $timetable->starttime }} {{ $timetable->starttime_am_pm }} -
                                                     {{ $timetable->endtime }} {{ $timetable->endtime_am_pm }})</span>
@@ -436,8 +437,9 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                                     <button 
                                                         onclick="deletefunction(this)"  data-url="{{ route('admin.timetable.destroy', $timetable->id) }}"  class="btn btn-primary">Delete</button>
                                             </div>
-                                        @endforeach
+                                      
                                     </div>
+                                    @endforeach
                                 </div>
                             </form>
                
