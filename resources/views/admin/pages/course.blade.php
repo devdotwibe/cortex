@@ -748,7 +748,7 @@
                                             <input type="file" class="form-control"  style="display: none;" name="fullmockimage" id="fullmockimage">
                                         </div>
                                     </div>
-                                
+                                </div>
 
                              
 
@@ -773,8 +773,6 @@
                                 </div>
 
                             </div>
-                        </div>
-                    </div>
 
                                 <button type="submit" class="btn btn-dark fullmock" name="sub_section"
                                     value="tab4_save">Save</button>
