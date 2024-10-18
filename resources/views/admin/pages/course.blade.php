@@ -116,12 +116,12 @@
                                             </div>
                                         </div> --}}
 
-                                        <div class="col-md-12">
+                                     <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="image"  class="file-upload">Image <br>
+                                                <label for="privateimage"  class="file-upload">Private Image <br>
                                                     <img src="{{ asset('assets/images/upfile.svg') }}"
                                                         alt="Upload Icon"> </label>
-                                                <input type="file" class="form-control" style="display: none;" name="r" id="privateimage">
+                                                <input type="file" class="form-control" style="display: none;" name="privateimage" id="privateimage">
                                             </div>
                                         </div>
 
