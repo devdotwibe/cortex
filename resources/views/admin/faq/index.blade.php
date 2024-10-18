@@ -539,14 +539,14 @@ $('#table-subcategory-form-clear').on('click', function() {
 });
 
 
-        // function clearcategory() {
-        //     $('#name-error-table-category-form-create').text("")
-        //     $('#name-table-category-form-create').val('').removeClass("is-invalid")
-        //     $('#table-category-form-create').data('save', "create")
-        //     $('#table-category-form-create').data('action', "{{ route('admin.category.store') }}")
-        //     $('#table-category-form-clear').hide()
-        //     $('#table-category-form-submit').text(' Add + ')
-        // }
+        function clearcategory() {
+            $('#name-error-table-category-form-create').text("")
+            $('#name-table-category-form-create').val('').removeClass("is-invalid")
+            $('#table-category-form-create').data('save', "create")
+            $('#table-category-form-create').data('action', "{{ route('admin.faq.store') }}")
+            $('#table-category-form-clear').hide()
+            $('#table-category-form-submit').text(' Add + ')
+        }
 
         // $(function() {
         //     $('#table-category-form-clear').click(clearcategory);
