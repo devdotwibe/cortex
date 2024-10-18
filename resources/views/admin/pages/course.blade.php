@@ -596,7 +596,7 @@
                                         </div>
                                     </div>
 
-                                    
+                                    <div class="numericalsectionclass">
 
                                     <div class="col-md-12">
                                         <div class="form-group">
@@ -615,8 +615,8 @@
                                 <!-- Preview Image Container -->
                                 <div class="form-group">
                                     <label for="learnImagePreview">Image Preview</label>
-                                    <div id="learnImagePreviewContainer"
-                                        style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
+                                    <div id="learnImagePreviewContainer" class="numericalclass">
+                                       
                                         @if (isset($course) && $course->learnimage)
                                             <img id="learnImagePreview" src="{{ url('d0/' . $course->learnimage) }}"
                                                 alt="Image Preview" style="width: 100%; height: auto;">
@@ -629,6 +629,7 @@
                                         @endif
                                     </div>
                                 </div>
+                            </div>
 
                                 <button type="submit" class="btn btn-dark lrn" name="sub_section"
                                     value="tab1_save">Save</button>
@@ -652,7 +653,7 @@
                                             <textarea class="form-control texteditor" name="questionbankcontent" id="questionbankcontent">{{ old('questionbankcontent', optional($course)->questionbankcontent) }}</textarea>
                                         </div>
                                     </div>
-
+                                    <div class="numericalsectionclass">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="questionbankimage" class="file-upload">Question Bank Image <br>
@@ -669,8 +670,8 @@
                                 <!-- Preview Image Container -->
                                 <div class="form-group">
                                     <label for="questionbankimage">Image Preview</label>
-                                    <div id="questionbankContainer"
-                                        style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
+                                    <div id="questionbankContainer" class="numericalclass">
+                                      
                                         @if (isset($course) && $course->questionbankimage)
                                             <img id="questionbankimage"
                                                 src="{{ url('d0/' . $course->questionbankimage) }}" alt="Image Preview"
@@ -684,6 +685,8 @@
                                         @endif
                                     </div>
                                 </div>
+
+                            </div>
 
                                 <button type="submit" class="btn btn-dark qbank" name="sub_section"
                                     value="tab2_save">Save</button>
@@ -707,7 +710,7 @@
                                             <textarea class="form-control texteditor" name="topiccontent" id="topiccontent">{{ old('topiccontent', optional($course)->topiccontent) }}</textarea>
                                         </div>
                                     </div>
-
+                                    <div class="numericalsectionclass">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="topicimage" class="file-upload">Topic Image  <br>
@@ -725,8 +728,8 @@
                                 <!-- Preview Image Container -->
                                 <div class="form-group">
                                     <label for="topicImagePreview">Image Preview</label>
-                                    <div id="topicImagePreviewContainer"
-                                        style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
+                                    <div id="topicImagePreviewContainer" class="numericalclass">
+                                    
                                         @if (isset($course) && $course->topicimage)
                                             <img id="topicImagePreview" src="{{ url('d0/' . $course->topicimage) }}"
                                                 alt="Image Preview" style="width: 100%; height: auto;">
@@ -739,6 +742,7 @@
                                         @endif
                                     </div>
                                 </div>
+                            </div>
 
                                 <button type="submit" class="btn btn-dark topic" name="sub_section"
                                     value="tab3_save">Save</button>
@@ -762,7 +766,7 @@
                                             <textarea class="form-control texteditor" name="fullmockcontent" id="fullmockcontent">{{ old('fullmockcontent', optional($course)->fullmockcontent) }}</textarea>
                                         </div>
                                     </div>
-
+                                    <div class="numericalsectionclass">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="fullmockimage" class="file-upload">Full Mock Image  <br>
@@ -779,8 +783,8 @@
                                 <!-- Preview Image Container -->
                                 <div class="form-group">
                                     <label for="fullmockImagePreview">Image Preview</label>
-                                    <div id="fullmockPreviewContainer"
-                                        style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
+                                    <div id="fullmockPreviewContainer" class="numericalclass">
+                                      
                                         @if (isset($course) && $course->fullmockimage)
                                             <img id="fullmockImagePreview"
                                                 src="{{ url('d0/' . $course->fullmockimage) }}" alt="Image Preview"
@@ -794,6 +798,8 @@
                                         @endif
                                     </div>
                                 </div>
+
+                            </div>
 
                                 <button type="submit" class="btn btn-dark fullmock" name="sub_section"
                                     value="tab4_save">Save</button>
