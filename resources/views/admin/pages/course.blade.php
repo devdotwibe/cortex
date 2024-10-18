@@ -841,7 +841,7 @@
                                             @endif
                                         </div>
                                     </div> --}}
-
+                                    <div class="numericalsectionclass">
 
                                         <div class="col-md-12">
                                             <div class="form-group">
@@ -861,8 +861,8 @@
                                         <!-- Preview Image Container -->
                                         <div class="form-group">
                                             <label for="privateImagePreview">Image Preview</label>
-                                            <div id="privateImagePreviewContainer"
-                                                style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
+                                            <div id="privateImagePreviewContainer"  class="numericalclass">
+                                              
                                                 @if (isset($course) && $course->privateimage)
                                                     <img id="privateImagePreview"
                                                         src="{{ url('d0/' . $course->privateimage) }}"
@@ -878,7 +878,7 @@
                                             </div>
                                         </div>
 
-
+                                    </div>
 
 
 
