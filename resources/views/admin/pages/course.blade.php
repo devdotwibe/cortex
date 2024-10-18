@@ -102,20 +102,17 @@
 
                                         <div class="numericalsectionclass">
 
+                                      
+
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <div class="form-data">
-                                                    <div class="forms-inputs mb-4">
-                                                        <label for="image" class="file-upload">Image <br>
-                                                            <img src="{{ asset('assets/images/upfile.svg') }}"
-                                                                alt="Upload Icon"></label>
-                                                        <input type="file" class="form-control" style="display: none;" name="image"
-                                                            id="imageInput" onchange="previewImage()">
-                                                        @error('image')
-                                                            <div class="text-danger">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
+                                                <label for="image" class="file-upload">Image  <br>
+                                                    <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                        alt="Upload Icon"> </label>
+                                                <input type="file" class="form-control" style="display: none;" name="image" id="imageInput" onchange="previewImage()">
+                                                @error('image')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                             </div>
                                         </div>
 
