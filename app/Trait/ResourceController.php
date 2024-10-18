@@ -154,7 +154,7 @@ trait ResourceController
                         case 'view':
                             $action.='                            
                                     <a href="'.route(self::$routeName.".show",$data->slug).'" class="btn btn-icons view_btn">
-                                        <img src="'.asset("assets/images/view.svg").'" alt="">
+                                        <img src="'.asset("assets/images/view1.svg").'" alt="">
                                     </a>
                             ';
                             break;
