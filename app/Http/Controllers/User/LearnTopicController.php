@@ -206,7 +206,7 @@ class LearnTopicController extends Controller
             "category_id"=>$category->id,
             "sub_category_id"=>$subCategory->id,
         ]);
-        $lessons=SubCategory::where('category_id',$category->id)->get();
+        $lessons=SubCategory::has('learns')->where('category_id',$category->id)->get();
         $lessencount=count($lessons);
         $totalprogres=0;
         foreach ($lessons as $lesson) {

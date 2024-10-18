@@ -29,4 +29,9 @@ class SubCategory extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function learns()
+    {
+        return $this->hasMany(Learn::class, 'sub_category_id');
+    }
 }
