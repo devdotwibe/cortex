@@ -35,7 +35,19 @@ class TipsController extends Controller
             return DataTables::of($tips)
                 ->addColumn("action", function ($data) {
                     return
-                        '<a onclick="delsubfaq('."'".route('admin.tip.del_tip', $data->id)."'".')" class="btn btn-icons edit_btn"><img src="'.asset("assets/images/delete.svg").'" alt=""></a>'.
+                        
+
+
+                        '<a onclick="delsubfaq('."'".route('admin.tip.del_tip', $data->id)."'".')" class="btn btn-icons edit_btn">
+                        <span class="adminside-icon">
+                            <img src="' . asset("assets/images/icons/material-symbols_delete-outline.svg") . '" alt="Delete">
+                        </span>
+                        <span class="adminactive-icon">
+                            <img src="' . asset("assets/images/iconshover/material-symbols_delete-yellow.svg") . '" alt="Delete Active">
+                        </span>
+                    </a> '.
+
+
                        
 
                         '<a href="' . route('admin.tip.edit_subfaq', $data->id) . '" class="btn btn-icons edit_btn">

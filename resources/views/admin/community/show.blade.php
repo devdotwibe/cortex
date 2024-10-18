@@ -172,7 +172,22 @@
                                 <div class="comment-action">
                                     <a class="reply-btn m-2 btn"  >Reply <span>${v.replys}</span></a>
                                     <a class="like-btn m-2 btn"  ><img src="{{asset('assets/images/like.svg')}}"  slt="comment"> <span>${v.likes}</span></a>
-                                    <a class="delete-btn m-2 btn float-end" onclick="deletecomment('${v.deleteUrl}')"><img src="{{asset('assets/images/delete.svg')}}"  slt="comment"></a>
+                                 
+
+
+
+                                   <a class="delete-btn m-2 btn float-end" onclick="deletecomment('${v.deleteUrl}')">
+                        <span class="adminside-icon">
+                            <img src="' . asset("assets/images/icons/material-symbols_delete-outline.svg") . '" alt="Delete">
+                        </span>
+                        <span class="adminactive-icon">
+                            <img src="' . asset("assets/images/iconshover/material-symbols_delete-yellow.svg") . '" alt="Delete Active">
+                        </span>
+                    </a> 
+
+
+
+
                                 </div>
                             </div>
                             <div class="post-comment-replys" > 
@@ -205,7 +220,18 @@
                                 </div>
                                 <p class="replay-text">${v.comment}</p>
                                 <div class="replay-action">
-                                    <a class="delete-btn m-2 btn float-end" onclick="deletecomment('${v.deleteUrl}')"><img src="{{asset('assets/images/delete.svg')}}"  slt="comment"></a>
+                                  
+
+                                    <a class="delete-btn m-2 btn float-end" onclick="deletecomment('${v.deleteUrl}')">
+                        <span class="adminside-icon">
+                            <img src="' . asset("assets/images/icons/material-symbols_delete-outline.svg") . '" alt="Delete">
+                        </span>
+                        <span class="adminactive-icon">
+                            <img src="' . asset("assets/images/iconshover/material-symbols_delete-yellow.svg") . '" alt="Delete Active">
+                        </span>
+                    </a> 
+
+
                                 </div>
                             </div> 
                         </div>
