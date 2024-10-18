@@ -539,156 +539,156 @@ $('#table-subcategory-form-clear').on('click', function() {
 });
 
 
-        function clearcategory() {
-            $('#name-error-table-category-form-create').text("")
-            $('#name-table-category-form-create').val('').removeClass("is-invalid")
-            $('#table-category-form-create').data('save', "create")
-            $('#table-category-form-create').data('action', "{{ route('admin.faq.store') }}")
-            $('#table-category-form-clear').hide()
-            $('#table-category-form-submit').text(' Add + ')
-        }
+        // function clearcategory() {
+        //     $('#name-error-table-category-form-create').text("")
+        //     $('#name-table-category-form-create').val('').removeClass("is-invalid")
+        //     $('#table-category-form-create').data('save', "create")
+        //     $('#table-category-form-create').data('action', "{{ route('admin.category.store') }}")
+        //     $('#table-category-form-clear').hide()
+        //     $('#table-category-form-submit').text(' Add + ')
+        // }
 
-        $(function() {
-            $('#table-category-form-clear').click(clearcategory);
-            $('#table-category-form-create').on('submit', function(e) {
-                e.preventDefault();
-                $('#name-error-table-category-form-create').text("")
-                $('#name-table-category-form-create').removeClass("is-invalid")
-                if ($(this).data('save') == "create") {
-                    $.post($(this).data('action'), {
-                        name: $('#name-table-category-form-create').val()
-                    }, function(res) {
-                        cattable.ajax.reload()
-                        clearcategory()
-                        showToast(res.success??'Category has been successfully added', 'success');
-                    }).fail(function(xhr) {
-                        try {
-                            var errors = xhr.responseJSON.errors;
-                            $('#name-error-table-category-form-create').text(errors.name[0])
-                            $('#name-table-category-form-create').addClass("is-invalid")
-                        } catch (error) {
+        // $(function() {
+        //     $('#table-category-form-clear').click(clearcategory);
+        //     $('#table-category-form-create').on('submit', function(e) {
+        //         e.preventDefault();
+        //         $('#name-error-table-category-form-create').text("")
+        //         $('#name-table-category-form-create').removeClass("is-invalid")
+        //         if ($(this).data('save') == "create") {
+        //             $.post($(this).data('action'), {
+        //                 name: $('#name-table-category-form-create').val()
+        //             }, function(res) {
+        //                 cattable.ajax.reload()
+        //                 clearcategory()
+        //                 showToast(res.success??'Category has been successfully added', 'success');
+        //             }).fail(function(xhr) {
+        //                 try {
+        //                     var errors = xhr.responseJSON.errors;
+        //                     $('#name-error-table-category-form-create').text(errors.name[0])
+        //                     $('#name-table-category-form-create').addClass("is-invalid")
+        //                 } catch (error) {
 
-                        }
+        //                 }
 
-                    })
-                } else if ($(this).data('save') == "update") {
-                    $.post($(this).data('action'), {
-                        _method: "PUT",
-                        name: $('#name-table-category-form-create').val()
-                    }, function(res) {
-                        cattable.ajax.reload()
-                        clearcategory()
-                        showToast(res.success??'Category has been successfully updated', 'success');
-                    }).fail(function(xhr) {
-                        try {
-                            var errors = xhr.responseJSON.errors;
-                            $('#name-error-table-category-form-create').text(errors.name[0])
-                            $('#name-table-category-form-create').addClass("is-invalid")
-                        } catch (error) {
+        //             })
+        //         } else if ($(this).data('save') == "update") {
+        //             $.post($(this).data('action'), {
+        //                 _method: "PUT",
+        //                 name: $('#name-table-category-form-create').val()
+        //             }, function(res) {
+        //                 cattable.ajax.reload()
+        //                 clearcategory()
+        //                 showToast(res.success??'Category has been successfully updated', 'success');
+        //             }).fail(function(xhr) {
+        //                 try {
+        //                     var errors = xhr.responseJSON.errors;
+        //                     $('#name-error-table-category-form-create').text(errors.name[0])
+        //                     $('#name-table-category-form-create').addClass("is-invalid")
+        //                 } catch (error) {
 
-                        }
+        //                 }
 
-                    })
-                } else {
-                    $('#name-error-table-category-form-create').text("Invalid form")
-                    $('#name-table-category-form-create').addClass("is-invalid")
-                }
-            })
+        //             })
+        //         } else {
+        //             $('#name-error-table-category-form-create').text("Invalid form")
+        //             $('#name-table-category-form-create').addClass("is-invalid")
+        //         }
+        //     })
 
-            $('#table-subcategory-form-clear').click(clearsubcategory);
-            $('#table-subcategory-form-create').on('submit', function(e) {
-                e.preventDefault();
-                $('#name-error-table-subcategory-form-create').text("")
-                $('#name-table-subcategory-form-create').removeClass("is-invalid")
-                if ($(this).data('save') == "create") {
-                    $.post($(this).data('action'), {
-                        name: $('#name-table-subcategory-form-create').val()
-                    }, function(res) {
-                        subcattable.ajax.reload()
-                        clearsubcategory()
-                        showToast(res.success??'Sub Category has been successfully added', 'success');
-                    }).fail(function(xhr) {
-                        try {
-                            var errors = xhr.responseJSON.errors;
-                            $('#name-error-table-subcategory-form-create').text(errors.name[0])
-                            $('#name-table-subcategory-form-create').addClass("is-invalid")
-                        } catch (error) {
+        //     $('#table-subcategory-form-clear').click(clearsubcategory);
+        //     $('#table-subcategory-form-create').on('submit', function(e) {
+        //         e.preventDefault();
+        //         $('#name-error-table-subcategory-form-create').text("")
+        //         $('#name-table-subcategory-form-create').removeClass("is-invalid")
+        //         if ($(this).data('save') == "create") {
+        //             $.post($(this).data('action'), {
+        //                 name: $('#name-table-subcategory-form-create').val()
+        //             }, function(res) {
+        //                 subcattable.ajax.reload()
+        //                 clearsubcategory()
+        //                 showToast(res.success??'Sub Category has been successfully added', 'success');
+        //             }).fail(function(xhr) {
+        //                 try {
+        //                     var errors = xhr.responseJSON.errors;
+        //                     $('#name-error-table-subcategory-form-create').text(errors.name[0])
+        //                     $('#name-table-subcategory-form-create').addClass("is-invalid")
+        //                 } catch (error) {
 
-                        }
+        //                 }
 
-                    })
-                } else if ($(this).data('save') == "update") {
-                    $.post($(this).data('action'), {
-                        _method: "PUT",
-                        name: $('#name-table-subcategory-form-create').val()
-                    }, function(res) {
-                        subcattable.ajax.reload()
-                        clearsubcategory()
-                        showToast(res.success??'Sub Category has been successfully updated', 'success');
-                    }).fail(function(xhr) {
-                        try {
-                            var errors = xhr.responseJSON.errors;
-                            $('#name-error-table-subcategory-form-create').text(errors.name[0])
-                            $('#name-table-subcategory-form-create').addClass("is-invalid")
-                        } catch (error) {
+        //             })
+        //         } else if ($(this).data('save') == "update") {
+        //             $.post($(this).data('action'), {
+        //                 _method: "PUT",
+        //                 name: $('#name-table-subcategory-form-create').val()
+        //             }, function(res) {
+        //                 subcattable.ajax.reload()
+        //                 clearsubcategory()
+        //                 showToast(res.success??'Sub Category has been successfully updated', 'success');
+        //             }).fail(function(xhr) {
+        //                 try {
+        //                     var errors = xhr.responseJSON.errors;
+        //                     $('#name-error-table-subcategory-form-create').text(errors.name[0])
+        //                     $('#name-table-subcategory-form-create').addClass("is-invalid")
+        //                 } catch (error) {
 
-                        }
+        //                 }
 
-                    })
-                } else {
-                    $('#name-error-table-subcategory-form-create').text("Invalid form")
-                    $('#name-table-subcategory-form-create').addClass("is-invalid")
-                }
-            })
+        //             })
+        //         } else {
+        //             $('#name-error-table-subcategory-form-create').text("Invalid form")
+        //             $('#name-table-subcategory-form-create').addClass("is-invalid")
+        //         }
+        //     })
 
-            $('#table-subcategoryset-form-clear').click(clearsubcategoryset);
-            $('#table-subcategoryset-form-create').on('submit', function(e) {
-                e.preventDefault();
-                $('#name-error-table-subcategoryset-form-create').text("")
-                $('#name-table-subcategoryset-form-create').removeClass("is-invalid")
-                if ($(this).data('save') == "create") {
-                    $.post($(this).data('action'), {
-                        name: $('#name-table-subcategoryset-form-create').val()
-                    }, function(res) {
-                        subcatsettable.ajax.reload()
-                        clearsubcategoryset()
-                        showToast(res.success??'Sub Category has been successfully added', 'success');
-                    }).fail(function(xhr) {
-                        try {
-                            var errors = xhr.responseJSON.errors;
-                            $('#name-error-table-subcategoryset-form-create').text(errors.name[0])
-                            $('#name-table-subcategoryset-form-create').addClass("is-invalid")
-                        } catch (error) {
+        //     $('#table-subcategoryset-form-clear').click(clearsubcategoryset);
+        //     $('#table-subcategoryset-form-create').on('submit', function(e) {
+        //         e.preventDefault();
+        //         $('#name-error-table-subcategoryset-form-create').text("")
+        //         $('#name-table-subcategoryset-form-create').removeClass("is-invalid")
+        //         if ($(this).data('save') == "create") {
+        //             $.post($(this).data('action'), {
+        //                 name: $('#name-table-subcategoryset-form-create').val()
+        //             }, function(res) {
+        //                 subcatsettable.ajax.reload()
+        //                 clearsubcategoryset()
+        //                 showToast(res.success??'Sub Category has been successfully added', 'success');
+        //             }).fail(function(xhr) {
+        //                 try {
+        //                     var errors = xhr.responseJSON.errors;
+        //                     $('#name-error-table-subcategoryset-form-create').text(errors.name[0])
+        //                     $('#name-table-subcategoryset-form-create').addClass("is-invalid")
+        //                 } catch (error) {
 
-                        }
+        //                 }
 
-                    })
-                } else if ($(this).data('save') == "update") {
-                    $.post($(this).data('action'), {
-                        _method: "PUT",
-                        name: $('#name-table-subcategoryset-form-create').val()
-                    }, function(res) {
-                        subcatsettable.ajax.reload()
-                        clearsubcategoryset()
-                        showToast(res.success??'Sub Category has been successfully updated', 'success');
-                    }).fail(function(xhr) {
-                        try {
-                            var errors = xhr.responseJSON.errors;
-                            $('#name-error-table-subcategoryset-form-create').text(errors.name[0])
-                            $('#name-table-subcategoryset-form-create').addClass("is-invalid")
-                        } catch (error) {
+        //             })
+        //         } else if ($(this).data('save') == "update") {
+        //             $.post($(this).data('action'), {
+        //                 _method: "PUT",
+        //                 name: $('#name-table-subcategoryset-form-create').val()
+        //             }, function(res) {
+        //                 subcatsettable.ajax.reload()
+        //                 clearsubcategoryset()
+        //                 showToast(res.success??'Sub Category has been successfully updated', 'success');
+        //             }).fail(function(xhr) {
+        //                 try {
+        //                     var errors = xhr.responseJSON.errors;
+        //                     $('#name-error-table-subcategoryset-form-create').text(errors.name[0])
+        //                     $('#name-table-subcategoryset-form-create').addClass("is-invalid")
+        //                 } catch (error) {
 
-                        }
-                    })
-                } else {
-                    $('#name-error-table-subcategoryset-form-create').text("Invalid form")
-                    $('#name-table-subcategoryset-form-create').addClass("is-invalid")
-                }
-            })
+        //                 }
+        //             })
+        //         } else {
+        //             $('#name-error-table-subcategoryset-form-create').text("Invalid form")
+        //             $('#name-table-subcategoryset-form-create').addClass("is-invalid")
+        //         }
+        //     })
 
 
 
-        })
+        // })
         
 </script>
 @endpush
