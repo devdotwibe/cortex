@@ -121,14 +121,9 @@
                         // `);
 
 
-                         
                         $('#searchResults').append(`
-                          
-                                
-                                <a  data-id="${userName}" onclick="searchclick(`${userName}`)">${userName}</a>
-                                
-                           
-                        `);
+    <a data-id="${userName}" onclick="searchclick('${userName}')">${userName}</a>
+`);
 
 
 
