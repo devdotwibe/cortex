@@ -110,7 +110,7 @@
 
             // Append unique user names to the search results
             $('#searchResults').append(`
-                <a data-id="${userName}" href="{{ route('admin.community.index', ['user_id' => ${userID}]) }}">${userName}</a>
+                <a data-id="${userName}" href="{{ route('admin.community.index', ['user_id' => `${userID}`]) }}">${userName}</a>
             `);
         });
     } else {
