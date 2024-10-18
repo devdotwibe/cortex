@@ -81,10 +81,10 @@ class UserController extends Controller
 
                     <a onclick="resetpassword(' . "'" . route('admin.user.resetpassword', $data->slug) . "'" . ')" class="btn btn-icons reset_btn">
     <span class="adminside-icon">
-        <img src="' . asset('assets/images/iconshover/mdi_incognitospectate.svg') . '" alt="Reset Password">
+        <img src="' . asset('assets/images/icons/material-symbols_lock-outline.svg') . '" alt="Reset Password">
     </span>
     <span class="adminactive-icon">
-        <img src="' . asset('assets/images/icons/mdi_incognito-yellow.svg') . '" alt="Reset Password Active">
+        <img src="' . asset('assets/images/iconshover/material-symbols_lock-yellow.svg') . '" alt="Reset Password Active">
     </span>
 </a>
 
