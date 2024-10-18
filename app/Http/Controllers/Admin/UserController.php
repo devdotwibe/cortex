@@ -68,20 +68,19 @@ class UserController extends Controller
                         </div>';
             })->addAction(function ($data) {
                 return '
-                  
+                    <a href="' . route("admin.user.spectate", $data->slug) . '" target="_blank" rel="noreferrer" class="btn btn-icons spectate_btn">
+                        <img src="' . asset("assets/images/spectate.svg") . '" alt="">
+                    </a>
 
 
-               
-
-
+                    
 
                             <a href="' . route('admin.user.spectate', $data->slug) . '" target="_blank" rel="noreferrer" class="btn btn-icons spectate_btn">
                     <span class="side-icon">
-                        <img src="{{asset("assets/images/iconshover/mdi_incognitospectate.svg")}}" alt="Spectate">
+                        <img src="' . asset('assets/images/iconshover/mdi_incognitospectate.svg') . '" alt="Spectate">
                     </span>
                     <span class="active-icon">
-                     <img src="{{asset("assets/images/iconshover/mdi_incognito-yellow.svg")}}" alt="Spectate Active">
-                      
+                        <img src="' . asset('assets/images/icons/mdi_incognito-yellow.svg') . '" alt="Spectate Active">
                     </span>
                 </a>
 
