@@ -86,6 +86,7 @@
 
          $(function(){
             $('[name="learn_type"]').change()
+            $('[name="sub_category_id"]').change()
          })
          
     </script>
