@@ -103,17 +103,31 @@
                 $('#searchResults').empty();
                 
                 // Check if any posts were returned
-                console.log('Number of posts returned:', data.user.length);
-                if (data.user.length > 0) {
-                  
+                console.log('Number of posts returned:', data.posts.length);
+                if (data.posts.length > 0) {
+                    data.posts.forEach(post => {
+                        // Find the user by user_id
+                        const user = data.users.find(user => user.id === post.user_id);
+                        const userName = user ? user.name : 'Unknown'; // Default to 'Unknown' if user not found
 
 
-                        $('#searchResults').append(`
-    <a data-id="${users.id}" onclick="searchclick('${users.id}')">${users.name}</a>
+                       
+                        // $('#searchResults').append(`
+                          
+                                
+                        //         <option value="${userName}">${userName}</option>
+                                
+                           
+                        // `);
+
+
+                     $('#searchResults').append(`
+    <a data-id="${userName}" onclick="searchclick('${userName}')">${userName}</a>
 `);
 
 
 
+                    });
                 } else {
                     $('#searchResults').append('<p>No results found.</p>');
                 }
