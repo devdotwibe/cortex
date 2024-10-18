@@ -106,10 +106,11 @@
     if (data.users.length > 0) {
         data.users.forEach(user => {
             const userName = user.name;
+            const userID = user.id;
 
             // Append unique user names to the search results
             $('#searchResults').append(`
-                <a data-id="${userName}" href="{{ route('admin.community.index', ['user_id' => ${user.id}]) }}">${userName}</a>
+                <a data-id="${userName}" href="{{ route('admin.community.index', ['user_id' => ${userID}]) }}">${userName}</a>
             `);
         });
     } else {
