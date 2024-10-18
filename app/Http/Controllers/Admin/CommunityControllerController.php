@@ -322,15 +322,16 @@ foreach ($extractedHashtags as $hashtag) {
     {
         $query = $request->input('query');
     
-        // Fetch users whose names match the search query
+        // Fetch users whose name matches the query
         $users = User::where('name', 'like', '%' . $query . '%')->get();
     
-        // Optionally fetch posts for these users (if you still need post data)
-        // $userIds = $users->pluck('id');
-        // $posts = Post::whereIn('user_id', $userIds)->get();
+        // Filter the posts based on the selected user's ID
+        $posts = Post::whereIn('user_id', $users->pluck('id'))
+            ->with('user') // Eager load user data
+            ->get();
     
-        // Return the unique users
-        return response()->json(['users' => $users]);
+        // Return unique users and posts
+        return response()->json(['users' => $users->unique('id'), 'posts' => $posts]);
     }
     
     
