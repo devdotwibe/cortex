@@ -577,8 +577,8 @@ margin-left:auto;
 }
 
 .exam-container.exam-video .container-wrap {
-  background: none;
-  box-shadow: none;
+  /* background: none;
+  box-shadow: none; */
 }
 
 #finish-exam-confirm .modal-content {
