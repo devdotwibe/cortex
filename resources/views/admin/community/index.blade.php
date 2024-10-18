@@ -99,39 +99,24 @@
             type: 'GET',
             data: { query: query },
             success: function(data) {
-                // Clear previous results
-                $('#searchResults').empty();
-                
-                // Check if any posts were returned
-                console.log('Number of posts returned:', data.posts.length);
-                if (data.posts.length > 0) {
-                    data.posts.forEach(post => {
-                        // Find the user by user_id
-                        const user = data.users.find(user => user.id === post.user_id);
-                        const userName = user ? user.name : 'Unknown'; // Default to 'Unknown' if user not found
+    // Clear previous results
+    $('#searchResults').empty();
 
+    // Check if any users were returned
+    if (data.users.length > 0) {
+        data.users.forEach(user => {
+            const userName = user.name;
 
-                       
-                        // $('#searchResults').append(`
-                          
-                                
-                        //         <option value="${userName}">${userName}</option>
-                                
-                           
-                        // `);
+            // Append unique user names to the search results
+            $('#searchResults').append(`
+                <a data-id="${userName}" onclick="searchclick('${userName}')">${userName}</a>
+            `);
+        });
+    } else {
+        $('#searchResults').append('<p>No results found.</p>');
+    }
+},
 
-
-                     $('#searchResults').append(`
-    <a data-id="${userName}" onclick="searchclick('${userName}')">${userName}</a>
-`);
-
-
-
-                    });
-                } else {
-                    $('#searchResults').append('<p>No results found.</p>');
-                }
-            },
             error: function(xhr) {
                 console.error(xhr.responseText);
                 $('#searchResults').append('<p>Error fetching results.</p>');

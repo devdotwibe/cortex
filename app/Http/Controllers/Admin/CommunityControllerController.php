@@ -318,37 +318,24 @@ foreach ($extractedHashtags as $hashtag) {
 
 
 
-
-public function search(Request $request)
-{
-    $query = $request->input('query');
-
-    // Fetch posts that have a user whose name matches the query
-    $posts = Post::with('user') // Eager load the user relationship
-        ->whereHas('user', function ($q) use ($query) {
-            $q->where('name', 'like', '%' . $query . '%');
-        })
-        ->get();
-
-
-    $userIds = $posts->pluck('user_id')->unique(); //
-
-    // Fetch users based on the unique IDs from the posts
-    $users = User::whereIn('id', $userIds)->get();
-
-    return response()->json(['posts' => $posts, 'users' => $users]);
-}
-
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+    
+        // Fetch users whose names match the search query
+        $users = User::where('name', 'like', '%' . $query . '%')->get();
+    
+        // Optionally fetch posts for these users (if you still need post data)
+        // $userIds = $users->pluck('id');
+        // $posts = Post::whereIn('user_id', $userIds)->get();
+    
+        // Return the unique users
+        return response()->json(['users' => $users]);
+    }
+    
     
 
 // YourController.php
-public function getPostsByUser($id)
-{
-    $posts = Post::where('user_id', $id)->with('user')->get(); // Fetch posts by user ID
-
-    return response()->json(['posts' => $posts]);
-}
-
 
 
     public function store2(Request $request)
