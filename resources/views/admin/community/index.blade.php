@@ -108,9 +108,11 @@
             const userName = user.name;
             const userID = user.id;
 
+            const url = "{{ route('admin.community.index', ['user_id' => '__userID__']) }}".replace('__userID__', userID);
+
             // Append unique user names to the search results
             $('#searchResults').append(`
-                <a data-id="${userName}" href="{{ route('admin.community.index', ['user_id' => ${userID}]) }}">${userName}</a>
+                <a data-id="${userName}" href="${url}">${userName}</a>
             `);
         });
     } else {
