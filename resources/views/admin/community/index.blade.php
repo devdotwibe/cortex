@@ -237,7 +237,7 @@
     </script>
 
 
-
+{{-- 
 <script>
     function searchclick(userName) {
         // Trigger the filtering AJAX request
@@ -312,6 +312,6 @@
         const userName = $(this).data('id');
         searchclick(userName);
     });
-</script>
+</script> --}}
 
 @endpush
