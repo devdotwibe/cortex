@@ -1783,7 +1783,7 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 #review-history-modal .modal-content .table-outer table .btn-icons.view_btn { padding: 0; display: inline-block; border: none; background: none; width: 25px; height: 25px;}
 
 
-.set-container .container-wrap {width: 100%;float: none; padding: 50px; margin: 0 auto 0; background: #ffff; box-shadow: 4px 0px 16px 0px #0000000A; border-radius: 10px;}
+.set-container .container-wrap {width: 100%;float: none; padding: 50px; margin: 30px auto 0; background: #ffff; box-shadow: 4px 0px 16px 0px #0000000A; border-radius: 10px;}
 .set-container .lesson .lesson-row { border: 1px solid #C8C8C8; text-align: center;}
 .set-container .lesson .lesson-row .lesson-row-sets { justify-content: center;}
 .set-container .lesson .lesson-row .lesson-row-title { margin: 0 0 20px;}
