@@ -135,7 +135,7 @@ class CommunityController extends Controller
                 $post->where('user_id',$userid);
             }
 
-            
+
             $posts = $post->where('user_id', $user->id)->orderBy('id', 'DESC')->paginate();
             $results = [];
             foreach ($posts->items() as $row) {
@@ -387,6 +387,7 @@ class CommunityController extends Controller
                 "title" => $row->title,
                 "type" => $row->type,
                 "description" => $row->description,
+                "hashtags"=>$row->hashtaglist()->pluck('hashtag'),
                 "likes" => $row->likes()->count(),
                 "comments" => $row->comments()->whereNull('post_comment_id')->count(),
                 "image" => $row->image,
