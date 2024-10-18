@@ -102,20 +102,17 @@
 
                                         <div class="numericalsectionclass">
 
+                                      
+
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <div class="form-data">
-                                                    <div class="forms-inputs mb-4">
-                                                        <label for="image" class="file-upload">Image <br>
-                                                            <img src="{{ asset('assets/images/upfile.svg') }}"
-                                                                alt="Upload Icon"></label>
-                                                        <input type="file" class="form-control" style="display: none;" name="image"
-                                                            id="imageInput" onchange="previewImage()">
-                                                        @error('image')
-                                                            <div class="text-danger">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
+                                                <label for="image" class="file-upload">Image  <br>
+                                                    <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                        alt="Upload Icon"> </label>
+                                                <input type="file" class="form-control" style="display: none;" name="image" id="imageInput" onchange="previewImage()">
+                                                @error('image')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                             </div>
                                         </div>
 
@@ -528,35 +525,6 @@
 
 
 
-{{--
-                    <ul class="nav nav-tabs" id="section3Tabs" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link @if (old('sub_section') == 'tab1' || old('sub_section') == '') active @endif" id="tab1-tabb"
-                                data-bs-toggle="tab" href="#tab11" role="tab" aria-controls="tab1"
-                                aria-selected="@if (old('sub_section') == 'tab1' || old('sub_section') == '') true @else false @endif">Tab 1</a>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link @if (old('sub_section') == 'tab2') active @endif" id="tab2-tabb"
-                                data-bs-toggle="tab" href="#tab22" role="tab" aria-controls="tab2"
-                                aria-selected="@if (old('sub_section') == 'tab2') true @else false @endif">Tab 2</a>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link @if (old('sub_section') == 'tab3') active @endif" id="tab3-tabb"
-                                data-bs-toggle="tab" href="#tab33" role="tab" aria-controls="tab3"
-                                aria-selected="@if (old('sub_section') == 'tab3') true @else false @endif">Tab 3</a>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link @if (old('sub_section') == 'tab4') active @endif" id="tab4-tabb"
-                                data-bs-toggle="tab" href="#tab44" role="tab" aria-controls="tab4"
-                                aria-selected="@if (old('sub_section') == 'tab4') true @else false @endif">Tab 4</a>
-                        </li>
-
-                    </ul> --}}
-
-
-
-
-
 
                     <ul class="nav nav-tabs" id="section3Tabs" role="tablist">
                         @foreach($tabs2 as $k => $tab)
@@ -599,6 +567,8 @@
                                         </div>
                                     </div>
 
+                                    <div class="numericalsectionclass">
+
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="learnimage" class="file-upload">Learn Image  <br>
@@ -607,7 +577,7 @@
                                             <input type="file" class="form-control" style="display: none;" name="learnimage" id="learnimage">
                                         </div>
                                     </div>
-                                </div>
+                                
 
 
 
@@ -616,8 +586,8 @@
                                 <!-- Preview Image Container -->
                                 <div class="form-group">
                                     <label for="learnImagePreview">Image Preview</label>
-                                    <div id="learnImagePreviewContainer"
-                                        style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
+                                    <div id="learnImagePreviewContainer" class="numericalclass">
+                                       
                                         @if (isset($course) && $course->learnimage)
                                             <img id="learnImagePreview" src="{{ url('d0/' . $course->learnimage) }}"
                                                 alt="Image Preview" style="width: 100%; height: auto;">
@@ -630,6 +600,8 @@
                                         @endif
                                     </div>
                                 </div>
+                            </div>
+                            </div>
 
                                 <button type="submit" class="btn btn-dark lrn" name="sub_section"
                                     value="tab1_save">Save</button>
@@ -653,7 +625,7 @@
                                             <textarea class="form-control texteditor" name="questionbankcontent" id="questionbankcontent">{{ old('questionbankcontent', optional($course)->questionbankcontent) }}</textarea>
                                         </div>
                                     </div>
-
+                                    <div class="numericalsectionclass">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="questionbankimage" class="file-upload">Question Bank Image <br>
@@ -662,7 +634,7 @@
                                             <input type="file" class="form-control" style="display: none;" name="questionbankimage" id="questionbankimage">
                                         </div>
                                     </div>
-                                </div>
+                               
 
                                 
                               
@@ -670,8 +642,8 @@
                                 <!-- Preview Image Container -->
                                 <div class="form-group">
                                     <label for="questionbankimage">Image Preview</label>
-                                    <div id="questionbankContainer"
-                                        style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
+                                    <div id="questionbankContainer" class="numericalclass">
+                                      
                                         @if (isset($course) && $course->questionbankimage)
                                             <img id="questionbankimage"
                                                 src="{{ url('d0/' . $course->questionbankimage) }}" alt="Image Preview"
@@ -686,6 +658,8 @@
                                     </div>
                                 </div>
 
+                            </div>
+                        </div>
                                 <button type="submit" class="btn btn-dark qbank" name="sub_section"
                                     value="tab2_save">Save</button>
                             </form>
@@ -708,7 +682,7 @@
                                             <textarea class="form-control texteditor" name="topiccontent" id="topiccontent">{{ old('topiccontent', optional($course)->topiccontent) }}</textarea>
                                         </div>
                                     </div>
-
+                                    <div class="numericalsectionclass">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="topicimage" class="file-upload">Topic Image  <br>
@@ -717,7 +691,7 @@
                                             <input type="file" class="form-control"  style="display: none;" name="topicimage" id="topicimage">
                                         </div>
                                     </div>
-                                </div>
+                                
 
                                 
  
@@ -726,8 +700,8 @@
                                 <!-- Preview Image Container -->
                                 <div class="form-group">
                                     <label for="topicImagePreview">Image Preview</label>
-                                    <div id="topicImagePreviewContainer"
-                                        style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
+                                    <div id="topicImagePreviewContainer" class="numericalclass">
+                                    
                                         @if (isset($course) && $course->topicimage)
                                             <img id="topicImagePreview" src="{{ url('d0/' . $course->topicimage) }}"
                                                 alt="Image Preview" style="width: 100%; height: auto;">
@@ -740,6 +714,8 @@
                                         @endif
                                     </div>
                                 </div>
+                            </div>
+                        </div>
 
                                 <button type="submit" class="btn btn-dark topic" name="sub_section"
                                     value="tab3_save">Save</button>
@@ -763,7 +739,7 @@
                                             <textarea class="form-control texteditor" name="fullmockcontent" id="fullmockcontent">{{ old('fullmockcontent', optional($course)->fullmockcontent) }}</textarea>
                                         </div>
                                     </div>
-
+                                    <div class="numericalsectionclass">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="fullmockimage" class="file-upload">Full Mock Image  <br>
@@ -772,7 +748,7 @@
                                             <input type="file" class="form-control"  style="display: none;" name="fullmockimage" id="fullmockimage">
                                         </div>
                                     </div>
-                                </div>
+                                
 
                              
 
@@ -780,8 +756,8 @@
                                 <!-- Preview Image Container -->
                                 <div class="form-group">
                                     <label for="fullmockImagePreview">Image Preview</label>
-                                    <div id="fullmockPreviewContainer"
-                                        style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
+                                    <div id="fullmockPreviewContainer" class="numericalclass">
+                                      
                                         @if (isset($course) && $course->fullmockimage)
                                             <img id="fullmockImagePreview"
                                                 src="{{ url('d0/' . $course->fullmockimage) }}" alt="Image Preview"
@@ -796,6 +772,8 @@
                                     </div>
                                 </div>
 
+                            </div>
+                        </div>
                                 <button type="submit" class="btn btn-dark fullmock" name="sub_section"
                                     value="tab4_save">Save</button>
                             </form>
@@ -863,7 +841,7 @@
                                             @endif
                                         </div>
                                     </div> --}}
-
+                                    <div class="numericalsectionclass">
 
                                         <div class="col-md-12">
                                             <div class="form-group">
@@ -883,8 +861,8 @@
                                         <!-- Preview Image Container -->
                                         <div class="form-group">
                                             <label for="privateImagePreview">Image Preview</label>
-                                            <div id="privateImagePreviewContainer"
-                                                style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
+                                            <div id="privateImagePreviewContainer"  class="numericalclass">
+                                              
                                                 @if (isset($course) && $course->privateimage)
                                                     <img id="privateImagePreview"
                                                         src="{{ url('d0/' . $course->privateimage) }}"
@@ -900,7 +878,7 @@
                                             </div>
                                         </div>
 
-
+                                    </div>
 
 
 

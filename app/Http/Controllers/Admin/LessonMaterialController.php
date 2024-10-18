@@ -33,7 +33,17 @@ class LessonMaterialController extends Controller
             ->addAction(function($data){ 
 
                 $action= ' 
-                        <a onclick="update_lesson_material('."'".route('admin.lesson-material.edit_sub_class', $data->slug)."'".')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>
+
+                         <a onclick="update_lesson_material('."'".route('admin.lesson-material.edit_sub_class', $data->slug)."'".')"  class="btn btn-icons edit_btn">
+    <span class="adminside-icon">
+      <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
+    </span>
+    <span class="adminactive-icon">
+        <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active">
+    </span>
+</a>
+
+
                     ';
 
                     // if(empty($data->subcategories) || count($data->subcategories) == 0)

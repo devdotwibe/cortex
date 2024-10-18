@@ -20,9 +20,18 @@ class LessonRecordController extends Controller
             return $this->where('lesson_recording_id',$lessonRecording->id) 
                 ->addAction(function($data)use($lessonRecording){
                     return '
-                    <a href="'.route("admin.lesson-record.edit",["lesson_recording"=>$lessonRecording->slug,"record_video"=>$data->slug]).'" class="btn btn-icons edit_btn">
-                        <img src="'.asset("assets/images/edit.svg").'" alt="">
-                    </a>
+                    
+
+                      <a href="'.route("admin.lesson-record.edit",["lesson_recording"=>$lessonRecording->slug,"record_video"=>$data->slug]).'" class="btn btn-icons edit_btn">
+    <span class="adminside-icon">
+      <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
+    </span>
+    <span class="adminactive-icon">
+        <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active">
+    </span>
+</a>
+
+
                      <a  class="btn btn-icons dlt_btn" data-delete="'.route("admin.lesson-record.destroy",["lesson_recording"=>$lessonRecording->slug,"record_video"=>$data->slug]).'">
                         <img src="'.asset("assets/images/delete.svg").'" alt="">
                     </a> 

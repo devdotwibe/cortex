@@ -2898,7 +2898,7 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 
 .invite-wrap .tab-content .tab-pane .col-md-12 { margin: 0 0 20px;}
 .invite-wrap .tab-content .tab-pane .col-md-12 .form-group label {font-size: 16px; font-weight: 600; margin: 0 0 10px;}
-.invite-wrap .tab-content .tab-pane .col-md-12 .form-group input { height: 52px; border: 1px solid rgba(188, 188, 188, 1); padding: 11px; border-radius: 10px; min-width: 300px;}
+.invite-wrap .tab-content .tab-pane .col-md-12 .form-group input { height: 52px; border: 1px solid rgba(188, 188, 188, 1); padding: 11px; border-radius: 10px; min-width: 225px;}
 .invite-wrap .tab-content .tab-pane .col-md-12 .form-group button.btn.btn-primary { color: #fff; background-color: #000; border-color: #000;}
 .invite-wrap .tab-content .tab-pane .col-md-12 .form-group button.btn.btn-primary:hover { color: #000; background: none;}
 .invite-wrap .tab-content .tab-pane .col-md-12 .form-group .file-upload { width: 100%; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; padding: 15px; border: 1px solid #BCBCBC; border-radius: 10px; max-width: 300px;}

@@ -54,9 +54,18 @@ class TopicTestController extends Controller
                 ->where('category_id',$category->id)
                 ->addAction(function($data)use($category){
                     return '
-                    <a href="'.route("admin.topic-test.edit",["category"=>$category->slug,"question"=>$data->slug]).'" class="btn btn-icons edit_btn">
-                        <img src="'.asset("assets/images/edit.svg").'" alt="">
-                    </a>
+                   
+                        <a href="'.route("admin.topic-test.edit",["category"=>$category->slug,"question"=>$data->slug]).'" class="btn btn-icons edit_btn">
+                <span class="adminside-icon">
+                  <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
+                </span>
+                <span class="adminactive-icon">
+                    <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active">
+                </span>
+            </a>
+
+
+
                     ';
                 })->addColumn('visibility',function($data){
                     return '                

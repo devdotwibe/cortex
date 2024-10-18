@@ -161,7 +161,18 @@ class TermController extends Controller
             return $this->addAction(function($data){ 
                 $action= ' 
                    
-                    <a onclick="update_term('."'".route('admin.term.edit_class', $data->slug)."'".')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>
+                   
+
+  <a onclick="update_term('."'".route('admin.term.edit_class', $data->slug)."'".')"  class="btn btn-icons edit_btn">
+                <span class="adminside-icon">
+                  <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
+                </span>
+                <span class="adminactive-icon">
+                    <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active">
+                </span>
+            </a>
+
+
                 ';
 
                 // if(empty($data->subcategories) || count($data->subcategories) == 0)
@@ -194,7 +205,19 @@ class TermController extends Controller
             return $this->addAction(function($data){ 
                 $action= ' 
                    
-                    <a onclick="update_term('."'".route('admin.term.edit_lesson_material', $data->slug)."'".')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>
+                  
+
+
+                 <a onclick="update_term('."'".route('admin.term.edit_lesson_material', $data->slug)."'".')"  class="btn btn-icons edit_btn">
+                            <span class="adminside-icon">
+                              <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
+                            </span>
+                            <span class="adminactive-icon">
+                                <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active">
+                            </span>
+                        </a>
+
+
                 ';
 
                 // if(empty($data->subcategories) || count($data->subcategories) == 0)
@@ -226,7 +249,20 @@ class TermController extends Controller
             return $this->addAction(function($data){ 
                 $action= '
                     <a onclick="weekbooklet(event,\''.$data->slug.'\')" class="btn btn-icons view_btn">+</a>
-                    <a onclick="update_term('."'".route('admin.term.edit_home_work', $data->slug)."'".')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>
+                 
+
+
+        <a onclick="update_term('."'".route('admin.term.edit_home_work', $data->slug)."'".')"  class="btn btn-icons edit_btn">
+                <span class="adminside-icon">
+                  <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
+                </span>
+                <span class="adminactive-icon">
+                    <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active">
+                </span>
+            </a>
+
+
+
                     <a class="btn btn-icons dlt_btn" data-delete="'.route("admin.term.destroy_home_work",$data->slug).'" ><img src="'.asset("assets/images/delete.svg").'" alt=""></a> 
                 ';
                 return $action;
@@ -252,7 +288,19 @@ class TermController extends Controller
 
             return $this->addAction(function($data){ 
                 $action= ' 
-                    <a onclick="updatebooklet('."'".route('admin.home-work.showbooklet', $data->slug)."'".')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>
+                   
+
+
+  <a onclick="updatebooklet('."'".route('admin.home-work.showbooklet', $data->slug)."'".')"  class="btn btn-icons edit_btn">
+                <span class="adminside-icon">
+                  <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
+                </span>
+                <span class="adminactive-icon">
+                    <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active">
+                </span>
+            </a>
+
+
                     <a class="btn btn-icons dlt_btn" data-delete="'.route("admin.home-work.destroybooklet",$data->slug).'" ><img src="'.asset("assets/images/delete.svg").'" alt=""></a> 
                 ';
                 return $action;
@@ -273,7 +321,18 @@ class TermController extends Controller
             return $this->addAction(function($data){ 
                 $action= ' 
                     
-                    <a onclick="update_term('."'".route('admin.term.edit_lesson_recording', $data->slug)."'".')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>
+                   
+
+                     <a onclick="update_term('."'".route('admin.term.edit_lesson_recording', $data->slug)."'".')"  class="btn btn-icons edit_btn">
+                <span class="adminside-icon">
+                  <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
+                </span>
+                <span class="adminactive-icon">
+                    <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active">
+                </span>
+            </a>
+
+
                 ';
 
                    // if(empty($data->subcategories) || count($data->subcategories) == 0)

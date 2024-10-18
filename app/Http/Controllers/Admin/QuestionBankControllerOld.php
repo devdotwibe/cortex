@@ -67,9 +67,16 @@ class QuestionBankControllerOld extends Controller
             }
             return  $this->where('exam_id',$exam->id)->where('category_id',$category->id)->addAction(function($data)use($category){
                     return '
+                    
                     <a href="'.route("admin.question-bank.edit",["category"=>$category->slug,"question"=>$data->slug]).'" class="btn btn-icons edit_btn">
-                        <img src="'.asset("assets/images/edit.svg").'" alt="">
-                    </a>
+    <span class="adminside-icon">
+      <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
+    </span>
+    <span class="adminactive-icon">
+        <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active">
+    </span>
+</a>
+
                     ';
                 })->addColumn('subcategoryname',function($data){
                     return optional($data->subCategory)->name;

@@ -74,9 +74,16 @@ class QuestionBankController extends Controller
         if($request->ajax()){  
             return  $this->where('exam_id',$exam->id)->where('category_id',$setname->category_id)->where('sub_category_id',$setname->sub_category_id)->where('sub_category_set',$setname->id)->addAction(function($data)use($setname){
                     return '
-                    <a href="'.route("admin.question-bank.edit",["setname"=>$setname->slug,"question"=>$data->slug]).'" class="btn btn-icons edit_btn">
-                        <img src="'.asset("assets/images/edit.svg").'" alt="">
-                    </a>
+                   
+                   <a href="'.route("admin.question-bank.edit",["setname"=>$setname->slug,"question"=>$data->slug]).'" class="btn btn-icons edit_btn">
+    <span class="adminside-icon">
+      <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
+    </span>
+    <span class="adminactive-icon">
+        <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active">
+    </span>
+</a>
+
                     ';
                 })->addColumn('visibility',function($data){
                     return '                
