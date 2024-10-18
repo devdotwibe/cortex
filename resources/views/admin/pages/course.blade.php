@@ -525,35 +525,6 @@
 
 
 
-{{--
-                    <ul class="nav nav-tabs" id="section3Tabs" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link @if (old('sub_section') == 'tab1' || old('sub_section') == '') active @endif" id="tab1-tabb"
-                                data-bs-toggle="tab" href="#tab11" role="tab" aria-controls="tab1"
-                                aria-selected="@if (old('sub_section') == 'tab1' || old('sub_section') == '') true @else false @endif">Tab 1</a>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link @if (old('sub_section') == 'tab2') active @endif" id="tab2-tabb"
-                                data-bs-toggle="tab" href="#tab22" role="tab" aria-controls="tab2"
-                                aria-selected="@if (old('sub_section') == 'tab2') true @else false @endif">Tab 2</a>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link @if (old('sub_section') == 'tab3') active @endif" id="tab3-tabb"
-                                data-bs-toggle="tab" href="#tab33" role="tab" aria-controls="tab3"
-                                aria-selected="@if (old('sub_section') == 'tab3') true @else false @endif">Tab 3</a>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link @if (old('sub_section') == 'tab4') active @endif" id="tab4-tabb"
-                                data-bs-toggle="tab" href="#tab44" role="tab" aria-controls="tab4"
-                                aria-selected="@if (old('sub_section') == 'tab4') true @else false @endif">Tab 4</a>
-                        </li>
-
-                    </ul> --}}
-
-
-
-
-
 
                     <ul class="nav nav-tabs" id="section3Tabs" role="tablist">
                         @foreach($tabs2 as $k => $tab)
@@ -663,7 +634,7 @@
                                             <input type="file" class="form-control" style="display: none;" name="questionbankimage" id="questionbankimage">
                                         </div>
                                     </div>
-                                </div>
+                               
 
                                 
                               
@@ -688,7 +659,7 @@
                                 </div>
 
                             </div>
-
+                        </div>
                                 <button type="submit" class="btn btn-dark qbank" name="sub_section"
                                     value="tab2_save">Save</button>
                             </form>
