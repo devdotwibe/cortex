@@ -69,9 +69,6 @@ class UserController extends Controller
             })->addAction(function ($data) {
                 return '
                    
-
-                    
-
                             <a href="' . route('admin.user.spectate', $data->slug) . '" target="_blank" rel="noreferrer" class="btn btn-icons spectate_btn">
                     <span class="adminside-icon">
                         <img src="' . asset('assets/images/iconshover/mdi_incognitospectate.svg') . '" alt="Spectate">
