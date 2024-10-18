@@ -32,6 +32,8 @@ class CommunityController extends Controller
 
         $hashtag = $request->input('hashtag');
 
+        $userid = $request->input('user_id');
+
 
         /**
          *  @var User
@@ -44,7 +46,12 @@ class CommunityController extends Controller
                 $post->whereIn('id', Hashtag::where('hashtag', 'like', "%$hashtag%")->select('post_id'));
             }
 
-            
+            if(!empty($userid))
+            {
+                $post->where('user_id',$userid);
+            }
+
+
             $posts = $post->orderBy('id', 'DESC')->paginate();
             $results = [];
             foreach ($posts->items() as $row) {
@@ -112,6 +119,8 @@ class CommunityController extends Controller
         $user = Auth::user();
         $hashtag = $request->input('hashtag');
 
+        $userid = $request->input('user_id');
+
 
 
 
@@ -120,6 +129,13 @@ class CommunityController extends Controller
             if (!empty($hashtag)) {
                 $post->whereIn('id', Hashtag::where('hashtag', 'like', "%$hashtag%")->select('post_id'));
             }
+
+            if(!empty($userid))
+            {
+                $post->where('user_id',$userid);
+            }
+
+            
             $posts = $post->where('user_id', $user->id)->orderBy('id', 'DESC')->paginate();
             $results = [];
             foreach ($posts->items() as $row) {
@@ -650,4 +666,27 @@ class CommunityController extends Controller
         preg_match_all('/#\w+/', $text, $matches);
         return array_unique($matches[0]);
     }
+
+
+    
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+    
+        // Fetch users whose name matches the query
+        $users = User::where('name', 'like', '%' . $query . '%')->get();
+    
+        // Filter the posts based on the selected user's ID
+        $posts = Post::whereIn('user_id', $users->pluck('id'))
+            ->with('user') // Eager load user data
+            ->get();
+    
+        // Return unique users and posts
+        return response()->json(['users' => $users->unique('id'), 'posts' => $posts]);
+    }
+    
+    
+
+
+
 }
