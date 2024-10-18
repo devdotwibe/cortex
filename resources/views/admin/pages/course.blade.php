@@ -250,15 +250,23 @@
                                             <textarea class="form-control texteditor" name="logicalcontent" id="logicalcontent">{{ old('logicalcontent', optional($course)->logicalcontent) }}</textarea>
                                         </div>
                                     </div>
-                                    <div class="numericalsectionclass">
+
+
+                                   
+
                                     <div class="col-md-12">
-                                        <div class="form-group" class="file-upload">
-                                            Logical Image  <br>
+                                        <div class="form-group">
+                                            <label for="abstractimage" class="file-upload">Logical Image <br>
                                                 <img src="{{ asset('assets/images/upfile.svg') }}"
                                                     alt="Upload Icon"></label>
                                             <input type="file" class="form-control" style="display: none;" name="logicalimage" id="logicalimage">
                                         </div>
                                     </div>
+
+
+
+
+
 
 
 
