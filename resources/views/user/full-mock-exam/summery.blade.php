@@ -1,7 +1,7 @@
 @extends('layouts.exam')
 @section('title', $exam->title)
 @section('content')
-<section class="exam-container">
+<section class="exam-container topictestclass ">
     <div class="summery-wrap"> 
         <div class="summery-title">
             <div class="back-btn" id="back-btn" style="display: block"> <!-- Ensure proper display value -->

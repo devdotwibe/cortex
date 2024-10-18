@@ -25,7 +25,7 @@ class PaymentController extends Controller
     }
     public function store(Request $request){
         $request->validate([
-            // "amount"=>['required','numeric','min:1','max:100000'],
+            "amount"=>['required','numeric','min:1','max:100000'],
             'name'=>['required']
         ]);
         $price=Payment::stripe()->prices->create([
