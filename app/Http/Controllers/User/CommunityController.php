@@ -32,6 +32,8 @@ class CommunityController extends Controller
 
         $hashtag = $request->input('hashtag');
 
+        $userid = $request->input('user_id');
+
 
         /**
          *  @var User
@@ -44,7 +46,12 @@ class CommunityController extends Controller
                 $post->whereIn('id', Hashtag::where('hashtag', 'like', "%$hashtag%")->select('post_id'));
             }
 
-            
+            if(!empty($userid))
+            {
+                $post->where('user_id',$userid);
+            }
+
+
             $posts = $post->orderBy('id', 'DESC')->paginate();
             $results = [];
             foreach ($posts->items() as $row) {
@@ -672,5 +679,5 @@ class CommunityController extends Controller
     
 
 
-    
+
 }
