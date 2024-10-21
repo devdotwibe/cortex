@@ -63,7 +63,7 @@
             <button class="button finish-btn" > Finish Lesson <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
         </div>
         <div class="lesson-end pagination-arrow" style="display:none">
-            <a class="button end-btn" href="{{route('learn.lesson.submit',['category'=>$category->slug,'sub_category'=>$subCategory->slug])}}" > End Review <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></a>
+            {{-- <a class="button end-btn" href="{{route('learn.lesson.submit',['category'=>$category->slug,'sub_category'=>$subCategory->slug])}}" > End Review <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></a> --}}
         </div>
     </div>
 </section>
