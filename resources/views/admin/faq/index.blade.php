@@ -318,6 +318,7 @@ $(function() {
     $('#table-category-form-create').on('submit', function(e) {
     e.preventDefault(); 
 
+    var storeurl = "{{route('admin.faq.store')}}";
     $('.error').html(''); 
     $('.invalid-feedback').text('');
     $('.form-control').removeClass('is-invalid');
@@ -332,7 +333,7 @@ $(function() {
             
             // Reset the button text back to "Add +"
             $('#table-category-form-submit').text(' Add + ');
-
+            $('#table-category-form-create').data('action',storeurl)
             // Hide the cancel button
             $('#table-category-form-clear').hide();
 
