@@ -17,19 +17,16 @@
                         <span>Question: </span>
                     </div> --}}
     
-                    <div class="Review-mode">
-                        <span>Review Mode: </span>
-                    </div>
                    
 
                     
                 </div>
             </div>
            
-            <div class="exam-center exam-progress-inner-item">
-                <div class="progress-menu">
+            <div class="exam-center exam-progress-inner">
+                <div class="progress-menus">
                     <div class="menu-text">
-                        <span id="menu-text" >Question <span> 0 </span>  </span>
+                        <span id="menu-text" >Question <span> 0 </span>   <span>0 </span> </span>
                       
                     </div>
                     <div class="menu-icon"> 
@@ -39,6 +36,11 @@
                     </div>
                 </div>
             </div>
+
+            <div class="Review-mode">
+                <span>Review Mode: </span>
+            </div>
+           
         </div>
         
     </div>
@@ -257,7 +259,7 @@ if (res.prev_page_url) {
         .attr('onclick', `loadlessonreview('${res.prev_page_url}')`); // Adding onclick event
 }
 
-$('#menu-text').html(`Question <span> ${res.current_page} </span> of <span> ${res.total}</span>`)
+$('#menu-text').html(`Question <span> ${res.current_page} </span> `)
 
             },'json')
 
