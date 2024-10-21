@@ -71,6 +71,7 @@
         var vimeotime=0;
         var vimeoinput=null;
         var vimeoplay=false;
+        let isVideoType = false;
 
         function learntimer(){
             if(vimeotime>0&&vimeoinput!=null&&vimeoplay){
@@ -116,7 +117,6 @@
                 vimeoplay=false;
                 const lesseonId=generateRandomId(10);
                 $.each(res.data,function(k,v){
-
                     if(v.learn_type=="video"){
                         var vimeoid = `${v.video_url}`;
                         if (vimeoid.includes('vimeo.com')) {
@@ -207,6 +207,7 @@
                         })
                     }
                     if(v.learn_type=="mcq"){
+                        isVideoType = true;
                         $('#lesson-questionlist-list').html(`
                             <div class="col-md-12">
                                 <div class="mcq-row" >
@@ -468,7 +469,12 @@
                     value:'pending'
                 }),
             });
-            window.location.href="{{route('learn.lesson.submit',['category'=>$category->slug,'sub_category'=>$subCategory->slug])}}";
+
+            if (isVideoType) {
+                window.location.href="{{route('learn.lesson.submit',['category'=>$category->slug,'sub_category'=>$subCategory->slug])}}";
+            } else {
+                window.location.href="{{route('learn.show',$category->slug)}}";
+            }
             // loadlessonreview()
          }
 
@@ -510,6 +516,7 @@
                         }
                     })
                 }
+
                 var unfinishcount=totalcount-questionids.length;
                 console.log(unfinishcount)
                 if(unfinishcount>0){
