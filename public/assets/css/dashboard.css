@@ -2983,6 +2983,9 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .exam-progress.quest-progress >.exam-progress-inner { padding-right: 20px;}
 
 
+nav.navbar.header-class { display: none;}
+
+
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
 
