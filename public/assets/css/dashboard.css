@@ -2979,7 +2979,7 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .quest-progress .question-number { margin: 0 auto 0 20px;}
 .quest-progress .question-number .menu-text { font-size: 22px; color: #ffff;}
 .quest-progress  .Review-mode { font-size: 22px; color: #ffff;}
-
+.exam-progress.quest-progress >.exam-progress-inner { padding-right: 20px;}
 
 
 @media screen and (max-width:1500px) {
