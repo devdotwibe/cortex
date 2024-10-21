@@ -2813,7 +2813,7 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .post-section .post-row .post-container-wrapp {width: 40%;overflow-y: auto; max-height: calc(100vh - 105px);}
 .post-section .post-row .post-container-wrapp::-webkit-scrollbar {display: none;}
 .post-section .post-row .post-container { width: 100%; padding: 0; background: #ffff; border-radius: 10px; overflow: hidden;}
-.post-section .post-row .post-container .post-item { padding: 25px; margin: 0 0 40px; border: none; border-bottom: 5px solid #efefef;}
+.post-section .post-row .post-container .post-item { padding: 25px 25px 20px; margin: 0 0 20px; border: none; border-bottom: 5px solid #efefef;}
 .post-section .post-row .post-container .post-item .post-header { margin: 0 0 22px;}
 .post-section .post-row .post-container .post-item .post-header .title { flex: 1 0 0;}
 .post-section .post-row .post-container .post-item .post-header .avathar { background: #D9D9D9; margin: 0 12px 0 0; padding: 5px;}
