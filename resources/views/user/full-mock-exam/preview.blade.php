@@ -2,7 +2,7 @@
 @section('title', $exam->title)
 @section('content')
 <section class="exam-container">
-    
+    <div class="exam-progress quest-progress">
         <div class="exam-progress-inner">
             <div class="exam-progress-inner-item exam-left">
                 <div class="progress-main">
