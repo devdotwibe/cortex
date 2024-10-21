@@ -227,17 +227,24 @@
                 $('.lesson-end').show();
 
 
-                if(res.next_page_url){ 
-                    $('.lesson-right').show().find('button.right-btn').data('pageurl',res.next_page_url);
-                }else{
-                    $('.lesson-finish').show();
-                }
-                if(res.prev_page_url){
-                    $('.lesson-left').show().find('button.left-btn').data('pageurl',res.prev_page_url);
-                }  
-                
+                if (res.next_page_url) { 
+    $('.lesson-right').show()
+        .find('button.right-btn')
+        .data('pageurl', res.next_page_url)
+        .attr('onclick', `loadlessonreview('${res.next_page_url}')`); // Adding onclick event
+} else {
+    $('.lesson-finish').show();
+}
 
-                
+if (res.prev_page_url) {
+    $('.lesson-left').show()
+        .find('button.left-btn')
+        .data('pageurl', res.prev_page_url)
+        .attr('onclick', `loadlessonreview('${res.prev_page_url}')`); // Adding onclick event
+}
+
+
+
             },'json')
 
          }
