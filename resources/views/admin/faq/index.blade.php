@@ -337,6 +337,8 @@ $(function() {
             // Hide the cancel button
             $('#table-category-form-clear').hide();
 
+            console.log("test1");
+
             // Reload the DataTable to show updated data
             $('#table-faq').DataTable().ajax.reload();
         },
@@ -360,6 +362,7 @@ $('#table-category-form-clear').on('click', function() {
 
     // Hide the cancel button
     $(this).hide();
+    console.log("test2");
 });
 
 $('#subcategory').on('submit', function(e) {
