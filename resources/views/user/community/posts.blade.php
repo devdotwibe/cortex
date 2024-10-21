@@ -27,7 +27,7 @@
             <div class="row">
                 <!-- Left Sidebar for Hashtags -->
                 <div class="post-col1">
-                    <h4>SPACES</h4>
+                    <h4>Channels</h4>
                     <!-- Link styled as a textbox -->
                     <div class="mb-3 back-btn-wrapp">
                         <label for="backtoall " class="form-label"></label>
