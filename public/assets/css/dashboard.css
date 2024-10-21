@@ -521,6 +521,7 @@ margin-left:auto;
   border: none;
   width: 200px;
   position: relative;
+  font-size: 20px;
 }
 
 .lesson-pagination .right-btn img {
@@ -2713,7 +2714,7 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark .active img.inactive-img { opacity: 1;}
 .lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark a { cursor: pointer; display: flex; flex-wrap: wrap; align-items: center; padding: 12px 20px; justify-content: center;position: relative;}
 .exam-footer .lesson-pagination .lesson-finish {margin-left: 0;}
-.lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark .flagclass {font-size: 26px; color: #000;}
+.lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark .flagclass {font-size: 20px; color: #000;}
 .lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark  #flagimages { width: 40px; margin: 0 0 0 20px; position: absolute; top: 50%; transform: translateY(-50%); right: 0;}
 .lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark .active .active-img {opacity: 0;}
 
