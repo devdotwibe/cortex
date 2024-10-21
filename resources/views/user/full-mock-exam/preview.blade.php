@@ -8,7 +8,7 @@
                 <div class="progress-main">
 
                     <div class="exam-exit ">
-                        <a  href="{{route('full-mock-exam.index')}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
+                        <a  href="{{route('full-mock-exam.index')}}" title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
                             <img src="{{asset("assets/images/exiticon-wht.svg")}}" alt="exiticon">
                         </a>
                     </div>
@@ -42,6 +42,8 @@
             </div>
            
         </div>
+        
+    </div>
     <div class="container-wrap mcq-container-wrap full-mock-exam-review">
         <div class="lesson">            
             {{-- <a class="lesson-exit float-start" href="{{route('full-mock-exam.index')}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
@@ -218,37 +220,39 @@
                         }
                      })
                 }
- 
                 $('.lesson-end').show();
-                if (res.next_page_url) { 
-    $('.lesson-right').show()
-        .find('button.right-btn')
-        .data('pageurl', res.next_page_url)
-        .attr('onclick', `loadlessonreview('${res.next_page_url}')`); // Adding onclick event
+
+
+if (res.next_page_url) { 
+$('.lesson-right').show()
+.find('button.right-btn')
+.data('pageurl', res.next_page_url)
+.attr('onclick', `loadlessonreview('${res.next_page_url}')`); // Adding onclick event
 } else {
-    $('.lesson-finish').show();
+$('.lesson-finish').show();
 }
 
 if (res.prev_page_url) {
-    $('.lesson-left').show()
-        .find('button.left-btn')
-        .data('pageurl', res.prev_page_url)
-        .attr('onclick', `loadlessonreview('${res.prev_page_url}')`); // Adding onclick event
+$('.lesson-left').show()
+.find('button.left-btn')
+.data('pageurl', res.prev_page_url)
+.attr('onclick', `loadlessonreview('${res.prev_page_url}')`); // Adding onclick event
 }
 
 $('#menu-text').html(`Question <span> ${res.current_page} </span> `)
 
-            },'json')
+},'json')
 
-         }
-         $(function(){
-            loadlessonreview()
-         })
-         function toglepreviewpage(){
-            // timerActive=!timerActive; 
-            $('#question-preview-page').slideToggle()
-            $('#question-answer-page').fadeToggle()
-        }
+}
+
+$(function(){
+loadlessonreview()
+})
+function toglepreviewpage(){
+// timerActive=!timerActive; 
+$('#question-preview-page').slideToggle()
+$('#question-answer-page').fadeToggle()
+}
 </script>
 
 @endpush
