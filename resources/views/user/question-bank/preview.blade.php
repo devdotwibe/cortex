@@ -13,9 +13,9 @@
                         </a>
                     </div>
 
-                    <div class="question-number">
+                    {{-- <div class="question-number">
                         <span>Question: </span>
-                    </div>
+                    </div> --}}
     
                     <div class="Review-mode">
                         <span>Review Mode: </span>
