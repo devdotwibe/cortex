@@ -2975,6 +2975,13 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 #report-post .modal-dialog .modal-content .modal-body .form-group button.btn.btn-danger:hover { background: none; color: #000000;}
 
 
+.quest-progress .progress-main { min-width: inherit; margin: 0 0 -7px;}
+.quest-progress .question-number { margin: 0 auto 0 20px;}
+.quest-progress .question-number .menu-text { font-size: 22px; color: #ffff;}
+.quest-progress  .Review-mode { font-size: 22px; color: #ffff;}
+
+
+
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
 
