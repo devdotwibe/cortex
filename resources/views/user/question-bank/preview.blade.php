@@ -58,7 +58,7 @@
         </div>
 
 
-        <div class="exam-right exam-progress-inner-item">
+        {{-- <div class="exam-right exam-progress-inner-item">
 
             <div class="progress-main">
                 <div class="bookmark">
@@ -74,7 +74,7 @@
                     </a>
                 </div>
             </div>
-        </div>
+        </div> --}}
         
 
 
