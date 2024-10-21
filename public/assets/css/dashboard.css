@@ -3002,7 +3002,16 @@ nav.navbar.header-class { display: none;}
 .modal-expand.modal-expand-result .container-wrap .question-preview-body .col-md-3 .card-body .exam-mark-body .mark-label {  padding: 20px 20px 15px;  border: 1px solid #DFDFDF; border-radius: 10px;}
 .modal-expand.modal-expand-result .container-wrap .question-preview-body .col-md-3 .card-body .exam-mark-body .mark-label span { display: block; color: #978E8E;}
 .modal-expand.modal-expand-result .container-wrap .question-preview-body .col-md-3 .card-body .exam-mark-body .mark-label span:first-child { color: #000000;}
-
+.modal-expand.modal-expand-result .container-wrap .question-preview-body .exam-overview .vl {  display: none;}
+.modal-expand.modal-expand-result .container-wrap .question-preview-body .exam-overview  .topictest-overview {   background: #fff;   padding: 30px;   border-radius: 10px;   margin: 0 0 20px;}
+.modal-expand.modal-expand-result .container-wrap .question-preview-body .exam-overview .topictest-overview .overview-title h3 {  margin: 0 0 20px; font-size: 20px;  font-weight: 500;}
+.modal-expand.modal-expand-result .container-wrap .question-preview-body .exam-overview .topictest-overview .overview-table {  margin: 0 0 0;   padding: 0 0 0;}
+.modal-expand.modal-expand-result .container-wrap .question-preview-body .exam-overview .topictest-overview .overview-table table tr th {  background: none;   padding: 15px;}
+.modal-expand.modal-expand-result .container-wrap .question-preview-body .exam-overview .topictest-overview .overview-table table thead  tr th {  text-align: center;}
+.modal-expand.modal-expand-result .container-wrap .question-preview-body .exam-overview .topictest-overview .overview-table table tr td {   padding: 15px;   text-align: center;}
+.modal-expand.modal-expand-result .container-wrap .question-preview-body .exam-overview .topic-overview {   background: #fff; padding: 30px;  border-radius: 10px;}
+.modal-expand.modal-expand-result .container-wrap .question-preview-body .exam-overview .topic-overview h5 {  font-size: 15px;   margin: 0 0 15px;}
+.modal-expand.modal-expand-result .container-wrap .question-preview-body .exam-overview .topic-overview h3 {   font-size: 20px;   font-weight: 500;   margin: 0 0 22px;}
 
 
 @media screen and (max-width:1500px) {
