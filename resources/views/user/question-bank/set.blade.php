@@ -1,5 +1,5 @@
 @extends('layouts.exam')
-{{-- @section('title', $exam->subtitle($category->id,"Topic ".($category->getIdx()+1)).':'.$category->name) --}}
+@section('title', $exam->subtitle($category->id,"Topic ".($category->getIdx()+1)).':'.$category->name)
 @section('content')
 <section class="exam-container questionclass">
     <div class="exam-progress">
