@@ -37,7 +37,18 @@ class FaqController extends Controller
 
 
 
-                '<a onclick="delfaq('."'".route('admin.faq.del_faq', $data->id)."'".')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/delete.svg").'" alt=""></a>';
+
+
+                '<a onclick="delfaq('."'".route('admin.faq.del_faq', $data->id)."'".')"  class="btn btn-icons edit_btn">
+                <span class="adminside-icon">
+                    <img src="' . asset("assets/images/icons/material-symbols_delete-outline.svg") . '" alt="Delete">
+                </span>
+                <span class="adminactive-icon">
+                    <img src="' . asset("assets/images/iconshover/material-symbols_delete-yellow.svg") . '" alt="Delete Active">
+                </span>
+            </a>'; 
+
+
             })
 
 

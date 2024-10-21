@@ -198,9 +198,19 @@ class LiveClassController extends Controller
                 // if (!empty($data->user)) {
                     if($data->status=="approved"&&!empty($data->user)){
                     $action .= '
+                   
+
+
                     <a href="' . route("admin.user.spectate1", $data->user->slug) . '" target="_blank" rel="noreferrer" class="btn btn-icons spectate_btn">
-                        <img src="' . asset("assets/images/spectate.svg") . '" alt="">
-                    </a>';
+                    <span class="adminside-icon">
+                        <img src="' . asset('assets/images/icons/mdi_incognitospectate.svg') . '" alt="Spectate">
+                    </span>
+                    <span class="adminactive-icon">
+                        <img src="' . asset('assets/images/iconshover/mdi_incognito-yellow.svg') . '" alt="Spectate Active">
+                    </span>
+                </a>';
+
+
                 }
                 
                 
@@ -222,10 +232,20 @@ class LiveClassController extends Controller
 
                     ';
                 }
-                $action.='
+                $action.=' 
                  <a  class="btn btn-icons dlt_btn" data-delete="'.route("admin.live-class.request.destroy",$data->slug).'">
-                    <img src="'.asset("assets/images/delete.svg").'" alt="">
-                </a> 
+                        <span class="adminside-icon">
+                            <img src="' . asset("assets/images/icons/material-symbols_delete-outline.svg") . '" alt="Delete">
+                        </span>
+                        <span class="adminactive-icon">
+                            <img src="' . asset("assets/images/iconshover/material-symbols_delete-yellow.svg") . '" alt="Delete Active">
+                        </span>
+                    </a>
+                
+
+                
+
+
                 ';
                 return $action;
             })->addColumn('timeslottext',function($data){

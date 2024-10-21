@@ -38,7 +38,8 @@
                                         @if ($user->is_free_access||(optional($user->subscription())->status??"")=="subscribed"||($k == 0&&$sk==0)) 
                                         <a @if($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$item->id.'-set-'.$set->id.'-complete-review',"no")=="yes") @elseif($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$item->id.'-set-'.$set->id.'-complete-date',"")=="")  @guest('admin') onclick="confimexam('{{route('question-bank.set.show',['category'=>$category->slug,'sub_category'=>$item->slug,'setname'=>$set->slug])}}')" @endguest @else onclick="loadlessonsetreviews('{{route('question-bank.set.history',['category'=>$category->slug,'sub_category'=>$item->slug,'setname'=>$set->slug])}}')" @endif >
                                         @else
-                                        <a href="{{route('pricing.index')}}">
+                                        {{-- <a href="{{route('pricing.index')}}"> --}}
+                                            <a href="javascript:void(0);" onclick="showLockedModal()">
                                         @endif
                                             <span class="sets-title">{{$set->name}}</span>
                                         </a>
@@ -62,6 +63,28 @@
 @endsection
 
 @push('modals')
+
+<!-- Locked Content Modal -->
+<div id="lockedModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Content Locked</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeLockedModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>The content is locked and a subscription is required.</p>
+            </div>
+            <div class="modal-footer">
+                <a href="{{ route('pricing.index') }}#our-plans" class="btn btn-primary">View Pricing Plans</a>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeLockedModal()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
  
 <div class="modal fade" id="review-history-modal" tabindex="-1" role="dialog" aria-labelledby="Label" aria-hidden="true">
     <div class="modal-dialog ">
@@ -85,6 +108,19 @@
 </div>
 @endpush
 @push('footer-script') 
+
+
+<script>
+    function showLockedModal() {
+        document.getElementById('lockedModal').style.display = 'block';
+    }
+    
+    function closeLockedModal() {
+        document.getElementById('lockedModal').style.display = 'none';
+    }
+    </script>
+
+    
     <script> 
     localStorage.setItem("question-bank", "timed");
     function changemode(v){

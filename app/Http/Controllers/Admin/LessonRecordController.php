@@ -32,9 +32,18 @@ class LessonRecordController extends Controller
 </a>
 
 
-                     <a  class="btn btn-icons dlt_btn" data-delete="'.route("admin.lesson-record.destroy",["lesson_recording"=>$lessonRecording->slug,"record_video"=>$data->slug]).'">
-                        <img src="'.asset("assets/images/delete.svg").'" alt="">
-                    </a> 
+                     
+                    
+                      <a  class="btn btn-icons dlt_btn" data-delete="'.route("admin.lesson-record.destroy",["lesson_recording"=>$lessonRecording->slug,"record_video"=>$data->slug]).'">
+                        <span class="adminside-icon">
+                            <img src="' . asset("assets/images/icons/material-symbols_delete-outline.svg") . '" alt="Delete">
+                        </span>
+                        <span class="adminactive-icon">
+                            <img src="' . asset("assets/images/iconshover/material-symbols_delete-yellow.svg") . '" alt="Delete Active">
+                        </span>
+                    </a>
+
+
                     ';
                 })->addColumn('visibility',function($data)use($lessonRecording){
                     return '                

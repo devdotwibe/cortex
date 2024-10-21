@@ -31,7 +31,10 @@
                                     href="#" onclick="loadlessonreviews('{{ route('learn.lesson.history', ['category' => $category->slug, 'sub_category' => $item->slug]) }}', {{$k+1}}); return false;"
                                 @endif> 
                             @else
-                            <a href="{{route('pricing.index')}}">
+                            {{-- <a href="{{route('pricing.index')}}"> --}}
+                                <a href="javascript:void(0);" onclick="showLockedModal()">
+
+
                             @endif
                             <div class="lesson-row">
                                 <div class="lesson-row-title">
@@ -61,6 +64,29 @@
 @endsection
 
 @push('modals')
+
+
+<!-- Locked Content Modal -->
+<div id="lockedModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Content Locked</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeLockedModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>The content is locked and a subscription is required.</p>
+            </div>
+            <div class="modal-footer">
+                <a href="{{ route('pricing.index') }}#our-plans" class="btn btn-primary">View Pricing Plans</a>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeLockedModal()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div class="modal fade" id="review-history-modal" tabindex="-1" role="dialog" aria-labelledby="Label" aria-hidden="true">
     <div class="modal-dialog">
@@ -106,6 +132,19 @@
 @endpush
 
 @push('footer-script') 
+
+<script>
+    function showLockedModal() {
+        document.getElementById('lockedModal').style.display = 'block';
+    }
+    
+    function closeLockedModal() {
+        document.getElementById('lockedModal').style.display = 'none';
+    }
+    </script>
+ 
+ 
+ 
 <script>
     // Get the lesson ID from the server-side to the client-side
     const lessonId = "{{ $item->id }}"; // Ensure this variable is passed from the controller

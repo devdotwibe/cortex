@@ -48,9 +48,19 @@ class LessonMaterialController extends Controller
 
                     // if(empty($data->subcategories) || count($data->subcategories) == 0)
                     // { 
-                        $action.=  '<a  class="btn btn-icons dlt_btn" data-delete="'.route("admin.lesson-material.destroy_lesson_material",$data->slug).'" >
-                                <img src="'.asset("assets/images/delete.svg").'" alt="">
-                            </a> '; 
+                        $action.=   '<a  class="btn btn-icons dlt_btn" data-delete="'.route("admin.lesson-material.destroy_lesson_material",$data->slug).'" >
+                        <span class="adminside-icon">
+                            <img src="' . asset("assets/images/icons/material-symbols_delete-outline.svg") . '" alt="Delete">
+                        </span>
+                        <span class="adminactive-icon">
+                            <img src="' . asset("assets/images/iconshover/material-symbols_delete-yellow.svg") . '" alt="Delete Active">
+                        </span>
+                    </a> ';  
+
+
+                          
+
+
                     // } 
             
                     return $action;

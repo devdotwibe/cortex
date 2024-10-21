@@ -37,9 +37,18 @@ class HomeWorkController extends Controller
 </a>
 
 
+                     
+
+
                      <a  class="btn btn-icons dlt_btn" data-delete="'.route("admin.home-work.destroy",["home_work"=>$homeWork->slug,"home_work_question"=>$data->slug]).'">
-                        <img src="'.asset("assets/images/delete.svg").'" alt="">
-                    </a> 
+                            <span class="adminside-icon">
+                                <img src="' . asset("assets/images/icons/material-symbols_delete-outline.svg") . '" alt="Delete">
+                            </span>
+                            <span class="adminactive-icon">
+                                <img src="' . asset("assets/images/iconshover/material-symbols_delete-yellow.svg") . '" alt="Delete Active">
+                            </span>
+                        </a> 
+
                     ';
                 })->addColumn('visibility',function($data)use($homeWork){
                     return '                

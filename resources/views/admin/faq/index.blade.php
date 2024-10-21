@@ -318,6 +318,7 @@ $(function() {
     $('#table-category-form-create').on('submit', function(e) {
     e.preventDefault(); 
 
+   
     $('.error').html(''); 
     $('.invalid-feedback').text('');
     $('.form-control').removeClass('is-invalid');
@@ -332,9 +333,11 @@ $(function() {
             
             // Reset the button text back to "Add +"
             $('#table-category-form-submit').text(' Add + ');
-
+           
             // Hide the cancel button
             $('#table-category-form-clear').hide();
+
+            console.log("test1");
 
             // Reload the DataTable to show updated data
             $('#table-faq').DataTable().ajax.reload();
@@ -351,14 +354,18 @@ $(function() {
 });
 
 $('#table-category-form-clear').on('click', function() {
+    var storeurl = "{{route('admin.faq.store')}}";
     // Reset the form fields
     $('#table-category-form-create')[0].reset();
 
     // Reset the button text back to "Add +"
     $('#table-category-form-submit').text(' Add + ');
 
+    $('#table-category-form-create').attr('action',storeurl)
+
     // Hide the cancel button
     $(this).hide();
+    console.log("test2");
 });
 
 $('#subcategory').on('submit', function(e) {
@@ -521,7 +528,7 @@ $('#table-subcategory-form-clear').on('click', function() {
 
     // Reset the form fields to their initial state (question and answer fields)
     $('#subcategory')[0].reset();
-
+console.log("test");
     // Clear error messages and remove any invalid input classes
     $('#name-error-table-subcategory-form-create').text("");
     $('#name-table-subcategory-form-create').removeClass("is-invalid");
