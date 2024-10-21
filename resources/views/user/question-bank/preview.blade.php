@@ -96,125 +96,7 @@
 @push('footer-script') 
 
 <script>
-
-
-function loadlesson(pageurl=null){ 
-             
-             $.get(pageurl||"{{ route('question-bank.set.attempt',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug]) }}",function(res){
-                 $('.pagination-arrow').hide();
-                 $('#lesson-footer-pagination').html('')
-                 timerActive=true;
-                 $('#question-preview-page').fadeOut()
-                 $('#question-answer-page').fadeIn()
-                 const lesseonId=generateRandomId(10);  
-                 cudx=res.current_page;
-                 notansweridx.push(cudx) 
-                 notansweridx = [...new Set(notansweridx)]
-                 answeridx=answeridx.filter(item => item !== cudx)
-                 refreshstatus(cudx,'not-answered');
-                 if(flagdx[cudx]){
-                     $("#bookmark-current").addClass('active');
-                     $("#flagtext").text('Unflag');
-                 }else{
-                     $("#bookmark-current").removeClass('active');
-                     $("#flagtext").text('Flag');
-                 }
-                 $.each(res.data,function(k,v){ 
-                         $('#lesson-questionlist-list').html(`
-                             <div class="col-md-12">
-                                 <div class="mcq-row" >
-                                     <div class="mcq-title">
-                                         <span>${v.title||""}</span>
-                                     </div>
-                                     <div class="mcq-container">
-                                         <div class="mcq-group">
-                                             <h3><span>{{$exam->subtitle($category->id,"Topic ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h3>
-                                             <div class="mcq-title-text" ${v.title_text?"":'style="display:none"'}>
-                                                 ${v.title_text||""}
-                                             </div>
-                                             <div id="mcq-${lesseonId}" class="mcq-description">
-                                                 ${v.description||""}
-                                             </div>
-                                         </div>
-                                         <div class="mcq-answer">
-                                             <div  class="mcq-description">
-                                                 ${v.sub_question||""}
-                                             </div>
-                                             <div id="mcq-${lesseonId}-ans" class="form-group" >
-                                                 <div class="form-data" >
-                                                     <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list"> 
-                                                         
-                                                     </div> 
-                                                 </div>
-                                             </div>
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
-                         `).fadeIn();
-                         if(!timercurrent[v.slug]){ 
-                             timercurrent[v.slug]=0; 
-                         } 
-                         currentSlug=v.slug;
-                         $.get(pageurl||"{{ route('question-bank.set.attempt',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug]) }}",{question:v.slug},function(ans){
-                             $(`#mcq-${lesseonId}-list`).html('')
-                             $.each(ans,function(ai,av){
-                                 const letter = String.fromCharCode(ai + 'A'.charCodeAt(0))
-                                 $(`#mcq-${lesseonId}-list`).append(`
-                                     <div class="form-check">
-                                         <input type="radio" name="answer" data-page="${cudx}" data-question="${v.slug}" id="user-answer-${lesseonId}-ans-item-${ai}" value="${av.slug}" class="form-check-input"  >        
-                                         <label for="user-answer-${lesseonId}-ans-item-${ai}" >${ letter }. ${av.title}</label>
-                                     </div>  
-                                 `)
-                             })
-                             refreshquestionanswer(v.slug,function(data){
-                                 $(`#mcq-${lesseonId}-list input[value="${data.value}"]`).prop("checked",true)
-                                 if(data.value){
-                                     answeridx.push(cudx) 
-                                     answeridx = [...new Set(answeridx)]
-                                     notansweridx=notansweridx.filter(item => item !== cudx)
-                                     refreshstatus(cudx,'answered');
-                                 }
-                             }) 
-                         },'json').fail(function(xhr,status,error){
-                             showToast("Error: " + error, 'danger'); 
-                         }) 
-                 }) 
-                 if(res.next_page_url){ 
-                     $('.lesson-right').show().find('button.right-btn').data('pageurl',res.next_page_url);
-                 }else{
-                     $('.lesson-finish').show();
-                 }
-                 if(res.prev_page_url){
-                     $('.lesson-left').show().find('button.left-btn').data('pageurl',res.prev_page_url);
-                 }  
-                 
-                 $('#menu-text').html(`Question <span> ${res.current_page} </span> of <span> ${res.total}</span>`)
- 
-             },'json').fail(function(xhr,status,error){
-                 showToast("Error: " + error, 'danger'); 
-             })
- 
-             const csrf= $('meta[name="csrf-token"]').attr('content'); 
-             progressurl=pageurl; 
-             fetch("{{route('progress')}}", {
-                 method: 'POST',
-                 headers: {
-                     'Content-Type': 'application/json',
-                     'X-CSRF-TOKEN': csrf,
-                     'X-Requested-With': 'XMLHttpRequest'
-                 },
-                 body: JSON.stringify({
-                     name:"exam-{{$exam->id}}-topic-{{$category->id}}-lesson-{{$subCategory->id}}-set-{{$setname->id}}-progress-url",
-                     value:progressurl
-                 }),
-             }); 
-                  
-          }
-
-
-
-          
+    
         var useranswers=@json($useranswer);
         var timelist=@json(json_decode($user->progress("exam-reviewed-".$userExamReview->id."-times",'[]')));
         function generateRandomId(length) {
@@ -282,6 +164,7 @@ function loadlesson(pageurl=null){
                             </div>
                         </div>
                     `).fadeIn();
+                    
                     $.get("{{ route('question-bank.preview',$userExamReview->slug) }}",{question:v.slug},function(ans){
                         $(`#mcq-${lesseonId}-list`).html('')
                         $(`#mcq-${lesseonId}-list-progress`).html('')
@@ -311,6 +194,8 @@ function loadlesson(pageurl=null){
                     },'json')
                      
                 }) 
+
+
                 if(res.total>1){
                      $.each(res.links,function(k,v){
                         let linkstatus="";
@@ -340,6 +225,19 @@ function loadlesson(pageurl=null){
                 }
  
                 $('.lesson-end').show();
+
+
+                if(res.next_page_url){ 
+                    $('.lesson-right').show().find('button.right-btn').data('pageurl',res.next_page_url);
+                }else{
+                    $('.lesson-finish').show();
+                }
+                if(res.prev_page_url){
+                    $('.lesson-left').show().find('button.left-btn').data('pageurl',res.prev_page_url);
+                }  
+                
+
+                
             },'json')
 
          }
