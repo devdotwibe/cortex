@@ -2713,7 +2713,7 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark img { width: 100%;display: block; transition: all .25s ease-in-out;}
 .lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark  img.inactive-img { position: absolute; top: 0; left: 0; opacity: 0;}
 .lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark .active img.inactive-img { opacity: 1;}
-.lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark a { cursor: pointer; display: flex; flex-wrap: wrap; align-items: center; padding: 12px 20px; justify-content: center;position: relative;}
+.lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark a { cursor: pointer; display: flex; flex-wrap: wrap; align-items: center; padding: 22px 20px; justify-content: center;position: relative;}
 .exam-footer .lesson-pagination .lesson-finish {margin-left: 0;}
 .lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark .flagclass {font-size: 20px; color: #000;font-weight: 600;}
 .lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark  #flagimages { width: 40px; margin: 0 0 0 20px; position: absolute; top: 50%; transform: translateY(-50%); right: 0;}
