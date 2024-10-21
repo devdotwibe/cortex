@@ -23,7 +23,7 @@
                 </div>
             </div>
            
-            <div class="exam-center exam-progress-inner">
+            <div class="question-header question-number">
                 <div class="progress-menus">
                     <div class="menu-text">
                         <span id="menu-text" >Question <span> 0 </span>   <span>0 </span> </span>
@@ -49,9 +49,9 @@
 
     <div class="container-wrap mcq-container-wrap question-bank-review">
         <div class="lesson">            
-            <a class="lesson-exit float-start" href="{{route('question-bank.show',$category->slug)}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
+            {{-- <a class="lesson-exit float-start" href="{{route('question-bank.show',$category->slug)}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
                 <img src="{{asset("assets/images/exiticon.svg")}}" alt="exiticon">
-            </a>
+            </a> --}}
             {{-- <div class="lesson-title">
                 <h3><span>{{$exam->subtitle($category->id,"Topic ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h3>
             </div> --}}
