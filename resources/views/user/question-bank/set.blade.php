@@ -304,9 +304,9 @@
             timerDiv.slideToggle(300, function() {
 
                 if (timerDiv.is(':visible')) {
-                    button.text('Hide time');
+                    button.text('Hide Time');
                 } else {
-                    button.text('Show time');
+                    button.text('Show Time');
                     button.insertAfter(timerDiv);
                 }
             });
