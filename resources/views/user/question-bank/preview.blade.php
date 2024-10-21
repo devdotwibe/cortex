@@ -7,11 +7,11 @@
             <div class="exam-progress-inner-item exam-left">
                 <div class="progress-main">
 
-                    {{-- <div class="exam-exit ">
+                    <div class="exam-exit ">
                         <a   href="{{route('question-bank.show',$category->slug)}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
                             <img src="{{asset("assets/images/exiticon-wht.svg")}}" alt="exiticon">
                         </a>
-                    </div> --}}
+                    </div>
 
                     {{-- <div class="question-number">
                         <span>Question: </span>
