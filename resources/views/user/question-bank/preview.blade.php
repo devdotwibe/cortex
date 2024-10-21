@@ -12,6 +12,12 @@
                             <img src="{{asset("assets/images/exiticon-wht.svg")}}" alt="exiticon">
                         </a>
                     </div>
+
+                    <div class="question-number">
+                        <span>Question: {{ $currentQuestionNumber }}</span>
+                    </div>
+    
+
                    
 
                     
