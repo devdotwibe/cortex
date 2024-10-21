@@ -332,7 +332,7 @@ $(function() {
             $('#table-category-form-create')[0].reset();
             
             // Reset the button text back to "Add +"
-            $('#table-category-form-submit').text(' Add + 33');
+            $('#table-category-form-submit').text(' Add + ');
             $('#table-category-form-create').attr('action',storeurl)
             // Hide the cancel button
             $('#table-category-form-clear').hide();
@@ -522,7 +522,7 @@ $('#table-subcategory-form-clear').on('click', function() {
 
     // Reset the form fields to their initial state (question and answer fields)
     $('#subcategory')[0].reset();
-
+console.log("test");
     // Clear error messages and remove any invalid input classes
     $('#name-error-table-subcategory-form-create').text("");
     $('#name-table-subcategory-form-create').removeClass("is-invalid");
