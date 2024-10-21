@@ -17,19 +17,7 @@
                     
                 </div>
             </div>
-            <div class="exam-center exam-progress-inner-item">
-                <div class="progress-menu">
-                    <div class="menu-text">
-                        <span id="menu-text" >Question <span> 0 </span>  of <span>0 </span> </span>
-                      
-                    </div>
-                    <div class="menu-icon"> 
-                        <a onclick="toglepreviewpage()" >
-                            <img src="{{asset("assets/images/menu.svg")}}" alt="exiticon">
-                        </a>
-                    </div>
-                </div>
-            </div>
+           
            
         </div>
         
