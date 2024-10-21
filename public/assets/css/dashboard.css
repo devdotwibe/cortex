@@ -513,7 +513,7 @@ margin-left:auto;
   display: flex;
   color: #FFF;
   background:#1789fa;
-  padding:5px 15px;
+  padding: 16px 15px;
   justify-content: center;
   align-items: center;
   height: 100%;
@@ -521,6 +521,26 @@ margin-left:auto;
   border: none;
   width: 200px;
 }
+
+.lesson-pagination .right-btn img {
+  width: 12px;
+  margin: 0 0 0 10px;
+}
+
+.lesson-pagination .left-btn img {
+  width: 12px;
+  margin: 0 10px 0 0;
+}
+
+.exam-footer.criticalclass .lesson-pagination .lesson-finish {
+  margin-left: auto;
+}
+
+.lesson-pagination .finish-btn img {
+  width: 12px;
+  margin: 0 0 0 10px;
+}
+
 
 .exam-container .container-wrap .lesson .lesson-body {
   margin: 0 0 0;
