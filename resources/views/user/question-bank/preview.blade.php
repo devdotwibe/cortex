@@ -14,7 +14,7 @@
                     </div>
 
                     <div class="question-number">
-                        <span>Question: {{ $currentQuestionNumber }}</span>
+                        <span>Question: </span>
                     </div>
     
 
