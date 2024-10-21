@@ -61,6 +61,20 @@
         <div class="exam-right exam-progress-inner-item">
 
             <div class="progress-main">
+
+                <div class="exam-center exam-progress-inner-item">
+                    <div class="progress-menu">
+                        <div class="menu-text">
+                            <span id="menu-text" >Question <span> 0 </span>  of <span>0 </span> </span>
+                          
+                        </div>
+                        <div class="menu-icon"> 
+                            <a onclick="toglepreviewpage()" >
+                                <img src="{{asset("assets/images/menu.svg")}}" alt="exiticon">
+                            </a>
+                        </div>
+                    </div>
+                </div>
                 {{-- <div class="bookmark">
                     
                     <a class="" id="bookmark-current" >
@@ -252,7 +266,11 @@ if (res.prev_page_url) {
          $(function(){
             loadlessonreview()
          })
-
+         function toglepreviewpage(){
+            // timerActive=!timerActive; 
+            $('#question-preview-page').slideToggle()
+            $('#question-answer-page').fadeToggle()
+        }
 </script>
 
 @endpush
