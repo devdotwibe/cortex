@@ -520,16 +520,23 @@ margin-left:auto;
   margin:auto;
   border: none;
   width: 200px;
+  position: relative;
+  font-size: 20px;
+  font-weight: 600;
 }
 
 .lesson-pagination .right-btn img {
   width: 12px;
   margin: 0 0 0 10px;
+  position: absolute;
+  right: 20px;
 }
 
 .lesson-pagination .left-btn img {
   width: 12px;
   margin: 0 10px 0 0;
+  position: absolute;
+  left: 20px;
 }
 
 .exam-footer.criticalclass .lesson-pagination .lesson-finish {
@@ -539,6 +546,8 @@ margin-left:auto;
 .lesson-pagination .finish-btn img {
   width: 12px;
   margin: 0 0 0 10px;
+  position: absolute;
+  right: 20px;
 }
 
 
@@ -2704,10 +2713,10 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark img { width: 100%;display: block; transition: all .25s ease-in-out;}
 .lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark  img.inactive-img { position: absolute; top: 0; left: 0; opacity: 0;}
 .lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark .active img.inactive-img { opacity: 1;}
-.lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark a { cursor: pointer; display: flex; flex-wrap: wrap; align-items: center; padding: 12px 20px; justify-content: center;}
+.lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark a { cursor: pointer; display: flex; flex-wrap: wrap; align-items: center; padding: 12px 20px; justify-content: center;position: relative;}
 .exam-footer .lesson-pagination .lesson-finish {margin-left: 0;}
-.lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark .flagclass {font-size: 26px; color: #000;}
-.lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark  #flagimages { width: 40px; margin: 0 0 0 20px;position: relative;}
+.lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark .flagclass {font-size: 20px; color: #000;font-weight: 600;}
+.lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark  #flagimages { width: 40px; margin: 0 0 0 20px; position: absolute; top: 50%; transform: translateY(-50%); right: 0;}
 .lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark .active .active-img {opacity: 0;}
 
 .support-content { background: #FFFFFF; padding: 20px 20px; box-shadow: 4px 0px 16px 0px #0000000A; border-radius: 10px; margin: 16px 0 20px !important;}
