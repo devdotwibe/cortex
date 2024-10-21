@@ -2,6 +2,49 @@
 @section('title', $exam->subtitle($category->id,"Module ".($category->getIdx()+1)).':'.$category->name)
 @section('content')
 <section class="exam-container">
+    <div class="exam-progress">
+        <div class="exam-progress-inner">
+            <div class="exam-progress-inner-item exam-left">
+                <div class="progress-main">
+
+                    <div class="exam-exit ">
+                        <a   href="{{route('question-bank.show',$category->slug)}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
+                            <img src="{{asset("assets/images/exiticon-wht.svg")}}" alt="exiticon">
+                        </a>
+                    </div>
+
+                    {{-- <div class="question-number">
+                        <span>Question: </span>
+                    </div> --}}
+    
+                   
+
+                    
+                </div>
+            </div>
+           
+            <div class="exam-center exam-progress-inner">
+                <div class="progress-menus">
+                    <div class="menu-text">
+                        <span id="menu-text" >Question <span> 0 </span>   <span>0 </span> </span>
+                      
+                    </div>
+                    <div class="menu-icon"> 
+                        <a onclick="toglepreviewpage()" >
+                            {{-- <img src="{{asset("assets/images/menu.svg")}}" alt="exiticon"> --}}
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="Review-mode">
+                <span>Review Mode: </span>
+            </div>
+           
+        </div>
+        
+    </div>
+
     <div class="container-wrap">
         <div class="lesson">            
             <a class="lesson-exit float-start" href="{{route('learn.show',$category->slug)}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
