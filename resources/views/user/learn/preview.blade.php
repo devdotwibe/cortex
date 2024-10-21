@@ -23,7 +23,7 @@
                 </div>
             </div>
            
-            <div class="exam-center exam-progress-inner">
+            <div class="question-header question-number">
                 <div class="progress-menus">
                     <div class="menu-text">
                         <span id="menu-text" >Question <span> 0 </span>   <span>0 </span> </span>
@@ -44,12 +44,11 @@
         </div>
         
     </div>
-
     <div class="container-wrap">
         <div class="lesson">            
-            <a class="lesson-exit float-start" href="{{route('learn.show',$category->slug)}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
+            {{-- <a class="lesson-exit float-start" href="{{route('learn.show',$category->slug)}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
                 <img src="{{asset("assets/images/exiticon.svg")}}" alt="exiticon">
-            </a>
+            </a> --}}
             <div class="lesson-title">
                 <h5><span>{{$exam->subtitle($category->id,"Module ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h5>
             </div>
@@ -195,13 +194,48 @@
                         }
                      })
                 } 
+
+
+                
+                $('.lesson-end').show();
+
+
+                if (res.next_page_url) { 
+    $('.lesson-right').show()
+        .find('button.right-btn')
+        .data('pageurl', res.next_page_url)
+        .attr('onclick', `loadlessonreview('${res.next_page_url}')`); // Adding onclick event
+} else {
+    $('.lesson-finish').show();
+}
+
+if (res.prev_page_url) {
+    $('.lesson-left').show()
+        .find('button.left-btn')
+        .data('pageurl', res.prev_page_url)
+        .attr('onclick', `loadlessonreview('${res.prev_page_url}')`); // Adding onclick event
+}
+
+$('#menu-text').html(`Question <span> ${res.current_page} </span> `)
+
             },'json')
 
+
+           
+
          }
+
+
 
          $(function(){
             loadlessonreview()
          })
+
+         function toglepreviewpage(){
+            // timerActive=!timerActive; 
+            $('#question-preview-page').slideToggle()
+            $('#question-answer-page').fadeToggle()
+        }
 
 </script>
 
