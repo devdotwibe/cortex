@@ -58,10 +58,10 @@
         </div>
 
 
-        {{-- <div class="exam-right exam-progress-inner-item">
+        <div class="exam-right exam-progress-inner-item">
 
             <div class="progress-main">
-                <div class="bookmark">
+                {{-- <div class="bookmark">
                     
                     <a class="" id="bookmark-current" >
                         
@@ -72,9 +72,9 @@
                         <img class="inactive-img" src="{{asset("assets/images/flag-red.svg")}}" alt="bookmark">
                         </span>
                     </a>
-                </div>
+                </div> --}}
             </div>
-        </div> --}}
+        </div>
         
 
 
