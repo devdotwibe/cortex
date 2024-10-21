@@ -2988,6 +2988,10 @@ nav.navbar.header-class { display: none;}
 .exam-container.answerclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group { height: calc(100vh - 160px);}
 .exam-container.answerclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer { height: calc(100vh - 160px);}
 
+.exam-container.answerclass .lesson .lesson-title { margin: 0 0 15px;}
+
+.exam-container.answerclass .mcq-container-wrap.question-bank-review .lesson .lesson-body .mcq-container .mcq-group {height: calc(100vh - 245px);}
+.exam-container.answerclass .mcq-container-wrap.question-bank-review .lesson .lesson-body .mcq-container .mcq-answer { height: calc(100vh - 245px);}
 
 
 @media screen and (max-width:1500px) {
