@@ -13,9 +13,9 @@
                         </a>
                     </div>
 
-                    <div class="question-number">
+                    {{-- <div class="question-number">
                         <span>Question: </span>
-                    </div>
+                    </div> --}}
     
                     <div class="Review-mode">
                         <span>Review Mode: </span>
@@ -26,7 +26,19 @@
                 </div>
             </div>
            
-           
+            <div class="exam-center exam-progress-inner-item">
+                <div class="progress-menu">
+                    <div class="menu-text">
+                        <span id="menu-text" >Question <span> 0 </span>  of <span>0 </span> </span>
+                      
+                    </div>
+                    <div class="menu-icon"> 
+                        <a onclick="toglepreviewpage()" >
+                            {{-- <img src="{{asset("assets/images/menu.svg")}}" alt="exiticon"> --}}
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
         
     </div>
@@ -61,7 +73,9 @@
         <div class="exam-right exam-progress-inner-item">
 
             <div class="progress-main">
-                <div class="bookmark">
+
+                
+                {{-- <div class="bookmark">
                     
                     <a class="" id="bookmark-current" >
                         
@@ -72,7 +86,7 @@
                         <img class="inactive-img" src="{{asset("assets/images/flag-red.svg")}}" alt="bookmark">
                         </span>
                     </a>
-                </div>
+                </div> --}}
             </div>
         </div>
         
@@ -243,7 +257,7 @@ if (res.prev_page_url) {
         .attr('onclick', `loadlessonreview('${res.prev_page_url}')`); // Adding onclick event
 }
 
-
+$('#menu-text').html(`Question <span> ${res.current_page} </span> of <span> ${res.total}</span>`)
 
             },'json')
 
@@ -252,7 +266,11 @@ if (res.prev_page_url) {
          $(function(){
             loadlessonreview()
          })
-
+         function toglepreviewpage(){
+            // timerActive=!timerActive; 
+            $('#question-preview-page').slideToggle()
+            $('#question-answer-page').fadeToggle()
+        }
 </script>
 
 @endpush
