@@ -1,4 +1,5 @@
 @extends('layouts.exam')
+@section('headerclass','header-class')
 @section('title', $exam->subtitle($category->id,"Topic ".($category->getIdx()+1)).':'.$category->name)
 @section('content')
 <section class="exam-container questionclass">
@@ -27,7 +28,7 @@
                         </div>
                     </div> 
 
-                    <button class="btn hide-btn" id="hide_button" onclick="HideTime()">Hide time</button>
+                    <button class="btn hide-btn" id="hide_button" onclick="HideTime()">Hide Time</button>
 
                 </div>
             </div>
