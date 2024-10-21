@@ -707,7 +707,7 @@
                     flagdx[cudx]=false;
                     flagcurrent[currentSlug]=true;
                     $("#bookmark-current").removeClass('active');
-                    $("#flagtext").text('flag')
+                    $("#flagtext").text('Flag')
                     $(`#show-all .question-item[data-idx="${cudx}"]`).removeClass('status-flag')
                     $(`#flagged .question-item[data-idx="${cudx}"]`).removeClass('status-flag')
                 }else{

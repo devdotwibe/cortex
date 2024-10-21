@@ -24,8 +24,34 @@ class SubFaqController extends Controller
                 return
 
                 //'<a onclick="addsubfaq(\''.route('admin.faq.add_subfaq', $data->id).'\', \''.$data->id.'\')" class="btn btn-icons view_btn">+</a>'.
-                '<a onclick="delsubfaq('."'".route('admin.faq.del_subfaq', $data->id)."'".')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/delete.svg").'" alt=""></a>'.
-                '<a onclick="updatesubfaq('."'".route('admin.faq.edit_subfaq', $data->id)."'".')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>';
+
+
+
+                '<a onclick="delsubfaq('."'".route('admin.faq.del_subfaq', $data->id)."'".')"  class="btn btn-icons edit_btn">
+                        <span class="adminside-icon">
+                            <img src="' . asset("assets/images/icons/material-symbols_delete-outline.svg") . '" alt="Delete">
+                        </span>
+                        <span class="adminactive-icon">
+                            <img src="' . asset("assets/images/iconshover/material-symbols_delete-yellow.svg") . '" alt="Delete Active">
+                        </span>
+                    </a> '.
+
+
+
+
+
+               
+
+                '<a onclick="updatesubfaq('."'".route('admin.faq.edit_subfaq', $data->id)."'".')"  class="btn btn-icons edit_btn">
+                <span class="adminside-icon">
+                  <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
+                </span>
+                <span class="adminactive-icon">
+                    <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active">
+                </span>
+            </a>';
+
+
             })
 
 

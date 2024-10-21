@@ -23,9 +23,17 @@ class CouponController extends Controller
             self::$defaultActions=["delete"];
             return  $this->addAction(function($data){
                 return '                
-                    <a onclick="editcoupon('."'".route("admin.coupon.edit",$data->slug)."'".')" class="btn btn-icons edit_btn">
-                        <img src="'.asset("assets/images/edit.svg").'" alt="">
-                    </a>
+                    
+
+                     <a onclick="editcoupon('."'".route("admin.coupon.edit",$data->slug)."'".')" class="btn btn-icons edit_btn">
+    <span class="adminside-icon">
+      <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
+    </span>
+    <span class="adminactive-icon">
+        <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active">
+    </span>
+</a>
+
                 ';
             })->buildTable();
         }

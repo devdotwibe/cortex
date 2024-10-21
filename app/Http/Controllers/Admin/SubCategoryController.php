@@ -37,17 +37,45 @@ class SubCategoryController extends Controller
 
                             return '<!--<a onclick="subcategorysetlist(\'' . route('admin.set.set_store', $data->slug) . '\', \'' . $data->slug . '\')" class="btn btn-icons view_btn">+</a>-->' .
 
-                            '<a onclick="updatesubcategory(\'' . route('admin.subcategory.edit', $data->slug) . '\', \'' . $data->slug . '\' , \'subcategory\')"  class="btn btn-icons edit_btn"><img src="' . asset("assets/images/edit.svg") . '" alt=""></a>';
+                        
+                            '<a onclick="updatesubcategory(\'' . route('admin.subcategory.edit', $data->slug) . '\', \'' . $data->slug . '\' , \'subcategory\')"  class="btn btn-icons edit_btn">
+                            <span class="adminside-icon">
+                              <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
+                            </span>
+                            <span class="adminactive-icon">
+                                <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active">
+                            </span>
+                        </a>';
 
                         } else {
 
                             return '<!--<a onclick="subcategorysetlist(\'' . route('admin.set.set_store', $data->slug) . '\', \'' . $data->slug . '\')" class="btn btn-icons view_btn">+</a>-->' .
 
-                            '<a onclick="updatesubcategory(\'' . route('admin.subcategory.edit', $data->slug) . '\', \'' . $data->slug . '\' , \'subcategory\')"  class="btn btn-icons edit_btn"><img src="' . asset("assets/images/edit.svg") . '" alt=""></a>' .
+                         
 
-                            '<a  class="btn btn-icons dlt_btn" data-delete="' . route("admin.subcategory.destroy", $data->slug) . '">
-                        <img src="' . asset("assets/images/delete.svg") . '" alt="">
-                        </a> ';
+                        '<a onclick="updatesubcategory(\'' . route('admin.subcategory.edit', $data->slug) . '\', \'' . $data->slug . '\' , \'subcategory\')"  class="btn btn-icons edit_btn">
+                            <span class="adminside-icon">
+                              <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
+                            </span>
+                            <span class="adminactive-icon">
+                                <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active">
+                            </span>
+                        </a>' .
+
+
+                            
+
+
+                       '<a  class="btn btn-icons dlt_btn" data-delete="' . route("admin.subcategory.destroy", $data->slug) . '">
+                        <span class="adminside-icon">
+                            <img src="' . asset("assets/images/icons/material-symbols_delete-outline.svg") . '" alt="Delete">
+                        </span>
+                        <span class="adminactive-icon">
+                            <img src="' . asset("assets/images/iconshover/material-symbols_delete-yellow.svg") . '" alt="Delete Active">
+                        </span>
+                    </a> ';
+
+
 
                         }
 

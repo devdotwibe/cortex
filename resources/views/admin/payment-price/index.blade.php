@@ -148,9 +148,25 @@
                                         aria-labelledby="price{{ $k }}-tab">
                                         <div class="row mb-3">
                                             <div class="col-md-12">
-                                                <a onclick="removeplan('{{ route('admin.payment-price.destroy', $item->slug) }}')"
+                                                {{-- <a onclick="removeplan('{{ route('admin.payment-price.destroy', $item->slug) }}')"
                                                     class="float-end"> <img src="{{ asset('assets/images/delete.svg') }}"
-                                                        alt=""></a>
+                                                        alt=""></a> --}}
+
+
+                                        
+
+                                                        <a onclick="removeplan('{{ route('admin.payment-price.destroy', $item->slug) }}')" class="float-end">
+                                                            <span class="adminside-icon">
+                                                                <img src="{{ asset('assets/images/icons/material-symbols_delete-outline.svg') }}" alt="Delete">
+                                                            </span>
+                                                            <span class="adminactive-icon">
+                                                                <img src="{{ asset('assets/images/iconshover/material-symbols_delete-yellow.svg') }}" alt="Delete Active">
+                                                            </span>
+                                                        </a>
+                                                        
+
+
+
                                             </div>
                                         </div>
                                         <div class="amount-form">

@@ -32,14 +32,36 @@ class ClassDetailController extends Controller
             ->addAction(function($data){ 
 
                 $action= ' 
-                        <a onclick="update_sub_class('."'".route('admin.class-detail.edit_sub_class', $data->slug)."'".')"  class="btn btn-icons edit_btn"><img src="'.asset("assets/images/edit.svg").'" alt=""></a>
+                        
+
+
+        <a onclick="update_sub_class('."'".route('admin.class-detail.edit_sub_class', $data->slug)."'".')"  class="btn btn-icons edit_btn">                
+    <span class="adminside-icon">
+      <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
+    </span>
+    <span class="adminactive-icon">
+        <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active">
+    </span>
+</a>
+
+
                     ';
 
                     // if(empty($data->subcategories) || count($data->subcategories) == 0)
                     // { 
-                        $action.=  '<a  class="btn btn-icons dlt_btn" data-delete="'.route("admin.class-detail.destroy_sub_class",$data->slug).'" >
-                                <img src="'.asset("assets/images/delete.svg").'" alt="">
-                            </a> '; 
+                        $action.=  
+
+
+                        '<a  class="btn btn-icons dlt_btn" data-delete="'.route("admin.class-detail.destroy_sub_class",$data->slug).'" >
+                            <span class="adminside-icon">
+                                <img src="' . asset("assets/images/icons/material-symbols_delete-outline.svg") . '" alt="Delete">
+                            </span>
+                            <span class="adminactive-icon">
+                                <img src="' . asset("assets/images/iconshover/material-symbols_delete-yellow.svg") . '" alt="Delete Active">
+                            </span>
+                        </a> '; 
+
+
                     // } 
             
                     return $action;

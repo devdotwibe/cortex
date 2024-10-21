@@ -695,7 +695,7 @@
                     summery.flagdx[summery.cudx]=false;
                     summery.flagcurrent[summery.currentSlug]=true;
                     $("#bookmark-current").removeClass('active');
-                    $("#flagtext").text('flag')
+                    $("#flagtext").text('Flag')
                     $(`#show-all .question-item[data-idx="${summery.cudx}"]`).removeClass('status-flag')
                     $(`#flagged .question-item[data-idx="${summery.cudx}"]`).removeClass('status-flag')
                 }else{
