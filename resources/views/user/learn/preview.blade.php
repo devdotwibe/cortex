@@ -124,9 +124,9 @@
                 console.log(res.links.length);
                         if(k!=0&&k!=res.links.length&&useranswers[k-1]){
                             linkstatus='status-bad';
-                            console.log(res.data[k].review_type,'yuyuyuy');
+                            console.log(res.data.review_type,'yuyuyuy');
 
-                            if (res.data[k].review_type == 'short_notes') {
+                            if (res.data.review_type == 'short_notes') {
                             // If the review type is 'short_notes', assign 'status-grey'
                             linkstatus = "status-grey";
                         } 
