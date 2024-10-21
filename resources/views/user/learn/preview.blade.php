@@ -120,43 +120,27 @@
                 
                 if (res.total > 1) {
             $.each(res.links, function(k, v) {
-                // let linkstatus="";
-                // console.log(res.links.length);
-                //         if(k!=0&&k!=res.links.length&&useranswers[k-1]){
-                //             linkstatus='status-bad';
-                //             console.log(res.data[k].review_type,'yuyuyuy');
-                //             if(res.data[k].review_type =='short_notes'){
-                //             linkstatus="status-grey";
-                //             }
-                //             if(useranswers[k-1].iscorrect){
+                let linkstatus="";
+                console.log(res.links.length);
+                        if(k!=0&&k!=res.links.length&&useranswers[k-1]){
+                            linkstatus='status-bad';
+                            console.log(res.data[k].review_type,'yuyuyuy');
+
+                            if (res.data[k].review_type == 'short_notes') {
+                            // If the review type is 'short_notes', assign 'status-grey'
+                            linkstatus = "status-grey";
+                        } 
+                            if(useranswers[k-1].iscorrect){
 
                             
-                //                 linkstatus="status-good";
+                                linkstatus="status-good";
 
 
                                 
-                //             }
+                            }
 
                             
-                //         }
-
-                let linkstatus = "";
-                    console.log(res.links.length);
-
-                    if (k != 0 && k != res.links.length && useranswers[k - 1]) {
-                        if (res.data[k].review_type == 'short_notes') {
-                            // If the review type is 'short_notes', assign 'status-grey'
-                            linkstatus = "status-grey";
-                        } else if (useranswers[k - 1].iscorrect) {
-                            // If the user's previous answer is correct, assign 'status-good'
-                            linkstatus = "status-good";
-                        } else {
-                            // Otherwise, assign 'status-bad'
-                            linkstatus = "status-bad";
                         }
-                    }
-
-
                         if(v.active||!v.url){
                             $('#lesson-footer-pagination').append(`
                                 <button class="btn btn-secondary  ${linkstatus} ${v.active?"active":""}" disabled  >${v.label}</button>
