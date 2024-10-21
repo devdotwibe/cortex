@@ -124,6 +124,9 @@
                 console.log(res.links.length);
                         if(k!=0&&k!=res.links.length&&useranswers[k-1]){
                             linkstatus='status-bad';
+                            if(res.review_type =='short_notes'){
+                            linkstatus="status-grey";
+                            }
                             if(useranswers[k-1].iscorrect){
 
                             
