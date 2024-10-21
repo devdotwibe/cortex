@@ -257,7 +257,7 @@ if (res.prev_page_url) {
         .attr('onclick', `loadlessonreview('${res.prev_page_url}')`); // Adding onclick event
 }
 
-
+$('#menu-text').html(`Question <span> ${res.current_page} </span> of <span> ${res.total}</span>`)
 
             },'json')
 
