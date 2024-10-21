@@ -26,8 +26,8 @@
                 </div>
             </div>
            
-            <div class="exam-center exam-progress-inner-item1">
-                <div class="progress-menu1">
+            <div class="exam-center exam-progress-inner-item">
+                <div class="progress-menu">
                     <div class="menu-text">
                         <span id="menu-text" >Question <span> 0 </span>  of <span>0 </span> </span>
                       
