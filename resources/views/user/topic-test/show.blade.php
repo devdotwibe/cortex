@@ -1,7 +1,9 @@
 @extends('layouts.exam')
+@section('headerclass','header-class')
 @section('title', $exam->subtitle($category->id,"Topic ".($category->getIdx()+1)).':'.$category->name)
 @section('content')
-<section class="exam-container questionclass">
+
+    <section class="exam-container questionclass answerclass">
     <div class="exam-progress">
         <div class="exam-progress-inner">
             <div class="exam-progress-inner-item exam-left">
