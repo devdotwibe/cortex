@@ -157,6 +157,7 @@ class MainController extends Controller
         if($simulatecnt>0){
             $simulateprogress=round($simulateprogress*100/$simulatecnt,2);
         } 
+        // Calculation of topic test percentage
         $exams = Exam::where("name", 'topic-test')
                         ->select('id');
         $questions = Question::whereIn("exam_id",$exams)
@@ -176,6 +177,7 @@ class MainController extends Controller
         if($topiclatecnt>0){
             $topiclateprogress=round($topiclateprogress/count($questions->get()) * 100,2);
         } 
+        // Calculation of mock test percentage
         $exams =Exam::where("name", 'full-mock-exam')->select('id');
         $questions = Question::whereIn("exam_id",$exams)->has('category')->select('id');
         $userExamReviews = UserExamReview::where('name','full-mock-exam')
