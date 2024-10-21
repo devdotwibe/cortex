@@ -8,7 +8,7 @@
                 <div class="progress-main">
 
                     <div class="exam-exit ">
-                        <a   href="{{route('question-bank.show',$category->slug)}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
+                        <a   href="{{route('learn.show',$category->slug)}}"   title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
                             <img src="{{asset("assets/images/exiticon-wht.svg")}}" alt="exiticon">
                         </a>
                     </div>
