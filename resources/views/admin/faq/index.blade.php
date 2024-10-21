@@ -318,7 +318,7 @@ $(function() {
     $('#table-category-form-create').on('submit', function(e) {
     e.preventDefault(); 
 
-    var storeurl = "{{route('admin.faq.store')}}";
+   
     $('.error').html(''); 
     $('.invalid-feedback').text('');
     $('.form-control').removeClass('is-invalid');
@@ -333,7 +333,7 @@ $(function() {
             
             // Reset the button text back to "Add +"
             $('#table-category-form-submit').text(' Add + ');
-            $('#table-category-form-create').attr('action',storeurl)
+           
             // Hide the cancel button
             $('#table-category-form-clear').hide();
 
@@ -354,11 +354,14 @@ $(function() {
 });
 
 $('#table-category-form-clear').on('click', function() {
+    var storeurl = "{{route('admin.faq.store')}}";
     // Reset the form fields
     $('#table-category-form-create')[0].reset();
 
     // Reset the button text back to "Add +"
     $('#table-category-form-submit').text(' Add + ');
+
+    $('#table-category-form-create').attr('action',storeurl)
 
     // Hide the cancel button
     $(this).hide();
