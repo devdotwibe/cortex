@@ -45,7 +45,7 @@
         
     </div>
 
-    <div class="container-wrap mcq-container-wrap topic-test-review">
+    <div class="container-wrap mcq-container-wrap ">
         <div class="lesson">            
             {{-- <a class="lesson-exit float-start" href="{{route('topic-test.index')}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
                 <img src="{{asset("assets/images/exiticon.svg")}}" alt="exiticon">
