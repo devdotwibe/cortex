@@ -28,7 +28,7 @@
                     </div> 
 
                     
-                    <button class="btn hide-btn" id="hide_button" onclick="HideTime()">Hide time</button>
+                    <button class="btn hide-btn" id="hide_button" onclick="HideTime()">Hide Time</button>
 
                 </div>
             </div>
