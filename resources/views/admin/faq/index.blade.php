@@ -332,7 +332,7 @@ $(function() {
             $('#table-category-form-create')[0].reset();
             
             // Reset the button text back to "Add +"
-            $('#table-category-form-submit').text(' Add + ');
+            $('#table-category-form-submit').text(' Add + 33');
             $('#table-category-form-create').attr('action',storeurl)
             // Hide the cancel button
             $('#table-category-form-clear').hide();
