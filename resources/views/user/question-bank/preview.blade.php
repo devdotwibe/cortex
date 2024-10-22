@@ -61,10 +61,24 @@
                 <div class="row" id="lesson-questionlist-list" style="display: none">
                 </div>
             </div>
-            <div class="lesson-footer" id="lesson-footer-pagination"> 
-            </div>           
+            <div class="lesson-footer" id="lesson-footer-pagination">
+            </div>
         </div>
-    </div> 
+    </div>
+    <!-- ............................................................................................................. -->
+    <div class="lesson-left lesson-pagination">
+            <!-- <button class="button left-btn"><img src="{{asset('assets/images/leftarrow.svg')}}" alt="<"> Back </button> -->
+            <a class="lesson-exit float-start" href="{{route('question-bank.set.complete',$userExamReview->slug)}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
+                Back
+        </a>
+    </div>
+
+    <div class="lesson-right">
+        <a class="lesson-exit float-start" href="{{route('question-bank.show',$category->slug)}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
+Exit Review
+    </a>
+    </div>
+            <!-- .............................................................................................................. -->
 </section> 
 
 <section class="exam-footer"> 
@@ -269,6 +283,11 @@ $('#menu-text').html(`Question <span> ${res.current_page} </span> `)
 
          $(function(){
             loadlessonreview()
+            $('.lesson-left button.left-btn,.lesson-right button.right-btn').click(function(){
+                const pageurl=$(this).data();
+
+                loadlessonreview(pageurl)
+            });
          })
          function toglepreviewpage(){
             // timerActive=!timerActive; 

@@ -83,6 +83,9 @@ function showLockedModal() {
 
 function closeLockedModal() {
     document.getElementById('lockedModal').style.display = 'none';
+
+    $('#lockedModal').modal('hide');
+    $('body').removeClass('modal-open');
 }
 </script>
  
