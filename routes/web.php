@@ -213,9 +213,9 @@ Route::middleware(['auth', 'isUser'])->group(function () {
 
 
 
-            Route::prefix('analytics')->name('analytics.')->group(function () {
-                Route::get('/', [AnalyticsController::class, 'index'])->name('index');
-            });
+ Route::prefix('analytics')->name('analytics.')->group(function () {
+            Route::get('/', [AnalyticsController::class, 'index'])->name('index');
+        });
 
 
 
@@ -228,7 +228,21 @@ Route::middleware(['auth', 'isUser'])->group(function () {
 
         });
 
-       
+        Route::prefix('community')->name('community.')->group(function () {
+            Route::get('/', [CommunityController::class, 'posts'])->name('index');
+            Route::get('/search', [CommunityController::class, 'search'])->name('search');
+            Route::get('/ajaxindex', [CommunityController::class, 'posts'])->name('ajaxindex');
+            Route::get('/ajaxpost', [CommunityController::class, 'index'])->name('ajaxpost');
+            Route::resource('/post', CommunityController::class);
+
+    
+            Route::get('/poll/{poll_option}/vote', [CommunityController::class, 'pollVote'])->name('poll.vote');
+            Route::get('/post/{post}/like', [CommunityController::class, 'postLike'])->name('post.like');
+            Route::post('/post/{post}/comment', [CommunityController::class, 'postComment'])->name('post.comment');
+            Route::get('/post/{post}/comment/{post_comment}/reply', [CommunityController::class, 'postCommentReplay'])->name('post.comment.reply');
+            Route::get('/post/{post}/comment/{post_comment}/like', [CommunityController::class, 'commentLike'])->name('post.comment.like');
+            Route::post('/post/{post}/report', [CommunityController::class, 'postReport'])->name('post.report');
+        });
 
        
 
