@@ -126,6 +126,9 @@ class SubmitRetryReview implements ShouldQueue
         $takentimereview=[]; 
         $userExam=UserExam::findSlug($userExamReview->ticket);
         $takentime=json_decode($this->review->times,true);
+        if (!is_array($this->questions)) {
+            $this->questions=json_decode( $this->questions,true);
+        } 
         $q = UserExamQuestion::whereIn('slug',$this->questions)->where('user_exam_id',$userExam->id)->get();
         // foreach (UserExamQuestion::whereNotIn('slug',$this->questions)->where('user_exam_id',$userExamReview->ticket)->get() as $k=> $question) {
         foreach ($q as $k=> $question) {
