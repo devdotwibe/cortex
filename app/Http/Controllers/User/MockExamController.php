@@ -462,10 +462,10 @@ class MockExamController extends Controller
                 "time_of_exam" => "$questioncnt:00",
                 "user_exam_review_id" => $userExamReview->id, 
             ]);
-            
+
             dispatch(new SubmitRetryReview($review, session("exam-retry-questions" . $userExamReview->id, []), $answers));
 
-
+            
             if ($questioncnt > $passed) {
                 $key = md5("exam-retry-repeat-" . $review->id);
                 Session::put("exam-retry-" . $userExamReview->id, $key);
