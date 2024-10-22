@@ -43,6 +43,7 @@
                         <div class="exam-overview">
                             <div class="vl"></div>
                             <div class="exam-overview-content">
+                                <div class="topictest-overview">
                                 <div class="overview-title">
                                     <h3>Result Overview</h3>
                                 </div>
@@ -90,6 +91,8 @@
                                         </tbody>
                                     </table>
                                 </div>
+                            </div>
+                            <div class="topic-overview">
                                 <div class="overview-title">
                                     <h5>Ranking</h5>
                                     <h3>Top {{round($passed*100/$questioncount,2)}}%</h3>
@@ -101,6 +104,7 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
                             </div>
                         </div>
                     </div>
