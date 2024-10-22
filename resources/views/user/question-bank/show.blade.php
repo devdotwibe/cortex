@@ -111,6 +111,11 @@
 
 
 <script>
+    $('#table-categoryquestiontable').DataTable({
+    stateSave: true
+});
+
+
     function showLockedModal() {
         document.getElementById('lockedModal').style.display = 'block';
     }
@@ -242,4 +247,8 @@
         // },'json')
     }
     </script>
+
+
+
+
 @endpush
