@@ -3014,6 +3014,17 @@ nav.navbar.header-class { display: none;}
 .modal-expand.modal-expand-result .container-wrap .question-preview-body .exam-overview .topic-overview h3 {   font-size: 20px;   font-weight: 500;   margin: 0 0 22px;}
 
 
+.table-outer table tbody tr td .btn-icons {position: relative;line-height: normal;border: none;width: 35px;height: 35px;margin: 0 5px 0 0;}
+.table-outer table tbody tr td .btn-icons .adminside-icon {width: 100%;height: 100%;display: block;transition: all .25s ease-in-out;}
+.table-outer table tbody tr td .btn-icons .adminside-icon img { width: 100%;  display: block;  height: 100%;  object-fit: contain;}
+.table-outer table tbody tr td .btn-icons .adminactive-icon {  width: 100%; height: 100%;  display: block;  position: absolute;  top: 0;  left: 0;  opacity: 0;  transition: all .25s ease-in-out;}
+.table-outer table tbody tr td .btn-icons .adminactive-icon img { width: 100%; height: 100%; object-fit: contain;}
+.table-outer table tbody tr td .btn-icons:hover .adminside-icon { opacity: 0;}
+.table-outer table tbody tr td .btn-icons:hover .adminactive-icon { opacity: 1;}
+.table-outer table tbody tr td .btn-icons:last-child { margin-right: 0;}
+
+
+
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
 
