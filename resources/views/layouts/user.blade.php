@@ -249,7 +249,12 @@
                  <li class="side-item {{request()->is('tipsandadvice*') ? 'active':''}}">
                     
                     
-                    <a @if(!auth('admin')->check() && !(auth('web')->user()->is_free_access) && (optional(auth('web')->user()->subscription())->status ?? "") !== "subscribed") 
+                    <a
+                    @if( @if(!auth('web')->user()->hasVerifiedEmail()))
+                    
+                    href="{{ route('tipsandadvise.index') }}" {{auth('web')->user()->is_free_access}} terdt {{optional(auth('web')->user()->subscription())->status }}
+                    
+                    @elseif(!auth('admin')->check() && !(auth('web')->user()->is_free_access) && (optional(auth('web')->user()->subscription())->status ?? "") !== "subscribed") 
                         data-bs-toggle="modal" 
                         data-bs-target="#lockedModal" {{-- Show the modal for free users --}}
                     @else
