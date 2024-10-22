@@ -1,12 +1,56 @@
 @extends('layouts.exam')
+@section('headerclass','header-class')
 @section('title', $exam->subtitle($category->id,"Module ".($category->getIdx()+1)).':'.$category->name)
 @section('content')
-<section class="exam-container">
+<section class="exam-container questionclass answerclass">
+
+    <div class="exam-progress quest-progress">
+        <div class="exam-progress-inner">
+            <div class="exam-progress-inner-item exam-left">
+                <div class="progress-main">
+
+                    <div class="exam-exit ">
+                        <a   href="{{route('learn.show',$category->slug)}}"   title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
+                            <img src="{{asset("assets/images/exiticon-wht.svg")}}" alt="exiticon">
+                        </a>
+                    </div>
+
+                    {{-- <div class="question-number">
+                        <span>Question: </span>
+                    </div> --}}
+    
+                   
+
+                    
+                </div>
+            </div>
+           
+            <div class="question-header question-number">
+                <div class="progress-menus">
+                    <div class="menu-text">
+                        <span id="menu-text" >Question <span> 0 </span>   <span>0 </span> </span>
+                      
+                    </div>
+                    <div class="menu-icon"> 
+                        <a onclick="toglepreviewpage()" >
+                            {{-- <img src="{{asset("assets/images/menu.svg")}}" alt="exiticon"> --}}
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="Review-mode">
+                <span>Review Mode </span>
+            </div>
+           
+        </div>
+        
+    </div>
     <div class="container-wrap">
         <div class="lesson">            
-            <a class="lesson-exit float-start" href="{{route('learn.show',$category->slug)}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
+            {{-- <a class="lesson-exit float-start" href="{{route('learn.show',$category->slug)}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
                 <img src="{{asset("assets/images/exiticon.svg")}}" alt="exiticon">
-            </a>
+            </a> --}}
             <div class="lesson-title">
                 <h5><span>{{$exam->subtitle($category->id,"Module ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h5>
             </div>
@@ -19,6 +63,49 @@
         </div>
     </div> 
 </section> 
+
+<section class="exam-footer"> 
+    <div class="lesson-pagination">
+        <div class="lesson-left pagination-arrow" style="display: none" >
+            <button class="button left-btn"><img src="{{asset('assets/images/leftarrow.svg')}}" alt="<"> Back </button>
+        </div>
+
+
+        <div class="exam-right exam-progress-inner-item">
+
+            <div class="progress-main">
+
+                
+                {{-- <div class="bookmark">
+                    
+                    <a class="" id="bookmark-current" >
+                        
+                        <span id="flagtext" class="flagclass">Flag</span>
+                        <span id="flagimages" class="flagclass" >
+                        <img class="active-img" src="{{asset("assets/images/flag-blue.svg")}}" alt="bookmark">
+                    
+                        <img class="inactive-img" src="{{asset("assets/images/flag-red.svg")}}" alt="bookmark">
+                        </span>
+                    </a>
+                </div> --}}
+            </div>
+        </div>
+        
+
+
+      
+
+
+        <div class="lesson-right pagination-arrow" style="display:none">
+            <button class="button right-btn"> Next <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
+        </div>
+        <div class="lesson-finish pagination-arrow" style="display:none">
+            <button class="button finish-btn" onclick="window.location.href='{{ route('learn.show',$category->slug) }}'"> Finish Set <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
+        </div>  
+    </div> 
+</section>
+
+
 @endsection
 
 @push('footer-script') 
@@ -124,6 +211,12 @@
                 console.log(res.links.length);
                         if(k!=0&&k!=res.links.length&&useranswers[k-1]){
                             linkstatus='status-bad';
+                            console.log(res.data.review_type,'yuyuyuy');
+
+                            if (res.data.review_type == 'short_notes') {
+                            // If the review type is 'short_notes', assign 'status-grey'
+                            linkstatus = "status-grey";
+                        } 
                             if(useranswers[k-1].iscorrect){
 
                             
@@ -146,13 +239,48 @@
                         }
                      })
                 } 
+
+
+                
+                $('.lesson-end').show();
+
+
+                if (res.next_page_url) { 
+    $('.lesson-right').show()
+        .find('button.right-btn')
+        .data('pageurl', res.next_page_url)
+        .attr('onclick', `loadlessonreview('${res.next_page_url}')`); // Adding onclick event
+} else {
+    $('.lesson-finish').show();
+}
+
+if (res.prev_page_url) {
+    $('.lesson-left').show()
+        .find('button.left-btn')
+        .data('pageurl', res.prev_page_url)
+        .attr('onclick', `loadlessonreview('${res.prev_page_url}')`); // Adding onclick event
+}
+
+$('#menu-text').html(`Question <span> ${res.current_page} </span> `)
+
             },'json')
 
+
+           
+
          }
+
+
 
          $(function(){
             loadlessonreview()
          })
+
+         function toglepreviewpage(){
+            // timerActive=!timerActive; 
+            $('#question-preview-page').slideToggle()
+            $('#question-answer-page').fadeToggle()
+        }
 
 </script>
 

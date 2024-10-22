@@ -39,7 +39,7 @@
             <span>Plese wait...</span>
         </div>            
     </div>
-    <nav class="navbar navbar-expand" >
+    <nav class="navbar navbar-expand @hasSection('headerclass') @yield('headerclass')  @endif ">
         <div class="container"> 
             <a class="navbar-brand"  href="{{ url('/') }}">
                 <img src="{{ asset('assets/images/cortexlogo.svg') }}" alt="">

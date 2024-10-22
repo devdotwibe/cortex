@@ -2,11 +2,53 @@
 @section('title', $exam->title)
 @section('content')
 <section class="exam-container">
+    <div class="exam-progress quest-progress">
+        <div class="exam-progress-inner">
+            <div class="exam-progress-inner-item exam-left">
+                <div class="progress-main">
+
+                    <div class="exam-exit ">
+                        <a  href="{{route('full-mock-exam.index')}}" title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
+                            <img src="{{asset("assets/images/exiticon-wht.svg")}}" alt="exiticon">
+                        </a>
+                    </div>
+
+                    {{-- <div class="question-number">
+                        <span>Question: </span>
+                    </div> --}}
+    
+                   
+
+                    
+                </div>
+            </div>
+           
+            <div class="question-header question-number">
+                <div class="progress-menus">
+                    <div class="menu-text">
+                        <span id="menu-text" >Question <span> 0 </span>   <span>0 </span> </span>
+                      
+                    </div>
+                    <div class="menu-icon"> 
+                        <a onclick="toglepreviewpage()" >
+                            {{-- <img src="{{asset("assets/images/menu.svg")}}" alt="exiticon"> --}}
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="Review-mode">
+                <span>Review Mode </span>
+            </div>
+           
+        </div>
+        
+    </div>
     <div class="container-wrap mcq-container-wrap full-mock-exam-review">
         <div class="lesson">            
-            <a class="lesson-exit float-start" href="{{route('full-mock-exam.index')}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
+            {{-- <a class="lesson-exit float-start" href="{{route('full-mock-exam.index')}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
                 <img src="{{asset("assets/images/exiticon.svg")}}" alt="exiticon">
-            </a> 
+            </a>  --}}
             <div class="lesson-body"> 
                 <div class="row" id="lesson-questionlist-list" style="display: none">
                 </div>
@@ -16,6 +58,46 @@
         </div>
     </div> 
 </section> 
+<section class="exam-footer"> 
+    <div class="lesson-pagination">
+        <div class="lesson-left pagination-arrow" style="display: none" >
+            <button class="button left-btn"><img src="{{asset('assets/images/leftarrow.svg')}}" alt="<"> Back </button>
+        </div>
+
+
+        <div class="exam-right exam-progress-inner-item">
+
+            <div class="progress-main">
+
+                
+                {{-- <div class="bookmark">
+                    
+                    <a class="" id="bookmark-current" >
+                        
+                        <span id="flagtext" class="flagclass">Flag</span>
+                        <span id="flagimages" class="flagclass" >
+                        <img class="active-img" src="{{asset("assets/images/flag-blue.svg")}}" alt="bookmark">
+                    
+                        <img class="inactive-img" src="{{asset("assets/images/flag-red.svg")}}" alt="bookmark">
+                        </span>
+                    </a>
+                </div> --}}
+            </div>
+        </div>
+        
+
+
+      
+
+
+        <div class="lesson-right pagination-arrow" style="display:none">
+            <button class="button right-btn"> Next <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
+        </div>
+        <div class="lesson-finish pagination-arrow" style="display:none">
+            <button class="button finish-btn" onclick="window.location.href='{{ route('full-mock-exam.index') }}'"> Finish Set <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
+        </div>  
+    </div> 
+</section>
 @endsection
 
 @push('footer-script') 
@@ -138,16 +220,39 @@
                         }
                      })
                 }
- 
                 $('.lesson-end').show();
-            },'json')
 
-         }
 
-         $(function(){
-            loadlessonreview()
-         })
+if (res.next_page_url) { 
+$('.lesson-right').show()
+.find('button.right-btn')
+.data('pageurl', res.next_page_url)
+.attr('onclick', `loadlessonreview('${res.next_page_url}')`); // Adding onclick event
+} else {
+$('.lesson-finish').show();
+}
 
+if (res.prev_page_url) {
+$('.lesson-left').show()
+.find('button.left-btn')
+.data('pageurl', res.prev_page_url)
+.attr('onclick', `loadlessonreview('${res.prev_page_url}')`); // Adding onclick event
+}
+
+$('#menu-text').html(`Question <span> ${res.current_page} </span> `)
+
+},'json')
+
+}
+
+$(function(){
+loadlessonreview()
+})
+function toglepreviewpage(){
+// timerActive=!timerActive; 
+$('#question-preview-page').slideToggle()
+$('#question-answer-page').fadeToggle()
+}
 </script>
 
 @endpush

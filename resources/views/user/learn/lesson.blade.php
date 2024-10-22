@@ -19,7 +19,7 @@
         </div>
     </div>
 </section>
-<section class="exam-footer examclass">
+<section class="exam-footer examclass criticalclass">
     <div class="lesson-pagination">
         <div class="lesson-left pagination-arrow" style="display: none" >
             <button class="button left-btn"><img src="{{asset('assets/images/leftarrow.svg')}}" alt="<"> Back </button>
@@ -209,8 +209,8 @@
                     if(v.learn_type=="mcq"){
                         $('#lesson-questionlist-list').html(`
                             <div class="col-md-12">
-                                <div class="mcq-row" >
-                                    <div class="mcq-title">
+                                <div class="note-row" >
+                                    <div class="note-title">
                                         <span>${v.title}</span>
                                     </div>
                                     <div class="mcq-container">

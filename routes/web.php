@@ -183,34 +183,17 @@ Route::middleware(['auth', 'isUser'])->group(function () {
             Route::get('/{live}/private-class', [LiveClassController::class, 'privateclass'])->name('privateclass');
 
 
-            // Route::get('/{live}/private-class/form', [LiveClassController::class, 'privateclassform'])->name('privateclass.form');
-            // Route::post('/{live}/private-class/form', [LiveClassController::class, 'privateclassformsubmit']);
-
-            // Route::middleware('hasPrivateClass')->group(function () {
-            //     Route::get('/{live}/private-class/room', [LiveClassController::class, 'privateclassroom'])->name('privateclass.room');
-            //     Route::get('/{live}/private-class/details', [LiveClassController::class, 'privateclassdetails'])->name('privateclass.details');
-            //     Route::get('/{live}/private-class/{class_detail}/term', [LiveClassController::class, 'privateclassterm'])->name('privateclass.term');
-            //     Route::get('/{live}/private-class/lesson', [LiveClassController::class, 'privateclasslesson'])->name('privateclass.lesson');
-            //     Route::get('/{live}/private-class/lesson/{lesson_material}/show', [LiveClassController::class, 'privateclasslessonshow'])->name('privateclass.lessonshow');
-            //     Route::get('/{live}/private-class/lesson/{sub_lesson_material}.pdf', [LiveClassController::class, 'privateclasslessonpdf'])->name('privateclass.lessonpdf');
-            //     Route::get('/{live}/private-class/lesson/{sub_lesson_material}/load/{file}', [LiveClassController::class, 'privateclasslessonpdfload'])->name('privateclass.lessonpdf.load');
+           
             });
-        // });
-        // Route::middleware('hasPrivateClass')->group(function () {
-        //     Route::prefix('home-work')->name('home-work.')->group(function () {
-        //         Route::get('/', [PrivateClassHomeWorkController::class, 'index'])->name('index');
-        //         Route::get('/{home_work}', [PrivateClassHomeWorkController::class, 'show'])->name('show');
-        //         Route::get('/{home_work}/booklet/{home_work_book}', [PrivateClassHomeWorkController::class, 'booklet'])->name('booklet');
-        //         Route::get('/{home_work}/booklet/{home_work_book}/history', [PrivateClassHomeWorkController::class, 'booklethistory'])->name('history');
-        //         Route::post('/{home_work}/booklet/{home_work_book}/verify', [PrivateClassHomeWorkController::class, 'bookletverify'])->name('booklet.verify');
-        //         Route::post('/{home_work}/booklet/{home_work_book}/submit', [PrivateClassHomeWorkController::class, 'bookletsubmit'])->name('booklet.submit');
-        //         Route::get('/attempt/booklet/{home_work_review}/preview', [PrivateClassHomeWorkController::class, 'preview'])->name('preview');
-        //     });
-            // Route::prefix('lesson-record')->name('lesson-record.')->group(function () {
-            //     Route::get('/', [LessonRecordVideoController::class, 'index'])->name('index');
-            //     Route::get('/{lesson_recording}', [LessonRecordVideoController::class, 'show'])->name('show');
-            // });
+       
+
+
+
+ Route::prefix('analytics')->name('analytics.')->group(function () {
+            Route::get('/', [AnalyticsController::class, 'index'])->name('index');
         });
+
+
 
         Route::prefix('community')->name('community.')->group(function () {
             Route::get('/', [CommunityController::class, 'posts'])->name('index');
@@ -228,9 +211,25 @@ Route::middleware(['auth', 'isUser'])->group(function () {
             Route::post('/post/{post}/report', [CommunityController::class, 'postReport'])->name('post.report');
         });
 
-        Route::prefix('analytics')->name('analytics.')->group(function () {
-            Route::get('/', [AnalyticsController::class, 'index'])->name('index');
+
+        Route::prefix('tipsandadvice')->name('tipsandadvise.')->group(function () {
+
+            Route::middleware('subscription:tipsandadvice')->get('/', [TipsAndAdviceController::class, 'index'])->name('index');
+
+            Route::middleware('subscription:tipsandadvice')->resource('/post',TipsAndAdviceController ::class);
+            Route::middleware('subscription:tipsandadvice')->get('/tips-show/{id}', [TipsAndAdviceController::class, 'tip_show'])->name('tip_show');
+    
         });
+    
+    
+
+
+
+        });
+
+      
+
+       
 
         Route::prefix('support')->name('support.')->group(function () {
             Route::get('/', [SupportController::class, 'index'])->name('index');
@@ -281,55 +280,11 @@ Route::middleware(['auth', 'isUser'])->group(function () {
                     Route::get('/', [LessonRecordVideoController::class, 'index'])->name('index');
                     Route::get('/{lesson_recording}', [LessonRecordVideoController::class, 'show'])->name('show');
                 });
-        //     });
-
-        //     Route::prefix('community')->name('community.')->group(function () {
-        //         Route::get('/', [CommunityController::class, 'posts'])->name('index');
-        //         Route::get('/ajaxindex', [CommunityController::class, 'posts'])->name('ajaxindex');
-        //         Route::resource('/post', CommunityController::class);
-
-                
-
-               
-               
-
-        //         Route::get('/poll/{poll_option}/vote', [CommunityController::class, 'pollVote'])->name('poll.vote');
-        //         Route::get('/post/{post}/like', [CommunityController::class, 'postLike'])->name('post.like');
-        //         Route::post('/post/{post}/comment', [CommunityController::class, 'postComment'])->name('post.comment');
-        //         Route::get('/post/{post}/comment/{post_comment}/reply', [CommunityController::class, 'postCommentReplay'])->name('post.comment.reply');
-        //         Route::get('/post/{post}/comment/{post_comment}/like', [CommunityController::class, 'commentLike'])->name('post.comment.like');
-        //         Route::post('/post/{post}/report', [CommunityController::class, 'postReport'])->name('post.report');
-        //     });
-
-        //     Route::prefix('analytics')->name('analytics.')->group(function () {
-        //         Route::get('/', [AnalyticsController::class, 'index'])->name('index');
-        //     });
-
-        // });
-
-
-
-
-
-
-        // Route::prefix('support')->name('support.')->group(function () {
-        //     Route::get('/', [SupportController::class, 'index'])->name('index');
-        //     Route::resource('/post',SupportController ::class);
-
-        // });
-
-
-        Route::prefix('tipsandadvice')->name('tipsandadvise.')->group(function () {
-            Route::get('/', [TipsAndAdviceController::class, 'index'])->name('index');
-            Route::resource('/post',TipsAndAdviceController ::class);
-            Route::get('/tips-show/{id}', [TipsAndAdviceController::class, 'tip_show'])->name('tip_show');
-
-        });
+      
 
     });
 
-
-
+  
 
 });
 

@@ -1,9 +1,11 @@
 @extends('layouts.exam')
+@section('headerclass','header-class')
 @section('title', $homeWorkBook->title)
 @section('content') 
 
 
-<section class="exam-container">
+
+    <section class="exam-container questionclass answerclass">
     <div class="exam-progress">
         <div class="exam-progress-inner">
             <div class="exam-progress-inner-item exam-left">

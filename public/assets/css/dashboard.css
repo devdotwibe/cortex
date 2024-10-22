@@ -410,7 +410,6 @@ button.close {
   background: #ffff;
   box-shadow: 4px 0px 16px 0px #0000000A;
   border-radius: 0;
-  max-width: 1320px;
   min-height: calc(100vh - 135px);
 }
 .lesson .lesson-title {
@@ -513,14 +512,43 @@ margin-left:auto;
   display: flex;
   color: #FFF;
   background:#1789fa;
-  padding:5px 15px;
+  padding: 16px 15px;
   justify-content: center;
   align-items: center;
   height: 100%;
   margin:auto;
   border: none;
   width: 200px;
+  position: relative;
+  font-size: 20px;
+  font-weight: 600;
 }
+
+.lesson-pagination .right-btn img {
+  width: 12px;
+  margin: 0 0 0 10px;
+  position: absolute;
+  right: 20px;
+}
+
+.lesson-pagination .left-btn img {
+  width: 12px;
+  margin: 0 10px 0 0;
+  position: absolute;
+  left: 20px;
+}
+
+.exam-footer.criticalclass .lesson-pagination .lesson-finish {
+  margin-left: auto;
+}
+
+.lesson-pagination .finish-btn img {
+  width: 12px;
+  margin: 0 0 0 10px;
+  position: absolute;
+  right: 20px;
+}
+
 
 .exam-container .container-wrap .lesson .lesson-body {
   margin: 0 0 0;
@@ -772,7 +800,7 @@ border-radius: 7px;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  padding: 15px 15px;
+  padding: 30px 15px;
   position: relative;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 17px 30px -12px;  
 }
@@ -1881,9 +1909,10 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 
 .exam-container .question-bank-review { max-width: 100%; padding: 0; position: relative;min-height: inherit;}
 .exam-container .question-bank-review .lesson .lesson-body { margin: 0;}
-.exam-container .question-bank-review .lesson .lesson-body .mcq-container { width: 100%; display: flex; flex-wrap: wrap;  padding: 0 0 0;  position: relative;}
-.exam-container .question-bank-review .lesson .lesson-body .mcq-container .mcq-group { width: 50%; padding: 50px; height: calc(100vh - 200px); overflow-y: auto;}
-.exam-container .question-bank-review .lesson .lesson-body .mcq-container .mcq-group-right { width: 50%;  padding: 50px; height: calc(100vh - 200px); overflow-y: auto;}
+.exam-container .question-bank-review .lesson .lesson-body .row {margin: 0 0 0 0;}
+.exam-container .question-bank-review .lesson .lesson-body .mcq-container { width: 100%; display: flex; flex-wrap: wrap;  padding: 0 0 0;  position: relative;min-height: inherit;}
+.exam-container .question-bank-review .lesson .lesson-body .mcq-container .mcq-group { width: 50%; padding: 50px; height: calc(100vh - 300px); overflow-y: auto;}
+.exam-container .question-bank-review .lesson .lesson-body .mcq-container .mcq-group-right { width: 50%;  padding: 50px; height: calc(100vh - 300px); overflow-y: auto;}
 .exam-container .question-bank-review .lesson .lesson-body  .col-md-12 { padding: 0;}
 .exam-container .question-bank-review .lesson  .lesson-exit { position: absolute; top: 50px; left: 40px;z-index: 9;}
 .exam-container .question-bank-review .lesson .lesson-body h3 { font-size: 20px; font-weight: 500; color: #000000; margin: 0 0 20px; padding: 0 0 0 35px;}
@@ -1891,7 +1920,7 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .exam-container .question-bank-review .lesson #lesson-footer-pagination { margin: 30px 0; display: inline-block;}
 .exam-container .question-bank-review .lesson #lesson-footer-pagination button.btn { display: inline-block;}
 .exam-container .question-bank-review .lesson .lesson-body .mcq-container .mcq-group-right .mcq-explanation { font-size: 20px; font-weight: 600; margin: 0 0 20px;}
-.exam-container .question-bank-review .lesson .lesson-body .mcq-container .mcq-group h5 { font-weight: 600; font-size: 17px; margin: 0 0 16px 35px; padding: 2px 5px; border-left: 3px solid #ef9b10;}
+.exam-container .question-bank-review .lesson .lesson-body .mcq-container .mcq-group h5 { font-weight: 600; font-size: 17px; margin: 0 0 16px 0; padding: 2px 5px; border-left: 3px solid #ef9b10;}
 
 .exam-container .question-bank-review .lesson .lesson-body .mcq-container .mcq-group::-webkit-scrollbar {width: 10px;}
 .exam-container .question-bank-review .lesson .lesson-body .mcq-container .mcq-group::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 8px;}
@@ -2684,10 +2713,10 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark img { width: 100%;display: block; transition: all .25s ease-in-out;}
 .lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark  img.inactive-img { position: absolute; top: 0; left: 0; opacity: 0;}
 .lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark .active img.inactive-img { opacity: 1;}
-.lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark a { cursor: pointer; display: flex; flex-wrap: wrap; align-items: center; padding: 12px 20px; justify-content: center;}
+.lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark a { cursor: pointer; display: flex; flex-wrap: wrap; align-items: center; padding: 22px 20px; justify-content: center;position: relative;}
 .exam-footer .lesson-pagination .lesson-finish {margin-left: 0;}
-.lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark .flagclass {font-size: 26px; color: #000;}
-.lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark  #flagimages { width: 40px; margin: 0 0 0 20px;position: relative;}
+.lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark .flagclass {font-size: 20px; color: #000;font-weight: 600;}
+.lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark  #flagimages { width: 40px; margin: 0 0 0 20px; position: absolute; top: 50%; transform: translateY(-50%); right: 0;}
 .lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark .active .active-img {opacity: 0;}
 
 .support-content { background: #FFFFFF; padding: 20px 20px; box-shadow: 4px 0px 16px 0px #0000000A; border-radius: 10px; margin: 16px 0 20px !important;}
@@ -2783,8 +2812,8 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .post-section .post-row .post-container1 .post-col1 .hashtag-wrapp .list-group li.list-group-item a { padding: 10px; display: block; color: #000; background: #FFEAC2; border-radius: 10px; word-break: break-all;}
 .post-section .post-row .post-container-wrapp {width: 40%;overflow-y: auto; max-height: calc(100vh - 105px);}
 .post-section .post-row .post-container-wrapp::-webkit-scrollbar {display: none;}
-.post-section .post-row .post-container { width: 100%; padding: 25px; background: #ffff; border-radius: 10px;}
-.post-section .post-row .post-container .post-item { padding: 0; margin: 0 0 40px; border: none;}
+.post-section .post-row .post-container { width: 100%; padding: 0; background: none; border-radius: 10px; overflow: hidden;}
+.post-section .post-row .post-container .post-item { padding: 10px 25px 5px; margin: 0 0 15px; border: none; border-radius: 10px;}
 .post-section .post-row .post-container .post-item .post-header { margin: 0 0 22px;}
 .post-section .post-row .post-container .post-item .post-header .title { flex: 1 0 0;}
 .post-section .post-row .post-container .post-item .post-header .avathar { background: #D9D9D9; margin: 0 12px 0 0; padding: 5px;}
@@ -2944,6 +2973,56 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 #report-post .modal-dialog .modal-content .modal-body .form-group button.btn.btn-secondary:hover { background: #000000;  color: #ffffff;}
 #report-post .modal-dialog .modal-content .modal-body .form-group button.btn.btn-danger { background: #000000; color: #ffff; border: 1px solid #000000;}
 #report-post .modal-dialog .modal-content .modal-body .form-group button.btn.btn-danger:hover { background: none; color: #000000;}
+
+
+.quest-progress .progress-main { min-width: inherit; margin: 0 0 -7px;}
+.quest-progress .question-number { margin: 0 auto 0 20px;}
+.quest-progress .question-number .menu-text { font-size: 22px; color: #ffff;}
+.quest-progress  .Review-mode { font-size: 22px; color: #ffff;}
+.exam-progress.quest-progress >.exam-progress-inner { padding-right: 20px;}
+
+
+nav.navbar.header-class { display: none;}
+.exam-container.answerclass {padding-top: 0; margin-top: 0;}
+.exam-container.answerclass .exam-progress { top: 0;}
+.exam-container.answerclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group { height: calc(100vh - 160px);}
+.exam-container.answerclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer { height: calc(100vh - 160px);}
+
+.exam-container.answerclass .lesson .lesson-title { margin: 0 0 15px;}
+
+.exam-container.answerclass .mcq-container-wrap.question-bank-review .lesson .lesson-body .mcq-container .mcq-group {height: calc(100vh - 245px);}
+.exam-container.answerclass .mcq-container-wrap.question-bank-review .lesson .lesson-body .mcq-container .mcq-answer { height: calc(100vh - 245px);}
+
+
+
+.modal-expand.modal-expand-result .container-wrap { background: none; padding: 0;}
+.modal-expand.modal-expand-result .container-wrap .question-preview-body .col-md-3 { background: #fff; padding: 30px; border-radius: 10px;}
+.modal-expand.modal-expand-result .container-wrap .question-preview-body .col-md-3 .card-body { padding: 0; border: none;}
+.modal-expand.modal-expand-result .container-wrap .question-preview-body .col-md-3 .card-body .exam-mark-body { text-align: left;}
+.modal-expand.modal-expand-result .container-wrap .question-preview-body .col-md-3 .card-body .exam-mark-body .mark-label {  padding: 20px 20px 15px;  border: 1px solid #DFDFDF; border-radius: 10px;}
+.modal-expand.modal-expand-result .container-wrap .question-preview-body .col-md-3 .card-body .exam-mark-body .mark-label span { display: block; color: #978E8E;}
+.modal-expand.modal-expand-result .container-wrap .question-preview-body .col-md-3 .card-body .exam-mark-body .mark-label span:first-child { color: #000000;}
+.modal-expand.modal-expand-result .container-wrap .question-preview-body .exam-overview .vl {  display: none;}
+.modal-expand.modal-expand-result .container-wrap .question-preview-body .exam-overview  .topictest-overview {   background: #fff;   padding: 30px;   border-radius: 10px;   margin: 0 0 20px;}
+.modal-expand.modal-expand-result .container-wrap .question-preview-body .exam-overview .topictest-overview .overview-title h3 {  margin: 0 0 20px; font-size: 20px;  font-weight: 500;}
+.modal-expand.modal-expand-result .container-wrap .question-preview-body .exam-overview .topictest-overview .overview-table {  margin: 0 0 0;   padding: 0 0 0;}
+.modal-expand.modal-expand-result .container-wrap .question-preview-body .exam-overview .topictest-overview .overview-table table tr th {  background: none;   padding: 15px;}
+.modal-expand.modal-expand-result .container-wrap .question-preview-body .exam-overview .topictest-overview .overview-table table thead  tr th {  text-align: center;}
+.modal-expand.modal-expand-result .container-wrap .question-preview-body .exam-overview .topictest-overview .overview-table table tr td {   padding: 15px;   text-align: center;}
+.modal-expand.modal-expand-result .container-wrap .question-preview-body .exam-overview .topic-overview {   background: #fff; padding: 30px;  border-radius: 10px;}
+.modal-expand.modal-expand-result .container-wrap .question-preview-body .exam-overview .topic-overview h5 {  font-size: 15px;   margin: 0 0 15px;}
+.modal-expand.modal-expand-result .container-wrap .question-preview-body .exam-overview .topic-overview h3 {   font-size: 20px;   font-weight: 500;   margin: 0 0 22px;}
+
+
+.table-outer table tbody tr td .btn-icons {position: relative;line-height: normal;border: none;width: 35px;height: 35px;margin: 0 5px 0 0;}
+.table-outer table tbody tr td .btn-icons .adminside-icon {width: 100%;height: 100%;display: block;transition: all .25s ease-in-out;}
+.table-outer table tbody tr td .btn-icons .adminside-icon img { width: 100%;  display: block;  height: 100%;  object-fit: contain;}
+.table-outer table tbody tr td .btn-icons .adminactive-icon {  width: 100%; height: 100%;  display: block;  position: absolute;  top: 0;  left: 0;  opacity: 0;  transition: all .25s ease-in-out;}
+.table-outer table tbody tr td .btn-icons .adminactive-icon img { width: 100%; height: 100%; object-fit: contain;}
+.table-outer table tbody tr td .btn-icons:hover .adminside-icon { opacity: 0;}
+.table-outer table tbody tr td .btn-icons:hover .adminactive-icon { opacity: 1;}
+.table-outer table tbody tr td .btn-icons:last-child { margin-right: 0;}
+
 
 
 @media screen and (max-width:1500px) {

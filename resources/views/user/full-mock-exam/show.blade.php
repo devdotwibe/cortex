@@ -1,7 +1,9 @@
 @extends('layouts.exam')
+@section('headerclass','header-class')
 @section('title', $exam->title)
 @section('content')
-<section class="exam-container questionclass">
+
+    <section class="exam-container questionclass answerclass">
     <div class="exam-progress">
         <div class="exam-progress-inner">
             <div class="exam-progress-inner-item exam-left">
@@ -28,7 +30,7 @@
                     </div> 
 
                     
-                    <button class="btn hide-btn" id="hide_button" onclick="HideTime()">Hide time</button>
+                    <button class="btn hide-btn" id="hide_button" onclick="HideTime()">Hide Time</button>
 
                 </div>
             </div>
@@ -284,9 +286,9 @@
             timerDiv.slideToggle(300, function() {
 
                 if (timerDiv.is(':visible')) {
-                    button.text('Hide time');
+                    button.text('Hide Time');
                 } else {
-                    button.text('Show time');
+                    button.text('Show Time');
                     button.insertAfter(timerDiv);
                 }
             });
