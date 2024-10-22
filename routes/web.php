@@ -243,7 +243,7 @@ Route::middleware(['auth', 'isUser'])->group(function () {
 
 
     
-        Route::middleware('subscription')->group(function () {
+        // Route::middleware('subscription')->group(function () {
 
             Route::prefix('live-class')->name('live-class.')->group(function () {
         //         Route::get('/', [LiveClassController::class, 'index'])->name('index');
