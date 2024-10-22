@@ -463,7 +463,9 @@ class MockExamController extends Controller
                 "user_exam_review_id" => $userExamReview->id, 
             ]);
             // $questions=json_decode( $questions,true);
-
+            if (!is_array($questions)) {
+                $questions=json_decode( $questions,true);
+            } 
             // dispatch(new SubmitRetryReview($review, session("exam-retry-questions" . $userExamReview->id, []), $answers));
             dispatch(new SubmitRetryReview($review, $questions, $answers));
 
