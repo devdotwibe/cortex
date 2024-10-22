@@ -54,7 +54,7 @@
                                             <div class="form-data">
                                                 <div class="forms-inputs mb-4">
                                                     <label for="time_of_exam-table-category-form-create">Exam Duration (HH:MM)</label>
-                                                    <input type="search" name="time_of_exam" id="time_of_exam-table-category-form-create" value="{{$category->time_of_exam}}" class="form-control {{$category->time_of_exam}}">
+                                                    <input type="search" name="time_of_exam" id="time_of_exam-table-category-form-create" value="{{$category->time_of_exam}}" class="form-control ">
                                                     <div class="invalid-feedback" id="time_of_exam-error-table-category-form-create"></div>
                                                 </div>
                                             </div>
