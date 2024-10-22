@@ -134,6 +134,11 @@
             // loadstatus();
         })
 
+        $('#table-categoryquestiontable').DataTable({
+    stateSave: true
+});
+
+
         $(document).on('click', '.user-visibility form-check-box', function(e) {
     e.stopPropagation(); // Prevent DataTables from resetting the page
 });
