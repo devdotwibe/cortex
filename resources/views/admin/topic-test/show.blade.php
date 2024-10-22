@@ -104,9 +104,8 @@
                 var mask = $(this).data('mask');
                 var placeholder = $(this).data('placeholder')||" ";
                 $(this).inputmask({
-                    placeholder:"HH : MM",
-                    
-                    regex: "^(0[0-9]|1[0-9]|2[0-3]) : [0-5][0-9]$",  // Match 00-23 for hours
+                    // placeholder:"HH : MM",
+                    regex: "^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$",
                     showMaskOnFocus: false
                 });
             })
