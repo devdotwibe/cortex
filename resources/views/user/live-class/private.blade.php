@@ -50,7 +50,17 @@
                   
                   @endguest --}}
                   @guest('admin')  
+                  @if((auth('web')->user()->is_free_access)&& (optional(auth('web')->user()->subscription())->status ?? "") !== "subscribed")  
+                  {{-- <a @if(auth('admin')->check() &&!(auth('web')->user()->is_free_access) && (optional(auth('web')->user()->subscription())->status ?? "") !== "subscribed") data-bs-toggle="modal" data-bs-target="#adminsubModal"  @else href="{{ route('analytics.index') }}" @endif >   --}}
+
+                  <a class="btn btn-warning m-2" href="{{route('live-class.privateclass.room',$user->slug)}}">Enter</a>
+
+                  @else 
+                  
+
                   <a class="btn btn-outline-warning m-2" href="#" onclick="showLockedModal()">Register</a>
+
+                  @endif
               @endguest
                     @elseif($user->privateClass->status!="approved")
                     @if($user->privateClass->status=="pending") <p class="text-warning"> You are under verification, Please wait.</p> @elseif($user->privateClass->status=="rejected") <p class="text-danger" >Your are rejected by admin, Please <a @if(!empty(optional($setting)->emailaddress)) href="mailto:{{optional($setting)->emailaddress}}" @endif >contact Admin {{ optional($setting)->emailaddress }}</a> for further details.</p> @else <span class="btn btn-outline-warning"> {{ucfirst($user->privateClass->status)}} </span> @endif
