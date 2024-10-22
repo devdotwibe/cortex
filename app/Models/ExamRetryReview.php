@@ -38,7 +38,7 @@ class ExamRetryReview extends Model
                                         ->select('id');
         return ExamRetryAnswer::where('exam_retry_review_id',$this->id)
                             ->where('exam_id',$this->exam_id)
-                            ->whereIn('question_id',$questions)
+                            ->whereIn('exam_retry_question_id',$questions)
                             ->where('iscorrect',true)
                             ->where('user_answer',true)
                             ->count();
