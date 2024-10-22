@@ -239,16 +239,29 @@ class MockExamController extends Controller
         $chartlabel=[];
         $chartbackgroundColor=[];
         $chartdata=[];
-            
-        foreach (UserReviewAnswer::select('mark',DB::raw('count(mark) as marked_users'))->fromSub(function ($query)use($userExamReview){
-            $query->from('user_review_answers')->where('user_exam_review_id','<=',$userExamReview->id)->whereIn('user_exam_review_id',UserExamReview::where('name','full-mock-exam')->where('user_exam_review_id','<=',$userExamReview->id)->where('exam_id',$userExamReview->exam_id)->groupBy('user_id')->select(DB::raw('MAX(id)')))
-            ->where('iscorrect',true)->where('user_answer',true)->select(DB::raw('count(user_id) as mark'));
-        }, 'subquery')->groupBy('mark')->get() as  $row) { 
+        $userReviewAnswers = UserReviewAnswer::select('mark',DB::raw('count(mark) as marked_users'))
+                                                ->fromSub(function ($query)use($userExamReview){
+                                                    $query->from('user_review_answers')
+                                                            ->where('user_exam_review_id','<=',$userExamReview->id)
+                                                            ->whereIn('user_exam_review_id',UserExamReview::where('name','full-mock-exam')
+                                                                                                            ->where('user_exam_review_id','<=',$userExamReview->id)
+                                                                                                            ->where('exam_id',$userExamReview->exam_id)
+                                                                                                            ->groupBy('user_id')
+                                                                                                            ->select(DB::raw('MAX(id)')))
+                                                            ->where('iscorrect',true)
+                                                            ->where('user_answer',true)
+                                                            ->select(DB::raw('count(user_id) as mark'));
+                                                }, 'subquery')
+                                                ->groupBy('mark')
+                                                ->get();
+        foreach ($userReviewAnswers as  $row) { 
             $chartlabel[]=strval($row->mark);
             $chartbackgroundColor[]=$passed==$row->mark? "#ef9b10" : '#dfdfdf';
             $chartdata[]=$row->marked_users;
         } 
-        $attemtcount=UserExamReview::where('exam_id',$userExamReview->exam_id)->where('user_id',$user->id)->count();
+        $attemtcount=UserExamReview::where('exam_id',$userExamReview->exam_id)
+                                    ->where('user_id',$user->id)
+                                    ->count();
         $category=Category::all();
         return view('user.full-mock-exam.resultpage',compact('chartdata','chartbackgroundColor','chartlabel','category','userExamReview','passed','attemttime','questioncount','attemtcount'));
         
@@ -432,7 +445,9 @@ class MockExamController extends Controller
             $answers = Session::get($attemt, []);
             $passed = $request->input("passed", '0');
             $questions = $request->input("questions", '[]');
-            $questioncnt = UserExamQuestion::whereNotIn('slug', session("exam-retry-questions" . $userExamReview->id, []))->where('user_exam_id', $userExam->id)->count();
+            $questioncnt = UserExamQuestion::whereNotIn('slug', session("exam-retry-questions" . $userExamReview->id, []))
+                                            ->where('user_exam_id', $userExam->id)
+                                            ->count();
             $review = ExamRetryReview::store([
                 "title" => $exam->title,
                 "name" => $exam->name,
@@ -447,7 +462,7 @@ class MockExamController extends Controller
                 "time_of_exam" => "$questioncnt:00",
                 "user_exam_review_id" => $userExamReview->id, 
             ]);
-
+            
             dispatch(new SubmitRetryReview($review, session("exam-retry-questions" . $userExamReview->id, []), $answers));
 
             if ($questioncnt > $passed) {

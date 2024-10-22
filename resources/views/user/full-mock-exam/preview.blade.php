@@ -38,7 +38,7 @@
             </div>
 
             <div class="Review-mode">
-                <span>Review Mode: </span>
+                <span>Review Mode </span>
             </div>
            
         </div>
