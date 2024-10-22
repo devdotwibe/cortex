@@ -209,8 +209,8 @@
                     if(v.learn_type=="mcq"){
                         $('#lesson-questionlist-list').html(`
                             <div class="col-md-12">
-                                <div class="mcq-row" >
-                                    <div class="mcq-title">
+                                <div class="note-row" >
+                                    <div class="note-title">
                                         <span>${v.title}</span>
                                     </div>
                                     <div class="mcq-container">

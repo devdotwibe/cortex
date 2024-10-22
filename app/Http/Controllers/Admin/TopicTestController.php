@@ -150,6 +150,7 @@ class TopicTestController extends Controller
         $data=$request->validate([
             'time_of_exam'=>"required"
         ]);
+     
         $exam=Exam::where("name",'topic-test')->first();
         if(empty($exam)){
             $exam=Exam::store([
