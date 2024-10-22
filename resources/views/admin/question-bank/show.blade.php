@@ -134,21 +134,24 @@
             // loadstatus();
         })
 
-       
+//         $('#table-categoryquestiontable').DataTable({
+//     stateSave: true
+// });
 
-        $(document).on('click', '.user-visibility form-check-box', function(e) {
-    e.stopPropagation(); // Prevent DataTables from resetting the page
-});
 
-var table = $('#table-categoryquestiontable').DataTable();
+//         $(document).on('click', '.user-visibility form-check-box', function(e) {
+//     e.stopPropagation(); // Prevent DataTables from resetting the page
+// });
 
-$('#table-categoryquestiontable').on('click', '.user-visibility form-check-box', function() {
-    var page = table.page(); // Store the current page
-    // Perform your checkbox logic here
+// var table = $('#table-categoryquestiontable').DataTable();
 
-    // Restore the current page
-    table.page(page).draw(false);
-});
+// $('#table-categoryquestiontable').on('click', '.user-visibility form-check-box', function() {
+//     var page = table.page(); // Store the current page
+//     // Perform your checkbox logic here
+
+//     // Restore the current page
+//     table.page(page).draw(false);
+// });
 
     </script>
     {{-- <script>
