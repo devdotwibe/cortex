@@ -210,6 +210,22 @@ Route::middleware(['auth', 'isUser'])->group(function () {
             //     Route::get('/', [LessonRecordVideoController::class, 'index'])->name('index');
             //     Route::get('/{lesson_recording}', [LessonRecordVideoController::class, 'show'])->name('show');
             // });
+
+
+
+            Route::prefix('analytics')->name('analytics.')->group(function () {
+                Route::get('/', [AnalyticsController::class, 'index'])->name('index');
+            });
+
+
+
+
+
+
+
+
+
+
         });
 
         Route::prefix('community')->name('community.')->group(function () {
@@ -228,9 +244,7 @@ Route::middleware(['auth', 'isUser'])->group(function () {
             Route::post('/post/{post}/report', [CommunityController::class, 'postReport'])->name('post.report');
         });
 
-        Route::prefix('analytics')->name('analytics.')->group(function () {
-            Route::get('/', [AnalyticsController::class, 'index'])->name('index');
-        });
+       
 
         Route::prefix('support')->name('support.')->group(function () {
             Route::get('/', [SupportController::class, 'index'])->name('index');
@@ -322,7 +336,7 @@ Route::middleware(['auth', 'isUser'])->group(function () {
       
 
     });
-    
+
     Route::prefix('tipsandadvice')->name('tipsandadvise.')->group(function () {
         Route::get('/', [TipsAndAdviceController::class, 'index'])->name('index');
         Route::resource('/post',TipsAndAdviceController ::class);
