@@ -111,9 +111,7 @@
 
 
 <script>
-    $('#table-categoryquestiontable').DataTable({
-    stateSave: true
-});
+
 
 
     function showLockedModal() {
@@ -156,6 +154,9 @@
             `)
             $('#review-history-modal').modal('show')
             $('#attemt-list-table').DataTable({
+
+                stateSave: true
+
                 processing: true,
                 serverSide: true,
                 searching: false,
@@ -246,6 +247,22 @@
         //     $('#review-history-modal').modal('show')
         // },'json')
     }
+
+    $(document).on('click', '.your-checkbox-class', function(e) {
+    e.stopPropagation(); // Prevent DataTables from resetting the page
+});
+
+
+var table = $('#table-categoryquestiontable').DataTable();
+
+$('#table-categoryquestiontable').on('click', '.user-visibility form-check-box', function() {
+    var page = table.page(); // Store the current page
+    // Perform your checkbox logic here
+
+    // Restore the current page
+    table.page(page).draw(false);
+});
+
     </script>
 
 
