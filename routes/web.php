@@ -213,9 +213,11 @@ Route::middleware(['auth', 'isUser'])->group(function () {
 
 
         Route::prefix('tipsandadvice')->name('tipsandadvise.')->group(function () {
-            Route::get('/', [TipsAndAdviceController::class, 'index'])->name('index');
-            Route::resource('/post',TipsAndAdviceController ::class);
-            Route::get('/tips-show/{id}', [TipsAndAdviceController::class, 'tip_show'])->name('tip_show');
+
+            Route::middleware('subscription:tipsandadvice')->get('/', [TipsAndAdviceController::class, 'index'])->name('index');
+
+            Route::middleware('subscription:tipsandadvice')->resource('/post',TipsAndAdviceController ::class);
+            Route::middleware('subscription:tipsandadvice')->get('/tips-show/{id}', [TipsAndAdviceController::class, 'tip_show'])->name('tip_show');
     
         });
     
