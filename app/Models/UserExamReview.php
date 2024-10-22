@@ -29,10 +29,24 @@ class UserExamReview extends Model
         'time_of_exam'
     ];
     public function categoryMark($id){ 
-        return UserReviewAnswer::where('user_exam_review_id',$this->id)->where('exam_id',$this->exam_id)->whereIn('question_id',Question::where("category_id",$id)->where('exam_id',$this->exam_id)->select('id'))->where('iscorrect',true)->where('user_answer',true)->count();
+        //        return UserReviewAnswer::where('user_exam_review_id',$this->id)->where('exam_id',$this->exam_id)->whereIn('question_id',Question::where("category_id",$id)->where('exam_id',$this->exam_id)->select('id'))->where('iscorrect',true)->where('user_answer',true)->count();
+        $questions = UserExamQuestion::where("category_id",$id)
+                            ->where('exam_id',$this->exam_id)
+                            ->select('id');
+        return UserReviewAnswer::where('user_exam_review_id',$this->id)
+                                ->where('exam_id',$this->exam_id)
+                                ->whereIn('question_id',$questions)
+                                ->where('iscorrect',true)
+                                ->where('user_answer',true)
+                                ->count();
     }
     public function categoryCount($id){ 
-        return UserReviewQuestion::where('user_exam_review_id',$this->id)->where('exam_id',$this->exam_id)->whereIn('question_id',Question::where("category_id",$id)->where('exam_id',$this->exam_id)->select('id'))->count();
+        //return UserReviewQuestion::where('user_exam_review_id',$this->id)->where('exam_id',$this->exam_id)->whereIn('question_id',Question::where("category_id",$id)->where('exam_id',$this->exam_id)->select('id'))->count();
+        $questions = Question::where("category_id",$id)->where('exam_id',$this->exam_id)->select('id');
+        return UserReviewQuestion::where('user_exam_review_id',$this->id)
+                                    ->where('exam_id',$this->exam_id)
+                                    ->whereIn('question_id',$questions)
+                                    ->count();
     }
     public function avgTime($id=null){ 
         $qst=UserReviewQuestion::where('user_exam_review_id',$this->id)->where('exam_id',$this->exam_id);
