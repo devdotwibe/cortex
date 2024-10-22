@@ -5,11 +5,15 @@
     <div class="header_wrapp">
         <div class="header_title">
 
+            
+            {{-- <h2>{{$category->name}} -> {{$subcategory->name}} -> {{ $setname->name }} -> Questions</h2> --}}
+
             <h2>
                 <a href="{{ route('admin.question-bank.index') }}">{{$category->name}}</a> -> 
                 <a href="{{ route('admin.question-bank.index', ['id' => $category->slug,'type' =>'subcategory']) }}">{{$subcategory->name}}</a> -> 
                 {{ $setname->name }} -> Questions
             </h2>
+            
 
         </div>
          
@@ -79,43 +83,113 @@
     </div>
 @endpush
 
+
 @push('footer-script')
-<script>
-    var questiontable = null;
+    <script>
+        var questiontable = null;
+        // const eventSource = null;
+        // var isrefresh=false;
+        function questiontableinit(table) {
+            questiontable = table
+        }
 
-    // Initialize DataTable and store the reference
-    function questiontableinit(table) {
-        questiontable = table;
-    }
+        function visiblechangerefresh(url) {
+            $.get(url, function() {
+                if (questiontable != null) {
+                    questiontable.ajax.reload()
+                }
+            }, 'json')
+        } 
+        function importupdate(){
+            // isrefresh=true;
+            questiontable.ajax.reload()
+        }
+        // async function loadstatus(){
+        //     let response=await fetch("{{route('admin.uploadstatus','question-bank-import-question')}}",{
+        //         method: 'GET',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+        //             'X-Requested-With': 'XMLHttpRequest'
+        //         },
+        //     })
+        //     const message = await response.json();  
+        //     if(message.status=="complete"||message.import=="end"||message.import==""||message.import=="stop"){
+        //         $('.import-upload-btn').show();
+        //         $('.import-cancel-btn').hide()
+        //         if(isrefresh){
+        //             questiontable.ajax.reload()
+        //             isrefresh=false;
+        //         }
+        //     }else{
+        //         $('.import-upload-btn').hide();
+        //         $('.import-cancel-btn').show()
+        //         $('#import-cancel-btn-text').text(message.completed+"% complete");
+        //     }
+        //     setTimeout(() => {
+        //         loadstatus();
+        //     }, 1000);
+        // }
+        $(function(){
+            // loadstatus();
+        })
 
-    // Function to refresh the DataTable after visibility changes
-    function visiblechangerefresh(url) {
-        $.get(url, function() {
-            if (questiontable != null) {
-                questiontable.ajax.reload();
-            }
-        }, 'json');
-    } 
+       
 
-    // Function to refresh the table after import update
-    function importupdate(){
-        questiontable.ajax.reload();
-    }
+        $(document).on('click', '.user-visibility form-check-box', function(e) {
+    e.stopPropagation(); // Prevent DataTables from resetting the page
+});
 
-    // Event handling for maintaining the current page after checkbox click
-    $(document).on('click', '.user-visibility .form-check-input', function(e) {
-        e.stopPropagation(); // Prevent DataTables from resetting the page
-    });
+var table = $('#table-categoryquestiontable').DataTable();
 
-    // Retain the current page even after checkbox action
-    var table = $('#categoryquestiontable').DataTable();
+$('#table-categoryquestiontable').on('click', '.user-visibility form-check-box', function() {
+    var page = table.page(); // Store the current page
+    // Perform your checkbox logic here
 
-    $('#categoryquestiontable').on('click', '.user-visibility .form-check-input', function() {
-        var page = table.page(); // Store the current page
-        // Perform your checkbox logic here
+    // Restore the current page
+    table.page(page).draw(false);
+});
 
-        // Restore the current page
-        table.page(page).draw(false);
-    });
-</script>
+    </script>
+    {{-- <script>
+        async function loadstatus(){
+            
+            if(eventSource==null){
+                eventSource = new EventSource('{{route('admin.uploadstatus','question-bank-import-question')}}');
+                eventSource.onopen = function() {
+                    console.log("connected",new Date())
+                }
+                eventSource.onmessage = function(event) { 
+                    console.log("message",new Date())
+                    if(typeof event.data=="string"){
+                        var message=JSON.parse(event.data);
+                    }else{
+                        var message=event.data;
+                    }
+
+                    if(message.import=="end"){
+                        questiontable.ajax.reload()
+                    }
+                    if(message.status=="complete"||message.import=="end"||message.import==""){
+                        $('.import-upload-btn').show();
+                        $('.import-cancel-btn').hide()
+                    }else{
+                        $('.import-upload-btn').hide();
+                        $('.import-cancel-btn').show()
+                        $('#import-cancel-btn-text').text(message.completed+"% complete");
+                    }
+                    
+                };
+                eventSource.onerror = function(error) {
+                    eventSource.close();
+                    eventSource=null;
+                };
+            }            
+        }
+        $(function(){
+            loadstatus();
+        })
+    </script> --}}
+
+    
 @endpush
