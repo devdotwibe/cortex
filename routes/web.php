@@ -219,15 +219,6 @@ Route::middleware(['auth', 'isUser'])->group(function () {
 
 
 
-
-
-
-
-
-
-
-        });
-
         Route::prefix('community')->name('community.')->group(function () {
             Route::get('/', [CommunityController::class, 'posts'])->name('index');
             Route::get('/search', [CommunityController::class, 'search'])->name('search');
@@ -243,6 +234,15 @@ Route::middleware(['auth', 'isUser'])->group(function () {
             Route::get('/post/{post}/comment/{post_comment}/like', [CommunityController::class, 'commentLike'])->name('post.comment.like');
             Route::post('/post/{post}/report', [CommunityController::class, 'postReport'])->name('post.report');
         });
+
+
+
+
+
+
+        });
+
+      
 
        
 
