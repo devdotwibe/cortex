@@ -97,18 +97,25 @@
                 }
             }, 'json')
         } 
-        $(function() { 
+        // $(function() { 
 
 
-            $('#time_of_exam-table-category-form-create').each(function(){
-                var mask = $(this).data('mask');
-                var placeholder = $(this).data('placeholder')||" ";
-                $(this).inputmask({
-                    placeholder:"HH : MM",
-                    regex: "^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$",
+        //     $('#time_of_exam-table-category-form-create').each(function(){
+        //         var mask = $(this).data('mask');
+        //         var placeholder = $(this).data('placeholder')||" ";
+        //         $(this).inputmask({
+        //             placeholder:"HH : MM",
+        //             regex: "^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$",
+        //             showMaskOnFocus: false
+        //         });
+                $(function() {
+                $('#time_of_exam-table-category-form-create').inputmask({
+                    placeholder: "HH:MM", // Placeholder for the input
+                    mask: "99:99",        // Mask format for HH:MM
+                    regex: "^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$", // Regular expression to match valid time
                     showMaskOnFocus: false
                 });
             })
-        })
+        
     </script>
 @endpush
