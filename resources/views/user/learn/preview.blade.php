@@ -100,7 +100,7 @@
             <button class="button right-btn"> Next <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
         </div>
         <div class="lesson-finish pagination-arrow" style="display:none">
-            <button class="button finish-btn" > Finish Set <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
+            <button class="button finish-btn" onclick="window.location.href='{{ route('learn.show', $category->slug) }}'"> Finish Set <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
         </div>  
     </div> 
 </section>
