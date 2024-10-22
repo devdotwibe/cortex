@@ -49,7 +49,7 @@
                   <a class="btn btn-outline-warning m-2" href="{{route('live-class.privateclass.form',$user->slug)}}">Register</a>
                   
                   @endguest --}}
-                  @guest('admin') 
+                  @guest('admin')  
                   @if((auth('web')->user()->is_free_access))  
 
                   <a class="btn btn-warning m-2" href="{{route('live-class.privateclass.room',$user->slug)}}">Enter</a>
