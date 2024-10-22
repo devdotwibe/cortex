@@ -102,7 +102,7 @@
 
             $('#time_of_exam-table-category-form-create').each(function(){
                 var mask = $(this).data('mask');
-                var placeholder = $(this).data('placeholder')||" ";
+                // var placeholder = $(this).data('placeholder')||" ";
                 $(this).inputmask({
                     placeholder:"HH : MM",
                     regex: "^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$",
