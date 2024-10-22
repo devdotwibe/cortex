@@ -462,8 +462,53 @@ class MockExamController extends Controller
                 "time_of_exam" => "$questioncnt:00",
                 "user_exam_review_id" => $userExamReview->id, 
             ]);
+            $user=User::find($review->user_id);
+        $exam=Exam::find($review->exam_id); 
+        $userExamReview=UserExamReview::find($review->user_exam_review_id);
+        $takentime=json_decode($user->progress($review->times),true);
+        $takentimereview=[]; 
+
+        $userExamquestions = UserExamQuestion::whereNotIn('slug',[$questions])->where('user_exam_id',$userExamReview->ticket)->get();
+dd($userExamquestions);
+        foreach (UserExamQuestion::whereNotIn('slug',[$questions])->where('user_exam_id',$userExamReview->ticket)->get() as $k=> $question) {
+              
+            $user_answer=$this->answers[$question->slug]??"";
+
+            $revquestion=ExamRetryQuestion::store([
+                'title'=>$question->title, 
+                'user_exam_review_id'=>$review->user_exam_review_id,
+                'exam_retry_review_id'=>$review->id,
+                'review_type'=>'mcq',
+                'note'=>$question->description, 
+                'explanation'=>$question->explanation, 
+                'currect_answer'=>'', 
+                'user_answer'=>$user_answer,  
+                'exam_id'=> $review->exam_id,
+                'question_id'=> $question->question_id,
+                'title_text'=> $question->title_text,
+                'sub_question'=> $question->sub_question,
+                'user_id'=>$review->user_id,
+                'time_taken'=>$takentime[$question->slug]??0
+            ]);
+
+            // $takentimereview[$revquestion->slug]=$takentime[$question->slug]??0;
             
-            dispatch(new SubmitRetryReview($review, session("exam-retry-questions" . $userExamReview->id, []), $answers));
+            foreach($question->answers as $ans){
+                ExamRetryAnswer::store([
+                    'exam_retry_review_id'=>$review->id,
+                    'user_exam_review_id'=>$review->user_exam_review_id,
+                    'exam_retry_question_id'=>$revquestion->id,
+                    'title'=>$ans->title,
+                    'iscorrect'=>$ans->iscorrect,
+                    'user_answer'=>(($ans->slug==$user_answer)?true:false),
+                    'exam_id'=> $review->exam_id,
+                    'question_id'=> $question->question_id,
+                    'answer_id'=> $ans->answer_id,
+                    'user_id'=>$review->user_id,
+                ]); 
+            }  
+        }
+        dd($questions);
 
             if ($questioncnt > $passed) {
                 $key = md5("exam-retry-repeat-" . $review->id);
