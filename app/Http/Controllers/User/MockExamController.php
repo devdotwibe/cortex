@@ -473,7 +473,7 @@ class MockExamController extends Controller
             if ($questioncnt > $passed) {
                 $key = md5("exam-retry-repeat-" . $review->id);
                 Session::put("exam-retry-" . $userExamReview->id, $key);
-                Session::put("exam-retry-questions" . $userExamReview->id, array_merge(session("exam-retry-questions" . $userExamReview->id, []), json_decode($questions, true)));
+                Session::put("exam-retry-questions" . $userExamReview->id, array_merge(session("exam-retry-questions" . $userExamReview->id, []), $questions));
                 Session::put($key, []);
             } else {
                 Session::put($attemt, null);
