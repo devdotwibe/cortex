@@ -22,7 +22,7 @@
                 </div>
                 <div class="workshop-action">
                     @if ($user->progress('intensive-workshop-payment','')=="paid")
-                        <a class="btn btn-dark m-2" href="{{route('live-class.workshop.form',$user->slug)}}">Register</a>
+                        <a class="btn btn-dark m-2" href="{{route('live-class.workshop.form',$user->slug)}}">Register1</a>
                     @else
                         <button class="btn btn-dark m-2" data-bs-toggle="modal" data-bs-target="#intensive-workshop-payment-modal" >Register</button>
                     @endif
