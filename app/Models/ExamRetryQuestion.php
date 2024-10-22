@@ -27,6 +27,9 @@ class ExamRetryQuestion extends Model
         'user_id',
         'time_taken',
         'title_text',
-        'sub_question'
+        'sub_question',
+        'category_id',
+        'sub_category_id',
+        'sub_category_set'
     ];
 }
