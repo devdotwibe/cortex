@@ -102,7 +102,7 @@
         var mask = $(this).data('mask');
         var placeholder = $(this).data('placeholder') || "HH : MM";  // Adjust the placeholder if needed
         $(this).inputmask({
-            alias: "hh:mm",  // Use InputMask's built-in time format
+            alias: "HH:MM",  // Use InputMask's built-in time format
             placeholder: placeholder,  // Placeholder format
             hourFormat: "24",  // Use 24-hour format
             showMaskOnFocus: true,
