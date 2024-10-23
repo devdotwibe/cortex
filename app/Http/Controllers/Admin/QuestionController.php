@@ -84,24 +84,21 @@ class QuestionController extends Controller
         }
         $question=Question::store($questiondat);
         foreach($request->answer as $k =>$ans){
+
+            $imageName ="";
+            if ($request->hasFile($request->ans['image'])) {
+                $imageName = "questionimages/" . $request->file('image')->hashName();
+                Storage::put('questionimages',$imageName);
+            }
              $answer=Answer::store([
                 "exam_id"=>$question->exam_id,
                 "question_id"=>$question->id,
                 "iscorrect"=>$k==($request->choice_answer??0)?true:false,
                 "title"=>$ans,
-                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048'
+                'image' =>  $imageName,
          
             ]);
-            if ($request->hasFile('image')) {
-                $imageName = "questionimages/" . $request->file('image')->hashName();
-                Storage::put('questionimages', $request->file('image'));
-                $answer->image = $imageName;
-
-                $answer->save();
-
-
-
-            }
+          
     
 
         }
