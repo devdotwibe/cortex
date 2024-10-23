@@ -3342,6 +3342,9 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check { font-size: 16px; padding-left: 30px;}
 .exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check input {margin-left: -28px; width: 18px; height: 18px;}
 
+.exam-container.answerclass .mcq-container-wrap.question-bank-review .lesson .lesson-body .mcq-container .mcq-group { height: inherit;}
+.exam-container.answerclass .mcq-container-wrap.question-bank-review .lesson .lesson-body .mcq-container .mcq-answer { height: inherit;}
+.form-progress-ans .form-progress { margin: 0 0 10px;}
 
 }
 
