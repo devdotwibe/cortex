@@ -82,34 +82,36 @@ class QuestionController extends Controller
                 ]);
                 break;
         }
-        $question = Question::create($questiondat); // Use create() instead of store()
-
-        // Loop through each answer and store it
-        foreach ($request->answer as $k => $ans) {
-            // Store the answer
-            $answer = Answer::create([ // Use create() instead of store()
-                "exam_id" => $question->exam_id,
-                "question_id" => $question->id,
-                "iscorrect" => $k == ($request->choice_answer ?? 0), // Check if this is the correct answer
-                "title" => $ans,
+        $question=Question::store($questiondat);
+        foreach($request->answer as $k =>$ans){
+             $answer=Answer::store([
+                "exam_id"=>$question->exam_id,
+                "question_id"=>$question->id,
+                "iscorrect"=>$k==($request->choice_answer??0)?true:false,
+                "title"=>$ans,
+         
             ]);
-    
-            // Handle image upload for each answer
             if ($request->hasFile('image')) {
                 $imageName = "questionimages/" . $request->file('image')->hashName();
                 Storage::put('questionimages', $request->file('image'));
-    
-                // Save the image name in the answer
                 $answer->image = $imageName;
-                $answer->save(); // Save the updated answer with the image
+
+                $answer->save();
+
+
+
             }
+    
+
         }
-    
-        // Determine the redirect route
-        $redirect = $request->redirect ?? route('admin.question.index');
-    
-        // Redirect with a success message
-        return redirect($redirect)->with("success", "Question has been successfully created");
+
+        $redirect=$request->redirect??route('admin.question.index');
+
+
+        
+
+
+        return redirect($redirect)->with("success","Question has been successfully created");
     }
     public function update(Request $request,Question $question){
         
