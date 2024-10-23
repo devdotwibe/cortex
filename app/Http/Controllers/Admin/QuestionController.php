@@ -7,6 +7,7 @@ use App\Models\Answer;
 use App\Models\Question;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class QuestionController extends Controller
 {
@@ -83,15 +84,33 @@ class QuestionController extends Controller
         }
         $question=Question::store($questiondat);
         foreach($request->answer as $k =>$ans){
-            Answer::store([
+             $answer=Answer::store([
                 "exam_id"=>$question->exam_id,
                 "question_id"=>$question->id,
                 "iscorrect"=>$k==($request->choice_answer??0)?true:false,
-                "title"=>$ans
+                "title"=>$ans,
+         
             ]);
+            if ($request->hasFile('image')) {
+                $imageName = "questionimages/" . $request->file('image')->hashName();
+                Storage::put('questionimages', $request->file('image'));
+                $answer->image = $imageName;
+
+                $answer->save();
+
+
+
+            }
+    
+
         }
 
         $redirect=$request->redirect??route('admin.question.index');
+
+
+        
+
+
         return redirect($redirect)->with("success","Question has been successfully created");
     }
     public function update(Request $request,Question $question){
