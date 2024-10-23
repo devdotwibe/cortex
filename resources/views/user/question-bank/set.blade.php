@@ -468,7 +468,7 @@
                                     </div>
                                     <div class="mcq-container">
                                         <div class="mcq-group">
-                                           
+                                            <h3><span>{{$exam->subtitle($category->id,"Topic ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h3>
                                             <div class="mcq-title-text" ${v.title_text?"":'style="display:none"'}>
                                                 ${v.title_text||""}
                                             </div>
