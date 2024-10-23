@@ -102,7 +102,6 @@ class SubmitRetryReview implements ShouldQueue
                 'sub_category_id'=>$question->sub_category_id,
                 'sub_category_set'=>$question->sub_category_set
             ]);
-            Log::info('executed'.$takentime[$question->slug]);
             // $takentimereview[$revquestion->slug]=$takentime[$question->slug]??0;
             
             foreach($question->answers as $ans){
