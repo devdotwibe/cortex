@@ -599,6 +599,10 @@ margin-left:auto;
   margin: 0 0 20px;
 }
 
+.exam-container .container-wrap .lesson .lesson-body p img {
+  display: block;
+}
+
 .exam-container .container-wrap .lesson .lesson-body h2 {
   font-size: 26px;
   line-height: 1.5;
@@ -2740,7 +2744,7 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .lesson-exit img { width: 100%; display: block;}
 .examclass .lesson-pagination .lesson-right.pagination-arrow { margin-left: auto;}
 
-.mcq-title-text {width: 100%; padding: 20px 20px 10px; border: 1px solid #414141; border-radius: 0; margin: 0 0 20px;}
+.mcq-title-text {width: 100%; padding: 20px 20px 0; border: 1px solid #414141; border-radius: 0; margin: 0 0 20px;}
 
 .modal { background: rgb(0 0 0 / 50%);}
 
