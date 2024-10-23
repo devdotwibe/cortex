@@ -250,6 +250,8 @@
         <input type="hidden" name="flags" id="finish-exam-confirmed-form-flags" value="" >
         <input type="hidden" name="times" id="finish-exam-confirmed-form-times" value="" >
         <input type="hidden" name="passed" id="finish-exam-confirmed-form-passed" value="" > 
+        <input type="hidden" name="questions" id="finish-exam-confirmed-form-questions" value="" > 
+
     </form>
 </div>
 
@@ -634,6 +636,7 @@
             $('#finish-exam-confirmed-form-flags').val(JSON.stringify(summery.flagcurrent))
             $('#finish-exam-confirmed-form-times').val(JSON.stringify(summery.timercurrent))
             $('#finish-exam-confirmed-form-passed').val(Object.keys(summery.verifydx).length); 
+            $('#finish-exam-confirmed-form-questions').val(JSON.stringify(Object.keys(summery.verifydx))); 
             $('#finish-exam-confirmed-form').submit();
             summery.timerActive=false;
             summery.examActive=false;
