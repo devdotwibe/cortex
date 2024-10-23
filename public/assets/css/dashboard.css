@@ -3000,8 +3000,8 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 nav.navbar.header-class { display: none;}
 .exam-container.answerclass {padding-top: 0; margin-top: 0;}
 .exam-container.answerclass .exam-progress { top: 0;}
-.exam-container.answerclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group { height: calc(100vh - 160px);}
-.exam-container.answerclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer { height: calc(100vh - 160px);}
+.exam-container.answerclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group { height: calc(100vh - 190px);}
+.exam-container.answerclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer { height: calc(100vh - 190px);}
 
 .exam-container.answerclass .lesson .lesson-title { margin: 0 0 15px;}
 
