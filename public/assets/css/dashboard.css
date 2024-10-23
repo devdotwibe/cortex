@@ -3130,6 +3130,8 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 
 .payment-wrap .tab-content .tab-pane#section4 .card .card-body .sec .pricesection1 .col-md-12 {width: 48%;  margin: 0 4% 0 0;}
 
+.card-calendar .card-body {padding: 20px;}
+
 }
 
 @media screen and (max-width:767px) {
@@ -3246,5 +3248,16 @@ nav.navbar { padding: 10px 6% 10px 55px;}
   padding: 0 0 0 0 !important;
 }
 .payment-wrap .tab-content .tab-pane#section4 .card .card-body .sec .pricesection1 .col-md-12 {width: 100%;  margin: 0 0 0 0;}
+
+.card-links .card-body .session-links .btn-outline-secondary { font-size: 12px;}
+.card-links .card-body .session-links .btn-outline-warning { font-size: 12px;}
+.card-links .card-body .session-links span { font-size: 14px; margin: 0 5px;}
+.card-links .card-body h3 { font-size: 17px;}
+.card-calendar .card-body h3 { font-size: 17px;}
+.card-calendar .card-body .calendar .calendar-body .fc-header-toolbar button.fc-button { padding: 5px;}
+.card-calendar .card-body .calendar .calendar-body .fc-header-toolbar button.fc-button .fc-icon { width: 20px; height: 20px; font-size: 16px;}
+.card-calendar .card-body .calendar .calendar-body .fc-header-toolbar .fc-toolbar-chunk h2 { font-size: 14px;}
+.card-calendar .card-body .calendar .calendar-body .fc-view-harness { max-height: 52vw;}
+.card-progress .card-body .col-md-3 { width: 50%;  margin: 0 0 20px;}
 
 }
