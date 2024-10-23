@@ -3126,6 +3126,12 @@ aside.side_bar.slider-btn { width: 220px !important;}
 .category .category-content h5 { font-size: 16px;}
 .category .category-content h3 { font-size: 20px;}
 
+.progress-menu .menu-text { font-size: 20px;}
+.progress-menu .menu-text #menu-text span { font-size: 26px;}
+.progress-menu .menu-icon { width: 35px;}
+.progress-menu { padding: 15px 30px;}
+.progress-main .timer span { font-size: 14px;}
+
 }
 
 @media screen and (max-width:991px) {
