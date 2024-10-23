@@ -82,28 +82,27 @@ class QuestionController extends Controller
                 ]);
                 break;
         }
-        $question = Question::create($questiondat); // Use create() instead of store()
+        $question=Question::store($questiondat);
+        foreach($request->answer as $k =>$ans){
 
-        // Loop through each answer and store it
-        foreach ($request->answer as $k => $ans) {
-            $imageName = "";
-    
-            // Check if there's an image for this answer
-            if ($request->hasFile("image.$k")) { // Check for image corresponding to the answer
-                $image = $request->file("image.$k"); // Get the image for this particular answer
-                $imageName = "questionimages/" . $image->hashName(); // Generate image name
-                $image->store('questionimages'); // Store the image in the specified directory
+            $imageName ="";
+            if ($request->hasFile($request->ans['image'])) {
+                $imageName = "questionimages/" . $request->file('image')->hashName();
+                Storage::put('questionimages',$imageName);
             }
-    
-            // Store the answer with the image name (if applicable)
-            Answer::create([
-                "exam_id" => $question->exam_id,
-                "question_id" => $question->id,
-                "iscorrect" => $k == ($request->choice_answer ?? 0),
-                "title" => $ans,
-                'image' => $imageName, // Store image path or empty string if no image
+             $answer=Answer::store([
+                "exam_id"=>$question->exam_id,
+                "question_id"=>$question->id,
+                "iscorrect"=>$k==($request->choice_answer??0)?true:false,
+                "title"=>$ans,
+                'image' =>  $imageName,
+         
             ]);
+          
+    
+
         }
+
         $redirect=$request->redirect??route('admin.question.index');
 
 
