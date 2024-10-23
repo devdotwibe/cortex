@@ -60,9 +60,9 @@
 </section> 
 <section class="exam-footer"> 
     <div class="lesson-pagination">
-        <div class="lesson-left pagination-arrow" style="display: none" >
+        {{-- <div class="lesson-left pagination-arrow" style="display: none" >
             <button class="button left-btn"><img src="{{asset('assets/images/leftarrow.svg')}}" alt="<"> Back </button>
-        </div>
+        </div> --}}
 
         <div class="lesson-left ">
             <a href="{{ route('topic-test.complete', $userExamReview->slug) }}" class="button left-btn" title="Back">
