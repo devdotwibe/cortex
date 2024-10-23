@@ -3178,6 +3178,13 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .progress-main .exam-exit { width: 20px;}
 .progress-main .timer span { font-size: 12px; padding: 0 3px;}
 
+
+.lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark {width: 140px;}
+.lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark .flagclass {   font-size: 16px;}
+.lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark #flagimages {   width: 30px;   right: 5px;}
+.exam-container.answerclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer {   height: calc(100vh - 150px);}
+.exam-container.answerclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group {   height: calc(100vh - 150px);}
+
 }
 
 @media screen and (max-width:767px) {
