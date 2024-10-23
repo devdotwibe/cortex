@@ -283,7 +283,8 @@ main{ margin-top:87px;}
   align-items: center;
 }
 
-.learn-section .col-md-6{margin: 0 0 26px;}
+.learn-section .row { justify-content: space-between;}
+.learn-section .col-md-6{margin: 0 0 26px; padding: 0 0 0; width: 49%;}
 .learn-section .col-md-6 .card {border-radius: 5px; border: none;}
 .category .progress-area {width: 100%; margin: 10px 0 0;display: flex; flex-wrap: wrap;  align-items: center;}
 .learn-section .col-md-6 .card .card-body { padding: 30px;}
