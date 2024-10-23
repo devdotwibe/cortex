@@ -94,7 +94,7 @@
       
 
         <div class="lesson-right">
-            <a href="{{ route(' full-mock-exam.index', $userExamReview->slug) }}" class="button right-btn" title="Next">
+            <a href="{{ route(' full-mock-exam.index') }}" class="button right-btn" title="Next">
                 Finish Set <img src="{{ asset('assets/images/rightarrow.svg') }}" alt=">">
             </a>
         </div>
