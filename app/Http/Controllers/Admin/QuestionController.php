@@ -89,6 +89,7 @@ class QuestionController extends Controller
                 "question_id"=>$question->id,
                 "iscorrect"=>$k==($request->choice_answer??0)?true:false,
                 "title"=>$ans,
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,webp,svg|max:2048'
          
             ]);
             if ($request->hasFile('image')) {
