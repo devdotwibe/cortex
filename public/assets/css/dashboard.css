@@ -3303,6 +3303,9 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .exam-container .summery-wrap { padding: 30px; width: 100%;}
 .exam-container .summery-wrap .summery-action .btn {  font-size: 14px;}
 
+.modal-expand.modal-expand-result .container-wrap .question-preview-body .col-md-3 {width: 100%;}
+.modal-expand.modal-expand-result .container-wrap .question-preview-body .col-md-9 { width: 100%; padding: 0;}
+
 }
 
 @media screen and (max-width:600px){
