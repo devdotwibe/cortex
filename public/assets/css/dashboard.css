@@ -428,6 +428,7 @@ button.close {
 .lesson .lesson-body .row {
   justify-content: space-between;
   width: 100%;
+  margin: 0 0 0;
 }
 .lesson .lesson-body .col-md-6 {
   width: 49%;
