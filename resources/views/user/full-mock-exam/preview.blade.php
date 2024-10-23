@@ -60,12 +60,9 @@
 </section> 
 <section class="exam-footer"> 
     <div class="lesson-pagination">
-        <div class="lesson-left ">
-            <a href="{{ route('question-bank.set.complete', $userExamReview->slug) }}" class="button left-btn" title="Back">
-                <img src="{{ asset('assets/images/leftarrow.svg') }}" alt="<"> Back 
-            </a>
+        <div class="lesson-left pagination-arrow" style="display: none" >
+            <button class="button left-btn"><img src="{{asset('assets/images/leftarrow.svg')}}" alt="<"> Back </button>
         </div>
-        
 
 
         <div class="exam-right exam-progress-inner-item">
@@ -93,11 +90,13 @@
       
 
 
-        <div class="lesson-right">
-            <a href="{{ route('question-bank.show', $category->slug) }}" class="button right-btn" title="Next">
-                Finish Set <img src="{{ asset('assets/images/rightarrow.svg') }}" alt=">">
-            </a>
+        <div class="lesson-right pagination-arrow" style="display:none">
+            <button class="button right-btn"> Next <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
         </div>
+        <div class="lesson-finish pagination-arrow" style="display:none">
+            <button class="button finish-btn" onclick="window.location.href='{{ route('full-mock-exam.index') }}'"> Finish Set <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
+        </div>  
+    </div> 
 </section>
 @endsection
 
