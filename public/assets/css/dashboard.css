@@ -427,6 +427,7 @@ button.close {
 }
 .lesson .lesson-body .row {
   justify-content: space-between;
+  width: 100%;
 }
 .lesson .lesson-body .col-md-6 {
   width: 49%;
@@ -3140,6 +3141,15 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .payment-wrap .tab-content .tab-pane#section4 .card .card-body .sec .pricesection1 .col-md-12 {width: 48%;  margin: 0 4% 0 0;}
 
 .card-calendar .card-body {padding: 20px;}
+
+.exam-container { padding-inline: 15px;}
+.exam-container .container-wrap {padding: 30px;}
+.exam-footer { padding: 0 15px;}
+.lesson-pagination .button {width: 140px;font-size: 16px;}
+.exam-container .container-wrap .lesson .lesson-body p { font-size: 18px;}
+.lesson-pagination .right-btn img { right: 22px;}
+.lesson-pagination .left-btn img { left: 22px;}
+
 
 }
 
