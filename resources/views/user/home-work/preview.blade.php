@@ -68,8 +68,14 @@
 
 <section class="exam-footer"> 
     <div class="lesson-pagination">
-        <div class="lesson-left pagination-arrow" style="display: none" >
+        {{-- <div class="lesson-left pagination-arrow" style="display: none" >
             <button class="button left-btn"><img src="{{asset('assets/images/leftarrow.svg')}}" alt="<"> Back </button>
+        </div> --}}
+
+        <div class="lesson-left ">
+            <a href="{{ route('home-work.preview', $homeWork->slug) }}" class="button left-btn" title="Back">
+                <img src="{{ asset('assets/images/leftarrow.svg') }}" alt="<"> Back 
+            </a>
         </div>
 
 
