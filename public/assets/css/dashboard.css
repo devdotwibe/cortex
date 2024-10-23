@@ -284,7 +284,7 @@ main{ margin-top:87px;}
 }
 
 .learn-section .row { justify-content: space-between;}
-.learn-section .col-md-6{margin: 0 0 26px; padding: 0 0 0; width: 49%;}
+.learn-section .col-md-6{margin: 0 0 20px; padding: 0 0 0; width: 49%;}
 .learn-section .col-md-6 .card {border-radius: 5px; border: none;}
 .category .progress-area {width: 100%; margin: 10px 0 0;display: flex; flex-wrap: wrap;  align-items: center;}
 .learn-section .col-md-6 .card .card-body { padding: 30px;}
@@ -425,9 +425,13 @@ button.close {
 .lesson .lesson-body{
   margin-top: 50px;
 }
-
+.lesson .lesson-body .row {
+  justify-content: space-between;
+}
 .lesson .lesson-body .col-md-6 {
-  margin: 0 0 26px;
+  width: 49%;
+  padding: 0;
+  margin: 0 0 20px;
 }
 .lesson .lesson-row {
   width: 100%;
@@ -3207,12 +3211,21 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .card-calendar .card-body .calendar .calendar-body .fc-view-harness { max-height: 35vw;}
 .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month table { height: auto  !important;}
 
+.category .category-image { width: 50px;}
+.learn-section .col-md-6 .card .card-body { padding: 20px;}
+
+.category .category-content h3 { font-size: 16px;}
+
 }
 
 @media screen and (max-width:600px){
 .private-wrap .private-content .card .card-body .row .col-md-12 {width: 100%;}
 
 .payment-wrap .nav.nav-tabs li.nav-item .nav-link {font-size: 13px;}
+
+.learn-section .col-md-6 { width: 100%;}
+
+.lesson .lesson-body .col-md-6 { width: 100%;}
 
 }
 
