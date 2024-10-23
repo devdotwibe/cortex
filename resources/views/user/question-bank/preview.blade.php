@@ -68,9 +68,7 @@
     <!-- ............................................................................................................. -->
     <div class="lesson-left lesson-pagination">
             <!-- <button class="button left-btn"><img src="{{asset('assets/images/leftarrow.svg')}}" alt="<"> Back </button> -->
-            <a class="lesson-exit float-start" href="{{route('question-bank.set.complete',$userExamReview->slug)}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
-                Back
-        </a>
+            
     </div>
 
     <div class="lesson-right">
@@ -83,9 +81,12 @@ Exit Review
 
 <section class="exam-footer"> 
     <div class="lesson-pagination">
-        <div class="lesson-left pagination-arrow" style="display: none" >
+        {{-- <div class="lesson-left pagination-arrow" style="display: none" >
             <button class="button left-btn"><img src="{{asset('assets/images/leftarrow.svg')}}" alt="<"> Back </button>
-        </div>
+        </div> --}}
+        <a class="lesson-exit float-start button left-btn" > <img src="{{asset('assets/images/leftarrow.svg')}}" href="{{route('question-bank.set.complete',$userExamReview->slug)}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
+            Back
+    </a>
 
 
         <div class="exam-right exam-progress-inner-item">
