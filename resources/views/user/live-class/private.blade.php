@@ -50,7 +50,7 @@
                   
                   @endguest --}}
                   @guest('admin')  
-                  @if(!(auth('web')->user()->is_free_access) && (optional(auth('web')->user()->subscription())->status ?? "") !== "subscribed")
+                  @if((auth('web')->user()->is_free_access) || (optional(auth('web')->user()->subscription())->status ?? "") == "subscribed")
 
                   <a class="btn btn-warning m-2" href="{{route('live-class.privateclass.room',$user->slug)}}">Enter</a>
 
