@@ -1534,6 +1534,7 @@ section.post-section .post-item .post-actions a.post-action-btn span{
   display:flex;
   justify-content:center;
   align-items:center;
+  text-align: center;
 }
 .progress-list .progress-item::before {
   content:"";
@@ -3079,11 +3080,37 @@ nav.navbar.header-class { display: none;}
 
 .payment-wrap .tab-content .tab-pane#section4 .card .card-body .sec .pricesection1 .col-md-12 {width: 100%;  margin: 0 0% 0 0;}
 
+aside.side_bar.slider-btn { width: 220px !important;}
+.sidebar-content ul li.side-item { font-size: 13px;}
+.sidebar-content ul li.side-item .side-trail { font-size: 10px;}
+.side_bar .sidebar-content .sidebar-nav { width: 220px;}
+.slider-active .content_outer { padding-left: 245px;}
+.content_outer { padding-left: 130px; padding-right: 20px;}
+.header_nav .header_wrapp .header_title h2 { font-size: 18px;}
+.progress-list .progress-item .progress-avathar {width: 45px;}
+.progress-list .progress-item .progress-title { font-size: 12px;}
+.card-links .card-body h3 { font-size: 18px;}
+.card-links .card-body .session-links .btn-outline-secondary {font-size: 16px;}
+.card-links .card-body .session-links .btn-outline-warning { font-size: 16px;}
+.card-calendar .card-body h3 { font-size: 18px;}
+.card-calendar .card-body .calendar .calendar-body .fc-header-toolbar .fc-toolbar-chunk h2 { font-size: 15px;}
+.card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month table tbody tr td .fc-daygrid-day-frame .fc-daygrid-day-top .fc-daygrid-day-number { font-size: 10px;}
+.card-calendar .card-body .calendar .calendar-footer .calendar-color-list .calendar-color-item span { font-size: 10px;}
+.card-calendar .card-body .calendar .calendar-body .fc-multimonth-title { font-size: 16px;}
+.card-graph h3 { font-size: 18px;}
+.card-progress .card-body h3 { font-size: 18px;}
+.card-progress .card-body { padding: 15px;}
+.card-progress .card-body .session-chart .donut-inner { font-size: 14px;}
+.card-progress .card-body .session-text { font-size: 12px;}
+.card-progress .card-body .col-md-3 { padding: 0 8px;}
+.card-graph .overview-graph-footer .graph-filter .graph-filter-btn { font-size: 15px;}
+.card-links .card-body { padding: 20px;}
+
 }
 
 @media screen and (max-width:991px) {
 .side_bar { margin-left: -100%; position: fixed; transition: all .25s ease-in-out;}
-.content_outer {padding-left: 30px;}
+.content_outer {padding-left: 20px;}
 .sidebar-menu { position: fixed;  width: 30px; height: 30px; top: 28px; left: 15px; z-index: 999;}
 .sidebar-menu .line { width: 100%; position: relative; display: inline-block; height: 2px; background: #1989f8; transition: all .25s ease-in-out;}
 .sidebar-menu .line:before { content: ""; width: 100%; position: absolute; display: inline-block; height: 2px; background: #1989f8; top: -10px; transition: all .25s ease-in-out;}
