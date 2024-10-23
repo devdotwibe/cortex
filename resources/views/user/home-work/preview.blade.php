@@ -111,7 +111,7 @@
             <button class="button finish-btn" onclick="window.location.href='{{ route('home-work.show',$homeWork->slug) }}'"> Finish Set <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
         </div>   --}}
 
-        <div class="lesson-right">
+        <div class="finish-btn">
             <a href="{{ route('home-work.show', $homeWork->slug) }}" class="button right-btn" title="Next">
                 Finish Set <img src="{{ asset('assets/images/rightarrow.svg') }}" alt="Right arrow">
             </a>
