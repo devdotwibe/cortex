@@ -3010,7 +3010,7 @@ nav.navbar.header-class { display: none;}
 
 
 
-.modal-expand.modal-expand-result .container-wrap { background: none; padding: 0;}
+.modal-expand.modal-expand-result .container-wrap { background: none; padding: 0;box-shadow: none;}
 .modal-expand.modal-expand-result .container-wrap .question-preview-body .col-md-3 { background: #fff; padding: 30px; border-radius: 10px;}
 .modal-expand.modal-expand-result .container-wrap .question-preview-body .col-md-3 .card-body { padding: 0; border: none;}
 .modal-expand.modal-expand-result .container-wrap .question-preview-body .col-md-3 .card-body .exam-mark-body { text-align: left;}
@@ -3145,6 +3145,9 @@ aside.side_bar.slider-btn { width: 220px !important;}
 .modal-expand.modal-expand-result .container-wrap .question-preview-body .col-md-3 {width: 30%;}
 .modal-expand.modal-expand-result .container-wrap .question-preview-body .col-md-9 { width: 70%;}
 
+.modal-expand.modal-expand-result .container-wrap .result-preview-body .col-md-3 { width: 30%;}
+.modal-expand.modal-expand-result .container-wrap .result-preview-body .col-md-9 { width: 70%;}
+
 }
 
 @media screen and (max-width:991px) {
@@ -3209,6 +3212,9 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .modal-expand.modal-expand-result .container-wrap .question-preview-body .col-md-3 {width: 35%;}
 .modal-expand.modal-expand-result .container-wrap .question-preview-body .col-md-9 {width: 65%;}
 .modal-expand.modal-expand-result {padding: 0 15px;}
+
+.modal-expand.modal-expand-result .container-wrap .result-preview-body .col-md-3 { width: 35%;}
+.modal-expand.modal-expand-result .container-wrap .result-preview-body .col-md-9 { width: 65%;}
 
 }
 
@@ -3309,6 +3315,9 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 
 .modal-expand.modal-expand-result .container-wrap .question-preview-body .col-md-3 {width: 100%;}
 .modal-expand.modal-expand-result .container-wrap .question-preview-body .col-md-9 { width: 100%; padding: 0;}
+
+.modal-expand.modal-expand-result .container-wrap .result-preview-body .col-md-3 { width: 100%;}
+.modal-expand.modal-expand-result .container-wrap .result-preview-body .col-md-9 { width: 100%; padding: 0 0 0;}
 
 }
 
