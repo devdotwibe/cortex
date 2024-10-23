@@ -45,13 +45,27 @@
         var questiontable = null;
         function questiontableinit(table) {
             questiontable = table
+             // Enable state saving to retain page and sort status
+             questiontable.state.save();
         }
+        // function visiblechangerefresh(url) {
+        //     $.get(url, function() {
+        //         if (questiontable != null) {
+        //             questiontable.ajax.reload()
+        //         }
+        //     }, 'json')
+        // }
         function visiblechangerefresh(url) {
             $.get(url, function() {
                 if (questiontable != null) {
-                    questiontable.ajax.reload()
+                    var currentPage = questiontable.page(); // Store current page
+                    // questiontable.ajax.reload()
+                     // Reload the table but retain the current page
+                     questiontable.ajax.reload(function() {
+                        questiontable.page(currentPage).draw(false); // Stay on the same page
+                    }, false);
                 }
-            }, 'json')
+            }, 'json');
         }
         function questionbeforeajax(data){
             data.sub_category=$('#subcat-list').val()||null;
