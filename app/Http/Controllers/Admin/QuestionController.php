@@ -82,6 +82,8 @@ class QuestionController extends Controller
                 ]);
                 break;
         }
+
+        dd($request);
         $question = Question::store($questiondat);
 foreach ($request->answer as $k => $ans) {
     $imageName = "";
