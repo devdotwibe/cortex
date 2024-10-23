@@ -3000,8 +3000,8 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 nav.navbar.header-class { display: none;}
 .exam-container.answerclass {padding-top: 0; margin-top: 0;}
 .exam-container.answerclass .exam-progress { top: 0;}
-.exam-container.answerclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group { height: calc(100vh - 160px);}
-.exam-container.answerclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer { height: calc(100vh - 160px);}
+.exam-container.answerclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group { height: calc(100vh - 190px);}
+.exam-container.answerclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer { height: calc(100vh - 190px);}
 
 .exam-container.answerclass .lesson .lesson-title { margin: 0 0 15px;}
 
@@ -3088,6 +3088,9 @@ nav.navbar.header-class { display: none;}
 .progress-main .timer span { font-size: 16px;}
 .exam-progress>.exam-progress-inner {  padding: 20px 15px;}
 .progress-main .hide-btn { width: 50px; height: 50px; padding: 10px; font-size: 11px;}
+
+.exam-container.answerclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer {  height: calc(100vh - 160px);}
+.exam-container.answerclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group { height: calc(100vh - 160px);}
 
 
 }
@@ -3319,7 +3322,7 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 
 .exam-container.answerclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group {height: inherit; width: 100%; padding: 0 0 0; border-bottom: 1px solid #1789fa; margin: 0 0 20px;}
 .exam-container.answerclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer { width: 100%; padding: 0 0 0; height: inherit;}
-.exam-container.answerclass .mcq-container-wrap { padding: 20px;}
+.exam-container.answerclass .mcq-container-wrap { padding: 20px; min-height: calc(100vh - 125px);}
 .exam-container .mcq-container-wrap .lesson .lesson-body .mcq-container:after {display: none;}
 .exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check { font-size: 16px; padding-left: 30px;}
 .exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check input {margin-left: -28px; width: 18px; height: 18px;}
