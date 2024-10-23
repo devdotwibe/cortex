@@ -50,7 +50,7 @@
         </div>
     </div>
 </section>
-<section class="content_section"> 
+<section class="content_section dashboarduser"> 
     <div class="row"> 
         <div class="col-md-6">
             <div class="card mb-3 card-links">
