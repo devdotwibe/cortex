@@ -73,11 +73,11 @@
         </a>
     </div> --}}
 
-    <div class="lesson-right">
+    {{-- <div class="lesson-right">
         <a class="lesson-exit float-start" href="{{route('question-bank.show',$category->slug)}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
 Exit Review
     </a>
-    </div>
+    </div> --}}
             <!-- .............................................................................................................. -->
 </section> 
 
