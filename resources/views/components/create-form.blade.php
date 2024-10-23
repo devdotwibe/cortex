@@ -16,7 +16,7 @@
                                     <div class="form-group">
                                         <div class="form-data">
                                             <div class="forms-inputs mb-4"> 
-                                                <label for="{{$item->name}}-{{$frmID}}-{{$k}}">Choice</label>
+                                                <label for="{{$item->name}}-{{$frmID}}-{{$k}}">Choice1</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend choice-check-group">
                                                         <label class="input-group-label choice-label" for="{{$item->name}}-{{$frmID}}-{{$k}}-check"></label>
