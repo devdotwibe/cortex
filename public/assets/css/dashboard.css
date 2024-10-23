@@ -3194,6 +3194,12 @@ nav.navbar { padding: 10px 6% 10px 55px;}
   margin: 0 0 0;
 }
 
+.content_section.dashboarduser > .row > .col-md-6 { width: 1000%;}
+.card-calendar { margin: 0 0 1rem;}
+.card-progress .card-body .col-md-3 { width: 25%;}
+.card-calendar .card-body .calendar .calendar-body .fc-view-harness { max-height: 35vw;}
+.card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month table { height: auto  !important;}
+
 }
 
 @media screen and (max-width:600px){
