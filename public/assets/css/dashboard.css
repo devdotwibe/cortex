@@ -3324,6 +3324,9 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .modal-expand.modal-expand-result .container-wrap .result-preview-body .col-md-3 { width: 100%;}
 .modal-expand.modal-expand-result .container-wrap .result-preview-body .col-md-9 { width: 100%; padding: 0 0 0;}
 
+.live-class-section .private-class { width: 100%;  padding: 0 0 0; margin: 0 0 20px;}
+.live-class-section .workshop { width: 100%;  padding: 0;}
+
 }
 
 @media screen and (max-width:600px){
