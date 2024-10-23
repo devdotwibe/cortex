@@ -93,13 +93,13 @@
 
       
 
-
-        <div class="lesson-right pagination-arrow" style="display:none">
-            <button class="button right-btn"> Next <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
+        <div class="lesson-right">
+            <a href="{{ route(' full-mock-exam.index', $category->slug) }}" class="button right-btn" title="Next">
+                Finish Set <img src="{{ asset('assets/images/rightarrow.svg') }}" alt=">">
+            </a>
         </div>
-        <div class="lesson-finish pagination-arrow" style="display:none">
-            <button class="button finish-btn" onclick="window.location.href='{{ route('full-mock-exam.index') }}'"> Finish Set <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
-        </div>  
+       
+        full-mock-exam.index
     </div> 
 </section>
 @endsection
