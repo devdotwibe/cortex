@@ -528,14 +528,14 @@ margin-left:auto;
   width: 12px;
   margin: 0 0 0 10px;
   position: absolute;
-  right: 20px;
+  right: 35px;
 }
 
 .lesson-pagination .left-btn img {
   width: 12px;
   margin: 0 10px 0 0;
   position: absolute;
-  left: 20px;
+  left: 35px;
 }
 
 .exam-footer.criticalclass .lesson-pagination .lesson-finish {
