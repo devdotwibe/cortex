@@ -291,12 +291,12 @@
 
             timerDiv.slideToggle(300, function() {
 
-                if (timerDiv.is(':visible')) {
-                    button.text('Hide Time');
-                } else {
-                    button.text('Show Time');
-                    button.insertAfter(timerDiv);
-                }
+                // if (timerDiv.is(':visible')) {
+                //     button.text('Hide Time');
+                // } else {
+                //     button.text('Show Time');
+                //     button.insertAfter(timerDiv);
+                // }
             });
         }
 
