@@ -66,7 +66,18 @@
         </div>
     </div>
     <!-- ............................................................................................................. -->
-   
+    {{-- <div class="lesson-left lesson-pagination">
+            <!-- <button class="button left-btn"><img src="{{asset('assets/images/leftarrow.svg')}}" alt="<"> Back </button> -->
+            <a class="lesson-exit float-start" href="{{route('question-bank.set.complete',$userExamReview->slug)}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
+                Back
+        </a>
+    </div>
+
+    <div class="lesson-right">
+        <a class="lesson-exit float-start" href="{{route('question-bank.show',$category->slug)}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
+Exit Review
+    </a>
+    </div> --}}
             <!-- .............................................................................................................. -->
 </section> 
 
@@ -75,6 +86,13 @@
         <div class="lesson-left pagination-arrow" style="display: none" >
             <button class="button left-btn"><img src="{{asset('assets/images/leftarrow.svg')}}" alt="<"> Back </button>
         </div>
+
+        <div class="lesson-left pagination-arrow">
+            <!-- <button class="button left-btn"><img src="{{asset('assets/images/leftarrow.svg')}}" alt="<"> Back </button> -->
+            <a class="lesson-exit float-start" href="{{route('question-bank.set.complete',$userExamReview->slug)}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
+                Back
+        </a>
+    </div>
 
 
         <div class="exam-right exam-progress-inner-item">
@@ -96,19 +114,6 @@
                 </div> --}}
             </div>
         </div>
-
-        <div class="lesson-left lesson-pagination">
-            <!-- <button class="button left-btn"><img src="{{asset('assets/images/leftarrow.svg')}}" alt="<"> Back </button> -->
-            <a class="lesson-exit float-start" href="{{route('question-bank.set.complete',$userExamReview->slug)}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
-                Back
-        </a>
-    </div>
-
-    <div class="lesson-right">
-        <a class="lesson-exit float-start" href="{{route('question-bank.show',$category->slug)}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
-Exit Review
-    </a>
-    </div>
         
 
 
