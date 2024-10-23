@@ -1,7 +1,7 @@
 @extends('layouts.exam')
 @section('title', 'Login')
 @section('content')
-<section class="exam-container" id="exam-container">
+<section class="exam-container verifyemailclass" id="exam-container">
     <div class="container-wrap">
         <div class="container">
             <div class="row justify-content-center">

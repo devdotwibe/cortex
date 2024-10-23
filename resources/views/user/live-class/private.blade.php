@@ -50,6 +50,8 @@
                   
                   @endguest --}}
                   @guest('admin')  
+
+                  <a class="btn btn-warning m-2" href="{{route('live-class.privateclass.room',$user->slug)}}">Enter</a>
                   <a class="btn btn-outline-warning m-2" href="#" onclick="showLockedModal()">Register</a>
               @endguest
                     @elseif($user->privateClass->status!="approved")
