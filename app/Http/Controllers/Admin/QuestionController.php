@@ -82,26 +82,22 @@ class QuestionController extends Controller
                 ]);
                 break;
         }
-        $question=Question::store($questiondat);
-        foreach($request->answer as $k =>$ans){
+        $question = Question::store($questiondat);
+foreach ($request->answer as $k => $ans) {
+    $imageName = "";
+    if ($request->hasFile("answer.$k.image")) {
+        $imageName = "questionimages/" . $request->file("answer.$k.image")->hashName();
+        $request->file("answer.$k.image")->storeAs('questionimages', $imageName);
+    }
+    $answer = Answer::store([
+        "exam_id" => $question->exam_id,
+        "question_id" => $question->id,
+        "iscorrect" => $k == ($request->choice_answer ?? 0),
+        "title" => $ans,
+        'image' => $imageName,
+    ]);
+}
 
-            $imageName ="";
-            if ($request->hasFile($request->ans['image'])) {
-                $imageName = "questionimages/" . $request->file('image')->hashName();
-                Storage::put('questionimages',$imageName);
-            }
-             $answer=Answer::store([
-                "exam_id"=>$question->exam_id,
-                "question_id"=>$question->id,
-                "iscorrect"=>$k==($request->choice_answer??0)?true:false,
-                "title"=>$ans,
-                'image' =>  $imageName,
-         
-            ]);
-          
-    
-
-        }
 
         $redirect=$request->redirect??route('admin.question.index');
 
