@@ -3259,5 +3259,6 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .card-calendar .card-body .calendar .calendar-body .fc-header-toolbar .fc-toolbar-chunk h2 { font-size: 14px;}
 .card-calendar .card-body .calendar .calendar-body .fc-view-harness { max-height: inherit;  height: 100vw !important;}
 .card-progress .card-body .col-md-3 { width: 50%;  margin: 0 0 20px;}
+.card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month {width: 100% !important; padding: 0 0 0 !important;}
 
 }
