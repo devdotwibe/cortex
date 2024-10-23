@@ -67,7 +67,7 @@
         <div class="lesson-left pagination-arrow" style="display: none" >
             <button class="button left-btn"><img src="{{asset('assets/images/leftarrow.svg')}}" alt="<"> Back </button>
         </div>
-    <div class="lesson-pagination">
+    
 
         <div class="exam-right exam-progress-inner-item">
             <div class="progress-main">
