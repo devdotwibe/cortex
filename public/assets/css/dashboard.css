@@ -430,6 +430,9 @@ button.close {
   width: 100%;
   margin: 0 0 0;
 }
+.questionclass .mcq-container-wrap .lesson .lesson-body .col-md-12 {
+  padding: 0 0 0;
+}
 .lesson .lesson-body .col-md-6 {
   width: 49%;
   padding: 0;
@@ -3349,7 +3352,7 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 
 .progress-main { min-width: inherit; transform: scale(0.8);  left: -15px; position: relative;}
 .lesson-pagination .button { width: 90px; font-size: 12px;}
-.lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark { width: 100px;}
+.lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark { width: 95px;}
 .lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark .flagclass { font-size: 12px;}
 .lesson-pagination .left-btn img { width: 9px; left: 13px;}
 .lesson-pagination .right-btn img { width: 9px; right: 13px;}
