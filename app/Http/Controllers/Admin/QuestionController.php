@@ -89,14 +89,14 @@ class QuestionController extends Controller
 
         $question = Question::store($questiondat);
         foreach ($request->answer as $k => $ans) {
-            $imageName = "";
+            $imageName = "terd";
         
-            // Check if the current answer has an uploaded file
-            if ($request->hasFile("answer.$k.image")) {
-                // Store the file and get the hashed file name
-                $imageName = "questionimages/" . $request->file("answer.$k.image")->hashName();
-                $request->file("answer.$k.image")->storeAs('questionimages', $imageName);
-            }
+                if(isset($files[$k]))
+                {
+                    $imageName = "questionimages/" . $files[$k]->hashName();
+                    $request->file("answer.$k.image")->storeAs('questionimages', $imageName);
+                }
+
             $answer = Answer::create([
                 "exam_id" => $question->exam_id,
                 "question_id" => $question->id,
