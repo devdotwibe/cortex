@@ -1,7 +1,8 @@
 @extends('layouts.exam')
 @section('title', $exam->subtitle($category->id,"Topic ".($category->getIdx()+1)).':'.$category->name)
 @section('content')
-<section class="exam-container">
+{{-- <section class="exam-container"> --}}
+    <section class="exam-container questionclass answerclass">
     <div class="exam-progress quest-progress">
         <div class="exam-progress-inner">
             <div class="exam-progress-inner-item exam-left">
@@ -60,9 +61,9 @@
 </section> 
 <section class="exam-footer"> 
     <div class="lesson-pagination">
-        <div class="lesson-left pagination-arrow" style="display: none" >
+        {{-- <div class="lesson-left pagination-arrow" style="display: none" >
             <button class="button left-btn"><img src="{{asset('assets/images/leftarrow.svg')}}" alt="<"> Back </button>
-        </div>
+        </div> --}}
 
         <div class="lesson-left ">
             <a href="{{ route('topic-test.complete', $userExamReview->slug) }}" class="button left-btn" title="Back">
