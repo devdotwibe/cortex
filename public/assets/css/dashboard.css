@@ -425,9 +425,13 @@ button.close {
 .lesson .lesson-body{
   margin-top: 50px;
 }
-
+.lesson .lesson-body .row {
+  justify-content: space-between;
+}
 .lesson .lesson-body .col-md-6 {
-  margin: 0 0 26px;
+  width: 49%;
+  padding: 0;
+  margin: 0 0 20px;
 }
 .lesson .lesson-row {
   width: 100%;
