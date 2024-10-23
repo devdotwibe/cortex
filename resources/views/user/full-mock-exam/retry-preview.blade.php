@@ -43,6 +43,23 @@
             </div>
            
         </div>
+        
+    </div>
+    <div class="container-wrap mcq-container-wrap full-mock-exam-review">
+        <div class="lesson">            
+            <a class="lesson-exit float-start" href="{{route('full-mock-exam.index')}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
+                <img src="{{asset("assets/images/exiticon.svg")}}" alt="exiticon">
+            </a> 
+            <div class="lesson-body"> 
+                <div class="row" id="lesson-questionlist-list" style="display: none">
+                </div>
+            </div>
+            <div class="lesson-footer" id="lesson-footer-pagination"> 
+            </div>           
+        </div>
+    </div> 
+</section> 
+<section class="exam-container">
     <div class="container-wrap mcq-container-wrap full-mock-exam-review">
         <div class="lesson">            
             <a class="lesson-exit float-start" href="{{route('full-mock-exam.index')}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
@@ -62,7 +79,7 @@
       
 
         <div class="lesson-left ">
-            <a href="{{ route('full-mock-exam.index') }}" class="button left-btn" title="Back">
+            <a href="{{ route('full-mock-exam.complete', $userExamReview->slug) }}" class="button left-btn" title="Back">
                 <img src="{{ asset('assets/images/leftarrow.svg') }}" alt="<"> Back 
             </a>
         </div>
