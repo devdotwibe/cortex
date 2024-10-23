@@ -122,9 +122,16 @@ class SubmitRetryReview implements ShouldQueue
         $user=User::find($this->review->user_id);
         $exam=Exam::find($this->review->exam_id); 
         $userExamReview=UserExamReview::find($this->review->user_exam_review_id);
-        $takentime=json_decode($user->progress($this->review->times),true);
+        // $takentime=json_decode($user->progress($this->review->times),true);
         $takentimereview=[]; 
-        foreach (UserExamQuestion::whereNotIn('slug',$this->questions)->where('user_exam_id',$userExamReview->ticket)->get() as $k=> $question) {
+        $userExam=UserExam::findSlug($userExamReview->ticket);
+        $takentime=json_decode($this->review->times,true);
+        if (!is_array($this->questions)) {
+            $this->questions=json_decode( $this->questions,true);
+        } 
+        $q = UserExamQuestion::whereIn('slug',$this->questions)->where('user_exam_id',$userExam->id)->get();
+        // foreach (UserExamQuestion::whereNotIn('slug',$this->questions)->where('user_exam_id',$userExamReview->ticket)->get() as $k=> $question) {
+        foreach ($q as $k=> $question) {
               
             $user_answer=$this->answers[$question->slug]??"";
 
@@ -142,7 +149,10 @@ class SubmitRetryReview implements ShouldQueue
                 'title_text'=> $question->title_text,
                 'sub_question'=> $question->sub_question,
                 'user_id'=>$this->review->user_id,
-                'time_taken'=>$takentime[$question->slug]??0
+                'time_taken'=>$takentime[$question->slug]??0,
+                'category_id'=>$question->category_id,
+                'sub_category_id'=>$question->sub_category_id,
+                'sub_category_set'=>$question->sub_category_set
             ]);
             
             // $takentimereview[$revquestion->slug]=$takentime[$question->slug]??0;
