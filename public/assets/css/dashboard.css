@@ -3071,6 +3071,12 @@ nav.navbar.header-class { display: none;}
 .verifyemailclass .container-wrap .card .card-body .btn.btn-primary:hover { color: #FBAE1E; background: none;}
 
 
+.exam-container .topic-test-review .lesson #lesson-footer-pagination {margin: 30px 0;  display: inline-block;}
+.exam-container.answerclass .topic-test-review .lesson .lesson-body .mcq-container .mcq-answer { height: calc(100vh - 245px);}
+.exam-container.answerclass .topic-test-review .lesson .lesson-body .mcq-container .mcq-group { height: calc(100vh - 245px);}
+
+
+
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
 
