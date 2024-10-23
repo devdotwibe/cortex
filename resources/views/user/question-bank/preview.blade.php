@@ -96,18 +96,7 @@ Exit Review
             <div class="progress-main">
 
                 
-                {{-- <div class="bookmark">
-                    
-                    <a class="" id="bookmark-current" >
-                        
-                        <span id="flagtext" class="flagclass">Flag</span>
-                        <span id="flagimages" class="flagclass" >
-                        <img class="active-img" src="{{asset("assets/images/flag-blue.svg")}}" alt="bookmark">
-                    
-                        <img class="inactive-img" src="{{asset("assets/images/flag-red.svg")}}" alt="bookmark">
-                        </span>
-                    </a>
-                </div> --}}
+               
             </div>
         </div>
         
