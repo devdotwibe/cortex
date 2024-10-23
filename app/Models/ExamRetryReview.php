@@ -59,7 +59,9 @@ class ExamRetryReview extends Model
                                         ->where('exam_id',$this->exam_id)
                                         ->select('id'));
         }
-        return round($qst->whereNotNull('time_taken')->where('time_taken','>',0)->average('time_taken'),2);
+        return round($qst->whereNotNull('time_taken')
+                                ->where('time_taken','>',0)
+                                ->average('time_taken'),2);
     }
 
     public function avgMark(){ 
@@ -91,13 +93,13 @@ class ExamRetryReview extends Model
                                             ->count();
                 break;
             case 'topic-test':
-                $anscnt = ExamRetryAnswer::where('exam_retry_review_id', '<=', $userExamReviewId)
+                $anscnt = ExamRetryAnswer::where('exam_retry_review_id', '=', $userExamReviewId)
                                             ->where('exam_id', $this->exam_id)
-                                            ->whereIn('exam_retry_review_id', ExamRetryReview::where('name', 'topic-test')
-                                            ->where('category_id', $categoryId)
-                                            ->where('id', '<=', $userExamReviewId)
-                                            ->groupBy('user_id')
-                                            ->select(DB::raw('MAX(id)')))
+                                            // ->whereIn('exam_retry_review_id', ExamRetryReview::where('name', 'topic-test')
+                                            //                                                     ->where('category_id', $categoryId)
+                                            //                                                     ->where('id', '=', $userExamReviewId)
+                                            //                                                     ->groupBy('user_id')
+                                            //                                                     ->select(DB::raw('MAX(id)')))
                                             ->where('iscorrect', true)
                                             ->where('user_answer', true)
                                             ->count();
