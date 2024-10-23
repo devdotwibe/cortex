@@ -3166,6 +3166,11 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .lesson-pagination .right-btn img { right: 22px;}
 .lesson-pagination .left-btn img { left: 22px;}
 
+.exam-container .mcq-container-wrap {padding: 0 0 0;}
+.questionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group {padding: 20px;}
+.questionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer { padding: 20px;}
+.questionclass .mcq-container-wrap .lesson .lesson-body .col-md-12 {padding: 0 0 0;}
+
 
 }
 
