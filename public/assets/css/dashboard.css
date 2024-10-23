@@ -3273,6 +3273,8 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .progress-menu { margin: 0 0 0;}
 .exam-container.answerclass .mcq-container-wrap  {padding: 0;}
 
+.exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check { font-size: 18px;}
+
 }
 
 @media screen and (max-width:600px){
