@@ -105,7 +105,7 @@ Exit Review
       
 
 
-        <div class="lesson-right">
+        <div class="lesson-finish pagination-arrow">
             <a href="{{ route('question-bank.show', $category->slug) }}" class="button right-btn" title="Next">
                 Finish Set <img src="{{ asset('assets/images/rightarrow.svg') }}" alt=">">
             </a>
