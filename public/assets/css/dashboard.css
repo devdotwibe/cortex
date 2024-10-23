@@ -3221,6 +3221,11 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .quest-progress .question-number .menu-text { font-size: 20px;}
 .quest-progress .Review-mode { font-size: 20px;}
 
+.workshop-wrap .workshop-content p { font-size: 18px;}
+.timetable-wrapp p { font-size: 18px;}
+.timetable-wrapp .timetable-row .user-icons .user-icon { width: 18px;}
+.workshop-wrap .workshop-content ul li { font-size: 18px;}
+
 }
 
 @media screen and (max-width:767px) {
@@ -3326,6 +3331,14 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 
 .live-class-section .private-class { width: 100%;  padding: 0 0 0; margin: 0 0 20px;}
 .live-class-section .workshop { width: 100%;  padding: 0;}
+
+
+.timetable-wrapp .timetable-row .user-icons { width: 100%; margin: 10px 0 0;}
+.timetable-wrapp .timetable-row .user-icons .user-icon:first-child { margin-left: 0;}
+.workshop-wrap .workshop-content p { font-size: 16px;}
+.timetable-wrapp p { font-size: 16px;}
+.workshop-wrap .col-md-12 { padding: 0;}
+
 
 }
 
