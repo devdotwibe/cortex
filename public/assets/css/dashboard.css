@@ -3044,7 +3044,7 @@ nav.navbar.header-class { display: none;}
 .modal-expand.modal-expand-result .container-wrap .result-preview-body .exam-overview .topic-overview h3 {  font-size: 20px;   font-weight: 500;   margin: 0 0 22px;}
 
 
-.verifyemailclass .container-wrap {width: 90%; max-width: 1320px; margin: 50px auto 0; padding: 50px;}
+.verifyemailclass .container-wrap {width: 90%; max-width: 1320px; margin: 50px auto 0; padding: 50px; min-height: calc(100vh - 190px); border-radius: 15px;}
 .verifyemailclass .container-wrap .card { width: 100%; border: none;}
 .verifyemailclass .container-wrap .col-md-8 { width: 100%;}
 .verifyemailclass .container-wrap .card .card-header { background: none; border: none; font-size: 28px; font-weight: 600; padding: 0; margin: 0 0 20px;}
