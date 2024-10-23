@@ -3361,5 +3361,6 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .progress-menu { padding: 10px;}
 .exam-progress>.exam-progress-inner { padding: 10px;}
 .lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark a { width: 100%;}
+.lesson-pagination .exam-right.exam-progress-inner-item .progress-main { transform: none;  left: 0;}
 
 }
