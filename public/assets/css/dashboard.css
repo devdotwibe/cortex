@@ -3110,7 +3110,7 @@ aside.side_bar.slider-btn { width: 220px !important;}
 
 @media screen and (max-width:991px) {
 .side_bar { margin-left: -100%; position: fixed; transition: all .25s ease-in-out;}
-.content_outer {padding-left: 30px;}
+.content_outer {padding-left: 20px;}
 .sidebar-menu { position: fixed;  width: 30px; height: 30px; top: 28px; left: 15px; z-index: 999;}
 .sidebar-menu .line { width: 100%; position: relative; display: inline-block; height: 2px; background: #1989f8; transition: all .25s ease-in-out;}
 .sidebar-menu .line:before { content: ""; width: 100%; position: absolute; display: inline-block; height: 2px; background: #1989f8; top: -10px; transition: all .25s ease-in-out;}
