@@ -3384,4 +3384,10 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark a { width: 100%;}
 .lesson-pagination .exam-right.exam-progress-inner-item .progress-main { transform: none;  left: 0;}
 
+.exam-container.topictestclass .summery-wrap .summery-title .back-btn { margin: 0 5px 0 0;}
+.exam-container.topictestclass .summery-wrap .summery-title h1 { font-size: 17px;}
+.exam-container.topictestclass .summery-wrap .time-of-exam { margin: 0 0 20px;}
+.exam-container.topictestclass .summery-wrap h2 { margin: 0 0 0;}
+
+
 }
