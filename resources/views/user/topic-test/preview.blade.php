@@ -99,7 +99,7 @@
       
 
 
-        <div class="lesson-right">
+        <div class="finish-btn">
             <a href="{{ route('topic-test.index', $category->slug) }}" class="button right-btn" title="Next">
                 Finish Set <img src="{{ asset('assets/images/rightarrow.svg') }}" alt=">">
             </a>
