@@ -3188,6 +3188,13 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .exam-container.answerclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer {   height: calc(100vh - 150px);}
 .exam-container.answerclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group {   height: calc(100vh - 150px);}
 
+.exam-container.topictestclass .summery-wrap .summery-title h1 { font-size: 24px;}
+.exam-container.topictestclass .summery-wrap h2 { font-size: 20px;}
+.exam-container.topictestclass .summery-wrap .time-of-exam label { font-size: 20px;}
+.exam-container.topictestclass .summery-wrap .time-of-exam input { font-size: 20px;}
+.exam-container .summery-wrap p {  font-size: 18px;}
+.exam-container .summery-wrap { padding: 30px;}
+
 }
 
 @media screen and (max-width:767px) {
