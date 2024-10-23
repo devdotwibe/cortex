@@ -36,7 +36,7 @@ class TopicExamController extends Controller
     {
         self::reset();
         self::$model = Category::class;
-        Session::remove("topic-test-attempt");
+        Session::forget("topic-test-attempt");
         $exam = Exam::where("name", 'topic-test')->first();
         if (empty($exam)) {
             $exam = Exam::store([
@@ -230,7 +230,7 @@ class TopicExamController extends Controller
             }
             $user->setProgress("exam-" . $exam->id . "-topic-" . $category->id . "-complete-review", 'yes');
             dispatch(new SubmitReview($review,$attemt));
-            Session::remove("topic-test-attempt");
+            Session::forget("topic-test-attempt");
             if ($questioncnt > $passed) {
                 $key = md5("exam-retry-" . $review->id);
                 Session::put("exam-retry-" . $review->id, $key);
@@ -253,7 +253,7 @@ class TopicExamController extends Controller
 
     public function topiccomplete(Request $request, UserExamReview $userExamReview)
     {
-        Session::remove("topic-test-attempt");
+        Session::forget("topic-test-attempt");
         /**
          * @var User
          */
@@ -287,7 +287,7 @@ class TopicExamController extends Controller
     public function preview(Request $request, UserExamReview $userExamReview)
     {
         $category = Category::find($userExamReview->category_id);
-        Session::remove("topic-test-attempt");
+        Session::forget("topic-test-attempt");
         $exam = Exam::where("name", 'topic-test')->first();
         if (empty($exam)) {
             $exam = Exam::store([
@@ -354,7 +354,7 @@ class TopicExamController extends Controller
         }
     }
     public function retryhistory(Request $request,UserExamReview $userExamReview){
-        Session::remove("topic-test-attempt");
+        Session::forget("topic-test-attempt");
         /**
          * @var User
          */
@@ -385,7 +385,7 @@ class TopicExamController extends Controller
 
     public function topichistory(Request $request, Category $category)
     {
-        Session::remove("topic-test-attempt");
+        Session::forget("topic-test-attempt");
         /**
          * @var User
          */
@@ -535,8 +535,9 @@ class TopicExamController extends Controller
             }
             $answers = Session::get($attemt, []);
             $passed = $request->input("passed", '0');
-            $questions = $request->input("questions", '[]');
+            $questions = $request->input("questions", '[]'); 
             $questioncnt = UserExamQuestion::whereNotIn('slug', session("exam-retry-questions" . $userExamReview->id, []))->where('user_exam_id',$userExam->id)->count();
+            // dd($request->input("times", '[]'));
             $review = ExamRetryReview::store([
                 "title" => "Topic Test",
                 "name" => "topic-test",
@@ -552,8 +553,11 @@ class TopicExamController extends Controller
                 "user_exam_review_id" => $userExamReview->id,
                 "category_id" => $category->id,
             ]);
-
-            dispatch(new SubmitRetryReview($review, session("exam-retry-questions" . $userExamReview->id, []), $answers));
+            
+            dispatch(new SubmitRetryReview(
+                        $review, 
+                        session("exam-retry-questions" . $userExamReview->id, []), 
+                        $answers));
 
             if ($questioncnt > $passed) {
                 $key = md5("exam-retry-repeat-" . $review->id);
