@@ -98,11 +98,10 @@
       
 
 
-        <div class="lesson-right pagination-arrow" style="display:none">
-            <button class="button right-btn"> Next <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
-        </div>
-        <div class="lesson-finish pagination-arrow" style="display:none">
-            <button class="button finish-btn" onclick="window.location.href='{{ route('topic-test.index') }}'"> Finish Set <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
+        <div class="lesson-right">
+            <a href="{{ route('question-bank.show', $category->slug) }}" class="button right-btn" title="Next">
+                Finish Set <img src="{{ asset('assets/images/rightarrow.svg') }}" alt=">">
+            </a>
         </div>  
     </div> 
 </section>
