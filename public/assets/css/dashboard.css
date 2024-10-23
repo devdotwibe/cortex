@@ -3450,4 +3450,9 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 
 .timetable-wrapp .timetable-row .user-icons .user-icon { margin: 5px;}
 
+.quest-progress .progress-main {left: 0;}
+.quest-progress .question-number .menu-text {   font-size: 18px;}
+.quest-progress .Review-mode { font-size: 18px;}
+.quest-progress .question-number {  margin: 0 auto 0 10px;}
+
 }
