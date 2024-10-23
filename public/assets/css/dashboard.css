@@ -3107,6 +3107,10 @@ aside.side_bar.slider-btn { width: 220px !important;}
 .card-graph .overview-graph-footer .graph-filter .graph-filter-btn { font-size: 15px;}
 .card-links .card-body { padding: 20px;}
 
+.category .category-image { width: 60px;}
+.category .category-content h5 { font-size: 16px;}
+.category .category-content h3 { font-size: 20px;}
+
 }
 
 @media screen and (max-width:991px) {
