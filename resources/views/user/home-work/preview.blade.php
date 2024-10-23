@@ -112,7 +112,7 @@
         </div>   --}}
 
         <div class="lesson-right">
-            <a href="{{ route('home-work.show') }}" class="button right-btn" title="Next">
+            <a href="{{ route('home-work.show',$homeWork->slug') }}" class="button right-btn" title="Next">
                 Finish Set <img src="{{ asset('assets/images/rightarrow.svg') }}" alt=">">
             </a>
         </div>
