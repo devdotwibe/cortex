@@ -428,6 +428,7 @@ button.close {
 .lesson .lesson-body .row {
   justify-content: space-between;
   width: 100%;
+  margin: 0 0 0;
 }
 .lesson .lesson-body .col-md-6 {
   width: 49%;
@@ -3073,6 +3074,15 @@ nav.navbar.header-class { display: none;}
 .private-wrap .private-content .card .card-body .row .col-md-12 {
   width: 50%;
 }
+
+.progress-menu { padding: 15px 40px;}
+.progress-menu .menu-text { font-size: 26px;}
+.progress-menu .menu-text #menu-text span { font-size: 32px;}
+.progress-main .timer span { font-size: 16px;}
+.exam-progress>.exam-progress-inner {  padding: 20px 15px;}
+.progress-main .hide-btn { width: 50px; height: 50px; padding: 10px; font-size: 11px;}
+
+
 }
 
 @media screen and (max-width:1199px) {
@@ -3115,6 +3125,12 @@ aside.side_bar.slider-btn { width: 220px !important;}
 .category .category-image { width: 60px;}
 .category .category-content h5 { font-size: 16px;}
 .category .category-content h3 { font-size: 20px;}
+
+.progress-menu .menu-text { font-size: 20px;}
+.progress-menu .menu-text #menu-text span { font-size: 26px;}
+.progress-menu .menu-icon { width: 35px;}
+.progress-menu { padding: 15px 30px;}
+.progress-main .timer span { font-size: 14px;}
 
 }
 
@@ -3160,8 +3176,9 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 
 .set-container .lesson .lesson-row .lesson-row-sets .sets-item { font-size: 16px;}
 
-.exam-container .container-wrap {padding: 30px;}
+.exam-container .container-wrap {padding: 30px; width: 100%;}
 .exam-container .container-wrap .lesson .lesson-body p {font-size: 16px;}
+.lesson-pagination { width: 100%;}
 
 .exam-overview .vl { display: none;}
 .exam-overview .exam-overview-content { margin: 20px 0 0;}
