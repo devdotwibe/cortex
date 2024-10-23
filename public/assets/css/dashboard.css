@@ -430,6 +430,9 @@ button.close {
   width: 100%;
   margin: 0 0 0;
 }
+.questionclass .mcq-container-wrap .lesson .lesson-body .col-md-12 {
+  padding: 0 0 0;
+}
 .lesson .lesson-body .col-md-6 {
   width: 49%;
   padding: 0;
