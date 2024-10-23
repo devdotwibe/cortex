@@ -3101,6 +3101,9 @@ nav.navbar.header-class { display: none;}
 .exam-container.answerclass .mcq-container-wrap.question-bank-review .lesson .lesson-body .mcq-container .mcq-answer { height: calc(100vh - 220px);}
 .exam-container.answerclass .mcq-container-wrap.question-bank-review .lesson .lesson-body .mcq-container .mcq-group { height: calc(100vh - 220px);}
 
+.exam-container.answerclass .topic-test-review .lesson .lesson-body .mcq-container .mcq-answer { height: calc(100vh - 220px);}
+.exam-container.answerclass .topic-test-review .lesson .lesson-body .mcq-container .mcq-group { height: calc(100vh - 220px);}
+
 }
 
 @media screen and (max-width:1199px) {
