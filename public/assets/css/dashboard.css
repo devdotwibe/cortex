@@ -3178,6 +3178,7 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .exam-container .container-wrap .lesson .lesson-body p { font-size: 18px;}
 .lesson-pagination .right-btn img { right: 22px;}
 .lesson-pagination .left-btn img { left: 22px;}
+.lesson-pagination .finish-btn img { right: 12px;}
 
 .exam-container .mcq-container-wrap {padding: 0 0 0;}
 .questionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group {padding: 20px;}
@@ -3402,5 +3403,6 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .exam-container.topictestclass .summery-wrap .time-of-exam { margin: 0 0 20px;}
 .exam-container.topictestclass .summery-wrap h2 { margin: 0 0 0;}
 
+.lesson-pagination .finish-btn img { right: 3px; width: 9px;}
 
 }
