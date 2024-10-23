@@ -23,9 +23,18 @@ class ExamController extends Controller
             self::$defaultActions=["edit","delete"]; 
             return $this->addAction(function($data){
                 return '
+               
+
                 <a href="'.route("admin.full-mock-exam.index",["exam"=>$data->slug]).'" class="btn btn-icons view_btn">
-                    <img src="'.asset("assets/images/view.svg").'" alt="">
-                </a>
+                            <span class="adminside-icon">
+                                <img src="' . asset("assets/images/icons/mdi_incognito.svg") . '" alt="View">
+                            </span>
+                            <span class="adminactive-icon">
+                                <img src="' . asset("assets/images/iconshover/view-yellow.svg") . '" alt="View Active">
+                            </span>
+                 </a>
+
+
                 ';
             })->where("name","full-mock-exam")->buildTable();
         }
