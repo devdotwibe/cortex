@@ -3263,6 +3263,15 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 
 .exam-progress { width: 100%;}
 
+
+.lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark {width: 140px;}
+.lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark .flagclass { font-size: 16px;}
+.lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark #flagimages { width: 30px; right: 5px;}
+.exam-container.answerclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer { height: calc(100vh - 150px);}
+.exam-container.answerclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group {   height: calc(100vh - 150px);}
+.exam-progress>.exam-progress-inner>.exam-center { margin: 0 0 0 auto;}
+.progress-menu { margin: 0 0 0;}
+
 }
 
 @media screen and (max-width:600px){
