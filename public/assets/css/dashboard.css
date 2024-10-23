@@ -3210,6 +3210,8 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .category .category-image { width: 50px;}
 .learn-section .col-md-6 .card .card-body { padding: 20px;}
 
+.category .category-content h3 { font-size: 16px;}
+
 }
 
 @media screen and (max-width:600px){
