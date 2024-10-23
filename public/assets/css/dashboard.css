@@ -3160,8 +3160,9 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 
 .set-container .lesson .lesson-row .lesson-row-sets .sets-item { font-size: 16px;}
 
-.exam-container .container-wrap {padding: 30px;}
+.exam-container .container-wrap {padding: 30px; width: 100%;}
 .exam-container .container-wrap .lesson .lesson-body p {font-size: 16px;}
+.lesson-pagination { width: 100%;}
 
 .exam-overview .vl { display: none;}
 .exam-overview .exam-overview-content { margin: 20px 0 0;}
