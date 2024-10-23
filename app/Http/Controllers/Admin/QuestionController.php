@@ -83,11 +83,14 @@ class QuestionController extends Controller
                 break;
         }
 
-        dd($request);
+       
+
+        $files = $request->file_answer;
+
         $question = Question::store($questiondat);
 foreach ($request->answer as $k => $ans) {
     $imageName = "";
-    if ($request->hasFile("answer.$k.image")) {
+    if ($request->hasFile($files[$k])) {
         $imageName = "questionimages/" . $request->file("answer.$k.image")->hashName();
         $request->file("answer.$k.image")->storeAs('questionimages', $imageName);
     }
