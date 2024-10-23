@@ -462,18 +462,14 @@ class MockExamController extends Controller
                 "time_of_exam" => "$questioncnt:00",
                 "user_exam_review_id" => $userExamReview->id, 
             ]);
-            // $questions=json_decode( $questions,true);
-            if (!is_array($questions)) {
-                $questions=json_decode( $questions,true);
-            } 
-            // dispatch(new SubmitRetryReview($review, session("exam-retry-questions" . $userExamReview->id, []), $answers));
-            dispatch(new SubmitRetryReview($review, $questions, $answers));
+            
+            dispatch(new SubmitRetryReview($review, session("exam-retry-questions" . $userExamReview->id, []), $answers));
 
             
             if ($questioncnt > $passed) {
                 $key = md5("exam-retry-repeat-" . $review->id);
                 Session::put("exam-retry-" . $userExamReview->id, $key);
-                Session::put("exam-retry-questions" . $userExamReview->id, array_merge(session("exam-retry-questions" . $userExamReview->id, []), $questions));
+                Session::put("exam-retry-questions" . $userExamReview->id, array_merge(session("exam-retry-questions" . $userExamReview->id, []), json_decode($questions, true)));
                 Session::put($key, []);
             } else {
                 Session::put($attemt, null);

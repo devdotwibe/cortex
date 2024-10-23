@@ -3271,6 +3271,7 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .exam-container.answerclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group {   height: calc(100vh - 150px);}
 .exam-progress>.exam-progress-inner>.exam-center { margin: 0 0 0 auto;}
 .progress-menu { margin: 0 0 0;}
+.exam-container.answerclass .mcq-container-wrap  {padding: 0;}
 
 }
 
@@ -3282,6 +3283,14 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .learn-section .col-md-6 { width: 100%;}
 
 .lesson .lesson-body .col-md-6 { width: 100%;}
+
+.exam-container.answerclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group {height: inherit; width: 100%; padding: 0 0 0; border-bottom: 1px solid #1789fa; margin: 0 0 20px;}
+.exam-container.answerclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer { width: 100%; padding: 0 0 0;}
+.exam-container.answerclass .mcq-container-wrap { padding: 20px;}
+.exam-container .mcq-container-wrap .lesson .lesson-body .mcq-container:after {display: none;}
+.exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check { font-size: 16px; padding-left: 30px;}
+.exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check input {margin-left: -28px; width: 18px; height: 18px;}
+
 
 }
 
