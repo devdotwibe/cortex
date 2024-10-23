@@ -68,8 +68,14 @@
 
 <section class="exam-footer"> 
     <div class="lesson-pagination">
-        <div class="lesson-left pagination-arrow" style="display: none" >
+        {{-- <div class="lesson-left pagination-arrow" style="display: none" >
             <button class="button left-btn"><img src="{{asset('assets/images/leftarrow.svg')}}" alt="<"> Back </button>
+        </div> --}}
+
+        <div class="lesson-left ">
+            <a href="{{ route('home-work.preview', $homeWorkReview->slug) }}" class="button left-btn" title="Back">
+                <img src="{{ asset('assets/images/leftarrow.svg') }}" alt="<"> Back 
+            </a>
         </div>
 
 
@@ -98,12 +104,21 @@
       
 
 
-        <div class="lesson-right pagination-arrow" style="display:none">
+        {{-- <div class="lesson-right pagination-arrow" style="display:none">
             <button class="button right-btn"> Next <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
         </div>
         <div class="lesson-finish pagination-arrow" style="display:none">
             <button class="button finish-btn" onclick="window.location.href='{{ route('home-work.show',$homeWork->slug) }}'"> Finish Set <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
-        </div>  
+        </div>   --}}
+
+        <div class="lesson-right">
+            <a href="{{ route('home-work.show', $homeWork->slug) }}" class="button right-btn" title="Next">
+                Finish Set <img src="{{ asset('assets/images/rightarrow.svg') }}" alt="Right arrow">
+            </a>
+        </div>
+        
+
+
     </div> 
 </section>
 
