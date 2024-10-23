@@ -94,11 +94,15 @@ class QuestionController extends Controller
             if ($request->hasFile('image')) {
                 $imageName = "questionimages/" . $request->file('image')->hashName();
                 Storage::put('questionimages', $request->file('image'));
-        
-                // Save the image name in the answer
                 $answer->image = $imageName;
-                $answer->save(); // Save the changes
+
+                $answer->save();
+
+
+
             }
+    
+
         }
 
         $redirect=$request->redirect??route('admin.question.index');
