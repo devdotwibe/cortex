@@ -99,7 +99,7 @@
             </a>
         </div>
        
-        full-mock-exam.index
+       
     </div> 
 </section>
 @endsection
