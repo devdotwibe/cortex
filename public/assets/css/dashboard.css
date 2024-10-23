@@ -3288,6 +3288,13 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .exam-container.answerclass .mcq-container-wrap  {padding: 0;}
 
 .exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check { font-size: 18px;}
+.exam-container.topictestclass .summery-wrap .summery-title h1 {font-size: 22px;}
+.exam-container.topictestclass .summery-wrap h2 { font-size: 18px;}
+.exam-container.topictestclass .summery-wrap .time-of-exam label {  font-size: 18px;}
+.exam-container.topictestclass .summery-wrap .time-of-exam input { font-size: 18px;}
+.exam-container .summery-wrap p { font-size: 16px;}
+.exam-container .summery-wrap { padding: 30px; width: 100%;}
+.exam-container .summery-wrap .summery-action .btn {  font-size: 14px;}
 
 }
 
