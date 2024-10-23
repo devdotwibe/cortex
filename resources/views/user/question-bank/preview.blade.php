@@ -66,27 +66,29 @@
         </div>
     </div>
     <!-- ............................................................................................................. -->
-    <div class="lesson-left lesson-pagination">
+    {{-- <div class="lesson-left lesson-pagination">
             <!-- <button class="button left-btn"><img src="{{asset('assets/images/leftarrow.svg')}}" alt="<"> Back </button> -->
-            
-    </div>
+            <a class="lesson-exit float-start" href="{{route('question-bank.set.complete',$userExamReview->slug)}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
+                Back
+        </a>
+    </div> --}}
 
-    <div class="lesson-right">
+    {{-- <div class="lesson-right">
         <a class="lesson-exit float-start" href="{{route('question-bank.show',$category->slug)}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
 Exit Review
     </a>
-    </div>
+    </div> --}}
             <!-- .............................................................................................................. -->
 </section> 
 
 <section class="exam-footer"> 
     <div class="lesson-pagination">
-        {{-- <div class="lesson-left pagination-arrow" style="display: none" >
-            <button class="button left-btn"><img src="{{asset('assets/images/leftarrow.svg')}}" alt="<"> Back </button>
-        </div> --}}
-        <a class="lesson-exit float-start button left-btn" > <img src="{{asset('assets/images/leftarrow.svg')}}" href="{{route('question-bank.set.complete',$userExamReview->slug)}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
-            Back
-    </a>
+        <div class="lesson-left pagination-arrow" style="display: none">
+            <a href="{{ route('question-bank.set.complete', $userExamReview->slug) }}" class="button left-btn" title="Back">
+                <img src="{{ asset('assets/images/leftarrow.svg') }}" alt="<"> Back 
+            </a>
+        </div>
+        
 
 
         <div class="exam-right exam-progress-inner-item">
@@ -114,9 +116,15 @@ Exit Review
       
 
 
-        <div class="lesson-right pagination-arrow" style="display:none">
+        {{-- <div class="lesson-right pagination-arrow" style="display:none">
             <button class="button right-btn"> Next <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
+        </div> --}}
+        <div class="lesson-right pagination-arrow" style="display:none">
+            <a href="{{ route('question-bank.show', $category->slug) }}" class="button right-btn" title="Next">
+                Finish Set <img src="{{ asset('assets/images/rightarrow.svg') }}" alt=">">
+            </a>
         </div>
+        
         <div class="lesson-finish pagination-arrow" style="display:none">
             <button class="button finish-btn" onclick="window.location.href='{{ route('question-bank.show',$category->slug) }}'"> Finish Set <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
         </div>  
