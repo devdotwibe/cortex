@@ -3425,4 +3425,7 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 
 .lesson-pagination .finish-btn img { right: 3px; width: 9px;}
 
+.live-class-section {padding: 20px;}
+.live-class-section .card .card-body { padding: 20px;}
+
 }
