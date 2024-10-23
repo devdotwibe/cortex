@@ -2717,7 +2717,7 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark a { cursor: pointer; display: flex; flex-wrap: wrap; align-items: center; padding: 22px 20px; justify-content: center;position: relative;}
 .exam-footer .lesson-pagination .lesson-finish {margin-left: 0;}
 .lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark .flagclass {font-size: 20px; color: #000;font-weight: 600;}
-.lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark  #flagimages { width: 40px; margin: 0 0 0 20px; position: absolute; top: 50%; transform: translateY(-50%); right: 0;}
+.lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark  #flagimages { width: 40px; margin: 0 0 0 20px; position: absolute; top: 50%; transform: translateY(-50%); right: 10px;}
 .lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark .active .active-img {opacity: 0;}
 
 .support-content { background: #FFFFFF; padding: 20px 20px; box-shadow: 4px 0px 16px 0px #0000000A; border-radius: 10px; margin: 16px 0 20px !important;}
