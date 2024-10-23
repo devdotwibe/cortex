@@ -3248,6 +3248,8 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 
 .category .category-content h3 { font-size: 16px;}
 
+.exam-progress { width: 100%;}
+
 }
 
 @media screen and (max-width:600px){
