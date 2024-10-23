@@ -3171,6 +3171,12 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .questionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer { padding: 20px;}
 .questionclass .mcq-container-wrap .lesson .lesson-body .col-md-12 {padding: 0 0 0;}
 
+.progress-menu {padding: 10px 15px;}
+.progress-menu .menu-text { font-size: 16px; margin: 0 0 0;}
+.progress-menu .menu-text #menu-text span { font-size: 22px;}
+.progress-main .hide-btn { margin: 0 0 0;  font-size: 10px; width: 45px; height: 45px;}
+.progress-main .exam-exit { width: 20px;}
+.progress-main .timer span { font-size: 12px; padding: 0 3px;}
 
 }
 
