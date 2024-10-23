@@ -1914,7 +1914,7 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 
 
 
-.exam-container .mcq-container-wrap {padding: 0; max-width: 100%;}
+.exam-container .mcq-container-wrap {padding: 0; max-width: 100%;min-height: calc(100vh - 140px);}
 .exam-container .mcq-container-wrap .lesson .lesson-body .mcq-container {width: 100%; padding: 50px; display: flex; flex-wrap: wrap; justify-content: space-between; position: relative;    min-height: calc(100vh - 230px);}
 .exam-container .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group { width: 50%; padding: 0 35px 0 0;}
 .exam-container .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer { width: 50%; padding: 0 0 0 35px;}
