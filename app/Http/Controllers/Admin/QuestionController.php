@@ -83,14 +83,19 @@ class QuestionController extends Controller
                 break;
         }
 
-        dd($request);
+       
+
+        $files = $request->file('answer'); // Assuming 'answer' contains the file input
+
         $question = Question::store($questiondat);
-foreach ($request->answer as $k => $ans) {
-    $imageName = "";
-    if ($request->hasFile("answer.$k.image")) {
-        $imageName = "questionimages/" . $request->file("answer.$k.image")->hashName();
-        $request->file("answer.$k.image")->storeAs('questionimages', $imageName);
-    }
+        foreach ($request->answer as $k => $ans) {
+            $imageName = "";
+            // Check if a file is present in the specific answer
+            if ($request->hasFile("answer.$k.image")) {
+                // Store the file and get the hashed filename
+                $imageName = "questionimages/" . $request->file("answer.$k.image")->hashName();
+                $request->file("answer.$k.image")->storeAs('questionimages', $request->file("answer.$k.image")->hashName());
+            }
     $answer = Answer::store([
         "exam_id" => $question->exam_id,
         "question_id" => $question->id,
