@@ -3044,6 +3044,18 @@ nav.navbar.header-class { display: none;}
 .modal-expand.modal-expand-result .container-wrap .result-preview-body .exam-overview .topic-overview h3 {  font-size: 20px;   font-weight: 500;   margin: 0 0 22px;}
 
 
+.verifyemailclass .container-wrap {width: 90%; max-width: 1320px; margin: 50px auto 0; padding: 50px; min-height: calc(100vh - 190px); border-radius: 15px;}
+.verifyemailclass .container-wrap .card { width: 100%; border: none;}
+.verifyemailclass .container-wrap .col-md-8 { width: 100%;}
+.verifyemailclass .container-wrap .card .card-header { background: none; border: none; font-size: 28px; font-weight: 600; padding: 0; margin: 0 0 20px;}
+.verifyemailclass .container-wrap .card .card-body { padding: 0;}
+.verifyemailclass .container-wrap .card .card-body p { color: #787878; font-size: 20px; margin: 0 0 20px; line-height: 1.56;}
+.verifyemailclass .container-wrap .card .card-body p a { font-size: 20px; line-height: 1.56; color: #FBAE1E;}
+.verifyemailclass .container-wrap .card .card-body p a:hover { color: #787878;}
+.verifyemailclass .container-wrap .card .card-body .btn.btn-primary { background: #FBAE1E; padding: 10px 50px; color: #FFFFFF; font-size: 16px; margin: 0 auto; border: 1px solid #FBAE1E;}
+.verifyemailclass .container-wrap .card .card-body .btn.btn-primary:hover { color: #FBAE1E; background: none;}
+
+
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
 
