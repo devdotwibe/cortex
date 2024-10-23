@@ -2,7 +2,7 @@
 @section('headerclass','header-class')
 @section('title', $exam->title)
 @section('content')
-<section class="exam-container questionclass answerclass">
+<section class="exam-container">
     <div class="container-wrap mcq-container-wrap full-mock-exam-review">
         <div class="lesson">            
             <a class="lesson-exit float-start" href="{{route('full-mock-exam.index')}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
