@@ -3139,6 +3139,9 @@ aside.side_bar.slider-btn { width: 220px !important;}
 .progress-menu { padding: 15px 30px;}
 .progress-main .timer span { font-size: 14px;}
 
+.modal-expand.modal-expand-result .container-wrap .question-preview-body .col-md-3 {width: 30%;}
+.modal-expand.modal-expand-result .container-wrap .question-preview-body .col-md-9 { width: 70%;}
+
 }
 
 @media screen and (max-width:991px) {
@@ -3198,6 +3201,10 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .exam-container.topictestclass .summery-wrap .time-of-exam input { font-size: 20px;}
 .exam-container .summery-wrap p {  font-size: 18px;}
 .exam-container .summery-wrap { padding: 30px;}
+
+.modal-expand.modal-expand-result .container-wrap .question-preview-body .col-md-3 {width: 35%;}
+.modal-expand.modal-expand-result .container-wrap .question-preview-body .col-md-9 {width: 65%;}
+.modal-expand.modal-expand-result {padding: 0 15px;}
 
 }
 
@@ -3295,6 +3302,9 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .exam-container .summery-wrap p { font-size: 16px;}
 .exam-container .summery-wrap { padding: 30px; width: 100%;}
 .exam-container .summery-wrap .summery-action .btn {  font-size: 14px;}
+
+.modal-expand.modal-expand-result .container-wrap .question-preview-body .col-md-3 {width: 100%;}
+.modal-expand.modal-expand-result .container-wrap .question-preview-body .col-md-9 { width: 100%; padding: 0;}
 
 }
 
