@@ -20,7 +20,7 @@
         <div class="header_right">
             <ul class="nav_bar">
                 <li class="nav_item"><a href="{{ route('admin.subscriber.index') }}" class="nav_link btn">Subscriber</a></li>
-                <button type="button" class="close" data-bs-toggle="modal" data-bs-target="#import_user_modal">Import User</button>
+                <button type="button" class="nav_link btn importbutton " data-bs-toggle="modal" data-bs-target="#import_user_modal">Import User</button>
 
             </ul>
         </div>
