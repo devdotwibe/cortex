@@ -373,7 +373,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
 
 
 
-                                    <div class="text-field">
+                                    <div class="text-field timestartclass">
                                         <label for="starttime">Start Time:</label>
                                         <div class="form-group">
                                             <input type="text" name="starttime" id="starttime" class="form-control"
@@ -382,7 +382,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                         </div>
                                     </div>
                                     
-                                    <div class="text-field">
+                                    <div class="text-field ampmclass">
                                         <label for="starttime_am_pm">Select AM/PM:</label>
                                         <div class="form-group">
                                             <select name="starttime_am_pm" id="starttime_am_pm" class="form-control" required>
@@ -395,7 +395,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                 </div>
                                 <div class="startdayclass">
                                     <!-- End Time Picker -->
-                                    <div class="text-field">
+                                    <div class="text-field timestartclass">
                                         <label for="endtime">End Time:</label>
                                         <div class="form-group">
                                             <input type="text" name="endtime" id="endtime" class="form-control"
@@ -404,7 +404,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                         </div>
                                     </div>
                                     
-                                    <div class="text-field">
+                                    <div class="text-field ampmclass">
                                         <label for="endtime_am_pm">Select AM/PM:</label>
                                         <div class="form-group">
                                             <select name="endtime_am_pm" id="endtime_am_pm" class="form-control" required>
