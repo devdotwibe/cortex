@@ -8,12 +8,12 @@
             <div class="back-btn" id="back-btn" style="display: none">
                 <a onclick="pagetoggle()"><img src="{{ asset('assets/images/leftarrowblack.svg') }}" alt=""></a>
             </div>
-            <h2>Tips and Advices</h2>
+            <h2>Tips and Advices1</h2>
         </div>
     </div>
 </section>
 
-<section class="content_section" id="category-content-section">
+<section class="content_section tips-class" id="category-content-section">
     <div class="container">
         <div class="row">
             @forelse ($categories as $k => $item)
