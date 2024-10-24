@@ -396,14 +396,22 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                 <div class="startdayclass">
                                     <!-- End Time Picker -->
                                     <div class="text-field">
-                                        <label for="endtime">End Time:</label>
-                                        <input type="text" name="endtime" id="endtime" class="form-control"
-                                            placeholder="HH : MM" data-mask="^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$"
-                                            required>
-                                        <select name="endtime_am_pm" id="endtime_am_pm" class="form-control" required>
-                                            <option value="AM">AM</option>
-                                            <option value="PM">PM</option>
-                                        </select>
+                                        <label for="starttime">Start Time:</label>
+                                        <div class="form-group">
+                                            <input type="text" name="starttime" id="starttime" class="form-control"
+                                                placeholder="HH : MM" data-mask="^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$"
+                                                required>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="text-field">
+                                        <label for="starttime_am_pm">Select AM/PM:</label>
+                                        <div class="form-group">
+                                            <select name="starttime_am_pm" id="starttime_am_pm" class="form-control" required>
+                                                <option value="AM">AM</option>
+                                                <option value="PM">PM</option>
+                                            </select>
+                                        </div>
                                     </div>
 
 
