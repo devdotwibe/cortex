@@ -146,6 +146,13 @@
             let element=this;
             let isValid = true;
             console.log(import_{{ $id }}_data);
+
+            let fileInput = $('#import-{{ $id }}-file')[0];
+            if (fileInput.files.length === 0) {
+                alert('No file selected for import.');
+                isValid = false;
+            }
+
             if(import_{{ $id }}_data.length>0)
             {
                 $(element).prop("disabled",true)
