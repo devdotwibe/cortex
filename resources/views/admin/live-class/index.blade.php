@@ -356,7 +356,6 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                             <form action="{{ route('admin.timetable.store') }}" method="POST" id="formedit">
                                 @csrf
                                 <div class="form-row">
-                                    <div class="selectdayclass">
                                     <!-- Day Picker -->
                                     <div class="text-field">
                                         <label for="day">Select Day:</label>
@@ -378,14 +377,13 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                         <input type="text" name="starttime" id="starttime" class="form-control"
                                             placeholder="HH : MM" data-mask="^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$"
                                             required>
-                                    </div>
                                         <select name="starttime_am_pm" id="starttime_am_pm" class="form-control"
                                             required>
                                             <option value="AM">AM</option>
                                             <option value="PM">PM</option>
                                         </select>
                                     </div>
-                                </div>
+
 
                                     <!-- End Time Picker -->
                                     <div class="text-field">
