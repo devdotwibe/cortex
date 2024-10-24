@@ -240,8 +240,15 @@ Exit Review
                             }
                         }
                         if(v.active||!v.url){
+
+                            var label_name=v.label;
+
+                            if(v.label =='sPrevious')
+                        {
+                            var label_name = "<";
+                        }
                             $('#lesson-footer-pagination').append(`
-                                <button class="${linkstatus} btn btn-secondary ${v.active?"active":""}" disabled  >${v.label}</button>
+                                <button class="${linkstatus} btn btn-secondary ${v.active?"active":""}" disabled  >${label_name}</button>
                             `)
                         }else{
                             $('#lesson-footer-pagination').append(`
