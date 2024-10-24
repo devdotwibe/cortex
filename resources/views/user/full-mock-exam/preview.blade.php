@@ -220,6 +220,9 @@
                     }, 'json')
 
                 })
+
+
+
                 if (res.total == 1) {
     $.each(res.links, function(k, v) {
         if (v.active || !v.url) {
@@ -232,9 +235,12 @@
             `);
         }
     });
-    $('.lesson-right').hide();  // Hide next button
+
     $('.lesson-left').hide();   // Hide previous button
 }
+
+
+
                else if (res.total > 1) {
                     $.each(res.links, function(k, v) {
                         let linkstatus = "";
