@@ -220,8 +220,10 @@
                     }, 'json')
 
                 })
-                // If there's only one question, hide next/previous but show pagination
-if (res.total == 1) {
+
+
+
+                if (res.total == 1) {
     $.each(res.links, function(k, v) {
         if (v.active || !v.url) {
             $('#lesson-footer-pagination').append(`
@@ -234,10 +236,11 @@ if (res.total == 1) {
         }
     });
 
-    // Hide next and previous buttons when there is only one question
-    $('.lesson-right').hide();  // Hide next button
     $('.lesson-left').hide();   // Hide previous button
 }
+
+
+
                else if (res.total > 1) {
                     $.each(res.links, function(k, v) {
                         let linkstatus = "";
