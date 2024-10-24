@@ -355,11 +355,9 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                         <div class="modal-col1">
                             <form action="{{ route('admin.timetable.store') }}" method="POST" id="formedit">
                                 @csrf
-                               
+                                <div class="form-row">
                                     <!-- Day Picker -->
-                                    <div class="selectdayclass">
                                     <div class="text-field">
-                                        <div class="days-class">
                                         <label for="day">Select Day:</label>
                                         <select name="day" id="day" class="form-control">
                                             <option value="Monday">Monday</option>
@@ -371,46 +369,35 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                             <option value="Sunday">Sunday</option>
                                         </select>
                                     </div>
-                                </div>
 
 
-                           
-                                   
-                                        <div class="starttimeclass">
+
+                                    <div class="text-field">
                                         <label for="starttime">Start Time:</label>
                                         <input type="text" name="starttime" id="starttime" class="form-control"
                                             placeholder="HH : MM" data-mask="^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$"
                                             required>
-                                    </div>
-                                    <div class="starttimeampm">
                                         <select name="starttime_am_pm" id="starttime_am_pm" class="form-control"
                                             required>
                                             <option value="AM">AM</option>
                                             <option value="PM">PM</option>
                                         </select>
                                     </div>
-                                   
-
-                                </div>
 
 
                                     <!-- End Time Picker -->
-                                    <div class="selectdayclass">
                                     <div class="text-field">
                                         <label for="endtime">End Time:</label>
                                         <input type="text" name="endtime" id="endtime" class="form-control"
                                             placeholder="HH : MM" data-mask="^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$"
                                             required>
-                                    </div>
-                                    <div class="selectdayampm">
                                         <select name="endtime_am_pm" id="endtime_am_pm" class="form-control" required>
                                             <option value="AM">AM</option>
                                             <option value="PM">PM</option>
                                         </select>
                                     </div>
-                                
 
-                                <div class="numberofusers">
+
                                     <div class="text-field">
                                         <label for="count">Number of Users:</label>
                                         <select name="count" id="count" class="form-control" required>
@@ -419,8 +406,6 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                             @endfor
                                         </select>
                                     </div>
-                                </div>
-                            </div>
 
 
 
