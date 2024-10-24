@@ -2815,7 +2815,7 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .timetable-wrapp .timetable-row .user-icons .user-icon { display: inline-block; width: 20px; margin: 0 8px 0 0;}
 
 
-.live-modal .modal-dialog {max-width: 90% !important;}
+.live-modal .modal-dialog {max-width: 90% !important; margin: .5rem auto;}
 .live-modal .modal-dialog .modal-row {width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between;}
 .live-modal .modal-dialog .modal-row .modal-col1 {width: 50%; padding-right: 15px;}
 .live-modal .modal-dialog .modal-row .modal-col1 .form-row { width: 100%;}
@@ -3302,6 +3302,7 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 
 .live-modal .modal-dialog .modal-row .modal-col1 .form-row .text-field-preview .user-icons .user-icon {width: 18px; margin: 0 5px 0 0;}
 .live-modal .modal-dialog .modal-row .modal-col1 { width: 100%;  padding: 0;}
+.live-modal .modal-dialog .modal-row .modal-col1 .card .card-body {padding: 0;}
 
 }
 
@@ -3531,5 +3532,18 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .quest-progress .question-number .menu-text {   font-size: 18px;}
 .quest-progress .Review-mode { font-size: 18px;}
 .quest-progress .question-number {  margin: 0 auto 0 10px;}
+
+.live-modal .modal-dialog .modal-row .modal-col1 .form-row .text-field-preview .user-icons .user-icon { width: 15px; margin: 0 3px 0 0;}
+.live-modal .modal-dialog .modal-row .modal-col1 .form-row .startdayclass .text-field label { font-size: 13px;}
+.live-modal .modal-dialog .modal-row .modal-col1 { width: 100%; padding: 0;}
+.live-modal .modal-dialog .modal-row .modal-col1 .card .card-body { padding: 0;}
+.live-modal .modal-dialog .modal-row .modal-col1 .form-row .startdayclass .text-field { width: 100%;  flex: inherit; margin: 0  0 12px;}
+.live-modal .modal-dialog .modal-row .modal-col1 .form-row .startdayclass .text-field.timestartclass { flex: 1 0 0;}
+.live-modal .modal-dialog .modal-row .modal-col1 .form-row .startdayclass .text-field.ampmclass { width: 90px; margin-left: 10px;}
+.live-modal .modal-dialog .modal-row .modal-col1 .form-row .text-field-preview p { font-size: 14px;}
+.live-modal .modal-dialog .modal-row .modal-col1 .form-row .text-field-preview .user-icons { width: 100%;  margin: 0 0 10px;}
+.live-modal .modal-dialog .modal-row .modal-col1 .card .card-body button.btn.btn-dark { font-size: 14px;}
+.live-modal .modal-dialog .modal-row .modal-col1 .form-row .add-btn {  font-size: 14px;}
+
 
 }
