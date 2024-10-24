@@ -331,7 +331,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                 </div>
                 <div class="modal-body">
 
-                    @if(session()->has('create_timetable'))
+                    @if (session()->has('create_timetable'))
                         <div class="alert alert-success">
                             {{ session()->get('create_timetable') }}
                         </div>
@@ -358,96 +358,101 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                 <div class="form-row">
                                     <!-- Day Picker -->
                                     <div class="startdayclass">
-                                    <div class="text-field">
-                                        <label for="day">Select Day:</label>
-                                        <select name="day" id="day" class="form-control">
-                                            <option value="Monday">Monday</option>
-                                            <option value="Tuesday">Tuesday</option>
-                                            <option value="Wednesday">Wednesday</option>
-                                            <option value="Thursday">Thursday</option>
-                                            <option value="Friday">Friday</option>
-                                            <option value="Saturday">Saturday</option>
-                                            <option value="Sunday">Sunday</option>
-                                        </select>
-                                    </div>
-
-
-
-                                    <div class="text-field timestartclass">
-                                        <label for="starttime">Start Time:</label>
-                                        <div class="form-group">
-                                            <input type="text" name="starttime" id="starttime" class="form-control"
-                                                placeholder="HH : MM" data-mask="^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$"
-                                                required>
+                                        <div class="text-field">
+                                            <label for="day">Select Day:</label>
+                                            <select name="day" id="day" class="form-control">
+                                                <option value="Monday">Monday</option>
+                                                <option value="Tuesday">Tuesday</option>
+                                                <option value="Wednesday">Wednesday</option>
+                                                <option value="Thursday">Thursday</option>
+                                                <option value="Friday">Friday</option>
+                                                <option value="Saturday">Saturday</option>
+                                                <option value="Sunday">Sunday</option>
+                                            </select>
                                         </div>
+
+
+
+                                        <div class="text-field timestartclass">
+                                            <label for="starttime">Start Time:</label>
+                                            <div class="form-group">
+                                                <input type="text" name="starttime" id="starttime"
+                                                    class="form-control" placeholder="HH : MM"
+                                                    data-mask="^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="text-field ampmclass">
+                                            <label for="starttime_am_pm">Select AM/PM:</label>
+                                            <div class="form-group">
+                                                <select name="starttime_am_pm" id="starttime_am_pm" class="form-control"
+                                                    required>
+                                                    <option value="AM">AM</option>
+                                                    <option value="PM">PM</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
                                     </div>
-                                    
-                                    <div class="text-field ampmclass">
-                                        <label for="starttime_am_pm">Select AM/PM:</label>
-                                        <div class="form-group">
-                                            <select name="starttime_am_pm" id="starttime_am_pm" class="form-control" required>
-                                                <option value="AM">AM</option>
-                                                <option value="PM">PM</option>
+                                    <div class="startdayclass">
+                                        <!-- End Time Picker -->
+                                        <div class="text-field timestartclass">
+                                            <label for="endtime">End Time:</label>
+                                            <div class="form-group">
+                                                <input type="text" name="endtime" id="endtime" class="form-control"
+                                                    placeholder="HH : MM"
+                                                    data-mask="^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="text-field ampmclass">
+                                            <label for="endtime_am_pm">Select AM/PM:</label>
+                                            <div class="form-group">
+                                                <select name="endtime_am_pm" id="endtime_am_pm" class="form-control"
+                                                    required>
+                                                    <option value="AM">AM</option>
+                                                    <option value="PM">PM</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="text-field">
+                                            <label for="count">Number of Users:</label>
+                                            <select name="count" id="count" class="form-control" required>
+                                                @for ($i = 1; $i <= 10; $i++)
+                                                    <option value="{{ $i }}">{{ $i }}</option>
+                                                @endfor
                                             </select>
                                         </div>
                                     </div>
-                                    
-                                </div>
-                                <div class="startdayclass">
-                                    <!-- End Time Picker -->
-                                    <div class="text-field timestartclass">
-                                        <label for="endtime">End Time:</label>
-                                        <div class="form-group">
-                                            <input type="text" name="endtime" id="endtime" class="form-control"
-                                                placeholder="HH : MM" data-mask="^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$"
-                                                required>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="text-field ampmclass">
-                                        <label for="endtime_am_pm">Select AM/PM:</label>
-                                        <div class="form-group">
-                                            <select name="endtime_am_pm" id="endtime_am_pm" class="form-control" required>
-                                                <option value="AM">AM</option>
-                                                <option value="PM">PM</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    
 
 
-                                    <div class="text-field">
-                                        <label for="count">Number of Users:</label>
-                                        <select name="count" id="count" class="form-control" required>
-                                            @for ($i = 1; $i <= 10; $i++)
-                                                <option value="{{ $i }}">{{ $i }}</option>
-                                            @endfor
-                                        </select>
-                                    </div>
-                                </div>
-
-
-                                    <button class="add-btn addbuttonclass" type="submit" id="updatebutton">+ Add </button>
-                                    <a href="{{ route('admin.live-class.index') }}" class="add-btn cancel-button-class">Cancel</a>
+                                    <button class="add-btn addbuttonclass" type="submit" id="updatebutton">+ Add
+                                    </button>
+                                    <a href="{{ route('admin.live-class.index') }}"
+                                        class="add-btn cancel-button-class">Cancel</a>
 
                                     @foreach ($timetables as $timetable)
-                                    <div class="text-field-preview">
-                                     
+                                        <div class="text-field-preview">
+
                                             <p>{{ $timetable->day }}
                                                 <span>({{ $timetable->starttime }} {{ $timetable->starttime_am_pm }} -
                                                     {{ $timetable->endtime }} {{ $timetable->endtime_am_pm }})</span>
                                             </p>
-            
+
                                             <div class="user-icons">
                                                 @for ($i = 1; $i <= $timetable->count; $i++)
                                                     <span class="user-icon">
-                                                        <img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt="">
-                                                       
+                                                        <img src="{{ asset('assets/images/fa6-solid_user.svg') }}"
+                                                            alt="">
+
                                                     </span>
                                                 @endfor
                                             </div>
-            
-            
+
+
                                             {{-- <div class="action-buttons">
             
                                                 <button data-url="{{ route('admin.timetable.fetcheditdata', $timetable->id) }}"
@@ -459,38 +464,45 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                             </div> --}}
 
                                             <div class="action-buttons">
-                                                <button data-url="{{ route('admin.timetable.fetcheditdata', $timetable->id) }}"
+                                                <button
+                                                    data-url="{{ route('admin.timetable.fetcheditdata', $timetable->id) }}"
                                                     onclick="edittimetable(this)" class="btn btn-icons edit_btn">
                                                     <span class="adminside-icon">
-                                                        <img src="{{ asset('assets/images/icons/iconamoon_edit.svg') }}" alt="Edit">
+                                                        <img src="{{ asset('assets/images/icons/iconamoon_edit.svg') }}"
+                                                            alt="Edit">
                                                     </span>
                                                     <span class="adminactive-icon">
-                                                        <img src="{{ asset('assets/images/iconshover/iconamoon_edit-yellow.svg') }}" alt="Edit Active">
+                                                        <img src="{{ asset('assets/images/iconshover/iconamoon_edit-yellow.svg') }}"
+                                                            alt="Edit Active">
                                                     </span>
                                                 </button>
-                                            
-                                                <button onclick="deletefunction(this)" data-url="{{ route('admin.timetable.destroy', $timetable->id) }}" class="btn btn-icons dlt_btn">
+
+                                                <button onclick="deletefunction(this)"
+                                                    data-url="{{ route('admin.timetable.destroy', $timetable->id) }}"
+                                                    class="btn btn-icons dlt_btn">
                                                     <span class="adminside-icon">
-                                                        <img src="{{ asset('assets/images/icons/material-symbols_delete-outline.svg') }}" alt="Delete">
+                                                        <img src="{{ asset('assets/images/icons/material-symbols_delete-outline.svg') }}"
+                                                            alt="Delete">
                                                     </span>
                                                     <span class="adminactive-icon">
-                                                        <img src="{{ asset('assets/images/iconshover/material-symbols_delete-yellow.svg') }}" alt="Delete Active">
+                                                        <img src="{{ asset('assets/images/iconshover/material-symbols_delete-yellow.svg') }}"
+                                                            alt="Delete Active">
                                                     </span>
                                                 </button>
                                             </div>
-                                            
-                                      
-                                    </div>
+
+
+                                        </div>
                                     @endforeach
                                 </div>
                             </form>
-               
+
 
                         </div>
 
 
 
-                       
+
 
                     </div>
 
@@ -507,21 +519,22 @@ These open group sessions condense the entire Thinking Skills curriculum into te
 
                 <div class="modal-header">
                     <h5 class="modal-title" id="Lablel">Delete Confirmation Required</h5>
-                    <button type="button" class="close"  data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
-                    <form action="#"  id="delete-post-form" method="post">
+                    <form action="#" id="delete-post-form" method="post">
                         @csrf
-                        @method("DELETE")
+                        @method('DELETE')
                         <p>Are you sure you want to delete the record </p>
-                        <button type="button" data-bs-dismiss="modal"   class="btn btn-secondary">Cancel</button>
+                        <button type="button" data-bs-dismiss="modal" class="btn btn-secondary">Cancel</button>
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                 </div>
 
             </div>
         </div>
-    </div> 
+    </div>
 
 
     <div class="modal fade" id="live-intensive-modal" tabindex="-1" role="dialog"
@@ -557,15 +570,12 @@ These open group sessions condense the entire Thinking Skills curriculum into te
 @endpush
 
 @push('footer-script')
-  
-
     <script>
+        function deletefunction(element) {
 
-        function deletefunction(element){
+            var url = $(element).data('url');
 
-            var url= $(element).data('url');
-
-            $('#delete-post-form').attr('action',url);
+            $('#delete-post-form').attr('action', url);
 
 
             $('#live-private-modal').modal('hide');
@@ -574,6 +584,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
 
 
         }
+
         function edittimetable(button) {
             // Get the URL from the button's data attribute
             var url = button.getAttribute('data-url');
@@ -608,24 +619,24 @@ These open group sessions condense the entire Thinking Skills curriculum into te
             });
         }
     </script>
-  <script>
-    $(document).ready(function() {
-       
-        @if(session()->has('create_timetable'))
+    <script>
+        $(document).ready(function() {
 
-        console.log('yyy');
-            $('#live-private-modal').modal('show');
-        @endif
+            @if (session()->has('create_timetable'))
 
-        @error('intensive_class')
-            AddCardDetail2(event);
-        @enderror
+                console.log('yyy');
+                $('#live-private-modal').modal('show');
+            @endif
 
-        @error('private_class')
-            AddCardDetail(event);
-        @enderror
-    });
-</script>
+            @error('intensive_class')
+                AddCardDetail2(event);
+            @enderror
+
+            @error('private_class')
+                AddCardDetail(event);
+            @enderror
+        });
+    </script>
 
 
     <script>
