@@ -2,7 +2,7 @@
 @section('headerclass', 'header-class')
 @section('title', $exam->title)
 @section('content')
-    <section class="exam-container questionclass answerclass">
+    <section class="exam-container questionclass answerclass onequestionclass">
         <div class="exam-progress quest-progress">
             <div class="exam-progress-inner">
                 <div class="exam-progress-inner-item exam-left">
@@ -220,28 +220,7 @@
                     }, 'json')
 
                 })
-
-
-
-                if (res.total == 1) {
-    $.each(res.links, function(k, v) {
-        if (v.active || !v.url && k==2) {
-            $('#lesson-footer-pagination').append(`
-                <button class="btn btn-secondary active" disabled  >${v.label}</button>
-            `);
-        } else {
-            $('#lesson-footer-pagination').append(`
-                <button class="btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
-            `);
-        }
-    });
-    
-   // Hide previous button
-}
-
-
-
-               else if (res.total > 1) {
+                if (res.total > 1) {
                     $.each(res.links, function(k, v) {
                         let linkstatus = "";
                         if (k != 0 && k != res.links.length && useranswers[k - 1]) {

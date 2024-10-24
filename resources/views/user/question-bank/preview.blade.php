@@ -3,7 +3,7 @@
 @section('title', $exam->subtitle($category->id,"Topic ".($category->getIdx()+1)).':'.$category->name)
 @section('content')
 
-    <section class="exam-container questionclass answerclass">
+    <section class="exam-container questionclass answerclass onequestionclass">
     <div class="exam-progress quest-progress">
         <div class="exam-progress-inner">
             <div class="exam-progress-inner-item exam-left">
