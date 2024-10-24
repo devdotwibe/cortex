@@ -225,7 +225,7 @@
 
                 if (res.total == 1) {
     $.each(res.links, function(k, v) {
-        if ((v.active || !v.url) && k==2) {
+        if ((v.active || !v.url) && k==1) {
             $('#lesson-footer-pagination').append(`
                 <button class="btn btn-secondary active" disabled  >${v.label}</button>
             `);
