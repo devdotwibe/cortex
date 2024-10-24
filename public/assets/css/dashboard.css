@@ -3378,6 +3378,8 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 
 .workshop-wrap .workshop-content ul li { font-size: 16px;}
 
+#review-history-modal .modal-dialog { top: 0; transform: none;}
+
 }
 
 @media screen and (max-width:600px){
