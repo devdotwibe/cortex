@@ -1899,7 +1899,12 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .card .action-button {width: 100%; margin: 30px 0 0;}
 .card .action-button .btn { background: #FBAE1E; border: 1px solid #FBAE1E; width: 100%; max-width: 275px; color: #fff;}
 .card .action-button .btn:hover {  background: #1989F8; border-color: #1989F8;}
-.topic-section .category {align-items: start;}
+.topic-section .category {align-items: center;}
+.topic-section .category .category-content { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;}
+.topic-section .category .category-content .topictestcontent {width: 48%;}
+.topic-section .category .category-content .action-button { width: 48%; margin: 0;}
+.topic-section .category .category-content .action-button .btn { max-width: 150px; float: right;}
+
 
 .exam-container .summery-wrap { width: 90%; max-width: 1320px; margin: 50px auto 0; padding: 50px;}
 .exam-container .summery-wrap h2 { font-size: 20px; font-weight: 500;  color: #000000;  margin: 0 0 20px;}
@@ -3102,7 +3107,6 @@ nav.navbar.header-class { display: none;}
 #exam-reminder .modal-dialog .modal-content .modal-body .form button.btn.btn-secondary:hover { background: #000000; color: #ffffff;}
 #exam-reminder .modal-dialog .modal-content .modal-body .form button.btn.btn-dark { padding: 8px 20px; background: #000000; color: #ffffff; border: 1px solid #000000;}
 #exam-reminder .modal-dialog .modal-content .modal-body .form button.btn.btn-dark:hover {  background: none; color: #000000;}
-
 
 
 @media screen and (max-width:1500px) {
