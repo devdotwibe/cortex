@@ -85,26 +85,18 @@ class QuestionController extends Controller
 
        
 
-        $files = $request->file_answer;
+        $featureimages = $request->file('file_answer', []);
 
         $question = Question::store($questiondat);
         foreach ($request->answer as $k => $ans) {
             $imageName = "";
         
-
-           
-
-
-                if( isset($files[$k]))
-
-                {
-                    if($request->hasFile($files[$k]))
-                    {
-                    $imageName = "questionimages/" . $files[$k]->hashName();
-                    $request->file($files[$k])->storeAs('questionimages', $imageName);
-                }
+            if (isset($featureimages[$k])) {
+                $featureImage = $featureimages[$k];
+                $featureImageName = "questionimages/" . $featureImage->hashName();
+                Storage::put('questionimages', $featureImage);
+                $imageName = $featureImageName;
             }
-
             $answer = Answer::create([
                 "exam_id" => $question->exam_id,
                 "question_id" => $question->id,
