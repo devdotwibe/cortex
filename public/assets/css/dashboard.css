@@ -741,7 +741,6 @@ border-radius: 7px;
 }
 .form-check-ans {
   display:flex;
-  flex-wrap:wrap;
   left:0;
 }
 .form-check-ans  span.question-user-ans {
