@@ -87,7 +87,7 @@ class QuestionController extends Controller
 
         $featureimages = $request->file('file_answer', []);
 
-        dd($featureimages);
+        dd($$request->file_answer);
 
         $question = Question::store($questiondat);
         foreach ($request->answer as $k => $ans) {
