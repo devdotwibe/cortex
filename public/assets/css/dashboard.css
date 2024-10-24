@@ -1002,7 +1002,7 @@ border-radius: 7px;
 
 .modal-expand {
   position: absolute;
-  top: 170px;
+  top: 120px;
   left: 0;
   width: 100%;
   height: max-content;
