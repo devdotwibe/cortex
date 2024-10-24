@@ -125,7 +125,7 @@
     font: inherit;
     vertical-align: baseline;
     outline: none;
-    font-family: 'Arial';
+    font-family: "DM Sans", sans-serif;
   }
   /* HTML5 display-role reset for older browsers */
   article,
@@ -150,7 +150,7 @@
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     overflow: hidden;
-    font-family: 'Arial';
+    font-family: "DM Sans", sans-serif;
     background: #EFEFEF;
     overflow-y: auto;
   }
@@ -160,7 +160,7 @@
     transition: all 0.25s ease-out 0s;
   }
   p {
-    font-family: 'Arial';
+    font-family: "DM Sans", sans-serif;
   }
   img {
     border: 0px;
@@ -3108,6 +3108,12 @@ nav.navbar.header-class { display: none;}
 #exam-reminder .modal-dialog .modal-content .modal-body .form button.btn.btn-dark { padding: 8px 20px; background: #000000; color: #ffffff; border: 1px solid #000000;}
 #exam-reminder .modal-dialog .modal-content .modal-body .form button.btn.btn-dark:hover {  background: none; color: #000000;}
 
+
+.exam-container.answerclass.onequestionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group { height: calc(100vh - 140px);}
+.exam-container.answerclass.onequestionclass  .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer {  height: calc(100vh - 140px);}
+
+
+.exam-container .container-wrap .lesson .lesson-body p, .exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check label {  font-family: 'Arial';}
 
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
