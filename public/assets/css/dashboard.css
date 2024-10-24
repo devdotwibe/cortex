@@ -3328,6 +3328,8 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .modal-expand {top: 85px;padding: 0 15px;}
 .modal-expand .container-wrap { min-height: calc(100vh - 150px);}
 
+.support-content p { font-size: 18px;}
+
 }
 
 @media screen and (max-width:767px) {
@@ -3455,6 +3457,8 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .question-tab .nav-link { padding: 0 10px; font-size: 14px;}
 
 .modal-expand .container-wrap {width: 100%;}
+
+.support-content p { font-size: 16px;}
 
 
 }
