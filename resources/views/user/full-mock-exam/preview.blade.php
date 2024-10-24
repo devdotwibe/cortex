@@ -235,9 +235,7 @@
             `);
         }
     });
-
-    $('.lesson-right').hide();  // Assuming this is the selector for the "Next" button
-    $('.lesson-left').hide();
+    
    // Hide previous button
 }
 
