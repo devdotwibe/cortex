@@ -357,6 +357,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                 @csrf
                                 <div class="form-row">
                                     <!-- Day Picker -->
+                                    <div class="startdayclass">
                                     <div class="text-field">
                                         <label for="day">Select Day:</label>
                                         <select name="day" id="day" class="form-control">
@@ -383,7 +384,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                             <option value="PM">PM</option>
                                         </select>
                                     </div>
-
+                                </div>
 
                                     <!-- End Time Picker -->
                                     <div class="text-field">
