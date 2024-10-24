@@ -60,7 +60,9 @@
     </div> 
 </section> 
 
-
+<section class="exam-footer"> 
+    <div class="lesson-pagination">
+      
 
         <div class="lesson-left ">
             <a href="{{ route('full-mock-exam.complete', $userExamReview->slug) }}" class="button left-btn" title="Back">
