@@ -3109,6 +3109,9 @@ nav.navbar.header-class { display: none;}
 #exam-reminder .modal-dialog .modal-content .modal-body .form button.btn.btn-dark:hover {  background: none; color: #000000;}
 
 
+.exam-container.answerclass.onequestionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group { height: calc(100vh - 140px);}
+.exam-container.answerclass.onequestionclass  .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer {  height: calc(100vh - 140px);}
+
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
 
