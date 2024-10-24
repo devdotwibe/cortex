@@ -3139,6 +3139,11 @@ nav.navbar.header-class { display: none;}
 .live-modal .modal-dialog .modal-row .modal-col1 .form-row .cancel-button-class:hover {  background: #000; color: #ffff;}
 
 
+.critical-reasoning .backtitleclass { width: 100%; display: flex; align-items: center; margin: 0 0 26px;}
+.critical-reasoning .backtitleclass h2 { margin: 0; padding-left: 15px; border-left: 3px solid #ef9b10;}
+.critical-reasoning .backtitleclass .back-btn {margin: 0 10px 0 0;}
+
+
 @media screen and (max-width:1599px) {
 .live-modal .modal-dialog .modal-row .modal-col1 .form-row .text-field-preview p { width: 100%; margin: 0 0 10px;}
 }
@@ -3170,6 +3175,11 @@ nav.navbar.header-class { display: none;}
 
 .exam-container.answerclass .topic-test-review .lesson .lesson-body .mcq-container .mcq-answer { height: calc(100vh - 220px);}
 .exam-container.answerclass .topic-test-review .lesson .lesson-body .mcq-container .mcq-group { height: calc(100vh - 220px);}
+
+.critical-reasoning h2 { font-size: 26px;}
+
+.modal-expand .container-wrap {min-height: calc(100vh - 160px);}
+.modal-expand {top: 90px;}
 
 }
 
@@ -3226,6 +3236,8 @@ aside.side_bar.slider-btn { width: 220px !important;}
 .modal-expand.modal-expand-result .container-wrap .result-preview-body .col-md-3 { width: 30%;}
 .modal-expand.modal-expand-result .container-wrap .result-preview-body .col-md-9 { width: 70%;}
 
+.tabbody .question-item { width: 59px;}
+
 }
 
 @media screen and (max-width:991px) {
@@ -3269,10 +3281,10 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .progress-menu {padding: 10px 15px;}
 .progress-menu .menu-text { font-size: 16px; margin: 0 0 0;}
 .progress-menu .menu-text #menu-text span { font-size: 22px;}
-.progress-main .hide-btn { margin: 0 0 0;  font-size: 10px; width: 45px; height: 45px;}
+.progress-main .hide-btn { margin: 0 0 0 15px;  font-size: 10px; width: 45px; height: 45px;}
 .progress-main .exam-exit { width: 20px;}
 .progress-main .timer span { font-size: 12px; padding: 0 3px;}
-
+.progress-main .timer { margin: 0 0 0 15px;}
 
 .lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark {width: 140px;}
 .lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark .flagclass {   font-size: 16px;}
@@ -3305,6 +3317,13 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .live-modal .modal-dialog .modal-row .modal-col1 .form-row .text-field-preview .user-icons .user-icon {width: 18px; margin: 0 5px 0 0;}
 .live-modal .modal-dialog .modal-row .modal-col1 { width: 100%;  padding: 0;}
 .live-modal .modal-dialog .modal-row .modal-col1 .card .card-body {padding: 0;}
+
+.slider-active .content_outer {padding-left: 20px;}
+
+.nav-status { width: 30px;}
+.question-tab { flex-wrap: wrap; width: 100%; justify-content: center;}
+
+.tabbody .question-item { width: 49px; margin: 5px;}
 
 }
 
@@ -3426,6 +3445,8 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .post-search { width: 100%; order: -1; margin: 0 0 10px;}
 .post-section .post-row .post-container1 { width: 35%;}
 
+.critical-reasoning h2 { font-size: 24px;}
+.critical-reasoning { padding: 30px;}
 
 }
 
@@ -3448,6 +3469,9 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .exam-container.answerclass .mcq-container-wrap.question-bank-review .lesson .lesson-body .mcq-container .mcq-group { height: inherit;}
 .exam-container.answerclass .mcq-container-wrap.question-bank-review .lesson .lesson-body .mcq-container .mcq-answer { height: inherit;}
 .form-progress-ans .form-progress { margin: 0 0 10px;}
+
+.exam-container.answerclass.onequestionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group { height: inherit;}
+.exam-container.answerclass.onequestionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer { height: inherit;}
 
 }
 
@@ -3547,5 +3571,6 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .live-modal .modal-dialog .modal-row .modal-col1 .card .card-body button.btn.btn-dark { font-size: 14px;}
 .live-modal .modal-dialog .modal-row .modal-col1 .form-row .add-btn {  font-size: 14px;}
 
+.critical-reasoning h2 { font-size: 20px;}
 
 }
