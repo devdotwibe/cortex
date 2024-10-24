@@ -428,6 +428,8 @@ These open group sessions condense the entire Thinking Skills curriculum into te
 
 
                                     <button class="add-btn addbuttonclass" type="submit" id="updatebutton">+ Add </button>
+                                    <a href="{{ route('admin.live-class.index') }}" class="add-btn addbuttonclass">Cancel</a>
+
                                     @foreach ($timetables as $timetable)
                                     <div class="text-field-preview">
                                      
@@ -446,9 +448,19 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                             </div>
             
             
+                                            {{-- <div class="action-buttons">
+            
+                                                <button data-url="{{ route('admin.timetable.fetcheditdata', $timetable->id) }}"
+                                                    onclick="edittimetable(this)" class="btn btn-primary">Edit</button>
+            
+            
+                                                    <button 
+                                                        onclick="deletefunction(this)"  data-url="{{ route('admin.timetable.destroy', $timetable->id) }}"  class="btn btn-primary">Delete</button>
+                                            </div> --}}
+
                                             <div class="action-buttons">
                                                 <button data-url="{{ route('admin.timetable.fetcheditdata', $timetable->id) }}"
-                                                    onclick="edittimetable(this)" class="btn btn-icons">
+                                                    onclick="edittimetable(this)" class="btn btn-icons edit_btn">
                                                     <span class="adminside-icon">
                                                         <img src="{{ asset('assets/images/icons/iconamoon_edit.svg') }}" alt="Edit">
                                                     </span>
@@ -457,7 +469,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                                     </span>
                                                 </button>
                                             
-                                                <button onclick="deletefunction(this)" data-url="{{ route('admin.timetable.destroy', $timetable->id) }}" class="btn btn-icons">
+                                                <button onclick="deletefunction(this)" data-url="{{ route('admin.timetable.destroy', $timetable->id) }}" class="btn btn-icons dlt_btn">
                                                     <span class="adminside-icon">
                                                         <img src="{{ asset('assets/images/icons/material-symbols_delete-outline.svg') }}" alt="Delete">
                                                     </span>
