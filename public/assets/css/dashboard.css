@@ -3134,7 +3134,8 @@ nav.navbar.header-class { display: none;}
 .live-modal .modal-dialog .modal-row .modal-col1 .form-row .text-field-preview .action-buttons button.btn.btn-icons .adminactive-icon {   display: block;   position: absolute;   top: 0;   width: 100%;   left: 0;   opacity: 0;   transition: all .25s ease-in-out;}
 .live-modal .modal-dialog .modal-row .modal-col1 .form-row .text-field-preview .action-buttons button.btn.btn-icons:hover .adminactive-icon { opacity: 1;}
 .live-modal .modal-dialog .modal-row .modal-col1 .form-row .text-field-preview .action-buttons button.btn.btn-icons:hover .adminside-icon { opacity: 0;}
-
+.live-modal .modal-dialog .modal-row .modal-col1 .form-row .cancel-button-class { background: none; color: #000;}
+.live-modal .modal-dialog .modal-row .modal-col1 .form-row .cancel-button-class:hover {  background: #000; color: #ffff;}
 
 
 @media screen and (max-width:1599px) {
