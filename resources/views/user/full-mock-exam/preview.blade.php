@@ -1,7 +1,8 @@
 @extends('layouts.exam')
+@section('headerclass','header-class')
 @section('title', $exam->title)
 @section('content')
-<section class="exam-container">
+<section class="exam-container questionclass answerclass">
     <div class="exam-progress quest-progress">
         <div class="exam-progress-inner">
             <div class="exam-progress-inner-item exam-left">
@@ -46,9 +47,9 @@
     </div>
     <div class="container-wrap mcq-container-wrap full-mock-exam-review">
         <div class="lesson">            
-            {{-- <a class="lesson-exit float-start" href="{{route('full-mock-exam.index')}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
+            <a class="lesson-exit float-start" href="{{route('full-mock-exam.index')}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
                 <img src="{{asset("assets/images/exiticon.svg")}}" alt="exiticon">
-            </a>  --}}
+            </a> 
             <div class="lesson-body"> 
                 <div class="row" id="lesson-questionlist-list" style="display: none">
                 </div>
@@ -60,8 +61,12 @@
 </section> 
 <section class="exam-footer"> 
     <div class="lesson-pagination">
-        <div class="lesson-left pagination-arrow" style="display: none" >
-            <button class="button left-btn"><img src="{{asset('assets/images/leftarrow.svg')}}" alt="<"> Back </button>
+      
+
+        <div class="lesson-left ">
+            <a href="{{ route('full-mock-exam.complete', $userExamReview->slug) }}" class="button left-btn" title="Back">
+                <img src="{{ asset('assets/images/leftarrow.svg') }}" alt="<"> Back 
+            </a>
         </div>
 
 
@@ -89,13 +94,26 @@
 
       
 
-
+{{-- 
         <div class="lesson-right pagination-arrow" style="display:none">
             <button class="button right-btn"> Next <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
         </div>
         <div class="lesson-finish pagination-arrow" style="display:none">
             <button class="button finish-btn" onclick="window.location.href='{{ route('full-mock-exam.index') }}'"> Finish Set <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
-        </div>  
+        </div>  --}}
+        
+
+
+        <div class="finish-btn">
+            <a href="{{ route('full-mock-exam.index') }}" class="button right-btn" title="Next">
+                Finish Set <img src="{{ asset('assets/images/rightarrow.svg') }}" alt=">">
+            </a>
+        </div>
+
+
+
+        
+
     </div> 
 </section>
 @endsection
