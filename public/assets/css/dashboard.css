@@ -296,6 +296,7 @@ main{ margin-top:87px;}
   flex-wrap: wrap;
   align-items: center;
 }
+.tips-class .category a { width: 100%; display: flex; flex-wrap: wrap; align-items: center;}
 
 .learn-section .row { justify-content: space-between;}
 .learn-section .col-md-6{margin: 0 0 20px; padding: 0 0 0; width: 49%;}
