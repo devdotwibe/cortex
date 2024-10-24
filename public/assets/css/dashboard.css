@@ -3176,6 +3176,8 @@ nav.navbar.header-class { display: none;}
 .exam-container.answerclass .topic-test-review .lesson .lesson-body .mcq-container .mcq-answer { height: calc(100vh - 220px);}
 .exam-container.answerclass .topic-test-review .lesson .lesson-body .mcq-container .mcq-group { height: calc(100vh - 220px);}
 
+.critical-reasoning h2 { font-size: 26px;}
+
 }
 
 @media screen and (max-width:1199px) {
@@ -3431,6 +3433,8 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .post-search { width: 100%; order: -1; margin: 0 0 10px;}
 .post-section .post-row .post-container1 { width: 35%;}
 
+.critical-reasoning h2 { font-size: 24px;}
+.critical-reasoning { padding: 30px;}
 
 }
 
@@ -3555,5 +3559,6 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .live-modal .modal-dialog .modal-row .modal-col1 .card .card-body button.btn.btn-dark { font-size: 14px;}
 .live-modal .modal-dialog .modal-row .modal-col1 .form-row .add-btn {  font-size: 14px;}
 
+.critical-reasoning h2 { font-size: 20px;}
 
 }
