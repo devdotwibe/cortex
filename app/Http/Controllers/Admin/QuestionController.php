@@ -103,6 +103,7 @@ class QuestionController extends Controller
                     $imageName = "questionimages/" . $files[$k]->hashName();
                     $request->file($files[$k])->storeAs('questionimages', $imageName);
                 }
+            }
 
             $answer = Answer::create([
                 "exam_id" => $question->exam_id,
