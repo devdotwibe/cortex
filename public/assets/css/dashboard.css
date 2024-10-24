@@ -3141,7 +3141,7 @@ nav.navbar.header-class { display: none;}
 
 .critical-reasoning .backtitleclass { width: 100%; display: flex; align-items: center; margin: 0 0 26px;}
 .critical-reasoning .backtitleclass h2 { margin: 0; padding-left: 15px; border-left: 3px solid #ef9b10;}
-
+.critical-reasoning .backtitleclass .back-btn {margin: 0 10px 0 0;}
 
 
 @media screen and (max-width:1599px) {
