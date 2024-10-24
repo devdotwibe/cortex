@@ -65,7 +65,7 @@
       
 
         <div class="lesson-left ">
-            <a href="{{ route('topic-test.index') }}" class="button left-btn" title="Back">
+            <a href="{{ route('topic-test.complete', $userExamReview->slug) }}" class="button left-btn" title="Back">
                 <img src="{{ asset('assets/images/leftarrow.svg') }}" alt="<"> Back 
             </a>
         </div>
