@@ -429,7 +429,7 @@ button.close {
   min-height: calc(100vh - 135px);
 }
 .lesson .lesson-title {
-  margin: 0 30px 0 35px;
+  margin: 0 30px 20px 35px;
   padding: 2px 15px;
   border-left:3px solid #ef9b10
 }
@@ -1952,7 +1952,7 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .exam-container .question-bank-review .lesson  .lesson-exit { position: absolute; top: 50px; left: 40px;z-index: 9;}
 .exam-container .question-bank-review .lesson .lesson-body h3 { font-size: 20px; font-weight: 500; color: #000000; margin: 0 0 20px; padding: 0 0 0 35px;}
 .exam-container .question-bank-review .lesson .lesson-body .mcq-container:after { content: ""; position: absolute; width: 1px; height: 100%; top: 0; left: 50%; transform: translateX(-50%);  background: #1789fa;}
-.exam-container .question-bank-review .lesson #lesson-footer-pagination { margin: 30px 0; display: inline-block; border-block: 1px solid #1789fa;}
+.exam-container .question-bank-review .lesson #lesson-footer-pagination { padding: 28px 0; display: inline-block; border-block: 1px solid #1789fa;}
 .exam-container .question-bank-review .lesson #lesson-footer-pagination button.btn { display: inline-block;}
 .exam-container .question-bank-review .lesson .lesson-body .mcq-container .mcq-group-right .mcq-explanation { font-size: 20px; font-weight: 600; margin: 0 0 20px;}
 .exam-container .question-bank-review .lesson .lesson-body .mcq-container .mcq-group h5 { font-weight: 600; font-size: 17px; margin: 0 0 16px 0; padding: 2px 5px; border-left: 3px solid #ef9b10;}
