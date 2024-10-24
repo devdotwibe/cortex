@@ -429,8 +429,8 @@ button.close {
   min-height: calc(100vh - 135px);
 }
 .lesson .lesson-title {
-  margin: 0 30px 20px 35px;
-  padding: 2px 15px;
+  margin: 0 0 20px 35px;
+  padding: 2px 0 2px 15px;
   border-left:3px solid #ef9b10
 }
 .lesson .lesson-title h3{
