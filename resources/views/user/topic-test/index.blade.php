@@ -21,8 +21,10 @@
                                     <img src="{{$exam->examIcon($item->id,asset("assets/images/User-red.png"))}}">
                                 </div>
                                 <div class="category-content">
+                                    <div class="topictestcontent">
                                     <h5><span id="category-content-subtitle-{{$item->id}}"> {{$exam->subtitle($item->id,"Topic ".($item->getIdx()+1))}} </span></h5>
                                     <h3>{{$item->name}}</h3> 
+                                    </div>
                                     <div class="action-button">
                                         @if ($user->is_free_access||(optional($user->subscription())->status??"")=="subscribed"||$k == 0) 
                                             @if($user->progress('exam-'.$exam->id.'-topic-'.$item->id.'-complete-review',"no")=="yes") 
