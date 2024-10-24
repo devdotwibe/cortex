@@ -28,7 +28,7 @@
                             <span>Seconds</span>
                         </div>
                     </div> 
-                    <button class="btn hide-btn" id="hide_button" onclick="HideTime()">Hide Time</button>
+                    <button class="btn hide-btn" id="hide_button" onclick="HideTime()"><img src="{{asset("assets/images/flat-color-icons_clock.svg")}}"></button>
 
                 </div>
             </div>
@@ -291,12 +291,12 @@
 
             timerDiv.slideToggle(300, function() {
 
-                if (timerDiv.is(':visible')) {
-                    button.text('Hide Time');
-                } else {
-                    button.text('Show Time');
-                    button.insertAfter(timerDiv);
-                }
+                // if (timerDiv.is(':visible')) {
+                //     button.text('Hide Time');
+                // } else {
+                //     button.text('Show Time');
+                //     button.insertAfter(timerDiv);
+                // }
             });
         }
 

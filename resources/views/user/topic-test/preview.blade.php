@@ -1,7 +1,9 @@
 @extends('layouts.exam')
+@section('headerclass','header-class')
 @section('title', $exam->subtitle($category->id,"Topic ".($category->getIdx()+1)).':'.$category->name)
 @section('content')
-<section class="exam-container">
+{{-- <section class="exam-container"> --}}
+    <section class="exam-container questionclass answerclass">
     <div class="exam-progress quest-progress">
         <div class="exam-progress-inner">
             <div class="exam-progress-inner-item exam-left">
@@ -60,9 +62,17 @@
 </section> 
 <section class="exam-footer"> 
     <div class="lesson-pagination">
-        <div class="lesson-left pagination-arrow" style="display: none" >
+        {{-- <div class="lesson-left pagination-arrow" style="display: none" >
             <button class="button left-btn"><img src="{{asset('assets/images/leftarrow.svg')}}" alt="<"> Back </button>
+        </div> --}}
+
+        <div class="lesson-left ">
+            <a href="{{ route('topic-test.complete', $userExamReview->slug) }}" class="button left-btn" title="Back">
+                <img src="{{ asset('assets/images/leftarrow.svg') }}" alt="<"> Back 
+            </a>
         </div>
+
+
 
 
         <div class="exam-right exam-progress-inner-item">
@@ -90,11 +100,10 @@
       
 
 
-        <div class="lesson-right pagination-arrow" style="display:none">
-            <button class="button right-btn"> Next <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
-        </div>
-        <div class="lesson-finish pagination-arrow" style="display:none">
-            <button class="button finish-btn" onclick="window.location.href='{{ route('topic-test.index') }}'"> Finish Set <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
+        <div class="finish-btn">
+            <a href="{{ route('topic-test.index', $category->slug) }}" class="button right-btn" title="Next">
+                Finish Set <img src="{{ asset('assets/images/rightarrow.svg') }}" alt=">">
+            </a>
         </div>  
     </div> 
 </section>
@@ -129,7 +138,7 @@
                                 </div>
                                 <div class="mcq-container">
                                     <div class="mcq-group">
-                                        <h5><span>{{$exam->subtitle($category->id,"Topic ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h5>
+                                       
                                         <div class="mcq-title-text" ${v.title_text?"":'style="display:none"'}>
                                             ${v.title_text||""}
                                         </div>

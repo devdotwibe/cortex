@@ -29,7 +29,7 @@
                         </div>
                     </div>
 
-                    <button class="btn hide-btn" id="hide_button" onclick="HideTime()">Hide Time</button>
+                    <button class="btn hide-btn" id="hide_button" onclick="HideTime()"><img src="{{asset("assets/images/flat-color-icons_clock.svg")}}"></button>
 
                 </div>
             </div>
@@ -64,6 +64,10 @@
 </section>
 <section class="exam-footer"> 
     <div class="lesson-pagination">
+        <div class="lesson-left pagination-arrow" style="display: none" >
+            <button class="button left-btn"><img src="{{asset('assets/images/leftarrow.svg')}}" alt="<"> Back </button>
+        </div>
+    
 
         <div class="exam-right exam-progress-inner-item">
             <div class="progress-main">
@@ -82,19 +86,17 @@
             </div>
         </div>
 
-        <div class="lesson-left pagination-arrow" style="display: none" >
-            <button class="button left-btn"><img src="{{asset('assets/images/leftarrow.svg')}}" alt="<"> Back </button>
+       
+        <div class="lesson-right pagination-arrow" style="display:none">
+            <button class="button right-btn"> Next <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
         </div>
+        
         
         <div class="lesson-finish pagination-arrow" style="display:none">
             <button class="button finish-btn" > Finish Set <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
         </div>  
 
 
-        <div class="lesson-right pagination-arrow" style="display:none">
-            <button class="button right-btn"> Next <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
-        </div>
-        
     </div> 
 
 
@@ -295,12 +297,12 @@
 
         timerDiv.slideToggle(300, function() {
 
-            if (timerDiv.is(':visible')) {
-                button.text('Hide Time');
-            } else {
-                button.text('Show Time');
-                button.insertAfter(timerDiv);
-            }
+            // if (timerDiv.is(':visible')) {
+            //     button.text('Hide Time');
+            // } else {
+            //     button.text('Show Time');
+            //     button.insertAfter(timerDiv);
+            // }
         });
     }
 
