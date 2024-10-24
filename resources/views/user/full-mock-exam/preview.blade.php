@@ -1,5 +1,5 @@
 @extends('layouts.exam')
-@section('headerclass','header-class')
+
 @section('title', $exam->title)
 @section('content')
 <section class="exam-container questionclass answerclass">
