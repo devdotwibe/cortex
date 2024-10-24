@@ -14,6 +14,12 @@
         <div class="summery-title">
             {{$exam->title}}
         </div>
+
+        <div class="time-of-exam">
+            <label for="time_of_exam-table-category-form-create">Time</label>
+            <input type="text" id="time_of_exam-table-category-form-create" value="{{ $exam->time_of_exam }}" readonly> <!-- Displaying the fetched duration -->
+        </div>
+
         <div class="summery-content">
             {!! get_option("exam_simulator_description") !!}
         </div>

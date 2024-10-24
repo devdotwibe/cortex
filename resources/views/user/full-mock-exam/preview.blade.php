@@ -1,4 +1,5 @@
 @extends('layouts.exam')
+@section('headerclass','header-class')
 @section('title', $exam->title)
 @section('content')
 <section class="exam-container questionclass answerclass">
@@ -146,7 +147,7 @@
                                 </div>
                                 <div class="mcq-container">
                                     <div class="mcq-group">
-                                        <h5><span>{{$exam->title}}</span></h5>
+                                        
                                         <div class="mcq-title-text" ${v.title_text?"":'style="display:none"'}>
                                             ${v.title_text||""}
                                         </div>

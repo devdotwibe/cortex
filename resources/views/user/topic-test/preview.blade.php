@@ -1,4 +1,5 @@
 @extends('layouts.exam')
+@section('headerclass','header-class')
 @section('title', $exam->subtitle($category->id,"Topic ".($category->getIdx()+1)).':'.$category->name)
 @section('content')
 {{-- <section class="exam-container"> --}}
@@ -137,7 +138,7 @@
                                 </div>
                                 <div class="mcq-container">
                                     <div class="mcq-group">
-                                        <h5><span>{{$exam->subtitle($category->id,"Topic ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h5>
+                                       
                                         <div class="mcq-title-text" ${v.title_text?"":'style="display:none"'}>
                                             ${v.title_text||""}
                                         </div>

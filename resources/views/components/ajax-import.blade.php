@@ -34,7 +34,7 @@
                                     <div class="forms-inputs mb-4"> 
                                         <label for="import-{{ $id }}-import_fields.{{$item->name}}">{{$item->label??ucfirst($item->name)}}</label>
                                         <select class="form-control import-{{ $id }}-fields" name="{{$item->name}}" id="import-{{ $id }}-import_fields.{{$item->name}}"></select>
-                                        <div class="invalid-feedback" id="import-{{ $id }}-import_fields.{{$item->name}}-error-message"></div>
+                                        <div class="invalid-feedback" id="import-{{ $id }}-{{$item->name}}-error-message"></div>
                                     </div>
                                 </div>
                                 @endforeach
@@ -144,6 +144,8 @@
 
         $('#import-{{ $id }}-button').click(function(){
             let element=this;
+            let isValid = true;
+            console.log(import_{{ $id }}_data);
             if(import_{{ $id }}_data.length>0)
             {
                 $(element).prop("disabled",true)
@@ -153,60 +155,105 @@
 
                 var formData = new FormData();
                 $('.import-{{ $id }}-fields').each(function(){
-                    if($(this).val()!="")
-                    {
-                        formData.append("import_fields["+$(this).attr('name')+"]", $(this).val());
+
+                    let fieldName = $(this).attr('name');
+                    let fieldValue = $(this).val();
+
+                    if (fieldName === 'description' && fieldValue === '') {
+                        $('#import-{{ $id }}-' + fieldName + '-error-message').text('Left Question is required');
+                        $(this).addClass('is-invalid');
+                        isValid = false;
+                    }
+
+                    if (fieldName === 'answer_1' && fieldValue === '') {
+                        $('#import-{{ $id }}-' + fieldName + '-error-message').text('Option A is required');
+                        $(this).addClass('is-invalid');
+                        isValid = false;
+                    }
+
+                    if (fieldName === 'answer_2' && fieldValue === '') {
+                        $('#import-{{ $id }}-' + fieldName + '-error-message').text('Option B is required');
+                        $(this).addClass('is-invalid');
+                        isValid = false;
+                    }
+
+                    if (fieldName === 'iscorrect' && fieldValue === '') {
+                        $('#import-{{ $id }}-' + fieldName + '-error-message').text('Correct Answer is required');
+                        $(this).addClass('is-invalid');
+                        isValid = false;
+                    }
+
+                    if (fieldValue !== '') {
+                        $('#import-{{ $id }}-' + fieldName + '-error-message').text('');
+                        $(this).removeClass('is-invalid');
                     }
                 })
-                var file = new File([JSON.stringify(import_{{ $id }}_data)], "data.json", {type: "text/plain"});
 
-                formData.append("import_datas", file);
 
-                $.ajax({
-                    type:"POST",
-                    url:'{{$url}}', 
-                    async: true, 
-                    data:formData,
-                    contentType: false,
-                    processData: false,
-                    xhr: function() {
-                        var xhr = new window.XMLHttpRequest();
-                        xhr.upload.addEventListener("progress", function(evt) {
-                            if (evt.lengthComputable) {
-                                var percentComplete = Math.floor((evt.loaded / evt.total) * 100);                        
-                                $('#import-{{ $id }}-progress').val(percentComplete);
-                                $('#import-{{ $id }}-progress').text(percentComplete+"%")
-                            }
-                        }, false);
-                        return xhr;
-                    },
-                    success:function(res){ 
-                        showToast(res.success,"success")
-                        import_{{ $id }}_data=[];
-                        $('.import-{{ $id }}-fields').html("")
-                        $('#import-{{ $id }}-file').val("")
-                        $(element).prop("disabled",false)
-                        $('#import-{{ $id }}-progress').val(0).text("0%");
-                        $('#import-{{ $id }}-progress').hide()
-                        $('#import-{{ $id }}-modal').modal('hide')   
-                        @if(!empty($onupdate))
-                        {{$onupdate}}(res)
-                        @endif
-                    },
-                    error:function(xhr){
-                        showToast("Unable to handle", "warning")
-                        var errors = xhr.responseJSON.errors;                        
-                        $.each(errors, function(key, value) {
-                            $('#import-{{ $id }}-'+key+'-error-message').text(value[0]);
-                            $('#import-{{ $id }}-'+key).addClass('is-invalid')
-                        });
-                        $(element).prop("disabled",false)
-                        $('#import-{{ $id }}-progress').val(0).text("0%");
-                        $('#import-{{ $id }}-progress').hide()
-                        $('#import-{{ $id }}-modal').modal('hide')   
+                if (isValid) {
+                    $(element).prop("disabled", true);
+                    $('#import-{{ $id }}-progress').show();
 
-                    }, 
-                })
+                    var formData = new FormData();
+                    $('.import-{{ $id }}-fields').each(function() {
+                        if ($(this).val() !== "") {
+                            formData.append("import_fields[" + $(this).attr('name') + "]", $(this).val());
+                        }
+                    });
+
+                    // Append file data
+                    var file = new File([JSON.stringify(import_{{ $id }}_data)], "data.json", { type: "application/json" });
+                    formData.append("import_datas", file);
+
+                    $.ajax({
+                        type:"POST",
+                        url:'{{$url}}',
+                        async: true,
+                        data:formData,
+                        contentType: false,
+                        processData: false,
+                        xhr: function() {
+                            var xhr = new window.XMLHttpRequest();
+                            xhr.upload.addEventListener("progress", function(evt) {
+                                if (evt.lengthComputable) {
+                                    var percentComplete = Math.floor((evt.loaded / evt.total) * 100);
+                                    $('#import-{{ $id }}-progress').val(percentComplete);
+                                    $('#import-{{ $id }}-progress').text(percentComplete+"%")
+                                }
+                            }, false);
+                            return xhr;
+                        },
+                        success:function(res){
+                            showToast(res.success,"success")
+                            import_{{ $id }}_data=[];
+                            $('.import-{{ $id }}-fields').html("")
+                            $('#import-{{ $id }}-file').val("")
+                            $(element).prop("disabled",false)
+                            $('#import-{{ $id }}-progress').val(0).text("0%");
+                            $('#import-{{ $id }}-progress').hide()
+                            $('#import-{{ $id }}-modal').modal('hide')
+                            @if(!empty($onupdate))
+                            {{$onupdate}}(res)
+                            @endif
+                        },
+                        error:function(xhr){
+                            showToast("Unable to handle", "warning")
+                            var errors = xhr.responseJSON.errors;
+                            $.each(errors, function(key, value) {
+                                $('#import-{{ $id }}-'+key+'-error-message').text(value[0]);
+                                $('#import-{{ $id }}-'+key).addClass('is-invalid')
+                            });
+                            $(element).prop("disabled",false)
+                            $('#import-{{ $id }}-progress').val(0).text("0%");
+                            $('#import-{{ $id }}-progress').hide()
+                            $('#import-{{ $id }}-modal').modal('hide')
+
+                        },
+                    })
+                } else {
+                    // Re-enable button if form is invalid
+                    $(element).prop("disabled", false);
+                }
             }
         })
     </script>
