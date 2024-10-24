@@ -37,9 +37,9 @@
     </div>
     <div class="container-wrap" id="question-answer-page">
         <div class="lesson">  
-            {{-- <div class="lesson-title">
+            <div class="lesson-title">
                 <h5><span>{{$homeWorkBook->title}}</span></h5>
-            </div> --}}
+            </div>
             <div class="lesson-body"> 
                 <div class="row" id="lesson-questionlist-list" style="display: none">
                 </div>
