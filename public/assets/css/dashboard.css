@@ -3300,6 +3300,9 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .timetable-wrapp .timetable-row .user-icons .user-icon { width: 18px;}
 .workshop-wrap .workshop-content ul li { font-size: 18px;}
 
+.live-modal .modal-dialog .modal-row .modal-col1 .form-row .text-field-preview .user-icons .user-icon {width: 18px; margin: 0 5px 0 0;}
+.live-modal .modal-dialog .modal-row .modal-col1 { width: 100%;  padding: 0;}
+
 }
 
 @media screen and (max-width:767px) {
