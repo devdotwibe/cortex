@@ -458,7 +458,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
 
                                             <div class="action-buttons">
                                                 <button data-url="{{ route('admin.timetable.fetcheditdata', $timetable->id) }}"
-                                                    onclick="edittimetable(this)" class="btn btn-icons">
+                                                    onclick="edittimetable(this)" class="btn btn-icons edit_btn">
                                                     <span class="adminside-icon">
                                                         <img src="{{ asset('assets/images/icons/iconamoon_edit.svg') }}" alt="Edit">
                                                     </span>
