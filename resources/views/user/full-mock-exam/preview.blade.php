@@ -220,24 +220,7 @@
                     }, 'json')
 
                 })
-
-
-
-                if (res.total == 1) {
-    $.each(res.links, function(k, v) {
-        if ((v.active || !v.url) && k==1) {
-            $('#lesson-footer-pagination').append(`
-                <button class="btn btn-secondary active" disabled  >${v.label}</button>
-            `);
-        } 
-    });
-    
-   // Hide previous button
-}
-
-
-
-               else if (res.total > 1) {
+                if (res.total > 1) {
                     $.each(res.links, function(k, v) {
                         let linkstatus = "";
                         if (k != 0 && k != res.links.length && useranswers[k - 1]) {
