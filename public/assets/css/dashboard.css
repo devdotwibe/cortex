@@ -3315,6 +3315,9 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 
 .slider-active .content_outer {padding-left: 20px;}
 
+.nav-status { width: 30px;}
+.question-tab { flex-wrap: wrap; width: 100%; justify-content: center;}
+
 }
 
 @media screen and (max-width:767px) {
