@@ -427,7 +427,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                 </div>
 
 
-                                    <button class="add-btn" type="submit" id="updatebutton">+ Add </button>
+                                    <button class="add-btn addbuttonclass" type="submit" id="updatebutton">+ Add </button>
                                     @foreach ($timetables as $timetable)
                                     <div class="text-field-preview">
                                      
@@ -447,14 +447,26 @@ These open group sessions condense the entire Thinking Skills curriculum into te
             
             
                                             <div class="action-buttons">
-            
                                                 <button data-url="{{ route('admin.timetable.fetcheditdata', $timetable->id) }}"
-                                                    onclick="edittimetable(this)" class="btn btn-primary">Edit</button>
-            
-            
-                                                    <button 
-                                                        onclick="deletefunction(this)"  data-url="{{ route('admin.timetable.destroy', $timetable->id) }}"  class="btn btn-primary">Delete</button>
+                                                    onclick="edittimetable(this)" class="btn btn-icons">
+                                                    <span class="adminside-icon">
+                                                        <img src="{{ asset('assets/images/icons/iconamoon_edit.svg') }}" alt="Edit">
+                                                    </span>
+                                                    <span class="adminactive-icon">
+                                                        <img src="{{ asset('assets/images/iconshover/iconamoon_edit-yellow.svg') }}" alt="Edit Active">
+                                                    </span>
+                                                </button>
+                                            
+                                                <button onclick="deletefunction(this)" data-url="{{ route('admin.timetable.destroy', $timetable->id) }}" class="btn btn-icons">
+                                                    <span class="adminside-icon">
+                                                        <img src="{{ asset('assets/images/icons/material-symbols_delete-outline.svg') }}" alt="Delete">
+                                                    </span>
+                                                    <span class="adminactive-icon">
+                                                        <img src="{{ asset('assets/images/iconshover/material-symbols_delete-yellow.svg') }}" alt="Delete Active">
+                                                    </span>
+                                                </button>
                                             </div>
+                                            
                                       
                                     </div>
                                     @endforeach
