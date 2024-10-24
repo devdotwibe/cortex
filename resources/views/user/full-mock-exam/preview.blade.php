@@ -220,25 +220,7 @@
                     }, 'json')
 
                 })
-                // If there's only one question, hide next/previous but show pagination
-if (res.total == 1) {
-    $.each(res.links, function(k, v) {
-        if (v.active || !v.url) {
-            $('#lesson-footer-pagination').append(`
-                <button class="btn btn-secondary active" disabled  >${v.label}</button>
-            `);
-        } else {
-            $('#lesson-footer-pagination').append(`
-                <button class="btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
-            `);
-        }
-    });
-
-    // Hide next and previous buttons when there is only one question
-    $('.lesson-right').hide();  // Hide next button
-    $('.lesson-left').hide();   // Hide previous button
-}
-               else if (res.total > 1) {
+                if (res.total > 1) {
                     $.each(res.links, function(k, v) {
                         let linkstatus = "";
                         if (k != 0 && k != res.links.length && useranswers[k - 1]) {
