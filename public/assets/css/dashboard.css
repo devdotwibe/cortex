@@ -3325,6 +3325,9 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 
 .tabbody .question-item { width: 49px; margin: 5px;}
 
+.modal-expand {top: 85px;}
+.modal-expand .container-wrap { min-height: calc(100vh - 150px);}
+
 }
 
 @media screen and (max-width:767px) {
@@ -3447,6 +3450,10 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 
 .critical-reasoning h2 { font-size: 24px;}
 .critical-reasoning { padding: 30px;}
+
+.tabbody .question-item {width: 45px; margin: 5px;}
+.question-tab .nav-link { padding: 0 10px; font-size: 14px;}
+
 
 }
 
