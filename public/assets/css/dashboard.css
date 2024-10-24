@@ -1020,7 +1020,7 @@ border-radius: 7px;
   background: #ffff;
   box-shadow: 4px 0px 16px 0px #0000000A;
   border-radius: 0;
-  min-height: calc(100vh - 245px);
+  min-height: calc(100vh - 185px);
 }
 .tabbody .question-list {
   width:100%;
