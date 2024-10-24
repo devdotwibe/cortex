@@ -65,7 +65,7 @@
       
 
         <div class="lesson-left ">
-            <a href="{{ route('full-mock-exam.complete', $userExamReview->slug) }}" class="button left-btn" title="Back">
+            <a href="{{ route('topic-test.index') }}" class="button left-btn" title="Back">
                 <img src="{{ asset('assets/images/leftarrow.svg') }}" alt="<"> Back 
             </a>
         </div>
@@ -106,7 +106,7 @@
 
 
         <div class="finish-btn">
-            <a href="{{ route('full-mock-exam.index') }}" class="button right-btn" title="Next">
+            <a href="{{ route('topic-test.index') }}" class="button right-btn" title="Next">
                 Finish Set <img src="{{ asset('assets/images/rightarrow.svg') }}" alt=">">
             </a>
         </div>
