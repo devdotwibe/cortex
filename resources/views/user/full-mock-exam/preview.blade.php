@@ -235,8 +235,7 @@
             `);
         }
     });
-
-    $('.lesson-left').hide();   // Hide previous button
+   // Hide previous button
 }
 
 
