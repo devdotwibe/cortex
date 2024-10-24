@@ -108,6 +108,7 @@ body {
 .login-wrapp .login-cont .login-row .login-left img {
     max-width: 100%;
     display: block;
+    max-height: 100%;
 }
 
 .login-wrapp .login-cont .login-row .login-right .card {
