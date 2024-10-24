@@ -428,6 +428,8 @@ These open group sessions condense the entire Thinking Skills curriculum into te
 
 
                                     <button class="add-btn addbuttonclass" type="submit" id="updatebutton">+ Add </button>
+                                    <a href="{{ route('admin.live-class.index') }}" class="add-btn addbuttonclass">Cancel</a>
+
                                     @foreach ($timetables as $timetable)
                                     <div class="text-field-preview">
                                      
