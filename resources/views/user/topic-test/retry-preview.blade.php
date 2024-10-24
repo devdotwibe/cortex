@@ -168,7 +168,7 @@
                                                 </div> 
                                             </div>
                                         </div>
-                                        <div id="mcq-${lesseonId}-explanation"> 
+                                        <div id="mcq-${lesseonId}-explanation" class="correctanswerclass"> 
                                             <label>Correct Answer <span id="mcq-${lesseonId}-correct"></span></label>
                                             ${v.explanation||''}
                                         </div>
