@@ -64,9 +64,9 @@
       
 
         <div class="lesson-left ">
-            <a href="{{ route('full-mock-exam.complete', $userExamReview->slug) }}" class="button left-btn" title="Back">
+            {{-- <a href="{{ route('full-mock-exam.complete', $userExamReview->slug) }}" class="button left-btn" title="Back">
                 <img src="{{ asset('assets/images/leftarrow.svg') }}" alt="<"> Back 
-            </a>
+            </a> --}}
         </div>
 
 
