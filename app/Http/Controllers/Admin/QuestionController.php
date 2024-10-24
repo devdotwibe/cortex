@@ -87,28 +87,34 @@ class QuestionController extends Controller
 
         $files = $request->file_answer;
 
-        $question = Question::create($questiondat);
-        
+        $question = Question::store($questiondat);
         foreach ($request->answer as $k => $ans) {
             $imageName = "";
         
-            // Check if a file is associated with the current answer
-            if (isset($files[$k]) && $files[$k] instanceof \Illuminate\Http\UploadedFile) {
-                // Store the file and save the filename
-                $imageName = 'questionimages/' . $files[$k]->hashName();
-                $files[$k]->storeAs('questionimages', $files[$k]->hashName());
+
+           
+
+
+                if( isset($files[$k]))
+
+                {
+                    if($request->hasFile($files[$k]))
+                    {
+                    $imageName = "questionimages/" . $files[$k]->hashName();
+                    $request->file($files[$k])->storeAs('questionimages', $imageName);
+                }
             }
-        
-            // Create the answer
-            Answer::create([
+
+            $answer = Answer::create([
                 "exam_id" => $question->exam_id,
                 "question_id" => $question->id,
-                "iscorrect" => $k == ($request->choice_answer ?? 0), // Mark correct answer
+                "iscorrect" => $k == ($request->choice_answer ?? 0),
                 "title" => $ans,
-                'image' => $imageName, // Store image path if available
+                'image' => $imageName,
             ]);
-        }
-        
+}
+
+
         $redirect=$request->redirect??route('admin.question.index');
 
 
