@@ -3178,6 +3178,9 @@ nav.navbar.header-class { display: none;}
 
 .critical-reasoning h2 { font-size: 26px;}
 
+.modal-expand .container-wrap {min-height: calc(100vh - 160px);}
+.modal-expand {top: 90px;}
+
 }
 
 @media screen and (max-width:1199px) {
@@ -3232,6 +3235,8 @@ aside.side_bar.slider-btn { width: 220px !important;}
 
 .modal-expand.modal-expand-result .container-wrap .result-preview-body .col-md-3 { width: 30%;}
 .modal-expand.modal-expand-result .container-wrap .result-preview-body .col-md-9 { width: 70%;}
+
+.tabbody .question-item { width: 59px;}
 
 }
 
@@ -3317,6 +3322,8 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 
 .nav-status { width: 30px;}
 .question-tab { flex-wrap: wrap; width: 100%; justify-content: center;}
+
+.tabbody .question-item { width: 49px; margin: 5px;}
 
 }
 
