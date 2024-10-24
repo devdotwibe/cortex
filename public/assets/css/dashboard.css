@@ -3454,6 +3454,9 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .exam-container.answerclass .mcq-container-wrap.question-bank-review .lesson .lesson-body .mcq-container .mcq-answer { height: inherit;}
 .form-progress-ans .form-progress { margin: 0 0 10px;}
 
+.exam-container.answerclass.onequestionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group { height: inherit;}
+.exam-container.answerclass.onequestionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer { height: inherit;}
+
 }
 
 
