@@ -3128,6 +3128,13 @@ nav.navbar.header-class { display: none;}
 .live-modal .modal-dialog .modal-row .modal-col1 .form-row .add-btn:hover { color: #000;  background: none;}
 .live-modal .modal-dialog .modal-row .modal-col1 .card .card-body button.btn.btn-dark { margin: 0 auto 20px; float: none; color: #fff; display: inline-block; background: #000; border: 1px solid #000; transition: all .25s ease-in-out; padding: 10px 25px; border-radius: 6px; font-weight: 600; font-size: 17px;}
 .live-modal .modal-dialog .modal-row .modal-col1 .card .card-body button.btn.btn-dark:hover { color: #000; background: none;}
+.live-modal .modal-dialog .modal-row .modal-col1 .form-row .text-field-preview .action-buttons button.btn.btn-icons {   padding: 0; width: 30px; position: relative;}
+.live-modal .modal-dialog .modal-row .modal-col1 .form-row .text-field-preview .action-buttons button.btn.btn-icons .adminside-icon {  width: 100%;  display: block;   transition: all .25s ease-in-out;}
+.live-modal .modal-dialog .modal-row .modal-col1 .form-row .text-field-preview .action-buttons button.btn.btn-icons img {   width: 100%;   display: block;}
+.live-modal .modal-dialog .modal-row .modal-col1 .form-row .text-field-preview .action-buttons button.btn.btn-icons .adminactive-icon {   display: block;   position: absolute;   top: 0;   width: 100%;   left: 0;   opacity: 0;   transition: all .25s ease-in-out;}
+.live-modal .modal-dialog .modal-row .modal-col1 .form-row .text-field-preview .action-buttons button.btn.btn-icons:hover .adminactive-icon { opacity: 1;}
+.live-modal .modal-dialog .modal-row .modal-col1 .form-row .text-field-preview .action-buttons button.btn.btn-icons:hover .adminside-icon { opacity: 0;}
+
 
 
 @media screen and (max-width:1500px) {
