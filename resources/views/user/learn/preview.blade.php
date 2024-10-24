@@ -2,7 +2,7 @@
 @section('headerclass','header-class')
 @section('title', $exam->subtitle($category->id,"Module ".($category->getIdx()+1)).':'.$category->name)
 @section('content')
-<section class="exam-container questionclass answerclass">
+<section class="exam-container questionclass answerclass onequestionclass">
 
     <div class="exam-progress quest-progress">
         <div class="exam-progress-inner">
