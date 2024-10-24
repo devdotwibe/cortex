@@ -385,7 +385,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                         </select>
                                     </div>
                                 </div>
-
+                                <div class="startdayclass">
                                     <!-- End Time Picker -->
                                     <div class="text-field">
                                         <label for="endtime">End Time:</label>
@@ -407,7 +407,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                             @endfor
                                         </select>
                                     </div>
-
+                                </div>
 
 
                                     <button class="add-btn" type="submit" id="updatebutton">+ Add </button>
