@@ -91,10 +91,14 @@ class QuestionController extends Controller
         foreach ($request->answer as $k => $ans) {
             $imageName = "terd";
         
-                if(isset($files[$k]))
+
+           
+
+
+                if( $request->hasFile($files[$k])&&isset($files[$k]))
                 {
                     $imageName = "questionimages/" . $files[$k]->hashName();
-                    $request->file("answer.$k.image")->storeAs('questionimages', $imageName);
+                    $request->file($files[$k])->storeAs('questionimages', $imageName);
                 }
 
             $answer = Answer::create([
