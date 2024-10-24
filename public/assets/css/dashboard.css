@@ -3114,6 +3114,7 @@ nav.navbar.header-class { display: none;}
 
 
 .exam-container .container-wrap .lesson .lesson-body p, .exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check label {  font-family: 'Arial';}
+.exam-container.answerclass.onequestionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .correctanswerclass label {font-size: 20px; line-height: 1.5; margin: 0 0 16px; font-weight: 600; font-family: 'Arial';}
 
 @media screen and (max-width:1500px) {
 .lesson .lesson-row { padding-top: 56px;}
