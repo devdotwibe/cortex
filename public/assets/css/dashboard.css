@@ -3274,10 +3274,10 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .progress-menu {padding: 10px 15px;}
 .progress-menu .menu-text { font-size: 16px; margin: 0 0 0;}
 .progress-menu .menu-text #menu-text span { font-size: 22px;}
-.progress-main .hide-btn { margin: 0 0 0;  font-size: 10px; width: 45px; height: 45px;}
+.progress-main .hide-btn { margin: 0 0 0 15px;  font-size: 10px; width: 45px; height: 45px;}
 .progress-main .exam-exit { width: 20px;}
 .progress-main .timer span { font-size: 12px; padding: 0 3px;}
-
+.progress-main .timer { margin: 0 0 0 15px;}
 
 .lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark {width: 140px;}
 .lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark .flagclass {   font-size: 16px;}
