@@ -243,7 +243,7 @@ Exit Review
 
                             var label_name=v.label;
 
-                            if(v.label =='sPrevious')
+                            if(v.label =='« Previous')
                         {
                             var label_name = "<";
                         }
