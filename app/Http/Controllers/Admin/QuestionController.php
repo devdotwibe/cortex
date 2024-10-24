@@ -95,8 +95,11 @@ class QuestionController extends Controller
            
 
 
-                if( $request->hasFile($files[$k])&&isset($files[$k]))
+                if( isset($files[$k]))
+
                 {
+                    if($request->hasFile($files[$k]))
+                    {
                     $imageName = "questionimages/" . $files[$k]->hashName();
                     $request->file($files[$k])->storeAs('questionimages', $imageName);
                 }
