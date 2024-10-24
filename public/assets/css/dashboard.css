@@ -3313,6 +3313,8 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .live-modal .modal-dialog .modal-row .modal-col1 { width: 100%;  padding: 0;}
 .live-modal .modal-dialog .modal-row .modal-col1 .card .card-body {padding: 0;}
 
+.slider-active .content_outer {padding-left: 20px;}
+
 }
 
 @media screen and (max-width:767px) {
