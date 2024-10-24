@@ -229,11 +229,7 @@
             $('#lesson-footer-pagination').append(`
                 <button class="btn btn-secondary active" disabled  >${v.label}</button>
             `);
-        } else {
-            $('#lesson-footer-pagination').append(`
-                <button class="btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
-            `);
-        }
+        } 
     });
     
    // Hide previous button
