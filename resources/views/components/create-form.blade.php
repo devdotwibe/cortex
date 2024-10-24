@@ -151,7 +151,7 @@
                                     <input type="radio" class="input-group-check choice-check"  id="${el}-check" name="choice_${name}" value="${ln}" >
                                 </div>
                                 <input type="text" name="${name}[]" id="${el}" value="" class="form-control" placeholder="${label}" aria-placeholder="${label}" >
-                                 <input type="file" name="file_${name}}[]" id="${el}-file" value="" class="form-control" >
+                                 <input type="file" name="file_${name}[]" id="${el}-file" value="" class="form-control" >
 
 
                                 
