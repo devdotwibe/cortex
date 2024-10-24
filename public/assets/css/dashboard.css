@@ -125,7 +125,7 @@
     font: inherit;
     vertical-align: baseline;
     outline: none;
-    font-family: 'Arial';
+    font-family: "DM Sans", sans-serif;
   }
   /* HTML5 display-role reset for older browsers */
   article,
@@ -150,7 +150,7 @@
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     overflow: hidden;
-    font-family: 'Arial';
+    font-family: "DM Sans", sans-serif;
     background: #EFEFEF;
     overflow-y: auto;
   }
@@ -160,7 +160,7 @@
     transition: all 0.25s ease-out 0s;
   }
   p {
-    font-family: 'Arial';
+    font-family: "DM Sans", sans-serif;
   }
   img {
     border: 0px;
