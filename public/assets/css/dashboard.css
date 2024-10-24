@@ -3391,6 +3391,10 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 
 #review-history-modal .modal-dialog { top: 0; transform: none;}
 
+.post-search { width: 100%; order: -1; margin: 0 0 10px;}
+.post-section .post-row .post-container1 { width: 35%;}
+
+
 }
 
 @media screen and (max-width:600px){
