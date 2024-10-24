@@ -13,7 +13,7 @@
     </div>
 </section>
 
-<section class="content_section tips-class" id="category-content-section">
+<section class="content_section" id="category-content-section">
     <div class="container">
         <div class="row">
             @forelse ($categories as $k => $item)
