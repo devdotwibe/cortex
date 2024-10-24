@@ -173,7 +173,7 @@ body {
 @media screen and (max-width:767px) {
 .login-wrapp .login-cont .login-row .login-right .card h2 { font-size: 28px;}
 .login-wrapp .login-cont .login-row .login-right .card h3 {font-size: 22px;}
-.login-wrapp .login-cont .login-row .login-right .card .forms-inputs input { height: 50px; font-size: 16px; text-align: center; color: #000;}
+.login-wrapp .login-cont .login-row .login-right .card .forms-inputs input { height: 50px; font-size: 16px; text-align: center; color: #000; border-color: #000;}
 .login-wrapp .login-cont .login-row .login-right .card .btn { height: 50px;  font-size: 19px;}
 .login-wrapp .login-cont .login-row .login-right .card p { font-size: 16px;}
 .login-wrapp .login-cont .login-row .login-left { width: 100%; position: relative;}
