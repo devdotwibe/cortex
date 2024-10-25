@@ -31,14 +31,19 @@
                         <span id="menu-text" >Question <span> 0 </span>   <span>0 </span> </span>
                       
                     </div>
-                    <div class="menu-icon"> 
-                        <a onclick="toglepreviewpage()" >
-                            {{-- <img src="{{asset("assets/images/menu.svg")}}" alt="exiticon"> --}}
-                        </a>
-                    </div>
+                    
                 </div>
             </div>
 
+
+
+            <div class="menu-icon"> 
+                <a onclick="toglepreviewpage()" >
+                    <img src="{{asset("assets/images/menu.svg")}}" alt="exiticon">
+                </a>
+            </div>
+
+            
             <div class="Review-mode">
                 <span>Review Mode </span>
             </div>
