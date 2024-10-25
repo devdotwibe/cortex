@@ -48,7 +48,7 @@
                         </div>
                     </div>
 
-                    <div class="mb-3">
+                    <div class="drophash hashtagdropdown">
                       
                         <select id="hashtagDropdown" class="form-select" onchange="location = this.value;">
                             <option value="">Choose a Channel</option> <!-- Default option -->
