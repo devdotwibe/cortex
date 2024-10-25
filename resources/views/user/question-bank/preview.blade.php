@@ -428,7 +428,7 @@
                             <button class="${linkstatus} btn btn-secondary ${v.active?"active":""}" disabled  >${label_name}</button>
                         `)
                     } else {
-                        $('#lesson-footer-pagination12').append(`
+                        $('#lesson-footer-pagination1').append(`
                             <button class="${linkstatus} btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
                         `)
                     }
