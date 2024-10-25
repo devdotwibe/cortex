@@ -3231,6 +3231,16 @@ nav.navbar.top-barhide { display: none;}
 #question-bank-subtitle .modal-content .modal-body button.btn.btn-dark:hover { color: #000; background: none;}
 
 
+
+.modal .modal-content { padding: 20px;}
+.modal .modal-content .modal-header { padding: 0; border: none; margin: 0 0 20px;}
+.modal .modal-content .modal-header h5 { color: #218df8; font-size: 20px; font-weight: 600;}
+.modal .modal-content .modal-header button.close {background: #fff; color: #000; border: 2px solid #fff; font-size: 30px; line-height: 0; transition: all .25s ease-in-out; width: auto; height: auto; font-weight: 300; position: absolute; right: 15px; top: 20px;}
+.modal .modal-content .modal-body { padding: 0;}
+.modal .modal-content .modal-body button.btn.btn-secondary { background: none; border: 1px solid #000; color: #000; margin: 0 10px 0 0;}
+.modal .modal-content .modal-body button.btn.btn-secondary:hover { color: #ffff; background: #000;}
+
+
 @media screen and (max-width:1599px) {
 .live-modal .modal-dialog .modal-row .modal-col1 .form-row .text-field-preview p { width: 100%; margin: 0 0 10px;}
 }
