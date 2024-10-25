@@ -3188,6 +3188,7 @@ nav.navbar.header-class { display: none;}
 .lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark #flagimages { width: 35px; right: 15px;}
 .exam-container.answerclass.onequestionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group {height: calc(100vh - 135px);}
 .exam-container.answerclass.onequestionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer { height: calc(100vh - 135px);}
+.progress-menu .menu-icon { width: 40px;}
 
 }
 
