@@ -95,13 +95,10 @@ class QuestionController extends Controller
         
             if (isset($featureimages[$k])) {
                 $featureImage = $featureimages[$k];
-                // Store the image and get the path
-                $imageName = $featureImage->store('questionimages');
+                $featureImageName = "questionimages/" . $featureImage->hashName();
+                Storage::put('questionimages', $featureImage);
+                $imageName = $featureImageName;
             }
-
-              
-
-
             $answer = Answer::create([
                 "exam_id" => $question->exam_id,
                 "question_id" => $question->id,
@@ -109,8 +106,6 @@ class QuestionController extends Controller
                 "title" => $ans,
                 'image' => $imageName,
             ]);
-
-             
 }
 
 
@@ -194,6 +189,14 @@ class QuestionController extends Controller
             if(!empty($request->choice_answer_id[$k]??"")){
                 $answer=Answer::find($request->choice_answer_id[$k]??"");
             }
+
+             // Handle image upload if provided
+        if (isset($featureimages[$k])) {
+            $featureImage = $featureimages[$k];
+            // Store the image and get the file path
+            $imageName = $featureImage->store('questionimages');
+            $answerData['image'] = $imageName; // Add the image path to the answer data
+        }
             if(empty($answer)){
                 $answer=Answer::store([
                     "exam_id"=>$question->exam_id,
