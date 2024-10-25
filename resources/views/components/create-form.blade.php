@@ -25,10 +25,8 @@
                                                     <input type="text" name="{{$item->name}}[]" id="{{$item->name}}-{{$frmID}}-{{$k}}" value="{{old($item->name)[$k]}}"  class="form-control  @error($item->name.".$k") is-invalid @enderror " placeholder="{{ucfirst($item->label??$item->name)}}" aria-placeholder="{{ucfirst($item->label??$item->name)}}" >
 
                                                     <input type="file" name="file_{{$item->name}}[]" id="file_{{$item->name}}-{{$frmID}}-{{$k}}" value="{{old('file_'.$item->name)[$k]}}"  class="form-control  @error('file_'.$item->name.".$k") is-invalid @enderror " >
-
-                                                     <!-- Image Preview -->
-                                                     <img id="{{ $item->name }}-{{ $frmID }}-{{ $k }}-preview" src="#" alt="Image Preview" style="display:none; max-width:100px; margin-top:10px;">
-
+                                       <!-- Image Preview Element -->
+                                              <img id="preview-{{$item->name}}-{{$frmID}}-{{$k}}" src="#" alt="Image Preview" style="display:none; margin-top: 10px; max-width: 200px; max-height: 200px;">
                                                     @if ($k!=0)
                                                     <div class="input-group-append choice-check-group">
                                                         <button type="button" onclick="removeChoice{{$frmID}}('#{{$item->name}}-{{$frmID}}-choice-item-{{$k}}','#{{$item->name}}-{{$frmID}}-{{$k}}-check','#{{$item->name}}-{{$frmID}}-choice-group')" class="btn btn-danger "><img src="{{asset("assets/images/delete-black.svg")}}"></button>
@@ -55,6 +53,9 @@
                                                     </div>
                                                     <input type="text" name="{{$item->name}}[]" id="{{$item->name}}-{{$frmID}}-0" value="" class="form-control  " placeholder="{{ucfirst($item->label??$item->name)}}" aria-placeholder="{{ucfirst($item->label??$item->name)}}" >
                                                     <input type="file" name="file_{{$item->name}}[]" id="file_{{$item->name}}-{{$frmID}}-0" value=""  class="form-control" >
+
+        <!-- Image Preview -->
+        <img id="{{$item->name}}-{{$frmID}}-0-preview" src="#" alt="Image Preview" style="display:none; margin-top: 10px; max-width: 200px; max-height: 200px;">
                                                 </div>
 
                                             </div>
@@ -127,22 +128,28 @@
 
 @push('footer-script')
 
-
 <script>
-    function previewImage(input, previewId) {
-        var preview = document.getElementById(previewId);
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                preview.src = e.target.result;
-                preview.style.display = 'block';
+document.addEventListener("change", function(event) {
+    if (event.target.matches("input[type='file'][data-preview]")) {
+        const fileInput = event.target;
+        const previewId = fileInput.getAttribute("data-preview");
+        const file = fileInput.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function() {
+                const previewImage = document.getElementById(previewId);
+                if (previewImage) {
+                    previewImage.src = reader.result;
+                    previewImage.style.display = 'block';
+                }
             };
-            reader.readAsDataURL(input.files[0]);
-        } else {
-            preview.style.display = 'none';
+            reader.readAsDataURL(file);
         }
     }
-    </script>
+});
+
+</script>
     <script>
         var chcnt=$('.choice-item').length;
         function removeChoice{{$frmID}}(target,checkbox,parent){
@@ -172,6 +179,7 @@
                                 <input type="text" name="${name}[]" id="${el}" value="" class="form-control" placeholder="${label}" aria-placeholder="${label}" >
                                  <input type="file" name="file_${name}[]" id="${el}-file" value="" class="form-control" >
 
+                            <img id="${el}-preview" src="#" alt="Image Preview" style="display:none; margin-top: 10px; max-width: 200px; max-height: 200px;">
 
                                 
                                 <div class="input-group-append choice-check-group">
