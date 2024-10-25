@@ -3146,6 +3146,8 @@ nav.navbar.header-class { display: none;}
 nav.navbar.top-barhide { display: none;}
 .modal-expand.modal-expand-result { top: 10px;}
 
+.topic-section > .container >  .row { justify-content: space-between;}
+.topic-section > .container > .row > .col-md-6 { width: 49%;  padding: 0 0 0;}
 
 
 @media screen and (max-width:1599px) {
