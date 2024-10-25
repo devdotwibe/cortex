@@ -145,7 +145,7 @@
             $.get(reviewurl || "{{ route('question-bank.preview', $userExamReview->slug) }}", function(res) {
                 $('.pagination-arrow').hide();
                 $('#lesson-footer-pagination').html('')
-                $('#lesson-footer-paginationmobile').html('')
+               
                 const lesseonId = generateRandomId(10);
                 $.each(res.data, function(k, v) {
                     $('#lesson-questionlist-list').html(`
