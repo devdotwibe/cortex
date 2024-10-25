@@ -3159,12 +3159,12 @@ nav.navbar.header-class { display: none;}
   width: 50%;
 }
 
-.progress-menu { padding: 15px 40px;}
-.progress-menu .menu-text { font-size: 26px;}
-.progress-menu .menu-text #menu-text span { font-size: 32px;}
-.progress-main .timer span { font-size: 16px;}
-.exam-progress>.exam-progress-inner {  padding: 20px 15px;}
-.progress-main .hide-btn { width: 50px; height: 50px; padding: 10px; font-size: 11px;}
+.progress-menu { padding: 10px 40px;}
+.progress-menu .menu-text { font-size: 22px;}
+.progress-menu .menu-text #menu-text span { font-size: 28px;}
+.progress-main .timer span { font-size: 14px;}
+.exam-progress>.exam-progress-inner {  padding: 15px 15px;}
+.progress-main .hide-btn { width: 45px; height: 45px; padding: 10px; font-size: 11px;}
 
 .exam-container.answerclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer {  height: calc(100vh - 160px);}
 .exam-container.answerclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group { height: calc(100vh - 160px);}
@@ -3179,6 +3179,13 @@ nav.navbar.header-class { display: none;}
 
 .modal-expand .container-wrap {min-height: calc(100vh - 160px);}
 .modal-expand {top: 90px;}
+
+.exam-container .container-wrap .lesson .lesson-body p { font-size: 18px;}
+.exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check { font-size: 18px;}
+.lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark a { padding: 18px;}
+.lesson-pagination .button { font-size: 18px;}
+.lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark .flagclass { font-size: 18px;}
+.lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark #flagimages { width: 35px; right: 15px;}
 
 }
 
