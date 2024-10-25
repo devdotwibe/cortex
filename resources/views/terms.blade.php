@@ -14,6 +14,7 @@
                 @if(!empty($TermsAndConditions->description))
 
                 {!! $TermsAndConditions->description !!}
+                
                 @endif
             </div>
 
