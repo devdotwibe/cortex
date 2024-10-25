@@ -38,11 +38,11 @@
                         <span id="menu-text" >Question <span> 0 </span>  of <span>0 </span> </span>
                       
                     </div>
-                    {{-- <div class="menu-icon"> 
+                    <div class="menu-icon"> 
                         <a onclick="toglepreviewpage()" >
                             <img src="{{asset("assets/images/menu.svg")}}" alt="exiticon">
                         </a>
-                    </div> --}}
+                    </div>
                 </div>
             </div>
             {{-- <div class="exam-right exam-progress-inner-item">
