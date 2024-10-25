@@ -87,7 +87,7 @@
     
         $('#post-search').toggleClass('menu-view');
        
-        performSearch(); 
+        // performSearch(); 
     }
     </script>
 
