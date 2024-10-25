@@ -52,6 +52,9 @@
                                                     </div>
                                                     <input type="text" name="{{$item->name}}[]" id="{{$item->name}}-{{$frmID}}-0" value="" class="form-control  " placeholder="{{ucfirst($item->label??$item->name)}}" aria-placeholder="{{ucfirst($item->label??$item->name)}}" >
                                                     <input type="file" name="file_{{$item->name}}[]" id="file_{{$item->name}}-{{$frmID}}-0" value=""  class="form-control" >
+
+        <!-- Image Preview -->
+        <img id="{{$item->name}}-{{$frmID}}-0-preview" src="#" alt="Image Preview" style="display:none; margin-top: 10px; max-width: 200px; max-height: 200px;">
                                                 </div>
 
                                             </div>
@@ -124,6 +127,24 @@
 
 @push('footer-script')
 
+<script>
+function previewImage(event, previewElementId) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function(){
+        const output = document.getElementById(previewElementId);
+        output.src = reader.result;
+        output.style.display = 'block';
+    }
+
+    if (file) {
+        reader.readAsDataURL(file); // Convert the file to a data URL for image preview
+    }
+}
+
+
+</script>
     <script>
         var chcnt=$('.choice-item').length;
         function removeChoice{{$frmID}}(target,checkbox,parent){
