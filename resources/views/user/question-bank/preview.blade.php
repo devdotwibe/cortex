@@ -109,7 +109,8 @@
 
 
 
-
+        <div class="lesson-footer" id="lesson-footer-paginationmobile">
+        </div>
        
 
 
@@ -144,6 +145,7 @@
             $.get(reviewurl || "{{ route('question-bank.preview', $userExamReview->slug) }}", function(res) {
                 $('.pagination-arrow').hide();
                 $('#lesson-footer-pagination').html('')
+               
                 const lesseonId = generateRandomId(10);
                 $.each(res.data, function(k, v) {
                     $('#lesson-questionlist-list').html(`
@@ -259,6 +261,7 @@
                                 <button class="${linkstatus} btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
                             `)
                         }
+                        
                     })
                 }
 
