@@ -178,7 +178,7 @@ function previewImage(input, previewId) {
                                 </div>
                                 <input type="text" name="${name}[]" id="${el}" value="" class="form-control" placeholder="${label}" aria-placeholder="${label}" >
                                  <input type="file" name="file_${name}[]" id="${el}-file" value="" class="form-control" >
- <img id="{{ $item->name }}-{{ $frmID }}-{{ $k }}-preview" src="#" alt="Image Preview" style="display:none; width: 100px; height: auto;"/>
+  <img id="{{ $item->name }}-{{ $frmID }}-{{ $i }}-preview" src="#" alt="Image Preview" style="display:none; width: 100px; height: auto;"/>
 
                                 
                                 <div class="input-group-append choice-check-group">
