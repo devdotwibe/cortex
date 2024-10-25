@@ -32,7 +32,7 @@
 
 </head>
 
-<body>
+<body class="@hasSection('bodyclass') @yield('bodyclass')  @endif">
     <div class="loading-wrap" style="display: none">
         <div class="loading-container">
             <div class="loading-image"><img src="{{asset('assets/images/loader.svg')}}" alt=""></div>

@@ -1,8 +1,9 @@
 @extends('layouts.exam')
 @section('headerclass', 'top-barhide')
+@section('bodyclass', 'bartop-hide')
 @section('title', $exam->subtitle($category->id,"Topic ".($category->getIdx()+1)).':'.$category->name)
 @section('content')
-<section class="exam-container topictestclass">
+<section class="exam-container topictestclass hidetop-bar">
     <div class="summery-wrap"> 
         <div class="summery-title">
             <div class="back-btn" id="back-btn" style="display: block"> <!-- Ensure proper display value -->
