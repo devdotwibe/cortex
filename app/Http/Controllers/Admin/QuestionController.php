@@ -117,112 +117,117 @@ class QuestionController extends Controller
 
         return redirect($redirect)->with("success","Question has been successfully created");
     }
-    public function update(Request $request,Question $question){
-        
-        switch ($request->input('exam_type',"")) {
+    public function update(Request $request, Question $question)
+    {
+        // Validate the input based on the exam type
+        switch ($request->input('exam_type', "")) {
             case 'question-bank':
-                $questiondat=$request->validate([ 
-                    "category_id"=>['required'],
-                    "sub_category_id"=>['required'],
-                    "sub_category_set"=>['required'],
-                    "description"=>['required'],
-                    //"duration"=>["required"],
-                    "answer.*"=>["required",'string','max:150'],
-                    "explanation"=>['nullable'],
-                    "title_text"=>['nullable'],
-                    "sub_question"=>['nullable'],
-                ],[
-                    'answer.*.required'=>['The answer field is required.']
+                $questiondat = $request->validate([
+                    "category_id" => ['required'],
+                    "sub_category_id" => ['required'],
+                    "sub_category_set" => ['required'],
+                    "description" => ['required'],
+                    "answer.*" => ["required", 'string', 'max:150'],
+                    "explanation" => ['nullable'],
+                    "title_text" => ['nullable'],
+                    "sub_question" => ['nullable'],
+                ], [
+                    'answer.*.required' => ['The answer field is required.']
                 ]);
                 break;
-
+    
             case 'full-mock-exam':
-                $questiondat=$request->validate([ 
-                    "category_id"=>['required'],
-                    "description"=>['required'],
-                    // "duration"=>["required"],
-                    "answer.*"=>["required",'string','max:150'],
-                    "explanation"=>['nullable'],
-                    "title_text"=>['nullable'],
-                    "sub_question"=>['nullable'],
-                ],[
-                    'answer.*.required'=>['The answer field is required.']
+                $questiondat = $request->validate([
+                    "category_id" => ['required'],
+                    "description" => ['required'],
+                    "answer.*" => ["required", 'string', 'max:150'],
+                    "explanation" => ['nullable'],
+                    "title_text" => ['nullable'],
+                    "sub_question" => ['nullable'],
+                ], [
+                    'answer.*.required' => ['The answer field is required.']
                 ]);
                 break;
-
+    
             case 'topic-test':
-                $questiondat=$request->validate([ 
-                    "category_id"=>['required'], 
-                    "description"=>['required'],
-                    // "duration"=>["required"],
-                    "answer.*"=>["required",'string','max:150'],
-                    "explanation"=>['nullable'],
-                    "title_text"=>['nullable'],
-                    "sub_question"=>['nullable'],
-                ],[
-                    'answer.*.required'=>['The answer field is required.']
+                $questiondat = $request->validate([
+                    "category_id" => ['required'],
+                    "description" => ['required'],
+                    "answer.*" => ["required", 'string', 'max:150'],
+                    "explanation" => ['nullable'],
+                    "title_text" => ['nullable'],
+                    "sub_question" => ['nullable'],
+                ], [
+                    'answer.*.required' => ['The answer field is required.']
                 ]);
                 break;
-            
+    
             default:
-                $questiondat=$request->validate([ 
-                    "category_id"=>['required'],
-                    "sub_category_id"=>['required'],
-                    "sub_category_set"=>['nullable'],
-                    "description"=>['required'],
-                    "duration"=>["required"],
-                    "answer.*"=>["required",'string','max:150'],
-                    "explanation"=>['nullable'],
-                ],[
-                    'answer.*.required'=>['The answer field is required.']
+                $questiondat = $request->validate([
+                    "category_id" => ['required'],
+                    "sub_category_id" => ['required'],
+                    "sub_category_set" => ['nullable'],
+                    "description" => ['required'],
+                    "duration" => ["required"],
+                    "answer.*" => ["required", 'string', 'max:150'],
+                    "explanation" => ['nullable'],
+                ], [
+                    'answer.*.required' => ['The answer field is required.']
                 ]);
                 break;
         }
+    
+        // Update the question with validated data
         $question->update($questiondat);
-        $ansIds=[];
-
+        $ansIds = [];
+        
+        // Handle uploaded files
         $featureimages = $request->file('file_answer', []);
-
-        
-        foreach($request->answer as $k =>$ans){
-            $answer=null;
-            if(!empty($request->choice_answer_id[$k]??"")){
-                $answer=Answer::find($request->choice_answer_id[$k]??"");
+    
+        foreach ($request->answer as $k => $ans) {
+            // Check if we have an existing answer
+            $answer = null;
+            if (!empty($request->choice_answer_id[$k] ?? "")) {
+                $answer = Answer::find($request->choice_answer_id[$k] ?? "");
             }
-
-             // Handle image upload if provided
-        if (isset($featureimages[$k])) {
-            $featureImage = $featureimages[$k];
-            // Store the image and get the file path
-            $imageName = $featureImage->store('questionimages');
-            $answerData['image'] = $imageName; // Add the image path to the answer data
-        }
-            if(empty($answer)){
-                $answer=Answer::store([
-                    "exam_id"=>$question->exam_id,
-                    "question_id"=>$question->id,
-                    "iscorrect"=>$k==($request->choice_answer??0)?true:false,
-                    "title"=>$ans,
-                    "image" => null, // Placeholder for image
-                ]);
-
-            }else{
-                $answer->update([
-                    "exam_id"=>$question->exam_id,
-                    "question_id"=>$question->id,
-                    "iscorrect"=>$k==($request->choice_answer??0)?true:false,
-                    "title"=>$ans
-                ]);
+    
+            // Prepare data for the answer
+            $answerData = [
+                "exam_id" => $question->exam_id,
+                "question_id" => $question->id,
+                "iscorrect" => $k == ($request->choice_answer ?? 0),
+                "title" => $ans,
+            ];
+    
+            // Handle image upload if provided
+            if (isset($featureimages[$k])) {
+                $featureImage = $featureimages[$k];
+                // Store the image and get the file path
+                $imageName = $featureImage->store('questionimages');
+                $answerData['image'] = $imageName; // Add the image path to the answer data
             }
-            $ansIds[]=$answer->id;
+    
+            // Create or update the answer
+            if (empty($answer)) {
+                // Create a new answer
+                $answer = Answer::create($answerData);
+            } else {
+                // Update existing answer
+                $answer->update($answerData);
+            }
+    
+            // Collect answer IDs for deletion later
+            $ansIds[] = $answer->id;
         }
-        Answer::where('question_id',$question->id)->whereNotIn('id',$ansIds)->delete();
-        
-
-        $redirect=$request->redirect??route('admin.question.index');
-        return redirect($redirect)->with("success","Question has been successfully updated");
+    
+        // Delete any answers that are no longer associated with the question
+        Answer::where('question_id', $question->id)->whereNotIn('id', $ansIds)->delete();
+    
+        // Redirect back with success message
+        $redirect = $request->redirect ?? route('admin.question.index');
+        return redirect($redirect)->with("success", "Question has been successfully updated");
     }
-
+    
     public function visibility(Request $request,Question $question){
         $question->update(['visible_status'=>($question->visible_status??"")=="show"?"hide":"show"]);        
         if($request->ajax()){
