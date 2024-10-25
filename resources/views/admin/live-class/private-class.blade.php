@@ -24,7 +24,7 @@
         </div>
     </div>
 </section>
-<section class="content_section admin_section">
+<section class="content_section admin_section admin-live-class">
     <div class="container">
         <div class="row">
            
