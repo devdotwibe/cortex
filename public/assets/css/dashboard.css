@@ -3351,6 +3351,8 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .login-wrapp .login-cont .login-row .login-right .card .btn { height: 56px; font-size: 19px;}
 .login-wrapp .login-cont .login-row .login-right .card p { font-size: 16px;}
 
+.exam-container.topictestclass .summery-wrap .summery-title { font-size: 20px;}
+
 }
 
 @media screen and (max-width:767px) {
@@ -3481,6 +3483,13 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 
 .support-content p { font-size: 16px;}
 
+.exam-container.topictestclass .summery-wrap .summery-title { font-size: 18px;}
+
+.exam-container.topictestclass .summery-wrap .summery-title h1 { font-size: 22px;}
+
+.exam-container .summery-wrap p { font-size: 16px;}
+
+
 }
 
 @media screen and (max-width:600px){
@@ -3610,5 +3619,9 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .modal-expand { top: 65px;}
 
 .exam-container .container-wrap { padding: 20px;}
+
+.exam-container.topictestclass .summery-wrap .summery-title h1 { font-size: 19px;}
+.exam-container .summery-wrap p { font-size: 16px;}
+.exam-container .summery-wrap { padding: 20px;}
 
 }
