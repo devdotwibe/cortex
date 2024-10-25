@@ -3748,9 +3748,10 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .post-search .text-field { background: #fff; height: 100%; padding: 10px; border-radius: 10px; position: absolute; top: 0; right: 0; transition: all .25s ease-in-out;}
 .post-search form { width: 100%;  height: 100%;}
 .post-search .text-field input { border: 1px solid #000; border-radius: 10px; height: 42px; padding-right: 40px;}
-.post-search .text-field .search-btn { width: 25px; right: 18px; top: 53%;}
+.post-search .text-field .search-btn { width: 42px; height: 42px; right: 10px; top: 10px;}
 .post-search.menu-view .text-field { width: 90vw;}
 .post-search.menu-view .text-field input { padding: 12px; padding-right: 30px;}
+.post-search .text-field .search-btn img {width: 25px;}
 
 .header_nav .header_wrapp .header_right ul.nav_bar li.nav_item a.nav_link.btn { padding: 9px 20px;}
 
