@@ -85,7 +85,7 @@
     function toggleSearchResults() {
 
     
-        $('#post-search').toggleClass('menu-view');
+        $('#post-search').addClass('menu-view');
        
         // performSearch(); 
     }
