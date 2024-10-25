@@ -7,7 +7,6 @@
         <div class="container">
             <div class="banner-row">
                 <div class="banner-col1">
-                    <h1>hoemn</h1>
                     @if (!empty($banner->title))
                         <h3 class="highlight">{{ $banner->title }}</h3>
                     @endif
