@@ -105,6 +105,8 @@
     
 <section class="modal-expand" id="question-preview-page" style="display: none;">
     <div class="container-wrap">
+
+        <div class="lesson-footer" id="lesson-footer-pagination">
        
                         </div>
 
