@@ -37,7 +37,7 @@
                 </div>
 
 
-                <div class="menu-icon">
+                <div class="menu-icon modecolor">
                     <a onclick="toglepreviewpage()">
                         <img src="{{asset("assets/images/menu.svg")}}" alt="exiticon">
                     </a>
