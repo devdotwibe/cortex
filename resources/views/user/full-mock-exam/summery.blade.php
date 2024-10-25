@@ -1,4 +1,5 @@
 @extends('layouts.exam')
+@section('headerclass', 'top-barhide')
 @section('title', $exam->title)
 @section('content')
 <section class="exam-container topictestclass ">
