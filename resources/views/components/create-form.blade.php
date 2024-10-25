@@ -26,6 +26,9 @@
 
                                                     <input type="file" name="file_{{$item->name}}[]" id="file_{{$item->name}}-{{$frmID}}-{{$k}}" value="{{old('file_'.$item->name)[$k]}}"  class="form-control  @error('file_'.$item->name.".$k") is-invalid @enderror " >
 
+                                                     <!-- Image Preview -->
+                                                     <img id="{{ $item->name }}-{{ $frmID }}-{{ $k }}-preview" src="#" alt="Image Preview" style="display:none; max-width:100px; margin-top:10px;">
+
                                                     @if ($k!=0)
                                                     <div class="input-group-append choice-check-group">
                                                         <button type="button" onclick="removeChoice{{$frmID}}('#{{$item->name}}-{{$frmID}}-choice-item-{{$k}}','#{{$item->name}}-{{$frmID}}-{{$k}}-check','#{{$item->name}}-{{$frmID}}-choice-group')" class="btn btn-danger "><img src="{{asset("assets/images/delete-black.svg")}}"></button>
@@ -52,6 +55,8 @@
                                                     </div>
                                                     <input type="text" name="{{$item->name}}[]" id="{{$item->name}}-{{$frmID}}-0" value="" class="form-control  " placeholder="{{ucfirst($item->label??$item->name)}}" aria-placeholder="{{ucfirst($item->label??$item->name)}}" >
                                                     <input type="file" name="file_{{$item->name}}[]" id="file_{{$item->name}}-{{$frmID}}-0" value=""  class="form-control" >
+
+                                                    <img id="{{ $item->name }}-{{ $frmID }}-{{ $k }}-preview" src="#" alt="Image Preview" style="display:none; max-width:100px; margin-top:10px;">
                                                 </div>
 
                                             </div>
@@ -123,6 +128,24 @@
 
 
 @push('footer-script')
+
+
+<script>
+    function previewImage(input, previewId) {
+        var preview = document.getElementById(previewId);
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            };
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            preview.style.display = 'none';
+        }
+    }
+    </script>
+
 
     <script>
         var chcnt=$('.choice-item').length;

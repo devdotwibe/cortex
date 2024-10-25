@@ -1,4 +1,5 @@
 @extends('layouts.exam')
+@section('headerclass', 'top-barhide')
 @section('title', $exam->subtitle($category->id,"Module ".($category->getIdx()+1)).':'.$category->name)
 @section('content')
 <section class="exam-container" id="exam-container">
