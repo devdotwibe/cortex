@@ -62,7 +62,7 @@
                                 <div class="invalid-feedback">The field is required</div>
                             </div>
                         </div>
-                        <div class="form-data">
+                        <div class="form-data file-upload-wrapp">
                             <div class="forms-inputs mb-4 file-upload">
                                 <label for="topic-test-category-icon">Icon
                                 <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
