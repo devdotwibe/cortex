@@ -75,7 +75,7 @@
             <form id="searchForm" action="">
                 <div class="text-field">
                     <input type="search" id="searchInput" placeholder="Search for Posts" aria-label="Search for Posts" oninput="performSearch()">
-                    <button type="submit" class="search-btn" disabled><img src="{{ asset('assets/images/searc-icon.svg') }}" alt=""></button>
+                    <button type="submit" class="search-btn" onclick="toggleSearchResults()"><img src="{{ asset('assets/images/searc-icon.svg') }}" alt=""></button>
                 </div>
             </form>
             <div class="searchclass">
@@ -94,7 +94,15 @@
 @push('footer-script')
 
 
+<script>
+    function toggleSearchResults() {
 
+    
+        $('.post-search').toggleClass('menu-view');
+       
+        // performSearch(); 
+    }
+    </script>
 
 <script>
     $(document).ready(function() {
