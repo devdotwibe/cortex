@@ -25,7 +25,8 @@
                                                     <input type="text" name="{{$item->name}}[]" id="{{$item->name}}-{{$frmID}}-{{$k}}" value="{{old($item->name)[$k]}}"  class="form-control  @error($item->name.".$k") is-invalid @enderror " placeholder="{{ucfirst($item->label??$item->name)}}" aria-placeholder="{{ucfirst($item->label??$item->name)}}" >
 
                                                     <input type="file" name="file_{{$item->name}}[]" id="file_{{$item->name}}-{{$frmID}}-{{$k}}" value="{{old('file_'.$item->name)[$k]}}"  class="form-control  @error('file_'.$item->name.".$k") is-invalid @enderror " >
-
+                                       <!-- Image Preview Element -->
+                                              <img id="preview-{{$item->name}}-{{$frmID}}-{{$k}}" src="#" alt="Image Preview" style="display:none; margin-top: 10px; max-width: 200px; max-height: 200px;">
                                                     @if ($k!=0)
                                                     <div class="input-group-append choice-check-group">
                                                         <button type="button" onclick="removeChoice{{$frmID}}('#{{$item->name}}-{{$frmID}}-choice-item-{{$k}}','#{{$item->name}}-{{$frmID}}-{{$k}}-check','#{{$item->name}}-{{$frmID}}-choice-group')" class="btn btn-danger "><img src="{{asset("assets/images/delete-black.svg")}}"></button>
@@ -128,21 +129,25 @@
 @push('footer-script')
 
 <script>
-function previewImage(event, previewElementId) {
-    const file = event.target.files[0];
-    const reader = new FileReader();
+document.addEventListener("change", function(event) {
+    if (event.target.matches("input[type='file'][data-preview]")) {
+        const fileInput = event.target;
+        const previewId = fileInput.getAttribute("data-preview");
+        const file = fileInput.files[0];
 
-    reader.onload = function(){
-        const output = document.getElementById(previewElementId);
-        output.src = reader.result;
-        output.style.display = 'block';
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function() {
+                const previewImage = document.getElementById(previewId);
+                if (previewImage) {
+                    previewImage.src = reader.result;
+                    previewImage.style.display = 'block';
+                }
+            };
+            reader.readAsDataURL(file);
+        }
     }
-
-    if (file) {
-        reader.readAsDataURL(file); // Convert the file to a data URL for image preview
-    }
-}
-
+});
 
 </script>
     <script>
@@ -174,6 +179,7 @@ function previewImage(event, previewElementId) {
                                 <input type="text" name="${name}[]" id="${el}" value="" class="form-control" placeholder="${label}" aria-placeholder="${label}" >
                                  <input type="file" name="file_${name}[]" id="${el}-file" value="" class="form-control" >
 
+                            <img id="${el}-preview" src="#" alt="Image Preview" style="display:none; margin-top: 10px; max-width: 200px; max-height: 200px;">
 
                                 
                                 <div class="input-group-append choice-check-group">
