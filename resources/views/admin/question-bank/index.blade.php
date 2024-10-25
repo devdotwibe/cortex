@@ -39,7 +39,7 @@
     </div>
 </section>
 
-<section class="content_section admin_section subcategory-section" id="subcategory-content-section" style="display: none">
+<section class="content_section admin_section subcategory-section admin-live-class" id="subcategory-content-section" style="display: none">
     <div class="container">
         <div class="row" id="subcategory-list">
 
@@ -202,7 +202,7 @@
                                     <button class="btn btn-dark btn-sm" onclick="subcategorysetlist('${v.subsetUrl}','${v.slug}','${v.setUrl}')" ><img src="{{asset('assets/images/plus.svg')}}"></button>
                                 </div>
                             </div>
-                            <div class="category" id="category-content-set-${v.slug}">
+                            <div class="category cat-1" id="category-content-set-${v.slug}">
                             </div>
                         </div>
                     </div>
