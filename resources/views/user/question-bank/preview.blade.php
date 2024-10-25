@@ -289,15 +289,15 @@
                             if (v.label == '« Previous') {
                                 var label_name = "<";
                             }
-
+                            var length = res.links.length;
                             var preclass="";
                             if(k==0)
                             {
                                 preclass="preclass";
                             }
-                            if(k==2)
+                            if(k==length)
                             {
-                                next="preclass";
+                                next="nxtclass";
                             }
                             $('#lesson-footer-paginationmobile').append(`
                                 <button class="${linkstatus} btn btn-secondary  ${preclass} ${v.active?"active":""}" disabled   >${label_name}</button>
