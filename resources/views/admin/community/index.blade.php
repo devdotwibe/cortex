@@ -57,15 +57,15 @@
                 </div>
             </div>
 
-            <div class="post-search search-communityclass">
+            <div class="post-search">
                 <form id="searchForm" action="">
                     <div class="text-field">
                         <input type="search" id="searchInput" placeholder="Search for Posts" aria-label="Search for Posts" oninput="performSearch()">
-                        <button type="submit" class="search-btn" disabled><img src="{{ asset('assets/images/searc-icon.svg') }}" alt=""></button>
+                        <button type="submit" class="search-btn" onclick="toggleSearchResults()"><img src="{{ asset('assets/images/searc-icon.svg') }}" alt=""></button>
                     </div>
                 </form>
                 <div class="searchclass">
-                <div id="searchResults" name="searchres"></div> <!-- Container for displaying search results -->
+                <div id="searchResults" name="searchres" ></div> <!-- Container for displaying search results -->
                 </div>
             </div>
             
@@ -81,28 +81,36 @@
 
 @push('footer-script')
 
-
+<script>
+    function toggleSearchResults() {
+        const searchResults = document.getElementById('post-search');
+        searchResults.classList.toggle('searchcommunityclass'); 
+    
+       
+        performSearch(); 
+    }
+    </script>
 
 <script>
   $(document).ready(function() {
-    // Function to perform the search
+   
     function performSearch() {
-        const query = $('#searchInput').val(); // Get the input value
+        const query = $('#searchInput').val(); 
 
         if (query.length === 0) {
-            $('#searchResults').empty(); // Clear results if the search box is empty
+            $('#searchResults').empty();
             return;
         }
 
         $.ajax({
-            url: '{{ route('admin.community.search') }}', // The route to your search method
+            url: '{{ route('admin.community.search') }}', 
             type: 'GET',
             data: { query: query },
             success: function(data) {
-    // Clear previous results
+   
     $('#searchResults').empty();
 
-    // Check if any users were returned
+   
     if (data.users.length > 0) {
         data.users.forEach(user => {
             const userName = user.name;
@@ -110,7 +118,7 @@
 
             const url = "{{ route('admin.community.index', ['user_id' => '__userID__']) }}".replace('__userID__', userID);
 
-            // Append unique user names to the search results
+          
             $('#searchResults').append(`
                 <a data-id="${userName}" href="${url}">${userName}</a>
             `);
