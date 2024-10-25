@@ -181,6 +181,7 @@ class QuestionController extends Controller
         $question->update($questiondat);
         $ansIds=[];
 
+      
         $featureimages = $request->file('file_answer', []);
 
         
@@ -191,19 +192,19 @@ class QuestionController extends Controller
             }
 
              // Handle image upload if provided
-        if (isset($featureimages[$k])) {
-            $featureImage = $featureimages[$k];
-            // Store the image and get the file path
-            $imageName = $featureImage->store('questionimages');
-            $answerData['image'] = $imageName; // Add the image path to the answer data
-        }
+             if (isset($featureimages[$k])) {
+                $featureImage = $featureimages[$k];
+                $featureImageName = "questionimages/" . $featureImage->hashName();
+                Storage::put('questionimages', $featureImage);
+                $imageName = $featureImageName;
+            }
             if(empty($answer)){
                 $answer=Answer::store([
                     "exam_id"=>$question->exam_id,
                     "question_id"=>$question->id,
                     "iscorrect"=>$k==($request->choice_answer??0)?true:false,
                     "title"=>$ans,
-                    "image" => null, // Placeholder for image
+                   'image' => $imageName,
                 ]);
 
             }else{
