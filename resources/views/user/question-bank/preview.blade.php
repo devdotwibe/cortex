@@ -267,43 +267,39 @@
 
 
                 if (res.total > 1) {
-    $.each(res.links, function(k, v) {
-        let linkstatus = "";
-        if (k != 0 && k != res.links.length && useranswers[k - 1]) {
-            linkstatus = 'status-bad';
-            if (useranswers[k - 1].iscorrect) {
-                linkstatus = "status-good";
-                if (useranswers[k - 1].time_taken < {{ $examtime }}) {
-                    linkstatus = "status-exelent";
+                    $.each(res.links, function(k, v) {
+                        let linkstatus = "";
+                        if (k != 0 && k != res.links.length && useranswers[k - 1]) {
+                            linkstatus = 'status-bad';
+                            if (useranswers[k - 1].iscorrect) {
+
+
+                                linkstatus = "status-good";
+
+
+                                if (useranswers[k - 1].time_taken < {{ $examtime }}) {
+                                    linkstatus = "status-exelent";
+                                }
+                            }
+                        }
+                        if (v.active || !v.url) {
+
+                            var label_name = v.label;
+
+                            if (v.label == '« Previous') {
+                                var label_name = "<";
+                            }
+                            $('#lesson-footer-paginationmobile').append(`
+                                <button class="${linkstatus} btn btn-secondary ${v.active?"active":""}" disabled  >${label_name}</button>
+                            `)
+                        } else {
+                            $('#lesson-footer-paginationmobile').append(`
+                                <button class="${linkstatus} btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
+                            `)
+                        }
+                        
+                    })
                 }
-            }
-        }
-        if (v.active || !v.url) {
-            var label_name = v.label;
-
-            // Skip adding "Previous" and "Next" buttons
-            if (label_name === '« Previous' || label_name === 'Next') {
-                return; // Skip to the next iteration
-            }
-
-            if (v.label == '« Previous') {
-                label_name = "<";
-            }
-            $('#lesson-footer-paginationmobile').append(`
-                <button class="${linkstatus} btn btn-secondary ${v.active ? "active" : ""}" disabled>${label_name}</button>
-            `)
-        } else {
-            // Skip adding "Previous" and "Next" buttons
-            if (v.label === '« Previous' || v.label === 'Next') {
-                return; // Skip to the next iteration
-            }
-
-            $('#lesson-footer-paginationmobile').append(`
-                <button class="${linkstatus} btn btn-secondary" onclick="loadlessonreview('${v.url}')">${v.label}</button>
-            `)
-        }
-    });
-}
 
 
                 $('.lesson-end').show();
