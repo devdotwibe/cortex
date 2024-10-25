@@ -33,7 +33,7 @@
                     </div>
                     <div class="menu-icon"> 
                         <a onclick="toglepreviewpage()" >
-                            <img src="{{asset("assets/images/menu.svg")}}" alt="exiticon">
+                            {{-- <img src="{{asset("assets/images/menu.svg")}}" alt="exiticon"> --}}
                         </a>
                     </div>
                 </div>
