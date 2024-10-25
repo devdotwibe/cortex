@@ -43,7 +43,7 @@
                 </a>
             </div>
 
-            
+
             <div class="Review-mode">
                 <span>Review Mode </span>
             </div>
@@ -298,6 +298,7 @@ $('#menu-text').html(`Question <span> ${res.current_page} </span> `)
          })
          function toglepreviewpage(){
             // timerActive=!timerActive; 
+            
             $('#question-preview-page').slideToggle()
             $('#question-answer-page').fadeToggle()
         }
