@@ -125,6 +125,26 @@
 
         </div>
     </section>
+
+    <section class="modal-expand" id="question-preview-page" style="display: none;">
+        <div class="container-wrap">
+
+
+
+
+            <div class="lesson-footer" id="lesson-footer-paginationmobile">
+            </div>
+
+
+
+
+
+        </div>
+
+
+    </section>
+
+    t
 @endsection
 
 @push('footer-script')
