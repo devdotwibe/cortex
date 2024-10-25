@@ -39,6 +39,12 @@
                 </div>
             </div>
 
+            <div class="menu-icon">
+                <a onclick="toglepreviewpage()">
+                    {{-- <img src="{{asset("assets/images/menu.svg")}}" alt="exiticon"> --}}
+                </a>
+            </div>
+
             <div class="Review-mode">
                 <span>Review Mode </span>
             </div>
@@ -122,7 +128,23 @@
     </div> 
 </section>
 
+<section class="modal-expand" id="question-preview-page" style="display: none;">
+    <div class="container-wrap">
 
+
+
+
+        <div class="lesson-footer" id="lesson-footer-paginationmobile">
+        </div>
+
+
+
+
+
+    </div>
+
+
+</section>
 
 @endsection
 
@@ -144,6 +166,7 @@
             $.get(reviewurl||"{{ route('home-work.preview',$homeWorkReview->slug) }}",function(res){
                 $('.pagination-arrow').hide();
                 $('#lesson-footer-pagination').html('')
+                $('#lesson-footer-paginationmobile').html('')
                 const lesseonId=generateRandomId(10); 
                 $.each(res.data,function(k,v){  
                     $('#lesson-questionlist-list').html(`
@@ -213,6 +236,47 @@
                      })
                 }
  
+
+                if (res.total > 1) {
+                    $.each(res.links, function(k, v) {
+                        let linkstatus = "";
+                        if (k != 0 && k != res.links.length && useranswers[k - 1]) {
+                            linkstatus = 'status-bad';
+                            if (useranswers[k - 1].iscorrect) {
+
+
+                                linkstatus = "status-good";
+
+
+                                if (useranswers[k - 1].time_taken < {{ $examtime }}) {
+                                    linkstatus = "status-exelent";
+                                }
+                            }
+                        }
+                        if (v.active || !v.url) {
+
+                            var label_name = v.label;
+
+                            if (v.label == '« Previous') {
+                                var label_name = "<";
+                            }
+
+                            var preclass = "";
+                            if (k == 0) {
+                                preclass = "preclass";
+                            }
+                            $('#lesson-footer-paginationmobile').append(`
+    <button class="${linkstatus} btn btn-secondary  {$preclass} ${v.active?"active":""}" disabled   >${label_name}</button>
+`)
+                        } else {
+                            $('#lesson-footer-paginationmobile').append(`
+    <button class="${linkstatus} btn btn-secondary " onclick="loadlessonreview('${v.url}')" >${v.label}</button>
+`)
+                        }
+
+                    })
+                }
+
                  
                 $('.lesson-end').show();
 
