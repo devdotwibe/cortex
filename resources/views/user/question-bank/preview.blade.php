@@ -105,10 +105,20 @@
     
 <section class="modal-expand" id="question-preview-page" style="display: none;">
     <div class="container-wrap">
-        <div class="lesson-footer" id="lesson-footer-pagination1">
-        </div>
+        
+
+
+
+
+
+hi
+
+
+
+
   </div>
 
+  
 
 </section>
 
@@ -136,7 +146,6 @@
             $.get(reviewurl || "{{ route('question-bank.preview', $userExamReview->slug) }}", function(res) {
                 $('.pagination-arrow').hide();
                 $('#lesson-footer-pagination').html('')
-                $('#lesson-footer-pagination1').html('')
                 const lesseonId = generateRandomId(10);
                 $.each(res.data, function(k, v) {
                     $('#lesson-questionlist-list').html(`
@@ -249,14 +258,6 @@
                             `)
                         } else {
                             $('#lesson-footer-pagination').append(`
-                                <button class="${linkstatus} btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
-                            `)
-                        }
-                        $('#lesson-footer-pagination1').append(`
-                                <button class="${linkstatus} btn btn-secondary ${v.active?"active":""}" disabled  >${label_name}</button>
-                            `)
-                        } else {
-                            $('#lesson-footer-pagination1').append(`
                                 <button class="${linkstatus} btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
                             `)
                         }
