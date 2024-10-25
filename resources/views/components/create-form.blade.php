@@ -54,8 +54,8 @@
                                                     <input type="text" name="{{$item->name}}[]" id="{{$item->name}}-{{$frmID}}-0" value="" class="form-control  " placeholder="{{ucfirst($item->label??$item->name)}}" aria-placeholder="{{ucfirst($item->label??$item->name)}}" >
                                                     <input type="file" name="file_{{$item->name}}[]" id="file_{{$item->name}}-{{$frmID}}-0" value=""  class="form-control" >
 
-        <!-- Image Preview -->
-        <img id="{{$item->name}}-{{$frmID}}-0-preview" src="#" alt="Image Preview" style="display:none; margin-top: 10px; max-width: 200px; max-height: 200px;">
+                                                    <!-- Image Preview -->
+                                                    <img id="{{$item->name}}-{{$frmID}}-0-preview" src="#" alt="Image Preview" style="display:none; margin-top: 10px; max-width: 200px; max-height: 200px;">
                                                 </div>
 
                                             </div>
@@ -128,28 +128,7 @@
 
 @push('footer-script')
 
-<script>
-document.addEventListener("change", function(event) {
-    if (event.target.matches("input[type='file'][data-preview]")) {
-        const fileInput = event.target;
-        const previewId = fileInput.getAttribute("data-preview");
-        const file = fileInput.files[0];
 
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function() {
-                const previewImage = document.getElementById(previewId);
-                if (previewImage) {
-                    previewImage.src = reader.result;
-                    previewImage.style.display = 'block';
-                }
-            };
-            reader.readAsDataURL(file);
-        }
-    }
-});
-
-</script>
     <script>
         var chcnt=$('.choice-item').length;
         function removeChoice{{$frmID}}(target,checkbox,parent){
@@ -261,6 +240,30 @@ document.addEventListener("change", function(event) {
         })
 
         CKEDITOR.replaceAll('texteditor')
+    </script>
+
+
+<script>
+    document.addEventListener("change", function(event) {
+        if (event.target.matches("input[type='file'][data-preview]")) {
+            const fileInput = event.target;
+            const previewId = fileInput.getAttribute("data-preview");
+            const file = fileInput.files[0];
+    
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function() {
+                    const previewImage = document.getElementById(previewId);
+                    if (previewImage) {
+                        previewImage.src = reader.result;
+                        previewImage.style.display = 'block';
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    });
+    
     </script>
  
 @endpush
