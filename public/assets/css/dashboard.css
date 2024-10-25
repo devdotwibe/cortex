@@ -3190,6 +3190,27 @@ nav.navbar.top-barhide { display: none;}
 .admin-topic > .container > .row .col-md-6 {padding: 0; width: 49%;}
 
 
+#topic-test-subtitle .modal-content {padding: 20px;border-radius: 10px;}
+#topic-test-subtitle .modal-content .modal-header {  padding: 0; border: none; margin: 0 0 20px;}
+#topic-test-subtitle .modal-content .modal-header h5 { color: #218df8; font-size: 20px; font-weight: 600;}
+#topic-test-subtitle .modal-content .modal-header button.close { background: #fff;  color: #000; border: 2px solid #fff;font-size: 30px; line-height: 0; transition: all .25s ease-in-out; width: auto; height: auto; font-weight: 300; position: absolute; right: 15px;  top: 20px;}
+#topic-test-subtitle .modal-content .modal-body { padding: 0;}
+#topic-test-subtitle .modal-content .modal-body .forms-inputs label { font-size: 16px; margin: 0  0 10px;}
+#topic-test-subtitle .modal-content .modal-body .forms-inputs input { height: 42px; border: 1px solid rgba(188, 188, 188, 1); padding: 11px; border-radius: 10px; min-width: 225px;}
+#topic-test-subtitle .modal-content .modal-body .forms-inputs.file-upload { margin: 0 15px 0 0;}
+#topic-test-subtitle .modal-content .modal-body .forms-inputs.file-upload input[type="file"] { display: none;}
+#topic-test-subtitle .modal-content .modal-body .forms-inputs.file-upload label { width: 100%; display: flex; flex-wrap: wrap; align-items: center;  justify-content: center;  padding: 15px;  border: 1px solid #BCBCBC; border-radius: 10px; max-width: 150px;}
+#topic-test-subtitle .modal-content .modal-body .forms-inputs.file-upload label img { padding: 12% 38%; width: 100%; height: 100%;  object-fit: contain;  background: #EFEFEF;  border-radius: 10px;}
+#topic-test-subtitle .modal-content .modal-body .file-upload-wrapp { display: flex; flex-wrap: wrap;}
+#topic-test-subtitle .modal-content .modal-body .file-upload-wrapp .image-group { width: 96px; position: relative;}
+#topic-test-subtitle .modal-content .modal-body .file-upload-wrapp .image-group img { width: 100%; display: block;}
+#topic-test-subtitle .modal-content .modal-body .file-upload-wrapp .image-group button { background: #bd0202; width: 25px;  height: 25px; border-radius: 50%; border: 1px solid #bd0202; padding: 5px; position: absolute; top: -12px; right: -12px;}
+#topic-test-subtitle .modal-content .modal-body button.btn.btn-secondary { background: none; border: 1px solid #000;  color: #000;}
+#topic-test-subtitle .modal-content .modal-body button.btn.btn-secondary:hover { background: #000; color: #ffff;}
+#topic-test-subtitle .modal-content .modal-body button.btn.btn-dark { background: #000; border: 1px solid #000;}
+#topic-test-subtitle .modal-content .modal-body button.btn.btn-dark:hover { color: #000; background: none;}
+
+
 @media screen and (max-width:1599px) {
 .live-modal .modal-dialog .modal-row .modal-col1 .form-row .text-field-preview p { width: 100%; margin: 0 0 10px;}
 }
