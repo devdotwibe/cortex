@@ -11,7 +11,7 @@
         </div>
     </div>
 </section>
-<section class="content_section admin_section category-section" id="category-content-section">
+<section class="content_section admin_section category-section admin-live-class" id="category-content-section">
     <div class="container">
         <div class="row">
             @foreach ($categorys as $k=> $item)
