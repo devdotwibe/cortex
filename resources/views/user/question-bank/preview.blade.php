@@ -293,66 +293,7 @@
         }
 
 
-        if (res.total > 1) {
-                    $.each(res.links, function(k, v) {
-                        let linkstatus = "";
-                        if (k != 0 && k != res.links.length && useranswers[k - 1]) {
-                            linkstatus = 'status-bad';
-                            if (useranswers[k - 1].iscorrect) {
-
-
-                                linkstatus = "status-good";
-
-
-                                if (useranswers[k - 1].time_taken < {{ $examtime }}) {
-                                    linkstatus = "status-exelent";
-                                }
-                            }
-                        }
-                        if (v.active || !v.url) {
-
-                            var label_name = v.label;
-
-                            if (v.label == '« Previous') {
-                                var label_name = "<";
-                            }
-                            $('#lesson-footer-paginationmobile').append(`
-                                <button class="${linkstatus} btn btn-secondary ${v.active?"active":""}" disabled  >${label_name}</button>
-                            `)
-                        } else {
-                            $('#lesson-footer-paginationmobile').append(`
-                                <button class="${linkstatus} btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
-                            `)
-                        }
-                    })
-                }
-
-                
-
-                $('.lesson-end').show();
-
-
-                if (res.next_page_url) {
-                    $('.lesson-right').show()
-                        .find('button.right-btn')
-                        .data('pageurl', res.next_page_url)
-                        .attr('onclick', `loadlessonreview('${res.next_page_url}')`); // Adding onclick event
-                } else {
-                    $('.lesson-finish').show();
-                }
-
-                if (res.prev_page_url) {
-                    $('.lesson-left').show()
-                        .find('button.left-btn')
-                        .data('pageurl', res.prev_page_url)
-                        .attr('onclick', `loadlessonreview('${res.prev_page_url}')`); // Adding onclick event
-                }
-
-                $('#menu-text').html(`Question <span> ${res.current_page} </span> `)
-
-            }, 'json')
-
-        }
+        
 
         $(function() {
             loadlessonreview()
