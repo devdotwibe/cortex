@@ -11,7 +11,7 @@
         </div>
     </div>
 </section>
-<section class="content_section admin_section category-section admin-live-class" id="category-content-section">
+<section class="content_section admin_section category-section" id="category-content-section">
     <div class="container">
         <div class="row">
             @foreach ($categorys as $k=> $item)
@@ -24,10 +24,10 @@
                                 <div class="category-image">
                                     <img src="{{$exam->examIcon($item->id,asset("assets/images/User-red.png"))}}" id="category-content-icon-{{$item->id}}">
                                 </div>
-                                {{-- <div class="category-content">
+                                <div class="category-content">
                                     <h5><span id="category-content-subtitle-{{$item->id}}"> {{$exam->subtitle($item->id,"Topic ".($item->getIdx()+1))}} </span> <i id="category-content-subtitle-edit-{{$item->id}}" onclick="editsubtitle(event,this)" data-icon="{{$exam->examIcon($item->id,asset("assets/images/User-red.png"))}}" data-title="{{$item->name}}" data-subtitle="{{$exam->subtitle($item->id,"Topic ".($item->getIdx()+1))}}" data-category="{{$item->id}}"><img src="{{asset('assets/images/pen.png')}}" width="15" alt=""> </i></h5>
                                     <h3>{{$item->name}}</h3>
-                                </div> --}}
+                                </div>
                             </div>
                         </div>
                     </div>
