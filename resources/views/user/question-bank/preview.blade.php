@@ -110,15 +110,20 @@
 
 
 
-
-hi
+        <div class="tabbody">
+            <div class="question-list">
+                @for ($i = 1; $i <= ($questioncount??0); $i++)
+                    <div class="question-item" data-idx="{{$i}}">
+                        
+                    </div>
+                @endfor
+            </div>
 
 
 
 
   </div>
 
-  
 
 </section>
 
