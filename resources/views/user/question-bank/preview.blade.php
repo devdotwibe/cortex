@@ -266,7 +266,34 @@
                 }
 
                 
-                if (res.total > 1) {
+
+                $('.lesson-end').show();
+
+
+                if (res.next_page_url) {
+                    $('.lesson-right').show()
+                        .find('button.right-btn')
+                        .data('pageurl', res.next_page_url)
+                        .attr('onclick', `loadlessonreview('${res.next_page_url}')`); // Adding onclick event
+                } else {
+                    $('.lesson-finish').show();
+                }
+
+                if (res.prev_page_url) {
+                    $('.lesson-left').show()
+                        .find('button.left-btn')
+                        .data('pageurl', res.prev_page_url)
+                        .attr('onclick', `loadlessonreview('${res.prev_page_url}')`); // Adding onclick event
+                }
+
+                $('#menu-text').html(`Question <span> ${res.current_page} </span> `)
+
+            }, 'json')
+
+        }
+
+
+        if (res.total > 1) {
                     $.each(res.links, function(k, v) {
                         let linkstatus = "";
                         if (k != 0 && k != res.links.length && useranswers[k - 1]) {
@@ -299,6 +326,9 @@
                         }
                     })
                 }
+
+                
+
                 $('.lesson-end').show();
 
 
