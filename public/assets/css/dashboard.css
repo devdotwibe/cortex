@@ -3166,7 +3166,7 @@ nav.navbar.top-barhide { display: none;}
 .content_section.private > .container > .row {justify-content: space-between;}
 .content_section.private > .container > .row > .col-md-6 { width: 49%; padding: 0;}
 
-.menu-icon.modecolor {background: #fff; width: 40px; height: 35px; margin: 0 auto 0 0;}
+.menu-icon.modecolor {background: #fff; width: 40px; height: 35px; margin: 0 auto 0 0;display: none;}
 .menu-icon.modecolor a { padding: 5px; display: block; width: 100%; height: 100%;}
 .menu-icon.modecolor img { width: 100%; height: 100%; display: block;}
 
@@ -3603,6 +3603,8 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 
 .topic-section .category .category-content .action-button .btn { font-size: 13px;}
 
+.menu-icon.modecolor { display: block;}
+
 }
 
 @media screen and (max-width:600px){
@@ -3726,7 +3728,7 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .quest-progress .question-number .menu-text {   font-size: 18px;}
 .quest-progress .Review-mode { font-size: 18px; display: none;}  
 .quest-progress .question-number {  margin: 0 auto 0 10px;}
-.menu-icon.modecolor {margin: 0 0 0 0;}
+.menu-icon.modecolor {margin: 0 0 0 0; }
 
 .live-modal .modal-dialog .modal-row .modal-col1 .form-row .text-field-preview .user-icons .user-icon { width: 15px; margin: 0 3px 0 0;}
 .live-modal .modal-dialog .modal-row .modal-col1 .form-row .startdayclass .text-field label { font-size: 13px;}
