@@ -46,21 +46,25 @@
                         </ul>
                     </div>   
                     
-                    <!-- Hashtag Dropdown -->
-                    <div class="mb-3">
-                        <label for="hashtagDropdown" class="form-label">Select Hashtag</label>
-                        <select id="hashtagDropdown" class="form-select" onchange="location = this.value;">
-                            <option value="">Choose a Hashtag</option> <!-- Default option -->
-                            @foreach ($hashtags as $hashtag)
-                                <option value="{{ route('community.index', ['hashtag' => $hashtag]) }}">{{ $hashtag }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                    
 
                     
                 </div>        
             </div>
         </div>
+
+
+        <!-- Hashtag Dropdown -->
+        <div class="drophash hashtagdropdown">
+            <label for="hashtagDropdown" class="form-label">Select Hashtag</label>
+            <select id="hashtagDropdown" class="form-select" onchange="location = this.value;">
+                <option value="">Choose a Hashtag</option> <!-- Default option -->
+                @foreach ($hashtags as $hashtag)
+                    <option value="{{ route('community.index', ['hashtag' => $hashtag]) }}">{{ $hashtag }}</option>
+                @endforeach
+            </select>
+        </div>
+
 
         <div class="post-container-wrapp">
             <div class="post-container" id="post-item-list">
