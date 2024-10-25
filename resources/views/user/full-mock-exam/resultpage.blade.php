@@ -1,4 +1,5 @@
 @extends('layouts.exam')
+@section('headerclass', 'top-barhide')
 @section('title', 'Congratulation on Completing the '.$userExamReview->title)
 @section('content')  
 
