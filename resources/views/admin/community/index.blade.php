@@ -57,7 +57,7 @@
                 </div>
             </div>
 
-            <div class="post-search">
+            <div class="post-search search-communityclass">
                 <form id="searchForm" action="">
                     <div class="text-field">
                         <input type="search" id="searchInput" placeholder="Search for Posts" aria-label="Search for Posts" oninput="performSearch()">
