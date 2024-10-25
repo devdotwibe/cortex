@@ -33,7 +33,7 @@
                     </div>
                     <div class="menu-icon"> 
                         <a onclick="toglepreviewpage()" >
-                            {{-- <img src="{{asset("assets/images/menu.svg")}}" alt="exiticon"> --}}
+                            <img src="{{asset("assets/images/menu.svg")}}" alt="exiticon">
                         </a>
                     </div>
                 </div>
@@ -296,6 +296,62 @@ $('#menu-text').html(`Question <span> ${res.current_page} </span> `)
             $('#question-preview-page').slideToggle()
             $('#question-answer-page').fadeToggle()
         }
+        function d2s(number){
+            return (number??0).toLocaleString('en-US', { minimumIntegerDigits: 2 })
+        }
+        function generateRandomId(length) {
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let result = '';
+            const charactersLength = characters.length;
+
+            for (let i = 0; i < length; i++) {
+                result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            }
+
+            return result;
+        }
+        function countownRun(){
+            if(timerActive&&examActive){ 
+                if(endTime>0){ 
+                    var d=endTime;
+                    var m=Math.floor(d/60);
+                    var s=d-(m*60);
+                    $('.exam-timer .minute .runner').text(d2s(m))
+                    $('.exam-timer .second .runner').text(d2s(s))
+                    if(endTime<=240&&endTime>=230){
+                        $('.exam-timer').addClass('time-up');
+                    }else if(endTime<=10){
+                        $('.exam-timer').addClass('time-up');
+                    }else{
+                        $('.exam-timer').removeClass('time-up');  
+                    }
+                    endTime--;
+                    timetaken++;
+                    timercurrent[currentSlug]=(timercurrent[currentSlug]||0)+1;
+                } else{
+                    $('.exam-timer .minute .runner').text(d2s(0))
+                    $('.exam-timer .second .runner').text(d2s(0))
+                    $('.exam-timer').addClass('time-up')
+                    examActive=false
+                    if((localStorage.getItem("question-bank")||"timed")=="timed"){ 
+                        updateandsave(function(){
+                            var unfinishcount=totalcount-questionids.length; 
+                            if(unfinishcount>0){
+                                $('.unfinish-message').show().find('.unfinish-count').text(unfinishcount)
+                            }else{
+                                $('.unfinish-message').hide().find('.unfinish-count').text(0)
+                            }
+                            lessonreviewconfirm() 
+                        })   
+                        if($('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length>0){
+                            $('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').prop('disabled',true)
+                        }else{
+                            $('#lesson-questionlist-list .forms-inputs input[name="answer"]').prop('readonly',true)
+                        }
+                    }
+                }
+            }            
+        } 
 </script>
 
 @endpush
