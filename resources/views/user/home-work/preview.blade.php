@@ -248,9 +248,6 @@
                                 linkstatus = "status-good";
 
 
-                                // if (useranswers[k - 1].time_taken < {{ $examtime }}) {
-                                //     linkstatus = "status-exelent";
-                                // }
                             }
                         }
                         if (v.active || !v.url) {
