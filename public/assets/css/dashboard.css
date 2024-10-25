@@ -2866,6 +2866,8 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .post-section .post-action {width: 100%; text-align: center;}
 .post-section .post-action .btn-outline-dark {margin: 25px auto 0;}
 .drophash {display: none;}
+.post-search .text-field .searchclass {width: 100%;}
+.post-search .text-field .searchclass a { display: block;}
 
 .exam-container .summery-wrap .summery-title {width: 100%; font-size: 20px; font-weight: 600;display: flex; margin: 0 0 20px;}
 
