@@ -2043,9 +2043,11 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .lesson #lesson-footer-pagination button.status-check.btn:hover {color: #6c757d; background: none;}
 
 #question-preview-page .container-wrap .lesson-footer button.btn { width: 45px; height: 45px;}
+#question-preview-page .container-wrap .lesson-footer button.btn.btn-secondary {background: #FBAE1E; border: 1px solid #FBAE1E;}
 #question-preview-page .container-wrap .lesson-footer button.btn.status-good{background: #F8EAC6;  border: 1px solid #F8EAC6;  color: #000;}
 #question-preview-page .container-wrap .lesson-footer button.btn.status-exelent{ background: #AEEFA0;  border: 1px solid #AEEFA0; color: #000;}
 #question-preview-page .container-wrap .lesson-footer button.btn.status-bad{background: #EFC9C6;  border: 1px solid #EFC9C6;  color: #000;}
+#question-preview-page .container-wrap .lesson-footer button.btn.btn-secondary:hover { background: none; color: #FBAE1E;}
 #question-preview-page .container-wrap .lesson-footer button.btn.status-good.btn:hover { color: #F8EAC6;}
 #question-preview-page .container-wrap .lesson-footer button.btn.status-exelent.btn:hover { color: #AEEFA0;}
 #question-preview-page .container-wrap .lesson-footer button.btn.status-bad.btn:hover { color: #EFC9C6;}
