@@ -55,6 +55,8 @@
                                                     </div>
                                                     <input type="text" name="{{$item->name}}[]" id="{{$item->name}}-{{$frmID}}-0" value="" class="form-control  " placeholder="{{ucfirst($item->label??$item->name)}}" aria-placeholder="{{ucfirst($item->label??$item->name)}}" >
                                                     <input type="file" name="file_{{$item->name}}[]" id="file_{{$item->name}}-{{$frmID}}-0" value=""  class="form-control" >
+
+                                                    <img id="{{ $item->name }}-{{ $frmID }}-{{ $k }}-preview" src="#" alt="Image Preview" style="display:none; max-width:100px; margin-top:10px;">
                                                 </div>
 
                                             </div>
@@ -144,7 +146,7 @@
     }
     </script>
 
-    
+
     <script>
         var chcnt=$('.choice-item').length;
         function removeChoice{{$frmID}}(target,checkbox,parent){
