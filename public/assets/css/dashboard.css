@@ -3144,6 +3144,9 @@ nav.navbar.header-class { display: none;}
 .bartop-hide .exam-container { padding-top: 0; margin-top: 0;}
 
 nav.navbar.top-barhide { display: none;}
+.modal-expand.modal-expand-result { top: 10px;}
+
+
 
 @media screen and (max-width:1599px) {
 .live-modal .modal-dialog .modal-row .modal-col1 .form-row .text-field-preview p { width: 100%; margin: 0 0 10px;}
