@@ -63,8 +63,10 @@
                             </div>
                         </div>
                         <div class="form-data">
-                            <div class="forms-inputs mb-4">
-                                <label for="topic-test-category-icon">Icon</label>
+                            <div class="forms-inputs mb-4 file-upload">
+                                <label for="topic-test-category-icon">Icon
+                                <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
+                                </label>
                                 <input type="hidden" name="icon" value="" id="topic-test-category-icon-input"  >
                                 <input type="file" onchange="iconchange(event)"  id="topic-test-category-icon" class="form-control " placeholder="Icon" aria-placeholder="Icon" >
                                 <div class="invalid-feedback">The field is required</div>
