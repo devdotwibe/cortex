@@ -303,10 +303,10 @@
             });
         })
 
-        function toglepreviewpage() {
-            // timerActive=!timerActive; 
-            $('#question-preview-page').slideToggle()
-            $('#question-answer-page').fadeToggle()
-        }
+        // function toglepreviewpage() {
+        //     // timerActive=!timerActive; 
+        //     $('#question-preview-page').slideToggle()
+        //     $('#question-answer-page').fadeToggle()
+        // }
     </script>
 @endpush
