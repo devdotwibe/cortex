@@ -63,7 +63,7 @@
                             </div>
                         </div>
                         <div class="form-data">
-                            <div class="forms-inputs mb-4">
+                            <div class="forms-inputs mb-4 file-upload">
                                 <label for="topic-test-category-icon">Icon
                                 <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
                                 </label>
