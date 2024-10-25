@@ -4,7 +4,7 @@
 <section class="header_nav">
     <div class="header_wrapp">
         <div class="header_title">
-            <h2>Community1</h2>
+            <h2>Community</h2>
             @if($user->post_status!=="active")
             <p class="text-danger">You have been banned by admin</p>
             @endif
@@ -44,7 +44,20 @@
                                 </li>
                             @endforeach
                         </ul>
-                    </div>                
+                    </div>   
+                    
+                    <!-- Hashtag Dropdown -->
+                    <div class="mb-3">
+                        <label for="hashtagDropdown" class="form-label">Select Hashtag</label>
+                        <select id="hashtagDropdown" class="form-select" onchange="location = this.value;">
+                            <option value="">Choose a Hashtag</option> <!-- Default option -->
+                            @foreach ($hashtags as $hashtag)
+                                <option value="{{ route('community.index', ['hashtag' => $hashtag]) }}">{{ $hashtag }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    
                 </div>        
             </div>
         </div>
