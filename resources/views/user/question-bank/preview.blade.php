@@ -60,8 +60,8 @@
                     <div class="row" id="lesson-questionlist-list" style="display: none">
                     </div>
                 </div>
-                <div class="lesson-footer" id="lesson-footer-pagination">
-                </div>
+                {{-- <div class="lesson-footer" id="lesson-footer-pagination">
+                </div> --}}
             </div>
         </div>
        
@@ -105,10 +105,9 @@
     
 <section class="modal-expand" id="question-preview-page" style="display: none;">
     <div class="container-wrap">
-
         <div class="lesson-footer" id="lesson-footer-pagination">
-       
-                        </div>
+        </div>
+  </div>
 
 
 </section>
