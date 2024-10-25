@@ -56,7 +56,7 @@
 
         <!-- Hashtag Dropdown -->
         <div class="drophash hashtagdropdown">
-            <label for="hashtagDropdown" class="form-label">Select Hashtag</label>
+            <label for="hashtagDropdown" class="form-label">Select Channel</label>
             <select id="hashtagDropdown" class="form-select" onchange="location = this.value;">
                 <option value="">Choose a Hashtag</option> <!-- Default option -->
                 @foreach ($hashtags as $hashtag)
