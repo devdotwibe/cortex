@@ -49,9 +49,9 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="hashtagDropdown" class="form-label">Select Hashtag</label>
+                      
                         <select id="hashtagDropdown" class="form-select" onchange="location = this.value;">
-                            <option value="">Choose a Hashtag</option> <!-- Default option -->
+                            <option value="">Choose a Channel</option> <!-- Default option -->
                             @foreach ($hashtags as $hashtag)
                                 <option value="{{ route('admin.community.index', ['hashtag' => $hashtag]) }}">{{ $hashtag }}</option>
                             @endforeach
