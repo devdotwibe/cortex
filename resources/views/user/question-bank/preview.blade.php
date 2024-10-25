@@ -289,22 +289,18 @@
                             if (v.label == '« Previous') {
                                 var label_name = "<";
                             }
-                            var length = res.links.length;
+
                             var preclass="";
                             if(k==0)
                             {
                                 preclass="preclass";
                             }
-                            if(k==length)
-                            {
-                                next="nxtclass";
-                            }
                             $('#lesson-footer-paginationmobile').append(`
-                                <button class="${linkstatus} btn btn-secondary  ${preclass} ${v.active?"active":""}" disabled   >${label_name}</button>
+                                <button class="${linkstatus} btn btn-secondary  {$preclass} ${v.active?"active":""}" disabled   >${label_name}</button>
                             `)
                         } else {
                             $('#lesson-footer-paginationmobile').append(`
-                                <button class="${linkstatus} btn btn-secondary ${next}" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
+                                <button class="${linkstatus} btn btn-secondary " onclick="loadlessonreview('${v.url}')" >${v.label}</button>
                             `)
                         }
                         
