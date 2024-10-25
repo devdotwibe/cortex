@@ -84,7 +84,7 @@
 <script>
     function toggleSearchResults() {
         const searchResults = document.getElementById('post-search');
-        searchResults.classList.toggle('searchcommunityclass'); 
+        searchResults.toggle('searchcommunityclass'); 
     
        
         performSearch(); 
