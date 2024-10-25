@@ -2051,7 +2051,7 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 #question-preview-page .container-wrap .lesson-footer button.btn.status-good.btn:hover { color: #F8EAC6;}
 #question-preview-page .container-wrap .lesson-footer button.btn.status-exelent.btn:hover { color: #AEEFA0;}
 #question-preview-page .container-wrap .lesson-footer button.btn.status-bad.btn:hover { color: #EFC9C6;}
-#question-preview-page .container-wrap .lesson-footer button.btn.first-child { display: none;}
+#question-preview-page .container-wrap .lesson-footer button.btn:first-child { display: none;}
 #question-preview-page .container-wrap .lesson-footer button.btn:last-child { display:none;}
 
 .workshop-wrap .workshop-content {width: 100%;}
