@@ -286,7 +286,7 @@
 
                             var label_name = v.label;
 
-                            if (v.label == '« Previous') {
+                            if (v.label == '« Previous1') {
                                 var label_name = "<";
                             }
                             $('#lesson-footer-paginationmobile').append(`
