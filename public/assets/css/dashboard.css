@@ -3737,4 +3737,16 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .exam-container .summery-wrap p { font-size: 16px;}
 .exam-container .summery-wrap { padding: 20px;}
 
+.drophash { order: -1; width: 80%; flex: 1 0 0; background: #fff; padding: 10px; margin: 0 0 15px; border-radius: 10px;}
+.post-section .post-row .post-container1 { display: none;}
+.post-section .post-row .post-container-wrapp { width: 100%; flex: 0 0 100%;}
+.post-search { width: 62px; height: 62px; padding: 0; margin: 0 0 0 15px; background: none; position: relative;}
+.drophash select { border: 1px solid #000; border-radius: 10px; height: 42px;}
+.post-search .text-field { background: #fff; height: 100%; padding: 10px; border-radius: 10px; position: absolute; top: 0; right: 0; transition: all .25s ease-in-out;}
+.post-search form { width: 100%;  height: 100%;}
+.post-search .text-field input { border: 1px solid #000; border-radius: 10px; height: 42px; padding-right: 40px;}
+.post-search .text-field .search-btn { width: 25px; right: 18px; top: 53%;}
+.post-search.menu-view .text-field { width: 89vw;}
+.post-search.menu-view .text-field input { padding: 12px; padding-right: 30px;}
+
 }
