@@ -3186,6 +3186,9 @@ nav.navbar.top-barhide { display: none;}
 .category-section > .container > .row {justify-content: space-between;}
 .category-section > .container > .row > .col-md-6 { padding: 0; width: 49%;}
 
+.admin-topic > .container > .row {justify-content: space-between;}
+.admin-topic > .container > .row .col-md-6 {padding: 0; width: 49%;}
+
 
 @media screen and (max-width:1599px) {
 .live-modal .modal-dialog .modal-row .modal-col1 .form-row .text-field-preview p { width: 100%; margin: 0 0 10px;}
@@ -3570,6 +3573,8 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .learn-class > .container > .row .col-md-6 { padding: 0 0 0; width: 100%;}
 
 .category-section > .container > .row > .col-md-6 { width: 100%;}
+
+.admin-topic > .container > .row .col-md-6 { width: 100%;}
 
 }
 
