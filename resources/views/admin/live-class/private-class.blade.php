@@ -49,7 +49,7 @@
                                 </div>
                             </div>
 
-                            <div class="category1" id="category-content-class-detail">
+                            <div class="category cat-1" id="category-content-class-detail">
 
                             </div>
 
