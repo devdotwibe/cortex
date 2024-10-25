@@ -294,7 +294,7 @@
                             `)
                         } else {
                             $('#lesson-footer-paginationmobile').append(`
-                                <button class="${linkstatus} btn btn-secondary nxtclass" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
+                                <button class="${linkstatus} btn btn-secondary " onclick="loadlessonreview('${v.url}')" >${v.label}</button>
                             `)
                         }
                         
