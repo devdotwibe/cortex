@@ -48,20 +48,22 @@
                         </ul>
                     </div>
 
-                     <!-- Hashtag Dropdown -->
-                     <div class="mb-3">
-                        <label for="hashtagDropdown" class="form-label">Select Hashtag</label>
-                        <select id="hashtagDropdown" class="form-select" onchange="location = this.value;">
-                            <option value="">Choose a Hashtag</option> <!-- Default option -->
-                            @foreach ($hashtags as $hashtag)
-                                <option value="{{ route('community.post.index', ['hashtag' => $hashtag]) }}">{{ $hashtag }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                     
                 </div>
         
             </div>
         </div> 
+
+        <!-- Hashtag Dropdown -->
+        <div class="drophash hashtagdropdown">
+           
+            <select id="hashtagDropdown" class="form-select" onchange="location = this.value;">
+                <option value="">Choose a Channel</option> <!-- Default option -->
+                @foreach ($hashtags as $hashtag)
+                    <option value="{{ route('community.post.index', ['hashtag' => $hashtag]) }}">{{ $hashtag }}</option>
+                @endforeach
+            </select>
+        </div>
 
         <div class="post-container-wrapp">
             <div class="post-container" id="post-item-list">
@@ -72,7 +74,7 @@
             <form id="searchForm" action="">
                 <div class="text-field">
                     <input type="search" id="searchInput" placeholder="Search for Posts" aria-label="Search for Posts" oninput="performSearch()">
-                    <button type="submit" class="search-btn" disabled><img src="{{ asset('assets/images/searc-icon.svg') }}" alt=""></button>
+                    <button type="buttton" class="search-btn"onclick="toggleSearchResults()"><img src="{{ asset('assets/images/searc-icon.svg') }}" alt=""></button>
                 </div>
             </form>
             <div class="searchclass">
@@ -90,6 +92,16 @@
 
 @push('footer-script')
 
+
+<script>
+    function toggleSearchResults() {
+
+    
+        $('.post-search').toggleClass('menu-view');
+       
+        // performSearch(); 
+    }
+    </script>
 
 <script>
     $(document).ready(function() {
