@@ -178,12 +178,7 @@ function previewImage(input, previewId) {
                                 </div>
                                 <input type="text" name="${name}[]" id="${el}" value="" class="form-control" placeholder="${label}" aria-placeholder="${label}" >
                                  <input type="file" name="file_${name}[]" id="${el}-file" value="" class="form-control" >
- @foreach ($fields as $i => $item)
-    ...
-    <img id="{{ $item->name }}-{{ $frmID }}-{{ $i }}-preview" src="#" alt="Image Preview" style="display:none; width: 100px; height: auto;"/>
-    ...
-@endforeach
-
+   <img id="${el}-preview" src="#" alt="Image Preview" style="display:none; width: 100px; height: auto; margin-top: 10px;"/>
 
                                 
                                 <div class="input-group-append choice-check-group">
