@@ -3747,7 +3747,7 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .post-search form { width: 100%;  height: 100%;}
 .post-search .text-field input { border: 1px solid #000; border-radius: 10px; height: 42px; padding-right: 40px;}
 .post-search .text-field .search-btn { width: 25px; right: 18px; top: 53%;}
-.post-search.menu-view .text-field { width: 89vw;}
+.post-search.menu-view .text-field { width: 90vw;}
 .post-search.menu-view .text-field input { padding: 12px; padding-right: 30px;}
 
 .header_nav .header_wrapp .header_right ul.nav_bar li.nav_item a.nav_link.btn { padding: 9px 20px;}
