@@ -3183,6 +3183,9 @@ nav.navbar.top-barhide { display: none;}
 #private-class-modal .modal-content .modal-body button.btn.btn-dark:hover { color: #000; background: none;}
 #private-class-modal .modal-content .modal-body table { min-width: 660px;}
 
+.category-section > .container > .row {justify-content: space-between;}
+.category-section > .container > .row > .col-md-6 { padding: 0; width: 49%;}
+
 
 @media screen and (max-width:1599px) {
 .live-modal .modal-dialog .modal-row .modal-col1 .form-row .text-field-preview p { width: 100%; margin: 0 0 10px;}
@@ -3565,6 +3568,8 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .admin-live-class > .container > .row .col-md-6 {width: 100%;}
 
 .learn-class > .container > .row .col-md-6 { padding: 0 0 0; width: 100%;}
+
+.category-section > .container > .row > .col-md-6 { width: 100%;}
 
 }
 
