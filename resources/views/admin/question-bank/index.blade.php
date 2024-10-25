@@ -202,7 +202,7 @@
                                     <button class="btn btn-dark btn-sm" onclick="subcategorysetlist('${v.subsetUrl}','${v.slug}','${v.setUrl}')" ><img src="{{asset('assets/images/plus.svg')}}"></button>
                                 </div>
                             </div>
-                            
+                            <div class="category" id="category-content-set-${v.slug}">
                             </div>
                         </div>
                     </div>
