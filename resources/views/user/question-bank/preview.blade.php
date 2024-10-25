@@ -295,12 +295,16 @@
                             {
                                 preclass="preclass";
                             }
+                            if(k==2)
+                            {
+                                next="preclass";
+                            }
                             $('#lesson-footer-paginationmobile').append(`
-                                <button class="${linkstatus} btn btn-secondary  {$preclass} ${v.active?"active":""}" disabled   >${label_name}</button>
+                                <button class="${linkstatus} btn btn-secondary  ${preclass} ${v.active?"active":""}" disabled   >${label_name}</button>
                             `)
                         } else {
                             $('#lesson-footer-paginationmobile').append(`
-                                <button class="${linkstatus} btn btn-secondary " onclick="loadlessonreview('${v.url}')" >${v.label}</button>
+                                <button class="${linkstatus} btn btn-secondary ${next}" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
                             `)
                         }
                         
