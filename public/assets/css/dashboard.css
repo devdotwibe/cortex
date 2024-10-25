@@ -2042,6 +2042,7 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .lesson #lesson-footer-pagination button.status-check.btn.active { color: #6c757d;  background: none;}
 .lesson #lesson-footer-pagination button.status-check.btn:hover {color: #6c757d; background: none;}
 
+#question-preview-page .container-wrap .lesson-footer { text-align: center;}
 #question-preview-page .container-wrap .lesson-footer button.btn { width: 45px; height: 45px; margin: 5px;}
 #question-preview-page .container-wrap .lesson-footer button.btn.btn-secondary {background: #FBAE1E; border: 1px solid #FBAE1E;}
 #question-preview-page .container-wrap .lesson-footer button.btn.status-good{background: #F8EAC6;  border: 1px solid #F8EAC6;  color: #000;}
@@ -2051,7 +2052,7 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 #question-preview-page .container-wrap .lesson-footer button.btn.status-good.btn:hover { color: #F8EAC6;}
 #question-preview-page .container-wrap .lesson-footer button.btn.status-exelent.btn:hover { color: #AEEFA0;}
 #question-preview-page .container-wrap .lesson-footer button.btn.status-bad.btn:hover { color: #EFC9C6;}
-#question-preview-page .container-wrap .lesson-footer button.btn.preclass { display: none;}
+#question-preview-page .container-wrap .lesson-footer button.btn:first-child { display: none;}
 #question-preview-page .container-wrap .lesson-footer button.btn:last-child { display:none;}
 
 .workshop-wrap .workshop-content {width: 100%;}
