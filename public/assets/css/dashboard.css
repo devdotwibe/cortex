@@ -3158,8 +3158,8 @@ nav.navbar.top-barhide { display: none;}
 
 
 .admin-live-class > .container > .row {   justify-content: space-between;}
-.admin-live-class > .container > .row .col-md-6 {   padding: 0;    width: 49%;}
-.admin-live-class .card {  height: 100%; border-radius: 5px;}
+.admin-live-class > .container > .row .col-md-6 {   padding: 0; width: 49%; margin: 1.5rem 0 0;}
+.admin-live-class .card {  height: 100%; border-radius: 5px; margin: 0 0 0 !important;}
 .admin-live-class .card .card-body {  padding: 0;}
 .admin-live-class .card .card-body .category { padding: 1rem 1rem .5rem 1rem;}
 .admin-live-class .card .card-body .category.cat-1 { padding: .5rem 1rem 1rem  1rem; border-top: 1px solid #BFBFBF;}
