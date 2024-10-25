@@ -8,7 +8,7 @@
         </div> 
     </div>
 </section>
-<section class="content_section admin_section">
+<section class="content_section admin_section admin-topic">
     <div class="container">
         <div class="row">
             @foreach ($categorys as $k=>$item)
