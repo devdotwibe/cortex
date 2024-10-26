@@ -311,16 +311,22 @@ class MockExamController extends Controller
                                             ->select('slug','created_at','progress','id','exam_id','ticket');
         return DataTables::of($userExamReviews)
             ->addColumn('progress',function($data){
-                $questions = Question::where('exam_id',$data->exam_id)->select('id');
-                
-                $right_answers =  UserReviewAnswer::where('user_exam_review_id',$data->id)
-                                            ->where('exam_id',$data->exam_id)
-                                            ->where('iscorrect',true)
-                                            ->where('user_answer',true)
-                                            ->count();
-                $progress = $right_answers * 100 / count($questions->get());
-                $data->progress = (floor($progress) == $progress) ? number_format($progress, 0) : number_format($progress, 2);
-                return $data->progress."%";
+                $userExam = UserExam::findSlug($data->ticket);
+                if($userExam){
+                    $exam_questions = UserExamQuestion::where('exam_id',$data->exam_id)
+                    ->where('user_exam_id',$userExam->id)
+                    ->select('id');
+                    $right_answers =  UserReviewAnswer::where('user_exam_review_id',$data->id)
+                                        ->where('exam_id',$data->exam_id)
+                                        ->whereIn('question_id',$exam_questions)
+                                        ->where('iscorrect',true)
+                                        ->where('user_answer',true)
+                                        ->count();
+                    $progress = $right_answers * 100 / count($exam_questions->get());
+                    $data->progress = (floor($progress) == $progress) ? number_format($progress, 0) : number_format($progress, 2);
+                    return $data->progress."%";
+                }
+               return 0;
             })
             ->addColumn('date',function($data){
                 return Carbon::parse($data->created_at)->format('Y-m-d h:i a');
