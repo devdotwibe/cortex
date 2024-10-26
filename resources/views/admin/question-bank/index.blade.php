@@ -39,7 +39,7 @@
     </div>
 </section>
 
-<section class="content_section admin_section subcategory-section" id="subcategory-content-section" style="display: none">
+<section class="content_section admin_section subcategory-section admin-live-class" id="subcategory-content-section" style="display: none">
     <div class="container">
         <div class="row" id="subcategory-list">
 
@@ -72,9 +72,11 @@
                                 <div class="invalid-feedback">The field is required</div>
                             </div>
                         </div>
-                        <div class="form-data">
-                            <div class="forms-inputs mb-4">
-                                <label for="question-bank-category-icon">Icon</label>
+                        <div class="form-data file-upload-wrapp">
+                            <div class="forms-inputs mb-4 file-upload">
+                                <label for="question-bank-category-icon">Icon
+                                <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
+                                </label>
                                 <input type="hidden" name="icon" value="" id="question-bank-category-icon-input"  >
                                 <input type="file" onchange="iconchange(event)"  id="question-bank-category-icon" class="form-control " placeholder="Icon" aria-placeholder="Icon" >
                                 <div class="invalid-feedback">The field is required</div>
@@ -202,7 +204,7 @@
                                     <button class="btn btn-dark btn-sm" onclick="subcategorysetlist('${v.subsetUrl}','${v.slug}','${v.setUrl}')" ><img src="{{asset('assets/images/plus.svg')}}"></button>
                                 </div>
                             </div>
-                            <div class="category" id="category-content-set-${v.slug}">
+                            <div class="category cat-1" id="category-content-set-${v.slug}">
                             </div>
                         </div>
                     </div>

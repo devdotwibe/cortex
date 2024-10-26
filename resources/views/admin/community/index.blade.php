@@ -35,6 +35,7 @@
                                 #Backtoall
                             </a>
                         </div>  
+                       
                         <div class="hashtag-wrapp">  
                             <ul class="list-group"  >  
                                 @foreach ($hashtags as $hashtag)
@@ -47,10 +48,24 @@
                         </div>
                     </div>
 
-
+                    <div class="drophash hashtagdropdown">
+                      
+                        <select id="hashtagDropdown" class="form-select" onchange="location = this.value;">
+                            <option value="">Choose a Channel</option> <!-- Default option -->
+                            @foreach ($hashtags as $hashtag)
+                                <option value="{{ route('admin.community.index', ['hashtag' => $hashtag]) }}">{{ $hashtag }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+        
 
                 </div>
             </div>
+
+           
+
+
+
             <div class="post-container-wrapp">
                 <div class="post-container" id="post-item-list">
 
@@ -61,12 +76,13 @@
                 <form id="searchForm" action="">
                     <div class="text-field">
                         <input type="search" id="searchInput" placeholder="Search for Posts" aria-label="Search for Posts" oninput="performSearch()">
-                        <button type="submit" class="search-btn" disabled><img src="{{ asset('assets/images/searc-icon.svg') }}" alt=""></button>
+                        <button type="button" class="search-btn" onclick="toggleSearchResults()"><img src="{{ asset('assets/images/searc-icon.svg') }}" alt=""></button>
+                        <div class="searchclass">
+                            <div id="searchResults" name="searchres" ></div> <!-- Container for displaying search results -->
+                            </div>
                     </div>
                 </form>
-                <div class="searchclass">
-                <div id="searchResults" name="searchres"></div> <!-- Container for displaying search results -->
-                </div>
+                
             </div>
             
             
@@ -81,28 +97,36 @@
 
 @push('footer-script')
 
+<script>
+    function toggleSearchResults() {
 
+    
+        $('.post-search').toggleClass('menu-view');
+       
+        // performSearch(); 
+    }
+    </script>
 
 <script>
   $(document).ready(function() {
-    // Function to perform the search
+   
     function performSearch() {
-        const query = $('#searchInput').val(); // Get the input value
+        const query = $('#searchInput').val(); 
 
         if (query.length === 0) {
-            $('#searchResults').empty(); // Clear results if the search box is empty
+            $('#searchResults').empty();
             return;
         }
 
         $.ajax({
-            url: '{{ route('admin.community.search') }}', // The route to your search method
+            url: '{{ route('admin.community.search') }}', 
             type: 'GET',
             data: { query: query },
             success: function(data) {
-    // Clear previous results
+   
     $('#searchResults').empty();
 
-    // Check if any users were returned
+   
     if (data.users.length > 0) {
         data.users.forEach(user => {
             const userName = user.name;
@@ -110,7 +134,7 @@
 
             const url = "{{ route('admin.community.index', ['user_id' => '__userID__']) }}".replace('__userID__', userID);
 
-            // Append unique user names to the search results
+          
             $('#searchResults').append(`
                 <a data-id="${userName}" href="${url}">${userName}</a>
             `);

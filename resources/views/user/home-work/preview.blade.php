@@ -39,6 +39,13 @@
                 </div>
             </div>
 
+            <div class="menu-icon modecolor">
+                <a onclick="toglepreviewpage()">
+                    <img src="{{ asset('assets/images/menu.svg') }}" alt="exiticon">
+                </a>
+            </div>
+
+
             <div class="Review-mode">
                 <span>Review Mode </span>
             </div>
@@ -122,7 +129,23 @@
     </div> 
 </section>
 
+<section class="modal-expand" id="question-preview-page" style="display: none;">
+    <div class="container-wrap">
 
+
+
+
+        <div class="lesson-footer" id="lesson-footer-paginationmobile">
+        </div>
+
+
+
+
+
+    </div>
+
+
+</section>
 
 @endsection
 
@@ -144,6 +167,7 @@
             $.get(reviewurl||"{{ route('home-work.preview',$homeWorkReview->slug) }}",function(res){
                 $('.pagination-arrow').hide();
                 $('#lesson-footer-pagination').html('')
+                $('#lesson-footer-paginationmobile').html('')
                 const lesseonId=generateRandomId(10); 
                 $.each(res.data,function(k,v){  
                     $('#lesson-questionlist-list').html(`
@@ -213,6 +237,20 @@
                      })
                 }
  
+                if(res.total>1){
+                     $.each(res.links,function(k,v){
+                        if(v.active||!v.url){
+                            $('#lesson-footer-paginationmobile').append(`
+                                <button class="btn btn-secondary ${v.active?"active":""}" disabled  >${v.label}</button>
+                            `)
+                        }else{
+                            $('#lesson-footer-paginationmobile').append(`
+                                <button class="btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
+                            `)
+                        }
+                     })
+                }
+              
                  
                 $('.lesson-end').show();
 

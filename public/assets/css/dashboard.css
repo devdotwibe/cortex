@@ -1867,16 +1867,16 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 
 
 
-#finish-exam-confirm .modal-content { padding: 10px; border-radius: 10px;}
+#finish-exam-confirm .modal-content { padding: 1rem; border-radius: 10px;}
 #finish-exam-confirm .modal-content .modal-header {padding-bottom: 0; border: none; justify-content: left;}
 #finish-exam-confirm .modal-content p { font-size: 16px; line-height: 1.5; margin: 0 0 20px;}
 #finish-exam-confirm .modal-dialog { max-width: 425px; top: 42%; transform: translateY(-50%);}
 #finish-exam-confirm .modal-content .modal-header h5 { font-size: 20px; font-weight: 500; color: #218df8;}
 #finish-exam-confirm .modal-content .modal-body .btn.btn-dark {width: 48%;  margin-right: 2%;}
-#finish-exam-confirm .modal-content .modal-body .btn.btn-secondary { width: 48%; border: 1px solid #8F8F8F; background: none; color: #000000;}
+#finish-exam-confirm .modal-content .modal-body .btn.btn-secondary { width: 48%; border: 1px solid #8F8F8F; background: none; color: #000000;margin: 0;}
 #finish-exam-confirm .modal-content .modal-body .btn.btn-dark:hover { background: none; color: #000;}
 #finish-exam-confirm .modal-content .modal-body .btn.btn-secondary:hover { background: #8F8F8F; color: #fff;}
-#finish-exam-confirm .modal-content .modal-header button.close { background: none; color: #000; width: auto; height: auto; font-size: 40px; font-weight: 300; position: absolute;  right: 15px; top: 0;}
+#finish-exam-confirm .modal-content .modal-header button.close { background: none; color: #000; width: auto; height: auto; font-size: 40px; font-weight: 300; position: absolute;  right: 15px; top: 15px;}
 
 
 .exam-container .container-wrap .lesson .lesson-body .mcq-container .image-area {max-width: 300px; width: 100%;  margin: 0 0 26px;}
@@ -2042,6 +2042,18 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .lesson #lesson-footer-pagination button.status-check.btn.active { color: #6c757d;  background: none;}
 .lesson #lesson-footer-pagination button.status-check.btn:hover {color: #6c757d; background: none;}
 
+#question-preview-page .container-wrap .lesson-footer { text-align: center;}
+#question-preview-page .container-wrap .lesson-footer button.btn { width: 45px; height: 45px; margin: 5px;}
+#question-preview-page .container-wrap .lesson-footer button.btn.btn-secondary {background: #FBAE1E; border: 1px solid #FBAE1E;}
+#question-preview-page .container-wrap .lesson-footer button.btn.status-good{background: #F8EAC6;  border: 1px solid #F8EAC6;  color: #000;}
+#question-preview-page .container-wrap .lesson-footer button.btn.status-exelent{ background: #AEEFA0;  border: 1px solid #AEEFA0; color: #000;}
+#question-preview-page .container-wrap .lesson-footer button.btn.status-bad{background: #EFC9C6;  border: 1px solid #EFC9C6;  color: #000;}
+#question-preview-page .container-wrap .lesson-footer button.btn.btn-secondary:hover { background: none; color: #FBAE1E;}
+#question-preview-page .container-wrap .lesson-footer button.btn.status-good.btn:hover { color: #F8EAC6;}
+#question-preview-page .container-wrap .lesson-footer button.btn.status-exelent.btn:hover { color: #AEEFA0;}
+#question-preview-page .container-wrap .lesson-footer button.btn.status-bad.btn:hover { color: #EFC9C6;}
+#question-preview-page .container-wrap .lesson-footer button.btn:first-child { display: none;}
+#question-preview-page .container-wrap .lesson-footer button.btn:last-child { display:none;}
 
 .workshop-wrap .workshop-content {width: 100%;}
 .workshop-wrap .workshop-content h2 { font-size: 20px; font-weight: 700;  margin: 0 0 14px;}
@@ -2862,9 +2874,12 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .post-search .text-field { width: 100%; position: relative;}
 .post-search .text-field input { width: 100%; height: 45px; color: #838383; font-size: 18px; padding-right: 35px;}
 .post-search .text-field input::placeholder { color: #838383;}
-.post-search .text-field .search-btn { background: none; border: none; width: 30px; position: absolute; right: 0; top: 50%; transform: translateY(-50%);}
+.post-search .text-field .search-btn { background: none; border: none; width: 30px; position: absolute; right: 0; top: 8px;}
 .post-section .post-action {width: 100%; text-align: center;}
 .post-section .post-action .btn-outline-dark {margin: 25px auto 0;}
+.drophash {display: none;}
+.post-search .text-field .searchclass {width: 100%;}
+.post-search .text-field .searchclass a { display: block;}
 
 .exam-container .summery-wrap .summery-title {width: 100%; font-size: 20px; font-weight: 600;display: flex; margin: 0 0 20px;}
 
@@ -3152,9 +3167,94 @@ nav.navbar.top-barhide { display: none;}
 .content_section.private > .container > .row {justify-content: space-between;}
 .content_section.private > .container > .row > .col-md-6 { width: 49%; padding: 0;}
 
-.menu-icon.modecolor {background: #fff; width: 40px; height: 35px; margin: 0 auto 0 0;}
+.menu-icon.modecolor {background: #fff; width: 40px; height: 35px; margin: 0 auto 0 0;display: none;}
 .menu-icon.modecolor a { padding: 5px; display: block; width: 100%; height: 100%;}
 .menu-icon.modecolor img { width: 100%; height: 100%; display: block;}
+
+
+.admin-live-class > .container > .row {   justify-content: space-between;}
+.admin-live-class > .container > .row .col-md-6 {   padding: 0; width: 49%; margin: 1.5rem 0 0;}
+.admin-live-class .card {  height: 100%; border-radius: 5px; margin: 0 0 0 !important;}
+.admin-live-class .card .card-body {  padding: 0;}
+.admin-live-class .card .card-body .category { padding: 1rem 1rem .5rem 1rem;}
+.admin-live-class .card .card-body .category.cat-1 { padding: .5rem 1rem 1rem  1rem; border-top: 1px solid #BFBFBF;}
+.admin-live-class .card .card-body .category .btn.btn-dark { padding: 10px; width: 40px; height: 40px; background: #FBAE1E; border: 1px solid #FBAE1E; margin: 0 0 0;}
+
+.learn-class > .container > .row { justify-content: space-between;}
+.learn-class > .container > .row .col-md-6 { padding: 0 0 0; width: 49%;}
+
+#private-class-modal .modal-content {padding: 20px; border-radius: 10px;}
+#private-class-modal .modal-content .modal-header {border: none; padding: 0; margin: 0 0 20px;}
+#private-class-modal .modal-content .modal-header h5 { font-size: 20px; font-weight: 500; color: #218df8;}
+#private-class-modal .modal-content .modal-header button.close { background: none; color: #000; width: auto; height: auto; font-size: 40px; font-weight: 300; position: absolute; right: 15px; top: 0;}
+#private-class-modal .modal-content .modal-body { padding: 0;}
+#private-class-modal .modal-content .modal-body table thead th { background: #1989F8;}
+#private-class-modal .modal-content .modal-body table thead th:first-child { border-radius: 10px 0 0 0;}
+#private-class-modal .modal-content .modal-body table thead th:last-child { border-radius: 0 10px 0 0;}
+#private-class-modal .modal-content .modal-body .table-outer { box-shadow: none; padding: 0; overflow-y: auto;}
+#private-class-modal .modal-content .modal-body .forms-inputs label { font-size: 16px; margin: 0 0 10px;}
+#private-class-modal .modal-content .modal-body .forms-inputs input { height: 42px; border: 1px solid rgba(188, 188, 188, 1); padding: 11px; border-radius: 10px; min-width: 225px;}
+#private-class-modal .modal-content .modal-body button.btn.btn-dark { margin: 7px 0 0; padding: 11px 20px; background: #000; border: 1px solid #000; border-radius: 10px; font-size: 12px;}
+#private-class-modal .modal-content .modal-body button.btn.btn-dark:hover { color: #000; background: none;}
+#private-class-modal .modal-content .modal-body table { min-width: 660px;}
+
+.category-section > .container > .row {justify-content: space-between;}
+.category-section > .container > .row > .col-md-6 { padding: 0; width: 49%;}
+
+.admin-topic > .container > .row {justify-content: space-between;}
+.admin-topic > .container > .row .col-md-6 {padding: 0; width: 49%;}
+
+
+#topic-test-subtitle .modal-content {padding: 20px;border-radius: 10px;}
+#topic-test-subtitle .modal-content .modal-header {  padding: 0; border: none; margin: 0 0 20px;}
+#topic-test-subtitle .modal-content .modal-header h5 { color: #218df8; font-size: 20px; font-weight: 600;}
+#topic-test-subtitle .modal-content .modal-header button.close { background: #fff;  color: #000; border: 2px solid #fff;font-size: 30px; line-height: 0; transition: all .25s ease-in-out; width: auto; height: auto; font-weight: 300; position: absolute; right: 15px;  top: 20px;}
+#topic-test-subtitle .modal-content .modal-body { padding: 0;}
+#topic-test-subtitle .modal-content .modal-body .forms-inputs label { font-size: 16px; margin: 0  0 10px;}
+#topic-test-subtitle .modal-content .modal-body .forms-inputs input { height: 42px; border: 1px solid rgba(188, 188, 188, 1); padding: 11px; border-radius: 10px; min-width: 225px;}
+#topic-test-subtitle .modal-content .modal-body .forms-inputs.file-upload { margin: 0 15px 0 0;}
+#topic-test-subtitle .modal-content .modal-body .forms-inputs.file-upload input[type="file"] { display: none;}
+#topic-test-subtitle .modal-content .modal-body .forms-inputs.file-upload label { width: 100%; display: flex; flex-wrap: wrap; align-items: center;  justify-content: center;  padding: 15px;  border: 1px solid #BCBCBC; border-radius: 10px; max-width: 150px;}
+#topic-test-subtitle .modal-content .modal-body .forms-inputs.file-upload label img { padding: 12% 38%; width: 100%; height: 100%;  object-fit: contain;  background: #EFEFEF;  border-radius: 10px;}
+#topic-test-subtitle .modal-content .modal-body .file-upload-wrapp { display: flex; flex-wrap: wrap;}
+#topic-test-subtitle .modal-content .modal-body .file-upload-wrapp .image-group { width: 96px; position: relative;}
+#topic-test-subtitle .modal-content .modal-body .file-upload-wrapp .image-group img { width: 100%; display: block;}
+#topic-test-subtitle .modal-content .modal-body .file-upload-wrapp .image-group button { background: #bd0202; width: 25px;  height: 25px; border-radius: 50%; border: 1px solid #bd0202; padding: 5px; position: absolute; top: -12px; right: -12px;}
+#topic-test-subtitle .modal-content .modal-body button.btn.btn-secondary { background: none; border: 1px solid #000;  color: #000;}
+#topic-test-subtitle .modal-content .modal-body button.btn.btn-secondary:hover { background: #000; color: #ffff;}
+#topic-test-subtitle .modal-content .modal-body button.btn.btn-dark { background: #000; border: 1px solid #000;}
+#topic-test-subtitle .modal-content .modal-body button.btn.btn-dark:hover { color: #000; background: none;}
+
+#question-bank-subtitle .modal-content {padding: 20px;border-radius: 10px;}
+#question-bank-subtitle .modal-content .modal-header {  padding: 0; border: none; margin: 0 0 20px;}
+#question-bank-subtitle .modal-content .modal-header h5 { color: #218df8; font-size: 20px; font-weight: 600;}
+#question-bank-subtitle .modal-content .modal-header button.close { background: #fff;  color: #000; border: 2px solid #fff;font-size: 30px; line-height: 0; transition: all .25s ease-in-out; width: auto; height: auto; font-weight: 300; position: absolute; right: 15px;  top: 20px;}
+#question-bank-subtitle .modal-content .modal-body { padding: 0;}
+#question-bank-subtitle .modal-content .modal-body .forms-inputs label { font-size: 16px; margin: 0  0 10px;}
+#question-bank-subtitle .modal-content .modal-body .forms-inputs input { height: 42px; border: 1px solid rgba(188, 188, 188, 1); padding: 11px; border-radius: 10px; min-width: 225px;}
+#question-bank-subtitle .modal-content .modal-body .forms-inputs.file-upload { margin: 0 15px 0 0;}
+#question-bank-subtitle .modal-content .modal-body .forms-inputs.file-upload input[type="file"] { display: none;}
+#question-bank-subtitle .modal-content .modal-body .forms-inputs.file-upload label { width: 100%; display: flex; flex-wrap: wrap; align-items: center;  justify-content: center;  padding: 15px;  border: 1px solid #BCBCBC; border-radius: 10px; max-width: 150px;}
+#question-bank-subtitle .modal-content .modal-body .forms-inputs.file-upload label img { padding: 12% 38%; width: 100%; height: 100%;  object-fit: contain;  background: #EFEFEF;  border-radius: 10px;}
+#question-bank-subtitle .modal-content .modal-body .file-upload-wrapp { display: flex; flex-wrap: wrap;}
+#question-bank-subtitle .modal-content .modal-body .file-upload-wrapp .image-group { width: 96px; position: relative;}
+#question-bank-subtitle .modal-content .modal-body .file-upload-wrapp .image-group img { width: 100%; display: block;}
+#question-bank-subtitle .modal-content .modal-body .file-upload-wrapp .image-group button { background: #bd0202; width: 25px;  height: 25px; border-radius: 50%; border: 1px solid #bd0202; padding: 5px; position: absolute; top: -12px; right: -12px;}
+#question-bank-subtitle .modal-content .modal-body button.btn.btn-secondary { background: none; border: 1px solid #000;  color: #000;}
+#question-bank-subtitle .modal-content .modal-body button.btn.btn-secondary:hover { background: #000; color: #ffff;}
+#question-bank-subtitle .modal-content .modal-body button.btn.btn-dark { background: #000; border: 1px solid #000;}
+#question-bank-subtitle .modal-content .modal-body button.btn.btn-dark:hover { color: #000; background: none;}
+
+
+
+.modal .modal-content { padding: 20px;}
+.modal .modal-content .modal-header { padding: 0; border: none; margin: 0 0 20px;}
+.modal .modal-content .modal-header h5 { color: #218df8; font-size: 20px; font-weight: 600;}
+.modal .modal-content .modal-header button.close {background: #fff; color: #000; border: 2px solid #fff; font-size: 30px; line-height: 0; transition: all .25s ease-in-out; width: auto; height: auto; font-weight: 300; position: absolute; right: 15px; top: 20px;}
+.modal .modal-content .modal-body { padding: 0;}
+.modal .modal-content .modal-body button.btn.btn-secondary { background: none; border: 1px solid #000; color: #000; margin: 0 10px 0 0;}
+.modal .modal-content .modal-body button.btn.btn-secondary:hover { color: #ffff; background: #000;}
+
 
 @media screen and (max-width:1599px) {
 .live-modal .modal-dialog .modal-row .modal-col1 .form-row .text-field-preview p { width: 100%; margin: 0 0 10px;}
@@ -3504,6 +3604,8 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 
 .topic-section .category .category-content .action-button .btn { font-size: 13px;}
 
+.menu-icon.modecolor { display: block;}
+
 }
 
 @media screen and (max-width:600px){
@@ -3533,6 +3635,14 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .topic-section > .container > .row > .col-md-6 { width: 100%;}
 
 .content_section.private > .container > .row > .col-md-6 {width: 100%;}
+
+.admin-live-class > .container > .row .col-md-6 {width: 100%;}
+
+.learn-class > .container > .row .col-md-6 { padding: 0 0 0; width: 100%;}
+
+.category-section > .container > .row > .col-md-6 { width: 100%;}
+
+.admin-topic > .container > .row .col-md-6 { width: 100%;}
 
 }
 
@@ -3619,7 +3729,7 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .quest-progress .question-number .menu-text {   font-size: 18px;}
 .quest-progress .Review-mode { font-size: 18px; display: none;}  
 .quest-progress .question-number {  margin: 0 auto 0 10px;}
-.menu-icon.modecolor {margin: 0 0 0 0;}
+.menu-icon.modecolor {margin: 0 0 0 0; }
 
 .live-modal .modal-dialog .modal-row .modal-col1 .form-row .text-field-preview .user-icons .user-icon { width: 15px; margin: 0 3px 0 0;}
 .live-modal .modal-dialog .modal-row .modal-col1 .form-row .startdayclass .text-field label { font-size: 13px;}
@@ -3643,5 +3753,20 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .exam-container.topictestclass .summery-wrap .summery-title h1 { font-size: 19px;}
 .exam-container .summery-wrap p { font-size: 16px;}
 .exam-container .summery-wrap { padding: 20px;}
+
+.drophash { display: block; order: -1; width: 80%; flex: 1 0 0; background: #fff; padding: 10px; margin: 0 0 15px; border-radius: 10px;}
+.post-section .post-row .post-container1 { display: none;}
+.post-section .post-row .post-container-wrapp { width: 100%; flex: 0 0 100%;}
+.post-search { width: 62px; height: 62px; padding: 0; margin: 0 0 0 15px; background: none; position: relative;}
+.drophash select { border: 1px solid #000; border-radius: 10px; height: 42px;}
+.post-search .text-field { background: #fff; height: 100%; padding: 10px; border-radius: 10px; position: absolute; top: 0; right: 0; transition: all .25s ease-in-out;}
+.post-search form { width: 100%;  height: 100%;}
+.post-search .text-field input { border: 1px solid #000; border-radius: 10px; height: 42px; padding-right: 40px;}
+.post-search .text-field .search-btn { width: 42px; height: 42px; right: 10px; top: 10px;}
+.post-search.menu-view .text-field { width: 90vw;}
+.post-search.menu-view .text-field input { padding: 12px; padding-right: 30px;}
+.post-search .text-field .search-btn img {width: 25px;}
+
+.header_nav .header_wrapp .header_right ul.nav_bar li.nav_item a.nav_link.btn { padding: 9px 20px;}
 
 }
