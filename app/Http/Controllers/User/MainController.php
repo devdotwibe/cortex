@@ -229,6 +229,7 @@ class MainController extends Controller
         $moc_count= $questions ? count($questions->get()) :0;
         $mocprogress= $count ? count($count) :  0; 
 
+         $moclateprogress=0;
         if($moc_count>0){
             $moclateprogress=round($mocprogress*100/$moc_count,2);
         } 
