@@ -256,7 +256,7 @@
 
                             
 
-                            if (k==0) {
+                            if (k != 0 && k != res.links.length && useranswers[k - 1]) {
                                 var label_name = "<<";
                             }
                            
