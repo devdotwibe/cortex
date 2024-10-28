@@ -30,7 +30,7 @@
                     </div> 
 
                     
-                    <button class="btn hide-btn" id="hide_button" onclick="HideTime()"><img src="{{asset("assets/images/flat-color-icons_clock.svg")}}"></button>
+                    <button class="btn hide-btn" id="hide_button" onclick="HideTime()">Hide Time</button>
 
                 </div>
             </div>
@@ -281,20 +281,19 @@
 
     <script>  
 
-        function HideTime() {
-            const timerDiv = $('#exam_timer');
-            const button = $('#hide_button');
+function HideTime() {
+        const timerDiv = $('#exam_timer');
+        const button = $('#hide_button');
 
-            timerDiv.slideToggle(300, function() {
-
-                // if (timerDiv.is(':visible')) {
-                //     button.text('Hide Time');
-                // } else {
-                //     button.text('Show Time');
-                //     button.insertAfter(timerDiv);
-                // }
-            });
-        }
+        timerDiv.slideToggle(300, function() {
+            if (timerDiv.is(':visible')) {
+                button.html('Hide Time');
+            } else {
+                button.html('<img src="{{ asset("assets/images/flat-color-icons_clock.svg") }}" alt="Show Time Icon">');
+                button.insertAfter(timerDiv);
+            }
+        });
+    }
 
         var progressurl="{{$user->progress('exam-'.$exam->id.'-progress-url','')}}";
         let storage = JSON.parse(localStorage.getItem("full-mock-exam-summery"))||{};

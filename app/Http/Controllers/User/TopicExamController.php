@@ -409,17 +409,20 @@ class TopicExamController extends Controller
                                                         ->where('exam_id',$data->exam_id)
                                                         ->whereIn('question_id',$questions)
                                                         ->count();
-                $questions = UserExamQuestion::where('exam_id',$data->exam_id)
+                if($question_count>0){
+                    $questions = UserExamQuestion::where('exam_id',$data->exam_id)
                                             ->select('question_id');
-                $right_answers =  UserReviewAnswer::where('user_exam_review_id',$data->id)
-                                            ->where('exam_id',$data->exam_id)
-                                            ->whereIn('question_id',$questions)
-                                            ->where('iscorrect',true)
-                                            ->where('user_answer',true)
-                                            ->count();
-                $progress = $right_answers * 100 / $question_count;
-                $data->progress = (floor($progress) == $progress) ? number_format($progress, 0) : number_format($progress, 2);
-                return $data->progress."%";
+                    $right_answers =  UserReviewAnswer::where('user_exam_review_id',$data->id)
+                                                ->where('exam_id',$data->exam_id)
+                                                ->whereIn('question_id',$questions)
+                                                ->where('iscorrect',true)
+                                                ->where('user_answer',true)
+                                                ->count();
+                    $progress = $right_answers * 100 / $question_count;
+                    $data->progress = (floor($progress) == $progress) ? number_format($progress, 0) : number_format($progress, 2);
+                    return $data->progress."%";
+                }
+                return 0;
             })
             ->addColumn('date', function ($data) {
                 return Carbon::parse($data->created_at)->format('Y-m-d h:i a');

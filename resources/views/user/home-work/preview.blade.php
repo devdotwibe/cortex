@@ -231,19 +231,19 @@
 
 
                         let linkstatuss = "";
-                        if (k != 0 && k != res.links.length) {
-
-                            linkstatus = 'mob-view';
+                        if (k != 0 && k != res.links.length-1) {
+console.log(res.links.length);
+                            linkstatuss = 'mob-view';
                         }
                         
 
                         if (v.active || !v.url) {
                             $('#lesson-footer-pagination').append(`
-                                <button class="${linkstatuss}btn btn-secondary ${v.active?"active":""}" disabled  >${v.label}</button>
+                                <button class="${linkstatuss} btn btn-secondary ${v.active?"active":""}" disabled  >${v.label}</button>
                             `)
                         } else {
                             $('#lesson-footer-pagination').append(`
-                                <button class="${linkstatuss}btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
+                                <button class="${linkstatuss} btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
                             `)
                         }
                     })
