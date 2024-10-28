@@ -60,26 +60,11 @@
                     <div class="row" id="lesson-questionlist-list" style="display: none">
                     </div>
                 </div>
-                <div class="lesson-footer" id="lesson-footer-pagination">
+                <div class="lesson-footer" id="lesson-footer-pagination mob-view">
                 </div>
             </div>
         </div>
        
-
-        
-        <div class="container-wrap mcq-container-wrap question-bank-review">
-            <div class="lesson">
-               
-                <div class="lesson-body">
-                    <div class="row" id="lesson-questionlist-list" style="display: none">
-                    </div>
-                </div>
-                <div class="lesson-footer class" id="lesson-footer-paginationmob">
-                </div>
-            </div>
-        </div>
-
-
     </section>
 
     <section class="exam-footer">
@@ -161,7 +146,6 @@
                 $('.pagination-arrow').hide();
                 $('#lesson-footer-pagination').html('')
                 $('#lesson-footer-paginationmobile').html('')
-                $('#lesson-footer-paginationmob').html('')
                 const lesseonId = generateRandomId(10);
                 $.each(res.data, function(k, v) {
                     $('#lesson-questionlist-list').html(`
@@ -270,7 +254,7 @@
                                 var label_name = "<";
                             }
                             $('#lesson-footer-pagination').append(`
-                                <button class="${linkstatus} btn btn-secondary  ${v.active?"active":""}" disabled  >${label_name}</button>
+                                <button class="${linkstatus} btn btn-secondary ${v.active?"active":""}" disabled  >${label_name}</button>
                             `)
                         } else {
                             $('#lesson-footer-pagination').append(`
@@ -322,43 +306,6 @@
                         
                     })
                 }
-
-
-                if (res.total > 1) {
-                    $.each(res.links, function(k, v) {
-                        let linkstatus = "";
-                        if (k != 0 && k != res.links.length && useranswers[k - 1]) {
-                            linkstatus = 'status-bad';
-                            if (useranswers[k - 1].iscorrect) {
-
-
-                                linkstatus = "status-good";
-
-
-                                if (useranswers[k - 1].time_taken < {{ $examtime }}) {
-                                    linkstatus = "status-exelent";
-                                }
-                            }
-                        }
-                        if (v.active || !v.url) {
-
-                            var label_name = v.label;
-
-                            if (v.label == '« Previous') {
-                                var label_name = "<";
-                            }
-                            $('#lesson-footer-paginationmob').append(`
-                                <button class="${linkstatus} btn btn-secondary mob-view ${v.active?"active":""}" disabled  >${label_name}</button>
-                            `)
-                        } else {
-                            $('#lesson-footer-paginationmob').append(`
-                                <button class="${linkstatus} btn btn-secondary mob-view" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
-                            `)
-                        }
-                        
-                    })
-                }
-
 
 
                 $('.lesson-end').show();
