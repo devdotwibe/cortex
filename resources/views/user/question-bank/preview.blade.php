@@ -251,7 +251,10 @@
                             var label_name = v.label;
 
                             if (k==0) {
-                                var label_name = "<";
+                                var label_name = "<<";
+                            }
+                            if (k==res.links.length-1) {
+                                var label_name = ">>";
                             }
                             $('#lesson-footer-pagination').append(`
                                 <button class="${linkstatus} btn btn-secondary ${v.active?"active":""}" disabled  >${label_name}</button>
