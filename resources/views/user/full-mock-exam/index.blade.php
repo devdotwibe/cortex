@@ -4,11 +4,11 @@
     <section class="header_nav">
         <div class="header_wrapp">
             <div class="header_title">
-                <h2>Full Mock Exams</h2>
+                <h2>Full Mock Exams1</h2>
             </div>
         </div>
     </section>
-    <section class="content_section">
+    <section class="content_section mock-class">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
