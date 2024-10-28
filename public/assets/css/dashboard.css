@@ -1870,7 +1870,7 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 #finish-exam-confirm .modal-content { padding: 1rem; border-radius: 10px;}
 #finish-exam-confirm .modal-content .modal-header {padding-bottom: 0; border: none; justify-content: left;}
 #finish-exam-confirm .modal-content p { font-size: 16px; line-height: 1.5; margin: 0 0 20px;}
-#finish-exam-confirm .modal-dialog { max-width: 425px; top: 42%; transform: translateY(-50%);}
+#finish-exam-confirm .modal-dialog { max-width: 425px; top: 42%; transform: translateY(-50%); margin: 0 auto;}
 #finish-exam-confirm .modal-content .modal-header h5 { font-size: 20px; font-weight: 500; color: #218df8;}
 #finish-exam-confirm .modal-content .modal-body .btn.btn-dark {width: 48%;  margin-right: 2%;}
 #finish-exam-confirm .modal-content .modal-body .btn.btn-secondary { width: 48%; border: 1px solid #8F8F8F; background: none; color: #000000;margin: 0;}
@@ -3256,6 +3256,8 @@ nav.navbar.top-barhide { display: none;}
 .modal .modal-content .modal-body button.btn.btn-secondary:hover { color: #ffff; background: #000;}
 
 
+
+
 @media screen and (max-width:1599px) {
 .live-modal .modal-dialog .modal-row .modal-col1 .form-row .text-field-preview p { width: 100%; margin: 0 0 10px;}
 }
@@ -3605,6 +3607,8 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .topic-section .category .category-content .action-button .btn { font-size: 13px;}
 
 .menu-icon.modecolor { display: block;}
+
+.exam-container .question-bank-review .lesson #lesson-footer-pagination button.btn.mob-view { display: none;}
 
 }
 
