@@ -32,6 +32,7 @@
         <div class="modal-content" >
             <div class="modal-header">
                 <h4 class="modal-title" id="myModalLabel">Import</h4>
+                <h5 class="modal-title"><span  class="review-history-label" ></span></h5>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <img src="{{asset('assets/images/x-circle.svg')}}" alt="">
                 </button>
