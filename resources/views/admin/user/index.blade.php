@@ -582,7 +582,7 @@ jQuery(document).on("change", "#file_upload", function() {
 
 
                         setTimeout(function() {
-                location.reload(); 
+                window.location.reload(); 
                            }, 10000); 
               
 
