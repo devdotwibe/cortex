@@ -581,6 +581,14 @@ jQuery(document).on("change", "#file_upload", function() {
          
 
 
+                        setTimeout(function() {
+                window.location.reload(); 
+                           }, 10000); 
+              
+
+
+
+
                     },
 
                     error: function(xhr, status, error) {
