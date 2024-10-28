@@ -27,74 +27,88 @@
 
 
         
-        <div class="modal fade" id="import_user_modal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="myModalLabel">Import</h4>
-                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                            <img src="{{ asset('assets/images/x-circle.svg') }}" alt="">
-                        </button>
-                    </div>
-                    <div class="modal-body" style="max-height: 400px; overflow-y: auto;">
-                        <form action="#" name="import_user" id="import_user" method="post" enctype="multipart/form-data">
-                            @csrf
-                            <div class="row mb-3">
+<div class="modal fade" id="import_user_modal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" >
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Import</h4>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <img src="{{asset('assets/images/x-circle.svg')}}" alt="">
+                </button>
+            </div>
+            <div class="modal-body" style="max-height: 400px; overflow-y: auto;">
+
+
+                        <div class="col-md-12 d-flex justify-content-end">
+                            {{-- <form id="import_users" name="import_users" method="POST"  enctype="multipart/form-data" class="d-flex align-items-center">
+                                @csrf --}}
+
+                <form action="#" name="import_user" id="import_user" method="post"  enctype="multipart/form-data">
+                    @csrf
                                 <div class="col-md-8">
                                     <input type="file" accept=".csv,.xlsx" name="file_upload" id="file_upload" class="form-control">
                                 </div>
-                            </div>
-        
-                            <div class="text-fields mb-3">
-                                <label for="first_name">First Name:</label>
-                                <select class="form-control import-fields" name="first_name" id="first_name" data-value="first_name">
-                                    <option value="">--Select--</option>
-                                </select>
-                            </div>
-                            
-                            <div class="text-fields mb-3">
-                                <label for="last_name">Last Name:</label>
-                                <select class="form-control import-fields" name="last_name" id="last_name" data-value="last_name">
-                                    <option value="">--Select--</option>
-                                </select>
-                            </div>
-                            
-                            <div class="text-fields mb-3">
-                                <label for="email">Email Address:</label>
-                                <select class="form-control import-fields" name="email" id="email" data-value="email">
-                                    <option value="">--Select--</option>
-                                </select>
-                            </div>
-        
-                            <div class="text-fields mb-3">
-                                <label for="grade">Grade:</label>
-                                <select class="form-control import-fields" name="grade" id="grade" data-value="grade">
-                                    <option value="">--Select--</option>
-                                </select>
-                            </div>
-        
-                            <div class="text-fields mb-3">
-                                <label for="expiry_date">Expiry Date:</label>
-                                <input type="text" class="form-control datepicker end-datepicker" name="expiry_date" id="expiry_date" readonly>
-                            </div>
-        
-                            <input type="hidden" name="file_path" id="file_path" value="">
-                            <input type="hidden" name="id" id="import_user_id" value="">
-        
-                            <div class="d-flex justify-content-end">
-                                <button class="btn btn-danger me-2" type="submit" aria-label="Confirm">Import
-                                    <div class="spinner-border spinner-border-sm text-primary import_load_service" id="import_load_service" role="status" style="display: none;">
-                                        <span class="sr-only"></span>
-                                    </div>
-                                </button>
-                                <button class="btn btn-warning" type="button" data-bs-dismiss="modal" aria-label="Cancel">Cancel</button>
-                            </div>
-                        </form>
-                    </div>
+{{--
+                            </form> --}}
+                        </div>
+
+                        {{-- <div class="text-fields">
+                            <label>Name : </label>
+                            <select class="form-control import-fields" name="name" id="name" data-value="name" >
+                                <option value="">--Select--</option>
+                            </select>
+                         </div>     --}}
+
+                   <div class="text-fields">
+                   <label>First Name : </label>
+                   <select class="form-control import-fields" name="first_name" id="first_name" data-value="first_name" >
+                       <option value="">--Select--</option>
+                   </select>
                 </div>
+                <div class="text-fields">
+                    <label>Last Name : </label>
+                    <select class="form-control import-fields" name="last_name" id="last_name" data-value="last_name" >
+                        <option value="">--Select--</option>
+                    </select>
+                 </div>
+                
+                
+                <div class="text-fields">
+                   <label>Email Address :</label>
+                   <select class="form-control import-fields" name="email" id="email" data-value="email">
+                       <option value="">--Select--</option>
+                   </select>
+                </div>
+
+                <div class="text-fields">
+                    <label>Grade :</label>
+                    <select class="form-control import-fields" name="grade" id="grade" data-value="grade">
+                        <option value="">--Select--</option>
+                    </select>
+                 </div>
+                
+                <div class="text-fields">
+                    <label>Expiry Date: </label>
+                    <input type="text" class="form-control datepicker end-datepicker" name="expiry_date" id="expiry_date" readonly>
+                </div>
+                
+
+                   <input type="hidden" name="file_path" id="file_path" value="">
+                    <input type="hidden" name="id" id="import_user_id" value="">
+                    <button class="btn btn-danger" type="submit"  aria-label="Confirm">Import
+                        <div class="spinner-border spinner-border-sm text-primary import_load_service" id="import_load_service" role="status" style="display:none;">
+                            <span class="sr-only"></span>
+                        </div>
+                    </button>
+                    <button class="btn btn-warning" type="button" data-bs-dismiss="modal" aria-label="Cancel">Cancel</button>
+                </form>
+
             </div>
+
         </div>
-        
+    </div>
+</div>
+
 
 
 
