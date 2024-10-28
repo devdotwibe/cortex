@@ -306,30 +306,27 @@ class MockExamController extends Controller
          * @var User
          */
         $user=Auth::user();
-        // $data=[];
-        // foreach(UserExamReview::where('user_id',$user->id)->where('exam_id',$exam->id)->get() as  $row){
-        //     $data[]=[
-        //         'slug'=>$row->slug,
-        //         'date'=>Carbon::parse($row->created_at)->format('Y-m-d h:i a'),
-        //         'progress'=>$row->progress,
-        //         'url'=>route('full-mock-exam.preview',$row->slug),
-        //     ];
-        // }
-        // return [
-        //     'data'=>$data,
-        //     'url'=>route('full-mock-exam.show',$exam->slug),
-        //     'name'=>$exam->name
-        // ];
-        return DataTables::of(UserExamReview::where('user_id',$user->id)->where('exam_id',$exam->id)->select('slug','created_at','progress'))
+        $userExamReviews = UserExamReview::where('user_id',$user->id)
+                                            ->where('exam_id',$exam->id)
+                                            ->select('slug','created_at','progress','id','exam_id','ticket');
+        return DataTables::of($userExamReviews)
             ->addColumn('progress',function($data){
-                // $numberformat=number_format($data->progress,2);
-                // return $numberformat."%";
-                if ($data->progress == 100) {
-                    return "100%"; // Return without decimals
-                } else {
-                    $numberformat = number_format($data->progress, 2);
-                    return $numberformat . "%";
+                $userExam = UserExam::findSlug($data->ticket);
+                if($userExam){
+                    $exam_questions = UserExamQuestion::where('exam_id',$data->exam_id)
+                    ->where('user_exam_id',$userExam->id)
+                    ->select('id');
+                    $right_answers =  UserReviewAnswer::where('user_exam_review_id',$data->id)
+                                        ->where('exam_id',$data->exam_id)
+                                        ->whereIn('question_id',$exam_questions)
+                                        ->where('iscorrect',true)
+                                        ->where('user_answer',true)
+                                        ->count();
+                    $progress = $right_answers * 100 / count($exam_questions->get());
+                    $data->progress = (floor($progress) == $progress) ? number_format($progress, 0) : number_format($progress, 2);
+                    return $data->progress."%";
                 }
+               return 0;
             })
             ->addColumn('date',function($data){
                 return Carbon::parse($data->created_at)->format('Y-m-d h:i a');
