@@ -596,9 +596,6 @@ jQuery(document).on("change", "#file_upload", function() {
                    
                     field.after('<div class="error-message" style="color: red;">' + messages.join(', ') + '</div>');
                 });
-            } else {
-              
-                alert('An error occurred. Please try again later.'); 
             }
                     }
 
