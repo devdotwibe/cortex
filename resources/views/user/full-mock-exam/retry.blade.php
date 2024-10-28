@@ -290,19 +290,17 @@
 
     <script> 
 
-    function HideTime() {
-
+function HideTime() {
         const timerDiv = $('#exam_timer');
         const button = $('#hide_button');
 
         timerDiv.slideToggle(300, function() {
-
-            // if (timerDiv.is(':visible')) {
-            //     button.text('Hide Time');
-            // } else {
-            //     button.text('Show Time');
-            //     button.insertAfter(timerDiv);
-            // }
+            if (timerDiv.is(':visible')) {
+                button.html('Hide Time');
+            } else {
+                button.html('<img src="{{ asset("assets/images/flat-color-icons_clock.svg") }}" alt="Show Time Icon">');
+                button.insertAfter(timerDiv);
+            }
         });
     }
 
