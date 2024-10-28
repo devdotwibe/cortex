@@ -3257,6 +3257,9 @@ nav.navbar.top-barhide { display: none;}
 
 .private-wrap > .row > .col-md-12 {padding: 0;}
 
+.content_section.mock-class > .container > .row > .col-md-12 {padding: 0;}
+.content_section.mock-class .exam-list .exam-title {margin: 0 0 0;}
+
 
 
 @media screen and (max-width:1599px) {
