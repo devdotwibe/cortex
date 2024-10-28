@@ -27,7 +27,7 @@
 
 
         
-<div class="modal fade" id="import_user_modal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+<div class="modal fade importadmin-user" id="import_user_modal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
     <div class="modal-dialog import_user-class">
         <div class="modal-content" >
             <div class="modal-header">
