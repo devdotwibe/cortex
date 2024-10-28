@@ -248,7 +248,7 @@
                         }
 
                         var label_name = v.label;
-                        
+
                         if (k==res.links.length-1) {
                                 var label_name = ">>";
                             }
@@ -318,14 +318,14 @@
                 $('.lesson-end').show();
 
 
-                if (res.next_page_url) {
-                    $('.lesson-right').show()
-                        .find('button.right-btn')
-                        .data('pageurl', res.next_page_url)
-                        .attr('onclick', `loadlessonreview('${res.next_page_url}')`); // Adding onclick event
-                } else {
-                    $('.lesson-finish').show();
-                }
+                // if (res.next_page_url) {
+                //     $('.lesson-right').show()
+                //         .find('button.right-btn')
+                //         .data('pageurl', res.next_page_url)
+                //         .attr('onclick', `loadlessonreview('${res.next_page_url}')`); // Adding onclick event
+                // } else {
+                //     $('.lesson-finish').show();
+                // }
 
                 if (res.prev_page_url) {
                     $('.lesson-left').show()
