@@ -36,19 +36,17 @@
                     <img src="{{asset('assets/images/x-circle.svg')}}" alt="">
                 </button>
             </div>
-            <div class="modal-body" style="max-height: 400px; overflow-y: auto;">
+            <div class="modal-body importuser-class" style="max-height: 400px; overflow-y: auto;">
 
 
-                        <div class="col-md-12 d-flex justify-content-end">
-                            {{-- <form id="import_users" name="import_users" method="POST"  enctype="multipart/form-data" class="d-flex align-items-center">
-                                @csrf --}}
+                       
 
                 <form action="#" name="import_user" id="import_user" method="post"  enctype="multipart/form-data">
                     @csrf
                     <div class="col-md-12">
-                        <div class="form-group">
-                            <div class="form-data">
-                                <div class="forms-inputs mb-4">
+                        <div class="form-group import-class">
+                            <div class="form-data import-uclass">
+                                <div class="forms-inputs mb-4 import-peoples">
                                     <label for="file_upload" class="file-upload">Upload File <br>
                                         <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
                                     </label>
@@ -64,7 +62,7 @@
                     
 {{--
                             
-                        </div>
+                      
 
                         {{-- <div class="text-fields">
                             <label>Name : </label>
