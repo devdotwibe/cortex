@@ -415,6 +415,12 @@ function HideTime() {
             $('#answered-nav').text(summery.answeridx.length)
             $('#not-answered-nav').text(summery.notansweridx.length)
         }
+        function restoreQuestionStatuses() {
+            if (summery.answeridx && summery.notansweridx) {
+                summery.answeridx.forEach(idx => refreshstatus(idx, 'answered'));
+                summery.notansweridx.forEach(idx => refreshstatus(idx, 'not-answered'));
+            }
+        }
          function loadlesson(pageurl=null){ 
              
             $.get(pageurl||"{{ route('full-mock-exam.confirmshow',['exam'=>$exam->slug]) }}",function(res){
@@ -534,6 +540,8 @@ function HideTime() {
                     value:progressurl
                 }),
             }); 
+
+            restoreQuestionStatuses()
                  
          }
          async function updateprogress(callback){  
