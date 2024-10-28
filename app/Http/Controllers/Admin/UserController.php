@@ -447,10 +447,10 @@ class UserController extends Controller
 
 
         $request->validate([
-            'first_name' => 'required', 
-             'last_name' => 'required',
-             'email' => 'required',
-            'expiry_date' => 'required', 
+            'first_name' => 'required|string|max:255', 
+        'last_name' => 'required|string|max:255',  
+        'email' => 'required|email|max:255',       
+        'expiry_date' => 'required|date',       
             
         ]);
 
