@@ -421,8 +421,14 @@
             $('#answered-nav').text(summery.answeridx.length)
             $('#not-answered-nav').text(summery.notansweridx.length)
         }
+        function restoreQuestionStatuses() {
+            if (summery.answeridx && summery.notansweridx) {
+                summery.answeridx.forEach(idx => refreshstatus(idx, 'answered'));
+                summery.notansweridx.forEach(idx => refreshstatus(idx, 'not-answered'));
+            }
+        }
          function loadlesson(pageurl=null){ 
-             
+             console.log(summery)
             $.get(pageurl||"{{ route('topic-test.confirmshow',['category'=>$category->slug]) }}",function(res){
                 $('.pagination-arrow').hide();
                 $('#lesson-footer-pagination').html('')
@@ -535,7 +541,7 @@
                     value:progressurl
                 }),
             }); 
-                 
+            restoreQuestionStatuses()
          }
          async function updateprogress(callback){  
             try { 
@@ -671,11 +677,16 @@
                 window.location.href=url;
             }
         }
+        window.onload = function() {
+            const leftButtonPageUrl = $('.lesson-left button.left-btn,.lesson-right button.right-btn').data('pageurl');
+            console.log('Left Button Page URL:', leftButtonPageUrl);
+            //loadlesson($(this).data('pageurl')) 
+        };
          $(function(){  
             loadlesson(progressurl) 
             $('.lesson-left button.left-btn,.lesson-right button.right-btn').click(function(){   
-                console.log('oooooo')
-                const pageurl=$(this).data('pageurl');  
+                const pageurl=$(this).data('pageurl');
+                console.log(pageurl)  
                 updateandsave(function(){
                     loadlesson(pageurl)
                 })
@@ -692,6 +703,7 @@
                     $('#finish-exam-confirm').modal('show')
                 })
             });
+            //To flag
             $('#bookmark-current').click(function(){
                 if(summery.flagdx[summery.cudx]){
                     summery.flagdx[summery.cudx]=false;
