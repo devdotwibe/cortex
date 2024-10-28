@@ -45,11 +45,25 @@
 
                 <form action="#" name="import_user" id="import_user" method="post"  enctype="multipart/form-data">
                     @csrf
-                                <div class="col-md-8">
-                                    <input type="file" accept=".csv,.xlsx" name="file_upload" id="file_upload" class="form-control">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="form-data">
+                                <div class="forms-inputs mb-4">
+                                    <label for="file_upload" class="file-upload">Upload File <br>
+                                        <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
+                                    </label>
+                                    <input type="file" name="file_upload" id="file_upload" accept=".csv,.xlsx"
+                                           class="form-control" style="display: none;">
+                                    @error('file_upload')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    
 {{--
-                            </form> --}}
+                            
                         </div>
 
                         {{-- <div class="text-fields">
