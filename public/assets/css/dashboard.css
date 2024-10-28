@@ -3655,6 +3655,10 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 
 .admin-topic > .container > .row .col-md-6 { width: 100%;}
 
+.private-wrap .private-content .card .card-body .forms-inputs .form-check input {width: 18px;height: 18px; margin-left: -25px;}
+.private-wrap .private-content .card .card-body .forms-inputs .form-check label {font-size: 16px;}
+.private-wrap .private-content .card .card-body .forms-inputs .form-check {padding-left: 25px;}
+
 }
 
 
