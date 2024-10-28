@@ -1857,7 +1857,7 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .confirm-modal .modal-content { padding: 10px; border-radius: 10px;}
 .confirm-modal .modal-content .modal-header {padding-bottom: 0; border: none; justify-content: center;}
 .confirm-modal .modal-content p { font-size: 16px; line-height: 1.5; margin: 0 0 20px;}
-.confirm-modal .modal-dialog { max-width: 425px; top: 42%; transform: translateY(-50%);}
+.modal.confirm-modal .modal-dialog { max-width: 425px; top: 42%; transform: translateY(-50%);}
 .confirm-modal .modal-content .modal-header h5 { font-size: 20px; font-weight: 500; color: #218df8;}
 .confirm-modal .modal-content .modal-body .btn.btn-dark {width: 48%;  margin-right: 2%;}
 .confirm-modal .modal-content .modal-body .btn.btn-secondary { width: 48%; border: 1px solid #8F8F8F; background: none; color: #000000;}
