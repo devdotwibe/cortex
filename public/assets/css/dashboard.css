@@ -3255,7 +3255,7 @@ nav.navbar.top-barhide { display: none;}
 .modal .modal-content .modal-body button.btn.btn-secondary { background: none; border: 1px solid #000; color: #000; margin: 0 10px 0 0;}
 .modal .modal-content .modal-body button.btn.btn-secondary:hover { color: #ffff; background: #000;}
 
-.exam-container .question-bank-review .lesson #lesson-footer-pagination button.btn.mob-view { display: none;}
+
 
 
 @media screen and (max-width:1599px) {
@@ -3607,6 +3607,8 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .topic-section .category .category-content .action-button .btn { font-size: 13px;}
 
 .menu-icon.modecolor { display: block;}
+
+.exam-container .question-bank-review .lesson #lesson-footer-pagination button.btn.mob-view { display: none;}
 
 }
 
