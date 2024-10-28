@@ -445,6 +445,14 @@ class UserController extends Controller
     public function import_users_from_csv_submit(Request $request)
     {
 
+
+        $request->validate([
+            'datas' => 'required|json', // Ensure 'datas' is present and valid JSON
+            'expiry_date' => 'required|date', // Ensure 'expiry_date' is a valid date
+            'path' => 'required|string', // Ensure 'path' is present and a string
+        ]);
+
+        
         $datas = json_decode($request->input('datas'), true);
 
         $experidate = $request->expiry_date;
