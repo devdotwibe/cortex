@@ -411,6 +411,7 @@ button.close {
   align-items: center;
   border-radius:50%;
   border: none;
+  line-height: 0.1;
 }
 .exam-container{
   width: 100%;
