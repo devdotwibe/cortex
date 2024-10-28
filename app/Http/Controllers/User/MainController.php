@@ -203,6 +203,8 @@ class MainController extends Controller
         }
         $topic_count = $questions ? count($questions->get()) :0;      
         $topicprogress= $count ? count($count) :  0; 
+
+        $topiclateprogress=0;
         if($topic_count>0){
             $topiclateprogress=round($topicprogress * 100/$topic_count ,2);
         } 
