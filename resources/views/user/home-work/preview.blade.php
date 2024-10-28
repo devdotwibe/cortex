@@ -232,7 +232,7 @@
 
                         let linkstatuss = "";
                         if (k != 0 && k != res.links.length) {
-console.log("res.links.length");
+console.log(res.links.length);
                             linkstatuss = 'mob-view';
                         }
                         
