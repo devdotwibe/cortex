@@ -250,7 +250,7 @@
 
                             var label_name = v.label;
 
-                            if (v.label == '« Previous') {
+                            if (k==0) {
                                 var label_name = "<";
                             }
                             $('#lesson-footer-pagination').append(`
