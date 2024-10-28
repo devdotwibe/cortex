@@ -28,7 +28,7 @@
 
         
 <div class="modal fade" id="import_user_modal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog import_user-class">
         <div class="modal-content" >
             <div class="modal-header">
                 <h4 class="modal-title" id="myModalLabel">Import</h4>
@@ -43,7 +43,7 @@
 
                 <form action="#" name="import_user" id="import_user" method="post"  enctype="multipart/form-data">
                     @csrf
-                    <div class="col-md-12">
+                    <div class="col-md-12 ">
                         <div class="form-group import-class">
                             <div class="form-data import-uclass">
                                 <div class="forms-inputs mb-4 import-peoples">
