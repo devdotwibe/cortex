@@ -3802,4 +3802,6 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 nav.navbar .dropdown .nav-link.dropdown-toggle { font-size: 16px;}
 .navbar-expand .navbar-nav .dropdown-menu .dropdown-item {font-size: 16px;}
 
+.invite-wrap .forms-inputs { margin: 0 0 16px !important;}
+
 }
