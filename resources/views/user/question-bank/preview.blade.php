@@ -64,6 +64,18 @@
                 </div>
             </div>
         </div>
+
+        <div class="container-wrap mcq-container-wrap question-bank-review">
+            <div class="lesson">
+               
+                <div class="lesson-body">
+                    <div class="row" id="lesson-questionlist-list" style="display: none">
+                    </div>
+                </div>
+                <div class="lesson-footer" id="lesson-footer-pagination">
+                </div>
+            </div>
+        </div>
        
     </section>
 

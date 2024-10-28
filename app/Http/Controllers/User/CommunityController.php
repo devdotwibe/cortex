@@ -651,15 +651,14 @@ class CommunityController extends Controller
         $post = Post::create([
             'description' => $request->description,
             'hashtags' => json_encode($this->extractHashtags($request->description)),
-            // Other fields
+           
         ]);
 
-        // Update or create hashtags
         foreach ($post->hashtags as $hashtag) {
             Hashtag::firstOrCreate(['hashtag' => $hashtag]);
         }
 
-        // Redirect or return response
+  
     }
 
     private function extractHashtags($text)
@@ -674,15 +673,15 @@ class CommunityController extends Controller
     {
         $query = $request->input('query');
     
-        // Fetch users whose name matches the query
+        
         $users = User::where('name', 'like', '%' . $query . '%')->get();
     
-        // Filter the posts based on the selected user's ID
+        
         $posts = Post::whereIn('user_id', $users->pluck('id'))
-            ->with('user') // Eager load user data
+            ->with('user') 
             ->get();
     
-        // Return unique users and posts
+       
         return response()->json(['users' => $users->unique('id'), 'posts' => $posts]);
     }
     
