@@ -231,46 +231,38 @@
 
 
                 if (res.total > 1) {
-                    $.each(res.links, function(k, v) {
-                        let linkstatus = "";
-                        if (k != 0 && k != res.links.length && useranswers[k - 1]) {
-                            linkstatus = 'status-bad mob-view';
-                            if (useranswers[k - 1].iscorrect) {
-
-
-                                linkstatus = "status-good mob-view";
-
-
-                                if (useranswers[k - 1].time_taken < {{ $examtime }}) {
-                                    linkstatus = "status-exelent mob-view";
-                                }
-                            }
-                        }
-
-                        var label_name = v.label;
-                        
-                        if (k==res.links.length-1) {
-                                var label_name = ">>";
-                            }
-                        if (v.active || !v.url) {
-
-                            
-
-                            if (k==0) {
-                                var label_name = "<<";
-                            }
-                           
-                            $('#lesson-footer-pagination').append(`
-                                <button class="${linkstatus} btn btn-secondary ${v.active?"active":""}" disabled  >${label_name}</button>
-                            `)
-                        } else {
-                            $('#lesson-footer-pagination').append(`
-                                <button class="${linkstatus} btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${label_name}</button>
-                            `)
-                        }
-                        
-                    })
+    $.each(res.links, function(k, v) {
+        let linkstatus = "";
+        if (k != 0 && k != res.links.length && useranswers[k - 1]) {
+            linkstatus = 'status-bad mob-view';
+            if (useranswers[k - 1].iscorrect) {
+                linkstatus = "status-good mob-view";
+                if (useranswers[k - 1].time_taken < {{ $examtime }}) {
+                    linkstatus = "status-exelent mob-view";
                 }
+            }
+        }
+
+        // Set label_name based on button position
+        let label_name = v.label;
+        if (k == 0) {
+            label_name = "<<";  // Always display '<<' for the first button
+        } else if (k == res.links.length - 1) {
+            label_name = ">>";  // Display '>>' for the last button
+        }
+
+        if (v.active || !v.url) {
+            $('#lesson-footer-pagination').append(`
+                <button class="${linkstatus} btn btn-secondary ${v.active ? "active" : ""}" disabled>${label_name}</button>
+            `);
+        } else {
+            $('#lesson-footer-pagination').append(`
+                <button class="${linkstatus} btn btn-secondary" onclick="loadlessonreview('${v.url}')">${label_name}</button>
+            `);
+        }
+    });
+}
+
 
 
                 if (res.total > 1) {
