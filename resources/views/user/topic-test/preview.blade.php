@@ -268,15 +268,15 @@
                     $.each(res.links, function(k, v) {
                         let linkstatus = "";
                         if (k != 0 && k != res.links.length && useranswers[k - 1]) {
-                            linkstatus = 'status-bad';
+                            linkstatus = 'status-bad mob-view';
                             if (useranswers[k - 1].iscorrect) {
 
 
-                                linkstatus = "status-good";
+                                linkstatus = "status-good mob-view";
 
 
                                 if (useranswers[k - 1].time_taken < {{ $examtime }}) {
-                                    linkstatus = "status-exelent";
+                                    linkstatus = "status-exelent mob-view";
                                 }
                             }
                         }
