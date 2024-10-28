@@ -3263,6 +3263,20 @@ nav.navbar.top-barhide { display: none;}
 .content_section.mock-class .exam-list .exam-title {margin: 0 0 0;}
 
 
+.modal.importadmin-user .modal-dialog .modal-content {border-radius: 10px;}
+.modal.importadmin-user .modal-dialog .modal-content h4 {color: #218df8;font-size: 20px;font-weight: 600;}
+.modal.importadmin-user .modal-dialog .modal-content .modal-body .import-peoples { width: 100%; margin: 0 0 16px !important;}
+.modal.importadmin-user .modal-dialog .modal-content .modal-body .import-peoples label.file-upload {width: 100%;display: flex; flex-wrap: wrap; align-items: center; justify-content: center;padding: 15px; border: 1px solid #BCBCBC; border-radius: 10px; max-width: 152px;}
+.modal.importadmin-user .modal-dialog .modal-content .modal-body .import-peoples label.file-upload img { padding: 12% 38%; width: 100%; height: 100%; object-fit: contain; background: #EFEFEF; border-radius: 10px;}
+.modal.importadmin-user .modal-dialog .modal-content .modal-body  .text-fields { width: 100%; margin: 0 0 16px;}
+.modal.importadmin-user .modal-dialog .modal-content .modal-body .text-fields label { font-size: 16px; margin: 0 0 10px;}
+.modal.importadmin-user .modal-dialog .modal-content .modal-body .text-fields select { height: 44px; border: 1px solid rgba(188, 188, 188, 1); padding: 11px; border-radius: 10px; font-size: 14px; background: url(../images/chevron-down.svg) no-repeat center; background-position-x: 95%; background-size: 12px;}
+.modal.importadmin-user .modal-dialog .modal-content .modal-body .text-fields input {height: 44px; border: 1px solid rgba(188, 188, 188, 1); padding: 11px; border-radius: 10px; font-size: 14px; background: none;}
+.modal.importadmin-user .modal-dialog .modal-content .modal-body button.btn.btn-danger { background: #000; border: 1px solid #000;}
+.modal.importadmin-user .modal-dialog .modal-content .modal-body button.btn.btn-danger:hover { color: #000; background: none;}
+.modal.importadmin-user .modal-dialog .modal-content .modal-body button.btn.btn-warning { background: none; border: 1px solid #000; color: #000;}
+.modal.importadmin-user .modal-dialog .modal-content .modal-body button.btn.btn-warning:hover { background: #000; color: #ffff;}
+
 
 @media screen and (max-width:1599px) {
 .live-modal .modal-dialog .modal-row .modal-col1 .form-row .text-field-preview p { width: 100%; margin: 0 0 10px;}
