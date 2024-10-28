@@ -239,17 +239,17 @@
                 let linkstatus="";
                 console.log(res.links.length);
                         if(k!=0&&k!=res.links.length&&useranswers[k-1]){
-                            linkstatus='status-bad';
+                            linkstatus='status-bad mob-view';
                             
 
                             if (res.data.review_type == 'short_notes') {
                             
-                            linkstatus = "status-grey";
+                            linkstatus = "status-grey mob-view";
                         } 
                             if(useranswers[k-1].iscorrect){
 
                             
-                                linkstatus="status-good";
+                                linkstatus="status-good mob-view";
 
 
                                 
@@ -276,8 +276,8 @@
                 let linkstatus="";
                 console.log(res.links.length);
                         if(k!=0&&k!=res.links.length&&useranswers[k-1]){
-                            linkstatus='status-bad';
-                            console.log(res.data.review_type,'yuyuyuy');
+                            linkstatus="status-bad";
+                          
 
                             if (res.data.review_type == 'short_notes') {
                             // If the review type is 'short_notes', assign 'status-grey'
