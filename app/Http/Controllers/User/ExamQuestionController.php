@@ -316,36 +316,31 @@ class ExamQuestionController extends Controller
             ]);
             $exam=Exam::find( $exam->id );
         }
-        // $data=[];
-        // foreach(UserExamReview::where('user_id',$user->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->where('exam_id',$exam->id)->get() as  $row){
-        //     $data[]=[
-        //         'slug'=>$row->slug,
-        //         'date'=>Carbon::parse($row->created_at)->format('Y-m-d h:i a'),
-        //         'progress'=>$row->progress,
-        //         'url'=>route('question-bank.preview',$row->slug),
-        //     ];
-        // }
-        // return [
-        //     'data'=>$data,
-        //     'url'=>route('question-bank.set.show',[
-        //         'category'=>$category->slug,
-        //         'sub_category'=>$subCategory->slug,
-        //         'setname'=>$setname->slug
-        //     ]),
-        //     'name'=>$subCategory->name
-        // ];
-        return DataTables::of(UserExamReview::where('user_id',$user->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->where('exam_id',$exam->id)->select('slug','created_at','progress'))
+        $userExamReviews = UserExamReview::where('user_id',$user->id)
+                                            ->where('category_id',$category->id)
+                                            ->where('sub_category_id',$subCategory->id)
+                                            ->where('sub_category_set',$setname->id)
+                                            ->where('exam_id',$exam->id)
+                                            ->select('slug','created_at','progress','id','exam_id');
+        return DataTables::of($userExamReviews)
             ->addColumn('progress',function($data){
-
-                // $numberformat=number_format($data->progress,2);
-                // return $numberformat."%";
-
-                if ($data->progress == 100) {
-                    return "100%"; // Return without decimals
-                } else {
-                    $numberformat = number_format($data->progress, 2);
-                    return $numberformat . "%";
+                $questions = Question::where('exam_id',$data->exam_id)->select('id');
+                $question_count =  UserReviewQuestion::where('user_exam_review_id',$data->id)
+                                                        ->where('exam_id',$data->exam_id)
+                                                        ->whereIn('question_id',$questions)
+                                                        ->count();
+                if($question_count>0){
+                    $right_answers =  UserReviewAnswer::where('user_exam_review_id',$data->id)
+                                                ->where('exam_id',$data->exam_id)
+                                                ->whereIn('question_id',$questions)
+                                                ->where('iscorrect',true)
+                                                ->where('user_answer',true)
+                                                ->count();
+                    $progress = $right_answers * 100 / $question_count;
+                    $data->progress = (floor($progress) == $progress) ? number_format($progress, 0) : number_format($progress, 2);
+                    return $data->progress."%";
                 }
+                return 0;
             })
             ->addColumn('timed',function($data)use($user){
                 return ucfirst($user->progress("exam-review-".(optional(UserExamReview::findSlug($data->slug))->id??"")."-timed"));
