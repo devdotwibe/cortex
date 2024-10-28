@@ -3254,6 +3254,7 @@ nav.navbar.top-barhide { display: none;}
 .modal .modal-content .modal-body { padding: 0;}
 .modal .modal-content .modal-body button.btn.btn-secondary { background: none; border: 1px solid #000; color: #000; margin: 0 10px 0 0;}
 .modal .modal-content .modal-body button.btn.btn-secondary:hover { color: #ffff; background: #000;}
+.modal .modal-content .modal-body button.btn.btn-secondary:last-child {margin-right: 0;}
 
 .private-wrap > .row > .col-md-12 {padding: 0;}
 
