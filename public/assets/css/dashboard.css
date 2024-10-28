@@ -3670,6 +3670,10 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .live-class-section .card.workshop-card h3 {font-size: 22px;}
 .live-class-section .card .card-body .category p { font-size: 16px;}
 
+.invite-wrap.update-classuser > .container { padding: 0;}
+.invite-wrap .forms-inputs input[type="text"] {height: 46px;}
+.invite-wrap .row .card .card-body .mb-3 { padding: 0 0;}
+
 }
 
 
@@ -3797,5 +3801,7 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 
 nav.navbar .dropdown .nav-link.dropdown-toggle { font-size: 16px;}
 .navbar-expand .navbar-nav .dropdown-menu .dropdown-item {font-size: 16px;}
+
+.invite-wrap .forms-inputs { margin: 0 0 16px !important;}
 
 }
