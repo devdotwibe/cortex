@@ -582,9 +582,29 @@ jQuery(document).on("change", "#file_upload", function() {
 
 
                     },
-                    error: function(xhr, status, error) {
-                        console.error(xhr.responseText);
-                    }
+                    // error: function(xhr, status, error) {
+                    //     console.error(xhr.responseText);
+                    // }
+                    error: function(xhr) {
+            // Assuming the server responds with a JSON object containing validation errors
+            if (xhr.responseJSON && xhr.responseJSON.errors) {
+                // Clear any previous error messages
+                $(".error-message").remove();
+                
+                // Display the validation errors
+                $.each(xhr.responseJSON.errors, function(key, messages) {
+                    // Find the form field that corresponds to the error
+                    var field = $('[name="' + key + '"]');
+
+                    // Add error messages below the respective form field
+                    field.after('<div class="error-message" style="color: red;">' + messages.join(', ') + '</div>');
+                });
+            } else {
+                // Handle other errors (like server errors)
+                alert('An error occurred. Please try again later.'); // Generic error message
+            }
+
+            
                 });
             });
 
