@@ -676,11 +676,7 @@ function HideTime() {
                 window.location.href=url;
             }
         }
-        window.onload = function() {
-            const leftButtonPageUrl = $('.lesson-left button.left-btn,.lesson-right button.right-btn').data('pageurl');
-            console.log('Left Button Page URL:', leftButtonPageUrl);
-            //loadlesson($(this).data('pageurl')) 
-        };
+       
          $(function(){  
             loadlesson(progressurl) 
             $('.lesson-left button.left-btn,.lesson-right button.right-btn').click(function(){   
@@ -734,5 +730,39 @@ function HideTime() {
                 exitconfirm($(this).attr("href")); 
             }) 
          })
+
+         //Exit the exam if user switches tab or out of focus 
+          function exitExam(reason) {
+            alert("You have left the exam page, and the exam will now end.");
+            summery.examActive = false;
+            summery.save();
+            updateandsave(function(){
+                var unfinishcount=summery.totalcount-summery.questionids.length; 
+                if(unfinishcount>0){
+                    $('.unfinish-message').show().find('.unfinish-count').text(unfinishcount)
+                }else{
+                    $('.unfinish-message').hide().find('.unfinish-count').text(0)
+                }
+                lessonreviewconfirm() 
+            })   
+            if($('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length>0){
+                $('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').prop('disabled',true)
+            }else{
+                $('#lesson-questionlist-list .forms-inputs input[name="answer"]').prop('readonly',true)
+            } 
+        }
+
+        // Listen for tab switching
+        window.addEventListener('blur', function() {
+            if (summery.examActive) {
+                exitExam("Tab switch detected");
+            }
+        });
+
+        window.addEventListener('focus', function() {
+            if (!summery.examActive) {
+                alert("You have left the exam. The exam is no longer active.");
+            }
+        });
     </script>
 @endpush
