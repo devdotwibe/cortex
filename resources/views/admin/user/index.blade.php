@@ -582,9 +582,28 @@ jQuery(document).on("change", "#file_upload", function() {
 
 
                     },
+
                     error: function(xhr, status, error) {
-                        console.error(xhr.responseText);
+                        if (xhr.responseJSON && xhr.responseJSON.errors) {
+             
+                $(".error-message").remove();
+                
+             
+                $.each(xhr.responseJSON.errors, function(key, messages) {
+                    
+                    var field = $('[name="' + key + '"]');
+
+                   
+                    field.after('<div class="error-message" style="color: red;">' + messages.join(', ') + '</div>');
+                });
+            } else {
+              
+                alert('An error occurred. Please try again later.'); 
+            }
                     }
+
+
+
                 });
             });
 
