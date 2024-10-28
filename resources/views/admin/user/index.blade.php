@@ -583,7 +583,7 @@ jQuery(document).on("change", "#file_upload", function() {
 
                         setTimeout(function() {
                 location.reload(); 
-                           }, 30000); 
+                           }, 10000); 
               
 
 
