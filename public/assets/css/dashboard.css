@@ -3255,6 +3255,7 @@ nav.navbar.top-barhide { display: none;}
 .modal .modal-content .modal-body button.btn.btn-secondary { background: none; border: 1px solid #000; color: #000; margin: 0 10px 0 0;}
 .modal .modal-content .modal-body button.btn.btn-secondary:hover { color: #ffff; background: #000;}
 
+.private-wrap > .row > .col-md-12 {padding: 0;}
 
 
 
@@ -3610,10 +3611,16 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 
 .exam-container .question-bank-review .lesson #lesson-footer-pagination button.btn.mob-view { display: none;}
 
+.private-wrap .private-content .card .card-body .forms-inputs label {font-size: 16px;}
+.private-wrap .private-content .card .card-body .forms-inputs input {height: 46px;}
+
+
 }
 
 @media screen and (max-width:600px){
-.private-wrap .private-content .card .card-body .row .col-md-12 {width: 100%;}
+.private-wrap .private-content .card .card-body .row .col-md-12 {width: 100%; padding: 0 0 0;}
+.private-wrap .private-content .card .card-body .forms-inputs {margin: 0 0 16px !important;}
+.private-wrap .private-content .card {padding: 0 0;}
 
 .payment-wrap .nav.nav-tabs li.nav-item .nav-link {font-size: 13px;}
 
