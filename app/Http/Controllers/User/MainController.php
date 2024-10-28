@@ -203,6 +203,8 @@ class MainController extends Controller
         }
         $topic_count = $questions ? count($questions->get()) :0;      
         $topicprogress= $count ? count($count) :  0; 
+
+        $topiclateprogress=0;
         if($topic_count>0){
             $topiclateprogress=round($topicprogress * 100/$topic_count ,2);
         } 
@@ -229,6 +231,7 @@ class MainController extends Controller
         $moc_count= $questions ? count($questions->get()) :0;
         $mocprogress= $count ? count($count) :  0; 
 
+         $moclateprogress=0;
         if($moc_count>0){
             $moclateprogress=round($mocprogress*100/$moc_count,2);
         } 
