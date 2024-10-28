@@ -47,7 +47,7 @@
                     </a>
                 </div>
 
-                
+
             <div class="Review-mode">
                 <span>Review Mode </span>
             </div>
@@ -239,17 +239,17 @@
                 let linkstatus="";
                 console.log(res.links.length);
                         if(k!=0&&k!=res.links.length&&useranswers[k-1]){
-                            linkstatus='status-bad';
+                            linkstatus='status-bad mob-view';
                             console.log(res.data.review_type,'yuyuyuy');
 
                             if (res.data.review_type == 'short_notes') {
                             // If the review type is 'short_notes', assign 'status-grey'
-                            linkstatus = "status-grey";
+                            linkstatus = "status-grey mob-view";
                         } 
                             if(useranswers[k-1].iscorrect){
 
                             
-                                linkstatus="status-good";
+                                linkstatus="status-good mob-view";
 
 
                                 
