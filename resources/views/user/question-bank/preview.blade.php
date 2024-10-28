@@ -60,7 +60,7 @@
                     <div class="row" id="lesson-questionlist-list" style="display: none">
                     </div>
                 </div>
-                <div class="lesson-footer mob-view" id="lesson-footer-pagination">
+                <div class="lesson-footer" id="lesson-footer-pagination">
                 </div>
             </div>
         </div>
@@ -254,7 +254,7 @@
                                 var label_name = "<";
                             }
                             $('#lesson-footer-pagination').append(`
-                                <button class="${linkstatus} btn btn-secondary ${v.active?"active":""}" disabled  >${label_name}</button>
+                                <button class="${linkstatus} btn btn-secondary mob-view ${v.active?"active":""}" disabled  >${label_name}</button>
                             `)
                         } else {
                             $('#lesson-footer-pagination').append(`
