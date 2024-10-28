@@ -231,7 +231,7 @@
 
 
                         let linkstatuss = "";
-                        if (k != 0 && k != res.links.length && useranswers[k - 1]) {
+                        if (k != 0 && k != res.links.length) {
 
                             linkstatuss = 'mob-view';
                         }
