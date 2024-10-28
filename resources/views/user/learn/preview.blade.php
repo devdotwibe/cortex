@@ -106,6 +106,25 @@
 </section>
 
 
+<section class="modal-expand" id="question-preview-page" style="display: none;">
+    <div class="container-wrap">
+
+
+
+
+        <div class="lesson-footer" id="lesson-footer-paginationmobile">
+        </div>
+
+
+
+
+
+    </div>
+
+
+</section>
+
+
 @endsection
 
 @push('footer-script') 
@@ -127,6 +146,7 @@
             $.get(reviewurl||"{{ route('learn.preview',$userExamReview->slug) }}",function(res){
                 $('.pagination-arrow').hide();
                 $('#lesson-footer-pagination').html('')
+                $('#lesson-footer-paginationmobile').html('')
                 const lesseonId=generateRandomId(10); 
                 $.each(res.data,function(k,v){ 
                     if(v.review_type=="short_notes"){
@@ -240,6 +260,42 @@
                      })
                 } 
 
+
+
+                if (res.total > 1) {
+            $.each(res.links, function(k, v) {
+                let linkstatus="";
+                console.log(res.links.length);
+                        if(k!=0&&k!=res.links.length&&useranswers[k-1]){
+                            linkstatus='status-bad';
+                            console.log(res.data.review_type,'yuyuyuy');
+
+                            if (res.data.review_type == 'short_notes') {
+                            // If the review type is 'short_notes', assign 'status-grey'
+                            linkstatus = "status-grey";
+                        } 
+                            if(useranswers[k-1].iscorrect){
+
+                            
+                                linkstatus="status-good";
+
+
+                                
+                            }
+
+                            
+                        }
+                        if(v.active||!v.url){
+                            $('#lesson-footer-paginationmobile').append(`
+                                <button class="btn btn-secondary  ${linkstatus} ${v.active?"active":""}" disabled  >${v.label}</button>
+                            `)
+                        }else{
+                            $('#lesson-footer-paginationmobile').append(`
+                                <button class="btn btn-secondary ${linkstatus}" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
+                            `)
+                        }
+                     })
+                } 
 
                 
                 $('.lesson-end').show();
