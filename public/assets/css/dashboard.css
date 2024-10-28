@@ -3278,6 +3278,8 @@ nav.navbar.top-barhide { display: none;}
 .modal.importadmin-user .modal-dialog .modal-content .modal-body button.btn.btn-warning:hover { background: #000; color: #ffff;}
 
 
+.header_nav .header_wrapp .header_content .select2-container--default .select2-selection--single button.select2-selection__clear {margin: 6px 24px 0 0;}
+
 
 @media screen and (max-width:1599px) {
 .live-modal .modal-dialog .modal-row .modal-col1 .form-row .text-field-preview p { width: 100%; margin: 0 0 10px;}
