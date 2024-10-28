@@ -447,12 +447,12 @@ class UserController extends Controller
 
 
         $request->validate([
-            'datas' => 'required|json', // Ensure 'datas' is present and valid JSON
-            'expiry_date' => 'required|date', // Ensure 'expiry_date' is a valid date
-            'path' => 'required|string', // Ensure 'path' is present and a string
+            'datas' => 'required', 
+            'expiry_date' => 'required', 
+            
         ]);
 
-        
+
         $datas = json_decode($request->input('datas'), true);
 
         $experidate = $request->expiry_date;
