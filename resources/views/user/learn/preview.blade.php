@@ -39,6 +39,15 @@
                 </div>
             </div>
 
+
+            
+                <div class="menu-icon modecolor">
+                    <a onclick="toglepreviewpage()">
+                        <img src="{{ asset('assets/images/menu.svg') }}" alt="exiticon">
+                    </a>
+                </div>
+
+                
             <div class="Review-mode">
                 <span>Review Mode </span>
             </div>
