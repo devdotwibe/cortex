@@ -258,7 +258,7 @@
                             `)
                         } else {
                             $('#lesson-footer-pagination').append(`
-                                <button class="${linkstatus} btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
+                                <button class="${linkstatus} btn btn-secondary mob-view" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
                             `)
                         }
                         
