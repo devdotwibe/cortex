@@ -230,20 +230,20 @@
                     $.each(res.links, function(k, v) {
 
 
-                        let linkstatus = "";
+                        let linkstatuss = "";
                         if (k != 0 && k != res.links.length) {
 
-                            linkstatus = 'mob-view';
+                            linkstatuss = 'mob-view';
                         }
                         
 
                         if (v.active || !v.url) {
                             $('#lesson-footer-pagination').append(`
-                                <button class="${linkstatus}btn btn-secondary ${v.active?"active":""}" disabled  >${v.label}</button>
+                                <button class="${linkstatuss}btn btn-secondary ${v.active?"active":""}" disabled  >${v.label}</button>
                             `)
                         } else {
                             $('#lesson-footer-pagination').append(`
-                                <button class="${linkstatus}btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
+                                <button class="${linkstatuss}btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
                             `)
                         }
                     })
