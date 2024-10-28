@@ -3658,6 +3658,7 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .private-wrap .private-content .card .card-body .forms-inputs .form-check input {width: 18px;height: 18px; margin-left: -25px; margin-top: 6px;}
 .private-wrap .private-content .card .card-body .forms-inputs .form-check label {font-size: 16px;}
 .private-wrap .private-content .card .card-body .forms-inputs .form-check {padding-left: 25px;}
+.private-wrap .private-content .card .card-body .mb-3{padding: 0 0 0;}
 
 }
 
