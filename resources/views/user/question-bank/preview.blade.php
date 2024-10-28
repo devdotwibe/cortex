@@ -234,15 +234,15 @@
                     $.each(res.links, function(k, v) {
                         let linkstatus = "";
                         if (k != 0 && k != res.links.length && useranswers[k - 1]) {
-                            linkstatus = 'status-bad';
+                            linkstatus = 'status-bad mob-view';
                             if (useranswers[k - 1].iscorrect) {
 
 
-                                linkstatus = "status-good";
+                                linkstatus = "status-good mob-view";
 
 
                                 if (useranswers[k - 1].time_taken < {{ $examtime }}) {
-                                    linkstatus = "status-exelent";
+                                    linkstatus = "status-exelent mob-view";
                                 }
                             }
                         }
@@ -254,11 +254,11 @@
                                 var label_name = "<";
                             }
                             $('#lesson-footer-pagination').append(`
-                                <button class="${linkstatus} btn btn-secondary mob-view ${v.active?"active":""}" disabled  >${label_name}</button>
+                                <button class="${linkstatus} btn btn-secondary ${v.active?"active":""}" disabled  >${label_name}</button>
                             `)
                         } else {
                             $('#lesson-footer-pagination').append(`
-                                <button class="${linkstatus} btn btn-secondary mob-view" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
+                                <button class="${linkstatus} btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
                             `)
                         }
                         
