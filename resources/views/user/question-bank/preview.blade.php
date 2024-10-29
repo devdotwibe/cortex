@@ -177,7 +177,7 @@
                                         </div>
                                         <div id="mcq-${lesseonId}-explanation" class="mcq-explanation"> 
                                             <label>Correct Answer <span id="mcq-${lesseonId}-correct"></span></label>
-                                            ${v.explanation||''}
+                                            <p>${v.explanation||''}</p>
                                         </div>
 
                                         <div id="mcq-${lesseonId}-ans-progress" class="form-group">
