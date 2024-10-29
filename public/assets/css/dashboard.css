@@ -429,6 +429,11 @@ button.close {
   border-radius: 0;
   min-height: calc(100vh - 135px);
 }
+
+.bartop-hide .exam-container .container-wrap {
+  height: calc(100vh - 60px);
+}
+
 .lesson .lesson-title {
   margin: 0 0 32px 35px;
   padding: 2px 0 2px 15px;
