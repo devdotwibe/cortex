@@ -431,7 +431,7 @@ button.close {
 }
 
 .bartop-hide .exam-container .container-wrap {
-  height: calc(100vh - 60px);
+  min-height: calc(100vh - 60px);
 }
 
 .lesson .lesson-title {
