@@ -12,6 +12,7 @@
     <div class="container">
         <div class="row">
             @foreach ($categorys as $k=> $item)
+            @if($item->time_of_exam) 
             <div class="col-md-6">
  
                     <div class="card">
@@ -46,6 +47,7 @@
                         </div>
                     </div>    
             </div>
+            @endif
             @endforeach  
         </div>
     </div>
