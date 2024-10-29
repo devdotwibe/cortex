@@ -3490,6 +3490,8 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 
 .exam-container.topictestclass .summery-wrap .summery-title { font-size: 20px;}
 
+.bartop-hide .exam-container.exam-video .container-wrap {min-height: calc(100vh - 50px);}
+
 }
 
 @media screen and (max-width:767px) {
