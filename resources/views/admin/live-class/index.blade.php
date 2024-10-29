@@ -745,4 +745,18 @@ These open group sessions condense the entire Thinking Skills curriculum into te
             });
         });
     </script>
+    <script>
+        // JavaScript function to display the image preview
+        function previewImage(event) {
+            const previewBox = document.getElementById('preview-box');
+            const previewImage = document.getElementById('preview-image');
+            
+            // Show preview box
+            previewBox.style.display = 'block';
+    
+            // Display the image
+            const file = event.target.files[0];
+            previewImage.src = URL.createObjectURL(file);
+        }
+    </script>
 @endpush
