@@ -418,32 +418,52 @@ class UserController extends Controller
 
     public function import_users_from_csv(Request $request)
     {
-
-
+        // Check if a file has been uploaded
         if ($request->hasFile('file_upload')) {
             $file = $request->file('file_upload');
-
-            dd($file);
-
-
-            $avathar = "files";
-            $filePath = $avathar . "/" . md5(time()) . "." . $file->getClientOriginalExtension();
-            Storage::put("{$filePath}", file_get_contents($file));
-            $data = json_decode(Storage::get($filePath), true);
-
-
-            $headers = isset($data[0]) ? $data[0] : [];
-
-            return response()->json(["data" => $headers, "filepath" => $filePath]);
+    
+            // Define the storage path and save the file
+            $filePath = "files/" . md5(time()) . "." . $file->getClientOriginalExtension();
+            Storage::put($filePath, file_get_contents($file));
+    
+            // Open the CSV file for reading
+            $csvData = array_map('str_getcsv', file(Storage::path($filePath)));
+    
+            // Check if data is present
+            if (empty($csvData)) {
+                return response()->json(['message' => 'The CSV file is empty.'], 400);
+            }
+    
+            // Print each element and find unique emails
+            $uniqueEmails = [];
+            foreach ($csvData as $index => $row) {
+                // Skip the header row
+                if ($index === 0) {
+                    continue; // Assuming the first row is the header
+                }
+    
+                // Assuming email is in the second column (index 1)
+                $email = isset($row[1]) ? trim($row[1]) : null;
+    
+                // Print each element of the row
+                foreach ($row as $element) {
+                    echo $element . " "; // Print each element in the row
+                }
+                echo "<br>"; // Line break for readability
+    
+                // Add to unique emails array
+                if ($email && !in_array($email, $uniqueEmails)) {
+                    $uniqueEmails[] = $email; // Store unique emails
+                }
+            }
+    
+            // Return unique emails
+            return response()->json(['unique_emails' => $uniqueEmails, 'filepath' => $filePath]);
         }
-        // } catch (\Throwable $th) {
-        //     //throw $th;
-        // return response()->json(['message' => $th->getMessage()], 400);
-        // }
-
+    
         return response()->json(['message' => 'No file uploaded'], 400);
     }
-
+    
     public function import_users_from_csv_submit(Request $request)
     {
 
