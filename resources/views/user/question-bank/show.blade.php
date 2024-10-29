@@ -3,6 +3,9 @@
 @section('content')
 <section class="container set-container">
     <div class="container-wrap">
+        <div class="header_title">
+            <h2>Learn</h2>
+        </div>
         <div class="lesson">                  
             <a class="lesson-exit float-start" href="{{route('question-bank.index')}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
                 <img src="{{asset("assets/images/exiticon.svg")}}" alt="exiticon">
