@@ -423,6 +423,8 @@ class UserController extends Controller
         if ($request->hasFile('file_upload')) {
             $file = $request->file('file_upload');
 
+            dd($file);
+
 
             $avathar = "files";
             $filePath = $avathar . "/" . md5(time()) . "." . $file->getClientOriginalExtension();
