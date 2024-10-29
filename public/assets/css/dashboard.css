@@ -2219,6 +2219,10 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
   color: #FBAE1E;
 }
 
+.invite-wrap .row .card .card-body form button.btn.btn-dark {
+  margin: 11px 0 0;
+}
+
 .invite-wrap .row .card .card-body .mb-3 {
   padding: 0 10px;
 }
