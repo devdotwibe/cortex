@@ -2220,6 +2220,10 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 }
 
 .invite-wrap .row .card .card-body form button.btn.btn-dark {
+  margin: 11px 10px 0 0;
+}
+
+.invite-wrap .row .card .card-body form .btn.btn-secondary {
   margin: 11px 0 0;
 }
 
@@ -3300,6 +3304,20 @@ nav.navbar.top-barhide { display: none;}
   font-size: 20px;
   font-weight: 600;
   margin: 0 0 20px;
+}
+
+.table-outer table tbody tr td .btn-icons.view_btn {
+  background: #000;
+  color: #ffff;
+  width: auto;
+  height: auto;
+  padding: 7px 12px;
+  border: 1px solid #000;
+}
+
+.table-outer table tbody tr td .btn-icons.view_btn:hover {
+  background: none;
+  color: #000;
 }
 
 @media screen and (max-width:1599px) {
