@@ -19,7 +19,7 @@
             </div>
             <div class="login-right">
                 <div class="card @error('login') login-error @enderror">
-                    
+                    <h2>Change Password</h2>
                    
                     @error('login')
                     <div class="alert alert-danger" role="alert">

@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\SubFaqController;
+use App\Http\Controllers\Admin\HashtagController;
 use App\Http\Controllers\Admin\ClassDetailController;
 use App\Http\Controllers\Admin\ExamController;
 use App\Http\Controllers\Admin\FullMockExamController;
@@ -167,7 +168,9 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::resource('/post', CommunityControllerController::class);
 
             Route::get('/search', [CommunityControllerController::class, 'search'])->name('search');
-            Route::get('/hashtags', [PostReportController::class,'hashtags'])->name('hashtags');
+
+            Route::get('/hashtags', [HashtagController::class,'hashtags'])->name('hashtags');
+
             Route::get('/report-post', [PostReportController::class,'index'])->name('report.index');
             Route::delete('/report-post/{report_post}', [PostReportController::class,'destroy'])->name('report.destroy');
             Route::get('/report-post/{report_post}', [PostReportController::class,'show'])->name('report.show');
