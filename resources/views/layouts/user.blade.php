@@ -102,7 +102,7 @@
                             $user = Auth::user();
                             $subscriptionStatus = optional($user->subscription())->status ?? 'Free Trial';
                         @endphp
-                        {{ $user->is_free_access ? 'Free Trial' : ($subscriptionStatus === 'subscribed' ? 'Premium' : 'Free Trial') }}
+                        {{ $user->is_free_access ? 'Premium' : ($subscriptionStatus === 'subscribed' ? 'Premium' : 'Free Trial') }}
                     </span>
                 </li>
                 
