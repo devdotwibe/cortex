@@ -634,9 +634,8 @@ margin-left:auto;
   padding: 0 30px;
 }
 
-.exam-container.exam-video .container-wrap {
-  /* background: none;
-  box-shadow: none; */
+.bartop-hide .exam-container.exam-video .container-wrap {
+  min-height: calc(100vh - 59px);
 }
 
 #finish-exam-confirm .modal-content {
