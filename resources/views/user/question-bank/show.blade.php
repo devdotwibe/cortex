@@ -166,22 +166,9 @@
     
     <script> 
     localStorage.setItem("question-bank", "timed");
-    // function changemode(v){
-    //     localStorage.setItem("question-bank", v);
-    // }
-
-    function changemode(v) {
+    function changemode(v){
         localStorage.setItem("question-bank", v);
     }
-
-    document.addEventListener("DOMContentLoaded", function() {
-        const savedMode = localStorage.getItem("question-bank");
-        if (savedMode) {
-            document.getElementById(`option-${savedMode}`).checked = true;
-        }
-    });
-
-    
     async function confimexam(url){
         if(await showConfirm({ title:"Start the question set" })){
             window.location.href=url;
