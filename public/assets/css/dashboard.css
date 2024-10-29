@@ -3196,7 +3196,7 @@ nav.navbar.top-barhide { display: none;}
 #private-class-modal .modal-content {padding: 20px; border-radius: 10px;}
 #private-class-modal .modal-content .modal-header {border: none; padding: 0; margin: 0 0 20px;}
 #private-class-modal .modal-content .modal-header h5 { font-size: 20px; font-weight: 500; color: #218df8;}
-#private-class-modal .modal-content .modal-header button.close { position: absolute; right: 15px; top: 0;}
+#private-class-modal .modal-content .modal-header button.close { position: absolute; right: 15px; top: 15px;}
 #private-class-modal .modal-content .modal-body { padding: 0;}
 #private-class-modal .modal-content .modal-body table thead th { background: #1989F8;}
 #private-class-modal .modal-content .modal-body table thead th:first-child { border-radius: 10px 0 0 0;}
