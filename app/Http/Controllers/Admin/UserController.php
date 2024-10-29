@@ -429,17 +429,40 @@ class UserController extends Controller
             $avathar = "files";
             $filePath = $avathar . "/" . md5(time()) . "." . $file->getClientOriginalExtension();
             Storage::put("{$filePath}", file_get_contents($file));
-            $data = json_decode(Storage::get($filePath), true);
 
 
-            $headers = isset($data[0]) ? $data[0] : [];
+            $csvData = array_map('str_getcsv', file(Storage::path($filePath)));
 
-            return response()->json(["data" => $headers, "filepath" => $filePath]);
+        // Check if data is present
+        if (empty($csvData)) {
+            return response()->json(['message' => 'The CSV file is empty.'], 400);
         }
-        // } catch (\Throwable $th) {
-        //     //throw $th;
-        // return response()->json(['message' => $th->getMessage()], 400);
-        // }
+
+        // Print each element and find unique emails
+        $uniqueEmails = [];
+        foreach ($csvData as $index => $row) {
+            // Skip the header row
+            if ($index === 0) {
+                continue; // Assuming the first row is the header
+            }
+
+            // Assuming email is in the second column (index 1)
+            $email = isset($row[1]) ? trim($row[1]) : null;
+
+            // Print each element of the row
+            foreach ($row as $element) {
+                echo $element . " "; // Print each element in the row
+            }
+            echo "<br>"; // Line break for readability
+
+            // Add to unique emails array
+            if ($email && !in_array($email, $uniqueEmails)) {
+                $uniqueEmails[] = $email; // Store unique emails
+            }
+        }
+
+        return response()->json(['unique_emails' => $uniqueEmails, 'filepath' => $filePath]);
+    }
 
         return response()->json(['message' => 'No file uploaded'], 400);
     }
