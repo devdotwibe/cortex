@@ -192,19 +192,19 @@ class LiveClassController extends Controller
                     $action .= '
                     <a class="btn btn-icons" onclick="rejectrequest(\'' . route("admin.live-class.request.show", $data->slug) . '\')">
                         <span class="adminside-icon">
-                            <img src="' . asset('assets/images/icons/accept.svg') . '" alt="Reject">
+                            <img src="' . asset('assets/images/icons/icon-park-outline_reject.svg') . '" alt="Reject">
                         </span>
                         <span class="adminactive-icon">
-                            <img src="' . asset('assets/images/iconshover/accept-yellow.svg') . '" alt="Reject Active">
+                            <img src="' . asset('assets/images/iconshover/icon-park-outline_reject-yellow.svg') . '" alt="Reject Active">
                         </span>
                     </a>
             
                     <a class="btn btn-icons" data-id="' . $data->user->slug . '" onclick="acceptrequest(\'' . route("admin.live-class.request.show", $data->slug) . '\')">
                         <span class="adminside-icon">
-                            <img src="' . asset('assets/images/icons/icon-park-outline_reject.svg') . '" alt="Accept">
+                            <img src="' . asset('assets/images/icons/accept.svg') . '" alt="Accept">
                         </span>
                         <span class="adminactive-icon">
-                            <img src="' . asset('assets/images/iconshover/icon-park-outline_reject-yellow.svg') . '" alt="Accept Active">
+                            <img src="' . asset('assets/images/iconshover/accept-yellow.svg') . '" alt="Accept Active">
                         </span>
                     </a>
                     ';
