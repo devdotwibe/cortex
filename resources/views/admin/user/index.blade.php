@@ -243,12 +243,18 @@
         function usertableinit(table) {
             usertable = table
         }
-        function usertablefilter(d){
-            d = d || {}; 
-            d.usertype=$('#user-filter').val()
-            
-            return d;
-        }
+        function usertablefilter(d) {
+    d = d || {}; 
+    d.usertype = $('#user-filter').val();
+
+    // Set a timeout to refresh the page after 30 seconds
+    setTimeout(function() {
+        location.reload(); // Refresh the page
+    }, 10000); // 30000 milliseconds = 30 seconds
+
+    return d;
+}
+
         function changeactivestatus(url){
             $.get(url,function(res){
                 if (usertable != null) {
