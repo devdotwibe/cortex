@@ -402,5 +402,270 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+        // function CloseCommon() {
+        //     $('#table-common-edit').modal('hide');
+
+        //     var commonedit = $('#common_button').data('button');
+        //     console.log(commonedit);
+
+        //     if (commonedit == 'subcategory') {
+        //         $('#table-sub_category-create').modal('show');
+        //     } else if (commonedit == 'set') {
+        //         $('#table-addset-create').modal('show');
+        //     } else {
+
+        //     }
+        // }
+
+ 
+
+        // function CloseSet() {
+        //     $('#table-addset-create').modal('hide');
+
+        //     $('#table-sub_category-create').modal('show');
+
+        //     // beforeajaxcallback(data);
+
+        //     $('#table-sub_category').DataTable().ajax.reload();
+        // }
+
+
+
+
+
+        // function EditSub(url, slug, type) {
+
+        //     $('#table-form-edit-common').attr('action', url);
+
+        //     var route = "{{ route('admin.get_edit_details') }}";
+
+        //     $.ajax({
+
+        //         url: route,
+        //         method: "get",
+        //         data: {
+        //             slug: slug,
+        //             type: type,
+
+        //         },
+
+        //         success: function(response) {
+
+
+
+        //             if (type == 'category') {
+
+        //                 $('#table_common_edit_Label').text("Edit Category");
+
+        //                 $('#common_label').text('Category');
+
+        //                 $('#common_button').data('button', 'category');
+
+        //             } else if (type == 'subcategory')
+
+        //             {
+
+        //                 $('#table-sub_category-create').modal('hide');
+
+        //                 $('#table_common_edit_Label').text("Edit Sub Category");
+
+        //                 $('#common_label').text('Subcategory');
+
+        //                 $('#common_button').data('button', 'subcategory');
+        //             } else {
+        //                 $('#table-addset-create').modal('hide');
+
+        //                 $('#table_common_edit_Label').text("Edit Set Name");
+
+        //                 $('#common_label').text('Set Name');
+
+        //                 $('#common_button').data('button', 'set');
+
+        //             }
+
+
+        //             $('#table-common-edit').modal('show');
+
+        //             $('#common_name').val(response.name);
+
+        //             $('.invalid-feedback').text('');
+
+        //         },
+
+        //         error: function(xhr) {
+
+        //             var errors = xhr.responseJSON.errors;
+
+        //             console.log(errors);
+
+        //         }
+        //     });
+
+        // }
+
+        // function SubCat(url, slug) {
+
+        //     $('#table-sub_category-create').modal('show');
+
+        //     $('.invalid-feedback').text('');
+
+        //     $('#table-form-sub').attr('action', url);
+        //     $('#table-sub_category').data('category', slug).DataTable().ajax.reload();
+
+        // }
+
+        // function AddSet(url, slug) {
+        //     console.log(url);
+        //     $('#table-sub_category-create').modal('hide');
+
+        //     $('#table-addset-create').modal('show');
+
+        //     $('.invalid-feedback').text('');
+
+        //     $('#table-form-addset').attr('action', url);
+        //     $('#table-addset').data('set_name', slug).DataTable().ajax.reload();
+
+        // }
+
+        // $(document).ready(function() {
+
+        //     $('#table-form-edit-common').on('submit', function(e) {
+        //         e.preventDefault();
+
+        //         $.ajax({
+        //             url: $(this).attr('action'),
+        //             method: $(this).attr('method'),
+        //             data: $(this).serialize(),
+
+        //             success: function(response) {
+
+        //                 $('#table-common-edit').modal('hide');
+
+        //                 if (response.type == 'category') {
+        //                     $('#table-module').DataTable().ajax.reload();
+        //                 } else if (response.type == 'subcategory') {
+        //                     $('#table-sub_category-create').modal('show');
+
+        //                     $('#table-sub_category').DataTable().ajax.reload();
+        //                 } else {
+        //                     $('#table-addset-create').modal('show');
+
+        //                     $('#table-addset').DataTable().ajax.reload();
+        //                 }
+
+        //                 console.log(response.type);
+
+        //                 $('#common_name').val("");
+
+        //                 $('.invalid-feedback').text('');
+
+        //             },
+
+        //             error: function(xhr) {
+
+        //                 var errors = xhr.responseJSON.errors;
+
+        //                 $.each(errors, function(key, value) {
+
+        //                     $('#common_name-error').text(value[0]).show();
+
+        //                 });
+
+        //             }
+        //         });
+        //     });
+        // });
+
+        // $(document).ready(function() {
+
+        //     $('#table-form-sub').on('submit', function(e) {
+        //         e.preventDefault();
+
+        //         $.ajax({
+        //             url: $(this).attr('action'),
+        //             method: $(this).attr('method'),
+        //             data: $(this).serialize(),
+
+        //             success: function(response) {
+
+        //                 $('#table-sub_category-create').modal('show');
+
+        //                 $('#table-sub_category').DataTable().ajax.reload();
+        //                 $('#sub_name').val("");
+
+        //                 $('.invalid-feedback').text('');
+
+        //             },
+
+        //             error: function(xhr) {
+
+        //                 var errors = xhr.responseJSON.errors;
+
+        //                 $.each(errors, function(key, value) {
+
+        //                     $('#' + key + '-error').text(value[0]).show();
+
+        //                 });
+
+        //             }
+        //         });
+        //     });
+        // });
+
+
+        // $(document).ready(function() {
+
+        //     $('#table-form-addset').on('submit', function(e) {
+        //         e.preventDefault();
+
+        //         $.ajax({
+        //             url: $(this).attr('action'),
+        //             method: $(this).attr('method'),
+        //             data: $(this).serialize(),
+
+        //             success: function(response) {
+
+        //                 $('#table-addset-create').modal('show');
+
+        //                 $('#table-addset').DataTable().ajax.reload();
+        //                 $('#set_name').val("");
+
+        //                 $('.invalid-feedback').text('');
+
+        //             },
+
+        //             error: function(xhr) {
+
+        //                 var errors = xhr.responseJSON.errors;
+
+        //                 $.each(errors, function(key, value) {
+
+        //                     $('#' + key + 'set_name-error').text(value[0]).show();
+
+        //                 });
+
+        //             }
+        //         });
+        //     });
+        // });
     </script>
 @endpush
