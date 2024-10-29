@@ -3744,6 +3744,11 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .invite-wrap .forms-inputs input[type="text"] {height: 46px;}
 .invite-wrap .row .card .card-body .mb-3 { padding: 0 0;}
 
+.modal.faq-modal .modal-dialog .faq-form .forms-inputs .tabfaq {width: 100%; margin: 0 0 15px;}
+.modal.faq-modal .modal-dialog .faq-form .col-md-4 { width: 100%;}
+.modal.faq-modal .modal-dialog .faq-form .col-md-4.pt-4 { width: 100%; padding-top: 0 !important;}
+.modal.faq-modal .modal-dialog .faq-form .forms-inputs { margin: 0 0 0 !important;}
+
 }
 
 
