@@ -444,41 +444,27 @@ class UserController extends Controller
 
     public function import_users_from_csv_submit(Request $request)
     {
-        // Validate the input fields
+
+
         $request->validate([
-            'expiry_date' => 'required|date',  
-            'datas' => 'required', // Ensure datas is provided
+            'first_name' => 'required|string|max:255', 
+         
+        'email' => 'required|max:255',       
+        'expiry_date' => 'required|date',  
+         
+            
         ]);
 
-        $expiryDate = $request->expiry_date;
-        $filePath = $request->input('path', '');
 
-        // Decode the incoming data from the request
         $datas = json_decode($request->input('datas'), true);
 
-        $insertedUsers = []; // To keep track of inserted users
+        $experidate = $request->expiry_date;
 
-        foreach ($datas as $data) {
-            // Extract the relevant fields from the data
-            $firstName = $data['first_name'] ?? null;
-            $email = $data['email'] ?? null;
+        $filePath = $request->input('path', '');
 
-            // Check if the email is unique
-            if ($email && !User::where('email', $email)->exists()) {
-                // If the email is unique, create a new user
-                $insertedUsers[] = User::create([
-                    'first_name' => $firstName,
-                    'email' => $email,
-                    'expiry_date' => $expiryDate,
-                    // Add other fields as necessary
-                ]);
-            }
-        }
+        dispatch(job: new ImportIbDataJob($datas, $filePath, $experidate));
 
-        // You can dispatch the job here if needed
-        // dispatch(new ImportIbDataJob($insertedUsers, $filePath, $expiryDate));
 
-        return response()->json(['success' => 'Import process completed successfully', 'inserted_users' => count($insertedUsers)]);
+        return response()->json(['success' => 'Import process has started successfully']);
     }
-
 }
