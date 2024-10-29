@@ -244,6 +244,7 @@
             usertable = table
         }
         function usertablefilter(d){
+            d = d || {}; 
             d.usertype=$('#user-filter').val()
             return d;
         }
