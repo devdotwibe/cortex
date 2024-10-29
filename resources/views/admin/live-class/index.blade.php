@@ -91,36 +91,28 @@
 
                                             </span>
 
-                                            {{-- <span id="card_image_upload_1" style="display:none">
-
-                                                <input type="file" name="class_image_1" id="class_image_1"
-                                                    class="form-control">
-
-                                                <div class="preview-box" id="preview-box"
-                                                    style="width:300px; height:200px; display:none">
-
-                                                    <img id="preview-image" class="image-preview">
-
-                                                </div>
-
-                                            </span> --}}
-
-                                            <div class="col-md-12 ">
+                                            <span id="card_image_upload_1" style="display:none">
                                                 <div class="form-group import-class">
                                                     <div class="form-data import-uclass">
                                                         <div class="forms-inputs mb-4 import-peoples">
-                                                            <label for="file_upload" class="file-upload">Upload File <br>
+                                                            <label for="class_image_1" class="file-upload">Upload File <br>
                                                                 <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
                                                             </label>
-                                                            <input type="file" name="file_upload" id="file_upload" accept=".csv,.xlsx"
-                                                                   class="form-control" style="display: none;">
-                                                            @error('file_upload')
+                                                            <input type="file" name="class_image_1" id="class_image_1" class="form-control" style="display: none;"
+                                                                   onchange="previewImage(event)">
+                                                            
+                                                            @error('class_image_1')
                                                                 <div class="text-danger">{{ $message }}</div>
                                                             @enderror
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                                
+                                                <!-- Preview Box -->
+                                                <div class="preview-box" id="preview-box" style="width:300px; height:200px; display:none;">
+                                                    <img id="preview-image" class="image-preview" style="width:100%; height:100%; object-fit:cover;">
+                                                </div>
+                                            </span>
 
                                         </div>
 
