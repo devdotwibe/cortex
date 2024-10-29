@@ -93,8 +93,8 @@
 
                                             <span id="card_image_upload_1" style="display:none">
 
-                                                <input type="file" name="class_image_1" id="class_image_1"
-                                                    class="form-control">
+                                                {{-- <input type="file" name="class_image_1" id="class_image_1"
+                                                    class="form-control"> --}}
 
                                                 <div class="preview-box" id="preview-box"
                                                     style="width:300px; height:200px; display:none">
