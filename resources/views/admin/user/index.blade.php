@@ -582,10 +582,9 @@ jQuery(document).on("change", "#file_upload", function() {
 
 
                         setTimeout(function() {
-                window.location.reload(); 
-                           }, 10000); 
-              
-
+                window.location.reload(true); // Force refresh from server
+            }, 10000); // 30000 milliseconds = 30 seconds
+        
 
 
 
