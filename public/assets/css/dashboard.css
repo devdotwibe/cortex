@@ -1993,10 +1993,11 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month .fc-multimonth-header table thead tr th .fc-col-header-cell-cushion { color: #000000;}
 .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month table tbody tr td { border: none; padding: 1%; vertical-align: middle;}
 .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month table tbody tr td .fc-daygrid-day-frame { min-height: auto;}
-.card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month table tbody tr td .fc-daygrid-day-frame .fc-daygrid-day-top { position: relative; z-index: 9; justify-content: center; align-items: center; margin: 3px 0 0;}
+.card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month table tbody tr td .fc-daygrid-day-frame .fc-daygrid-day-top { position: relative; z-index: 9; justify-content: center; align-items: center; margin: 3px 0 0;height: 2.26vw;}
 .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month table tbody tr td .fc-daygrid-day-frame .fc-daygrid-day-top .fc-daygrid-day-number { color: #000;  font-size: 12px;}
 .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month table tbody tr td .fc-daygrid-day-frame .fc-daygrid-day-events { width: 100%; height: 100%; top: 0;}
-.card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month table tbody tr td .fc-daygrid-day-frame .fc-daygrid-day-events .fc-event { min-height: 20px;}
+.card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month table tbody tr td .fc-daygrid-day-frame .fc-daygrid-day-events .fc-daygrid-event-harness {height: 100%;}
+.card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month table tbody tr td .fc-daygrid-day-frame .fc-daygrid-day-events .fc-event { min-height: 100%;}
 .card-calendar .card-body .calendar .calendar-body .fc-header-toolbar .fc-toolbar-chunk h2 { font-size: 18px;}
 .card-calendar { border: none; border-radius: 10px;}
 .card-graph { border: none;  border-radius: 10px;}
