@@ -4,12 +4,14 @@
 <section class="header_nav">
     <div class="header_wrapp">
         <div class="header_title">
+            <div class="lesson">   
             <a class="lesson-exit float-start" href="{{route('question-bank.index')}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
                 <img src="{{asset("assets/images/exiticon.svg")}}" alt="exiticon">
             </a> 
             <div class="lesson-title">
                 <h5><span>{{$exam->subtitle($category->id,"Topic ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h5>
             </div>
+        </div>
         </div>
     </div>
 </section>
