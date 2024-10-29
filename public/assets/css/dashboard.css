@@ -3284,6 +3284,14 @@ nav.navbar.top-barhide { display: none;}
 
 .exam-container .mcq-container-wrap .lesson #lesson-footer-pagination {padding: 28px 0; border-block: 1px solid #1789fa; display: inline-block;}
 
+.exam-container.answerclass  .mcq-container-wrap.full-mock-exam-review .lesson .lesson-body .mcq-container .mcq-group {
+  height: calc(100vh - 210px);
+}
+
+.exam-container.answerclass .mcq-container-wrap.full-mock-exam-review .lesson .lesson-body .mcq-container .mcq-answer {
+  height: calc(100vh - 210px);
+}
+
 @media screen and (max-width:1599px) {
 .live-modal .modal-dialog .modal-row .modal-col1 .form-row .text-field-preview p { width: 100%; margin: 0 0 10px;}
 }
