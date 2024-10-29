@@ -3292,6 +3292,12 @@ nav.navbar.top-barhide { display: none;}
   height: calc(100vh - 210px);
 }
 
+.exam-container .lesson .lesson-body .mcq-container .mcq-group-right .correctanswerclass {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 20px;
+}
+
 @media screen and (max-width:1599px) {
 .live-modal .modal-dialog .modal-row .modal-col1 .form-row .text-field-preview p { width: 100%; margin: 0 0 10px;}
 }
