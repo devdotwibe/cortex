@@ -22,7 +22,7 @@
                                         <div class="form-group">
                                             <div class="form-data">
                                                 <div class="forms-inputs mb-4">
-                                                    <label for="name-table-category-form-create">Category Name</label>
+                                                    <label for="name-table-category-form-create">Hashtags</label>
                                                     <input type="search" name="name"
                                                         id="name-table-category-form-create" class="form-control ">
                                                     <div class="invalid-feedback"
@@ -39,11 +39,11 @@
                                     </div>
                                 </div>
                             </form>
-                            <x-ajax-table title="Add Category" :coloumns="[
+                            {{-- <x-ajax-table title="Add Category" :coloumns="[
                                 ['th' => 'Date', 'name' => 'created_at', 'data' => 'date'],
                                 ['th' => 'Category', 'name' => 'name', 'data' => 'name'],
                                 ['th' => 'Visible', 'name' => 'visible_status', 'data' => 'visibility'],
-                            ]"  tableinit="cattableinit"   />
+                            ]"  tableinit="cattableinit"   /> --}}
                         </div>
                     </div>
                 </div>
