@@ -95,18 +95,19 @@
                                 <div class="form-group">
                                     <div class="form-data">
                                         <div class="forms-inputs mb-4"> 
-                                           
+                                           <div class="tabfaq">
                                             <label for="name-table-subcategory-form-create">Question</label>
                                             <input type="text" name="question" id="name-table-subcategory-form-create" data-field-input="question" class="form-control "  >
 
                                             <div class="invalid-feedback" data-update="question" id="name-error-table-subcategory-form-create"></div>
-
-                                            <label for="name-table-subcategory-form-create">Answer</label>
+                                           </div>
+                                          <div class="tabfaq">
+                                         <label for="name-table-subcategory-form-create">Answer</label>
                                             <textarea name="answer" id="name-table-subcategory-form-create-ans" class="form-control" data-field-input="answer" cols="30" rows="5"></textarea>
 
                                             <div class="invalid-feedback" data-update="answer" id="name-error-table-subcategory-form-create"></div>
                                             {{-- <input type="text" name="name" id="name-table-subcategory-form-create" class="form-control "  > --}}
-                                            
+                                          </div>
                                             <input type="hidden" name="faq_id" id="faq_id" value="">
 
                                            
