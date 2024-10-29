@@ -2740,7 +2740,7 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 #lockedModal .modal-content .modal-header button.close { position: absolute;  right: 15px; top: 0;}
 #lockedModal .modal-content .modal-footer { padding-top: 0; border: none;}
 
-#intensive-workshop-payment-modal .modal-content { padding: 10px; border-radius: 10px;}
+#intensive-workshop-payment-modal .modal-content { padding: 20px; border-radius: 10px;}
 #intensive-workshop-payment-modal .modal-content .modal-header {padding-bottom: 0; border: none; justify-content: left;}
 #intensive-workshop-payment-modal .modal-content p { font-size: 16px; line-height: 1.5; margin: 0 0 20px;}
 #intensive-workshop-payment-modal .modal-dialog { max-width: 425px; top: 42%; transform: translateY(-50%);}
@@ -2749,8 +2749,8 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 #intensive-workshop-payment-modal .modal-content .modal-body .btn.btn-secondary { width: 48%; border: 1px solid #8F8F8F; background: none; color: #000000;}
 #intensive-workshop-payment-modal .modal-content .modal-body .btn.btn-dark:hover { background: none; color: #000;}
 #intensive-workshop-payment-modal .modal-content .modal-body .btn.btn-secondary:hover { background: #8F8F8F; color: #fff;}
-#intensive-workshop-payment-modal .modal-content .modal-header button.close { position: absolute;  right: 15px; top: 0;}
-
+#intensive-workshop-payment-modal .modal-content .modal-header button.close { position: absolute;  right: 15px; top: 15px;}
+#intensive-workshop-payment-modal .modal-content .modal-body .btn.btn-dark:last-child {margin-right: 0;}
 
 
 .lesson-pagination .exam-right.exam-progress-inner-item {margin: 0 20px 0 auto;}
