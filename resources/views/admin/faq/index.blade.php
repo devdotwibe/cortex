@@ -77,7 +77,7 @@
 @endsection
 
 @push('modals')
-    <div class="modal fade bd-example-modal-lg" id="sub-category-create-modal" tabindex="-1" role="dialog"
+    <div class="modal fade bd-example-modal-lg faq-modal" id="sub-category-create-modal" tabindex="-1" role="dialog"
         aria-labelledby="sub-category-createLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content" id="sub-category-modal-content">
@@ -90,7 +90,7 @@
                 <div class="modal-body"> 
                     <form  class="form" id="subcategory" method="post" action="{{route('admin.faq.subfaq-store')}}">{{-- action="" data-save="create" data-action="" data-createurl="" > --}}
                         @csrf                
-                        <div class="row"> 
+                        <div class="row faq-form"> 
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <div class="form-data">
