@@ -298,124 +298,6 @@ class UserController extends Controller
 
 
 
-
-    // public function import_users_from_csv(Request $request)
-    // {
-    //     // dd($request->all());
-    //     //exit();
-    //     $file = $request->file('file_upload');
-
-    //     if (!empty($file)) {
-    //         $avatar = "files";
-    //         $imageName = $avatar . "/" . $file->hashName();
-    //         Storage::put($imageName, file_get_contents($file));
-
-    //         $filePath = storage_path('app/' . $imageName);
-
-
-    //         $data = array_map('str_getcsv', file($filePath));
-
-
-
-
-
-    //         return response()->json(["data" => $data, "filepath" => $filePath]);
-    //     }
-
-
-    //     return response()->json(['message' => 'No file uploaded'], 400);
-    // }
-    // public function import_users_from_csv_submit(Request $request)
-    // {
-
-
-    //     $datas = json_decode($request->input('datas'), true);
-
-
-
-    //     $filePath = $request->input('path');
-    //     $csvData = array_map('str_getcsv', file($filePath));
-    //     $reversedData = array_reverse($csvData);
-
-    //     $columnNames = array_pop($reversedData);
-
-    //     foreach ($reversedData as $row) {
-
-    //         $usersub = new UserSubscription();
-    //         $user = new User();
-
-    //         foreach ($datas as $fieldName => $csvColumn) {
-
-    //             $userColumns = Schema::getColumnListing('users');
-
-    //             $csvColumnIndex = array_search($csvColumn, $columnNames);
-
-
-    //             if ($csvColumnIndex !== false && in_array($fieldName, $userColumns, true)) {
-    //                 $user->{$fieldName} = $row[$csvColumnIndex];
-    //             }
-
-    //             $name[]="";
-
-    //             if ($csvColumnIndex !== false && in_array($fieldName, $userColumns, true)) {
-    //                 $user->{$fieldName} = $row[$csvColumnIndex];
-
-    //         //         if($user->first_name ==$row[$csvColumnIndex])
-    //         //         {
-    //         //             $name[] = $row[$csvColumnIndex];
-    //         //         }
-
-    //         //         if($user->last_name ==$row[$csvColumnIndex])
-    //         //         {
-    //         //             $name[] = $row[$csvColumnIndex];
-    //         //         }
-    //         //     }
-
-    //         // }
-    //          // Capture first name and last name separately
-    //          if ($fieldName === 'first_name') {
-    //             $firstName = $row[$csvColumnIndex]; // Save first name
-    //         } elseif ($fieldName === 'last_name') {
-    //             $lastName = $row[$csvColumnIndex]; // Save last name
-    //         }
-    //     }
-    // }
-    //             // $user->name = $name[0] ."". $name[1];
-    //             $user->name = trim($firstName . ' ' . $lastName); // Combine and trim spaces
-
-
-
-    //             $user->password = "";
-
-
-
-
-    //             $user->save();
-
-    //             $usersub->status = "subscribed";
-    //             $usersub->user_id = $user->id;
-    //             $usersub->expire_at = $request->expiry_date;
-    //             $usersub->subscription_plan_id =0;
-    //             $usersub->pay_by = 0;
-    //             $usersub->save();
-
-    //     }
-
-    //     return response()->json($csvData);
-    // }
-
-
-
-
-
-
-
-
-
-
-
-
-
     public function import_users_from_csv(Request $request)
     {
 
@@ -423,32 +305,21 @@ class UserController extends Controller
         if ($request->hasFile('file_upload')) {
             $file = $request->file('file_upload');
 
-           
-
 
             $avathar = "files";
             $filePath = $avathar . "/" . md5(time()) . "." . $file->getClientOriginalExtension();
             Storage::put("{$filePath}", file_get_contents($file));
+            $data = json_decode(Storage::get($filePath), true);
 
 
-            $csvData = array_map('str_getcsv', file(Storage::path($filePath)));
+            $headers = isset($data[0]) ? $data[0] : [];
 
-        // Check if data is present
-        if (empty($csvData)) {
-            return response()->json(['message' => 'The CSV file is empty.'], 400);
+            return response()->json(["data" => $headers, "filepath" => $filePath]);
         }
-
-        // Print each element and find unique emails
-        $uniqueEmails = [];
-        foreach ($csvData as $index => $row) {
-            // Skip the header row
-            $uniqueEmails = $row;
-        }
-
-        dd ($uniqueEmails);
-
-        return response()->json(['unique_emails' => $uniqueEmails, 'filepath' => $filePath]);
-    }
+        // } catch (\Throwable $th) {
+        //     //throw $th;
+        // return response()->json(['message' => $th->getMessage()], 400);
+        // }
 
         return response()->json(['message' => 'No file uploaded'], 400);
     }
