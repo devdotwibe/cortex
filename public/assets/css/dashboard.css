@@ -3900,7 +3900,7 @@ nav.navbar .dropdown .nav-link.dropdown-toggle { font-size: 16px;}
 
 }
 
-@media screen and (min-width:1500px) {
+@media screen and (min-width:1400px) {
   .card-calendar .card-body .calendar .calendar-footer .calendar-color-list .calendar-color-item span {
     font-size: 15px;
 }
