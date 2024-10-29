@@ -3342,6 +3342,13 @@ nav.navbar.top-barhide { display: none;}
 .header_nav .header_wrapp .header_title .lesson .lesson-title { margin: 0 0 0 35px;}
 
 
+@media screen and (max-width:1700px) {
+  .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month table tbody tr td .fc-daygrid-day-frame .fc-daygrid-day-top {
+    height: 2vw;
+}
+}
+
+
 @media screen and (max-width:1599px) {
 .live-modal .modal-dialog .modal-row .modal-col1 .form-row .text-field-preview p { width: 100%; margin: 0 0 10px;}
 }
