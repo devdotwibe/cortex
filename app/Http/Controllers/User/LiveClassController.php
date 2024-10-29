@@ -91,7 +91,7 @@ class LiveClassController extends Controller
 
         PrivateClass::store($data); 
 
-        return redirect()->route('live-class.privateclass', $user->slug)->with('success','Class Requiested Succesfully');
+        return redirect()->route('live-class.privateclass', $user->slug)->with('success','Class Requested Succesfully');
 
     }
  

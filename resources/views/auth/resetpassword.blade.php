@@ -1,40 +1,49 @@
 @extends('layouts.auth')
 @section('title', 'Login')
 @section('content')
+
+
+
 <section class="login-wrapp">
-    <div class="container mt-5">
-        <div class="row d-flex justify-content-center">
-            <div class="col-md-6">
-                <div class="card @error('login') login-error @enderror px-5 py-5">
+    <div class="login-head">
+        <div class="logo">
+            <a href="">
+                <img src="{{asset('assets/images/logo1.svg')}}" alt="">
+            </a>
+        </div>
+    </div>
+    <div class="login-cont">
+        <div class="login-row">
+            <div class="login-left">
+                <img src="{{asset('assets/images/Book-lover-bro.png')}}" alt="">
+            </div>
+            <div class="login-right">
+                <div class="card @error('login') login-error @enderror">
+                    
+                   
                     @error('login')
                     <div class="alert alert-danger" role="alert">
                         <span>{{$message}}</span>
                     </div>
                     @enderror
-                    @session('message')
+                    @session('success')
                     <div class="alert alert-success">
-                        {{ session('message') }}
+                        {{ session('success') }}
                     </div>
                     @endsession
 
-                    @session('success')
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
+                    @session('status')
+                    <div class="alert alert-success">
+                        {{ session('status') }}
+                    </div>
                     @endsession
-
-                    @error('email')
-                        <div class="alert alert-danger">
-                            <span>{{ $message }}</span>
-                        </div>
-                    @endif
 
                     <form action="{{url()->current()}}" class="form" method="post">
                         @csrf 
                         <div class="form-group">
                             <div class="form-data">
                                 
-                                <div class="forms-inputs mb-4"> 
+                            <div class="forms-inputs mb-4"> 
                                     <span>Password</span> 
                                     <input autocomplete="off" name="password" type="password" placeholder="Enter your password" class="form-control @error('password') is-invalid @enderror " >
                                     @error('password')
@@ -51,6 +60,7 @@
                                     @enderror
     
                                 </div>
+
 
                                 @error('credential')
                                 <span class="invalid-feedback">{{ $message }}</span>
@@ -71,10 +81,17 @@
                             </div>
                         </div>
                     </form>
-                                
+                  
+                       
+                    </p> 
+
+                     
+
                 </div>
             </div>
         </div>
     </div>
 </section> 
+
+
 @endsection
