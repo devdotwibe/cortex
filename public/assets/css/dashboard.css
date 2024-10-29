@@ -2024,10 +2024,10 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .card-calendar .card-body .calendar .calendar-footer .calendar-color-list { width: 100%;  display: flex;  flex-wrap: wrap;}
 .card-calendar .card-body .calendar .calendar-footer .calendar-color-list .calendar-color-item {width: 48%; margin: 15px 2% 0 0;}
 .card-calendar .card-body .calendar .calendar-footer .calendar-color-list .calendar-color-item .colorspan { width: 20px; height: 20px; border-radius: 3px; margin: 0 2px -5px 0;}
-.card-calendar .card-body .calendar .calendar-footer .calendar-color-list .calendar-color-item .colorspan.nodata { border: 1px solid #E1E1E1;}
-.card-calendar .card-body .calendar .calendar-footer .calendar-color-list .calendar-color-item .colorspan.somedata { border: 1px solid #91C188;}
-.card-calendar .card-body .calendar .calendar-footer .calendar-color-list .calendar-color-item .colorspan.lotsdata { border: 1px solid #4B9773;}
-.card-calendar .card-body .calendar .calendar-footer .calendar-color-list .calendar-color-item .colorspan.admindata { border: 1px solid #FFCD56;}
+.card-calendar .card-body .calendar .calendar-footer .calendar-color-list .calendar-color-item .colorspan.nodata { border: 1px solid #E1E1E1;background: #E1E1E1;}
+.card-calendar .card-body .calendar .calendar-footer .calendar-color-list .calendar-color-item .colorspan.somedata { border: 1px solid #91C188;background: #91C188;}
+.card-calendar .card-body .calendar .calendar-footer .calendar-color-list .calendar-color-item .colorspan.lotsdata { border: 1px solid #4B9773;background: #4B9773;}
+.card-calendar .card-body .calendar .calendar-footer .calendar-color-list .calendar-color-item .colorspan.admindata { border: 1px solid #FFCD56;background: #FFCD56;}
 .card-calendar .card-body .calendar .calendar-footer .calendar-color-list .calendar-color-item span { font-size: 12px;}
 .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month table tbody tr td.fc-day.fc-day-today.fc-daygrid-day { background: none;}
 .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month table tbody tr td.fc-day.fc-day-today.fc-daygrid-day .fc-daygrid-day-frame .fc-daygrid-day-events .fc-event {background: #a3a3a3 !important;}
