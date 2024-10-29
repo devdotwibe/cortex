@@ -2093,7 +2093,7 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .live-class-section .card .card-body .category-image img { width: 100%; height: 100%;  object-fit: contain;}
 .live-class-section .private-class-card .card-body .category h3 { font-size: 24px; color: #3F8D26; margin: 0 0 20px;}
 .live-class-section .card .card-body .category { justify-content: center;}
-.live-class-section .card .card-body .category p { font-size: 20px; color: #4A4A4A; line-height: 1.56;}
+.live-class-section .card .card-body .category p { font-size: 16px; color: #4A4A4A; line-height: 1.56;}
 .live-class-section .card.workshop-card h3 { font-size: 24px; color: #334CA9; margin: 0 0 20px;}
 .live-class-section .card:hover { transform: scale(1.01);}
 
