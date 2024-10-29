@@ -634,9 +634,8 @@ margin-left:auto;
   padding: 0 30px;
 }
 
-.exam-container.exam-video .container-wrap {
-  /* background: none;
-  box-shadow: none; */
+.bartop-hide .exam-container.exam-video .container-wrap {
+  min-height: calc(100vh - 59px);
 }
 
 #finish-exam-confirm .modal-content {
@@ -3491,6 +3490,8 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 
 .exam-container.topictestclass .summery-wrap .summery-title { font-size: 20px;}
 
+.bartop-hide .exam-container.exam-video .container-wrap {min-height: calc(100vh - 50px);}
+
 }
 
 @media screen and (max-width:767px) {
@@ -3741,7 +3742,7 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .card-calendar .card-body .calendar .calendar-body .fc-header-toolbar button.fc-button { padding: 5px;}
 .card-calendar .card-body .calendar .calendar-body .fc-header-toolbar button.fc-button .fc-icon { width: 20px; height: 20px; font-size: 16px;}
 .card-calendar .card-body .calendar .calendar-body .fc-header-toolbar .fc-toolbar-chunk h2 { font-size: 14px;}
-.card-calendar .card-body .calendar .calendar-body .fc-view-harness { max-height: inherit;  height: 100vw !important;}
+.card-calendar .card-body .calendar .calendar-body .fc-view-harness { max-height: inherit;  height: 422px !important;}
 .card-progress .card-body .col-md-3 { width: 50%;  margin: 0 0 20px;}
 .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month {width: 100% !important; padding: 0 0 0 !important;}
 .card-calendar .card-body .calendar .calendar-footer .calendar-color-list .calendar-color-item { width: 100%; margin: 0 0 10px;}
