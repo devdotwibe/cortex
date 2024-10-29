@@ -26,7 +26,7 @@
                     <div class="card-body">
                         <form class="form" id="table-category-form-create" data-save="create" method="post" action="{{route('admin.faq.store')}}">
                            
-                            <div class="row">
+                            <div class="row tabouter">
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <div class="form-data">
@@ -77,7 +77,7 @@
 @endsection
 
 @push('modals')
-    <div class="modal fade bd-example-modal-lg" id="sub-category-create-modal" tabindex="-1" role="dialog"
+    <div class="modal fade bd-example-modal-lg faq-modal" id="sub-category-create-modal" tabindex="-1" role="dialog"
         aria-labelledby="sub-category-createLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content" id="sub-category-modal-content">
@@ -90,23 +90,24 @@
                 <div class="modal-body"> 
                     <form  class="form" id="subcategory" method="post" action="{{route('admin.faq.subfaq-store')}}">{{-- action="" data-save="create" data-action="" data-createurl="" > --}}
                         @csrf                
-                        <div class="row"> 
+                        <div class="row faq-form"> 
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <div class="form-data">
                                         <div class="forms-inputs mb-4"> 
-                                           
+                                           <div class="tabfaq">
                                             <label for="name-table-subcategory-form-create">Question</label>
                                             <input type="text" name="question" id="name-table-subcategory-form-create" data-field-input="question" class="form-control "  >
 
                                             <div class="invalid-feedback" data-update="question" id="name-error-table-subcategory-form-create"></div>
-
-                                            <label for="name-table-subcategory-form-create">Answer</label>
+                                           </div>
+                                          <div class="tabfaq">
+                                         <label for="name-table-subcategory-form-create">Answer</label>
                                             <textarea name="answer" id="name-table-subcategory-form-create-ans" class="form-control" data-field-input="answer" cols="30" rows="5"></textarea>
 
                                             <div class="invalid-feedback" data-update="answer" id="name-error-table-subcategory-form-create"></div>
                                             {{-- <input type="text" name="name" id="name-table-subcategory-form-create" class="form-control "  > --}}
-                                            
+                                          </div>
                                             <input type="hidden" name="faq_id" id="faq_id" value="">
 
                                            
@@ -120,7 +121,7 @@
                             </div>
                         </div> 
                     </form>
-
+                <div class="table-outer">
                     <table class="table" id="subfaq" style="width: 100%">
                         <thead>
                             <tr>
@@ -133,6 +134,7 @@
                         <tbody> 
                         </tbody>
                             </table>
+                </div>
                 </div> 
             </div>
             

@@ -17,7 +17,7 @@
 
 <section class="content_section">
     <div class="container">
-        <div class="row">
+        <div class="row tableclass-outer">
             @foreach ($booklets as  $k=>$item)
             <div class="col-md-6">
                 <div class="card mb-3">
@@ -58,7 +58,7 @@
                             aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
-                    <div class="row">
+                    <div class="row table-classouter">
                         <div class="col-xs-12">
                             <div class="table-outer" id="attemt-list">
                                 
