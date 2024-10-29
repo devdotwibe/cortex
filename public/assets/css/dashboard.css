@@ -1997,7 +1997,7 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month table tbody tr td .fc-daygrid-day-frame .fc-daygrid-day-top .fc-daygrid-day-number { color: #000;  font-size: 12px;}
 .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month table tbody tr td .fc-daygrid-day-frame .fc-daygrid-day-events { width: 100%; height: 100%; top: 0;}
 .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month table tbody tr td .fc-daygrid-day-frame .fc-daygrid-day-events .fc-daygrid-event-harness {height: 100%;}
-.card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month table tbody tr td .fc-daygrid-day-frame .fc-daygrid-day-events .fc-event { min-height: 100%; background: rgb(225, 225, 225) !important;}
+.card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiMonthFourMonth-view .fc-multimonth-month table tbody tr td .fc-daygrid-day-frame .fc-daygrid-day-events .fc-event { min-height: 100%;}
 .card-calendar .card-body .calendar .calendar-body .fc-header-toolbar .fc-toolbar-chunk h2 { font-size: 18px;}
 .card-calendar { border: none; border-radius: 10px;}
 .card-graph { border: none;  border-radius: 10px;}
@@ -2742,7 +2742,7 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
   border-radius: 6px;
 }
 
-#lockedModal .modal-content { padding: 10px; border-radius: 10px;}
+#lockedModal .modal-content { padding: 20px; border-radius: 10px;}
 #lockedModal .modal-content .modal-header {padding-bottom: 0; border: none; justify-content: left;}
 #lockedModal .modal-content p { font-size: 16px; line-height: 1.5; margin: 0 0 20px;}
 #lockedModal .modal-dialog { max-width: 425px; top: 42%; transform: translateY(-50%);}
@@ -2751,8 +2751,8 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 #lockedModal .modal-content .modal-footer .btn-secondary {width: 48%;border: 1px solid #8F8F8F;background: none;color: #000000;margin: 0 0 0;}
 #lockedModal .modal-content .modal-footer .btn-primary:hover { background: none; color: #000;}
 #lockedModal .modal-content .modal-footer .btn-secondary:hover { background: #8F8F8F; color: #fff;}
-#lockedModal .modal-content .modal-header button.close { position: absolute;  right: 15px; top: 0;}
-#lockedModal .modal-content .modal-footer { padding-top: 0; border: none;}
+#lockedModal .modal-content .modal-header button.close { position: absolute;  right: 15px; top: 15px;}
+#lockedModal .modal-content .modal-footer { padding: 0; border: none; justify-content: flex-start;}
 
 #intensive-workshop-payment-modal .modal-content { padding: 20px; border-radius: 10px;}
 #intensive-workshop-payment-modal .modal-content .modal-header {padding-bottom: 0; border: none; justify-content: left;}
@@ -3393,6 +3393,8 @@ nav.navbar.top-barhide { display: none;}
 .exam-container.topictestclass .summery-wrap .summery-title h1 { font-size: 24px;}
 .exam-container .summery-wrap p { font-size: 18px;}
 
+.card-progress .card-body .session-text {font-size: 13px;}
+.card-progress .card-body .session-chart .donut-inner { font-size: 13px;}
 
 }
 
@@ -3896,6 +3898,12 @@ nav.navbar .dropdown .nav-link.dropdown-toggle { font-size: 16px;}
 
 .invite-wrap .forms-inputs { margin: 0 0 16px !important;}
 
+}
+
+@media screen and (min-width:1500px) {
+  .card-calendar .card-body .calendar .calendar-footer .calendar-color-list .calendar-color-item span {
+    font-size: 15px;
+}
 }
 
 @media screen and (min-width:1600px) {
