@@ -146,9 +146,9 @@
 
     
     <script> 
-    localStorage.setItem("question-bank", "timed");
-    function changemode(v){
+    function changemode(v) {
         localStorage.setItem("question-bank", v);
+        document.getElementById(`option-${v}`).checked = true; // Ensure the radio button is selected
     }
     async function confimexam(url){
         if(await showConfirm({ title:"Start the question set" })){
