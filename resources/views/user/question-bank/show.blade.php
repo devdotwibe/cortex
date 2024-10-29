@@ -31,8 +31,9 @@
                         TIMED
                         <input type="radio" name="timed" id="option-timed" value="timed" checked onchange="changemode(this.value)" >
                     </div>
+                    <label for="option-untimed" class="option-item-label"></label>
                     <div class="option-item">
-                        <label for="option-untimed" class="option-item-label">UNTIMED</label>
+                       UNTIMED
                         <input type="radio" name="timed" id="option-untimed" value="untimed" onchange="changemode(this.value)">
                     </div>
                 </div>
