@@ -92,26 +92,17 @@
                                             </span>
 
                                             <span id="card_image_upload_1" style="display:none">
-                                                <div class="form-group import-class">
-                                                    <div class="form-data import-uclass">
-                                                        <div class="forms-inputs mb-4 import-peoples">
-                                                            <label for="class_image_1" class="file-upload">Upload File <br>
-                                                                <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
-                                                            </label>
-                                                            <input type="file" name="class_image_1" id="class_image_1" class="form-control" style="display: none;"
-                                                                   onchange="previewImage(event)">
-                                                            
-                                                            @error('class_image_1')
-                                                                <div class="text-danger">{{ $message }}</div>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
+
+                                                <input type="file" name="class_image_1" id="class_image_1"
+                                                    class="form-control">
+
+                                                <div class="preview-box" id="preview-box"
+                                                    style="width:300px; height:200px; display:none">
+
+                                                    <img id="preview-image" class="image-preview">
+
                                                 </div>
-                                                
-                                                <!-- Preview Box -->
-                                                <div class="preview-box" id="preview-box" style="width:300px; height:200px; display:none;">
-                                                    <img id="preview-image" class="image-preview" style="width:100%; height:100%; object-fit:cover;">
-                                                </div>
+
                                             </span>
 
                                         </div>
@@ -744,19 +735,5 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                 placeholder: "HH : MM"
             });
         });
-    </script>
-    <script>
-        // JavaScript function to display the image preview
-        function previewImage(event) {
-            const previewBox = document.getElementById('preview-box');
-            const previewImage = document.getElementById('preview-image');
-            
-            // Show preview box
-            previewBox.style.display = 'block';
-    
-            // Display the image
-            const file = event.target.files[0];
-            previewImage.src = URL.createObjectURL(file);
-        }
     </script>
 @endpush
