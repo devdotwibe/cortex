@@ -2929,6 +2929,7 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 #sub-category-create-modal .modal-dialog .modal-content .modal-body .btn-secondary { float: left; margin: 12px 0 0 10px;}
 #sub-category-create-modal .modal-dialog .modal-content {border-radius: 10px;}
 #sub-category-create-modal .modal-dialog .modal-content .forms-inputs input {height: 48px; border: 1px solid rgba(188, 188, 188, 1); padding: 11px; border-radius: 10px;}
+#sub-category-create-modal .modal-dialog .modal-content .forms-inputs textarea {height: 150px; border: 1px solid rgba(188, 188, 188, 1); padding: 11px; border-radius: 10px;}
 
 .invite-wrap .forms-inputs label {font-size: 16px; margin: 0 0 10px;}
 .invite-wrap .forms-inputs input[type="text"] { height: 52px; border: 1px solid rgba(188, 188, 188, 1);  padding: 11px; border-radius: 10px;}
@@ -3320,6 +3321,16 @@ nav.navbar.top-barhide { display: none;}
   background: none;
   color: #000;
 }
+
+
+.modal.faq-modal .modal-dialog {max-width: 1200px;}
+.modal.faq-modal .modal-dialog .faq-form .col-md-4 {width: 80%;}
+.modal.faq-modal .modal-dialog .faq-form .col-md-4.pt-4 { width: 20%;}
+.modal.faq-modal .modal-dialog .faq-form .forms-inputs { width: 100%; display: flex; flex-wrap: wrap;}
+.modal.faq-modal .modal-dialog .faq-form .forms-inputs .tabfaq { width: 48.5%; margin: 0 3% 0 0;}
+.modal.faq-modal .modal-dialog .faq-form .forms-inputs .tabfaq:nth-child(2) { margin-right: 0;}
+
+
 
 @media screen and (max-width:1599px) {
 .live-modal .modal-dialog .modal-row .modal-col1 .form-row .text-field-preview p { width: 100%; margin: 0 0 10px;}
