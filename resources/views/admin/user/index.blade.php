@@ -246,6 +246,7 @@
         function usertablefilter(d){
             d = d || {}; 
             d.usertype=$('#user-filter').val()
+            
             return d;
         }
         function changeactivestatus(url){

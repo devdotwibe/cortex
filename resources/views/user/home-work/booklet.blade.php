@@ -5,7 +5,7 @@
 
 
 
-    <section class="exam-container questionclass answerclass onequestionclass">
+    <section class="exam-container questionclass answerclass ">
     <div class="exam-progress">
         <div class="exam-progress-inner">
             <div class="exam-progress-inner-item exam-left">
