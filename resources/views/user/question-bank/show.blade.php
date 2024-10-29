@@ -24,27 +24,17 @@
             <div class="lesson-title">
                 <h5><span>{{$exam->subtitle($category->id,"Topic ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h5>
             </div>  --}}
-            <div class="option-toggle">
-                <label class="option-item" onclick="changemode('timed')">
-                    <input 
-                        type="radio" 
-                        name="timed" 
-                        id="option-timed" 
-                        value="timed" 
-                        checked 
-                    >
-                    <span class="option-item-label">TIMED</span>
-                </label>
-            
-                <label class="option-item" onclick="changemode('untimed')">
-                    <input 
-                        type="radio" 
-                        name="timed" 
-                        id="option-untimed" 
-                        value="untimed" 
-                    >
-                    <span class="option-item-label">UNTIMED</span>
-                </label>
+            <div class="lesson-option">
+                <div class="option-toggle">
+                    <div class="option-item">
+                        <label for="option-timed" class="option-item-label">TIMED</label>
+                        <input type="radio" name="timed" id="option-timed" value="timed" checked onchange="changemode(this.value)" >
+                    </div>
+                    <div class="option-item">
+                        <label for="option-untimed" class="option-item-label">UNTIMED</label>
+                        <input type="radio" name="timed" id="option-untimed" value="untimed" onchange="changemode(this.value)">
+                    </div>
+                </div>
             </div>
             <div class="lesson-body">
                 <div class="row" id="lesson-list">
@@ -146,9 +136,9 @@
 
     
     <script> 
-    function changemode(v) {
+    localStorage.setItem("question-bank", "timed");
+    function changemode(v){
         localStorage.setItem("question-bank", v);
-        document.getElementById(`option-${v}`).checked = true; // Ensure the radio button is selected
     }
     async function confimexam(url){
         if(await showConfirm({ title:"Start the question set" })){
