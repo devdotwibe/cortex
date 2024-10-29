@@ -91,8 +91,13 @@
 
                                             </span>
 
-                                            <span id="card_image_upload_1" style="display:none">
 
+
+
+                                            <span id="card_image_upload_1" style="display:none">
+                                             <label for="class_image_1" class="file-upload">Upload File <br>
+                                                <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
+                                              </label>
                                                 <input type="file" name="class_image_1" id="class_image_1"
                                                     class="form-control">
 
@@ -104,6 +109,9 @@
                                                 </div>
 
                                             </span>
+
+
+
 
                                         </div>
 
