@@ -31,8 +31,10 @@ class HasAvailablePrivateClass
         }elseif($status=="rejected"){
             return redirect()->back()->with('error',"Your account is rejected by the admin, To know more please contact admin@cortex.com");
         }
-        else{
+        elseif($status=="pending"){
             return redirect()->back()->with('error',"Your account is under verification, verification may take 24 hours, please wait.");
+        }else{
+            return redirect()->back()->with('error',"You are not registered in private class. Please register and visit again after verification");
         }
 
     }
