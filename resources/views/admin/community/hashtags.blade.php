@@ -32,8 +32,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-4 pt-4">
-                                        {{-- <button type="submit" class="btn btn-dark" id="table-category-form-submit"> Add +
-                                        </button> --}}
+                                        <button type="submit" class="btn btn-dark" id="table-category-form-submit"> Add +
+                                        </button>
                                         <button type="button" class="btn btn-secondary" style="display: none"
                                             id="table-category-form-clear">Cancel</button>
                                     </div>
