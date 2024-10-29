@@ -167,7 +167,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::resource('/post', CommunityControllerController::class);
 
             Route::get('/search', [CommunityControllerController::class, 'search'])->name('search');
-            Route::get('/hashtags', [PostReportController::class,'hashtags'])->name('hashtags.index');
+            
             Route::get('/report-post', [PostReportController::class,'index'])->name('report.index');
             Route::delete('/report-post/{report_post}', [PostReportController::class,'destroy'])->name('report.destroy');
             Route::get('/report-post/{report_post}', [PostReportController::class,'show'])->name('report.show');
