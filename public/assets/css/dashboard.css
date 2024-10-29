@@ -2220,6 +2220,10 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 }
 
 .invite-wrap .row .card .card-body form button.btn.btn-dark {
+  margin: 11px 10px 0 0;
+}
+
+.invite-wrap .row .card .card-body form .btn.btn-secondary {
   margin: 11px 0 0;
 }
 
@@ -3192,7 +3196,7 @@ nav.navbar.top-barhide { display: none;}
 #private-class-modal .modal-content {padding: 20px; border-radius: 10px;}
 #private-class-modal .modal-content .modal-header {border: none; padding: 0; margin: 0 0 20px;}
 #private-class-modal .modal-content .modal-header h5 { font-size: 20px; font-weight: 500; color: #218df8;}
-#private-class-modal .modal-content .modal-header button.close { position: absolute; right: 15px; top: 0;}
+#private-class-modal .modal-content .modal-header button.close { position: absolute; right: 15px; top: 15px;}
 #private-class-modal .modal-content .modal-body { padding: 0;}
 #private-class-modal .modal-content .modal-body table thead th { background: #1989F8;}
 #private-class-modal .modal-content .modal-body table thead th:first-child { border-radius: 10px 0 0 0;}
@@ -3200,9 +3204,10 @@ nav.navbar.top-barhide { display: none;}
 #private-class-modal .modal-content .modal-body .table-outer { box-shadow: none; padding: 0; overflow-y: auto;}
 #private-class-modal .modal-content .modal-body .forms-inputs label { font-size: 16px; margin: 0 0 10px;}
 #private-class-modal .modal-content .modal-body .forms-inputs input { height: 42px; border: 1px solid rgba(188, 188, 188, 1); padding: 11px; border-radius: 10px; min-width: 225px;}
-#private-class-modal .modal-content .modal-body button.btn.btn-dark { margin: 7px 0 0; padding: 11px 20px; background: #000; border: 1px solid #000; border-radius: 10px; font-size: 12px;}
+#private-class-modal .modal-content .modal-body button.btn.btn-dark { margin: 7px 10px 0 0; padding: 11px 20px; background: #000; border: 1px solid #000; border-radius: 10px; font-size: 12px;}
 #private-class-modal .modal-content .modal-body button.btn.btn-dark:hover { color: #000; background: none;}
 #private-class-modal .modal-content .modal-body table { min-width: 660px;}
+#private-class-modal .modal-content .modal-body button.btn.btn-secondary {border-radius: 10px;font-size: 12px; padding: 11px 20px; margin: 7px 0 0;}
 
 .category-section > .container > .row {justify-content: space-between;}
 .category-section > .container > .row > .col-md-6 { padding: 0; width: 49%;}
@@ -3300,6 +3305,20 @@ nav.navbar.top-barhide { display: none;}
   font-size: 20px;
   font-weight: 600;
   margin: 0 0 20px;
+}
+
+.table-outer table tbody tr td .btn-icons.view_btn {
+  background: #000;
+  color: #ffff;
+  width: auto;
+  height: auto;
+  padding: 7px 12px;
+  border: 1px solid #000;
+}
+
+.table-outer table tbody tr td .btn-icons.view_btn:hover {
+  background: none;
+  color: #000;
 }
 
 @media screen and (max-width:1599px) {
