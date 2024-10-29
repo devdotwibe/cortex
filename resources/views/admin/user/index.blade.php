@@ -243,18 +243,12 @@
         function usertableinit(table) {
             usertable = table
         }
-        function usertablefilter(d) {
-    d = d || {}; 
-    d.usertype = $('#user-filter').val();
-
-    // Set a timeout to refresh the page after 30 seconds
-    setTimeout(function() {
-        location.reload(); // Refresh the page
-    }, 10000); // 30000 milliseconds = 30 seconds
-
-    return d;
-}
-
+        function usertablefilter(d){
+            d = d || {}; 
+            d.usertype=$('#user-filter').val()
+            
+            return d;
+        }
         function changeactivestatus(url){
             $.get(url,function(res){
                 if (usertable != null) {
@@ -584,15 +578,17 @@ jQuery(document).on("change", "#file_upload", function() {
                         $("#import_load_service").css("display","none");
 
                          usertableinit(); 
+
+                         setTimeout(function() {
+                window.location.reload(true); // Force refresh from server
+            }, 10000); // 30000 milliseconds = 30 seconds
+        
        
                         usertablefilter();
          
 
 
-                        setTimeout(function() {
-                window.location.reload(true); // Force refresh from server
-            }, 10000); // 30000 milliseconds = 30 seconds
-        
+                       
 
 
 
