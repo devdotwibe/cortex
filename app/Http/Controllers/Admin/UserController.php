@@ -415,56 +415,61 @@ class UserController extends Controller
 
 
 
-
     public function import_users_from_csv(Request $request)
     {
-
-
         if ($request->hasFile('file_upload')) {
             $file = $request->file('file_upload');
 
+            $filePath = "files/" . md5(time()) . "." . $file->getClientOriginalExtension();
+            Storage::put($filePath, file_get_contents($file));
 
-            $avathar = "files";
-            $filePath = $avathar . "/" . md5(time()) . "." . $file->getClientOriginalExtension();
-            Storage::put("{$filePath}", file_get_contents($file));
-            $data = json_decode(Storage::get($filePath), true);
+            // Read CSV file
+            $csvData = array_map('str_getcsv', file(Storage::path($filePath)));
 
-
-            $headers = isset($data[0]) ? $data[0] : [];
+            $headers = isset($csvData[0]) ? $csvData[0] : [];
 
             return response()->json(["data" => $headers, "filepath" => $filePath]);
         }
-        // } catch (\Throwable $th) {
-        //     //throw $th;
-        // return response()->json(['message' => $th->getMessage()], 400);
-        // }
 
         return response()->json(['message' => 'No file uploaded'], 400);
     }
-
     public function import_users_from_csv_submit(Request $request)
     {
-
-
+        // Validate the input fields
         $request->validate([
-            'first_name' => 'required|string|max:255', 
-         
-        'email' => 'required|max:255',       
-        'expiry_date' => 'required|date',  
-         
-            
+            'expiry_date' => 'required|date',  
+            'datas' => 'required', // Ensure datas is provided
         ]);
 
-
-        $datas = json_decode($request->input('datas'), true);
-
-        $experidate = $request->expiry_date;
-
+        $expiryDate = $request->expiry_date;
         $filePath = $request->input('path', '');
 
-        dispatch(job: new ImportIbDataJob($datas, $filePath, $experidate));
+        // Decode the incoming data from the request
+        $datas = json_decode($request->input('datas'), true);
 
+        $insertedUsers = []; // To keep track of inserted users
 
-        return response()->json(['success' => 'Import process has started successfully']);
+        foreach ($datas as $data) {
+            // Extract the relevant fields from the data
+            $firstName = $data['first_name'] ?? null;
+            $email = $data['email'] ?? null;
+
+            // Check if the email is unique
+            if ($email && !User::where('email', $email)->exists()) {
+                // If the email is unique, create a new user
+                $insertedUsers[] = User::create([
+                    'first_name' => $firstName,
+                    'email' => $email,
+                    'expiry_date' => $expiryDate,
+                    // Add other fields as necessary
+                ]);
+            }
+        }
+
+        // You can dispatch the job here if needed
+        // dispatch(new ImportIbDataJob($insertedUsers, $filePath, $expiryDate));
+
+        return response()->json(['success' => 'Import process completed successfully', 'inserted_users' => count($insertedUsers)]);
     }
+
 }
