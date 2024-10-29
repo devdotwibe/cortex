@@ -2795,6 +2795,8 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .private_section .card .card-body .category button.btn-live-class {margin: 0 0 0 auto;background: no-repeat;border: none;}
 .private_section .card .card-body .category button.btn.btn-dark { float: right; margin: -15px -25px 0 10px;}
 .private_section .card .card-body .category .card-box { display: flex; flex-wrap: wrap; align-items: flex-start;}
+.private_section .card .card-body .category-image label.file-upload {width: 100%; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; padding: 15px; border: 1px solid #BCBCBC; border-radius: 10px; max-width: 300px; margin: 22px auto 0;}
+.private_section .card .card-body .category-image label.file-upload img { padding: 10% 38%;  width: 100%; height: 100%; object-fit: contain; background: #EFEFEF; border-radius: 10px;}
 
 .private_section .card .card-body .category-image span { display: block;}
 .private_section .card .card-body .category-image button { width: 25px; height: 25px;border-radius: 50%;color: #fff; background: #000; border: 1px solid #0000; font-size: 14px; font-weight: 600; position: absolute; right: 0; top: 0;}
