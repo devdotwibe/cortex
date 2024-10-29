@@ -26,8 +26,9 @@
             </div>  --}}
             <div class="lesson-option">
                 <div class="option-toggle">
+                    <label for="option-timed" class="option-item-label"></label>
                     <div class="option-item">
-                        <label for="option-timed" class="option-item-label">TIMED</label>
+                        TIMED
                         <input type="radio" name="timed" id="option-timed" value="timed" checked onchange="changemode(this.value)" >
                     </div>
                     <div class="option-item">
