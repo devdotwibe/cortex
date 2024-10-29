@@ -17,7 +17,7 @@
 
 <section class="content_section">
     <div class="container">
-        <div class="row">
+        <div class="row tableclass-outer">
             @foreach ($booklets as  $k=>$item)
             <div class="col-md-6">
                 <div class="card mb-3">
