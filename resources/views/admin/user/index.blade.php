@@ -578,15 +578,17 @@ jQuery(document).on("change", "#file_upload", function() {
                         $("#import_load_service").css("display","none");
 
                          usertableinit(); 
+
+                         setTimeout(function() {
+                window.location.reload(true); // Force refresh from server
+            }, 10000); // 30000 milliseconds = 30 seconds
+        
        
                         usertablefilter();
          
 
 
-                        setTimeout(function() {
-                window.location.reload(true); // Force refresh from server
-            }, 10000); // 30000 milliseconds = 30 seconds
-        
+                       
 
 
 
