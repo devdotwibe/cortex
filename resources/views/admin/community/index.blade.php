@@ -8,7 +8,7 @@
             </div>
             <div class="header_right">
                 <ul class="nav_bar">
-                    <li class="nav_item"><a href="{{ route('admin.community.report.index') }}" class="nav_link btn">Hashtags</a></li>
+                    <li class="nav_item"><a href="{{ route('admin.community.hashtags') }}" class="nav_link btn">Hashtags</a></li>
                     <li class="nav_item"><a href="{{ route('admin.community.report.index') }}" class="nav_link btn">Reported
                             Post</a></li>
                     <li class="nav_item"><a href="{{ route('admin.community.post.create') }}" class="nav_link btn">Create
