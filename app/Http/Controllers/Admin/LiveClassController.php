@@ -190,7 +190,7 @@ class LiveClassController extends Controller
                 $action = "";
                 if ($data->status == "pending" && !empty($data->user)) {
                     $action .= '
-                    <a class="btn btn-danger btn" onclick="rejectrequest(\'' . route("admin.live-class.request.show", $data->slug) . '\')">
+                    <a class="btn btn-danger btn-sm" onclick="rejectrequest(\'' . route("admin.live-class.request.show", $data->slug) . '\')">
                         <span class="adminside-icon">
                             <img src="' . asset('assets/images/icons/accept.svg') . '" alt="Reject">
                         </span>
@@ -199,7 +199,7 @@ class LiveClassController extends Controller
                         </span>
                     </a>
             
-                    <a class="btn btn-success btn" data-id="' . $data->user->slug . '" onclick="acceptrequest(\'' . route("admin.live-class.request.show", $data->slug) . '\')">
+                    <a class="btn btn-success btn-sm" data-id="' . $data->user->slug . '" onclick="acceptrequest(\'' . route("admin.live-class.request.show", $data->slug) . '\')">
                         <span class="adminside-icon">
                             <img src="' . asset('assets/images/icons/icon-park-outline_reject.svg') . '" alt="Accept">
                         </span>
