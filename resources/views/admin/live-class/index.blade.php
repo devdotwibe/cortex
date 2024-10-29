@@ -81,7 +81,7 @@
 
                                             <label>Image</label>
 
-                                            {{-- <span id="card_image_1">
+                                            <span id="card_image_1">
 
                                                 @if (!empty($live_class->class_image_1))
                                                     <img src="{{ url('d0/' . $live_class->class_image_1) }}">
@@ -89,7 +89,7 @@
                                                     <img src="{{ asset('assets/images/User-red.png') }}">
                                                 @endif
 
-                                            </span> --}}
+                                            </span>
 
                                             <span id="card_image_upload_1" style="display:none">
 
