@@ -3331,6 +3331,8 @@ nav.navbar.top-barhide { display: none;}
 .modal.faq-modal .modal-dialog .faq-form .forms-inputs .tabfaq { width: 48.5%; margin: 0 3% 0 0;}
 .modal.faq-modal .modal-dialog .faq-form .forms-inputs .tabfaq:nth-child(2) { margin-right: 0;}
 
+.header_nav .header_wrapp .header_title h5 {font-size: 20px; font-weight: 700;}
+.header_nav .header_wrapp .header_title .lesson .lesson-title { margin: 0 0 0 35px;}
 
 
 @media screen and (max-width:1599px) {
@@ -3440,6 +3442,8 @@ aside.side_bar.slider-btn { width: 220px !important;}
 .modal-expand.modal-expand-result .container-wrap .result-preview-body .col-md-9 { width: 70%;}
 
 .tabbody .question-item { width: 59px;}
+
+.header_nav .header_wrapp .header_title h5 {font-size: 18px;}
 
 }
 
