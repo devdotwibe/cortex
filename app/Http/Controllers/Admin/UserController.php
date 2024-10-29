@@ -442,24 +442,10 @@ class UserController extends Controller
         $uniqueEmails = [];
         foreach ($csvData as $index => $row) {
             // Skip the header row
-            if ($index === 0) {
-                continue; // Assuming the first row is the header
-            }
-
-            // Assuming email is in the second column (index 1)
-            $email = isset($row[1]) ? trim($row[1]) : null;
-
-            // Print each element of the row
-            foreach ($row as $element) {
-                echo $element . " "; // Print each element in the row
-            }
-            echo "<br>"; // Line break for readability
-
-            // Add to unique emails array
-            if ($email && !in_array($email, $uniqueEmails)) {
-                $uniqueEmails[] = $email; // Store unique emails
-            }
+            $uniqueEmails = $row;
         }
+
+        dd ($uniqueEmails);
 
         return response()->json(['unique_emails' => $uniqueEmails, 'filepath' => $filePath]);
     }
