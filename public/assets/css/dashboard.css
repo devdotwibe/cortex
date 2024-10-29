@@ -3871,8 +3871,8 @@ nav.navbar { padding: 10px 6% 10px 55px;}
 .post-search.menu-view .text-field { width: 90vw;}
 .post-search.menu-view .text-field input { padding: 12px; padding-right: 30px;}
 .post-search .text-field .search-btn img {width: 25px;}
-.post-search .text-field .searchclass {background: #fff; position: absolute; left: 0; top: 90%; padding: 10px; border-radius: 0 0 10px 10px; box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px; opacity: 0; visibility: hidden; transition: all .2s ease-in-out;}
-.post-search.menu-view .text-field .searchclass {opacity: 1; visibility: visible; transition: all .5s ease-in-out;}
+.post-search .text-field .searchclass {background: #fff; position: absolute; left: 0; top: 90%;  border-radius: 0 0 10px 10px; box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px; opacity: 0; visibility: hidden; transition: all .2s ease-in-out;}
+.post-search.menu-view .text-field .searchclass {padding: 10px; opacity: 1; visibility: visible; transition: all .5s ease-in-out;}
 
 .header_nav .header_wrapp .header_right ul.nav_bar li.nav_item a.nav_link.btn { padding: 9px 20px;}
 
