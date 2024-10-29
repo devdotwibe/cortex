@@ -93,9 +93,22 @@
 
                                             <span id="card_image_upload_1" style="display:none">
 
-                                                {{-- <input type="file" name="class_image_1" id="class_image_1"
-                                                    class="form-control"> --}}
-
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <div class="form-data">
+                                                            <div class="forms-inputs mb-4">
+                                                                <label for="class_image_1" class="file-upload">Upload Image <br>
+                                                                    <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
+                                                                </label>
+                                                                <input type="file" name="class_image_1" id="class_image_1" class="form-control" style="display: none;">
+                                                                @error('class_image_1')
+                                                                    <div class="text-danger">{{ $message }}</div>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
                                                 <div class="preview-box" id="preview-box"
                                                     style="width:300px; height:200px; display:none">
 
