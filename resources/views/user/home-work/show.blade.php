@@ -4,6 +4,11 @@
 <section class="header_nav">
     <div class="header_wrapp">
         <div class="header_title">
+            <div class="back-btn" id="back-btn" style="display: block"> <!-- Ensure proper display value -->
+                <a href="{{ route('homework.index') }}">
+                    <img src="{{ asset('assets/images/exiticon.svg') }}" alt="">
+                </a>
+            </div>
             <h2>Home Work - {{$homeWork->term_name}}</h2>
         </div>
     </div>
