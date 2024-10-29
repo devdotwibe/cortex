@@ -120,7 +120,7 @@
                             </div>
                         </div> 
                     </form>
-                <div class="outer-div">
+                <div class="table-outer">
                     <table class="table" id="subfaq" style="width: 100%">
                         <thead>
                             <tr>
