@@ -2023,7 +2023,7 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .card-calendar .card-body .calendar .calendar-footer button.btn-default:hover { color: #121212;}
 .card-calendar .card-body .calendar .calendar-footer .calendar-color-list { width: 100%;  display: flex;  flex-wrap: wrap;}
 .card-calendar .card-body .calendar .calendar-footer .calendar-color-list .calendar-color-item {width: 48%; margin: 15px 2% 0 0;}
-.card-calendar .card-body .calendar .calendar-footer .calendar-color-list .calendar-color-item .colorspan { width: 15px; height: 15px; border-radius: 3px; margin: 0 2px -2px 0;}
+.card-calendar .card-body .calendar .calendar-footer .calendar-color-list .calendar-color-item .colorspan { width: 20px; height: 20px; border-radius: 3px; margin: 0 2px -5px 0;}
 .card-calendar .card-body .calendar .calendar-footer .calendar-color-list .calendar-color-item .colorspan.nodata { border: 1px solid #E1E1E1;}
 .card-calendar .card-body .calendar .calendar-footer .calendar-color-list .calendar-color-item .colorspan.somedata { border: 1px solid #91C188;}
 .card-calendar .card-body .calendar .calendar-footer .calendar-color-list .calendar-color-item .colorspan.lotsdata { border: 1px solid #4B9773;}
