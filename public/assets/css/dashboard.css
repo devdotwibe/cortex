@@ -3323,7 +3323,7 @@ nav.navbar.top-barhide { display: none;}
 }
 
 
-.modal.faq-modal .modal-dialog {max-width: 1200px;}
+.modal.faq-modal .modal-dialog {max-width: 1200px; width: 94%;}
 .modal.faq-modal .modal-dialog .faq-form .col-md-4 {width: 80%;}
 .modal.faq-modal .modal-dialog .faq-form .col-md-4.pt-4 { width: 20%;}
 .modal.faq-modal .modal-dialog .faq-form .forms-inputs { width: 100%; display: flex; flex-wrap: wrap;}
