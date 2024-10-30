@@ -340,6 +340,8 @@ $(function() {
             $('#table-category-form-submit').text(' Add + ');
 
             $('#subcategory').attr('action', '{{route('admin.faq.store')}}'); 
+
+            console.log('99');
            
             // Hide the cancel button
             $('#table-category-form-clear').hide();
@@ -377,43 +379,7 @@ $('#table-category-form-clear').on('click', function() {
     console.log("test2");
 });
 
-$('#subcategory').on('submit', function(e) {
-    e.preventDefault();
 
-    $('.error').html('');
-    $('.invalid-feedback').text('');
-    $('.form-control').removeClass('is-invalid');
-
-    $.ajax({
-        url: $(this).attr('action'),
-        method: $(this).attr('method'),
-        data: $(this).serialize(),
-        success: function(response) {
-            $('#subfaq').DataTable().ajax.reload(); // Reload the DataTable
-
-            // Reset form and button state
-            $('#subcategory')[0].reset(); // Reset form
-
-            // Reset the button text back to "Submit"
-            $('#table-subcategory-form-submit').text(' Submit ');
-
-            // Hide the cancel button
-            $('#table-subcategory-form-clear').hide();
-
-            // Clear the update state
-            $('#subcategory').data('save', ""); // Reset save data
-            $('#subcategory').attr('action', '{{route('admin.faq.subfaq-store')}}'); // Set action to create entry
-        },
-        error: function(xhr) {
-            var errors = xhr.responseJSON.errors;
-
-            for (var key in errors) {
-                $('[data-update="' + key + '"]').html(errors[key][0]);
-                $('[data-field-input="' + key + '"]').addClass('is-invalid');
-            }
-        }
-    });
-});
 
 });
 
