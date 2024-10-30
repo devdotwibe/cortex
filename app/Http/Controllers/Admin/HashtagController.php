@@ -12,11 +12,11 @@ class HashtagController extends Controller
 
 
 
-    // public function hashtags()
-    // {
+    public function hashtags()
+    {
 
-    //     return view('admin.community.hashtags'); 
-    // }
+        return view('admin.community.hashtags'); 
+    }
 
 
     public function index(Request $request)
@@ -61,11 +61,11 @@ class HashtagController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'hashtag' => 'required|string|max:255',
         ]);
 
         Hashtag::create($request->all());
-        return redirect()->route('admin.hashtag.index')->with('success', 'Hashtag created successfully.');
+        return redirect()->route('admin.community.hashtags')->with('success', 'Hashtag created successfully.');
     }
 
     public function edit($id)
