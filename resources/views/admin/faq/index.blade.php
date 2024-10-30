@@ -342,11 +342,12 @@ $(function() {
             $('#subcategory').attr('action', '{{route('admin.faq.store')}}'); 
 
             console.log('99');
+            console.log("test1");
            
             // Hide the cancel button
             $('#table-category-form-clear').hide();
 
-            console.log("test1");
+           
 
             // Reload the DataTable to show updated data
             $('#table-faq').DataTable().ajax.reload();
