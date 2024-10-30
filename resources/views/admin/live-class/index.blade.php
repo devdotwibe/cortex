@@ -94,7 +94,7 @@
 
 
 
-                                            <span id="card_image_upload_1"  >
+                                            <span id="card_image_upload_1" e >
                                              <label for="class_image_1" class="file-upload">Upload File <br>
                                                 <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
                                               </label>
