@@ -305,11 +305,14 @@ function HideTime() {
         timerDiv.slideToggle(300, function() {
             if (timerDiv.is(':visible')) {
                 button.html('Hide Time');
+                $('.hide-btn').removeClass('hidden-btn');
             } else {
                 button.html('<img src="{{ asset("assets/images/flat-color-icons_clock.svg") }}" alt="Show Time Icon">');
                 button.insertAfter(timerDiv);
+                $('.hide-btn').addClass('hidden-btn');
             }
         });
+       
     }
          
         var totalcount={{$questioncount??0}};
