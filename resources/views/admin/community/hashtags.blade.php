@@ -65,81 +65,58 @@
 </section>
 @endsection
 
+
 @push('footer-script')
 <script>
-
-    // function checkLineLimit(textarea, lineLimit) {
-    //     let lines = textarea.value.split(/\n/);
-    //     if (lines.length > lineLimit) {
-    //         // Trim extra lines
-    //         textarea.value = lines.slice(0, lineLimit).join("\n");
-    //     }
-    //     document.getElementById('line-count').textContent = `${lines.length}/${lineLimit} lines`;
-    // }
-    
-    
-    $(function(){
-        
-        $('#table-faq').DataTable({
-                // bFilter: false,
-                // bLengthChange: false,
-                paging: false,
-                bAutoWidth: false,
-                processing:true,
-                serverSide:true,
-                order: [[0, 'desc']],
-                ajax:{
-                    url:"{{request()->fullUrl()}}",
-    
-                method: 'get', 
-                    // "data": function ( d ) {
-    
-                          
-                    //     }
-                },
-                initComplete:function(settings){
-                    var info = this.api().page.info();
-    
-                    if(info.pages>1){
-                        $(".dataTables_paginate").show();
-                    }else{
-                        $(".dataTables_paginate").hide();
-    
-                    }
-                    if(info.recordsTotal==0) {
-                        $(".dataTables_info").hide();
-                    }
-                    else{
-                        $(".dataTables_info").show();
-                    }
-                },
-                drawCallback:function(){
-    
-                },
-                columns:[
-    
-                    {
-                        data:'DT_RowIndex',
-                        name:'id',
-                        orderable: true,
-                        searchable: false,
-                    },
-                    {
-                        data:'name',
-                        name:'name',
-                        orderable: true,
-                        searchable: true,
-                    },
-              
-                    {
-                        data:'action',
-                        name:'action',
-                        orderable: false,
-                        searchable: false,
-                    },
-    
-                ]
-        });
+$(function(){
+    $('#table-hashtag').DataTable({
+        paging: false,
+        bAutoWidth: false,
+        processing: true,
+        serverSide: true,
+        order: [[0, 'desc']],
+        ajax: {
+            url: "{{ request()->fullUrl() }}",
+            method: 'get',
+        },
+        initComplete: function(settings) {
+            var info = this.api().page.info();
+            if(info.pages > 1) {
+                $(".dataTables_paginate").show();
+            } else {
+                $(".dataTables_paginate").hide();
+            }
+            if(info.recordsTotal == 0) {
+                $(".dataTables_info").hide();
+            } else {
+                $(".dataTables_info").show();
+            }
+        },
+        drawCallback: function() {
+            // Any additional actions after drawing the table can go here
+        },
+        columns: [
+            {
+                data: 'DT_RowIndex',
+                name: 'id',
+                orderable: true,
+                searchable: false,
+            },
+            {
+                data: 'name',
+                name: 'name',
+                orderable: true,
+                searchable: true,
+            },
+            {
+                data: 'action',
+                name: 'action',
+                orderable: false,
+                searchable: false,
+            },
+        ]
     });
-    
-    
+});
+</script>
+@endpush
+
