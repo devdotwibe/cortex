@@ -5,71 +5,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Hashtag;
 use App\Trait\ResourceController;
+use Yajra\DataTables\Facades\DataTables;
 
 class HashtagController extends Controller
 {
-    
-
-
-    use ResourceController;
-    function __construct()
-    {
-        self::$model=Hashtag::class;
-        self::$routeName="admin.community";
-        self::$defaultActions=[''];
-
-    }
-
-
-
-
-    function index(Request $request)
-    {
-        if($request->ajax()){
-
-            return $this->addAction(function($data){ 
-                $action= ' 
-                 
-
-
-                   <a onclick="updatehashtag('."'".route('admin.community.hashtags.edit', $data->slug)."'".')"  class="btn btn-icons edit_btn">
-    <span class="adminside-icon">
-      <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
-    </span>
-    <span class="adminactive-icon">
-        <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active">
-    </span>
-</a>
-
-
-
-                ';
-                if(empty($data->subcategories) || count($data->subcategories) == 0)
-                { 
-                    $action.=  
-
-                       '<a  class="btn btn-icons dlt_btn" data-delete="'.route("admin.community.hashtags.destroy",$data->slug).'" >
-                        <span class="adminside-icon">
-                            <img src="' . asset("assets/images/icons/material-symbols_delete-outline.svg") . '" alt="Delete">
-                        </span>
-                        <span class="adminactive-icon">
-                            <img src="' . asset("assets/images/iconshover/material-symbols_delete-yellow.svg") . '" alt="Delete Active">
-                        </span>
-                    </a> '; 
-
-
-                } 
-                return $action;
-            })->buildTable(['visibility']);
-        }
-
-        // $category = Category::with('subcategories')->where('id',$id)->first();
-
-        return view('admin.community.hashtags');
-    }
-    
-
-
 
 
 
@@ -80,20 +19,78 @@ class HashtagController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function index(Request $request)
     {
-        // Validate the request
-        $request->validate([
-            'hashtag' => 'required|string|max:255|unique:hashtags,name',
-        ]);
+        if ($request->ajax()) {
+            // Fetch all hashtags
+            $hashtags = Hashtag::orderBy('id', 'asc');
 
-        // Create a new hashtag
-        Hashtag::create([
-            'hashtag' => $request->hashtag,
-        ]);
+            return DataTables::of($hashtags)
+                ->addColumn('action', function ($data) {
+                    return
+                        '<a onclick="editHashtag('."'".route('admin.community.hashtags.edit', $data->id)."'".')" class="btn btn-icons edit_btn">
+                            <span class="adminside-icon">
+                                <img src="'.asset('assets/images/icons/iconamoon_edit.svg').'" alt="Edit">
+                            </span>
+                            <span class="adminactive-icon">
+                                <img src="'.asset('assets/images/iconshover/iconamoon_edit-yellow.svg').'" alt="Edit Active">
+                            </span>
+                        </a>' .
+                        '<a onclick="deleteHashtag('."'".route('admin.community.hashtags.destroy', $data->id)."'".')" class="btn btn-icons delete_btn">
+                            <span class="adminside-icon">
+                                <img src="' . asset("assets/images/icons/material-symbols_delete-outline.svg") . '" alt="Delete">
+                            </span>
+                            <span class="adminactive-icon">
+                                <img src="' . asset("assets/images/iconshover/material-symbols_delete-yellow.svg") . '" alt="Delete Active">
+                            </span>
+                        </a>';
+                })
+                ->addIndexColumn()
+                ->rawColumns(['action'])
+                ->make(true);
+        }
 
-        // Return a response, e.g., redirect back with success message
-        return redirect()->back()->with('success', 'Hashtag added successfully!');
+        return view('admin.community.hashtags'); // Make sure this view exists
     }
 
+    // public function create()
+    // {
+    //     return view('admin.hashtag.create'); // Create view for adding new hashtags
+    // }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        Hashtag::create($request->all());
+        return redirect()->route('admin.hashtag.index')->with('success', 'Hashtag created successfully.');
+    }
+
+    public function edit($id)
+    {
+        $hashtag = Hashtag::findOrFail($id);
+        return view('admin.community.hashtags.edit', compact('hashtag')); // Edit view
+    }
+
+    // public function update(Request $request, $id)
+    // {
+    //     $request->validate([
+    //         'name' => 'required|string|max:255',
+    //     ]);
+
+    //     $hashtag = Hashtag::findOrFail($id);
+    //     $hashtag->update($request->all());
+
+    //     return redirect()->route('admin.hashtag.index')->with('success', 'Hashtag updated successfully.');
+    // }
+
+    // public function destroy($id)
+    // {
+    //     $hashtag = Hashtag::findOrFail($id);
+    //     $hashtag->delete();
+
+    //     return response()->json(['success' => 'Hashtag deleted successfully.']);
+    // }
 }
