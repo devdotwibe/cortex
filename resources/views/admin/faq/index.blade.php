@@ -336,7 +336,7 @@ $(function() {
             // Reset the button text back to "Add +"
             $('#table-category-form-submit').text(' Add + ');
 
-            $('#subcategory').attr('action', '{{route('admin.faq.subfaq-store')}}'); 
+            $('#subcategory').attr('action', '{{route('admin.faq.store')}}'); 
            
             // Hide the cancel button
             $('#table-category-form-clear').hide();
