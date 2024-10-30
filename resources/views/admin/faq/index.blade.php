@@ -184,6 +184,7 @@
 
 $(function(){
     
+    console.log('1');
     $('#table-faq').DataTable({
             // bFilter: false,
             // bLengthChange: false,
@@ -249,7 +250,7 @@ $(function(){
 
 $(function(){
 
-console.log('dg');
+    console.log('2');
 
 $('#subfaq').DataTable({
     // bFilter: false,
@@ -317,6 +318,8 @@ $('#subfaq').DataTable({
 
 $(function() {
 
+    console.log('3');
+
     $('#table-category-form-create').on('submit', function(e) {
     e.preventDefault(); 
 
@@ -358,15 +361,16 @@ $(function() {
 });
 
 $('#table-category-form-clear').on('click', function() {
+
+
     var storeurl = "{{route('admin.faq.store')}}";
     // Reset the form fields
     $('#table-category-form-create')[0].reset();
 
     // Reset the button text back to "Add +"
     $('#table-category-form-submit').text(' Add + ');
-    $('#subcategory').attr('action', '{{route('admin.faq.store')}}'); 
 
-    // $('#table-category-form-create').attr('action',storeurl)
+    $('#table-category-form-create').attr('action',storeurl)
 
     // Hide the cancel button
     $(this).hide();
@@ -415,6 +419,7 @@ $('#subcategory').on('submit', function(e) {
 
 
 function delfaq(url) //delete main faq
+console.log('4');
 {
 
 $('#table-delete-form').attr('action',url);
@@ -424,6 +429,7 @@ $('#table_faq_delete').modal('show');
 }
 
 function delsubfaq(url) {
+    console.log('5');
     // Set the action URL for the delete form dynamically
     $('#table-delete-form').attr('action', url);
     
@@ -468,6 +474,7 @@ function delsubfaq(url) {
     });
 }
 function onDeleteSuccess() {
+    console.log('6');
     // Hide the delete confirmation modal
     $('#table_faq_delete').modal('hide');
     
@@ -479,6 +486,7 @@ function onDeleteSuccess() {
 
 var activedata = {};
 function addsubfaq(url, id) {
+    console.log('7');
     
             $('#faq_id').val(id);
             $('#table-category-form-create').attr('action', url);
@@ -491,6 +499,7 @@ function addsubfaq(url, id) {
         }
 
         function updatefaq(url) {
+            console.log('8');
             $.get(url, function(res) {
 
                 $('#name-error-table-category-form-create').text("")
@@ -508,6 +517,7 @@ function addsubfaq(url, id) {
         }
 
         function updatesubfaq(url) {
+            console.log('9');
     $.get(url, function(res) {
         // Reset error messages and remove invalid classes for question and answer fields
         $('#name-error-table-subcategory-form-create').text("");
