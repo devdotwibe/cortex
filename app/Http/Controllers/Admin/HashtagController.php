@@ -33,12 +33,12 @@ class HashtagController extends Controller
     {
         // Validate the request
         $request->validate([
-            'name' => 'required|string|max:255|unique:hashtags,name',
+            'hashtag' => 'required|string|max:255|unique:hashtags,name',
         ]);
 
         // Create a new hashtag
         Hashtag::create([
-            'name' => $request->name,
+            'hashtag' => $request->hashtag,
         ]);
 
         // Return a response, e.g., redirect back with success message
