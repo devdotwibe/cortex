@@ -58,8 +58,25 @@
 @endsection
 
 
-
 @push('footer-script')
-
+<script>
+    $(document).ready(function() {
+        $('#table-hashtag').DataTable({
+            // You can add options here if needed
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: '{{ route("admin.community.hashtags.index") }}', // URL to fetch data
+                type: 'GET'
+            },
+            columns: [
+                { data: 'id', name: 'id' }, // Assuming you have an 'id' column
+                { data: 'hahstag', name: 'hashtag' }, // Hashtag name column
+                { data: 'action', name: 'action', orderable: false, searchable: false } // Action column
+            ]
+        });
+    });
+</script>
+@endpush
 
 
