@@ -66,49 +66,82 @@
 @endsection
 
 
-@section('scripts')
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
 
+@push('footer-script')
 <script>
-    $(document).ready(function() {
-        var table = $('#table-faq').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: "{{ route('admin.community.hashtags') }}", // URL to fetch the data
-            columns: [
-                { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false }, // For serial number
-                { data: 'name', name: 'name' }, // Assuming 'name' is the column in the hashtags table
-                { data: 'action', name: 'action', orderable: false, searchable: false }, // For action buttons
-            ],
-            order: [[0, 'asc']], // Default ordering by the first column
-            pageLength: 10, // Number of rows per page
-            lengthMenu: [10, 25, 50, 100], // Page length options
-        });
 
-        // Function to handle deleting a hashtag
-        window.deleteHashtag = function(url) {
-            if (confirm('Are you sure you want to delete this hashtag?')) {
-                $.ajax({
-                    type: 'DELETE',
-                    url: url,
-                    success: function(response) {
-                        table.ajax.reload(); // Reload the DataTable
-                        alert(response.success); // Show success message
-                    },
-                    error: function(xhr) {
-                        alert('Error deleting hashtag: ' + xhr.responseText);
-                    }
-                });
-            }
-        };
+// function checkLineLimit(textarea, lineLimit) {
+//     let lines = textarea.value.split(/\n/);
+//     if (lines.length > lineLimit) {
+//         // Trim extra lines
+//         textarea.value = lines.slice(0, lineLimit).join("\n");
+//     }
+//     document.getElementById('line-count').textContent = `${lines.length}/${lineLimit} lines`;
+// }
 
-        // Function to handle editing a hashtag
-        window.editHashtag = function(url) {
-            window.location.href = url; // Redirect to the edit page
-        };
+
+$(function(){
+    
+    $('#table-hashtag').DataTable({
+            // bFilter: false,
+            // bLengthChange: false,
+            paging: false,
+            bAutoWidth: false,
+            processing:true,
+            serverSide:true,
+            order: [[0, 'desc']],
+            ajax:{
+                url:"{{request()->fullUrl()}}",
+
+            method: 'get', 
+                // "data": function ( d ) {
+
+                      
+                //     }
+            },
+            initComplete:function(settings){
+                var info = this.api().page.info();
+
+                if(info.pages>1){
+                    $(".dataTables_paginate").show();
+                }else{
+                    $(".dataTables_paginate").hide();
+
+                }
+                if(info.recordsTotal==0) {
+                    $(".dataTables_info").hide();
+                }
+                else{
+                    $(".dataTables_info").show();
+                }
+            },
+            drawCallback:function(){
+
+            },
+            columns:[
+
+                {
+                    data:'DT_RowIndex',
+                    name:'id',
+                    orderable: true,
+                    searchable: false,
+                },
+                {
+                    data:'name',
+                    name:'name',
+                    orderable: true,
+                    searchable: true,
+                },
+          
+                {
+                    data:'action',
+                    name:'action',
+                    orderable: false,
+                    searchable: false,
+                },
+
+            ]
     });
-</script>
-@endsection
+});
+
 
