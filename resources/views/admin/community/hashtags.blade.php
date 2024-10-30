@@ -8,15 +8,7 @@
         </div>
     </div>
 </section>
-{{-- <style>
-    .limit-text {
-        display: -webkit-box;
-        -webkit-line-clamp: 3; /* Limits to 3 lines */
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-</style> --}}
+
 <section class="invite-wrap mt-2">
     <div class="container">
         <div class="container-wrap">
@@ -68,73 +60,6 @@
 
 
 @push('footer-script')
-<script>
 
 
 
-$(function(){
-    
-    $('#table-hashtag').DataTable({
-            // bFilter: false,
-            // bLengthChange: false,
-            paging: false,
-            bAutoWidth: false,
-            processing:true,
-            serverSide:true,
-            order: [[0, 'desc']],
-            ajax:{
-                url:"{{request()->fullUrl()}}",
-
-            method: 'get', 
-                // "data": function ( d ) {
-
-                      
-                //     }
-            },
-            initComplete:function(settings){
-                var info = this.api().page.info();
-
-                if(info.pages>1){
-                    $(".dataTables_paginate").show();
-                }else{
-                    $(".dataTables_paginate").hide();
-
-                }
-                if(info.recordsTotal==0) {
-                    $(".dataTables_info").hide();
-                }
-                else{
-                    $(".dataTables_info").show();
-                }
-            },
-            drawCallback:function(){
-
-            },
-            columns:[
-
-                {
-                    data:'DT_RowIndex',
-                    name:'id',
-                    orderable: true,
-                    searchable: false,
-                },
-                {
-                    data:'hashtag',
-                    name:'hashtag',
-                    orderable: true,
-                    searchable: true,
-                },
-          
-                {
-                    data:'action',
-                    name:'action',
-                    orderable: false,
-                    searchable: false,
-                },
-
-            ]
-    });
-});
-
-
-</script>
