@@ -2010,12 +2010,16 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .card-progress .card-body h3 { font-size: 20px; font-weight: 700; margin: 0 0 24px;}s
 .card-progress .card-body .session-chart { width: 100%; text-align: center;}
 .card-progress .card-body  .session-text { text-align: center; font-size: 18px; font-weight: 400; margin: 5px 0 0; }
-.card-progress .card-body .session-chart .donut-inner { text-align: center; margin: 10px 0 0; font-size: 18px; font-weight: 400;}
+.card-progress .card-body .session-chart .donut-inner { text-align: center; margin: 22px 0 0; font-size: 18px; font-weight: 400;}
+.card-progress .card-body .row {justify-content: space-between;}
+.card-progress .card-body .row .col-md-3 { max-width: 150px;}
+
 .card-graph .overview-graph-footer .graph-filter { width: 100%; padding: 0 0 0 30px;}
 .card-graph .overview-graph-footer .graph-filter .graph-filter-btn { margin: 0 8% 0 0 !important;  font-size: 18px; color: #121212; cursor: pointer;}
 .card-graph .overview-graph-footer .graph-filter .graph-filter-btn:hover {color: #FFCD56;}
 .card-graph .overview-graph-footer .graph-filter .graph-filter-btn.active {color: #FFCD56;}
 .card-graph h3 { font-size: 20px; color: #000000; font-weight: 700;  margin: 0 0 26px;}
+
 
 .card-calendar .card-body .calendar .calendar-footer { width: 100%; display: inline-block;}
 .card-calendar .card-body .calendar .calendar-footer span { display: inline-block; font-size: 13px; font-weight: 500;}
@@ -3906,6 +3910,3 @@ nav.navbar .dropdown .nav-link.dropdown-toggle { font-size: 16px;}
 }
 }
 
-@media screen and (min-width:1600px) {
-.card-progress .card-body .col-md-3 { padding: 0 3.5%;}
-}
