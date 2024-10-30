@@ -310,6 +310,7 @@ function HideTime() {
                 button.insertAfter(timerDiv);
             }
         });
+        $('.hide-btn').addClass('hidden-btn');
     }
          
         var totalcount={{$questioncount??0}};
