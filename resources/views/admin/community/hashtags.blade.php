@@ -15,7 +15,7 @@
                     <div class="card">
                         <div class="card-body">
                             <form class="form" id="table-hashtag-form-create" data-save="create"
-                                data-action="{{ route('admin.hashtags.store') }}">
+                                data-action="{{ route('admin.community.hashtags.store') }}">
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-4">
