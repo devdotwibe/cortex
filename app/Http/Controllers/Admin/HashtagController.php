@@ -4,10 +4,24 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Hashtag;
+use App\Trait\ResourceController;
 
 class HashtagController extends Controller
 {
-    //
+    
+
+
+    use ResourceController;
+    function __construct()
+    {
+        self::$model=Hashtag::class;
+        self::$routeName="admin.community.hashtags.store";
+        self::$defaultActions=[''];
+
+    }
+
+
+
     public function hashtags()
     {
 
