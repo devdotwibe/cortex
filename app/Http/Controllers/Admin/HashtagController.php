@@ -15,7 +15,7 @@ class HashtagController extends Controller
     function __construct()
     {
         self::$model=Hashtag::class;
-        self::$routeName="admin.community.hashtags.store";
+        self::$routeName="admin.community";
         self::$defaultActions=[''];
 
     }
