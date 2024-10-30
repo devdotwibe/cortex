@@ -119,8 +119,8 @@ $(function(){
                     searchable: false,
                 },
                 {
-                    data:'name',
-                    name:'name',
+                    data:'hashtag',
+                    name:'hashtag',
                     orderable: true,
                     searchable: true,
                 },
