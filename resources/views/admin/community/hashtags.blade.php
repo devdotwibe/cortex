@@ -76,7 +76,7 @@
         var table = $('#table-faq').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{ route('admin.hashtag.index') }}", // URL to fetch the data
+            ajax: "{{ route('admin.community.hashtags') }}", // URL to fetch the data
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false }, // For serial number
                 { data: 'name', name: 'name' }, // Assuming 'name' is the column in the hashtags table
