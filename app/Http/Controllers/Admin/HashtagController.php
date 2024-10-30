@@ -1,34 +1,28 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Hashtag;
+use App\Trait\ResourceController;
 use Yajra\DataTables\Facades\DataTables;
 
 class HashtagController extends Controller
 {
-    /**
-     * Display the hashtag management view.
-     *
-     * @return \Illuminate\View\View
-     */
+
+
+
     public function hashtags()
     {
+
         return view('admin.community.hashtags'); 
     }
 
-    /**
-     * Fetch and return all hashtags for DataTables.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\View\View
-     */
+
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            // Fetch all hashtags ordered by ID
+            // Fetch all hashtags
             $hashtags = Hashtag::orderBy('id', 'asc');
 
             return DataTables::of($hashtags)
@@ -56,78 +50,25 @@ class HashtagController extends Controller
                 ->make(true);
         }
 
-        return view('admin.community.hashtags'); // Ensure this view exists
+        return view('admin.community.hashtags'); // Make sure this view exists
     }
 
-    /**
-     * Store a newly created hashtag in the database.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
+
     public function store(Request $request)
     {
-        // Validate the request
         $request->validate([
-            'name' => 'required|string|max:255', // Ensure this matches the input field name
+            'hashtag' => 'required|string|max:255',
         ]);
 
-        try {
-            // Create the hashtag
-            Hashtag::create($request->all());
-            return redirect()->route('admin.community.hashtags')->with('success', 'Hashtag created successfully.');
-        } catch (\Exception $e) {
-            // Handle any errors
-            return redirect()->back()->withErrors(['error' => 'Failed to create hashtag: ' . $e->getMessage()]);
-        }
+        Hashtag::create($request->all());
+        return redirect()->route('admin.community.hashtags')->with('success', 'Hashtag created successfully.');
     }
 
-    /**
-     * Show the form for editing the specified hashtag.
-     *
-     * @param Hashtag $hashtag
-     * @return \Illuminate\View\View
-     */
-    public function edit(Hashtag $hashtag)
+    public function edit($id)
     {
+        $hashtag = Hashtag::findOrFail($id);
         return view('admin.community.hashtags.edit', compact('hashtag')); // Edit view
     }
 
-    /**
-     * Update the specified hashtag in the database.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param Hashtag $hashtag
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function update(Request $request, Hashtag $hashtag)
-    {
-        // Validate the request
-        $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
-
-        try {
-            $hashtag->update($request->all());
-            return redirect()->route('admin.community.hashtags')->with('success', 'Hashtag updated successfully.');
-        } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['error' => 'Failed to update hashtag: ' . $e->getMessage()]);
-        }
-    }
-
-    /**
-     * Remove the specified hashtag from the database.
-     *
-     * @param Hashtag $hashtag
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function destroy(Hashtag $hashtag)
-    {
-        try {
-            $hashtag->delete();
-            return redirect()->route('admin.community.hashtags')->with('success', 'Hashtag deleted successfully.');
-        } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['error' => 'Failed to delete hashtag: ' . $e->getMessage()]);
-        }
-    }
+   
 }
