@@ -70,14 +70,6 @@
 @push('footer-script')
 <script>
 
-// function checkLineLimit(textarea, lineLimit) {
-//     let lines = textarea.value.split(/\n/);
-//     if (lines.length > lineLimit) {
-//         // Trim extra lines
-//         textarea.value = lines.slice(0, lineLimit).join("\n");
-//     }
-//     document.getElementById('line-count').textContent = `${lines.length}/${lineLimit} lines`;
-// }
 
 
 $(function(){
