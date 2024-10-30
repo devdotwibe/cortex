@@ -421,7 +421,7 @@ $('#subcategory').on('submit', function(e) {
 function delfaq(url) //delete main faq
 
 {
-    console.log('4');
+    
 $('#table-delete-form').attr('action',url);
 $('#table_faq_delete').modal('show');
 
@@ -429,7 +429,7 @@ $('#table_faq_delete').modal('show');
 }
 
 function delsubfaq(url) {
-    console.log('5');
+  
     // Set the action URL for the delete form dynamically
     $('#table-delete-form').attr('action', url);
     
@@ -474,7 +474,7 @@ function delsubfaq(url) {
     });
 }
 function onDeleteSuccess() {
-    console.log('6');
+   
     // Hide the delete confirmation modal
     $('#table_faq_delete').modal('hide');
     
@@ -486,7 +486,7 @@ function onDeleteSuccess() {
 
 var activedata = {};
 function addsubfaq(url, id) {
-    console.log('7');
+
     
             $('#faq_id').val(id);
             $('#table-category-form-create').attr('action', url);
@@ -499,7 +499,7 @@ function addsubfaq(url, id) {
         }
 
         function updatefaq(url) {
-            console.log('8');
+           
             $.get(url, function(res) {
 
                 $('#name-error-table-category-form-create').text("")
@@ -517,7 +517,7 @@ function addsubfaq(url, id) {
         }
 
         function updatesubfaq(url) {
-            console.log('9');
+            
     $.get(url, function(res) {
         // Reset error messages and remove invalid classes for question and answer fields
         $('#name-error-table-subcategory-form-create').text("");
