@@ -66,7 +66,7 @@
             processing: true,
             serverSide: true,
             ajax: {
-                url: '{{ route("admin.community.hashtags.index") }}', // URL to fetch data
+                url: '{{ route("admin.community.hashtags") }}', // URL to fetch data
                 type: 'GET'
             },
             columns: [
