@@ -104,7 +104,7 @@
                         <a href="" class="footer-brand">
                             <img src="{{asset('assets/images/footer-logo.svg')}}" alt="">
                         </a>
-                        <div class="footer-buttons" style="margin-top: 15px;">
+                        <div class="footer-buttons" >
                             <a href="{{ route('login') }}" class="btn btn-primary" style="margin-right: 10px;">Login</a>
                             <a href="{{ route('register') }}" class="btn btn-secondary">Sign Up</a>
                         </div>
