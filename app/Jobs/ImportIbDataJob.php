@@ -48,15 +48,22 @@ class ImportIbDataJob implements ShouldQueue
 {
     try {
         $sheetData = json_decode(Storage::get($this->filePath), true);
-        $columnNames = $sheetData[0]; // Assuming the first row contains column headers
+        $columnNames = $sheetData[0]; 
 
         foreach ($sheetData as $k => $row) {
             if ($k != 0) {
+
+                $email = $row['email'] ?? null;
+
+                if ($email && User::where('email', $email)->exists()) {
+                    continue; 
+                }
+
                 $usersub = new UserSubscription();
                 $user = new User;
 
-                $firstName = ''; // Initialize at the beginning of each iteration
-                $lastName = '';  // Initialize at the beginning of each iteration
+                $firstName = ''; 
+                $lastName = ''; 
 
                 foreach ($this->datas as $fieldName => $xlsxColumn) {
                     $userColumns = Schema::getColumnListing('users');
@@ -75,7 +82,7 @@ class ImportIbDataJob implements ShouldQueue
                 }
 
                 $user->name = trim($firstName . ' ' . $lastName);
-                $user->password = ""; // You might want to hash a real password here
+                $user->password = "";
                 $user->save();
 
                 $usersub->status = "subscribed";
@@ -89,7 +96,7 @@ class ImportIbDataJob implements ShouldQueue
         }
     } catch (\Exception $e) {
         Log::error('Error in ImportIbDataJob: ' . $e->getMessage());
-        // Optionally, rethrow the exception or handle it as needed
+       
     }
 }
 }
