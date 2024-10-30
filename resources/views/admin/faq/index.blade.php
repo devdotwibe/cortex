@@ -364,6 +364,7 @@ $('#table-category-form-clear').on('click', function() {
 
     // Reset the button text back to "Add +"
     $('#table-category-form-submit').text(' Add + ');
+    $('#subcategory').attr('action', '{{route('admin.faq.store')}}'); 
 
     $('#table-category-form-create').attr('action',storeurl)
 
