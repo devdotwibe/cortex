@@ -53,7 +53,9 @@ class ImportIbDataJob implements ShouldQueue
         foreach ($sheetData as $k => $row) {
             if ($k != 0) {
 
-                $email = $row['email'] ?? null;
+                $emailIndex = array_search('email', $columnNames);
+
+                $email = $row[$emailIndex] ?? null;
 
                 if ($email && User::where('email', $email)->exists()) {
                     continue; 
