@@ -60,12 +60,6 @@ class HashtagController extends Controller
 
                 } 
                 return $action;
-            })->addColumn('visibility',function($data){
-                return '                
-                    <div class="form-check ">
-                        <input type="checkbox"  class="user-visibility form-check-box" name="visibility" value="'.($data->id).'" '.($data->visible_status=="show"?"checked":"").' onchange="visiblechangerefresh('."'".route("admin.category.visibility",$data->slug)."'".')" > 
-                    </div>
-                ';
             })->buildTable(['visibility']);
         }
 
