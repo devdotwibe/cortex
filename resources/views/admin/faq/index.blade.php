@@ -419,9 +419,9 @@ $('#subcategory').on('submit', function(e) {
 
 
 function delfaq(url) //delete main faq
-console.log('4');
-{
 
+{
+    console.log('4');
 $('#table-delete-form').attr('action',url);
 $('#table_faq_delete').modal('show');
 
