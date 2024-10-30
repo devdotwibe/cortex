@@ -366,7 +366,7 @@ $('#table-category-form-clear').on('click', function() {
     $('#table-category-form-submit').text(' Add + ');
     $('#subcategory').attr('action', '{{route('admin.faq.store')}}'); 
 
-    $('#table-category-form-create').attr('action',storeurl)
+    // $('#table-category-form-create').attr('action',storeurl)
 
     // Hide the cancel button
     $(this).hide();
