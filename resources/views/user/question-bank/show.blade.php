@@ -26,42 +26,13 @@
             </div>  --}}
             <div class="lesson-option">
                 <div class="option-toggle">
-                    {{-- <div class="option-item">
+                    <div class="option-item">
                         <label for="option-timed" class="option-item-label">TIMED</label>
                         <input type="radio" name="timed" id="option-timed" value="timed" checked onchange="changemode(this.value)" >
                     </div>
                     <div class="option-item">
                         <label for="option-untimed" class="option-item-label">UNTIMED</label>
                         <input type="radio" name="timed" id="option-untimed" value="untimed" onchange="changemode(this.value)">
-                    </div> --}}
-
-                    <div class="option-toggle">
-                        <a href="javascript:void(0);" onclick="changemode('timed')" class="option-item-link">
-                            <div class="option-item">
-                                <input 
-                                    type="radio" 
-                                    name="timed" 
-                                    id="option-timed" 
-                                    value="timed" 
-                                    checked
-                                    onchange="changemode(this.value)"
-                                >
-                                <label for="option-timed" class="option-item-label">TIMED</label>
-                            </div>
-                        </a>
-                    
-                        <a href="javascript:void(0);" onclick="changemode('untimed')" class="option-item-link">
-                            <div class="option-item">
-                                <input 
-                                    type="radio" 
-                                    name="timed" 
-                                    id="option-untimed" 
-                                    value="untimed" 
-                                    onchange="changemode(this.value)"
-                                >
-                                <label for="option-untimed" class="option-item-label">UNTIMED</label>
-                            </div>
-                        </a>
                     </div>
                 </div>
             </div>
@@ -166,22 +137,9 @@
     
     <script> 
     localStorage.setItem("question-bank", "timed");
-    // function changemode(v){
-    //     localStorage.setItem("question-bank", v);
-    // }
-
-    function changemode(v) {
+    function changemode(v){
         localStorage.setItem("question-bank", v);
     }
-
-    document.addEventListener("DOMContentLoaded", function() {
-        const savedMode = localStorage.getItem("question-bank");
-        if (savedMode) {
-            document.getElementById(`option-${savedMode}`).checked = true;
-        }
-    });
-
-    
     async function confimexam(url){
         if(await showConfirm({ title:"Start the question set" })){
             window.location.href=url;

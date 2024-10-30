@@ -94,7 +94,7 @@
 
 
 
-                                            <span id="card_image_upload_1" >
+                                            <span id="card_image_upload_1" style="display: none;" >
                                              <label for="class_image_1" class="file-upload">Upload File <br>
                                                 <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
                                               </label>
@@ -246,7 +246,7 @@ Receive a personalised learning experience with regular feedback by enrolling wi
 
                                             </span>
 
-                                            <span id="card_image_upload_2">
+                                            <span id="card_image_upload_2" style="display: none;">
                                                 <label for="class_image_2" class="file-upload">Upload File <br>
                                                     <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
                                                   </label>

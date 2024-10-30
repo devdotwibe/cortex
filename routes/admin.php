@@ -170,6 +170,9 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::get('/search', [CommunityControllerController::class, 'search'])->name('search');
 
             Route::get('/hashtags', [HashtagController::class,'hashtags'])->name('hashtags');
+            Route::post('/hashtags/store', [HashtagController::class, 'store'])->name('hashtags.store');
+            Route::get('/{hashtags}/edit',[HashtagController::class,'edit'])->name('hashtags.edit');
+            Route::delete('/{hashtags}',[CategoryController::class,'destroy'])->name('hashtags.destroy');
 
             Route::get('/report-post', [PostReportController::class,'index'])->name('report.index');
             Route::delete('/report-post/{report_post}', [PostReportController::class,'destroy'])->name('report.destroy');
