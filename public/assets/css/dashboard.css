@@ -2010,7 +2010,7 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
 .card-progress .card-body h3 { font-size: 20px; font-weight: 700; margin: 0 0 24px;}s
 .card-progress .card-body .session-chart { width: 100%; text-align: center;}
 .card-progress .card-body  .session-text { text-align: center; font-size: 18px; font-weight: 400; margin: 5px 0 0; }
-.card-progress .card-body .session-chart .donut-inner { text-align: center; margin: 10px 0 0; font-size: 18px; font-weight: 400;}
+.card-progress .card-body .session-chart .donut-inner { text-align: center; margin: 22px 0 0; font-size: 18px; font-weight: 400;}
 .card-progress .card-body .row {justify-content: space-between;}
 .card-progress .card-body .row .col-md-3 { max-width: 150px;}
 
