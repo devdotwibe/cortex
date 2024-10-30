@@ -22,6 +22,63 @@ class HashtagController extends Controller
 
 
 
+
+    function index(Request $request)
+    {
+        if($request->ajax()){
+
+            return $this->addAction(function($data){ 
+                $action= ' 
+                 
+
+
+                   <a onclick="updatehashtag('."'".route('admin.community.hashtags.edit', $data->slug)."'".')"  class="btn btn-icons edit_btn">
+    <span class="adminside-icon">
+      <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
+    </span>
+    <span class="adminactive-icon">
+        <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active">
+    </span>
+</a>
+
+
+
+                ';
+                if(empty($data->subcategories) || count($data->subcategories) == 0)
+                { 
+                    $action.=  
+
+                       '<a  class="btn btn-icons dlt_btn" data-delete="'.route("admin.community.hashtags.destroy",$data->slug).'" >
+                        <span class="adminside-icon">
+                            <img src="' . asset("assets/images/icons/material-symbols_delete-outline.svg") . '" alt="Delete">
+                        </span>
+                        <span class="adminactive-icon">
+                            <img src="' . asset("assets/images/iconshover/material-symbols_delete-yellow.svg") . '" alt="Delete Active">
+                        </span>
+                    </a> '; 
+
+
+                } 
+                return $action;
+            })->addColumn('visibility',function($data){
+                return '                
+                    <div class="form-check ">
+                        <input type="checkbox"  class="user-visibility form-check-box" name="visibility" value="'.($data->id).'" '.($data->visible_status=="show"?"checked":"").' onchange="visiblechangerefresh('."'".route("admin.category.visibility",$data->slug)."'".')" > 
+                    </div>
+                ';
+            })->buildTable(['visibility']);
+        }
+
+        // $category = Category::with('subcategories')->where('id',$id)->first();
+
+        return view('admin.community.hashtags');
+    }
+    
+
+
+
+
+
     public function hashtags()
     {
 
