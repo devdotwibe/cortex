@@ -55,11 +55,6 @@ class ImportIbDataJob implements ShouldQueue
 
                 $emailIndex = array_search('email', $columnNames);
 
-                if ($emailIndex === false) {
-                    throw new \Exception("The 'email' column is missing in the sheet data.");
-                    Log::error('Error in ImportIbDataJob lokl: ' . $e->getMessage());
-                }
-
                 $email = $row[$emailIndex] ?? null;
 
                 if ($email && User::where('email', $email)->exists()) {
