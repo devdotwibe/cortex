@@ -2970,9 +2970,10 @@ aside.side_bar.slider-btn .btn-slider {transform: translateY(-50%) rotate(180deg
   font-size: 12px;
   line-height: 1;
   margin: 0 0 0 20px;
+}
+.progress-main .hide-btn.hidden-btn {
   padding: 0;
 }
-
 
 .post-wrap .choice {background: none; padding: 0 15px; border: none;}
 .post-wrap .choice .input-group .input-group-append {position: absolute; right: 15px; top: 50%; transform: translateY(-50%);}
