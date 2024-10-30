@@ -40,7 +40,7 @@
                                 </div>
                             </form>
                             <x-ajax-table title="Add Hashtag" :coloumns="[
-                                ['th' => 'Hashtag', 'name' => 'name', 'data' => 'name'],
+                                ['th' => 'Hashtag', 'name' => 'hashtag', 'data' => 'hashtag'],
                             ]" tableinit="cattableinit" />
                         </div>
                     </div>
