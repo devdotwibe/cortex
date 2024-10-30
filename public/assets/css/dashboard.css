@@ -870,7 +870,7 @@ border-radius: 7px;
   width:max-content;
   display:flex;
   flex-wrap:wrap;
-  margin: 0 15px;
+  margin: 0 15px 0 30px;
   background: none;
 }
 .progress-main .timer .minute {
