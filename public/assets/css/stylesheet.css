@@ -488,6 +488,9 @@ p.card-text { font-size: 22px;}
 .contact-wrapp .text-fields .text-field input { height: 60px;  font-size: 16px;}
 .contact-wrapp .form-btn .submit-btn { font-size: 18px;}
 
+.footer-wrapp .footer-buttons .btn.btn-primary {font-size: 17px;}
+.footer-wrapp .footer-buttons .btn.btn-secondary { font-size: 17px;}
+
 }
 
 @media screen and (max-width:991px){
@@ -559,6 +562,8 @@ p.card-text { font-size: 18px;}
 .footer-wrapp p {  font-size: 14px;}
 .footer-wrapp .social-icons li { width: 40px;}
 
+.footer-wrapp .footer-buttons .btn.btn-primary {font-size: 15px;}
+.footer-wrapp .footer-buttons .btn.btn-secondary { font-size: 15px;}
 
 }
 
