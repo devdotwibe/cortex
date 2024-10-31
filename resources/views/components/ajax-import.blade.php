@@ -25,21 +25,30 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="process-header">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                @foreach ($fields as $item)  
-                                <div class="form-data">
-                                    <div class="forms-inputs mb-4"> 
+                                @foreach ($fields as $item)
+                                @if($item->name == 'answer_1_image')
+                                    <div class="forms-inputs mb-4">
                                         <label for="import-{{ $id }}-import_fields.{{$item->name}}">{{$item->label??ucfirst($item->name)}}</label>
-                                        <select class="form-control import-{{ $id }}-fields" name="{{$item->name}}" id="import-{{ $id }}-import_fields.{{$item->name}}"></select>
+                                        <input type="file"   class="form-control" accept=".jpg, .jpeg, .png, .gif, .bmp, .webp, .svg, .tiff, .ico" id="import-{{ $id }}-image-1">
                                         <div class="invalid-feedback" id="import-{{ $id }}-{{$item->name}}-error-message"></div>
                                     </div>
-                                </div>
+                                @else
+                                    <div class="form-data">
+                                        <div class="forms-inputs mb-4">
+                                            <label for="import-{{ $id }}-import_fields.{{$item->name}}">{{$item->label??ucfirst($item->name)}}</label>
+                                            <select class="form-control import-{{ $id }}-fields" name="{{$item->name}}" id="import-{{ $id }}-import_fields.{{$item->name}}"></select>
+                                            <div class="invalid-feedback" id="import-{{ $id }}-{{$item->name}}-error-message"></div>
+                                        </div>
+                                    </div>
+                                @endif
                                 @endforeach
                                 <div class="form-data">
-                                    <div class="forms-inputs mb-4"> 
+                                    <div class="forms-inputs mb-4">
                                         <div class="invalid-error text-danger" id="import-{{ $id }}-import_fields-error-message"></div>
                                     </div>
                                 </div>
@@ -145,9 +154,10 @@
         $('#import-{{ $id }}-button').click(function(){
             let element=this;
             let isValid = true;
-            console.log(import_{{ $id }}_data);
 
             let fileInput = $('#import-{{ $id }}-file')[0];
+            let image1 = $('#import-{{ $id }}-image-1')[0];
+
             if (fileInput.files.length === 0) {
                 alert('No file selected for import.');
                 isValid = false;
@@ -211,6 +221,10 @@
                     // Append file data
                     var file = new File([JSON.stringify(import_{{ $id }}_data)], "data.json", { type: "application/json" });
                     formData.append("import_datas", file);
+
+                    if (image1 && image1.files.length > 0) {
+                        formData.append("image1", image1.files[0]);
+                    }
 
                     $.ajax({
                         type:"POST",
