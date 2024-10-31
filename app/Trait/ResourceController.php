@@ -153,7 +153,7 @@ trait ResourceController
                     switch ($act) {
                         case 'view':
                             $action.='                            
-                                   <a href="' . route(self::$routeName . ".show", $data->slug) . '" class="btn btn-icons view_btn">
+                                   <a href="' . route(self::$routeName . ".show", $data->slug) . '" class="btn btn-icons eye-button">
                             <span class="adminside-icon">
                                 <img src="' . asset("assets/images/icons/mdi_incognito.svg") . '" alt="View">
                             </span>

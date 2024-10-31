@@ -3,7 +3,7 @@
 @section('title', $exam->subtitle($category->id, 'Topic ' . ($category->getIdx() + 1)) . ':' . $category->name)
 @section('content')
 
-    <section class="exam-container questionclass answerclass onequestionclass">
+    <section class="exam-container questionclass answerclass ">
         <div class="exam-progress quest-progress">
             <div class="exam-progress-inner">
                 <div class="exam-progress-inner-item exam-left">
@@ -60,7 +60,7 @@
                     <div class="row" id="lesson-questionlist-list" style="display: none">
                     </div>
                 </div>
-                <div class="lesson-footer mob-view" id="lesson-footer-pagination">
+                <div class="lesson-footer" id="lesson-footer-pagination">
                 </div>
             </div>
         </div>
@@ -177,7 +177,7 @@
                                         </div>
                                         <div id="mcq-${lesseonId}-explanation" class="mcq-explanation"> 
                                             <label>Correct Answer <span id="mcq-${lesseonId}-correct"></span></label>
-                                            ${v.explanation||''}
+                                            <p>${v.explanation||''}</p>
                                         </div>
 
                                         <div id="mcq-${lesseonId}-ans-progress" class="form-group">
@@ -234,15 +234,15 @@
                     $.each(res.links, function(k, v) {
                         let linkstatus = "";
                         if (k != 0 && k != res.links.length && useranswers[k - 1]) {
-                            linkstatus = 'status-bad';
+                            linkstatus = 'status-bad mob-view';
                             if (useranswers[k - 1].iscorrect) {
 
 
-                                linkstatus = "status-good";
+                                linkstatus = "status-good mob-view";
 
 
                                 if (useranswers[k - 1].time_taken < {{ $examtime }}) {
-                                    linkstatus = "status-exelent";
+                                    linkstatus = "status-exelent mob-view";
                                 }
                             }
                         }

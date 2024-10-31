@@ -1832,7 +1832,7 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label for="review">Review</label>
-                                                    <textarea name="review[]" class="form-control" rows="5" placeholder="Review">{{ $item->review }}</textarea>
+                                                    <textarea name="review[]" class="form-control" rows="5" placeholder="Review"></textarea>
                                                     @error('review')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
@@ -1846,13 +1846,10 @@
                                                 <div class="form-group">
                                                     <label for="image">Image</label>
                                                     <input type="hidden" name="feedids[]"
-                                                        value="{{ $item->id }}">
+                                                        value="">
                                                     <input type="file" name="image[]" class="form-control"
                                                         onchange="previewFeatureImage(event)">
-                                                    @if (!empty($item->image))
-                                                        <img src="{{ url('d0/' . $item->image) }}" alt="Image"
-                                                            style="max-width: 100px; margin-top: 10px;">
-                                                    @endif
+                                                  
                                                     @error('image')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror

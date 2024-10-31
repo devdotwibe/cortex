@@ -8,7 +8,7 @@
         </div> 
     </div>
 </section>
-<section class="invite-wrap mt-2">
+<section class="invite-wrap mt-2 update-classuser">
     <div class="container">
         <x-edit-form name="admin.user" :id="$user->slug" btnsubmit="Save" :fields='[
             ["name"=>"first_name", "label"=>"First Name" ,"size"=>6,"value"=>$user->first_name?? $user->name],

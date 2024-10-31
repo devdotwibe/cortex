@@ -27,30 +27,41 @@
 
 
         
-<div class="modal fade" id="import_user_modal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade importadmin-user" id="import_user_modal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+    <div class="modal-dialog import_user-class">
         <div class="modal-content" >
             <div class="modal-header">
                 <h4 class="modal-title" id="myModalLabel">Import</h4>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <img src="{{asset('assets/images/x-circle.svg')}}" alt="">
-                </button>
+             
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
             </div>
-            <div class="modal-body" style="max-height: 400px; overflow-y: auto;">
+            <div class="modal-body importuser-class" style="max-height: 400px; overflow-y: auto;">
 
 
-                        <div class="col-md-12 d-flex justify-content-end">
-                            {{-- <form id="import_users" name="import_users" method="POST"  enctype="multipart/form-data" class="d-flex align-items-center">
-                                @csrf --}}
+                       
 
                 <form action="#" name="import_user" id="import_user" method="post"  enctype="multipart/form-data">
                     @csrf
-                                <div class="col-md-8">
-                                    <input type="file" accept=".csv,.xlsx" name="file_upload" id="file_upload" class="form-control">
+                    <div class="col-md-12 ">
+                        <div class="form-group import-class">
+                            <div class="form-data import-uclass">
+                                <div class="forms-inputs mb-4 import-peoples">
+                                    <label for="file_upload" class="file-upload">Upload File <br>
+                                        <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
+                                    </label>
+                                    <input type="file" name="file_upload" id="file_upload" accept=".csv,.xlsx"
+                                           class="form-control" style="display: none;">
+                                    @error('file_upload')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
-{{--
-                            </form> --}}
+                            </div>
                         </div>
+                    </div>
+                    
+{{--
+                            
+                      
 
                         {{-- <div class="text-fields">
                             <label>Name : </label>
@@ -233,7 +244,9 @@
             usertable = table
         }
         function usertablefilter(d){
+            d = d || {}; 
             d.usertype=$('#user-filter').val()
+            
             return d;
         }
         function changeactivestatus(url){
@@ -280,165 +293,6 @@
             })
         })
     </script>
-
-
-
-
-{{-- 
-<script>
-    $(document).on("change", "#file_upload", function() {
-        console.log("on cjhash");
-        var formData = new FormData();
-        var fileInput = $('#file_upload')[0];
-    
-        if (fileInput.files.length > 0) {
-            formData.append('file_upload', fileInput.files[0]);
-    
-            $.ajax({
-                url: '{{ route('admin.import_users_from_csv')}}',
-                type: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    console.log(response);
-                    $("#file_path").val(response["filepath"]);
-                    // Assuming response is an array of strings
-                    $(".import-fields").empty();
-                    $(".import-fields").append("<option value=''>--Select--</option>");
-                    //$("select").append("<option value=''>__empty__</option>");
-    
-    
-                   // $("#file_upload").val('');
-                    response["data"][0].forEach(function(data) {
-    
-                        $(".import-fields").append("<option value='"+data+"'>" + data + "</option>");
-                    });
-                },
-                error: function(xhr, status, error) {
-                    console.error(xhr.responseText);
-                }
-            });
-        } else {
-            console.log('No file selected.');
-        }
-    });
-    
-    
-        $(document).on("click",".option-btn", function() { 
-     
-            $(this).hide(); 
-            $(this).siblings('.btn-inner').show();
-        });
-       
-        $(document).on("click", function(event) {
-            if (!$(event.target).closest(".btn-inner, .option-btn").length) {
-                $(".btn-inner").hide();
-                $(".option-btn").show(); 
-            }
-        });
-    
-        // $(document).ready(function() {
-        // $(".option-btn").hover(
-        //     function() {
-        //         console.log("Button hovered");
-        //         console.log("Siblings:", $(this).siblings());
-        //         $(this).hide();
-        //         $(this).siblings('.btn-inner').show();
-        //     },
-        //         function() {
-        //             $(this).show();
-        //             $(this).siblings('.btn-inner').hide();
-        //         }
-        //     );
-        // });
-    
-    
-    
-    
-    
-    </script>
-{{--     
-    <script>
-    $(document).on("submit", "#import_user", function(e) {
-        e.preventDefault();
-        $("#import_load_servimport-fieldsice").css("display","block");
-    
-        var formData = new FormData(this);
-        var datas = {};
-    
-        $('.import-fields').each(function() {
-            var fieldName = $(this).attr('name');
-            console.log(fieldName);
-            var selectedValue = $(this).val();
-            console.log(selectedValue);
-    
-            if (fieldName && selectedValue) {
-                datas[fieldName] = selectedValue;
-            }
-        });
-        var endplan =  $("#expiry_date").val();
-
-        var path = $("#file_path").val();
-        console.log(path);
-        var path = $("#file_path").val();
-    var requestData = new FormData();
-    
-    requestData.append('path', path);
-
-    requestData.append('endplan', endplan);
-    
-    requestData.append('datas', JSON.stringify(datas));
-    
-    for (var pair of formData.entries()) {
-        requestData.append(pair[0], pair[1]);
-    }
-    
-        $.ajax({
-            url: '{{ route('admin.import_users_from_csv_submit')}}',
-            type: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            data:requestData,
-    
-            processData: false,
-            contentType: false,
-            success: function(response) {
-                // console.log(response);
-                $(".import-fields").val('');
-                $("#import_user_modal").modal("hide");
-                $("#load_service").css("display","none");
-                $("#import_load_service").css("display","none");
-    
-                $('#user-table').DataTable().ajax.reload();
-            },
-            error: function(xhr, status, error) {
-                console.error(xhr.responseText);
-            }
-        });
-    });
-    
-
-    $('.end-datepicker').datepicker({
-            dateFormat: 'yy-mm-dd',
-            minDate: 0
-        });
-    </script> --}}
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -565,15 +419,40 @@ jQuery(document).on("change", "#file_upload", function() {
                         $("#import_load_service").css("display","none");
 
                          usertableinit(); 
+
+                         setTimeout(function() {
+                window.location.reload(true); // Force refresh from server
+            }, 10000); // 30000 milliseconds = 30 seconds
+        
        
                         usertablefilter();
          
 
 
+                       
+
+
+
                     },
+
                     error: function(xhr, status, error) {
-                        console.error(xhr.responseText);
+                        if (xhr.responseJSON && xhr.responseJSON.errors) {
+             
+                $(".error-message").remove();
+                
+             
+                $.each(xhr.responseJSON.errors, function(key, messages) {
+                    
+                    var field = $('[name="' + key + '"]');
+
+                   
+                    field.after('<div class="error-message" style="color: red;">' + messages.join(', ') + '</div>');
+                });
+            }
                     }
+
+
+
                 });
             });
 

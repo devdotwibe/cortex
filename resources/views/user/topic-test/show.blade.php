@@ -3,7 +3,7 @@
 @section('title', $exam->subtitle($category->id,"Topic ".($category->getIdx()+1)).':'.$category->name)
 @section('content')
 
-    <section class="exam-container questionclass answerclass onequestionclass">
+    <section class="exam-container questionclass answerclass ">
     <div class="exam-progress">
         <div class="exam-progress-inner">
             <div class="exam-progress-inner-item exam-left">
@@ -28,7 +28,7 @@
                             <span>Seconds</span>
                         </div>
                     </div> 
-                    <button class="btn hide-btn" id="hide_button" onclick="HideTime()"><img src="{{asset("assets/images/flat-color-icons_clock.svg")}}"></button>
+                    <button class="btn hide-btn" id="hide_button" onclick="HideTime()">Hide Time</button>
 
                 </div>
             </div>
@@ -285,20 +285,19 @@
 
     <script> 
 
-        function HideTime() {
-            const timerDiv = $('#exam_timer');
-            const button = $('#hide_button');
+function HideTime() {
+        const timerDiv = $('#exam_timer');
+        const button = $('#hide_button');
 
-            timerDiv.slideToggle(300, function() {
-
-                // if (timerDiv.is(':visible')) {
-                //     button.text('Hide Time');
-                // } else {
-                //     button.text('Show Time');
-                //     button.insertAfter(timerDiv);
-                // }
-            });
-        }
+        timerDiv.slideToggle(300, function() {
+            if (timerDiv.is(':visible')) {
+                button.html('Hide Time');
+            } else {
+                button.html('<img src="{{ asset("assets/images/flat-color-icons_clock.svg") }}" alt="Show Time Icon">');
+                button.insertAfter(timerDiv);
+            }
+        });
+    }
 
 
         var progressurl="{{$user->progress("exam-{$exam->id}-topic-{$category->id}-progress-url","")}}";
@@ -421,8 +420,14 @@
             $('#answered-nav').text(summery.answeridx.length)
             $('#not-answered-nav').text(summery.notansweridx.length)
         }
+        function restoreQuestionStatuses() {
+            if (summery.answeridx && summery.notansweridx) {
+                summery.answeridx.forEach(idx => refreshstatus(idx, 'answered'));
+                summery.notansweridx.forEach(idx => refreshstatus(idx, 'not-answered'));
+            }
+        }
          function loadlesson(pageurl=null){ 
-             
+             console.log(summery)
             $.get(pageurl||"{{ route('topic-test.confirmshow',['category'=>$category->slug]) }}",function(res){
                 $('.pagination-arrow').hide();
                 $('#lesson-footer-pagination').html('')
@@ -535,7 +540,7 @@
                     value:progressurl
                 }),
             }); 
-                 
+            restoreQuestionStatuses()
          }
          async function updateprogress(callback){  
             try { 
@@ -671,11 +676,12 @@
                 window.location.href=url;
             }
         }
+       
          $(function(){  
             loadlesson(progressurl) 
             $('.lesson-left button.left-btn,.lesson-right button.right-btn').click(function(){   
-                console.log('oooooo')
-                const pageurl=$(this).data('pageurl');  
+                const pageurl=$(this).data('pageurl');
+                console.log(pageurl)  
                 updateandsave(function(){
                     loadlesson(pageurl)
                 })
@@ -692,6 +698,7 @@
                     $('#finish-exam-confirm').modal('show')
                 })
             });
+            //To flag
             $('#bookmark-current').click(function(){
                 if(summery.flagdx[summery.cudx]){
                     summery.flagdx[summery.cudx]=false;
@@ -723,5 +730,43 @@
                 exitconfirm($(this).attr("href")); 
             }) 
          })
+
+         //Exit the exam if user switches tab or out of focus 
+        //   function exitExam(reason) {
+        //     alert("You have left the exam page, and the exam will now end.");
+        //     summery.examActive = false;
+        //     summery.save();
+        //     updateandsave(function(){
+        //         var unfinishcount=summery.totalcount-summery.questionids.length; 
+        //         if(unfinishcount>0){
+        //             $('.unfinish-message').show().find('.unfinish-count').text(unfinishcount)
+        //         }else{
+        //             $('.unfinish-message').hide().find('.unfinish-count').text(0)
+        //         }
+        //         lessonreviewconfirm() 
+        //     })   
+        //     if($('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length>0){
+        //         $('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').prop('disabled',true)
+        //     }else{
+        //         $('#lesson-questionlist-list .forms-inputs input[name="answer"]').prop('readonly',true)
+        //     } 
+        // }
+
+        // // Listen for tab switching
+        // window.addEventListener('blur', function() {
+        //     if (summery.examActive) {
+        //         let userConfirmed = confirm("You have switched tabs. Click OK to exit the exam or Cancel to continue.");
+        //         if (userConfirmed) {
+        //             exitExam();
+        //         }
+        //         exitExam("Tab switch detected");
+        //     }
+        // });
+
+        // window.addEventListener('focus', function() {
+        //     if (!summery.examActive) {
+        //         alert("You have left the exam. The exam is no longer active.");
+        //     }
+        // });
     </script>
 @endpush

@@ -2,7 +2,7 @@
 @section('headerclass','header-class')
 @section('title', $exam->subtitle($category->id,"Topic ".($category->getIdx()+1)).':'.$category->name)
 @section('content')
-<section class="exam-container questionclass answerclass onequestionclass">
+<section class="exam-container questionclass answerclass ">
     <div class="exam-progress">
         <div class="exam-progress-inner">
             <div class="exam-progress-inner-item exam-left">
@@ -28,7 +28,7 @@
                         </div>
                     </div> 
 
-                    <button class="btn hide-btn" id="hide_button" onclick="HideTime()"><img src="{{asset("assets/images/flat-color-icons_clock.svg")}}"></button>
+                    <button class="btn hide-btn" id="hide_button" onclick="HideTime()">Hide Time</button>
 
                 </div>
             </div>
@@ -67,8 +67,8 @@
                 <div class="row" id="lesson-questionlist-list" style="display: none">
                 </div>
             </div>
-            <div class="lesson-footer" id="lesson-footer-pagination"> 
-            </div>           
+            {{-- <div class="lesson-footer" id="lesson-footer-pagination"> 
+            </div>            --}}
         </div>
     </div> 
 </section>
@@ -298,21 +298,22 @@
 
     <script> 
 
-        function HideTime() {
-            const timerDiv = $('#exam_timer');
-            const button = $('#hide_button');
+function HideTime() {
+        const timerDiv = $('#exam_timer');
+        const button = $('#hide_button');
 
-            timerDiv.slideToggle(300, function() {
-
-                // if (timerDiv.is(':visible')) {
-                //     button.text('Hide Time');
-                // } else {
-                //     button.text('Show Time');
-                //     button.insertAfter(timerDiv);
-                // }
-            });
-        }
-
+        timerDiv.slideToggle(300, function() {
+            if (timerDiv.is(':visible')) {
+                button.html('Hide Time');
+                $('.hide-btn').removeClass('hidden-btn');
+            } else {
+                button.html('<img src="{{ asset("assets/images/flat-color-icons_clock.svg") }}" alt="Show Time Icon">');
+                button.insertAfter(timerDiv);
+                $('.hide-btn').addClass('hidden-btn');
+            }
+        });
+       
+    }
          
         var totalcount={{$questioncount??0}};
         var questionids=[];

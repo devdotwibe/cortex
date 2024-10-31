@@ -154,12 +154,13 @@
         $('#import-{{ $id }}-button').click(function(){
             let element=this;
             let isValid = true;
+            $('#import-{{ $id }}-import_datas-error-message').text('Please upload a file!').hide();
 
             let fileInput = $('#import-{{ $id }}-file')[0];
             let image1 = $('#import-{{ $id }}-image-1')[0];
 
             if (fileInput.files.length === 0) {
-                alert('No file selected for import.');
+                $('#import-{{ $id }}-import_datas-error-message').text('Please upload a file!').show();
                 isValid = false;
             }
 

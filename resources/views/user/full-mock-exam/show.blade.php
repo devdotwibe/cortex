@@ -3,7 +3,7 @@
 @section('title', $exam->title)
 @section('content')
 
-    <section class="exam-container questionclass answerclass onequestionclass">
+    <section class="exam-container questionclass answerclass">
     <div class="exam-progress">
         <div class="exam-progress-inner">
             <div class="exam-progress-inner-item exam-left">
@@ -30,7 +30,7 @@
                     </div> 
 
                     
-                    <button class="btn hide-btn" id="hide_button" onclick="HideTime()"><img src="{{asset("assets/images/flat-color-icons_clock.svg")}}"></button>
+                    <button class="btn hide-btn" id="hide_button" onclick="HideTime()">Hide Time</button>
 
                 </div>
             </div>
@@ -281,20 +281,19 @@
 
     <script>  
 
-        function HideTime() {
-            const timerDiv = $('#exam_timer');
-            const button = $('#hide_button');
+function HideTime() {
+        const timerDiv = $('#exam_timer');
+        const button = $('#hide_button');
 
-            timerDiv.slideToggle(300, function() {
-
-                // if (timerDiv.is(':visible')) {
-                //     button.text('Hide Time');
-                // } else {
-                //     button.text('Show Time');
-                //     button.insertAfter(timerDiv);
-                // }
-            });
-        }
+        timerDiv.slideToggle(300, function() {
+            if (timerDiv.is(':visible')) {
+                button.html('Hide Time');
+            } else {
+                button.html('<img src="{{ asset("assets/images/flat-color-icons_clock.svg") }}" alt="Show Time Icon">');
+                button.insertAfter(timerDiv);
+            }
+        });
+    }
 
         var progressurl="{{$user->progress('exam-'.$exam->id.'-progress-url','')}}";
         let storage = JSON.parse(localStorage.getItem("full-mock-exam-summery"))||{};
@@ -416,6 +415,12 @@
             $('#answered-nav').text(summery.answeridx.length)
             $('#not-answered-nav').text(summery.notansweridx.length)
         }
+        function restoreQuestionStatuses() {
+            if (summery.answeridx && summery.notansweridx) {
+                summery.answeridx.forEach(idx => refreshstatus(idx, 'answered'));
+                summery.notansweridx.forEach(idx => refreshstatus(idx, 'not-answered'));
+            }
+        }
          function loadlesson(pageurl=null){ 
              
             $.get(pageurl||"{{ route('full-mock-exam.confirmshow',['exam'=>$exam->slug]) }}",function(res){
@@ -535,6 +540,8 @@
                     value:progressurl
                 }),
             }); 
+
+            restoreQuestionStatuses()
                  
          }
          async function updateprogress(callback){  
@@ -728,5 +735,40 @@
                 exitconfirm($(this).attr("href")); 
             }) 
          })
+
+         //Exit the test page on switching tabs or out of focus 
+        //  function exitExam(reason) {
+        //     alert("You have left the exam page, and the exam will now end.");
+        //     summery.examActive = false;
+        //     summery.save();
+        //     updateandsave(function(){
+        //         var unfinishcount=summery.totalcount-summery.questionids.length; 
+        //         if(unfinishcount>0){
+        //             $('.unfinish-message').show().find('.unfinish-count').text(unfinishcount)
+        //         }else{
+        //             $('.unfinish-message').hide().find('.unfinish-count').text(0)
+        //         }
+        //             lessonreviewconfirm() 
+        //         })   
+        //         if($('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length>0){
+        //             $('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').prop('disabled',true)
+        //         }else{
+        //             $('#lesson-questionlist-list .forms-inputs input[name="answer"]').prop('readonly',true)
+        //         } 
+        // }
+
+        // // Listen for tab switching
+        // window.addEventListener('blur', function() {
+        //     if (summery.examActive) {
+        //         exitExam("Tab switch detected");
+        //     }
+        // });
+
+        // window.addEventListener('focus', function() {
+        //     if (!summery.examActive) {
+        //         alert("You have left the exam. The exam is no longer active.");
+        //     }
+        // });
+
     </script>
 @endpush
