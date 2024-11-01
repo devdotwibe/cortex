@@ -31,6 +31,7 @@
                 <td colspan="{{count($coloumns)+2}}"></td>
 
                 <td >
+                     @if($users->isNotEmpty())
                     <div class="selectbox-action" style="display: none"  >
                         @if(!empty($bulkotheraction))
                         <div class="other-actions"> 
