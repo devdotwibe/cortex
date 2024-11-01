@@ -79,7 +79,8 @@ $(function(){
             ajax:{
                 url:"{{request()->fullUrl()}}",
 
-           
+          
+            },
             initComplete:function(settings){
                 var info = this.api().page.info();
 
