@@ -5566,9 +5566,9 @@ s .card-progress .card-body .session-chart {
 }
 
 .progress-main .hide-btn {
-    width: 70px;
-    height: 70px;
-    /* background: #226cdc; */
+    width: 60px;
+    height: 60px;
+    background: #226cdc;
     color: #ffffff;
     border-radius: 50%;
     font-size: 12px;
