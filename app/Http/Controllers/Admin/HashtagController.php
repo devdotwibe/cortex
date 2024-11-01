@@ -72,15 +72,15 @@ class HashtagController extends Controller
 
     public function destroy($id)
     {
-        try {
-            $hashtag = Hashtag::findOrFail($id); // Find the hashtag or fail
-            $hashtag->delete(); // Delete the hashtag
-
-            return response()->json(['success' => true, 'message' => 'Hashtag deleted successfully.']);
-        } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => 'An error occurred while deleting the hashtag.']);
-        }
+        // Find the hashtag or fail
+        $hashtag = Hashtag::findOrFail($id);
+        
+        // Delete the hashtag
+        $hashtag->delete();
+    
+        return response()->json(['success' => true, 'message' => 'Hashtag deleted successfully.']);
     }
+    
 
 
 
