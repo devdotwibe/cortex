@@ -13,13 +13,10 @@ class Hashtag extends Model
     use HasFactory;
     protected $table = 'hashtags';
 
-    protected $fillable = ['hashtag'];
+    protected $guarded = []; // This allows all attributes to be mass-assigned
 
     public function post()
     {
         return $this->belongsTo(Post::class);
     }
-
-    // Prevent mass assignment vulnerabilities
-    protected $guarded = [];
 }
