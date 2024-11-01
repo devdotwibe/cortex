@@ -50,20 +50,24 @@ class HashtagController extends Controller
 
 
     
+
     public function store(Request $request)
     {
-        // Validate the incoming request data
-        $validatedData = $request->validate([
-            'hashtag' => 'required|string|max:255',
+       
+        $request->validate([
+            'hashtag' => 'required',
         ]);
-    
-        // Use mass assignment to create the Hashtag
-        Hashtag::create($validatedData);
-    
-        // Return a success response
+
+      
+        $hashtag = new Hashtag();
+        $hashtag->hashtag = $request->hashtag; 
+        $hashtag->save();
+
+ 
         return response()->json(['success' => true, 'message' => 'Hashtag added successfully.']);
     }
-    
+
+
 
 
 
