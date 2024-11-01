@@ -56,11 +56,13 @@ class HashtagController extends Controller
        
         $request->validate([
             'hashtag' => 'required',
+
         ]);
 
       
         $hashtag = new Hashtag();
         $hashtag->hashtag = $request->hashtag; 
+        $hashtag->post_id = 5965; 
         $hashtag->save();
 
  
