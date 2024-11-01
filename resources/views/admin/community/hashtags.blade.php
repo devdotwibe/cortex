@@ -23,7 +23,7 @@
                                         <div class="form-data">
                                             <div class="forms-inputs mb-4">
                                                 <label for="name-table-category-form-create">Hashtag Name</label>
-                                                <input type="text" name="name" id="name-table-category-form-create" data-field-input="name" class="form-control">
+                                                <input type="text" name="hashtag" id="name-table-category-form-create" data-field-input="name" class="form-control">
                                                 <div class="invalid-feedback" data-field="name" id="name-error-table-category-form-create"></div>
                                             </div>
                                         </div>
