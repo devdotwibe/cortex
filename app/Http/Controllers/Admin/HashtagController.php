@@ -12,11 +12,11 @@ class HashtagController extends Controller
 
 
 
-    // public function hashtags()
-    // {
+    public function hashtags()
+    {
 
-    //     return view('admin.community.hashtags'); 
-    // }
+        return view('admin.community.hashtags'); 
+    }
 
 
     public function index(Request $request)
