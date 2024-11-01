@@ -7150,8 +7150,8 @@ nav.navbar.top-barhide {
 
 
 .exam-container .mcq-container-wrap .lesson #lesson-footer-pagination {
-    padding: 28px 0;
-    border-block: 1px solid #1789fa;
+    /* padding: 28px 0;
+    border-block: 1px solid #1789fa; */
     display: inline-block;
 }
 
