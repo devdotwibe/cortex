@@ -165,7 +165,7 @@ class TopicTestController extends Controller
     }
 
 
-    public function importquestion(Request $request,Category $category){ 
+    public function importquestion(Request $request,Category $category){
         $request->validate([
             'import_fields'=>['required'],
             'import_fields.*'=>['required'],
@@ -174,8 +174,8 @@ class TopicTestController extends Controller
  
         $file = $request->file('import_datas');
         $name = $file->hashName();
-        Storage::put("importfile", $file); 
-        
+        Storage::put("importfile", $file);
+
         $exam=Exam::where("name",'topic-test')->first();
         if(empty($exam)){
             $exam=Exam::store([
@@ -188,7 +188,7 @@ class TopicTestController extends Controller
         dispatch(new ImportQuestions(
             filename:$name,
             exam:$exam,
-            category:$category, 
+            category:$category,
             fields:$request->import_fields
         ));
 

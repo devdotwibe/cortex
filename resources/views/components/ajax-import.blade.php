@@ -25,21 +25,22 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="process-header">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                @foreach ($fields as $item)  
-                                <div class="form-data">
-                                    <div class="forms-inputs mb-4"> 
-                                        <label for="import-{{ $id }}-import_fields.{{$item->name}}">{{$item->label??ucfirst($item->name)}}</label>
-                                        <select class="form-control import-{{ $id }}-fields" name="{{$item->name}}" id="import-{{ $id }}-import_fields.{{$item->name}}"></select>
-                                        <div class="invalid-feedback" id="import-{{ $id }}-{{$item->name}}-error-message"></div>
-                                    </div>
-                                </div>
+                                @foreach ($fields as $item)
+                                        <div class="form-data">
+                                            <div class="forms-inputs mb-4">
+                                                <label for="import-{{ $id }}-import_fields.{{$item->name}}">{{$item->label??ucfirst($item->name)}}</label>
+                                                <select class="form-control import-{{ $id }}-fields" name="{{$item->name}}" id="import-{{ $id }}-import_fields.{{$item->name}}"></select>
+                                                <div class="invalid-feedback" id="import-{{ $id }}-{{$item->name}}-error-message"></div>
+                                            </div>
+                                        </div>
                                 @endforeach
                                 <div class="form-data">
-                                    <div class="forms-inputs mb-4"> 
+                                    <div class="forms-inputs mb-4">
                                         <div class="invalid-error text-danger" id="import-{{ $id }}-import_fields-error-message"></div>
                                     </div>
                                 </div>
@@ -148,6 +149,7 @@
             $('#import-{{ $id }}-import_datas-error-message').text('Please upload a file!').hide();
 
             let fileInput = $('#import-{{ $id }}-file')[0];
+
             if (fileInput.files.length === 0) {
                 $('#import-{{ $id }}-import_datas-error-message').text('Please upload a file!').show();
                 isValid = false;

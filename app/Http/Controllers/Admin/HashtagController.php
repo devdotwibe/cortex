@@ -12,18 +12,13 @@ class HashtagController extends Controller
 
 
 
-    public function hashtags()
-    {
-
-        return view('admin.community.hashtags'); 
-    }
-
-
-    public function index(Request $request)
+    public function hashtags(Request $request)
     {
         if ($request->ajax()) {
+
+            
             // Fetch all hashtags
-            $hashtags = Hashtag::orderBy('id', 'asc');
+            $hashtags = Hashtag::where('id',">",0);
 
             return DataTables::of($hashtags)
                 ->addColumn('action', function ($data) {
@@ -54,21 +49,67 @@ class HashtagController extends Controller
     }
 
 
+    
+
     public function store(Request $request)
     {
+       
         $request->validate([
-            'hashtag' => 'required|string|max:255',
+            'hashtag' => 'required',
+
         ]);
 
-        Hashtag::create($request->all());
-        return redirect()->route('admin.community.hashtags')->with('success', 'Hashtag created successfully.');
+      
+        $hashtag = new Hashtag();
+        $hashtag->hashtag = $request->hashtag; 
+      
+        $hashtag->save();
+
+ 
+        return response()->json(['success' => true, 'message' => 'Hashtag added successfully.']);
     }
 
+
+    public function destroy($id)
+    {
+        // Find the hashtag or fail
+        $hashtag = Hashtag::findOrFail($id);
+        
+        // Delete the hashtag
+        $hashtag->delete();
+    
+        return redirect()->back()->with('success', 'Hashtag deleted successfully.');
+    }
+    
     public function edit($id)
     {
+        // Find the hashtag or fail
         $hashtag = Hashtag::findOrFail($id);
-        return view('admin.community.hashtags.edit', compact('hashtag')); // Edit view
+        
+        // Return a view with the hashtag data (you might need to create this view)
+        return response()->json($hashtag);
     }
+    
+    public function update(Request $request, $id)
+    {
+        // Validate the incoming request data
+        $request->validate([
+            'hashtag' => 'required',
+        ]);
+    
+        // Find the hashtag or fail
+        $hashtag = Hashtag::findOrFail($id);
+    
+        // Update the hashtag with the new value
+        $hashtag->hashtag = $request->hashtag;
+        $hashtag->save();
+    
+        return response()->json(['success' => true, 'message' => 'Hashtag updated successfully.']);
+    }
+    
 
+
+
+   
    
 }

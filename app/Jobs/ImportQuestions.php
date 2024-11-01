@@ -69,7 +69,6 @@ class ImportQuestions implements ShouldQueue
         $this->category=$category;
         $this->subCategory=$subCategory;
         $this->setname=$setname;
-
     }
 
     /**
@@ -86,7 +85,7 @@ class ImportQuestions implements ShouldQueue
             if(OptionHelper::getData("{$this->exam->name}-import-question","stop")=="stop"){
                 break;
             }
-            $row=$datalist[$i];  
+            $row=$datalist[$i];
             if($this->exam->name=="full-mock-exam"){
                 $category = Category::firstOrCreate(
                     ['name' => $row[$this->fields['category']]],
@@ -119,13 +118,13 @@ class ImportQuestions implements ShouldQueue
                 "exam_id"=>$question->exam_id,
                 "question_id"=>$question->id,
                 "iscorrect"=>($row[$this->fields['iscorrect']]??"")=="A"?true:false,
-                "title"=>$row[$this->fields['answer_1']]
+                "title"=>$row[$this->fields['answer_1']],
             ]);
             Answer::store([
                 "exam_id"=>$question->exam_id,
                 "question_id"=>$question->id,
                 "iscorrect"=>($row[$this->fields['iscorrect']]??"")=="B"?true:false,
-                "title"=>$row[$this->fields['answer_2']]
+                "title"=>$row[$this->fields['answer_2']],
             ]);
             Answer::store([
                 "exam_id"=>$question->exam_id,
