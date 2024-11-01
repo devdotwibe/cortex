@@ -23,7 +23,7 @@ class HashtagController extends Controller
     {
         if ($request->ajax()) {
             // Fetch all hashtags
-            $hashtags = Hashtag::orderBy('id', 'asc');
+            $hashtags = Hashtag::where('id',">",0);
 
             return DataTables::of($hashtags)
                 ->addColumn('action', function ($data) {
