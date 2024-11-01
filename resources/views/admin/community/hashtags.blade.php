@@ -57,6 +57,32 @@
 </section>
 @endsection
 
+@push('modals')
+<div class="modal fade" id="table_hashtag_delete" tabindex="-1" role="dialog"
+aria-labelledby="tbBpi7u1724940550Label" aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <h5 class="modal-title" id="tbBpi7u1724940550Lablel">Delete Confirmation Required</h5>
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+            <form action="" id="table-delete-form" method="post">
+                @method('DELETE')
+                @csrf
+
+                <p>Are you sure you want to delete the record </p>
+                <button type="button" data-bs-dismiss="modal" class="btn btn-secondary">Cancel</button><button
+                    type="submit" class="btn btn-danger">Delete</button>
+            </form>
+        </div>
+
+    </div>
+</div>
+</div>
+@endpush
 
 
 @push('footer-script')
@@ -186,6 +212,16 @@ $(function() {
         console.log("test2");
     });
 });
+
+
+function deleteHashtag(url) // delete hashtag
+{
+    // Set the action URL for the form in the modal
+    $('#table-delete-form').attr('action', url);
+    
+    // Show the delete confirmation modal
+    $('#table_hashtag_delete').modal('show');
+}
 
 
 
