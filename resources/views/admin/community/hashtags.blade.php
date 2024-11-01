@@ -165,6 +165,9 @@ $(function() {
         $('.invalid-feedback').text('');
         $('.form-control').removeClass('is-invalid');
 
+        const saveType = $(this).attr('data-save');
+
+        const actionUrl = saveType === 'edit' ? "{{ url('admin/community/hashtags') }}/" + $(this).attr('data-hashtag-id') : $(this).attr('action');
         $.ajax({
             url: $(this).attr('action'), 
             method: $(this).attr('method'),
@@ -254,8 +257,7 @@ $('#table-category-form-create').on('submit', function(e) {
     $('.invalid-feedback').text('');
     $('.form-control').removeClass('is-invalid');
 
-    const saveType = $(this).attr('data-save');
-    const actionUrl = saveType === 'edit' ? "{{ url('admin/community/hashtags') }}/" + $(this).attr('data-hashtag-id') : $(this).attr('action');
+   
 
     // Show loading indicator
     $('#table-category-form-submit').prop('disabled', true).text('Processing...');
