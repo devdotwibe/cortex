@@ -53,21 +53,21 @@ class HashtagController extends Controller
 
     public function store(Request $request)
     {
+       
         $request->validate([
             'hashtag' => 'required',
         ]);
-    
+
+      
         $hashtag = new Hashtag();
         $hashtag->hashtag = $request->input('hashtag'); 
-    
-        // Save the hashtag to the database and check for success
-        if ($hashtag->save()) {
-            return response()->json(['success' => true, 'message' => 'Hashtag added successfully.']);
-        } else {
-            return response()->json(['success' => false, 'message' => 'Failed to add hashtag.']);
-        }
+        dd($hashtag);
+       
+        $hashtag->save();
+
+ 
+        return response()->json(['success' => true, 'message' => 'Hashtag added successfully.']);
     }
-    
 
 
 
