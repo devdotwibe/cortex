@@ -27,6 +27,7 @@ class PagesController extends Controller
         $ourprocess = OurProcess::get();
 
 
+
         return view('admin.pages.home', compact('banner', 'features', 'courses', 'feed','ourprocess'));
     }
 

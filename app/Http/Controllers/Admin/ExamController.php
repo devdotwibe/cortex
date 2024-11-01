@@ -25,7 +25,7 @@ class ExamController extends Controller
                 return '
                
 
-                <a href="'.route("admin.full-mock-exam.index",["exam"=>$data->slug]).'" class="btn btn-icons view_btn">
+                <a href="'.route("admin.full-mock-exam.index",["exam"=>$data->slug]).'" class="btn btn-icons eye-button">
                             <span class="adminside-icon">
                                 <img src="' . asset("assets/images/icons/mdi_incognito.svg") . '" alt="View">
                             </span>

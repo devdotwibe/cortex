@@ -24,7 +24,7 @@
         </div>
     </div>
 </section>
-<section class="content_section admin_section">
+<section class="content_section admin_section admin-live-class">
     <div class="container">
         <div class="row">
            
@@ -49,7 +49,7 @@
                                 </div>
                             </div>
 
-                            <div class="category" id="category-content-class-detail">
+                            <div class="category cat-1" id="category-content-class-detail">
 
                             </div>
 
@@ -78,7 +78,7 @@
                                 </div>
                             </div>
 
-                            <div class="category" id="category-content-lesson-material">
+                            <div class="category cat-1" id="category-content-lesson-material">
 
                             </div>
 
@@ -108,7 +108,7 @@
                                 </div>
                             </div>
 
-                            <div class="category" id="category-content-home-work">
+                            <div class="category cat-1" id="category-content-home-work">
 
                             </div>
 
@@ -138,7 +138,7 @@
                                 </div>
                             </div>
 
-                            <div class="category" id="category-content-lesson-recording">
+                            <div class="category cat-1" id="category-content-lesson-recording">
 
                             </div>
 

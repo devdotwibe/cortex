@@ -2,7 +2,7 @@
 @section('headerclass','header-class')
 @section('title', $exam->subtitle($category->id,"Topic ".($category->getIdx()+1)).':'.$category->name)
 @section('content')
-<section class="exam-container questionclass answerclass onequestionclass">
+<section class="exam-container questionclass answerclass ">
     <div class="exam-progress">
         <div class="exam-progress-inner">
             <div class="exam-progress-inner-item exam-left">
@@ -28,7 +28,7 @@
                         </div>
                     </div> 
 
-                    <button class="btn hide-btn" id="hide_button" onclick="HideTime()"><img src="{{asset("assets/images/flat-color-icons_clock.svg")}}"></button>
+                    <button class="btn hide-btn" id="hide_button" onclick="HideTime()">Hide Time</button>
 
                 </div>
             </div>
@@ -67,8 +67,8 @@
                 <div class="row" id="lesson-questionlist-list" style="display: none">
                 </div>
             </div>
-            <div class="lesson-footer" id="lesson-footer-pagination"> 
-            </div>           
+            {{-- <div class="lesson-footer" id="lesson-footer-pagination"> 
+            </div>            --}}
         </div>
     </div> 
 </section>

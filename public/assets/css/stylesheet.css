@@ -266,7 +266,13 @@ footer { width: 100%; float: left;}
 footer .footer-row1 { background: #000000; padding: 20px 0;  text-align: center;}
 footer .footer-row1 p { font-size: 16px; color: #fff; font-weight: 500;}
 
-
+.footer-wrapp .footer-buttons {width: 100%; margin: 20px 0 0;}
+.footer-wrapp .footer-buttons .btn.btn-primary { font-size: 19px; font-weight: 500; display: inline-block; color: #ffff; background: #FBAE1E; border: 1px solid #FBAE1E; padding: 12px 35px; border-radius: 5px;}
+.footer-wrapp .footer-buttons .btn.btn-primary:hover {background: none; color: #FBAE1E;}
+.footer-wrapp .footer-buttons .btn.btn-secondary { font-size: 19px; font-weight: 500; display: inline-block; color: #ffff; background: #1989F8; border: 1px solid #1989F8; padding: 12px 35px; border-radius: 5px;}
+.footer-wrapp .footer-buttons .btn.btn-secondary:hover { background: none; color: #1989F8;}
+footer .footer-row1 p a {color: #1989f8;}
+footer .footer-row1 p a:hover { color: #fff;}
 
 .banner-wrapp2 .banner-col1 {width: 52%;}
 .banner-wrapp2 .banner-col2 { width: 46%;}
@@ -483,6 +489,9 @@ p.card-text { font-size: 22px;}
 .contact-wrapp .text-fields .text-field input { height: 60px;  font-size: 16px;}
 .contact-wrapp .form-btn .submit-btn { font-size: 18px;}
 
+.footer-wrapp .footer-buttons .btn.btn-primary {font-size: 17px;}
+.footer-wrapp .footer-buttons .btn.btn-secondary { font-size: 17px;}
+
 }
 
 @media screen and (max-width:991px){
@@ -554,6 +563,8 @@ p.card-text { font-size: 18px;}
 .footer-wrapp p {  font-size: 14px;}
 .footer-wrapp .social-icons li { width: 40px;}
 
+.footer-wrapp .footer-buttons .btn.btn-primary {font-size: 14px; padding: 12px 19px;}
+.footer-wrapp .footer-buttons .btn.btn-secondary { font-size: 14px; padding: 12px 19px; }
 
 }
 

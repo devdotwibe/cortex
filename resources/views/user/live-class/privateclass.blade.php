@@ -14,7 +14,7 @@
             </div>
         </div>
     </section>
-    <section class="content_section">
+    <section class="content_section private">
         <div class="container">
             <div class="row">
 

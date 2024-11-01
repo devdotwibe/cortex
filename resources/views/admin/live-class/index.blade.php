@@ -91,10 +91,15 @@
 
                                             </span>
 
-                                            <span id="card_image_upload_1" style="display:none">
 
+
+
+                                            <span id="card_image_upload_1" style="display: none;" >
+                                             <label for="class_image_1" class="file-upload">Upload File <br>
+                                                <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
+                                              </label>
                                                 <input type="file" name="class_image_1" id="class_image_1"
-                                                    class="form-control">
+                                                    class="form-control"  style="display: none;">
 
                                                 <div class="preview-box" id="preview-box"
                                                     style="width:300px; height:200px; display:none">
@@ -104,6 +109,9 @@
                                                 </div>
 
                                             </span>
+
+
+
 
                                         </div>
 
@@ -238,10 +246,12 @@ Receive a personalised learning experience with regular feedback by enrolling wi
 
                                             </span>
 
-                                            <span id="card_image_upload_2" style="display:none">
-
+                                            <span id="card_image_upload_2" style="display: none;">
+                                                <label for="class_image_2" class="file-upload">Upload File <br>
+                                                    <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
+                                                  </label>
                                                 <input type="file" name="class_image_2" id="class_image_2"
-                                                    class="form-control">
+                                                    class="form-control" style="display: none;">
 
                                                 <div class="preview-box" id="preview-box_2"
                                                     style="width:300px; height:200px; display:none">
@@ -251,6 +261,11 @@ Receive a personalised learning experience with regular feedback by enrolling wi
                                                 </div>
 
                                             </span>
+
+
+                                           
+
+
 
                                         </div>
 

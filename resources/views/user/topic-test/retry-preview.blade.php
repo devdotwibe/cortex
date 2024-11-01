@@ -2,7 +2,7 @@
 @section('headerclass','header-class')
 @section('title', $exam->subtitle($category->id,"Topic ".($category->getIdx()+1)).':'.$category->name)
 @section('content')
-<section class="exam-container questionclass answerclass onequestionclass">
+<section class="exam-container questionclass answerclass ">
     <div class="exam-progress quest-progress">
         <div class="exam-progress-inner">
             <div class="exam-progress-inner-item exam-left">
@@ -170,7 +170,7 @@
                                         </div>
                                         <div id="mcq-${lesseonId}-explanation" class="correctanswerclass"> 
                                             <label>Correct Answer <span id="mcq-${lesseonId}-correct"></span></label>
-                                            ${v.explanation||''}
+                                            <p>${v.explanation||''}</p>
                                         </div>
 
                                         {{-- <div id="mcq-${lesseonId}-ans-progress" class="form-group">

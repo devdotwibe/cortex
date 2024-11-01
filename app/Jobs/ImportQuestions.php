@@ -69,7 +69,7 @@ class ImportQuestions implements ShouldQueue
         $this->category=$category;
         $this->subCategory=$subCategory;
         $this->setname=$setname;
-      
+
     }
 
     /**
@@ -77,14 +77,12 @@ class ImportQuestions implements ShouldQueue
      */
     public function handle(): void
     {
-      
         OptionHelper::setData("{$this->exam->name}-import-question",'started');
         OptionHelper::setData("{$this->exam->name}-import-question-status",'progress');
         $datalist=Storage::json("importfile/{$this->filename}")??[];
       
         $count=count($datalist);
-    
-        foreach ($datalist as $i => $row) { 
+        foreach ($datalist as $i => $row) {
             if(OptionHelper::getData("{$this->exam->name}-import-question","stop")=="stop"){
                 break;
             }
@@ -106,16 +104,15 @@ class ImportQuestions implements ShouldQueue
                     "explanation"=>$row[$this->fields['explanation']]
                 ]);
             } else{
-
                 $question=Question::store([
                     "exam_id"=>$this->exam->id,
                     "category_id"=>optional($this->category)->id,
                     "sub_category_id"=>optional($this->subCategory)->id,
                     "sub_category_set"=>optional($this->setname)->id,
                     "description"=>$row[$this->fields['description']],
-                    "explanation"=>$row[$this->fields['explanation']],
-                    "title_text"=>$row[$this->fields['title_text']],
-                    "sub_question"=>$row[$this->fields['sub_question']],
+                    "explanation" => (isset($this->fields['explanation']) && isset($row[$this->fields['explanation']])) ? $row[$this->fields['explanation']] : null,
+                    "title_text" => (isset($this->fields['title_text']) && isset($row[$this->fields['title_text']])) ? $row[$this->fields['title_text']] : null,
+                    "sub_question" => (isset($this->fields['sub_question']) && isset($row[$this->fields['sub_question']])) ? $row[$this->fields['sub_question']] : null,
                 ]);
             }
             Answer::store([
@@ -134,13 +131,13 @@ class ImportQuestions implements ShouldQueue
                 "exam_id"=>$question->exam_id,
                 "question_id"=>$question->id,
                 "iscorrect"=>($row[$this->fields['iscorrect']]??"")=="C"?true:false,
-                "title"=>$row[$this->fields['answer_3']]
+                "title" => (isset($this->fields['answer_3']) && isset($row[$this->fields['answer_3']])) ? $row[$this->fields['answer_3']] : null,
             ]);
             Answer::store([
                 "exam_id"=>$question->exam_id,
                 "question_id"=>$question->id,
                 "iscorrect"=>($row[$this->fields['iscorrect']]??"")=="D"?true:false,
-                "title"=>$row[$this->fields['answer_4']]
+                "title" => (isset($this->fields['answer_4']) && isset($row[$this->fields['answer_4']])) ? $row[$this->fields['answer_4']] : null,
             ]);
             $i++;
             OptionHelper::setData("{$this->exam->name}-import-question-completed",round($i*100/$count,2));

@@ -44,10 +44,27 @@
                                 </li>
                             @endforeach
                         </ul>
-                    </div>                
+                    </div>   
+                    
+                    
+
+                    
                 </div>        
             </div>
         </div>
+
+
+        <!-- Hashtag Dropdown -->
+        <div class="drophash hashtagdropdown">
+           
+            <select id="hashtagDropdown" class="form-select" onchange="location = this.value;">
+                <option value="">Choose a Channel</option> <!-- Default option -->
+                @foreach ($hashtags as $hashtag)
+                    <option value="{{ route('community.index', ['hashtag' => $hashtag]) }}">{{ $hashtag }}</option>
+                @endforeach
+            </select>
+        </div>
+
 
         <div class="post-container-wrapp">
             <div class="post-container" id="post-item-list">
@@ -58,12 +75,13 @@
             <form id="searchForm" action="">
                 <div class="text-field">
                     <input type="search" id="searchInput" placeholder="Search for Posts" aria-label="Search for Posts" oninput="performSearch()">
-                    <button type="submit" class="search-btn" disabled><img src="{{ asset('assets/images/searc-icon.svg') }}" alt=""></button>
+                    <button type="button" class="search-btn" onclick="toggleSearchResults()"><img src="{{ asset('assets/images/searc-icon.svg') }}" alt=""></button>
+                    <div class="searchclass">
+                        <div id="searchResults" name="searchres"></div> <!-- Container for displaying search results -->
+                        </div>
                 </div>
             </form>
-            <div class="searchclass">
-            <div id="searchResults" name="searchres"></div> <!-- Container for displaying search results -->
-            </div>
+            
         </div>
     </div>
     <div class="post-action">
@@ -77,7 +95,15 @@
 @push('footer-script')
 
 
+<script>
+    function toggleSearchResults() {
 
+    
+        $('.post-search').toggleClass('menu-view');
+       
+        // performSearch(); 
+    }
+    </script>
 
 <script>
     $(document).ready(function() {

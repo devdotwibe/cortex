@@ -8,7 +8,7 @@
         </div>
     </div>
 </section>
-<section class="content_section admin_section ">
+<section class="content_section admin_section learn-class">
     <div class="container">
         <div class="row">
             @foreach ($categorys as $k=>$item)
@@ -60,9 +60,11 @@
                                 <div class="invalid-feedback">The field is required</div>
                             </div>
                         </div>
-                        <div class="form-data">
-                            <div class="forms-inputs mb-4">
-                                <label for="question-bank-category-icon">Icon</label>
+                        <div class="form-data file-upload-wrapp">
+                            <div class="forms-inputs file-upload mb-4">
+                                <label for="question-bank-category-icon">Icon
+                                <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
+                                </label>
                                 <input type="hidden" name="icon" value="" id="question-bank-category-icon-input"  >
                                 <input type="file" onchange="iconchange(event)"  id="question-bank-category-icon" class="form-control " placeholder="Icon" aria-placeholder="Icon" >
                                 <div class="invalid-feedback">The field is required</div>

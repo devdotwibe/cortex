@@ -26,7 +26,7 @@
                     <div class="card-body">
                         <form class="form" id="table-category-form-create" data-save="create" method="post" action="{{route('admin.faq.store')}}">
                            
-                            <div class="row">
+                            <div class="row tabouter">
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <div class="form-data">
@@ -77,7 +77,7 @@
 @endsection
 
 @push('modals')
-    <div class="modal fade bd-example-modal-lg" id="sub-category-create-modal" tabindex="-1" role="dialog"
+    <div class="modal fade bd-example-modal-lg faq-modal" id="sub-category-create-modal" tabindex="-1" role="dialog"
         aria-labelledby="sub-category-createLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content" id="sub-category-modal-content">
@@ -90,23 +90,24 @@
                 <div class="modal-body"> 
                     <form  class="form" id="subcategory" method="post" action="{{route('admin.faq.subfaq-store')}}">{{-- action="" data-save="create" data-action="" data-createurl="" > --}}
                         @csrf                
-                        <div class="row"> 
+                        <div class="row faq-form"> 
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <div class="form-data">
                                         <div class="forms-inputs mb-4"> 
-                                           
+                                           <div class="tabfaq">
                                             <label for="name-table-subcategory-form-create">Question</label>
                                             <input type="text" name="question" id="name-table-subcategory-form-create" data-field-input="question" class="form-control "  >
 
                                             <div class="invalid-feedback" data-update="question" id="name-error-table-subcategory-form-create"></div>
-
-                                            <label for="name-table-subcategory-form-create">Answer</label>
+                                           </div>
+                                          <div class="tabfaq">
+                                         <label for="name-table-subcategory-form-create">Answer</label>
                                             <textarea name="answer" id="name-table-subcategory-form-create-ans" class="form-control" data-field-input="answer" cols="30" rows="5"></textarea>
 
                                             <div class="invalid-feedback" data-update="answer" id="name-error-table-subcategory-form-create"></div>
                                             {{-- <input type="text" name="name" id="name-table-subcategory-form-create" class="form-control "  > --}}
-                                            
+                                          </div>
                                             <input type="hidden" name="faq_id" id="faq_id" value="">
 
                                            
@@ -120,7 +121,7 @@
                             </div>
                         </div> 
                     </form>
-
+                <div class="table-outer">
                     <table class="table" id="subfaq" style="width: 100%">
                         <thead>
                             <tr>
@@ -133,6 +134,7 @@
                         <tbody> 
                         </tbody>
                             </table>
+                </div>
                 </div> 
             </div>
             
@@ -182,6 +184,7 @@
 
 $(function(){
     
+    console.log('1');
     $('#table-faq').DataTable({
             // bFilter: false,
             // bLengthChange: false,
@@ -247,7 +250,7 @@ $(function(){
 
 $(function(){
 
-console.log('dg');
+    console.log('2');
 
 $('#subfaq').DataTable({
     // bFilter: false,
@@ -315,6 +318,8 @@ $('#subfaq').DataTable({
 
 $(function() {
 
+    console.log('3');
+
     $('#table-category-form-create').on('submit', function(e) {
     e.preventDefault(); 
 
@@ -333,11 +338,16 @@ $(function() {
             
             // Reset the button text back to "Add +"
             $('#table-category-form-submit').text(' Add + ');
+
+            $('#subcategory').attr('action', '{{route('admin.faq.store')}}'); 
+
+            console.log('99');
+            console.log("test1");
            
             // Hide the cancel button
             $('#table-category-form-clear').hide();
 
-            console.log("test1");
+           
 
             // Reload the DataTable to show updated data
             $('#table-faq').DataTable().ajax.reload();
@@ -354,6 +364,8 @@ $(function() {
 });
 
 $('#table-category-form-clear').on('click', function() {
+
+
     var storeurl = "{{route('admin.faq.store')}}";
     // Reset the form fields
     $('#table-category-form-create')[0].reset();
@@ -368,50 +380,15 @@ $('#table-category-form-clear').on('click', function() {
     console.log("test2");
 });
 
-$('#subcategory').on('submit', function(e) {
-    e.preventDefault();
 
-    $('.error').html('');
-    $('.invalid-feedback').text('');
-    $('.form-control').removeClass('is-invalid');
-
-    $.ajax({
-        url: $(this).attr('action'),
-        method: $(this).attr('method'),
-        data: $(this).serialize(),
-        success: function(response) {
-            $('#subfaq').DataTable().ajax.reload(); // Reload the DataTable
-
-            // Reset form and button state
-            $('#subcategory')[0].reset(); // Reset form
-
-            // Reset the button text back to "Submit"
-            $('#table-subcategory-form-submit').text(' Submit ');
-
-            // Hide the cancel button
-            $('#table-subcategory-form-clear').hide();
-
-            // Clear the update state
-            $('#subcategory').data('save', ""); // Reset save data
-            $('#subcategory').attr('action', '{{route('admin.faq.subfaq-store')}}'); // Set action to create entry
-        },
-        error: function(xhr) {
-            var errors = xhr.responseJSON.errors;
-
-            for (var key in errors) {
-                $('[data-update="' + key + '"]').html(errors[key][0]);
-                $('[data-field-input="' + key + '"]').addClass('is-invalid');
-            }
-        }
-    });
-});
 
 });
 
 
 function delfaq(url) //delete main faq
-{
 
+{
+    
 $('#table-delete-form').attr('action',url);
 $('#table_faq_delete').modal('show');
 
@@ -419,6 +396,7 @@ $('#table_faq_delete').modal('show');
 }
 
 function delsubfaq(url) {
+  
     // Set the action URL for the delete form dynamically
     $('#table-delete-form').attr('action', url);
     
@@ -463,6 +441,7 @@ function delsubfaq(url) {
     });
 }
 function onDeleteSuccess() {
+   
     // Hide the delete confirmation modal
     $('#table_faq_delete').modal('hide');
     
@@ -474,6 +453,7 @@ function onDeleteSuccess() {
 
 var activedata = {};
 function addsubfaq(url, id) {
+
     
             $('#faq_id').val(id);
             $('#table-category-form-create').attr('action', url);
@@ -486,6 +466,7 @@ function addsubfaq(url, id) {
         }
 
         function updatefaq(url) {
+           
             $.get(url, function(res) {
 
                 $('#name-error-table-category-form-create').text("")
@@ -503,6 +484,7 @@ function addsubfaq(url, id) {
         }
 
         function updatesubfaq(url) {
+            
     $.get(url, function(res) {
         // Reset error messages and remove invalid classes for question and answer fields
         $('#name-error-table-subcategory-form-create').text("");
@@ -546,156 +528,5 @@ console.log("test");
 });
 
 
-        // function clearcategory() {
-        //     $('#name-error-table-category-form-create').text("")
-        //     $('#name-table-category-form-create').val('').removeClass("is-invalid")
-        //     $('#table-category-form-create').data('save', "create")
-        //     $('#table-category-form-create').data('action', "{{ route('admin.category.store') }}")
-        //     $('#table-category-form-clear').hide()
-        //     $('#table-category-form-submit').text(' Add + ')
-        // }
-
-        // $(function() {
-        //     $('#table-category-form-clear').click(clearcategory);
-        //     $('#table-category-form-create').on('submit', function(e) {
-        //         e.preventDefault();
-        //         $('#name-error-table-category-form-create').text("")
-        //         $('#name-table-category-form-create').removeClass("is-invalid")
-        //         if ($(this).data('save') == "create") {
-        //             $.post($(this).data('action'), {
-        //                 name: $('#name-table-category-form-create').val()
-        //             }, function(res) {
-        //                 cattable.ajax.reload()
-        //                 clearcategory()
-        //                 showToast(res.success??'Category has been successfully added', 'success');
-        //             }).fail(function(xhr) {
-        //                 try {
-        //                     var errors = xhr.responseJSON.errors;
-        //                     $('#name-error-table-category-form-create').text(errors.name[0])
-        //                     $('#name-table-category-form-create').addClass("is-invalid")
-        //                 } catch (error) {
-
-        //                 }
-
-        //             })
-        //         } else if ($(this).data('save') == "update") {
-        //             $.post($(this).data('action'), {
-        //                 _method: "PUT",
-        //                 name: $('#name-table-category-form-create').val()
-        //             }, function(res) {
-        //                 cattable.ajax.reload()
-        //                 clearcategory()
-        //                 showToast(res.success??'Category has been successfully updated', 'success');
-        //             }).fail(function(xhr) {
-        //                 try {
-        //                     var errors = xhr.responseJSON.errors;
-        //                     $('#name-error-table-category-form-create').text(errors.name[0])
-        //                     $('#name-table-category-form-create').addClass("is-invalid")
-        //                 } catch (error) {
-
-        //                 }
-
-        //             })
-        //         } else {
-        //             $('#name-error-table-category-form-create').text("Invalid form")
-        //             $('#name-table-category-form-create').addClass("is-invalid")
-        //         }
-        //     })
-
-        //     $('#table-subcategory-form-clear').click(clearsubcategory);
-        //     $('#table-subcategory-form-create').on('submit', function(e) {
-        //         e.preventDefault();
-        //         $('#name-error-table-subcategory-form-create').text("")
-        //         $('#name-table-subcategory-form-create').removeClass("is-invalid")
-        //         if ($(this).data('save') == "create") {
-        //             $.post($(this).data('action'), {
-        //                 name: $('#name-table-subcategory-form-create').val()
-        //             }, function(res) {
-        //                 subcattable.ajax.reload()
-        //                 clearsubcategory()
-        //                 showToast(res.success??'Sub Category has been successfully added', 'success');
-        //             }).fail(function(xhr) {
-        //                 try {
-        //                     var errors = xhr.responseJSON.errors;
-        //                     $('#name-error-table-subcategory-form-create').text(errors.name[0])
-        //                     $('#name-table-subcategory-form-create').addClass("is-invalid")
-        //                 } catch (error) {
-
-        //                 }
-
-        //             })
-        //         } else if ($(this).data('save') == "update") {
-        //             $.post($(this).data('action'), {
-        //                 _method: "PUT",
-        //                 name: $('#name-table-subcategory-form-create').val()
-        //             }, function(res) {
-        //                 subcattable.ajax.reload()
-        //                 clearsubcategory()
-        //                 showToast(res.success??'Sub Category has been successfully updated', 'success');
-        //             }).fail(function(xhr) {
-        //                 try {
-        //                     var errors = xhr.responseJSON.errors;
-        //                     $('#name-error-table-subcategory-form-create').text(errors.name[0])
-        //                     $('#name-table-subcategory-form-create').addClass("is-invalid")
-        //                 } catch (error) {
-
-        //                 }
-
-        //             })
-        //         } else {
-        //             $('#name-error-table-subcategory-form-create').text("Invalid form")
-        //             $('#name-table-subcategory-form-create').addClass("is-invalid")
-        //         }
-        //     })
-
-        //     $('#table-subcategoryset-form-clear').click(clearsubcategoryset);
-        //     $('#table-subcategoryset-form-create').on('submit', function(e) {
-        //         e.preventDefault();
-        //         $('#name-error-table-subcategoryset-form-create').text("")
-        //         $('#name-table-subcategoryset-form-create').removeClass("is-invalid")
-        //         if ($(this).data('save') == "create") {
-        //             $.post($(this).data('action'), {
-        //                 name: $('#name-table-subcategoryset-form-create').val()
-        //             }, function(res) {
-        //                 subcatsettable.ajax.reload()
-        //                 clearsubcategoryset()
-        //                 showToast(res.success??'Sub Category has been successfully added', 'success');
-        //             }).fail(function(xhr) {
-        //                 try {
-        //                     var errors = xhr.responseJSON.errors;
-        //                     $('#name-error-table-subcategoryset-form-create').text(errors.name[0])
-        //                     $('#name-table-subcategoryset-form-create').addClass("is-invalid")
-        //                 } catch (error) {
-
-        //                 }
-
-        //             })
-        //         } else if ($(this).data('save') == "update") {
-        //             $.post($(this).data('action'), {
-        //                 _method: "PUT",
-        //                 name: $('#name-table-subcategoryset-form-create').val()
-        //             }, function(res) {
-        //                 subcatsettable.ajax.reload()
-        //                 clearsubcategoryset()
-        //                 showToast(res.success??'Sub Category has been successfully updated', 'success');
-        //             }).fail(function(xhr) {
-        //                 try {
-        //                     var errors = xhr.responseJSON.errors;
-        //                     $('#name-error-table-subcategoryset-form-create').text(errors.name[0])
-        //                     $('#name-table-subcategoryset-form-create').addClass("is-invalid")
-        //                 } catch (error) {
-
-        //                 }
-        //             })
-        //         } else {
-        //             $('#name-error-table-subcategoryset-form-create').text("Invalid form")
-        //             $('#name-table-subcategoryset-form-create').addClass("is-invalid")
-        //         }
-        //     })
-
-
-
-        // })
-        
 </script>
 @endpush
