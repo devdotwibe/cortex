@@ -452,10 +452,18 @@ jQuery(document).on("change", "#file_upload", function() {
                 });
             });
 
-            $('.end-datepicker').datepicker({
-            dateFormat: 'yy-mm-dd',
-            maxDate: 0
-        });
+            $(document).ready(function() {
+    $('.end-datepicker').datepicker({
+        dateFormat: 'yy-mm-dd', // Set the date format
+        // Remove or adjust the minDate if it's incorrectly set
+        minDate: 0, // Optional: Set to 0 to disable past dates or change this based on your requirement
+        maxDate: null, // Allows selection of dates without restriction
+        changeMonth: true, // Enable month dropdown
+        changeYear: true, // Enable year dropdown
+        showButtonPanel: true, // Show buttons to go to today or close
+    });
+});
+
 
         </script>
 @endpush
