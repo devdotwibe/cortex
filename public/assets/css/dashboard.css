@@ -8094,7 +8094,7 @@ nav.navbar.top-barhide {
     }
 
     .exam-container.answerclass .mcq-container-wrap {
-        padding: 0;
+        padding: 0 0px 30px;
     }
 
     .exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check {
