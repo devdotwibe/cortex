@@ -264,13 +264,6 @@ class CommunityController extends Controller
         }
 
 
-        // // Extract and store hashtags from the description
-        // preg_match_all('/#\w+/', $data['description'], $hashtags);
-        // $extractedHashtags = $hashtags[0];
-        // foreach ($extractedHashtags as $hashtag) {
-        //     Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
-        // }
-        // Split hashtags by commas or spaces   
         $extractedHashtags = array_filter(array_map('trim', preg_split('/[,\s]+/', $request->input('hashtag', ''))));
         foreach ($extractedHashtags as $hashtag) {
             if (!empty($hashtag)) {
