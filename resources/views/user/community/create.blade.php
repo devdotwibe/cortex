@@ -63,7 +63,7 @@
                                     </div>
                                 </div>    
                             </div>
-
+{{-- 
                             <div class="col-md-12 " >
                                 <div class="form-group">
                                     <div class="form-data">
@@ -75,6 +75,21 @@
                                             @enderror
                                         </div>
                                     </div>
+                                </div>    
+                            </div> --}}
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="hashtag-select">Hashtag</label> 
+                                    <select name="hashtag" id="hashtag-select" class="form-control @error('hashtag') is-invalid @enderror">
+                                        <option value="">Select a hashtag</option>
+                                        @foreach ($hashtags as $hashtag)
+                                            <option value="{{ $hashtag->id }}">{{ $hashtag->hashtag }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('hashtag')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>    
                             </div>
 
