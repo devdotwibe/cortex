@@ -60,6 +60,8 @@
 
 
 @push('footer-script')
+
+
 <script>
 
 
@@ -130,3 +132,4 @@ $(function(){
 
 
 </script>
+@endpush
