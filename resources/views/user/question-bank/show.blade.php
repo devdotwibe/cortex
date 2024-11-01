@@ -36,7 +36,10 @@
                                 })->get() as $sk=> $set)
                                     <div class="sets-item">
                                         @if ($user->is_free_access||(optional($user->subscription())->status??"")=="subscribed"||($k == 0&&$sk==0)) 
-                                        <a @if($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$item->id.'-set-'.$set->id.'-complete-review',"no")=="yes") @elseif($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$item->id.'-set-'.$set->id.'-complete-date',"")=="")  @guest('admin') onclick="confimexam('{{route('question-bank.set.show',['category'=>$category->slug,'sub_category'=>$item->slug,'setname'=>$set->slug])}}')" @endguest @else onclick="loadlessonsetreviews('{{route('question-bank.set.history',['category'=>$category->slug,'sub_category'=>$item->slug,'setname'=>$set->slug])}}')" @endif >
+                                        <a @if($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$item->id.'-set-'.$set->id.'-complete-review',"no")=="yes") 
+                                            @elseif($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$item->id.'-set-'.$set->id.'-complete-date',"")=="")  
+                                            @guest('admin') onclick="confimexam('{{route('question-bank.set.attempt',['category'=>$category->slug,'sub_category'=>$item->slug,'setname'=>$set->slug])}}')" @endguest 
+                                            @else onclick="loadlessonsetreviews('{{route('question-bank.set.history',['category'=>$category->slug,'sub_category'=>$item->slug,'setname'=>$set->slug])}}')" @endif >
                                         @else
                                         {{-- <a href="{{route('pricing.index')}}"> --}}
                                             <a href="javascript:void(0);" onclick="showLockedModal()">
@@ -127,8 +130,9 @@
         localStorage.setItem("question-bank", v);
     }
     async function confimexam(url){
-        if(await showConfirm({ title:"Start the question set" })){
-            window.location.href=url;
+        var mode = document.querySelector('input[name="timed"]:checked').value;
+        if(await showConfirm({ title:"Start the question set in " + mode + " mode?" })){
+            window.location.href=`${url}?timed=${mode}`;
         }
     }
 
@@ -163,7 +167,8 @@
                 ],
                 initComplete: function() {
                     var info = this.api().page.info(); 
-                    var json = this.api().ajax.json();
+                    var json = this.api().ajax.json(); 
+
                     $('#restart-btn').attr('href', json.url);
                     $('#review-history-label').html(` ${json.name} `)
                     if (info.pages > 1) {
@@ -180,6 +185,9 @@
                 drawCallback: function() {
                     var info = this.api().page.info();
                     var json = this.api().ajax.json();
+                    var mode = document.querySelector('input[name="timed"]:checked').value;
+                    json.url = `${json.url}?timed=${mode}`;
+                    
                     $('#restart-btn').attr('href', json.url);
                     $('#review-history-label').html(` ${json.name} `)
                     if (info.pages > 1) {
