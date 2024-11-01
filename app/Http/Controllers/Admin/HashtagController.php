@@ -14,18 +14,9 @@ class HashtagController extends Controller
 
     public function hashtags()
     {
-
-        dd("porth");
-        return view('admin.community.hashtags'); 
-    }
-
-
-    public function index(Request $request)
-    {
-       
         if ($request->ajax()) {
 
-            dd("istollath");
+            
             // Fetch all hashtags
             $hashtags = Hashtag::where('id',">",0);
 
@@ -55,6 +46,13 @@ class HashtagController extends Controller
         }
 
         return view('admin.community.hashtags'); // Make sure this view exists
+    }
+
+
+    public function index(Request $request)
+    {
+       
+       
     }
 
 
