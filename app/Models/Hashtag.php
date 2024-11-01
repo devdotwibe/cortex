@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Model;
 class Hashtag extends Model
 {
     use HasFactory;
-    protected $table = 'hashtags';
 
     protected $fillable = ['hashtag', 'post_id'];
 
@@ -19,5 +18,7 @@ class Hashtag extends Model
     {
         return $this->belongsTo(Post::class);
     }
-}
 
+    // Prevent mass assignment vulnerabilities
+    protected $guarded = [];
+}
