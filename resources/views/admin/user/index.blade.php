@@ -422,7 +422,7 @@ jQuery(document).on("change", "#file_upload", function() {
                          usertableinit(); 
 
                          setTimeout(function() {
-                window.location.reload(true); // Force refresh from server
+                            location.reload();
             }, 10000); // 30000 milliseconds = 30 seconds
         
        
