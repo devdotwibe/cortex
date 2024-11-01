@@ -7700,7 +7700,7 @@ nav.navbar.top-barhide {
     }
 
     .exam-container .mcq-container-wrap {
-        padding: 0 0 10px;
+        padding: 0 0 30px;
     }
 
     .questionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group {
@@ -8309,7 +8309,7 @@ nav.navbar.top-barhide {
 
     .exam-container.answerclass .mcq-container-wrap {
         padding: 20px;
-        min-height: calc(100vh - 125px);
+        min-height: calc(100vh - 117px);
     }
 
     .exam-container .mcq-container-wrap .lesson .lesson-body .mcq-container:after {
