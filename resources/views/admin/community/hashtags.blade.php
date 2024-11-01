@@ -132,6 +132,4 @@ $(function(){
 
 
 </script>
-
-
 @endpush
