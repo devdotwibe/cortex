@@ -3029,7 +3029,7 @@ aside.side_bar.slider-btn .btn-slider {
 
 .exam-container .question-bank-review {
     max-width: 100%;
-    padding: 0;
+    padding: 0 0 20px 0px;
     position: relative;
     min-height: inherit;
 }
