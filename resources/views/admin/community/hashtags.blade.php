@@ -23,7 +23,7 @@
                                         <div class="form-data">
                                             <div class="forms-inputs mb-4">
                                                 <label for="name-table-category-form-create">Hashtag Name</label>
-                                                <input type="text" name="name" id="name-table-category-form-create" data-field-input="name" class="form-control">
+                                                <input type="text" name="hashtag" id="name-table-category-form-create" data-field-input="name" class="form-control">
                                                 <div class="invalid-feedback" data-field="name" id="name-error-table-category-form-create"></div>
                                             </div>
                                         </div>
@@ -57,9 +57,37 @@
 </section>
 @endsection
 
+@push('modals')
+<div class="modal fade" id="table_hashtag_delete" tabindex="-1" role="dialog"
+aria-labelledby="tbBpi7u1724940550Label" aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <h5 class="modal-title" id="tbBpi7u1724940550Lablel">Delete Confirmation Required</h5>
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+            <form action="" id="table-delete-form" method="post">
+                @method('DELETE')
+                @csrf
+
+                <p>Are you sure you want to delete the record </p>
+                <button type="button" data-bs-dismiss="modal" class="btn btn-secondary">Cancel</button><button
+                    type="submit" class="btn btn-danger">Delete</button>
+            </form>
+        </div>
+
+    </div>
+</div>
+</div>
+@endpush
 
 
 @push('footer-script')
+
+
 <script>
 
 
@@ -77,11 +105,7 @@ $(function(){
             ajax:{
                 url:"{{request()->fullUrl()}}",
 
-            method: 'get', 
-                // "data": function ( d ) {
-
-                      
-                //     }
+          
             },
             initComplete:function(settings){
                 var info = this.api().page.info();
@@ -129,4 +153,139 @@ $(function(){
 });
 
 
+
+$(function() {
+    console.log('3');
+
+    $('#table-category-form-create').on('submit', function(e) {
+        e.preventDefault();
+
+     
+        $('.error').html('');
+        $('.invalid-feedback').text('');
+        $('.form-control').removeClass('is-invalid');
+
+        $.ajax({
+            url: $(this).attr('action'), 
+            method: $(this).attr('method'),
+            data: $(this).serialize(),
+            success: function(response) {
+                if (response.success) {
+                  
+                    $('#table-category-form-create')[0].reset();
+
+                    $('#table-category-form-submit').text(' Add + ');
+
+                
+                    $('#table-category-form-clear').hide();
+
+                    $('#table-hashtag').DataTable().ajax.reload();
+
+                 
+                    alert(response.message); 
+                } else {
+                    alert('Failed to add hashtag.');
+                }
+            },
+            error: function(xhr) {
+                var errors = xhr.responseJSON.errors;
+
+             
+                for (var key in errors) {
+                    $('[data-field="' + key + '"]').html(errors[key][0]);
+                    $('[data-field-input="' + key + '"]').addClass('is-invalid');
+                }
+            }
+        });
+    });
+
+    $('#table-category-form-clear').on('click', function() {
+        
+        
+        $('#table-category-form-create')[0].reset();
+
+       
+        $('#table-category-form-submit').text(' Add + ');
+
+       
+        $(this).hide();
+        console.log("test2");
+    });
+});
+
+
+function deleteHashtag(url) // delete hashtag
+{
+
+    $('#table-delete-form').attr('action', url);
+  
+    $('#table_hashtag_delete').modal('show');
+}
+
+
+function editHashtag(url) {
+    $.ajax({
+        url: url,
+        method: 'GET',
+        success: function(data) {
+            // Populate the edit form with the current hashtag data
+            $('#name-table-category-form-create').val(data.hashtag);
+            
+            // Change the submit button to indicate an update action
+            $('#table-category-form-submit').text('Update');
+            $('#table-category-form-create').attr('data-save', 'edit');
+            $('#table-category-form-create').attr('data-hashtag-id', data.id); // Store ID for update
+
+            // Show the edit form modal (if using one)
+            $('#editHashtagModal').modal('show'); // Adjust based on your implementation
+        },
+        error: function(xhr) {
+            alert('Failed to fetch hashtag details.');
+        }
+    });
+}
+
+// Update the form submission logic to handle edits
+$('#table-category-form-create').on('submit', function(e) {
+    e.preventDefault();
+
+    // Reset previous error messages
+    $('.error').html('');
+    $('.invalid-feedback').text('');
+    $('.form-control').removeClass('is-invalid');
+
+    const saveType = $(this).attr('data-save');
+    const actionUrl = saveType === 'edit' ? "{{ url('admin/community/hashtags') }}/" + $(this).attr('data-hashtag-id') : $(this).attr('action');
+
+    // Show loading indicator
+    $('#table-category-form-submit').prop('disabled', true).text('Processing...');
+
+    $.ajax({
+        url: actionUrl,
+        method: saveType === 'edit' ? 'POST' : $(this).attr('method'),
+        data: $(this).serialize(),
+        success: function(response) {
+            if (response.success) {
+                $('#table-category-form-create')[0].reset();
+                $('#table-category-form-submit').text('Add +').prop('disabled', false);
+                $('#table-hashtag').DataTable().ajax.reload();
+                
+                // Show success message
+                showToast(response.message); 
+            } else {
+                showToast('Failed to add/update hashtag.', 'error');
+            }
+        },
+        error: function(xhr) {
+            var errors = xhr.responseJSON.errors;
+            for (var key in errors) {
+                $('[data-field="' + key + '"]').html(errors[key][0]);
+                $('[data-field-input="' + key + '"]').addClass('is-invalid');
+            }
+            $('#table-category-form-submit').prop('disabled', false).text('Add +'); // Re-enable button
+        }
+    });
+});
+
 </script>
+@endpush

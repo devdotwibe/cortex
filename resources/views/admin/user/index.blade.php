@@ -419,20 +419,15 @@ jQuery(document).on("change", "#file_upload", function() {
                         $("#load_service").css("display","none");
                         $("#import_load_service").css("display","none");
 
+                        showToast('Successfully imported', 'success');
                          usertableinit(); 
 
                          setTimeout(function() {
                             location.reload();
-            }, 10000); // 30000 milliseconds = 30 seconds
+                         }, 350); 
         
        
                         usertablefilter();
-         
-
-
-                       
-
-
 
                     },
 
@@ -457,10 +452,18 @@ jQuery(document).on("change", "#file_upload", function() {
                 });
             });
 
-            $('.end-datepicker').datepicker({
-            dateFormat: 'yy-mm-dd',
-            minDate: 0
-        });
+            $(document).ready(function() {
+    $('.end-datepicker').datepicker({
+        dateFormat: 'yy-mm-dd', 
+      
+        minDate: 0, 
+        maxDate: null, 
+        changeMonth: true, 
+        changeYear: true,
+        showButtonPanel: true, 
+    });
+});
+
 
         </script>
 @endpush

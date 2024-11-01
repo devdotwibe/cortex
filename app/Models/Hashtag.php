@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-#[ScopedBy([Hashtagban::class])]
+// #[ScopedBy([Hashtagban::class])]
 class Hashtag extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['hashtag', 'post_id'];
+    protected $fillable = ['hashtag'];
 
     public function post()
     {
