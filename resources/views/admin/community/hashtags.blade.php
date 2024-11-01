@@ -8,15 +8,7 @@
         </div>
     </div>
 </section>
-{{-- <style>
-    .limit-text {
-        display: -webkit-box;
-        -webkit-line-clamp: 3; /* Limits to 3 lines */
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-</style> --}}
+
 <section class="invite-wrap mt-2">
     <div class="container">
         <div class="container-wrap">
