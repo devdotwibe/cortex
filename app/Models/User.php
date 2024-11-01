@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Trait\Billable;
 use App\Trait\ResourceModel;
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -92,6 +93,17 @@ class User extends Authenticatable implements MustVerifyEmail
     public function subscription(){
         return UserSubscription::where('user_id',$this->id)->orderBy('id','DESC')->first();
     } 
+
+    public function subscriptionExpire()
+    {
+        $subscription = UserSubscription::where('user_id', $this->id)
+            ->orderBy('id', 'DESC')
+            ->first();
+        if ($subscription && $subscription->expire_at > Carbon::now()) {
+            return true;
+        }
+        return false;
+    }
     public function userSubscription(){
         return $this->hasMany(UserSubscription::class);
     }
