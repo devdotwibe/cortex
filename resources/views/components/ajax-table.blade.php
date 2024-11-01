@@ -64,6 +64,7 @@
                         <input type="hidden" name="deleteaction" id="deleteaction{{ $tableid }}" value="" >
 
                     </div>
+                    @endif
                 </td>
             </tr>
         </tfoot>  
