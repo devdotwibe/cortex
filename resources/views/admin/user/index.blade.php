@@ -419,12 +419,12 @@ jQuery(document).on("change", "#file_upload", function() {
                         $("#load_service").css("display","none");
                         $("#import_load_service").css("display","none");
 
-                        showToast('success');
+                        showToast('Datas has been successfully imported', 'success');
                          usertableinit(); 
 
                          setTimeout(function() {
                             location.reload();
-                         }, 300); 
+                         }, 350); 
         
        
                         usertablefilter();
