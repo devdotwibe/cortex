@@ -419,7 +419,7 @@ jQuery(document).on("change", "#file_upload", function() {
                         $("#load_service").css("display","none");
                         $("#import_load_service").css("display","none");
 
-                        showToast('Datas has been successfully imported', 'success');
+                        showToast('Successfully imported', 'success');
                          usertableinit(); 
 
                          setTimeout(function() {
