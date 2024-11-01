@@ -512,7 +512,7 @@ button.close {
 .exam-container .container-wrap {
     width: 90%;
     float: none;
-    padding: 50px;
+    /* padding: 50px; */
     margin: 0 auto 0;
     background: #ffff;
     box-shadow: 4px 0px 16px 0px #0000000A;
