@@ -182,10 +182,10 @@ $(function() {
                     $('#table-hashtag').DataTable().ajax.reload();
 
                  
-                    alert(response.message); 
-                } else {
-                    alert('Failed to add hashtag.');
-                }
+                //     alert(response.message); 
+                // } else {
+                //     alert('Failed to add hashtag.');
+                // }
             },
             error: function(xhr) {
                 var errors = xhr.responseJSON.errors;
