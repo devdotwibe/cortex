@@ -287,7 +287,7 @@ class TopicExamController extends Controller
     public function preview(Request $request, UserExamReview $userExamReview)
     {
         $category = Category::find($userExamReview->category_id);
-        Session::forget("topic-test-attempt");
+        // Session::forget("topic-test-attempt");
         $exam = Exam::where("name", 'topic-test')->first();
         if (empty($exam)) {
             $exam = Exam::store([

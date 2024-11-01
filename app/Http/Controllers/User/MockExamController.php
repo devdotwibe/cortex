@@ -35,7 +35,7 @@ class MockExamController extends Controller
     public function index(Request $request){
         self::reset();
         self::$model = Exam::class; 
-        Session::remove("full-mock-exam-attempt");
+        Session::forget("full-mock-exam-attempt");
         $exams=$this->where("name",'full-mock-exam')->where(function($qry){
             $qry->whereIn("id",Question::select('exam_id'));
         })->buildPagination();
@@ -206,7 +206,7 @@ class MockExamController extends Controller
             }
             $user->setProgress("exam-".$exam->id."-complete-review",'yes');
             dispatch(new SubmitReview($review,$attemt)); 
-            Session::remove("full-mock-exam-attempt");
+            Session::forget("full-mock-exam-attempt");
             if ($questioncnt > $passed) {
                 $key = md5("exam-retry-" . $review->id);
                 Session::put("exam-retry-" . $review->id, $key);
@@ -222,7 +222,7 @@ class MockExamController extends Controller
 
 
     public function examcomplete(Request $request,UserExamReview $userExamReview){ 
-        Session::remove("full-mock-exam-attempt");
+        Session::forget("full-mock-exam-attempt");
         /**
          * @var User
          */
@@ -268,7 +268,7 @@ class MockExamController extends Controller
     }
     public function preview(Request $request,UserExamReview $userExamReview){
         $exam=Exam::find( $userExamReview->exam_id );
-        Session::remove("full-mock-exam-attempt");
+        // Session::forget("full-mock-exam-attempt");
         /**
          * @var User
          */
@@ -301,7 +301,7 @@ class MockExamController extends Controller
         return view("user.full-mock-exam.preview",compact('exam','user','userExamReview','useranswer','examtime'));
     }
     public function examhistory(Request $request,Exam $exam){
-        Session::remove("full-mock-exam-attempt");
+        Session::forget("full-mock-exam-attempt");
         /**
          * @var User
          */
@@ -352,7 +352,7 @@ class MockExamController extends Controller
     }
 
     public function retryhistory(Request $request,UserExamReview $userExamReview){
-        Session::remove("full-mock-exam-attempt");
+        Session::forget("full-mock-exam-attempt");
 
         /**
          * @var User
