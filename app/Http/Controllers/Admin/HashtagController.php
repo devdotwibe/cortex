@@ -62,7 +62,7 @@ class HashtagController extends Controller
       
         $hashtag = new Hashtag();
         $hashtag->hashtag = $request->hashtag; 
-        $hashtag->post_id = 5965; 
+        $hashtag->post_id = 591; 
         $hashtag->save();
 
  
