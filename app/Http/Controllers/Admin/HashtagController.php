@@ -12,7 +12,7 @@ class HashtagController extends Controller
 
 
 
-    public function hashtags()
+    public function hashtags(Request $request)
     {
         if ($request->ajax()) {
 
