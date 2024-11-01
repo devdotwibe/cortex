@@ -185,7 +185,7 @@ $(function() {
 
                     $('#table-hashtag').DataTable().ajax.reload();
 
-                    showToast(response.message);
+                    showToast(response.success,'success'); 
                   
                 } 
             },
