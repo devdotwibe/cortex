@@ -497,7 +497,7 @@
                                         <div class="mcq-group">
                                            
                                             <div class="mcq-title-text" ${v.title_text?"":'style="display:none"'}>
-                                                ${v.title_text||""}
+                                                <p>${v.title_text||""}</p>
                                             </div>
                                             <div id="mcq-${lesseonId}" class="mcq-description">
                                                 ${v.description||""}
