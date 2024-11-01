@@ -155,7 +155,7 @@ class SubmitReview implements ShouldQueue
         $setname=Setname::find($this->review->sub_category_set);
         $takentime=json_decode($user->progress("exam-review-".$this->review->id."-times",'[]'),true); 
         $takentimereview=[];
-        foreach (Question::where('exam_id',$exam->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->get() as $k=> $question) {
+        foreach (UserExamQuestion::where('user_exam_id',$this->userexam->id)->get() as $k=> $question) {
               
             $user_answer=$user->progress("exam-".$exam->id."-topic-".$category->id."-lesson-".$subCategory->id."-set-".$setname->id."-answer-of-".$question->slug,"");
 

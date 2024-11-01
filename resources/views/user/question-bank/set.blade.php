@@ -150,7 +150,7 @@
                                             <div class="question-list">
                                                 @for ($i = 1; $i <= ($questioncount??0); $i++)
                                                     <div class="question-item" data-idx="{{$i}}">
-                                                        <button class="item-group" onclick="updateandsave(function(){loadlesson('{{ route('question-bank.set.attempt',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug,'page'=>$i]) }}');})">
+                                                        <button class="item-group" onclick="updateandsave(function(){loadlesson('{{ route('question-bank.set.show',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug,'user_exam'=>$slug,'page'=>$i]) }}');})">
                                                             <img src="{{asset('assets/images/flaged.svg')}}" alt="all">
                                                             <span>{{$i}}</span> 
                                                         </button>
@@ -172,7 +172,7 @@
                                             <div class="question-list">
                                                 @for ($i = 1; $i <= ($questioncount??0); $i++)
                                                     <div class="question-item" data-idx="{{$i}}">
-                                                        <button class="item-group" onclick="updateandsave(function(){loadlesson('{{ route('question-bank.set.attempt',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug,'page'=>$i]) }}');})">
+                                                        <button class="item-group" onclick="updateandsave(function(){loadlesson('{{ route('question-bank.set.show',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug,'user_exam'=>$slug,'page'=>$i]) }}');})">
                                                             <img src="{{asset('assets/images/flaged.svg')}}" alt="all">
                                                             <span>{{$i}}</span>
                                                         </button>
@@ -194,7 +194,7 @@
                                             <div class="question-list">
                                                 @for ($i = 1; $i <= ($questioncount??0); $i++)
                                                     <div class="question-item" data-idx="{{$i}}">
-                                                        <button class="item-group" onclick="updateandsave(function(){loadlesson('{{ route('question-bank.set.attempt',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug,'page'=>$i]) }}');})">
+                                                        <button class="item-group" onclick="updateandsave(function(){loadlesson('{{ route('question-bank.set.show',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug,'user_exam'=>$slug,'page'=>$i]) }}');})">
                                                             <img src="{{asset('assets/images/flaged.svg')}}" alt="all">
                                                             <span>{{$i}}</span> 
                                                         </button>
@@ -217,7 +217,7 @@
                                             <div class="question-list">
                                                 @for ($i = 1; $i <= ($questioncount??0); $i++)
                                                     <div class="question-item status-not-read"  data-idx="{{$i}}">
-                                                        <button class="item-group" onclick="updateandsave(function(){loadlesson('{{ route('question-bank.set.attempt',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug,'page'=>$i]) }}');})">
+                                                        <button class="item-group" onclick="updateandsave(function(){loadlesson('{{ route('question-bank.set.show',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug,'user_exam'=>$slug,'page'=>$i]) }}');})">
                                                             <img src="{{asset('assets/images/flaged.svg')}}" alt="all">
                                                             <span>{{$i}}</span> 
                                                         </button>
@@ -239,7 +239,7 @@
                                             <div class="question-list">
                                                 @for ($i = 1; $i <= ($questioncount??0); $i++)
                                                     <div class="question-item" data-idx="{{$i}}">
-                                                        <button class="item-group" onclick="updateandsave(function(){loadlesson('{{ route('question-bank.set.attempt',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug,'page'=>$i]) }}');})">
+                                                        <button class="item-group" onclick="updateandsave(function(){loadlesson('{{ route('question-bank.set.show',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug,'user_exam'=>$slug,'page'=>$i]) }}');})">
                                                              
                                                                 <img src="{{asset('assets/images/flaged.svg')}}" alt="all">
                                                                 <span>{{$i}}</span>
@@ -269,6 +269,7 @@
         <input type="hidden" name="flags" id="finish-exam-confirmed-form-flags" value="" >
         <input type="hidden" name="times" id="finish-exam-confirmed-form-times" value="" >
         <input type="hidden" name="passed" id="finish-exam-confirmed-form-passed" value="" > 
+        <input type="hidden" name="questions" id="finish-exam-confirmed-form-questions" value="" > 
     </form>
 </div>
 
@@ -298,43 +299,57 @@
 
     <script> 
 
-function HideTime() {
-        const timerDiv = $('#exam_timer');
-        const button = $('#hide_button');
+        function HideTime() {
+            const timerDiv = $('#exam_timer');
+            const button = $('#hide_button');
 
-        timerDiv.slideToggle(300, function() {
-            if (timerDiv.is(':visible')) {
-                button.html('Hide Time');
-                $('.hide-btn').removeClass('hidden-btn');
-            } else {
-                button.html('<img src="{{ asset("assets/images/flat-color-icons_clock.svg") }}" alt="Show Time Icon">');
-                button.insertAfter(timerDiv);
-                $('.hide-btn').addClass('hidden-btn');
-            }
-        });
+            timerDiv.slideToggle(300, function() {
+            });
+        }
        
-    }
-         
-        var totalcount={{$questioncount??0}};
-        var questionids=[];
-        var progressurl="";
-        
-        var timercurrent={};
-        var flagcurrent={};
-        var endTime={{$endtime}}*60;
-        var countownRunCallbacks={};
-        var currentSlug="";
-        var countownRunCallbackActive=null;
-        var countownSlugActive=""; 
-        var flagdx={};
-        var verifydx={};
-        var cudx=1;
+        if (localStorage.getItem("question-bank-summery{{ $userExam->id }}")) {
+            let storedData = JSON.parse(localStorage.getItem("question-bank-summery{{ $userExam->id }}"));
+        } else {
+            let summery_storage = new Proxy({}, {
+                get: function(target, propertyName) {
+                    return target[propertyName] || null;
+                },
+                set: function(target, propertyName, value) {
+                    target[propertyName] = value;
+                    return true;
+                }
+            });
+            summery_storage.totalcount={{$questioncount??0}};
+            summery_storage.questionids=[]; 
+            summery_storage.timercurrent={};
+            summery_storage.flagcurrent={};
+            summery_storage.endTime={{$endtime}}*60; 
+            summery_storage.currentSlug=""; 
+            summery_storage.flagdx={};
+            summery_storage.verifydx={};
+            summery_storage.cudx=1;
 
-        var answeridx=[];
-        var notansweridx=[]; 
-        var timerActive=true;
-        var examActive=true;
-        var timetaken=0;
+            summery_storage.answeridx=[];
+            summery_storage.notansweridx=[];  
+            summery_storage.timerActive=true;
+            summery_storage.examActive=true;
+            summery_storage.timetaken=0;
+            localStorage.setItem("question-bank-summery{{ $userExam->id }}",JSON.stringify(summery_storage)) 
+        }
+        var progressurl="{!! $user->progress("exam-{$exam->id}-topic-{$category->id}-lesson-{$subCategory->id}-set-{$setname->id}-progress-url","") !!}";
+
+        let storage = JSON.parse(localStorage.getItem("question-bank-summery{{ $userExam->id }}"))||{}; 
+        let summery = new Proxy({...storage,save:function(target){ 
+            localStorage.setItem("question-bank-summery{{ $userExam->id }}",JSON.stringify(summery));
+            return true; } }, {
+            get: function(target, propertyName) {
+                return target[propertyName] || null;
+            },
+            set: function(target, propertyName, value) {
+                target[propertyName] = value; 
+                return true;
+            }
+        });   
         function toglepreviewpage(){
             // timerActive=!timerActive; 
             $('#question-preview-page').slideToggle()
@@ -354,45 +369,48 @@ function HideTime() {
 
             return result;
         }
+        
         function countownRun(){
-            if(timerActive&&examActive){ 
-                if(endTime>0){ 
-                    var d=endTime;
+            if(summery.timerActive&&summery.examActive){ 
+                if(summery.endTime>0){ 
+                    var d=summery.endTime;
                     var m=Math.floor(d/60);
                     var s=d-(m*60);
                     $('.exam-timer .minute .runner').text(d2s(m))
                     $('.exam-timer .second .runner').text(d2s(s))
-                    if(endTime<=240&&endTime>=230){
+                    if(summery.endTime<=240&&summery.endTime>=230){
                         $('.exam-timer').addClass('time-up');
-                    }else if(endTime<=10){
+                    }else if(summery.endTime<=60&&summery.endTime>=50){
+                        $('.exam-timer').addClass('time-up');
+                    }else if(summery.endTime<=10){
                         $('.exam-timer').addClass('time-up');
                     }else{
                         $('.exam-timer').removeClass('time-up');  
                     }
-                    endTime--;
-                    timetaken++;
-                    timercurrent[currentSlug]=(timercurrent[currentSlug]||0)+1;
+                    summery.endTime--;
+                    summery.timetaken++;
+                    summery.timercurrent[summery.currentSlug]=(summery.timercurrent[summery.currentSlug]||0)+1;
+                    summery.save()
                 } else{
                     $('.exam-timer .minute .runner').text(d2s(0))
                     $('.exam-timer .second .runner').text(d2s(0))
                     $('.exam-timer').addClass('time-up')
-                    examActive=false
-                    if((localStorage.getItem("question-bank")||"timed")=="timed"){ 
-                        updateandsave(function(){
-                            var unfinishcount=totalcount-questionids.length; 
-                            if(unfinishcount>0){
-                                $('.unfinish-message').show().find('.unfinish-count').text(unfinishcount)
-                            }else{
-                                $('.unfinish-message').hide().find('.unfinish-count').text(0)
-                            }
-                            lessonreviewconfirm() 
-                        })   
-                        if($('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length>0){
-                            $('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').prop('disabled',true)
+                    summery.examActive=false 
+                    summery.save()
+                    updateandsave(function(){
+                        var unfinishcount=summery.totalcount-summery.questionids.length; 
+                        if(unfinishcount>0){
+                            $('.unfinish-message').show().find('.unfinish-count').text(unfinishcount)
                         }else{
-                            $('#lesson-questionlist-list .forms-inputs input[name="answer"]').prop('readonly',true)
+                            $('.unfinish-message').hide().find('.unfinish-count').text(0)
                         }
-                    }
+                        lessonreviewconfirm() 
+                    })   
+                    if($('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length>0){
+                        $('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').prop('disabled',true)
+                    }else{
+                        $('#lesson-questionlist-list .forms-inputs input[name="answer"]').prop('readonly',true)
+                    } 
                 }
             }            
         } 
@@ -410,7 +428,7 @@ function HideTime() {
         } 
         async function verifyquestion(question,ans){
             const csrf= $('meta[name="csrf-token"]').attr('content'); 
-            var response=await fetch("{{route('question-bank.set.verify',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug])}}", {
+            var response=await fetch("{{route('question-bank.set.verify',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug,'user_exam'=>$slug])}}", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -424,10 +442,11 @@ function HideTime() {
             }); 
             const data = await response.json(); 
             if(data.iscorrect){
-                verifydx[question]=true;
+                summery.verifydx[question]=true;
             }else{
-                delete verifydx[question];
+                delete summery.verifydx[question];
             }
+            summery.save()
         }
         function refreshstatus(idx,status){
             $(`.question-item[data-idx="${idx}"]`).removeClass('status-not-answered').removeClass('status-answered');
@@ -435,31 +454,38 @@ function HideTime() {
             $(`#${status} .question-item[data-idx="${idx}"]`).addClass(`status-${status}`);
             $(`#not-readed .question-item[data-idx="${idx}"]`).removeClass('status-not-read')
 
-            $('#not-readed-nav').text(totalcount-(answeridx.length+notansweridx.length))
-            $('#answered-nav').text(answeridx.length)
-            $('#not-answered-nav').text(notansweridx.length)
+            $('#not-readed-nav').text(summery.totalcount-(summery.answeridx.length+summery.notansweridx.length))
+            $('#answered-nav').text(summery.answeridx.length)
+            $('#not-answered-nav').text(summery.notansweridx.length)
+        }
+        function restoreQuestionStatuses() {
+            if (summery.answeridx && summery.notansweridx) {
+                summery.answeridx.forEach(idx => refreshstatus(idx, 'answered'));
+                summery.notansweridx.forEach(idx => refreshstatus(idx, 'not-answered'));
+            }
         }
          function loadlesson(pageurl=null){ 
-             
-            $.get(pageurl||"{{ route('question-bank.set.attempt',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug]) }}",function(res){
+            $.get(pageurl||"{{ route('question-bank.set.show',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug,'user_exam'=>$slug]) }}",
+            function(res){ 
                 $('.pagination-arrow').hide();
                 $('#lesson-footer-pagination').html('')
-                timerActive=true;
+                summery.timerActive=true;
                 $('#question-preview-page').fadeOut()
                 $('#question-answer-page').fadeIn()
                 const lesseonId=generateRandomId(10);  
-                cudx=res.current_page;
-                notansweridx.push(cudx) 
-                notansweridx = [...new Set(notansweridx)]
-                answeridx=answeridx.filter(item => item !== cudx)
-                refreshstatus(cudx,'not-answered');
-                if(flagdx[cudx]){
+                summery.cudx=res.current_page;
+                summery.notansweridx.push(summery.cudx) 
+                summery.notansweridx = [...new Set(summery.notansweridx)]
+                summery.answeridx=summery.answeridx.filter(item => item !== summery.cudx)
+                refreshstatus(summery.cudx,'not-answered');
+                if(summery.flagdx[summery.cudx]){
                     $("#bookmark-current").addClass('active');
                     $("#flagtext").text('Unflag');
                 }else{
                     $("#bookmark-current").removeClass('active');
                     $("#flagtext").text('Flag');
                 }
+                summery.save()
                 $.each(res.data,function(k,v){ 
                         $('#lesson-questionlist-list').html(`
                             <div class="col-md-12">
@@ -493,17 +519,18 @@ function HideTime() {
                                 </div>
                             </div>
                         `).fadeIn();
-                        if(!timercurrent[v.slug]){ 
-                            timercurrent[v.slug]=0; 
+                        if(!summery.timercurrent[v.slug]){ 
+                            summery.timercurrent[v.slug]=0; 
                         } 
-                        currentSlug=v.slug;
-                        $.get(pageurl||"{{ route('question-bank.set.attempt',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug]) }}",{question:v.slug},function(ans){
+                        summery.currentSlug=v.slug;
+                        summery.save()
+                        $.get(pageurl||"{{ route('question-bank.set.show',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug,'user_exam'=>$slug]) }}",{question:v.slug},function(ans){
                             $(`#mcq-${lesseonId}-list`).html('')
                             $.each(ans,function(ai,av){
                                 const letter = String.fromCharCode(ai + 'A'.charCodeAt(0))
                                 $(`#mcq-${lesseonId}-list`).append(`
                                     <div class="form-check">
-                                        <input type="radio" name="answer" data-page="${cudx}" data-question="${v.slug}" id="user-answer-${lesseonId}-ans-item-${ai}" value="${av.slug}" class="form-check-input"  >        
+                                        <input type="radio" name="answer" data-page="${summery.cudx}" data-question="${v.slug}" id="user-answer-${lesseonId}-ans-item-${ai}" value="${av.slug}" class="form-check-input"  >        
                                         <label for="user-answer-${lesseonId}-ans-item-${ai}" >${ letter }. ${av.title}</label>
                                     </div>  
                                 `)
@@ -511,10 +538,11 @@ function HideTime() {
                             refreshquestionanswer(v.slug,function(data){
                                 $(`#mcq-${lesseonId}-list input[value="${data.value}"]`).prop("checked",true)
                                 if(data.value){
-                                    answeridx.push(cudx) 
-                                    answeridx = [...new Set(answeridx)]
-                                    notansweridx=notansweridx.filter(item => item !== cudx)
-                                    refreshstatus(cudx,'answered');
+                                    summery.answeridx.push(summery.cudx) 
+                                    summery.answeridx = [...new Set(summery.answeridx)]
+                                    summery.notansweridx=summery.notansweridx.filter(item => item !== summery.cudx)
+                                    refreshstatus(summery.cudx,'answered');
+                                    summery.save()
                                 }
                             }) 
                         },'json').fail(function(xhr,status,error){
@@ -522,12 +550,12 @@ function HideTime() {
                         }) 
                 }) 
                 if(res.next_page_url){ 
-                    $('.lesson-right').show().find('button.right-btn').data('pageurl',res.next_page_url);
+                    $('.lesson-right').show().find('button.right-btn').data('pageurl',res.next_page_url+'&'+ 'user_exam=' + '{{ $slug }}');
                 }else{
                     $('.lesson-finish').show();
                 }
                 if(res.prev_page_url){
-                    $('.lesson-left').show().find('button.left-btn').data('pageurl',res.prev_page_url);
+                    $('.lesson-left').show().find('button.left-btn').data('pageurl',res.prev_page_url+'&'+ 'user_exam=' + '{{ $slug }}');
                 }  
                 
                 $('#menu-text').html(`Question <span> ${res.current_page} </span> of <span> ${res.total}</span>`)
@@ -537,7 +565,9 @@ function HideTime() {
             })
 
             const csrf= $('meta[name="csrf-token"]').attr('content'); 
+            
             progressurl=pageurl; 
+            
             fetch("{{route('progress')}}", {
                 method: 'POST',
                 headers: {
@@ -548,14 +578,16 @@ function HideTime() {
                 body: JSON.stringify({
                     name:"exam-{{$exam->id}}-topic-{{$category->id}}-lesson-{{$subCategory->id}}-set-{{$setname->id}}-progress-url",
                     value:progressurl
-                }),
+                }),            
             }); 
+
+            restoreQuestionStatuses()
                  
          }
          async function updateprogress(callback){  
             try { 
                 const csrf= $('meta[name="csrf-token"]').attr('content');  
-                var currentprogress=(questionids.length*100/totalcount)
+                var currentprogress=(summery.questionids.length*100/summery.totalcount)
                 const response1 = await fetch("{{route('progress')}}", {
                     method: 'POST',
                     headers: {
@@ -565,7 +597,7 @@ function HideTime() {
                     },
                     body: JSON.stringify({
                         name:"exam-{{$exam->id}}-topic-{{$category->id}}-lesson-{{$subCategory->id}}-set-{{$setname->id}}-progress-ids",
-                        value:JSON.stringify(questionids)
+                        value:JSON.stringify(summery.questionids)
                     }),
                 });  
 
@@ -590,8 +622,8 @@ function HideTime() {
             }
          }
          async function updatequestionanswer(question,ans){
-            questionids.push(question);
-            questionids=questionids.filter(function(value, index, array){
+            summery.questionids.push(question);
+            summery.questionids=summery.questionids.filter(function(value, index, array){
                 return array.indexOf(value) === index;
             })
             const csrf= $('meta[name="csrf-token"]').attr('content'); 
@@ -644,15 +676,17 @@ function HideTime() {
                 }),
             }); 
             $('#finish-exam-confirm').modal('hide') 
-            var timed=localStorage.getItem("question-bank")||"timed";             
-            $('#finish-exam-confirmed-form-timed').val(timed)
-            $('#finish-exam-confirmed-form-timetaken').val(timetaken)
-            $('#finish-exam-confirmed-form-flags').val(JSON.stringify(flagcurrent))
-            $('#finish-exam-confirmed-form-times').val(JSON.stringify(timercurrent))
-            $('#finish-exam-confirmed-form-passed').val(Object.keys(verifydx).length); 
+            var timed=localStorage.getItem("question-bank")||"timed";  
+            $('#finish-exam-confirmed-form-timed').val(timed)           
+            $('#finish-exam-confirmed-form-timetaken').val(summery.timetaken)
+            $('#finish-exam-confirmed-form-flags').val(JSON.stringify(summery.flagcurrent))
+            $('#finish-exam-confirmed-form-times').val(JSON.stringify(summery.timercurrent))
+            $('#finish-exam-confirmed-form-passed').val(Object.keys(summery.verifydx).length); 
+            $('#finish-exam-confirmed-form-questions').val(JSON.stringify(Object.keys(summery.verifydx))); 
             $('#finish-exam-confirmed-form').submit();
-            timerActive=false;
-            examActive=false; 
+            summery.timerActive=false;
+            summery.examActive=false; 
+            summery.save()
          }
          async function updateandsave(callback){ 
             if($('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length>0){
@@ -660,16 +694,17 @@ function HideTime() {
                     updatequestionanswer($(this).data('question'),$(this).val());
                     verifyquestion($(this).data('question'),$(this).val());
                     if($(this).val()){
-                        answeridx.push(cudx) 
-                        answeridx = [...new Set(answeridx)]
-                        notansweridx=notansweridx.filter(item => item !== cudx)
-                        refreshstatus(cudx,'answered');
+                        summery.answeridx.push(summery.cudx) 
+                        summery.answeridx = [...new Set(summery.answeridx)]
+                        summery.notansweridx=summery.notansweridx.filter(item => item !== summery.cudx)
+                        refreshstatus(summery.cudx,'answered');
                     }else{
-                        notansweridx.push(cudx) 
-                        notansweridx = [...new Set(notansweridx)]
-                        answeridx=answeridx.filter(item => item !== cudx)
-                        refreshstatus(cudx,'not-answered');
+                        summery.notansweridx.push(summery.cudx) 
+                        summery.notansweridx = [...new Set(summery.notansweridx)]
+                        summery.answeridx=summery.answeridx.filter(item => item !== summery.cudx)
+                        refreshstatus(summery.cudx,'not-answered');
                     }
+                    summery.save()
                 })
             } 
             updateprogress(callback) 
@@ -684,9 +719,8 @@ function HideTime() {
             }
         }
          $(function(){  
-            loadlesson() 
+            loadlesson(progressurl) 
             $('.lesson-left button.left-btn,.lesson-right button.right-btn').click(function(){   
-                console.log('oooooo')
                 const pageurl=$(this).data('pageurl');  
                 updateandsave(function(){
                     loadlesson(pageurl)
@@ -695,7 +729,7 @@ function HideTime() {
 
             $('.lesson-finish button.finish-btn').click(function(){  
                 updateandsave(function(){
-                    var unfinishcount=totalcount-questionids.length; 
+                    var unfinishcount=summery.totalcount-summery.questionids.length;
                     if(unfinishcount>0){
                         $('.unfinish-message').show().find('.unfinish-count').text(unfinishcount)
                     }else{
@@ -705,25 +739,25 @@ function HideTime() {
                 })
             });
             $('#bookmark-current').click(function(){
-                if(flagdx[cudx]){
-                    flagdx[cudx]=false;
-                    flagcurrent[currentSlug]=true;
+                if(summery.flagdx[summery.cudx]){
+                    summery.flagdx[summery.cudx]=false;
+                    summery.flagcurrent[summery.currentSlug]=true;
                     $("#bookmark-current").removeClass('active');
                     $("#flagtext").text('Flag')
-                    $(`#show-all .question-item[data-idx="${cudx}"]`).removeClass('status-flag')
-                    $(`#flagged .question-item[data-idx="${cudx}"]`).removeClass('status-flag')
+                    $(`#show-all .question-item[data-idx="${summery.cudx}"]`).removeClass('status-flag')
+                    $(`#flagged .question-item[data-idx="${summery.cudx}"]`).removeClass('status-flag')
                 }else{
-                    flagdx[cudx]=true;
-                    flagcurrent[currentSlug]=true;
+                    summery.flagdx[summery.cudx]=true;
+                    summery.flagcurrent[summery.currentSlug]=true;
                     $("#bookmark-current").addClass('active')
                     $("#flagtext").text('Unflag')
-                    $(`#show-all .question-item[data-idx="${cudx}"]`).addClass('status-flag')
-                    $(`#flagged .question-item[data-idx="${cudx}"]`).addClass('status-flag')
+                    $(`#show-all .question-item[data-idx="${summery.cudx}"]`).addClass('status-flag')
+                    $(`#flagged .question-item[data-idx="${summery.cudx}"]`).addClass('status-flag')
                 } 
                 var lenflag=0;
-                $.each(flagdx,(k,v)=>v?lenflag++:null);
-
+                $.each(summery.flagdx,(k,v)=>v?lenflag++:null);
                 $('#flagged-nav').text(lenflag)
+                summery.save()
             }) 
             if((localStorage.getItem("question-bank")||"timed")=="timed"){ 
                 $('.timer').show()
@@ -735,6 +769,7 @@ function HideTime() {
             $('.exam-exit a').click(function(e){
                 e.preventDefault();
                 e.stopPropagation();
+                localStorage.removeItem("question-bank-summery")
                 exitconfirm($(this).attr("href")); 
             }) 
          })
