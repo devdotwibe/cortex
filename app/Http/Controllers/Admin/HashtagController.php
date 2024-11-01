@@ -78,7 +78,7 @@ class HashtagController extends Controller
         // Delete the hashtag
         $hashtag->delete();
     
-        return response()->json(['success' => true, 'message' => 'Hashtag deleted successfully.']);
+        return redirect()->back()->with('success', 'Hashtag deleted successfully.');
     }
     
 

@@ -216,10 +216,9 @@ $(function() {
 
 function deleteHashtag(url) // delete hashtag
 {
-    // Set the action URL for the form in the modal
+
     $('#table-delete-form').attr('action', url);
-    
-    // Show the delete confirmation modal
+  
     $('#table_hashtag_delete').modal('show');
 }
 
