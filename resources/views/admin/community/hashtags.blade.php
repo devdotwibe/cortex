@@ -153,7 +153,7 @@ $(function() {
 
                     // Optionally hide the cancel button if it's not needed
                     $('#table-category-form-clear').hide();
-
+console.log("testing2");
                     // Reload the DataTable to show updated data
                     $('#table-hashtag').DataTable().ajax.reload();
 
