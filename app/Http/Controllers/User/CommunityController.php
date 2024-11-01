@@ -30,7 +30,9 @@ class CommunityController extends Controller
        
 
 
-        $hashtag = $request->input('hashtag');
+        // $hashtag = $request->input('hashtag');
+            // Get the selected hashtag and user_id from the request
+            $selectedHashtag = $request->input('hashtag');
 
         $userid = $request->input('user_id');
 
@@ -107,7 +109,7 @@ class CommunityController extends Controller
                 'next' => $posts->nextPageUrl()
             ];
         }
-        return view('user.community.posts', compact('user','hashtags'));
+        return view('user.community.posts', compact('user','hashtags', 'selectedHashtag'));
     }
 
     public function index(Request $request)
