@@ -5574,6 +5574,7 @@ s .card-progress .card-body .session-chart {
     font-size: 12px;
     line-height: 1;
     margin: 0 0 0 20px;
+    padding: 0 !important;
 }
 
 .progress-main .hide-btn.hidden-btn {
@@ -7260,7 +7261,7 @@ nav.navbar.top-barhide {
     }
 
     .exam-progress>.exam-progress-inner {
-        padding: 0 15px;
+        padding: 10px 15px;
     }
 
     .progress-main .hide-btn {
