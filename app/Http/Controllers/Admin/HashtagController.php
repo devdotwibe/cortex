@@ -51,17 +51,24 @@ class HashtagController extends Controller
 
     
 
-
     public function store(Request $request)
     {
+        // Validate the incoming request data
         $request->validate([
-            'hashtag' => 'required|string|max:255',
+            'hashtag' => 'required|string|max:255|unique:hashtags,hashtag',
         ]);
 
-        Hashtag::create($request->all());
-        return redirect()->route('admin.community.hashtags')->with('success', 'Hashtag created successfully.');
+        // Create a new Hashtag instance and save it to the database
+        $hashtag = new Hashtag();
+        $hashtag->hashtag = $request->input('hashtag'); // Set the hashtag value
+        $hashtag->save();
+
+        // Return a success response
+        return response()->json(['success' => true, 'message' => 'Hashtag added successfully.']);
     }
 
+
+    
     public function edit($id)
     {
         $hashtag = Hashtag::findOrFail($id);
