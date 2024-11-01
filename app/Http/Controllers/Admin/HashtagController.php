@@ -49,11 +49,7 @@ class HashtagController extends Controller
     }
 
 
-    public function index(Request $request)
-    {
-       
-       
-    }
+    
 
 
     public function store(Request $request)
