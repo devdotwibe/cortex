@@ -165,7 +165,7 @@ class TopicTestController extends Controller
     }
 
 
-    public function importquestion(Request $request,Category $category){ 
+    public function importquestion(Request $request,Category $category){
         $request->validate([
             'import_fields'=>['required'],
             'import_fields.*'=>['required'],
@@ -176,6 +176,26 @@ class TopicTestController extends Controller
         $name = $file->hashName();
         Storage::put("importfile", $file); 
         
+        if ($request->hasFile('image1')) {
+            $imageName1 = "option/" . $request->file('image1')->hashName();
+            Storage::put('option', $request->file('image1'));
+        }
+
+        if ($request->hasFile('image2')) {
+            $imageName2 = "option/" . $request->file('image2')->hashName();
+            Storage::put('option', $request->file('image2'));
+        }
+
+        if ($request->hasFile('image3')) {
+            $imageName3 = "option/" . $request->file('image3')->hashName();
+            Storage::put('option', $request->file('image3'));
+        }
+
+        if ($request->hasFile('image4')) {
+            $imageName4 = "option/" . $request->file('image4')->hashName();
+            Storage::put('option', $request->file('image4'));
+        }
+
         $exam=Exam::where("name",'topic-test')->first();
         if(empty($exam)){
             $exam=Exam::store([
@@ -188,8 +208,12 @@ class TopicTestController extends Controller
         dispatch(new ImportQuestions(
             filename:$name,
             exam:$exam,
-            category:$category, 
-            fields:$request->import_fields
+            category:$category,
+            fields:$request->import_fields,
+            imageName1:$request->image1 ? $imageName1 : null,
+            imageName2:$request->image2 ? $imageName2 : null,
+            imageName3:$request->image3 ? $imageName3 : null,
+            imageName4:$request->image4 ? $imageName4 :  null,
         ));
 
         return response()->json([
