@@ -31,7 +31,6 @@
                 <td colspan="{{count($coloumns)+2}}"></td>
 
                 <td >
-                     @if($users->isNotEmpty())
                     <div class="selectbox-action" style="display: none"  >
                         @if(!empty($bulkotheraction))
                         <div class="other-actions"> 
@@ -64,7 +63,6 @@
                         <input type="hidden" name="deleteaction" id="deleteaction{{ $tableid }}" value="" >
 
                     </div>
-                    @endif
                 </td>
             </tr>
         </tfoot>  
