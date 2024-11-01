@@ -185,11 +185,9 @@ $(function() {
 
                     $('#table-hashtag').DataTable().ajax.reload();
 
-                 
-                    alert(response.message); 
-                } else {
-                    alert('Failed to add hashtag.');
-                }
+                    showToast(response.message);
+                  
+                } 
             },
             error: function(xhr) {
                 var errors = xhr.responseJSON.errors;
