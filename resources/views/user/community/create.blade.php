@@ -78,7 +78,7 @@
                                 </div>    
                             </div> --}}
 
-                            <div class="col-md-12">
+                            {{-- <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="hashtag-select">Hashtag</label> 
                                     <select name="hashtag" id="hashtag-select" class="form-control @error('hashtag') is-invalid @enderror">
@@ -91,8 +91,18 @@
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>    
-                            </div>
+                            </div> --}}
 
+
+                            <div class="drop">
+           
+                                <select id="hashtagDropdown" class="form-select" onchange="location = this.value;">
+                                    <option value="">Choose a Channel</option> <!-- Default option -->
+                                    @foreach ($hashtags as $hashtag)
+                                        <option value="{{ route('community.index', ['hashtag' => $hashtag]) }}">{{ $hashtag }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
 
                             <div class="col-md-12">
                                 <div class="form-group">
