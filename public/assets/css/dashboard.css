@@ -505,14 +505,14 @@ button.close {
 .exam-container {
     width: 100%;
     margin-top: 38px;
-    padding: 50px 30px;
+    padding: 30px 30px;
     height: 100%;
 }
 
 .exam-container .container-wrap {
     width: 90%;
     float: none;
-    padding: 50px;
+    /* padding: 50px; */
     margin: 0 auto 0;
     background: #ffff;
     box-shadow: 4px 0px 16px 0px #0000000A;
@@ -2983,7 +2983,7 @@ aside.side_bar.slider-btn .btn-slider {
 
 
 .exam-container .mcq-container-wrap {
-    padding: 0;
+    padding: 0 0 20px 0px;
     max-width: 100%;
     min-height: calc(100vh - 140px);
 }
