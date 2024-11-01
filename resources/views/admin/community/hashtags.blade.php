@@ -234,8 +234,12 @@ function editHashtag(url) {
            
             $('#table-category-form-submit').text('Update');
             $('#table-category-form-create').attr('data-save', 'edit');
-            $('#table-category-form-create').attr('data-hashtag-id', data.id); 
+            $('#table-category-form-create').attr('data-hashtag-id',data.id); 
 
+           // Correctly construct the action URL
+           const actionUrl = "{{ url('admin/community/hashtags') }}/" + data.id; // Use + for concatenation
+            console.log(actionUrl); // Added parentheses for console.log
+            $('#table-category-form-create').attr('action', actionUrl); // Use actionUrl instead of 'update'
           
             $('#editHashtagModal').modal('show'); 
         },
