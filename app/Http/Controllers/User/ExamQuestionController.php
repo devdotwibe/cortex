@@ -224,7 +224,7 @@ class ExamQuestionController extends Controller
         $category=Category::find($userExamReview->category_id);
         $subCategory=SubCategory::find($userExamReview->sub_category_id);
         $setname=Setname::find($userExamReview->sub_category_set);
-        Session::forget("question-bank-attempt");
+        // Session::forget("question-bank-attempt");
 
         $exam=Exam::where("name",'question-bank')->first();
         if(empty($exam)){
