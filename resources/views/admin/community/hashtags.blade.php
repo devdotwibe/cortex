@@ -79,12 +79,7 @@ $(function(){
             ajax:{
                 url:"{{request()->fullUrl()}}",
 
-            method: 'get', 
-                // "data": function ( d ) {
-
-                      
-                //     }
-            },
+           
             initComplete:function(settings){
                 var info = this.api().page.info();
 
