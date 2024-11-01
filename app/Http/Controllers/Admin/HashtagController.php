@@ -21,6 +21,7 @@ class HashtagController extends Controller
 
     public function index(Request $request)
     {
+        dd("porth");
         if ($request->ajax()) {
 
             dd("istollath");
