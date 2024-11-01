@@ -70,17 +70,22 @@ class HashtagController extends Controller
     }
 
 
-
-
-
-
-
-
-    public function edit($id)
+    public function destroy($id)
     {
-        $hashtag = Hashtag::findOrFail($id);
-        return view('admin.community.hashtags.edit', compact('hashtag')); // Edit view
+        try {
+            $hashtag = Hashtag::findOrFail($id); // Find the hashtag or fail
+            $hashtag->delete(); // Delete the hashtag
+
+            return response()->json(['success' => true, 'message' => 'Hashtag deleted successfully.']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'An error occurred while deleting the hashtag.']);
+        }
     }
 
+
+
+
+
+   
    
 }
