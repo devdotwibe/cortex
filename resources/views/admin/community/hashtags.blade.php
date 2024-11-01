@@ -153,8 +153,7 @@ $(function() {
 
                     // Optionally hide the cancel button if it's not needed
                     $('#table-category-form-clear').hide();
-console.log("testing2");
-                    // Reload the DataTable to show updated data
+
                     $('#table-hashtag').DataTable().ajax.reload();
 
                     // Optionally show a success message
@@ -177,10 +176,14 @@ console.log("testing2");
 
     $('#table-category-form-clear').on('click', function() {
         // Reset the form fields
+
+        var storeurl = "{{ route('admin.community.hahstags.store') }}";
         $('#table-category-form-create')[0].reset();
 
         // Reset the button text back to "Add +"
         $('#table-category-form-submit').text(' Add + ');
+
+        $('#table-category-form-create').attr('action', storeurl)
 
         // Optionally hide the cancel button
         $(this).hide();
