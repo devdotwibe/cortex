@@ -15,13 +15,14 @@ class HashtagController extends Controller
     public function hashtags()
     {
 
+        dd("porth");
         return view('admin.community.hashtags'); 
     }
 
 
     public function index(Request $request)
     {
-        dd("porth");
+       
         if ($request->ajax()) {
 
             dd("istollath");
