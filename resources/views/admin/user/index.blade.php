@@ -419,6 +419,7 @@ jQuery(document).on("change", "#file_upload", function() {
                         $("#load_service").css("display","none");
                         $("#import_load_service").css("display","none");
 
+                        showToast('Subtitle has been successfully updated', 'success');
                          usertableinit(); 
 
                          setTimeout(function() {
