@@ -51,7 +51,7 @@
                                     </label>
                                     <input type="file" name="file_upload" id="file_upload" accept=".csv,.xlsx"
                                            class="form-control" style="display: none;">
-                                           <small class="form-text text-muted">Supported file types: .csv, .xlsx</small>
+                                           <small class="form-text text-muted">Supported File Types: .csv, .xlsx</small>
                                     @error('file_upload')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
