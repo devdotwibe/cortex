@@ -3029,7 +3029,7 @@ aside.side_bar.slider-btn .btn-slider {
 
 .exam-container .question-bank-review {
     max-width: 100%;
-    padding: 0;
+    padding: 0 0 20px 0px;
     position: relative;
     min-height: inherit;
 }
@@ -3096,7 +3096,7 @@ aside.side_bar.slider-btn .btn-slider {
 }
 
 .exam-container .question-bank-review .lesson #lesson-footer-pagination {
-    padding: 28px 0;
+    padding: 38px 0;
     display: inline-block;
     border-block: 1px solid #1789fa;
 }
@@ -7693,7 +7693,7 @@ nav.navbar.top-barhide {
     }
 
     .exam-container .mcq-container-wrap {
-        padding: 0 0 0;
+        padding: 0 0 10px;
     }
 
     .questionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group {
