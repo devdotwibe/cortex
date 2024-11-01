@@ -3016,7 +3016,7 @@ aside.side_bar.slider-btn .btn-slider {
     top: 0;
     left: 50%;
     transform: translateX(-50%);
-    /* background: #1789fa; */
+     background: #1789fa;
 }
 
 .exam-container .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group h3 {
