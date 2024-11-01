@@ -500,12 +500,12 @@
                                                 <p>${v.title_text||""}</p>
                                             </div>
                                             <div id="mcq-${lesseonId}" class="mcq-description">
-                                                ${v.description||""}
+                                               <p> ${v.description||""}</p>
                                             </div>
                                         </div>
                                         <div class="mcq-answer">
                                             <div  class="mcq-description">
-                                                ${v.sub_question||""}
+                                                <p>${v.sub_question||""}</p>
                                             </div>
                                             <div id="mcq-${lesseonId}-ans" class="form-group" >
                                                 <div class="form-data" >
