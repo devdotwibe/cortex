@@ -176,6 +176,10 @@ $(function() {
 
                     $('#table-category-form-submit').text(' Add + ');
 
+                    const actionUrl = "{{ route('admin.community.hashtags.store') }}"; 
+            console.log(actionUrl); 
+            $('#table-category-form-create').attr('action', actionUrl); 
+
                 
                     $('#table-category-form-clear').hide();
 
@@ -237,9 +241,9 @@ function editHashtag(url) {
             $('#table-category-form-create').attr('data-hashtag-id',data.id); 
 
            // Correctly construct the action URL
-           const actionUrl = "{{ url('admin/community/hashtags') }}/" + data.id; // Use + for concatenation
-            console.log(actionUrl); // Added parentheses for console.log
-            $('#table-category-form-create').attr('action', actionUrl); // Use actionUrl instead of 'update'
+           const actionUrl = "{{ url('admin/community/hashtags') }}/" + data.id; 
+            console.log(actionUrl); 
+            $('#table-category-form-create').attr('action', actionUrl); 
           
             $('#editHashtagModal').modal('show'); 
         },
@@ -250,45 +254,45 @@ function editHashtag(url) {
 }
 
 
-$('#table-category-form-create').on('submit', function(e) {
-    e.preventDefault();
+// $('#table-category-form-create').on('submit', function(e) {
+//     e.preventDefault();
 
-    $('.error').html('');
-    $('.invalid-feedback').text('');
-    $('.form-control').removeClass('is-invalid');
+//     $('.error').html('');
+//     $('.invalid-feedback').text('');
+//     $('.form-control').removeClass('is-invalid');
 
-    const saveType = $(this).attr('data-save');
-    const actionUrl = saveType === 'edit' ? "{{ url('admin/community/hashtags') }}/" + $(this).attr('data-hashtag-id') : $(this).attr('action');
+//     const saveType = $(this).attr('data-save');
+//     const actionUrl = saveType === 'edit' ? "{{ url('admin/community/hashtags') }}/" + $(this).attr('data-hashtag-id') : $(this).attr('action');
 
     
-    $('#table-category-form-submit').prop('disabled', true).text('Processing...');
+//     $('#table-category-form-submit').prop('disabled', true).text('Processing...');
 
-    $.ajax({
-        url: actionUrl,
-        method: saveType === 'edit' ? 'POST' : $(this).attr('method'),
-        data: $(this).serialize(),
-        success: function(response) {
-            if (response.success) {
-                $('#table-category-form-create')[0].reset();
-                $('#table-category-form-submit').text('Add +').prop('disabled', false);
-                $('#table-hashtag').DataTable().ajax.reload();
+//     $.ajax({
+//         url: actionUrl,
+//         method: saveType === 'edit' ? 'POST' : $(this).attr('method'),
+//         data: $(this).serialize(),
+//         success: function(response) {
+//             if (response.success) {
+//                 $('#table-category-form-create')[0].reset();
+//                 $('#table-category-form-submit').text('Add +').prop('disabled', false);
+//                 $('#table-hashtag').DataTable().ajax.reload();
                 
                 
-                showToast(response.message); 
-            } else {
-                showToast('Failed to add/update hashtag.', 'error');
-            }
-        },
-        error: function(xhr) {
-            var errors = xhr.responseJSON.errors;
-            for (var key in errors) {
-                $('[data-field="' + key + '"]').html(errors[key][0]);
-                $('[data-field-input="' + key + '"]').addClass('is-invalid');
-            }
-            $('#table-category-form-submit').prop('disabled', false).text('Add +'); // Re-enable button
-        }
-    });
-});
+//                 showToast(response.message); 
+//             } else {
+//                 showToast('Failed to add/update hashtag.', 'error');
+//             }
+//         },
+//         error: function(xhr) {
+//             var errors = xhr.responseJSON.errors;
+//             for (var key in errors) {
+//                 $('[data-field="' + key + '"]').html(errors[key][0]);
+//                 $('[data-field-input="' + key + '"]').addClass('is-invalid');
+//             }
+//             $('#table-category-form-submit').prop('disabled', false).text('Add +'); // Re-enable button
+//         }
+//     });
+// });
 
 </script>
 @endpush
