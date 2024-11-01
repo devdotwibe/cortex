@@ -55,7 +55,7 @@ class HashtagController extends Controller
     {
         // Validate the incoming request data
         $request->validate([
-            'hashtag' => 'required|string|max:255|unique:hashtags,hashtag',
+            'hashtag' => 'required',
         ]);
 
         // Create a new Hashtag instance and save it to the database
@@ -68,7 +68,12 @@ class HashtagController extends Controller
     }
 
 
-    
+
+
+
+
+
+
     public function edit($id)
     {
         $hashtag = Hashtag::findOrFail($id);
