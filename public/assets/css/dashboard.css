@@ -2983,7 +2983,7 @@ aside.side_bar.slider-btn .btn-slider {
 
 
 .exam-container .mcq-container-wrap {
-    padding: 0;
+    /* padding: 0; */
     max-width: 100%;
     min-height: calc(100vh - 140px);
 }
