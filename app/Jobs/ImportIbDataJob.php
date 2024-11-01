@@ -50,6 +50,23 @@ class ImportIbDataJob implements ShouldQueue
         $sheetData = json_decode(Storage::get($this->filePath), true);
         $columnNames = $sheetData[0]; 
 
+        $possibleEmailColumns = ['email', 'email_address', 'emailaddress', 'Email', 'EmailAddress', 'Email_address'];
+
+        
+         $emailIndex = false;
+         foreach ($possibleEmailColumns as $possibleColumn) {
+             $emailIndex = array_search($possibleColumn, $columnNames);
+             if ($emailIndex !== false) {
+                 break; 
+             }
+         }
+ 
+        
+         if ($emailIndex === false) {
+             throw new \Exception("No valid 'email' column found in the sheet data.");
+         }
+
+
         foreach ($sheetData as $k => $row) {
             if ($k != 0) {
 
