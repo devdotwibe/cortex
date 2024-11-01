@@ -134,30 +134,29 @@ $(function() {
     $('#table-category-form-create').on('submit', function(e) {
         e.preventDefault();
 
-        // Clear previous error messages
+     
         $('.error').html('');
         $('.invalid-feedback').text('');
         $('.form-control').removeClass('is-invalid');
 
         $.ajax({
-            url: $(this).attr('action'), // Ensure this points to the correct route
+            url: $(this).attr('action'), 
             method: $(this).attr('method'),
             data: $(this).serialize(),
             success: function(response) {
                 if (response.success) {
-                    // Reset the form fields
+                  
                     $('#table-category-form-create')[0].reset();
 
-                    // Reset the button text back to "Add +"
                     $('#table-category-form-submit').text(' Add + ');
 
-                    // Optionally hide the cancel button if it's not needed
+                
                     $('#table-category-form-clear').hide();
 
                     $('#table-hashtag').DataTable().ajax.reload();
 
-                    // Optionally show a success message
-                    alert(response.message); // Show success message
+                 
+                    alert(response.message); 
                 } else {
                     alert('Failed to add hashtag.');
                 }
@@ -165,7 +164,7 @@ $(function() {
             error: function(xhr) {
                 var errors = xhr.responseJSON.errors;
 
-                // Loop through the errors and display them
+             
                 for (var key in errors) {
                     $('[data-field="' + key + '"]').html(errors[key][0]);
                     $('[data-field-input="' + key + '"]').addClass('is-invalid');
@@ -175,17 +174,14 @@ $(function() {
     });
 
     $('#table-category-form-clear').on('click', function() {
-        // Reset the form fields
-
-        var storeurl = "{{ route('admin.community.hashtags.store') }}";
+        
+        
         $('#table-category-form-create')[0].reset();
 
-        // Reset the button text back to "Add +"
+       
         $('#table-category-form-submit').text(' Add + ');
 
-        $('#table-category-form-create').attr('action', storeurl)
-
-        // Optionally hide the cancel button
+       
         $(this).hide();
         console.log("test2");
     });
