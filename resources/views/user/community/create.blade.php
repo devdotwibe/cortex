@@ -64,7 +64,7 @@
                                 </div>    
                             </div>
 
-                            {{-- <div class="col-md-12 " >
+                            <div class="col-md-12 " >
                                 <div class="form-group">
                                     <div class="form-data">
                                         <div class="forms-inputs mb-4"> 
@@ -76,16 +76,8 @@
                                         </div>
                                     </div>
                                 </div>    
-                            </div> --}}
-                            <div class="drophashuser dropdown">
-           
-                                <select id="hashtagDropdown" class="form-select" onchange="location = this.value;">
-                                    <option value="">Choose a Channel</option> <!-- Default option -->
-                                    @foreach ($hashtags as $hashtag)
-                                        <option value="{{ route('community.post.index', ['hashtag' => $hashtag]) }}">{{ $hashtag }}</option>
-                                    @endforeach
-                                </select>
                             </div>
+
 
                             <div class="col-md-12">
                                 <div class="form-group">
