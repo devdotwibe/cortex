@@ -241,7 +241,7 @@ function editHashtag(url) {
             console.log(actionUrl); // Added parentheses for console.log
             $('#table-category-form-create').attr('action', actionUrl); // Use actionUrl instead of 'update'
           
-            $('#editHashtagModal').modal('show'); 
+           
         },
         error: function(xhr) {
             alert('Failed to fetch hashtag details.');
