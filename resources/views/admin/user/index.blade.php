@@ -454,7 +454,7 @@ jQuery(document).on("change", "#file_upload", function() {
 
             $('.end-datepicker').datepicker({
             dateFormat: 'yy-mm-dd',
-            minDate: 0
+            maxDate: 0
         });
 
         </script>
