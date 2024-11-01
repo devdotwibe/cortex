@@ -91,6 +91,8 @@ class ExamQuestionController extends Controller
                 $exam=Exam::find( $exam->id );
             }
             $user = Auth::user();
+            $user->setProgress("exam-{$exam->id}-topic-{$category->id}-lesson-{$subCategory->id}-set-{$setname->id}-progress-url", null);
+
             $userExam = UserExam::store([ 
                 'name'=>$exam->name,
                 'title'=>$exam->title,
@@ -166,7 +168,6 @@ class ExamQuestionController extends Controller
             $user=Auth::user();
             $user->setProgress("attempt-recent-link",route('question-bank.show',['category'=>$category->slug]));
             $userExam = UserExam ::findSlug($request->user_exam);
-            // dd($request->user_exam);
             if($request->ajax()){
                 $userExam = UserExam ::findSlug($request->user_exam); 
                 if($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$subCategory->id.'-set-'.$setname->id.'-complete-date',"")==""){
@@ -209,7 +210,6 @@ class ExamQuestionController extends Controller
             foreach (Question::where('exam_id',$exam->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->get() as $d) {
                 $user->setProgress("exam-{$exam->id}-topic-{$category->id}-lesson-{$subCategory->id}-set-{$setname->id}-answer-of-{$d->slug}",null);
             }
-            $user->setProgress("exam-{$exam->id}-topic-{$category->id}-lesson-{$subCategory->id}-set-{$setname->id}-progress-url", null);
 
             $slug = $request->user_exam;
             $attemtcount=UserExamReview::where('exam_id',$exam->id)->where('user_id',$user->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->count()+1;

@@ -27,7 +27,7 @@ class SubscriptionCheck
          * @var User
          */
         $user = Auth::user();
-        if(isset($user->is_free_access) && $user->subscriptionExpire()){
+        if(isset($user->is_free_access) || $user->subscriptionExpire()){
             return $next($request);
         }
 
