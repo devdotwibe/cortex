@@ -177,7 +177,7 @@ $(function() {
     $('#table-category-form-clear').on('click', function() {
         // Reset the form fields
 
-        var storeurl = "{{ route('admin.community.hahstags.store') }}";
+        var storeurl = "{{ route('admin.community.hashtags.store') }}";
         $('#table-category-form-create')[0].reset();
 
         // Reset the button text back to "Add +"
