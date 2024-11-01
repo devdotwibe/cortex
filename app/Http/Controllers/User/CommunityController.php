@@ -214,23 +214,23 @@ class CommunityController extends Controller
     }
     public function store(Request $request)
     {
-        // Determine the type of post (post or poll)
         $type = $request->type ?? "post";
-    
-        // Validate the request data based on the post type
         if ($type == "post") {
             $data = $request->validate([
                 'type' => ["required"],
+                // 'description' => ["required"],
                 'description' => ["required", 'string', "max:300", function ($attribute, $value, $fail) {
                     if (preg_match('/#/', $value)) {
                         $fail('Hashtags are not allowed in the description.');
                     }
                 }],
-                'hashtag_id' => ["required", 'exists:hashtags,id'], // Validate that the selected hashtag ID exists in the database
+                'hashtag' => ["nullable", 'string', 'max:500'],
                 'image' => ["nullable"],
             ]);
         } else {
+
             $data = $request->validate([
+                // 'description' => ["required"],
                 'description' => ["required", 'string', "max:300", function ($attribute, $value, $fail) {
                     if (preg_match('/#/', $value)) {
                         $fail('Hashtags are not allowed in the description.');
@@ -245,39 +245,34 @@ class CommunityController extends Controller
                 'option.*.required' => "This field is required",
             ]);
         }
-    
-        // Get the authenticated user
+
+        /**
+         *  @var User
+         */
         $user = Auth::user();
-    
-        // Prepare data for storing the post
+
         $data['user_id'] = $user->id;
         $data['status'] = "publish";
-    
-        // Store the post
         $post = Post::store($data);
-    
-        // If it's a poll, store poll options
         if ($request->type == "poll") {
-            foreach ($request->input('option', []) as $v) {
+            foreach ($request->input('option', []) as $k => $v) {
                 PollOption::store([
                     'option' => $v,
                     'post_id' => $post->id
                 ]);
             }
         }
-    
-        // Store the selected hashtag
-        if (isset($request->hashtag_id)) {
-            Hashtag::firstOrCreate([
-                'id' => $request->hashtag_id,
-                'post_id' => $post->id
-            ]);
+
+
+        $extractedHashtags = array_filter(array_map('trim', preg_split('/[,\s]+/', $request->input('hashtag', ''))));
+        foreach ($extractedHashtags as $hashtag) {
+            if (!empty($hashtag)) {
+                Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
+            }
         }
-    
-        // Redirect back to the community index with a success message
+
         return redirect()->route('community.index')->with('success', "Post published");
     }
-    
     public function pollVote(Request $request, PollOption $pollOption)
     {
         /**
