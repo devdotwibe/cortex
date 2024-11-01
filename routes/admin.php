@@ -171,7 +171,9 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
             Route::get('/hashtags', [HashtagController::class,'hashtags'])->name('hashtags');
             Route::post('/hashtags/store', [HashtagController::class, 'store'])->name('hashtags.store');
-            Route::get('/{hashtags}/edit',[HashtagController::class,'edit'])->name('hashtags.edit');
+            Route::get('/hashtags/{hashtag}/edit', [HashtagController::class, 'edit'])->name('hashtags.edit'); // Adjusted for clarity
+            Route::post('/hashtags/{hashtag}', [HashtagController::class, 'update'])->name('hashtags.update'); // Added update route
+            // Route::get('/{hashtags}/edit',[HashtagController::class,'edit'])->name('hashtags.edit');
             Route::delete('/{hashtags}',[HashtagController::class,'destroy'])->name('hashtags.destroy');
 
             Route::get('/report-post', [PostReportController::class,'index'])->name('report.index');

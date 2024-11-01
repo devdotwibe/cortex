@@ -81,8 +81,32 @@ class HashtagController extends Controller
         return redirect()->back()->with('success', 'Hashtag deleted successfully.');
     }
     
-
-
+    public function edit($id)
+    {
+        // Find the hashtag or fail
+        $hashtag = Hashtag::findOrFail($id);
+        
+        // Return a view with the hashtag data (you might need to create this view)
+        return response()->json($hashtag);
+    }
+    
+    public function update(Request $request, $id)
+    {
+        // Validate the incoming request data
+        $request->validate([
+            'hashtag' => 'required',
+        ]);
+    
+        // Find the hashtag or fail
+        $hashtag = Hashtag::findOrFail($id);
+    
+        // Update the hashtag with the new value
+        $hashtag->hashtag = $request->hashtag;
+        $hashtag->save();
+    
+        return response()->json(['success' => true, 'message' => 'Hashtag updated successfully.']);
+    }
+    
 
 
 

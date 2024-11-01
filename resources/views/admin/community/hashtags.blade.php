@@ -223,6 +223,69 @@ function deleteHashtag(url) // delete hashtag
 }
 
 
+function editHashtag(url) {
+    $.ajax({
+        url: url,
+        method: 'GET',
+        success: function(data) {
+            // Populate the edit form with the current hashtag data
+            $('#name-table-category-form-create').val(data.hashtag);
+            
+            // Change the submit button to indicate an update action
+            $('#table-category-form-submit').text('Update');
+            $('#table-category-form-create').attr('data-save', 'edit');
+            $('#table-category-form-create').attr('data-hashtag-id', data.id); // Store ID for update
+
+            // Show the edit form modal (if using one)
+            $('#editHashtagModal').modal('show'); // Adjust based on your implementation
+        },
+        error: function(xhr) {
+            alert('Failed to fetch hashtag details.');
+        }
+    });
+}
+
+// Update the form submission logic to handle edits
+$('#table-category-form-create').on('submit', function(e) {
+    e.preventDefault();
+
+    // Reset previous error messages
+    $('.error').html('');
+    $('.invalid-feedback').text('');
+    $('.form-control').removeClass('is-invalid');
+
+    const saveType = $(this).attr('data-save');
+    const actionUrl = saveType === 'edit' ? "{{ url('admin/community/hashtags') }}/" + $(this).attr('data-hashtag-id') : $(this).attr('action');
+
+    // Show loading indicator
+    $('#table-category-form-submit').prop('disabled', true).text('Processing...');
+
+    $.ajax({
+        url: actionUrl,
+        method: saveType === 'edit' ? 'POST' : $(this).attr('method'),
+        data: $(this).serialize(),
+        success: function(response) {
+            if (response.success) {
+                $('#table-category-form-create')[0].reset();
+                $('#table-category-form-submit').text('Add +').prop('disabled', false);
+                $('#table-hashtag').DataTable().ajax.reload();
+                
+                // Show success message
+                showToast(response.message); 
+            } else {
+                showToast('Failed to add/update hashtag.', 'error');
+            }
+        },
+        error: function(xhr) {
+            var errors = xhr.responseJSON.errors;
+            for (var key in errors) {
+                $('[data-field="' + key + '"]').html(errors[key][0]);
+                $('[data-field-input="' + key + '"]').addClass('is-invalid');
+            }
+            $('#table-category-form-submit').prop('disabled', false).text('Add +'); // Re-enable button
+        }
+    });
+});
 
 </script>
 @endpush
