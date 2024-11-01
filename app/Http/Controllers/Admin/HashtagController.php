@@ -60,8 +60,7 @@ class HashtagController extends Controller
 
       
         $hashtag = new Hashtag();
-        $hashtag->hashtag = $request->input('hashtag'); 
-       dd("hissss");
+        $hashtag->hashtag = $request->hashtag; 
         $hashtag->save();
 
  
