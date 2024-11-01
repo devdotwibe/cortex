@@ -423,7 +423,7 @@ jQuery(document).on("change", "#file_upload", function() {
 
                          setTimeout(function() {
                             location.reload();
-                         }, 60000); 
+                         }, 10000); 
         
        
                         usertablefilter();
