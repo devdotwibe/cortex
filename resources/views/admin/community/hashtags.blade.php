@@ -127,5 +127,68 @@ $(function(){
 });
 
 
+
+$(function() {
+    console.log('3');
+
+    $('#table-category-form-create').on('submit', function(e) {
+        e.preventDefault();
+
+        // Clear previous error messages
+        $('.error').html('');
+        $('.invalid-feedback').text('');
+        $('.form-control').removeClass('is-invalid');
+
+        $.ajax({
+            url: $(this).attr('action'), // Ensure this points to the correct route
+            method: $(this).attr('method'),
+            data: $(this).serialize(),
+            success: function(response) {
+                if (response.success) {
+                    // Reset the form fields
+                    $('#table-category-form-create')[0].reset();
+
+                    // Reset the button text back to "Add +"
+                    $('#table-category-form-submit').text(' Add + ');
+
+                    // Optionally hide the cancel button if it's not needed
+                    $('#table-category-form-clear').hide();
+
+                    // Reload the DataTable to show updated data
+                    $('#table-hashtag').DataTable().ajax.reload();
+
+                    // Optionally show a success message
+                    alert(response.message); // Show success message
+                } else {
+                    alert('Failed to add hashtag.');
+                }
+            },
+            error: function(xhr) {
+                var errors = xhr.responseJSON.errors;
+
+                // Loop through the errors and display them
+                for (var key in errors) {
+                    $('[data-field="' + key + '"]').html(errors[key][0]);
+                    $('[data-field-input="' + key + '"]').addClass('is-invalid');
+                }
+            }
+        });
+    });
+
+    $('#table-category-form-clear').on('click', function() {
+        // Reset the form fields
+        $('#table-category-form-create')[0].reset();
+
+        // Reset the button text back to "Add +"
+        $('#table-category-form-submit').text(' Add + ');
+
+        // Optionally hide the cancel button
+        $(this).hide();
+        console.log("test2");
+    });
+});
+
+
+
 </script>
 @endpush
