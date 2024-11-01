@@ -51,6 +51,11 @@ class ImportQuestions implements ShouldQueue
      * @var Setname|null
      */
     protected $setname;
+
+    public $imageName1;
+    public $imageName2;
+    public $imageName3;
+    public $imageName4;
     
     /**
      * Summary of __construct
@@ -61,7 +66,7 @@ class ImportQuestions implements ShouldQueue
      * @param Setname|null $setname
      * @param array|null $fields
      */
-    public function __construct($filename,$exam,$category=null,$subCategory=null,$setname=null,$fields=[])
+    public function __construct($filename,$exam,$category=null,$subCategory=null,$setname=null,$fields=[], $imageName1=null, $imageName2=null, $imageName3=null, $imageName4=null)
     {
         $this->filename=$filename;
         $this->exam=$exam;
@@ -69,7 +74,10 @@ class ImportQuestions implements ShouldQueue
         $this->category=$category;
         $this->subCategory=$subCategory;
         $this->setname=$setname;
-
+        $this->imageName1 = $imageName1;
+        $this->imageName2 = $imageName2;
+        $this->imageName3 = $imageName3;
+        $this->imageName4 = $imageName4;
     }
 
     /**
@@ -86,7 +94,7 @@ class ImportQuestions implements ShouldQueue
             if(OptionHelper::getData("{$this->exam->name}-import-question","stop")=="stop"){
                 break;
             }
-            $row=$datalist[$i];  
+            $row=$datalist[$i];
             if($this->exam->name=="full-mock-exam"){
                 $category = Category::firstOrCreate(
                     ['name' => $row[$this->fields['category']]],
@@ -119,25 +127,29 @@ class ImportQuestions implements ShouldQueue
                 "exam_id"=>$question->exam_id,
                 "question_id"=>$question->id,
                 "iscorrect"=>($row[$this->fields['iscorrect']]??"")=="A"?true:false,
-                "title"=>$row[$this->fields['answer_1']]
+                "title"=>$row[$this->fields['answer_1']],
+                "image" => $this->imageName1,
             ]);
             Answer::store([
                 "exam_id"=>$question->exam_id,
                 "question_id"=>$question->id,
                 "iscorrect"=>($row[$this->fields['iscorrect']]??"")=="B"?true:false,
-                "title"=>$row[$this->fields['answer_2']]
+                "title"=>$row[$this->fields['answer_2']],
+                "image" => $this->imageName2,
             ]);
             Answer::store([
                 "exam_id"=>$question->exam_id,
                 "question_id"=>$question->id,
                 "iscorrect"=>($row[$this->fields['iscorrect']]??"")=="C"?true:false,
                 "title" => (isset($this->fields['answer_3']) && isset($row[$this->fields['answer_3']])) ? $row[$this->fields['answer_3']] : null,
+                "image" => $this->imageName3,
             ]);
             Answer::store([
                 "exam_id"=>$question->exam_id,
                 "question_id"=>$question->id,
                 "iscorrect"=>($row[$this->fields['iscorrect']]??"")=="D"?true:false,
                 "title" => (isset($this->fields['answer_4']) && isset($row[$this->fields['answer_4']])) ? $row[$this->fields['answer_4']] : null,
+                "image" => $this->imageName4,
             ]);
             $i++;
             OptionHelper::setData("{$this->exam->name}-import-question-completed",round($i*100/$count,2));
