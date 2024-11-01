@@ -22,6 +22,8 @@ class HashtagController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
+
+            dd("istollath");
             // Fetch all hashtags
             $hashtags = Hashtag::where('id',">",0);
 
