@@ -3016,7 +3016,7 @@ aside.side_bar.slider-btn .btn-slider {
     top: 0;
     left: 50%;
     transform: translateX(-50%);
-    /* background: #1789fa; */
+     background: #1789fa;
 }
 
 .exam-container .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group h3 {
@@ -3096,9 +3096,16 @@ aside.side_bar.slider-btn .btn-slider {
 }
 
 .exam-container .question-bank-review .lesson #lesson-footer-pagination {
-    padding: 38px 0;
+    padding: 30px 0;
     display: inline-block;
     border-block: 1px solid #1789fa;
+}
+
+@media screen and (max-width:1399px) {
+    .exam-container .question-bank-review .lesson #lesson-footer-pagination {
+        padding: 38px 0;
+    }
+
 }
 
 .exam-container .question-bank-review .lesson #lesson-footer-pagination button.btn {
@@ -7693,7 +7700,7 @@ nav.navbar.top-barhide {
     }
 
     .exam-container .mcq-container-wrap {
-        padding: 0 0 10px;
+        padding: 0 0 30px;
     }
 
     .questionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group {
@@ -8087,7 +8094,7 @@ nav.navbar.top-barhide {
     }
 
     .exam-container.answerclass .mcq-container-wrap {
-        padding: 0;
+        padding: 0 0px 30px;
     }
 
     .exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check {
@@ -8302,7 +8309,7 @@ nav.navbar.top-barhide {
 
     .exam-container.answerclass .mcq-container-wrap {
         padding: 20px;
-        min-height: calc(100vh - 125px);
+        min-height: calc(100vh - 117px);
     }
 
     .exam-container .mcq-container-wrap .lesson .lesson-body .mcq-container:after {
