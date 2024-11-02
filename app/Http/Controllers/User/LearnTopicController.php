@@ -101,12 +101,15 @@ class LearnTopicController extends Controller
             ]);
             $exam=Exam::find( $exam->id );
         }
-
         /**
          * @var User
          */
         $user=Auth::user();
-
+        if($request->start){
+            $user->setProgress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$subCategory->id.'-progress-url',"");
+            $user->setProgress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$subCategory->id,"");
+            return redirect()->route('learn.lesson.show', ['category' => $category->slug, 'sub_category' => $subCategory->slug]);
+        }
         $user->setProgress("attempt-recent-link",route('learn.lesson.show',['category'=>$category->slug,'sub_category'=>$subCategory->slug]));
         if($request->ajax()){
             if($user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$subCategory->id.'-complete-date',"")==""){
