@@ -165,7 +165,8 @@ class TopicExamController extends Controller
 
                 if (!empty($request->question)) {
                     $question = UserExamQuestion::findSlug($request->question);
-                    return UserExamAnswer::where('user_exam_question_id', $question->id)->get(['slug', 'title']);
+                    // return UserExamAnswer::where('user_exam_question_id', $question->id)->with('answer')->get(['slug', 'title']);
+                    return UserExamAnswer::where('user_exam_question_id', $question->id)->with('answer')->select(['slug', 'title', 'answer_id'])->get();
                 }
                 return UserExamQuestion::where('user_exam_id', $attemt->id)->paginate(1, ['slug', 'title', 'description', 'duration','title_text','sub_question']);
             }
