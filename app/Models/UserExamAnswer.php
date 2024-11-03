@@ -23,4 +23,8 @@ class UserExamAnswer extends Model
         'answer_id',
         'user_id'
     ];
+
+    public function answer() {
+        return $this->belongsTo(Answer::class);
+    }
 }
