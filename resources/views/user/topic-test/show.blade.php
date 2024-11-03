@@ -488,10 +488,11 @@ function HideTime() {
                         summery.save()
                         $.get(pageurl||"{{ route('topic-test.confirmshow',['category'=>$category->slug]) }}",{question:v.slug},function(ans){
                             $(`#mcq-${lesseonId}-list`).html('')
+                            const baseUrl = `{{ asset('d0') }}`;
                             $.each(ans,function(ai,av){
                                 const letter = String.fromCharCode(ai + 'A'.charCodeAt(0))
                                 const imageHtml = av.answer && av.answer.image
-                                                    ? `<img src="{{ asset('${av.answer.image}') }}" class="answer-image" />`
+                                                    ? `<img src="${baseUrl}/${av.answer.image}" class="answer-image" />`
                                                     : '';
                                 $(`#mcq-${lesseonId}-list`).append(`
                                     <div class="form-check">
