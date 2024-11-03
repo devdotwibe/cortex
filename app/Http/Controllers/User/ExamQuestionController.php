@@ -188,7 +188,8 @@ class ExamQuestionController extends Controller
                 }
                 if(!empty($request->question)){ 
                     $question=UserExamQuestion::findSlug($request->question); 
-                    return UserExamAnswer::where('user_exam_question_id',$question->id)->get(['slug','title']);
+                    // return UserExamAnswer::where('user_exam_question_id',$question->id)->get(['slug','title']);
+                    return UserExamAnswer::where('user_exam_question_id', $question->id)->with('answer')->select(['slug', 'title', 'answer_id'])->get();
                 }
                 return UserExamQuestion::where('user_exam_id',$userExam->id)
                                 ->where('category_id',$category->id)
