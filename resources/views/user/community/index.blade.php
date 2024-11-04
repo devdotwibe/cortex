@@ -320,10 +320,10 @@
             <div class="post-title">
                 ${v.title||""}
             </div>
-            <div class="post-content 25">
+            <div class="post-content">
                 ${v.description||""}
             </div>
-             <div class="post-content">
+             <div class="post-content 25">
                 ${v.hashtags||""}
             </div>
             <div class="poll-options">
