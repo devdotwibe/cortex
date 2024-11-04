@@ -8357,6 +8357,10 @@ nav.navbar.top-barhide {
     .exam-container .question-bank-review .lesson .lesson-body .mcq-container:after {
         height: 120%;
     }
+
+    .exam-container .container-wrap .lesson #lesson-footer-pagination {
+        display: none;
+    }
 }
 
 @media screen and (max-width:600px) {
