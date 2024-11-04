@@ -3047,7 +3047,7 @@ aside.side_bar.slider-btn .btn-slider {
 }
 
 .exam-container .container-wrap-index .lesson .lesson-body .mcq-container {
-    height: calc(100vh - 130px) !important;
+    height: calc(100vh - 100px) !important;
 }
 
 .exam-container .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group {
