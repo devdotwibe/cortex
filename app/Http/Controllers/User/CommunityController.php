@@ -594,32 +594,15 @@ class CommunityController extends Controller
         }
         PollOption::where('post_id', $post->id)->whereNotIn('id', $ids)->delete();
 
-        // preg_match_all('/#\w+/',  $data['description'], $hashtags);
-        // $extractedHashtags = $hashtags[0];
-        // $hashIds = [];
-        // foreach ($extractedHashtags as $hashtag) {
-
-        //     $hash = Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
-        //     $hashIds[] = $hash->id;
-        // }
-        // Hashtag::where('post_id', $post->id)->whereNotIn('id', $hashIds)->delete();
-
-        // $hashIds=[];
-        // $extractedHashtags = array_filter(array_map('trim', preg_split('/[,\s]+/', $request->input('hashtag', ''))));
-        // foreach ($extractedHashtags as $hashtag) {
-        //     if (!empty($hashtag)) {
-        //         $hash=Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
-        //         $hashIds[]=$hash->id;
-        //     }
-        // }
         
-        // Hashtag::where('post_id',$post->id)->whereNotIn('id',$hashIds)->delete();
 
-         
-    $hashtag=Hashtag::find($request->hashtag);
-    $hashtag->post_id=$post->id;
-    $hashtag->save();
-
+    // Update or associate the selected hashtag with the post
+    if ($request->filled('hashtag')) {
+        Hashtag::where('post_id', $post->id)->update(['post_id' => null]); // Remove previous association
+        $hashtag = Hashtag::find($request->hashtag);
+        $hashtag->post_id = $post->id;
+        $hashtag->save();
+    }
     
         return redirect()->route('community.index')->with('success', "Post updated");
     }
