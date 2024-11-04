@@ -151,7 +151,9 @@
                 $('#lesson-footer-pagination').html('')
                 $('#lesson-footer-paginationmobile').html('')
                
-                
+                $('#question-preview-page').fadeOut()
+                $('#question-answer-page').fadeIn()
+
                 const lesseonId = generateRandomId(10);
                 $.each(res.data, function(k, v) {
                     $('#lesson-questionlist-list').html(`
