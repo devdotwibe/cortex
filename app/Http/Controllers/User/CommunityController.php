@@ -244,7 +244,7 @@ class CommunityController extends Controller
             }
         }
 
-dd($request->hashtag);
+
         // // Extract and store hashtags from the description
         // preg_match_all('/#\w+/', $data['description'], $hashtags);
         // $extractedHashtags = $hashtags[0];
