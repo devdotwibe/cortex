@@ -265,15 +265,8 @@ class CommunityController extends Controller
 
         $extractedHashtags = array_filter(array_map('trim', preg_split('/[,\s]+/', $request->input('hashtag', ''))));
         foreach ($extractedHashtags as $hashtag) {
-            // if (!empty($hashtag)) {
-            //     Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
-            // }
             if (!empty($hashtag)) {
-                // Find the hashtag by name or create it if it doesn't exist
-                $existingHashtag = Hashtag::firstOrCreate(['hashtag' => $hashtag]);
-    
-                // Associate the hashtag with the post by setting the post_id
-                $existingHashtag->posts()->attach($post->id);
+                Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
             }
         }
 
