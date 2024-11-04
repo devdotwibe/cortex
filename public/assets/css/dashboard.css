@@ -3474,6 +3474,13 @@ s .card-progress .card-body .session-chart {
     margin: 0 5px;
 }
 
+@media screen and (max-width:1011px) {
+    .lesson #lesson-footer-pagination button.btn.btn-secondary {
+        margin: 0 0 5px;
+        font-size: 11px;
+    }
+}
+
 .lesson #lesson-footer-pagination button.status-good.btn {
     background: #F8EAC6;
     border: 1px solid #F8EAC6;
