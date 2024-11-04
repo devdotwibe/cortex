@@ -231,7 +231,7 @@ $hashtag->save();
         }
     }
 
-    public function edit(Request $request,Post $post){
+    public function edit(Request $request,Post $post){ 
         $hashtags = Hashtag::all();
         return view('admin.community.edit',compact('post','hashtags'));
     }
