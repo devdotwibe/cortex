@@ -53,7 +53,7 @@
                                                     </div>
                                                     <input type="text" name="{{$item->name}}[]" id="{{$item->name}}-{{$frmID}}-0" value="" class="form-control  " placeholder="{{ucfirst($item->label??$item->name)}}" aria-placeholder="{{ucfirst($item->label??$item->name)}}" >
                                                     <input type="file" name="file_{{$item->name}}[]" id="file_{{$item->name}}-{{$frmID}}-0" value=""  class="form-control" >
-                                                    <div class="invalid-feedback">Please upload a valid image file (JPEG, PNG, GIF).</div>
+                                                    <div class="invalid-feedback" id="upload-file">Please upload a valid image file (JPEG, PNG, GIF).</div>
 
                                                     <img id="preview-{{ $item->name }}-{{ $frmID }}-0" src="#" alt="Image Preview" style="display: none; width: 100px; margin-top: 10px;">
 
@@ -264,15 +264,19 @@ function previewImage(input, previewId) {
         function validateImage(input) {
             const file = input.files[0];
             const validImageTypes = ["image/jpeg", "image/png", "image/gif"];
+            const feedbackElement = document.getElementById(`upload-file`);
             if (file && !validImageTypes.includes(file.type)) {
-                $('.invalid-feedback').show();
-                input.value = "";
+                input.classList.add('is-invalid');
+                feedbackElement.style.display = 'block';
+                input.value = ""; // Clear the input
+            } else {
+                input.classList.remove('is-invalid');
+                feedbackElement.style.display = 'none';
             }
         }
 
         document.querySelectorAll('input[type="file"]').forEach(fileInput => {
             fileInput.addEventListener('change', function() {
-                $('.invalid-feedback').hide();
                 validateImage(this);
             });
         });
