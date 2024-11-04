@@ -7884,12 +7884,12 @@ nav.navbar.top-barhide {
     }
 
     .modal-expand {
-        top: 85px;
+        top: 55px;
         padding: 0 15px;
     }
 
     .modal-expand .container-wrap {
-        min-height: calc(100vh - 150px);
+        min-height: calc(100vh - 107px);
     }
 
     .support-content p {
@@ -8277,7 +8277,18 @@ nav.navbar.top-barhide {
         height: 46px;
     }
 
+    /* Page nation adjust in responsive */
+    .exam-container .mcq-container-wrap .lesson #lesson-footer-pagination {
+        display: none !important;
+    }
 
+    .exam-container .mcq-container-wrap {
+        min-height: calc(100vh - 100px) !important;
+    }
+
+    .exam-container .question-bank-review .lesson .lesson-body .mcq-container:after {
+        height: 120%;
+    }
 }
 
 @media screen and (max-width:600px) {
