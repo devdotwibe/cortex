@@ -214,7 +214,6 @@ class CommunityController extends Controller
     public function store(Request $request)
     {
         $type = $request->type ?? "post";
-        if ($type == "post") {
             $data = $request->validate([
                 'type' => ["required"],
              
@@ -223,27 +222,10 @@ class CommunityController extends Controller
                         $fail('Hashtags are not allowed in the description.');
                     }
                 }],
-                'hashtag' => ["nullable", 'string', 'max:500'],
+                'hashtag' => ["required", 'string', 'max:500'],
                 'image' => ["nullable"],
             ]);
-        } else {
-
-            $data = $request->validate([
-                
-                'description' => ["required", 'string', "max:300", function ($attribute, $value, $fail) {
-                    if (preg_match('/#/', $value)) {
-                        $fail('Hashtags are not allowed in the description.');
-                    }
-                }],
-                'type' => ["required"],
-                'option' => ["required", 'array', 'min:2', 'max:5'],
-                'option.*' => ["required", 'max:255'],
-                'image' => ["nullable"],
-            ], [
-                'option.required' => "This field is required",
-                'option.*.required' => "This field is required",
-            ]);
-        }
+      
 
         /**
          *  @var User
@@ -270,14 +252,9 @@ class CommunityController extends Controller
         //     Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
         // }
         // Split hashtags by commas or spaces   
-        $hashtagIds = $request->input('hashtag', []);
-    foreach ($hashtagIds as $hashtagId) {
-        $hashtag = Hashtag::find($hashtagId);
-        if ($hashtag) {
-            // Create an association record if it doesn't already exist
-            $post->hashtags()->attach($hashtag->id);
-        }
-        }
+ 
+    $hashtag=Hashtag::find($request->hashtag);
+    $hashtag->post->id;
 
         return redirect()->route('community.index')->with('success', "Post published");
     }
