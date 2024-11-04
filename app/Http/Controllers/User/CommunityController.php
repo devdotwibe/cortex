@@ -222,7 +222,7 @@ class CommunityController extends Controller
                         $fail('Hashtags are not allowed in the description.');
                     }
                 }],
-                'hashtag' => ["required", 'string', 'max:500'],
+                'hashtag' => ["nullable", 'string', 'max:500'],
                 'image' => ["nullable"],
             ]);
       
