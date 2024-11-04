@@ -519,7 +519,7 @@ button.close {
     border-radius: 0;
     min-height: calc(100vh - 147px);
     position: relative;
-    padding-bottom: 9em !important;
+    padding-bottom: 6em !important;
 }
 
 .bartop-hide .exam-container .container-wrap {
@@ -5906,7 +5906,7 @@ s .card-progress .card-body .session-chart {
 }
 
 .questionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer {
-    height: calc(100vh - 245px);
+    height: calc(100vh - 245px) !important;
     padding: 50px;
     overflow-y: auto;
 }
