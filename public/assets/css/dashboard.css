@@ -519,7 +519,7 @@ button.close {
     border-radius: 0;
     min-height: calc(100vh - 147px);
     position: relative;
-    padding-bottom: 9em;
+    padding-bottom: 9em !important;
 }
 
 .bartop-hide .exam-container .container-wrap {
@@ -4833,7 +4833,7 @@ s .card-progress .card-body .session-chart {
 
 .mcq-title-text {
     width: 100%;
-    padding: 20px 10px;
+    padding: 10px 10px;
     border: 1px solid #414141;
     border-radius: 0;
     margin: 0 0 20px;
