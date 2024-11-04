@@ -4818,7 +4818,7 @@ s .card-progress .card-body .session-chart {
 }
 
 .mcq-title-text p {
-    margin: 0;
+    margin: 0 !important;
 }
 
 .modal {
