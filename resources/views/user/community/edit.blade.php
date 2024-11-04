@@ -50,7 +50,7 @@
                                 </div>    
                             </div>
 
-                            <div class="col-md-12 " >
+                            {{-- <div class="col-md-12 " >
                                 <div class="form-group">
                                     <div class="form-data">
                                         <div class="forms-inputs mb-4"> 
@@ -62,7 +62,17 @@
                                         </div>
                                     </div>
                                 </div>    
-                            </div> 
+                            </div>  --}}
+
+                            <div class="form-group">
+                                <label for="hashtag-select">Select Hashtag</label>
+                                <select id="hashtag-select" name="hashtag" class="form-control" required>
+                                    <option value="">Select a hashtag</option>
+                                    @foreach($hashtags as $hashtag)
+                                        <option value="{{ $hashtag->id }}">{{ $hashtag->hashtag }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                        
 
                             
