@@ -718,7 +718,7 @@ button.close {
     margin: 0 0 20px;
 }
 
-.exam-container .container-wrap .lesson .lesson-body .note-title .note-container {
+.exam-container .container-wrap .lesson .lesson-body .note-container {
     padding-bottom: 30px;
 }
 
@@ -738,7 +738,6 @@ button.close {
     line-height: 1.5;
     margin: 0 0 12px;
 }
-
 
 .exam-footer {
     position: fixed;
