@@ -5906,7 +5906,7 @@ s .card-progress .card-body .session-chart {
 } */
 
 .questionclass .mcq-container-wrap .lesson .lesson-body .mcq-container {
-    padding: 40px;
+    padding: 0;
     min-height: inherit;
 }
 
