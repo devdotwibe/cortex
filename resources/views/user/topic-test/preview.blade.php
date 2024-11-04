@@ -131,14 +131,6 @@
 
 @push('footer-script')
     <script>
-
-        function toglepreviewpage() {
-            // timerActive=!timerActive; 
-            $('#question-preview-page').slideToggle()
-            $('#question-answer-page').fadeToggle()
-        }
-
-
         var useranswers = @json($useranswer);
 
         function generateRandomId(length) {
@@ -346,7 +338,11 @@
             loadlessonreview()
         })
 
-        
+        function toglepreviewpage() {
+            // timerActive=!timerActive; 
+            $('#question-preview-page').slideToggle()
+            $('#question-answer-page').fadeToggle()
+        }
 
         
     </script>

@@ -243,6 +243,7 @@ function editHashtag(url) {
             $('#table-category-form-submit').text('Update');
             $('#table-category-form-create').attr('data-save', 'edit');
             $('#table-category-form-create').attr('data-hashtag-id',data.id); 
+            $('#table-category-form-clear').show()
 
            // Correctly construct the action URL
            const actionUrl = "{{ url('admin/community/hashtags') }}/" + data.id; 
