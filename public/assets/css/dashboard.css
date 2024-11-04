@@ -931,6 +931,18 @@ button.close {
     ;
 }
 
+/* .option-toggle {
+    width: fit-content;
+    display: flex;
+    margin: 20px 10px;
+    flex-wrap: wrap;
+    background-color: #f1f7fb;
+    border: 1px solid #6c757d;
+    border-radius: 10px;
+    overflow: hidden;
+} */
+
+
 .option-toggle {
     width: fit-content;
     display: flex;
@@ -940,6 +952,11 @@ button.close {
     border: 1px solid #6c757d;
     border-radius: 10px;
     overflow: hidden;
+}
+
+.option-item {
+    padding: 10px;
+    cursor: pointer;
 }
 
 .option-toggle .option-item {
