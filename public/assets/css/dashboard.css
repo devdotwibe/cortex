@@ -2663,10 +2663,10 @@ aside.side_bar.slider-btn .btn-slider {
 }
 
 .set-container .option-toggle .option-item input {
-    padding: 15px;
+    padding: 20px;
     position: absolute;
     margin-left: -80px;
-    margin-top: -4px;
+    margin-top: -10px;
     width: 9%;
 
 }
