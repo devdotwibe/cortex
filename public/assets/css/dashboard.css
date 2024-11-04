@@ -3055,7 +3055,7 @@ aside.side_bar.slider-btn .btn-slider {
     content: "";
     position: absolute;
     width: 1px;
-    height: 100%;
+    height: 98%;
     top: 0;
     left: 50%;
     transform: translateX(-50%);
