@@ -227,7 +227,7 @@
                             <div class="post-content">
                                 ${v.description||""}
                             </div>
-                             <div class="post-content">
+                             <div class="post-content 23">
                             ${v.hashtags||""}
                         </div>
                         </a>
@@ -318,7 +318,7 @@
                 <div class="post-content">
                     ${v.description||""}
                 </div>
-                 <div class="post-content">
+                 <div class="post-content 24">
                     ${v.hashtags||""}
                 </div>
             </a>

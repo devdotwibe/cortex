@@ -233,7 +233,7 @@
                         <div class="post-content">
                             ${v.description||""}
                         </div>
-                         <div class="post-content 22">
+                         <div class="post-content">
                             ${v.hashtags||""}
                         </div>
                         <div class="poll-options">
@@ -323,7 +323,7 @@
             <div class="post-content">
                 ${v.description||""}
             </div>
-             <div class="post-content 25">
+             <div class="post-content">
                 ${v.hashtags||""}
             </div>
             <div class="poll-options">
