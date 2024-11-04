@@ -354,6 +354,8 @@
 
                         $('#subcategory').attr('action', '{{ route('admin.faq.store') }}');
 
+                        const actionUrl = "{{ route('admin.faq.store') }}";
+
                         console.log('99');
                         console.log("test1");
 
