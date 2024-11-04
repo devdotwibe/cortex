@@ -517,7 +517,7 @@ button.close {
     background: #ffff;
     box-shadow: 4px 0px 16px 0px #0000000A;
     border-radius: 0;
-    min-height: calc(100vh - 100px);
+    min-height: calc(100vh - 147px);
     position: relative;
     padding-bottom: 9em;
 }
