@@ -217,7 +217,7 @@ class CommunityController extends Controller
         if ($type == "post") {
             $data = $request->validate([
                 'type' => ["required"],
-                // 'description' => ["required"],
+             
                 'description' => ["required", 'string', "max:300", function ($attribute, $value, $fail) {
                     if (preg_match('/#/', $value)) {
                         $fail('Hashtags are not allowed in the description.');
@@ -229,7 +229,7 @@ class CommunityController extends Controller
         } else {
 
             $data = $request->validate([
-                // 'description' => ["required"],
+                
                 'description' => ["required", 'string', "max:300", function ($attribute, $value, $fail) {
                     if (preg_match('/#/', $value)) {
                         $fail('Hashtags are not allowed in the description.');
@@ -263,17 +263,17 @@ class CommunityController extends Controller
         }
 
 
-        // // Extract and store hashtags from the description
-        // preg_match_all('/#\w+/', $data['description'], $hashtags);
-        // $extractedHashtags = $hashtags[0];
-        // foreach ($extractedHashtags as $hashtag) {
-        //     Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
-        // }
-        // Split hashtags by commas or spaces   
         $extractedHashtags = array_filter(array_map('trim', preg_split('/[,\s]+/', $request->input('hashtag', ''))));
         foreach ($extractedHashtags as $hashtag) {
+            // if (!empty($hashtag)) {
+            //     Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
+            // }
             if (!empty($hashtag)) {
-                Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
+                // Find the hashtag by name or create it if it doesn't exist
+                $existingHashtag = Hashtag::firstOrCreate(['hashtag' => $hashtag]);
+    
+                // Associate the hashtag with the post by setting the post_id
+                $existingHashtag->posts()->attach($post->id);
             }
         }
 
