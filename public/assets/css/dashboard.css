@@ -720,7 +720,7 @@ button.close {
 }
 
 .exam-container .container-wrap .lesson .lesson-body .note-row {
-    padding: 0px 40px 40px 40px;
+    padding: 30px;
 }
 
 
@@ -6080,7 +6080,7 @@ nav.navbar.header-class {
 }
 
 .exam-container.answerclass .lesson .lesson-title {
-    margin: 0 0 15px;
+    margin: 0 0 0;
     padding: 10px;
 }
 
