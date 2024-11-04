@@ -32,11 +32,11 @@
                             <span id="menu-text">Question <span> 0 </span> <span>0 </span> </span>
 
                         </div>
-                        <div class="menu-icon">
+                        {{-- <div class="menu-icon">
                             <a onclick="toglepreviewpage()">
-                                {{-- <img src="{{asset("assets/images/menu.svg")}}" alt="exiticon"> --}}
+                                <img src="{{asset("assets/images/menu.svg")}}" alt="exiticon">
                             </a>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
 
@@ -131,14 +131,6 @@
 
 @push('footer-script')
     <script>
-
-        function toglepreviewpage() {
-            // timerActive=!timerActive; 
-            $('#question-preview-page').slideToggle()
-            $('#question-answer-page').fadeToggle()
-        }
-
-
         var useranswers = @json($useranswer);
 
         function generateRandomId(length) {
@@ -346,7 +338,11 @@
             loadlessonreview()
         })
 
-        
+        function toglepreviewpage() {
+            // timerActive=!timerActive; 
+            $('#question-preview-page').slideToggle()
+            $('#question-answer-page').fadeToggle()
+        }
 
         
     </script>
