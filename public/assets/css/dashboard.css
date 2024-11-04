@@ -522,6 +522,11 @@ button.close {
     padding-bottom: 6em !important;
 }
 
+.exam-container .container-wrap-index {
+    padding: 0 !important;
+    min-height: calc(100vh - 147px);
+}
+
 .bartop-hide .exam-container .container-wrap {
     min-height: calc(100vh - 60px);
 }
@@ -3039,6 +3044,10 @@ aside.side_bar.slider-btn .btn-slider {
     justify-content: space-between;
     position: relative;
     min-height: calc(100vh - 230px);
+}
+
+.exam-container .container-wrap-index .lesson .lesson-body .mcq-container {
+    height: calc(100vh - 100px) !important;
 }
 
 .exam-container .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group {
@@ -7348,6 +7357,11 @@ nav.navbar.top-barhide {
         font-size: 11px;
     }
 
+
+    .exam-container .container-wrap-index .lesson .lesson-body .mcq-container {
+        height: calc(100vh - 130px);
+    }
+
     .exam-container.answerclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer {
         height: calc(100vh - 140px);
     }
@@ -8374,14 +8388,14 @@ nav.navbar.top-barhide {
     .exam-container.answerclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group {
         height: inherit;
         width: 100%;
-        padding: 0 0 0;
+        /* padding: 0 0 0; */
         border-bottom: 1px solid #1789fa;
         margin: 0 0 20px;
     }
 
     .exam-container.answerclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer {
         width: 100%;
-        padding: 0 0 0;
+        /* padding: 0 0 0; */
         height: inherit;
     }
 
