@@ -353,6 +353,7 @@
                         $('#table-category-form-submit').text(' Add + ');
 
                         $('#subcategory').attr('action', '{{ route('admin.faq.store') }}');
+                        
 
                         const actionUrl = "{{ route('admin.faq.store') }}";
 
