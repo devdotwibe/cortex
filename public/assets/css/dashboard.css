@@ -7355,7 +7355,7 @@ nav.navbar.top-barhide {
 
 
     .exam-container .container-wrap-index .lesson .lesson-body .mcq-container .mcq-answer {
-        height: calc(100vh - 140px) !important;
+        height: calc(100vh - 100px) !important;
     }
 
     .exam-container.answerclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer {
