@@ -161,7 +161,7 @@
                                             <p>${v.title_text||""}</p>
                                         </div>
                                         <div id="mcq-${lesseonId}">
-                                            ${v.note||""}
+                                          <p>  ${v.note||""}</p>
                                         </div>
                                     </div>
                                     <div class="mcq-answer mcq-group-right">
