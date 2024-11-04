@@ -119,17 +119,8 @@
 
     <section class="modal-expand" id="question-preview-page" style="display: none;">
         <div class="container-wrap">
-
-
-
-
             <div class="lesson-footer" id="lesson-footer-paginationmobile">
             </div>
-
-
-
-
-
         </div>
 
 
@@ -140,6 +131,14 @@
 
 @push('footer-script')
     <script>
+
+        function toglepreviewpage() {
+            // timerActive=!timerActive; 
+            $('#question-preview-page').slideToggle()
+            $('#question-answer-page').fadeToggle()
+        }
+
+
         var useranswers = @json($useranswer);
 
         function generateRandomId(length) {
@@ -347,10 +346,8 @@
             loadlessonreview()
         })
 
-        function toglepreviewpage() {
-            // timerActive=!timerActive; 
-            $('#question-preview-page').slideToggle()
-            $('#question-answer-page').fadeToggle()
-        }
+        
+
+        
     </script>
 @endpush
