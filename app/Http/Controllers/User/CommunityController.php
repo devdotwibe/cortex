@@ -263,11 +263,20 @@ class CommunityController extends Controller
         }
 
 
-        $extractedHashtags = array_filter(array_map('trim', preg_split('/[,\s]+/', $request->input('hashtag', ''))));
-        foreach ($extractedHashtags as $hashtag) {
-            if (!empty($hashtag)) {
-                Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
-            }
+        // // Extract and store hashtags from the description
+        // preg_match_all('/#\w+/', $data['description'], $hashtags);
+        // $extractedHashtags = $hashtags[0];
+        // foreach ($extractedHashtags as $hashtag) {
+        //     Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
+        // }
+        // Split hashtags by commas or spaces   
+        $hashtagIds = $request->input('hashtag', []);
+    foreach ($hashtagIds as $hashtagId) {
+        $hashtag = Hashtag::find($hashtagId);
+        if ($hashtag) {
+            // Create an association record if it doesn't already exist
+            $post->hashtags()->attach($hashtag->id);
+        }
         }
 
         return redirect()->route('community.index')->with('success', "Post published");
