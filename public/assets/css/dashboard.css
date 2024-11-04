@@ -517,7 +517,9 @@ button.close {
     background: #ffff;
     box-shadow: 4px 0px 16px 0px #0000000A;
     border-radius: 0;
-    min-height: calc(100vh - 135px);
+    min-height: calc(100vh - 100px);
+    position: relative;
+    padding-bottom: 9em;
 }
 
 .bartop-hide .exam-container .container-wrap {
@@ -832,6 +834,10 @@ button.close {
     text-align: center;
     padding: 30px 0px 30px 0px;
     border-top: 1px solid #005d93;
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 0;
 }
 
 .exam-container .container-wrap .lesson .lesson-body .note-currect {
@@ -6020,6 +6026,7 @@ nav.navbar.header-class {
 
 .exam-container.answerclass .lesson .lesson-title {
     margin: 0 0 15px;
+    padding: 10px;
 }
 
 .exam-container.answerclass .mcq-container-wrap.question-bank-review .lesson .lesson-body .mcq-container .mcq-group {

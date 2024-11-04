@@ -106,6 +106,7 @@ class LearnTopicController extends Controller
          */
         $user=Auth::user();
         if($request->start){
+            $user->setProgress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$subCategory->id.'-progress-ids',"");
             $user->setProgress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$subCategory->id.'-progress-url',"");
             $user->setProgress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$subCategory->id,"");
             return redirect()->route('learn.lesson.show', ['category' => $category->slug, 'sub_category' => $subCategory->slug]);
