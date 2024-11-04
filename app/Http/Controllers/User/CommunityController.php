@@ -209,7 +209,7 @@ class CommunityController extends Controller
             return redirect()->route('community.index')->with('error', "Admin Banned from Community post");
         }
         $hashtags = Hashtag::all();
-        return view('user.community.create', compact('hashtags'));
+        return view('user.community.create', compact('user','hashtags'));
     }
     public function store(Request $request)
     {
