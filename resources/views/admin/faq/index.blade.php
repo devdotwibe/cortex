@@ -352,7 +352,7 @@
                         // Reset the button text back to "Add +"
                         $('#table-category-form-submit').text(' Add + ');
 
-                        // $('#subcategory').attr('action', '{{ route('admin.faq.store') }}');
+                        $('#subcategory').attr('action', '{{ route('admin.faq.store') }}');
 
                         const actionUrl = "{{ route('admin.faq.store') }}";
 
