@@ -93,7 +93,8 @@ class CommunityControllerController extends Controller
         return view('admin.community.index',compact('hashtags'));
     }
     public function create(Request $request){
-        return view('admin.community.create');
+        $hashtags = Hashtag::all();
+        return view('admin.community.create', compact('user','hashtags'));
     }
  
     public function store(Request $request)
