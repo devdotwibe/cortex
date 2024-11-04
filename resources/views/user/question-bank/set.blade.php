@@ -304,8 +304,14 @@
             const button = $('#hide_button');
 
             timerDiv.slideToggle(300, function() {
-            });
-        }
+            if (timerDiv.is(':visible')) {
+                button.html('Hide Time');
+            } else {
+                button.html('<img src="{{ asset("assets/images/flat-color-icons_clock.svg") }}" alt="Show Time Icon">');
+                button.insertAfter(timerDiv);
+            }
+        });
+    }
        
         if (localStorage.getItem("question-bank-summery{{ $userExam->id }}")) {
             let storedData = JSON.parse(localStorage.getItem("question-bank-summery{{ $userExam->id }}"));
