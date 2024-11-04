@@ -522,6 +522,11 @@ button.close {
     padding-bottom: 6em !important;
 }
 
+.exam-container .container-wrap-index {
+    padding: 0 !important;
+    min-height: calc(100vh - 147px);
+}
+
 .bartop-hide .exam-container .container-wrap {
     min-height: calc(100vh - 60px);
 }
