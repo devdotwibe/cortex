@@ -106,9 +106,10 @@ class LearnTopicController extends Controller
          */
         $user=Auth::user();
         if($request->start){
-            $user->setProgress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$subCategory->id.'-progress-ids',"");
-            $user->setProgress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$subCategory->id.'-progress-url',"");
-            $user->setProgress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$subCategory->id,"");
+            DB::table('user_progress')
+                ->where('user_id',$user->id)
+                ->where('name','LIKE','exam-'.$exam->id.'-module-'.$category->id.'%')
+                ->delete();
             return redirect()->route('learn.lesson.show', ['category' => $category->slug, 'sub_category' => $subCategory->slug]);
         }
         $user->setProgress("attempt-recent-link",route('learn.lesson.show',['category'=>$category->slug,'sub_category'=>$subCategory->slug]));

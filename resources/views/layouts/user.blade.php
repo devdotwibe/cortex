@@ -377,7 +377,8 @@
 
 
     <script>
-
+        console.log('{{ $subscriptionStatus }}')
+        console.log('{{ $user }}')
         // function ChangeMenu()
         // {
         //     $('.side_bar').toggleClass('slider-btn');
