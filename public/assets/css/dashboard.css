@@ -3046,6 +3046,10 @@ aside.side_bar.slider-btn .btn-slider {
     min-height: calc(100vh - 230px);
 }
 
+.exam-container .container-wrap-index .lesson .lesson-body .mcq-container {
+    height: calc(100vh - 130px) !important;
+}
+
 .exam-container .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group {
     width: 50%;
     padding: 0 35px 0 0;
@@ -7354,8 +7358,8 @@ nav.navbar.top-barhide {
     }
 
 
-    .exam-container .container-wrap-index .lesson .lesson-body .mcq-container .mcq-answer {
-        height: calc(100vh - 100px) !important;
+    .exam-container .container-wrap-index .lesson .lesson-body .mcq-container {
+        height: calc(100vh - 130px) !important;
     }
 
     .exam-container.answerclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer {
