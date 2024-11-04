@@ -150,7 +150,7 @@
                 $('.pagination-arrow').hide();
                 $('#lesson-footer-pagination').html('')
                 $('#lesson-footer-paginationmobile').html('')
-
+                summery.timerActive=true;
                 $('#question-preview-page').fadeOut()
                 $('#question-answer-page').fadeIn()
                 
