@@ -214,6 +214,7 @@ class CommunityController extends Controller
     public function store(Request $request)
     {
         $type = $request->type ?? "post";
+        if ($type == "post") {
             $data = $request->validate([
                 'type' => ["required"],
              
@@ -225,7 +226,24 @@ class CommunityController extends Controller
                 'hashtag' => ["nullable", 'string', 'max:500'],
                 'image' => ["nullable"],
             ]);
-      
+        } else {
+
+            $data = $request->validate([
+                // 'description' => ["required"],
+                'description' => ["required", 'string', "max:300", function ($attribute, $value, $fail) {
+                    if (preg_match('/#/', $value)) {
+                        $fail('Hashtags are not allowed in the description.');
+                    }
+                }],
+                'type' => ["required"],
+                'option' => ["required", 'array', 'min:2', 'max:5'],
+                'option.*' => ["required", 'max:255'],
+                'image' => ["nullable"],
+            ], [
+                'option.required' => "This field is required",
+                'option.*.required' => "This field is required",
+            ]);
+        }
 
         /**
          *  @var User
@@ -252,10 +270,12 @@ class CommunityController extends Controller
         //     Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
         // }
         // Split hashtags by commas or spaces   
- 
-    $hashtag=Hashtag::find($request->hashtag);
-    $hashtag->post_id=$post->id;
-    $hashtag->save();
+        $extractedHashtags = array_filter(array_map('trim', preg_split('/[,\s]+/', $request->input('hashtag', ''))));
+        foreach ($extractedHashtags as $hashtag) {
+            if (!empty($hashtag)) {
+                Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
+            }
+        }
 
         return redirect()->route('community.index')->with('success', "Post published");
     }
