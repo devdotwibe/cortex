@@ -217,7 +217,7 @@ class CommunityController extends Controller
         if ($type == "post") {
             $data = $request->validate([
                 'type' => ["required"],
-                // 'description' => ["required"],
+             
                 'description' => ["required", 'string', "max:300", function ($attribute, $value, $fail) {
                     if (preg_match('/#/', $value)) {
                         $fail('Hashtags are not allowed in the description.');
@@ -229,7 +229,7 @@ class CommunityController extends Controller
         } else {
 
             $data = $request->validate([
-                // 'description' => ["required"],
+                
                 'description' => ["required", 'string', "max:300", function ($attribute, $value, $fail) {
                     if (preg_match('/#/', $value)) {
                         $fail('Hashtags are not allowed in the description.');
@@ -270,11 +270,13 @@ class CommunityController extends Controller
         //     Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
         // }
         // Split hashtags by commas or spaces   
-        $extractedHashtags = array_filter(array_map('trim', preg_split('/[,\s]+/', $request->input('hashtag', ''))));
-        foreach ($extractedHashtags as $hashtag) {
-            if (!empty($hashtag)) {
-                Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
-            }
+        $hashtagIds = $request->input('hashtag', []);
+    foreach ($hashtagIds as $hashtagId) {
+        $hashtag = Hashtag::find($hashtagId);
+        if ($hashtag) {
+            // Create an association record if it doesn't already exist
+            $post->hashtags()->attach($hashtag->id);
+        }
         }
 
         return redirect()->route('community.index')->with('success', "Post published");
