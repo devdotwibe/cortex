@@ -2260,7 +2260,7 @@ aside.side_bar.slider-btn .btn-slider {
     width: 100%;
     padding-left: 135px;
     padding-right: 30px;
-    min-height: 100vh;
+    /* min-height: 100vh; */
     padding-top: 0;
     padding-bottom: 30px;
     transition: all .25s ease-in-out;
