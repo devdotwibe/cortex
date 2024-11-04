@@ -179,7 +179,7 @@
                                     </div> 
                                     <div class="mcq-answer mcq-group-right">
                                         <div  class="mcq-description">
-                                            ${v.sub_question||""}
+                                            <p>${v.sub_question||""}</p>
                                         </div>
                                         <div id="mcq-${lesseonId}-ans" class="form-group">
                                             <div class="form-data" >
