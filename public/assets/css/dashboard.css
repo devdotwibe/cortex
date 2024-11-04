@@ -4817,6 +4817,10 @@ s .card-progress .card-body .session-chart {
     font-size: 18px;
 }
 
+.mcq-title-text p {
+    margin: 0;
+}
+
 .modal {
     background: rgb(0 0 0 / 50%);
 }
