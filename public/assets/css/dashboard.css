@@ -518,6 +518,8 @@ button.close {
     box-shadow: 4px 0px 16px 0px #0000000A;
     border-radius: 0;
     min-height: calc(100vh - 100px);
+    position: relative;
+    padding-bottom: 9em;
 }
 
 .bartop-hide .exam-container .container-wrap {
@@ -832,6 +834,10 @@ button.close {
     text-align: center;
     padding: 30px 0px 30px 0px;
     border-top: 1px solid #005d93;
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 50px;
 }
 
 .exam-container .container-wrap .lesson .lesson-body .note-currect {
