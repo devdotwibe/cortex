@@ -7353,6 +7353,11 @@ nav.navbar.top-barhide {
         font-size: 11px;
     }
 
+
+    .exam-container .container-wrap-index.answerclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer {
+        height: calc(100vh - 140px) !important;
+    }
+
     .exam-container.answerclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer {
         height: calc(100vh - 140px);
     }
