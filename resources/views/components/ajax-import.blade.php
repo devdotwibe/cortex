@@ -30,32 +30,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                @foreach ($fields as $key => $item)
-                                    @if($item->name == 'answer_1_image' || $item->name == 'answer_3_image' || $item->name == 'answer_4_image') 
-                                        <div class="forms-inputs mb-4">
-                                            <label for="import-{{ $id }}-import_fields.{{$item->name}}">{{$item->label??ucfirst($item->name)}}</label>
-                                            <input type="file"   class="form-control" accept=".jpg, .jpeg, .png, .gif, .bmp, .webp, .svg, .tiff, .ico" id="import-{{ $id }}-image-1">
-                                            <div class="invalid-feedback" id="import-{{ $id }}-{{$item->name}}-error-message"></div>
-                                        </div>
-                                    @elseif ($item->name == 'answer_2_image')
-                                        <div class="forms-inputs mb-4">
-                                            <label for="import-{{ $id }}-import_fields.{{$item->name}}">{{$item->label??ucfirst($item->name)}}</label>
-                                            <input type="file"   class="form-control" accept=".jpg, .jpeg, .png, .gif, .bmp, .webp, .svg, .tiff, .ico" id="import-{{ $id }}-image-2">
-                                            <div class="invalid-feedback" id="import-{{ $id }}-{{$item->name}}-error-message"></div>
-                                        </div>
-                                    @elseif ($item->name == 'answer_3_image')
-                                        <div class="forms-inputs mb-4">
-                                            <label for="import-{{ $id }}-import_fields.{{$item->name}}">{{$item->label??ucfirst($item->name)}}</label>
-                                            <input type="file"   class="form-control" accept=".jpg, .jpeg, .png, .gif, .bmp, .webp, .svg, .tiff, .ico" id="import-{{ $id }}-image-3">
-                                            <div class="invalid-feedback" id="import-{{ $id }}-{{$item->name}}-error-message"></div>
-                                        </div>
-                                    @elseif ($item->name == 'answer_4_image')
-                                        <div class="forms-inputs mb-4">
-                                            <label for="import-{{ $id }}-import_fields.{{$item->name}}">{{$item->label??ucfirst($item->name)}}</label>
-                                            <input type="file"   class="form-control" accept=".jpg, .jpeg, .png, .gif, .bmp, .webp, .svg, .tiff, .ico" id="import-{{ $id }}-image-4">
-                                            <div class="invalid-feedback" id="import-{{ $id }}-{{$item->name}}-error-message"></div>
-                                        </div>
-                                    @else
+                                @foreach ($fields as $item)
                                         <div class="form-data">
                                             <div class="forms-inputs mb-4">
                                                 <label for="import-{{ $id }}-import_fields.{{$item->name}}">{{$item->label??ucfirst($item->name)}}</label>
@@ -63,7 +38,6 @@
                                                 <div class="invalid-feedback" id="import-{{ $id }}-{{$item->name}}-error-message"></div>
                                             </div>
                                         </div>
-                                    @endif
                                 @endforeach
                                 <div class="form-data">
                                     <div class="forms-inputs mb-4">
@@ -175,10 +149,6 @@
             $('#import-{{ $id }}-import_datas-error-message').text('Please upload a file!').hide();
 
             let fileInput = $('#import-{{ $id }}-file')[0];
-            let image1 = $('#import-{{ $id }}-image-1')[0];
-            let image2 = $('#import-{{ $id }}-image-2')[0];
-            let image3 = $('#import-{{ $id }}-image-3')[0];
-            let image4 = $('#import-{{ $id }}-image-4')[0];
 
             if (fileInput.files.length === 0) {
                 $('#import-{{ $id }}-import_datas-error-message').text('Please upload a file!').show();
@@ -243,22 +213,6 @@
                     // Append file data
                     var file = new File([JSON.stringify(import_{{ $id }}_data)], "data.json", { type: "application/json" });
                     formData.append("import_datas", file);
-
-                    if (image1 && image1.files.length > 0) {
-                        formData.append("image1", image1.files[0]);
-                    }
-
-                    if (image2 && image2.files.length > 0) {
-                        formData.append("image2", image2.files[0]);
-                    }
-
-                    if (image3 && image3.files.length > 0) {
-                        formData.append("image3", image3.files[0]);
-                    }
-
-                    if (image4 && image4.files.length > 0) {
-                        formData.append("image4", image4.files[0]);
-                    }
 
                     $.ajax({
                         type:"POST",

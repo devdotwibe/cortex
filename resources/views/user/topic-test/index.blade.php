@@ -12,7 +12,7 @@
     <div class="container">
         <div class="row">
             @foreach ($categorys as $k=> $item)
-            @if($item->time_of_exam)
+            @if($item->time_of_exam && $item->time_of_exam !== '00 : 00')
             <div class="col-md-6">
 
                     <div class="card">
@@ -27,10 +27,10 @@
                                     <h3>{{$item->name}}</h3>
                                     </div>
                                     <div class="action-button">
-                                        @if ($user->is_free_access||(optional($user->subscription())->status??"")=="subscribed"||$k == 0)
-                                            @if($user->progress('exam-'.$exam->id.'-topic-'.$item->id.'-complete-review',"no")=="yes")
-
-                                            @elseif($user->progress('exam-'.$exam->id.'-topic-'.$item->id.'-complete-date',"")=="")
+                                        @if ($user->is_free_access||(optional($user->subscription())->status??"")=="subscribed") 
+                                            @if($user->progress('exam-'.$exam->id.'-topic-'.$item->id.'-complete-review',"no")=="yes") 
+                                            
+                                            @elseif($user->progress('exam-'.$exam->id.'-topic-'.$item->id.'-complete-date',"")=="") 
                                             @guest('admin')    <a   class="btn btn-warning" onclick="confimexam('{{route('topic-test.show',$item->slug)}}')">ATTEMPT</a> @endguest
                                             @else
                                                 <a   class="btn btn-primary" onclick="loadlessonsetreviews('{{route('topic-test.topic.history',$item->slug)}}')">REVIEW</a>

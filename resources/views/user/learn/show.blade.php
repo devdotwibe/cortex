@@ -26,15 +26,19 @@
                                 <a @if ($user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$item->id.'-complete-review',"no") == "yes") 
                                     
                                     @elseif ($user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$item->id.'-complete-date',"") == "")
-                                    @guest('admin')   href="{{ route('learn.lesson.show', ["category" => $category->slug, "sub_category" => $item->slug]) }}" @endguest
+                                    @guest('admin')   
+                                    @if($item->progress==0)
+                                        href="{{ route('learn.lesson.show', ["category" => $category->slug, "sub_category" => $item->slug]) }}" 
+                                    @else
+                                        href="javascript:void(0);" onclick="showLearnModal('{{ route('learn.lesson.show', ['category' => $category->slug, 'sub_category' => $item->slug]) }}')"
+                                    @endif
+                                    @endguest
                                 @else
                                     href="#" onclick="loadlessonreviews('{{ route('learn.lesson.history', ['category' => $category->slug, 'sub_category' => $item->slug]) }}', {{$k+1}}); return false;"
                                 @endif> 
                             @else
                             {{-- <a href="{{route('pricing.index')}}"> --}}
                                 <a href="javascript:void(0);" onclick="showLockedModal()">
-
-
                             @endif
                             <div class="lesson-row">
                                 <div class="lesson-row-title">
@@ -42,9 +46,6 @@
                                     <h3> {{ $item->name }} </h3>
                                     <h4>{{  round($item->progress,2) }}%</h4>
                                 </div>
-                                {{-- <div class="lesson-row-subtitle"> --}}
-                                
-                                {{-- </div> --}}
                             </div>
                             </a>
                         </div>
@@ -129,6 +130,25 @@
     </div>
 </div>
  
+<div id="learnModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeLearnModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Do you want continue your lessons or start over ?.</p>
+            </div>
+            <div class="modal-footer">
+                <a id="startOverLink" onclick="updateprogress()" class="btn btn-primary">Start Over</a>
+                <a id="continueLink" class="btn btn-secondary" data-dismiss="modal" >Continue</a>
+            </div>
+        </div>
+    </div>
+</div>
 @endpush
 
 @push('footer-script') 
@@ -189,6 +209,17 @@
             $('#review-history-modal').modal('show');
         }, 'json');
     }
-      
+    function showLearnModal(url) {
+        document.getElementById('learnModal').style.display = 'block';
+        document.getElementById('startOverLink').href = url+'?start=true';
+        document.getElementById('continueLink').href = url;
+    }
+    function closeLearnModal() {
+        document.getElementById('learnModal').style.display = 'none';
+        $('#learnModal').modal('hide');
+        $('body').removeClass('modal-open');
+    }
+
+    
 </script>
 @endpush

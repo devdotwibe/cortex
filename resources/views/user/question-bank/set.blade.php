@@ -337,7 +337,6 @@
             localStorage.setItem("question-bank-summery{{ $userExam->id }}",JSON.stringify(summery_storage)) 
         }
         var progressurl="{!! $user->progress("exam-{$exam->id}-topic-{$category->id}-lesson-{$subCategory->id}-set-{$setname->id}-progress-url","") !!}";
-
         let storage = JSON.parse(localStorage.getItem("question-bank-summery{{ $userExam->id }}"))||{}; 
         let summery = new Proxy({...storage,save:function(target){ 
             localStorage.setItem("question-bank-summery{{ $userExam->id }}",JSON.stringify(summery));
@@ -526,12 +525,17 @@
                         summery.save()
                         $.get(pageurl||"{{ route('question-bank.set.show',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug,'user_exam'=>$slug]) }}",{question:v.slug},function(ans){
                             $(`#mcq-${lesseonId}-list`).html('')
+                            const baseUrl = `{{ asset('d0') }}`;
                             $.each(ans,function(ai,av){
                                 const letter = String.fromCharCode(ai + 'A'.charCodeAt(0))
+                                const imageHtml = av.answer && av.answer.image
+                                                    ? `<img src="${baseUrl}/${av.answer.image}" class="answer-image" />`
+                                                    : '';
                                 $(`#mcq-${lesseonId}-list`).append(`
                                     <div class="form-check">
                                         <input type="radio" name="answer" data-page="${summery.cudx}" data-question="${v.slug}" id="user-answer-${lesseonId}-ans-item-${ai}" value="${av.slug}" class="form-check-input"  >        
                                         <label for="user-answer-${lesseonId}-ans-item-${ai}" >${ letter }. ${av.title}</label>
+                                        ${imageHtml}
                                     </div>  
                                 `)
                             })

@@ -61,8 +61,8 @@
                 <div class="row" id="lesson-questionlist-list" style="display: none">
                 </div>
             </div>
-            <div class="lesson-footer" id="lesson-footer-pagination"> 
-            </div>           
+            {{-- <div class="lesson-footer" id="lesson-footer-pagination"> 
+            </div>            --}}
         </div>
     </div> 
 </section>
@@ -488,12 +488,17 @@ function HideTime() {
                         summery.save()
                         $.get(pageurl||"{{ route('topic-test.confirmshow',['category'=>$category->slug]) }}",{question:v.slug},function(ans){
                             $(`#mcq-${lesseonId}-list`).html('')
+                            const baseUrl = `{{ asset('d0') }}`;
                             $.each(ans,function(ai,av){
                                 const letter = String.fromCharCode(ai + 'A'.charCodeAt(0))
+                                const imageHtml = av.answer && av.answer.image
+                                                    ? `<img src="${baseUrl}/${av.answer.image}" class="answer-image" />`
+                                                    : '';
                                 $(`#mcq-${lesseonId}-list`).append(`
                                     <div class="form-check">
                                         <input type="radio" name="answer" data-page="${summery.cudx}" data-question="${v.slug}" id="user-answer-${lesseonId}-ans-item-${ai}" value="${av.slug}" class="form-check-input"  >        
                                         <label for="user-answer-${lesseonId}-ans-item-${ai}" >${ letter }. ${av.title}</label>
+                                         ${imageHtml}
                                     </div>  
                                 `)
                             })
