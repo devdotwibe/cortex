@@ -1256,6 +1256,8 @@ button.close {
     background: none;
     border: none;
     position: relative;
+    margin-left: 0;
+    padding: 10px 0 50px 50px;
 }
 
 .tabbody .question-item .item-group span {
