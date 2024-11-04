@@ -118,7 +118,6 @@ class QuestionController extends Controller
         return redirect($redirect)->with("success","Question has been successfully created");
     }
     public function update(Request $request,Question $question){
-        
         switch ($request->input('exam_type',"")) {
             case 'question-bank':
                 $questiondat=$request->validate([ 
@@ -184,7 +183,6 @@ class QuestionController extends Controller
       
         $featureimages = $request->file('file_answer', []);
 
-        
         foreach($request->answer as $k =>$ans){
             $answer=null;
             if(!empty($request->choice_answer_id[$k]??"")){
@@ -213,7 +211,7 @@ class QuestionController extends Controller
                     "question_id"=>$question->id,
                     "iscorrect"=>$k==($request->choice_answer??0)?true:false,
                     "title"=>$ans,
-                    'image' => $imageName,
+                    'image' => $imageName ?? null,
                 ]);
             }
             $ansIds[]=$answer->id;

@@ -826,6 +826,8 @@ button.close {
     width: 100%;
     margin: 0 0 0;
     text-align: center;
+    padding: 30px 0px 30px 0px;
+    border-top: 1px solid #000;
 }
 
 .exam-container .container-wrap .lesson .lesson-body .note-currect {
@@ -2985,7 +2987,7 @@ aside.side_bar.slider-btn .btn-slider {
 .exam-container .mcq-container-wrap {
     padding: 0 0 20px 0px;
     max-width: 100%;
-    min-height: calc(100vh - 140px);
+    min-height: calc(100vh - 100px);
 }
 
 .exam-container .mcq-container-wrap .lesson .lesson-body .mcq-container {
@@ -5827,9 +5829,9 @@ s .card-progress .card-body .session-chart {
     width: 83px;
 }
 
-.questionclass .mcq-container-wrap {
+/* .questionclass .mcq-container-wrap {
     min-height: inherit;
-}
+} */
 
 .questionclass .mcq-container-wrap .lesson .lesson-body .mcq-container {
     padding: 0;
@@ -6328,7 +6330,7 @@ nav.navbar.header-class {
 
 
 .exam-container .topic-test-review .lesson #lesson-footer-pagination {
-    padding: 28px 0;
+    padding: 38px 0;
     border-block: 1px solid #1789fa;
     display: inline-block;
 }

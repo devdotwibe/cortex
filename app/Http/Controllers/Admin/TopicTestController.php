@@ -174,27 +174,7 @@ class TopicTestController extends Controller
  
         $file = $request->file('import_datas');
         $name = $file->hashName();
-        Storage::put("importfile", $file); 
-        
-        if ($request->hasFile('image1')) {
-            $imageName1 = "option/" . $request->file('image1')->hashName();
-            Storage::put('option', $request->file('image1'));
-        }
-
-        if ($request->hasFile('image2')) {
-            $imageName2 = "option/" . $request->file('image2')->hashName();
-            Storage::put('option', $request->file('image2'));
-        }
-
-        if ($request->hasFile('image3')) {
-            $imageName3 = "option/" . $request->file('image3')->hashName();
-            Storage::put('option', $request->file('image3'));
-        }
-
-        if ($request->hasFile('image4')) {
-            $imageName4 = "option/" . $request->file('image4')->hashName();
-            Storage::put('option', $request->file('image4'));
-        }
+        Storage::put("importfile", $file);
 
         $exam=Exam::where("name",'topic-test')->first();
         if(empty($exam)){
@@ -209,11 +189,7 @@ class TopicTestController extends Controller
             filename:$name,
             exam:$exam,
             category:$category,
-            fields:$request->import_fields,
-            imageName1:$request->image1 ? $imageName1 : null,
-            imageName2:$request->image2 ? $imageName2 : null,
-            imageName3:$request->image3 ? $imageName3 : null,
-            imageName4:$request->image4 ? $imageName4 :  null,
+            fields:$request->import_fields
         ));
 
         return response()->json([
