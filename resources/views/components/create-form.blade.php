@@ -24,7 +24,7 @@
                                                     </div>
                                                     <input type="text" name="{{$item->name}}[]" id="{{$item->name}}-{{$frmID}}-{{$k}}" value="{{old($item->name)[$k]}}"  class="form-control  @error($item->name.".$k") is-invalid @enderror " placeholder="{{ucfirst($item->label??$item->name)}}" aria-placeholder="{{ucfirst($item->label??$item->name)}}" >
 
-                                                    <input type="file" name="file_{{$item->name}}[]" id="file_{{$item->name}}-{{$frmID}}-{{$k}}" value="{{old('file_'.$item->name)[$k]}}"  class="form-control  @error('file_'.$item->name.".$k") is-invalid @enderror " >
+                                                    <input type="file" name="file_{{$item->name}}[]" id="file_{{$item->name}}-{{$frmID}}-{{$k}}" accept="image/*" value="{{ old('file_'.$item->name) && is_array(old('file_'.$item->name)) ? old('file_'.$item->name)[$k] : '' }}"  class="form-control  @error('file_'.$item->name.".$k") is-invalid @enderror " >
                                   <img id="preview-{{ $item->name }}-{{ $frmID }}-{{ uniqid() }}" src="#" alt="Image Preview" style="display: none; width: 100px; margin-top: 10px;">
 
                                                     @if ($k!=0)
@@ -53,7 +53,7 @@
                                                     </div>
                                                     <input type="text" name="{{$item->name}}[]" id="{{$item->name}}-{{$frmID}}-0" value="" class="form-control  " placeholder="{{ucfirst($item->label??$item->name)}}" aria-placeholder="{{ucfirst($item->label??$item->name)}}" >
                                                     <input type="file" name="file_{{$item->name}}[]" id="file_{{$item->name}}-{{$frmID}}-0" value=""  class="form-control" >
-
+                                                    <div class="invalid-feedback">Please upload a valid image file (JPEG, PNG, GIF).</div>
 
                                                     <img id="preview-{{ $item->name }}-{{ $frmID }}-0" src="#" alt="Image Preview" style="display: none; width: 100px; margin-top: 10px;">
 
@@ -260,6 +260,22 @@ function previewImage(input, previewId) {
         })
 
         CKEDITOR.replaceAll('texteditor')
+
+        function validateImage(input) {
+            const file = input.files[0];
+            const validImageTypes = ["image/jpeg", "image/png", "image/gif"];
+            if (file && !validImageTypes.includes(file.type)) {
+                $('.invalid-feedback').show();
+                input.value = "";
+            }
+        }
+
+        document.querySelectorAll('input[type="file"]').forEach(fileInput => {
+            fileInput.addEventListener('change', function() {
+                $('.invalid-feedback').hide();
+                validateImage(this);
+            });
+        });
     </script>
  
 @endpush
