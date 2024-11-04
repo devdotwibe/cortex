@@ -222,7 +222,7 @@ class CommunityController extends Controller
                         $fail('Hashtags are not allowed in the description.');
                     }
                 }],
-                'hashtag' => ["required", 'string', 'max:500'],
+                'hashtag' => ["nullable", 'string', 'max:500'],
                 'image' => ["nullable"],
             ]);
       
@@ -245,16 +245,11 @@ class CommunityController extends Controller
         }
 
 
-        // // Extract and store hashtags from the description
-        // preg_match_all('/#\w+/', $data['description'], $hashtags);
-        // $extractedHashtags = $hashtags[0];
-        // foreach ($extractedHashtags as $hashtag) {
-        //     Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
-        // }
-        // Split hashtags by commas or spaces   
+       
  
     $hashtag=Hashtag::find($request->hashtag);
-    $hashtag->post->id;
+    $hashtag->post_id=$post->id;
+    $hashtag->save();
 
         return redirect()->route('community.index')->with('success', "Post published");
     }
