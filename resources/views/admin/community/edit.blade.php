@@ -79,13 +79,14 @@
                                     </div>
                                 </div>    
                             </div>  --}}
+
                             <div class="form-group">
                                 <label for="hashtag-select">Select Hashtag</label>
                                 <select id="hashtag-select" name="hashtag" class="form-control" required>
                                     <option value="">Select a hashtag</option>
                                     @foreach($hashtags as $hashtag)
                                         <option value="{{ $hashtag->id }}" 
-                                            {{  optional($post->hashtaglist)->id == $hashtag->id ? 'selected' : '' }}>
+                                            {{ $post->hashtag && $post->hashtag->id == $hashtag->id ? 'selected' : '' }}>
                                             {{ $hashtag->hashtag }}
                                         </option>
                                     @endforeach

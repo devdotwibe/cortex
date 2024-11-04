@@ -38,7 +38,7 @@ class Post extends Model
         return $this->hasMany(PostLike::class);
     }
     public function hashtaglist(){
-        return $this->belongsTo(Hashtag::class);
+        return $this->hasMany(Hashtag::class);
     }
     public function comments(){
         return $this->hasMany(PostComment::class);
