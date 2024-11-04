@@ -3038,7 +3038,7 @@ aside.side_bar.slider-btn .btn-slider {
     flex-wrap: wrap;
     justify-content: space-between;
     position: relative;
-    min-height: calc(100vh - 230px);
+    /* min-height: calc(100vh - 230px); */
 }
 
 .exam-container .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group {
