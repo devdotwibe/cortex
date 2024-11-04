@@ -7884,12 +7884,12 @@ nav.navbar.top-barhide {
     }
 
     .modal-expand {
-        top: 85px;
+        top: 55px;
         padding: 0 15px;
     }
 
     .modal-expand .container-wrap {
-        min-height: calc(100vh - 150px);
+        min-height: calc(100vh - 107px);
     }
 
     .support-content p {
