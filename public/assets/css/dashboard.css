@@ -2662,8 +2662,8 @@ aside.side_bar.slider-btn .btn-slider {
     cursor: pointer;
 }
 
-.set-container .option-toggle .option-item label.option-item-label input{
-padding: 15px;
+.set-container .option-toggle .option-item input {
+    padding: 15px;
     position: absolute;
     margin-left: -80px;
     margin-top: -4px;
