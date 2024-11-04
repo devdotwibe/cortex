@@ -93,7 +93,8 @@ class CommunityControllerController extends Controller
         return view('admin.community.index',compact('hashtags'));
     }
     public function create(Request $request){
-        return view('admin.community.create');
+        $hashtags = Hashtag::all();
+        return view('admin.community.create', compact('hashtags'));
     }
  
     public function store(Request $request)
@@ -158,15 +159,17 @@ class CommunityControllerController extends Controller
     }
  
   
-$extractedHashtags = array_filter(array_map('trim', preg_split('/[,\s]+/', $request->input('hashtag', ''))));
+// $extractedHashtags = array_filter(array_map('trim', preg_split('/[,\s]+/', $request->input('hashtag', ''))));
 
-foreach ($extractedHashtags as $hashtag) {
-    if (!empty($hashtag)) {
-        Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
-    }
-}
+// foreach ($extractedHashtags as $hashtag) {
+//     if (!empty($hashtag)) {
+//         Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
+//     }
+// }
 
-
+$hashtag=Hashtag::find($request->hashtag);
+$hashtag->post_id=$post->id;
+$hashtag->save();
 
     return redirect()->route('admin.community.index')->with('success', "Post published");
 }
@@ -228,8 +231,9 @@ foreach ($extractedHashtags as $hashtag) {
         }
     }
 
-    public function edit(Request $request,Post $post){
-        return view('admin.community.edit',compact('post'));
+    public function edit(Request $request,Post $post){ 
+        $hashtags = Hashtag::all();
+        return view('admin.community.edit',compact('post','hashtags'));
     }
     public function update(Request $request,Post $post){
         $type=$request->type??"post";
@@ -291,25 +295,27 @@ foreach ($extractedHashtags as $hashtag) {
         }
         PollOption::where('post_id',$post->id)->whereNotIn('id',$ids)->delete();
  
-        // preg_match_all('/#\w+/',  $data['description'], $hashtags);
-        // $extractedHashtags = $hashtags[0]; 
+       
         // $hashIds=[];
+        // // $extractedHashtags = array_map('trim', explode(',', $request->input('hashtag','')));
+        // $extractedHashtags = array_filter(array_map('trim', preg_split('/[,\s]+/', $request->input('hashtag', ''))));
         // foreach ($extractedHashtags as $hashtag) {
-            
-        //    $hash= Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id'=>$post->id]);
-        //    $hashIds[]=$hash->id;
+        //     if (!empty($hashtag)) {
+        //         $hash=Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
+        //         $hashIds[]=$hash->id;
+        //     }
         // }
         // Hashtag::where('post_id',$post->id)->whereNotIn('id',$hashIds)->delete();
-        $hashIds=[];
-        // $extractedHashtags = array_map('trim', explode(',', $request->input('hashtag','')));
-        $extractedHashtags = array_filter(array_map('trim', preg_split('/[,\s]+/', $request->input('hashtag', ''))));
-        foreach ($extractedHashtags as $hashtag) {
-            if (!empty($hashtag)) {
-                $hash=Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
-                $hashIds[]=$hash->id;
-            }
-        }
-        Hashtag::where('post_id',$post->id)->whereNotIn('id',$hashIds)->delete();
+        
+    // Update or associate the selected hashtag with the post
+    if ($request->filled('hashtag')) {
+        Hashtag::where('post_id', $post->id)->update(['post_id' => null]); // Remove previous association
+        $hashtag = Hashtag::find($request->hashtag);
+        $hashtag->post_id = $post->id;
+        $hashtag->save();
+    }
+
+    
         return redirect()->route('admin.community.index')->with('success',"Post updated");
     }
     public function destroy(Request $request,Post $post){ 

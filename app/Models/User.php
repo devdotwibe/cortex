@@ -91,7 +91,9 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(UserExamReview::class);
     }
     public function subscription(){
-        return UserSubscription::where('user_id',$this->id)->orderBy('id','DESC')->first();
+        return UserSubscription::where('user_id',$this->id)
+                                ->whereDate('expire_at','>',Carbon::now())
+                                ->orderBy('id','DESC')->first();
     } 
 
     public function subscriptionExpire()
