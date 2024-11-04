@@ -519,7 +519,7 @@ button.close {
     border-radius: 0;
     min-height: calc(100vh - 147px);
     position: relative;
-    padding-bottom: 9em;
+    padding-bottom: 6em !important;
 }
 
 .bartop-hide .exam-container .container-wrap {
@@ -1256,6 +1256,8 @@ button.close {
     background: none;
     border: none;
     position: relative;
+    margin-left: 0;
+    padding: 10px 0 50px 50px;
 }
 
 .tabbody .question-item .item-group span {
@@ -3053,7 +3055,7 @@ aside.side_bar.slider-btn .btn-slider {
     content: "";
     position: absolute;
     width: 1px;
-    height: 110%;
+    height: 100%;
     top: 0;
     left: 50%;
     transform: translateX(-50%);
@@ -4833,7 +4835,7 @@ s .card-progress .card-body .session-chart {
 
 .mcq-title-text {
     width: 100%;
-    padding: 20px 10px;
+    padding: 10px 10px;
     border: 1px solid #414141;
     border-radius: 0;
     margin: 0 0 20px;
@@ -5906,7 +5908,7 @@ s .card-progress .card-body .session-chart {
 }
 
 .questionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer {
-    height: calc(100vh - 245px);
+    height: calc(100vh - 245px) !important;
     padding: 50px;
     overflow-y: auto;
 }
