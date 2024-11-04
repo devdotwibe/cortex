@@ -353,6 +353,7 @@
                         $('#table-category-form-submit').text(' Add + ');
 
                         $('#subcategory').attr('action', '{{ route('admin.faq.store') }}');
+                        
 
                         const actionUrl = "{{ route('admin.faq.store') }}";
 
@@ -388,7 +389,7 @@
                 // Reset the button text back to "Add +"
                 $('#table-category-form-submit').text(' Add + ');
 
-                $('#table-category-form-create').attr('action', storeurl)
+                // $('#table-category-form-create').attr('action', storeurl)
 
                 // Hide the cancel button
                 $(this).hide();
