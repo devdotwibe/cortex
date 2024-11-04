@@ -720,7 +720,7 @@ button.close {
 }
 
 .exam-container .container-wrap .lesson .lesson-body .note-row {
-    padding: 0px 40px 40px 40px;
+    padding: 30px;
 }
 
 
@@ -6080,7 +6080,7 @@ nav.navbar.header-class {
 }
 
 .exam-container.answerclass .lesson .lesson-title {
-    margin: 0 0 15px;
+    margin: 0 0 0;
     padding: 10px;
 }
 
@@ -7750,9 +7750,9 @@ nav.navbar.top-barhide {
         padding-inline: 15px;
     }
 
-    .exam-container .container-wrap {
+    /* .exam-container .container-wrap {
         padding: 30px;
-    }
+    } */
 
     .exam-footer {
         padding: 0 15px;
@@ -8010,7 +8010,7 @@ nav.navbar.top-barhide {
     }
 
     .exam-container .container-wrap {
-        padding: 30px;
+        /* padding: 30px; */
         width: 100%;
     }
 
@@ -8356,6 +8356,10 @@ nav.navbar.top-barhide {
 
     .exam-container .question-bank-review .lesson .lesson-body .mcq-container:after {
         height: 120%;
+    }
+
+    .exam-container .container-wrap .lesson #lesson-footer-pagination {
+        display: none;
     }
 }
 
