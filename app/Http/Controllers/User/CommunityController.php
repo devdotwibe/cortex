@@ -254,7 +254,8 @@ class CommunityController extends Controller
         // Split hashtags by commas or spaces   
  
     $hashtag=Hashtag::find($request->hashtag);
-    $hashtag->post->id;
+    $hashtag->post_id=$post->id;
+    $hashtag->save();
 
         return redirect()->route('community.index')->with('success', "Post published");
     }
