@@ -337,5 +337,50 @@ class LearnController extends Controller
         return redirect()->route('admin.learn.index')->with("success","Learn visibility change success");
     }
 
+    public function bulkaction(Request $request)
+    {
+        if (!empty($request->deleteaction)) {
+            if ($request->input('select_all', 'no') == "yes") {
+                Category::where('id', '>', 0)->delete();
+            } else {
+                Category::whereIn('id', $request->input('selectbox', []))->delete();
+            }
+            if ($request->ajax()) {
+                return response()->json(["success" => "Questions deleted success"]);
+            }
+            return redirect()->route('admin.learn.show')->with("success", "Questions deleted success");
+        } else {
+            $request->validate([
+                "bulkaction" => ['required']
+            ]);
+            $data = [];
+
+            switch ($request->bulkaction) {
+              
+                case 'visible_status':
+                    $data["visible_status"] = "show";
+                    break;
+                case 'visible_status_disable':
+                    $data["visible_status"] = "";
+                    break;
+                
+
+                default:
+                    # code...
+                    break;
+            }
+            if ($request->input('select_all', 'no') == "yes") {
+                Category::where('id', '>', 0)->update($data);
+            } else {
+                Category::whereIn('id', $request->input('selectbox', []))->update($data);
+            }
+
+            if ($request->ajax()) {
+                return response()->json(["success" => "Questions update success"]);
+            }
+            return redirect()->route('admin.learn.show')->with("success", "Questions update success");
+        }
+    }
+
 }
 
