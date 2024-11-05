@@ -341,9 +341,9 @@ class LearnController extends Controller
     {
         if (!empty($request->deleteaction)) {
             if ($request->input('select_all', 'no') == "yes") {
-                Exam::where('id', '>', 0)->delete();
+                Learn::where('id', '>', 0)->delete();
             } else {
-                Exam::whereIn('id', $request->input('selectbox', []))->delete();
+                Learn::whereIn('id', $request->input('selectbox', []))->delete();
             }
             if ($request->ajax()) {
                 return response()->json(["success" => "Questions deleted success"]);
@@ -370,9 +370,9 @@ class LearnController extends Controller
                     break;
             }
             if ($request->input('select_all', 'no') == "yes") {
-                Exam::where('id', '>', 0)->update($data);
+                Learn::where('id', '>', 0)->update($data);
             } else {
-                Exam::whereIn('id', $request->input('selectbox', []))->update($data);
+                Learn::whereIn('id', $request->input('selectbox', []))->update($data);
             }
 
             if ($request->ajax()) {
