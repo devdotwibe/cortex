@@ -48,7 +48,7 @@
 <section class="content_section admin_section">
     <div class="container">
         <div class="row">
-            <x-ajax-table :bulkaction="true" bulkactionlink="{{route('admin.topic-test.bulkaction')}}"  tableid="categoryquestiontable"  
+            <x-ajax-table :bulkaction="true" bulkactionlink="{{route('admin.question-bank.bulkaction')}}"  tableid="categoryquestiontable"  
              :bulkotheraction='[
                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
                 ["th"=>"Question","name"=>"description","data"=>"description"], 
