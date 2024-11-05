@@ -260,47 +260,5 @@ function editHashtag(url) {
 }
 
 
-
-
-// $('#table-category-form-create').on('submit', function(e) {
-//     e.preventDefault();
-
-//     $('.error').html('');
-//     $('.invalid-feedback').text('');
-//     $('.form-control').removeClass('is-invalid');
-
-//     const saveType = $(this).attr('data-save');
-//     const actionUrl = saveType === 'edit' ? "{{ url('admin/community/hashtags') }}/" + $(this).attr('data-hashtag-id') : $(this).attr('action');
-
-    
-//     $('#table-category-form-submit').prop('disabled', true).text('Processing...');
-
-//     $.ajax({
-//         url: actionUrl,
-//         method: saveType === 'edit' ? 'POST' : $(this).attr('method'),
-//         data: $(this).serialize(),
-//         success: function(response) {
-//             if (response.success) {
-//                 $('#table-category-form-create')[0].reset();
-//                 $('#table-category-form-submit').text('Add +').prop('disabled', false);
-//                 $('#table-hashtag').DataTable().ajax.reload();
-                
-                
-//                 showToast(response.message); 
-//             } else {
-//                 showToast('Failed to add/update hashtag.', 'error');
-//             }
-//         },
-//         error: function(xhr) {
-//             var errors = xhr.responseJSON.errors;
-//             for (var key in errors) {
-//                 $('[data-field="' + key + '"]').html(errors[key][0]);
-//                 $('[data-field-input="' + key + '"]').addClass('is-invalid');
-//             }
-//             $('#table-category-form-submit').prop('disabled', false).text('Add +'); // Re-enable button
-//         }
-//     });
-// });
-
 </script>
 @endpush
