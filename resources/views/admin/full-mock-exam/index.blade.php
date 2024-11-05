@@ -58,7 +58,7 @@
             ]' 
             
             
-            coloumns='[
+            :coloumns='[
                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
                 ["th"=>"Question","name"=>"description","data"=>"description"], 
                 ["th" => "Visible", "name" => "visible_status", "data" => "visibility"],
