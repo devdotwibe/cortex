@@ -274,6 +274,7 @@
 
                 
                 if (res.total > 1) {
+
                     $.each(res.links, function(k, v) {
                         let linkstatus = "";
                         if (k != 0 && k != res.links.length && useranswers[k - 1]) {
@@ -311,6 +312,8 @@
                         }
 
                     })
+
+                    console.log(res.links.length);
                 }
 
                 $('.lesson-end').show();
