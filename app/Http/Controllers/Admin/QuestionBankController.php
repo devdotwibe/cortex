@@ -228,9 +228,9 @@ class QuestionBankController extends Controller
             }
 
             if ($request->ajax()) {
-                return response()->json(["success" => "Questions update success1"]);
+                return response()->json(["success" => "Questions update success"]);
             }
-            return redirect()->route('admin.question-bank.show')->with("success", "Questions update success1");
+            return redirect()->route('admin.question-bank.show')->with("success", "Questions update success");
         }
     }
 
