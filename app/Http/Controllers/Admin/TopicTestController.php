@@ -214,7 +214,7 @@ class TopicTestController extends Controller
                 "bulkaction" => ['required']
             ]);
             $data = [];
-            dd($request->bulkaction);
+
             switch ($request->bulkaction) {
               
                 case 'visible_status':
