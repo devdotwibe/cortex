@@ -135,7 +135,7 @@
                     $('#table-{{ $tableid }}').DataTable().ajax.reload();
                     @if ($bulkaction)
 
-                    $('.selectbox-action').hide();
+                    $('.other-actions').hide();
                     
                     @endif
 
