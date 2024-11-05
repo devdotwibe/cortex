@@ -198,9 +198,9 @@ class QuestionBankController extends Controller
                 Question::whereIn('id', $request->input('selectbox', []))->delete();
             }
             if ($request->ajax()) {
-                return response()->json(["success" => "Questions deleted success"]);
+                return response()->json(["success" => "Questions deleted success1"]);
             }
-            return redirect()->route('admin.question-bank.show')->with("success", "Questions deleted success");
+            return redirect()->route('admin.question-bank.show')->with("success", "Questions deleted success2");
         } else {
             $request->validate([
                 "bulkaction" => ['required']
@@ -228,9 +228,9 @@ class QuestionBankController extends Controller
             }
 
             if ($request->ajax()) {
-                return response()->json(["success" => "Questions update success1"]);
+                return response()->json(["success" => "Questions update success"]);
             }
-            return redirect()->route('admin.question-bank.show')->with("success", "Questions update success2r");
+            return redirect()->route('admin.question-bank.show')->with("success", "Questions update success");
         }
     }
 
