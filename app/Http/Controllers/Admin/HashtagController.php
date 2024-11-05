@@ -57,10 +57,9 @@ class HashtagController extends Controller
         $request->validate([
             'hashtag' => [
                 'required',
-                'regex:/^#\w+$/',
+                'regex:/^#\w+$/', 
             ],
         ], [
-            'hashtag.required' => 'The hashtag field is required.',
             'hashtag.regex' => 'The hashtag must start with a # symbol and contain only word characters.',
         ]);
 
