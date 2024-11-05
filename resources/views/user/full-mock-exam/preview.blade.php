@@ -168,11 +168,6 @@
                 $('.pagination-arrow').hide();
                 $('#lesson-footer-pagination').html('')
                 $('#lesson-footer-paginationmobile').html('')
-
-
-
-                $('#question-preview-page').fadeOut()
-                $('#question-answer-page').fadeIn()
                 const lesseonId = generateRandomId(10);
                 $.each(res.data, function(k, v) {
                     $('#lesson-questionlist-list').html(`
@@ -204,7 +199,7 @@
                                         </div>
                                         <div id="mcq-${lesseonId}-explanation" class="correctanswerclass"> 
                                             <label>Correct Answer <span id="mcq-${lesseonId}-correct"></span></label>
-                                            <p>${v.explanation||''}</p>
+                                            ${v.explanation||''}
                                         </div>
 
                                         <div id="mcq-${lesseonId}-ans-progress" class="form-group">
