@@ -273,6 +273,7 @@
 
 
                 if (res.total > 1) {
+                    $('#lesson-footer-paginationmobile').empty();
                     $.each(res.links, function(k, v) {
                         let linkstatus = "";
                         if (k != 0 && k != res.links.length && useranswers[k - 1]) {
