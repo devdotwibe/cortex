@@ -118,7 +118,7 @@ class CommunityControllerController extends Controller
                     }
                 }],
 
-               
+                'hashtag' => ["nullable", 'string', 'max:500'],
                 'image' => ["nullable"],
             ]);
         } else {
