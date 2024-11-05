@@ -200,7 +200,7 @@ class QuestionBankController extends Controller
             if ($request->ajax()) {
                 return response()->json(["success" => "Questions deleted success"]);
             }
-            return redirect()->route('admin.topic-test.show')->with("success", "Questions deleted success");
+            return redirect()->route('admin.question-bank.show')->with("success", "Questions deleted success");
         } else {
             $request->validate([
                 "bulkaction" => ['required']
@@ -230,9 +230,9 @@ class QuestionBankController extends Controller
             if ($request->ajax()) {
                 return response()->json(["success" => "Questions update success"]);
             }
-            return redirect()->route('admin.topic-test.show')->with("success", "Questions update success");
+            return redirect()->route('admin.question-bank.show')->with("success", "Questions update success");
         }
     }
 
-    
+
 }

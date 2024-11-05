@@ -48,7 +48,17 @@
 <section class="content_section admin_section">
     <div class="container">
         <div class="row">
-            <x-ajax-table :coloumns='[
+            <x-ajax-table :bulkaction="true" bulkactionlink="{{route('admin.full-mock-exam.bulkaction')}}"
+            
+            
+            :bulkotheraction='[
+                ["name"=>"Enable Visible Access","value"=>"visible_status"],
+                ["name"=>"Disable Visible Access","value"=>"visible_status_disable"],
+               
+            ]' 
+            
+            
+            coloumns='[
                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
                 ["th"=>"Question","name"=>"description","data"=>"description"], 
                 ["th" => "Visible", "name" => "visible_status", "data" => "visibility"],
