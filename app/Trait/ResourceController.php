@@ -100,7 +100,7 @@ trait ResourceController
         }
         return $query->paginate($limit);
     }
-    public function buildResult($limit=12){
+    public function buildResult($limit=60){
         $query=app(self::$model)->query();
         foreach(self::$whereCondition as $condition){
             $query->where($condition[0]??"",$condition[1]??null);
