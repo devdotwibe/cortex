@@ -71,7 +71,7 @@
                         
                         :bulkotheraction='[
                             ["name"=>"Enable Visible Access","value"=>"visible_status"],
-                            ["name"=>"Disable Visible Access","value"=>"visible_status"],
+                            ["name"=>"Disable Visible Access","value"=>"visible_status_disable"],
                            
                         ]' 
                         

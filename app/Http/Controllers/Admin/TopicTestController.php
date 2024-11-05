@@ -220,7 +220,7 @@ class TopicTestController extends Controller
                 case 'visible_status':
                     $data["visible_status"] = "show";
                     break;
-                case 'visible_status':
+                case 'visible_status_disable':
                     $data["visible_status"] = "";
                     break;
                 
