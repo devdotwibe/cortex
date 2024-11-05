@@ -187,4 +187,52 @@ class QuestionBankController extends Controller
         ]);
     } 
     
+
+
+    public function bulkaction(Request $request)
+    {
+        if (!empty($request->deleteaction)) {
+            if ($request->input('select_all', 'no') == "yes") {
+                Question::where('id', '>', 0)->delete();
+            } else {
+                Question::whereIn('id', $request->input('selectbox', []))->delete();
+            }
+            if ($request->ajax()) {
+                return response()->json(["success" => "Questions deleted success"]);
+            }
+            return redirect()->route('admin.topic-test.show')->with("success", "Questions deleted success");
+        } else {
+            $request->validate([
+                "bulkaction" => ['required']
+            ]);
+            $data = [];
+
+            switch ($request->bulkaction) {
+              
+                case 'visible_status':
+                    $data["visible_status"] = "show";
+                    break;
+                case 'visible_status_disable':
+                    $data["visible_status"] = "";
+                    break;
+                
+
+                default:
+                    # code...
+                    break;
+            }
+            if ($request->input('select_all', 'no') == "yes") {
+                Question::where('id', '>', 0)->update($data);
+            } else {
+                Question::whereIn('id', $request->input('selectbox', []))->update($data);
+            }
+
+            if ($request->ajax()) {
+                return response()->json(["success" => "Questions update success"]);
+            }
+            return redirect()->route('admin.topic-test.show')->with("success", "Questions update success");
+        }
+    }
+
+    
 }

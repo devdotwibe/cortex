@@ -128,6 +128,10 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::get('/',[QuestionBankController::class,'index'])->name('index');
             Route::post('/subtitle',[QuestionBankController::class,'subtitle'])->name('subtitle');
             Route::get('/{setname}',[QuestionBankController::class,'show'])->name('show');
+
+            Route::post('/question-bank/bulk/action',[QuestionBankController::class,'bulkaction'])->name('bulkaction');
+
+
             Route::get('/{setname}/create',[QuestionBankController::class,'create'])->name('create');
             Route::get('/{setname}/{question}/edit',[QuestionBankController::class,'edit'])->name('edit');
             Route::post('/{setname}/store',[QuestionBankController::class,'store'])->name('store');
