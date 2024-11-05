@@ -53,7 +53,7 @@
             </div>
 
         </div>
-        <div class="container-wrap mcq-container-wrap full-mock-exam-review container-wrap-index">
+        <div class="container-wrap mcq-container-wrap full-mock-exam-review ">
             <div class="lesson">
                 {{-- <a class="lesson-exit float-start" href="{{route('full-mock-exam.index')}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
                 <img src="{{asset("assets/images/exiticon.svg")}}" alt="exiticon">
