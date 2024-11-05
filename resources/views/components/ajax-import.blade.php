@@ -168,6 +168,12 @@
                     let fieldName = $(this).attr('name');
                     let fieldValue = $(this).val();
 
+                    if (fieldName === 'category' && fieldValue === '') {
+                        $('#import-{{ $id }}-' + fieldName + '-error-message').text('Category is required');
+                        $(this).addClass('is-invalid');
+                        isValid = false;
+                    }
+
                     if (fieldName === 'description' && fieldValue === '') {
                         $('#import-{{ $id }}-' + fieldName + '-error-message').text('Left Question is required');
                         $(this).addClass('is-invalid');
