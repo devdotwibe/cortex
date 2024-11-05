@@ -108,7 +108,8 @@ class LearnTopicController extends Controller
         if($request->start){
             DB::table('user_progress')
                 ->where('user_id',$user->id)
-                ->where('name','LIKE','exam-'.$exam->id.'-module-'.$category->id.'%')
+                ->where('name','LIKE','exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$subCategory->id.'%')
+                ->where('name', '!=', 'exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$subCategory->id.'-complete-date')
                 ->delete();
             return redirect()->route('learn.lesson.show', ['category' => $category->slug, 'sub_category' => $subCategory->slug]);
         }
@@ -249,8 +250,19 @@ class LearnTopicController extends Controller
                 'url'=>route('learn.preview',$row->slug),
             ];
         }
+        $progress =  $user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$subCategory->id.'-progress-url',0);
+        if($progress){
+            $start_url = route('learn.lesson.show',[
+                                        'category'=>$category->slug,
+                                        'sub_category'=>$subCategory->slug,
+                                        'start' => true
+                                    ]);
+        }else{
+            $start_url = Null;
+        }
         return [
             'data'=>$data,
+            'starturl'=>$start_url,
             'url'=>route('learn.lesson.show',[
                 'category'=>$category->slug,
                 'sub_category'=>$subCategory->slug,
