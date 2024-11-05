@@ -28,8 +28,8 @@
                                         <div class="form-data">
                                             <div class="forms-inputs mb-4">
                                                 <label for="name-table-category-form-create">Hashtag Name</label>
-                                                <input type="text" name="hashtag" id="name-table-category-form-create" data-field-input="name" class="form-control">
-                                                <div class="invalid-feedback" data-field="name" id="name-error-table-category-form-create"></div>
+                                                <input type="text" name="hashtag" id="name-table-category-form-create" data-field-input="hashtag" class="form-control">
+                                                <div class="invalid-feedback" data-field="hashtag" id="hashtag-error-table-category-form-create"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -40,6 +40,7 @@
                                 </div>
                             </div>
                         </form>
+                        
                         <div class="table-outer table-tbBeGSR1724912703-outer">
                             <table class="table" id="table-hashtag" style="width: 100%">
                                 <thead>
@@ -166,7 +167,7 @@ $(function() {
         e.preventDefault();
 
      
-        $('.error').html('');
+        // Clear previous error messages and styles
         $('.invalid-feedback').text('');
         $('.form-control').removeClass('is-invalid');
 
