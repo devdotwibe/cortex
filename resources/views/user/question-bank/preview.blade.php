@@ -259,9 +259,9 @@
                             if (v.label == '« Previous') {
                                 var label_name = "<";
                             }
-                            $('#lesson-footer-pagination').append(`
-                                <button class="${linkstatus} btn btn-secondary ${v.active?"active":""}" disabled  >${label_name}</button>
-                            `)
+                            // $('#lesson-footer-pagination').append(`
+                            //     <button class="${linkstatus} btn btn-secondary ${v.active?"active":""}" disabled  >${label_name}</button>
+                            // `)
                         } else {
                             $('#lesson-footer-pagination').append(`
                                 <button class="${linkstatus} btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
