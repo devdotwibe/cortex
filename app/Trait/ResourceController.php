@@ -51,7 +51,7 @@ trait ResourceController
         self::$whereInCondition[]=$condition;
         return $this;
     }
-    public function buildSelectOption($searchfield="name",$limit=12){
+    public function buildSelectOption($searchfield="name",$limit=60){
         $query=app(self::$model)->query();
         foreach(self::$whereCondition as $condition){
             $query->where(...$condition);
