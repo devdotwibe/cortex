@@ -62,11 +62,11 @@ trait ResourceController
         }
 
         foreach(self::$whereHasCondition as $condition){
-            if(count($condition)==1){
-                $query->has($condition[0]);
-            }else{
-                $query->whereHas(...$condition);
-            }
+            // if(count($condition)==1){
+            //     $query->has($condition[0]);
+            // }else{
+            //     $query->whereHas(...$condition);
+            // }
         }
         if(!empty(request("term"))){
             $query->where($searchfield,'like',"%".(request("term"))."%");
