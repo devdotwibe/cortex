@@ -51,7 +51,7 @@ trait ResourceController
         self::$whereInCondition[]=$condition;
         return $this;
     }
-    public function buildSelectOption($searchfield="name",$limit=60){
+    public function buildSelectOption($searchfield="name",$limit=12){
         $query=app(self::$model)->query();
         foreach(self::$whereCondition as $condition){
             $query->where(...$condition);
@@ -86,7 +86,7 @@ trait ResourceController
             ]
         ];
     }
-    public function buildPagination($limit=60){
+    public function buildPagination($limit=12){
         $query=app(self::$model)->query();
         foreach(self::$whereCondition as $condition){
             $query->where($condition[0]??"",$condition[1]??null);
@@ -100,7 +100,7 @@ trait ResourceController
         }
         return $query->paginate($limit);
     }
-    public function buildResult($limit=60){
+    public function buildResult($limit=12){
         $query=app(self::$model)->query();
         foreach(self::$whereCondition as $condition){
             $query->where($condition[0]??"",$condition[1]??null);
