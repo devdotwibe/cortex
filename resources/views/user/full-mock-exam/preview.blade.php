@@ -180,15 +180,15 @@
                                     <div class="mcq-group">
                                         
                                         <div class="mcq-title-text" ${v.title_text?"":'style="display:none"'}>
-                                            ${v.title_text||""}
+                                           <p> ${v.title_text||""}</p>
                                         </div>
                                         <div id="mcq-${lesseonId}">
-                                            ${v.note||""}
+                                           <p> ${v.note||""}</p>
                                         </div>
                                     </div> 
                                     <div class="mcq-answer mcq-group-right">
                                         <div  class="mcq-description">
-                                            ${v.sub_question||""}
+                                           <p> ${v.sub_question||""}</p>
                                         </div> 
                                         <div id="mcq-${lesseonId}-ans" class="form-group">
                                             <div class="form-data" >
@@ -199,7 +199,7 @@
                                         </div>
                                         <div id="mcq-${lesseonId}-explanation" class="correctanswerclass"> 
                                             <label>Correct Answer <span id="mcq-${lesseonId}-correct"></span></label>
-                                            ${v.explanation||''}
+                                            <p>${v.explanation||''}</p>
                                         </div>
 
                                         <div id="mcq-${lesseonId}-ans-progress" class="form-group">
