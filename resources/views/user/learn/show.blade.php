@@ -122,7 +122,10 @@
                 <a type="button" href="" id="restart-btn" class="btn btn-dark">
                     Restart Lesson
                 </a>
-            @endguest
+                <a type="button" href="" id="continue-btn" class="btn btn-dark d-none">
+                    Continue Lesson
+                </a>
+                @endguest
 
 
             </div>
@@ -204,7 +207,14 @@
                     </tr>
                 `);
             });
-            $('#restart-btn').attr('href', res.url);
+            if(res.starturl){
+                $('#restart-btn').attr('href', res.starturl);
+                $('#continue-btn').attr('href', res.url);
+                $("#continue-btn").removeClass("d-none");
+            }else{
+                $('#restart-btn').attr('href', res.url);
+                $("#continue-btn").addClass("d-none");
+            }
             $('#review-history-label').html(` ${i} : ${res.name} `);
             $('#review-history-modal').modal('show');
         }, 'json');
