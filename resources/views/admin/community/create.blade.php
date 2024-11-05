@@ -81,7 +81,7 @@
 
                             <div class="form-group">
                                 <label for="hashtag-select">Select Hashtag</label>
-                                <select id="hashtag-select" name="hashtag" class="form-control" required>
+                                <select id="hashtag-select" name="hashtag" class="form-control">
                                     <option value="">Select a hashtag</option>
                                     @foreach($hashtags as $hashtag)
                                         <option value="{{ $hashtag->id }}">{{ $hashtag->hashtag }}</option>
