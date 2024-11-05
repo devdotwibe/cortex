@@ -48,8 +48,17 @@
 <section class="content_section admin_section">
     <div class="container">
         <div class="row">
-            <x-ajax-table :bulkaction="true" bulkactionlink="{{route('admin.question-bank.bulkaction')}}"  tableid="categoryquestiontable"  
-             :bulkotheraction='[
+            <x-ajax-table :bulkaction="true" bulkactionlink="{{route('admin.question-bank.bulkaction')}}"  tableid="categoryquestiontable"   
+            
+            :bulkotheraction='[
+                ["name"=>"Enable Visible Access","value"=>"visible_status"],
+                ["name"=>"Disable Visible Access","value"=>"visible_status_disable"],
+               
+            ]' 
+
+            
+            
+            :coloumns='[
                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
                 ["th"=>"Question","name"=>"description","data"=>"description"], 
                 ["th" => "Visible", "name" => "visible_status", "data" => "visibility"],
