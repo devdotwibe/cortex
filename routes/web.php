@@ -115,6 +115,7 @@ Route::middleware(['auth', 'isUser'])->group(function () {
             Route::get('/{category}/lesson/{sub_category}/history', [LearnTopicController::class, 'lessonhistory'])->name('lesson.history');
             Route::middleware('subscription:learn')->get('/{category}/lesson/{sub_category}/review', [LearnTopicController::class, 'lessonreview'])->name('lesson.review');
             Route::middleware('subscription:learn')->get('/{category}/lesson/{sub_category}/submit', [LearnTopicController::class, 'lessonreviewsubmit'])->name('lesson.submit');
+            Route::middleware('subscription:learn')->get('/{category}/{sub_category}/submit', [LearnTopicController::class, 'lessonsubmit'])->name('submit');
             Route::get('/attempt/{user_exam_review}/preview', [LearnTopicController::class, 'preview'])->name('preview');
         });
 
