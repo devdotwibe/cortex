@@ -162,7 +162,6 @@ $(function(){
 
 $(function() {
     console.log('3');
-    $('#table-category-form-clear').click(clearcategory);
 
     $('#table-category-form-create').on('submit', function(e) {
         e.preventDefault();
@@ -261,14 +260,6 @@ function editHashtag(url) {
 }
 
 
-function clearcategory() {
-         
-           
-           
-            $('#table-category-form-create').data('action', "{{ route('admin.community.hashtags.store') }}")
-            $('#table-category-form-clear').hide()
-            $('#table-category-form-submit').text(' Add + ')
-        }
 
 
 // $('#table-category-form-create').on('submit', function(e) {
