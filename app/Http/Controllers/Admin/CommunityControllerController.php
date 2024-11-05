@@ -167,9 +167,14 @@ class CommunityControllerController extends Controller
         //     }
         // }
 
-        $hashtag = Hashtag::find($request->hashtag);
+        // Attempt to find the hashtag and associate it with the post
+    if ($request->has('hashtag') && $hashtag = Hashtag::find($request->hashtag)) {
         $hashtag->post_id = $post->id;
         $hashtag->save();
+    } else {
+        // Handle case if the hashtag was not found, if needed
+        // Example: log an error or ignore
+    }
 
         return redirect()->route('admin.community.index')->with('success', "Post published");
     }
