@@ -131,7 +131,7 @@
             $('#table-{{ $tableid }}-bulk-action-form').submit(function(e){
                 e.preventDefault();  
                 $.post($(this).attr('action'),$(this).serialize(),function(res){
-                    showToast(res.success??'Records has been successfully deleted333', 'success');
+                    showToast(res.success??'Records has been successfully deleted3334', 'success');
                     $('#table-{{ $tableid }}').DataTable().ajax.reload();
                 },'json').fail(function(){
                     showToast('Bulk action failed', 'danger');
