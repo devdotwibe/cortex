@@ -215,11 +215,11 @@ class TopicTestController extends Controller
             ]);
             $data = [];
             switch ($request->bulkaction) {
-                case 'enable-free-access':
-                    $data["is_free_access"] = true;
+                case 'visible_status':
+                    $data["visible_status"] = "show";
                     break;
-                case 'disable-free-access':
-                    $data["is_free_access"] = false;
+                case 'visible_status':
+                    $data["visible_status"] = "";
                     break;
                 
 

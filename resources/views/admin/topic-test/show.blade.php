@@ -70,8 +70,8 @@
                         <x-ajax-table :bulkaction="true" bulkactionlink="{{route('admin.topic-test.bulkaction')}}"  tableid="categoryquestiontable"  
                         
                         :bulkotheraction='[
-                            ["name"=>"Enable Visible Access","value"=>"enable-free-access"],
-                            ["name"=>"Disable Visible Access","value"=>"disable-free-access"],
+                            ["name"=>"Enable Visible Access","value"=>"visible_status"],
+                            ["name"=>"Disable Visible Access","value"=>"visible_status"],
                            
                         ]' 
                         
