@@ -92,7 +92,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
     public function subscription(){
         return UserSubscription::where('user_id',$this->id)
-                                ->whereDate('expire_at','>',Carbon::now())
+                                ->whereDate('expire_at','>=',Carbon::now())
                                 ->orderBy('id','DESC')->first();
     } 
 
