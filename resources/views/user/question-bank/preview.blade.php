@@ -273,45 +273,52 @@
 
 
                 if (res.total > 1) {
-                    $.each(res.links, function(k, v) {
-                        let linkstatus = "";
-                        if (k != 0 && k != res.links.length && useranswers[k - 1]) {
-                            linkstatus = 'status-bad';
-                            if (useranswers[k - 1].iscorrect) {
+    $('#lesson-footer-paginationmobile').empty(); // Clear previous pagination buttons
 
+    $.each(res.links, function(k, v) {
+        let linkstatus = "";
+        let label_name = v.label;
 
-                                linkstatus = "status-good";
+        // Determine the class for the link based on the user's answers
+        if (k != 0 && k != res.links.length - 1 && useranswers[k - 1]) {
+            linkstatus = 'status-bad';
 
+            if (useranswers[k - 1].iscorrect) {
+                linkstatus = "status-good";
 
-                                if (useranswers[k - 1].time_taken < {{ $examtime }}) {
-                                    linkstatus = "status-exelent";
-                                }
-                            }
-                        }
-                        if (v.active || !v.url) {
-
-                            var label_name = v.label;
-
-                            if (v.label == '« Previous') {
-                                var label_name = "<";
-                            }
-
-                            var preclass="";
-                            if(k==0)
-                            {
-                                preclass="preclass";
-                            }
-                            $('#lesson-footer-paginationmobile').append(`
-                                <button class="${linkstatus} btn btn-secondary  {$preclass} ${v.active?"active":""}" disabled   >${label_name}</button>
-                            `)
-                        } else {
-                            $('#lesson-footer-paginationmobile').append(`
-                                <button class="${linkstatus} btn btn-secondary " onclick="loadlessonreview('${v.url}')" >${v.label}</button>
-                            `)
-                        }
-                        
-                    })
+                if (useranswers[k - 1].time_taken < {{ $examtime }}) {
+                    linkstatus = "status-excellent";
                 }
+            }
+        }
+
+        // Handle the label for Previous and Next buttons
+        if (label_name === '« Previous') {
+            label_name = "<";
+        } else if (label_name === 'Next »') {
+            label_name = ">";
+        }
+
+        // Add "preclass" for the first item
+        let preclass = (k === 0) ? "preclass" : "";
+
+        // Determine if the button should be disabled (current page) or clickable
+        if (v.active || !v.url) {
+            $('#lesson-footer-paginationmobile').append(`
+                <button class="${linkstatus} btn btn-secondary ${preclass} ${v.active ? "active" : ""}" disabled>
+                    ${label_name}
+                </button>
+            `);
+        } else {
+            $('#lesson-footer-paginationmobile').append(`
+                <button class="${linkstatus} btn btn-secondary ${preclass}" onclick="loadlessonreview('${v.url}')">
+                    ${label_name}
+                </button>
+            `);
+        }
+    });
+}
+
 
 
                 $('.lesson-end').show();
