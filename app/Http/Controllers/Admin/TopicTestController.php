@@ -196,4 +196,50 @@ class TopicTestController extends Controller
             'success'=>"Import started"
         ]);
     } 
+
+    public function bulkaction(Request $request)
+    {
+        if (!empty($request->deleteaction)) {
+            if ($request->input('select_all', 'no') == "yes") {
+                Question::where('id', '>', 0)->delete();
+            } else {
+                Question::whereIn('id', $request->input('selectbox', []))->delete();
+            }
+            if ($request->ajax()) {
+                return response()->json(["success" => "Users deleted success"]);
+            }
+            return redirect()->route('admin.topic-test.show')->with("success", "Users deleted success");
+        } else {
+            $request->validate([
+                "bulkaction" => ['required']
+            ]);
+            $data = [];
+            switch ($request->bulkaction) {
+                case 'enable-free-access':
+                    $data["is_free_access"] = true;
+                    break;
+                case 'disable-free-access':
+                    $data["is_free_access"] = false;
+                    break;
+                
+
+                default:
+                    # code...
+                    break;
+            }
+            if ($request->input('select_all', 'no') == "yes") {
+                Question::where('id', '>', 0)->update($data);
+            } else {
+                Question::whereIn('id', $request->input('selectbox', []))->update($data);
+            }
+
+            if ($request->ajax()) {
+                return response()->json(["success" => "Users update success"]);
+            }
+            return redirect()->route('admin.topic-test.show')->with("success", "Users update success");
+        }
+    }
+
+
+
 }

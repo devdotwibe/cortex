@@ -67,7 +67,20 @@
                             </form>
                         </div>
 
-                        <x-ajax-table :bulkaction="true" tableid="categoryquestiontable"   :coloumns="[
+                        <x-ajax-table :bulkaction="true" bulkactionlink="{{route('admin.topic-test.bulkaction')}}"  tableid="categoryquestiontable"  
+                        
+                        :bulkotheraction='[
+                            ["name"=>"Enable Free Access","value"=>"enable-free-access"],
+                            ["name"=>"Disable Free Access","value"=>"disable-free-access"],
+                           
+                        ]' 
+                        
+                        
+                        
+                        
+                        
+                        
+                        :coloumns="[
                             ['th' => 'Date', 'name' => 'created_at', 'data' => 'date'],
                             ['th' => 'Question', 'name' => 'description', 'data' => 'description'],
                             ['th' => 'Visible', 'name' => 'visible_status', 'data' => 'visibility'],
