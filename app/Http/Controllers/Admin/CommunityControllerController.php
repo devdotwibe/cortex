@@ -118,7 +118,7 @@ class CommunityControllerController extends Controller
                     }
                 }],
 
-                'hashtag' => ["nullable", 'string', 'regex:/^#\w+$/', 'max:500'], // Ensures hashtag starts with #
+               
                 'image' => ["nullable"],
             ]);
         } else {
