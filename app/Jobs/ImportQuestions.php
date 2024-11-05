@@ -98,9 +98,9 @@ class ImportQuestions implements ShouldQueue
                     "sub_category_id"=>optional($this->subCategory)->id,
                     "sub_category_set"=>optional($this->setname)->id,
                     "description"=>$row[$this->fields['description']],
-                    "title_text"=>$row[$this->fields['title_text']],
-                    "sub_question"=>$row[$this->fields['sub_question']],
-                    "explanation"=>$row[$this->fields['explanation']]
+                    "title_text" => (isset($this->fields['title_text']) && isset($row[$this->fields['title_text']])) ? $row[$this->fields['title_text']] : null,
+                    "sub_question" => (isset($this->fields['sub_question']) && isset($row[$this->fields['sub_question']])) ? $row[$this->fields['sub_question']] : null,
+                    "explanation" => (isset($this->fields['explanation']) && isset($row[$this->fields['explanation']])) ? $row[$this->fields['explanation']] : null,
                 ]);
             } else{
                 $question=Question::store([
