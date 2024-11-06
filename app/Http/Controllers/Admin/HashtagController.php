@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Hashtag;
+
+use App\Models\Hashtagstore;
 use App\Trait\ResourceController;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -18,7 +19,7 @@ class HashtagController extends Controller
 
             
             // Fetch all hashtags
-            $hashtags = Hashtag::where('id',">",0);
+            $hashtags = Hashtagstore::where('id',">",0);
 
             return DataTables::of($hashtags)
                 ->addColumn('action', function ($data) {
@@ -64,7 +65,7 @@ class HashtagController extends Controller
         ]);
 
       
-        $hashtag = new Hashtag();
+        $hashtag = new Hashtagstore();
         $hashtag->hashtag = $request->hashtag; 
       
         $hashtag->save();
@@ -77,7 +78,7 @@ class HashtagController extends Controller
     public function destroy($id)
     {
         // Find the hashtag or fail
-        $hashtag = Hashtag::findOrFail($id);
+        $hashtag = Hashtagstore::findOrFail($id);
         
         // Delete the hashtag
         $hashtag->delete();
@@ -88,7 +89,7 @@ class HashtagController extends Controller
     public function edit($id)
     {
         // Find the hashtag or fail
-        $hashtag = Hashtag::findOrFail($id);
+        $hashtag = Hashtagstore::findOrFail($id);
         
         // Return a view with the hashtag data (you might need to create this view)
         return response()->json($hashtag);
@@ -102,7 +103,7 @@ class HashtagController extends Controller
         ]);
     
         // Find the hashtag or fail
-        $hashtag = Hashtag::findOrFail($id);
+        $hashtag = Hashtagstore::findOrFail($id);
     
         // Update the hashtag with the new value
         $hashtag->hashtag = $request->hashtag;
