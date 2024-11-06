@@ -16,7 +16,7 @@ class Hashtag extends Model
 
     public function post()
     {
-        return $this->belongsTo(Post::class);
+        return $this->belongsToMany(Post::class);
     }
 
     // Prevent mass assignment vulnerabilities
