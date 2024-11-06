@@ -136,9 +136,9 @@
                     @if ($bulkaction)
 
                     $('.other-actions').hide();
-
+                    $('input[name="select_all[]"]').prop('checked', false);
                     $('input[name="selectbox[]"]').prop('checked', false);
-                    $('input[name="select_all[]"]').prop('checked', false); // Uncheck all selectbox[] checkboxes
+                    // Uncheck all selectbox[] checkboxes
                     
                     @endif
 
