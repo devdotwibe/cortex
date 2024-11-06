@@ -199,13 +199,24 @@
         $('#attemt-list').html('');
         $.get(url, function(res) {
             $.each(res.data, function(k, v) {
-                $('#attemt-list').append(`
-                    <tr>
-                        <td>${v.date}</td>
-                        <td>${v.progress}%</td>
-                        <td><a type="button" href="${v.url}" class="btn btn-warning btn-sm">Review</a></td>
-                    </tr>
-                `);
+                if(v.questions>0){
+                    $('#attemt-list').append(`
+                        <tr>
+                            <td>${v.date}</td>
+                            <td>${v.progress}%</td>
+                            <td><a type="button" href="${v.url}" class="btn btn-warning btn-sm">Review</a></td>
+                        </tr>
+                    `);
+                }else{
+                    $('#attemt-list').append(`
+                        <tr>
+                            <td>${v.date}</td>
+                            <td>${v.progress}%</td>
+                            <td></td>
+                        </tr>
+                    `);
+                }
+                
             });
             if(res.starturl){
                 $('#restart-btn').attr('href', res.starturl);

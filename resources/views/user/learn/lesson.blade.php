@@ -51,7 +51,13 @@
             <div class="modal-body">
                 <p>Do you want to submit this assessment ?</p>
                 <p style="display:none" class="unfinish-message"> You still have <span class="unfinish-count">0</span> unfinished questions. </p>
-                <button type="button" onclick="lessonreviewconfirm()" class="btn btn-dark">Yes</button>
+                @if($review>0)
+                    <button type="button" onclick="lessonreviewconfirm()" class="btn btn-dark">Yes</button>
+                @else
+                <a href="{{route('learn.submit',['category'=>$category->slug,'sub_category'=>$subCategory->slug])}}"> 
+                    <button type="button"   class="btn btn-dark">Yes</button>
+                </a> 
+                @endif
                 <button type="button"  data-bs-dismiss="modal"  class="btn btn-secondary">Cancel</button>
             </div>
         </div>

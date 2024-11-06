@@ -132,7 +132,13 @@ class LearnTopicController extends Controller
             return Learn::where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->paginate(1,['slug','learn_type','title','short_question','video_url','note','mcq_question']);
         }
         $learncount=Learn::where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->count();
-        return view("user.learn.lesson",compact('category','exam','subCategory','user','learncount'));
+        $review=Learn::where('category_id',$category->id)
+                        ->where('sub_category_id',$subCategory->id)
+                        ->where(function($query) {
+                            $query->whereNotNull('short_question')
+                                  ->orWhereNotNull('mcq_question');
+                        })->count();
+        return view("user.learn.lesson",compact('category','exam','subCategory','user','learncount','review'));
     }
 
     public function preview(Request $request,UserExamReview $userExamReview){
@@ -161,11 +167,11 @@ class LearnTopicController extends Controller
         }
 
         $useranswer=UserReviewQuestion::leftJoin('user_review_answers','user_review_answers.user_review_question_id','user_review_questions.id')
-        ->where('user_review_answers.user_answer',true)
-        ->whereIn('user_review_questions.review_type',['mcq'])
-        ->where('user_review_questions.user_id',$user->id)
-        ->where('user_review_questions.user_exam_review_id',$userExamReview->id)
-        ->select('user_review_questions.id','user_review_questions.time_taken','user_review_answers.iscorrect')->get();
+                                        ->where('user_review_answers.user_answer',true)
+                                        ->whereIn('user_review_questions.review_type',['mcq'])
+                                        ->where('user_review_questions.user_id',$user->id)
+                                        ->where('user_review_questions.user_exam_review_id',$userExamReview->id)
+                                        ->select('user_review_questions.id','user_review_questions.time_taken','user_review_answers.iscorrect')->get();
         
         return view("user.learn.preview",compact('category','exam','subCategory','user','userExamReview','useranswer'));
     }
@@ -190,6 +196,43 @@ class LearnTopicController extends Controller
         }
         $learncount=Learn::where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->count();
         return view("user.learn.lesson",compact('category','exam','subCategory','user','learncount'));
+    }
+
+    public function lessonsubmit(Request $request,Category $category,SubCategory $subCategory){
+        /**
+         * @var User
+         */
+        $user=Auth::user();
+        $exam=Exam::where("name",'learn')->first();
+        if(empty($exam)){
+            $exam=Exam::store([
+                "title"=>"Learn",
+                "name"=>"learn",
+            ]);
+            $exam=Exam::find( $exam->id );
+        }
+        $review=UserExamReview::store([
+            "title"=>"Learn",
+            "name"=>"learn",
+            "progress"=>$user->progress("exam-".$exam->id."-module-".$category->id."-lesson-".$subCategory->id,0),
+            "user_id"=>$user->id,
+            "exam_id"=>$exam->id,
+            "category_id"=>$category->id,
+            "sub_category_id"=>$subCategory->id,
+        ]);
+        $lessons=SubCategory::has('learns')->where('category_id',$category->id)->get();
+        $lessencount=count($lessons);
+        $totalprogres=0;
+        foreach ($lessons as $lesson) {
+            $totalprogres+=$user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$lesson->id,0);
+        }
+        $user->setProgress('exam-'.$exam->id.'-module-'.$category->id,$totalprogres/$lessencount);
+        if($user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$subCategory->id.'-complete-date',"")==""){
+            $user->setProgress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$subCategory->id.'-complete-date',date('Y-m-d H:i:s'));
+        }
+        $user->setProgress("exam-".$exam->id."-module-".$category->id."-lesson-".$subCategory->id."-complete-review",'yes');
+        dispatch(new SubmitReview($review));
+        return  redirect()->route('learn.show',$category->slug)->with("success","Lesson Completed");
     }
     public function lessonreviewsubmit(Request $request,Category $category,SubCategory $subCategory){
         /**
@@ -224,9 +267,9 @@ class LearnTopicController extends Controller
             $user->setProgress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$subCategory->id.'-complete-date',date('Y-m-d H:i:s'));
         }
         $user->setProgress("exam-".$exam->id."-module-".$category->id."-lesson-".$subCategory->id."-complete-review",'yes');
-        dispatch(new SubmitReview($review));
+        (new SubmitReview($review))->handle();
         //route('learn.show',['category'=>$category->slug])
-        return  redirect()->route('learn.preview',$review->slug)->with("success","Lesson Submited");
+        return  redirect()->route('learn.preview',$review->slug)->with("success","Lesson Submited")->with("delay", true);
     }
     public function lessonhistory(Request $request,Category $category,SubCategory $subCategory){
         /**
@@ -243,11 +286,17 @@ class LearnTopicController extends Controller
         }
         $data=[];
         foreach(UserExamReview::where('user_id',$user->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('exam_id',$exam->id)->get() as  $row){
+            $questions = UserReviewQuestion::where('user_exam_review_id',$row->id)
+                                            ->where(function($query) {
+                                                $query->where('review_type','short_notes')
+                                                    ->orWhere('review_type','mcq');
+                                            })->count();
             $data[]=[
                 'slug'=>$row->slug,
                 'date'=>Carbon::parse($row->created_at)->format('Y-m-d h:i a'),
                 'progress'=>round($row->progress,2),
                 'url'=>route('learn.preview',$row->slug),
+                'questions'=>$questions
             ];
         }
         $progress =  $user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$subCategory->id.'-progress-url',0);
