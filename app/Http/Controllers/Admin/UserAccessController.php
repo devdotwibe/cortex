@@ -109,25 +109,25 @@ class UserAccessController extends Controller
         $recordIds = [];
         foreach ($request->term ?? [] as $termname) {
             $termname = trim($termname);
-            foreach (ClassDetail::where('term_name', 'like', "%{$termname}%")->get() as $term) {
+            foreach (ClassDetail::where('term_name',$termname)->get() as $term) {
                 if (TermAccess::where('type', "class-detail")->where('term_id', $term->id)->where('user_id', $user->id)->count() == 0) {
                     TermAccess::store(['type' => "class-detail", 'term_id' => $term->id, 'user_id' => $user->id]);
                 }
                 $classIds[] = $term->id;
             }
-            foreach (LessonMaterial::where('term_name', 'like', "%{$termname}%")->get() as $term) {
+            foreach (LessonMaterial::where('term_name',$termname)->get() as $term) {
                 if (TermAccess::where('type', "lesson-material")->where('term_id', $term->id)->where('user_id', $user->id)->count() == 0) {
                     TermAccess::store(['type' => "lesson-material", 'term_id' => $term->id, 'user_id' => $user->id]);
                 }
                 $lessonIds[] = $term->id;
             }
-            foreach (HomeWork::where('term_name', 'like', "%{$termname}%")->get() as $term) {
+            foreach (HomeWork::where('term_name',$termname)->get() as $term) {
                 if (TermAccess::where('type', "home-work")->where('term_id', $term->id)->where('user_id', $user->id)->count() == 0) {
                     TermAccess::store(['type' => "home-work", 'term_id' => $term->id, 'user_id' => $user->id]);
                 }
                 $homeIds[] = $term->id;
             }
-            foreach (LessonRecording::where('term_name', 'like', "%{$termname}%")->get() as $term) {
+            foreach (LessonRecording::where('term_name',$termname)->get() as $term) {
                 if (TermAccess::where('type', "lesson-record")->where('term_id', $term->id)->where('user_id', $user->id)->count() == 0) {
                     TermAccess::store(['type' => "lesson-record", 'term_id' => $term->id, 'user_id' => $user->id]);
                 }
