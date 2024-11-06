@@ -194,10 +194,8 @@
                                     </div>
                                     <div id="mcq-${lesseonId}-explanation" class="correctanswerclass"> 
                                         <label>Correct Answer <span id="mcq-${lesseonId}-correct"></span></label>
-                                    
-                                    </div> 
-                                    
-                                       <p>${v.explanation||''}</p>
+                                   </div> 
+                                      <p>${v.explanation||''}</p>
                                 </div>
                             </div>
                         </div>
