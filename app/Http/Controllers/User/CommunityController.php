@@ -211,12 +211,59 @@ class CommunityController extends Controller
         $hashtags = Hashtag::all();
         return view('user.community.create', compact('hashtags'));
     }
+    // public function store(Request $request)
+    // {
+    //     $type = $request->type ?? "post";
+    //         $data = $request->validate([
+    //             'type' => ["required"],
+             
+    //             'description' => ["required", 'string', "max:300", function ($attribute, $value, $fail) {
+    //                 if (preg_match('/#/', $value)) {
+    //                     $fail('Hashtags are not allowed in the description.');
+    //                 }
+    //             }],
+    //             'hashtag' => ["nullable", 'string', 'max:500'],
+    //             'image' => ["nullable"],
+    //         ]);
+      
+
+    //     /**
+    //      *  @var User
+    //      */
+    //     $user = Auth::user();
+
+    //     $data['user_id'] = $user->id;
+    //     $data['status'] = "publish";
+    //     $post = Post::store($data);
+    //     if ($request->type == "poll") {
+    //         foreach ($request->input('option', []) as $k => $v) {
+    //             PollOption::store([
+    //                 'option' => $v,
+    //                 'post_id' => $post->id
+    //             ]);
+    //         }
+    //     }
+
+
+    // // Attempt to find the hashtag and associate it with the post
+    // if ($request->has('hashtag') && $hashtag = Hashtag::find($request->hashtag)) {
+    //     $hashtag->post_id = $post->id;
+    //     $hashtag->save();
+    // } else {
+    //     // Handle case if the hashtag was not found, if needed
+    //     // Example: log an error or ignore
+    // }
+    //     return redirect()->route('community.index')->with('success', "Post published");
+    // }
+
+
     public function store(Request $request)
     {
         $type = $request->type ?? "post";
+        if ($type == "post") {
             $data = $request->validate([
                 'type' => ["required"],
-             
+                // 'description' => ["required"],
                 'description' => ["required", 'string', "max:300", function ($attribute, $value, $fail) {
                     if (preg_match('/#/', $value)) {
                         $fail('Hashtags are not allowed in the description.');
@@ -225,7 +272,24 @@ class CommunityController extends Controller
                 'hashtag' => ["nullable", 'string', 'max:500'],
                 'image' => ["nullable"],
             ]);
-      
+        } else {
+
+            $data = $request->validate([
+                // 'description' => ["required"],
+                'description' => ["required", 'string', "max:300", function ($attribute, $value, $fail) {
+                    if (preg_match('/#/', $value)) {
+                        $fail('Hashtags are not allowed in the description.');
+                    }
+                }],
+                'type' => ["required"],
+                'option' => ["required", 'array', 'min:2', 'max:5'],
+                'option.*' => ["required", 'max:255'],
+                'image' => ["nullable"],
+            ], [
+                'option.required' => "This field is required",
+                'option.*.required' => "This field is required",
+            ]);
+        }
 
         /**
          *  @var User
@@ -245,16 +309,27 @@ class CommunityController extends Controller
         }
 
 
-    // Attempt to find the hashtag and associate it with the post
-    if ($request->has('hashtag') && $hashtag = Hashtag::find($request->hashtag)) {
-        $hashtag->post_id = $post->id;
-        $hashtag->save();
-    } else {
-        // Handle case if the hashtag was not found, if needed
-        // Example: log an error or ignore
-    }
+        // // Extract and store hashtags from the description
+        // preg_match_all('/#\w+/', $data['description'], $hashtags);
+        // $extractedHashtags = $hashtags[0];
+        // foreach ($extractedHashtags as $hashtag) {
+        //     Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
+        // }
+        // Split hashtags by commas or spaces   
+
+        $extractedHashtags = $request->input('hashtags',[]);
+
+        dd($extractedHashtags);
+        foreach ($extractedHashtags as $hashtag) {
+            if (!empty($hashtag)) {
+                Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
+            }
+        }
+
         return redirect()->route('community.index')->with('success', "Post published");
     }
+
+
     public function pollVote(Request $request, PollOption $pollOption)
     {
         /**
