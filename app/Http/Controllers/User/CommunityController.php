@@ -187,8 +187,8 @@ class CommunityController extends Controller
                 'total_items' => $posts->total(),
                 'items_per_page' => $posts->perPage(),
                 'data' => $results,
-                'prev' => $posts->previousPageUrl(),
-                'next' => $posts->nextPageUrl()
+                'prev' => $posts->previousPageUrl(),   
+                'next' => $posts->nextPageUrl()  
             ];
         }
         // $hashtags = Hashtag::whereIn('post_id', Post::where('user_id',$user->id)->select('id'))->groupBy('hashtag')->pluck('hashtag');

@@ -18,6 +18,10 @@ class Hashtag extends Model
     {
         return $this->belongsTo(Post::class);
     }
+    public function hashtagname(){
+
+    return $this->belongsTo(Hashtagstore::class, 'hashtag', 'id');
+    }
 
     // Prevent mass assignment vulnerabilities
     protected $guarded = [];

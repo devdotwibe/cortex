@@ -228,7 +228,7 @@
                                 ${v.description||""}
                             </div>
                              <div class="post-content 23">
-                            ${v.hashtags||""}
+                            ${v.hashtagname.hashtag||""}
                         </div>
                         </a>
                         <div class="poll-options">
