@@ -60,18 +60,15 @@
             image.src = v.url;
         }
         function printdata(){
-            var windowContent = '<!DOCTYPE html>';
-            windowContent += '<html>';
-            windowContent += '<head><title>{{ucfirst($subLessonMaterial->pdf_name)}}</title></head>';
-            windowContent += '<body>';
-            windowContent += '<img src="' + canvas.toDataURL() + '" onload="window.print();window.close()" width="500"  />';
-            windowContent += '</body>';
-            windowContent += '</html>';
+            const originalContent = document.body.innerHTML;
+                const canvasImage = '<img src="' + canvas.toDataURL() + '" style="width:100%;" />';
+                // Set page content to canvas only for printing
+                document.body.innerHTML = canvasImage;
 
-            var printWin = window.open('', '', '');
-            printWin.document.open();
-            printWin.document.write(windowContent);
-            printWin.document.close();
+                // Print and revert to original content
+                window.print();
+                document.body.innerHTML = originalContent;
+                window.location.reload(); 
         }
         $(function(){
             renderPdf()

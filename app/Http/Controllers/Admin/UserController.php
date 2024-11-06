@@ -42,8 +42,10 @@ class UserController extends Controller
                         break;
                     case 'paid-users':
                         $this->where(function ($qry) {
-                            $qry->whereIn("id", UserSubscription::where('status', 'subscribed')->select('user_id'));
-                            // $qry->orWhere("is_free_access", true);
+                            $qry->where(function($query){
+                                $query->whereIn("id", UserSubscription::where('status', 'subscribed')->select('user_id'))
+                                      ->orWhere("is_free_access", true);
+                            });
                         });
                         break;
                     case 'student-users':
