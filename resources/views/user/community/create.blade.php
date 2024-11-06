@@ -214,6 +214,14 @@
 @endsection
 
 @push('footer-script')
+
+<!-- Include Select2 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+
+<!-- Include jQuery and Select2 JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
 <script>
     function changeFormType(val) {
         $('.community-post-type').val(val);
