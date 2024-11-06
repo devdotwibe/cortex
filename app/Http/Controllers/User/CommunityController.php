@@ -223,7 +223,7 @@ class CommunityController extends Controller
                     }
                 }],
                 'hashtags' => ['nullable', 'array'],
-                'hashtags.*' => ['exists:hashtags,id'],
+                // 'hashtags.*' => ['exists:hashtags,id'],
                 'image' => ["nullable"],
             ]);
       
