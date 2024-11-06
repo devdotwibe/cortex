@@ -111,7 +111,7 @@ class UserAccessController extends Controller
 
             $termname = trim($termname);
 
-            dd($termname);
+            // dd($termname);
             foreach (ClassDetail::where('term_name',$termname)->get() as $term) {
                 if (TermAccess::where('type', "class-detail")->where('term_id', $term->id)->where('user_id', $user->id)->count() == 0) {
                     TermAccess::store(['type' => "class-detail", 'term_id' => $term->id, 'user_id' => $user->id]);
