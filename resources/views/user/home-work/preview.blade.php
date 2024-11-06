@@ -230,31 +230,31 @@
                     }, 'json')
 
                 })
-                if (res.total > 1) {
-                    $.each(res.links, function(k, v) {
+                // if (res.total > 1) {
+                //     $.each(res.links, function(k, v) {
 
 
-                        let linkstatuss = "";
-                        if (k != 0 && k != res.links.length-1) {
+                //         let linkstatuss = "";
+                //         if (k != 0 && k != res.links.length-1) {
 
-                            linkstatuss = 'mob-view';
-                        }
+                //             linkstatuss = 'mob-view';
+                //         }
                         
 
 
-                    //     if (res.total > 1) {
-                    // $.each(res.links, function(k, v) {
-                    //     let linkstatus = "";
-                    //     if (k != 0 && k != res.links.length && useranswers[k - 1]) {
-                    //         linkstatus = 'correct';
-                    //         if (useranswers[k - 1].iscorrect) {
+                        if (res.total > 1) {
+                    $.each(res.links, function(k, v) {
+                        let linkstatuss = "";
+                        if (k != 0 && k != res.links.length && useranswers[k - 1]) {
+                            linkstatus = 'correct';
+                            if (useranswers[k - 1].iscorrect) {
 
 
-                    //             linkstatus = "wrong";
+                                linkstatuss = "wrong";
 
                               
-                    //         }
-                    //     }
+                            }
+                        }
                         
 
                         if (v.active || !v.url) {
