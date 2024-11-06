@@ -232,17 +232,15 @@
                 })
                 if (res.total > 1) {
                     $.each(res.links, function(k, v) {
-                        let linkstatus = "";
-                        if (k != 0 && k != res.links.length && useranswers[k - 1]) {
-                            linkstatus = 'correct';
-                            if (useranswers[k - 1].iscorrect) {
 
 
-                                linkstatus = "wrong";
+                        let linkstatuss = "";
+                        if (k != 0 && k != res.links.length-1) {
 
-                              
-                            }
-                        }t
+                            linkstatuss = 'mob-view';
+                        }
+                        
+
                         if (v.active || !v.url) {
                             $('#lesson-footer-pagination').append(`
                                 <button class="${linkstatuss} btn btn-secondary ${v.active?"active":""}" disabled  >${v.label}</button>
