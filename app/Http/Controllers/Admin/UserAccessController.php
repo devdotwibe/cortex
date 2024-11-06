@@ -107,11 +107,10 @@ class UserAccessController extends Controller
         $lessonIds = [];
         $homeIds = [];
         $recordIds = [];
+        dd($request->term);
         foreach ($request->term ?? [] as $termname) {
 
-            $termname = trim($termname);
-
-            dd($termname);
+            $termname = trim($termname); 
             foreach (ClassDetail::where('term_name',$termname)->get() as $term) {
                 if (TermAccess::where('type', "class-detail")->where('term_id', $term->id)->where('user_id', $user->id)->count() == 0) {
                     TermAccess::store(['type' => "class-detail", 'term_id' => $term->id, 'user_id' => $user->id]);
