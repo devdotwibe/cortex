@@ -183,7 +183,7 @@
                                 </div>
                                 <div class="mcq-container">
                                     <div id="mcq-${lesseonId}">
-                                        ${v.note||""}
+                                       <p> ${v.note||""}</p>
                                     </div>
                                     <div id="mcq-${lesseonId}-ans" class="form-group">
                                         <div class="form-data" >
