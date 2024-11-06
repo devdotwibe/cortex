@@ -13,7 +13,7 @@ class Hashtagstore extends Model
     protected $table = 'hashtagstore';
 
     // Specify which attributes can be mass-assigned
-    protected $fillable = ['name'];
+    protected $fillable = ['hashtag'];
 
     // Optionally, if you do not want timestamps, you can disable them:
     // public $timestamps = false;
