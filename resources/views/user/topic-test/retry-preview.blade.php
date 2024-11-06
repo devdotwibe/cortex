@@ -170,9 +170,9 @@
                                         </div>
                                         <div id="mcq-${lesseonId}-explanation" class="correctanswerclass"> 
                                             <label>Correct Answer <span id="mcq-${lesseonId}-correct"></span></label>
-                                            <p>${v.explanation||''}</p>
+                                          
                                         </div>
-
+                                         <p>${v.explanation||''}</p>
                                         {{-- <div id="mcq-${lesseonId}-ans-progress" class="form-group">
                                             <div class="form-data" >
                                                 <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list-progress"> 
