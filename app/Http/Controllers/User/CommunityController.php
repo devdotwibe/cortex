@@ -248,7 +248,7 @@ class CommunityController extends Controller
 
          // Attach selected hashtags to the post
     if ($request->has('hashtags')) {
-        $post->hashtags()->sync($request->hashtags); // Using many-to-many relationship
+        $post->hashtag()->sync($request->hashtags); // Using many-to-many relationship
     }
 
 
