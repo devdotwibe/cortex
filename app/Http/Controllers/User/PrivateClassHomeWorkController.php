@@ -141,11 +141,11 @@ class PrivateClassHomeWorkController extends Controller
 
 
         $useranswer=HomeWorkReviewQuestion::leftJoin('user_review_answers','user_review_answers.user_review_question_id','user_review_questions.id')
-        ->where('user_review_answers.user_answer',true)
-        ->whereIn('user_review_questions.review_type',['mcq'])
-        ->where('user_review_questions.user_id',$user->id)
+        ->where('HomeWorkReviewQuestion.user_answer',true)
+        ->whereIn('HomeWorkReviewQuestion.review_type',['mcq'])
+        ->where('HomeWorkReviewQuestion.user_id',$user->id)
         
-        ->select('user_review_questions.id','user_review_questions.time_taken','user_review_answers.iscorrect')->get();
+        ->select('HomeWorkReviewQuestion.id','HomeWorkReviewQuestion.time_taken','user_review_answers.iscorrect')->get();
 $examtime=0;
 if($user->progress("exam-review-".$homeWorkReview->id."-timed",'')=="timed"){
 $times=explode(':',$user->progress("exam-review-".$homeWorkReview->id."-time_of_exam",'0:0'));
