@@ -90,13 +90,22 @@
                              --}}
 
                              <div class="form-group">
-                                <label for="hashtag-select">Select Hashtags</label>
-                                <select id="hashtag-select" name="hashtag[]" class="form-control" multiple>
-                                    @foreach($hashtags as $hashtag)
-                                        <option value="{{ $hashtag->id }}">{{ $hashtag->hashtag }}</option>
-                                    @endforeach
-                                </select>
+                                <label>Select Hashtags</label>
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="hashtagDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Select Hashtags
+                                    </button>
+                                    <div class="dropdown-menu p-3" aria-labelledby="hashtagDropdown" style="max-height: 200px; overflow-y: auto;">
+                                        @foreach($hashtags as $hashtag)
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" id="hashtag-{{ $hashtag->id }}" name="hashtags[]" value="{{ $hashtag->id }}">
+                                                <label class="form-check-label" for="hashtag-{{ $hashtag->id }}">{{ $hashtag->hashtag }}</label>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
                             </div>
+                            
                             
 
                             <div class="col-md-12">
