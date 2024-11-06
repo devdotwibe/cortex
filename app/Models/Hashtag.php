@@ -12,7 +12,7 @@ class Hashtag extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['hashtag'];
+    protected $fillable = ['hashtag','post_id'];
 
     public function post()
     {
