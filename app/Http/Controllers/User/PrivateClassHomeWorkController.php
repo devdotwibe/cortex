@@ -136,15 +136,7 @@ class PrivateClassHomeWorkController extends Controller
             }
             return HomeWorkReviewQuestion::whereIn('review_type',['mcq'])->where('home_work_review_id',$homeWorkReview->id)->where('user_id',$user->id)->paginate(1);
         }
-
-
-
-
-        $useranswer=HomeWorkReviewQuestion::leftJoin('user_review_answers','user_review_answers.user_review_question_id','user_review_questions.id')
-        
-        ->whereIn('HomeWorkReviewQuestion.review_type',['mcq']);
-
-        return view("user.home-work.preview",compact('homeWork','homeWorkBook','user','homeWorkReview','useranswer'));
+        return view("user.home-work.preview",compact('homeWork','homeWorkBook','user','homeWorkReview'));
     }
 
     public function booklethistory(Request $request,HomeWork $homeWork,HomeWorkBook $homeWorkBook){ 
