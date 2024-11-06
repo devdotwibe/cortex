@@ -227,7 +227,7 @@
                
 
 
-                 {{-- <li class="side-item {{request()->is('tipsandadvice*') ? 'active':''}}">
+                 <li class="side-item {{request()->is('tipsandadvice*') ? 'active':''}}">
 
                   
                         <a @if(auth('admin')->check() &&!(auth('web')->user()->is_free_access) && (optional(auth('web')->user()->subscription())->status ?? "") !== "subscribed") data-bs-toggle="modal" data-bs-target="#adminsubModal"  @else href="{{ route('tipsandadvise.index') }}" @endif >
@@ -243,10 +243,10 @@
                          Tips And Advice
                          </span>
                      </a>
-                 </li> --}}
+                 </li>
 
 
-                 <li class="side-item {{request()->is('tipsandadvice*') ? 'active':''}}">
+                 {{-- <li class="side-item {{request()->is('tipsandadvice*') ? 'active':''}}">
                     
                     
                     <a
@@ -256,9 +256,9 @@
 
                     @elseif(!auth('admin')->check() && !(auth('web')->user()->is_free_access) && (optional(auth('web')->user()->subscription())->status ?? "") !== "subscribed") 
                         data-bs-toggle="modal" 
-                        data-bs-target="#lockedModal" {{-- Show the modal for free users --}}
+                        data-bs-target="#lockedModal" 
                     @else
-                        href="{{ route('tipsandadvise.index') }}" {{auth('web')->user()->is_free_access}} terdt {{optional(auth('web')->user()->subscription())->status }}{{-- Subscribed users will access the actual route --}}
+                        href="{{ route('tipsandadvise.index') }}" {{auth('web')->user()->is_free_access}} terdt {{optional(auth('web')->user()->subscription())->status }}
                     @endif
                 >
                         <span class="side-icon">
@@ -271,7 +271,7 @@
                             Tips And Advice
                         </span>
                     </a>
-                </li>
+                </li> --}}
                 
 <div class="supportsection">
                  <li class="side-item {{request()->is('support') ? 'active':''}}">
