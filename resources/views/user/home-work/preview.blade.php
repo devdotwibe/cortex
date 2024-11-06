@@ -152,6 +152,7 @@
 
 @push('footer-script')
     <script>
+          var useranswers = @json($useranswer);
         function generateRandomId(length) {
             const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
             let result = '';
