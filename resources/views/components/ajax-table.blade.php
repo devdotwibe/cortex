@@ -137,6 +137,7 @@
 
                     $('.other-actions').hide();
 
+                    $('input[name="selectbox[]"]').prop('checked', false);
                     $('input[name="select_all[]"]').prop('checked', false); // Uncheck all selectbox[] checkboxes
                     
                     @endif
