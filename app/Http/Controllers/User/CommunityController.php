@@ -252,7 +252,7 @@ class CommunityController extends Controller
     }
 
 
-    // Attempt to find the hashtag and associate it with the post
+   
     // if ($request->has('hashtag') && $hashtag = Hashtag::find($request->hashtag)) {
     //     $hashtag->post_id = $post->id;
     //     $hashtag->save();
