@@ -135,10 +135,9 @@
                     $('#table-{{ $tableid }}').DataTable().ajax.reload();
                     @if ($bulkaction)
 
-                    // $('.other-actions').hide();
+                    $('.other-actions').hide();
 
-                    $('input[name="select_all"]').prop('checked', false);
-                    // Uncheck all selectbox[] checkboxes
+                    location.reload();
                     
                     @endif
 
