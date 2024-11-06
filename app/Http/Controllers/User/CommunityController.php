@@ -8,6 +8,7 @@ use App\Models\Poll;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Hashtag;
+use App\Models\Hashtagstore;
 use App\Models\PollOption;
 use App\Models\PostComment;
 use App\Models\PostLike;
@@ -208,7 +209,7 @@ class CommunityController extends Controller
         if ($user->post_status !== "active") {
             return redirect()->route('community.index')->with('error', "Admin Banned from Community post");
         }
-        $hashtags = Hashtag::all();
+        $hashtags = Hashtagstore::all();
         return view('user.community.create', compact('hashtags'));
     }
     // public function store(Request $request)
