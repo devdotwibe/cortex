@@ -136,7 +136,31 @@ class PrivateClassHomeWorkController extends Controller
             }
             return HomeWorkReviewQuestion::whereIn('review_type',['mcq'])->where('home_work_review_id',$homeWorkReview->id)->where('user_id',$user->id)->paginate(1);
         }
-        return view("user.home-work.preview",compact('homeWork','homeWorkBook','user','homeWorkReview'));
+
+
+
+
+        $useranswer=HomeWorkReviewQuestion::leftJoin('user_review_answers','user_review_answers.user_review_question_id','user_review_questions.id')
+        ->where('user_review_answers.user_answer',true)
+        ->whereIn('user_review_questions.review_type',['mcq'])
+        ->where('user_review_questions.user_id',$user->id)
+        
+        ->select('user_review_questions.id','user_review_questions.time_taken','user_review_answers.iscorrect')->get();
+$examtime=0;
+if($user->progress("exam-review-".$homeWorkReview->id."-timed",'')=="timed"){
+$times=explode(':',$user->progress("exam-review-".$homeWorkReview->id."-time_of_exam",'0:0'));
+if(count($times)>0){
+$examtime+=intval(trim($times[0]??"0"))*60;
+$examtime+=intval(trim($times[1]??"0"));
+}
+if($examtime>0&&count($useranswer)>0){
+$examtime=$examtime/count($useranswer);
+}
+}
+
+
+
+        return view("user.home-work.preview",compact('homeWork','homeWorkBook','user','homeWorkReview','useranswer'));
     }
 
     public function booklethistory(Request $request,HomeWork $homeWork,HomeWorkBook $homeWorkBook){ 
