@@ -356,4 +356,27 @@
             })
     })
 </script>
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        // Initialize Select2 with checkboxes enabled
+        $('#hashtag-select').select2({
+            placeholder: "Select hashtags",
+            allowClear: true,
+            templateResult: formatState, // Optional, to style the options
+            templateSelection: formatState
+        });
+    });
+
+    // Optional: Custom template for displaying checkboxes
+    function formatState(state) {
+        if (!state.id) { return state.text; }
+        var $state = $(
+            '<span><input type="checkbox" class="hashtag-checkbox" /> ' + state.text + '</span>'
+        );
+        return $state;
+    }
+</script>
+
 @endpush
