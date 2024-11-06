@@ -88,18 +88,18 @@
                                 </select>
                             </div> --}}
                             
+
                             <div class="form-group">
-                                <label for="hashtag-select">Select Hashtags</label>
-                                <select id="hashtag-select" name="hashtags[]" class="form-control" multiple>
+                                <label>Select Hashtags</label>
+                                <div>
                                     @foreach($hashtags as $hashtag)
-                                        <option value="{{ $hashtag->id }}">
-                                            <input type="checkbox" name="hashtags[]" value="{{ $hashtag->id }}"> 
-                                            {{ $hashtag->hashtag }}
-                                        </option>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="hashtag-{{ $hashtag->id }}" name="hashtags[]" value="{{ $hashtag->id }}">
+                                            <label class="form-check-label" for="hashtag-{{ $hashtag->id }}">{{ $hashtag->hashtag }}</label>
+                                        </div>
                                     @endforeach
-                                </select>
+                                </div>
                             </div>
-                            
                             
                             
                             
