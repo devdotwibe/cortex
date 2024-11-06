@@ -260,17 +260,6 @@ console.log(res.links.length);
 
                 if (res.total > 1) {
                     $.each(res.links, function(k, v) {
-                        let linkstatus = "";
-                        if (k != 0 && k != res.links.length && useranswers[k - 1]) {
-                            linkstatus = 'correct';
-                            if (useranswers[k - 1].iscorrect) {
-
-
-                                linkstatus = "wrong";
-
-                              
-                            }
-                        }
                         if (v.active || !v.url) {
                             $('#lesson-footer-paginationmobile').append(`
                                 <button class="btn btn-secondary ${v.active?"active":""}" disabled  >${v.label}</button>
