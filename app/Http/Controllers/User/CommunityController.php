@@ -222,7 +222,8 @@ class CommunityController extends Controller
                         $fail('Hashtags are not allowed in the description.');
                     }
                 }],
-                'hashtag' => ["nullable", 'string', 'max:500'],
+                'hashtags' => ['nullable', 'array'],
+                'hashtags.*' => ['exists:hashtags,id'],
                 'image' => ["nullable"],
             ]);
       
@@ -245,14 +246,20 @@ class CommunityController extends Controller
         }
 
 
-    // Attempt to find the hashtag and associate it with the post
-    if ($request->has('hashtag') && $hashtag = Hashtag::find($request->hashtag)) {
-        $hashtag->post_id = $post->id;
-        $hashtag->save();
-    } else {
-        // Handle case if the hashtag was not found, if needed
-        // Example: log an error or ignore
+         // Attach selected hashtags to the post
+    if ($request->has('hashtags')) {
+        $post->hashtags()->sync($request->hashtags); // Using many-to-many relationship
     }
+
+
+    // Attempt to find the hashtag and associate it with the post
+    // if ($request->has('hashtag') && $hashtag = Hashtag::find($request->hashtag)) {
+    //     $hashtag->post_id = $post->id;
+    //     $hashtag->save();
+    // } else {
+    //     // Handle case if the hashtag was not found, if needed
+    //     // Example: log an error or ignore
+    // }
         return redirect()->route('community.index')->with('success', "Post published");
     }
     public function pollVote(Request $request, PollOption $pollOption)
