@@ -161,6 +161,10 @@ $(function(){
 
 
 $(function() {
+
+    const storeUrl = "{{ route('admin.community.hashtags.store') }}";
+
+
     console.log('3');
 
     $('#table-category-form-create').on('submit', function(e) {
@@ -177,6 +181,7 @@ $(function() {
             data: $(this).serialize(),
             success: function(response) {
                 if (response.success) {
+                    resetForm();
                   
                     $('#table-category-form-create')[0].reset();
 
@@ -257,7 +262,23 @@ function editHashtag(url) {
             alert('Failed to fetch hashtag details.');
         }
     });
+
+     // Clear (Cancel) button handler
+     $('#table-category-form-clear').on('click', function() {
+        resetForm();
+        $('#table-category-form-create').attr('action', storeUrl); // Set form action back to store URL
+    });
+
+    function resetForm() {
+        $('#table-category-form-create')[0].reset();
+        $('#table-category-form-submit').text('Add +');
+        $('#table-category-form-clear').hide(); // Hide cancel button
+        $('.invalid-feedback').text('');
+        $('.form-control').removeClass('is-invalid');
+    }
 }
+
+
 
 
 </script>
