@@ -319,7 +319,7 @@ class CommunityController extends Controller
 
         $extractedHashtags = $request->input('hashtags',[]);
 
-        dd($extractedHashtags);
+        // dd($extractedHashtags);
         foreach ($extractedHashtags as $hashtag) {
             if (!empty($hashtag)) {
                 Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
