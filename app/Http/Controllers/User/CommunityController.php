@@ -222,8 +222,7 @@ class CommunityController extends Controller
                         $fail('Hashtags are not allowed in the description.');
                     }
                 }],
-                'hashtags' => ['nullable', 'array'],
-                // 'hashtags.*' => ['exists:hashtags,id'],
+                'hashtag' => ["nullable", 'string', 'max:500'],
                 'image' => ["nullable"],
             ]);
       
@@ -245,8 +244,6 @@ class CommunityController extends Controller
             }
         }
 
-
-        
 
     // Attempt to find the hashtag and associate it with the post
     if ($request->has('hashtag') && $hashtag = Hashtag::find($request->hashtag)) {
