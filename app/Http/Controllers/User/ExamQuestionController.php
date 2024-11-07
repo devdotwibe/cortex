@@ -73,7 +73,8 @@ class ExamQuestionController extends Controller
     
             
         })
-        ->orderBy('created_at', 'desc')->get();
+        ->orderBy('created_at', 'desc')
+        ->get();
 
         /**
          *  @var User
