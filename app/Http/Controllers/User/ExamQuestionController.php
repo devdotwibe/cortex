@@ -71,8 +71,10 @@ class ExamQuestionController extends Controller
                 $qry->where('exam_id',$exam->id);
             });
         })
-        ->orderBy('created_at', 'desc')
+        ->with('setname.questions') // Eager load questions for efficient retrieval
+        ->orderBy('created_at', 'desc') // Sort by created_at descending
         ->get();
+
 
         /**
          *  @var User
