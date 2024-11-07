@@ -7,6 +7,7 @@ use App\Models\ClassDetail;
 use App\Models\HomeWork;
 use App\Models\LessonMaterial;
 use App\Models\LessonRecording;
+use App\Models\LiveClassPage;
 
 class UserTermController extends Controller
 {
@@ -16,9 +17,11 @@ class UserTermController extends Controller
 
         $Class_detail = ClassDetail::get();
 
+        $live_class =  LiveClassPage::first(); 
+
         foreach ($Class_detail as $row) {
            
-            $row->inner_url=route('live-class.privateclass.term', $row->slug);
+            $row->inner_url=route('live-class.privateclass.term', ['live'=>$live_class->slug,'class_detail'=>$row->slug]);
             
             $term_names[]=$row;
         }
