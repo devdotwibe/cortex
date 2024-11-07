@@ -391,9 +391,9 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                         <div class="text-field timestartclass">
                                             <label for="starttime">Start Time:</label>
                                             <div class="form-group">
-                                                <input type="text" name="starttime" id="starttime" class="form-control"
-                                                    placeholder="HH : MM" required>
-                                                <small id="starttimeError" class="text-danger" style="display:none;">Please enter a valid time (HH:MM, 24-hour format).</small>
+                                                <input type="text" name="starttime" id="starttime"
+                                                    class="form-control" placeholder="HH : MM"
+                                                    data-mask="^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$" required>
                                             </div>
                                         </div>
 
@@ -415,8 +415,8 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                             <label for="endtime">End Time:</label>
                                             <div class="form-group">
                                                 <input type="text" name="endtime" id="endtime" class="form-control"
-                                                    placeholder="HH : MM" required>
-                                                <small id="endtimeError" class="text-danger" style="display:none;">Please enter a valid time (HH:MM, 24-hour format).</small>
+                                                    placeholder="HH : MM"
+                                                    data-mask="^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$" required>
                                             </div>
                                         </div>
 
@@ -741,53 +741,34 @@ These open group sessions condense the entire Thinking Skills curriculum into te
         });
     </script>
 
-
 <script>
     $(document).ready(function() {
-        // Apply input mask
-        $("#starttime, #endtime").inputmask("99 : 99", { placeholder: "HH : MM" });
-
-        // Real-time validation function
-        function validateTime(inputField, errorField) {
-            const timeValue = inputField.val();
-            const timePattern = /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
-
-            if (timeValue && !timePattern.test(timeValue)) {
-                errorField.show();
-            } else {
-                errorField.hide();
+        // Apply input mask for format only and restrict hours (00-23) and minutes (00-59)
+        $("#starttime").inputmask("99 : 99", {
+            placeholder: "HH : MM",
+            alias: "datetime",
+            inputFormat: "hh : mm",
+            clearIncomplete: true,
+            onKeyPress: function (input, event, currentValue, options) {
+                // Prevent entering hours greater than 23 and minutes greater than 59
+                let regex = /^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$/;
+                if (!regex.test(currentValue)) {
+                    return false; // Block invalid input
+                }
             }
-        }
-
-        // Event listeners for real-time validation on input change
-        $("#starttime").on("input", function() {
-            validateTime($(this), $("#starttimeError"));
         });
 
-        $("#endtime").on("input", function() {
-            validateTime($(this), $("#endtimeError"));
-        });
-
-        // Final validation on form submission
-        $('form').on('submit', function(e) {
-            const timePattern = /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
-            const startTime = $("#starttime").val();
-            const endTime = $("#endtime").val();
-            let isValid = true;
-
-            if (!timePattern.test(startTime)) {
-                $("#starttimeError").show();
-                isValid = false;
-            }
-
-            if (!timePattern.test(endTime)) {
-                $("#endtimeError").show();
-                isValid = false;
-            }
-
-            if (!isValid) {
-                e.preventDefault(); // Prevent form submission if validation fails
-                alert("Please correct the time fields before submitting.");
+        $("#endtime").inputmask("99 : 99", {
+            placeholder: "HH : MM",
+            alias: "datetime",
+            inputFormat: "hh : mm",
+            clearIncomplete: true,
+            onKeyPress: function (input, event, currentValue, options) {
+                // Prevent entering hours greater than 23 and minutes greater than 59
+                let regex = /^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$/;
+                if (!regex.test(currentValue)) {
+                    return false; // Block invalid input
+                }
             }
         });
     });
