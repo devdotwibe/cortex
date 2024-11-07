@@ -71,7 +71,7 @@ class ExamQuestionController extends Controller
                 $qry->where('exam_id',$exam->id);
             });
         })
-        ->orderBy('time_of_exam', 'desc')
+        ->orderBy('created_at', 'desc')
         ->get();
 
         /**
