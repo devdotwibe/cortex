@@ -305,7 +305,7 @@ Route::middleware(['auth', 'isUser'])->group(function () {
             });
             Route::middleware('hasPrivateClass')->group(function () {
                 Route::prefix('home-work')->name('home-work.')->group(function () {
-                    Route::get('/', [PrivateClassHomeWorkController::class, 'index'])->name('index');
+                    // Route::get('/', [PrivateClassHomeWorkController::class, 'index'])->name('index');
                     Route::get('/{home_work}', [PrivateClassHomeWorkController::class, 'show'])->name('show');
                     Route::get('/{home_work}/booklet/{home_work_book}', [PrivateClassHomeWorkController::class, 'booklet'])->name('booklet');
                     Route::get('/{home_work}/booklet/{home_work_book}/history', [PrivateClassHomeWorkController::class, 'booklethistory'])->name('history');
