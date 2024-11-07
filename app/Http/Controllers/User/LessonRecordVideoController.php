@@ -30,6 +30,6 @@ class LessonRecordVideoController extends Controller
             return abort(404);
         }
         $recordVideos=RecordVideo::where('lesson_recording_id',$lessonRecording->id)->get();
-        return view('user.lesson-record.show',compact('lessonRecording','recordVideos'));
+        return view('user.lesson-record.show',compact('lessonRecording','recordVideos','user'));
     }
 }
