@@ -741,14 +741,33 @@ These open group sessions condense the entire Thinking Skills curriculum into te
         });
     </script>
 
-    <script>
-        $(document).ready(function() {
-            $("#starttime").inputmask("99 : 99", {
-                placeholder: "HH : MM"
-            });
-            $("#endtime").inputmask("99 : 99", {
-                placeholder: "HH : MM"
-            });
+<script>
+    $(document).ready(function() {
+        // Apply input mask for format only
+        $("#starttime").inputmask("99 : 99", {
+            placeholder: "HH : MM"
         });
-    </script>
+        $("#endtime").inputmask("99 : 99", {
+            placeholder: "HH : MM"
+        });
+
+        // Validate time format for 24-hour HH:MM on form submission
+        $('form').on('submit', function(e) {
+            const timePattern = /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
+            const startTime = $("#starttime").val();
+            const endTime = $("#endtime").val();
+
+            if (!timePattern.test(startTime)) {
+                alert("Please enter a valid Start Time in HH:MM format.");
+                e.preventDefault(); // Prevent form submission
+            }
+
+            if (!timePattern.test(endTime)) {
+                alert("Please enter a valid End Time in HH:MM format.");
+                e.preventDefault(); // Prevent form submission
+            }
+        });
+    });
+</script>
+
 @endpush
