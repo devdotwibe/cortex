@@ -21,7 +21,7 @@
 
 <section class="invite-wrap mt-2">
     <div class="container">
-        <x-general-form :url="route('admin.exam.options')"   btnsubmit="Save" :fields='[ 
+        <x-general-form :url="route('admin.exam.options1')"   btnsubmit="Save" :fields='[ 
             ["name"=>"title","label"=>"Title","placeholder"=>"Title","size"=>12,"type"=>"text" ,"value"=>get_option("exam_simulator_title") ],
              ["name"=>"description","label"=>"Description","placeholder"=>"Description","size"=>12,"type"=>"editor" ,"value"=>get_option("exam_simulator_description") ],
         ]' />

@@ -79,7 +79,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::resource("/exam",ExamController::class);
         Route::get('/full-mock-exam-options',[ExamController::class,'examoptions'])->name('exam.options');
 
-       
+        Route::get('/full-mock-exam-options1',[ExamController::class,'examoptions1'])->name('exam.options1');
 
 
         Route::post('/full-mock-exam-options',[ExamController::class,'examoptionssave']);
