@@ -12,11 +12,10 @@
 <section class="invite-wrap mt-2">
 
     <div class="container">
-        <h2>Topic Test </h2>
         <x-general-form :url="route('admin.exam.options')"   btnsubmit="Save" :fields='[ 
-            ["name"=>"title","label"=>"Title","placeholder"=>"Title","size"=>12,"type"=>"text" ,"value"=>get_option("exam_simulator_title") ],
+            ["name"=>"title","label"=>"Title","placeholder"=>"Title(Topic Test)","size"=>12,"type"=>"text" ,"value"=>get_option("exam_simulator_title") ],
              ["name"=>"description","label"=>"Description","placeholder"=>"Description","size"=>12,"type"=>"editor" ,"value"=>get_option("exam_simulator_description") ],
-              ["name"=>"title1","label"=>"Title","placeholder"=>"Title","size"=>12,"type"=>"text" ,"value"=>get_option("exam_simulator1_title") ],
+              ["name"=>"title1","label"=>"Title","placeholder"=>"Title (Full Mock Exam)","size"=>12,"type"=>"text" ,"value"=>get_option("exam_simulator1_title") ],
              ["name"=>"description1","label"=>"Description","placeholder"=>"Description","size"=>12,"type"=>"editor" ,"value"=>get_option("exam_simulator1_description") ],
         ]' />
     </div>
