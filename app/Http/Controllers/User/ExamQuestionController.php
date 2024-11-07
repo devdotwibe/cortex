@@ -72,7 +72,7 @@ class ExamQuestionController extends Controller
             });
         })
        
-        ->orderBy('updated_at', 'desc') // Sort by created_at descending
+        ->orderBy('created_at', 'desc') // Sort by created_at descending
         ->get();
 
 
