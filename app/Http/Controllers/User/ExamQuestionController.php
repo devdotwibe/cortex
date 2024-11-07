@@ -71,12 +71,7 @@ class ExamQuestionController extends Controller
                 $qry->where('exam_id',$exam->id);
             });
         })
-       
-        ->with(['setname' => function ($qry) {
-            $qry->orderBy('created_at', 'asc'); // Order by created_at within the related setname
-        }])
-        ->get();
-
+        ->orderBy('updated_at', 'asc')->get();
 
         /**
          *  @var User
