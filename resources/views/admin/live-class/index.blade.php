@@ -391,9 +391,9 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                         <div class="text-field timestartclass">
                                             <label for="starttime">Start Time:</label>
                                             <div class="form-group">
-                                                <input type="text" name="starttime" id="starttime"
-                                                    class="form-control" placeholder="HH : MM"
-                                                    data-mask="^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$" required>
+                                                <input type="text" name="starttime" id="starttime" class="form-control"
+                                                    placeholder="HH : MM" required>
+                                                <span class="error-message" id="starttime-error" style="color: red; display: none;">Please enter a valid Start Time in HH:MM format.</span>
                                             </div>
                                         </div>
 
@@ -751,23 +751,30 @@ These open group sessions condense the entire Thinking Skills curriculum into te
             placeholder: "HH : MM"
         });
 
-        // Validate time format for 24-hour HH:MM on form submission
+        // Validate time format on form submission
         $('form').on('submit', function(e) {
             const timePattern = /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
             const startTime = $("#starttime").val();
             const endTime = $("#endtime").val();
+            let isValid = true;
+
+            // Clear previous error messages
+            $(".error-message").hide();
 
             if (!timePattern.test(startTime)) {
-                alert("Please enter a valid Start Time in HH:MM format.");
-                e.preventDefault(); // Prevent form submission
+                $("#starttime-error").show();
+                isValid = false;
             }
 
             if (!timePattern.test(endTime)) {
-                alert("Please enter a valid End Time in HH:MM format.");
-                e.preventDefault(); // Prevent form submission
+                $("#endtime-error").show();
+                isValid = false;
+            }
+
+            if (!isValid) {
+                e.preventDefault(); // Prevent form submission if invalid
             }
         });
     });
 </script>
-
 @endpush
