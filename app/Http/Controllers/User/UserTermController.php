@@ -41,9 +41,17 @@ class UserTermController extends Controller
 
         $LessonMaterial = LessonMaterial::get();
 
+         /**
+        * @var User
+        */
+        $user=Auth::user(); 
+
+
+
         foreach ($LessonMaterial as $row) {
           
-            $row->inner_url=route('admin.lesson-material.show', $row->slug);
+            // $row->inner_url=route('admin.lesson-material.show', $row->slug);
+            $row->inner_url=route('live-class.privateclass.term', ['live'=>$user->slug,'LessonMaterial'=>$row->slug]);
            
             $term_names[]=$row;
         }
