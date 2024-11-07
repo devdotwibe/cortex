@@ -74,7 +74,7 @@ class ExamQuestionController extends Controller
         ->get();
     
     // Sort the collection by 'updated_at' in descending order
-    $lessons = $lessons->sortByDesc('updated_at');
+    $lessons = $lessons->sortByasc('updated_at');
         /**
          *  @var User
          */
