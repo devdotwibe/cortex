@@ -391,9 +391,9 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                         <div class="text-field timestartclass">
                                             <label for="starttime">Start Time:</label>
                                             <div class="form-group">
-                                                <input type="text" name="starttime" id="starttime" class="form-control"
-                                                       placeholder="HH : MM" required>
-                                                <span id="starttime-error" class="error-message" style="color: red; display: none;"> Hours must be between 00 and 23, and minutes between 00 and 59.</span>
+                                                <input type="text" name="starttime" id="starttime"
+                                                    class="form-control" placeholder="HH : MM"
+                                                    data-mask="^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$" required>
                                             </div>
                                         </div>
 
@@ -411,13 +411,12 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                     </div>
                                     <div class="startdayclass">
                                         <!-- End Time Picker -->
-                                       
                                         <div class="text-field timestartclass">
                                             <label for="endtime">End Time:</label>
                                             <div class="form-group">
                                                 <input type="text" name="endtime" id="endtime" class="form-control"
-                                                       placeholder="HH : MM" required>
-                                                <span id="endtime-error" class="error-message" style="color: red; display: none;"> Hours must be between 00 and 23, and minutes between 00 and 59.</span>
+                                                    placeholder="HH : MM"
+                                                    data-mask="^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$" required>
                                             </div>
                                         </div>
 
@@ -741,50 +740,15 @@ These open group sessions condense the entire Thinking Skills curriculum into te
 
         });
     </script>
-<script>
-    $(document).ready(function() {
-        // Apply input mask to guide the format only
-        $("#starttime, #endtime").inputmask("99 : 99", {
-            placeholder: "HH : MM"
+
+    <script>
+        $(document).ready(function() {
+            $("#starttime").inputmask("99 : 99", {
+                placeholder: "HH : MM"
+            });
+            $("#endtime").inputmask("99 : 99", {
+                placeholder: "HH : MM"
+            });
         });
-
-        // Function to validate hours and minutes
-        function validateTimeInput(input) {
-            let timeValue = input.value;
-            let [hours, minutes] = timeValue.split(" : ");
-            let errorMessageId = input.id + "-error";
-
-            // Hide error message by default
-            $("#" + errorMessageId).hide();
-
-            if (hours > 23 || hours === '' || minutes > 59 || minutes === '') {
-                $("#" + errorMessageId).show(); // Show error message
-                input.value = ""; // Optionally clear input
-            }
-        }
-
-        // Trigger validation on blur and change
-        $("#starttime, #endtime").on("blur change", function() {
-            validateTimeInput(this);
-        });
-
-        // Validate on form submission as well
-        $('form').on('submit', function(e) {
-            const timePattern = /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
-            const startTime = $("#starttime").val();
-            const endTime = $("#endtime").val();
-
-            if (!timePattern.test(startTime)) {
-                $("#starttime-error").show();
-                e.preventDefault(); // Prevent form submission
-            }
-
-            if (!timePattern.test(endTime)) {
-                $("#endtime-error").show();
-                e.preventDefault(); // Prevent form submission
-            }
-        });
-    });
-</script>
-
+    </script>
 @endpush
