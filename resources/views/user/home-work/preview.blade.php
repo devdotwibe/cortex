@@ -81,7 +81,7 @@
         </div> --}}
 
             <div class="lesson-left ">
-                <a href="{{ route('home-work.show', $homeWorkReview->slug) }}" class="button left-btn" title="Back">
+                <a href="{{ route('home-work.preview', $homeWorkReview->slug) }}" class="button left-btn" title="Back">
                     <img src="{{ asset('assets/images/leftarrow.svg') }}" alt="<"> Back
                 </a>
             </div>
