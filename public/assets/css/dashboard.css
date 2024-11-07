@@ -3148,14 +3148,14 @@ aside.side_bar.slider-btn .btn-slider {
 }
 
 .exam-container .question-bank-review .lesson #lesson-footer-pagination {
-    padding: 30px 0;
+    padding: 18px 0;
     display: inline-block;
     border-block: 1px solid #1789fa;
 }
 
 @media screen and (max-width:1399px) {
     .exam-container .question-bank-review .lesson #lesson-footer-pagination {
-        padding: 38px 0;
+        padding: 15px 0;
     }
 
     .exam-container .container-wrap {
@@ -3535,6 +3535,10 @@ s .card-progress .card-body .session-chart {
     .lesson #lesson-footer-pagination button.btn.btn-secondary {
         margin: 0 0 5px;
         font-size: 11px;
+    }
+
+    .exam-container .question-bank-review .lesson #lesson-footer-pagination {
+        padding: 10px 0 8px;
     }
 }
 
