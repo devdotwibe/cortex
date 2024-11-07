@@ -4,6 +4,7 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserCourseController;
 use App\Http\Controllers\UserTermsController;
+use App\Http\Controllers\UserTermController;
 use App\Http\Controllers\UserPrivacyController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\User\AnalyticsController;
@@ -239,6 +240,24 @@ Route::middleware(['auth', 'isUser'])->group(function () {
 
         });
 
+
+        Route::prefix('term')->name('term.')->group(function () {
+
+            Route::get('/',[UserTermController::class,'index'])->name('index');
+        
+            Route::get('/class-detail',[UserTermController::class,'class_detail'])->name('class_detail');
+        
+            Route::get('/lesson-material',[UserTermController::class,'lesson_material'])->name('lesson_material');
+        
+            Route::get('/home-work',[UserTermController::class,'home_work'])->name('home_work');
+            Route::get('/lesson-recording',[UserTermController::class,'lesson_recording'])->name('lesson_recording');
+        
+          
+        
+        });
+        
+
+
        
     });
 
@@ -282,7 +301,9 @@ Route::middleware(['auth', 'isUser'])->group(function () {
                     Route::get('/', [LessonRecordVideoController::class, 'index'])->name('index');
                     Route::get('/{lesson_recording}', [LessonRecordVideoController::class, 'show'])->name('show');
                 });
-      
+
+
+
 
     });
 
@@ -322,4 +343,9 @@ Route::fallback(function () {
 
     return redirect('/'); 
 });
+
+
+
+
+
 

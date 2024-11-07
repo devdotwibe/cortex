@@ -202,13 +202,13 @@
     // }
     $(document).ready(function() {
 
-        loadclassdetail('{{route('admin.term.class_detail')}}');
+        loadclassdetail('{{route('term.class_detail')}}');
 
-        loadlessonmaterial('{{route('admin.term.lesson_material')}}');
+        loadlessonmaterial('{{route('term.lesson_material')}}');
 
-        loadhomework('{{route('admin.term.home_work')}}');
+        loadhomework('{{route('term.home_work')}}');
 
-        loadlessonrecord('{{route('admin.term.lesson_recording')}}');
+        loadlessonrecord('{{route('term.lesson_recording')}}');
 
     });
 
