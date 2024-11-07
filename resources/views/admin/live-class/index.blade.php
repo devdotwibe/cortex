@@ -391,9 +391,9 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                         <div class="text-field timestartclass">
                                             <label for="starttime">Start Time:</label>
                                             <div class="form-group">
-                                                <input type="text" name="starttime" id="starttime"
-                                                    class="form-control" placeholder="HH : MM"
-                                                    data-mask="^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$" required>
+                                                <input type="text" name="starttime" id="starttime" class="form-control"
+                                                    placeholder="HH : MM" required>
+                                                <span id="starttime-error" class="error-message" style="color: red; display: none;">Invalid Start Time. Hours must be between 00-23 and minutes between 00-59.</span>
                                             </div>
                                         </div>
 
@@ -411,14 +411,15 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                     </div>
                                     <div class="startdayclass">
                                         <!-- End Time Picker -->
-                                        <div class="text-field timestartclass">
-                                            <label for="endtime">End Time:</label>
-                                            <div class="form-group">
-                                                <input type="text" name="endtime" id="endtime" class="form-control"
-                                                    placeholder="HH : MM"
-                                                    data-mask="^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$" required>
-                                            </div>
-                                        </div>
+                                       
+                                <div class="text-field timestartclass">
+                                    <label for="endtime">End Time:</label>
+                                    <div class="form-group">
+                                        <input type="text" name="endtime" id="endtime" class="form-control"
+                                            placeholder="HH : MM" required>
+                                        <span id="endtime-error" class="error-message" style="color: red; display: none;">Invalid End Time. Hours must be between 00-23 and minutes between 00-59.</span>
+                                    </div>
+                                </div>
 
                                         <div class="text-field ampmclass">
                                             <label for="endtime_am_pm">Select AM/PM:</label>
@@ -749,24 +750,27 @@ These open group sessions condense the entire Thinking Skills curriculum into te
         });
 
         // Restrict hour and minute values
-        function validateTimeInput(input) {
+        function validateTimeInput(input, errorElementId) {
             let timeValue = input.value;
             let [hours, minutes] = timeValue.split(" : ");
+            let errorElement = $("#" + errorElementId);
 
-            if (hours > 23) {
-                alert("Hours cannot be more than 23.");
+            if (hours > 23 || minutes > 59) {
+                errorElement.show();
                 input.value = ""; // Clear input or adjust as needed
                 input.focus();
-            } else if (minutes > 59) {
-                alert("Minutes cannot be more than 59.");
-                input.value = hours + " : "; // Reset to hour only
-                input.focus();
+            } else {
+                errorElement.hide();
             }
         }
 
-        // Trigger validation on change and blur
-        $("#starttime, #endtime").on("blur change", function() {
-            validateTimeInput(this);
+        // Trigger validation on blur and change events
+        $("#starttime").on("blur change", function() {
+            validateTimeInput(this, "starttime-error");
+        });
+
+        $("#endtime").on("blur change", function() {
+            validateTimeInput(this, "endtime-error");
         });
 
         // Validate on form submission as well
@@ -776,12 +780,12 @@ These open group sessions condense the entire Thinking Skills curriculum into te
             const endTime = $("#endtime").val();
 
             if (!timePattern.test(startTime)) {
-                alert("Please enter a valid Start Time in HH:MM format.");
+                $("#starttime-error").show();
                 e.preventDefault(); // Prevent form submission
             }
 
             if (!timePattern.test(endTime)) {
-                alert("Please enter a valid End Time in HH:MM format.");
+                $("#endtime-error").show();
                 e.preventDefault(); // Prevent form submission
             }
         });
