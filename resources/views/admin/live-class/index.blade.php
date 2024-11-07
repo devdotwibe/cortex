@@ -741,14 +741,51 @@ These open group sessions condense the entire Thinking Skills curriculum into te
         });
     </script>
 
-    <script>
-        $(document).ready(function() {
-            $("#starttime").inputmask("99 : 99", {
-                placeholder: "HH : MM"
-            });
-            $("#endtime").inputmask("99 : 99", {
-                placeholder: "HH : MM"
-            });
+<script>
+    $(document).ready(function() {
+        // Apply input mask to guide format only
+        $("#starttime, #endtime").inputmask("99 : 99", {
+            placeholder: "HH : MM"
         });
-    </script>
+
+        // Restrict hour and minute values
+        function validateTimeInput(input) {
+            let timeValue = input.value;
+            let [hours, minutes] = timeValue.split(" : ");
+
+            if (hours > 23) {
+                alert("Hours cannot be more than 23.");
+                input.value = ""; // Clear input or adjust as needed
+                input.focus();
+            } else if (minutes > 59) {
+                alert("Minutes cannot be more than 59.");
+                input.value = hours + " : "; // Reset to hour only
+                input.focus();
+            }
+        }
+
+        // Trigger validation on change and blur
+        $("#starttime, #endtime").on("blur change", function() {
+            validateTimeInput(this);
+        });
+
+        // Validate on form submission as well
+        $('form').on('submit', function(e) {
+            const timePattern = /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
+            const startTime = $("#starttime").val();
+            const endTime = $("#endtime").val();
+
+            if (!timePattern.test(startTime)) {
+                alert("Please enter a valid Start Time in HH:MM format.");
+                e.preventDefault(); // Prevent form submission
+            }
+
+            if (!timePattern.test(endTime)) {
+                alert("Please enter a valid End Time in HH:MM format.");
+                e.preventDefault(); // Prevent form submission
+            }
+        });
+    });
+</script>
+
 @endpush
