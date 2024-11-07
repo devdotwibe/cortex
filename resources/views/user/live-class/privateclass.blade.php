@@ -49,6 +49,9 @@
                                         <h3>Lesson Material</h3>
                                     </div>
                                 </div>
+                                <div class="category cat-1" id="category-content-class-detail">
+
+                                </div>
                             </a>
                         </div>
                     </div>
@@ -74,6 +77,9 @@
 
                                     </div>
                                 </div>
+                                <div class="category cat-1" id="category-content-class-detail">
+
+                                </div>
                             </a>
                         </div>
                     </div>
@@ -98,6 +104,9 @@
                                         <p>   </p>
 
                                     </div>
+                                </div>
+                                <div class="category cat-1" id="category-content-class-detail">
+
                                 </div>
                             </a>
                         </div>
