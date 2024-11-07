@@ -393,7 +393,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                             <div class="form-group">
                                                 <input type="text" name="starttime" id="starttime" class="form-control"
                                                        placeholder="HH : MM" required>
-                                                <span id="starttime-error" class="error-message" style="color: red; display: none;">Invalid start time. Hours must be between 00 and 23, and minutes between 00 and 59.</span>
+                                                <span id="starttime-error" class="error-message" style="color: red; display: none;"> Hours must be between 00 and 23, and minutes between 00 and 59.</span>
                                             </div>
                                         </div>
 
@@ -417,7 +417,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                             <div class="form-group">
                                                 <input type="text" name="endtime" id="endtime" class="form-control"
                                                        placeholder="HH : MM" required>
-                                                <span id="endtime-error" class="error-message" style="color: red; display: none;">Invalid end time. Hours must be between 00 and 23, and minutes between 00 and 59.</span>
+                                                <span id="endtime-error" class="error-message" style="color: red; display: none;"> Hours must be between 00 and 23, and minutes between 00 and 59.</span>
                                             </div>
                                         </div>
 
