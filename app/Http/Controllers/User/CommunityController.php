@@ -128,7 +128,7 @@ class CommunityController extends Controller
         if ($request->ajax() && (!empty($request->ref)) ) {
             $post = Post::where('id', '>', 0);
             if (!empty($hashtag)) {
-                $post->whereIn('id', Hashtagstore::where('hashtag', 'like', "%$hashtag%")->select('post_id'));
+                $post->whereIn('id', Hashtag::where('hashtag', 'like', "%$hashtag%")->select('post_id'));
             }
 
             if(!empty($userid))
@@ -192,7 +192,7 @@ class CommunityController extends Controller
             ];
         }
         // $hashtags = Hashtag::whereIn('post_id', Post::where('user_id',$user->id)->select('id'))->groupBy('hashtag')->pluck('hashtag');
-        $hashtags = Hashtagstore::whereIn('post_id', Post::where('user_id', $user->id)->select('id'))
+        $hashtags = Hashtag::whereIn('post_id', Post::where('user_id', $user->id)->select('id'))
         ->where('hashtag', 'LIKE', '#%') // Add LIKE condition to filter hashtags starting with '#'
         ->groupBy('hashtag') // Group by hashtag to get unique values
         ->pluck('hashtag'); // Retrieve the hashtags as a collection
