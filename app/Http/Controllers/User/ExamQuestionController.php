@@ -54,35 +54,35 @@ class ExamQuestionController extends Controller
         return view("user.question-bank.index",compact('categorys','exam','user'));
     }
 
-    // public function show(Request $request,Category $category){
+    public function show(Request $request,Category $category){
 
-    //     Session::forget("question-bank-attempt");
-    //     $exam=Exam::where("name",'question-bank')->first();
-    //     if(empty($exam)){
-    //         $exam=Exam::store([
-    //             "title"=>"Question Bank",
-    //             "name"=>"question-bank",
-    //         ]);
-    //         $exam=Exam::find( $exam->id );
-    //     }
+        Session::forget("question-bank-attempt");
+        $exam=Exam::where("name",'question-bank')->first();
+        if(empty($exam)){
+            $exam=Exam::store([
+                "title"=>"Question Bank",
+                "name"=>"question-bank",
+            ]);
+            $exam=Exam::find( $exam->id );
+        }
 
-    //     $lessons=SubCategory::where('category_id',$category->id)->whereHas('setname',function($qry)use($exam){
-    //         $qry->whereHas("questions",function($qry)use($exam){
-    //             $qry->where('exam_id',$exam->id);
-    //         });
+        $lessons=SubCategory::where('category_id',$category->id)->whereHas('setname',function($qry)use($exam){
+            $qry->whereHas("questions",function($qry)use($exam){
+                $qry->where('exam_id',$exam->id);
+            });
     
             
-    //     })
-    //     ->orderBy('updated_at', 'asc')->get();
+        })
+        ->orderBy('updated_at', 'asc')->get();
 
-    //     /**
-    //      *  @var User
-    //      */
-    //     $user=Auth::user();
+        /**
+         *  @var User
+         */
+        $user=Auth::user();
        
 
-    //     return view("user.question-bank.show",compact('category','exam','lessons','user'));
-    // }
+        return view("user.question-bank.show",compact('category','exam','lessons','user'));
+    }
     public function setattempt(Request $request,Category $category,SubCategory $subCategory,Setname $setname){
         
             $exam=Exam::where("name",'question-bank')->first();
