@@ -30,7 +30,9 @@
                                         <h3>Class Details</h3> 
                                     </div>
                                 </div>
-                                
+                                <div class="category cat-1" id="category-content-class-detail">
+
+                                </div>
                             </a>
                         </div>
                     </div>
@@ -107,3 +109,110 @@
         </div>
     </section>
 @endsection
+
+@push('footer-script')
+
+
+
+<script>
+
+    function loadclassdetail(url){
+            $.get(url,function(res){
+                $.each(res,function(k,v){
+
+                    var str="";
+
+                    $.each(res,function(k,v){
+                        str+=`
+                            <div class="category-title">
+                            <a href="${v.inner_url}"><span>${v.term_name}</span></a>
+                            </div>
+                        `;
+                    })
+                    $('#category-content-class-detail').html(str);
+
+                })
+                // pagetoggle()
+            },'json')
+        }
+        
+        function loadlessonmaterial(url){
+            $.get(url,function(res){
+                $.each(res,function(k,v){
+
+                    var str="";
+
+                    $.each(res,function(k,v){
+                        str+=`
+                            <div class="category-title">
+                            <a href="${v.inner_url}"><span>${v.term_name}</span></a>
+                            </div>
+                        `;
+                    })
+                    $('#category-content-lesson-material').html(str);
+
+                })
+                // pagetoggle()
+            },'json')
+        }
+
+        function loadhomework(url){
+            $.get(url,function(res){
+                $.each(res,function(k,v){
+
+                    var str="";
+
+                    $.each(res,function(k,v){
+                        str+=`
+                            <div class="category-title">
+                            <a href="${v.inner_url}"><span>${v.term_name}</span></a>
+                            </div>
+                        `;
+                    })
+                    $('#category-content-home-work').html(str);
+
+                })
+                // pagetoggle()
+            },'json')
+        }
+
+        function loadlessonrecord(url){
+            $.get(url,function(res){
+                $.each(res,function(k,v){
+
+                    var str="";
+
+                    $.each(res,function(k,v){
+                        str+=`
+                            <div class="category-title">
+                            <a href="${v.inner_url}"><span>${v.term_name}</span></a>
+                            </div>
+                        `;
+                    })
+                    $('#category-content-lesson-recording').html(str);
+
+                })
+                // pagetoggle()
+            },'json')
+        }
+
+    // function pagetoggle(){
+    //     $('#category-content-section,#subcategory-content-section').slideToggle()
+    //     $('#back-btn').fadeToggle()
+    // }
+    $(document).ready(function() {
+
+        loadclassdetail('{{route('admin.term.class_detail')}}');
+
+        loadlessonmaterial('{{route('admin.term.lesson_material')}}');
+
+        loadhomework('{{route('admin.term.home_work')}}');
+
+        loadlessonrecord('{{route('admin.term.lesson_recording')}}');
+
+    });
+
+
+</script>
+
+@endpush
