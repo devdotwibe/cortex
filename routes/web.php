@@ -4,7 +4,7 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserCourseController;
 use App\Http\Controllers\UserTermsController;
-use App\Http\Controllers\UserTermController;
+use App\Http\Controllers\User\UserTermController;
 use App\Http\Controllers\UserPrivacyController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\User\AnalyticsController;
@@ -295,6 +295,7 @@ Route::middleware(['auth', 'isUser'])->group(function () {
                     Route::get('/{live}/private-class/room', [LiveClassController::class, 'privateclassroom'])->name('privateclass.room');
                     Route::get('/{live}/private-class/details', [LiveClassController::class, 'privateclassdetails'])->name('privateclass.details');
                     Route::get('/{live}/private-class/{class_detail}/term', [LiveClassController::class, 'privateclassterm'])->name('privateclass.term');
+
                     Route::get('/{live}/private-class/lesson', [LiveClassController::class, 'privateclasslesson'])->name('privateclass.lesson');
                     Route::get('/{live}/private-class/lesson/{lesson_material}/show', [LiveClassController::class, 'privateclasslessonshow'])->name('privateclass.lessonshow');
                     Route::get('/{live}/private-class/lesson/{sub_lesson_material}.pdf', [LiveClassController::class, 'privateclasslessonpdf'])->name('privateclass.lessonpdf');
