@@ -94,8 +94,23 @@ class ExamController extends Controller
         ]);
         OptionHelper::setData("exam_simulator_title", $request->title);
         OptionHelper::setData("exam_simulator_description", $request->description);
-        return redirect()->back()->with("success","Exam Simulator Description Updated");
+        return redirect()->back()->with("success","Topic Test Description Updated");
     }
+
+
+    public function examoptionsfullmock(Request $request){
+        $request->validate([
+            'description'=>'required',
+            'title'=>'required',
+        ]);
+        OptionHelper::setData("exam_simulator1_title", $request->title);
+        OptionHelper::setData("exam_simulator1_description", $request->description);
+        return redirect()->back()->with("success","Fullmock Description Updated");
+    }
+
+
+
+
     public function update(Request $request,Exam $exam){
         $examdat=$request->validate([
             "title"=>"required",

@@ -11,7 +11,7 @@
                     <img src="{{ asset('assets/images/exiticon.svg') }}" alt="">
                 </a>
             </div>
-            <h1>{{get_option('exam_simulator_title')}}</h1>
+            <h1>{{get_option('exam_simulator1_title')}}</h1>
         </div>
         <div class="summery-title">
             {{$exam->title}}
@@ -23,7 +23,7 @@
         </div>
 
         <div class="summery-content">
-            {!! get_option("exam_simulator_description") !!}
+            {!! get_option("exam_simulator1_description") !!}
         </div>
         <div class="summery-action">
             <a onclick="loadquestions('{{route('full-mock-exam.confirmshow',$exam->slug)}}')" class="btn btn-warning btn-sm"> Ready To Start </a>

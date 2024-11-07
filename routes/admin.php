@@ -78,7 +78,12 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::get('/user/{user}/termslist',[UserController::class,'termslist'])->name('user.termslist');
         Route::resource("/exam",ExamController::class);
         Route::get('/full-mock-exam-options',[ExamController::class,'examoptions'])->name('exam.options');
+
+       
+
+
         Route::post('/full-mock-exam-options',[ExamController::class,'examoptionssave']);
+        Route::post('/full-mock-exam-options',[ExamController::class,'examoptionsfullmock']);
 
         Route::resource("/payment",PaymentController::class);
         Route::prefix('subscriber')->name('subscriber.')->group(function () {
