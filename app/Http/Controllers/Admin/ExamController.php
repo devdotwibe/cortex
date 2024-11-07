@@ -88,9 +88,7 @@ class ExamController extends Controller
         return view("admin.exam.option");
     }
 
-    public function examoptions1(Request $request){
-        return view("admin.exam.option");
-    }
+  
     public function examoptionssave(Request $request){
         $request->validate([
             'description'=>'required',
