@@ -18,7 +18,7 @@ class UserTermController extends Controller
 
         foreach ($Class_detail as $row) {
            
-            $row->inner_url=route('admin.class-detail.show', $row->slug);
+            $row->inner_url=route('live-class.privateclass.term', $row->slug);
             
             $term_names[]=$row;
         }
