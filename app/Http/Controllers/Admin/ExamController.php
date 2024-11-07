@@ -101,7 +101,7 @@ class ExamController extends Controller
         OptionHelper::setData("exam_simulator_description", $request->description);
         OptionHelper::setData("exam_simulator1_title", $request->title1);
         OptionHelper::setData("exam_simulator1_description", $request->description1);
-        return redirect()->back()->with("success"," Description Updated");
+        return redirect()->back()->with("success"," Content Updated Successfully");
     }
 
 
