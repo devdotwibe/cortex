@@ -88,9 +88,15 @@ class UserTermController extends Controller
 
         $Lesson_Recording = LessonRecording::get();
 
+         /**
+        * @var User
+        */
+        $user=Auth::user(); 
+
+
         foreach ($Lesson_Recording as $row) {
           
-            $row->inner_url=route('admin.lesson-record.show', $row->slug);
+            $row->inner_url=route('lesson-record.show', $row->slug);
            
             $term_names[]=$row;
         }
