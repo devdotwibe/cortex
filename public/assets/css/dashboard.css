@@ -519,7 +519,7 @@ button.close {
     border-radius: 0;
     min-height: calc(100vh - 147px);
     position: relative;
-    padding-bottom: 6em !important;
+    padding-bottom: 5.35em !important;
 }
 
 .exam-container .container-wrap-index {
@@ -654,7 +654,7 @@ button.close {
     display: flex;
     color: #FFF;
     background: #1789fa;
-    padding: 16px 15px;
+    padding: 22px 15px;
     justify-content: center;
     align-items: center;
     height: 100%;
@@ -3148,7 +3148,7 @@ aside.side_bar.slider-btn .btn-slider {
 }
 
 .exam-container .question-bank-review .lesson #lesson-footer-pagination {
-    padding: 18px 0;
+    padding: 23px 0;
     display: inline-block;
     border-block: 1px solid #1789fa;
 }
