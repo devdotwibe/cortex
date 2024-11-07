@@ -241,34 +241,34 @@ Route::middleware(['auth', 'isUser'])->group(function () {
         });
 
 
-        // Route::prefix('term')->name('term.')->group(function () {
+        Route::prefix('term')->name('term.')->group(function () {
 
-        //     Route::get('/',[UserTermController::class,'index'])->name('index');
+            Route::get('/',[UserTermController::class,'index'])->name('index');
         
-        //     Route::get('/class-detail',[UserTermController::class,'class_detail'])->name('class_detail');
+            Route::get('/class-detail',[UserTermController::class,'class_detail'])->name('class_detail');
         
-        //     Route::get('/lesson-material',[UserTermController::class,'lesson_material'])->name('lesson_material');
+            Route::get('/lesson-material',[UserTermController::class,'lesson_material'])->name('lesson_material');
         
-        //     Route::get('/home-work',[UserTermController::class,'home_work'])->name('home_work');
-        //     Route::get('/lesson-recording',[UserTermController::class,'lesson_recording'])->name('lesson_recording');
+            Route::get('/home-work',[UserTermController::class,'home_work'])->name('home_work');
+            Route::get('/lesson-recording',[UserTermController::class,'lesson_recording'])->name('lesson_recording');
 
 
-        //       Route::get('/class-detail/{slug}',[UserTermController::class,'show'])->name('show');
+              Route::get('/class-detail/{slug}',[UserTermController::class,'show'])->name('show');
           
-        //     Route::get('/lesson-material/{slug}',[UserTermController::class,'show'])->name('show');
+            Route::get('/lesson-material/{slug}',[UserTermController::class,'show'])->name('show');
 
-        //      Route::get('/home-work/{home_work}',[UserTermController::class,'show'])->name('show');
+             Route::get('/home-work/{home_work}',[UserTermController::class,'show'])->name('show');
 
               
 
 
-        //       Route::get('/lesson-record/{lesson_recording}',[UserTermController::class,'show'])->name('show');
+              Route::get('/lesson-record/{lesson_recording}',[UserTermController::class,'show'])->name('show');
 
 
         
           
         
-        // });
+        });
         
 
 
