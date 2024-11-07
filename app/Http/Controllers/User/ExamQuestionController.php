@@ -71,7 +71,7 @@ class ExamQuestionController extends Controller
                 $qry->where('exam_id',$exam->id);
             });
         })
-        ->orderBy('updated_at', 'desc') // Order by updated date in descending order
+        ->orderBy('updated_at', 'asc') // Order by updated date in descending order
         ->get();
         /**
          *  @var User
