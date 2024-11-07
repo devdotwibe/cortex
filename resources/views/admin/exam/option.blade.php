@@ -21,13 +21,7 @@
 
 
 
-<section class="invite-wrap mt-2">
-    <div class="container">
-        <x-general-form :url="route('admin.exam.options1')"   btnsubmit="Save" :fields='[ 
-           
-        ]' />
-    </div>
-</section>
+
 
 
 
