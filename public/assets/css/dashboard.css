@@ -3153,6 +3153,14 @@ aside.side_bar.slider-btn .btn-slider {
     border-block: 1px solid #1789fa;
 }
 
+.exam-container .mcq-container-wrap.full-mock-exam {
+    padding-bottom: 0 !important;
+}
+
+.exam-container .mcq-container-wrap.full-mock-exam #lesson-footer-pagination {
+    padding-bottom: 0;
+}
+
 @media screen and (max-width:1399px) {
     .exam-container .question-bank-review .lesson #lesson-footer-pagination {
         padding: 15px 0;
