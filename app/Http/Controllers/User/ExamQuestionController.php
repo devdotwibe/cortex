@@ -73,7 +73,7 @@ class ExamQuestionController extends Controller
         })
        
         ->with(['setname' => function ($qry) {
-            $qry->orderBy('created_at', 'desc'); // Order by created_at within the related setname
+            $qry->orderBy('created_at', 'asc'); // Order by created_at within the related setname
         }])
         ->get();
 
