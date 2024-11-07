@@ -72,7 +72,7 @@ class ExamQuestionController extends Controller
             });
         })
         ->with('setname.questions') // Eager load questions for efficient retrieval
-        ->orderBy('updated_at', 'desc') // Sort by created_at descending
+        ->orderBy('updated_at', 'asc') // Sort by created_at descending
         ->get();
 
 
