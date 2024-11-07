@@ -21,7 +21,7 @@
                 <div class="col-md-6">
                     <div class="card mb-3">
                         <div class="card-body">
-                            <a href="{{ route('live-class.privateclass.details', $user->slug) }}">
+                            <a>
                                 <div class="category">
                                     <div class="category-image">
                                         <img src="{{ asset('assets/images/class.svg') }}">
