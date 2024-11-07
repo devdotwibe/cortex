@@ -51,7 +51,7 @@ class UserTermController extends Controller
         foreach ($LessonMaterial as $row) {
           
             // $row->inner_url=route('admin.lesson-material.show', $row->slug);
-            $row->inner_url=route('homework.show',$row->slug);
+            $row->inner_url=route('live-class.privateclass.lessonshow', ['live'=>$user->slug,'lesson_material'=>$row->slug]);
            
             $term_names[]=$row;
         }
@@ -73,9 +73,9 @@ class UserTermController extends Controller
 
         foreach ($HomeWork as $row) {
           
-            $row->inner_url=route('admin.home-work.show', $row->slug);
+            // $row->inner_url=route('admin.home-work.show', $row->slug);
 
-            $row->inner_url=route('live-class.privateclass.lessonshow', ['live'=>$user->slug,'lesson_material'=>$row->slug]);
+            $row->inner_url=route('home-work.show', $row->slug);
            
             $term_names[]=$row;
         }
