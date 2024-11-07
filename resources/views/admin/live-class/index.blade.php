@@ -393,7 +393,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                             <div class="form-group">
                                                 <input type="text" name="starttime" id="starttime" class="form-control"
                                                     placeholder="HH : MM" required>
-                                                <span class="error-message" id="starttime-error" style="color: red; display: none;">Please enter a valid Start Time in HH:MM format.</span>
+                                                <small id="starttimeError" class="text-danger" style="display:none;">Please enter a valid time (HH:MM, 24-hour format).</small>
                                             </div>
                                         </div>
 
@@ -415,8 +415,8 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                             <label for="endtime">End Time:</label>
                                             <div class="form-group">
                                                 <input type="text" name="endtime" id="endtime" class="form-control"
-                                                    placeholder="HH : MM"
-                                                    data-mask="^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$" required>
+                                                    placeholder="HH : MM" required>
+                                                <small id="endtimeError" class="text-danger" style="display:none;">Please enter a valid time (HH:MM, 24-hour format).</small>
                                             </div>
                                         </div>
 
@@ -741,30 +741,53 @@ These open group sessions condense the entire Thinking Skills curriculum into te
         });
     </script>
 
+
 <script>
     $(document).ready(function() {
-        // Apply input mask for format only
-        $("#starttime").inputmask("99 : 99", {
-            placeholder: "HH : MM"
-        });
-        $("#endtime").inputmask("99 : 99", {
-            placeholder: "HH : MM"
+        // Apply input mask
+        $("#starttime, #endtime").inputmask("99 : 99", { placeholder: "HH : MM" });
+
+        // Real-time validation function
+        function validateTime(inputField, errorField) {
+            const timeValue = inputField.val();
+            const timePattern = /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
+
+            if (timeValue && !timePattern.test(timeValue)) {
+                errorField.show();
+            } else {
+                errorField.hide();
+            }
+        }
+
+        // Event listeners for real-time validation on input change
+        $("#starttime").on("input", function() {
+            validateTime($(this), $("#starttimeError"));
         });
 
-        // Validate time format for 24-hour HH:MM on form submission
+        $("#endtime").on("input", function() {
+            validateTime($(this), $("#endtimeError"));
+        });
+
+        // Final validation on form submission
         $('form').on('submit', function(e) {
             const timePattern = /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
             const startTime = $("#starttime").val();
             const endTime = $("#endtime").val();
+            let isValid = true;
 
             if (!timePattern.test(startTime)) {
-                alert("Please enter a valid Start Time in HH:MM format.");
-                e.preventDefault(); // Prevent form submission
+                $("#starttimeError").show();
+                isValid = false;
             }
 
             if (!timePattern.test(endTime)) {
-                alert("Please enter a valid End Time in HH:MM format.");
-                e.preventDefault(); // Prevent form submission
+                $("#endtimeError").show();
+                isValid = false;
+            }
+
+            if (!isValid) {
+                e.preventDefault(); // Prevent form submission if validation fails
+                alert("Please correct the time fields before submitting.");
             }
         });
     });
