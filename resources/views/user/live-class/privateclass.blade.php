@@ -30,6 +30,17 @@
                                         <h3>Class Details</h3> 
                                     </div>
                                 </div>
+
+                                <div class="category-content">
+                                    <div class="class-title">
+                                        <h4>{{$item->term_name}}</h4>
+                                    </div>
+                                    <div class="class-term">
+                                        <h3>Term {{$k+1}}</h3> 
+                                    </div>
+                                </div>
+
+                                
                             </a>
                         </div>
                     </div>
