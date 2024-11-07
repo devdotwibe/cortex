@@ -93,12 +93,14 @@ class ExamController extends Controller
         $request->validate([
             'description'=>'required',
             'title'=>'required',
+            'description1'=>'required',
+            'title1'=>'required',
             
         ]);
         OptionHelper::setData("exam_simulator_title", $request->title);
         OptionHelper::setData("exam_simulator_description", $request->description);
-        OptionHelper::setData("exam_simulator1_title", $request->title);
-        OptionHelper::setData("exam_simulator1_description", $request->description);
+        OptionHelper::setData("exam_simulator1_title", $request->title1);
+        OptionHelper::setData("exam_simulator1_description", $request->description1);
         return redirect()->back()->with("success"," Description Updated");
     }
 
