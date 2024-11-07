@@ -83,7 +83,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
 
         Route::post('/full-mock-exam-options',[ExamController::class,'examoptionssave']);
-        Route::post('/full-mock-exam-options',[ExamController::class,'examoptionsfullmock']);
+        Route::post('/full-mock-exam-options1',[ExamController::class,'examoptionsfullmock']);
 
         Route::resource("/payment",PaymentController::class);
         Route::prefix('subscriber')->name('subscriber.')->group(function () {
