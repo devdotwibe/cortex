@@ -76,6 +76,7 @@ class UserTermController extends Controller
             // $row->inner_url=route('admin.home-work.show', $row->slug);
 
             $row->inner_url=route('home-work.show', $row->slug);
+          
            
             $term_names[]=$row;
         }
