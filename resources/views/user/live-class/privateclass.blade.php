@@ -30,6 +30,9 @@
                                         <h3>Class Details</h3> 
                                     </div>
                                 </div>
+                                <div class="category cat-1" id="category-content-class-detail">
+
+                                </div>
                             </a>
                         </div>
                     </div>
