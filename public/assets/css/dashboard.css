@@ -519,7 +519,7 @@ button.close {
     border-radius: 0;
     min-height: calc(100vh - 147px);
     position: relative;
-    padding-bottom: 5.35em !important;
+    padding-bottom: 4.90em !important;
 }
 
 .exam-container .container-wrap-index {
@@ -6407,7 +6407,8 @@ nav.navbar.header-class {
 
 
 .exam-container .topic-test-review .lesson #lesson-footer-pagination {
-    padding: 38px 0;
+    bottom: 12px;
+    padding: 18px 0;
     border-block: 1px solid #1789fa;
     display: inline-block;
 }
