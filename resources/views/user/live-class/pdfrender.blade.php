@@ -59,20 +59,49 @@
             };
             image.src = v.url;
         }
-        function printdata(){
-            var windowContent = '<!DOCTYPE html>';
-            windowContent += '<html>';
-            windowContent += '<head><title>{{ucfirst($subLessonMaterial->pdf_name)}}</title></head>';
-            windowContent += '<body>';
-            windowContent += '<img src="' + canvas.toDataURL() + '" onload="window.print();window.close()" width="500"  />';
-            windowContent += '</body>';
-            windowContent += '</html>';
+        function printdata() {
+            // Check if an iframe already exists; if not, create it
+            let printFrame = document.getElementById("print-frame");
+            if (!printFrame) {
+                printFrame = document.createElement("iframe");
+                printFrame.id = "print-frame";
+                printFrame.style.position = "absolute";
+                printFrame.style.width = "0";
+                printFrame.style.height = "0";
+                printFrame.style.border = "none";
+                document.body.appendChild(printFrame);
+            }
 
-            var printWin = window.open('', '', '');
-            printWin.document.open();
-            printWin.document.write(windowContent);
-            printWin.document.close();
+            // Prepare content with the canvas image
+            const windowContent = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>{{ ucfirst($subLessonMaterial->pdf_name) }}</title>
+                    <style>
+                        @media print {
+                            body { margin: 0; }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <img src="${canvas.toDataURL()}" width="500">
+                </body>
+                </html>
+            `;
+
+            // Write the content to the iframe and wait for it to load before printing
+            const doc = printFrame.contentWindow || printFrame.contentDocument;
+            doc.document.open();
+            doc.document.write(windowContent);
+            doc.document.close();
+
+            // Trigger print after the iframe content has loaded
+            printFrame.onload = function() {
+                printFrame.contentWindow.print();
+            };
         }
+
         $(function(){
             renderPdf()
             $.each(imgdata,function(k,v){ 

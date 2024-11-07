@@ -83,12 +83,16 @@ class MainController extends Controller
                     $bgcolor="#FFFFFF";
                     $borderColor="#E1E1E1";
                     if($date->format('Y-m-d')==date('Y-m-d')){
-                        $bgcolor="#E1E1E1";
+                        // $bgcolor="#E1E1E1";
                     }
                     if($cnt>0){
                         $borderColor="#91C188";
+                        $bgcolor="#91C188"; 
+
                         if($cnt>30){
                             $borderColor="#4B9773";
+                            $bgcolor="#4B9773"; 
+
                         } 
                         if(Reminder::where("remind_date",$date->format('Y-m-d'))->where('user_id',$user->id)->count()>0){
                             $bgcolor="#FFCD56"; 
@@ -96,6 +100,7 @@ class MainController extends Controller
                     }else{
                         if(Reminder::where("remind_date",$date->format('Y-m-d'))->where('user_id',$user->id)->count()>0){
                             $borderColor="#FFCD56";
+                            $bgcolor="#FFCD56"; 
                         }
                     }
                     $responceData[]=[ 

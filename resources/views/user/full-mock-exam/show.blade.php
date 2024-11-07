@@ -491,11 +491,18 @@ function HideTime() {
                             $.each(ans,function(ai,av){
                                 const letter = String.fromCharCode(ai + 'A'.charCodeAt(0))
                                 $(`#mcq-${lesseonId}-list`).append(`
-                                    <div class="form-check">
-                                        <input type="radio" name="answer" data-page="${summery.cudx}" data-question="${v.slug}" id="user-answer-${lesseonId}-ans-item-${ai}" value="${av.slug}" class="form-check-input"  >        
-                                        <label for="user-answer-${lesseonId}-ans-item-${ai}" >${ letter }. ${av.title}</label>
-                                    </div>  
-                                `)
+                                    ${av.title ? `
+                                        <div class="form-check">
+                                            <input type="radio" name="answer" data-page="${summery.cudx}" data-question="${v.slug}"
+                                                id="user-answer-${lesseonId}-ans-item-${ai}" value="${av.slug}"
+                                                class="form-check-input">
+                                            <label for="user-answer-${lesseonId}-ans-item-${ai}">
+                                                ${letter}. ${av.title}
+                                            </label>
+                                        </div>
+                                    ` : ''}
+                                `);
+
                             })
                             refreshquestionanswer(v.slug,function(data){
                                 $(`#mcq-${lesseonId}-list input[value="${data.value}"]`).prop("checked",true)
