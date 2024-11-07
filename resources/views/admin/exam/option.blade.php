@@ -8,9 +8,11 @@
         </div> 
     </div>
 </section> 
-<h2>Topic Test </h2>
+
 <section class="invite-wrap mt-2">
+
     <div class="container">
+        <h2>Topic Test </h2>
         <x-general-form :url="route('admin.exam.options')"   btnsubmit="Save" :fields='[ 
             ["name"=>"title","label"=>"Title","placeholder"=>"Title","size"=>12,"type"=>"text" ,"value"=>get_option("exam_simulator_title") ],
              ["name"=>"description","label"=>"Description","placeholder"=>"Description","size"=>12,"type"=>"editor" ,"value"=>get_option("exam_simulator_description") ],
