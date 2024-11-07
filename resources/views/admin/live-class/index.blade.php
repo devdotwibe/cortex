@@ -743,35 +743,38 @@ These open group sessions condense the entire Thinking Skills curriculum into te
 
 <script>
     $(document).ready(function() {
-        // Apply input mask for format only and restrict hours (00-23) and minutes (00-59)
+        // Apply input mask for format only
         $("#starttime").inputmask("99 : 99", {
             placeholder: "HH : MM",
-            alias: "datetime",
-            inputFormat: "hh : mm",
-            clearIncomplete: true,
-            onKeyPress: function (input, event, currentValue, options) {
-                // Prevent entering hours greater than 23 and minutes greater than 59
-                let regex = /^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$/;
-                if (!regex.test(currentValue)) {
-                    return false; // Block invalid input
+            oncomplete: function() {
+                var startTime = $("#starttime").val();
+                var timeParts = startTime.split(" : ");
+                var hours = parseInt(timeParts[0], 10);
+                var minutes = parseInt(timeParts[1], 10);
+
+                // If hours > 23 or minutes > 59, reset the value
+                if (hours > 23 || minutes > 59) {
+                    $("#starttime").val(""); // Clear the field if invalid
                 }
             }
         });
 
         $("#endtime").inputmask("99 : 99", {
             placeholder: "HH : MM",
-            alias: "datetime",
-            inputFormat: "hh : mm",
-            clearIncomplete: true,
-            onKeyPress: function (input, event, currentValue, options) {
-                // Prevent entering hours greater than 23 and minutes greater than 59
-                let regex = /^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$/;
-                if (!regex.test(currentValue)) {
-                    return false; // Block invalid input
+            oncomplete: function() {
+                var endTime = $("#endtime").val();
+                var timeParts = endTime.split(" : ");
+                var hours = parseInt(timeParts[0], 10);
+                var minutes = parseInt(timeParts[1], 10);
+
+                // If hours > 23 or minutes > 59, reset the value
+                if (hours > 23 || minutes > 59) {
+                    $("#endtime").val(""); // Clear the field if invalid
                 }
             }
         });
     });
 </script>
+
 
 @endpush
