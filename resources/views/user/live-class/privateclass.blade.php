@@ -49,7 +49,7 @@
                                         <h3>Lesson Material</h3>
                                     </div>
                                 </div>
-                                <div class="category cat-1" id="category-content-class-detail">
+                                <div class="category cat-1" id="category-content-lesson-material">
 
                                 </div>
                             </a>
@@ -77,7 +77,7 @@
 
                                     </div>
                                 </div>
-                                <div class="category cat-1" id="category-content-class-detail">
+                                <div class="category cat-1" id="category-content-home-work">
 
                                 </div>
                             </a>
@@ -105,7 +105,7 @@
 
                                     </div>
                                 </div>
-                                <div class="category cat-1" id="category-content-class-detail">
+                                <div class="category cat-1" id="category-content-lesson-recording">
 
                                 </div>
                             </a>
