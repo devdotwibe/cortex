@@ -293,19 +293,19 @@ Route::middleware(['auth', 'isUser'])->group(function () {
 
                 Route::middleware('hasPrivateClass')->group(function () {
                     Route::get('/{live}/private-class/room', [LiveClassController::class, 'privateclassroom'])->name('privateclass.room');
-                    // Route::get('/{live}/private-class/details', [LiveClassController::class, 'privateclassdetails'])->name('privateclass.details');
+                    Route::get('/{live}/private-class/details', [LiveClassController::class, 'privateclassdetails'])->name('privateclass.details');
                     Route::get('/{live}/private-class/{class_detail}/term', [LiveClassController::class, 'privateclassterm'])->name('privateclass.term');
 
-                    // Route::get('/{live}/private-class/lesson', [LiveClassController::class, 'privateclasslesson'])->name('privateclass.lesson');
+                    Route::get('/{live}/private-class/lesson', [LiveClassController::class, 'privateclasslesson'])->name('privateclass.lesson');
                     Route::get('/{live}/private-class/lesson/{lesson_material}/show', [LiveClassController::class, 'privateclasslessonshow'])->name('privateclass.lessonshow');
-
+                    
                     Route::get('/{live}/private-class/lesson/{sub_lesson_material}.pdf', [LiveClassController::class, 'privateclasslessonpdf'])->name('privateclass.lessonpdf');
                     Route::get('/{live}/private-class/lesson/{sub_lesson_material}/load/{file}', [LiveClassController::class, 'privateclasslessonpdfload'])->name('privateclass.lessonpdf.load');
                 });
             });
             Route::middleware('hasPrivateClass')->group(function () {
                 Route::prefix('home-work')->name('home-work.')->group(function () {
-                    // Route::get('/', [PrivateClassHomeWorkController::class, 'index'])->name('index');
+                    Route::get('/', [PrivateClassHomeWorkController::class, 'index'])->name('index');
                     Route::get('/{home_work}', [PrivateClassHomeWorkController::class, 'show'])->name('show');
                     Route::get('/{home_work}/booklet/{home_work_book}', [PrivateClassHomeWorkController::class, 'booklet'])->name('booklet');
                     Route::get('/{home_work}/booklet/{home_work_book}/history', [PrivateClassHomeWorkController::class, 'booklethistory'])->name('history');
