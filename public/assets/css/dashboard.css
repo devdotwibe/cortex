@@ -1635,6 +1635,7 @@ button.close {
 }
 
 .lesson-pdf-body canvas {
+    width: 100%;
     border: 1px solid black;
 }
 
