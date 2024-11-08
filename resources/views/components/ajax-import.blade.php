@@ -143,17 +143,43 @@
 
         })
 
-        $('#import-{{ $id }}-button').click(function(){
-            let element=this;
-            let isValid = true;
-            $('#import-{{ $id }}-import_datas-error-message').text('Please upload a file!').hide();
+        // $('#import-{{ $id }}-button').click(function(){
+        //     let element=this;
+        //     let isValid = true;
+            
+        //     $('#import-{{ $id }}-import_datas-error-message').text('Please upload a file!').hide();
 
-            let fileInput = $('#import-{{ $id }}-file')[0];
+        //     let fileInput = $('#import-{{ $id }}-file')[0];
 
-            if (fileInput.files.length === 0) {
-                $('#import-{{ $id }}-import_datas-error-message').text('Please upload a file!').show();
-                isValid = false;
-            }
+        //     if (fileInput.files.length === 0) {
+        //         $('#import-{{ $id }}-import_datas-error-message').text('Please upload a file!').show();
+        //         isValid = false;
+        //     }
+
+
+        $('#import-{{ $id }}-button').click(function() {
+    let element = this;
+    let isValid = true;
+    
+    // Clear any existing error message and remove focus
+    $('#import-{{ $id }}-import_datas-error-message')
+        .text('') 
+        .hide()
+        .removeClass('focused-error');
+
+    // Check if a file has been selected
+    let fileInput = $('#import-{{ $id }}-file')[0];
+    if (fileInput.files.length === 0) {
+        // Set error message and apply focus styling
+        $('#import-{{ $id }}-import_datas-error-message')
+            .text('Please upload a file!')
+            .show()
+            .addClass('focused-error')
+            .focus();  // Brings focus to the error message
+
+        isValid = false;
+    }
+
 
             if(import_{{ $id }}_data.length>0)
             {
