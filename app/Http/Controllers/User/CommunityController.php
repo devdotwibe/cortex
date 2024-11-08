@@ -671,30 +671,30 @@ class CommunityController extends Controller
 
         
 
-    // // Update or associate the selected hashtag with the post
-    // if ($request->filled('hashtag')) {
-    //     Hashtag::where('post_id', $post->id)->update(['post_id' => null]); // Remove previous association
-    //     $hashtag = Hashtag::find($request->hashtag);
-    //     $hashtag->post_id = $post->id;
-    //     $hashtag->save();
-    // }
-
-    $extractedHashtags = $request->input('hashtag',[]);
-
-    foreach ($extractedHashtags as $hashtag) {
-        if (!empty($hashtag)) {
-            $hash_value = HashtagStore::find($hashtag);
-
-            $hash = Hashtag::where('post_id', $post->id)->where('hashtagstore_id',$hashtag)->first();
-            if(empty($hash)){
-                $hash = new Hashtag;
-            }
-            $hash->hashtag = $hash_value->hashtag;
-            $hash->post_id = $post->id;
-            $hash->hashtagstore_id = $hashtag;
-            $hash->save();
-        }
+    // Update or associate the selected hashtag with the post
+    if ($request->filled('hashtag')) {
+        Hashtag::where('post_id', $post->id)->update(['post_id' => null]); // Remove previous association
+        $hashtag = Hashtag::find($request->hashtag);
+        $hashtag->post_id = $post->id;
+        $hashtag->save();
     }
+
+    // $extractedHashtags = $request->input('hashtag',[]);
+
+    // foreach ($extractedHashtags as $hashtag) {
+    //     if (!empty($hashtag)) {
+    //         $hash_value = HashtagStore::find($hashtag);
+
+    //         $hash = Hashtag::where('post_id', $post->id)->where('hashtagstore_id',$hashtag)->first();
+    //         if(empty($hash)){
+    //             $hash = new Hashtag;
+    //         }
+    //         $hash->hashtag = $hash_value->hashtag;
+    //         $hash->post_id = $post->id;
+    //         $hash->hashtagstore_id = $hashtag;
+    //         $hash->save();
+    //     }
+    // }
     
         return redirect()->route('community.index')->with('success', "Post updated");
     }
