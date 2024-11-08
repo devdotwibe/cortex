@@ -20,7 +20,7 @@ class Hashtag extends Model
     }
     public function hashtagname(){
 
-    return $this->belongsTo(Hashtagstore::class, 'hashtag', 'id');
+    return $this->belongsTo(Hashtagstore::class);
     }
 
     // Prevent mass assignment vulnerabilities

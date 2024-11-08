@@ -3,7 +3,6 @@
 <style>
     #calendar-dashbord .fc-content{
 	background-color: #FFFFFF;
-	font-size: 80%;
 }
 </style>
 @section('content')
@@ -301,6 +300,12 @@
         dayHeaderContent: function(arg) { 
             const dayNames = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
             return dayNames[arg.date.getDay()];
+        },
+        datesSet: function() {
+        // Select elements with the 'fc-day-today' class and remove it
+        document.querySelectorAll('.fc-day-today').forEach(function(element) {
+            element.classList.remove('fc-day-today');
+        });
         }
     });
     calendar.render(); 
