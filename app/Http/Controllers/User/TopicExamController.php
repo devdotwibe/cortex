@@ -47,9 +47,7 @@ class TopicExamController extends Controller
         }
         $categorys = $this->where(function ($qry) use ($exam) {
             $qry->whereIn("id", Question::where('exam_id', $exam->id)->select('category_id'));
-        })
-        ->orderBy('updated_at', 'asc')
-        ->buildResult();
+        })->buildResult();
 
         /**
          *  @var User
