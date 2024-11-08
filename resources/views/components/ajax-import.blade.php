@@ -153,11 +153,6 @@
             if (fileInput.files.length === 0) {
                 $('#import-{{ $id }}-import_datas-error-message').text('Please upload a file!').show();
                 isValid = false;
-
-                $('html, body').animate({
-                    scrollTop: $('.invalid-feedback').first().offset().top
-                }, 500); 
-                
             }
 
             if(import_{{ $id }}_data.length>0)
