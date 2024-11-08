@@ -527,6 +527,10 @@ button.close {
     min-height: calc(100vh - 147px);
 }
 
+.exam-container.pdfsection {
+    margin-top: 88px;
+}
+
 .bartop-hide .exam-container .container-wrap {
     min-height: calc(100vh - 60px);
 }
@@ -6115,7 +6119,9 @@ nav.navbar.header-class {
     height: calc(100vh - 167px);
 }
 
-
+.exam-container.questionclass.answerclass .container-wrap {
+    min-height: calc(100vh - 154px);
+}
 
 .modal-expand.modal-expand-result .container-wrap {
     background: none;
