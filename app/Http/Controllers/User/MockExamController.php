@@ -308,7 +308,8 @@ class MockExamController extends Controller
         $user=Auth::user();
         $userExamReviews = UserExamReview::where('user_id',$user->id)
                                             ->where('exam_id',$exam->id)
-                                            ->select('slug','created_at','progress','id','exam_id','ticket');
+                                            ->select('slug','created_at','progress','id','exam_id','ticket')
+                                            ->orderBy('created_at','ASC');
         return DataTables::of($userExamReviews)
             ->addColumn('progress',function($data){
                 $userExam = UserExam::findSlug($data->ticket);
