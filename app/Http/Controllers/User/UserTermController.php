@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\LessonMaterial;
 use App\Models\LessonRecording;
 use App\Models\LiveClassPage;
+use App\Models\RecordVideo;
 use App\Models\TermAccess;
 use Illuminate\Support\Facades\Auth;
 
@@ -102,7 +103,7 @@ class UserTermController extends Controller
         $user=Auth::user(); 
         $term_names=[];
 
-        $Lesson_Recording = LessonRecording::whereIn('id',RecordVideo::select(Lesson_Recording_id))->whereIn('id',TermAccess::where('type','lesson-record')->where('user_id',$user->id)->select('term_id'))->get();
+        $Lesson_Recording = LessonRecording::whereIn('id',RecordVideo::select('Lesson_Recording_id'))->whereIn('id',TermAccess::where('type','lesson-record')->where('user_id',$user->id)->select('term_id'))->get();
 
       
         foreach ($Lesson_Recording as $row) {
