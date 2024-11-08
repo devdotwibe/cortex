@@ -723,6 +723,9 @@ button.close {
     padding: 30px;
 }
 
+.exam-container .container-wrap .lesson .lesson-body .mcq-row {
+    padding: 20px 30px 0;
+}
 
 .exam-container .container-wrap .lesson .lesson-body .note-title {
     font-size: 20px;
