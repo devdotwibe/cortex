@@ -320,6 +320,17 @@
                                 <input type="hidden" name="subscription" id="subscription-combo" value="">
                                 <input type="hidden" name="plan" value="combo">
                                 <input type="hidden" name="year" value="{{ date('Y') + 0 }}-{{ date('Y') + 1 }}">
+                              
+                                <div class="form-group">
+                                    {{-- <label for="email-2">Invite User</label> --}}
+                                    <div class="input-group ">
+                                        <input type="email" name="email" id="tabs2-combo-email"
+                                            placeholder="Enter email address" class="form-control" />
+                                        <button class="btn btn-outline-secondary" type="button"
+                                            id="tabs2-mail-verify-button">Confirm Email</button>
+                                        <div class="invalid-feedback" id="tabs2-error-combo-email-message"></div>
+                                    </div>
+                                </div>
                                 <div class="form-group">
                                     <label>Do you want to add a coupon?</label>
                                    <br>
@@ -330,16 +341,6 @@
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="add_coupon2" id="add_coupon2_no" value="no" checked>
                                         <label class="form-check-label" for="add_coupon2_no">No</label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    {{-- <label for="email-2">Invite User</label> --}}
-                                    <div class="input-group ">
-                                        <input type="email" name="email" id="tabs2-combo-email"
-                                            placeholder="Enter email address" class="form-control" />
-                                        <button class="btn btn-outline-secondary" type="button"
-                                            id="tabs2-mail-verify-button">Confirm Email</button>
-                                        <div class="invalid-feedback" id="tabs2-error-combo-email-message"></div>
                                     </div>
                                 </div>
                                 <div class="form-group" id="coupon-field2" style="display: none;">

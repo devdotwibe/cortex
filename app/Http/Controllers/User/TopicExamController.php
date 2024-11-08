@@ -402,7 +402,8 @@ class TopicExamController extends Controller
         $userExamReviews = UserExamReview::where('user_id', $user->id)
                                             ->where('category_id', $category->id)
                                             ->where('exam_id', $exam->id)
-                                            ->select('slug', 'created_at', 'progress','id','exam_id');
+                                            ->select('slug', 'created_at', 'progress','id','exam_id')
+                                            ->orderBy('created_at','ASC');
         return DataTables::of($userExamReviews)
             ->addColumn('progress', function ($data) {
                 $questions = Question::where('exam_id',$data->exam_id)->select('id');
