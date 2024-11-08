@@ -671,13 +671,13 @@ class CommunityController extends Controller
 
         
 
-    // Update or associate the selected hashtag with the post
-    if ($request->filled('hashtag')) {
-        Hashtag::where('post_id', $post->id)->update(['post_id' => null]); // Remove previous association
-        $hashtag = Hashtag::find($request->hashtag);
-        $hashtag->post_id = $post->id;
-        $hashtag->save();
-    }
+    // // Update or associate the selected hashtag with the post
+    // if ($request->filled('hashtag')) {
+    //     Hashtag::where('post_id', $post->id)->update(['post_id' => null]); // Remove previous association
+    //     $hashtag = Hashtag::find($request->hashtag);
+    //     $hashtag->post_id = $post->id;
+    //     $hashtag->save();
+    // }
 
     $extractedHashtags = $request->input('hashtag',[]);
 
