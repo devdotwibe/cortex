@@ -65,7 +65,7 @@ class CommunityControllerController extends Controller
                     "title" => $row->title,
                     "type" => $row->type,
                     "description" => $row->description,
-                    "hashtags" => $row->hashtaglist()->pluck('hashtag'),
+                    "hashtags" => $row->hashtaglist()->hashtagname->pluck('hashtag'),
                     "likes" => $row->likes()->count(),
                     "comments" => $row->comments()->whereNull('post_comment_id')->count(),
                     "image" => $row->image,
