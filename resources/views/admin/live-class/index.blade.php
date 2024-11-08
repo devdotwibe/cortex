@@ -393,7 +393,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                             <div class="form-group">
                                                 <input type="text" name="starttime" id="starttime"
                                                     class="form-control" placeholder="HH : MM"
-                                                    data-mask="^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$" required>
+                                                    data-mask="^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$">
                                             </div>
                                         </div>
 
@@ -416,7 +416,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                             <div class="form-group">
                                                 <input type="text" name="endtime" id="endtime" class="form-control"
                                                     placeholder="HH : MM"
-                                                    data-mask="^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$" required>
+                                                    data-mask="^(0[0-9]|1[0-9]|2[0-4]) : [0-5][0-9]$">
                                             </div>
                                         </div>
 
