@@ -676,7 +676,7 @@ class CommunityController extends Controller
         Hashtag::where('post_id', $post->id)->update(['post_id' => null]); // Remove previous association
         $hashtag = Hashtag::find($request->hashtag);
         // $hashtagr->post_id = $post->id;
-        $hashtag->save();
+        // $hashtag->save();
     }
 
     // $extractedHashtags = $request->input('hashtag',[]);
