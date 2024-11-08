@@ -153,12 +153,13 @@
             if (fileInput.files.length === 0) {
                 $('#import-{{ $id }}-import_datas-error-message').text('Please upload a file!').show();
                 isValid = false;
-
-                $('html, body').animate({
-                    scrollTop: $('.invalid-feedback').first().offset().top
-                }, 500); 
-                
-            }
+ // Find the first visible invalid-feedback element and scroll to it
+ let firstInvalidFeedback = $('.invalid-feedback:visible').first();
+        if (firstInvalidFeedback.length) {
+            $('html, body').animate({
+                scrollTop: firstInvalidFeedback.offset().top - 20 // Adjust to position slightly above the element
+            }, 500); // 500ms duration for smooth scroll
+        }
 
             if(import_{{ $id }}_data.length>0)
             {
