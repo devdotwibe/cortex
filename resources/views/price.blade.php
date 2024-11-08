@@ -302,15 +302,16 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <div class="form-check">
+                                <input type="radio" class="form-check-input" onchange="changetab('#tabs2-tabs2b','.tabs2')"
+                                    name="tabs2" id="tabs2b" autocomplete="off" checked>
+                                <label for="tabs2b" class="form-check-label">Individual</label>
+                            </div>
+                            <div class="form-check">
                                 <input type="radio" class="form-check-input" onchange="changetab('#tabs2-tabs2a','.tabs2')"
                                     name="tabs2" id="tabs2a" autocomplete="off">
                                 <label for="tabs2a" class="form-check-label">Group </label>
                             </div>
-                            <div class="form-check">
-                                <input type="radio" class="form-check-input" onchange="changetab('#tabs2-tabs2b','.tabs2')"
-                                    name="tabs2" id="tabs2b" autocomplete="off" checked>
-                                <label for="tabs2b" class="form-check-label">Induvidual</label>
-                            </div>
+                        
                         </div>
                         <div class="tabs2" id="tabs2-tabs2a" style="display: none">
                             <form action="{{ route('pricing.index') }}" id="tabs2-cortext-combo-subscription-payment-form"
@@ -319,6 +320,18 @@
                                 <input type="hidden" name="subscription" id="subscription-combo" value="">
                                 <input type="hidden" name="plan" value="combo">
                                 <input type="hidden" name="year" value="{{ date('Y') + 0 }}-{{ date('Y') + 1 }}">
+                                <div class="form-group">
+                                    <label>Do you want to add a coupon?</label>
+                                   <br>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="add_coupon2" id="add_coupon2_yes" value="yes">
+                                        <label class="form-check-label" for="add_coupon2_yes">Yes</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="add_coupon2" id="add_coupon2_no" value="no" checked>
+                                        <label class="form-check-label" for="add_coupon2_no">No</label>
+                                    </div>
+                                </div>
                                 <div class="form-group">
                                     {{-- <label for="email-2">Invite User</label> --}}
                                     <div class="input-group ">
@@ -329,7 +342,7 @@
                                         <div class="invalid-feedback" id="tabs2-error-combo-email-message"></div>
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" id="coupon-field2" style="display: none;">
                                     {{-- <label for="combo-coupon">Coupon Code</label> --}}
                                     <div class="input-group ">
                                         <input type="text" name="coupon" id="tabs2-combo-coupon"
@@ -359,6 +372,18 @@
                                 <input type="hidden" name="plan" value="single">
                                 <input type="hidden" name="year" value="{{ date('Y') + 0 }}-{{ date('Y') + 1 }}">
                                 <div class="form-group">
+                                    <label>Do you want to add a coupon?</label>
+                                   <br>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="add_coupon" id="add_coupon_yes" value="yes">
+                                        <label class="form-check-label" for="add_coupon_yes">Yes</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="add_coupon" id="add_coupon_no" value="no" checked>
+                                        <label class="form-check-label" for="add_coupon_no">No</label>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="coupon-field" style="display: none;">
                                     {{-- <label for="coupon">Coupon Code</label> --}}
                                     <div class="input-group ">
                                         <input type="text" name="coupon" id="tabs2-coupon"
@@ -392,7 +417,24 @@
 
     <script>
         $(function() {
+            $('#coupon-field').hide();
 
+            $('input[name="add_coupon"]').change(function() {
+                if ($('#add_coupon_yes').is(':checked')) {
+                    $('#coupon-field').show();
+                } else {
+                    $('#coupon-field').hide();
+                }
+            });
+            $('#coupon-field2').hide();
+
+            $('input[name="add_coupon2"]').change(function() {
+                if ($('#add_coupon2_yes').is(':checked')) {
+                    $('#coupon-field2').show();
+                } else {
+                    $('#coupon-field2').hide();
+                }
+            });
             $('#contact_form').on('submit', function(event) {
                 event.preventDefault();
 
