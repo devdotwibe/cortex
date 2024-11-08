@@ -62,7 +62,7 @@ class CommunityControllerController extends Controller
                 }
 
                 $hashtags = [];
-                foreach ($row->hashtaglist() as $opt) {
+                foreach ($row->hashtaglist()->get() as $opt) {
 
                     $hashtags[] = "trd";
                 }
@@ -71,7 +71,7 @@ class CommunityControllerController extends Controller
                     "title" => $row->title,
                     "type" => $row->type,
                     "description" => $row->description,
-                    "hashtags" => $row->hashtaglist()->count(),
+                    "hashtags" =>$hashtags,
                     "likes" => $row->likes()->count(),
                     "comments" => $row->comments()->whereNull('post_comment_id')->count(),
                     "image" => $row->image,
