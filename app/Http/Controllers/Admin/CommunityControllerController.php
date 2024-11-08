@@ -66,13 +66,12 @@ class CommunityControllerController extends Controller
 
                     $hashtags[] = "trd";
                 }
-                $hashtags[] = "trd";
                 $results[] = [
                     "slug" => $row->slug,
                     "title" => $row->title,
                     "type" => $row->type,
                     "description" => $row->description,
-                    "hashtags" => $hashtags,
+                    "hashtags" => $row->hashtaglist()->count(),
                     "likes" => $row->likes()->count(),
                     "comments" => $row->comments()->whereNull('post_comment_id')->count(),
                     "image" => $row->image,
