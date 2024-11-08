@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\ClassDetail;
 use App\Models\HomeWork;
+use App\Models\HomeWorkQuestion;
 use App\Models\User;
 use App\Models\LessonMaterial;
 use App\Models\LessonRecording;
@@ -75,7 +76,7 @@ class UserTermController extends Controller
         $user=Auth::user(); 
         $term_names=[];
 
-        $HomeWork = HomeWork::whereIn('id',TermAccess::where('type','home-work')->where('user_id',$user->id)->select('term_id'))->get();;
+        $HomeWork = HomeWork::whereIn('id',HomeWorkQuestion::select('home_work_id'))->whereIn('id',TermAccess::where('type','home-work')->where('user_id',$user->id)->select('term_id'))->get();;
 
 
 
