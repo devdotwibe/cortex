@@ -35,7 +35,7 @@
                                             <div class="forms-inputs mb-4">
                                                 <label for="import-{{ $id }}-import_fields.{{$item->name}}">{{$item->label??ucfirst($item->name)}}</label>
                                                 <select class="form-control import-{{ $id }}-fields" name="{{$item->name}}" id="import-{{ $id }}-import_fields.{{$item->name}}"></select>
-                                                <div class="invalid-feedback1" id="import-{{ $id }}-{{$item->name}}-error-message"></div>
+                                                <div class="invalid-feedback" id="import-{{ $id }}-{{$item->name}}-error-message"></div>
                                             </div>
                                         </div>
                                 @endforeach
