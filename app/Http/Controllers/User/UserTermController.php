@@ -24,7 +24,7 @@ class UserTermController extends Controller
         $user=Auth::user(); 
         $term_names=[];
 
-        $Class_detail = ClassDetail::whereIn('id',TermAccess::where('type','class-detail')->where('user_id',$user->id)->select('term_id'));
+        $Class_detail = ClassDetail::whereIn('id',TermAccess::where('type','class-detail')->where('user_id',$user->id)->select('term_id'))->count();
 
         dd($Class_detail);
 
