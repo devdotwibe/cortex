@@ -168,7 +168,9 @@
             ajax: {
                 url:url
             },
-           
+            order: [
+                [2, 'ASC']
+            ],
             initComplete: function() {
                 var info = this.api().page.info(); 
                 var json = this.api().ajax.json();  
