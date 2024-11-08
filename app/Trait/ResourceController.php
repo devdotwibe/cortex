@@ -19,6 +19,7 @@ trait ResourceController
 
     protected static $actions=[];
     protected static $whereCondition=[];
+    protected static $orderbycondition=[];
     protected static $whereHasCondition=[];
 
     protected static $whereInCondition=[];
@@ -32,6 +33,7 @@ trait ResourceController
 
      $actions=[];
      $whereCondition=[];
+     $orderbycondition=[];
      $whereHasCondition=[];
      $whereInCondition=[];
     }
@@ -41,6 +43,10 @@ trait ResourceController
     }    
     public function where(...$condition){
         self::$whereCondition[]=$condition;
+        return $this;
+    }
+    public function orderBy(...$condition){
+        self::$orderbycondition[]=$condition;
         return $this;
     }
     public function whereHas(...$condition){
@@ -90,6 +96,9 @@ trait ResourceController
         $query=app(self::$model)->query();
         foreach(self::$whereCondition as $condition){
             $query->where($condition[0]??"",$condition[1]??null);
+        }
+        foreach(self::$orderbycondition as $condition){
+            $query->orderBy($condition[0]??"",$condition[1]??null);
         }
         foreach(self::$whereHasCondition as $condition){
             if(count($condition)==1){
