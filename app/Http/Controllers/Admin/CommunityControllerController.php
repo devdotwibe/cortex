@@ -64,7 +64,8 @@ class CommunityControllerController extends Controller
                 $hashtags = [];
                 foreach ($row->hashtaglist()->get() as $opt) {
 
-                    $hashtags[] = $opt->hashtagname->hashtag;
+                    $hash_name = Hashtagstore::where('id',$opt->hashtagstore_id)->first();
+                    $hashtags[] =  $hash_name->hashtag;
                 }
                 $results[] = [
                     "slug" => $row->slug,
