@@ -323,7 +323,8 @@ class CommunityController extends Controller
         // dd($extractedHashtags);
         foreach ($extractedHashtags as $hashtag) {
             if (!empty($hashtag)) {
-                Hashtag::firstOrCreate(['hashtagstore_id' => $hashtag, 'post_id' => $post->id]);
+                $hash_value = HashtagStore::find($hashtag);
+                Hashtag::firstOrCreate(['hashtag'=>$hash_value->hashtag,'hashtagstore_id' => $hashtag, 'post_id' => $post->id]);
             }
         }
 
