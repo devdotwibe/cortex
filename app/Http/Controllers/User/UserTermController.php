@@ -11,6 +11,7 @@ use App\Models\LessonMaterial;
 use App\Models\LessonRecording;
 use App\Models\LiveClassPage;
 use App\Models\RecordVideo;
+use App\Models\SubClassDetail;
 use App\Models\SubLessonMaterial;
 use App\Models\TermAccess;
 use Illuminate\Support\Facades\Auth;
@@ -27,9 +28,9 @@ class UserTermController extends Controller
         $user=Auth::user(); 
         $term_names=[];
 
-        $Class_detail = ClassDetail::whereIn('id',TermAccess::where('type','class-detail')->where('user_id',$user->id)->select('term_id'))->get();
+        $Class_detail = ClassDetail::whereIn('id',SubClassDetail::select('class_detail_id'))->whereIn('id',TermAccess::where('type','class-detail')->where('user_id',$user->id)->select('term_id'))->get();
 
-
+       
 
         $live_class =  LiveClassPage::first(); 
 
