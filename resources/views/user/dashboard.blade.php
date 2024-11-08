@@ -1,5 +1,11 @@
 @extends('layouts.user')
 @section('title', 'Dashboard')
+<style>
+    #calendar-dashbord .fc-content{
+	background-color: #FFFFFF;
+	font-size: 80%;
+}
+</style>
 @section('content')
 <section class="header_nav">
     <div class="header_wrapp">

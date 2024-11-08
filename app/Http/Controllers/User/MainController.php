@@ -82,9 +82,9 @@ class MainController extends Controller
                     })->where('iscorrect',true)->where('user_answer',true)->count();
                     $bgcolor="#FFFFFF";
                     $borderColor="#E1E1E1";
-                    if($date->format('Y-m-d')==date('Y-m-d')){
-                        // $bgcolor="#E1E1E1";
-                    }
+                    // if($date->format('Y-m-d')==date('Y-m-d')){
+                    //     $bgcolor="#FFFFFF";
+                    // }
                     if($cnt>0){
                         $borderColor="#91C188";
                         $bgcolor="#91C188"; 
@@ -94,11 +94,18 @@ class MainController extends Controller
                             $bgcolor="#4B9773"; 
 
                         } 
-                        if(Reminder::where("remind_date",$date->format('Y-m-d'))->where('user_id',$user->id)->count()>0){
-                            $bgcolor="#FFCD56"; 
+                        if(Reminder::where("remind_date",$date->format('Y-m-d'))
+                                    ->where('user_id',$user->id)
+                                    ->count()>0 && $date > date('Y-m-d')){
+                            $borderColor="#FFCD56"; 
                         }
                     }else{
-                        if(Reminder::where("remind_date",$date->format('Y-m-d'))->where('user_id',$user->id)->count()>0){
+                        if($date < date('Y-m-d')){
+                            $bgcolor="#E1E1E1"; 
+                        }
+                        if(Reminder::where("remind_date",$date->format('Y-m-d'))
+                                    ->where('user_id',$user->id)
+                                    ->count()>0){
                             $borderColor="#FFCD56";
                             $bgcolor="#FFCD56"; 
                         }
