@@ -215,8 +215,8 @@
                     searchable: false,
                 },
                 {
-                    data: 'updated_at',
-                    name: 'updated_at',
+                    data: 'date',
+                    name: 'date',
                     orderable: true,
                     searchable: false,
                 },
