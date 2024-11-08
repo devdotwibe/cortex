@@ -18,8 +18,7 @@
                         <div class="canover"></div>
                     </div>
                 </div>
-                <div class="lesson-footer" id="lesson-footer-pagination">
-                </div>
+                
             </div>
         </div>
     </section>
