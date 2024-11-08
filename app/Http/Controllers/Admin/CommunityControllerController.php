@@ -260,7 +260,7 @@ class CommunityControllerController extends Controller
 
     public function edit(Request $request, Post $post)
     {
-        $hashtags = Hashtag::all();
+        $hashtags = Hashtagstore::all();
         return view('admin.community.edit', compact('post', 'hashtags'));
     }
     public function update(Request $request, Post $post)
@@ -338,8 +338,8 @@ class CommunityControllerController extends Controller
 
         // Update or associate the selected hashtag with the post
         if ($request->filled('hashtag')) {
-            Hashtagstore::where('post_id', $post->id)->update(['post_id' => null]); // Remove previous association
-            $hashtag = Hashtagstore::find($request->hashtag);
+            Hashtag::where('post_id', $post->id)->update(['post_id' => null]); // Remove previous association
+            $hashtag = Hashtag::find($request->hashtag);
             $hashtag->post_id = $post->id;
             $hashtag->save();
         }
