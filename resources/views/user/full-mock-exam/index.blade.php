@@ -169,7 +169,7 @@
                 url:url
             },
             order: [
-                [0, 'ASC']
+                [2, 'ASC']
             ],
             initComplete: function() {
                 var info = this.api().page.info(); 
@@ -216,7 +216,7 @@
                 },
                 {
                     data: 'date',
-                    name: 'date',
+                    name: 'created_at',
                     orderable: true,
                     searchable: false,
                 },
