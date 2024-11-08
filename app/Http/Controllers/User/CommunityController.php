@@ -311,13 +311,7 @@ class CommunityController extends Controller
         }
 
 
-        // // Extract and store hashtags from the description
-        // preg_match_all('/#\w+/', $data['description'], $hashtags);
-        // $extractedHashtags = $hashtags[0];
-        // foreach ($extractedHashtags as $hashtag) {
-        //     Hashtag::firstOrCreate(['hashtag' => $hashtag, 'post_id' => $post->id]);
-        // }
-        // Split hashtags by commas or spaces   
+      
 
         $extractedHashtags = $request->input('hashtags',[]);
 
@@ -684,9 +678,37 @@ class CommunityController extends Controller
         $hashtag->post_id = $post->id;
         $hashtag->save();
     }
+
+    $extractedHashtags = $request->input('hashtag',[]);
+
+    foreach ($extractedHashtags as $hashtag) {
+        if (!empty($hashtag)) {
+            $hash_value = HashtagStore::find($hashtag);
+
+            $hash = Hashtag::where('post_id', $post->id)->where('hashtagstore_id',$hashtag)->first();
+            if(empty($hash)){
+                $hash = new Hashtag;
+            }
+            $hash->hashtag = $hash_value->hashtag;
+            $hash->post_id = $post->id;
+            $hash->hashtagstore_id = $hashtag;
+            $hash->save();
+        }
+    }
     
         return redirect()->route('community.index')->with('success', "Post updated");
     }
+
+
+
+   
+
+
+
+
+
+
+
     public function destroy(Request $request, Post $post)
     {
         $post->delete();
