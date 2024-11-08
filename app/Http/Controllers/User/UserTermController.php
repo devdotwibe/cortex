@@ -11,6 +11,7 @@ use App\Models\LessonMaterial;
 use App\Models\LessonRecording;
 use App\Models\LiveClassPage;
 use App\Models\RecordVideo;
+use App\Models\SubLessonMaterial;
 use App\Models\TermAccess;
 use Illuminate\Support\Facades\Auth;
 
@@ -51,7 +52,7 @@ class UserTermController extends Controller
         $user=Auth::user(); 
         $term_names=[];
 
-        $LessonMaterial = LessonMaterial::whereIn('id',TermAccess::where('type','lesson-material')->where('user_id',$user->id)->select('term_id'))->get();
+        $LessonMaterial = LessonMaterial::whereIn('id',SubLessonMaterial::select('lesson_material_id'))->whereIn('id',TermAccess::where('type','lesson-material')->where('user_id',$user->id)->select('term_id'))->get();
 
 
 
