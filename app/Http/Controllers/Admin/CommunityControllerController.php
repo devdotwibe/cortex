@@ -66,6 +66,7 @@ class CommunityControllerController extends Controller
 
                     $hashtags[] = "trd";
                 }
+                $hashtags[] = "trd";
                 $results[] = [
                     "slug" => $row->slug,
                     "title" => $row->title,
