@@ -67,14 +67,15 @@ class UserTermController extends Controller
 
     public function home_work(Request $request){ 
 
-        $term_names=[];
-
-        $HomeWork = HomeWork::get();
+      
 
           /**
         * @var User
         */
         $user=Auth::user(); 
+        $term_names=[];
+
+        $HomeWork = HomeWork::whereIn('id',TermAccess::where('type','home-work')->where('user_id',$user->id)->select('term_id'))->get();;
 
 
 
@@ -92,14 +93,15 @@ class UserTermController extends Controller
 
     public function lesson_recording(Request $request){ 
 
-        $term_names=[];
-
-        $Lesson_Recording = LessonRecording::get();
+     
 
          /**
         * @var User
         */
         $user=Auth::user(); 
+        $term_names=[];
+
+        $Lesson_Recording = LessonRecording::whereIn('id',TermAccess::where('type','lesson-record')->where('user_id',$user->id)->select('term_id'))->get();
 
 
         foreach ($Lesson_Recording as $row) {
