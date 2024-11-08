@@ -49,7 +49,7 @@ class UserTermController extends Controller
         $user=Auth::user(); 
         $term_names=[];
 
-        $LessonMaterial = LessonMaterial::whereIn('id',TermAccess::where('type','lesson-material')->where('user_id',$user->id)->select('term_id'))->get();;
+        $LessonMaterial = LessonMaterial::whereIn('id',TermAccess::where('type','lesson-material')->where('user_id',$user->id)->select('term_id'))->get();
 
 
 
