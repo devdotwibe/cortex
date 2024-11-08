@@ -169,7 +169,7 @@
                 url:url
             },
             order: [
-                [2, 'ASC']
+                [2, 'DESC']
             ],
             initComplete: function() {
                 var info = this.api().page.info(); 
