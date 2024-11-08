@@ -10,6 +10,7 @@ use App\Models\Poll;
 use App\Models\Hashtag;
 use App\Models\AdminPost;
 use App\Models\AdminPoll;
+use App\Models\Hashtagstore;
 use App\Models\PollOption;
 use App\Models\Post;
 use App\Models\PostComment;
@@ -25,7 +26,7 @@ class CommunityControllerController extends Controller
         // $hashtags = Hashtag::groupBy('hashtag')->pluck('hashtag');
 
 
-        $hashtags = Hashtag::where('hashtag', 'LIKE', '#%')
+        $hashtags = Hashtagstore::where('hashtag', 'LIKE', '#%')
             ->groupBy('hashtag')
             ->pluck('hashtag');
 
@@ -93,7 +94,7 @@ class CommunityControllerController extends Controller
     }
     public function create(Request $request)
     {
-        $hashtags = Hashtag::all();
+        $hashtags = Hashtagstore::all();
         return view('admin.community.create', compact('hashtags'));
     }
 
@@ -168,14 +169,25 @@ class CommunityControllerController extends Controller
         // }
 
         // Attempt to find the hashtag and associate it with the post
-    if ($request->has('hashtag') && $hashtag = Hashtag::find($request->hashtag)) {
-        $hashtag->post_id = $post->id;
-        $hashtag->save();
-    } else {
-        // Handle case if the hashtag was not found, if needed
-        // Example: log an error or ignore
-    }
+    // if ($request->has('hashtag') && $hashtag = Hashtag::find($request->hashtag)) {
+    //     $hashtag->post_id = $post->id;
+    //     $hashtag->save();
+    // } else {
+    //     // Handle case if the hashtag was not found, if needed
+    //     // Example: log an error or ignore
+    // }
 
+
+
+    $extractedHashtags = $request->input('hashtags',[]);
+
+    // dd($extractedHashtags);
+    foreach ($extractedHashtags as $hashtag) {
+        if (!empty($hashtag)) {
+            $hash_value = Hashtagstore::find($hashtag);
+            Hashtag::firstOrCreate(['hashtag'=>$hash_value->hashtag,'hashtagstore_id' => $hashtag, 'post_id' => $post->id]);
+        }
+    }
         return redirect()->route('admin.community.index')->with('success', "Post published");
     }
 
