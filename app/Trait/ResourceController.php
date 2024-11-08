@@ -139,6 +139,9 @@ trait ResourceController
             ';
         })->addColumn('date',function($data){
             return $data->created_at->format('Y-m-d');
+        })
+        ->addColumn('updated_at',function($data){
+            return $data->updated_at->format('Y-m-d');
         });
         foreach (self::$columns as $key => $value) {
             $table->addColumn($key ,$value);
