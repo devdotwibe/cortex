@@ -7503,6 +7503,10 @@ nav.navbar.top-barhide {
         bottom: 15px;
     }
 
+    .exam-container.answerclass .mcq-container-wrap .lesson #lesson-footer-pagination {
+        bottom: 35px;
+    }
+
 }
 
 @media screen and (max-width:1199px) {
