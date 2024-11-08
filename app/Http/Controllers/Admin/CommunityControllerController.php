@@ -60,12 +60,18 @@ class CommunityControllerController extends Controller
                         'percentage' => $tvotes > 0 ? round(($opt->votes * 100) / $tvotes, 2) : 0,
                     ];
                 }
+
+                $hashtags = [];
+                foreach ($row->hashtaglist() as $opt) {
+
+                    $hashtags[] = $opt->hashtagname->hashtag;
+                }
                 $results[] = [
                     "slug" => $row->slug,
                     "title" => $row->title,
                     "type" => $row->type,
                     "description" => $row->description,
-                    "hashtags" => $row->hashtaglist()->pluck('hashtagstore_id'),
+                    "hashtags" => $hashtags,
                     "likes" => $row->likes()->count(),
                     "comments" => $row->comments()->whereNull('post_comment_id')->count(),
                     "image" => $row->image,
