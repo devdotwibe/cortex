@@ -169,7 +169,7 @@
                 url:url
             },
             order: [
-                [2, 'ASC']
+                [0, 'DESC']
             ],
             initComplete: function() {
                 var info = this.api().page.info(); 
@@ -201,13 +201,6 @@
             },
             columns: [ 
 
-                {
-                    data: 'updated_at',
-                    name: 'updated_at',
-                    orderable: true,
-                    searchable: false,
-                    visible:false,
-                },
                 {
                     data: 'DT_RowIndex',
                     name: 'id',
