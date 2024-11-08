@@ -1,7 +1,7 @@
 @extends('layouts.exam')
 @section('title', ucfirst($subLessonMaterial->pdf_name))
 @section('content')
-     <section class="exam-container">
+     <section class="exam-container" class="pdfsection">
         <div class="container-wrap" id="question-answer-page">
             <div class="lesson">
                 <a class="lesson-exit float-start"
