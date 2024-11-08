@@ -152,8 +152,8 @@ Receive a personalised learning experience with regular feedback by enrolling wi
                                             <button type="submit" class="btn btn-primary">Save</button>
 
                                             <button type="button" onclick="CardBoxOneToggle(event)"
-                                                class="btn btn-secondary">Cancel</button>
-
+                                                class="btn btn-secondary" style="display:none">Cancel</button>
+0
                                         </div>
 
 
