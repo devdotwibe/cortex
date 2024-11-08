@@ -64,7 +64,7 @@ class CommunityControllerController extends Controller
                 $hashtags = [];
                 foreach ($row->hashtaglist()->get() as $opt) {
 
-                    $hashtags[] = "trd";
+                    $hashtags[] = $opt->hashtagname->hashtag;
                 }
                 $results[] = [
                     "slug" => $row->slug,
