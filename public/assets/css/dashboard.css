@@ -1639,6 +1639,17 @@ button.close {
     border: 1px solid black;
 }
 
+.pdfsection .lesson .lesson-title {
+    padding-top: 20px;
+    padding-left: 0;
+    padding-right: 10px;
+    border: 0;
+}
+
+.pdfsection .lesson .lesson-exit.float-start {
+    margin: 16px 10px 0 0;
+}
+
 section.post-section {
     margin: 10px 0px;
     width: 100%;
