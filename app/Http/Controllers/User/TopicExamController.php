@@ -45,11 +45,11 @@ class TopicExamController extends Controller
             ]);
             $exam = Exam::find($exam->id);
         }
-       
-    // Using Category::query() to directly build the query with orderBy
-    $categorys = Category::whereIn("id", Question::where('exam_id', $exam->id)->pluck('category_id'))
-    ->orderBy('updated_at', 'asc')
-    ->get();
+        $categorys = $this->where(function ($qry) use ($exam) {
+            $qry->whereIn("id", Question::where('exam_id', $exam->id)->select('category_id'));
+        })
+        ->orderBy('updated_at', 'asc')
+        ->buildResult();
 
         /**
          *  @var User
