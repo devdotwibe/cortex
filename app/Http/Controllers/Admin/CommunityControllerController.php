@@ -260,7 +260,7 @@ class CommunityControllerController extends Controller
 
     public function edit(Request $request, Post $post)
     {
-        $hashtags = Hashtag::all();
+        $hashtags = Hashtagstore::all();
         return view('admin.community.edit', compact('post', 'hashtags'));
     }
     public function update(Request $request, Post $post)
