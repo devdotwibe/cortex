@@ -151,8 +151,8 @@ Receive a personalised learning experience with regular feedback by enrolling wi
 
                                             <button type="submit" class="btn btn-primary">Save</button>
 
-                                            <button type="button" id="cancelid" onclick="CardBoxOneToggle(event)"
-                                                class="btn btn-secondary" style="display:none">Cancel</button>
+                                            <button type="button" onclick="CardBoxOneToggle(event)"
+                                                class="btn btn-secondary">Cancel</button>
 0
                                         </div>
 
@@ -447,7 +447,10 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                     <button class="add-btn addbuttonclass" type="submit" id="updatebutton">+ Add
                                     </button>
                                     <a href="{{ route('admin.live-class.index') }}"
-                                        class="add-btn cancel-button-class">Cancel</a>
+                                        class="add-btn cancel-button-class"  id="cancelid" style="display:none">Cancel</a>
+
+
+                                      
 
                                     @foreach ($timetables as $timetable)
                                         <div class="text-field-preview">
