@@ -151,7 +151,7 @@ Receive a personalised learning experience with regular feedback by enrolling wi
 
                                             <button type="submit" class="btn btn-primary">Save</button>
 
-                                            <button type="button" onclick="CardBoxOneToggle(event)"
+                                            <button type="button" id="cancelid" onclick="CardBoxOneToggle(event)"
                                                 class="btn btn-secondary" style="display:none">Cancel</button>
 0
                                         </div>
@@ -621,7 +621,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                     $('#formedit').attr('action', '{{ route('admin.timetable.update', '') }}/' + response.id);
 
 
-
+                    $('#cancelid').show();
                     $('#editModal').modal('show');
                     $("#updatebutton").text('update');
                     $("#updatebutton").text('update');
