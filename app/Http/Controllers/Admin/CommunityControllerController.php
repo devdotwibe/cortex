@@ -27,6 +27,7 @@ class CommunityControllerController extends Controller
 
 
         $hashtags = Hashtagstore::where('hashtag', 'LIKE', '#%')
+        ->whereIn('id',Hashtag::select('hashtagstore_id'))
             ->groupBy('hashtag')
             ->pluck('hashtag');
 
