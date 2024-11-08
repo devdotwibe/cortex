@@ -8049,6 +8049,10 @@ nav.navbar.top-barhide {
         min-height: calc(100vh - 50px);
     }
 
+    .exam-container.answerclass .mcq-container-wrap .lesson #lesson-footer-pagination {
+        bottom: 29px;
+    }
+
 }
 
 @media screen and (max-width:767px) {
