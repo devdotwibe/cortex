@@ -407,7 +407,8 @@ class ExamQuestionController extends Controller
                                             ->where('sub_category_id',$subCategory->id)
                                             ->where('sub_category_set',$setname->id)
                                             ->where('exam_id',$exam->id)
-                                            ->select('slug','created_at','progress','id','exam_id','ticket');
+                                            ->select('slug','created_at','progress','id','exam_id','ticket')
+                                            ->orderBy('created_at','ASC');
         return DataTables::of($userExamReviews)
             ->addColumn('progress',function($data){
                 if($data->ticket){
