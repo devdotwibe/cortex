@@ -38,7 +38,7 @@ class MockExamController extends Controller
         Session::forget("full-mock-exam-attempt");
         $exams=$this->where("name",'full-mock-exam')->where(function($qry){
             $qry->whereIn("id",Question::select('exam_id'));
-        })->orderBy('created_at')->buildPagination();
+        })->orderBy('created_at','asc')->buildPagination();
          
         /**
          *  @var User
