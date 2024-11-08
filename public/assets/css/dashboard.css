@@ -3173,6 +3173,10 @@ aside.side_bar.slider-btn .btn-slider {
     border-block: 1px solid #1789fa;
 }
 
+.exam-container .question-bank-review .lesson #lesson-footer-pagination {
+    bottom: 5px;
+}
+
 .exam-container .mcq-container-wrap.full-mock-exam {
     padding-bottom: 0 !important;
 }
@@ -6122,13 +6126,13 @@ nav.navbar.header-class {
 }
 
 .exam-container.answerclass .mcq-container-wrap.question-bank-review .lesson .lesson-body .mcq-container .mcq-group {
-    height: calc(100vh - 245px);
+    height: calc(100vh - 266px);
     font-family: 'Arial';
     font-size: 18px;
 }
 
 .exam-container.answerclass .mcq-container-wrap.question-bank-review .lesson .lesson-body .mcq-container .mcq-answer {
-    height: calc(100vh - 167px);
+    height: calc(100vh - 266px);
 }
 
 .exam-container.questionclass.answerclass .container-wrap {
@@ -7497,6 +7501,10 @@ nav.navbar.top-barhide {
 
     .exam-container .mcq-container-wrap .lesson #lesson-footer-pagination{
         bottom: 15px;
+    }
+
+    .exam-container.answerclass .mcq-container-wrap .lesson #lesson-footer-pagination {
+        bottom: 35px;
     }
 
 }
