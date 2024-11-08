@@ -60,19 +60,12 @@ class CommunityControllerController extends Controller
                         'percentage' => $tvotes > 0 ? round(($opt->votes * 100) / $tvotes, 2) : 0,
                     ];
                 }
-
-                $hashtags = [];
-                foreach ($row->hashtaglist()->get() as $opt) {
-
-                    $hash_name = Hashtagstore::where('id',$opt->hashtagstore_id)->first();
-                    $hashtags[] =  $hash_name->hashtag;
-                }
                 $results[] = [
                     "slug" => $row->slug,
                     "title" => $row->title,
                     "type" => $row->type,
                     "description" => $row->description,
-                    "hashtags" =>$hashtags,
+                    "hashtags" => $row->hashtaglist()->pluck('hashtag'),
                     "likes" => $row->likes()->count(),
                     "comments" => $row->comments()->whereNull('post_comment_id')->count(),
                     "image" => $row->image,
@@ -260,7 +253,7 @@ class CommunityControllerController extends Controller
 
     public function edit(Request $request, Post $post)
     {
-        $hashtags = Hashtagstore::all();
+        $hashtags = Hashtag::all();
         return view('admin.community.edit', compact('post', 'hashtags'));
     }
     public function update(Request $request, Post $post)
