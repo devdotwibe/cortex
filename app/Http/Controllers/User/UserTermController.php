@@ -9,22 +9,24 @@ use App\Models\User;
 use App\Models\LessonMaterial;
 use App\Models\LessonRecording;
 use App\Models\LiveClassPage;
+use App\Models\TermAccess;
 use Illuminate\Support\Facades\Auth;
 
 class UserTermController extends Controller
 {
     public function class_detail(Request $request){ 
 
-        $term_names=[];
-
-        $Class_detail = ClassDetail::get();
-
-        $live_class =  LiveClassPage::first(); 
+       
 
         /**
         * @var User
         */
         $user=Auth::user(); 
+        $term_names=[];
+
+        $Class_detail = ClassDetail::whereIn('id',TermAccess::where('type','class-detail')->where('user_id',$user->id)->select('term_id'));
+
+        $live_class =  LiveClassPage::first(); 
 
         foreach ($Class_detail as $row) {
            
@@ -37,14 +39,15 @@ class UserTermController extends Controller
 
     public function lesson_material(Request $request){ 
 
-        $term_names=[];
-
-        $LessonMaterial = LessonMaterial::get();
+      
 
          /**
         * @var User
         */
         $user=Auth::user(); 
+        $term_names=[];
+
+        $LessonMaterial = LessonMaterial::whereIn('id',TermAccess::where('type','lesson_material')->where('user_id',$user->id)->select('term_id'));
 
 
 
