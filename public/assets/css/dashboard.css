@@ -519,7 +519,7 @@ button.close {
     border-radius: 0;
     min-height: calc(100vh - 147px);
     position: relative;
-    padding-bottom: 4.90em !important;
+    padding-bottom: 5.38em !important;
 }
 
 .exam-container .container-wrap-index {
@@ -3172,7 +3172,7 @@ aside.side_bar.slider-btn .btn-slider {
     }
 
     .exam-container .container-wrap {
-        min-height: calc(100vh - 105px);
+        min-height: calc(100vh - 117px);
     }
 
 }
@@ -7393,7 +7393,7 @@ nav.navbar.top-barhide {
     }
 
     .exam-container.answerclass .mcq-container-wrap.question-bank-review .lesson .lesson-body .mcq-container .mcq-group {
-        height: calc(100vh - 220px);
+        height: calc(100vh - 188px);
     }
 
     .exam-container.answerclass .topic-test-review .lesson .lesson-body .mcq-container .mcq-answer {
@@ -7404,6 +7404,10 @@ nav.navbar.top-barhide {
         height: calc(100vh - 220px);
     }
 
+    .questionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer {
+        height: calc(100vh - 188px) !important;
+    }
+    
     .critical-reasoning h2 {
         font-size: 26px;
     }
@@ -7467,6 +7471,10 @@ nav.navbar.top-barhide {
 
     .card-progress .card-body .session-chart .donut-inner {
         font-size: 13px;
+    }
+
+    .exam-container .mcq-container-wrap .lesson #lesson-footer-pagination{
+        bottom: 15px;
     }
 
 }
