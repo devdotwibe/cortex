@@ -26,7 +26,7 @@ class CommunityControllerController extends Controller
         // $hashtags = Hashtag::groupBy('hashtag')->pluck('hashtag');
 
 
-        $hashtags = Hashtag::where('hashtag', 'LIKE', '#%')
+        $hashtags = Hashtagstore::where('hashtag', 'LIKE', '#%')
             ->groupBy('hashtag')
             ->pluck('hashtag');
 
@@ -38,7 +38,7 @@ class CommunityControllerController extends Controller
         if ($request->ajax()) {
             $posts = Post::where('id', '>', 0);
             if (!empty($hashtag)) {
-                $posts->whereIn('id', Hashtag::where('hashtag', 'like', "%$hashtag%")->select('post_id'));
+                $posts->whereIn('id', Hashtagstore::where('hashtag', 'like', "%$hashtag%")->select('post_id'));
             }
 
             if (!empty($userid)) {
