@@ -26,6 +26,8 @@ class UserTermController extends Controller
 
         $Class_detail = ClassDetail::whereIn('id',TermAccess::where('type','class-detail')->where('user_id',$user->id)->select('term_id'));
 
+        dd($Class_detail);
+
         $live_class =  LiveClassPage::first(); 
 
         foreach ($Class_detail as $row) {
@@ -47,7 +49,9 @@ class UserTermController extends Controller
         $user=Auth::user(); 
         $term_names=[];
 
-        $LessonMaterial = LessonMaterial::whereIn('id',TermAccess::where('type','lesson_material')->where('user_id',$user->id)->select('term_id'));
+        $LessonMaterial = LessonMaterial::whereIn('id',TermAccess::where('type','lesson-material')->where('user_id',$user->id)->select('term_id'))->get();;
+
+
 
 
 
