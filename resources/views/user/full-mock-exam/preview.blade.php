@@ -263,7 +263,7 @@
                         }
                         if (v.active || !v.url) {
                             var preclass = "";
-                            if (k == 0 && k == useranswers) {
+                            if (k == 0 && k == res.links.length) {
                                 preclass = "preclass";
                             }
                             $('#lesson-footer-pagination').append(`
@@ -271,7 +271,7 @@
                             `)
                         } else {
                             $('#lesson-footer-pagination').append(`
-                                <button class="${linkstatus} btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
+                                <button class="${linkstatus} btn btn-secondary ${preclass}" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
                             `)
                         }
                     })
