@@ -7531,6 +7531,10 @@ nav.navbar.top-barhide {
         min-height: calc(100vh - 117px);
     }
 
+    .exam-container .container-wrap.homeclass .lesson {
+        height: calc(100vh - 200px);
+    }
+
 }
 
 @media screen and (max-width:1199px) {
@@ -8083,6 +8087,10 @@ nav.navbar.top-barhide {
         padding-bottom: 3.4em !important;
     }
 
+    .exam-container .container-wrap.homeclass .lesson #lesson-footer-pagination {
+        bottom: -5px;
+    }
+
 }
 
 @media screen and (max-width:767px) {
@@ -8450,6 +8458,10 @@ nav.navbar.top-barhide {
 
     .exam-container .container-wrap .lesson #lesson-footer-pagination {
         display: none;
+    }
+
+    .exam-container .container-wrap.homeclass .lesson {
+        height: inherit;
     }
 }
 
