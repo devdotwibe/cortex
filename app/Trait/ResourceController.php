@@ -170,7 +170,7 @@ trait ResourceController
                                 <img src="' . asset("assets/images/icons/mdi_incognito.svg") . '" alt="View">
                             </span>
                             <span class="adminactive-icon">
-                                <img src="' . asset("assets/images/iconshover/view-yellow.svg") . '" alt="View Active">
+                                <img src="' . asset("assets/images/iconshover/view-yellow.svg") . '" alt="View Active" title="View">
                             </span>
                             </a>
 
