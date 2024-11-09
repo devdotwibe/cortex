@@ -35,7 +35,7 @@
         <div class="header_right">
             <ul class="nav_bar"> 
                 <li class="nav_item"  >
-                    <button  class="btn btn-dark m-1"  onclick="exportrequestdata('Export Csv')">Export Csv</button> 
+                    <button  class="btn btn-dark m-1"  onclick="exportrequestdata('Export Csv')">Export CSV</button> 
                 </li>  
                 <li class="nav_item"  >
                     <button  class="btn btn-dark m-1"  onclick="exportrequestdata('Export Excel')">Export Excel</button> 
