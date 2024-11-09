@@ -346,10 +346,10 @@
                     method: $(this).attr('method'),
                     data: $(this).serialize(),
                     success: function(response) {
-                        // Reset the form fields
+                      
                         $('#table-category-form-create')[0].reset();
 
-                        // Reset the button text back to "Add +"
+                  
                         $('#table-category-form-submit').text(' Add + ');
 
                         $('#subcategory').attr('action', '{{ route('admin.faq.store') }}');
@@ -359,12 +359,12 @@
 
                         
 
-                        // Hide the cancel button
+                     
                         $('#table-category-form-clear').hide();
 
 
 
-                        // Reload the DataTable to show updated data
+                       
                         $('#table-faq').DataTable().ajax.reload();
                     },
                     error: function(xhr) {
@@ -400,7 +400,7 @@
         });
 
 
-        function delfaq(url) //delete main faq
+        function delfaq(url) 
 
         {
 
@@ -412,45 +412,45 @@
 
         function delsubfaq(url) {
 
-            // Set the action URL for the delete form dynamically
+         
             $('#table-delete-form').attr('action', url);
 
-            // Show the delete confirmation modal
+        
             $('#table_faq_delete').modal('show');
 
-            // Add a listener for the form submission
+           
             $('#table-delete-form').off('submit').on('submit', function(e) {
-                e.preventDefault(); // Prevent the default form submission
+                e.preventDefault(); 
 
-                var formAction = $(this).attr('action'); // Get the action URL
+                var formAction = $(this).attr('action'); 
 
-                // Perform the AJAX request to delete the record
+            
                 $.ajax({
                     url: formAction,
                     method: 'POST',
-                    data: $(this).serialize(), // Serialize the form data
+                    data: $(this).serialize(), 
                     success: function(response) {
-                        // Hide the delete confirmation modal
+                       
                         $('#table_faq_delete').modal('hide');
                         $('#subcategory')[0].reset();
-                        // Show the next modal (replace 'nextModalId' with the actual ID of your next modal)
+                     
                         $('#table-subcategory-form-submit').text(' Submit ');
 
-                        // Hide the cancel button
+                    
                         $('#table-subcategory-form-clear').hide();
 
-                        // Clear the update state
-                        $('#subcategory').data('save', ""); // Reset save data
+                      
+                        $('#subcategory').data('save', ""); 
                         $('#subcategory').attr('action', '{{ route('admin.faq.subfaq-store') }}');
                         $('#subfaq').DataTable().ajax.reload();
 
                         // $('#sub-category-create-modal').modal('show');
 
-                        // Optionally, you can refresh the data table or perform any other action needed here
+                     
                     },
                     error: function(xhr) {
                         console.error(xhr);
-                        // Handle error, show an error message, etc.
+                       
                     }
                 });
             });
@@ -458,13 +458,13 @@
 
         function onDeleteSuccess() {
 
-            // Hide the delete confirmation modal
+       
             $('#table_faq_delete').modal('hide');
 
-            // Show the next modal (replace 'nextModalId' with the actual ID of your next modal)
+           
             //$('#nextModalId').modal('show');
 
-            // Optionally, you can refresh the data table or perform any other action needed here
+           
         }
 
         var activedata = {};
@@ -503,16 +503,16 @@
         function updatesubfaq(url) {
 
             $.get(url, function(res) {
-                // Reset error messages and remove invalid classes for question and answer fields
+             
                 $('#name-error-table-subcategory-form-create').text("");
                 $('#name-table-subcategory-form-create').val(res.question).removeClass("is-invalid");
                 $('#name-table-subcategory-form-create-ans').val(res.answer).removeClass("is-invalid");
 
-                // Set form data and update URL
+              
                 $('#subcategory').data('save', "update");
                 $('#subcategory').attr('action', res.updateUrl);
 
-                // Show cancel button and update submit button text
+              
                 $('#table-subcategory-form-clear').show();
                 $('#table-subcategory-form-submit').text(' Update ');
 
@@ -522,26 +522,25 @@
             });
         }
 
-        // Handle Cancel Button Click for the subfaq form
+
         $('#table-subcategory-form-clear').on('click', function() {
 
-            // Reset the form fields to their initial state (question and answer fields)
+            
             $('#subcategory')[0].reset();
             console.log("test");
-            // Clear error messages and remove any invalid input classes
+           
             $('#name-error-table-subcategory-form-create').text("");
             $('#name-table-subcategory-form-create').removeClass("is-invalid");
             $('#name-table-subcategory-form-create-ans').removeClass("is-invalid");
 
-            // Reset the save action and form action URL (optional, adjust according to your use case)
-            $('#subcategory').data('save', "create"); // Revert to default save behavior (create mode)
+          
+            $('#subcategory').data('save', "create");
             $('#subcategory').attr('action',
-            '{{ route('admin.faq.subfaq-store') }}'); // Reset to the default form action URL if needed
-
-            // Hide the cancel button after cancellation
+            '{{ route('admin.faq.subfaq-store') }}'); 
+        
             $('#table-subcategory-form-clear').hide();
 
-            // Reset submit button text to its original state
+         
             $('#table-subcategory-form-submit').text('Submit');
         });
     </script>
