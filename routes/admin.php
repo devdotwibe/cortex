@@ -135,10 +135,6 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
         Route::prefix('question-bank')->name('question-bank.')->group(function () {
             Route::get('/',[QuestionBankController::class,'index'])->name('index');
-
-            Route::get('/category/{slug}', [QuestionBankController::class, 'showCategory'])->name('showCategory');
-
-            
             Route::post('/subtitle',[QuestionBankController::class,'subtitle'])->name('subtitle');
             Route::get('/{setname}',[QuestionBankController::class,'show'])->name('show');
 

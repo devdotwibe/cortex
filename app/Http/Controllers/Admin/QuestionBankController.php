@@ -56,14 +56,7 @@ class QuestionBankController extends Controller
         }
         return $data;
     }
-
-    public function showCategory($slug)
-{
-    $category = Category::where('slug', $slug)->first();
     
-    return view('admin.question-bank.show', compact('category'));
-}
-
     public function show(Request $request,Setname $setname){
         self::reset();
         self::$model = Question::class;
