@@ -365,7 +365,7 @@
                                 </div>
                                 <div class="form-group mt-2">
                                     <input type="hidden" name="verify" value="N" id="tabs2-verify-mail">
-                                    <button type="button" data-bs-dismiss="modal" class="btn btn-secondary">Cancel</button>
+                                    <button type="button" data-bs-dismiss="modal" id="cancelButton" class="btn btn-secondary">Cancel</button>
                                     <button type="button" class="btn btn-dark"
                                         id="tabs2-cortext-combo-subscription-payment-form-buttom">Checkout $<span
                                             class="amount"
@@ -428,6 +428,10 @@
 
     <script>
         $(function() {
+                $('#cancelButton').on('click', function() {
+                    $('#tabs2b').prop('checked', true);
+                    $('#tabs2b').trigger('change');
+                });
             $('#coupon-field').hide();
 
             $('input[name="add_coupon"]').change(function() {
