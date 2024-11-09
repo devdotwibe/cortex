@@ -29,7 +29,7 @@
         <div class="row">
             <x-ajax-table :action='false' :coloumns='[
                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
-                ["th"=>"name","name"=>"username","data"=>"username"],
+                ["th"=>"Name","name"=>"name","data"=>"username"],
                 ["th"=>"Email","name"=>"usermail","data"=>"usermail"], 
                 ["th"=>"Plan","name"=>"plan","data"=>"plan"], 
                 ["th"=>"Amount","name"=>"amount","data"=>"amount"], 
