@@ -12,14 +12,19 @@
             <h2>Paid Subscribers</h2>
         </div> 
         <div class="header_content">
-             <div class="form-group">
-                <select  id="cat-list" onchange="changeplan()" class="select2 form-control" data-placeholder="Select an Plan" data-allow-clear="true" >
-                     @foreach ($plans as $item)
-                     <option value="{{$item->slug}}">{{ucfirst($item->title)}}</option>                         
-                     @endforeach 
+            <div class="form-group">
+                <!-- Optional headline for the dropdown -->
+                <label for="cat-list" class="form-label">Select Plan</label> 
+        
+                <!-- Dropdown for plans -->
+                <select id="cat-list" onchange="changeplan()" class="select2 form-control" data-placeholder="Select an Plan" data-allow-clear="true">
+                    @foreach ($plans as $item)
+                        <option value="{{$item->slug}}">{{ucfirst($item->title)}}</option>                         
+                    @endforeach 
                 </select>
-             </div>
-        </div> 
+            </div>
+        </div>
+        
     </div>
 </section> 
 <section class="table-section">
