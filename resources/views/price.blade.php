@@ -325,8 +325,8 @@
                                 <input type="hidden" name="subscription" id="subscription-combo" value="">
                                 <input type="hidden" name="plan" value="combo">
                                 <input type="hidden" name="year" value="{{ date('Y') + 0 }}-{{ date('Y') + 1 }}">
-                                <span>Note: This package grants access to you and another account holder.Please enter the email
-                                    of the other account holder</span>
+                                <span>Note: This package grants access to you and another account holder. 
+                                    Please enter the email of the other account holder</span>
                                 <div class="form-group">
                                     {{-- <label for="email-2">Invite User</label> --}}
                                     <div class="input-group ">
@@ -497,6 +497,11 @@
             }
 
             function paymodel(url) {
+                $('input[name="add_coupon"][value="no"]').prop('checked', true);
+                $('input[name="add_coupon2"][value="no"]').prop('checked', true);
+                $('#coupon-field').hide();
+                $('#coupon-field2').hide();
+
                 $.get(url, function(res) {
                     $('#headingSubscription').text(res.title)
                     $('#expireSubscription').text('Access until '+res.end_plan)
