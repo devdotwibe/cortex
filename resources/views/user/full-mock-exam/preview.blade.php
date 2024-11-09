@@ -262,13 +262,11 @@
                             }
                         }
 
-                        let linkstatuss = "";
-                        if (k != 0 && k != res.links.length-1) {
+                         let link = "";
+                        if (k == 0 && k == res.links.length-1) {
 console.log(res.links.length);
-                            linkstatuss = 'mob-view';
+                            link = 'prevnext-class';
                         }
-
-                        
                         if (v.active || !v.url) {
                             $('#lesson-footer-pagination').append(`
                                 <button class="${linkstatus} btn btn-secondary ${v.active?"active":""}" disabled  >${v.label}</button>
