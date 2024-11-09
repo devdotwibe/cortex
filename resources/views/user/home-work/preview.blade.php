@@ -236,7 +236,7 @@
 
                         let linkstatuss = "";
                         if (k != 0 && k != res.links.length-1) {
-console.log(res.links.length);
+
                             linkstatuss = 'mob-view';
                         }
                         
