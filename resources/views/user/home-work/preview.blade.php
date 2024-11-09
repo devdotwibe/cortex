@@ -235,11 +235,11 @@
 
 
                         let linkstatuss = "";
-                        if (k != 0 && k != res.links.length-1) {
-console.log(res.links.length);
-                            linkstatuss = 'mob-view';
+                        if (k != 0 && k != res.links.length - 1) {
+                            console.log(res.links.length);
+                            linkstatuss = 'prenext-class';
                         }
-                        
+
 
                         if (v.active || !v.url) {
                             $('#lesson-footer-pagination').append(`
