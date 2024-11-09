@@ -8055,7 +8055,7 @@ nav.navbar.top-barhide {
     }
 
     .exam-container.answerclass .mcq-container-wrap .lesson #lesson-footer-pagination {
-        bottom: 29px;
+        bottom: -4px;
     }
 
 }
