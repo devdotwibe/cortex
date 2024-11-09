@@ -86,7 +86,7 @@ class UserController extends Controller
         <img src="' . asset('assets/images/icons/material-symbols_lock-outline.svg') . '" alt="Reset Password" title="Reset Password">
     </span>
     <span class="adminactive-icon">
-        <img src="' . asset('assets/images/iconshover/material-symbols_lock-yellow.svg') . '" alt="Reset Password Active" title="Reset Password Active">
+        <img src="' . asset('assets/images/iconshover/material-symbols_lock-yellow.svg') . '" alt="Reset Password Active" title="Reset Password">
     </span>
 </a>
 
