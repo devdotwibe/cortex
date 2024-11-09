@@ -262,7 +262,7 @@
 
         $(function() {
 
-            console.log('2');
+            
 
             $('#subfaq').DataTable({
                 // bFilter: false,
@@ -331,7 +331,7 @@
 
         $(function() {
 
-            console.log('3');
+            
 
             $('#table-category-form-create').on('submit', function(e) {
                 e.preventDefault();
@@ -357,8 +357,7 @@
 
                         const actionUrl = "{{ route('admin.faq.store') }}";
 
-                        console.log('99');
-                        console.log("test1");
+                        
 
                         // Hide the cancel button
                         $('#table-category-form-clear').hide();
@@ -393,7 +392,7 @@
 
                 // Hide the cancel button
                 $(this).hide();
-                console.log("test2");
+               
             });
 
 
