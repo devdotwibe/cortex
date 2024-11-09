@@ -64,8 +64,6 @@ class QuestionBankController extends Controller
     return view('admin.question-bank.show', compact('category'));
 }
 
-
-
     public function show(Request $request,Setname $setname){
         self::reset();
         self::$model = Question::class;
