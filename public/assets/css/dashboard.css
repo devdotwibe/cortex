@@ -750,6 +750,7 @@ button.close {
 .exam-container .container-wrap .lesson .lesson-body p img {
     display: block;
     width: 100%;
+    margin: 0 0 28px;
 }
 
 .exam-container .container-wrap .lesson .lesson-body h2 {
@@ -3187,6 +3188,12 @@ aside.side_bar.slider-btn .btn-slider {
 
 .exam-container .container-wrap.full-mock-exam-review {
     padding-bottom: 0.2em !important;
+}
+
+.exam-container.answerclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer .form-group {
+    display: block;
+    width: 100%;
+    float: left;
 }
 
 @media screen and (max-width:1399px) {
