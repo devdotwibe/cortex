@@ -504,7 +504,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                                     </span>
                                                     <span class="adminactive-icon">
                                                         <img src="{{ asset('assets/images/iconshover/material-symbols_delete-yellow.svg') }}"
-                                                            alt="Delete Active">
+                                                            alt="Delete Active" title="Delete">
                                                     </span>
                                                 </button>
                                             </div>

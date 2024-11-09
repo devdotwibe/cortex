@@ -184,7 +184,7 @@ class TermController extends Controller
                             <img src="' . asset("assets/images/icons/material-symbols_delete-outline.svg") . '" alt="Delete">
                         </span>
                         <span class="adminactive-icon">
-                            <img src="' . asset("assets/images/iconshover/material-symbols_delete-yellow.svg") . '" alt="Delete Active">
+                            <img src="' . asset("assets/images/iconshover/material-symbols_delete-yellow.svg") . '" alt="Delete Active" title="Delete">
                         </span>
                     </a> ';
 
@@ -239,7 +239,7 @@ class TermController extends Controller
                             <img src="' . asset("assets/images/icons/material-symbols_delete-outline.svg") . '" alt="Delete">
                         </span>
                         <span class="adminactive-icon">
-                            <img src="' . asset("assets/images/iconshover/material-symbols_delete-yellow.svg") . '" alt="Delete Active">
+                            <img src="' . asset("assets/images/iconshover/material-symbols_delete-yellow.svg") . '" alt="Delete Active" title="Delete">
                         </span>
                      </a> '; 
 
@@ -290,7 +290,7 @@ class TermController extends Controller
                             <img src="' . asset("assets/images/icons/material-symbols_delete-outline.svg") . '" alt="Delete">
                         </span>
                         <span class="adminactive-icon">
-                            <img src="' . asset("assets/images/iconshover/material-symbols_delete-yellow.svg") . '" alt="Delete Active">
+                            <img src="' . asset("assets/images/iconshover/material-symbols_delete-yellow.svg") . '" alt="Delete Active" title="Delete">
                         </span>
                      </a>
 
@@ -340,7 +340,7 @@ class TermController extends Controller
                             <img src="' . asset("assets/images/icons/material-symbols_delete-outline.svg") . '" alt="Delete">
                         </span>
                         <span class="adminactive-icon">
-                            <img src="' . asset("assets/images/iconshover/material-symbols_delete-yellow.svg") . '" alt="Delete Active">
+                            <img src="' . asset("assets/images/iconshover/material-symbols_delete-yellow.svg") . '" alt="Delete Active" title="Delete">
                         </span>
                      </a>
 
@@ -388,7 +388,7 @@ class TermController extends Controller
                             <img src="' . asset("assets/images/icons/material-symbols_delete-outline.svg") . '" alt="Delete">
                         </span>
                         <span class="adminactive-icon">
-                            <img src="' . asset("assets/images/iconshover/material-symbols_delete-yellow.svg") . '" alt="Delete Active">
+                            <img src="' . asset("assets/images/iconshover/material-symbols_delete-yellow.svg") . '" alt="Delete Active" title="Delete">
                         </span>
                     </a> ';
 
