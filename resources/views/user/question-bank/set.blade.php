@@ -13,7 +13,7 @@
                             <img src="{{asset("assets/images/exiticon-wht.svg")}}" alt="exiticon">
                         </a>
                     </div>
-                    <div class="timer exam-timer" id="exam_timer">
+                    {{-- <div class="timer exam-timer" id="exam_timer">
                         <div class="minute">
                             <span class="runner">00</span>
                             <span>Mins</span>
@@ -26,7 +26,7 @@
                             <span class="runner">00</span>
                             <span>Seconds</span>
                         </div>
-                    </div> 
+                    </div>  --}}
 
                     <button class="btn hide-btn" id="hide_button" onclick="HideTime()">Hide Time</button>
 
