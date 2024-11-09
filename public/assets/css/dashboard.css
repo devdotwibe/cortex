@@ -7351,13 +7351,17 @@ nav.navbar.top-barhide {
     margin: 0 0 0 35px;
 }
 
-
+.exam-container.questionclass.answerclass .quest-progress + .container-wrap {
+    padding-bottom: 0 !important;
+    min-height: calc(100vh - 158px);
+}
 
 @media screen and (max-width:1599px) {
     .live-modal .modal-dialog .modal-row .modal-col1 .form-row .text-field-preview p {
         width: 100%;
         margin: 0 0 10px;
     }
+
 }
 
 @media screen and (max-width:1500px) {
