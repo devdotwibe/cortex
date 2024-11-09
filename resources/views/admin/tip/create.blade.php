@@ -10,7 +10,8 @@
                     <img src="{{ asset('assets/images/leftarrowblack.svg') }}" alt="">
                 </a>
             </div>
-            <h2>Tips And Advice</h2>
+            <h2>{{ $tip->name }} </h2>
+            {{-- <h2>Tips And Advice</h2> --}}
         </div>
 
         <!-- Display validation errors -->

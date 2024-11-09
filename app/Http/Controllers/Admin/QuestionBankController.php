@@ -56,6 +56,7 @@ class QuestionBankController extends Controller
         }
         return $data;
     }
+    
     public function show(Request $request,Setname $setname){
         self::reset();
         self::$model = Question::class;

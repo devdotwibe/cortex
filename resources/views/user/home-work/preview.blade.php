@@ -55,7 +55,7 @@
 
         </div>
 
-        <div class="container-wrap">
+        <div class="container-wrap homeclass">
             <div class="lesson">
                 {{-- <a class="lesson-exit float-start" href="{{route('home-work.show',$homeWork->slug)}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
                 <img src="{{asset("assets/images/exiticon.svg")}}" alt="exiticon">
