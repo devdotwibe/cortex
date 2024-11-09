@@ -333,7 +333,7 @@ class UserController extends Controller
         $request->validate([
             'first_name' => 'required|string|max:255', 
          
-            'email' => 'required|email|max:255', // Validate email format      
+        'email' => 'required|max:255',       
         'expiry_date' => 'required|date',  
          
             
@@ -347,7 +347,7 @@ class UserController extends Controller
         return filter_var($data['email'], FILTER_VALIDATE_EMAIL);
     });
 
-
+    
 
         $experidate = $request->expiry_date;
 
