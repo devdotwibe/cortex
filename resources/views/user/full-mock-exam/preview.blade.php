@@ -263,7 +263,7 @@
                         }
                         if (v.active || !v.url) {
                             var preclass = "";
-                            if (k == 2) {
+                            if (k == 0) {
                                 prevclass = "prevnext-class";
                                 
                             }
