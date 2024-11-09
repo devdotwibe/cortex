@@ -4916,6 +4916,7 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
     margin: 0 0 20px;
     font-family: 'Arial';
     font-size: 18px;
+    float: left;
 }
 
 .mcq-title-text p {
