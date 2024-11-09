@@ -263,8 +263,9 @@
                         }
                         if (v.active || !v.url) {
                             var preclass = "";
-                            if (k == 0) {
+                            if (k == 0 && k!=1) {
                                 prevclass = "prevnext-class";
+                                
                             }
                             $('#lesson-footer-pagination').append(`
                                 <button class="${linkstatus} btn btn-secondary ${prevclass}  ${v.active?"active":""}" disabled  >${v.label}</button>
