@@ -3430,7 +3430,7 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
     margin: 0 0 24px;
 }
 
-s .card-progress .card-body .session-chart {
+.card-progress .card-body .session-chart {
     width: 100%;
     text-align: center;
 }
@@ -3565,6 +3565,25 @@ s .card-progress .card-body .session-chart {
     border: 1px solid #FBAE1E;
     opacity: 1;
     margin: 0 5px;
+}
+
+.exam-container .container-wrap.homeclass .lesson {
+    height: calc(100vh - 266px);
+    overflow-y: auto;
+}
+
+.exam-container .container-wrap.homeclass .lesson::-webkit-scrollbar {
+    width: 10px;
+}
+
+.exam-container .container-wrap.homeclass .lesson::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 8px;
+}
+
+.exam-container .container-wrap.homeclass .lesson::-webkit-scrollbar-thumb {
+    background: #005d93;
+    border-radius: 8px;
 }
 
 @media screen and (max-width:1011px) {
