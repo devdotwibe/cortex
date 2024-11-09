@@ -262,7 +262,8 @@
                             }
                         }
                         if (v.active || !v.url) {
-                            var preclass = "";
+                          
+                            let prevclass = "";
                             if (k != 0 && k != res.links.length-1){
                                 prevclass = "prevnext-class";
                                 
