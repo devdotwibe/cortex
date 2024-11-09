@@ -262,12 +262,16 @@
                             }
                         }
                         if (v.active || !v.url) {
+                            var preclass = "";
+                            if (k == 0) {
+                                preclass = "prevnext-class";
+                            }
                             $('#lesson-footer-pagination').append(`
-                                <button class="${linkstatus} btn btn-secondary prevnext_class ${v.active?"active":""}" disabled  >${v.label}</button>
+                                <button class="${linkstatus} btn btn-secondary  ${v.active?"active":""}" disabled  >${v.label}</button>
                             `)
                         } else {
                             $('#lesson-footer-pagination').append(`
-                                <button class="${linkstatus} btn btn-secondary prevnext_class" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
+                                <button class="${linkstatus} btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
                             `)
                         }
                     })
