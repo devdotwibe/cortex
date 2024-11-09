@@ -342,12 +342,7 @@ class UserController extends Controller
 
         $datas = json_decode($request->input('datas'), true);
 
-         // Filter out records with improperly formatted emails
-    $filteredData = array_filter($datas, function ($data) {
-        return filter_var($data['email'], FILTER_VALIDATE_EMAIL);
-    });
-
-    
+        
 
         $experidate = $request->expiry_date;
 
