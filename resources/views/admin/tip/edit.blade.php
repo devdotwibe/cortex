@@ -27,6 +27,7 @@
                         </div>
                         <div class="mb-3">
                             <a href="{{ route('admin.tip.index') }}" class="btn btn-secondary">Cancel</a>
+                            {{-- <a href="{{ route('admin.tip.create', ['tip' => $tip->id]) }}" class="btn btn-secondary">Cancel</a> --}}
                             <button type="submit" class="btn btn-dark">Update</button>
                         </div>
                     </form>
