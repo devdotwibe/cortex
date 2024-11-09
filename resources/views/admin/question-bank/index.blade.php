@@ -7,12 +7,7 @@
             <div class="back-btn"  id="back-btn" style="display: none">
                 <a onclick="pagetoggle()"><img src="{{asset('assets/images/leftarrowblack.svg')}}" alt=""></a>
             </div>
-            {{-- <h2>Question Bank</h2> --}}
-            @foreach ($categorys as $category)
-            <h2>{{ $category->name }}</h2>
-        @endforeach
-        
-            
+            <h2>Question Bank</h2>
         </div>
     </div>
 </section>
