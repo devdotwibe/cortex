@@ -10,7 +10,8 @@
                     <img src="{{ asset('assets/images/leftarrowblack.svg') }}" alt="">
                 </a>
             </div>
-            <h2>Tips And Advice</h2>
+            <h2>{{ $category->name }} - Questions</h2>
+            {{-- <h2>Tips And Advice</h2> --}}
         </div>
 
         <!-- Display validation errors -->
