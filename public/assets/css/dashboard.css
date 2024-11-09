@@ -7846,10 +7846,12 @@ nav.navbar.top-barhide {
 
     .questionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group {
         padding: 20px;
+        height: calc(100vh - 190px) !important;
     }
 
     .questionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer {
         padding: 20px;
+        height: calc(100vh - 190px) !important;
     }
 
     .questionclass .mcq-container-wrap .lesson .lesson-body .col-md-12 {
@@ -8056,6 +8058,10 @@ nav.navbar.top-barhide {
 
     .exam-container.answerclass .mcq-container-wrap .lesson #lesson-footer-pagination {
         bottom: -4px;
+    }
+
+    .exam-container.questionclass.answerclass .container-wrap {
+        padding-bottom: 3.4em !important;
     }
 
 }
