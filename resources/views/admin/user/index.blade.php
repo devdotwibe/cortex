@@ -42,16 +42,19 @@
 
                 <form action="#" name="import_user" id="import_user" method="post"  enctype="multipart/form-data">
                     @csrf
-                    <div class="col-md-12 ">
+                    <div class="col-md-12">
                         <div class="form-group import-class">
                             <div class="form-data import-uclass">
                                 <div class="forms-inputs mb-4 import-peoples">
-                                    <label for="file_upload" class="file-upload">Upload File <br>
+                                    <label for="file_upload" class="file-upload" aria-label="Upload File">
+                                        Upload File <br>
                                         <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
                                     </label>
                                     <input type="file" name="file_upload" id="file_upload" accept=".csv,.xlsx"
-                                           class="form-control" style="display: none;">
-                                           <small class="form-text text-muted">Supported File Types: .csv, .xlsx</small>
+                                           class="form-control" style="display: none;"
+                                           onchange="document.getElementById('file-name').textContent = this.files[0].name;">
+                                    <small class="form-text text-muted">Supported File Types: .csv, .xlsx</small>
+                                    <span id="file-name" class="form-text text-success"></span>
                                     @error('file_upload')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -466,4 +469,12 @@ jQuery(document).on("change", "#file_upload", function() {
 
 
         </script>
+
+<script>
+    // Optional: Additional JavaScript to improve UX
+    document.getElementById('file_upload').addEventListener('change', function() {
+        let fileName = this.files.length ? this.files[0].name : '';
+        document.getElementById('file-name').textContent = fileName;
+    });
+</script>
 @endpush
