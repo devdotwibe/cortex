@@ -441,7 +441,7 @@
 
                         // Clear the update state
                         $('#subcategory').data('save', ""); // Reset save data
-                        // $('#subcategory').attr('action', '{{ route('admin.faq.subfaq-store') }}');
+                        $('#subcategory').attr('action', '{{ route('admin.faq.subfaq-store') }}');
                         $('#subfaq').DataTable().ajax.reload();
 
                         // $('#sub-category-create-modal').modal('show');
