@@ -8,7 +8,7 @@
                 <a onclick="pagetoggle()"><img src="{{asset('assets/images/leftarrowblack.svg')}}" alt=""></a>
             </div>
             {{-- <h2>Question Bank</h2> --}}
-            <h2>{{ $categorys }}</h2>
+            <h2>{{ $categorys->name }}</h2>
         </div>
     </div>
 </section>
