@@ -110,7 +110,7 @@ function update_faq(Request $request, $id)
         public function destroy_faq(Request $request,FaqCategory $faq)
     { 
         
-        // print_r($category);
+        
 
         $faq->delete();
 
