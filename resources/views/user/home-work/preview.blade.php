@@ -235,7 +235,7 @@
 
 
                         let linkstatusss = "";
-                        if (k == 0 && k != res.links.length - 1) {
+                        if (k == 0 && k== res.links.length) {
                             console.log(res.links.length);
                             linkstatusss = 'prenext-class';
                         }
