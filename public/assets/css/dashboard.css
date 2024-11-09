@@ -8611,7 +8611,7 @@ nav.navbar.top-barhide {
     }
 
     .questionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group {
-        height: inherit;
+        height: inherit !important;
     }
 
 }
