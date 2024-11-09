@@ -234,20 +234,20 @@
                     $.each(res.links, function(k, v) {
 
 
-                        let linkstatuss = "";
+                        let linkstatusss = "";
                         if (k == 0 && k != res.links.length - 1) {
                             console.log(res.links.length);
-                            linkstatuss = 'prenext-class';
+                            linkstatusss = 'prenext-class';
                         }
 
 
                         if (v.active || !v.url) {
                             $('#lesson-footer-pagination').append(`
-                                <button class="${linkstatuss} btn btn-secondary ${v.active?"active":""}" disabled  >${v.label}</button>
+                                <button class="${linkstatusss} btn btn-secondary ${v.active?"active":""}" disabled  >${v.label}</button>
                             `)
                         } else {
                             $('#lesson-footer-pagination').append(`
-                                <button class="${linkstatuss} btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
+                                <button class="${linkstatusss} btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
                             `)
                         }
                     })
