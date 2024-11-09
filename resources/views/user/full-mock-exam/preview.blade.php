@@ -263,7 +263,7 @@
                         }
                         if (v.active || !v.url) {
                             $('#lesson-footer-pagination').append(`
-                                <button class="${linkstatus} btn btn-secondary ${v.active?"active":""}" disabled  >${v.label}</button>
+                                <button class="${linkstatus} btn btn-secondary prevnext_class ${v.active?"active":""}" disabled  >${v.label}</button>
                             `)
                         } else {
                             $('#lesson-footer-pagination').append(`
