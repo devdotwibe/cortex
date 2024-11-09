@@ -27,7 +27,7 @@
         </div>
     </section>
 
-    <section class="price-wrapp" id="subscription" >
+    <section class="price-wrapp" id="subscription">
         <div class="container">
             <div class="price-row1">
                 <div class="gif"><img src="{{ asset('assets/images/loader.gif') }}" alt=""></div>
@@ -41,7 +41,7 @@
             </div>
 
             <div class="price-row2" id="our-plans">
-            
+
                 @foreach ($subscriptionPlans as $plan)
                     <div class="price-col1">
                         <ss style="display: none">@json($plan)</ss>
@@ -207,19 +207,18 @@
     </section>
 
 
-    
+
     <section class="learning-wrapp">
         <div class="container">
             <div class="learning-row">
                 <div class="learning-col1">
                     @if (!empty($price->exceltitle))
-                    {!! $price->exceltitle !!}
-                @endif
+                        {!! $price->exceltitle !!}
+                    @endif
 
-                @if (!empty($price->excelbuttonlink) && !empty($price->excelbuttonlabel))
-                <a href="{{ $price->excelbuttonlink }}"
-                    class="learning-btn">{{ $price->excelbuttonlabel }}</a>
-            @endif
+                    @if (!empty($price->excelbuttonlink) && !empty($price->excelbuttonlabel))
+                        <a href="{{ $price->excelbuttonlink }}" class="learning-btn">{{ $price->excelbuttonlabel }}</a>
+                    @endif
 
 
                 </div>
@@ -297,8 +296,14 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="tabs2-cortext-subscription-paymentLablel">Subscription</h5>
+                        <h5 class="modal-title" id="tabs2-cortext-subscription-paymentLablel">
+                            <span id="headingSubscription"></span>
+                            Subscription <br>
+                            <span style="font-size: 0.6em; color: #6c757d;" id="expireSubscription"></span>
+
+                        </h5>
                     </div>
+                    
                     <div class="modal-body">
                         <div class="form-group">
                             <div class="form-check">
@@ -311,7 +316,7 @@
                                     name="tabs2" id="tabs2a" autocomplete="off">
                                 <label for="tabs2a" class="form-check-label">Group </label>
                             </div>
-                        
+
                         </div>
                         <div class="tabs2" id="tabs2-tabs2a" style="display: none">
                             <form action="{{ route('pricing.index') }}" id="tabs2-cortext-combo-subscription-payment-form"
@@ -320,12 +325,13 @@
                                 <input type="hidden" name="subscription" id="subscription-combo" value="">
                                 <input type="hidden" name="plan" value="combo">
                                 <input type="hidden" name="year" value="{{ date('Y') + 0 }}-{{ date('Y') + 1 }}">
-                              
+                                <span>Note: This package grants access to you and another account holder.Please enter the email
+                                    of the other account holder</span>
                                 <div class="form-group">
                                     {{-- <label for="email-2">Invite User</label> --}}
                                     <div class="input-group ">
                                         <input type="email" name="email" id="tabs2-combo-email"
-                                            placeholder="Enter email address" class="form-control" />
+                                            placeholder="Enter other account's email address" class="form-control" />
                                         <button class="btn btn-outline-secondary" type="button"
                                             id="tabs2-mail-verify-button">Confirm Email</button>
                                         <div class="invalid-feedback" id="tabs2-error-combo-email-message"></div>
@@ -333,13 +339,15 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Do you want to add a coupon?</label>
-                                   <br>
+                                    <br>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="add_coupon2" id="add_coupon2_yes" value="yes">
+                                        <input class="form-check-input" type="radio" name="add_coupon2"
+                                            id="add_coupon2_yes" value="yes">
                                         <label class="form-check-label" for="add_coupon2_yes">Yes</label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="add_coupon2" id="add_coupon2_no" value="no" checked>
+                                        <input class="form-check-input" type="radio" name="add_coupon2"
+                                            id="add_coupon2_no" value="no" checked>
                                         <label class="form-check-label" for="add_coupon2_no">No</label>
                                     </div>
                                 </div>
@@ -359,7 +367,7 @@
                                     <input type="hidden" name="verify" value="N" id="tabs2-verify-mail">
                                     <button type="button" data-bs-dismiss="modal" class="btn btn-secondary">Cancel</button>
                                     <button type="button" class="btn btn-dark"
-                                        id="tabs2-cortext-combo-subscription-payment-form-buttom">Pay Now $<span
+                                        id="tabs2-cortext-combo-subscription-payment-form-buttom">Checkout $<span
                                             class="amount"
                                             id="tabs2-cortext-combo-subscription-payment-form-buttom-price"></span> </button>
                                 </div>
@@ -374,13 +382,15 @@
                                 <input type="hidden" name="year" value="{{ date('Y') + 0 }}-{{ date('Y') + 1 }}">
                                 <div class="form-group">
                                     <label>Do you want to add a coupon?</label>
-                                   <br>
+                                    <br>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="add_coupon" id="add_coupon_yes" value="yes">
+                                        <input class="form-check-input" type="radio" name="add_coupon" id="add_coupon_yes"
+                                            value="yes">
                                         <label class="form-check-label" for="add_coupon_yes">Yes</label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="add_coupon" id="add_coupon_no" value="no" checked>
+                                        <input class="form-check-input" type="radio" name="add_coupon" id="add_coupon_no"
+                                            value="no" checked>
                                         <label class="form-check-label" for="add_coupon_no">No</label>
                                     </div>
                                 </div>
@@ -399,7 +409,7 @@
                                 <div class="form-group mt-2">
                                     <button type="button" data-bs-dismiss="modal" class="btn btn-secondary">Cancel</button>
                                     <button type="button" class="btn btn-dark price-norm"
-                                        id="tabs2-cortext-subscription-payment-form-buttom">Pay Now $<span class="amount"
+                                        id="tabs2-cortext-subscription-payment-form-buttom">Checkout $<span class="amount"
                                             id="tabs2-cortext-subscription-payment-form-buttom-price"></span> </button>
                                 </div>
                             </form>
@@ -461,7 +471,7 @@
                         $('#last_name_error').text(errors.last_name);
                         $('#phone_number_error').text(errors.phone_number);
                         $('#email_error').text(errors.email);
-                        $('#message_error').text(errors.message);   
+                        $('#message_error').text(errors.message);
                     }
                 });
             });
@@ -488,6 +498,8 @@
 
             function paymodel(url) {
                 $.get(url, function(res) {
+                    $('#headingSubscription').text(res.title)
+                    $('#expireSubscription').text('Access until '+res.end_plan)
                     $('#subscription-single').val(res.slug)
                     $('#subscription-combo').val(res.slug)
                     $('#tabs2-cortext-combo-subscription-payment-form').attr('action', url)
@@ -634,7 +646,6 @@
                 });
             })
         </script>
-        
     @endauth
 
 @endpush
