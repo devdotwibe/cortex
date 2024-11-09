@@ -8,7 +8,8 @@
                 <a onclick="pagetoggle()"><img src="{{asset('assets/images/leftarrowblack.svg')}}" alt=""></a>
             </div>
             {{-- <h2>Question Bank</h2> --}}
-            <h2>{{ $categorys->name }}</h2>
+            {{-- <h2>{{ $categorys->name }}</h2> --}}
+            <h2 id="category-heading">Question Bank</h2>
         </div>
     </div>
 </section>
@@ -436,5 +437,17 @@
         loadsubcategory('{{route('admin.question-bank.subcategory',request('id'))}}')
         @endif
     });
+</script>
+
+<script>
+    // Dynamically update the heading when a category is clicked
+    function loadsubcategory(url) {
+        // Fetch the category name dynamically
+        $.get(url, function(response) {
+            var categoryTitle = response.category_name || 'Question Bank'; // Default to 'Question Bank' if no category title
+            $('#category-heading').text(categoryTitle);
+            // Optionally, handle other things like loading subcategories or related content here
+        });
+    }
 </script>
 @endpush
