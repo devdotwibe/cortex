@@ -491,7 +491,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                                     </span>
                                                     <span class="adminactive-icon">
                                                         <img src="{{ asset('assets/images/iconshover/iconamoon_edit-yellow.svg') }}"
-                                                            alt="Edit Active">
+                                                            alt="Edit Active" title="Edit">
                                                     </span>
                                                 </button>
 

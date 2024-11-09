@@ -31,7 +31,7 @@ class FaqController extends Controller
         <img src="'.asset('assets/images/icons/iconamoon_edit.svg').'" alt="Edit">
     </span>
     <span class="adminactive-icon">
-        <img src="'.asset('assets/images/iconshover/iconamoon_edit-yellow.svg').'" alt="Edit Active">
+        <img src="'.asset('assets/images/iconshover/iconamoon_edit-yellow.svg').'" alt="Edit Active" title="Edit">
     </span>
 </a>'.
 
