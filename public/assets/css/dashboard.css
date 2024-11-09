@@ -742,7 +742,7 @@ button.close {
 }
 
 .exam-container .container-wrap .lesson .lesson-body p {
-    font-size: 20px;
+    font-size: 16px;
     line-height: 1.5;
     margin: 0 0 20px;
 }
@@ -822,7 +822,7 @@ button.close {
 .exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check {
     padding-left: 45px;
     margin: 0 0 20px;
-    font-size: 20px;
+    font-size: 16px;
 }
 
 .exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check input {
@@ -831,7 +831,7 @@ button.close {
     border-radius: 50%;
     border: 1px solid;
     position: relative;
-    top: -2px;
+    top: -4px;
     box-shadow: none;
     margin-left: -43px;
 }
@@ -1498,7 +1498,7 @@ button.close {
     margin: 5px 15px;
     display: flex;
     align-items: center;
-    font-size: 20px;
+    font-size: 16px;
 }
 
 .form-progress-ans .form-progress label {
@@ -7465,13 +7465,13 @@ nav.navbar.top-barhide {
         top: 90px;
     }
 
-    .exam-container .container-wrap .lesson .lesson-body p {
+    /* .exam-container .container-wrap .lesson .lesson-body p {
         font-size: 18px;
-    }
+    } */
 
-    .exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check {
+    /* .exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check {
         font-size: 18px;
-    }
+    } */
 
     .lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark a {
         padding: 18px;
