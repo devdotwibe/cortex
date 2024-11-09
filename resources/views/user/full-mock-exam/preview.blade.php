@@ -305,7 +305,7 @@
                             }
 
                             var preclass = "";
-                            if (k == 0 k == res.links.length) {
+                            if (k == 0) {
                                 preclass = "preclass";
                             }
                             $('#lesson-footer-paginationmobile').append(`
