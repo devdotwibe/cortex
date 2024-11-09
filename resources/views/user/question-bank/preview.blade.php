@@ -32,14 +32,14 @@
                             <span id="menu-text">Question <span> 0 </span> <span>0 </span> </span>
 
                         </div>
-                        
+
                     </div>
                 </div>
 
 
                 <div class="menu-icon modecolor">
                     <a onclick="toglepreviewpage()">
-                        <img src="{{asset("assets/images/menu.svg")}}" alt="exiticon">
+                        <img src="{{ asset('assets/images/menu.svg') }}" alt="exiticon">
                     </a>
                 </div>
 
@@ -55,7 +55,7 @@
 
         <div class="container-wrap mcq-container-wrap question-bank-review">
             <div class="lesson">
-               
+
                 <div class="lesson-body">
                     <div class="row" id="lesson-questionlist-list" style="display: none">
                     </div>
@@ -64,7 +64,7 @@
                 </div>
             </div>
         </div>
-       
+
     </section>
 
     <section class="exam-footer">
@@ -98,28 +98,28 @@
                 </a>
             </div>
 
-           
+
         </div>
     </section>
 
-    
-<section class="modal-expand" id="question-preview-page" style="display: none;">
-    <div class="container-wrap">
-        
+
+    <section class="modal-expand" id="question-preview-page" style="display: none;">
+        <div class="container-wrap">
 
 
 
-        <div class="lesson-footer" id="lesson-footer-paginationmobile">
+
+            <div class="lesson-footer" id="lesson-footer-paginationmobile">
+            </div>
+
+
+
+
+
         </div>
-       
 
 
-
-
-  </div>
-
-
-</section>
+    </section>
 
 
 @endsection
@@ -146,12 +146,12 @@
                 $('.pagination-arrow').hide();
                 $('#lesson-footer-pagination').html('')
                 $('#lesson-footer-paginationmobile').html('')
-               
+
                 $('#question-preview-page').fadeOut()
                 $('#question-answer-page').fadeIn()
 
                 const lesseonId = generateRandomId(10);
-             
+
 
                 $.each(res.data, function(k, v) {
                     $('#lesson-questionlist-list').html(`
@@ -267,7 +267,7 @@
                                 <button class="${linkstatus} btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
                             `)
                         }
-                        
+
                     })
                 }
 
@@ -296,10 +296,9 @@
                                 var label_name = "<";
                             }
 
-                            var preclass="";
-                            if(k==0)
-                            {
-                                preclass="preclass";
+                            var preclass = "";
+                            if (k == 0) {
+                                preclass = "preclass";
                             }
                             $('#lesson-footer-paginationmobile').append(`
                                 <button class="${linkstatus} btn btn-secondary  {$preclass} ${v.active?"active":""}" disabled   >${label_name}</button>
@@ -309,7 +308,7 @@
                                 <button class="${linkstatus} btn btn-secondary " onclick="loadlessonreview('${v.url}')" >${v.label}</button>
                             `)
                         }
-                        
+
                     })
                 }
 

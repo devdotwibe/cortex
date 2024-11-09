@@ -168,7 +168,7 @@ class SubmitReview implements ShouldQueue
                 'currect_answer'=>'', 
                 'user_answer'=>$user_answer,  
                 'exam_id'=> $this->review->exam_id,
-                'question_id'=> $question->id,
+                'question_id'=> $question->question_id,
                 'title_text'=> $question->title_text,
                 'sub_question'=> $question->sub_question,
                 'user_id'=>$this->review->user_id,
@@ -185,8 +185,8 @@ class SubmitReview implements ShouldQueue
                     'iscorrect'=>$ans->iscorrect,
                     'user_answer'=>(($ans->slug==$user_answer)?true:false),
                     'exam_id'=> $this->review->exam_id,
-                    'question_id'=> $question->id,
-                    'answer_id'=> $ans->id,
+                    'question_id'=> $question->question_id,
+                    'answer_id'=> $ans->answer_id,
                     'user_id'=>$this->review->user_id,
                 ]); 
             } 
@@ -283,7 +283,7 @@ class SubmitReview implements ShouldQueue
                     'iscorrect'=>$ans->iscorrect,
                     'user_answer'=>(($ans->slug==$user_answer)?true:false),
                     'exam_id'=> $this->review->exam_id,
-                    'question_id'=> $question->id,
+                    'question_id'=> $question->question_id,
                     'answer_id'=> $ans->answer_id,
                     'user_id'=>$this->review->user_id,
                 ]); 
