@@ -44,7 +44,7 @@ class UserController extends Controller
                         $this->where(function ($qry) {
                             $qry->where(function($query){
                                 $query->whereIn("id", UserSubscription::where('status', 'subscribed')->select('user_id'))
-                                      ->orWhere("is_free_access", true);
+                                      ->orWhere("is_free_access", false);
                             });
                         });
                         break;
