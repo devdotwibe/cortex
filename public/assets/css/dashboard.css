@@ -8606,6 +8606,10 @@ nav.navbar.top-barhide {
         margin: 0 0 0 !important;
     }
 
+    .exam-container .container-wrap .lesson .lesson-body .mcq-row {
+        padding: 0;
+    }
+
 }
 
 
