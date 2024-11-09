@@ -257,7 +257,7 @@
                             if (useranswers[k - 1].iscorrect) {
                                 linkstatus = "status-good mob-view";
                                 if (useranswers[k - 1].time_taken < {{ $examtime }}) {
-                                    linkstatus = "status-exelent mob-view";
+                                    linkstatus = "status-bad mob-view";
                                 }
                             }
                         }
