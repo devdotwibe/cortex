@@ -8610,6 +8610,10 @@ nav.navbar.top-barhide {
         padding: 0;
     }
 
+    .questionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group {
+        height: inherit;
+    }
+
 }
 
 
