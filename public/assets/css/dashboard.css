@@ -3174,7 +3174,7 @@ aside.side_bar.slider-btn .btn-slider {
 }
 
 .exam-container .question-bank-review .lesson #lesson-footer-pagination {
-    bottom: 20px;
+    bottom: 0;
 }
 
 .exam-container .mcq-container-wrap.full-mock-exam {
@@ -5957,7 +5957,7 @@ s .card-progress .card-body .session-chart {
 }
 
 .questionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer {
-    height: calc(100vh - 245px) !important;
+    height: calc(100vh - 266px) !important;
     padding: 50px;
     overflow-y: auto;
 }
@@ -6136,7 +6136,8 @@ nav.navbar.header-class {
 }
 
 .exam-container.questionclass.answerclass .container-wrap {
-    min-height: calc(100vh - 154px);
+    min-height: calc(100vh - 158px);
+    padding-bottom: 5.54em !important;
 }
 
 .modal-expand.modal-expand-result .container-wrap {
