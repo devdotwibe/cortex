@@ -76,7 +76,7 @@ class UserController extends Controller
                         <img src="' . asset('assets/images/icons/mdi_incognitospectate.svg') . '" alt="Spectate">
                     </span>
                     <span class="adminactive-icon">
-                        <img src="' . asset('assets/images/iconshover/mdi_incognito-yellow.svg') . '" alt="Spectate Active">
+                        <img src="' . asset('assets/images/iconshover/mdi_incognito-yellow.svg') . '" alt="Spectate Active" title="Spectate">
                     </span>
                 </a>
 
