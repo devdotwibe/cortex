@@ -41,11 +41,11 @@
 
                 <div class="menu-icon modecolor">
                     <a onclick="toglepreviewpage()">
-                        <img src="{{asset("assets/images/menu.svg")}}" alt="exiticon">
+                        <img src="{{ asset('assets/images/menu.svg') }}" alt="exiticon">
                     </a>
                 </div>
 
-                
+
                 <div class="Review-mode">
                     <span>Review Mode </span>
                 </div>
@@ -144,7 +144,7 @@
 
     </section>
 
-    
+
 @endsection
 
 @push('footer-script')
@@ -277,9 +277,9 @@
                     })
                 }
 
-                
+
                 if (res.total > 1) {
-                    
+
 
                     $.each(res.links, function(k, v) {
                         let linkstatus = "";
