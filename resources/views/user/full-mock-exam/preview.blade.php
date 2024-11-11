@@ -279,7 +279,7 @@
                             console.log(v.label);
 
                             var preclass = "";
-                            if (k == 0 || k == res.links.length) {
+                            if (k == 0 || k == res.links.length-1) {
                              preclass = "prevnxtclass";
                             }
                             
