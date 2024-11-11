@@ -805,6 +805,9 @@
         @if (isset($price) && $price->image)
             <img id="imagePreview" src="{{ url('d0/' . $price->image) }}"
                 alt="Image Preview" style="width: 100%; height: auto;">
+                <button type="button" onclick="removeImage(this)"
+                value="{{ $course->id }}" class="btn btn-danger"
+                style="float: right;">X</button>
         @else
             <img id="imagePreview" src="#" alt="Image Preview"
                 style="display: none; width: 100%; height: auto;">
@@ -1279,5 +1282,37 @@
             }
         })
         CKEDITOR.replaceAll('texteditor')
+
+
+        
+        function removeImage(button) {
+
+const courseId = button.value; // Get the course ID from the button value
+const url = '{{ route('admin.payment-price.deleteImage') }}'; // Construct the URL with the course ID
+
+$.ajax({
+    type: 'DELETE',
+    url: url,
+    data: {
+        _token: '{{ csrf_token() }}' // Add CSRF token for Laravel protection
+    },
+    success: function(response) {
+        if (response.success) {
+            // Hide the image and button after successful deletion
+            document.getElementById('imagePreview-save').style.display = 'none';
+            button.style.display = 'none';
+        } else {
+            alert('Image could not be deleted. Please try again.');
+        }
+    },
+    error: function(xhr) {
+        // Handle error response
+        alert('Image could not be deleted. Please try again.');
+    }
+});
+}
+
+
+
     </script>
 @endpush
