@@ -685,9 +685,8 @@
                     value:'pending'
                 }),
             }); 
-            $('#finish-exam-confirm').modal('hide') 
-            console.log(getItem("question-bank"));
-            var timed=localStorage.getItem("question-bank")||"untimed";  
+            $('#finish-exam-confirm').modal('hide') z
+            var timed=localStorage.getItem("question-bank")||"timed";  
             $('#finish-exam-confirmed-form-timed').val(timed)           
             $('#finish-exam-confirmed-form-timetaken').val(summery.timetaken)
             $('#finish-exam-confirmed-form-flags').val(JSON.stringify(summery.flagcurrent))
@@ -770,7 +769,7 @@
                 $('#flagged-nav').text(lenflag)
                 summery.save()
             }) 
-            if((localStorage.getItem("question-bank")||"untimed")=="timed"){ 
+            if((localStorage.getItem("question-bank")||"timed")=="timed"){ 
                 $('.timer').show()
             }else{
                 $('.timer').hide()
