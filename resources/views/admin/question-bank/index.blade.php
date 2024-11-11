@@ -187,7 +187,7 @@
     }
     function loadsubcategory(url){
         $.get(url,function(res){
-            $("#questhead").text(res[0].category_name);
+            $("#questhead").text(res[1].category_name);
             $('#subcategory-list').html("")
             $.each(res,function(k,v){
                 $('#subcategory-list').append(`
