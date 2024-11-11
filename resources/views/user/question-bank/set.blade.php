@@ -58,7 +58,7 @@
         </div>
         
     </div>
-    <div class="container-wrap  mcq-container-wrap question-bank" id="question-answer-page">
+    <div class="container-wrap  mcq-container-wrap question-bank nopaginationclass" id="question-answer-page">
         <div class="lesson">  
             {{-- <div class="lesson-title">
                 <h3><span>{{$exam->subtitle($category->id,"Topic ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h3>

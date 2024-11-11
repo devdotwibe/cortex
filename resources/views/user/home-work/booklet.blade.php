@@ -35,7 +35,7 @@
         </div>
         
     </div>
-    <div class="container-wrap" id="question-answer-page">
+    <div class="container-wrap nopaginationclass" id="question-answer-page">
         <div class="lesson">  
             {{-- <div class="lesson-title">
                 <h5><span>{{$homeWorkBook->title}}</span></h5>

@@ -12,9 +12,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('hashtagstore', function (Blueprint $table) {
-            $table->id(); // Automatically creates an auto-incrementing primary key column
-            $table->string('name')->nullable(); // A column for the name field
-            $table->timestamps(); // Creates `created_at` and `updated_at` columns
+            $table->id(); 
+            $table->string('hashtag')->nullable(); 
+            $table->timestamps(); 
         });
     }
 
