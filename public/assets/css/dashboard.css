@@ -3216,6 +3216,10 @@ aside.side_bar.slider-btn .btn-slider {
     width: 100%;
 }
 
+.exam-container .container-wrap .lesson .lesson-body .mcq-row .mcq-container labels strong {
+    font-weight: bold;
+}
+
 @media screen and (max-width:1399px) {
     .exam-container .question-bank-review .lesson #lesson-footer-pagination {
         padding: 15px 0;
