@@ -184,12 +184,13 @@
 @push('footer-script')
     <script>
       
+      
 
       $(function() {
-    @hasSection('modal_id')
-        var modal_id = "@section('modal_id')";
+    @if(session()->has('modal_id'))
+        var modal_id = "{{ session()->get('modal_id') }}";
         $('#' + modal_id).modal('show');
-    @endhasSection
+    @endif
 });
 
         $(function() {
