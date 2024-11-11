@@ -32,12 +32,7 @@ class SubscribeUsersController extends Controller
                 $this->where('user_subscriptions.subscription_plan_id', $plan->id);
             }
             return $this->with('user')->whereHas('user')
-                ->addColumn("usermail",function($data){
-                    return $data->user->email;
-                })
-                ->addColumn("username",function($data){
-                    return $data->user->name;
-                })
+               
                 ->addColumn("expire",function($data){
                     return Carbon::parse($data->expire_at)->format("Y-m-d");
                 })
