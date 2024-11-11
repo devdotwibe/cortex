@@ -189,7 +189,8 @@
       $(function() {
     @if(session()->has('modal_id'))
         var modal_id = "{{ session()->get('modal_id') }}";
-        $('#' + modal_id).modal('show');
+    
+        $('#sub-category-create-modal').modal('show');
     @endif
 });
 
