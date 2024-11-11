@@ -3250,6 +3250,41 @@ aside.side_bar.slider-btn .btn-slider {
     border-radius: 8px;
 }
 
+.questionclass .mcq-container-wrap.nopaginationclass .lesson .lesson-body .mcq-container .mcq-group, .questionclass .mcq-container-wrap.nopaginationclass .lesson .lesson-body .mcq-container .mcq-answer {
+    height: inherit !important;
+    min-height: inherit !important;
+}
+
+.questionclass .mcq-container-wrap.nopaginationclass .lesson .lesson-body {
+    height: 100%;
+}
+
+.exam-container.questionclass.answerclass .container-wrap.nopaginationclass {
+    padding-bottom: 0 !important;
+    min-height: inherit !important;
+    height: calc(100vh - 158px) !important;
+}
+
+.exam-container.questionclass.answerclass .container-wrap.nopaginationclass .lesson {
+    height: 100%;
+}
+
+.exam-container.questionclass.answerclass .container-wrap.nopaginationclass .lesson-body {
+    height: 100%;
+}
+
+.exam-container.questionclass.answerclass .container-wrap.nopaginationclass .lesson-body .row {
+    height: 100%;
+}
+
+.exam-container.questionclass.answerclass .container-wrap.nopaginationclass .lesson-body .row .mcq-row {
+    height: 100%;
+}
+
+.exam-container.questionclass.answerclass .container-wrap.nopaginationclass .lesson-body .row .mcq-row .mcq-container {
+    height: calc(100% - 14px);
+}
+
 @media screen and (max-width:1399px) {
     .exam-container .question-bank-review .lesson #lesson-footer-pagination {
         padding: 15px 0;
@@ -3261,6 +3296,10 @@ aside.side_bar.slider-btn .btn-slider {
 
     .exam-container.questionclass.answerclass .container-wrap .lesson .lesson-body {
         height: calc(100vh - 236px);
+    }
+
+    .exam-container.questionclass.answerclass .container-wrap.nopaginationclass {
+        height: calc(100vh - 110px) !important;
     }
 
 }
@@ -8535,7 +8574,13 @@ nav.navbar.top-barhide {
         height: inherit;
     }
 
-    .exam-container.questionclass.answerclass .container-wrap .lesson .lesson-body {height: inherit;}
+    .exam-container.questionclass.answerclass .container-wrap .lesson .lesson-body {
+        height: inherit;
+    }
+
+    .exam-container.questionclass.answerclass .container-wrap.nopaginationclass .lesson-body {
+        overflow: hidden;
+    }
 }
 
 @media screen and (max-width:600px) {
