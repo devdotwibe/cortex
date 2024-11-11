@@ -252,19 +252,45 @@
                                 }
                             }
                         }
+                        // if (v.active || !v.url) {
+
+                        //     var label_name = v.label;
+
+                        //     if (v.label == '« Previous') {
+                        //         var label_name = "<";
+                        //     }
+                        //     $('#lesson-footer-pagination').append(`
+                        //         <button class="${linkstatus} btn btn-secondary ${v.active?"active":""}" disabled  >${label_name}</button>
+                        //     `)
+                        // } else {
+                        //     $('#lesson-footer-pagination').append(`
+                        //         <button class="${linkstatus} btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
+                        //     `)
+                        // }
                         if (v.active || !v.url) {
-
-                            var label_name = v.label;
-
-                            if (v.label == '« Previous') {
-                                var label_name = "<";
+                            
+                            var preclass = "";
+                            if (k == 0 || k == res.links.length) {
+                             preclass = "prevnxtclass";
                             }
+                            console.log(res.links.length);
+
+                            console.log(v.label);
+
+                            
                             $('#lesson-footer-pagination').append(`
-                                <button class="${linkstatus} btn btn-secondary ${v.active?"active":""}" disabled  >${label_name}</button>
+                                <button class="${linkstatus} btn btn-secondary  ${preclass} ${v.active?"active":""}" disabled  >${v.label} </button>
                             `)
                         } else {
+                            console.log(v.label);
+
+                            var preclass = "";
+                            if (k == 0 || k == res.links.length-1) {
+                             preclass = "prevnxtclass";
+                            }
+                            
                             $('#lesson-footer-pagination').append(`
-                                <button class="${linkstatus} btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
+                                <button class="${linkstatus} btn btn-secondary ${preclass}" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
                             `)
                         }
 
