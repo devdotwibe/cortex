@@ -687,7 +687,7 @@
             }); 
             $('#finish-exam-confirm').modal('hide') 
             console.log(getItem("question-bank"));
-            var timed=localStorage.getItem("question-bank")||"timed";  
+            var timed=localStorage.getItem("question-bank")||"untimed";  
             $('#finish-exam-confirmed-form-timed').val(timed)           
             $('#finish-exam-confirmed-form-timetaken').val(summery.timetaken)
             $('#finish-exam-confirmed-form-flags').val(JSON.stringify(summery.flagcurrent))
