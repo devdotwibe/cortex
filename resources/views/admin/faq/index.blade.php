@@ -128,6 +128,9 @@
                             <div class="col-md-4 pt-4">
                                 <button type="submit" class="btn btn-dark" id="table-subcategory-form-submit"> Submit
                                 </button>
+
+
+                                
                                 <button type="button" class="btn btn-secondary" style="display: none"
                                     id="table-subcategory-form-clear">Cancel</button>
                             </div>
@@ -194,6 +197,13 @@
 
 
         $(function() {
+
+        //     @hasSection('modal_id')
+        // var modal_id = "@section('modal_id')";
+        // $('#' + modal_id).modal('show');
+          
+           
+        //     @endhassection
 
             console.log('1');
             $('#table-faq').DataTable({
@@ -331,7 +341,7 @@
 
         $(function() {
 
-            
+            console.log(12);
 
             $('#table-category-form-create').on('submit', function(e) {
                 e.preventDefault();
