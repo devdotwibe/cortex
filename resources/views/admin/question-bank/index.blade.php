@@ -7,7 +7,7 @@
             <div class="back-btn"  id="back-btn" style="display: none">
                 <a onclick="pagetoggle()"><img src="{{asset('assets/images/leftarrowblack.svg')}}" alt=""></a>
             </div>
-            {{-- <h2>Question Bank</h2> --}}
+            <h2 id="questhead">Question Bank</h2>
         </div>
     </div>
 </section>
@@ -187,6 +187,7 @@
     }
     function loadsubcategory(url){
         $.get(url,function(res){
+            $("#questhead").text(res);
             $('#subcategory-list').html("")
             $.each(res,function(k,v){
                 $('#subcategory-list').append(`
