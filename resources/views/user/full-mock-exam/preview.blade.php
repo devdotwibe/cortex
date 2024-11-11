@@ -269,7 +269,7 @@
                             }
                             console.log(res.links.length);
 
-                            console.log(v.label);
+                            // console.log(v.label);
 
                             
                             $('#lesson-footer-pagination').append(`
