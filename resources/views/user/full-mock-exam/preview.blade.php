@@ -270,6 +270,7 @@
                             if (k == res.links.length-1) {
                                 preclass = "preclass";
                             }
+                            console.log(res.links.length);
 
                             
                             $('#lesson-footer-pagination').append(`
