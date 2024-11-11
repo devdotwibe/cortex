@@ -262,11 +262,14 @@
                             }
                         }
                         if (v.active || !v.url) {
+                            
                             var preclass = "";
                             if (k == 0) {
                                 preclass = "preclass";
                             }
-
+                            if (k == res.links.length) {
+                                preclass = "preclass";
+                            }
 
                             
                             $('#lesson-footer-pagination').append(`
