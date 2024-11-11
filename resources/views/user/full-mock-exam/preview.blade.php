@@ -263,9 +263,12 @@
                         }
                         if (v.active || !v.url) {
                             var preclass = "";
-                            if (k == 0) {
+                            if (k == 0 k == res.links.length) {
                                 preclass = "preclass";
                             }
+
+
+
                             $('#lesson-footer-pagination').append(`
                                 <button class="${linkstatus} btn btn-secondary ${preclass} ${v.active?"active":""}" disabled  >${v.label}</button>
                             `)
