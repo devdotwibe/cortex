@@ -141,7 +141,7 @@
     <script> 
     localStorage.setItem("question-bank", "timed");
     function changemode(v){
-        console.log('v');
+        console.log(v);
         localStorage.setItem("question-bank", v);
     }
     async function confimexam(url){
