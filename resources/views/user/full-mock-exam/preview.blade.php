@@ -265,7 +265,7 @@
                             
                             var preclass = "";
                             if (k == 0 || k == res.links.length) {
-                             preclass = "preclass";
+                             preclass = "prevnxtclass";
                             }
                             console.log(res.links.length);
 
