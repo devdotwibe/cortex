@@ -184,16 +184,9 @@
 @push('footer-script')
     <script>
       
-      $(function() {
-
-@hasSection('modal_id')
-var modal_id = "@section('modal_id')";
-$('#' + modal_id).modal('show');
 
 
-@endhassection
-
-    
+        $(function() {
 
             console.log('1');
             $('#table-faq').DataTable({
