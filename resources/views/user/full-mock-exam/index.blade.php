@@ -200,14 +200,6 @@
                 } 
             },
             columns: [ 
-
-                {
-                    data: 'updated_at',
-                    name: 'updated_at',
-                    orderable: true,
-                    searchable: false,
-                    visible:false,
-                },
                 {
                     data: 'DT_RowIndex',
                     name: 'id',
