@@ -413,7 +413,7 @@ class ExamQuestionController extends Controller
             ->addColumn('progress',function($data){
                 if($data->ticket){
                     $userExam = UserExam::findSlug($data->ticket);
-                    $questions = UserExamQuestion::where('user_exam_id',$userExam->id)->select('id');
+                    $questions = UserExamQuestion::where('user_exam_id',$userExam->id)->select('question_id');
                     $question_count =  UserReviewQuestion::where('user_exam_review_id',$data->id)
                                                             ->where('exam_id',$data->exam_id)
                                                             ->whereIn('question_id',$questions)
