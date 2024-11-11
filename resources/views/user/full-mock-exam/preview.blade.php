@@ -267,7 +267,7 @@
                             if (k == 0) {
                                 preclass = "preclass";
                             }
-                            if (k == res.links.length) {
+                            if (k == res.links.length-1) {
                                 preclass = "preclass";
                             }
 
