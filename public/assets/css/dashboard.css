@@ -4546,6 +4546,7 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
     border-radius: 6px !important;
     color: #bcbcbc;
     margin: 0 0 20px;
+    min-width: 250px;
 }
 
 .admin_section .table-outer table tfoot tr td button.btn.btn-warning {
