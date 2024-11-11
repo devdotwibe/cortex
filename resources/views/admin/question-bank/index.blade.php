@@ -7,9 +7,7 @@
             <div class="back-btn"  id="back-btn" style="display: none">
                 <a onclick="pagetoggle()"><img src="{{asset('assets/images/leftarrowblack.svg')}}" alt=""></a>
             </div>
-            
             <h2>Question Bank</h2>
-            {{-- <h2>{{ $categorys }} </h2> --}}
         </div>
     </div>
 </section>
@@ -200,7 +198,7 @@
                                     <img src="{{asset("assets/images/User-red.png")}}">
                                 </div>
                                 <div class="category-content">
-                                   
+                                    <h3>${v.name}</h3>
                                 </div>
                                 <div class="category-action">
                                     <button class="btn btn-dark btn-sm" onclick="subcategorysetlist('${v.subsetUrl}','${v.slug}','${v.setUrl}')" ><img src="{{asset('assets/images/plus.svg')}}"></button>
