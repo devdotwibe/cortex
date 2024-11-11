@@ -274,14 +274,7 @@
                                 <button class="${linkstatus} btn btn-secondary ${preclass} ${v.active?"active":""}" disabled  >${v.label}</button>
                             `)
                         } else {
-
-                            var preclass = "";
-                            if (k == 0 || k == res.links.length) {
-                             preclass = "prevnxtclass";
-                            }
-                            console.log(res.links.length);
-
-
+                            
                             $('#lesson-footer-pagination').append(`
                                 <button class="${linkstatus} ${preclass} btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
                             `)
