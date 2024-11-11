@@ -271,7 +271,6 @@
 
                             console.log(v.label);
 
-
                             
                             $('#lesson-footer-pagination').append(`
                                 <button class="${linkstatus} btn btn-secondary ${k} ${preclass} ${v.active?"active":""}" disabled  >${v.label}</button>
