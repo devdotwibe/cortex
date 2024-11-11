@@ -3197,6 +3197,25 @@ aside.side_bar.slider-btn .btn-slider {
     float: left;
 }
 
+.exam-container .container-wrap .lesson .lesson-body .mcq-row .mcq-title {
+    width: 100%;
+    margin: 0 0 10px;
+}
+
+.exam-container .container-wrap .lesson .lesson-body .mcq-row .mcq-container {
+    width: 100%;
+}
+
+.exam-container .container-wrap .lesson .lesson-body .mcq-row .mcq-container .form-group {
+    width: 100%;
+    float: none;
+    display: inline-block;
+}
+
+.exam-container .container-wrap .lesson .lesson-body .mcq-row .mcq-container label {
+    width: 100%;
+}
+
 @media screen and (max-width:1399px) {
     .exam-container .question-bank-review .lesson #lesson-footer-pagination {
         padding: 15px 0;
