@@ -87,7 +87,7 @@ class SubFaqController extends Controller
         $faq->save();
     
         
-        return redirect()->back()->with(["success"=>"Faq added success","modal_id"=>"sub-category-modal-content"]);
+        return redirect()->route('admin.faq.index')->with(["success"=>"Faq added success","modal_id"=>"sub-category-modal-content"]);
         
     }
     
