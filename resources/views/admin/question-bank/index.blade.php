@@ -5,7 +5,7 @@
     <div class="header_wrapp">
         <div class="header_title">
             <div class="back-btn"  id="back-btn" style="display: none">
-                <a onclick="pagetoggle()"><img src="{{asset('assets/images/leftarrowblack.svg')}}" alt=""></a>
+                <a href="{{ route('admin.question-bank.index') }}"><img src="{{asset('assets/images/leftarrowblack.svg')}}" alt=""></a>
             </div>
             <h2 id="questhead">Question Bank</h2>
         </div>
