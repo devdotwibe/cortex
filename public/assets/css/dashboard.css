@@ -3218,6 +3218,8 @@ aside.side_bar.slider-btn .btn-slider {
 
 .exam-container .container-wrap .lesson .lesson-body .mcq-row .mcq-container label strong {
     font-weight: bold;
+    padding: 0 0 8px;
+    display: block;
 }
 
 .exam-container .container-wrap .lesson .lesson-body .mcq-container .forms-inputs {
@@ -3300,6 +3302,10 @@ aside.side_bar.slider-btn .btn-slider {
 
     .exam-container.questionclass.answerclass .container-wrap.nopaginationclass {
         height: calc(100vh - 110px) !important;
+    }
+
+    .admin_section .table-outer table tfoot tr td select {
+        min-width: inherit;
     }
 
 }
