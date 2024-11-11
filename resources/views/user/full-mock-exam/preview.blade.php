@@ -284,7 +284,7 @@
                             }
                             
                             $('#lesson-footer-pagination').append(`
-                                <button class="${linkstatus} ${preclass}  btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
+                                <button class="${linkstatus}   btn btn-secondary ${preclass}" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
                             `)
                         }
                     })
