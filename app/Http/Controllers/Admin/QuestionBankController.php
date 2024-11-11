@@ -139,6 +139,7 @@ class QuestionBankController extends Controller
             //     $set->questionsUrl=route('admin.question-bank.show',$set->slug);
             //     $sets[]=$set;
             // }
+            $row->category_name=$row->category->name;
             $row->subsetUrl=route('admin.set.set_store', $row->slug);
             $row->setUrl=route('admin.question-bank.subcategoryset',$row->slug);
             $subcategory[]=$row;
