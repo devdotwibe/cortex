@@ -315,8 +315,8 @@ class MockExamController extends Controller
                 $userExam = UserExam::findSlug($data->ticket);
                 if($userExam){
                     $exam_questions = UserExamQuestion::where('exam_id',$data->exam_id)
-                    ->where('user_exam_id',$userExam->id)
-                    ->select('id');
+                                                    ->where('user_exam_id',$userExam->id)
+                                                    ->select('question_id');
                     $right_answers =  UserReviewAnswer::where('user_exam_review_id',$data->id)
                                         ->where('exam_id',$data->exam_id)
                                         ->whereIn('question_id',$exam_questions)

@@ -31,12 +31,8 @@ class UserExamReview extends Model
     public function categoryMark($id){ 
         //        return UserReviewAnswer::where('user_exam_review_id',$this->id)->where('exam_id',$this->exam_id)->whereIn('question_id',Question::where("category_id",$id)->where('exam_id',$this->exam_id)->select('id'))->where('iscorrect',true)->where('user_answer',true)->count();
         $questions = UserExamQuestion::where("category_id",$id)
-                            ->where('exam_id',$this->exam_id);
-        if($this->name=='topic-test'){
-            $questions->select('question_id');
-        }else{
-            $questions->select('id');
-        }
+                            ->where('exam_id',$this->exam_id)
+                            ->select('question_id');
         
         return UserReviewAnswer::where('user_exam_review_id',$this->id)
                                 ->where('exam_id',$this->exam_id)
