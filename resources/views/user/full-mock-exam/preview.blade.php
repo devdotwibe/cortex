@@ -264,7 +264,7 @@
                         if (v.active || !v.url) {
                             
                             var preclass = "";
-                            if (k === 0 || k === res.links.length - 1) {
+                            if (k === 0 || k === res.links.length) {
                              preclass = "preclass";
                             }
                             console.log(res.links.length);
