@@ -186,7 +186,7 @@
                                             </div>
                                         </div>
                                         <div class="note-currect" id="note-${lesseonId}-answer"> 
-                                            <label>Correct Answer </label>
+                                            <label> <strong> Correct Answer </strong> </label>
                                             ${v.currect_answer}
                                         </div>
                                     </div>
