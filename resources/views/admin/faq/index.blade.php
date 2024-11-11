@@ -197,13 +197,10 @@
 
 
         $(function() {
-
-            @sectionHas('modal_id')
-            var modal_id = "@section('modal_id')";
-
-            $('#'+modal_id).modal('show');
-           
-            @endsection
+    @hasSection('modal_id')
+        var modal_id = "@section('modal_id')";
+        $('#' + modal_id).modal('show');
+    @endhasSection
 
             console.log('1');
             $('#table-faq').DataTable({
