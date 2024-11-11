@@ -3302,6 +3302,10 @@ aside.side_bar.slider-btn .btn-slider {
         height: calc(100vh - 110px) !important;
     }
 
+    .admin_section .table-outer table tfoot tr td select {
+        min-width: inherit;
+    }
+
 }
 
 @media screen and (max-width:991px) {
