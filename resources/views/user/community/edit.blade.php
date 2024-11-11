@@ -224,7 +224,7 @@
                             <button type="submit" class="btn btn-dark">Update Poll</button> 
                         </div> --}}
                         <div class="mb-3" >  
-                            <a href="{{route('community.post)}}"  class="btn btn-secondary">Cancel</a> 
+                            <a href="{{route('community.post')}}"  class="btn btn-secondary">Cancel</a> 
                             <button type="submit" class="btn btn-dark">Update Post</button> 
                         </div>
                     </form>
