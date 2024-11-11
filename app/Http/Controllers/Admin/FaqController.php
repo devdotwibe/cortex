@@ -61,7 +61,8 @@ class FaqController extends Controller
 
         }
 
-        return view('admin.faq.index');
+        // return view('admin.faq.index');
+        return response()->json(['success' => 'Module Added Successfully']);
     }
 
     public function store(Request $request)
