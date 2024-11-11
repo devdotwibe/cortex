@@ -126,7 +126,7 @@
                                 </div>
                             </div>
                             <div class="col-md-4 pt-4">
-                                <button type="button" class="btn btn-dark" id="table-subcategory-form-submit"> Submit
+                                <button type="submit" class="btn btn-dark" id="table-subcategory-form-submit"> Submit
                                 </button>
 
 

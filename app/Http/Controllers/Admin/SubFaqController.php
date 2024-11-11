@@ -87,7 +87,7 @@ class SubFaqController extends Controller
         $faq->save();
     
         
-        return response()->json(['success' => 'FAQ Added Successfully']);
+        return redirect()->back()->with("success","Faq added success");
     }
     
     public function edit_subfaq(Request $request,Faq $faq){
