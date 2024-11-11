@@ -240,28 +240,27 @@
                             linkstatuss = 'mob-view';
                         }
                         
-     // Check if the link is active or if it has no URL (disabled button)
+     
      if (v.active || !v.url) {
             var preclass = "";
             if (k == 0 || k == res.links.length - 1) {
-                preclass = "prevnxtclass"; // Add class for first or last pagination link
+                preclass = "prevnxtclass"; 
             }
-            console.log(res.links.length); // Log the total number of links
-            console.log(v.label); // Log the label of the current link
-            
-            // Append the disabled button to the pagination
+            console.log(res.links.length); 
+            console.log(v.label); 
+           
             $('#lesson-footer-pagination').append(`
                 <button class="${linkstatuss} btn btn-secondary ${preclass} ${v.active ? "active" : ""}" disabled>${v.label}</button>
             `);
         } else {
-            console.log(v.label); // Log the label of the current link
+            console.log(v.label); 
             
             var preclass = "";
             if (k == 0 || k == res.links.length - 1) {
-                preclass = "prevnxtclass"; // Add class for first or last pagination link
+                preclass = "prevnxtclass"; 
             }
 
-            // Append the clickable button to the pagination
+           
             $('#lesson-footer-pagination').append(`
                 <button class="${linkstatuss} btn btn-secondary ${preclass}" onclick="loadlessonreview('${v.url}')">${v.label}</button>
             `);
