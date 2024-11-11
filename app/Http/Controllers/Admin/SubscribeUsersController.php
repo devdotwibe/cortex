@@ -23,13 +23,7 @@ class SubscribeUsersController extends Controller
                 $plan=SubscriptionPlan::findSlug($request->plan);
                 $this->where('subscription_plan_id',$plan->id);
             }
-            return $this->whereHas('user')->select(
-                'user_subscriptions.*',
-                'users.name as username',    
-                'users.email as usermail' 
-            )
-            ->join('users', 'users.id', '=', 'user_subscriptions.user_id')
-            
+            return $this->whereHas('user')
                 ->addColumn("usermail",function($data){
                     return $data->user->email;
                 })
