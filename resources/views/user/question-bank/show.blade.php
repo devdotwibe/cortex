@@ -32,7 +32,7 @@
                     </div>
                     <div class="option-item">
                         <label for="option-untimed" class="option-item-label">UNTIMED</label>
-                        <input type="radio" name="timed" id="option-untimed" value="untimed" onchange="changemode(this.value)">
+                        <input type="radio" name="timed" id="option-untimed" value="untimed">
                     </div>
                 </div>
             </div>
