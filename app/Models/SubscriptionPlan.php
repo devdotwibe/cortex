@@ -26,9 +26,4 @@ class SubscriptionPlan extends Model
         'start_plan'
     ]; 
 
-
-    public function planuser(){
-        return $this->belongsTo(User::class);
-    }
-
 }

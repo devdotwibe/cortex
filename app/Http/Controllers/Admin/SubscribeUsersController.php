@@ -21,9 +21,9 @@ class SubscribeUsersController extends Controller
             self::$defaultActions=[''];  
             if(!empty($request->plan)){
                 $plan=SubscriptionPlan::findSlug($request->plan);
-                $this->with('planuser')->where('subscription_plan_id',$plan->id);
+                $this->where('subscription_plan_id',$plan->id);
             }
-            return $this->whereHas('planuser')
+            return $this->with('user')->whereHas('user')
                 ->addColumn("usermail",function($data){
                     return $data->user->email;
                 })
