@@ -19,6 +19,7 @@ class SubscribeUsersController extends Controller
         if($request->ajax()){ 
             self::$model=UserSubscription::class;
             self::$defaultActions=[''];  
+            $query = UserSubscription::with('user'); 
             if(!empty($request->plan)){
                 $plan=SubscriptionPlan::findSlug($request->plan);
                 $this->where('subscription_plan_id',$plan->id);
