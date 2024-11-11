@@ -3216,8 +3216,15 @@ aside.side_bar.slider-btn .btn-slider {
     width: 100%;
 }
 
-.exam-container .container-wrap .lesson .lesson-body .mcq-row .mcq-container labels strong {
+.exam-container .container-wrap .lesson .lesson-body .mcq-row .mcq-container label strong {
     font-weight: bold;
+}
+
+.exam-container .container-wrap .lesson .lesson-body .mcq-container .forms-inputs {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
 }
 
 @media screen and (max-width:1399px) {
