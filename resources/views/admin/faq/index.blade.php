@@ -198,6 +198,13 @@
 
         $(function() {
 
+            @sectionHas('modal_id')
+            var modal_id = @section('modal_id')
+
+            $('#'+modal_id).modal('show');
+           
+            @endsection
+
             console.log('1');
             $('#table-faq').DataTable({
                 // bFilter: false,
