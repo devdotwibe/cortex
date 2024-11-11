@@ -17,15 +17,14 @@ class SubscribeUsersController extends Controller
     use ResourceController;
     public function index(Request $request){ 
         if($request->ajax()){ 
-            self::$model=UserSubscription::class;
-            self::$defaultActions=[''];  
-
-            $query = UserSubscription::select(
+           
+            self::$model= UserSubscription::select(
                 'user_subscriptions.*',
                 'users.name as username',    
                 'users.email as usermail' 
             )
             ->join('users', 'users.id', '=', 'user_subscriptions.user_id');
+            self::$defaultActions=[''];  
 
             if(!empty($request->plan)){
                 $plan=SubscriptionPlan::findSlug($request->plan);
