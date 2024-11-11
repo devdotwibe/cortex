@@ -3227,6 +3227,29 @@ aside.side_bar.slider-btn .btn-slider {
     flex-direction: column;
 }
 
+.bartop-hide .exam-container .lesson {
+    padding: 20px 0 0;
+}
+
+.exam-container.questionclass.answerclass .container-wrap .lesson .lesson-body {
+    height: calc(100vh - 288px);
+    overflow-y: auto;
+}
+
+.exam-container.questionclass.answerclass .container-wrap .lesson .lesson-body::-webkit-scrollbar {
+    width: 10px;
+}
+
+.exam-container.questionclass.answerclass .container-wrap .lesson .lesson-body::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 8px;
+}
+
+.exam-container.questionclass.answerclass .container-wrap .lesson .lesson-body::-webkit-scrollbar-thumb {
+    background: #005d93;
+    border-radius: 8px;
+}
+
 @media screen and (max-width:1399px) {
     .exam-container .question-bank-review .lesson #lesson-footer-pagination {
         padding: 15px 0;
