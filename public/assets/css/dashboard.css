@@ -3259,11 +3259,19 @@ aside.side_bar.slider-btn .btn-slider {
         min-height: calc(100vh - 117px);
     }
 
+    .exam-container.questionclass.answerclass .container-wrap .lesson .lesson-body {
+        height: calc(100vh - 236px);
+    }
+
 }
 
 @media screen and (max-width:991px) {
     .exam-container .container-wrap {
         min-height: calc(100vh - 100px);
+    }
+
+    .exam-container .container-wrap .lesson #lesson-footer-pagination {
+        bottom: -6px;
     }
 
 }
@@ -8526,6 +8534,8 @@ nav.navbar.top-barhide {
     .exam-container .container-wrap.homeclass .lesson {
         height: inherit;
     }
+
+    .exam-container.questionclass.answerclass .container-wrap .lesson .lesson-body {height: inherit;}
 }
 
 @media screen and (max-width:600px) {
