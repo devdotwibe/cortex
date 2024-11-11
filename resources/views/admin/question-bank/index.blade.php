@@ -187,9 +187,18 @@
     }
     function loadsubcategory(url){
         $.get(url,function(res){
-            $("#questhead").text(res[1].category_name);
+           
             $('#subcategory-list').html("")
             $.each(res,function(k,v){
+
+                if(v.category_name!=null)
+            {
+
+                $("#questhead").text(v.category_name);
+
+            }
+                
+
                 $('#subcategory-list').append(`
                 <div class="col-md-6">
                     <div class="card mt-4">
