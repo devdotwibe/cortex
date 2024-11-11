@@ -9,12 +9,11 @@ class Hashtagstore extends Model
 {
     use HasFactory;
 
-    // Specify the table name
+    
     protected $table = 'hashtagstore';
 
-    // Specify which attributes can be mass-assigned
+   
     protected $fillable = ['hashtag'];
 
-    // Optionally, if you do not want timestamps, you can disable them:
-    // public $timestamps = false;
+  
 }

@@ -55,7 +55,7 @@
         </div>
         
     </div>
-    <div class="container-wrap mcq-container-wrap topic-test" id="question-answer-page">
+    <div class="container-wrap mcq-container-wrap topic-test nopaginationclass" id="question-answer-page">
         <div class="lesson"> 
             <div class="lesson-body"> 
                 <div class="row" id="lesson-questionlist-list" style="display: none">
