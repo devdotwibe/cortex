@@ -87,7 +87,8 @@ class SubFaqController extends Controller
         $faq->save();
     
         
-        return redirect()->back()->with("success","Faq added success");
+        return redirect()->back()->with("success","sub-category-modal-content");
+        
     }
     
     public function edit_subfaq(Request $request,Faq $faq){
