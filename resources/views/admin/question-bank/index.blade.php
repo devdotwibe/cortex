@@ -200,7 +200,7 @@
                                     <img src="{{asset("assets/images/User-red.png")}}">
                                 </div>
                                 <div class="category-content">
-                                    <h3>${v.name}</h3>
+                                    <h3>${v}</h3>
                                 </div>
                                 <div class="category-action">
                                     <button class="btn btn-dark btn-sm" onclick="subcategorysetlist('${v.subsetUrl}','${v.slug}','${v.setUrl}')" ><img src="{{asset('assets/images/plus.svg')}}"></button>
