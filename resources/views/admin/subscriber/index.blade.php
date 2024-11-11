@@ -29,7 +29,8 @@
         <div class="row">
             <x-ajax-table :action='false' :coloumns='[
                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
-                ["th"=>"Name","user.name"=>"username","data"=>"username"],
+                {{-- ["th"=>"Name","username"=>"username","data"=>"username"], --}}
+                ["th"=>"Name","name"=>"name","data"=>"name"],
                 ["th"=>"Email","name"=>"usermail","data"=>"usermail"], 
                 ["th"=>"Plan","name"=>"plan","data"=>"plan"], 
                 ["th"=>"Amount","name"=>"amount","data"=>"amount"], 
