@@ -13,7 +13,7 @@
                             <img src="{{asset("assets/images/exiticon-wht.svg")}}" alt="exiticon">
                         </a>
                     </div>
-                    {{-- <div class="timer exam-timer" id="exam_timer">
+                    <div class="timer exam-timer" id="exam_timer">
                         <div class="minute">
                             <span class="runner">00</span>
                             <span>Mins</span>
@@ -26,9 +26,9 @@
                             <span class="runner">00</span>
                             <span>Seconds</span>
                         </div>
-                    </div>  --}}
+                    </div> 
 
-                    {{-- <button class="btn hide-btn" id="hide_button" onclick="HideTime()">Hide Time</button> --}}
+                    <button class="btn hide-btn" id="hide_button" onclick="HideTime()">Hide Time</button>
 
                 </div>
             </div>
@@ -58,7 +58,7 @@
         </div>
         
     </div>
-    <div class="container-wrap  mcq-container-wrap question-bank nopaginationclass" id="question-answer-page">
+    <div class="container-wrap  mcq-container-wrap question-bank" id="question-answer-page">
         <div class="lesson">  
             {{-- <div class="lesson-title">
                 <h3><span>{{$exam->subtitle($category->id,"Topic ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h3>
