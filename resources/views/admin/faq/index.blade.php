@@ -334,7 +334,7 @@
 
         $(function() {
 
-            
+            console.log(12);
 
             $('#table-category-form-create').on('submit', function(e) {
                 e.preventDefault();
