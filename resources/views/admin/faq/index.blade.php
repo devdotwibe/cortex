@@ -185,6 +185,12 @@
     <script>
       
 
+      $(function() {
+    @hasSection('modal_id')
+        var modal_id = "@section('modal_id')";
+        $('#' + modal_id).modal('show');
+    @endhasSection
+});
 
         $(function() {
 
