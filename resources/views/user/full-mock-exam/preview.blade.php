@@ -277,9 +277,14 @@
                             `)
                         } else {
                             console.log(v.label);
+
+                            var preclass = "";
+                            if (k == 0 || k == res.links.length) {
+                             preclass = "prevnxtclass";
+                            }
                             
                             $('#lesson-footer-pagination').append(`
-                                <button class="${linkstatus} ${preclass} ${k} btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}  ${k}pp</button>
+                                <button class="${linkstatus} ${preclass} ${k} btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
                             `)
                         }
                     })
