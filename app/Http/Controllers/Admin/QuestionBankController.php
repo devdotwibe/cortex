@@ -132,6 +132,7 @@ class QuestionBankController extends Controller
 
     public function subcategory(Request $request,Category $category){ 
         $subcategory=[];
+        $category->with('category');
         foreach ($category->subcategories as $row) {
             // $sets=[];
             // foreach ($row->setname as $set) {
