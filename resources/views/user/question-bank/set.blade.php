@@ -770,7 +770,7 @@
                 $('#flagged-nav').text(lenflag)
                 summery.save()
             }) 
-            if((localStorage.getItem("question-bank")||"timed")=="timed"){ 
+            if((localStorage.getItem("question-bank")||"untimed")=="untimed"){ 
                 $('.timer').show()
             }else{
                 $('.timer').hide()
