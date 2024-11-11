@@ -199,7 +199,7 @@
         $(function() {
 
             @sectionHas('modal_id')
-            var modal_id = @section('modal_id')
+            var modal_id = "@section('modal_id')";
 
             $('#'+modal_id).modal('show');
            
