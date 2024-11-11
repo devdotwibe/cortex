@@ -186,15 +186,15 @@
       
       
 
-      $(function() {
-    @if(session()->has('modal_id'))
+
+
+        $(function() {
+
+            @if(session()->has('modal_id'))
         var modal_id = "{{ session()->get('modal_id') }}";
     
         $('#sub-category-create-modal').modal('show');
     @endif
-});
-
-        $(function() {
 
             console.log('1');
             $('#table-faq').DataTable({
