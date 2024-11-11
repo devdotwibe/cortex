@@ -201,9 +201,9 @@
             @hasSection('modal_id')
         var modal_id = "@section('modal_id')";
         $('#' + modal_id).modal('show');
-    
+          
            
-            @endsection
+            @endhassection
 
             console.log('1');
             $('#table-faq').DataTable({
