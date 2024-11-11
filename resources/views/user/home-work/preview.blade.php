@@ -230,24 +230,51 @@
                     }, 'json')
 
                 })
-                if (res.total > 1) {
-                    $.each(res.links, function(k, v) {
+                // if (res.total > 1) {
+                //     $.each(res.links, function(k, v) {
 
 
-                        let linkstatuss = "";
-                        if (k != 0 && k != res.links.length-1) {
+                //         let linkstatuss = "";
+                //         if (k != 0 && k != res.links.length-1) {
 
-                            linkstatuss = 'mob-view';
-                        }
+                //             linkstatuss = 'mob-view';
+                //         }
                         
 
-                        if (v.active || !v.url) {
+                //         if (v.active || !v.url) {
+                //             $('#lesson-footer-pagination').append(`
+                //                 <button class="${linkstatuss} btn btn-secondary ${v.active?"active":""}" disabled  >${v.label}</button>
+                //             `)
+                //         } else {
+                //             $('#lesson-footer-pagination').append(`
+                //                 <button class="${linkstatuss} btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
+                //             `)
+                //         }
+
+                if (v.active || !v.url) {
+                            
+                            var preclass = "";
+                            if (k == 0 || k == res.links.length) {
+                             preclass = "prevnxtclass";
+                            }
+                            console.log(res.links.length);
+
+                            console.log(v.label);
+
+                            
                             $('#lesson-footer-pagination').append(`
-                                <button class="${linkstatuss} btn btn-secondary ${v.active?"active":""}" disabled  >${v.label}</button>
+                                <button class="${linkstatus} btn btn-secondary  ${preclass} ${v.active?"active":""}" disabled  >${v.label} </button>
                             `)
                         } else {
+                            console.log(v.label);
+
+                            var preclass = "";
+                            if (k == 0 || k == res.links.length-1) {
+                             preclass = "prevnxtclass";
+                            }
+                            
                             $('#lesson-footer-pagination').append(`
-                                <button class="${linkstatuss} btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
+                                <button class="${linkstatus} btn btn-secondary ${preclass}" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
                             `)
                         }
                     })
