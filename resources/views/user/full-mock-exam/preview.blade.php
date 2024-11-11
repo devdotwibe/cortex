@@ -273,7 +273,7 @@
 
                             
                             $('#lesson-footer-pagination').append(`
-                                <button class="${linkstatus} btn btn-secondary ${k} ${preclass} ${v.active?"active":""}" disabled  >${v.label}  ${k}</button>
+                                <button class="${linkstatus} btn btn-secondary  ${preclass} ${v.active?"active":""}" disabled  >${v.label} </button>
                             `)
                         } else {
                             console.log(v.label);
@@ -284,7 +284,7 @@
                             }
                             
                             $('#lesson-footer-pagination').append(`
-                                <button class="${linkstatus} ${preclass} ${k} btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
+                                <button class="${linkstatus} ${preclass}  btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
                             `)
                         }
                     })
