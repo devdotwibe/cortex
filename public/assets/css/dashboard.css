@@ -3233,21 +3233,21 @@ aside.side_bar.slider-btn .btn-slider {
     padding: 20px 0 0;
 }
 
-.exam-container.questionclass.answerclass .container-wrap .lesson .lesson-body {
+.exam-container.questionclass.answerclass .container-wrap .lesson .lesson-body.lessonbodyclass {
     height: calc(100vh - 288px);
     overflow-y: auto;
 }
 
-.exam-container.questionclass.answerclass .container-wrap .lesson .lesson-body::-webkit-scrollbar {
+.exam-container.questionclass.answerclass .container-wrap .lesson .lesson-body.lessonbodyclass::-webkit-scrollbar {
     width: 10px;
 }
 
-.exam-container.questionclass.answerclass .container-wrap .lesson .lesson-body::-webkit-scrollbar-track {
+.exam-container.questionclass.answerclass .container-wrap .lesson .lesson-body.lessonbodyclass::-webkit-scrollbar-track {
     background: #f1f1f1;
     border-radius: 8px;
 }
 
-.exam-container.questionclass.answerclass .container-wrap .lesson .lesson-body::-webkit-scrollbar-thumb {
+.exam-container.questionclass.answerclass .container-wrap .lesson .lesson-body.lessonbodyclass::-webkit-scrollbar-thumb {
     background: #005d93;
     border-radius: 8px;
 }
@@ -3287,6 +3287,8 @@ aside.side_bar.slider-btn .btn-slider {
     height: calc(100% - 14px);
 }
 
+
+
 @media screen and (max-width:1399px) {
     .exam-container .question-bank-review .lesson #lesson-footer-pagination {
         padding: 15px 0;
@@ -3296,7 +3298,7 @@ aside.side_bar.slider-btn .btn-slider {
         min-height: calc(100vh - 117px);
     }
 
-    .exam-container.questionclass.answerclass .container-wrap .lesson .lesson-body {
+    .exam-container.questionclass.answerclass .container-wrap .lesson .lesson-body.lessonbodyclass {
         height: calc(100vh - 236px);
     }
 
@@ -8581,7 +8583,7 @@ nav.navbar.top-barhide {
         height: inherit;
     }
 
-    .exam-container.questionclass.answerclass .container-wrap .lesson .lesson-body {
+    .exam-container.questionclass.answerclass .container-wrap .lesson .lesson-body.lessonbodyclass {
         height: inherit;
     }
 
