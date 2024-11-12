@@ -474,6 +474,8 @@ class SubscriptionPaymentController extends Controller
 
         // Check if the image exists and is not null
         if ($price && $price->image) {
+
+            dd($price->image);
             // Get the full path of the image
             $imagePath = public_path($price->image);
 
