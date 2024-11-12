@@ -17,7 +17,7 @@
                     "id"=>$ans->id,
                     "value"=>$ans->title,
                     "choice"=>$ans->iscorrect,
-                    "image"=>url('d0',$ans->image),
+                    "image"=>$ans->image ? url('d0',$ans->image) : Null,
             ];
             }
         @endphp
