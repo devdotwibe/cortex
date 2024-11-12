@@ -49,7 +49,7 @@
                         4</a>
                 </li>
 
-               
+
 
 
             </ul>
@@ -153,17 +153,20 @@
                                                         alt=""></a> --}}
 
 
-                                        
 
-                                                        <a onclick="removeplan('{{ route('admin.payment-price.destroy', $item->slug) }}')" class="float-end">
-                                                            <span class="adminside-icon">
-                                                                <img src="{{ asset('assets/images/icons/material-symbols_delete-outline.svg') }}" alt="Delete">
-                                                            </span>
-                                                            <span class="adminactive-icon">
-                                                                <img src="{{ asset('assets/images/iconshover/material-symbols_delete-yellow.svg') }}" alt="Delete Active" title="Delete">
-                                                            </span>
-                                                        </a>
-                                                        
+
+                                                <a onclick="removeplan('{{ route('admin.payment-price.destroy', $item->slug) }}')"
+                                                    class="float-end">
+                                                    <span class="adminside-icon">
+                                                        <img src="{{ asset('assets/images/icons/material-symbols_delete-outline.svg') }}"
+                                                            alt="Delete">
+                                                    </span>
+                                                    <span class="adminactive-icon">
+                                                        <img src="{{ asset('assets/images/iconshover/material-symbols_delete-yellow.svg') }}"
+                                                            alt="Delete Active" title="Delete">
+                                                    </span>
+                                                </a>
+
 
 
 
@@ -198,45 +201,46 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="pricesection1">
-                                                                    <div class="form-group">
-                                                                        <div class="form-data">
-                                                                            <div class="forms-inputs mb-4">
-                                                                                <label class="file-upload"
-                                                                                    for="{{ $item->slug }}-icon">Upload
-                                                                                    Image <br>
-                                                                                    <img src="{{ asset('assets/images/upfile.svg') }}"></label>
-                                                                                <input type="file"
-                                                                                    id="{{ $item->slug }}-icon"
-                                                                                    data-form="{{ $item->slug }}"
-                                                                                    class="form-control icon-file @error($item->slug . '.icon') is-invalid @enderror"
-                                                                                    style="display:none">
-                                                                                <input type="hidden"
-                                                                                    id="{{ $item->slug }}-icon-input"
-                                                                                    name="{{ $item->slug }}[icon]"
-                                                                                    value="{{ old($item->slug . '.icon', $item->icon) }}">
-                                                                                @error($item->slug . '.icon')
-                                                                                    <div class="invalid-feedback">
-                                                                                        {{ $message }} </div>
-                                                                                @enderror
+                                                                        <div class="form-group">
+                                                                            <div class="form-data">
+                                                                                <div class="forms-inputs mb-4">
+                                                                                    <label class="file-upload"
+                                                                                        for="{{ $item->slug }}-icon">Upload
+                                                                                        Image <br>
+                                                                                        <img
+                                                                                            src="{{ asset('assets/images/upfile.svg') }}"></label>
+                                                                                    <input type="file"
+                                                                                        id="{{ $item->slug }}-icon"
+                                                                                        data-form="{{ $item->slug }}"
+                                                                                        class="form-control icon-file @error($item->slug . '.icon') is-invalid @enderror"
+                                                                                        style="display:none">
+                                                                                    <input type="hidden"
+                                                                                        id="{{ $item->slug }}-icon-input"
+                                                                                        name="{{ $item->slug }}[icon]"
+                                                                                        value="{{ old($item->slug . '.icon', $item->icon) }}">
+                                                                                    @error($item->slug . '.icon')
+                                                                                        <div class="invalid-feedback">
+                                                                                            {{ $message }} </div>
+                                                                                    @enderror
+                                                                                </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="form-group"
-                                                                        id="{{ $item->slug }}-icon-preview">
-                                                                        @if (!empty(old($item->slug . '.icon', $item->icon)))
-                                                                            <div class="image-group">
-                                                                                <img src="{{ url('/d0' . '/' . old($item->slug . '.icon', $item->icon)) }}"
-                                                                                    alt="">
-
-                                                                                <button type="button"
-                                                                                    onclick="removeicon('{{ $item->slug }}')">
-                                                                                    <img src="{{ asset('assets/images/delete-icon.svg') }}"
+                                                                        <div class="form-group"
+                                                                            id="{{ $item->slug }}-icon-preview">
+                                                                            @if (!empty(old($item->slug . '.icon', $item->icon)))
+                                                                                <div class="image-group">
+                                                                                    <img src="{{ url('/d0' . '/' . old($item->slug . '.icon', $item->icon)) }}"
                                                                                         alt="">
-                                                                                </button>
-                                                                            </div>
-                                                                        @endif
+
+                                                                                    <button type="button"
+                                                                                        onclick="removeicon('{{ $item->slug }}')">
+                                                                                        <img src="{{ asset('assets/images/delete-icon.svg') }}"
+                                                                                            alt="">
+                                                                                    </button>
+                                                                                </div>
+                                                                            @endif
+                                                                        </div>
                                                                     </div>
-                                                                </div>
                                                                 </div>
                                                                 <div class="col-md-8">
                                                                     <div class="row">
@@ -574,25 +578,7 @@
                                                                 </div>
                                                                 <div class="row action-payment action-payment-amount"
                                                                     @if (old('payment.is_external', '') == 'Y') style="display:none" @endif>
-                                                                    {{-- <div class="col-md-6">
-                                                                        <div class="form-group">
-                                                                            <div class="form-data">
-                                                                                <div class="forms-inputs mb-4">
-                                                                                    <label
-                                                                                        for="payment-start_plan">Start Plan </label>
-                                                                                    <input type="text"
-                                                                                        id="payment-start_plan"
-                                                                                        name="payment[start_plan]"
-                                                                                        class="form-control datepicker start-datepicker @error('payment.start_plan') is-invalid @enderror"
-                                                                                        value="{{ old('payment.start_plan') }}" data-target="#payment-end_plan" readonly >
-                                                                                    @error('payment.start_plan')
-                                                                                        <div class="invalid-feedback">
-                                                                                            {{ $message }} </div>
-                                                                                    @enderror
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div> --}}
+                                                                   
                                                                     <div class="col-md-6">
                                                                         <div class="form-group">
                                                                             <div class="form-data">
@@ -705,162 +691,161 @@
                                     @csrf
                                     <div class="row">
 
-                                    <div class="first">
+                                        <div class="first">
 
-                                        <!-- Price Banner Title -->
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="pricebannertitle">Price Banner Title</label>
-                                                <textarea class="form-control texteditor" name="pricebannertitle" id="pricebannertitle">
+                                            <!-- Price Banner Title -->
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="pricebannertitle">Price Banner Title</label>
+                                                    <textarea class="form-control texteditor" name="pricebannertitle" id="pricebannertitle">
                                     {{ old('pricebannertitle', optional($price)->pricebannertitle) }}
                                     
                                 </textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                            <div class="sec">
-                                        <!-- Price Button Label -->
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <div class="form-data">
-                                                    <div class="forms-inputs mb-4">
-                                                        <label for="pricebuttonlabel">Price Button Label</label>
-                                                        <input type="text" name="pricebuttonlabel"
-                                                            id="pricebuttonlabel"
-                                                            value="{{ old('pricebuttonlabel', optional($price)->pricebuttonlabel) }}"
-                                                            class="form-control" placeholder="Price Button Label">
-                                                        @error('pricebuttonlabel')
-                                                            <div class="text-danger">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="sec">
+                                            <!-- Price Button Label -->
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <div class="form-data">
+                                                        <div class="forms-inputs mb-4">
+                                                            <label for="pricebuttonlabel">Price Button Label</label>
+                                                            <input type="text" name="pricebuttonlabel"
+                                                                id="pricebuttonlabel"
+                                                                value="{{ old('pricebuttonlabel', optional($price)->pricebuttonlabel) }}"
+                                                                class="form-control" placeholder="Price Button Label">
+                                                            @error('pricebuttonlabel')
+                                                                <div class="text-danger">{{ $message }}</div>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                                        <!-- Price Button Link -->
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <div class="form-data">
-                                                    <div class="forms-inputs mb-4">
-                                                        <label for="pricebuttonlink">Price Button Link</label>
-                                                        <input type="text" name="pricebuttonlink" id="pricebuttonlink"
-                                                            value="{{ old('pricebuttonlink', optional($price)->pricebuttonlink) }}"
-                                                            class="form-control" placeholder="Price Button Link">
-                                                        @error('pricebuttonlink')
-                                                            <div class="text-danger">{{ $message }}</div>
-                                                        @enderror
+                                            <!-- Price Button Link -->
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <div class="form-data">
+                                                        <div class="forms-inputs mb-4">
+                                                            <label for="pricebuttonlink">Price Button Link</label>
+                                                            <input type="text" name="pricebuttonlink"
+                                                                id="pricebuttonlink"
+                                                                value="{{ old('pricebuttonlink', optional($price)->pricebuttonlink) }}"
+                                                                class="form-control" placeholder="Price Button Link">
+                                                            @error('pricebuttonlink')
+                                                                <div class="text-danger">{{ $message }}</div>
+                                                            @enderror
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        {{-- <!-- Image Upload -->
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <div class="form-data">
-                                                    <div class="forms-inputs mb-4">
-                                                        <label for="image">Upload Image</label>
-                                                        <input type="file" name="image" id="image"
-                                                            class="form-control"
-                                                            onchange="previewImage(event, 'imagePreview')">
-                                                        @error('image')
-                                                            <div class="text-danger">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> --}}
                                       
-  <!-- Image Upload -->
-<div class="pricesection1 numericalsectionclass ">
-    <div class="col-md-12">
-        <div class="form-group">
-            <div class="form-data">
-                <div class="forms-inputs mb-4">
-                    <label for="image" class="file-upload">
-                        Upload Image
-                        <br>
-                        <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
-                    </label>
-                    <input type="file" name="image" id="image" class="form-control" style="display: none;" onchange="previewImage(event, 'imagePreview')">
-                    @error('image')
-                        <div class="text-danger">{{ $message }}</div>
-                    @enderror
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- Image Preview -->
-    <div class="form-group">
-        <label for="imagePreview">Image Preview</label>
-        <div id="imagePreviewContainer" class="numericalclass" style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
-            @if (isset($price) && $price->image)
-                <img id="imagePreview" src="{{ url('d0/' . $price->image) }}" alt="Image Preview" style="width: 100%; height: auto;">
-                <button type="button" class="btn btn-danger" onclick="removeImage()">X</button> <!-- Delete button -->
-            @else
-                <img id="imagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
-              
-            @endif
-        </div>
-    </div>
-</div>
-
-                                    </div>
-
-                                   
+                                            <!-- Image Upload -->
+                                            <div class="pricesection1 numericalsectionclass ">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <div class="form-data">
+                                                            <div class="forms-inputs mb-4">
+                                                                <label for="image" class="file-upload">
+                                                                    Upload Image
+                                                                    <br>
+                                                                    <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                                        alt="Upload Icon">
+                                                                </label>
+                                                                <input type="file" name="image" id="image"
+                                                                    class="form-control" style="display: none;"
+                                                                    onchange="previewImage(event, 'imagePreview')">
+                                                                @error('image')
+                                                                    <div class="text-danger">{{ $message }}</div>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
 
-                                    <div class="first">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="pricetitle">Price Title</label>
-                                                <textarea class="form-control texteditor" name="pricetitle" id="pricetitle">
+
+
+
+                                                <!-- Image Preview -->
+                                                <div class="form-group">
+                                                    <label for="imagePreview">Image Preview</label>
+                                                    <div id="imagePreviewContainer" class="numericalclass"
+                                                        style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px; position: relative;">
+                                                        @if (isset($price) && $price->image)
+                                                            <img id="imagePreview"
+                                                                src="{{ url('d0/' . $price->image) }}"
+                                                                alt="Image Preview" style="width: 100%; height: auto;">
+                                                            <button type="button" class="btn btn-danger"
+                                                                style="float: right;" onclick="removeImage()">X</button>
+                                                            <!-- Delete button -->
+                                                        @else
+                                                            <img id="imagePreview" src="#" alt="Image Preview"
+                                                                style="display: none; width: 100%; height: auto;">
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+                                        <div class="first">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="pricetitle">Price Title</label>
+                                                    <textarea class="form-control texteditor" name="pricetitle" id="pricetitle">
                                     {{ old('pricetitle', optional($price)->pricetitle) }}
                                     
                                 </textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                <div class="sec">
-                                        <!-- Price Button Label -->
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <div class="form-data">
-                                                    <div class="forms-inputs mb-4">
-                                                        <label for="pricetitlebuttonlabel">Pricetitle Button Label</label>
-                                                        <input type="text" name="pricetitlebuttonlabel"
-                                                            id="pricetitlebuttonlabel"
-                                                            value="{{ old('pricetitlebuttonlabel', optional($price)->pricetitlebuttonlabel) }}"
-                                                            class="form-control" placeholder="Price Button Label">
-                                                        @error('pricetitlebuttonlabel')
-                                                            <div class="text-danger">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <!-- Price Button Link -->
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <div class="form-data">
-                                                    <div class="forms-inputs mb-4">
-                                                        <label for="pricetitlebuttonlink">Pricetitle Button Link</label>
-                                                        <input type="text" name="pricetitlebuttonlink"
-                                                            id="pricetitlebuttonlink"
-                                                            value="{{ old('pricetitlebuttonlink', optional($price)->pricetitlebuttonlink) }}"
-                                                            class="form-control" placeholder="Price Button Link">
-                                                        @error('pricetitlebuttonlink')
-                                                            <div class="text-danger">{{ $message }}</div>
-                                                        @enderror
+                                        <div class="sec">
+                                            <!-- Price Button Label -->
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <div class="form-data">
+                                                        <div class="forms-inputs mb-4">
+                                                            <label for="pricetitlebuttonlabel">Pricetitle Button
+                                                                Label</label>
+                                                            <input type="text" name="pricetitlebuttonlabel"
+                                                                id="pricetitlebuttonlabel"
+                                                                value="{{ old('pricetitlebuttonlabel', optional($price)->pricetitlebuttonlabel) }}"
+                                                                class="form-control" placeholder="Price Button Label">
+                                                            @error('pricetitlebuttonlabel')
+                                                                <div class="text-danger">{{ $message }}</div>
+                                                            @enderror
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                    </div>
+                                            <!-- Price Button Link -->
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <div class="form-data">
+                                                        <div class="forms-inputs mb-4">
+                                                            <label for="pricetitlebuttonlink">Pricetitle Button
+                                                                Link</label>
+                                                            <input type="text" name="pricetitlebuttonlink"
+                                                                id="pricetitlebuttonlink"
+                                                                value="{{ old('pricetitlebuttonlink', optional($price)->pricetitlebuttonlink) }}"
+                                                                class="form-control" placeholder="Price Button Link">
+                                                            @error('pricetitlebuttonlink')
+                                                                <div class="text-danger">{{ $message }}</div>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
 
 
 
@@ -882,105 +867,116 @@
                 <div class="tab-pane fade @if (session('__payment_price___', 'payment') == 'section3') show active @endif" id="section3"
                     role="tabpanel" aria-labelledby="section3-tab">
 
-                <div class="row">
-                    <div class="card">
-                        <div class="card-body">
-                            <form action="{{ route('admin.payment-price.section3') }}" method="POST"
-                                enctype="multipart/form-data">
-                                @csrf
-                                <div class="row">
+                    <div class="row">
+                        <div class="card">
+                            <div class="card-body">
+                                <form action="{{ route('admin.payment-price.section3') }}" method="POST"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="row">
 
 
 
 
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <div class="form-data">
-                                                <div class="forms-inputs mb-4">
-                                                    <label for="grouptitle">Group Title</label>
-                                                    <input type="text" name="grouptitle" id="grouptitle"
-                                                        value="{{ old('grouptitle', optional($price)->grouptitle) }}"
-                                                        class="form-control" placeholder="Group Title">
-                                                    @error('grouptitle')
-                                                        <div class="text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="first">
-
-                                    <!-- Price Banner Title -->
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="feelingtitle">Feeling Title</label>
-                                            <textarea class="form-control texteditor" name="feelingtitle" id="feelingtitle">
-                                {{ old('feelingtitle', optional($price)->feelingtitle) }}
-                                
-                            </textarea>
-                                        </div>
-                                    </div>
-
-
-
-                                </div>
-
-                                    <div class="sec">
-                                    <!-- Image Upload -->
-                                    <div class="pricesection1 numericalsectionclass">
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="feelingimage" class="file-upload">
-                                                            Feeling Image <br>
-                                                            <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
-                                                        </label>
-                                                        <input type="file" name="feelingimage" id="feelingimage" class="form-control" style="display: none;" onchange="previewImage(event, 'feelingimagePreview')">
-                                                        @error('feelingimage')
+                                                        <label for="grouptitle">Group Title</label>
+                                                        <input type="text" name="grouptitle" id="grouptitle"
+                                                            value="{{ old('grouptitle', optional($price)->grouptitle) }}"
+                                                            class="form-control" placeholder="Group Title">
+                                                        @error('grouptitle')
                                                             <div class="text-danger">{{ $message }}</div>
                                                         @enderror
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        
-                                    
-                                        <!-- Image Preview -->
-                                        <div class="form-group">
-                                            <label for="feelingimagePreview">Image Preview</label>
-                                            <div id="feelingimageContainer" class="numericalclass" style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px; position: relative;">
-                                                @if (isset($price) && $price->feelingimage)
-                                                    <img id="feelingimagePreview" src="{{ url('d0/' . $price->feelingimage) }}" alt="Image Preview" style="width: 100%; height: auto;">
-                                                    <!-- Delete button (X) -->
-                                                    <button type="button" class="btn btn-danger"style="float: right;" onclick="removeFeelingImage()">X</button>
-                                                @else
-                                                    <img id="feelingimagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
-                                                @endif
+
+
+                                        <div class="first">
+
+                                            <!-- Price Banner Title -->
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="feelingtitle">Feeling Title</label>
+                                                    <textarea class="form-control texteditor" name="feelingtitle" id="feelingtitle">
+                                {{ old('feelingtitle', optional($price)->feelingtitle) }}
+                                
+                            </textarea>
+                                                </div>
                                             </div>
+
+
+
+                                        </div>
+
+                                        <div class="sec">
+                                            <!-- Image Upload -->
+                                            <div class="pricesection1 numericalsectionclass">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <div class="form-data">
+                                                            <div class="forms-inputs mb-4">
+                                                                <label for="feelingimage" class="file-upload">
+                                                                    Feeling Image <br>
+                                                                    <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                                        alt="Upload Icon">
+                                                                </label>
+                                                                <input type="file" name="feelingimage"
+                                                                    id="feelingimage" class="form-control"
+                                                                    style="display: none;"
+                                                                    onchange="previewImage(event, 'feelingimagePreview')">
+                                                                @error('feelingimage')
+                                                                    <div class="text-danger">{{ $message }}</div>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <!-- Image Preview -->
+                                                <div class="form-group">
+                                                    <label for="feelingimagePreview">Image Preview</label>
+                                                    <div id="feelingimageContainer" class="numericalclass"
+                                                        style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px; position: relative;">
+                                                        @if (isset($price) && $price->feelingimage)
+                                                            <img id="feelingimagePreview"
+                                                                src="{{ url('d0/' . $price->feelingimage) }}"
+                                                                alt="Image Preview" style="width: 100%; height: auto;">
+                                                            <!-- Delete button (X) -->
+                                                            <button type="button"
+                                                                class="btn btn-danger"style="float: right;"
+                                                                onclick="removeFeelingImage()">X</button>
+                                                        @else
+                                                            <img id="feelingimagePreview" src="#"
+                                                                alt="Image Preview"
+                                                                style="display: none; width: 100%; height: auto;">
+                                                        @endif
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <!-- Save Button -->
+                                        <div class="col-md-12 mb-3">
+                                            <button type="submit" class="btn btn-primary course" name="section"
+                                                value="section3">Save</button>
                                         </div>
 
                                     </div>
-                                </div>
-                                    <!-- Save Button -->
-                                    <div class="col-md-12 mb-3">
-                                        <button type="submit" class="btn btn-primary course" name="section"
-                                            value="section3">Save</button>
-                                    </div>
-
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
 
-               
-            <div class="tab-pane fade @if (session('__payment_price___', 'payment') == 'section4') show active @endif" id="section4"
-                         role="tabpanel" aria-labelledby="section4-tab">
+
+                <div class="tab-pane fade @if (session('__payment_price___', 'payment') == 'section4') show active @endif" id="section4"
+                    role="tabpanel" aria-labelledby="section4-tab">
 
                     <div class="row">
                         <div class="card">
@@ -992,107 +988,118 @@
 
 
                                         <div class="first">
-                                        <!-- Fourth Section Fields -->
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <div class="form-data">
-                                                    <div class="forms-inputs mb-4">
-                                                        <label for="exceltitle">Excel Title</label>
+                                            <!-- Fourth Section Fields -->
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <div class="form-data">
+                                                        <div class="forms-inputs mb-4">
+                                                            <label for="exceltitle">Excel Title</label>
 
-                                                        <textarea class="form-control texteditor" name="exceltitle" id="exceltitle">{{ old('exceltitle', optional($price)->exceltitle) }}</textarea>
-                                                        @error('exceltitle')
-                                                            <div class="text-danger">{{ $message }}</div>
-                                                        @enderror
+                                                            <textarea class="form-control texteditor" name="exceltitle" id="exceltitle">{{ old('exceltitle', optional($price)->exceltitle) }}</textarea>
+                                                            @error('exceltitle')
+                                                                <div class="text-danger">{{ $message }}</div>
+                                                            @enderror
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
+
                                         </div>
 
-                                    </div>
-
-                                <div class="sec">
-                                        <!-- Excel Button Label -->
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <div class="form-data">
-                                                    <div class="forms-inputs mb-4">
-                                                        <label for="excelbuttonlabel">Excel Button Label</label>
-                                                        <input type="text" name="excelbuttonlabel"
-                                                            id="excelbuttonlabel"
-                                                            value="{{ old('excelbuttonlabel', optional($price)->excelbuttonlabel) }}"
-                                                            class="form-control" placeholder="Excel Button Label">
-                                                        @error('excelbuttonlabel')
-                                                            <div class="text-danger">{{ $message }}</div>
-                                                        @enderror
+                                        <div class="sec">
+                                            <!-- Excel Button Label -->
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <div class="form-data">
+                                                        <div class="forms-inputs mb-4">
+                                                            <label for="excelbuttonlabel">Excel Button Label</label>
+                                                            <input type="text" name="excelbuttonlabel"
+                                                                id="excelbuttonlabel"
+                                                                value="{{ old('excelbuttonlabel', optional($price)->excelbuttonlabel) }}"
+                                                                class="form-control" placeholder="Excel Button Label">
+                                                            @error('excelbuttonlabel')
+                                                                <div class="text-danger">{{ $message }}</div>
+                                                            @enderror
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <!-- Excel Button Link -->
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <div class="form-data">
-                                                    <div class="forms-inputs mb-4">
-                                                        <label for="excelbuttonlink">Excel Button Link</label>
-                                                        <input type="text" name="excelbuttonlink" id="excelbuttonlink"
-                                                            value="{{ old('excelbuttonlink', optional($price)->excelbuttonlink) }}"
-                                                            class="form-control" placeholder="Excel Button Link">
-                                                        @error('excelbuttonlink')
-                                                            <div class="text-danger">{{ $message }}</div>
-                                                        @enderror
+                                            <!-- Excel Button Link -->
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <div class="form-data">
+                                                        <div class="forms-inputs mb-4">
+                                                            <label for="excelbuttonlink">Excel Button Link</label>
+                                                            <input type="text" name="excelbuttonlink"
+                                                                id="excelbuttonlink"
+                                                                value="{{ old('excelbuttonlink', optional($price)->excelbuttonlink) }}"
+                                                                class="form-control" placeholder="Excel Button Link">
+                                                            @error('excelbuttonlink')
+                                                                <div class="text-danger">{{ $message }}</div>
+                                                            @enderror
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <!-- Excel Image -->
+                                            <div class="pricesection1 numericalsectionclass">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <div class="form-data">
+                                                            <div class="forms-inputs mb-4">
+                                                                <label for="excelimage" class="file-upload">
+                                                                    Excel Image <br>
+                                                                    <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                                        alt="Upload Icon">
+                                                                </label>
+                                                                <input type="file" name="excelimage" id="excelimage"
+                                                                    class="form-control" style="display: none;"
+                                                                    onchange="previewImage(event, 'excelImagePreview')">
+                                                                @error('excelimage')
+                                                                    <div class="text-danger">{{ $message }}</div>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
+                                                <div class="form-group">
+                                                    <label for="excelImagePreview">Image Preview</label>
+                                                    <div id="imagePreviewContainer" class="numericalclass"
+                                                        style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
+                                                        @if (isset($price) && $price->excelimage)
+                                                            <img id="excelImagePreview"
+                                                                src="{{ url('d0/' . $price->excelimage) }}"
+                                                                alt="Excel Image Preview"
+                                                                style="width: 100%; height: auto;">
+                                                            <button type="button" onclick="removeExcelImage()"
+                                                                class="btn btn-danger" style="float: right;">X</button>
+                                                        @else
+                                                            <img id="excelImagePreview" src="#"
+                                                                alt="Excel Image Preview"
+                                                                style="display: none; width: 100%; height: auto;">
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         </div>
-<!-- Excel Image -->
-<div class="pricesection1 numericalsectionclass">
-    <div class="col-md-12">
-      <div class="form-group">
-          <div class="form-data">
-              <div class="forms-inputs mb-4">
-                  <label for="excelimage" class="file-upload">
-                      Excel Image <br>   
-                      <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
-                  </label>
-                  <input type="file" name="excelimage" id="excelimage" class="form-control" style="display: none;" onchange="previewImage(event, 'excelImagePreview')">
-                  @error('excelimage')
-                      <div class="text-danger">{{ $message }}</div>
-                  @enderror
-              </div>
-          </div>
-      </div>
-    </div>
 
 
-
-<div class="form-group">
-    <label for="excelImagePreview">Image Preview</label>
-    <div id="imagePreviewContainer" class="numericalclass" style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
-        @if (isset($price) && $price->excelimage)
-            <img id="excelImagePreview" src="{{ url('d0/' . $price->excelimage) }}" alt="Excel Image Preview" style="width: 100%; height: auto;">
-            <button type="button" onclick="removeExcelImage()" class="btn btn-danger" style="float: right;">X</button>
-        @else
-            <img id="excelImagePreview" src="#" alt="Excel Image Preview" style="display: none; width: 100%; height: auto;">
-        @endif
-    </div>
-</div>
-</div>
-                             
-                                    </div>
-                                             
-
-                                            <div class="sec">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="coursetitle">Our Course Title</label>
-                                                <textarea class="form-control texteditor" name="coursetitle" id="coursetitle">
+                                        <div class="sec">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="coursetitle">Our Course Title</label>
+                                                    <textarea class="form-control texteditor" name="coursetitle" id="coursetitle">
                                                     {{ old('coursetitle', optional($price)->ourcoursetitle) }}
                                                     
                                                 </textarea>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
 
 
 
@@ -1268,92 +1275,88 @@
 
 
 
-// Function to remove the Excel image
-function removeExcelImage() {
-    const imagePath = "{{ url('d0/' . $price->excelimage) }}"; // Set the correct image path
+        // Function to remove the Excel image
+        function removeExcelImage() {
+            const imagePath = "{{ url('d0/' . $price->excelimage) }}"; // Set the correct image path
 
-    // Send an AJAX request to delete the image
-    $.ajax({
-        type: 'POST',
-        url: '{{ route('admin.payment-price.deleteImage') }}', // Make sure this matches the correct route
-        data: {
-            _token: '{{ csrf_token() }}',
-            image_path: imagePath // Send the image path as part of the data
-        },
-        success: function(response) {
-            if (response.success) {
-                // Hide the image preview and remove the delete button
-                document.getElementById('excelImagePreview').style.display = 'none';
-                document.querySelector('button.btn-danger').style.display = 'none';
-            } else {
-                alert('Image could not be deleted. Please try again.');
-            }
-        },
-        error: function(xhr) {
-            alert('An error occurred. Please try again.');
+            // Send an AJAX request to delete the image
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('admin.payment-price.deleteImage') }}', // Make sure this matches the correct route
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    image_path: imagePath // Send the image path as part of the data
+                },
+                success: function(response) {
+                    if (response.success) {
+                        // Hide the image preview and remove the delete button
+                        document.getElementById('excelImagePreview').style.display = 'none';
+                        document.querySelector('button.btn-danger').style.display = 'none';
+                    } else {
+                        alert('Image could not be deleted. Please try again.');
+                    }
+                },
+                error: function(xhr) {
+                    alert('An error occurred. Please try again.');
+                }
+            });
         }
-    });
-}
-
-
-
-
     </script>
 
-<script>
-    // Function to remove the Feeling image
-    function removeFeelingImage() {
-        const imagePath = "{{ url('d0/' . $price->feelingimage) }}"; // Set the correct image path
+    <script>
+        // Function to remove the Feeling image
+        function removeFeelingImage() {
+            const imagePath = "{{ url('d0/' . $price->feelingimage) }}"; // Set the correct image path
 
-        // Send an AJAX request to delete the image
-        $.ajax({
-            type: 'POST',
-            url: '{{ route('admin.payment-price.deleteFeelingImage') }}', // Make sure this matches the correct route
-            data: {
-                _token: '{{ csrf_token() }}',
-                image_path: imagePath // Send the image path as part of the data
-            },
-            success: function(response) {
-                if (response.success) {
-                    // Hide the image preview and the delete button
-                    document.getElementById('feelingimagePreview').style.display = 'none';
-                    document.querySelector('button.btn-danger').style.display = 'none';
-                } else {
-                    alert('Image could not be deleted. Please try again.');
+            // Send an AJAX request to delete the image
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('admin.payment-price.deleteFeelingImage') }}', // Make sure this matches the correct route
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    image_path: imagePath // Send the image path as part of the data
+                },
+                success: function(response) {
+                    if (response.success) {
+                        // Hide the image preview and the delete button
+                        document.getElementById('feelingimagePreview').style.display = 'none';
+                        document.querySelector('button.btn-danger').style.display = 'none';
+                    } else {
+                        alert('Image could not be deleted. Please try again.');
+                    }
+                },
+                error: function(xhr) {
+                    alert('An error occurred. Please try again.');
                 }
-            },
-            error: function(xhr) {
-                alert('An error occurred. Please try again.');
-            }
-        });
-    }
-
-
-
-function removeImage() {
-    const imagePath = "{{ url('d0/' . $price->image) }}"; // Get the image path from the backend
-
-    // Send an AJAX request to delete the image
-    $.ajax({
-        type: 'POST',
-        url: '{{ route('admin.payment-price.deleteImage2') }}', // Use the route to delete the image
-        data: {
-            _token: '{{ csrf_token() }}',
-            image_path: imagePath // Pass the image path to the backend
-        },
-        success: function(response) {
-            if (response.success) {
-                // Hide the image preview and the delete button
-                document.getElementById('imagePreview').style.display = 'none';
-                document.querySelector('button.btn-danger').style.display = 'none';
-            } else {
-                alert('Image could not be deleted. Please try again.');
-            }
-        },
-        error: function(xhr) {
-            alert('An error occurred. Please try again1.');
+            });
         }
-    });
-}
-</script>
+    </script>
+
+    <script>
+        function removeImage() {
+            const imagePath = "{{ url('d0/' . $price->image) }}"; // Get the image path from the backend
+
+            // Send an AJAX request to delete the image
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('admin.payment-price.deleteImage2') }}', // Use the route to delete the image
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    image_path: imagePath // Pass the image path to the backend
+                },
+                success: function(response) {
+                    if (response.success) {
+                        // Hide the image preview and the delete button
+                        document.getElementById('imagePreview').style.display = 'none';
+                        document.querySelector('button.btn-danger').style.display = 'none';
+                    } else {
+                        alert('Image could not be deleted. Please try again.');
+                    }
+                },
+                error: function(xhr) {
+                    alert('An error occurred. Please try again1.');
+                }
+            });
+        }
+    </script>
 @endpush
