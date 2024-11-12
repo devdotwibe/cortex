@@ -443,13 +443,11 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::delete('/{setname}', [PagesController::class, 'destroy'])->name('destroy');
         Route::get('/{setname}/visibility', [PagesController::class, 'visibility'])->name('visibility');
 
-        Route::post('/admin/page/feature/{id}', [PagesController::class, 'destroy'])->name('feature.destroy');
+        Route::delete('/admin/page/feature/{id}', [PagesController::class, 'destroy'])->name('feature.destroy');
 
 
         // Add the deleteImage route
     Route::post('/delete-image', [PagesController::class, 'deleteImage'])->name('deleteImage');
-
-
     });
 
     Route::get('/set/view', [PagesController::class, 'set_table_show'])->name('set_table.show');

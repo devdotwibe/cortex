@@ -2448,18 +2448,6 @@ function removeDiv(button, id) {
         
   CKEDITOR.replaceAll('texteditor');
 
-    // Function to preview image
-    function previewImage(event, previewId) {
-        const preview = document.getElementById(previewId);
-        const file = event.target.files[0];
-        
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            preview.src = e.target.result;
-            preview.style.display = 'block'; // Show the preview image
-        }
-        reader.readAsDataURL(file);
-    }
 
     // Function to remove the image
     function removeImage() {
