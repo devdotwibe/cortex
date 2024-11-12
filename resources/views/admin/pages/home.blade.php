@@ -2203,6 +2203,10 @@
                             var output = document.getElementById(previewId);
                             output.src = reader.result;
                             output.style.display = 'block';
+
+                            var output1 = document.getElementById(previewId+'1');
+                            output1.src = reader.result;
+                            output1.style.display = 'block';
                         };
                         reader.readAsDataURL(event.target.files[0]);
                     }
