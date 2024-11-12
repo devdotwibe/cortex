@@ -281,7 +281,7 @@
 
                                        
 
-                                         @if (isset($banner) && $banner->image)
+                                        <!-- Preview Learn Image Container -->
                                         <div class="form-group">
                                             <label for="learnImagePreview">Learn Image Preview</label>
                                             <div id="learnImagePreviewContainer"
