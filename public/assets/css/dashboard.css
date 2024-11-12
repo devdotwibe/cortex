@@ -3298,7 +3298,15 @@ aside.side_bar.slider-btn .btn-slider {
     height: calc(100% - 14px);
 }
 
+.exam-container .container-wrap.learnlessonclass .lesson .lesson-body .mcq-container .form-group .form-check {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: start;
+}
 
+.exam-container .container-wrap.learnlessonclass .lesson .lesson-body .mcq-container .form-group .form-check label {
+    margin: 2px 13px 0;
+}
 
 @media screen and (max-width:1399px) {
     .exam-container .question-bank-review .lesson #lesson-footer-pagination {
