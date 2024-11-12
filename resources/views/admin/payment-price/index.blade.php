@@ -1077,21 +1077,22 @@
 
 
 
+<!-- Image Preview -->
 <div class="form-group">
     <label for="excelImagePreview">Image Preview</label>
-    <div id="imagePreviewContainer" style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
+    <div id="imagePreviewContainer"
+        style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
         @if (isset($price) && $price->excelimage)
-            <img id="excelImagePreview" src="{{ url('d0/' . $price->excelimage) }}"
-                 alt="Excel Image Preview" style="width: 100%; height: auto;">
-            <button type="button" onclick="deleteImage()" class="btn btn-danger btn-sm mt-2">Delete Image</button>
+            <img id="excelImagePreview"
+                src="{{ url('d0/' . $price->excelimage) }}"
+                alt="Excel Image Preview" style="width: 100%; height: auto;">
         @else
             <img id="excelImagePreview" src="#" alt="Excel Image Preview"
-                 style="display: none; width: 100%; height: auto;">
+                style="display: none; width: 100%; height: auto;">
         @endif
     </div>
 </div>
 </div>
-
                              
                                     </div>
                                              
@@ -1279,58 +1280,4 @@
         })
         CKEDITOR.replaceAll('texteditor')
     </script>
-
-
-<script>
-    function previewImage(event, previewId) {
-        const file = event.target.files[0];
-        const preview = document.getElementById(previewId);
-        
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                preview.src = e.target.result;
-                preview.style.display = 'block';
-                document.getElementById('deleteButton').style.display = 'block';
-            };
-            reader.readAsDataURL(file);
-        } else {
-            preview.style.display = 'none';
-            preview.src = "#";
-        }
-    }
-
-    function deleteImage() {
-        // Hide the image preview and delete button
-        const preview = document.getElementById('excelImagePreview');
-        preview.src = "#";
-        preview.style.display = 'none';
-
-        // Hide the delete button (if needed)
-        document.getElementById('deleteButton').style.display = 'none';
-
-        // Clear the file input value (in case the user uploaded a new image)
-        document.getElementById('excelimage').value = "";
-
-        // If you are editing an existing image, send a request to delete the image from the server
-        @if (isset($price) && $price->excelimage)
-            fetch('{{ route("image.delete", $price->id) }}', {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                }
-            }).then(response => response.json())
-              .then(data => {
-                  if (data.success) {
-                      alert('Image deleted successfully');
-                  } else {
-                      alert('Image could not be deleted');
-                  }
-              }).catch(error => {
-                  console.error('Error:', error);
-                  alert('An error occurred while deleting the image');
-              });
-        @endif
-    }
-</script>
 @endpush
