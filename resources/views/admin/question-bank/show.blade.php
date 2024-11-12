@@ -102,7 +102,7 @@ $(function() {
     
     setTimeout(function() {
         $('img').hide(); // Show images after 2 seconds
-    }, 5000); // 2000 milliseconds = 2 seconds
+    }, 1000); // 2000 milliseconds = 2 seconds
 });
 
         var questiontable = null;
