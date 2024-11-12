@@ -936,7 +936,7 @@
 
                                     <div class="sec">
                                     <!-- Image Upload -->
-                                    <div class="pricesection1">
+                                    <div class="pricesection1 numericalsectionclass">
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <div class="form-data">
@@ -953,20 +953,22 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        
                                     
                                         <!-- Image Preview -->
                                         <div class="form-group">
                                             <label for="feelingimagePreview">Image Preview</label>
-                                            <div id="feelingimageContainer" style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px; position: relative;">
+                                            <div id="feelingimageContainer" class="numericalclass" style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px; position: relative;">
                                                 @if (isset($price) && $price->feelingimage)
                                                     <img id="feelingimagePreview" src="{{ url('d0/' . $price->feelingimage) }}" alt="Image Preview" style="width: 100%; height: auto;">
                                                     <!-- Delete button (X) -->
-                                                    <button type="button" class="btn btn-danger" style="position: absolute; top: 5px; right: 5px;" onclick="removeFeelingImage()">X</button>
+                                                    <button type="button" class="btn btn-danger"style="float: right;" onclick="removeFeelingImage()">X</button>
                                                 @else
                                                     <img id="feelingimagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
                                                 @endif
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
                                     <!-- Save Button -->
