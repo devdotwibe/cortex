@@ -486,7 +486,7 @@ class SubscriptionPaymentController extends Controller
                 // Delete the file from storage
                 Storage::delete('public/price/' . basename($price->image));
             }
-            dd($price->image);
+       
             // Set the excelimage field to null in the database
             $price->image = null;
             $price->save();
