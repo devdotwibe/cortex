@@ -434,4 +434,29 @@ class SubscriptionPaymentController extends Controller
         }
         return redirect()->back()->with('success',"Plan Deleted");
     }
+
+
+    public function deleteFeelingImage(Request $request)
+    {
+        // Retrieve the image path from the request
+        $imagePath = $request->input('image_path');
+
+        // Check if the image exists
+        if ($imagePath && Storage::exists($imagePath)) {
+            // Delete the image file from storage
+            Storage::delete($imagePath);
+
+            // Optionally, remove the image path from the database (nullify the field)
+            $price = Pricing::first(); // Or find the specific record as needed
+            if ($price) {
+                $price->feelingimage = null; // Nullify the feelingimage field
+                $price->save();
+            }
+
+            return response()->json(['success' => true, 'message' => 'Image deleted successfully']);
+        }
+
+        return response()->json(['success' => false, 'message' => 'Image could not be found or deleted'], 404);
+    }
+
 }
