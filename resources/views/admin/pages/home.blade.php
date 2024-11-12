@@ -185,7 +185,7 @@
                                         
                                         <!-- Preview Image Container -->
                                         @if (isset($banner) && $banner->image)
-                                        <div class="form-group">
+                                        <div class="form-group" id="imgid1">
                                             <label for="imagePreview">Image Preview</label>
                                             <div id="imagePreviewContainer" style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
                                                
@@ -2462,7 +2462,7 @@ function removeDiv(button, id) {
             },
             success: function(response) {
                 if (response.success) {
-                    $('#imagePreviewContainer').hide();
+                    $('#imgid1').hide();
                     // Hide the image preview and the delete button
                     document.getElementById('imagePreview').style.display = 'none';
                     document.querySelector('button.btn-danger').style.display = 'none';
