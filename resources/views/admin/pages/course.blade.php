@@ -966,7 +966,6 @@
 
             const courseId = button.value; 
             const url = '{{ route('admin.course.deleteImage') }}'; 
-            console.log('{{ csrf_token() }}');
 
             $.ajax({
                 type: 'DELETE',
