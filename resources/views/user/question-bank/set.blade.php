@@ -685,7 +685,7 @@
                     value:'pending'
                 }),
             }); 
-            $('#finish-exam-confirm').modal('hide') z
+            $('#finish-exam-confirm').modal('hide')
             var timed=localStorage.getItem("question-bank")||"timed";  
             $('#finish-exam-confirmed-form-timed').val(timed)           
             $('#finish-exam-confirmed-form-timetaken').val(summery.timetaken)
