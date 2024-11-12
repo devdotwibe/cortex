@@ -438,18 +438,17 @@ class SubscriptionPaymentController extends Controller
 
     public function deleteFeelingImage(Request $request)
     {
-        // Retrieve the image path from the request
-        $imagePath = $request->input('image_path');
+        $imagePath = $request->input('image_path'); // Get the image path from the request
 
-        // Check if the image exists
+        // Check if the image exists in storage
         if ($imagePath && Storage::exists($imagePath)) {
-            // Delete the image file from storage
+            // Delete the image file
             Storage::delete($imagePath);
 
-            // Optionally, remove the image path from the database (nullify the field)
-            $price = Pricing::first(); // Or find the specific record as needed
+            // Optionally, remove the image reference from the database
+            $price = Pricing::first(); // You can customize this to target the specific record
             if ($price) {
-                $price->feelingimage = null; // Nullify the feelingimage field
+                $price->feelingimage = null;
                 $price->save();
             }
 
@@ -458,5 +457,4 @@ class SubscriptionPaymentController extends Controller
 
         return response()->json(['success' => false, 'message' => 'Image could not be found or deleted'], 404);
     }
-
 }

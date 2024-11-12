@@ -115,6 +115,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
              // Delete image route
     Route::post('/delete-image', [SubscriptionPaymentController::class, 'deleteImage'])->name('deleteImage');
     Route::post('/delete-feeling-image', [SubscriptionPaymentController::class, 'deleteFeelingImage'])->name('deleteFeelingImage');
+    
 
 
 

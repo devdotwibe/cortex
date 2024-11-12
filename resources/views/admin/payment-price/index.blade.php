@@ -957,11 +957,11 @@
                                         <!-- Image Preview -->
                                         <div class="form-group">
                                             <label for="feelingimagePreview">Image Preview</label>
-                                            <div id="feelingimageContainer" style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
+                                            <div id="feelingimageContainer" style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px; position: relative;">
                                                 @if (isset($price) && $price->feelingimage)
                                                     <img id="feelingimagePreview" src="{{ url('d0/' . $price->feelingimage) }}" alt="Image Preview" style="width: 100%; height: auto;">
-                                                    <!-- Add a delete button -->
-                                                    <button type="button" class="btn btn-danger" onclick="removeFeelingImage()">Delete Image</button>
+                                                    <!-- Delete button (X) -->
+                                                    <button type="button" class="btn btn-danger" style="position: absolute; top: 5px; right: 5px;" onclick="removeFeelingImage()">X</button>
                                                 @else
                                                     <img id="feelingimagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
                                                 @endif
@@ -1302,33 +1302,35 @@ function removeExcelImage() {
 
 
 
-// Function to remove the Feeling image
-function removeFeelingImage() {
-    const imagePath = "{{ url('d0/' . $price->feelingimage) }}"; // Set the correct image path
-
-    // Send an AJAX request to delete the image
-    $.ajax({
-        type: 'POST',
-        url: '{{ route('admin.payment-price.deleteFeelingImage') }}', // Update this route as needed
-        data: {
-            _token: '{{ csrf_token() }}',
-            image_path: imagePath // Send the image path as part of the data
-        },
-        success: function(response) {
-            if (response.success) {
-                // Hide the image preview and remove the delete button
-                document.getElementById('feelingimagePreview').style.display = 'none';
-                document.querySelector('button.btn-danger').style.display = 'none';
-            } else {
-                alert('Image could not be deleted. Please try again.');
-            }
-        },
-        error: function(xhr) {
-            alert('An error occurred. Please try again.');
-        }
-    });
-}
-
 
     </script>
+
+<script>
+    // Function to remove the Feeling image
+    function removeFeelingImage() {
+        const imagePath = "{{ url('d0/' . $price->feelingimage) }}"; // Set the correct image path
+
+        // Send an AJAX request to delete the image
+        $.ajax({
+            type: 'POST',
+            url: '{{ route('admin.payment-price.deleteFeelingImage') }}', // Make sure this matches the correct route
+            data: {
+                _token: '{{ csrf_token() }}',
+                image_path: imagePath // Send the image path as part of the data
+            },
+            success: function(response) {
+                if (response.success) {
+                    // Hide the image preview and the delete button
+                    document.getElementById('feelingimagePreview').style.display = 'none';
+                    document.querySelector('button.btn-danger').style.display = 'none';
+                } else {
+                    alert('Image could not be deleted. Please try again.');
+                }
+            },
+            error: function(xhr) {
+                alert('An error occurred. Please try again.');
+            }
+        });
+    }
+</script>
 @endpush
