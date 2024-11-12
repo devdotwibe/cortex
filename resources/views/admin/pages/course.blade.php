@@ -1000,7 +1000,7 @@
                 courseId); // Construct the URL
 
             $.ajax({
-                type: 'DELETE',
+                type: 'POST',
                 url: url,
                 data: {
                     _token: '{{ csrf_token() }}' // Add CSRF token for Laravel protection
@@ -1029,7 +1029,7 @@
             const url = '{{ route('admin.course.deleteLogicalImage') }}'; // Construct the URL with the course ID
 
             $.ajax({
-                type: 'DELETE',
+                type: 'POST',
                 url: url,
                 data: {
                     _token: '{{ csrf_token() }}' // Add CSRF token for Laravel protection
@@ -1059,7 +1059,7 @@
             courseId); // Construct the URL with the course ID
 
             $.ajax({
-                type: 'DELETE',
+                type: 'POST',
                 url: url,
                 data: {
                     _token: '{{ csrf_token() }}' // Add CSRF token for Laravel protection
@@ -1089,7 +1089,7 @@
             courseId); // Construct the URL with the course ID
 
             $.ajax({
-                type: 'DELETE',
+                type: 'POST',
                 url: url,
                 data: {
                     _token: '{{ csrf_token() }}' // Add CSRF token for Laravel protection
@@ -1120,7 +1120,7 @@
             courseId); // Construct the URL with the course ID
 
             $.ajax({
-                type: 'DELETE',
+                type: 'POST',
                 url: url,
                 data: {
                     _token: '{{ csrf_token() }}' // Add CSRF token for Laravel protection
@@ -1149,7 +1149,7 @@
             courseId); // Construct the URL with the course ID
 
             $.ajax({
-                type: 'DELETE',
+                type: 'POST',
                 url: url,
                 data: {
                     _token: '{{ csrf_token() }}' // Add CSRF token for Laravel protection
@@ -1179,7 +1179,7 @@
             courseId); // Construct the URL with the course ID
 
             $.ajax({
-                type: 'DELETE',
+                type: 'POST',
                 url: url,
                 data: {
                     _token: '{{ csrf_token() }}' // Add CSRF token for Laravel protection
@@ -1208,7 +1208,7 @@
             courseId); // Construct the URL with the course ID
 
             $.ajax({
-                type: 'DELETE',
+                type: 'POST',
                 url: url,
                 data: {
                     _token: '{{ csrf_token() }}' // Add CSRF token for Laravel protection
@@ -1238,7 +1238,7 @@
             courseId); // Construct the URL with the course ID
 
             $.ajax({
-                type: 'DELETE',
+                type: 'POST',
                 url: url,
                 data: {
                     _token: '{{ csrf_token() }}' // Add CSRF token for Laravel protection
