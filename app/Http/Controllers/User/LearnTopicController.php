@@ -127,7 +127,7 @@ class LearnTopicController extends Controller
 
             if(!empty($request->question)){
                 $learn=Learn::findSlug($request->question);
-                return LearnAnswer::where('learn_id',$learn->id)->get(['slug','title']);
+                return LearnAnswer::where('learn_id',$learn->id)->get(['slug','title','image']);
             }
             return Learn::where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->paginate(1,['slug','learn_type','title','short_question','video_url','note','mcq_question']);
         }
@@ -161,7 +161,7 @@ class LearnTopicController extends Controller
         if($request->ajax()){
             if(!empty($request->question)){
                 $question=UserReviewQuestion::findSlug($request->question);
-                return UserReviewAnswer::where('user_review_question_id',$question->id)->get(['slug','title','user_answer','iscorrect','description']);
+                return UserReviewAnswer::where('user_review_question_id',$question->id)->get(['slug','title','user_answer','iscorrect','description','image']);
             }
             return UserReviewQuestion::whereIn('review_type',['mcq','short_notes'])->where('user_exam_review_id',$userExamReview->id)->paginate(1,['title','note','slug','review_type','user_answer','currect_answer','explanation']);
         }

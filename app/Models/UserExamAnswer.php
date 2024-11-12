@@ -13,6 +13,7 @@ class UserExamAnswer extends Model
     protected $fillable = [
         'title', 
         'description',
+        'image',
         'user_exam_id',  
         'user_exam_question_id', 
         'iscorrect', 

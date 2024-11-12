@@ -9,6 +9,7 @@ use App\Models\HomeWorkBook;
 use App\Models\HomeWorkQuestion;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class HomeWorkController extends Controller
 {
@@ -82,16 +83,25 @@ class HomeWorkController extends Controller
             'home_work_book_id'=>['required'],
             'description'=>['required'],
             'answer'=>['required'],
-            'answer.*'=>['required','string','max:150'],
+            "answer.*" => [ 'string', 'max:150','nullable'],
+            "file_answer.*" => [ 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048','nullable'],
             'explanation'=>['required']
         ],[
-            'answer.*.required'=>['The answer field is required.']
+            'file_answer.*.mimes' => 'Each file answer must be an image (jpeg, png, jpg, gif).',
         ]);
         $data['home_work_id']=$homeWork->id;
         $homeWorkQuestion->update($data);
         $ansIds=[]; 
+        $featureimages = $request->file('file_answer', []);
         foreach($request->answer as $k =>$ans){
             $answer=null;
+            $imageName= Null;
+            if (isset($featureimages[$k])) {
+                $featureImage = $featureimages[$k];
+                $featureImageName = "questionimages/" . $featureImage->hashName();
+                Storage::put('questionimages', $featureImage);
+                $imageName = $featureImageName;
+            }
             if(!empty($request->choice_answer_id[$k]??"")){
                 $answer=HomeWorkAnswer::find($request->choice_answer_id[$k]??"");
             }
@@ -101,17 +111,22 @@ class HomeWorkController extends Controller
                     "home_work_book_id"=>$homeWorkQuestion->home_work_book_id,
                     "home_work_question_id"=>$homeWorkQuestion->id,
                     "iscorrect"=>$k==($request->choice_answer??0)?true:false,
-                    "title"=>$ans
+                    "title"=>$ans,
+                    "image"=>$imageName
                 ]);
 
             }else{
-                $answer->update([
+                $data=[
                     "home_work_id"=>$homeWork->id,
                     "home_work_book_id"=>$homeWorkQuestion->home_work_book_id,
                     "home_work_question_id"=>$homeWorkQuestion->id,
                     "iscorrect"=>$k==($request->choice_answer??0)?true:false,
                     "title"=>$ans
-                ]);
+                ];
+                if(isset($imageName)){
+                    $data['image']=$imageName;
+                }
+                $answer->update($data);
             }
             $ansIds[]=$answer->id;
         }
@@ -124,20 +139,33 @@ class HomeWorkController extends Controller
             'home_work_book_id'=>['required'],
             'description'=>['required'],
             'answer'=>['required'],
-            'answer.*'=>['required','string','max:150'],
+            "answer.*" => ["required_without:file_answer", 'string', 'max:150','nullable'],
+            "file_answer.*" => ["required_without:answer", 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
             'explanation'=>['required']
         ],[
-            'answer.*.required'=>['The answer field is required.']
+            'answer.*.required_without' => 'The answer field is required when file answer is not provided.',
+            'file_answer.*.required_without' => 'The file answer is required when answer is not provided.',
+            'file_answer.*.mimes' => 'Each file answer must be an image (jpeg, png, jpg, gif).',
         ]);
         $data['home_work_id']=$homeWork->id;
         $question=HomeWorkQuestion::store($data);
+        $featureimages = $request->file('file_answer', []);
         foreach($request->answer as $k =>$ans){
+            $imageName = "";
+            if (isset($featureimages[$k])) {
+                $featureImage = $featureimages[$k];
+                $featureImageName = "questionimages/" . $featureImage->hashName();
+                Storage::put('questionimages', $featureImage);
+                $imageName = $featureImageName;
+            }
             HomeWorkAnswer::store([
                 "home_work_id"=>$homeWork->id,
                 "home_work_book_id"=>$question->home_work_book_id,
                 "home_work_question_id"=>$question->id,
                 "iscorrect"=>$k==($request->choice_answer??0)?true:false,
-                "title"=>$ans
+                "title"=>$ans,
+                'image' => $imageName,
+
             ]);
         }
         $redirect=$request->redirect??route('admin.home-work.show',$homeWork->slug);

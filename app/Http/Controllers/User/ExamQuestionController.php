@@ -134,6 +134,7 @@ class ExamQuestionController extends Controller
                     UserExamAnswer::store([
                         'title'=>$answer->title, 
                         'description'=>$answer->description,  
+                        'image'=>$answer->image,  
                         'user_exam_question_id'=>$userQuestion->id, 
                         'iscorrect'=>$answer->iscorrect, 
                         'question_id'=>$question->id,

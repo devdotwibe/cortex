@@ -12,6 +12,7 @@ class HomeWorkAnswer extends Model
     protected $fillable = [
         'title', 
         'description', 
+        'image',
         'iscorrect', 
         'slug',
         'home_work_id', 

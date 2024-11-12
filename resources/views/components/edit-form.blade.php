@@ -1,7 +1,7 @@
 <div class="row"> 
     <div class="card">
         <div class="card-body">
-            <form  @if (!empty($params))   action="{{route("$name.update",$params)}}"    @else action="{{route("$name.update",$id)}}" @endif class="form" id="{{$frmID}}" method="post">
+            <form  @if (!empty($params))   action="{{route("$name.update",$params)}}"    @else action="{{route("$name.update",$id)}}" @endif class="form" id="{{$frmID}}" method="post" enctype="multipart/form-data">
                 @csrf 
                 @method("PUT")
                 <div class="row">
@@ -26,8 +26,9 @@
                                                             <input type="radio" class="input-group-label choice-label"  name="choice_{{$item->name}}" id="{{$item->name}}-{{$frmID}}-{{$k}}-check" value="{{$k}}" @checked(old('choice_'.$item->name)==$k) >
                                                         </div>
                                                         <input type="text" name="{{$item->name}}[]" id="{{$item->name}}-{{$frmID}}-{{$k}}" value="{{old($item->name)[$k]}}"  class="form-control  @error($item->name.".$k") is-invalid @enderror " placeholder="{{ucfirst($item->label??$item->name)}}" aria-placeholder="{{ucfirst($item->label??$item->name)}}" >
-                                                        <input type="file" name="file_{{$item->name}}[]" id="file_{{$item->name}}-{{$frmID}}-{{$k}}" value="{{old('file_'.$item->name)[$k]}}"  class="form-control  @error('file_'.$item->name.".$k") is-invalid @enderror " >
-
+                                                        <input type="file" name="file_{{$item->name}}[]" id="file_{{$item->name}}-{{$frmID}}-{{$k}}" value=""  class="form-control  @error('file_'.$item->name.".$k") is-invalid @enderror " onchange="previewImage(this, 'preview-{{$item->name}}-{{$frmID}}-{{$k}}')">
+                                                        <img id="preview-{{ $item->name }}-{{ $frmID }}-{{ $k }}" src="file_{{old($item->name)[$k]}}" alt="Image Preview" style="width: 100px; height: 40px; object-fit: cover; margin-top: 10px; display: block;">
+                                                        
                                                         @if ($k!=0)
                                                         <div class="input-group-append choice-check-group">
                                                             <button type="button" onclick="removeChoice{{$frmID}}('#{{$item->name}}-{{$frmID}}-choice-item-{{$k}}','#{{$item->name}}-{{$frmID}}-{{$k}}-check','#{{$item->name}}-{{$frmID}}-choice-group')" class="btn btn-danger "><img src="{{asset("assets/images/delete-black.svg")}}"></button>
@@ -57,7 +58,11 @@
                                                         <input type="radio" class="input-group-check choice-check" name="choice_{{$item->name}}" id="{{$item->name}}-{{$frmID}}-{{$k}}-check" value="{{$k}}" @checked($v->choice) >
                                                     </div>
                                                     <input type="text" name="{{$item->name}}[]" id="{{$item->name}}-{{$frmID}}-{{$k}}" value="{{$v->value}}"  class="form-control  @error($item->name.".$k") is-invalid @enderror " placeholder="{{ucfirst($item->label??$item->name)}}" aria-placeholder="{{ucfirst($item->label??$item->name)}}" >
-                                                    <input type="file" name="file_{{$item->name}}[]" id="file_{{$item->name}}-{{$frmID}}-0" value=""  class="form-control" >
+                                                    <input type="file" name="file_{{$item->name}}[]" id="file_{{$item->name}}-{{$frmID}}-0" value=""  class="form-control" onchange="previewImage(this, 'preview-{{$item->name}}-{{$frmID}}-{{ $k }}')">
+                                                    @isset($v->image)
+                                                    <img id="preview-{{ $item->name }}-{{ $frmID }}-{{ $k }}" src="{{$v->image}}" alt="Image Preview"  style="width: 100px; height: 40px; object-fit: cover; margin-top: 10px; display: block;">
+                                                    @endisset
+
                                                     @if ($k!=0)
                                                     <div class="input-group-append choice-check-group">
                                                         <button type="button" onclick="removeChoice{{$frmID}}('#{{$item->name}}-{{$frmID}}-choice-item-{{$k}}','#{{$item->name}}-{{$frmID}}-{{$k}}-check','#{{$item->name}}-{{$frmID}}-choice-group')" class="btn btn-danger "><img src="{{asset("assets/images/delete-black.svg")}}"></button>
@@ -160,6 +165,22 @@
 @push('footer-script')
 
     <script>
+        function previewImage(input, previewId) {
+            const file = input.files[0];
+            const preview = document.getElementById(previewId);
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result; // Set the image source to the loaded file
+                    preview.style.display = 'block'; // Show the image preview
+                };
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = '#'; // Reset the image source
+                preview.style.display = 'none'; // Hide the image preview if no file is selected
+            }
+        }
         var chcnt=$('.choice-item').length;
         function removeChoice{{$frmID}}(target,checkbox,parent){
             if($(checkbox).is(":checked")){

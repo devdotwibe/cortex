@@ -18,7 +18,8 @@
                     "id"=>$ans->id,
                     "value"=>$ans->title,
                     "choice"=>$ans->iscorrect,
-            ];
+                    "image"=>url('d0',$ans->image),
+                ];
             }
         @endphp
         <x-edit-form name="admin.learn" id="c" :params="[$category->slug,$learn->slug]" :cancel="route('admin.learn.show',$category->slug)"  btnsubmit="Save" :fields='[
