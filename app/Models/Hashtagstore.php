@@ -14,6 +14,11 @@ class Hashtagstore extends Model
 
    
     protected $fillable = ['hashtag'];
-
+    public function posts()
+    {
+        return $this->belongsToMany(Post::class, 'hashtags', 'hashtagstore_id', 'post_id')
+                    ->withPivot('hashtag')
+                    ->withTimestamps();
+    }
   
 }
