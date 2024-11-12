@@ -110,6 +110,12 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::post('/section-4', [SubscriptionPaymentController::class, 'storesection4'])->name('section4');
             Route::put('/{subscription_plan}/update',[SubscriptionPaymentController::class,'update'])->name('update');
             Route::delete('/{subscription_plan}/destroy',[SubscriptionPaymentController::class,'destroy'])->name('destroy');
+
+
+             // Delete image route
+    Route::post('/delete-image', [SubscriptionPaymentController::class, 'deleteImage'])->name('deleteImage');
+
+    
         });
 
         Route::prefix('full-mock-exam')->name('full-mock-exam.')->group(function () {

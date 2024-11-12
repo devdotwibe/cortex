@@ -1056,39 +1056,35 @@
                                                 </div>
                                             </div>
                                         </div>
-  <!-- Excel Image -->
-  <div class="pricesection1">
-  <div class="col-md-12">
-    <div class="form-group">
-        <div class="form-data">
-            <div class="forms-inputs mb-4">
-                <label for="excelimage" class="file-upload">Excel Image <br>   <img src="{{ asset('assets/images/upfile.svg') }}"
-                    alt="Upload Icon"> </label>
-                <input type="file" name="excelimage" id="excelimage"
-                    class="form-control" style="display: none;"
-                    onchange="previewImage(event, 'excelImagePreview')">
-                @error('excelimage')
-                    <div class="text-danger">{{ $message }}</div>
-                @enderror
-            </div>
-        </div>
+<!-- Excel Image -->
+<div class="pricesection1">
+    <div class="col-md-12">
+      <div class="form-group">
+          <div class="form-data">
+              <div class="forms-inputs mb-4">
+                  <label for="excelimage" class="file-upload">
+                      Excel Image <br>   
+                      <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
+                  </label>
+                  <input type="file" name="excelimage" id="excelimage" class="form-control" style="display: none;" onchange="previewImage(event, 'excelImagePreview')">
+                  @error('excelimage')
+                      <div class="text-danger">{{ $message }}</div>
+                  @enderror
+              </div>
+          </div>
+      </div>
     </div>
-</div>
 
 
 
-<!-- Image Preview -->
 <div class="form-group">
     <label for="excelImagePreview">Image Preview</label>
-    <div id="imagePreviewContainer"
-        style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
+    <div id="imagePreviewContainer" style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
         @if (isset($price) && $price->excelimage)
-            <img id="excelImagePreview"
-                src="{{ url('d0/' . $price->excelimage) }}"
-                alt="Excel Image Preview" style="width: 100%; height: auto;">
+            <img id="excelImagePreview" src="{{ url('d0/' . $price->excelimage) }}" alt="Excel Image Preview" style="width: 100%; height: auto;">
+            <button type="button" onclick="removeExcelImage()" class="btn btn-danger" style="position: absolute; top: 10px; right: 10px;">X</button>
         @else
-            <img id="excelImagePreview" src="#" alt="Excel Image Preview"
-                style="display: none; width: 100%; height: auto;">
+            <img id="excelImagePreview" src="#" alt="Excel Image Preview" style="display: none; width: 100%; height: auto;">
         @endif
     </div>
 </div>
@@ -1279,5 +1275,36 @@
             }
         })
         CKEDITOR.replaceAll('texteditor')
+
+
+
+
+// Function to remove the Excel image
+function removeExcelImage() {
+    const imagePath = "{{ url('d0/' . $price->excelimage) }}"; // Set the correct image path
+
+    // Send an AJAX request to delete the image
+    $.ajax({
+        type: 'POST',
+        url: '{{ route('price.deleteExcelImage') }}',
+        data: {
+            _token: '{{ csrf_token() }}',
+            image_path: imagePath
+        },
+        success: function(response) {
+            if (response.success) {
+                // Hide the image preview and remove the delete button
+                document.getElementById('excelImagePreview').style.display = 'none';
+                document.querySelector('button.btn-danger').style.display = 'none';
+            } else {
+                alert('Image could not be deleted. Please try again.');
+            }
+        },
+        error: function(xhr) {
+            alert('An error occurred. Please try again.');
+        }
+    });
+}
+
     </script>
 @endpush
