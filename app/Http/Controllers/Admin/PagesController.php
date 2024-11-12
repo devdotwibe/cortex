@@ -692,7 +692,7 @@ class PagesController extends Controller
             $banner->image = null; // Remove the image field from the banner
             $banner->save();
         }
-       dd($banner->image);
+     
         // Return success response
         return response()->json(['success' => true]);
     }
