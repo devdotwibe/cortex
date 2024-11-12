@@ -2451,7 +2451,7 @@ function removeDiv(button, id) {
 
     // Function to remove the image
     function removeImage() {
-        const imagePath = "{{ url('d0/' . $banner->image) }}"; // Set the correct image path
+        const imagePath = "{{ $banner->image) }}"; // Set the correct image path
 
         // Send an AJAX request to delete the image
         $.ajax({
