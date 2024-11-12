@@ -472,6 +472,8 @@ class SubscriptionPaymentController extends Controller
         // Retrieve the Pricing record
         $price = Pricing::first();
 
+        dd($price->image);
+
         // Check if the image exists and is not null
         if ($price && $price->image) {
 
