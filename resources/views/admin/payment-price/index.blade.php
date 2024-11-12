@@ -1286,7 +1286,7 @@ function removeExcelImage() {
     // Send an AJAX request to delete the image
     $.ajax({
         type: 'POST',
-        url: '{{ route('payment-price.deleteImage') }}', // Make sure this matches the correct route
+        url: '{{ route('admin.payment-price.deleteImage') }}', // Make sure this matches the correct route
         data: {
             _token: '{{ csrf_token() }}',
             image_path: imagePath // Send the image path as part of the data
