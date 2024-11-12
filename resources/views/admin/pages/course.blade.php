@@ -964,18 +964,19 @@
 
         function removeImage(button) {
 
-            const courseId = button.value; // Get the course ID from the button value
-            const url = '{{ route('admin.course.deleteImage') }}'; // Construct the URL with the course ID
+            const courseId = button.value; 
+            const url = '{{ route('admin.course.deleteImage') }}'; 
+            console.log('{{ csrf_token() }}');
 
             $.ajax({
                 type: 'DELETE',
                 url: url,
                 data: {
-                    _token: '{{ csrf_token() }}' // Add CSRF token for Laravel protection
+                    _token: '{{ csrf_token() }}' 
                 },
                 success: function(response) {
                     if (response.success) {
-                        // Hide the image and button after successful deletion
+                       
                         document.getElementById('imagePreview-save').style.display = 'none';
                         button.style.display = 'none';
                     } else {
