@@ -497,7 +497,7 @@ function HideTime() {
                                 $(`#mcq-${lesseonId}-list`).append(`
                                     <div class="form-check">
                                         <input type="radio" name="answer" data-page="${summery.cudx}" data-question="${v.slug}" id="user-answer-${lesseonId}-ans-item-${ai}" value="${av.slug}" class="form-check-input"  >        
-                                        <label for="user-answer-${lesseonId}-ans-item-${ai}" >${ letter }. ${av.title}</label>
+                                        <label for="user-answer-${lesseonId}-ans-item-${ai}" >${ letter }. ${av.title ||""}</label>
                                          ${imageHtml}
                                     </div>  
                                 `)

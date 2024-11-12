@@ -208,14 +208,19 @@
                     }, function(ans) {
                         $(`#mcq-${lesseonId}-list`).html('')
                         $(`#mcq-${lesseonId}-list-progress`).html('')
+                        const baseUrl = `{{ asset('d0') }}`;
                         $.each(ans, function(ai, av) {
                             const letter = String.fromCharCode(ai + 'A'.charCodeAt(0))
+                            const imageHtml = av && av.image
+                                                    ? `<img src="${baseUrl}/${av.image}" class="answer-image" />`
+                                                    : '';
                             $(`#mcq-${lesseonId}-list`).append(`
                             <div class="form-check-ans">
                                 <span class="question-user-ans ${av.iscorrect?"correct":"wrong"}" data-ans="${av.slug}"></span>
                                 <div class="form-check">
                                     <input type="radio" disabled name="answer" data-question="${v.slug}" id="user-answer-${lesseonId}-ans-item-${ai}" value="${av.slug}" class="form-check-input" ${av.user_answer?"checked":""}  >        
-                                    <label for="user-answer-${lesseonId}-ans-item-${ai}" >${ letter }. ${av.title}</label>
+                                    <label for="user-answer-${lesseonId}-ans-item-${ai}" >${ letter }. ${av.title || ''}</label>
+                                    ${imageHtml}
                                 </div>  
                             </div>
                             `)

@@ -25,7 +25,7 @@
                                                     <input type="text" name="{{$item->name}}[]" id="{{$item->name}}-{{$frmID}}-{{$k}}" value="{{old($item->name)[$k]}}"  class="form-control  @error($item->name.".$k") is-invalid @enderror " placeholder="{{ucfirst($item->label??$item->name)}}" aria-placeholder="{{ucfirst($item->label??$item->name)}}" >
 
                                                     <input type="file" name="file_{{$item->name}}[]" id="file_{{$item->name}}-{{$frmID}}-{{$k}}" accept="image/*" value="{{ old('file_'.$item->name) && is_array(old('file_'.$item->name)) ? old('file_'.$item->name)[$k] : '' }}"  class="form-control  @error('file_'.$item->name.".$k") is-invalid @enderror " >
-                                  <img id="preview-{{ $item->name }}-{{ $frmID }}-{{ uniqid() }}" src="#" alt="Image Preview" style="display: none; width: 100px; margin-top: 10px;">
+                                                    <img id="preview-{{ $item->name }}-{{ $frmID }}-{{ uniqid() }}" src="{{old($item->name)[$k]}}" alt="Image Preview" style="display: none; width: 100px; margin-top: 10px;">
 
                                                     @if ($k!=0)
                                                     <div class="input-group-append choice-check-group">
@@ -133,22 +133,22 @@
 
     <script>
 
-function previewImage(input, previewId) {
-    const file = input.files[0];
-    const preview = document.getElementById(previewId);
+        function previewImage(input, previewId) {
+            const file = input.files[0];
+            const preview = document.getElementById(previewId);
 
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            preview.src = e.target.result; // Set the image source to the loaded file
-            preview.style.display = 'block'; // Show the image preview
-        };
-        reader.readAsDataURL(file);
-    } else {
-        preview.src = '#'; // Reset the image source
-        preview.style.display = 'none'; // Hide the image preview if no file is selected
-    }
-}
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result; // Set the image source to the loaded file
+                    preview.style.display = 'block'; // Show the image preview
+                };
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = '#'; // Reset the image source
+                preview.style.display = 'none'; // Hide the image preview if no file is selected
+            }
+        }
 
 
         var chcnt=$('.choice-item').length;

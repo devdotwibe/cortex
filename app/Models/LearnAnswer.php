@@ -13,6 +13,7 @@ class LearnAnswer extends Model
     protected $fillable = [
         'slug',
         'title',
+        'image',
         'iscorrect',
         'learn_id',
     ];
