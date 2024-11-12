@@ -1277,7 +1277,7 @@
 
         // Function to remove the Excel image
         function removeExcelImage() {
-            const imagePath = "{{ url('d0/' . $price->excelimage) }}"; // Set the correct image path
+            const imagePath = ""; // Set the correct image path
 
             // Send an AJAX request to delete the image
             $.ajax({
