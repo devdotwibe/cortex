@@ -100,7 +100,7 @@
 $(function() {
     setTimeout(function() {
         $('table img').hide(); // Hide images inside the table after 5 seconds
-    }, 5000); // 5000 milliseconds = 5 seconds
+    }, 1000); // 5000 milliseconds = 5 seconds
 });
 
         var questiontable = null;
