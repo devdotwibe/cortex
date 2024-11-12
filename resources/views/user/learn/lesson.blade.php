@@ -4,7 +4,7 @@
 @section('title', $exam->subtitle($category->id,"Module ".($category->getIdx()+1)).':'.$category->name)
 @section('content')
 <section class="exam-container" id="exam-container">
-    <div class="container-wrap">
+    <div class="container-wrap learnlessonclass">
         <div class="lesson">
             <a class="lesson-exit float-start" href="{{route('learn.show',$category->slug)}}" title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip" >
                 <img src="{{asset("assets/images/exiticon.svg")}}" alt="exiticon">
