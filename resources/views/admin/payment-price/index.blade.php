@@ -772,7 +772,7 @@
                                         </div> --}}
                                       
   <!-- Image Upload -->
-<div class="pricesection1 ">
+<div class="pricesection1 numericalsectionclass ">
     <div class="col-md-12">
         <div class="form-group">
             <div class="form-data">
