@@ -516,7 +516,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::post('/', [CourseController::class, 'storesection5'])->name('section5');
 
 
-        Route::delete('/delete-image', [CourseController::class, 'deleteImage'])->name('deleteImage');
+        Route::post('/delete-image', [CourseController::class, 'deleteImage'])->name('deleteImage');
 
 
         Route::delete('/private-image', [CourseController::class, 'deletePrivateImage'])->name('deletePrivateImage');

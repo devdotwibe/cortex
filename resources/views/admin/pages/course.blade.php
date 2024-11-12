@@ -968,7 +968,7 @@
             const url = '{{ route('admin.course.deleteImage') }}'; 
 
             $.ajax({
-                type: 'DELETE',
+                type: 'POST',
                 url: url,
                 data: {
                     _token: '{{ csrf_token() }}' 
