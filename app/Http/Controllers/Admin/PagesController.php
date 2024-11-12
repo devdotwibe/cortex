@@ -685,7 +685,6 @@ class PagesController extends Controller
         if (Storage::exists($imagePath)) {
             
             Storage::delete($imagePath);
-            dd('kkk');
             // Find the first Banner instance and update it
             $banner = Banner::first();
             if ($banner && $banner->image === $imagePath) {
