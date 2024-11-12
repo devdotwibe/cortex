@@ -1307,7 +1307,7 @@
     <script>
         // Function to remove the Feeling image
         function removeFeelingImage() {
-            const imagePath = "{{ url('d0/' . $price->feelingimage) }}"; // Set the correct image path
+            const imagePath = "{{ url('d0/' . optional($price)->feelingimage) }}"; // Set the correct image path
 
             // Send an AJAX request to delete the image
             $.ajax({
@@ -1335,7 +1335,7 @@
 
     <script>
         function removeImage() {
-            const imagePath = "{{ url('d0/' . $price->image) }}"; // Get the image path from the backend
+            const imagePath = "{{ url('d0/' . optional($price)->image) }}"; // Get the image path from the backend
 
             // Send an AJAX request to delete the image
             $.ajax({
