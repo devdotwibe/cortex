@@ -843,6 +843,11 @@ button.close {
     margin-left: -43px;
 }
 
+.exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check img.answer-image {
+    max-width: 240px;
+    margin: 6px 0 0;
+}
+
 .exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check input:checked {
     background: url(../images/check-icon.svg) no-repeat center;
     background-size: 100%;
