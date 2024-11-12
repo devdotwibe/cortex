@@ -2256,19 +2256,43 @@
                             document.getElementById('featuresContainer').insertAdjacentHTML('beforeend', featureHTML);
                         });
 
-                        function previewFeatureImage(event) {
-                            let reader = new FileReader();
-                            reader.onload = function() {
-                                let output = document.getElementById('imagePreview');
-                                output.src = reader.result;
-                                output.style.display = 'block';
-                                let output1 = document.getElementById('imagePreview1');
-                                output1.src = reader.result;
-                                output1.style.display = 'block';
-                            };
-                            reader.readAsDataURL(event.target.files[0]);
-                        }
-                    });
+                    //     function previewFeatureImage(event) {
+                    //         let reader = new FileReader();
+                    //         reader.onload = function() {
+                    //             let output = document.getElementById('imagePreview');
+                    //             output.src = reader.result;
+                    //             output.style.display = 'block';
+                    //             let output1 = document.getElementById('imagePreview1');
+                    //             output1.src = reader.result;
+                    //             output1.style.display = 'block';
+                    //         };
+                    //         reader.readAsDataURL(event.target.files[0]);
+                    //     }
+                    // });
+
+
+                     // Function to preview the image when selected
+    function previewFeatureImage(event) {
+        let reader = new FileReader();
+        reader.onload = function() {
+            let output = document.getElementById('imagePreview');
+            output.src = reader.result;
+            output.style.display = 'block';
+            
+            let container = document.getElementById('imagePreviewContainer');
+            container.style.display = 'block'; // Show the preview container
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+
+                    function removeImage() {
+        let output = document.getElementById("imagePreview");
+        output.src = "#";
+        output.style.display = "none";
+        
+        let container = document.getElementById("imagePreviewContainer");
+        container.style.display = "none"; // Hide the preview container
+    }
                 </script>
 
 
