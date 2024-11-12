@@ -979,7 +979,7 @@
                         document.getElementById('imagePreview-save').style.display = 'none';
                         button.style.display = 'none';
                     } else {
-                        alert('Image could not be deleted. Please try again.');
+                        alert('Image could not be deleted. Please try again1.');
                     }
                 },
                 error: function(xhr) {
