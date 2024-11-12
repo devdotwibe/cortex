@@ -98,11 +98,9 @@
     <script>
 
 $(function() {
-   
-    
     setTimeout(function() {
-        $('img').hide(); // Show images after 2 seconds
-    }, 5000); // 2000 milliseconds = 2 seconds
+        $('table img').hide(); // Hide images inside the table after 5 seconds
+    }, 5000); // 5000 milliseconds = 5 seconds
 });
 
         var questiontable = null;
