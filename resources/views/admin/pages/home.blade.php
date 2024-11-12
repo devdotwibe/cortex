@@ -260,43 +260,46 @@
                                     </div>
 <div class="sec">
 
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <div class="form-data">
-                                                    <div class="forms-inputs mb-4">
-                                                        <label for="learnimage"  class="file-upload">Learn Image  <br>
-                                                            <img src="{{ asset('assets/images/upfile.svg') }}"
-                                                                alt="Upload Icon"> </label>
-                                                        <input type="file" name="learnimage" id="learnimage"
-                                                            value="{{ old('learnimage', optional($banner)->learnimage) }}"
-                                                            class="form-control"  style="display: none;"
-                                                            onchange="previewImage(event, 'learnImagePreview')">
-                                                        @error('learnimage')
-                                                            <div class="text-danger">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                       
-
-                                        <!-- Preview Learn Image Container -->
-                                        <div class="form-group">
-                                            <label for="learnImagePreview">Learn Image Preview</label>
-                                            <div id="learnImagePreviewContainer"
-                                                style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
-                                                @if (isset($banner) && $banner->learnimage)
-                                                    <img id="learnImagePreview"
-                                                        src="{{ url('d0/' . $banner->learnimage) }}"
-                                                        alt="Learn Image Preview" style="width: 100%; height: auto;">
-                                                @else
-                                                    <img id="learnImagePreview" src="#" alt="Learn Image Preview"
-                                                        style="display: none; width: 100%; height: auto;">
-                                                @endif
-                                            </div>
-                                        </div>
-                                    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <div class="form-data">
+                <div class="forms-inputs mb-4">
+                    <label for="learnimage" class="file-upload">Learn Image  <br>
+                        <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
+                    </label>
+                    <input type="file" name="learnimage" id="learnimage"
+                        value="{{ old('learnimage', optional($banner)->learnimage) }}"
+                        class="form-control" style="display: none;" onchange="previewImage(event, 'learnImagePreview')">
+                    @error('learnimage')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Preview Learn Image Container -->
+    <div class="form-group">
+        <label for="learnImagePreview">Learn Image Preview</label>
+        <div id="learnImagePreviewContainer"
+            style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px; position: relative;">
+            @if (isset($banner) && $banner->learnimage)
+                <img id="learnImagePreview" src="{{ url('d0/' . $banner->learnimage) }}"
+                    alt="Learn Image Preview" style="width: 100%; height: auto;">
+                
+                <!-- Delete button (X) -->
+                <button type="button" class="btn btn-danger" 
+                        style="position: absolute; top: 5px; right: 5px;" 
+                        onclick="removeLearnImage()">
+                    X
+                </button>
+            @else
+                <img id="learnImagePreview" src="#" alt="Learn Image Preview"
+                    style="display: none; width: 100%; height: auto;">
+            @endif
+        </div>
+    </div>
+    
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <div class="form-data">
@@ -2480,6 +2483,45 @@ function removeDiv(button, id) {
             }
         });
     }
-</script>
+
        
+
+// Function to preview the learn image
+function previewImage(event, previewId) {
+    let reader = new FileReader();
+    reader.onload = function() {
+        let output = document.getElementById(previewId);
+        output.src = reader.result;
+        output.style.display = 'block';
+    };
+    reader.readAsDataURL(event.target.files[0]);
+}
+
+// Function to remove the learn image
+function removeLearnImage() {
+    const imagePath = "{{ $banner->learnimage }}"; // Get the current image path
+
+    // Send an AJAX request to delete the image
+    $.ajax({
+        type: 'POST',
+        url: '{{ route('admin.page.deleteImage') }}', // Correct route to delete image
+        data: {
+            _token: '{{ csrf_token() }}',
+            image_path: imagePath // Send the image path for deletion
+        },
+        success: function(response) {
+            if (response.success) {
+                // Hide the preview and delete button
+                $('#learnImagePreview').hide();
+                $('#learnImagePreviewContainer button').hide();
+            } else {
+                alert('Image could not be deleted. Please try again.');
+            }
+        },
+        error: function(xhr) {
+            alert('An error occurred: ' + xhr.status + ' ' + xhr.statusText);
+        }
+    });
+}
+
             @endpush

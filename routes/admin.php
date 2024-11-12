@@ -448,6 +448,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
         // Add the deleteImage route
     Route::post('/delete-image', [PagesController::class, 'deleteImage'])->name('deleteImage');
+    Route::post('/delete-learn-image', [PagesController::class, 'deleteLearnImage'])->name('deleteLearnImage');
     });
 
     Route::get('/set/view', [PagesController::class, 'set_table_show'])->name('set_table.show');
