@@ -50,7 +50,7 @@ class TipsController extends Controller
 
                        
 
-                        '<a href="' . route('admin.tip.edit_subfaq', $data->id) . '" class="btn btn-icons edit_btn">
+                        '<a href="' . route('admin.tip.edit_subfaq', $data->id) . '" data-id="'. $id.'" class="btn btn-icons edit_btn">
                         <span class="adminside-icon">
                           <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
                         </span>
