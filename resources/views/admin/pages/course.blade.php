@@ -984,7 +984,7 @@
                 },
                 error: function(xhr) {
                     // Handle error response
-                    alert('Image could not be deleted. Please try again.');
+                    alert('Image could not be deleted. Please try again2.');
                 }
             });
         }
