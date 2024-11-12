@@ -26,10 +26,10 @@ class CommunityController extends Controller
         // $hashtags = Hashtag::groupBy('hashtag')->pluck('hashtag');
 
         $hashtags = Hashtagstore::where('hashtag', 'LIKE', '#%')
-        ->whereIn('id',Hashtag::select('hashtagstore_id'))
-        ->groupBy('hashtag')
-        ->pluck('hashtag');
-       
+            ->whereIn('id', Hashtag::select('hashtagstore_id'))
+            ->groupBy('hashtag')
+            ->pluck('hashtag');
+
 
 
         $hashtag = $request->input('hashtag');
@@ -48,9 +48,8 @@ class CommunityController extends Controller
                 $post->whereIn('id', Hashtag::where('hashtag', 'like', "%$hashtag%")->select('post_id'));
             }
 
-            if(!empty($userid))
-            {
-                $post->where('user_id',$userid);
+            if (!empty($userid)) {
+                $post->where('user_id', $userid);
             }
 
 
@@ -80,7 +79,7 @@ class CommunityController extends Controller
                     "title" => $row->title,
                     "type" => $row->type,
                     "description" => $row->description,
-                    "hashtags"=>$row->hashtaglist()->pluck('hashtag'),
+                    "hashtags" => $row->hashtaglist()->pluck('hashtag'),
                     "likes" => $row->likes()->count(),
                     "comments" => $row->comments()->whereNull('post_comment_id')->count(),
                     "image" => $row->image,
@@ -109,7 +108,7 @@ class CommunityController extends Controller
                 'next' => $posts->nextPageUrl()
             ];
         }
-        return view('user.community.posts', compact('user','hashtags'));
+        return view('user.community.posts', compact('user', 'hashtags'));
     }
 
     public function index(Request $request)
@@ -126,15 +125,14 @@ class CommunityController extends Controller
 
 
 
-        if ($request->ajax() && (!empty($request->ref)) ) {
+        if ($request->ajax() && (!empty($request->ref))) {
             $post = Post::where('id', '>', 0);
             if (!empty($hashtag)) {
                 $post->whereIn('id', Hashtag::where('hashtag', 'like', "%$hashtag%")->select('post_id'));
             }
 
-            if(!empty($userid))
-            {
-                $post->where('user_id',$userid);
+            if (!empty($userid)) {
+                $post->where('user_id', $userid);
             }
 
 
@@ -164,7 +162,7 @@ class CommunityController extends Controller
                     "title" => $row->title,
                     "type" => $row->type,
                     "description" => $row->description,
-                    "hashtags"=>$row->hashtaglist()->pluck('hashtag'),
+                    "hashtags" => $row->hashtaglist()->pluck('hashtag'),
                     "likes" => $row->likes()->count(),
                     "comments" => $row->comments()->whereNull('post_comment_id')->count(),
                     "image" => $row->image,
@@ -188,18 +186,18 @@ class CommunityController extends Controller
                 'total_items' => $posts->total(),
                 'items_per_page' => $posts->perPage(),
                 'data' => $results,
-                'prev' => $posts->previousPageUrl(),   
-                'next' => $posts->nextPageUrl()  
+                'prev' => $posts->previousPageUrl(),
+                'next' => $posts->nextPageUrl()
             ];
         }
         // $hashtags = Hashtag::whereIn('post_id', Post::where('user_id',$user->id)->select('id'))->groupBy('hashtag')->pluck('hashtag');
         $hashtags = Hashtag::whereIn('post_id', Post::where('user_id', $user->id)->select('id'))
-        ->where('hashtag', 'LIKE', '#%') // Add LIKE condition to filter hashtags starting with '#'
-        ->groupBy('hashtag') // Group by hashtag to get unique values
-        ->pluck('hashtag'); // Retrieve the hashtags as a collection
-    
+            ->where('hashtag', 'LIKE', '#%') // Add LIKE condition to filter hashtags starting with '#'
+            ->groupBy('hashtag') // Group by hashtag to get unique values
+            ->pluck('hashtag'); // Retrieve the hashtags as a collection
 
-        return view('user.community.index', compact('user','hashtags'));
+
+        return view('user.community.index', compact('user', 'hashtags'));
     }
     public function create(Request $request)
     {
@@ -218,7 +216,7 @@ class CommunityController extends Controller
     //     $type = $request->type ?? "post";
     //         $data = $request->validate([
     //             'type' => ["required"],
-             
+
     //             'description' => ["required", 'string', "max:300", function ($attribute, $value, $fail) {
     //                 if (preg_match('/#/', $value)) {
     //                     $fail('Hashtags are not allowed in the description.');
@@ -227,7 +225,7 @@ class CommunityController extends Controller
     //             'hashtag' => ["nullable", 'string', 'max:500'],
     //             'image' => ["nullable"],
     //         ]);
-      
+
 
     //     /**
     //      *  @var User
@@ -311,15 +309,15 @@ class CommunityController extends Controller
         }
 
 
-      
 
-        $extractedHashtags = $request->input('hashtags',[]);
+
+        $extractedHashtags = $request->input('hashtags', []);
 
         // dd($extractedHashtags);
         foreach ($extractedHashtags as $hashtag) {
             if (!empty($hashtag)) {
                 $hash_value = HashtagStore::find($hashtag);
-                Hashtag::firstOrCreate(['hashtag'=>$hash_value->hashtag,'hashtagstore_id' => $hashtag, 'post_id' => $post->id]);
+                Hashtag::firstOrCreate(['hashtag' => $hash_value->hashtag, 'hashtagstore_id' => $hashtag, 'post_id' => $post->id]);
             }
         }
 
@@ -371,7 +369,7 @@ class CommunityController extends Controller
                 "title" => $row->title,
                 "type" => $row->type,
                 "description" => $row->description,
-                "hashtags"=>$row->hashtaglist()->pluck('hashtag'),
+                "hashtags" => $row->hashtaglist()->pluck('hashtag'),
                 "likes" => $row->likes()->count(),
                 "comments" => $row->comments()->whereNull('post_comment_id')->count(),
                 "image" => $row->image,
@@ -437,7 +435,7 @@ class CommunityController extends Controller
                 "title" => $row->title,
                 "type" => $row->type,
                 "description" => $row->description,
-                "hashtags"=>$row->hashtaglist()->pluck('hashtag'),
+                "hashtags" => $row->hashtaglist()->pluck('hashtag'),
                 "likes" => $row->likes()->count(),
                 "comments" => $row->comments()->whereNull('post_comment_id')->count(),
                 "image" => $row->image,
@@ -608,7 +606,8 @@ class CommunityController extends Controller
          */
         $user = Auth::user();
         $hashtags = Hashtagstore::all();
-        return view('user.community.edit', compact('post', 'user','hashtags'));
+        $post->load('hashtaglist');
+        return view('user.community.edit', compact('post', 'user', 'hashtags'));
     }
     public function update(Request $request, Post $post)
     {
@@ -622,9 +621,20 @@ class CommunityController extends Controller
                         $fail('Hashtags are not allowed in the description.');
                     }
                 }],
-                'hashtag' => ["nullable", 'string', 'max:500'],
+                'hashtag' => ["required"],
                 'image' => ["nullable"],
             ]);
+            $post->load('hashtags');
+            if ($request->has('hashtag')) {
+                foreach ($request->hashtag as $hashtagInput) {
+                    if (isset($hashtagInput)) {
+                        $hashtagSyncData[$hashtagInput] = [
+                            'hashtag' => Hashtagstore::where('id',$hashtagInput)->first()->hashtag?? 'test', // Save hashtag text or null
+                        ];
+                    }
+                }
+                $post->hashtags()->sync($hashtagSyncData);
+            }
         } else {
 
             $data = $request->validate([
@@ -645,6 +655,7 @@ class CommunityController extends Controller
         }
 
         $post->update($data);
+
         $ids = [];
         if ($request->type == "poll") {
             $optid = $request->input('option_id', []);
@@ -669,39 +680,12 @@ class CommunityController extends Controller
         }
         PollOption::where('post_id', $post->id)->whereNotIn('id', $ids)->delete();
 
-        
-
-    // Update or associate the selected hashtag with the post
-    if ($request->filled('hashtag')) {
-        Hashtag::where('post_id', $post->id)->update(['post_id' => null]); // Remove previous association
-        $hashtag = Hashtag::find($request->hashtag);
-        // $hashtagr->post_id = $post->id;
-        // $hashtag->save();
-    }
-
-    // $extractedHashtags = $request->input('hashtag',[]);
-
-    // foreach ($extractedHashtags as $hashtag) {
-    //     if (!empty($hashtag)) {
-    //         $hash_value = HashtagStore::find($hashtag);
-
-    //         $hash = Hashtag::where('post_id', $post->id)->where('hashtagstore_id',$hashtag)->first();
-    //         if(empty($hash)){
-    //             $hash = new Hashtag;
-    //         }
-    //         $hash->hashtag = $hash_value->hashtag;
-    //         $hash->post_id = $post->id;
-    //         $hash->hashtagstore_id = $hashtag;
-    //         $hash->save();
-    //     }
-    // }
-    
         return redirect()->route('community.index')->with('success', "Post updated");
     }
 
 
 
-   
+
 
 
 
@@ -721,14 +705,12 @@ class CommunityController extends Controller
         $post = Post::create([
             'description' => $request->description,
             'hashtags' => json_encode($this->extractHashtags($request->description)),
-           
+
         ]);
 
         foreach ($post->hashtags as $hashtag) {
             Hashtag::firstOrCreate(['hashtag' => $hashtag]);
         }
-
-  
     }
 
     private function extractHashtags($text)
@@ -738,25 +720,20 @@ class CommunityController extends Controller
     }
 
 
-    
+
     public function search(Request $request)
     {
         $query = $request->input('query');
-    
-        
+
+
         $users = User::where('name', 'like', '%' . $query . '%')->get();
-    
-        
+
+
         $posts = Post::whereIn('user_id', $users->pluck('id'))
-            ->with('user') 
+            ->with('user')
             ->get();
-    
-       
+
+
         return response()->json(['users' => $users->unique('id'), 'posts' => $posts]);
     }
-    
-    
-
-
-
 }

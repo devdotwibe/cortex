@@ -253,7 +253,8 @@ class CommunityControllerController extends Controller
 
     public function edit(Request $request, Post $post)
     {
-        $hashtags = Hashtag::all();
+        $hashtags = Hashtagstore::all();
+        $post->load('hashtaglist');
         return view('admin.community.edit', compact('post', 'hashtags'));
     }
     public function update(Request $request, Post $post)
@@ -270,8 +271,18 @@ class CommunityControllerController extends Controller
                 }],
 
                 'image' => ["nullable"],
-                'hashtag' => ["nullable", 'string', 'max:500'],
             ]);
+            $post->load('hashtags');
+            if ($request->has('hashtag')) {
+                foreach ($request->hashtag as $hashtagInput) {
+                    if (isset($hashtagInput)) {
+                        $hashtagSyncData[$hashtagInput] = [
+                            'hashtag' => Hashtagstore::where('id',$hashtagInput)->first()->hashtag?? 'test', // Save hashtag text or null
+                        ];
+                    }
+                }
+                $post->hashtags()->sync($hashtagSyncData);
+            }
         } else {
 
             $data = $request->validate([
@@ -330,12 +341,6 @@ class CommunityControllerController extends Controller
         // Hashtag::where('post_id',$post->id)->whereNotIn('id',$hashIds)->delete();
 
         // Update or associate the selected hashtag with the post
-        if ($request->filled('hashtag')) {
-            Hashtag::where('post_id', $post->id)->update(['post_id' => null]); // Remove previous association
-            $hashtag = Hashtag::find($request->hashtag);
-            $hashtag->post_id = $post->id;
-            $hashtag->save();
-        }
 
 
         return redirect()->route('admin.community.index')->with('success', "Post updated");
