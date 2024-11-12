@@ -2486,16 +2486,6 @@ function removeDiv(button, id) {
 
        
 
-// Function to preview the learn image
-function previewImage(event, previewId) {
-    let reader = new FileReader();
-    reader.onload = function() {
-        let output = document.getElementById(previewId);
-        output.src = reader.result;
-        output.style.display = 'block';
-    };
-    reader.readAsDataURL(event.target.files[0]);
-}
 
 // Function to remove the learn image
 function removeLearnImage() {
