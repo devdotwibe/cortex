@@ -794,17 +794,23 @@
     <!-- Image Preview -->
     <div class="form-group">
         <label for="imagePreview">Image Preview</label>
-        <div id="imagePreviewContainer" style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
+        <div id="imagePreviewContainer" class="numericalclass" style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
             @if (isset($price) && $price->image)
                 <img id="imagePreview" src="{{ url('d0/' . $price->image) }}" alt="Image Preview" style="width: 100%; height: auto;">
                 <button type="button" class="btn btn-danger" onclick="removeImage()">X</button> <!-- Delete button -->
             @else
                 <img id="imagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
-                <button type="button" class="btn btn-danger" style="display: none;" onclick="removeImage()">X</button> <!-- Hidden delete button -->
+              
             @endif
         </div>
     </div>
 </div>
+
+
+
+
+
+
 
 
                                     </div>
