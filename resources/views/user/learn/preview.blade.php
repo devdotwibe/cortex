@@ -267,13 +267,40 @@
 
 
                         }
+                        // if (v.active || !v.url) {
+                        //     $('#lesson-footer-pagination').append(`
+                        //         <button class="btn btn-secondary  ${linkstatus} ${v.active?"active":""}" disabled  >${v.label}</button>
+                        //     `)
+                        // } else {
+                        //     $('#lesson-footer-pagination').append(`
+                        //         <button class="btn btn-secondary ${linkstatus}" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
+                        //     `)
+                        // }
+
                         if (v.active || !v.url) {
+                            
+                            var preclass = "";
+                            if (k == 0 || k == res.links.length) {
+                             preclass = "prevnxtclass";
+                            }
+                            console.log(res.links.length);
+
+                            console.log(v.label);
+
+                            
                             $('#lesson-footer-pagination').append(`
-                                <button class="btn btn-secondary  ${linkstatus} ${v.active?"active":""}" disabled  >${v.label}</button>
+                                <button class="${linkstatus} btn btn-secondary  ${preclass} ${v.active?"active":""}" disabled  >${v.label} </button>
                             `)
                         } else {
+                            console.log(v.label);
+
+                            var preclass = "";
+                            if (k == 0 || k == res.links.length-1) {
+                             preclass = "prevnxtclass";
+                            }
+                            
                             $('#lesson-footer-pagination').append(`
-                                <button class="btn btn-secondary ${linkstatus}" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
+                                <button class="${linkstatus} btn btn-secondary ${preclass}" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
                             `)
                         }
                     })
