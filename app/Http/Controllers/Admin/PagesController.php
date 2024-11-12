@@ -680,10 +680,10 @@ class PagesController extends Controller
     
         // Retrieve the image path from the request
         $imagePath = $request->input('image_path');
-        dd('kkk');
+        
         // Check if the image file exists in storage
         if (Storage::exists($imagePath)) {
-            //  dd($banner->image);
+            dd('kkk');
             Storage::delete($imagePath);
           
             // Find the first Banner instance and update it
