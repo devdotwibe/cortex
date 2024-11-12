@@ -679,7 +679,7 @@ class PagesController extends Controller
     ]);
 
     $imagePath = $request->input('image_path');
-
+    dd($banner->image);
     // Check if the image file exists in the storage
     if (Storage::exists($imagePath)) {
         // Delete the image file from storage
@@ -691,7 +691,7 @@ class PagesController extends Controller
             $banner->image = null; // Remove the image field from the banner
             $banner->save();
         }
-
+       
         // Return success response
         return response()->json(['success' => true]);
     }
