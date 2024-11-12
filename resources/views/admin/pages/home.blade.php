@@ -2501,16 +2501,18 @@ function removeLearnImage() {
         },
         success: function(response) {
             if (response.success) {
-                // Hide the preview and delete button
-                $('#learnImagePreview').hide();
-                $('#learnImagePreviewContainer button').hide();
+              
+                document.getElementById('learnImagePreview').style.display = 'none';
+                document.querySelector('button.btn-danger').style.display = 'none';
+
+
             } else {
                 alert('Image could not be deleted. Please try again.');
             }
         },
         error: function(xhr) {
-            alert('An error occurred: ' + xhr.status + ' ' + xhr.statusText);
-        }
+                alert('An error occurred. Please try again.');
+            }
     });
 }
 
