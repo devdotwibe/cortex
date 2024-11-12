@@ -436,25 +436,37 @@ class SubscriptionPaymentController extends Controller
     }
 
 
-    public function deleteFeelingImage(Request $request)
+
+
+    public function deleteFeelingImage()
     {
-        $imagePath = $request->input('image_path'); // Get the image path from the request
+        // Retrieve the Pricing record
+        $price = Pricing::first();
 
-        // Check if the image exists in storage
-        if ($imagePath && Storage::exists($imagePath)) {
-            // Delete the image file
-            Storage::delete($imagePath);
+        // Check if the image exists and is not null
+        if ($price && $price->feelingimage) {
+            // Get the full path of the image
+            $imagePath = public_path($price->feelingimage);
 
-            // Optionally, remove the image reference from the database
-            $price = Pricing::first(); // You can customize this to target the specific record
-            if ($price) {
-                $price->feelingimage = null;
-                $price->save();
+            // Check if the file exists in the storage
+            if (Storage::exists('public/price/' . basename($price->feelingimage))) {
+                // Delete the file from storage
+                Storage::delete('public/price/' . basename($price->feelingimage));
             }
+
+            // Set the excelimage field to null in the database
+            $price->feelingimage = null;
+            $price->save();
 
             return response()->json(['success' => true, 'message' => 'Image deleted successfully']);
         }
 
-        return response()->json(['success' => false, 'message' => 'Image could not be found or deleted'], 404);
+        // If no image exists, return an error response
+        return response()->json(['success' => false, 'message' => 'No image found to delete'], 404);
     }
+
+
+
 }
+
+
