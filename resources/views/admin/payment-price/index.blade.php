@@ -1057,7 +1057,7 @@
                                             </div>
                                         </div>
 <!-- Excel Image -->
-<div class="pricesection1">
+<div class="pricesection1 numericalsectionclass">
     <div class="col-md-12">
       <div class="form-group">
           <div class="form-data">
@@ -1079,7 +1079,7 @@
 
 <div class="form-group">
     <label for="excelImagePreview">Image Preview</label>
-    <div id="imagePreviewContainer" style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
+    <div id="imagePreviewContainer" class="numericalclass" style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
         @if (isset($price) && $price->excelimage)
             <img id="excelImagePreview" src="{{ url('d0/' . $price->excelimage) }}" alt="Excel Image Preview" style="width: 100%; height: auto;">
             <button type="button" onclick="removeExcelImage()" class="btn btn-danger" style="float: right;">X</button>
