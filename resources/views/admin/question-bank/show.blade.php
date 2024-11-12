@@ -97,9 +97,10 @@
 @push('footer-script')
     <script>
 
-    $(function(){
-      $('img').hide();
-    });
+$(document).ready(function(){
+    $('img').hide();
+});
+
         var questiontable = null;
         // const eventSource = null;
         // var isrefresh=false;
