@@ -672,35 +672,36 @@ class PagesController extends Controller
 
 
     public function deleteImage(Request $request)
-{
-    // Validate the image path
-    $request->validate([
-        'image_path' => 'required|string',
-    ]);
-
-    $imagePath = $request->input('image_path');
+    {
+        // Validate the image path
+        $request->validate([
+            'image_path' => 'required|string',
+        ]);
     
-    // Check if the image file exists in the storage
-    if (Storage::exists($imagePath)) {
-        // Delete the image file from storage
-        Storage::delete($imagePath);
-        
-        // Find the banner and remove the image reference from the database
-        $banner = Banner::first();
-        dd($banner->image);
-        if ($banner) {
-            $banner->image = null; // Remove the image field from the banner
-            $banner->save();
+        // Retrieve the image path from the request
+        $imagePath = $request->input('image_path');
+    
+        // Check if the image file exists in storage
+        if (Storage::exists($imagePath)) {
+            // Delete the image file from storage
+            Storage::delete($imagePath);
+    
+            // Find the first Banner instance and update it
+            $banner = Banner::first();
+            if ($banner && $banner->image === $imagePath) {
+                // Clear the image field in the database
+                $banner->image = null;
+                $banner->save();
+            }
+    
+            // Return a success response
+            return response()->json(['success' => true, 'message' => 'Image deleted successfully']);
         }
-     
-        // Return success response
-        return response()->json(['success' => true]);
+    
+        // Return an error response if the image file does not exist
+        return response()->json(['success' => false, 'message' => 'Image file not found.'], 404);
     }
-
-    // Return error response if the image file does not exist
-    return response()->json(['success' => false, 'message' => 'Image file not found.']);
-}
-
+    
 
 
 
