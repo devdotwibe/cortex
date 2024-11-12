@@ -11,7 +11,7 @@
             <h2>
                 <a href="{{ route('admin.question-bank.index') }}">{{$category->name}}</a> -> 
                 <a href="{{ route('admin.question-bank.index', ['id' => $category->slug,'type' =>'subcategory']) }}">{{$subcategory->name}}</a> -> 
-                {{ $setname->name }} -> Questions1
+                {{ $setname->name }} -> Questions
             </h2>
             
 
@@ -96,6 +96,10 @@
 
 @push('footer-script')
     <script>
+
+    $(function(){
+      $('img').hide();
+    });
         var questiontable = null;
         // const eventSource = null;
         // var isrefresh=false;
