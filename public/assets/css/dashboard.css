@@ -754,6 +754,10 @@ button.close {
     margin: 0 0 28px;
 }
 
+.exam-container .container-wrap.question-bank-review .lesson .lesson-body p {
+    width: 100%;
+}
+
 .exam-container .container-wrap .lesson .lesson-body h2 {
     font-size: 26px;
     line-height: 1.5;
@@ -6089,7 +6093,7 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 
 .questionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group {
     height: calc(100vh - 245px);
-    padding: 0 50px 50px;
+    padding: 0 40px 50px;
     overflow-y: auto;
 }
 
