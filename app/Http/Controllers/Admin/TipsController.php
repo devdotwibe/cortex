@@ -33,7 +33,7 @@ class TipsController extends Controller
 
         if ($request->ajax()) {
             return DataTables::of($tips)
-                ->addColumn("action", function ($data) {
+                ->addColumn("action", function ($data) use($id) {
                     return
                         
 
