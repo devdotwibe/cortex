@@ -184,18 +184,28 @@
                                         </div>
                                         
                                         <!-- Preview Image Container -->
+                                        @if (isset($banner) && $banner->image)
                                         <div class="form-group">
                                             <label for="imagePreview">Image Preview</label>
                                             <div id="imagePreviewContainer" style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
-                                                @if (isset($banner) && $banner->image)
+                                               
                                                     <img id="imagePreview" src="{{ url('d0/' . $banner->image) }}" alt="Image Preview" style="width: 100%; height: auto;">
                                                     <!-- Delete button (X) -->
                                                     <button type="button" class="btn btn-danger" style="float: right;" onclick="removeImage()">X</button>
-                                                @else
-                                                    <img id="imagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
-                                                @endif
+                                                
                                             </div>
                                         </div>
+                                        @else
+
+                                        <div class="form-group" style="display: none;" id="imagePreview1">
+                                            <label for="imagePreview">Image Preview</label>
+                                            <div id="imagePreviewContainer" style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
+                                               
+                                                <img id="imagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
+                                            </div>
+                                        </div>
+                                            
+                                        @endif
                                     </div>
                                     </div>
                                 </form>
@@ -2252,6 +2262,9 @@
                                 let output = document.getElementById('imagePreview');
                                 output.src = reader.result;
                                 output.style.display = 'block';
+                                let output1 = document.getElementById('imagePreview1');
+                                output1.src = reader.result;
+                                output1.style.display = 'block';
                             };
                             reader.readAsDataURL(event.target.files[0]);
                         }
