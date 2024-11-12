@@ -2445,9 +2445,48 @@ function removeDiv(button, id) {
 </script>
 <script>
 
-      
-            <script>
-                CKEDITOR.replaceAll('texteditor');
-            </script>
+        
+  CKEDITOR.replaceAll('texteditor');
+
+    // Function to preview image
+    function previewImage(event, previewId) {
+        const preview = document.getElementById(previewId);
+        const file = event.target.files[0];
+        
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+            preview.style.display = 'block'; // Show the preview image
+        }
+        reader.readAsDataURL(file);
+    }
+
+    // Function to remove the image
+    function removeImage() {
+        const imagePath = "{{ url('d0/' . $banner->image) }}"; // Set the correct image path
+
+        // Send an AJAX request to delete the image
+        $.ajax({
+            type: 'POST',
+            url: '{{ route('admin.page.deleteImage') }}', // Make sure this matches the correct route
+            data: {
+                _token: '{{ csrf_token() }}',
+                image_path: imagePath // Send the image path as part of the data
+            },
+            success: function(response) {
+                if (response.success) {
+                    // Hide the image preview and the delete button
+                    document.getElementById('imagePreview').style.display = 'none';
+                    document.querySelector('button.btn-danger').style.display = 'none';
+                } else {
+                    alert('Image could not be deleted. Please try again.');
+                }
+            },
+            error: function(xhr) {
+                alert('An error occurred. Please try again.');
+            }
+        });
+    }
+</script>
        
             @endpush

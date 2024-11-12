@@ -668,4 +668,38 @@ class PagesController extends Controller
         // Return a failure response if feature not found
         return response()->json(['success' => false], 404);
     }
+
+
+
+    public function deleteImage(Request $request)
+{
+    // Validate the image path
+    $request->validate([
+        'image_path' => 'required|string',
+    ]);
+
+    $imagePath = $request->input('image_path');
+
+    // Check if the image file exists in the storage
+    if (Storage::exists($imagePath)) {
+        // Delete the image file from storage
+        Storage::delete($imagePath);
+        
+        // Find the banner and remove the image reference from the database
+        $banner = Banner::first();
+        if ($banner) {
+            $banner->image = null; // Remove the image field from the banner
+            $banner->save();
+        }
+
+        // Return success response
+        return response()->json(['success' => true]);
+    }
+
+    // Return error response if the image file does not exist
+    return response()->json(['success' => false, 'message' => 'Image file not found.']);
+}
+
+
+
 }
