@@ -689,6 +689,7 @@ class PagesController extends Controller
             // Find the first Banner instance and update it
             $banner = Banner::first();
             if ($banner && $banner->image === $imagePath) {
+                dd($banner->image);
                 // Clear the image field in the database
                 $banner->image = null;
                 $banner->save();
