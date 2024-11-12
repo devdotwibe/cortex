@@ -1082,7 +1082,7 @@
     <div id="imagePreviewContainer" style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
         @if (isset($price) && $price->excelimage)
             <img id="excelImagePreview" src="{{ url('d0/' . $price->excelimage) }}" alt="Excel Image Preview" style="width: 100%; height: auto;">
-            <button type="button" onclick="removeExcelImage()" class="btn btn-danger" style="position: absolute; top: 10px; right: 10px;">X</button>
+            <button type="button" onclick="removeExcelImage()" class="btn btn-danger" style="float: right;">X</button>
         @else
             <img id="excelImagePreview" src="#" alt="Excel Image Preview" style="display: none; width: 100%; height: auto;">
         @endif
