@@ -97,9 +97,14 @@
 @push('footer-script')
     <script>
 
-    $(function(){
-      $('img').hide();
-    });
+$(function() {
+    $('img').hide(); // Hide all images initially
+    
+    setTimeout(function() {
+        $('img').show(); // Show images after 2 seconds
+    }, 2000); // 2000 milliseconds = 2 seconds
+});
+
         var questiontable = null;
         // const eventSource = null;
         // var isrefresh=false;
