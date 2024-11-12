@@ -2462,6 +2462,7 @@ function removeDiv(button, id) {
             },
             success: function(response) {
                 if (response.success) {
+                    $('#imagePreviewContainer').hide();
                     // Hide the image preview and the delete button
                     document.getElementById('imagePreview').style.display = 'none';
                     document.querySelector('button.btn-danger').style.display = 'none';
@@ -2469,6 +2470,7 @@ function removeDiv(button, id) {
                     alert('Image could not be deleted. Please try again.');
                 }
             },
+           
             error: function(xhr) {
                 alert('An error occurred. Please try again.');
             }
