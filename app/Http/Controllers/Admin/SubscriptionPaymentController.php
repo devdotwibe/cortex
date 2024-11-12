@@ -477,7 +477,7 @@ class SubscriptionPaymentController extends Controller
         // Check if the image exists and is not null
         if ($price && $price->image) {
 
-            dd($price->image);
+           
             // Get the full path of the image
             $imagePath = public_path($price->image);
 
@@ -486,7 +486,7 @@ class SubscriptionPaymentController extends Controller
                 // Delete the file from storage
                 Storage::delete('public/price/' . basename($price->image));
             }
-
+            dd($price->image);
             // Set the excelimage field to null in the database
             $price->image = null;
             $price->save();
