@@ -13,6 +13,7 @@ class ExamRetryAnswer extends Model
     protected $fillable = [
         'title', 
         'description',
+        'image',
         'user_exam_review_id',  
         'exam_retry_review_id',  
         'exam_retry_question_id', 

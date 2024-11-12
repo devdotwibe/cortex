@@ -29,7 +29,8 @@ class EditForm extends Component
         $this->frmID = $frmID??"frm".Str::random(5).time(); 
         $this->btnsubmit = $btnsubmit??"Save";
         $this->cancel = $cancel; 
-        $this->params=$params??[];
+        $this->params=$params??[]; 
+        // dd($fields);
     }
 
 

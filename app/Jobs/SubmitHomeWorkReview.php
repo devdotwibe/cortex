@@ -69,6 +69,7 @@ class SubmitHomeWorkReview implements ShouldQueue
                     'home_work_review_id'=>$this->review->id,
                     'home_work_review_question_id'=>$revquestion->id,
                     'title'=>$ans->title,
+                    'image'=>$ans->image,
                     'iscorrect'=>$ans->iscorrect,
                     'user_answer'=>(($ans->slug==$user_answer)?true:false),
                     'home_work_id'=> $this->review->home_work_id,

@@ -104,7 +104,8 @@ class MockExamController extends Controller
                 foreach($question->answers as $answer){
                     UserExamAnswer::store([
                         'title'=>$answer->title, 
-                        'description'=>$answer->description,  
+                        'description'=>$answer->description, 
+                        'image'=>$answer->image,   
                         'user_exam_question_id'=>$userQuestion->id, 
                         'iscorrect'=>$answer->iscorrect, 
                         'question_id'=>$question->id,
@@ -133,7 +134,7 @@ class MockExamController extends Controller
             if($request->ajax()){ 
                 if(!empty($request->question)){
                     $question=UserExamQuestion::findSlug($request->question);
-                    return UserExamAnswer::where('user_exam_question_id',$question->id)->get(['slug','title']);
+                    return UserExamAnswer::where('user_exam_question_id',$question->id)->get(['slug','title','image']);
                 }
                 return UserExamQuestion::where('user_exam_id',$attemt->id)->paginate(1,['slug','title','description','duration','title_text','sub_question']);
             }
@@ -387,7 +388,7 @@ class MockExamController extends Controller
             if ($request->ajax()) {
                 if (!empty($request->question)) {
                     $question = UserExamQuestion::findSlug($request->question);
-                    return UserExamAnswer::where('user_exam_question_id', $question->id)->get(['slug', 'title']);
+                    return UserExamAnswer::where('user_exam_question_id', $question->id)->get(['slug', 'title','image']);
                 }
                 return UserExamQuestion::whereNotIn('slug', session("exam-retry-questions" . $userExamReview->id, []))->where('user_exam_id', $userExam->id)->paginate(1, ['slug', 'title', 'description', 'duration']);
             }

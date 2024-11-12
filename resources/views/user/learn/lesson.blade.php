@@ -239,12 +239,17 @@
                         `).fadeIn();
                         $.get(pageurl||"{{ route('learn.lesson.show',['category'=>$category->slug,'sub_category'=>$subCategory->slug]) }}",{question:v.slug},function(ans){
                             $(`#mcq-${lesseonId}-list`).html('')
+                            const baseUrl = `{{ asset('d0') }}`;
                             $.each(ans,function(ai,av){
                                 const letter = String.fromCharCode(ai + 'A'.charCodeAt(0))
+                                const imageHtml = av && av.image
+                                                    ? `<img src="${baseUrl}/${av.image}" class="answer-image" />`
+                                                    : '';
                                 $(`#mcq-${lesseonId}-list`).append(`
                                     <div class="form-check">
                                         <input type="radio" name="answer" data-question="${v.slug}" id="user-answer-${lesseonId}-ans-item-${ai}" value="${av.slug}" class="form-check-input"  >
-                                        <label for="user-answer-${lesseonId}-ans-item-${ai}" >${ letter }. ${av.title}</label>
+                                        <label for="user-answer-${lesseonId}-ans-item-${ai}" >${ letter }. ${av.title ||""}</label>
+                                        ${imageHtml}
                                     </div>
                                 `)
                             })
