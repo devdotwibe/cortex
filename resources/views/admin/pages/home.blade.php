@@ -167,17 +167,14 @@
                                             </div>
                                         </div>
 
-                                       
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="image"  class="file-upload">Upload Image  <br>
-                                                            <img src="{{ asset('assets/images/upfile.svg') }}"
-                                                                alt="Upload Icon"> </label>
-                                                        <input type="file" name="image" id="image"
-                                                            class="form-control"  style="display: none;"
-                                                            onchange="previewImage(event, 'imagePreview')">
+                                                        <label for="image" class="file-upload">Upload Image  <br>
+                                                            <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
+                                                        </label>
+                                                        <input type="file" name="image" id="image" class="form-control" style="display: none;" onchange="previewImage(event, 'imagePreview')">
                                                         @error('image')
                                                             <div class="text-danger">{{ $message }}</div>
                                                         @enderror
@@ -185,28 +182,20 @@
                                                 </div>
                                             </div>
                                         </div>
-
-
-                                                              
-                        
-
-                                                                
-
+                                        
                                         <!-- Preview Image Container -->
                                         <div class="form-group">
                                             <label for="imagePreview">Image Preview</label>
-                                            <div id="imagePreviewContainer"
-                                                style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
+                                            <div id="imagePreviewContainer" style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
                                                 @if (isset($banner) && $banner->image)
-                                                    <img id="imagePreview" src="{{ url('d0/' . $banner->image) }}"
-                                                        alt="Image Preview" style="width: 100%; height: auto;">
+                                                    <img id="imagePreview" src="{{ url('d0/' . $banner->image) }}" alt="Image Preview" style="width: 100%; height: auto;">
+                                                    <!-- Delete button (X) -->
+                                                    <button type="button" class="btn btn-danger" style="float: right;" onclick="removeImage()">X</button>
                                                 @else
-                                                    <img id="imagePreview" src="#" alt="Image Preview"
-                                                        style="display: none; width: 100%; height: auto;">
+                                                    <img id="imagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
                                                 @endif
                                             </div>
                                         </div>
-                                       
                                     </div>
                                     </div>
                                 </form>
@@ -2206,11 +2195,11 @@
 
 
 
+            @endsection
 
 
 
-
-
+            @push('footer-script')
 
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
                 <script>
@@ -2456,14 +2445,9 @@ function removeDiv(button, id) {
 </script>
 <script>
 
-
-            @endsection
-
-            @push('footer-script')
+      
             <script>
                 CKEDITOR.replaceAll('texteditor');
             </script>
-
-
-            <script>
+       
             @endpush
