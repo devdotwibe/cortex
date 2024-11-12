@@ -16,7 +16,7 @@
                 $choices[]=[
                     "id"=>$ans->id,
                     "value"=>$ans->title,
-                    "image"=>url('d0',$ans->image),
+                    "image"=>$ans->image ? url('d0',$ans->image) : Null,
                     "choice"=>$ans->iscorrect,
             ];
             }
