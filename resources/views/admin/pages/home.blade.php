@@ -858,7 +858,7 @@
 
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="featurestitle">Feature Title</label>
+                                                <label for="featurestitle">Feature Title*</label>
                                                 <input type="text" name="featurestitle" id="featurestitle"
                                                     value="{{ old('featurestitle', optional($banner)->featurestitle) }}"
                                                     class="form-control" placeholder="Feature Title">
@@ -872,7 +872,7 @@
                                         <!-- Analytics Section -->
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="analyticstitle">Analytics Title</label>
+                                                <label for="analyticstitle">Analytics Title*</label>
                                                 <input type="text" name="analyticstitle" id="analyticstitle"
                                                     value="{{ old('analyticstitle', optional($banner)->analytics_title) }}"
                                                     class="form-control" placeholder="Analytics Title">
@@ -927,7 +927,7 @@
 
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="analyticscontent">Analytics Content</label>
+                                                <label for="analyticscontent">Analytics Content*</label>
                                                 <textarea name="analyticscontent" id="analyticscontent" class="form-control" rows="5">{{ old('analyticscontent', optional($banner)->analytics_content) }}</textarea>
                                                 @error('analyticscontent')
                                                     <div class="text-danger">{{ $message }}</div>
@@ -938,7 +938,7 @@
                                         <!-- Anytime Section -->
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="anytimetitle">Anytime Title</label>
+                                                <label for="anytimetitle">Anytime Title*</label>
                                                 <input type="text" name="anytimetitle" id="anytimetitle"
                                                     value="{{ old('anytimetitle', optional($banner)->anytime_title) }}"
                                                     class="form-control" placeholder="Anytime Title">
@@ -986,7 +986,7 @@
 
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="anytimedescription">Anytime Description</label>
+                                                <label for="anytimedescription">Anytime Description*</label>
                                                 <textarea name="anytimedescription" id="anytimedescription" class="form-control" rows="5">{{ old('anytimedescription', optional($banner)->anytime_description) }}</textarea>
                                                 @error('anytimedescription')
                                                     <div class="text-danger">{{ $message }}</div>
@@ -997,7 +997,7 @@
                                         <!-- Unlimited Section -->
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="unlimitedtitle">Unlimited Title</label>
+                                                <label for="unlimitedtitle">Unlimited Title*</label>
                                                 <input type="text" name="unlimitedtitle" id="unlimitedtitle"
                                                     value="{{ old('unlimitedtitle', optional($banner)->unlimited_title) }}"
                                                     class="form-control" placeholder="Unlimited Title">
@@ -1045,7 +1045,7 @@
 
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="unlimitedcontent">Unlimited Content</label>
+                                                <label for="unlimitedcontent">Unlimited Content*</label>
                                                 <textarea name="unlimitedcontent" id="unlimitedcontent" class="form-control" rows="5">{{ old('unlimitedcontent', optional($banner)->unlimited_content) }}</textarea>
                                                 @error('unlimitedcontent')
                                                     <div class="text-danger">{{ $message }}</div>
@@ -1056,7 +1056,7 @@
                                         <!-- Live Section -->
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="livetitle">Live Title</label>
+                                                <label for="livetitle">Live Title*</label>
                                                 <input type="text" name="livetitle" id="livetitle"
                                                     value="{{ old('livetitle', optional($banner)->live_title) }}"
                                                     class="form-control" placeholder="Live Title">
@@ -1100,7 +1100,7 @@
 
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="livecontent">Live Content</label>
+                                                <label for="livecontent">Live Content*</label>
                                                 <textarea name="livecontent" id="livecontent" class="form-control" rows="5">{{ old('livecontent', optional($banner)->live_content) }}</textarea>
                                                 @error('livecontent')
                                                     <div class="text-danger">{{ $message }}</div>
