@@ -563,7 +563,6 @@ function HideTime() {
                 }  
                 $('#menu-text').html(`Question <span> ${res.current_page} </span> of <span> ${res.total}</span>`)
                  
-                updateUnfinishedMessage(res.total);
 
             },'json').fail(function(xhr,status,error){
                 showToast("Error: " + error, 'danger'); 
@@ -742,6 +741,8 @@ function HideTime() {
                         $('.unfinish-message').hide().find('.unfinish-count').text(0)
                     }  
                     $('#finish-exam-confirm').modal('show')
+
+                    updateUnfinishedMessage(unfinishcount);
                 })
             });
             $('#bookmark-current').click(function(){
