@@ -15,7 +15,7 @@
                     <div class="card">
                         <div class="card-body"> 
 
-                            <form class="form" method="post" action="{{ route('admin.admin_user.store') }}" id="admin_user_form" data-save="create" >
+                            <form class="form" method="post" action="{{ route('admin.admin_user.store') }}" id="admin_user_form" >
                                 
                                 @csrf
                                 <div class="row">
@@ -67,7 +67,7 @@
 
 
                                     <div class="col-md-4 pt-4">
-                                        <button type="submit" class="btn btn-dark" id="table-category-form-submit"> Add +
+                                        <button type="button" class="btn btn-dark" id="admin_user_btn"> Add +
                                         </button>
                                         <button type="button" class="btn btn-secondary" style="display: none"
                                             id="admin_btn">Cancel</button>
@@ -152,6 +152,48 @@
 @push('footer-script')
     <script>
        
+       $(function() {
+
+            $('#admin_user_btn').on('click', function(e) {
+             
+                $('.invalid-feedback').html('');
+                $('.form-control').removeClass('is-invalid');
+
+                var formData = new FormData(this);
+
+                $.ajax({
+                    url: $(this).attr('action'),  
+                    type: 'POST', 
+                    data: formData,  
+                    processData: false, 
+                    contentType: false, 
+                    success: function(response) {
+                        
+                        if (response.status === 'success') {
+                           
+                            alert('User added successfully!');
+                        
+                            $('#admin_user_form')[0].reset();
+                        } else {
+                           
+                            alert('Something went wrong, please try again.');
+                        }
+                    },
+                    error: function(xhr) {
+                     
+                        var errors = xhr.responseJSON.errors;
+                        if (errors) {
+                         
+                            $.each(errors, function(field, message) {
+                                $('#' + field + '_error').html(message);
+                                $('#' + field).addClass('is-invalid');
+                            });
+                        }
+                    }
+                });
+            });
+
+});
 
 
        

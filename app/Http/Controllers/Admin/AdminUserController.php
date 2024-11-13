@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use PhpParser\Node\Expr\FuncCall;
 
 class AdminUserController extends Controller
@@ -30,7 +31,7 @@ class AdminUserController extends Controller
 
         $admin->name = 'admin '.$admin->id;
         $admin->email = $request->email;
-        $admin->password = $request->password;
+        $admin->password = Hash::make($request->password);
 
         $admin->save();
 
