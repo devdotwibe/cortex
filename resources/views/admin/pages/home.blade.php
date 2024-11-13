@@ -188,15 +188,16 @@
                                             </div>
                                         </div>
                                         
-                                        <!-- Image Preview Container with Delete Button -->
+                                      
                                         <div class="form-group" id="imgid1" style="{{ isset($banner) && $banner->image ? '' : 'display: none;' }}"> <!-- Show if image exists -->
                                             <label for="imagePreview">Image Preview</label>
                                             <div id="imagePreviewContainer" style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px; position: relative;">
-                                                <!-- Display the saved image or the new preview -->
+                                               
                                                 <img id="imagePreview" src="{{ isset($banner) && $banner->image ? url('d0/' . $banner->image) : '' }}" alt="Image Preview" style="width: 100%; height: auto; display: {{ isset($banner) && $banner->image ? 'block' : 'none' }};">
                                                 
-                                                <!-- Delete button -->
-                                                <button type="button" class="btn btn-danger" style="position: absolute; top: 5px; right: 5px; {{ isset($banner) && $banner->image ? 'display: block;' : 'display: none;' }}" onclick="removeImage()">X</button>
+                                               
+                                                <button type="button" class="btn btn-danger" id="deleteicon" style="position: absolute; top: 5px; right: 5px; {{ isset($banner) && $banner->image ? 'display: block;' : 'display: none;' }}" onclick="removeImage()">X</button>
+                                                <button type="button" class="btn btn-danger" id="deleteicon" style="position: absolute; top: 5px; right: 5px; {{ isset($banner) && $banner->image ? 'display: block;' : 'display: none;' }}" >X</button>
                                             </div>
                                         </div>
                                         
