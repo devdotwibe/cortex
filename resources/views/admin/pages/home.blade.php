@@ -98,7 +98,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="subtitle">Subtitle</label>
+                                                        <label for="subtitle">Subtitle*</label>
                                                         <input type="text" name="subtitle" id="subtitle"
                                                             value="{{ old('subtitle', optional($banner)->subtitle) }}"
                                                             class="form-control" placeholder="Subtitle">
