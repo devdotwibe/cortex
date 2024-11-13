@@ -266,18 +266,43 @@
                 <h5 class="modal-title" id="Lablel">Submit Assessment</h5>
                 <button type="button" class="close" data-bs-dismiss="modal"    aria-label="Close"><span  aria-hidden="true">&times;</span></button>
             </div>
-            <div class="modal-body"> 
+            {{-- <div class="modal-body"> 
                 <p>Do you want to submit this assessment ?</p>
                 <p style="display:none" class="unfinish-message"> You still have <span class="unfinish-count">0</span> unfinished questions. </p>
                 <button type="button" onclick="lessonreviewconfirm()" class="btn btn-dark">Yes</button>
                 <button type="button"  data-bs-dismiss="modal"  class="btn btn-secondary">Cancel</button>
+            </div> --}}
+            <div class="modal-body"> 
+                <p>Do you want to submit this assessment?</p>
+                <p style="display:none" class="unfinish-message"> 
+                    You still have <span class="unfinish-count">0</span> unfinished <span class="question-label"></span>.
+                </p>
+                <button type="button" onclick="lessonreviewconfirm()" class="btn btn-dark">Yes</button>
+                <button type="button" data-bs-dismiss="modal" class="btn btn-secondary">Cancel</button>
             </div>
+
         </div>
     </div>
 </div>
 @endpush
 
 @push('footer-script') 
+
+<script>
+    function updateUnfinishedMessage(count) {
+        const unfinishMessage = document.querySelector('.unfinish-message');
+        const unfinishCount = document.querySelector('.unfinish-count');
+        const questionLabel = document.querySelector('.question-label');
+        
+        unfinishCount.textContent = count;
+        questionLabel.textContent = count === 1 ? 'question' : 'questions';
+        unfinishMessage.style.display = count > 0 ? 'block' : 'none';
+    }
+    
+    // Example usage
+    updateUnfinishedMessage(1); // Updates the message for 1 unfinished question
+    updateUnfinishedMessage(2); // Updates the message for 2 unfinished questions
+    </script>
 
     <script>  
 
