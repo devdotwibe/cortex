@@ -193,7 +193,7 @@
                                                 <button type="button" class="btn btn-danger" style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removeImage()">X</button>
                                             </div>
                                         </div>
-                                        @else
+                                        
 
                                         <div class="form-group" style="display: none;" id="imagePreview1">
                                             <label for="imagePreview">Image Preview</label>
