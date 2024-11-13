@@ -24,8 +24,8 @@
                                         <div class="form-group">
                                             <div class="form-data">
                                                 <div class="forms-inputs mb-4">
-                                                    <label for="admin_email">Email</label>
-                                                    <input type="text" name="email"  id="admin_email" class="form-control ">
+                                                    <label for="email">Email</label>
+                                                    <input type="text" name="email"  id="email" class="form-control ">
                                                        
                                                     <div class="invalid-feedback"  id="email_error"></div>
 
@@ -157,6 +157,7 @@
              {
              
                 $('.invalid-feedback').html('');
+
                 $('.form-control').removeClass('is-invalid');
 
                 var formElement = $('#admin_user_form')[0]; 
