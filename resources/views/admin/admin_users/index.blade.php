@@ -27,7 +27,7 @@
                                                     <label for="admin_email">Email</label>
                                                     <input type="text" name="email"  id="admin_email" class="form-control ">
                                                        
-                                                    <div class="invalid-feedback"  id="admin_email_error"></div>
+                                                    <div class="invalid-feedback"  id="email_error"></div>
 
                                                 </div>
 
