@@ -277,7 +277,7 @@
                 <li class="side-item {{request()->is('tipsandadvice*') ? 'active':''}}">
 
                   
-                    <a @if(auth('admin')->check() &&!(auth('web')->user()->is_free_access) && (optional(auth('web')->user()->subscription())->status ?? "") !== "subscribed") data-bs-toggle="modal" data-bs-target="#adminsubModal"  @else href="{{ route('tipsandadvise.index') }}" @endif >
+                    <a @if(auth('admin')->check() &&!(auth('web')->user()->is_free_access) && (optional(auth('web')->user()->subscription())->status ?? "") !== "subscribed") data-bs-toggle="modal" data-bs-target="#adminsubModal"  @else href="{{ route('pricing.index') }}#our-plans" @endif > 
                       
 
                      <span class="side-icon" >
