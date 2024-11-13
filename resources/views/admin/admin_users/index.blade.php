@@ -75,11 +75,10 @@
                                 </div>
                             </form>
 
-                            {{-- <x-ajax-table title="Add Category" :coloumns="[
+                            <x-ajax-table title="Admin  Users" :coloumns="[
                                 ['th' => 'Date', 'name' => 'created_at', 'data' => 'date'],
-                                ['th' => 'Category', 'name' => 'name', 'data' => 'name'],
-                                ['th' => 'Visible', 'name' => 'visible_status', 'data' => 'visibility'],
-                            ]"  tableinit="cattableinit"   /> --}}
+                                ['th' => 'Email', 'email' => 'email', 'data' => 'name'],
+                            ]"  tableinit="cattableinit"   />
 
                         </div>
 
