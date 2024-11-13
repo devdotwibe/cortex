@@ -4,7 +4,7 @@
     <section class="header_nav">
         <div class="header_wrapp">
             <div class="header_title">
-                <h2>Category</h2>
+                <h2>Admin User</h2>
             </div>
         </div>
     </section>
