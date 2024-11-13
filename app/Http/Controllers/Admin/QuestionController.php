@@ -49,7 +49,7 @@ class QuestionController extends Controller
                     "category_id"=>['required'],
                     "description"=>['required'],
                     // "duration"=>["required"],
-                    "answer.*" => ["required_without:file_answer", 'string', 'max:550','nullable'],
+                    "answer.*" => ["required_without:file_answer", 'string', 'max:150','nullable'],
                     "file_answer.*" => ["required_without:answer", 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
                     "explanation"=>['nullable'],
                     "title_text"=>['nullable'],
