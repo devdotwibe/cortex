@@ -56,6 +56,7 @@ class QuestionController extends Controller
                     "sub_question"=>['nullable'],
                 ],[
                     'answer.*.required_without' => 'The answer field is required when file answer is not provided.',
+                    'answer.*.max' => 'sample.',
                     'file_answer.*.required_without' => 'The file answer is required when answer is not provided.',
                     'file_answer.*.mimes' => 'Each file answer must be an image (jpeg, png, jpg, gif).',
                 ]);
