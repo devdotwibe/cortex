@@ -229,7 +229,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="guaranteetitle">Guarantee Title</label>
+                                                        <label for="guaranteetitle">Guarantee Title*</label>
                                                         <input type="text" name="guaranteetitle" id="guaranteetitle"
                                                             value="{{ old('guaranteetitle', optional($banner)->guaranteetitle) }}"
                                                             class="form-control" placeholder="Guarantee Title">
@@ -246,7 +246,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="learntitle">Learn Title</label>
+                                                        <label for="learntitle">Learn Title*</label>
                                                         <input type="text" name="learntitle" id="learntitle"
                                                             value="{{ old('learntitle', optional($banner)->learntitle) }}"
                                                             class="form-control" placeholder="Learn Title">
@@ -301,7 +301,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="learncontent">Learn Content</label>
+                                                        <label for="learncontent">Learn Content*</label>
                                                         <textarea name="learncontent" id="learncontent" class="form-control" rows="5">{{ old('learncontent', optional($banner)->learncontent) }}</textarea>
                                                         @error('learncontent')
                                                             <div class="text-danger">{{ $message }}</div>
@@ -315,7 +315,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="practisetitle">Practice Title</label>
+                                                        <label for="practisetitle">Practice Title*</label>
                                                         <input type="text" name="practisetitle" id="practisetitle"
                                                             value="{{ old('practisetitle', optional($banner)->practisetitle) }}"
                                                             class="form-control" placeholder="Practice Title">
@@ -370,7 +370,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="practisecontent">Practice Content</label>
+                                                        <label for="practisecontent">Practice Content*</label>
                                                         <textarea name="practisecontent" id="practisecontent" class="form-control" rows="5">{{ old('practisecontent', optional($banner)->practisecontent) }}</textarea>
                                                         @error('practisecontent')
                                                             <div class="text-danger">{{ $message }}</div>
@@ -384,7 +384,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="preparetitle">Prepare Title</label>
+                                                        <label for="preparetitle">Prepare Title*</label>
                                                         <input type="text" name="preparetitle" id="preparetitle"
                                                             value="{{ old('preparetitle', optional($banner)->preparetitle) }}"
                                                             class="form-control" placeholder="Prepare Title">
@@ -438,7 +438,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="preparecontent">Prepare Content</label>
+                                                        <label for="preparecontent">Prepare Content*</label>
                                                         <textarea name="preparecontent" id="preparecontent" class="form-control" rows="5">{{ old('preparecontent', optional($banner)->preparecontent) }}</textarea>
                                                         @error('preparecontent')
                                                             <div class="text-danger">{{ $message }}</div>
@@ -452,7 +452,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="reviewtitle">Review Title</label>
+                                                        <label for="reviewtitle">Review Title*</label>
                                                         <input type="text" name="reviewtitle" id="reviewtitle"
                                                             value="{{ old('reviewtitle', optional($banner)->reviewtitle) }}"
                                                             class="form-control" placeholder="Review Title">
@@ -507,7 +507,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="reviewcontent">Review Content</label>
+                                                        <label for="reviewcontent">Review Content*</label>
                                                         <textarea name="reviewcontent" id="reviewcontent" class="form-control" rows="5">{{ old('reviewcontent', optional($banner)->reviewcontent) }}</textarea>
                                                         @error('reviewcontent')
                                                             <div class="text-danger">{{ $message }}</div>
