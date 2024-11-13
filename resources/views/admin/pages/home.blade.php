@@ -1509,7 +1509,7 @@
 
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="studentsfeedback">Student Feedback</label>
+                                                <label for="studentsfeedback">Student Feedback*</label>
                                                 <input type="text" name="studentsfeedback" id="studentsfeedback"
                                                     value="{{ old('studentsfeedback', optional($courses)->studentsfeedback) }}"
                                                     class="form-control" placeholder="Students Feedback">
@@ -1521,7 +1521,7 @@
                                         <!-- Student Title Field -->
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="studenttitle">Student Title</label>
+                                                <label for="studenttitle">Student Title*</label>
                                                 <input type="text" name="studenttitle" id="studenttitle"
                                                     value="{{ old('studenttitle', optional($courses)->studenttitle) }}"
                                                     class="form-control" placeholder="Student Title">
@@ -1534,7 +1534,7 @@
                                         <!-- Student Subtitle Field -->
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="studentsubtitle">Student Subtitle</label>
+                                                <label for="studentsubtitle">Student Subtitle*</label>
                                                 <input type="text" name="studentsubtitle" id="studentsubtitle"
                                                     value="{{ old('studentsubtitle', optional($courses)->studentsubtitle) }}"
                                                     class="form-control" placeholder="Student Subtitle">
@@ -1545,7 +1545,7 @@
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="percentage">Percentage</label>
+                                                <label for="percentage">Percentage*</label>
                                                 <input type="text" name="percentage" id="percentage"
                                                     value="{{ old('percentage', optional($courses)->percentage) }}"
                                                     class="form-control" placeholder="Percentage">
@@ -1556,7 +1556,7 @@
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="studentssubtitle">Students Subtitle</label>
+                                                <label for="studentssubtitle">Students Subtitle*</label>
                                                 <input type="text" name="studentssubtitle" id="studentssubtitle"
                                                     value="{{ old('studentssubtitle', optional($courses)->studentssubtitle) }}"
                                                     class="form-control" placeholder="Students Subtitle">
@@ -1604,7 +1604,7 @@
                                                         <div class="form-group">
                                                             <div class="form-data">
                                                                 <div class="forms-inputs mb-4">
-                                                                    <label for="name">Name</label>
+                                                                    <label for="name">Name*</label>
                                                                     <input type="text" name="nameupdate[]"
                                                                         class="form-control" placeholder="Name"
                                                                         value="{{ old('nameupdate.' . $k, $item->name ?? '') }}">
@@ -1621,7 +1621,7 @@
                                                     <div class="form-group">
                                                         <div class="form-data">
                                                             <div class="forms-inputs mb-4">
-                                                                <label for="starrating">Star Rating</label>
+                                                                <label for="starrating">Star Rating*</label>
                                                                 <select name="starratingupdate[]" class="form-control">
                                                                     <option value="1"
                                                                         {{ old('starratingupdate.' . $k, $item->starrating ?? '') == 1 ? 'selected' : '' }}>
@@ -1656,7 +1656,7 @@
                                                         <div class="form-group">
                                                             <div class="form-data">
                                                                 <div class="forms-inputs mb-4">
-                                                                    <label for="review">Review</label>
+                                                                    <label for="review">Review*</label>
                                                                     <textarea name="reviewupdate[]" class="form-control" rows="5" placeholder="Review">{{ old('reviewupdate.' . $k, $item->review ?? '') }}</textarea>
                                                                     @error('reviewupdate.' . $k)
                                                                         <div class="text-danger">{{ $message }}</div>
@@ -1707,7 +1707,7 @@
                                                     <!-- Name -->
                                                     <div class="col-md-12">
                                                         <div class="form-group">
-                                                            <label for="name">Name</label>
+                                                            <label for="name">Name*</label>
                                                             <input type="text" name="nameupdate[]"
                                                                 class="form-control" placeholder="Name"
                                                                 value="{{ $item->name }}">
@@ -1721,7 +1721,7 @@
 
 
                                                     <div class="form-group">
-                                                        <label for="starrating">Star Rating</label>
+                                                        <label for="starrating">Star Rating*</label>
                                                         <select name="starratingupdate[]" class="form-control">
                                                             <option value="1"
                                                                 {{ $item->starrating == 1 ? 'selected' : '' }}>1</option>
@@ -1746,7 +1746,7 @@
                                                     <!-- Review -->
                                                     <div class="col-md-12">
                                                         <div class="form-group">
-                                                            <label for="review">Review</label>
+                                                            <label for="review">Review*</label>
                                                             <textarea name="reviewupdate[]" class="form-control" rows="5" placeholder="Review">{{ $item->review }}</textarea>
                                                             @error('review')
                                                                 <div class="text-danger">{{ $message }}</div>
@@ -1801,7 +1801,7 @@
                                             <!-- Default Name Field -->
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label for="name">Name</label>
+                                                    <label for="name">Name*</label>
                                                     <input type="text" name="name[]" class="form-control"
                                                         placeholder="Name">
                                                     @error('name')
@@ -1817,7 +1817,7 @@
 
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label for="starrating">Star Rating</label>
+                                                    <label for="starrating">Star Rating*</label>
                                                     <input type="text" name="starrating[]" class="form-control"
                                                         placeholder="Star Rating">
                                                     @error('starrating')
@@ -1830,7 +1830,7 @@
 
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label for="review">Review</label>
+                                                    <label for="review">Review*</label>
                                                     <textarea name="review[]" class="form-control" rows="5" placeholder="Review"></textarea>
                                                     @error('review')
                                                         <div class="text-danger">{{ $message }}</div>
@@ -1915,7 +1915,7 @@
                                             <div class="form-data">
                                                 <div class="forms-inputs mb-4">
 
-                                                    <label for="ourprocesstitle">Our Process Title</label>
+                                                    <label for="ourprocesstitle">Our Process Title*</label>
                                                     <input type="text" name="ourprocesstitle" class="form-control"
                                                         value="{{ old('ourprocesstitle', optional($banner)->ourprocesstitle) }}"
                                                         placeholder="Our Process Title">
@@ -1933,7 +1933,7 @@
                                             <div class="form-data">
                                                 <div class="forms-inputs mb-4">
 
-                                                    <label for="ourprocesssubtitle">Our Process SubTitle</label>
+                                                    <label for="ourprocesssubtitle">Our Process SubTitle*</label>
                                                     <input type="text" name="ourprocesssubtitle" class="form-control"
                                                         value="{{ old('ourprocesssubtitle', optional($banner)->ourprocesssubtitle) }}"
                                                         placeholder="Our Process SubTitle">
@@ -1978,7 +1978,7 @@
                                                     <div class="form-group">
                                                         <div class="form-data">
                                                             <div class="forms-inputs mb-4">
-                                                                <label for="ourprocessheading">Our Process Heading 1</label>
+                                                                <label for="ourprocessheading">Our Process Heading 1*</label>
                                                                 <textarea name="ourprocessheadingupdate[]" class="form-control texteditor" rows="5" placeholder="Process Heading">{{ old('ourprocessheadingupdate.' . $k) }}</textarea>
                                                                 @error('ourprocessheadingupdate.' . $k)
                                                                     <div class="text-danger">{{ $message }}</div>
@@ -1998,7 +1998,7 @@
                                                     <div class="form-group">
                                                         <div class="form-data">
                                                             <div class="forms-inputs mb-4">
-                                                                <label for="ourprocessimage">Process Icon</label>
+                                                                <label for="ourprocessimage">Process Icon*</label>
                                                                 <input type="hidden" name="processids[]"
                                                                     value="{{ old('processids.' . $k, $item->id ?? '') }}">
                                                                 <input type="file" name="ourprocessimageupdate[]"
@@ -2053,7 +2053,7 @@
     <div class="form-group">
         <div class="form-data">
             <div class="forms-inputs mb-4">
-                <label for="ourprocessheading">Our Process Heading 2</label>
+                <label for="ourprocessheading">Our Process Heading 2*</label>
 
                 <!-- Textarea for Process Heading -->
                 <textarea name="ourprocessheadingupdate[]" class="form-control texteditor" rows="5" placeholder="Process Heading">{{ old('ourprocessheadingupdate[]', $item->ourprocessheading) }}</textarea>
@@ -2081,7 +2081,7 @@
     <div class="form-group">
         <div class="form-data">
             <div class="forms-inputs mb-4">
-                <label for="ourprocessimage-{{ $item->id }}" class="file-upload">Process Icon <br>
+                <label for="ourprocessimage-{{ $item->id }}" class="file-upload">Process Icon* <br>
                     <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
                 </label>
                 <input type="hidden" name="processids[]" value="{{ $item->id }}">
@@ -2118,7 +2118,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="ourprocessheading">Our Process Heading 3</label>
+                                                        <label for="ourprocessheading">Our Process Heading 3*</label>
 
                                                         <!-- Textarea for Process Heading -->
                                                         <textarea name="ourprocessheadingupdate[]" class="form-control texteditor" rows="5" placeholder="Process Heading">{{ old('ourprocessheadingupdate', optional($banner)->ourprocessheadings) }}</textarea>
@@ -2139,7 +2139,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="ourprocessimage"  class="file-upload">Process Icon <br>
+                                                        <label for="ourprocessimage"  class="file-upload">Process Icon* <br>
                                                             <img src="{{ asset('assets/images/upfile.svg') }}"
                                                                 alt="Upload Icon"> </label>
                                                         <input type="file" name="ourprocessimage[]"
