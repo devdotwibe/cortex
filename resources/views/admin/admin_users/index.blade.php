@@ -13,12 +13,12 @@
             <div class="container-wrap">
                 <div class="row">
                     <div class="card">
-                        <div class="card-body">
-                            <form class="form" id="table-category-form-create" data-save="create"
-                                data-action="{{ route('admin.category.store') }}">
+                        <div class="card-body"> 
+
+                            <form class="form" id="admin_user_form" data-save="create" data-action="{{ route('admin.admin_user.store') }}">
+                                
                                 @csrf
                                 <div class="row">
-
 
                                     <div class="col-md-4">
                                         <div class="form-group">
