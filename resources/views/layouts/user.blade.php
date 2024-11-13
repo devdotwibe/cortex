@@ -281,10 +281,10 @@
                       
 
                      <span class="side-icon" >
-                         <img src="{{asset("assets/images/iconshover/")}}" alt="Dashboard">
+                         <img src="{{asset("assets/images/iconshover/tipsandadvice.svg")}}" alt="Dashboard">
                      </span>
                      <span class="active-icon">
-                         <img src="{{asset("assets/images/icons/")}}" alt="Dashboard">
+                         <img src="{{asset("assets/images/icons/tipsandadvice.svg")}}" alt="Dashboard">
                      </span>
                      <span class="menutext">
                      Buy A Plan
