@@ -274,13 +274,12 @@
             </div> --}}
             <div class="modal-body"> 
                 <p>Do you want to submit this assessment?</p>
-                <p style="display:none" class="unfinish-message"> 
-                    You still have <span class="unfinish-count">0</span> unfinished <span class="question-label">questions</span>.
+                <p style="display:none" class="unfinish-message">
+                    You still have <span class="unfinish-count">0</span> unfinished <span class="question-text">questions</span>.
                 </p>
                 <button type="button" onclick="lessonreviewconfirm()" class="btn btn-dark">Yes</button>
                 <button type="button" data-bs-dismiss="modal" class="btn btn-secondary">Cancel</button>
             </div>
-
         </div>
     </div>
 </div>
@@ -289,21 +288,25 @@
 @push('footer-script') 
 
 <script>
+    // Function to display the correct message based on the count of unfinished questions
     function updateUnfinishedMessage(count) {
-        const unfinishMessage = document.querySelector('.unfinish-message');
-        const unfinishCount = document.querySelector('.unfinish-count');
-        const questionLabel = document.querySelector('.question-label');
-        
-        unfinishCount.textContent = count;
-        questionLabel.textContent = count === 1 ? 'question' : 'questions';
-        unfinishMessage.style.display = count > 0 ? 'block' : 'none';
-    }
-    
-    // Example usage
-    updateUnfinishedMessage(1); // Updates the message for 1 unfinished question
-    updateUnfinishedMessage(2); // Updates the message for 2 unfinished questions
-    </script>
+        const message = document.querySelector('.unfinish-message');
+        const countElement = document.querySelector('.unfinish-count');
+        const questionText = document.querySelector('.question-text');
 
+        if (count > 0) {
+            countElement.textContent = count;
+            questionText.textContent = count === 1 ? 'question' : 'questions';
+            message.style.display = 'block';
+        } else {
+            message.style.display = 'none';
+        }
+    }
+
+    // Example usage:
+    const unfinishedCount = 1; // Replace with the actual count of unfinished questions
+    updateUnfinishedMessage(unfinishedCount);
+</script>
     <script>  
 
 function HideTime() {
