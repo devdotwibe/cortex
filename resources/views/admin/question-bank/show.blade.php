@@ -99,8 +99,8 @@
 
 $(function() {
     setTimeout(function() {
-        $('table tr td p img').hide(); // Hide images inside the table after 5 seconds
-    }, 500); // 5000 milliseconds = 5 seconds
+        $('table tr td p img').hide(); 
+    }, 500); 
 });
 
         var questiontable = null;
