@@ -2209,12 +2209,12 @@
                   function previewImage(event, previewId) {
     const reader = new FileReader();
     reader.onload = function() {
-        // Display the selected image
+       
         const output = document.getElementById(previewId);
         output.src = reader.result;
         output.style.display = 'block';
 
-        // Show the preview container and delete button
+        
         document.getElementById('imgid1').style.display = 'block';
         document.querySelector('#imagePreviewContainer .btn-danger').style.display = 'block';
     };
