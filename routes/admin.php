@@ -624,6 +624,13 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
     });
 
+
+    Route::prefix('admin_user')->name('admin_user.')->group(function () {
+
+        Route::get('/', [AdminUserController::class, 'index'])->name('index');
+
+    });
+
    
 
 });
