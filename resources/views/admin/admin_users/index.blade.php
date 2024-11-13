@@ -67,7 +67,7 @@
 
 
                                     <div class="col-md-4 pt-4">
-                                        <button type="button" class="btn btn-dark" id="admin_user_btn"> Add +
+                                        <button type="button" class="btn btn-dark" id="admin_user_btn" onclick="SubmitUser()"> Add +
                                         </button>
                                         <button type="button" class="btn btn-secondary" style="display: none"
                                             id="admin_btn">Cancel</button>
@@ -154,7 +154,7 @@
        
        $(function() {
 
-            $('#admin_user_btn').on('click', function(e) {
+             function SubmitUser{
              
                 $('.invalid-feedback').html('');
                 $('.form-control').removeClass('is-invalid');
@@ -191,9 +191,8 @@
                         }
                     }
                 });
-            });
-
-});
+            }
+    });
 
 
        
