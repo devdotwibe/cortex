@@ -292,7 +292,7 @@
 
 
 <script>
-    // Function to display the correct message based on the count of unfinished questions
+
     function updateUnfinishedMessage(count) {
         const message = document.querySelector('.unfinish-message');
         const countElement = document.querySelector('.unfinish-count');
@@ -306,10 +306,6 @@
             message.style.display = 'none';
         }
     }
-
-    // Example usage:
-    const unfinishedCount = 1; // Replace with the actual count of unfinished questions
-    updateUnfinishedMessage(unfinishedCount);
 </script>
 
 
@@ -567,6 +563,7 @@ function HideTime() {
                 }  
                 $('#menu-text').html(`Question <span> ${res.current_page} </span> of <span> ${res.total}</span>`)
                  
+                updateUnfinishedMessage(res.total);
 
             },'json').fail(function(xhr,status,error){
                 showToast("Error: " + error, 'danger'); 
