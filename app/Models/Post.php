@@ -43,4 +43,10 @@ class Post extends Model
     public function comments(){
         return $this->hasMany(PostComment::class);
     }
+    public function hashtags()
+    {
+        return $this->belongsToMany(Hashtagstore::class, 'hashtags', 'post_id', 'hashtagstore_id','id')
+                    ->withPivot('hashtag')
+                    ->withTimestamps();
+    }
 }

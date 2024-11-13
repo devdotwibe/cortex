@@ -80,16 +80,18 @@
                             </div> --}}
                             <div class="form-group">
                                 <label for="hashtag-select">Select Hashtag</label>
-                                <select id="hashtag-select" name="hashtag" class="form-control">
+                                <select id="hashtag-select" name="hashtag[]" class="form-control" multiple>
                                     <option value="">Select a hashtag</option>
                                     @foreach($hashtags as $hashtag)
                                         <option value="{{ $hashtag->id }}" 
-                                            {{ $post->hashtag && $post->hashtag->id == $hashtag->id ? 'selected' : '' }}>
+                                            {{ optional($post->hashtaglist)->pluck('hashtagstore_id')->contains($hashtag->id) ? 'selected' : '' }}>
                                             {{ $hashtag->hashtag }}
                                         </option>
                                     @endforeach
                                 </select>
                             </div>
+                            
+                            
                             
 
                             
@@ -237,7 +239,16 @@
 @endsection
 
 @push('footer-script')
+<!-- Include Select2 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+
+<!-- Include jQuery and Select2 JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 <script>
+    $(document).ready(function() {
+        $('#hashtag-select').select2(); // Initialize Select2 on your select element
+    });
     function changeFormType(val) {
         $('.community-post-type').val(val);
         $('.community-post-type').hide();

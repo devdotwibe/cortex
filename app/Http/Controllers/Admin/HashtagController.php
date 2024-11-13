@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
+use App\Models\Hashtag;
 use Illuminate\Http\Request;
 
 use App\Models\Hashtagstore;
@@ -23,15 +24,20 @@ class HashtagController extends Controller
 
             return DataTables::of($hashtags)
                 ->addColumn('action', function ($data) {
-                    return
-                        '<a onclick="editHashtag('."'".route('admin.community.hashtags.edit', $data->id)."'".')" class="btn btn-icons edit_btn">
-                            <span class="adminside-icon">
-                                <img src="'.asset('assets/images/icons/iconamoon_edit.svg').'" alt="Edit">
-                            </span>
-                            <span class="adminactive-icon">
-                                <img src="'.asset('assets/images/iconshover/iconamoon_edit-yellow.svg').'" alt="Edit Active" title="Edit">
-                            </span>
-                        </a>' .
+                    $hasAnyHashtags = Hashtag::where('hashtagstore_id', $data->id)->exists();
+                    if ($hasAnyHashtags) {
+                        // Data exists
+                        return "Posts exist for this hashtag.";
+                    } else {
+                        return
+                        // '<a onclick="editHashtag('."'".route('admin.community.hashtags.edit', $data->id)."'".')" class="btn btn-icons edit_btn">
+                        //     <span class="adminside-icon">
+                        //         <img src="'.asset('assets/images/icons/iconamoon_edit.svg').'" alt="Edit">
+                        //     </span>
+                        //     <span class="adminactive-icon">
+                        //         <img src="'.asset('assets/images/iconshover/iconamoon_edit-yellow.svg').'" alt="Edit Active" title="Edit">
+                        //     </span>
+                        // </a>' .
                         '<a onclick="deleteHashtag('."'".route('admin.community.hashtags.destroy', $data->id)."'".')" class="btn btn-icons delete_btn">
                             <span class="adminside-icon">
                                 <img src="' . asset("assets/images/icons/material-symbols_delete-outline.svg") . '" alt="Delete">
@@ -40,6 +46,8 @@ class HashtagController extends Controller
                                 <img src="' . asset("assets/images/iconshover/material-symbols_delete-yellow.svg") . '" alt="Delete Active" title="Delete">
                             </span>
                         </a>';
+                    }
+                   
                 })
                 ->addIndexColumn()
                 ->rawColumns(['action'])
