@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+    @extends('layouts.admin')
 @section('title', $category->name.' - '.$subcategory->name.' - '.$setname->name.' - '.' Questions')
 @section('content')
 <section class="header_nav">
