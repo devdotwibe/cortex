@@ -18,19 +18,39 @@
                                 data-action="{{ route('admin.category.store') }}">
                                 @csrf
                                 <div class="row">
+
+
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <div class="form-data">
                                                 <div class="forms-inputs mb-4">
-                                                    <label for="name-table-category-form-create">Category Name</label>
-                                                    <input type="search" name="name"
-                                                        id="name-table-category-form-create" class="form-control ">
-                                                    <div class="invalid-feedback"
-                                                        id="name-error-table-category-form-create"></div>
+                                                    <label for="admin_email">Email</label>
+                                                    <input type="text" name="email"  id="admin_email" class="form-control ">
+                                                       
+                                                    <div class="invalid-feedback"  id="admin_email_error"></div>
+
                                                 </div>
+
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="form-data">
+                                                <div class="forms-inputs mb-4">
+                                                    <label for="admin_email">Password</label>
+                                                    <input type="text" name="password"  id="password" class="form-control ">
+                                                       
+                                                    <div class="invalid-feedback"  id="password_error"></div>
+
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+
+
                                     <div class="col-md-4 pt-4">
                                         <button type="submit" class="btn btn-dark" id="table-category-form-submit"> Add +
                                         </button>
