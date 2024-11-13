@@ -76,7 +76,7 @@
                             </form>
 
                             <x-ajax-table title="Admin  Users" :coloumns="[
-                                ['th' => 'Date', 'name' => 'created_at', 'data' => 'created_at'],
+            
                                 ['th' => 'Email', 'name' => 'email', 'data' => 'email'],
                             ]"  tableinit="cattableinit"   />
 
