@@ -1165,7 +1165,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="exceltitle">Excel Title</label>
+                                                        <label for="exceltitle">Excel Title*</label>
 
                                                             <textarea class="form-control texteditor" name="exceltitle" id="exceltitle">{{ old('exceltitle', optional($banner)->exceltitle) }}</textarea>
                                                         @error('exceltitle')
@@ -1184,7 +1184,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="excelbuttonlabel">Excel Button Label</label>
+                                                        <label for="excelbuttonlabel">Excel Button Label*</label>
                                                         <input type="text" name="excelbuttonlabel"
                                                             id="excelbuttonlabel"
                                                             value="{{ old('excelbuttonlabel', optional($banner)->excelbuttonlabel) }}"
@@ -1202,7 +1202,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="excelbuttonlink">Excel Button Link</label>
+                                                        <label for="excelbuttonlink">Excel Button Link*</label>
                                                         <input type="text" name="excelbuttonlink" id="excelbuttonlink"
                                                             value="{{ old('excelbuttonlink', optional($banner)->excelbuttonlink) }}"
                                                             class="form-control" placeholder="Excel Button Link">
@@ -1284,7 +1284,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="ourcoursetitle">Our Course Title</label>
+                                                        <label for="ourcoursetitle">Our Course Title*</label>
                                                         <input type="text" name="ourcoursetitle" id="ourcoursetitle"
                                                             value="{{ old('ourcoursetitle', optional($courses)->ourcoursetitle) }}"
                                                             class="form-control" placeholder="Our Course Title">
@@ -1301,7 +1301,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="coursetitle">Course Title</label>
+                                                        <label for="coursetitle">Course Title*</label>
                                                         <input type="text" name="coursetitle" id="coursetitle"
                                                             value="{{ old('coursetitle', optional($courses)->coursetitle) }}"
                                                             class="form-control" placeholder="Course Title">
@@ -1317,7 +1317,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="coursesubtitle">Course Subtitle</label>
+                                                        <label for="coursesubtitle">Course Subtitle*</label>
                                                         <input type="text" name="coursesubtitle" id="coursesubtitle"
                                                             value="{{ old('coursesubtitle', optional($courses)->coursesubtitle) }}"
                                                             class="form-control" placeholder="Course Subtitle">
@@ -1333,7 +1333,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="courseheading1">Course Heading 1</label>
+                                                        <label for="courseheading1">Course Heading 1*</label>
                                                         <input type="text" name="courseheading1" id="courseheading1"
                                                             value="{{ old('courseheading1', optional($courses)->courseheading1) }}"
                                                             class="form-control" placeholder="Course Heading 1">
@@ -1349,7 +1349,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="coursecontent1">Course Content 1</label>
+                                                        <label for="coursecontent1">Course Content 1*</label>
                                                         <textarea name="coursecontent1" id="coursecontent1" class="form-control" placeholder="Course Content 1">{{ old('coursecontent1', optional($courses)->coursecontent1) }}</textarea>
                                                         @error('coursecontent1')
                                                             <div class="text-danger">{{ $message }}</div>
@@ -1363,7 +1363,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="courseheading2">Course Heading 2</label>
+                                                        <label for="courseheading2">Course Heading 2*</label>
                                                         <input type="text" name="courseheading2" id="courseheading2"
                                                             value="{{ old('courseheading2', optional($courses)->courseheading2) }}"
                                                             class="form-control" placeholder="Course Heading 2">
@@ -1379,7 +1379,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="coursecontent2">Course Content 2</label>
+                                                        <label for="coursecontent2">Course Content 2*</label>
                                                         <textarea name="coursecontent2" id="coursecontent2" class="form-control" placeholder="Course Content 2">{{ old('coursecontent2', optional($courses)->coursecontent2) }}</textarea>
                                                         @error('coursecontent2')
                                                             <div class="text-danger">{{ $message }}</div>
@@ -1393,7 +1393,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="courseheading3">Course Heading 3</label>
+                                                        <label for="courseheading3">Course Heading 3*</label>
                                                         <input type="text" name="courseheading3" id="courseheading3"
                                                             value="{{ old('courseheading3', optional($courses)->courseheading3) }}"
                                                             class="form-control" placeholder="Course Heading 3">
@@ -1409,7 +1409,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="coursecontent3">Course Content 3</label>
+                                                        <label for="coursecontent3">Course Content 3*</label>
                                                         <textarea name="coursecontent3" id="coursecontent3" class="form-control" placeholder="Course Content 3">{{ old('coursecontent3', optional($courses)->coursecontent3) }}</textarea>
                                                         @error('coursecontent3')
                                                             <div class="text-danger">{{ $message }}</div>
@@ -1423,7 +1423,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="courseheading4">Course Heading 4</label>
+                                                        <label for="courseheading4">Course Heading 4*</label>
                                                         <input type="text" name="courseheading4" id="courseheading4"
                                                             value="{{ old('courseheading4', optional($courses)->courseheading4) }}"
                                                             class="form-control" placeholder="Course Heading 4">
@@ -1439,7 +1439,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="coursecontent4">Course Content 4</label>
+                                                        <label for="coursecontent4">Course Content 4*</label>
                                                         <textarea name="coursecontent4" id="coursecontent4" class="form-control" placeholder="Course Content 4">{{ old('coursecontent4', optional($courses)->coursecontent4) }}</textarea>
                                                         @error('coursecontent4')
                                                             <div class="text-danger">{{ $message }}</div>
@@ -1453,7 +1453,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="coursebuttonlabel">Course Button Label</label>
+                                                        <label for="coursebuttonlabel">Course Button Label*</label>
                                                         <input type="text" name="coursebuttonlabel"
                                                             id="coursebuttonlabel"
                                                             value="{{ old('coursebuttonlabel', optional($courses)->coursebuttonlabel) }}"
@@ -1470,7 +1470,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="coursebuttonlink">Course Button Link</label>
+                                                        <label for="coursebuttonlink">Course Button Link*</label>
                                                         <input type="text" name="coursebuttonlink"
                                                             id="coursebuttonlink"
                                                             value="{{ old('coursebuttonlink', optional($courses)->coursebuttonlink) }}"
