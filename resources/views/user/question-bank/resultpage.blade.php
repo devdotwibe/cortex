@@ -34,7 +34,7 @@
                                             </div>                                                 
                                             @endif
                                             <div class="mark-label">
-                                                <span>Attemt Number :</span>
+                                                <span>Attempt Number :</span>
                                                 <span>#{{$attemtcount}}</span>
                                             </div> 
                                             <div class="mark-label">
