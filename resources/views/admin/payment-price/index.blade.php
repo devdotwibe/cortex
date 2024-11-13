@@ -187,7 +187,7 @@
                                                                         <div class="form-data">
                                                                             <div class="forms-inputs mb-4">
                                                                                 <label
-                                                                                    for="{{ $item->slug }}-title">Title</label>
+                                                                                    for="{{ $item->slug }}-title">Title*</label>
                                                                                 <input type="text"
                                                                                     name="{{ $item->slug }}[title]"
                                                                                     id="{{ $item->slug }}-title"
@@ -284,7 +284,7 @@
                                                                                     <div class="forms-inputs mb-4">
                                                                                         <label
                                                                                             for="{{ $item->slug }}-basic_amount">Subscription
-                                                                                            Basic Amount </label>
+                                                                                            Basic Amount* </label>
                                                                                         <input type="text"
                                                                                             id="{{ $item->slug }}-basic_amount"
                                                                                             name="{{ $item->slug }}[basic_amount]"
@@ -305,7 +305,7 @@
                                                                                     <div class="forms-inputs mb-4">
                                                                                         <label
                                                                                             for="{{ $item->slug }}-combo_amount">Subscription
-                                                                                            Combo Amount</label>
+                                                                                            Combo Amount*</label>
                                                                                         <input type="text"
                                                                                             id="{{ $item->slug }}-combo_amount"
                                                                                             name="{{ $item->slug }}[combo_amount]"
@@ -350,7 +350,7 @@
                                                                                     <div class="forms-inputs mb-4">
                                                                                         <label
                                                                                             for="{{ $item->slug }}-end_plan">End
-                                                                                            Plan</label>
+                                                                                            Plan*</label>
                                                                                         <input type="text"
                                                                                             id="{{ $item->slug }}-end_plan"
                                                                                             name="{{ $item->slug }}[end_plan]"
