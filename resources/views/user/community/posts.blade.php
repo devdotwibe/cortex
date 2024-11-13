@@ -74,7 +74,7 @@
         <div class="post-search">
             <form id="searchForm" action="">
                 <div class="text-field">
-                    <input type="search" id="searchInput" placeholder="Search for Posts" aria-label="Search for Posts" oninput="performSearch()">
+                    <input type="search" id="searchInput" placeholder="Search Users" aria-label="Search for Posts" oninput="performSearch()">
                     <button type="button" class="search-btn" onclick="toggleSearchResults()"><img src="{{ asset('assets/images/searc-icon.svg') }}" alt=""></button>
                     <div class="searchclass">
                         <div id="searchResults" name="searchres"></div> <!-- Container for displaying search results -->
