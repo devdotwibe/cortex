@@ -554,7 +554,7 @@
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
 
-                                                        <label for="ourfeaturestitle">Feature Title</label>
+                                                        <label for="ourfeaturestitle">Feature Title*</label>
                                                         <input type="text" name="ourfeaturestitle" class="form-control"
                                                             value="{{ old('ourfeaturestitle', optional($banner)->ourfeaturestitle) }}"
                                                             placeholder="Feature Title">
@@ -572,7 +572,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="FeatureHeading">Feature Top Heading</label>
+                                                        <label for="FeatureHeading">Feature Top Heading*</label>
                                                         <input type="text" name="FeatureHeading" class="form-control"
                                                             value="{{ old('FeatureHeading', optional($banner)->FeatureHeading) }}"
                                                             placeholder="Feature Top Heading">
@@ -614,7 +614,7 @@
                                                         <div class="form-group">
                                                             <div class="form-data">
                                                                 <div class="forms-inputs mb-4">
-                                                                    <label for="featuresubtitle">Feature Heading</label>
+                                                                    <label for="featuresubtitle">Feature Heading*</label>
                                                                     <input type="text" name="featuresubtitleupdate[]"
                                                                         class="form-control" placeholder="Feature Heading"
                                                                         value="{{ old('featuresubtitleupdate.' . $k) }}">
@@ -633,7 +633,7 @@
                                                         <div class="form-group">
                                                             <div class="form-data">
                                                                 <div class="forms-inputs mb-4">
-                                                                    <label for="featurecontent">Feature Description</label>
+                                                                    <label for="featurecontent">Feature Description*</label>
                                                                     <textarea name="featurecontentupdate[]" class="form-control" rows="5" placeholder="Feature Description">{{ old('featurecontentupdate.' . $k) }}</textarea>
                                                                     @error('featurecontentupdate.' . $k)
                                                                         <div class="text-danger">{{ $message }}</div>
@@ -702,7 +702,7 @@
                                                         <div class="form-group">
                                                             <div class="form-data">
                                                                 <div class="forms-inputs mb-4">
-                                                                    <label for="featuresubtitle">Feature Heading</label>
+                                                                    <label for="featuresubtitle">Feature Heading*</label>
                                                                     <input type="text" name="featuresubtitleupdate[]"
                                                                         class="form-control" placeholder="Feature Heading"
                                                                         value="{{ $item->featuresubtitle }}">
@@ -719,7 +719,7 @@
                                                         <div class="form-group">
                                                             <div class="form-data">
                                                                 <div class="forms-inputs mb-4">
-                                                                    <label for="featurecontent">Feature Description</label>
+                                                                    <label for="featurecontent">Feature Description*</label>
                                                                     <textarea name="featurecontentupdate[]" class="form-control" rows="5" placeholder="Feature Description">{{ $item->featurecontent }}</textarea>
                                                                     @error('featurecontent')
                                                                         <div class="text-danger">{{ $message }}</div>
@@ -767,7 +767,7 @@
                                                 <div class="form-group">
                                                     <div class="form-data">
                                                         <div class="forms-inputs mb-4">
-                                                            <label for="featuresubtitle">Feature Heading</label>
+                                                            <label for="featuresubtitle">Feature Heading*</label>
                                                             <input type="text" name="featuresubtitle[]"
                                                                 class="form-control" placeholder="Feature Heading">
                                                             @error('featuresubtitle')
@@ -782,7 +782,7 @@
                                                 <div class="form-group">
                                                     <div class="form-data">
                                                         <div class="forms-inputs mb-4">
-                                                            <label for="featurecontent">Feature Description</label>
+                                                            <label for="featurecontent">Feature Description*</label>
                                                             <textarea name="featurecontent[]" class="form-control" rows="5" placeholder="Feature Description"></textarea>
                                                             @error('featurecontent')
                                                                 <div class="text-danger">{{ $message }}</div>
