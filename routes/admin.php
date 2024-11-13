@@ -632,8 +632,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
         Route::post('/', [AdminUserController::class, 'store'])->name('store');
 
-        
-
+    
     });
 
    

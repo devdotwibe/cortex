@@ -18,6 +18,8 @@ class AdminUserController extends Controller
     public function store (Request $request)
     {
        
+
+        dd($request);
         $request->validate([
 
             "email"=>["required",'email:rfc,dns','unique:users','unique:admins','max:250'],
@@ -25,7 +27,7 @@ class AdminUserController extends Controller
             "conform_password" => ["required","same:password"]
         ]);
 
-        dd($request);
+       
 
     }
 }
