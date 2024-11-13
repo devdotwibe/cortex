@@ -39,10 +39,25 @@
                                         <div class="form-group">
                                             <div class="form-data">
                                                 <div class="forms-inputs mb-4">
-                                                    <label for="admin_email">Password</label>
+                                                    <label for="password">Password</label>
                                                     <input type="text" name="password"  id="password" class="form-control ">
                                                        
                                                     <div class="invalid-feedback"  id="password_error"></div>
+
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="form-data">
+                                                <div class="forms-inputs mb-4">
+                                                    <label for="conform_password">Conform Password</label>
+                                                    <input type="text" name="conform_password"  id="conform_password" class="form-control ">
+                                                       
+                                                    <div class="invalid-feedback"  id="conform_password_error"></div>
 
                                                 </div>
                                                 
@@ -55,7 +70,7 @@
                                         <button type="submit" class="btn btn-dark" id="table-category-form-submit"> Add +
                                         </button>
                                         <button type="button" class="btn btn-secondary" style="display: none"
-                                            id="table-category-form-clear">Cancel</button>
+                                            id="admin_btn">Cancel</button>
                                     </div>
                                 </div>
                             </form>
