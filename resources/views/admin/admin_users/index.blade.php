@@ -154,7 +154,8 @@
        
        $(function() {
 
-             function SubmitUser{
+             function SubmitUser() 
+             {
              
                 $('.invalid-feedback').html('');
                 $('.form-control').removeClass('is-invalid');
