@@ -170,11 +170,13 @@
                                        
                                        
                                         
+                                       
+                                        
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="image" class="file-upload">Upload Image  <br>
+                                                        <label for="image" class="file-upload">Upload Image <br>
                                                             <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
                                                         </label>
                                                         <input type="file" name="image" id="image" class="form-control" style="display: none;" onchange="previewImage(event, 'imagePreview')">
@@ -186,19 +188,21 @@
                                             </div>
                                         </div>
                                         
-                                        <!-- Preview Image Container -->
-                                        @if (isset($banner) && $banner->image)
-                                        <div class="form-group" id="imgid1">
+                                      
+                                        <div class="form-group" id="imgid1" style="{{ isset($banner) && $banner->image ? '' : 'display: none;' }}"> <!-- Show if image exists -->
                                             <label for="imagePreview">Image Preview</label>
-                                            <div id="imagePreviewContainer" style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
+                                            <div id="imagePreviewContainer" style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px; position: relative;">
                                                
-                                                    <img id="imagePreview" src="{{ url('d0/' . $banner->image) }}" alt="Image Preview" style="width: 100%; height: auto;">
-                                                    <!-- Delete button (X) -->
-                                                    <button type="button" class="btn btn-danger" style="float: right;" onclick="removeImage()">X</button>
+                                                <img id="imagePreview" src="{{ isset($banner) && $banner->image ? url('d0/' . $banner->image) : '' }}" alt="Image Preview" style="width: 100%; height: auto; display: {{ isset($banner) && $banner->image ? 'block' : 'none' }};">
                                                 
+                                               
+                                                <button type="button" class="btn btn-danger" id="deleteicon" style="position: absolute; top: 5px; right: 5px; {{ isset($banner) && $banner->image ? 'display: block;' : 'display: none;' }}" onclick="removeImage()">X</button>
+                                                <button type="button" class="btn btn-danger" id="deleteicon" style="position: absolute; top: 5px; right: 5px; {{ isset($banner) && $banner->image ? 'display: block;' : 'display: none;' }}" >X</button>
                                             </div>
                                         </div>
-                                        @endif
+                                        
+                                        
+                                      
                                         
                                
 
@@ -2202,19 +2206,21 @@
 
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
                 <script>
-                    function previewImage(event, previewId) {
-                        var reader = new FileReader();
-                        reader.onload = function() {
-                            var output = document.getElementById(previewId);
-                            output.src = reader.result;
-                            output.style.display = 'block';
+                  function previewImage(event, previewId) {
+    const reader = new FileReader();
+    reader.onload = function() {
+       
+        const output = document.getElementById(previewId);
+        output.src = reader.result;
+        output.style.display = 'block';
 
-                            var output1 = document.getElementById(previewId+'1');
-                            output1.src = reader.result;
-                            output1.style.display = 'block';
-                        };
-                        reader.readAsDataURL(event.target.files[0]);
-                    }
+        
+        document.getElementById('imgid1').style.display = 'block';
+        document.querySelector('#imagePreviewContainer .btn-danger').style.display = 'block';
+    };
+    reader.readAsDataURL(event.target.files[0]);
+}
+
                 </script>
 
                 <script>
