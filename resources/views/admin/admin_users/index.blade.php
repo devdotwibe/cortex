@@ -159,7 +159,7 @@
                 $('.invalid-feedback').html('');
                 $('.form-control').removeClass('is-invalid');
 
-                var formElement = $('#admin_user_form');
+                var formElement = $('#admin_user_form')[0]; 
 
                 var formData = new FormData(formElement);
 
