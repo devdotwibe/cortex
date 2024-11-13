@@ -15,7 +15,7 @@
                     <div class="card">
                         <div class="card-body"> 
 
-                            <form class="form" id="admin_user_form" data-save="create" data-action="{{ route('admin.admin_user.store') }}">
+                            <form class="form" action="post" id="admin_user_form" data-save="create" data-action="{{ route('admin.admin_user.store') }}">
                                 
                                 @csrf
                                 <div class="row">
