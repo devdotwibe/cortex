@@ -25,7 +25,17 @@ class AdminUserController extends Controller
     {
         if($request->ajax()){
 
-            return ;
+            return $this->addAction(function($data){ 
+                $action= ' 
+                
+                ';
+               
+                    $action.=  ''
+
+                       ; 
+
+                return $action;
+            })->buildTable();
         }
 
         return view('admin.admin_users.index');
