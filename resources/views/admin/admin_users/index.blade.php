@@ -159,10 +159,10 @@
                 $('.invalid-feedback').html('');
                 $('.form-control').removeClass('is-invalid');
 
-                var formData = new FormData(this);
+                var formData = new FormData('#admin_user_form');
 
                 $.ajax({
-                    url: $(this).attr('action'),  
+                    url: $('#admin_user_form').attr('action'),  
                     type: 'POST', 
                     data: formData,  
                     processData: false, 
