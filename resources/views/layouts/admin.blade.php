@@ -417,6 +417,17 @@
                     </a>
                 </li> --}}
 
+                <li class="side-item ">
+                    <a href="{{route('admin.logout')}}" class="log-out">
+                        <span class="side-icon">
+                            <img src="{{asset("assets/images/log-out.svg")}}" alt="log-out">
+                        </span>
+                        <span class="active-icon">
+                            <img src="{{asset("assets/images/log-out-1.svg")}}" alt="log-out">
+                        </span>  <span class="menutext">Admin Users</span>
+                    </a>
+                </li>
+
                 <li class="side-item logout">
                     <a href="{{route('admin.logout')}}" class="log-out">
                         <span class="side-icon">
