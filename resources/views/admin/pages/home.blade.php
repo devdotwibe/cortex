@@ -82,7 +82,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="title">Title*</label>
+                                                        <label for="title">Title</label>
                                                         <input type="text" name="title1" id="title"
                                                             value="{{ old('title', optional($banner)->title) }}"
                                                             class="form-control" placeholder="Title">
@@ -614,7 +614,7 @@
                                                         <div class="form-group">
                                                             <div class="form-data">
                                                                 <div class="forms-inputs mb-4">
-                                                                    <label for="featuresubtitle">Feature Heading*</label>
+                                                                    <label for="featuresubtitle">Feature Heading</label>
                                                                     <input type="text" name="featuresubtitleupdate[]"
                                                                         class="form-control" placeholder="Feature Heading"
                                                                         value="{{ old('featuresubtitleupdate.' . $k) }}">
@@ -633,7 +633,7 @@
                                                         <div class="form-group">
                                                             <div class="form-data">
                                                                 <div class="forms-inputs mb-4">
-                                                                    <label for="featurecontent">Feature Description*</label>
+                                                                    <label for="featurecontent">Feature Description</label>
                                                                     <textarea name="featurecontentupdate[]" class="form-control" rows="5" placeholder="Feature Description">{{ old('featurecontentupdate.' . $k) }}</textarea>
                                                                     @error('featurecontentupdate.' . $k)
                                                                         <div class="text-danger">{{ $message }}</div>
@@ -1509,7 +1509,7 @@
 
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="studentsfeedback">Student Feedback*</label>
+                                                <label for="studentsfeedback">Student Feedback</label>
                                                 <input type="text" name="studentsfeedback" id="studentsfeedback"
                                                     value="{{ old('studentsfeedback', optional($courses)->studentsfeedback) }}"
                                                     class="form-control" placeholder="Students Feedback">
@@ -1521,7 +1521,7 @@
                                         <!-- Student Title Field -->
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="studenttitle">Student Title*</label>
+                                                <label for="studenttitle">Student Title</label>
                                                 <input type="text" name="studenttitle" id="studenttitle"
                                                     value="{{ old('studenttitle', optional($courses)->studenttitle) }}"
                                                     class="form-control" placeholder="Student Title">
@@ -1534,7 +1534,7 @@
                                         <!-- Student Subtitle Field -->
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="studentsubtitle">Student Subtitle*</label>
+                                                <label for="studentsubtitle">Student Subtitle</label>
                                                 <input type="text" name="studentsubtitle" id="studentsubtitle"
                                                     value="{{ old('studentsubtitle', optional($courses)->studentsubtitle) }}"
                                                     class="form-control" placeholder="Student Subtitle">
@@ -1545,7 +1545,7 @@
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="percentage">Percentage*</label>
+                                                <label for="percentage">Percentage</label>
                                                 <input type="text" name="percentage" id="percentage"
                                                     value="{{ old('percentage', optional($courses)->percentage) }}"
                                                     class="form-control" placeholder="Percentage">
@@ -1556,7 +1556,7 @@
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="studentssubtitle">Students Subtitle*</label>
+                                                <label for="studentssubtitle">Students Subtitle</label>
                                                 <input type="text" name="studentssubtitle" id="studentssubtitle"
                                                     value="{{ old('studentssubtitle', optional($courses)->studentssubtitle) }}"
                                                     class="form-control" placeholder="Students Subtitle">
@@ -1621,7 +1621,7 @@
                                                     <div class="form-group">
                                                         <div class="form-data">
                                                             <div class="forms-inputs mb-4">
-                                                                <label for="starrating">Star Rating*</label>
+                                                                <label for="starrating">Star Rating</label>
                                                                 <select name="starratingupdate[]" class="form-control">
                                                                     <option value="1"
                                                                         {{ old('starratingupdate.' . $k, $item->starrating ?? '') == 1 ? 'selected' : '' }}>
