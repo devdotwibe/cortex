@@ -27,31 +27,12 @@ class AdminUserController extends Controller
 
             return $this->addAction(function($data){ 
                 $action= ' 
-                    <a onclick="subcategorylist(\''.route('admin.add_subcatecory', $data->slug).'\', \''.$data->slug.'\', \''.$data->name.'\')" class="btn btn-icons view_btn" data-id="'.$data->name.'">+</a>
-
-                   <a onclick="updatecategory('."'".route('admin.category.edit', $data->slug)."'".')"  class="btn btn-icons edit_btn">
-                    <span class="adminside-icon">
-                    <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
-                    </span>
-                    <span class="adminactive-icon">
-                        <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active" title="Edit">
-                    </span>
-                </a>
-
-
-
+                
                 ';
                
-                    $action.=  
+                    $action.=  ''
 
-                       '<a  class="btn btn-icons dlt_btn" data-delete="'.route("admin.category.destroy",$data->slug).'" >
-                        <span class="adminside-icon">
-                            <img src="' . asset("assets/images/icons/material-symbols_delete-outline.svg") . '" alt="Delete">
-                        </span>
-                        <span class="adminactive-icon">
-                            <img src="' . asset("assets/images/iconshover/material-symbols_delete-yellow.svg") . '" alt="Delete Active" title="Delete">
-                        </span>
-                    </a> '; 
+                       ; 
 
                 return $action;
             });
