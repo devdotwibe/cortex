@@ -267,6 +267,14 @@
                 <h5 class="modal-title" id="Lablel">Submit Assessment</h5>
                 <button type="button" class="close" data-bs-dismiss="modal"    aria-label="Close"><span  aria-hidden="true">&times;</span></button>
             </div>
+            {{-- <div class="modal-body"> 
+                <p>Do you want to submit this assessment ?</p>
+                <p style="display:none" class="unfinish-message"> You still have <span class="unfinish-count">0</span> unfinished questions. </p>
+                <button type="button" onclick="lessonreviewconfirm()" class="btn btn-dark">Yes</button>
+                <button type="button"  data-bs-dismiss="modal"  class="btn btn-secondary">Cancel</button>
+            </div> --}}
+
+
             <div class="modal-body"> 
                 <p>Do you want to submit this assessment?</p>
                 <p style="display:none" class="unfinish-message">
@@ -281,6 +289,7 @@
 @endpush
 
 @push('footer-script') 
+
 
 <script>
     // Function to display the correct message based on the count of unfinished questions
@@ -302,6 +311,7 @@
     const unfinishedCount = 1; // Replace with the actual count of unfinished questions
     updateUnfinishedMessage(unfinishedCount);
 </script>
+
 
     <script>  
 
