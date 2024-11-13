@@ -59,12 +59,16 @@
                                     </div>
                                 </div>
                             </form>
-                            <x-ajax-table title="Add Category" :coloumns="[
+
+                            {{-- <x-ajax-table title="Add Category" :coloumns="[
                                 ['th' => 'Date', 'name' => 'created_at', 'data' => 'date'],
                                 ['th' => 'Category', 'name' => 'name', 'data' => 'name'],
                                 ['th' => 'Visible', 'name' => 'visible_status', 'data' => 'visibility'],
-                            ]"  tableinit="cattableinit"   />
+                            ]"  tableinit="cattableinit"   /> --}}
+
                         </div>
+
+
                     </div>
                 </div>
             </div>
