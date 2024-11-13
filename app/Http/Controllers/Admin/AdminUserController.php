@@ -35,7 +35,7 @@ class AdminUserController extends Controller
 
         $admin->save();
 
-        redirect()->back()->with('success','Admin User Created Successfully');
+        return response()->json(['status' => 'success', 'message' => 'User created successfully!']);
        
     }
 }
