@@ -152,9 +152,8 @@
 @push('footer-script')
     <script>
        
-       $(function() {
-
              function SubmitUser() 
+
              {
              
                 $('.invalid-feedback').html('');
@@ -193,7 +192,6 @@
                     }
                 });
             }
-    });
 
 
        
