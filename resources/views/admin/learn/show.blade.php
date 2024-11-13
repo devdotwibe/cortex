@@ -53,6 +53,13 @@
 
 @push('footer-script')
     <script>
+
+$(function() {
+    setTimeout(function() {
+        $('table tr td p img').hide(); 
+    }, 500); 
+});
+
         var questiontable = null;
         function questiontableinit(table) {
             questiontable = table
