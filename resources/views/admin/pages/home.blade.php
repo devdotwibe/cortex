@@ -82,7 +82,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="title">Title</label>
+                                                        <label for="title">Title*</label>
                                                         <input type="text" name="title1" id="title"
                                                             value="{{ old('title', optional($banner)->title) }}"
                                                             class="form-control" placeholder="Title">
@@ -114,7 +114,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="buttonlabel">Button Label</label>
+                                                        <label for="buttonlabel">Button Label*</label>
                                                         <input type="text" name="buttonlabel" id="buttonlabel"
                                                             value="{{ old('buttonlabel', optional($banner)->buttonlabel) }}"
                                                             class="form-control" placeholder="Button Label">
@@ -130,7 +130,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="buttonlink">Button Link</label>
+                                                        <label for="buttonlink">Button Link*</label>
                                                         <input type="text" name="buttonlink" id="buttonlink"
                                                             value="{{ old('buttonlink', optional($banner)->buttonlink) }}"
                                                             class="form-control" placeholder="Button Link">
@@ -157,7 +157,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="content">Content</label>
+                                                        <label for="content">Content*</label>
                                                         <textarea name="content" id="content" class="form-control" rows="5">{{ old('content', optional($banner)->content) }}</textarea>
                                                         @error('content')
                                                             <div class="text-danger">{{ $message }}</div>
