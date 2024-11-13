@@ -288,7 +288,7 @@
 @push('footer-script') 
 
 <script>
-    // Function to display the correct message based on the count of unfinished questions
+    // Function to update and display the unfinished questions message
     function updateUnfinishedMessage(count) {
         const message = document.querySelector('.unfinish-message');
         const countElement = document.querySelector('.unfinish-count');
@@ -296,7 +296,7 @@
 
         if (count > 0) {
             countElement.textContent = count;
-            questionText.textContent = count === 1 ? 'question' : 'questions';
+            questionText.textContent = count > 1 ? 'questions' : 'question';
             message.style.display = 'block';
         } else {
             message.style.display = 'none';
@@ -304,7 +304,7 @@
     }
 
     // Example usage:
-    const unfinishedCount = 1; // Replace with the actual count of unfinished questions
+    const unfinishedCount = 2; // Replace with the actual count of unfinished questions
     updateUnfinishedMessage(unfinishedCount);
 </script>
     <script>  
