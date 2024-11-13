@@ -630,7 +630,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
         Route::get('/', [AdminUserController::class, 'index'])->name('index');
 
-        Route::post('/', [AdminUserController::class, 'store'])->name('store');
+        Route::post('/store', [AdminUserController::class, 'store'])->name('store');
 
     
     });
