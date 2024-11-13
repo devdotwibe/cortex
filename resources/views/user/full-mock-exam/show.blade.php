@@ -275,7 +275,7 @@
             <div class="modal-body"> 
                 <p>Do you want to submit this assessment?</p>
                 <p style="display:none" class="unfinish-message"> 
-                    You still have <span class="unfinish-count">0</span> unfinished <span class="question-label"></span>.
+                    You still have <span class="unfinish-count">0</span> unfinished ></span>.
                 </p>
                 <button type="button" onclick="lessonreviewconfirm()" class="btn btn-dark">Yes</button>
                 <button type="button" data-bs-dismiss="modal" class="btn btn-secondary">Cancel</button>
