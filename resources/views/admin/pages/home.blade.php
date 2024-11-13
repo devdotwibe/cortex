@@ -168,7 +168,6 @@
                                         </div>
 
                                        
-                                        
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <div class="form-data">
@@ -186,14 +185,18 @@
                                         </div>
                                         
                                         <!-- Image Preview Container with Delete Button -->
-                                        <div class="form-group" id="imgid1" style="display: none;"> <!-- Hide initially -->
+                                        <div class="form-group" id="imgid1" style="{{ isset($banner) && $banner->image ? '' : 'display: none;' }}"> <!-- Show if image exists -->
                                             <label for="imagePreview">Image Preview</label>
                                             <div id="imagePreviewContainer" style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px; position: relative;">
-                                                <img id="imagePreview" alt="Image Preview" style="width: 100%; height: auto;">
-                                                <button type="button" class="btn btn-danger" style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removeImage()">X</button>
+                                                <!-- Display the saved image or the new preview -->
+                                                <img id="imagePreview" src="{{ isset($banner) && $banner->image ? url('d0/' . $banner->image) : '' }}" alt="Image Preview" style="width: 100%; height: auto; display: {{ isset($banner) && $banner->image ? 'block' : 'none' }};">
+                                                
+                                                <!-- Delete button -->
+                                                <button type="button" class="btn btn-danger" style="position: absolute; top: 5px; right: 5px; {{ isset($banner) && $banner->image ? 'display: block;' : 'display: none;' }}" onclick="removeImage()">X</button>
                                             </div>
                                         </div>
                                         
+                               
 
                                         <div class="form-group" style="display: none;" id="imagePreview1">
                                             <label for="imagePreview">Image Preview</label>
@@ -2195,7 +2198,7 @@
 
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
                 <script>
-               function previewImage(event, previewId) {
+              function previewImage(event, previewId) {
     const reader = new FileReader();
     reader.onload = function() {
         // Display the selected image
@@ -2209,6 +2212,7 @@
     };
     reader.readAsDataURL(event.target.files[0]);
 }
+
                 </script>
 
                 <script>
