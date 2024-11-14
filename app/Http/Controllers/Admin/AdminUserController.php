@@ -26,7 +26,7 @@ class AdminUserController extends Controller
         if($request->ajax()){
 
             self::$defaultActions=["edit","delete"]; 
-            return $this->where('role','!=','master')->buildTable();
+            return $this->where('role','super')->buildTable();
         }
 
         return view('admin.admin_users.index');
