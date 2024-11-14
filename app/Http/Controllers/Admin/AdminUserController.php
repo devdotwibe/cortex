@@ -26,7 +26,7 @@ class AdminUserController extends Controller
     {
         if($request->ajax()){
 
-            self::$defaultActions=[""]; 
+            self::$defaultActions=["delete"]; 
             return $this->where('role','super')
             ->addAction(function($data){
                 return '                
@@ -47,7 +47,6 @@ class AdminUserController extends Controller
                             <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active" title="Edit">
                         </span>
                     </a>
-
                 ';
             })->buildTable();
         }
@@ -154,6 +153,21 @@ class AdminUserController extends Controller
         return response()->json([
             'message' => 'The Admin Permission Not Created.'
         ]);
+    }
+
+    
+    public function destroy($id)
+    {
+        $admin = Admin::find($id);
+
+        if ($admin) {
+           
+            $admin->delete();
+
+            return response()->json(['success' => true]);
+        }
+
+        return response()->json(['success' => false], 404);
     }
 
 
