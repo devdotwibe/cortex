@@ -28,9 +28,7 @@ class AdminPermission
 
         if ($admin->role !='master') {
 
-            dd($opt);
-          
-
+            
             if(!empty($admin->permission))
             {
                 switch ($opt) {
@@ -38,6 +36,8 @@ class AdminPermission
                     case 'users':
                        
                         if ($admin->permission->users != 'Y') {
+
+                            dd('test');
 
                             return redirect()->back()->with('error', 'You do not have permission to access Users.');
                         }
