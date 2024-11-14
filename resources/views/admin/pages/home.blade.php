@@ -420,41 +420,64 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <div class="form-data">
-                                                <div class="forms-inputs mb-4">
-                                                    <label for="preparetitle">Prepare Title*</label>
-                                                    <input type="text" name="preparetitle" id="preparetitle"
-                                                        value="{{ old('preparetitle', optional($banner)->preparetitle) }}"
-                                                        class="form-control" placeholder="Prepare Title">
-                                                    @error('preparetitle')
-                                                        <div class="text-danger">{{ $message }}</div>
-                                                    @enderror
+                                    <div class="sec numericalsectionclass">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="form-data">
+                                                    <div class="forms-inputs mb-4">
+                                                        <label for="preparetitle">Prepare Title*</label>
+                                                        <input type="text" name="preparetitle" id="preparetitle"
+                                                            value="{{ old('preparetitle', optional($banner)->preparetitle) }}"
+                                                            class="form-control" placeholder="Prepare Title">
+                                                        @error('preparetitle')
+                                                            <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <div class="form-data">
-                                                <div class="forms-inputs mb-4">
-                                                    <label for="prepareimage" class="file-upload">Prepare Image <br>
-                                                        <img src="{{ asset('assets/images/upfile.svg') }}"
-                                                            alt="Upload Icon"></label>
-                                                    <input type="file" name="prepareimage" id="prepareimage"
-                                                        value="{{ old('prepareimage', optional($banner)->prepareimage) }}"
-                                                        class="form-control" style="display: none;"
-                                                        onchange="previewImage(event, 'prepareImagePreview')">
-                                                    @error('prepareimage')
-                                                        <div class="text-danger">{{ $message }}</div>
-                                                    @enderror
+                                    
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="form-data">
+                                                    <div class="forms-inputs mb-4">
+                                                        <label for="prepareimage" class="file-upload">Prepare Image <br>
+                                                            <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
+                                                        </label>
+                                                        <input type="file" name="prepareimage" id="prepareimage"
+                                                            value="{{ old('prepareimage', optional($banner)->prepareimage) }}"
+                                                            class="form-control" style="display: none;"
+                                                            onchange="previewImage(event, 'prepareImagePreview', this)">
+                                                        @error('prepareimage')
+                                                            <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                    
+                                        <!-- Preview Prepare Image Container -->
+                                        <div class="form-group imgid4" id="imgid4" style="{{ isset($banner) && $banner->prepareimage ? '' : 'display: none;' }}">
+                                            <label for="prepareImagePreview">Prepare Image Preview</label>
+                                            <div id="prepareImagePreviewContainer" class="numericalclass"
+                                                style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px; position: relative;">
+                                                <!-- Image Preview -->
+                                                <img id="prepareImagePreview"
+                                                    src="{{ isset($banner) && $banner->prepareimage ? url('d0/' . $banner->prepareimage) : '' }}"
+                                                    alt="Prepare Image Preview"
+                                                    style="width: 100%; height: auto; display: {{ isset($banner) && $banner->prepareimage ? 'block' : 'none' }};">
+                                                <!-- Delete button for preview (before saving) -->
+                                                <button type="button" class="btn btn-danger imgid4" id="deleteicon4"
+                                                    style="position: absolute; top: 5px; right: 5px; display: none;"
+                                                    onclick="removePrepareImagePreview()">X</button>
+                                                <!-- Delete button for saved image -->
+                                                <button type="button" class="btn btn-danger" id="icondelete4"
+                                                    style="position: absolute; top: 5px; right: 5px; {{ isset($banner) && $banner->prepareimage ? 'display: block;' : 'display: none;' }}"
+                                                    onclick="removePrepareImage()">X</button>
+                                            </div>
+                                        </div>
                                     </div>
+                                    
 
 
 
@@ -2683,5 +2706,66 @@
 
 
 
-            </script>
+    // Function to preview the prepare image when a file is selected
+    function removePrepareImagePreview(event, previewId) {
+        const reader = new FileReader();
+
+        reader.onload = function() {
+            const output = document.getElementById(previewId);
+            output.src = reader.result;
+            output.style.display = 'block';
+
+            // Show the prepare image preview container and the preview delete button (prepareicondelete)
+            document.getElementById('imgid4').style.display = 'block';
+            document.getElementById('icondelete4').style.display = 'none'; // Hide saved delete button
+            document.getElementById('deleteicon4').style.display = 'block'; // Show preview delete button
+        };
+
+        if (event.target.files[0]) {
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    }
+
+    // Function to remove the prepare image preview when the preview delete button (preparedeleteicon) is clicked
+    function removePrepareImagePreview() {
+        // Clear the prepare image preview source and hide preview container and delete button
+        const output = document.getElementById('prepareImagePreview');
+        output.src = '';
+        output.style.display = 'none';
+
+        document.getElementById('imgid4').style.display = 'none';
+        document.getElementById('deleteicon4').style.display = 'none'; // Hide preview delete button
+    }
+</script>
+
+
+<script>
+
+function removePrepareImage() {
+    const imagePath = "{{ $banner->prepareimage }}"; // Set the correct image path for the prepareimage
+
+    // Send an AJAX request to delete the image
+    $.ajax({
+        type: 'POST',
+        url: '{{ route('admin.page.deletePrepareImage') }}', // Ensure this route matches the backend route for deleting prepareimage
+        data: {
+            _token: '{{ csrf_token() }}',
+            image_path: imagePath // Send the image path as part of the data
+        },
+        success: function(response) {
+            if (response.success) {
+                $('#imgid4').hide();
+                // Hide the image preview and the delete button
+                document.getElementById('prepareImagePreview').style.display = 'none';
+                document.querySelector('#imagePreviewContainer button.btn-danger').style.display = 'none';
+            } else {
+                alert('Image could not be deleted. Please try again.');
+            }
+        },
+        error: function(xhr) {
+            alert('An error occurred. Please try again.');
+        }
+    });
+}
+</script>
         @endpush

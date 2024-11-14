@@ -764,5 +764,29 @@ class PagesController extends Controller
         return response()->json(['success' => false, 'message' => 'Image file not found.'], 404);
     }
 
-    
+    public function deletePrepareImage(Request $request)
+{
+    $request->validate([
+        'image_path' => 'required|string',
+    ]);
+
+    $imagePath = $request->input('image_path');
+
+    if (Storage::exists($imagePath)) {
+        // Delete the image from storage
+        Storage::delete($imagePath);
+
+        // Find the Banner and update the image field
+        $banner = Banner::first(); // Adjust as needed
+        if ($banner && $banner->prepareimage === $imagePath) {
+            $banner->prepareimage = null;
+            $banner->save();
+        }
+
+        return response()->json(['success' => true, 'message' => 'Image deleted successfully']);
+    }
+
+    return response()->json(['success' => false, 'message' => 'Image file not found.'], 404);
+}
+
 }
