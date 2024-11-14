@@ -67,4 +67,10 @@ class AdminUserController extends Controller
         return response()->json(['status' => 'success', 'message' => 'User created successfully!']);
        
     }
+
+    function save_permission(Request $request)
+    {
+
+        dd($request);
+    }
 }
