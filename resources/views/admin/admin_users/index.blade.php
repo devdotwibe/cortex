@@ -314,7 +314,7 @@
                         
                         if (response.status === 'success') {
                            
-                            showToast(response.message);
+                            showToast(response.message, 'success');
                         
                             $('#admin_user_form')[0].reset();
                         } 
@@ -466,7 +466,7 @@
 
                             $('#edit_admin_user_form')[0].reset();
 
-                            showToast(response.message);
+                            showToast(response.message, 'success');
                         } 
                     },
                     error: function(xhr) {
