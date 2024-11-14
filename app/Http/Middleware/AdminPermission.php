@@ -37,6 +37,8 @@ class AdminPermission
                        
                         if ($admin->permission->users != 'Y') {
 
+                            dd('test');
+
                             return redirect()->back()->with('error', 'You do not have permission to access Users.');
                         }
                         break;
