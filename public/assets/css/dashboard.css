@@ -6303,7 +6303,7 @@ nav.navbar.header-class {
 
 .exam-container.questionclass.answerclass .container-wrap {
     min-height: calc(100vh - 158px);
-    padding-bottom: 5.54em !important;
+    padding-bottom: 0 !important;
 }
 
 .modal-expand.modal-expand-result .container-wrap {
