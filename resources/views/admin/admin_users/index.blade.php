@@ -314,13 +314,10 @@
                         
                         if (response.status === 'success') {
                            
-                            alert('User added successfully!');
+                            showToast(response.message, 'success',{ autohide: true ,delay:3000 });
                         
                             $('#admin_user_form')[0].reset();
-                        } else {
-                           
-                            alert('Something went wrong, please try again.');
-                        }
+                        } 
                     },
                     error: function(xhr) {
                      
@@ -465,9 +462,11 @@
                         
                         if (response.status === 'success') {
                             
-                            alert('User Updatd successfully!');
-                        
+                            $('#edit_admin_user_modal').modal('hide');
+
                             $('#edit_admin_user_form')[0].reset();
+
+                            showToast(response.message, 'success',{ autohide: true ,delay:3000 });
                         } 
                     },
                     error: function(xhr) {
