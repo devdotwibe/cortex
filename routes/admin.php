@@ -632,6 +632,10 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
         Route::post('/store', [AdminUserController::class, 'store'])->name('store');
 
+        Route::post('/edit', [AdminUserController::class, 'edit'])->name('edit');
+
+        Route::delete('/destroy', [AdminUserController::class, 'destroy'])->name('destroy');
+
     
     });
 

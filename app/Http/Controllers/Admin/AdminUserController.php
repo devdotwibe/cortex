@@ -25,7 +25,7 @@ class AdminUserController extends Controller
     {
         if($request->ajax()){
 
-            self::$defaultActions=['']; 
+            self::$defaultActions=["edit","delete"]; 
             return $this->addAction(function($data){
                 return '
                
