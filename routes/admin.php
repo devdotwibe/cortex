@@ -214,46 +214,30 @@ Route::name('admin.')->prefix('admin')->group(function(){
         });
 
 
-        Route::prefix('community')->name('community.')->group(function () {
-            Route::get('/', [CommunityControllerController::class, 'index'])->name('index');
-            Route::resource('/post', CommunityControllerController::class);
+        Route::middleware(['AdminPermission:community'])->group(function () {
 
-            Route::get('/search', [CommunityControllerController::class, 'search'])->name('search');
+            Route::prefix('community')->name('community.')->group(function () {
+                Route::get('/', [CommunityControllerController::class, 'index'])->name('index');
+                Route::resource('/post', CommunityControllerController::class);
 
-            Route::get('/hashtags', [HashtagController::class,'hashtags'])->name('hashtags');
-            Route::post('/hashtags/store', [HashtagController::class, 'store'])->name('hashtags.store');
-            Route::get('/hashtags/{hashtag}/edit', [HashtagController::class, 'edit'])->name('hashtags.edit'); // Adjusted for clarity
-            Route::post('/hashtags/{hashtag}', [HashtagController::class, 'update'])->name('hashtags.update'); // Added update route
-            // Route::get('/{hashtags}/edit',[HashtagController::class,'edit'])->name('hashtags.edit');
-            Route::delete('/{hashtags}',[HashtagController::class,'destroy'])->name('hashtags.destroy');
+                Route::get('/search', [CommunityControllerController::class, 'search'])->name('search');
 
-            Route::get('/report-post', [PostReportController::class,'index'])->name('report.index');
-            Route::delete('/report-post/{report_post}', [PostReportController::class,'destroy'])->name('report.destroy');
-            Route::get('/report-post/{report_post}', [PostReportController::class,'show'])->name('report.show');
-            Route::get('/report-post/{user}/ban-user', [PostReportController::class,'banuser'])->name('report.banuser');
-            Route::get('/report-post/{post}/block-post', [PostReportController::class,'hidepost'])->name('report.hidepost');
+                Route::get('/hashtags', [HashtagController::class,'hashtags'])->name('hashtags');
+                Route::post('/hashtags/store', [HashtagController::class, 'store'])->name('hashtags.store');
+                Route::get('/hashtags/{hashtag}/edit', [HashtagController::class, 'edit'])->name('hashtags.edit'); // Adjusted for clarity
+                Route::post('/hashtags/{hashtag}', [HashtagController::class, 'update'])->name('hashtags.update'); // Added update route
+        
+                Route::delete('/{hashtags}',[HashtagController::class,'destroy'])->name('hashtags.destroy');
+                Route::get('/report-post', [PostReportController::class,'index'])->name('report.index');
+                Route::delete('/report-post/{report_post}', [PostReportController::class,'destroy'])->name('report.destroy');
+                Route::get('/report-post/{report_post}', [PostReportController::class,'show'])->name('report.show');
+                Route::get('/report-post/{user}/ban-user', [PostReportController::class,'banuser'])->name('report.banuser');
+                Route::get('/report-post/{post}/block-post', [PostReportController::class,'hidepost'])->name('report.hidepost');
 
-
-
-            
-            
-            Route::get('/post/{post}/comment/{post_comment}/reply', [CommunityControllerController::class, 'postCommentReplay'])->name('post.comment.reply');
-            Route::delete('/post/{post}/comment/{post_comment}/delete', [CommunityControllerController::class, 'commentDestroy'])->name('post.comment.destroy');
-            
-           
-            
-
-            // Routes for hashtags management
-    // Route::get('/hashtags', [CommunityControllerController::class, 'index'])->name('hashtags.index');
-    // Route::post('/hashtags', [CommunityControllerController::class, 'store'])->name('hashtags.store');
-    // Route::delete('/hashtags/{hashtag}', [CommunityControllerController::class, 'destroy'])->name('hashtags.destroy');
-
-    // // Route to view posts by hashtag
-    // Route::get('/posts/hashtag/{hashtag}', [CommunityControllerController::class, 'postsByHashtag'])->name('posts.byHashtag');
-
-
-    
-
+                Route::get('/post/{post}/comment/{post_comment}/reply', [CommunityControllerController::class, 'postCommentReplay'])->name('post.comment.reply');
+                Route::delete('/post/{post}/comment/{post_comment}/delete', [CommunityControllerController::class, 'commentDestroy'])->name('post.comment.destroy');
+                
+            });
         });
 
         
@@ -448,44 +432,43 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::post('/store',[SettingsController::class,'store'])->name('store');
     });
 
-    Route::prefix('page')->name('page.')->group(function () {
-        Route::get('/', [PagesController::class, 'index'])->name('index');
-        Route::get('/create', [PagesController::class, 'create'])->name('create');
-        Route::post('/', [PagesController::class, 'store'])->name('store');
-        Route::post('/section2', [PagesController::class, 'storeSection2'])->name('section2');
-        Route::post('/section3', [PagesController::class, 'storeSection3'])->name('section3');
-        // Route::post('/section4', [PagesController::class, 'storeSection4'])->name('section4'); // Add this line// Add this line
-        Route::post('/section5', [PagesController::class, 'storeSection5'])->name('section4');
-        Route::post('/section6', [PagesController::class, 'storeSection6'])->name('section5');
-        Route::post('/section8', [PagesController::class, 'storeSection8'])->name('section6');
-        Route::post('/section9', [PagesController::class, 'storeSection9'])->name('section7');
-        Route::post('/section10', [PagesController::class, 'storeSection10'])->name('section8');
-        Route::get('/{setname}/edit', [PagesController::class, 'edit'])->name('edit');
-        Route::put('/{setname}', [PagesController::class, 'update'])->name('update');
-        Route::get('/{setname}', [PagesController::class, 'show'])->name('show');
-        Route::delete('/{setname}', [PagesController::class, 'destroy'])->name('destroy');
-        Route::get('/{setname}/visibility', [PagesController::class, 'visibility'])->name('visibility');
+    Route::middleware(['AdminPermission:admin_user'])->group(function () {
 
-        Route::delete('/admin/page/feature/{id}', [PagesController::class, 'destroy'])->name('feature.destroy');
+        Route::prefix('page')->name('page.')->group(function () {
+            Route::get('/', [PagesController::class, 'index'])->name('index');
+            Route::get('/create', [PagesController::class, 'create'])->name('create');
+            Route::post('/', [PagesController::class, 'store'])->name('store');
+            Route::post('/section2', [PagesController::class, 'storeSection2'])->name('section2');
+            Route::post('/section3', [PagesController::class, 'storeSection3'])->name('section3');
+            // Route::post('/section4', [PagesController::class, 'storeSection4'])->name('section4'); // Add this line// Add this line
+            Route::post('/section5', [PagesController::class, 'storeSection5'])->name('section4');
+            Route::post('/section6', [PagesController::class, 'storeSection6'])->name('section5');
+            Route::post('/section8', [PagesController::class, 'storeSection8'])->name('section6');
+            Route::post('/section9', [PagesController::class, 'storeSection9'])->name('section7');
+            Route::post('/section10', [PagesController::class, 'storeSection10'])->name('section8');
+            Route::get('/{setname}/edit', [PagesController::class, 'edit'])->name('edit');
+            Route::put('/{setname}', [PagesController::class, 'update'])->name('update');
+            Route::get('/{setname}', [PagesController::class, 'show'])->name('show');
+            Route::delete('/{setname}', [PagesController::class, 'destroy'])->name('destroy');
+            Route::get('/{setname}/visibility', [PagesController::class, 'visibility'])->name('visibility');
 
-
-        // Add the deleteImage route
-    Route::post('/delete-image', [PagesController::class, 'deleteImage'])->name('deleteImage');
-    Route::post('/delete-learn-image', [PagesController::class, 'deleteLearnImage'])->name('deleteLearnImage');
-    Route::post('/delete-practise-image', [PagesController::class, 'deletePractiseImage'])->name('deletePractiseImage');
-    Route::post('/delete-prepare-image', [PagesController::class, 'deletePrepareImage'])->name('deletePrepareImage');
-    Route::post('/delete-review-image', [PagesController::class, 'deleteReviewImage'])->name('deleteReviewImage');
-    Route::post('/delete-excel-image', [PagesController::class, 'deleteExcelImage'])->name('deleteExcelImage');
-
-    Route::post('/delete-analytics-image', [PagesController::class, 'deleteAnalyticsImage'])->name('deleteAnalyticsImage');
-    Route::post('/delete-anytime-image', [PagesController::class, 'deleteAnytimeImage'])->name('deleteAnytimeImage');
-    Route::post('/delete-unlimited-image', [PagesController::class, 'deleteUnlimitedImage'])->name('deleteUnlimitedImage');
-    Route::post('/delete-live-image', [PagesController::class, 'deleteLiveImage'])->name('deleteLiveImage');
+            Route::delete('/admin/page/feature/{id}', [PagesController::class, 'destroy'])->name('feature.destroy');
 
 
+            // Add the deleteImage route
+            Route::post('/delete-image', [PagesController::class, 'deleteImage'])->name('deleteImage');
+            Route::post('/delete-learn-image', [PagesController::class, 'deleteLearnImage'])->name('deleteLearnImage');
+            Route::post('/delete-practise-image', [PagesController::class, 'deletePractiseImage'])->name('deletePractiseImage');
+            Route::post('/delete-prepare-image', [PagesController::class, 'deletePrepareImage'])->name('deletePrepareImage');
+            Route::post('/delete-review-image', [PagesController::class, 'deleteReviewImage'])->name('deleteReviewImage');
+            Route::post('/delete-excel-image', [PagesController::class, 'deleteExcelImage'])->name('deleteExcelImage');
 
+            Route::post('/delete-analytics-image', [PagesController::class, 'deleteAnalyticsImage'])->name('deleteAnalyticsImage');
+            Route::post('/delete-anytime-image', [PagesController::class, 'deleteAnytimeImage'])->name('deleteAnytimeImage');
+            Route::post('/delete-unlimited-image', [PagesController::class, 'deleteUnlimitedImage'])->name('deleteUnlimitedImage');
+            Route::post('/delete-live-image', [PagesController::class, 'deleteLiveImage'])->name('deleteLiveImage');
 
-
+        });
     });
 
     Route::get('/set/view', [PagesController::class, 'set_table_show'])->name('set_table.show');
