@@ -78,6 +78,28 @@ class AdminUserController extends Controller
        
     }
 
+    
+    public function update_admin_user (Request $request)
+    {
+       
+        $request->validate([
+
+            "password"=>["required",'string'],
+            "conform_password" => ["required","same:password"]
+        ]);
+
+        $admin = Admin::find($request->admin_id);
+        if($admin)
+        {
+            $admin->password = Hash::make($request->password);
+            $admin->save();
+    
+            return response()->json(['status' => 'success', 'message' => 'User Updated successfully!']);
+        }
+       
+        return response()->json(['status' => 'success', 'message' => 'Something Error!']);
+    }
+
     function save_permission(Request $request)
     {
         $id = $request->id;
