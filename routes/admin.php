@@ -453,8 +453,6 @@ Route::name('admin.')->prefix('admin')->group(function(){
     Route::post('/delete-practise-image', [PagesController::class, 'deletePractiseImage'])->name('deletePractiseImage');
     Route::post('/delete-prepare-image', [PagesController::class, 'deletePrepareImage'])->name('deletePrepareImage');
     Route::post('/delete-review-image', [PagesController::class, 'deleteReviewImage'])->name('deleteReviewImage');
-    Route::post('/delete-excel-image', [PagesController::class, 'deleteExcelImage'])->name('deleteExcelImage');
-
 
 
     });
@@ -633,7 +631,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
     });
 
 
-    Route::middleware([AdminPermission::class . ':admin_user'])->group(function () {
+    Route::middleware(['AdminPermission:admin_user'])->group(function () {
 
             Route::prefix('admin_user')->name('admin_user.')->group(function () {
 

@@ -9,32 +9,19 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AdminPermission
 {
-
-    protected $parameter;
-
-    /**
-     * AdminPermission constructor.
-     * 
-     * @param string $parameter
-     */
-    public function __construct($parameter)
-    {
-        $this->parameter = $parameter;  // Store the parameter
-    }
-
     /**
      * Handle an incoming request.
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next ,...$opt): Response
     {
           /**
          * @var Admin
          */
 
-         dd($this->parameter);
-         
+         dd($opt);
+
         $admin = Auth::guard('admin')->user();
 
          if ($admin->role !='master') {
