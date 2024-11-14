@@ -101,36 +101,37 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::prefix('subscriber')->name('subscriber.')->group(function () {
             Route::get('/',[SubscribeUsersController::class,'index'])->name('index');
         });
-        Route::prefix('coupon')->name('coupon.')->group(function () {
-            Route::get('/',[CouponController::class,'index'])->name('index');
-            Route::get('/create',[CouponController::class,'create'])->name('create');
-            Route::post('/store',[CouponController::class,'store'])->name('store');
-            Route::get('/{coupon_offer}/show',[CouponController::class,'show'])->name('show');
-            Route::get('/{coupon_offer}/edit',[CouponController::class,'edit'])->name('edit');
-            Route::put('/{coupon_offer}/update',[CouponController::class,'update'])->name('update');
-            Route::delete('/{coupon_offer}/destroy',[CouponController::class,'destroy'])->name('destroy');
-
-
-            Route::post('/setting',[CouponController::class,'setting'])->name('setting');
-
-        });
-
+       
         Route::middleware(['AdminPermission:options'])->group(function () {
 
-        Route::prefix('payment-price')->name('payment-price.')->group(function () {
-            Route::get('/',[SubscriptionPaymentController::class,'index'])->name('index');
-            Route::post('/',[SubscriptionPaymentController::class,'store'])->name('store');
-            Route::post('/section-1', [SubscriptionPaymentController::class, 'storesection1'])->name('section1');
-            Route::post('/section-3', [SubscriptionPaymentController::class, 'storesection3'])->name('section3');
-            Route::post('/section-4', [SubscriptionPaymentController::class, 'storesection4'])->name('section4');
-            Route::put('/{subscription_plan}/update',[SubscriptionPaymentController::class,'update'])->name('update');
-            Route::delete('/{subscription_plan}/destroy',[SubscriptionPaymentController::class,'destroy'])->name('destroy');
-
-            Route::post('/delete-image', [SubscriptionPaymentController::class, 'deleteImage'])->name('deleteImage');
-            Route::post('/delete-feeling-image', [SubscriptionPaymentController::class, 'deleteFeelingImage'])->name('deleteFeelingImage');
-            Route::post('/payment-price/delete-image', [SubscriptionPaymentController::class, 'deleteImage2'])->name('deleteImage2');
-
+            Route::prefix('coupon')->name('coupon.')->group(function () {
+                Route::get('/',[CouponController::class,'index'])->name('index');
+                Route::get('/create',[CouponController::class,'create'])->name('create');
+                Route::post('/store',[CouponController::class,'store'])->name('store');
+                Route::get('/{coupon_offer}/show',[CouponController::class,'show'])->name('show');
+                Route::get('/{coupon_offer}/edit',[CouponController::class,'edit'])->name('edit');
+                Route::put('/{coupon_offer}/update',[CouponController::class,'update'])->name('update');
+                Route::delete('/{coupon_offer}/destroy',[CouponController::class,'destroy'])->name('destroy');
+    
+    
+                Route::post('/setting',[CouponController::class,'setting'])->name('setting');
+    
             });
+
+            Route::prefix('payment-price')->name('payment-price.')->group(function () {
+                Route::get('/',[SubscriptionPaymentController::class,'index'])->name('index');
+                Route::post('/',[SubscriptionPaymentController::class,'store'])->name('store');
+                Route::post('/section-1', [SubscriptionPaymentController::class, 'storesection1'])->name('section1');
+                Route::post('/section-3', [SubscriptionPaymentController::class, 'storesection3'])->name('section3');
+                Route::post('/section-4', [SubscriptionPaymentController::class, 'storesection4'])->name('section4');
+                Route::put('/{subscription_plan}/update',[SubscriptionPaymentController::class,'update'])->name('update');
+                Route::delete('/{subscription_plan}/destroy',[SubscriptionPaymentController::class,'destroy'])->name('destroy');
+
+                Route::post('/delete-image', [SubscriptionPaymentController::class, 'deleteImage'])->name('deleteImage');
+                Route::post('/delete-feeling-image', [SubscriptionPaymentController::class, 'deleteFeelingImage'])->name('deleteFeelingImage');
+                Route::post('/payment-price/delete-image', [SubscriptionPaymentController::class, 'deleteImage2'])->name('deleteImage2');
+
+                });
         });
 
 
