@@ -86,7 +86,10 @@ Route::name('admin.')->prefix('admin')->group(function(){
         });
 
 
-        Route::resource("/exam",ExamController::class);
+        Route::middleware(['AdminPermission:exam_simulator'])->group(function () {
+
+            Route::resource("/exam",ExamController::class);
+        });
 
         Route::middleware(['AdminPermission:options'])->group(function () {
 
@@ -101,36 +104,37 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::prefix('subscriber')->name('subscriber.')->group(function () {
             Route::get('/',[SubscribeUsersController::class,'index'])->name('index');
         });
-        Route::prefix('coupon')->name('coupon.')->group(function () {
-            Route::get('/',[CouponController::class,'index'])->name('index');
-            Route::get('/create',[CouponController::class,'create'])->name('create');
-            Route::post('/store',[CouponController::class,'store'])->name('store');
-            Route::get('/{coupon_offer}/show',[CouponController::class,'show'])->name('show');
-            Route::get('/{coupon_offer}/edit',[CouponController::class,'edit'])->name('edit');
-            Route::put('/{coupon_offer}/update',[CouponController::class,'update'])->name('update');
-            Route::delete('/{coupon_offer}/destroy',[CouponController::class,'destroy'])->name('destroy');
-
-
-            Route::post('/setting',[CouponController::class,'setting'])->name('setting');
-
-        });
-
+       
         Route::middleware(['AdminPermission:options'])->group(function () {
 
-        Route::prefix('payment-price')->name('payment-price.')->group(function () {
-            Route::get('/',[SubscriptionPaymentController::class,'index'])->name('index');
-            Route::post('/',[SubscriptionPaymentController::class,'store'])->name('store');
-            Route::post('/section-1', [SubscriptionPaymentController::class, 'storesection1'])->name('section1');
-            Route::post('/section-3', [SubscriptionPaymentController::class, 'storesection3'])->name('section3');
-            Route::post('/section-4', [SubscriptionPaymentController::class, 'storesection4'])->name('section4');
-            Route::put('/{subscription_plan}/update',[SubscriptionPaymentController::class,'update'])->name('update');
-            Route::delete('/{subscription_plan}/destroy',[SubscriptionPaymentController::class,'destroy'])->name('destroy');
-
-            Route::post('/delete-image', [SubscriptionPaymentController::class, 'deleteImage'])->name('deleteImage');
-            Route::post('/delete-feeling-image', [SubscriptionPaymentController::class, 'deleteFeelingImage'])->name('deleteFeelingImage');
-            Route::post('/payment-price/delete-image', [SubscriptionPaymentController::class, 'deleteImage2'])->name('deleteImage2');
-
+            Route::prefix('coupon')->name('coupon.')->group(function () {
+                Route::get('/',[CouponController::class,'index'])->name('index');
+                Route::get('/create',[CouponController::class,'create'])->name('create');
+                Route::post('/store',[CouponController::class,'store'])->name('store');
+                Route::get('/{coupon_offer}/show',[CouponController::class,'show'])->name('show');
+                Route::get('/{coupon_offer}/edit',[CouponController::class,'edit'])->name('edit');
+                Route::put('/{coupon_offer}/update',[CouponController::class,'update'])->name('update');
+                Route::delete('/{coupon_offer}/destroy',[CouponController::class,'destroy'])->name('destroy');
+    
+    
+                Route::post('/setting',[CouponController::class,'setting'])->name('setting');
+    
             });
+
+            Route::prefix('payment-price')->name('payment-price.')->group(function () {
+                Route::get('/',[SubscriptionPaymentController::class,'index'])->name('index');
+                Route::post('/',[SubscriptionPaymentController::class,'store'])->name('store');
+                Route::post('/section-1', [SubscriptionPaymentController::class, 'storesection1'])->name('section1');
+                Route::post('/section-3', [SubscriptionPaymentController::class, 'storesection3'])->name('section3');
+                Route::post('/section-4', [SubscriptionPaymentController::class, 'storesection4'])->name('section4');
+                Route::put('/{subscription_plan}/update',[SubscriptionPaymentController::class,'update'])->name('update');
+                Route::delete('/{subscription_plan}/destroy',[SubscriptionPaymentController::class,'destroy'])->name('destroy');
+
+                Route::post('/delete-image', [SubscriptionPaymentController::class, 'deleteImage'])->name('deleteImage');
+                Route::post('/delete-feeling-image', [SubscriptionPaymentController::class, 'deleteFeelingImage'])->name('deleteFeelingImage');
+                Route::post('/payment-price/delete-image', [SubscriptionPaymentController::class, 'deleteImage2'])->name('deleteImage2');
+
+                });
         });
 
 
@@ -147,7 +151,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::post('/{exam}/import',[FullMockExamController::class,'importquestion'])->name('import');
         });
       
-        Route::middleware(['AdminPermission:options'])->group(function () {
+        Route::middleware(['AdminPermission:question_bank'])->group(function () {
 
             Route::prefix('question-bank')->name('question-bank.')->group(function () {
                 Route::get('/',[QuestionBankController::class,'index'])->name('index');
@@ -166,20 +170,26 @@ Route::name('admin.')->prefix('admin')->group(function(){
             });
         });
 
-        Route::prefix('topic-test')->name('topic-test.')->group(function () {
-            Route::get('/',[TopicTestController::class,'index'])->name('index');
-            Route::post('/subtitle',[TopicTestController::class,'subtitle'])->name('subtitle');
-            Route::get('/{category}',[TopicTestController::class,'show'])->name('show');
+        Route::middleware(['AdminPermission:exam_simulator'])->group(function () {
 
-            Route::post('/topic-test/bulk/action',[TopicTestController::class,'bulkaction'])->name('bulkaction');
+            Route::prefix('topic-test')->name('topic-test.')->group(function () {
+
+                Route::get('/',[TopicTestController::class,'index'])->name('index');
+                Route::post('/subtitle',[TopicTestController::class,'subtitle'])->name('subtitle');
+                Route::get('/{category}',[TopicTestController::class,'show'])->name('show');
+
+                Route::post('/topic-test/bulk/action',[TopicTestController::class,'bulkaction'])->name('bulkaction');
 
 
-            Route::get('/{category}/create',[TopicTestController::class,'create'])->name('create');
-            Route::get('/{category}/{question}/edit',[TopicTestController::class,'edit'])->name('edit');
-            Route::post('/{category}/store',[TopicTestController::class,'store'])->name('store');
-            Route::post('/{category}/updatetime',[TopicTestController::class,'updatetime'])->name('updatetime');
-            Route::post('/{category}/import',[TopicTestController::class,'importquestion'])->name('import');
+                Route::get('/{category}/create',[TopicTestController::class,'create'])->name('create');
+                Route::get('/{category}/{question}/edit',[TopicTestController::class,'edit'])->name('edit');
+                Route::post('/{category}/store',[TopicTestController::class,'store'])->name('store');
+                Route::post('/{category}/updatetime',[TopicTestController::class,'updatetime'])->name('updatetime');
+                Route::post('/{category}/import',[TopicTestController::class,'importquestion'])->name('import');
+            });
         });
+
+
         Route::resource("/question",QuestionController::class);
         Route::get('/question/{question}/visibility',[QuestionController::class,'visibility'])->name('question.visibility');
         // Route::resource("/learn",LearnController::class);
@@ -298,30 +308,33 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
         Route::post('/set/store/{slug}',[SetController::class,'set_store'])->name('set.set_store');
 
-        Route::prefix('live-class')->name('live-class.')->group(function () {
+        Route::middleware(['AdminPermission:live_teaching'])->group(function () {
 
-            Route::get('/',[LiveClassController::class,'index'])->name('index');
+            Route::prefix('live-class')->name('live-class.')->group(function () {
 
-            Route::post('/',[LiveClassController::class,'store'])->name('store');
+                Route::get('/',[LiveClassController::class,'index'])->name('index');
 
-            Route::post('/private/class/{private_class}/requests/update',[LiveClassController::class,'private_class_request_update'])->name('request.update');
-            Route::get('/private/class/{private_class}/requests/show',[LiveClassController::class,'private_class_request_show'])->name('request.show');
-            Route::post('/private/class/{private_class}/requests/accept',[LiveClassController::class,'private_class_request_accept'])->name('request.accept');
-            Route::post('/private/class/{private_class}/requests/reject',[LiveClassController::class,'private_class_request_reject'])->name('request.reject');
-            Route::get('/private/class/{private_class}/requests/status',[LiveClassController::class,'private_class_request_status'])->name('request.status');
+                Route::post('/',[LiveClassController::class,'store'])->name('store');
 
-            Route::post('/private/class/bulk-update',[LiveClassController::class,'bulkupdate'])->name('request.bulkupdate');
-            Route::post('/private/class/bulk-action',[LiveClassController::class,'bulkaction'])->name('request.bulkaction');
-            Route::delete('/private/class/{private_class}/requests',[LiveClassController::class,'private_class_request_destroy'])->name('request.destroy');
-            Route::get('/private/class/requests',[LiveClassController::class,'private_class_request'])->name('private_class_request');
-            Route::get('/private/class/requests/export',[LiveClassController::class,'private_class_request_export'])->name('private_class_request_export');
+                Route::post('/private/class/{private_class}/requests/update',[LiveClassController::class,'private_class_request_update'])->name('request.update');
+                Route::get('/private/class/{private_class}/requests/show',[LiveClassController::class,'private_class_request_show'])->name('request.show');
+                Route::post('/private/class/{private_class}/requests/accept',[LiveClassController::class,'private_class_request_accept'])->name('request.accept');
+                Route::post('/private/class/{private_class}/requests/reject',[LiveClassController::class,'private_class_request_reject'])->name('request.reject');
+                Route::get('/private/class/{private_class}/requests/status',[LiveClassController::class,'private_class_request_status'])->name('request.status');
 
-            Route::post('/private/class',[LiveClassController::class,'private_class'])->name('private_class');
+                Route::post('/private/class/bulk-update',[LiveClassController::class,'bulkupdate'])->name('request.bulkupdate');
+                Route::post('/private/class/bulk-action',[LiveClassController::class,'bulkaction'])->name('request.bulkaction');
+                Route::delete('/private/class/{private_class}/requests',[LiveClassController::class,'private_class_request_destroy'])->name('request.destroy');
+                Route::get('/private/class/requests',[LiveClassController::class,'private_class_request'])->name('private_class_request');
+                Route::get('/private/class/requests/export',[LiveClassController::class,'private_class_request_export'])->name('private_class_request_export');
 
-            Route::get('/private/class',[LiveClassController::class,'private_class_create'])->name('private_class_create');
+                Route::post('/private/class',[LiveClassController::class,'private_class'])->name('private_class');
 
-            Route::post('/intensive/class',[LiveClassController::class,'intensive_class'])->name('intensive_class');
+                Route::get('/private/class',[LiveClassController::class,'private_class_create'])->name('private_class_create');
 
+                Route::post('/intensive/class',[LiveClassController::class,'intensive_class'])->name('intensive_class');
+
+            });
         });
 
         Route::prefix('term')->name('term.')->group(function () {

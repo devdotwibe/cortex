@@ -5236,6 +5236,10 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
     display: none;
 }
 
+.private_section .row .col-md-6.privateclass {
+    max-width: 440px;
+}
+
 #live-private-modal .modal-dialog {
     max-width: 1000px;
 }
