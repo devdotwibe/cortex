@@ -13,21 +13,21 @@
             <div class="container-wrap">
                 <div class="row">
                     <div class="card">
-                        <div class="card-body">
-                            <form class="form" id="table-category-form-create" data-save="create"
-                                data-action="{{ route('admin.category.store') }}">
+                        <div class="card-body"> 
+
+                            <form class="form" method="post" action="{{ route('admin.admin_user.store') }}" id="admin_user_form" >
+                                
                                 @csrf
                                 <div class="row">
-
 
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <div class="form-data">
                                                 <div class="forms-inputs mb-4">
-                                                    <label for="admin_email">Email</label>
-                                                    <input type="text" name="email"  id="admin_email" class="form-control ">
+                                                    <label for="email">Email</label>
+                                                    <input type="text" name="email"  id="email" class="form-control ">
                                                        
-                                                    <div class="invalid-feedback"  id="admin_email_error"></div>
+                                                    <div class="invalid-feedback"  id="email_error"></div>
 
                                                 </div>
 
@@ -39,7 +39,7 @@
                                         <div class="form-group">
                                             <div class="form-data">
                                                 <div class="forms-inputs mb-4">
-                                                    <label for="admin_email">Password</label>
+                                                    <label for="password">Password</label>
                                                     <input type="text" name="password"  id="password" class="form-control ">
                                                        
                                                     <div class="invalid-feedback"  id="password_error"></div>
@@ -50,22 +50,32 @@
                                         </div>
                                     </div>
 
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="form-data">
+                                                <div class="forms-inputs mb-4">
+                                                    <label for="conform_password">Conform Password</label>
+                                                    <input type="text" name="conform_password"  id="conform_password" class="form-control ">
+                                                       
+                                                    <div class="invalid-feedback"  id="conform_password_error"></div>
+
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+
 
                                     <div class="col-md-4 pt-4">
-                                        <button type="submit" class="btn btn-dark" id="table-category-form-submit"> Add +
+                                        <button type="button" class="btn btn-dark" id="admin_user_btn" onclick="SubmitUser()"> Add +
                                         </button>
                                         <button type="button" class="btn btn-secondary" style="display: none"
-                                            id="table-category-form-clear">Cancel</button>
+                                            id="admin_btn">Cancel</button>
                                     </div>
                                 </div>
                             </form>
 
-                            {{-- <x-ajax-table title="Add Category" :coloumns="[
-                                ['th' => 'Date', 'name' => 'created_at', 'data' => 'date'],
-                                ['th' => 'Category', 'name' => 'name', 'data' => 'name'],
-                                ['th' => 'Visible', 'name' => 'visible_status', 'data' => 'visibility'],
-                            ]"  tableinit="cattableinit"   /> --}}
-
+                         
                         </div>
 
 
@@ -137,6 +147,49 @@
 @push('footer-script')
     <script>
        
+             function SubmitUser() 
+
+             {
+             
+                $('.invalid-feedback').html('');
+
+                $('.form-control').removeClass('is-invalid');
+
+                var formElement = $('#admin_user_form')[0]; 
+
+                var formData = new FormData(formElement);
+
+                $.ajax({
+                    url: $('#admin_user_form').attr('action'),  
+                    type: 'POST', 
+                    data: formData,  
+                    processData: false, 
+                    contentType: false, 
+                    success: function(response) {
+                        
+                        if (response.status === 'success') {
+                           
+                            alert('User added successfully!');
+                        
+                            $('#admin_user_form')[0].reset();
+                        } else {
+                           
+                            alert('Something went wrong, please try again.');
+                        }
+                    },
+                    error: function(xhr) {
+                     
+                        var errors = xhr.responseJSON.errors;
+                        if (errors) {
+                         
+                            $.each(errors, function(field, message) {
+                                $('#' + field + '_error').html(message);
+                                $('#' + field).addClass('is-invalid');
+                            });
+                        }
+                    }
+                });
+            }
 
 
        
