@@ -1919,10 +1919,9 @@
 
 
 
-                                        <div class="col-md-12">
+                                        {{-- <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="image" class="file-upload"> Upload Image <br>
-                                                    <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon"></label>
+                                                <label for="image">Image</label>
                                                 <input type="hidden" name="feedids[]" value="">
                                                 <input type="file" name="image[]" class="form-control"
                                                     onchange="previewFeatureImage(event)">
@@ -1931,10 +1930,10 @@
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
-                                        </div>
+                                        </div> --}}
 
 
-                                        {{-- <div class="col-md-12">
+                                        <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="image" class="file-upload">
                                                     Upload Image
@@ -1948,7 +1947,7 @@
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
-                                        </div> --}}
+                                        </div>
                                         
 
 
