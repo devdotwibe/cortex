@@ -57,7 +57,11 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::get('/upload/{tag}/cancel',[AdminMainController::class,'uploadcancel'])->name('uploadcancel');
 
         Route::get('/',[AdminMainController::class,'index']);
+
         Route::get('/dashboard',[AdminMainController::class,'index'])->name('dashboard');
+
+        Route::get('/admin_dashboard',[AdminMainController::class,'admin_dashboard'])->name('admin_dashboard');
+
         Route::get('/logout',[AdminMainController::class,'logout'])->name('logout');
 
 
