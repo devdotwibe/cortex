@@ -75,10 +75,10 @@
                                 </div>
                             </form>
 
-                            <x-ajax-table title="Admin  Users" :coloumns="[
+                            <x-ajax-table title="Admin  Users" tableid="admin_user" :coloumns="[
                                 ['th' => 'Date', 'name' => 'created_at', 'data' => 'date'],
                                 ['th' => 'Email', 'name' => 'email', 'data' => 'email'],
-                            ]"   tableinit="cattableinit"  />
+                            ]"   />
 
                          
                         </div>
@@ -317,6 +317,9 @@
                             showToast(response.message, 'success',{ autohide: true ,delay:3000 });
                         
                             $('#admin_user_form')[0].reset();
+
+                            $('#table-admin_user').DataTable().ajax.reload(); 
+
                         } 
                     },
                     error: function(xhr) {
