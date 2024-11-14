@@ -192,7 +192,7 @@ section{width: 100%; float: left;}
 .review-wrapp { padding: 70px 0;  background: #E5F7FF;}
 .review-wrapp .review-row { width: 100%;  display: flex;  flex-wrap: wrap;  justify-content: space-between;}
 .review-wrapp .review-col1 { width: 32%;}
-.review-wrapp h3.highlight {font-size: 24px; font-weight: 500; padding-left: 64px; color: #000000; line-height: 2.5; margin: 0 0 26px; background: url(../images/review-icon.svg) no-repeat center; background-position-x: left;}
+.review-wrapp h3.highlight {font-size: 24px; font-weight: 500; padding-left: 64px; color: #000000; line-height: 2.5; margin: 0 0 26px; background: url(../images/studentfeedback.svg) no-repeat center; background-position-x: left;}
 .review-wrapp h2 { font-size: 40px; font-weight: 500; margin: 0 0 22px;}
 .review-wrapp p { font-size: 18px; line-height: 1.56;  color: #000;  margin: 0 0 30px;}
 .review-wrapp .review-col3 { width: 100%; display: flex ; flex-wrap: wrap; align-items: center;}
