@@ -288,7 +288,7 @@
                                     
                                         <!-- Preview Learn Image Container -->
                                         <!-- Preview Learn Image Container -->
-    <div class="form-group" id="imgid2" style="{{ isset($banner) && $banner->learnimage ? '' : 'display: none;' }}">
+    <div class="form-group" id="imgid2" style="{{ isset($banner) && $banner->learnimage ? '' : 'display: block;' }}">
         <label for="learnImagePreview">Learn Image Preview</label>
         <div id="learnImagePreviewContainer" class="numericalclass"
             style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px; position: relative;">
