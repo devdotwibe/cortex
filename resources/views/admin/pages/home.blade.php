@@ -511,42 +511,46 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <div class="form-data">
-                                                <div class="forms-inputs mb-4">
-                                                    <label for="reviewimage" class="file-upload">Review Image <br>
-                                                        <img src="{{ asset('assets/images/upfile.svg') }}"
-                                                            alt="Upload Icon"> </label>
-                                                    <input type="file" name="reviewimage" id="reviewimage"
-                                                        value="{{ old('reviewimage', optional($banner)->reviewimage) }}"
-                                                        class="form-control" style="display: none;"
-                                                        onchange="previewImage(event, 'reviewImagePreview')">
-                                                    @error('reviewimage')
-                                                        <div class="text-danger">{{ $message }}</div>
-                                                    @enderror
+                                    <div class="sec numericalsectionclass">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="form-data">
+                                                    <div class="forms-inputs mb-4">
+                                                        <label for="reviewimage" class="file-upload">Review Image <br>
+                                                            <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon"> </label>
+                                                        <input type="file" name="reviewimage" id="reviewimage"
+                                                            value="{{ old('reviewimage', optional($banner)->reviewimage) }}"
+                                                            class="form-control" style="display: none;" onchange="previewReviewImage(event, 'reviewImagePreview',this)" data-id="imgid5">
+                                                        @error('reviewimage')
+                                                            <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-
-
-
-                                    <div class="form-group">
-                                        <label for="reviewImagePreview">Review Image Preview</label>
-                                        <div id="imagePreviewContainer"
-                                            style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
-                                            @if (isset($banner) && $banner->reviewimage)
-                                                <img id="reviewImagePreview"
-                                                    src="{{ url('d0/' . $banner->reviewimage) }}"
-                                                    alt="Review Image Preview" style="width: 100%; height: auto;">
-                                            @else
-                                                <img id="reviewImagePreview" src="#" alt="Review Image Preview"
-                                                    style="display: none; width: 100%; height: auto;">
-                                            @endif
+                                    
+                                        <div class="form-group">
+                                            <label for="reviewImagePreview">Review Image Preview</label>
+                                            <div id="imagePreviewContainer"
+                                                style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
+                                                @if (isset($banner) && $banner->reviewimage)
+                                                    <img id="reviewImagePreview"
+                                                        src="{{ url('d0/' . $banner->reviewimage) }}"
+                                                        alt="Review Image Preview" style="width: 100%; height: auto;">
+                                                    <div id="imgid5" style="display: block;">
+                                                        <button type="button" class="btn btn-danger" id="deleteicon5" onclick="removeReviewImage()">Delete</button>
+                                                    </div>
+                                                @else
+                                                    <img id="reviewImagePreview" src="#" alt="Review Image Preview"
+                                                        style="display: none; width: 100%; height: auto;">
+                                                    <div id="imgid5" style="display: none;">
+                                                        <button type="button" class="btn btn-danger" id="deleteicon5" onclick="removeReviewImage()" style="display: none;">Delete</button>
+                                                    </div>
+                                                @endif
+                                            </div>
                                         </div>
                                     </div>
+                                    
 
 
 
@@ -2752,5 +2756,60 @@ function removePrepareImage() {
         }
     });
 }
+
+
+
+
+    // Function to preview the review image when a file is selected
+    function previewReviewImage(event, previewId) {
+        const reader = new FileReader();
+
+        reader.onload = function() {
+            const output = document.getElementById(previewId);
+            output.src = reader.result;
+            output.style.display = 'block';
+
+            // Show the review image preview container and the preview delete button
+            document.getElementById('imgid5').style.display = 'block';
+            document.getElementById('deleteicon5').style.display = 'none'; // Hide saved delete button
+            document.getElementById('deleteicon5').style.display = 'block'; // Show preview delete button
+        };
+
+        if (event.target.files[0]) {
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    }
+
+    // Function to remove the review image preview when the preview delete button (reviewdeleteicon) is clicked
+    function removeReviewImage() {
+        const imagePath = "{{ $banner->reviewimage }}"; // Set the correct image path for the review image
+
+        // Send an AJAX request to delete the image
+        $.ajax({
+            type: 'POST',
+            url: '{{ route('admin.page.deleteReviewImage') }}', // Ensure this route matches the backend route for deleting review image
+            data: {
+                _token: '{{ csrf_token() }}',
+                image_path: imagePath // Send the image path as part of the data
+            },
+            success: function(response) {
+                if (response.success) {
+                    $('#imgid5').hide();
+                    // Hide the image preview and the delete button
+                    document.getElementById('reviewImagePreview').style.display = 'none';
+                    document.querySelector('#imagePreviewContainer button.btn-danger').style.display = 'none';
+                } else {
+                    alert('Image could not be deleted. Please try again.');
+                }
+            },
+            error: function(xhr) {
+                alert('An error occurred. Please try again.');
+            }
+        });
+    }
+</script>
+
+
+
 </script>
         @endpush
