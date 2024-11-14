@@ -2251,7 +2251,7 @@ function removeImagePreview() {
 
 
                 </script>
-
+{{-- 
 <script>
     // Function to preview the learnimage when a file is selected
     function previewLearnImage(event, previewId) {
@@ -2283,7 +2283,7 @@ function removeImagePreview() {
         document.getElementById('imgid2').style.display = 'none';
         document.getElementById('deleteicon2').style.display = 'none'; // Hide preview delete button
     }
-</script>
+</script> --}}
 
 
                     
