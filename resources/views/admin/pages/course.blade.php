@@ -156,14 +156,14 @@
                                                     <img id="imagePreview-save" src="{{ url('d0/' . $course->image) }}" alt="Image Preview"
                                                         style="width: 100%; height: auto;">
                                                     <!-- Delete button for saved image -->
-                                                    <button type="button" class="btn btn-danger" id="icondelete9" onclick="removeSavedImage()" style="float: right;">X</button>
+                                                    <button type="button" class="btn btn-danger" id="icondelete1" onclick="removeSavedImage()" style="float: right;">X</button>
                                                 @endif
                                     
                                                 <!-- Dynamic image preview -->
                                                 <img id="imagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
                                     
                                                 <!-- Delete button for preview (before saving) -->
-                                                <button type="button" class="btn btn-danger" id="deleteicon9" style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removeImagePreview()">X</button>
+                                                <button type="button" class="btn btn-danger" id="deleteicon1" style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removeImagePreview()">X</button>
                                             </div>
                                         </div>
                                     
@@ -1381,6 +1381,55 @@
         });
     }
 
+
+
+
+    
+    // Function to preview the image when the file input changes
+    function previewImage(event, previewId, element) {
+        const reader = new FileReader();
+
+        reader.onload = function() {
+            const output = document.getElementById(previewId);
+            output.src = reader.result; // Set the preview image source
+            output.style.display = 'block'; // Display the preview image
+
+            // Get the class name (from data-id) to toggle visibility of related elements
+            var id = $(element).data('id');
+            $('.' + id).show(); // Show the preview container
+
+            // Show the delete button for preview and hide the delete button for saved image
+            document.getElementById('imgid1').style.display = 'block';
+            document.getElementById('deleteicon1').style.display = 'block';
+            document.getElementById('icondelete1').style.display = 'none'; // Hide the saved image delete button
+        };
+
+        if (event.target.files[0]) {
+            reader.readAsDataURL(event.target.files[0]); // Read the selected image
+        }
+    }
+
+    // Function to remove the preview image when the preview delete button is clicked
+    function removeImagePreview() {
+        // Clear the preview image and hide the preview container and delete button
+        const output = document.getElementById('imagePreview');
+        output.src = '';
+        output.style.display = 'none'; // Hide the preview image
+
+        document.getElementById('imgid1').style.display = 'none'; // Hide preview container
+        document.getElementById('deleteicon1').style.display = 'none'; // Hide delete button
+    }
+
+    // Function to remove the saved image when the saved delete button is clicked
+    function removeSavedImage() {
+        // Hide the saved image and the delete button for it
+        const savedImage = document.getElementById('imagePreview-save');
+        savedImage.style.display = 'none'; // Hide the saved image
+
+        // Hide the delete button for the saved image
+        document.getElementById('icondelete9').style.display = 'none'; // Hide the saved image delete button
+    }
+</script>
 </script>
 
 
