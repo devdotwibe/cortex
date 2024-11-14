@@ -21,6 +21,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'isUser' => \App\Http\Middleware\IsUser::class,
             'hasPrivateClass' => \App\Http\Middleware\HasAvailablePrivateClass::class,
             'subscription' => \App\Http\Middleware\SubscriptionCheck::class,
+            'AdminPermission' => \App\Http\Middleware\AdminPermission::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use App\Models\AdminPermissions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use PhpParser\Node\Expr\FuncCall;
@@ -66,5 +67,45 @@ class AdminUserController extends Controller
 
         return response()->json(['status' => 'success', 'message' => 'User created successfully!']);
        
+    }
+
+    function save_permission(Request $request)
+    {
+        $id = $request->id;
+        $field_name = $request->field_name;
+        $value = $request->value;
+
+        $admin_permission  = AdminPermissions::where('admin_id',$id)->first();
+
+        if(empty($admin_permission))
+        {
+            $admin_permission  = new AdminPermissions;
+            $admin_permission->admin_id = $id;
+        }
+        $admin_permission->{$field_name } = $value??'N';
+
+        $admin_permission->save();
+
+        return response()->json([
+            'message' => 'The Admin Permission Updated Successfully.'
+        ]);
+      
+    }
+
+
+    function get_permission(Request $request)
+    {
+        $id = $request->id;
+      
+        $admin_permission  = AdminPermissions::where('admin_id',$id)->first();
+
+        if(!empty($admin_permission))
+        {
+            return response()->json(['data' => $admin_permission]);
+        }
+        
+        return response()->json([
+            'message' => 'The Admin Permission Not Created.'
+        ]);
     }
 }

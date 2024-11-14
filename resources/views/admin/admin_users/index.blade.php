@@ -128,7 +128,7 @@
                                             <td>
                                                 <div class="form-check form-switch">
 
-                                                    <input type="checkbox" class="form-check-input" name="users" value="Y" role="switch" >
+                                                    <input type="checkbox" onchange="AddPermission(this)" data-name="users" class="form-check-input" name="users" value="Y" role="switch" >
                                                 </div>
                                             </td>
                                         </tr>
@@ -138,7 +138,7 @@
                                             <td>
                                                 <div class="form-check form-switch">
 
-                                                    <input type="checkbox" class="form-check-input" name="learn" value="Y" role="switch" >
+                                                    <input type="checkbox" onchange="AddPermission(this)" data-name="learn" class="form-check-input" name="learn" value="Y" role="switch" >
                                                 </div>
                                             </td>
                                         </tr>
@@ -148,7 +148,7 @@
                                             <td>
                                                 <div class="form-check form-switch">
 
-                                                    <input type="checkbox" class="form-check-input" name="options" value="Y" role="switch" >
+                                                    <input type="checkbox" onchange="AddPermission(this)" data-name="options" class="form-check-input" name="options" value="Y" role="switch" >
                                                 </div>
                                             </td>
                                         </tr>
@@ -158,7 +158,7 @@
                                             <td>
                                                 <div class="form-check form-switch">
 
-                                                    <input type="checkbox" class="form-check-input" name="question_bank" value="Y" role="switch" >
+                                                    <input type="checkbox" onchange="AddPermission(this)" data-name="question_bank" class="form-check-input" name="question_bank" value="Y" role="switch" >
                                                 </div>
                                             </td>
                                         </tr>
@@ -168,7 +168,7 @@
                                             <td>
                                                 <div class="form-check form-switch">
 
-                                                    <input type="checkbox" class="form-check-input" name="exam_simulator" value="Y" role="switch" >
+                                                    <input type="checkbox" onchange="AddPermission(this)" data-name="exam_simulator" class="form-check-input" name="exam_simulator" value="Y" role="switch" >
                                                 </div>
                                             </td>
                                         </tr>
@@ -178,7 +178,7 @@
                                             <td>
                                                 <div class="form-check form-switch">
 
-                                                    <input type="checkbox" class="form-check-input" name="live_teaching" value="Y" role="switch" >
+                                                    <input type="checkbox" onchange="AddPermission(this)" data-name="live_teaching" class="form-check-input" name="live_teaching" value="Y" role="switch" >
                                                 </div>
                                             </td>
                                         </tr>
@@ -188,7 +188,7 @@
                                             <td>
                                                 <div class="form-check form-switch">
 
-                                                    <input type="checkbox" class="form-check-input" name="community" value="Y" role="switch" >
+                                                    <input type="checkbox" onchange="AddPermission(this)" data-name="community" class="form-check-input" name="community" value="Y" role="switch" >
                                                 </div>
                                             </td>
                                         </tr>
@@ -198,7 +198,7 @@
                                             <td>
                                                 <div class="form-check form-switch">
 
-                                                    <input type="checkbox" class="form-check-input" name="pages" value="Y" role="switch" >
+                                                    <input type="checkbox" onchange="AddPermission(this)" data-name="pages" class="form-check-input" name="pages" value="Y" role="switch" >
                                                 </div>
                                             </td>
                                         </tr>
@@ -209,10 +209,8 @@
 
                            </div>
 
-                            <div class="col-md-4 pt-4">  
-                                <button type="button" class="btn btn-dark" id="table-subcategory-form-submit"> Save </button>  
-                                <button type="button" class="btn btn-secondary" style="display: none" id="table-subcategory-form-clear" >Cancel</button>               
-                            </div>
+                           <input type="hidden" id="admin_id" name="admin_id" >
+
                         </div> 
                     </form>
 
@@ -271,12 +269,82 @@
                 });
             }
 
-
             function ShowAdmin(element) 
             {
                 var id = $(element).data('id');
 
-                $('#admin_permission_modal').modal('show');
+                $('#admin_id').val(id);
+
+                $.ajax({
+                    url: '{{route('admin.admin_user.get_permission')}}',  
+                    method: 'get',
+                    data: {
+                        id: id,
+                    }, 
+                    success: function(response) {
+                        
+                        $.each($('[data-name]'), function(k, v) {
+                    
+                            $.each(response.data, function(field_name, value) {
+                               
+                                if ($(v).data('name') === field_name) {
+                                  
+                                    if (value === 'Y') {
+                                        $(v).prop('checked', true);
+                                    } else {
+                                        $(v).prop('checked', false);
+                                    }
+                                }
+                            });
+                        });
+
+
+                        $('#admin_permission_modal').modal('show');
+                    },
+                    error: function(xhr) {
+                        
+                        // var errors = xhr.responseJSON.errors;
+                        // if (errors) {
+                        
+                        // }
+                    }
+                });
+
+            }
+
+            function AddPermission(element) 
+            {
+                var admin_id = $('#admin_id').val();
+
+                var field_name = $(element).data('name');
+
+                var value = $(element).val();
+
+                value = $(element).is(':checked') ? value : '';
+
+                console.log(admin_id,field_name,value);
+
+                $.ajax({
+                    url: '{{route('admin.admin_user.save_permission')}}',  
+                    method: 'POST',
+                    data: {
+                        id: admin_id,
+                        field_name: field_name,
+                        value: value,
+                    }, 
+                    success: function(response) {
+                        
+                        $('#admin_id').val('');
+                        console.log(response);
+                    },
+                    error: function(xhr) {
+                        
+                        // var errors = xhr.responseJSON.errors;
+                        // if (errors) {
+                        
+                        // }
+                    }
+                });
             }
 
 

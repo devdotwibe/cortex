@@ -12,4 +12,9 @@ class Admin extends Authenticatable
     use HasFactory,Notifiable;
 
     protected $guard = "admin";
+
+
+    public function permission(){
+        return $this->belongsTo(AdminPermissions::class,'id','admin_id');
+    }
 }

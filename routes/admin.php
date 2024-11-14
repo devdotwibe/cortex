@@ -38,7 +38,7 @@ use App\Http\Controllers\Admin\UserAccessController;
 use App\Http\Controllers\Admin\TipsController;  
 use App\Http\Controllers\Admin\SubscriptionPaymentController;
 use App\Http\Controllers\Admin\TimetableController;
-
+use App\Http\Middleware\AdminPermission;
 use Illuminate\Support\Facades\Route;
 
 
@@ -57,31 +57,37 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::get('/upload/{tag}/cancel',[AdminMainController::class,'uploadcancel'])->name('uploadcancel');
 
         Route::get('/',[AdminMainController::class,'index']);
+
         Route::get('/dashboard',[AdminMainController::class,'index'])->name('dashboard');
+
+        Route::get('/admin_dashboard',[AdminMainController::class,'admin_dashboard'])->name('admin_dashboard');
+
         Route::get('/logout',[AdminMainController::class,'logout'])->name('logout');
 
-        Route::resource("/user",UserController::class);
-        Route::post('/user/{user}/resetpassword',[UserController::class,'resetpassword'])->name('user.resetpassword');
-        Route::post('/user/bulk/action',[UserController::class,'bulkaction'])->name('user.bulkaction');
-        Route::post('/user/bulk/update',[UserController::class,'bulkupdate'])->name('user.bulkupdate');
-        Route::get('/user/{user}/getdata',[UserController::class,'getdata'])->name('user.students');
-        Route::get('/user/{user}/spectate',[UserController::class,'userspectate'])->name('user.spectate');
 
-        Route::post('/import',[UserController::class,'import_users_from_csv'])->name('import_users_from_csv');
+        Route::middleware(['AdminPermission:users'])->group(function () {
 
-        Route::post('/import1',[UserController::class,'import_users_from_csv_submit'])->name('import_users_from_csv_submit');
+            Route::resource("/user",UserController::class);
+            Route::post('/user/{user}/resetpassword',[UserController::class,'resetpassword'])->name('user.resetpassword');
+            Route::post('/user/bulk/action',[UserController::class,'bulkaction'])->name('user.bulkaction');
+            Route::post('/user/bulk/update',[UserController::class,'bulkupdate'])->name('user.bulkupdate');
+            Route::get('/user/{user}/getdata',[UserController::class,'getdata'])->name('user.students');
+            Route::get('/user/{user}/spectate',[UserController::class,'userspectate'])->name('user.spectate');
+
+            Route::post('/import',[UserController::class,'import_users_from_csv'])->name('import_users_from_csv');
+
+            Route::post('/import1',[UserController::class,'import_users_from_csv_submit'])->name('import_users_from_csv_submit');
+
+            Route::get('/user/{user}/spectate1',[UserController::class,'userspectate1'])->name('user.spectate1');
+            Route::get('/user/{user}/comunity',[UserController::class,'usercomunity'])->name('user.comunity');
+            Route::get('/user/{user}/freeaccess',[UserController::class,'freeaccess'])->name('user.freeaccess');
+            Route::get('/user/{user}/termslist',[UserController::class,'termslist'])->name('user.termslist');
+
+        });
 
 
-
-        Route::get('/user/{user}/spectate1',[UserController::class,'userspectate1'])->name('user.spectate1');
-        Route::get('/user/{user}/comunity',[UserController::class,'usercomunity'])->name('user.comunity');
-        Route::get('/user/{user}/freeaccess',[UserController::class,'freeaccess'])->name('user.freeaccess');
-        Route::get('/user/{user}/termslist',[UserController::class,'termslist'])->name('user.termslist');
         Route::resource("/exam",ExamController::class);
         Route::get('/full-mock-exam-options',[ExamController::class,'examoptions'])->name('exam.options');
-
-      
-
 
         Route::post('/full-mock-exam-options',[ExamController::class,'examoptionssave']);
        
@@ -135,29 +141,24 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::post('/{exam}/store',[FullMockExamController::class,'store'])->name('store');
             Route::post('/{exam}/import',[FullMockExamController::class,'importquestion'])->name('import');
         });
-        // Route::prefix('question-bank-old')->name('question-bank-old.')->group(function () {
-        //     Route::get('/',[QuestionBankControllerOld::class,'index'])->name('index');
-        //     Route::post('/subtitle',[QuestionBankControllerOld::class,'subtitle'])->name('subtitle');
-        //     Route::get('/{category}',[QuestionBankControllerOld::class,'show'])->name('show');
-        //     Route::get('/{category}/create',[QuestionBankControllerOld::class,'create'])->name('create');
-        //     Route::get('/{category}/{question}/edit',[QuestionBankControllerOld::class,'edit'])->name('edit');
-        //     Route::post('/{category}/store',[QuestionBankControllerOld::class,'store'])->name('store');
-        // });
+      
+        Route::middleware(['AdminPermission:options'])->group(function () {
 
-        Route::prefix('question-bank')->name('question-bank.')->group(function () {
-            Route::get('/',[QuestionBankController::class,'index'])->name('index');
-            Route::post('/subtitle',[QuestionBankController::class,'subtitle'])->name('subtitle');
-            Route::get('/{setname}',[QuestionBankController::class,'show'])->name('show');
+            Route::prefix('question-bank')->name('question-bank.')->group(function () {
+                Route::get('/',[QuestionBankController::class,'index'])->name('index');
+                Route::post('/subtitle',[QuestionBankController::class,'subtitle'])->name('subtitle');
+                Route::get('/{setname}',[QuestionBankController::class,'show'])->name('show');
 
-            Route::post('/question-bank/bulk/action',[QuestionBankController::class,'bulkaction'])->name('bulkaction');
+                Route::post('/question-bank/bulk/action',[QuestionBankController::class,'bulkaction'])->name('bulkaction');
 
 
-            Route::get('/{setname}/create',[QuestionBankController::class,'create'])->name('create');
-            Route::get('/{setname}/{question}/edit',[QuestionBankController::class,'edit'])->name('edit');
-            Route::post('/{setname}/store',[QuestionBankController::class,'store'])->name('store');
-            Route::get('/{category}/subcategory',[QuestionBankController::class,'subcategory'])->name('subcategory');
-            Route::get('/{sub_category}/set',[QuestionBankController::class,'subcategoryset'])->name('subcategoryset');
-            Route::post('/{setname}/import',[QuestionBankController::class,'importquestion'])->name('import');
+                Route::get('/{setname}/create',[QuestionBankController::class,'create'])->name('create');
+                Route::get('/{setname}/{question}/edit',[QuestionBankController::class,'edit'])->name('edit');
+                Route::post('/{setname}/store',[QuestionBankController::class,'store'])->name('store');
+                Route::get('/{category}/subcategory',[QuestionBankController::class,'subcategory'])->name('subcategory');
+                Route::get('/{sub_category}/set',[QuestionBankController::class,'subcategoryset'])->name('subcategoryset');
+                Route::post('/{setname}/import',[QuestionBankController::class,'importquestion'])->name('import');
+            });
         });
 
         Route::prefix('topic-test')->name('topic-test.')->group(function () {
@@ -178,21 +179,23 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::get('/question/{question}/visibility',[QuestionController::class,'visibility'])->name('question.visibility');
         // Route::resource("/learn",LearnController::class);
 
-        Route::prefix('learn')->name('learn.')->group(function () {
-            Route::get('/',[LearnController::class,'index'])->name('index');
-            Route::get('/{category}',[LearnController::class,'show'])->name('show');
 
+        Route::middleware(['AdminPermission:learn'])->group(function () {
 
-            Route::post('/learn/bulk/action',[LearnController::class,'bulkaction'])->name('bulkaction');
+            Route::prefix('learn')->name('learn.')->group(function () {
 
+                Route::get('/',[LearnController::class,'index'])->name('index');
+                Route::get('/{category}',[LearnController::class,'show'])->name('show');
 
-            Route::get('/{category}/create',[LearnController::class,'create'])->name('create');
-            Route::get('/{category}/{learn}/edit',[LearnController::class,'edit'])->name('edit');
-            Route::post('/{category}/store',[LearnController::class,'store'])->name('store');
-            Route::put('/{category}/{learn}/update',[LearnController::class,'update'])->name('update');
+                Route::post('/learn/bulk/action',[LearnController::class,'bulkaction'])->name('bulkaction');
+                Route::get('/{category}/create',[LearnController::class,'create'])->name('create');
+                Route::get('/{category}/{learn}/edit',[LearnController::class,'edit'])->name('edit');
+                Route::post('/{category}/store',[LearnController::class,'store'])->name('store');
+                Route::put('/{category}/{learn}/update',[LearnController::class,'update'])->name('update');
 
-            Route::get('/{learn}/visibility',[LearnController::class,'visibility'])->name('visibility');
-            Route::delete('/{category}/{learn}',[LearnController::class,'destroy'])->name('destroy');
+                Route::get('/{learn}/visibility',[LearnController::class,'visibility'])->name('visibility');
+                Route::delete('/{category}/{learn}',[LearnController::class,'destroy'])->name('destroy');
+            });
         });
 
 
@@ -238,18 +241,19 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
         });
 
-        // Route::resource("/options",CategoryController::class);
+        
+        Route::middleware(['AdminPermission:options'])->group(function () {
 
-
-        Route::prefix('category')->name('category.')->group(function () {
-            Route::get('/',[CategoryController::class,'index'])->name('index');
-            Route::get('/create',[CategoryController::class,'create'])->name('create');
-            Route::post('/',[CategoryController::class,'store'])->name('store');
-            Route::get('/{category}/edit',[CategoryController::class,'edit'])->name('edit');
-            Route::put('/{category}',[CategoryController::class,'update'])->name('update');
-            Route::get('/{category}',[CategoryController::class,'show'])->name('show');
-            Route::delete('/{category}',[CategoryController::class,'destroy'])->name('destroy');
-            Route::get('/{category}/visibility',[CategoryController::class,'visibility'])->name('visibility');
+            Route::prefix('category')->name('category.')->group(function () {
+                Route::get('/',[CategoryController::class,'index'])->name('index');
+                Route::get('/create',[CategoryController::class,'create'])->name('create');
+                Route::post('/',[CategoryController::class,'store'])->name('store');
+                Route::get('/{category}/edit',[CategoryController::class,'edit'])->name('edit');
+                Route::put('/{category}',[CategoryController::class,'update'])->name('update');
+                Route::get('/{category}',[CategoryController::class,'show'])->name('show');
+                Route::delete('/{category}',[CategoryController::class,'destroy'])->name('destroy');
+                Route::get('/{category}/visibility',[CategoryController::class,'visibility'])->name('visibility');
+            });
         });
 
         Route::post('/add-subcatecory/{category}',[CategoryController::class,'add_subcatecory'])->name('add_subcatecory');
@@ -450,6 +454,20 @@ Route::name('admin.')->prefix('admin')->group(function(){
         // Add the deleteImage route
     Route::post('/delete-image', [PagesController::class, 'deleteImage'])->name('deleteImage');
     Route::post('/delete-learn-image', [PagesController::class, 'deleteLearnImage'])->name('deleteLearnImage');
+    Route::post('/delete-practise-image', [PagesController::class, 'deletePractiseImage'])->name('deletePractiseImage');
+    Route::post('/delete-prepare-image', [PagesController::class, 'deletePrepareImage'])->name('deletePrepareImage');
+    Route::post('/delete-review-image', [PagesController::class, 'deleteReviewImage'])->name('deleteReviewImage');
+    Route::post('/delete-excel-image', [PagesController::class, 'deleteExcelImage'])->name('deleteExcelImage');
+
+    Route::post('/delete-analytics-image', [PagesController::class, 'deleteAnalyticsImage'])->name('deleteAnalyticsImage');
+    Route::post('/delete-anytime-image', [PagesController::class, 'deleteAnytimeImage'])->name('deleteAnytimeImage');
+    Route::post('/delete-unlimited-image', [PagesController::class, 'deleteUnlimitedImage'])->name('deleteUnlimitedImage');
+    Route::post('/delete-live-image', [PagesController::class, 'deleteLiveImage'])->name('deleteLiveImage');
+
+
+
+
+
     });
 
     Route::get('/set/view', [PagesController::class, 'set_table_show'])->name('set_table.show');
@@ -592,51 +610,44 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::get('/create', [TermsAndConditionsController::class, 'create'])->name('create');
         Route::post('/', [TermsAndConditionsController::class, 'storeSection1'])->name('store');
 
-       
-
     });
 
  
-
-    
     Route::prefix('timetable')->name('timetable.')->group(function () {
-        Route::get('/', [TimetableController::class, 'index'])->name('index');
-       
-        Route::post('/', [TimetableController::class, 'store'])->name('store');
+                Route::get('/', [TimetableController::class, 'index'])->name('index');
+            
+                Route::post('/', [TimetableController::class, 'store'])->name('store');
 
-       
- // Show the form for editing a specific timetable entry
- Route::get('/edit/{id}', [TimetableController::class, 'edit'])->name('edit');
+        Route::get('/edit/{id}', [TimetableController::class, 'edit'])->name('edit');
 
-       
-
-
+        Route::post('/update/{id}', [TimetableController::class, 'update'])->name('update');
+        
     
- // Update a specific timetable entry
- Route::post('/update/{id}', [TimetableController::class, 'update'])->name('update');
- 
- // Delete a specific timetable entry
- Route::delete('/delete/{id}', [TimetableController::class, 'destroy'])->name('destroy');
+        Route::delete('/delete/{id}', [TimetableController::class, 'destroy'])->name('destroy');
 
- Route::get('/fetcheditdata/{id}', [TimetableController::class, 'fetcheditdata'])->name('fetcheditdata');
-       
-
-   
+        Route::get('/fetcheditdata/{id}', [TimetableController::class, 'fetcheditdata'])->name('fetcheditdata');
 
     });
 
 
-    Route::prefix('admin_user')->name('admin_user.')->group(function () {
+    Route::middleware(['AdminPermission:admin_user'])->group(function () {
 
-        Route::get('/', [AdminUserController::class, 'index'])->name('index');
+            Route::prefix('admin_user')->name('admin_user.')->group(function () {
 
-        Route::post('/store', [AdminUserController::class, 'store'])->name('store');
+                Route::get('/', [AdminUserController::class, 'index'])->name('index');
 
-        Route::post('/edit', [AdminUserController::class, 'edit'])->name('edit');
+                Route::post('/store', [AdminUserController::class, 'store'])->name('store');
 
-        Route::delete('/destroy', [AdminUserController::class, 'destroy'])->name('destroy');
+                Route::post('/edit', [AdminUserController::class, 'edit'])->name('edit');
 
-    
+                Route::delete('/destroy', [AdminUserController::class, 'destroy'])->name('destroy');
+
+                Route::post('/save_permission', [AdminUserController::class, 'save_permission'])->name('save_permission');
+
+                Route::get('/get_permission', [AdminUserController::class, 'get_permission'])->name('get_permission');
+
+                
+            });
     });
 
    
