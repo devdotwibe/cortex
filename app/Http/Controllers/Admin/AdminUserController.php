@@ -156,7 +156,7 @@ class AdminUserController extends Controller
     }
 
     
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $admin = Admin::find($id);
 
