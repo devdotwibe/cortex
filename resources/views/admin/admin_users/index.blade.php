@@ -232,7 +232,7 @@
                     </button>
                 </div>
                 <div class="modal-body"> 
-                    <form  class="form" id="edit_admin_user_form" data-save="create" data-action="" data-createurl="" >
+                    <form  class="form" id="edit_admin_user_form" method="post" action="{{route('admin.admin_user.update_admin_user')}}" >
                         @csrf                
                         <div class="row"> 
 
@@ -254,7 +254,7 @@
                                         <div class="forms-inputs mb-4"> 
                                             <label for="edit_password">Password</label>
                                             <input type="text" name="password" id="edit_password" class="form-control "  >
-                                            <div class="invalid-feedback" id="name-error-table-subcategory-form-create"></div>
+                                            <div class="invalid-feedback" id="password_edit_error"></div>
                                         </div>
                                     </div>
                                 </div>    
@@ -266,7 +266,7 @@
                                         <div class="forms-inputs mb-4"> 
                                             <label for="edit_password">Conform Password</label>
                                             <input type="text" name="conform_password" id="edit_conform_password" class="form-control "  >
-                                            <div class="invalid-feedback" id="name-error-table-subcategory-form-create"></div>
+                                            <div class="invalid-feedback" id="conform_password_edit_error"></div>
                                         </div>
                                     </div>
                                 </div>    
@@ -275,7 +275,7 @@
                             <input type="hidden" id="edit_admin_id" name="admin_id" >
 
                             <div class="col-md-4 pt-4">  
-                                <button type="submit" class="btn btn-dark" id="table-subcategory-form-submit">Update</button>  
+                                <button type="submit" class="btn btn-dark" id="table-subcategory-form-submit" onclick="EditAdminSubmit()">Update</button>  
                                 <button type="button" class="btn btn-secondary" style="display: none" id="table-subcategory-form-clear" >Cancel</button>               
                             </div>
                         </div> 
@@ -441,6 +441,47 @@
                     }
                 });
 
+            }
+
+
+            function EditAdminSubmit() 
+            {
+
+                $('.invalid-feedback').html('');
+
+                $('.form-control').removeClass('is-invalid');
+
+                var formElement = $('#edit_admin_user_form')[0]; 
+
+                var formData = new FormData(formElement);
+
+                $.ajax({
+                    url: $('#edit_admin_user_form').attr('action'),  
+                    type: 'POST', 
+                    data: formData,  
+                    processData: false, 
+                    contentType: false, 
+                    success: function(response) {
+                        
+                        if (response.status === 'success') {
+                            
+                            alert('User Updatd successfully!');
+                        
+                            $('#edit_admin_user_form')[0].reset();
+                        } 
+                    },
+                    error: function(xhr) {
+                        
+                        var errors = xhr.responseJSON.errors;
+                        if (errors) {
+                            
+                            $.each(errors, function(field, message) {
+                                $('#' + field + 'edit_error').html(message);
+                                $('#' + field).addClass('is-invalid');
+                            });
+                        }
+                    }
+                });
             }
 
 
