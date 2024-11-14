@@ -1022,6 +1022,7 @@
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
+                                        </div>
                                     
                                             <!-- Preview Analytics Image Container -->
                                             <div class="form-group imgid7" id="imgid7" style="{{ isset($banner) && $banner->analytics_image ? '' : 'display: none;' }}">
@@ -1045,7 +1046,7 @@
                                                         onclick="removeAnalyticsImage()">X</button>
                                                 </div>
                                             </div>
-                                        </div>
+                                        
                                     </div>
                                     
 
