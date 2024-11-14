@@ -283,6 +283,22 @@
                     }, 
                     success: function(response) {
                         
+                        $.each($('[data-name]'), function(k, v) {
+                    
+                            $.each(response.data, function(field_name, value) {
+                               
+                                if ($(v).data('name') === field_name) {
+                                  
+                                    if (value === 'Y') {
+                                        $(v).prop('checked', true);
+                                    } else {
+                                        $(v).prop('checked', false);
+                                    }
+                                }
+                            });
+                        });
+
+
                         $('#admin_permission_modal').modal('show');
                     },
                     error: function(xhr) {
