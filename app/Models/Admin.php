@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Http\Middleware\AdminPermission;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -16,6 +15,6 @@ class Admin extends Authenticatable
 
 
     public function permission(){
-        return $this->belongsTo(AdminPermission::class,'id','admin_id');
+        return $this->belongsTo(AdminPermissions::class,'id','admin_id');
     }
 }
