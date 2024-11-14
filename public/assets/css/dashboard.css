@@ -7679,7 +7679,7 @@ nav.navbar.top-barhide {
     }
 
     .exam-container.questionclass.answerclass .container-wrap {
-        padding-bottom: 4.40em !important;
+        padding-bottom: 0 !important;
         min-height: calc(100vh - 117px);
     }
 
