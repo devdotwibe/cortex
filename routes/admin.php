@@ -457,6 +457,8 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
     Route::post('/delete-analytics-image', [PagesController::class, 'deleteAnalyticsImage'])->name('deleteAnalyticsImage');
     Route::post('/delete-anytime-image', [PagesController::class, 'deleteAnytimeImage'])->name('deleteAnytimeImage');
+    Route::post('/delete-unlimited-image', [PagesController::class, 'deleteUnlimitedImage'])->name('deleteUnlimitedImage');
+
 
 
 
