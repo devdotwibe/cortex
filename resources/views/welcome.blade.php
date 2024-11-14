@@ -492,6 +492,8 @@
         <div class="container">
             <div class="review-row">
                 <div class="review-col1">
+                    <img src="./assets/images/studentfeedback.svg" alt="Review Image" class="review-image">
+                    
                     @if (!empty($courses->studentsfeedback))
                         <h3 class="highlight">{{ $courses->studentsfeedback }}</h3>
                     @endif
