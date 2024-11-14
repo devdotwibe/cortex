@@ -29,5 +29,5 @@
 		{ name: 'about', groups: [ 'about' ] }
 	];
 	config.allowedContent = true;
-	config.removeButtons = 'Save,NewPage,ExportPdf,Preview,Print,Templates,PasteText,PasteFromWord,Cut,SelectAll,BidiLtr,BidiRtl,Language, SpecialChar,PageBreak,ShowBlocks,About';
+	config.removeButtons = 'Image,Save,NewPage,ExportPdf,Preview,Print,Templates,PasteText,PasteFromWord,Cut,SelectAll,BidiLtr,BidiRtl,Language, SpecialChar,PageBreak,ShowBlocks,About';
 };
