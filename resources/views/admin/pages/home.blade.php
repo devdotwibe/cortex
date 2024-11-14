@@ -943,41 +943,44 @@
                                         </div>
                                     </div>
                                     <div class="sec numericalsectionclass">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="analyticsimage" class="file-upload">Analytics Image <br>
-                                                <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
-                                            </label>
-                                            <input type="file" name="analyticsimage" id="analyticsimage"
-                                                class="form-control" style="display: none;"
-                                                onchange="previewImage(event, 'analyticsImagePreview')">
-                                            @error('analyticsimage')
-                                                <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-
-
-
-
-
-                                        <div class="form-group">
-                                            <label for="analyticsImagePreview">Analytics Image Preview</label>
-                                            <div id="analyticsImagePreviewContainer"
-                                                style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
-                                                @if (isset($banner) && $banner->analytics_image)
-                                                    <img id="analyticsImagePreview"
-                                                        src="{{ url('d0/' . $banner->analytics_image) }}"
-                                                        alt="Analytics Image Preview" style="width: 100%; height: auto;">
-                                                @else
-                                                    <img id="analyticsImagePreview" src="#"
-                                                        alt="Analytics Image Preview"
-                                                        style="display: none; width: 100%; height: auto;">
-                                                @endif
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="analyticsimage" class="file-upload">Analytics Image <br>
+                                                    <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
+                                                </label>
+                                                <input type="file" name="analyticsimage" id="analyticsimage"
+                                                    class="form-control" style="display: none;"
+                                                    onchange="previewImage(event, 'analyticsImagePreview', this)" data-id="imgid7">
+                                                @error('analyticsimage')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
+                                    
+                                            <!-- Preview Analytics Image Container -->
+                                            <div class="form-group imgid7" id="imgid7" style="{{ isset($banner) && $banner->analytics_image ? '' : 'display: none;' }}">
+                                                <label for="analyticsImagePreview">Analytics Image Preview</label>
+                                                <div id="analyticsImagePreviewContainer" class="numericalclass"
+                                                    style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px; position: relative;">
+                                                    <!-- Image Preview -->
+                                                    <img id="analyticsImagePreview"
+                                                        src="{{ isset($banner) && $banner->analytics_image ? url('d0/' . $banner->analytics_image) : '' }}"
+                                                        alt="Analytics Image Preview"
+                                                        style="width: 100%; height: auto; display: {{ isset($banner) && $banner->analytics_image ? 'block' : 'none' }};">
+                                                    
+                                                    <!-- Delete button for preview (before saving) -->
+                                                    <button type="button" class="btn btn-danger imgid7" id="deleteicon7"
+                                                        style="position: absolute; top: 5px; right: 5px; display: none;"
+                                                        onclick="removeAnalyticsImagePreview()">X</button>
+                                    
+                                                    <!-- Delete button for saved image -->
+                                                    <button type="button" class="btn btn-danger" id="icondelete7"
+                                                        style="position: absolute; top: 5px; right: 5px; {{ isset($banner) && $banner->analytics_image ? 'display: block;' : 'display: none;' }}"
+                                                        onclick="removeAnalyticsImage()">X</button>
+                                                </div>
+                                            </div>
+                                        
                                     </div>
-                                </div>
-
 
 
                                     <div class="col-md-12">
@@ -1005,48 +1008,51 @@
 
                                    
 
-
-
-
-
                                     <div class="sec numericalsectionclass">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="analyticsimage" class="file-upload">Analytics Image <br>
-                                                    <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
-                                                </label>
-                                                <input type="file" name="analyticsimage" id="analyticsimage"
-                                                    class="form-control" style="display: none;"
-                                                    onchange="previewImage(event, 'analyticsImagePreview', this)" data-id="imgid7">
-                                                @error('analyticsimage')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                    
-                                            <!-- Preview Analytics Image Container -->
-                                            <div class="form-group imgid7" id="imgid7" style="{{ isset($banner) && $banner->analytics_image ? '' : 'display: none;' }}">
-                                                <label for="analyticsImagePreview">Analytics Image Preview</label>
-                                                <div id="analyticsImagePreviewContainer" class="numericalclass"
-                                                    style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px; position: relative;">
-                                                    <!-- Image Preview -->
-                                                    <img id="analyticsImagePreview"
-                                                        src="{{ isset($banner) && $banner->analytics_image ? url('d0/' . $banner->analytics_image) : '' }}"
-                                                        alt="Analytics Image Preview"
-                                                        style="width: 100%; height: auto; display: {{ isset($banner) && $banner->analytics_image ? 'block' : 'none' }};">
-                                                    
-                                                    <!-- Delete button for preview (before saving) -->
-                                                    <button type="button" class="btn btn-danger imgid7" id="deleteicon7"
-                                                        style="position: absolute; top: 5px; right: 5px; display: none;"
-                                                        onclick="removeAnalyticsImagePreview()">X</button>
-                                    
-                                                    <!-- Delete button for saved image -->
-                                                    <button type="button" class="btn btn-danger" id="icondelete7"
-                                                        style="position: absolute; top: 5px; right: 5px; {{ isset($banner) && $banner->analytics_image ? 'display: block;' : 'display: none;' }}"
-                                                        onclick="removeAnalyticsImage()">X</button>
-                                                </div>
-                                            </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="anytimeimage" class="file-upload">Anytime Image <br>
+                                                <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                    alt="Upload Icon"></label>
+                                            <input type="file" name="anytimeimage" id="anytimeimage"
+                                                class="form-control" style="display: none;"
+                                                onchange="previewImage(event, 'anytimeImagePreview')">
+                                            @error('anytimeimage')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
+
+
+
+
+
+
+                                        <div class="form-group">
+                                            <label for="anytimeImagePreview">Anytime Image Preview</label>
+                                            <div id="anytimeImagePreviewContainer"
+                                                style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
+                                                @if (isset($banner) && $banner->anytime_image)
+                                                    <img id="anytimeImagePreview"
+                                                        src="{{ url('d0/' . $banner->anytime_image) }}"
+                                                        alt="Anytime Image Preview" style="width: 100%; height: auto;">
+                                                @else
+                                                    <img id="anytimeImagePreview" src="#"
+                                                        alt="Anytime Image Preview"
+                                                        style="display: none; width: 100%; height: auto;">
+                                                @endif
+                                            </div>
+                                        </div>
+                                    
+                                    </div>
+
+
+                                   
+
+
+
+
+
                                     
 
                                     <div class="col-md-12">
