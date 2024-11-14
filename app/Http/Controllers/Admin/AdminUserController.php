@@ -155,5 +155,20 @@ class AdminUserController extends Controller
         ]);
     }
 
+    
+    public function destroy($id)
+    {
+        $admin = Admin::find($id);
+
+        if ($admin) {
+           
+            $feature->delete();
+
+            return response()->json(['success' => true]);
+        }
+
+        return response()->json(['success' => false], 404);
+    }
+
 
 }
