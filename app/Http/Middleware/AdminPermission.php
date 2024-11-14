@@ -24,15 +24,15 @@ class AdminPermission
 
         if ($admin->role !='master') {
           
-            $admin_permission = AdminPermission::where('admin_id',$admin->id)->first();
+            // $admin_permission = AdminPermission::where('admin_id',$admin->id)->first();
 
-            if($admin_permission)
+            if(!empty($admin->permission))
             {
                 switch ($opt) {
 
                     case 'users':
                        
-                        if ($admin_permission->users != 'Y') {
+                        if ($admin->permission->users != 'Y') {
 
                             return $next($request);
                         }
@@ -40,7 +40,7 @@ class AdminPermission
                     
                     case 'learn':
                      
-                        if ($admin_permission->learn != 'Y') {
+                        if ($admin->permission->learn != 'Y') {
 
                             return $next($request);
                         }
@@ -48,7 +48,7 @@ class AdminPermission
         
                     case 'options':
                      
-                        if ($admin_permission->options != 'Y') {
+                        if ($admin->permission->options != 'Y') {
 
                             return $next($request);
                         }
@@ -56,7 +56,7 @@ class AdminPermission
 
                     case 'question_bank':
                     
-                        if ($admin_permission->question_bank != 'Y') {
+                        if ($admin->permission->question_bank != 'Y') {
 
                             return $next($request);
                         }
@@ -64,7 +64,7 @@ class AdminPermission
                     
                     case 'exam_simulator':
                 
-                        if ($admin_permission->exam_simulator != 'Y') {
+                        if ($admin->permission->exam_simulator != 'Y') {
 
                             return $next($request);
                         }
@@ -72,7 +72,7 @@ class AdminPermission
 
                     case 'live_teaching':
                 
-                        if ($admin_permission->live_teaching != 'Y') {
+                        if ($admin->permission->live_teaching != 'Y') {
 
                             return $next($request);
                         }
@@ -80,7 +80,7 @@ class AdminPermission
 
                     case 'community':
                 
-                        if ($admin_permission->community != 'Y') {
+                        if ($admin->permission->community != 'Y') {
 
                             return $next($request);
                         }
@@ -88,7 +88,7 @@ class AdminPermission
 
                     case 'pages':
             
-                        if ($admin_permission->pages != 'Y') {
+                        if ($admin->permission->pages != 'Y') {
 
                             return $next($request);
                         }
