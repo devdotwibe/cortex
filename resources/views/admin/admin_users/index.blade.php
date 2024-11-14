@@ -333,8 +333,7 @@
                         value: value,
                     }, 
                     success: function(response) {
-                        
-                        $('#admin_id').val('');
+                    
                         console.log(response);
                     },
                     error: function(xhr) {
