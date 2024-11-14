@@ -21,15 +21,15 @@ class AdminPermission
          */
         $admin = Auth::guard('admin')->user();
 
-        //  if ($admin) {
+         if ($admin) {
           
-        //     $adminId = $admin->id;
-        //     dd('Admin ID: ' . $adminId);  
+            $adminId = $admin->id;
+            dd('Admin ID: ' . $adminId);  
 
-        // } else {
+        } else {
           
-        //     return redirect()->route('login');  
-        // }
+            return redirect()->route('login');  
+        }
 
         return $next($request);
     }
