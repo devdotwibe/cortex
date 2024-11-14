@@ -27,8 +27,7 @@
                                 <span class="runner">00</span>
                                 <span>Seconds</span>
                             </div>
-                        </div> 
-
+                        </div>
                         <button class="btn hide-btn" id="hide_button" onclick="HideTime()">Hide Time</button>
                     @endif    
                 </div>
@@ -287,7 +286,7 @@
             </div>
             <div class="modal-body"> 
                 <p>Do you want to submit this assessment ?</p>
-                <p style="display:none" class="unfinish-message"> You still have <span class="unfinish-count">0</span> unfinished questions. </p>
+                <p style="display:none" class="unfinish-message"> You still have <span class="unfinish-count">0</span> unfinished <span class="question-text"> questions. </p>
                 <button type="button" onclick="lessonreviewconfirm()" class="btn btn-dark">Yes</button>
                 <button type="button"  data-bs-dismiss="modal"  class="btn btn-secondary">Cancel</button>
             </div>
@@ -298,6 +297,24 @@
 
 @push('footer-script') 
 
+
+<script>
+
+    function updateUnfinishedMessage(count) {
+        const message = document.querySelector('.unfinish-message');
+        const countElement = document.querySelector('.unfinish-count');
+        const questionText = document.querySelector('.question-text');
+
+        if (count > 0) {
+            countElement.textContent = count;
+            questionText.textContent = count === 1 ? 'question' : 'questions';
+            message.style.display = 'block';
+        } else {
+            message.style.display = 'none';
+        }
+    }
+</script>
+
     <script> 
 
         function HideTime() {
@@ -306,7 +323,7 @@
 
             timerDiv.slideToggle(300, function() {
             if (timerDiv.is(':visible')) {
-                button.html('Hide Time');
+                button.html('Hide <br> Time');
             } else {
                 button.html('<img src="{{ asset("assets/images/flat-color-icons_clock.svg") }}" alt="Show Time Icon">');
                 button.insertAfter(timerDiv);
@@ -754,6 +771,8 @@
                         $('.unfinish-message').hide().find('.unfinish-count').text(0)
                     }  
                     $('#finish-exam-confirm').modal('show')
+                    updateUnfinishedMessage(unfinishcount);
+                    
                 })
             });
             $('#bookmark-current').click(function(){

@@ -98,7 +98,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="subtitle">Subtitle</label>
+                                                        <label for="subtitle">Subtitle*</label>
                                                         <input type="text" name="subtitle" id="subtitle"
                                                             value="{{ old('subtitle', optional($banner)->subtitle) }}"
                                                             class="form-control" placeholder="Subtitle">
@@ -114,7 +114,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="buttonlabel">Button Label</label>
+                                                        <label for="buttonlabel">Button Label*</label>
                                                         <input type="text" name="buttonlabel" id="buttonlabel"
                                                             value="{{ old('buttonlabel', optional($banner)->buttonlabel) }}"
                                                             class="form-control" placeholder="Button Label">
@@ -130,7 +130,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="buttonlink">Button Link</label>
+                                                        <label for="buttonlink">Button Link*</label>
                                                         <input type="text" name="buttonlink" id="buttonlink"
                                                             value="{{ old('buttonlink', optional($banner)->buttonlink) }}"
                                                             class="form-control" placeholder="Button Link">
@@ -157,7 +157,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="content">Content</label>
+                                                        <label for="content">Content*</label>
                                                         <textarea name="content" id="content" class="form-control" rows="5">{{ old('content', optional($banner)->content) }}</textarea>
                                                         @error('content')
                                                             <div class="text-danger">{{ $message }}</div>
@@ -167,11 +167,16 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-12">
+                                       
+                                       
+                                        
+                                       
+                                        <div class="pricesection1 numericalsectionclass">
+                                        <div class="col-md-12" >
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="image" class="file-upload">Upload Image  <br>
+                                                        <label for="image" class="file-upload">Upload Image <br>
                                                             <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
                                                         </label>
                                                         <input type="file" name="image" id="image" class="form-control" style="display: none;" onchange="previewImage(event, 'imagePreview')">
@@ -183,29 +188,38 @@
                                             </div>
                                         </div>
                                         
-                                        <!-- Preview Image Container -->
-                                        @if (isset($banner) && $banner->image)
-                                        <div class="form-group" id="imgid1">
+                                      
+                                        <div class="form-group" id="imgid1" style="{{ isset($banner) && $banner->image ? '' : 'display: none;' }}">
                                             <label for="imagePreview">Image Preview</label>
-                                            <div id="imagePreviewContainer" style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
-                                               
-                                                    <img id="imagePreview" src="{{ url('d0/' . $banner->image) }}" alt="Image Preview" style="width: 100%; height: auto;">
-                                                    <!-- Delete button (X) -->
-                                                    <button type="button" class="btn btn-danger" style="float: right;" onclick="removeImage()">X</button>
+                                            <div id="imagePreviewContainer" class="numericalclass" style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px; position: relative;">
+                                                <img id="imagePreview" src="{{ isset($banner) && $banner->image ? url('d0/' . $banner->image) : '' }}" alt="Image Preview" style="width: 100%; height: auto; display: {{ isset($banner) && $banner->image ? 'block' : 'none' }};">
+                                                
+                                                <!-- Delete button for preview (before saving) -->
+                                                <button type="button" class="btn btn-danger" id="deleteicon" style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removeImagePreview()">X</button>
+
+                                                
+                                                <!-- Delete button for saved image -->
+                                                <button type="button" class="btn btn-danger" id="icondelete" style="position: absolute; top: 5px; right: 5px; {{ isset($banner) && $banner->image ? 'display: block;' : 'display: none;' }}" onclick="removeImage()">X</button>
                                                 
                                             </div>
                                         </div>
-                                        @else
+                                    </div>
+                                        
+                                        
+                                        
+                                      
+                                        
+                               
 
-                                        <div class="form-group" style="display: none;" id="imagePreview1">
+                                        {{-- <div class="form-group" style="display: none;" id="imagePreview1">
                                             <label for="imagePreview">Image Preview</label>
                                             <div id="imagePreviewContainer" style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
                                                
                                                 <img id="imagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
                                             </div>
-                                        </div>
+                                        </div> --}}
                                             
-                                        @endif
+                                       
                                     </div>
                                     </div>
                                 </form>
@@ -229,7 +243,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="guaranteetitle">Guarantee Title</label>
+                                                        <label for="guaranteetitle">Guarantee Title*</label>
                                                         <input type="text" name="guaranteetitle" id="guaranteetitle"
                                                             value="{{ old('guaranteetitle', optional($banner)->guaranteetitle) }}"
                                                             class="form-control" placeholder="Guarantee Title">
@@ -246,7 +260,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="learntitle">Learn Title</label>
+                                                        <label for="learntitle">Learn Title*</label>
                                                         <input type="text" name="learntitle" id="learntitle"
                                                             value="{{ old('learntitle', optional($banner)->learntitle) }}"
                                                             class="form-control" placeholder="Learn Title">
@@ -301,7 +315,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="learncontent">Learn Content</label>
+                                                        <label for="learncontent">Learn Content*</label>
                                                         <textarea name="learncontent" id="learncontent" class="form-control" rows="5">{{ old('learncontent', optional($banner)->learncontent) }}</textarea>
                                                         @error('learncontent')
                                                             <div class="text-danger">{{ $message }}</div>
@@ -315,7 +329,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="practisetitle">Practice Title</label>
+                                                        <label for="practisetitle">Practice Title*</label>
                                                         <input type="text" name="practisetitle" id="practisetitle"
                                                             value="{{ old('practisetitle', optional($banner)->practisetitle) }}"
                                                             class="form-control" placeholder="Practice Title">
@@ -370,7 +384,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="practisecontent">Practice Content</label>
+                                                        <label for="practisecontent">Practice Content*</label>
                                                         <textarea name="practisecontent" id="practisecontent" class="form-control" rows="5">{{ old('practisecontent', optional($banner)->practisecontent) }}</textarea>
                                                         @error('practisecontent')
                                                             <div class="text-danger">{{ $message }}</div>
@@ -384,7 +398,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="preparetitle">Prepare Title</label>
+                                                        <label for="preparetitle">Prepare Title*</label>
                                                         <input type="text" name="preparetitle" id="preparetitle"
                                                             value="{{ old('preparetitle', optional($banner)->preparetitle) }}"
                                                             class="form-control" placeholder="Prepare Title">
@@ -438,7 +452,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="preparecontent">Prepare Content</label>
+                                                        <label for="preparecontent">Prepare Content*</label>
                                                         <textarea name="preparecontent" id="preparecontent" class="form-control" rows="5">{{ old('preparecontent', optional($banner)->preparecontent) }}</textarea>
                                                         @error('preparecontent')
                                                             <div class="text-danger">{{ $message }}</div>
@@ -452,7 +466,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="reviewtitle">Review Title</label>
+                                                        <label for="reviewtitle">Review Title*</label>
                                                         <input type="text" name="reviewtitle" id="reviewtitle"
                                                             value="{{ old('reviewtitle', optional($banner)->reviewtitle) }}"
                                                             class="form-control" placeholder="Review Title">
@@ -507,7 +521,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="reviewcontent">Review Content</label>
+                                                        <label for="reviewcontent">Review Content*</label>
                                                         <textarea name="reviewcontent" id="reviewcontent" class="form-control" rows="5">{{ old('reviewcontent', optional($banner)->reviewcontent) }}</textarea>
                                                         @error('reviewcontent')
                                                             <div class="text-danger">{{ $message }}</div>
@@ -554,7 +568,7 @@
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
 
-                                                        <label for="ourfeaturestitle">Feature Title</label>
+                                                        <label for="ourfeaturestitle">Feature Title*</label>
                                                         <input type="text" name="ourfeaturestitle" class="form-control"
                                                             value="{{ old('ourfeaturestitle', optional($banner)->ourfeaturestitle) }}"
                                                             placeholder="Feature Title">
@@ -572,7 +586,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="FeatureHeading">Feature Top Heading</label>
+                                                        <label for="FeatureHeading">Feature Top Heading*</label>
                                                         <input type="text" name="FeatureHeading" class="form-control"
                                                             value="{{ old('FeatureHeading', optional($banner)->FeatureHeading) }}"
                                                             placeholder="Feature Top Heading">
@@ -702,7 +716,7 @@
                                                         <div class="form-group">
                                                             <div class="form-data">
                                                                 <div class="forms-inputs mb-4">
-                                                                    <label for="featuresubtitle">Feature Heading</label>
+                                                                    <label for="featuresubtitle">Feature Heading*</label>
                                                                     <input type="text" name="featuresubtitleupdate[]"
                                                                         class="form-control" placeholder="Feature Heading"
                                                                         value="{{ $item->featuresubtitle }}">
@@ -719,7 +733,7 @@
                                                         <div class="form-group">
                                                             <div class="form-data">
                                                                 <div class="forms-inputs mb-4">
-                                                                    <label for="featurecontent">Feature Description</label>
+                                                                    <label for="featurecontent">Feature Description*</label>
                                                                     <textarea name="featurecontentupdate[]" class="form-control" rows="5" placeholder="Feature Description">{{ $item->featurecontent }}</textarea>
                                                                     @error('featurecontent')
                                                                         <div class="text-danger">{{ $message }}</div>
@@ -767,7 +781,7 @@
                                                 <div class="form-group">
                                                     <div class="form-data">
                                                         <div class="forms-inputs mb-4">
-                                                            <label for="featuresubtitle">Feature Heading</label>
+                                                            <label for="featuresubtitle">Feature Heading*</label>
                                                             <input type="text" name="featuresubtitle[]"
                                                                 class="form-control" placeholder="Feature Heading">
                                                             @error('featuresubtitle')
@@ -782,7 +796,7 @@
                                                 <div class="form-group">
                                                     <div class="form-data">
                                                         <div class="forms-inputs mb-4">
-                                                            <label for="featurecontent">Feature Description</label>
+                                                            <label for="featurecontent">Feature Description*</label>
                                                             <textarea name="featurecontent[]" class="form-control" rows="5" placeholder="Feature Description"></textarea>
                                                             @error('featurecontent')
                                                                 <div class="text-danger">{{ $message }}</div>
@@ -858,7 +872,7 @@
 
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="featurestitle">Feature Title</label>
+                                                <label for="featurestitle">Feature Title*</label>
                                                 <input type="text" name="featurestitle" id="featurestitle"
                                                     value="{{ old('featurestitle', optional($banner)->featurestitle) }}"
                                                     class="form-control" placeholder="Feature Title">
@@ -872,7 +886,7 @@
                                         <!-- Analytics Section -->
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="analyticstitle">Analytics Title</label>
+                                                <label for="analyticstitle">Analytics Title*</label>
                                                 <input type="text" name="analyticstitle" id="analyticstitle"
                                                     value="{{ old('analyticstitle', optional($banner)->analytics_title) }}"
                                                     class="form-control" placeholder="Analytics Title">
@@ -927,7 +941,7 @@
 
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="analyticscontent">Analytics Content</label>
+                                                <label for="analyticscontent">Analytics Content*</label>
                                                 <textarea name="analyticscontent" id="analyticscontent" class="form-control" rows="5">{{ old('analyticscontent', optional($banner)->analytics_content) }}</textarea>
                                                 @error('analyticscontent')
                                                     <div class="text-danger">{{ $message }}</div>
@@ -938,7 +952,7 @@
                                         <!-- Anytime Section -->
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="anytimetitle">Anytime Title</label>
+                                                <label for="anytimetitle">Anytime Title*</label>
                                                 <input type="text" name="anytimetitle" id="anytimetitle"
                                                     value="{{ old('anytimetitle', optional($banner)->anytime_title) }}"
                                                     class="form-control" placeholder="Anytime Title">
@@ -986,7 +1000,7 @@
 
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="anytimedescription">Anytime Description</label>
+                                                <label for="anytimedescription">Anytime Description*</label>
                                                 <textarea name="anytimedescription" id="anytimedescription" class="form-control" rows="5">{{ old('anytimedescription', optional($banner)->anytime_description) }}</textarea>
                                                 @error('anytimedescription')
                                                     <div class="text-danger">{{ $message }}</div>
@@ -997,7 +1011,7 @@
                                         <!-- Unlimited Section -->
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="unlimitedtitle">Unlimited Title</label>
+                                                <label for="unlimitedtitle">Unlimited Title*</label>
                                                 <input type="text" name="unlimitedtitle" id="unlimitedtitle"
                                                     value="{{ old('unlimitedtitle', optional($banner)->unlimited_title) }}"
                                                     class="form-control" placeholder="Unlimited Title">
@@ -1045,7 +1059,7 @@
 
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="unlimitedcontent">Unlimited Content</label>
+                                                <label for="unlimitedcontent">Unlimited Content*</label>
                                                 <textarea name="unlimitedcontent" id="unlimitedcontent" class="form-control" rows="5">{{ old('unlimitedcontent', optional($banner)->unlimited_content) }}</textarea>
                                                 @error('unlimitedcontent')
                                                     <div class="text-danger">{{ $message }}</div>
@@ -1056,7 +1070,7 @@
                                         <!-- Live Section -->
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="livetitle">Live Title</label>
+                                                <label for="livetitle">Live Title*</label>
                                                 <input type="text" name="livetitle" id="livetitle"
                                                     value="{{ old('livetitle', optional($banner)->live_title) }}"
                                                     class="form-control" placeholder="Live Title">
@@ -1100,7 +1114,7 @@
 
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="livecontent">Live Content</label>
+                                                <label for="livecontent">Live Content*</label>
                                                 <textarea name="livecontent" id="livecontent" class="form-control" rows="5">{{ old('livecontent', optional($banner)->live_content) }}</textarea>
                                                 @error('livecontent')
                                                     <div class="text-danger">{{ $message }}</div>
@@ -1165,7 +1179,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="exceltitle">Excel Title</label>
+                                                        <label for="exceltitle">Excel Title*</label>
 
                                                             <textarea class="form-control texteditor" name="exceltitle" id="exceltitle">{{ old('exceltitle', optional($banner)->exceltitle) }}</textarea>
                                                         @error('exceltitle')
@@ -1184,7 +1198,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="excelbuttonlabel">Excel Button Label</label>
+                                                        <label for="excelbuttonlabel">Excel Button Label*</label>
                                                         <input type="text" name="excelbuttonlabel"
                                                             id="excelbuttonlabel"
                                                             value="{{ old('excelbuttonlabel', optional($banner)->excelbuttonlabel) }}"
@@ -1202,7 +1216,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="excelbuttonlink">Excel Button Link</label>
+                                                        <label for="excelbuttonlink">Excel Button Link*</label>
                                                         <input type="text" name="excelbuttonlink" id="excelbuttonlink"
                                                             value="{{ old('excelbuttonlink', optional($banner)->excelbuttonlink) }}"
                                                             class="form-control" placeholder="Excel Button Link">
@@ -1284,7 +1298,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="ourcoursetitle">Our Course Title</label>
+                                                        <label for="ourcoursetitle">Our Course Title*</label>
                                                         <input type="text" name="ourcoursetitle" id="ourcoursetitle"
                                                             value="{{ old('ourcoursetitle', optional($courses)->ourcoursetitle) }}"
                                                             class="form-control" placeholder="Our Course Title">
@@ -1301,7 +1315,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="coursetitle">Course Title</label>
+                                                        <label for="coursetitle">Course Title*</label>
                                                         <input type="text" name="coursetitle" id="coursetitle"
                                                             value="{{ old('coursetitle', optional($courses)->coursetitle) }}"
                                                             class="form-control" placeholder="Course Title">
@@ -1317,7 +1331,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="coursesubtitle">Course Subtitle</label>
+                                                        <label for="coursesubtitle">Course Subtitle*</label>
                                                         <input type="text" name="coursesubtitle" id="coursesubtitle"
                                                             value="{{ old('coursesubtitle', optional($courses)->coursesubtitle) }}"
                                                             class="form-control" placeholder="Course Subtitle">
@@ -1333,7 +1347,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="courseheading1">Course Heading 1</label>
+                                                        <label for="courseheading1">Course Heading 1*</label>
                                                         <input type="text" name="courseheading1" id="courseheading1"
                                                             value="{{ old('courseheading1', optional($courses)->courseheading1) }}"
                                                             class="form-control" placeholder="Course Heading 1">
@@ -1349,7 +1363,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="coursecontent1">Course Content 1</label>
+                                                        <label for="coursecontent1">Course Content 1*</label>
                                                         <textarea name="coursecontent1" id="coursecontent1" class="form-control" placeholder="Course Content 1">{{ old('coursecontent1', optional($courses)->coursecontent1) }}</textarea>
                                                         @error('coursecontent1')
                                                             <div class="text-danger">{{ $message }}</div>
@@ -1363,7 +1377,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="courseheading2">Course Heading 2</label>
+                                                        <label for="courseheading2">Course Heading 2*</label>
                                                         <input type="text" name="courseheading2" id="courseheading2"
                                                             value="{{ old('courseheading2', optional($courses)->courseheading2) }}"
                                                             class="form-control" placeholder="Course Heading 2">
@@ -1379,7 +1393,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="coursecontent2">Course Content 2</label>
+                                                        <label for="coursecontent2">Course Content 2*</label>
                                                         <textarea name="coursecontent2" id="coursecontent2" class="form-control" placeholder="Course Content 2">{{ old('coursecontent2', optional($courses)->coursecontent2) }}</textarea>
                                                         @error('coursecontent2')
                                                             <div class="text-danger">{{ $message }}</div>
@@ -1393,7 +1407,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="courseheading3">Course Heading 3</label>
+                                                        <label for="courseheading3">Course Heading 3*</label>
                                                         <input type="text" name="courseheading3" id="courseheading3"
                                                             value="{{ old('courseheading3', optional($courses)->courseheading3) }}"
                                                             class="form-control" placeholder="Course Heading 3">
@@ -1409,7 +1423,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="coursecontent3">Course Content 3</label>
+                                                        <label for="coursecontent3">Course Content 3*</label>
                                                         <textarea name="coursecontent3" id="coursecontent3" class="form-control" placeholder="Course Content 3">{{ old('coursecontent3', optional($courses)->coursecontent3) }}</textarea>
                                                         @error('coursecontent3')
                                                             <div class="text-danger">{{ $message }}</div>
@@ -1423,7 +1437,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="courseheading4">Course Heading 4</label>
+                                                        <label for="courseheading4">Course Heading 4*</label>
                                                         <input type="text" name="courseheading4" id="courseheading4"
                                                             value="{{ old('courseheading4', optional($courses)->courseheading4) }}"
                                                             class="form-control" placeholder="Course Heading 4">
@@ -1439,7 +1453,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="coursecontent4">Course Content 4</label>
+                                                        <label for="coursecontent4">Course Content 4*</label>
                                                         <textarea name="coursecontent4" id="coursecontent4" class="form-control" placeholder="Course Content 4">{{ old('coursecontent4', optional($courses)->coursecontent4) }}</textarea>
                                                         @error('coursecontent4')
                                                             <div class="text-danger">{{ $message }}</div>
@@ -1453,7 +1467,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="coursebuttonlabel">Course Button Label</label>
+                                                        <label for="coursebuttonlabel">Course Button Label*</label>
                                                         <input type="text" name="coursebuttonlabel"
                                                             id="coursebuttonlabel"
                                                             value="{{ old('coursebuttonlabel', optional($courses)->coursebuttonlabel) }}"
@@ -1470,7 +1484,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="coursebuttonlink">Course Button Link</label>
+                                                        <label for="coursebuttonlink">Course Button Link*</label>
                                                         <input type="text" name="coursebuttonlink"
                                                             id="coursebuttonlink"
                                                             value="{{ old('coursebuttonlink', optional($courses)->coursebuttonlink) }}"
@@ -1604,7 +1618,7 @@
                                                         <div class="form-group">
                                                             <div class="form-data">
                                                                 <div class="forms-inputs mb-4">
-                                                                    <label for="name">Name</label>
+                                                                    <label for="name">Name*</label>
                                                                     <input type="text" name="nameupdate[]"
                                                                         class="form-control" placeholder="Name"
                                                                         value="{{ old('nameupdate.' . $k, $item->name ?? '') }}">
@@ -1656,7 +1670,7 @@
                                                         <div class="form-group">
                                                             <div class="form-data">
                                                                 <div class="forms-inputs mb-4">
-                                                                    <label for="review">Review</label>
+                                                                    <label for="review">Review*</label>
                                                                     <textarea name="reviewupdate[]" class="form-control" rows="5" placeholder="Review">{{ old('reviewupdate.' . $k, $item->review ?? '') }}</textarea>
                                                                     @error('reviewupdate.' . $k)
                                                                         <div class="text-danger">{{ $message }}</div>
@@ -1707,7 +1721,7 @@
                                                     <!-- Name -->
                                                     <div class="col-md-12">
                                                         <div class="form-group">
-                                                            <label for="name">Name</label>
+                                                            <label for="name">Name*</label>
                                                             <input type="text" name="nameupdate[]"
                                                                 class="form-control" placeholder="Name"
                                                                 value="{{ $item->name }}">
@@ -1721,7 +1735,7 @@
 
 
                                                     <div class="form-group">
-                                                        <label for="starrating">Star Rating</label>
+                                                        <label for="starrating">Star Rating*</label>
                                                         <select name="starratingupdate[]" class="form-control">
                                                             <option value="1"
                                                                 {{ $item->starrating == 1 ? 'selected' : '' }}>1</option>
@@ -1746,7 +1760,7 @@
                                                     <!-- Review -->
                                                     <div class="col-md-12">
                                                         <div class="form-group">
-                                                            <label for="review">Review</label>
+                                                            <label for="review">Review*</label>
                                                             <textarea name="reviewupdate[]" class="form-control" rows="5" placeholder="Review">{{ $item->review }}</textarea>
                                                             @error('review')
                                                                 <div class="text-danger">{{ $message }}</div>
@@ -1801,7 +1815,7 @@
                                             <!-- Default Name Field -->
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label for="name">Name</label>
+                                                    <label for="name">Name*</label>
                                                     <input type="text" name="name[]" class="form-control"
                                                         placeholder="Name">
                                                     @error('name')
@@ -1817,7 +1831,7 @@
 
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label for="starrating">Star Rating</label>
+                                                    <label for="starrating">Star Rating*</label>
                                                     <input type="text" name="starrating[]" class="form-control"
                                                         placeholder="Star Rating">
                                                     @error('starrating')
@@ -1830,7 +1844,7 @@
 
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label for="review">Review</label>
+                                                    <label for="review">Review*</label>
                                                     <textarea name="review[]" class="form-control" rows="5" placeholder="Review"></textarea>
                                                     @error('review')
                                                         <div class="text-danger">{{ $message }}</div>
@@ -1915,7 +1929,7 @@
                                             <div class="form-data">
                                                 <div class="forms-inputs mb-4">
 
-                                                    <label for="ourprocesstitle">Our Process Title</label>
+                                                    <label for="ourprocesstitle">Our Process Title*</label>
                                                     <input type="text" name="ourprocesstitle" class="form-control"
                                                         value="{{ old('ourprocesstitle', optional($banner)->ourprocesstitle) }}"
                                                         placeholder="Our Process Title">
@@ -1933,7 +1947,7 @@
                                             <div class="form-data">
                                                 <div class="forms-inputs mb-4">
 
-                                                    <label for="ourprocesssubtitle">Our Process SubTitle</label>
+                                                    <label for="ourprocesssubtitle">Our Process SubTitle*</label>
                                                     <input type="text" name="ourprocesssubtitle" class="form-control"
                                                         value="{{ old('ourprocesssubtitle', optional($banner)->ourprocesssubtitle) }}"
                                                         placeholder="Our Process SubTitle">
@@ -1978,7 +1992,7 @@
                                                     <div class="form-group">
                                                         <div class="form-data">
                                                             <div class="forms-inputs mb-4">
-                                                                <label for="ourprocessheading">Our Process Heading 1</label>
+                                                                <label for="ourprocessheading">Our Process Heading 1*</label>
                                                                 <textarea name="ourprocessheadingupdate[]" class="form-control texteditor" rows="5" placeholder="Process Heading">{{ old('ourprocessheadingupdate.' . $k) }}</textarea>
                                                                 @error('ourprocessheadingupdate.' . $k)
                                                                     <div class="text-danger">{{ $message }}</div>
@@ -1998,7 +2012,7 @@
                                                     <div class="form-group">
                                                         <div class="form-data">
                                                             <div class="forms-inputs mb-4">
-                                                                <label for="ourprocessimage">Process Icon</label>
+                                                                <label for="ourprocessimage">Process Icon*</label>
                                                                 <input type="hidden" name="processids[]"
                                                                     value="{{ old('processids.' . $k, $item->id ?? '') }}">
                                                                 <input type="file" name="ourprocessimageupdate[]"
@@ -2053,7 +2067,7 @@
     <div class="form-group">
         <div class="form-data">
             <div class="forms-inputs mb-4">
-                <label for="ourprocessheading">Our Process Heading 2</label>
+                <label for="ourprocessheading">Our Process Heading 2*</label>
 
                 <!-- Textarea for Process Heading -->
                 <textarea name="ourprocessheadingupdate[]" class="form-control texteditor" rows="5" placeholder="Process Heading">{{ old('ourprocessheadingupdate[]', $item->ourprocessheading) }}</textarea>
@@ -2081,7 +2095,7 @@
     <div class="form-group">
         <div class="form-data">
             <div class="forms-inputs mb-4">
-                <label for="ourprocessimage-{{ $item->id }}" class="file-upload">Process Icon <br>
+                <label for="ourprocessimage-{{ $item->id }}" class="file-upload">Process Icon* <br>
                     <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
                 </label>
                 <input type="hidden" name="processids[]" value="{{ $item->id }}">
@@ -2118,7 +2132,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="ourprocessheading">Our Process Heading 3</label>
+                                                        <label for="ourprocessheading">Our Process Heading 3*</label>
 
                                                         <!-- Textarea for Process Heading -->
                                                         <textarea name="ourprocessheadingupdate[]" class="form-control texteditor" rows="5" placeholder="Process Heading">{{ old('ourprocessheadingupdate', optional($banner)->ourprocessheadings) }}</textarea>
@@ -2139,7 +2153,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="ourprocessimage"  class="file-upload">Process Icon <br>
+                                                        <label for="ourprocessimage"  class="file-upload">Process Icon* <br>
                                                             <img src="{{ asset('assets/images/upfile.svg') }}"
                                                                 alt="Upload Icon"> </label>
                                                         <input type="file" name="ourprocessimage[]"
@@ -2197,19 +2211,52 @@
 
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
                 <script>
-                    function previewImage(event, previewId) {
-                        var reader = new FileReader();
-                        reader.onload = function() {
-                            var output = document.getElementById(previewId);
-                            output.src = reader.result;
-                            output.style.display = 'block';
+//                       function previewImage(event, previewId) {
+//     const reader = new FileReader();
+//     reader.onload = function() {
+       
+//         const output = document.getElementById(previewId);
+//         output.src = reader.result;
+//         output.style.display = 'block';
 
-                            var output1 = document.getElementById(previewId+'1');
-                            output1.src = reader.result;
-                            output1.style.display = 'block';
-                        };
-                        reader.readAsDataURL(event.target.files[0]);
-                    }
+        
+//         document.getElementById('imgid1').style.display = 'block';
+//         document.querySelector('#imagePreviewContainer .btn-danger').style.display = 'block';
+//     };
+//     reader.readAsDataURL(event.target.files[0]);
+// }
+ // Function to handle image preview and delete button display during image selection
+function previewImage(event, previewId) {
+    const reader = new FileReader();
+
+    reader.onload = function() {
+        const output = document.getElementById(previewId);
+        output.src = reader.result;
+        output.style.display = 'block';
+
+        // Show the image preview container and the preview delete button (deleteicon)
+        document.getElementById('imgid1').style.display = 'block';
+        document.getElementById('deleteicon').style.display = 'block';
+        document.getElementById('icondelete').style.display = 'none'; // Hide saved delete button
+    };
+
+    if (event.target.files[0]) {
+        reader.readAsDataURL(event.target.files[0]);
+    }
+}
+
+// Function to remove the image preview when the preview delete button (deleteicon) is clicked
+function removeImagePreview() {
+    // Clear the image preview source and hide preview container and delete button
+    const output = document.getElementById('imagePreview');
+    output.src = '';
+    output.style.display = 'none';
+
+    document.getElementById('imgid1').style.display = 'none';
+    document.getElementById('deleteicon').style.display = 'none';
+}
+
+
                 </script>
 
                 <script>

@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@cortex.com',
             'password' =>  Hash::make("C0rte*"),
+            'role' => 'master',
         ]);
 
         $tabs1 = [
