@@ -211,13 +211,13 @@
                                         
                                
 
-                                        <div class="form-group" style="display: none;" id="imagePreview1">
+                                        {{-- <div class="form-group" style="display: none;" id="imagePreview1">
                                             <label for="imagePreview">Image Preview</label>
                                             <div id="imagePreviewContainer" style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
                                                
                                                 <img id="imagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
                                             </div>
-                                        </div>
+                                        </div> --}}
                                             
                                        
                                     </div>
