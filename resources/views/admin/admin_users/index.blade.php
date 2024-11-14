@@ -131,7 +131,9 @@
                                                     <input type="checkbox" class="form-check-input" name="learn" value="learn" role="switch" >
                                                 </div>
                                             </td>
+                                        </tr>
 
+                                        <tr>
                                             <td>Question Bank</td>
                                             <td>
                                                 <div class="form-check form-switch">
@@ -139,7 +141,6 @@
                                                     <input type="checkbox" class="form-check-input" name="learn" value="learn" role="switch" >
                                                 </div>
                                             </td>
-
                                         </tr>
 
                                     </tbody>
