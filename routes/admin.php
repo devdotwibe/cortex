@@ -141,29 +141,24 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::post('/{exam}/store',[FullMockExamController::class,'store'])->name('store');
             Route::post('/{exam}/import',[FullMockExamController::class,'importquestion'])->name('import');
         });
-        // Route::prefix('question-bank-old')->name('question-bank-old.')->group(function () {
-        //     Route::get('/',[QuestionBankControllerOld::class,'index'])->name('index');
-        //     Route::post('/subtitle',[QuestionBankControllerOld::class,'subtitle'])->name('subtitle');
-        //     Route::get('/{category}',[QuestionBankControllerOld::class,'show'])->name('show');
-        //     Route::get('/{category}/create',[QuestionBankControllerOld::class,'create'])->name('create');
-        //     Route::get('/{category}/{question}/edit',[QuestionBankControllerOld::class,'edit'])->name('edit');
-        //     Route::post('/{category}/store',[QuestionBankControllerOld::class,'store'])->name('store');
-        // });
+      
+        Route::middleware(['AdminPermission:options'])->group(function () {
 
-        Route::prefix('question-bank')->name('question-bank.')->group(function () {
-            Route::get('/',[QuestionBankController::class,'index'])->name('index');
-            Route::post('/subtitle',[QuestionBankController::class,'subtitle'])->name('subtitle');
-            Route::get('/{setname}',[QuestionBankController::class,'show'])->name('show');
+            Route::prefix('question-bank')->name('question-bank.')->group(function () {
+                Route::get('/',[QuestionBankController::class,'index'])->name('index');
+                Route::post('/subtitle',[QuestionBankController::class,'subtitle'])->name('subtitle');
+                Route::get('/{setname}',[QuestionBankController::class,'show'])->name('show');
 
-            Route::post('/question-bank/bulk/action',[QuestionBankController::class,'bulkaction'])->name('bulkaction');
+                Route::post('/question-bank/bulk/action',[QuestionBankController::class,'bulkaction'])->name('bulkaction');
 
 
-            Route::get('/{setname}/create',[QuestionBankController::class,'create'])->name('create');
-            Route::get('/{setname}/{question}/edit',[QuestionBankController::class,'edit'])->name('edit');
-            Route::post('/{setname}/store',[QuestionBankController::class,'store'])->name('store');
-            Route::get('/{category}/subcategory',[QuestionBankController::class,'subcategory'])->name('subcategory');
-            Route::get('/{sub_category}/set',[QuestionBankController::class,'subcategoryset'])->name('subcategoryset');
-            Route::post('/{setname}/import',[QuestionBankController::class,'importquestion'])->name('import');
+                Route::get('/{setname}/create',[QuestionBankController::class,'create'])->name('create');
+                Route::get('/{setname}/{question}/edit',[QuestionBankController::class,'edit'])->name('edit');
+                Route::post('/{setname}/store',[QuestionBankController::class,'store'])->name('store');
+                Route::get('/{category}/subcategory',[QuestionBankController::class,'subcategory'])->name('subcategory');
+                Route::get('/{sub_category}/set',[QuestionBankController::class,'subcategoryset'])->name('subcategoryset');
+                Route::post('/{setname}/import',[QuestionBankController::class,'importquestion'])->name('import');
+            });
         });
 
         Route::prefix('topic-test')->name('topic-test.')->group(function () {
