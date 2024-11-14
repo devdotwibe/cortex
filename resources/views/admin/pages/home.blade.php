@@ -189,17 +189,19 @@
                                         </div>
                                         
                                       
-                                        <div class="form-group" id="imgid1" style="{{ isset($banner) && $banner->image ? '' : 'display: none;' }}"> <!-- Show if image exists -->
+                                        <div class="form-group" id="imgid1" style="{{ isset($banner) && $banner->image ? '' : 'display: none;' }}">
                                             <label for="imagePreview">Image Preview</label>
                                             <div id="imagePreviewContainer" style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px; position: relative;">
-                                               
                                                 <img id="imagePreview" src="{{ isset($banner) && $banner->image ? url('d0/' . $banner->image) : '' }}" alt="Image Preview" style="width: 100%; height: auto; display: {{ isset($banner) && $banner->image ? 'block' : 'none' }};">
                                                 
-                                               
-                                                <button type="button" class="btn btn-danger" id="icondelete" style="position: absolute; top: 5px; right: 5px; {{ isset($banner) && $banner->image ? 'display: block;' : 'display: none;' }}" onclick="removeImage()">X</button>
-                                                <button type="button" class="btn btn-danger" id="deleteicon" style="position: absolute; top: 5px; right: 5px; {{ isset($banner) && $banner->image ? 'display: block;' : 'display: none;' }}" >X</button>
+                                                <!-- Delete button for preview (before saving) -->
+                                                <button type="button" class="btn btn-danger" id="deleteicon" style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removeImagePreview()">X</button>
+                                                
+                                                <!-- Delete button for saved image -->
+                                                <button type="button" class="btn btn-danger" id="icondelete" style="position: absolute; top: 5px; right: 5px; {{ isset($banner) && $banner->image ? 'display: block;' : 'display: none;' }}" onclick="removeSavedImage()">X</button>
                                             </div>
                                         </div>
+                                        
                                         
                                         
                                       
@@ -2206,24 +2208,53 @@
 
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
                 <script>
-                function previewImage(event, previewId) {
+//                       function previewImage(event, previewId) {
+//     const reader = new FileReader();
+//     reader.onload = function() {
+       
+//         const output = document.getElementById(previewId);
+//         output.src = reader.result;
+//         output.style.display = 'block';
+
+        
+//         document.getElementById('imgid1').style.display = 'block';
+//         document.querySelector('#imagePreviewContainer .btn-danger').style.display = 'block';
+//     };
+//     reader.readAsDataURL(event.target.files[0]);
+// }
+               
+function previewImage(event, previewId) {
     const reader = new FileReader();
 
     reader.onload = function() {
-        // Display the selected image preview
         const output = document.getElementById(previewId);
         output.src = reader.result;
         output.style.display = 'block';
 
-        // Show the image preview container and delete button with ID "deleteicon"
+        // Show the image preview container and the preview delete button (deleteicon)
         document.getElementById('imgid1').style.display = 'block';
         document.getElementById('deleteicon').style.display = 'block';
+        document.getElementById('icondelete').style.display = 'none'; // Hide saved delete button
     };
 
-    // Read the selected image file if available
     if (event.target.files[0]) {
         reader.readAsDataURL(event.target.files[0]);
     }
+}
+
+// Function to handle preview deletion (before saving)
+function removeImagePreview() {
+    document.getElementById('imagePreview').src = '';
+    document.getElementById('imgid1').style.display = 'none';
+    document.getElementById('deleteicon').style.display = 'none';
+}
+
+// Function to handle saved image deletion
+function removeSavedImage() {
+    // Implement logic to delete the saved image here
+    document.getElementById('imagePreview').src = '';
+    document.getElementById('imgid1').style.display = 'none';
+    document.getElementById('icondelete').style.display = 'none';
 }
 
 
