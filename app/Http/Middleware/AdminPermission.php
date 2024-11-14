@@ -37,7 +37,7 @@ class AdminPermission
                        
                         if ($admin->permission->users != 'Y') {
 
-                            return redirect()->route('admin.dashbord')->with('error', 'You do not have permission to access Users.');
+                            return redirect()->route('admin.admin_dashboard')->with('error', 'You do not have permission to access Users.');
                         }
                         break;
                     
@@ -45,7 +45,7 @@ class AdminPermission
                      
                         if ($admin->permission->learn != 'Y') {
 
-                            return redirect()->route('admin.dashbord')->with('error', 'You do not have permission to access Learn.');
+                            return redirect()->route('admin.admin_dashboard')->with('error', 'You do not have permission to access Learn.');
                         }
                         break;
         
@@ -53,7 +53,7 @@ class AdminPermission
                      
                         if ($admin->permission->options != 'Y') {
 
-                            return redirect()->route('admin.dashbord')->with('error', 'You do not have permission to access Options.');
+                            return redirect()->route('admin.admin_dashboard')->with('error', 'You do not have permission to access Options.');
                         }
                         break;
 
@@ -61,7 +61,7 @@ class AdminPermission
                     
                         if ($admin->permission->question_bank != 'Y') {
 
-                            return redirect()->route('admin.dashbord')->with('error', 'You do not have permission to access Question Bank.');
+                            return redirect()->route('admin.admin_dashboard')->with('error', 'You do not have permission to access Question Bank.');
                         }
                         break;
                     
@@ -69,7 +69,7 @@ class AdminPermission
                 
                         if ($admin->permission->exam_simulator != 'Y') {
 
-                            return redirect()->route('admin.dashbord')->with('error', 'You do not have permission to access Exam Simulator.');
+                            return redirect()->route('admin.admin_dashboard')->with('error', 'You do not have permission to access Exam Simulator.');
                         }
                         break;
 
@@ -77,7 +77,7 @@ class AdminPermission
                 
                         if ($admin->permission->live_teaching != 'Y') {
 
-                            return redirect()->route('admin.dashbord')->with('error', 'You do not have permission to access Live Teaching.');
+                            return redirect()->route('admin.admin_dashboard')->with('error', 'You do not have permission to access Live Teaching.');
                         }
                         break;
 
@@ -85,7 +85,7 @@ class AdminPermission
                 
                         if ($admin->permission->community != 'Y') {
 
-                            return redirect()->route('admin.dashbord')->with('error', 'You do not have permission to access Community.');
+                            return redirect()->route('admin.admin_dashboard')->with('error', 'You do not have permission to access Community.');
                         }
                         break;
 
@@ -93,18 +93,18 @@ class AdminPermission
             
                         if ($admin->permission->pages != 'Y') {
 
-                            return redirect()->route('admin.dashbord')->with('error', 'You do not have permission to access Pages.');
+                            return redirect()->route('admin.admin_dashboard')->with('error', 'You do not have permission to access Pages.');
                         }
                         break;
         
                     default:
                       
-                    return redirect()->route('admin.dashbord')->with('error', 'Permission option is invalid.');
+                    return redirect()->route('admin.admin_dashboard')->with('error', 'Permission option is invalid.');
                 }
             }
             else
             {
-                return redirect()->route('admin.dashbord')->with('error', 'No permissions found for this admin.');
+                return redirect()->route('admin.admin_dashboard')->with('error', 'No permissions found for this admin.');
             }
           
         } 
