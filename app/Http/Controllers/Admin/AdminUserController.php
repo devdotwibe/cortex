@@ -82,7 +82,7 @@ class AdminUserController extends Controller
             $admin_permission  = new AdminPermissions;
             $admin_permission->admin_id = $id;
         }
-        $admin_permission->{$field_name } = $value;
+        $admin_permission->{$field_name } = $value??'N';
 
         $admin_permission->save();
 
