@@ -199,6 +199,7 @@
                                                 
                                                 <!-- Delete button for saved image -->
                                                 <button type="button" class="btn btn-danger" id="icondelete" style="position: absolute; top: 5px; right: 5px; {{ isset($banner) && $banner->image ? 'display: block;' : 'display: none;' }}" onclick="removeSavedImage()">X</button>
+                                                
                                             </div>
                                         </div>
                                         
@@ -2222,7 +2223,7 @@
 //     };
 //     reader.readAsDataURL(event.target.files[0]);
 // }
-               
+ // Function to handle image preview and delete button display during image selection
 function previewImage(event, previewId) {
     const reader = new FileReader();
 
@@ -2242,19 +2243,15 @@ function previewImage(event, previewId) {
     }
 }
 
-// Function to handle preview deletion (before saving)
+// Function to remove the image preview when the preview delete button (deleteicon) is clicked
 function removeImagePreview() {
-    document.getElementById('imagePreview').src = '';
+    // Clear the image preview source and hide preview container and delete button
+    const output = document.getElementById('imagePreview');
+    output.src = '';
+    output.style.display = 'none';
+
     document.getElementById('imgid1').style.display = 'none';
     document.getElementById('deleteicon').style.display = 'none';
-}
-
-// Function to handle saved image deletion
-function removeSavedImage() {
-    // Implement logic to delete the saved image here
-    document.getElementById('imagePreview').src = '';
-    document.getElementById('imgid1').style.display = 'none';
-    document.getElementById('icondelete').style.display = 'none';
 }
 
 
