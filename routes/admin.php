@@ -634,7 +634,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
     });
 
 
-    Route::middleware([AdminPermission::class])->group(function () {
+    Route::middleware(['AdminPermission:admin_user'])->group(function () {
 
             Route::prefix('admin_user')->name('admin_user.')->group(function () {
 

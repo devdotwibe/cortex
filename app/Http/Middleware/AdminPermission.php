@@ -14,23 +14,25 @@ class AdminPermission
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next ,...$opt): Response
     {
           /**
          * @var Admin
          */
+
+         dd($opt);
+
         $admin = Auth::guard('admin')->user();
 
-         if ($admin) {
+         if ($admin->role !='master') {
           
-            $adminId = $admin->id;
-            dd('Admin ID: ' . $adminId);  
+          
+            return $next($request);
 
         } else {
           
-            return redirect()->route('login');  
+            return $next($request);
         }
 
-        return $next($request);
     }
 }
