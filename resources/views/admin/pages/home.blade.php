@@ -517,10 +517,11 @@
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
                                                         <label for="reviewimage" class="file-upload">Review Image <br>
-                                                            <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon"> </label>
+                                                            <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
+                                                        </label>
                                                         <input type="file" name="reviewimage" id="reviewimage"
                                                             value="{{ old('reviewimage', optional($banner)->reviewimage) }}"
-                                                            class="form-control" style="display: none;" onchange="previewReviewImage(event, 'reviewImagePreview',this)" data-id="imgid5">
+                                                            class="form-control" style="display: none;" onchange="previewReviewImage(event, 'reviewImagePreview', this)" data-id="imgid5">
                                                         @error('reviewimage')
                                                             <div class="text-danger">{{ $message }}</div>
                                                         @enderror
@@ -529,29 +530,30 @@
                                             </div>
                                         </div>
                                     
-                                        <div class="form-group">
+                                        <!-- Preview Review Image Container -->
+                                        <div class="form-group imgid5" id="imgid5" style="{{ isset($banner) && $banner->reviewimage ? '' : 'display: none;' }}">
                                             <label for="reviewImagePreview">Review Image Preview</label>
-                                            <div id="imagePreviewContainer"
-                                                style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
-                                                @if (isset($banner) && $banner->reviewimage)
-                                                    <img id="reviewImagePreview"
-                                                        src="{{ url('d0/' . $banner->reviewimage) }}"
-                                                        alt="Review Image Preview" style="width: 100%; height: auto;">
-                                                    <div id="imgid5" style="display: block;">
-                                                        <button type="button" class="btn btn-danger" id="deleteicon5" onclick="removeReviewImage()">Delete</button>
-                                                    </div>
-                                                @else
-                                                    <img id="reviewImagePreview" src="#" alt="Review Image Preview"
-                                                        style="display: none; width: 100%; height: auto;">
-                                                    <div id="imgid5" style="display: none;">
-                                                        <button type="button" class="btn btn-danger" id="deleteicon5" onclick="removeReviewImage()" style="display: none;">Delete</button>
-                                                    </div>
-                                                @endif
+                                            <div id="reviewImagePreviewContainer" class="numericalclass"
+                                                style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px; position: relative;">
+                                                <!-- Image Preview -->
+                                                <img id="reviewImagePreview"
+                                                    src="{{ isset($banner) && $banner->reviewimage ? url('d0/' . $banner->reviewimage) : '' }}"
+                                                    alt="Review Image Preview"
+                                                    style="width: 100%; height: auto; display: {{ isset($banner) && $banner->reviewimage ? 'block' : 'none' }};">
+                                    
+                                                <!-- Delete button for preview (before saving) -->
+                                                <button type="button" class="btn btn-danger imgid5" id="deleteicon5"
+                                                    style="position: absolute; top: 5px; right: 5px; display: none;"
+                                                    onclick="removeReviewImagePreview()">X</button>
+                                    
+                                                <!-- Delete button for saved image -->
+                                                <button type="button" class="btn btn-danger" id="icondelete5"
+                                                    style="position: absolute; top: 5px; right: 5px; {{ isset($banner) && $banner->reviewimage ? 'display: block;' : 'display: none;' }}"
+                                                    onclick="removeReviewImage()">X</button>
                                             </div>
                                         </div>
                                     </div>
                                     
-
 
 
                                     <div class="col-md-12">
