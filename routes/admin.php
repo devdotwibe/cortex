@@ -87,10 +87,14 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
 
         Route::resource("/exam",ExamController::class);
-        Route::get('/full-mock-exam-options',[ExamController::class,'examoptions'])->name('exam.options');
 
-        Route::post('/full-mock-exam-options',[ExamController::class,'examoptionssave']);
-       
+        Route::middleware(['AdminPermission:options'])->group(function () {
+
+            Route::get('/full-mock-exam-options',[ExamController::class,'examoptions'])->name('exam.options');
+
+            Route::post('/full-mock-exam-options',[ExamController::class,'examoptionssave']);
+
+       });
 
         Route::resource("/payment",PaymentController::class);
         Route::prefix('subscriber')->name('subscriber.')->group(function () {
