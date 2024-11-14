@@ -476,8 +476,8 @@
                         if (errors) {
                             
                             $.each(errors, function(field, message) {
-                                $('#' + field + 'edit_error').html(message);
-                                $('#' + field).addClass('is-invalid');
+                                $('#' + field + '_edit_error').html(message);
+                                $('#edit_' + field).addClass('is-invalid');
                             });
                         }
                     }
