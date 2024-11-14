@@ -1139,37 +1139,43 @@
                                             @enderror
                                         </div>
                                     </div>
-
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="liveimage" class="file-upload">Live Image <br>
-                                                <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
-                                            </label>
-                                            <input type="file" name="liveimage" id="liveimage" class="form-control"
-                                                style="display: none;" onchange="previewImage(event, 'liveImagePreview')">
-                                            @error('liveimage')
-                                                <div class="text-danger">{{ $message }}</div>
-                                            @enderror
+                                    <div class="sec numericalsectionclass">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="liveimage" class="file-upload">Live Image <br>
+                                                    <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
+                                                </label>
+                                                <input type="file" name="liveimage" id="liveimage" class="form-control"
+                                                    style="display: none;" onchange="previewLiveImage(event, 'liveImagePreview',this)" data-id="imgid10">
+                                                @error('liveimage')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
                                         </div>
-
-
-
-                                        <div class="form-group">
+                                    
+                                        <!-- Live Image Preview Section -->
+                                        <div class="form-group imgid10" id="imgid10" style="{{ isset($banner) && $banner->live_image ? '' : 'display: none;' }}">
                                             <label for="liveImagePreview">Live Image Preview</label>
                                             <div id="liveImagePreviewContainer"
-                                                style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
-                                                @if (isset($banner) && $banner->live_image)
-                                                    <img id="liveImagePreview"
-                                                        src="{{ url('d0/' . $banner->live_image) }}"
-                                                        alt="Live Image Preview" style="width: 100%; height: auto;">
-                                                @else
-                                                    <img id="liveImagePreview" src="#" alt="Live Image Preview"
-                                                        style="display: none; width: 100%; height: auto;">
-                                                @endif
+                                                style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px; position: relative;">
+                                                <!-- Image Preview -->
+                                                <img id="liveImagePreview"
+                                                    src="{{ isset($banner) && $banner->live_image ? url('d0/' . $banner->live_image) : '' }}"
+                                                    alt="Live Image Preview" style="width: 100%; height: auto; display: {{ isset($banner) && $banner->live_image ? 'block' : 'none' }};">
+                                                
+                                                <!-- Delete button for preview (before saving) -->
+                                                <button type="button" class="btn btn-danger imgid10" id="deleteicon10"
+                                                    style="position: absolute; top: 5px; right: 5px; display: none;"
+                                                    onclick="removeLiveImagePreview()">X</button>
+                                                
+                                                <!-- Delete button for saved image -->
+                                                <button type="button" class="btn btn-danger" id="icondelete10"
+                                                    style="position: absolute; top: 5px; right: 5px; {{ isset($banner) && $banner->live_image ? 'display: block;' : 'display: none;' }}"
+                                                    onclick="removeLiveImage()">X</button>
                                             </div>
                                         </div>
                                     </div>
-
+                                    
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="livecontent">Live Content*</label>
@@ -3048,6 +3054,63 @@ function removeUnlimitedImage() {
                 $('#imgid9').hide();
                 document.getElementById('unlimitedImagePreview').style.display = 'none';
                 document.querySelector('#unlimitedImagePreviewContainer button.btn-danger').style.display = 'none';
+            } else {
+                alert('Image could not be deleted. Please try again.');
+            }
+        },
+        error: function(xhr) {
+            alert('An error occurred. Please try again.');
+        }
+    });
+}
+
+
+// Function to preview the Live Image when a file is selected
+function previewLiveImage(event, previewId) {
+    const reader = new FileReader();
+
+    reader.onload = function() {
+        const output = document.getElementById(previewId);
+        output.src = reader.result;
+        output.style.display = 'block';
+
+        // Show the Live image preview container and the preview delete button
+        document.getElementById('imgid10').style.display = 'block';
+        document.getElementById('icondelete10').style.display = 'none'; // Hide saved delete button
+        document.getElementById('deleteicon10').style.display = 'block'; // Show preview delete button
+    };
+
+    if (event.target.files[0]) {
+        reader.readAsDataURL(event.target.files[0]);
+    }
+}
+
+// Function to remove the Live image preview when the preview delete button is clicked
+function removeLiveImagePreview() {
+    const output = document.getElementById('liveImagePreview');
+    output.src = '';
+    output.style.display = 'none';
+
+    document.getElementById('imgid10').style.display = 'none';
+    document.getElementById('deleteicon10').style.display = 'none'; // Hide preview delete button
+}
+
+// Function to remove the Live image from the server when the delete button is clicked
+function removeLiveImage() {
+    const imagePath = "{{ $banner->live_image }}"; // Set the correct image path for the Live image
+
+    $.ajax({
+        type: 'POST',
+        url: '{{ route('admin.page.deleteLiveImage') }}', // Ensure this route matches the backend route for deleting Live image
+        data: {
+            _token: '{{ csrf_token() }}',
+            image_path: imagePath
+        },
+        success: function(response) {
+            if (response.success) {
+                $('#imgid10').hide();
+                document.getElementById('liveImagePreview').style.display = 'none';
+                document.querySelector('#liveImagePreviewContainer button.btn-danger').style.display = 'none';
             } else {
                 alert('Image could not be deleted. Please try again.');
             }
