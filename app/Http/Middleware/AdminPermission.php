@@ -27,8 +27,8 @@ class AdminPermission
         }
 
         if ($admin->role !='master') {
-          
 
+            
             if(!empty($admin->permission))
             {
                 switch ($opt) {
