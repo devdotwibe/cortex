@@ -634,6 +634,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
                 Route::get('/get_permission', [AdminUserController::class, 'get_permission'])->name('get_permission');
 
+                Route::get('/admin_user', [AdminUserController::class, 'admin_user'])->name('admin_user');
                 
             });
     });

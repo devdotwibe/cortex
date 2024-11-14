@@ -26,7 +26,7 @@ class AdminUserController extends Controller
     {
         if($request->ajax()){
 
-            self::$defaultActions=["edit"]; 
+            self::$defaultActions=[""]; 
             return $this->where('role','super')
             ->addAction(function($data){
                 return '                
@@ -36,6 +36,15 @@ class AdminUserController extends Controller
                         </span>
                         <span class="adminactive-icon">
                             <img src="' . asset("assets/images/iconshover/view-yellow.svg") . '" alt="View Active" title="View">
+                        </span>
+                    </a>
+
+                     <a onclick="EditAdmin(this)" data-id="'.$data->id.'" class="btn btn-icons edit_btn">
+                        <span class="adminside-icon">
+                        <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
+                        </span>
+                        <span class="adminactive-icon">
+                            <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active" title="Edit">
                         </span>
                     </a>
 
@@ -108,4 +117,22 @@ class AdminUserController extends Controller
             'message' => 'The Admin Permission Not Created.'
         ]);
     }
+
+    function admin_user(Request $request)
+    {
+        $id = $request->id;
+      
+        $admin  = Admin::find($id);
+
+        if(!empty($admin))
+        {
+            return response()->json(['data' => $admin]);
+        }
+        
+        return response()->json([
+            'message' => 'The Admin Permission Not Created.'
+        ]);
+    }
+
+
 }
