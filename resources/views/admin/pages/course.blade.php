@@ -159,12 +159,18 @@
                                                     <button type="button" class="btn btn-danger" id="icondelete1" onclick="removeSavedImage()" style="float: right;">X</button>
                                                 @endif
                                     
-                                              
+                                              <!-- Dynamic image preview -->
+                                              <img id="imagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
                                     
                                                 <!-- Delete button for preview (before saving) -->
                                                 <button type="button" class="btn btn-danger" id="deleteicon1" style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removeImagePreview()">X</button>
                                             </div>
                                         </div>
+
+
+                                       
+                                    
+                                    </div>
                                     
                                     </div>
 
