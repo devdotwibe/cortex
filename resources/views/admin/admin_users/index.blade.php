@@ -275,7 +275,25 @@
 
                 $('#admin_id').val(id);
 
-                $('#admin_permission_modal').modal('show');
+                $.ajax({
+                    url: '{{route('admin.admin_user.get_permission')}}',  
+                    method: 'get',
+                    data: {
+                        id: id,
+                    }, 
+                    success: function(response) {
+                        
+                        $('#admin_permission_modal').modal('show');
+                    },
+                    error: function(xhr) {
+                        
+                        // var errors = xhr.responseJSON.errors;
+                        // if (errors) {
+                        
+                        // }
+                    }
+                });
+
             }
 
             function AddPermission(element) 
@@ -300,6 +318,7 @@
                     }, 
                     success: function(response) {
                         
+                        $('#admin_id').val('');
                         console.log(response);
                     },
                     error: function(xhr) {

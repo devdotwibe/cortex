@@ -640,6 +640,8 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
         Route::post('/save_permission', [AdminUserController::class, 'save_permission'])->name('save_permission');
 
+        Route::get('/get_permission', [AdminUserController::class, 'get_permission'])->name('get_permission');
+
         
     });
 
