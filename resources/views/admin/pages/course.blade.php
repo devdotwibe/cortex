@@ -1279,7 +1279,7 @@
     </script>
 
 
-<script>
+{{-- <script>
     function previewImage() {
 
 
@@ -1306,7 +1306,7 @@
         }
     }
 
-    </script>
+    </script> --}}
 
 
 
