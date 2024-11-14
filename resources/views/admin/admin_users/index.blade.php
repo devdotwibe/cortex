@@ -98,15 +98,13 @@
 @endsection
 
 @push('modals')
-    <div class="modal fade bd-example-modal-lg" id="admin_permission_modal" tabindex="-1" role="dialog"
-        aria-labelledby="sub-category-createLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content" id="sub-category-modal-content">
+
+    <div class="modal fade" id="admin_permission_modal" tabindex="-1" role="dialog" aria-labelledby="user-termLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="sub-category-createLabel"><span id="sub-category-id"></span>Admin Permissions</h5>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <h5 class="modal-title" id="user-termLablel">Admin Permissions</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal"  aria-label="Close"><span  aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body"> 
                     <form  class="form" id="admin_permission_form" data-save="create" data-action="" data-createurl="" >
@@ -133,7 +131,6 @@
                   
                 </div> 
             </div>
-        
         </div>
     </div>
 
