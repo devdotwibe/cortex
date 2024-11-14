@@ -162,7 +162,7 @@ class AdminUserController extends Controller
 
         if ($admin) {
            
-            $feature->delete();
+            $admin->delete();
 
             return response()->json(['success' => true]);
         }
