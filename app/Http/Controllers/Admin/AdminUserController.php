@@ -91,4 +91,21 @@ class AdminUserController extends Controller
         ]);
       
     }
+
+
+    function get_permission(Request $request)
+    {
+        $id = $request->id;
+      
+        $admin_permission  = AdminPermissions::where('admin_id',$id)->first();
+
+        if(!empty($admin_permission))
+        {
+            return response()->json(['data' => $admin_permission]);
+        }
+        
+        return response()->json([
+            'message' => 'The Admin Permission Not Created.'
+        ]);
+    }
 }
