@@ -2571,7 +2571,7 @@ function removeDiv(button, id) {
                 // Hide the image preview and the delete button
                 document.getElementById('learnImagePreview').style.display = 'none';
                 document.querySelector('#learnImagePreviewContainer button.btn-danger').style.display = 'none';
-                alert('Image deleted successfully.');
+             
             } else {
                 alert('Image could not be deleted. Please try again.');
             }
