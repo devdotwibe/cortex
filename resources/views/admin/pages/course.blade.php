@@ -100,23 +100,9 @@
                                             </div>
                                         </div>
 
-                                        <div class="numericalsectionclass">
+                                        {{-- <div class="numericalsectionclass">
 
                                       
-
-                                        {{-- <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="image" class="file-upload">Image  <br>
-                                                    <img src="{{ asset('assets/images/upfile.svg') }}"
-                                                        alt="Upload Icon"> </label>
-                                                <input type="file" class="form-control" style="display: none;" name="image" id="imageInput" onchange="previewImage()">
-                                            
-                                            </div>
-                                        </div> --}}
-
-
-
-
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="image" class="file-upload">Section Image <br>
@@ -149,6 +135,38 @@
                                             </div>
                                         </div>
 
+                                    </div> --}}
+
+
+                                    <div class="numericalsectionclass">
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="image" class="file-upload">Section Image <br>
+                                                    <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon"></label>
+                                                <input type="file" class="form-control" style="display: none;" name="image" id="image" onchange="previewImage(event, 'imagePreview',this)" data-id="imgid1">
+                                            </div>
+                                        </div>
+                                    
+                                        <div class="form-group imgid1" id="imgid1">
+                                            <label for="imagePreview">Image Preview</label>
+                                            <div id="imagePreviewContainer" class="numericalclass">
+                                                @if (isset($course) && $course->image)
+                                                    <!-- Display saved image and delete button -->
+                                                    <img id="imagePreview-save" src="{{ url('d0/' . $course->image) }}" alt="Image Preview"
+                                                        style="width: 100%; height: auto;">
+                                                    <!-- Delete button for saved image -->
+                                                    <button type="button" class="btn btn-danger" id="icondelete9" onclick="removeSavedImage()" style="float: right;">X</button>
+                                                @endif
+                                    
+                                                <!-- Dynamic image preview -->
+                                                <img id="imagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
+                                    
+                                                <!-- Delete button for preview (before saving) -->
+                                                <button type="button" class="btn btn-danger" id="deleteicon9" style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removeImagePreview()">X</button>
+                                            </div>
+                                        </div>
+                                    
                                     </div>
 
 
