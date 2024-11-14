@@ -38,7 +38,7 @@ use App\Http\Controllers\Admin\UserAccessController;
 use App\Http\Controllers\Admin\TipsController;  
 use App\Http\Controllers\Admin\SubscriptionPaymentController;
 use App\Http\Controllers\Admin\TimetableController;
-
+use App\Http\Middleware\AdminPermission;
 use Illuminate\Support\Facades\Route;
 
 
@@ -633,21 +633,24 @@ Route::name('admin.')->prefix('admin')->group(function(){
     });
 
 
-    Route::prefix('admin_user')->name('admin_user.')->group(function () {
+    Route::middleware([AdminPermission::class])->group(function () {
 
-        Route::get('/', [AdminUserController::class, 'index'])->name('index');
+            Route::prefix('admin_user')->name('admin_user.')->group(function () {
 
-        Route::post('/store', [AdminUserController::class, 'store'])->name('store');
+                Route::get('/', [AdminUserController::class, 'index'])->name('index');
 
-        Route::post('/edit', [AdminUserController::class, 'edit'])->name('edit');
+                Route::post('/store', [AdminUserController::class, 'store'])->name('store');
 
-        Route::delete('/destroy', [AdminUserController::class, 'destroy'])->name('destroy');
+                Route::post('/edit', [AdminUserController::class, 'edit'])->name('edit');
 
-        Route::post('/save_permission', [AdminUserController::class, 'save_permission'])->name('save_permission');
+                Route::delete('/destroy', [AdminUserController::class, 'destroy'])->name('destroy');
 
-        Route::get('/get_permission', [AdminUserController::class, 'get_permission'])->name('get_permission');
+                Route::post('/save_permission', [AdminUserController::class, 'save_permission'])->name('save_permission');
 
-        
+                Route::get('/get_permission', [AdminUserController::class, 'get_permission'])->name('get_permission');
+
+                
+            });
     });
 
    
