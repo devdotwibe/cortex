@@ -41,7 +41,7 @@ class AdminUserController extends Controller
 
 
                 ';
-            })->buildTable();
+            })->where('role','!=','master')->buildTable();
         }
 
         return view('admin.admin_users.index');
