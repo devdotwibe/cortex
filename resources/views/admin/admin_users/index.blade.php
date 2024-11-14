@@ -124,11 +124,31 @@
                                     <tbody id="admin-table-body">
 
                                         <tr>
+                                            <td>Users</td>
+                                            <td>
+                                                <div class="form-check form-switch">
+
+                                                    <input type="checkbox" class="form-check-input" name="users" value="Y" role="switch" >
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
                                             <td>Learn</td>
                                             <td>
                                                 <div class="form-check form-switch">
 
-                                                    <input type="checkbox" class="form-check-input" name="learn" value="learn" role="switch" >
+                                                    <input type="checkbox" class="form-check-input" name="learn" value="Y" role="switch" >
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Options</td>
+                                            <td>
+                                                <div class="form-check form-switch">
+
+                                                    <input type="checkbox" class="form-check-input" name="options" value="Y" role="switch" >
                                                 </div>
                                             </td>
                                         </tr>
@@ -138,7 +158,47 @@
                                             <td>
                                                 <div class="form-check form-switch">
 
-                                                    <input type="checkbox" class="form-check-input" name="learn" value="learn" role="switch" >
+                                                    <input type="checkbox" class="form-check-input" name="question_bank" value="Y" role="switch" >
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Exam Simulator</td>
+                                            <td>
+                                                <div class="form-check form-switch">
+
+                                                    <input type="checkbox" class="form-check-input" name="exam_simulator" value="Y" role="switch" >
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Live Teaching</td>
+                                            <td>
+                                                <div class="form-check form-switch">
+
+                                                    <input type="checkbox" class="form-check-input" name="live_teaching" value="Y" role="switch" >
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Community</td>
+                                            <td>
+                                                <div class="form-check form-switch">
+
+                                                    <input type="checkbox" class="form-check-input" name="community" value="Y" role="switch" >
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>pages</td>
+                                            <td>
+                                                <div class="form-check form-switch">
+
+                                                    <input type="checkbox" class="form-check-input" name="pages" value="Y" role="switch" >
                                                 </div>
                                             </td>
                                         </tr>
