@@ -286,6 +286,8 @@
 
                 var value = $(element).val();
 
+                value = $(element).is(':checked') ? value : '';
+
                 console.log(admin_id,field_name,value);
 
                 $.ajax({
