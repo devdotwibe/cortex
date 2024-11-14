@@ -420,22 +420,23 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="sec numericalsectionclass">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <div class="form-data">
-                                                    <div class="forms-inputs mb-4">
-                                                        <label for="preparetitle">Prepare Title*</label>
-                                                        <input type="text" name="preparetitle" id="preparetitle"
-                                                            value="{{ old('preparetitle', optional($banner)->preparetitle) }}"
-                                                            class="form-control" placeholder="Prepare Title">
-                                                        @error('preparetitle')
-                                                            <div class="text-danger">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div class="form-data">
+                                                <div class="forms-inputs mb-4">
+                                                    <label for="preparetitle">Prepare Title*</label>
+                                                    <input type="text" name="preparetitle" id="preparetitle"
+                                                        value="{{ old('preparetitle', optional($banner)->preparetitle) }}"
+                                                        class="form-control" placeholder="Prepare Title">
+                                                    @error('preparetitle')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="sec numericalsectionclass">
+                                       
                                     
                                         <div class="col-md-12">
                                             <div class="form-group">
