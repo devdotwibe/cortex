@@ -1011,37 +1011,37 @@
                                     <div class="sec numericalsectionclass">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="anytimeimage" class="file-upload">Anytime Image <br>
+                                                <label for="unlimitedimage" class="file-upload">Unlimited Image <br>
                                                     <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
                                                 </label>
-                                                <input type="file" name="anytimeimage" id="anytimeimage" class="form-control" style="display: none;"
-                                                    onchange="previewAnytimeImage(event, 'anytimeImagePreview',this)" data-id="imgid8">
-                                                @error('anytimeimage')
+                                                <input type="file" name="unlimitedimage" id="unlimitedimage" class="form-control" style="display: none;"
+                                                    onchange="previewImage(event, 'unlimitedImagePreview',this)" data-id="imgid9">
+                                                @error('unlimitedimage')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                         </div>
                                     
-                                        <!-- Preview Anytime Image Container -->
-                                        <div class="form-group imgid8" id="imgid8" style="{{ isset($banner) && $banner->anytime_image ? '' : 'display: none;' }}">
-                                            <label for="anytimeImagePreview">Anytime Image Preview</label>
-                                            <div id="anytimeImagePreviewContainer" class="numericalclass"
+                                        <!-- Preview Unlimited Image Container -->
+                                        <div class="form-group imgid9" id="imgid9" style="{{ isset($banner) && $banner->unlimited_image ? '' : 'display: none;' }}">
+                                            <label for="unlimitedImagePreview">Unlimited Image Preview</label>
+                                            <div id="unlimitedImagePreviewContainer" class="numericalclass"
                                                 style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px; position: relative;">
                                                 <!-- Image Preview -->
-                                                <img id="anytimeImagePreview"
-                                                    src="{{ isset($banner) && $banner->anytime_image ? url('d0/' . $banner->anytime_image) : '' }}"
-                                                    alt="Anytime Image Preview"
-                                                    style="width: 100%; height: auto; display: {{ isset($banner) && $banner->anytime_image ? 'block' : 'none' }};">
+                                                <img id="unlimitedImagePreview"
+                                                    src="{{ isset($banner) && $banner->unlimited_image ? url('d0/' . $banner->unlimited_image) : '' }}"
+                                                    alt="Unlimited Image Preview"
+                                                    style="width: 100%; height: auto; display: {{ isset($banner) && $banner->unlimited_image ? 'block' : 'none' }};">
                                                 
                                                 <!-- Delete button for preview (before saving) -->
-                                                <button type="button" class="btn btn-danger imgid8" id="deleteicon8"
+                                                <button type="button" class="btn btn-danger imgid9" id="deleteicon9"
                                                     style="position: absolute; top: 5px; right: 5px; display: none;"
-                                                    onclick="removeAnytimeImagePreview()">X</button>
+                                                    onclick="removeUnlimitedImagePreview()">X</button>
                                                 
                                                 <!-- Delete button for saved image -->
-                                                <button type="button" class="btn btn-danger" id="icondelete8"
-                                                    style="position: absolute; top: 5px; right: 5px; {{ isset($banner) && $banner->anytime_image ? 'display: block;' : 'display: none;' }}"
-                                                    onclick="removeAnytimeImage()">X</button>
+                                                <button type="button" class="btn btn-danger" id="icondelete9"
+                                                    style="position: absolute; top: 5px; right: 5px; {{ isset($banner) && $banner->unlimited_image ? 'display: block;' : 'display: none;' }}"
+                                                    onclick="removeUnlimitedImage()">X</button>
                                             </div>
                                         </div>
                                     </div>
@@ -1078,41 +1078,46 @@
                                             @enderror
                                         </div>
                                     </div>
-
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="unlimitedimage" class="file-upload">Unlimited Image <br>
-                                                <img src="{{ asset('assets/images/upfile.svg') }}"
-                                                    alt="Upload Icon"></label>
-                                            <input type="file" name="unlimitedimage" id="unlimitedimage"
-                                                class="form-control" style="display: none;"
-                                                onchange="previewImage(event, 'unlimitedImagePreview')">
-                                            @error('unlimitedimage')
-                                                <div class="text-danger">{{ $message }}</div>
-                                            @enderror
+                                    <div class="sec numericalsectionclass">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="unlimitedimage" class="file-upload">Unlimited Image <br>
+                                                    <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
+                                                </label>
+                                                <input type="file" name="unlimitedimage" id="unlimitedimage" class="form-control" style="display: none;"
+                                                    onchange="previewImage(event, 'unlimitedImagePreview', this)" data-id="imgidUnlimited">
+                                                @error('unlimitedimage')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
                                         </div>
-
-
-
-
-
-
-                                        <div class="form-group">
+                                    
+                                        <!-- Preview Unlimited Image Container -->
+                                        <div class="form-group imgidUnlimited" id="imgidUnlimited" style="{{ isset($banner) && $banner->unlimited_image ? '' : 'display: none;' }}">
                                             <label for="unlimitedImagePreview">Unlimited Image Preview</label>
-                                            <div id="unlimitedImagePreviewContainer"
-                                                style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
-                                                @if (isset($banner) && $banner->unlimited_image)
-                                                    <img id="unlimitedImagePreview"
-                                                        src="{{ url('d0/' . $banner->unlimited_image) }}"
-                                                        alt="Unlimited Image Preview" style="width: 100%; height: auto;">
-                                                @else
-                                                    <img id="unlimitedImagePreview" src="#"
-                                                        alt="Unlimited Image Preview"
-                                                        style="display: none; width: 100%; height: auto;">
-                                                @endif
+                                            <div id="unlimitedImagePreviewContainer" class="numericalclass"
+                                                style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px; position: relative;">
+                                                
+                                                <!-- Image Preview -->
+                                                <img id="unlimitedImagePreview"
+                                                    src="{{ isset($banner) && $banner->unlimited_image ? url('d0/' . $banner->unlimited_image) : '' }}"
+                                                    alt="Unlimited Image Preview"
+                                                    style="width: 100%; height: auto; display: {{ isset($banner) && $banner->unlimited_image ? 'block' : 'none' }};">
+                                                
+                                                <!-- Delete button for preview (before saving) -->
+                                                <button type="button" class="btn btn-danger imgidUnlimited" id="deleteiconUnlimited"
+                                                    style="position: absolute; top: 5px; right: 5px; display: none;"
+                                                    onclick="removeImagePreview('unlimitedImagePreview', 'deleteiconUnlimited', 'imgidUnlimited')">X</button>
+                                                
+                                                <!-- Delete button for saved image -->
+                                                <button type="button" class="btn btn-danger" id="icondeleteUnlimited"
+                                                    style="position: absolute; top: 5px; right: 5px; {{ isset($banner) && $banner->unlimited_image ? 'display: block;' : 'display: none;' }}"
+                                                    onclick="removeSavedImage('unlimitedImagePreview', 'icondeleteUnlimited', 'imgidUnlimited')">X</button>
                                             </div>
                                         </div>
                                     </div>
+                                    
+                                    
 
                                     <div class="col-md-12">
                                         <div class="form-group">
@@ -3006,6 +3011,63 @@ function removeAnytimeImage() {
                 $('#imgid8').hide();
                 document.getElementById('anytimeImagePreview').style.display = 'none';
                 document.querySelector('#anytimeImagePreviewContainer button.btn-danger').style.display = 'none';
+            } else {
+                alert('Image could not be deleted. Please try again.');
+            }
+        },
+        error: function(xhr) {
+            alert('An error occurred. Please try again.');
+        }
+    });
+}
+
+
+// Function to preview the Unlimited image when a file is selected
+function previewUnlimitedImage(event, previewId) {
+    const reader = new FileReader();
+
+    reader.onload = function() {
+        const output = document.getElementById(previewId);
+        output.src = reader.result;
+        output.style.display = 'block';
+
+        // Show the Unlimited image preview container and the preview delete button
+        document.getElementById('imgid9').style.display = 'block';
+        document.getElementById('icondelete9').style.display = 'none'; // Hide saved delete button
+        document.getElementById('deleteicon9').style.display = 'block'; // Show preview delete button
+    };
+
+    if (event.target.files[0]) {
+        reader.readAsDataURL(event.target.files[0]);
+    }
+}
+
+// Function to remove the Unlimited image preview when the preview delete button is clicked
+function removeUnlimitedImagePreview() {
+    const output = document.getElementById('unlimitedImagePreview');
+    output.src = '';
+    output.style.display = 'none';
+
+    document.getElementById('imgid9').style.display = 'none';
+    document.getElementById('deleteicon9').style.display = 'none'; // Hide preview delete button
+}
+
+// Function to remove the Unlimited image from the server when the delete button is clicked
+function removeUnlimitedImage() {
+    const imagePath = "{{ $banner->unlimited_image }}"; // Set the correct image path for the Unlimited image
+
+    $.ajax({
+        type: 'POST',
+        url: '{{ route('admin.page.deleteUnlimitedImage') }}', // Ensure this route matches the backend route for deleting Unlimited image
+        data: {
+            _token: '{{ csrf_token() }}',
+            image_path: imagePath
+        },
+        success: function(response) {
+            if (response.success) {
+                $('#imgid9').hide();
+                document.getElementById('unlimitedImagePreview').style.display = 'none';
+                document.querySelector('#unlimitedImagePreviewContainer button.btn-danger').style.display = 'none';
             } else {
                 alert('Image could not be deleted. Please try again.');
             }
