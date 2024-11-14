@@ -418,7 +418,7 @@
                 var id = $(element).data('id');
 
                 $.ajax({
-                    url: '{{route('admin.admin_user.get_permission')}}',  
+                    url: '{{route('admin.admin_user.admin_user')}}',  
                     method: 'get',
                     data: {
                         id: id,
