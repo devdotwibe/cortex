@@ -150,13 +150,18 @@
                                     
                                         <div class="form-group imgid1" id="imgid1">
                                             <label for="imagePreview">Image Preview</label>
-                                            <div id="imagePreviewContainer" class="numericalclass">
-                                                @if (isset($course) && $course->image)
-                                                    <!-- Display saved image and delete button -->
-                                                    <img id="imagePreview-save" src="{{ url('d0/' . $course->image) }}" alt="Image Preview"
-                                                        style="width: 100%; height: auto;">
-                                                    <!-- Delete button for saved image -->
-                                                    {{-- <button type="button" class="btn btn-danger" id="icondelete1" onclick="removeImage()"  style="position: absolute; top: 5px; right: 5px; {{ isset($course) && $course->image ? 'display: block;' : 'display: none;' }}">X</button> --}}
+                                            <div id="imagePreview" class="numericalclass"
+                                            style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px; position: relative;">
+                                                    
+
+
+
+                                                    <img id="imagePreview-save"
+                                                    src="{{ isset($course) && $course->image ? url('d0/' . $course->image) : '' }}"
+                                                    alt="Image Preview"
+                                                    style="width: 100%; height: auto; display: {{ isset($course) && $course->image ? 'block' : 'none' }};">
+
+
 
 
                                                     
@@ -168,7 +173,7 @@
 
 
                                                      <!-- Delete button for saved image -->
-                                                     <button type="button" class="btn btn-danger" id="icondelete2"
+                                                     <button type="button" class="btn btn-danger" id="icondelete1"
                                                      style="position: absolute; top: 5px; right: 5px; {{ isset($course) && $course->image ? 'display: block;' : 'display: none;' }}"
                                                      onclick="removeSectionImage()">X</button>
 
