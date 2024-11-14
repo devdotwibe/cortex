@@ -9,6 +9,19 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AdminPermission
 {
+
+    protected $parameter;
+
+    /**
+     * AdminPermission constructor.
+     * 
+     * @param string $parameter
+     */
+    public function __construct($parameter)
+    {
+        $this->parameter = $parameter;  // Store the parameter
+    }
+
     /**
      * Handle an incoming request.
      *
@@ -19,18 +32,20 @@ class AdminPermission
           /**
          * @var Admin
          */
+
+         dd($this->parameter);
+         
         $admin = Auth::guard('admin')->user();
 
-         if ($admin) {
+         if ($admin->role !='master') {
           
-            $adminId = $admin->id;
-            dd('Admin ID: ' . $adminId);  
+          
+            return $next($request);
 
         } else {
           
-            return redirect()->route('login');  
+            return $next($request);
         }
 
-        return $next($request);
     }
 }
