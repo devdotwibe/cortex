@@ -319,6 +319,22 @@ Route::name('admin.')->prefix('admin')->group(function(){
                 Route::post('/intensive/class',[LiveClassController::class,'intensive_class'])->name('intensive_class');
 
             });
+
+                Route::prefix('timetable')->name('timetable.')->group(function () {
+                Route::get('/', [TimetableController::class, 'index'])->name('index');
+            
+                Route::post('/', [TimetableController::class, 'store'])->name('store');
+
+                Route::get('/edit/{id}', [TimetableController::class, 'edit'])->name('edit');
+
+                Route::post('/update/{id}', [TimetableController::class, 'update'])->name('update');
+                
+            
+                Route::delete('/delete/{id}', [TimetableController::class, 'destroy'])->name('destroy');
+
+                Route::get('/fetcheditdata/{id}', [TimetableController::class, 'fetcheditdata'])->name('fetcheditdata');
+
+                });
         });
 
         Route::prefix('term')->name('term.')->group(function () {
@@ -432,7 +448,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::post('/store',[SettingsController::class,'store'])->name('store');
     });
 
-    Route::middleware(['AdminPermission:admin_user'])->group(function () {
+    Route::middleware(['AdminPermission:pages'])->group(function () {
 
         Route::prefix('page')->name('page.')->group(function () {
             Route::get('/', [PagesController::class, 'index'])->name('index');
@@ -473,164 +489,135 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
     Route::get('/set/view', [PagesController::class, 'set_table_show'])->name('set_table.show');
 
-    Route::prefix('faq')->name('faq.')->group(function () {
-        Route::get('/',[FaqController::class,'index'])->name('index');
-        Route::post('/',[FaqController::class,'store'])->name('store');
+    Route::middleware(['AdminPermission:pages'])->group(function () {
 
-        Route::post('/add-subfaq/{faq}',[FaqController::class,'add_subfaq'])->name('add_subfaq');
+        Route::prefix('faq')->name('faq.')->group(function () {
+            Route::get('/',[FaqController::class,'index'])->name('index');
+            Route::post('/',[FaqController::class,'store'])->name('store');
 
-        Route::post('/subfaq-store',[SubFaqController::class,'substore'])->name('subfaq-store');
-        Route::get('/subfaq-table',[SubFaqController::class,'subfaq_table'])->name('subfaq_table');
-        Route::get('/{faq}/edit_subfaq',[SubFaqController::class,'edit_subfaq'])->name('edit_subfaq');
-        Route::post('sub/{faq}',[SubFaqController::class,'update_subfaq'])->name('update_subfaq');
-        Route::delete('del/{faq}',[SubFaqController::class,'del_subfaq'])->name('del_subfaq');
+            Route::post('/add-subfaq/{faq}',[FaqController::class,'add_subfaq'])->name('add_subfaq');
 
-        Route::get('/{faq}/edit_faq',[FaqController::class,'edit_faq'])->name('edit_faq');
-        Route::post('/{faq}',[FaqController::class,'update_faq'])->name('update_faq');
-        Route::delete('/{faq}',[FaqController::class,'del_faq'])->name('del_faq');
+            Route::post('/subfaq-store',[SubFaqController::class,'substore'])->name('subfaq-store');
+            Route::get('/subfaq-table',[SubFaqController::class,'subfaq_table'])->name('subfaq_table');
+            Route::get('/{faq}/edit_subfaq',[SubFaqController::class,'edit_subfaq'])->name('edit_subfaq');
+            Route::post('sub/{faq}',[SubFaqController::class,'update_subfaq'])->name('update_subfaq');
+            Route::delete('del/{faq}',[SubFaqController::class,'del_subfaq'])->name('del_subfaq');
 
+            Route::get('/{faq}/edit_faq',[FaqController::class,'edit_faq'])->name('edit_faq');
+            Route::post('/{faq}',[FaqController::class,'update_faq'])->name('update_faq');
+            Route::delete('/{faq}',[FaqController::class,'del_faq'])->name('del_faq');
 
+        });
 
-    });
-
-
-
-    Route::prefix('support')->name('support.')->group(function () {
-        Route::get('/', [SupportController::class, 'index'])->name('index');
-        Route::get('/create', [SupportController::class, 'create'])->name('create');
-        Route::post('/', [SupportController::class, 'storeSection1'])->name('store');
-        // Route::post('/section2', [PagesController::class, 'storeSection2'])->name('section2');
-
-        Route::get('/{setname}/edit', [SupportController::class, 'edit'])->name('edit');
-        Route::put('/{setname}', [SupportController::class, 'update'])->name('update');
-        Route::get('/{setname}', [SupportController::class, 'show'])->name('show');
-        Route::delete('/{setname}', [SupportController::class, 'destroy'])->name('destroy');
-        Route::get('/{setname}/visibility', [SupportController::class, 'visibility'])->name('visibility');
-
-        Route::delete('/admin/page/feature/{id}', [SupportController::class, 'destroy'])->name('feature.destroy');
-
-
-
-
-    });
-
-
-
-
-    Route::prefix('tip')->name('tip.')->group(function () {
-        Route::get('/', [TipsController::class, 'index'])->name('index');
-
-        Route::get('/{tip}/create', [TipsController::class, 'create'])->name('create');
-        Route::get('/{tip}/storetip', [TipsController::class, 'storetip'])->name('storetip');
-        Route::post('/{tip}/store', [TipsController::class, 'store'])->name('store');
-        Route::get('/{tip}/edit', [TipsController::class, 'edit'])->name('edit'); // Ensure this route is defined
-
-        Route::get('/{tip}/edit_subfaq',[TipsController::class,'edit_subfaq'])->name('edit_subfaq');
-        Route::post('update/{tip}',[TipsController::class,'update'])->name('update'); // Update route
-
-        Route::delete('del/{tip}',[TipsController::class,'del_tip'])->name('del_tip');
-    });
-
-
-    Route::prefix('course')->name('course.')->group(function () {
-        Route::get('/', [CourseController::class, 'index'])->name('index');
-
-        Route::get('/{tip}/create', [CourseController::class, 'create'])->name('create');
-        Route::get('/{tip}/storetip', [CourseController::class, 'storetip'])->name('storetip');
-        Route::post('/{tip}/store', [CourseController::class, 'store'])->name('store');
-        Route::get('/{tip}/edit', [CourseController::class, 'edit'])->name('edit'); // Ensure this route is defined
-
-        Route::post('/course', [CourseController::class, 'storesection1'])->name('section1');
-
-        Route::post('/course1', [CourseController::class, 'storesection4'])->name('section2');
-
-        Route::post('/', [CourseController::class, 'storesection4'])->name('section4');
-
-        Route::post('/', [CourseController::class, 'storesection5'])->name('section5');
-
-
-        Route::post('/delete-image', [CourseController::class, 'deleteImage'])->name('deleteImage');
-
-
-        Route::post('/private-image', [CourseController::class, 'deletePrivateImage'])->name('deletePrivateImage');
-
-        Route::post('/logicalimage', [CourseController::class, 'deleteLogicalImage'])->name('deleteLogicalImage');
-        Route::post('/criticalimage', [CourseController::class, 'deleteCriticalImage'])->name('deleteCriticalImage');
-
-        Route::post('/abstractimage', [CourseController::class, 'deleteAbstractImage'])->name('deleteAbstractImage');
-
-        Route::post('/numericalimage', [CourseController::class, 'deleteNumericalImage'])->name('deleteNumericalImage');
-
-        Route::post('/learnimage', [CourseController::class, 'deleteLearnImage'])->name('deleteLearnImage');
-
-        Route::post('/questionbankimage', [CourseController::class, 'deleteQuestionBankImage'])->name('deleteQuestionBankImage');
-
-        Route::post('/topicimage', [CourseController::class, 'deleteTopicImage'])->name('deleteTopicImage');
-
-        Route::post('/fullmockimage', [CourseController::class, 'deleteFullmockImage'])->name('deleteFullmockImage');
-        // Store data for each tab
-        Route::post('/tab1', [CourseController::class, 'storeTab1'])->name('tab1.store');
-        Route::post('/tab2', [CourseController::class, 'storeTab2'])->name('tab2.store');
-        Route::post('/tab3', [CourseController::class, 'storeTab3'])->name('tab3.store');
-        Route::post('/tab4', [CourseController::class, 'storeTab4'])->name('tab4.store');
-
-
-
-
-        Route::post('/section3/tab1', [CourseController::class, 'storeSection3Tab1'])->name('section3.tab1.store');
-        Route::post('/section3/tab2', [CourseController::class, 'storeSection3Tab2'])->name('section3.tab2.store');
-        Route::post('/section3/tab3', [CourseController::class, 'storeSection3Tab3'])->name('section3.tab3.store');
-        Route::post('/section3/tab4', [CourseController::class, 'storeSection3Tab4'])->name('section3.tab4.store');
-        Route::post('/section3/tab5', [CourseController::class, 'storeSection3Tab5'])->name('section3.tab5.store');
-
-
-        Route::get('/{tip}/edit_subfaq',[CourseController::class,'edit_subfaq'])->name('edit_subfaq');
-        Route::post('update/{tip}',[CourseController::class,'update'])->name('update'); // Update route
-
-        Route::delete('del/{tip}',[CourseController::class,'del_tip'])->name('del_tip');
-
-        Route::post('/tab/change', [CourseController::class, 'tabchange'])->name('tabchange');
-
-        Route::post('/tab/change1', [CourseController::class, 'tabchange1'])->name('tabchange1');
-
-    });
- 
- 
-
-    Route::prefix('privacy')->name('privacy.')->group(function () {
-        Route::get('/', [PrivacyController::class, 'index'])->name('index');
-        Route::get('/create', [PrivacyController::class, 'create'])->name('create');
-        Route::post('/', [PrivacyController::class, 'storeSection1'])->name('store');
-
-       
-
-    });
-
-    Route::prefix('terms')->name('terms.')->group(function () {
-        Route::get('/', [TermsAndConditionsController::class, 'index'])->name('index');
-        Route::get('/create', [TermsAndConditionsController::class, 'create'])->name('create');
-        Route::post('/', [TermsAndConditionsController::class, 'storeSection1'])->name('store');
-
-    });
-
- 
-    Route::prefix('timetable')->name('timetable.')->group(function () {
-                Route::get('/', [TimetableController::class, 'index'])->name('index');
-            
-                Route::post('/', [TimetableController::class, 'store'])->name('store');
-
-        Route::get('/edit/{id}', [TimetableController::class, 'edit'])->name('edit');
-
-        Route::post('/update/{id}', [TimetableController::class, 'update'])->name('update');
-        
+        Route::prefix('support')->name('support.')->group(function () {
+            Route::get('/', [SupportController::class, 'index'])->name('index');
+            Route::get('/create', [SupportController::class, 'create'])->name('create');
+            Route::post('/', [SupportController::class, 'storeSection1'])->name('store');
+            // Route::post('/section2', [PagesController::class, 'storeSection2'])->name('section2');
     
-        Route::delete('/delete/{id}', [TimetableController::class, 'destroy'])->name('destroy');
+            Route::get('/{setname}/edit', [SupportController::class, 'edit'])->name('edit');
+            Route::put('/{setname}', [SupportController::class, 'update'])->name('update');
+            Route::get('/{setname}', [SupportController::class, 'show'])->name('show');
+            Route::delete('/{setname}', [SupportController::class, 'destroy'])->name('destroy');
+            Route::get('/{setname}/visibility', [SupportController::class, 'visibility'])->name('visibility');
+    
+            Route::delete('/admin/page/feature/{id}', [SupportController::class, 'destroy'])->name('feature.destroy');
+    
+        });
 
-        Route::get('/fetcheditdata/{id}', [TimetableController::class, 'fetcheditdata'])->name('fetcheditdata');
+        Route::prefix('tip')->name('tip.')->group(function () {
+            Route::get('/', [TipsController::class, 'index'])->name('index');
+    
+            Route::get('/{tip}/create', [TipsController::class, 'create'])->name('create');
+            Route::get('/{tip}/storetip', [TipsController::class, 'storetip'])->name('storetip');
+            Route::post('/{tip}/store', [TipsController::class, 'store'])->name('store');
+            Route::get('/{tip}/edit', [TipsController::class, 'edit'])->name('edit'); // Ensure this route is defined
+    
+            Route::get('/{tip}/edit_subfaq',[TipsController::class,'edit_subfaq'])->name('edit_subfaq');
+            Route::post('update/{tip}',[TipsController::class,'update'])->name('update'); // Update route
+    
+            Route::delete('del/{tip}',[TipsController::class,'del_tip'])->name('del_tip');
+        });
+
+        Route::prefix('course')->name('course.')->group(function () {
+            Route::get('/', [CourseController::class, 'index'])->name('index');
+    
+            Route::get('/{tip}/create', [CourseController::class, 'create'])->name('create');
+            Route::get('/{tip}/storetip', [CourseController::class, 'storetip'])->name('storetip');
+            Route::post('/{tip}/store', [CourseController::class, 'store'])->name('store');
+            Route::get('/{tip}/edit', [CourseController::class, 'edit'])->name('edit'); // Ensure this route is defined
+    
+            Route::post('/course', [CourseController::class, 'storesection1'])->name('section1');
+    
+            Route::post('/course1', [CourseController::class, 'storesection4'])->name('section2');
+    
+            Route::post('/', [CourseController::class, 'storesection4'])->name('section4');
+    
+            Route::post('/', [CourseController::class, 'storesection5'])->name('section5');
+    
+    
+            Route::post('/delete-image', [CourseController::class, 'deleteImage'])->name('deleteImage');
+    
+    
+            Route::post('/private-image', [CourseController::class, 'deletePrivateImage'])->name('deletePrivateImage');
+    
+            Route::post('/logicalimage', [CourseController::class, 'deleteLogicalImage'])->name('deleteLogicalImage');
+            Route::post('/criticalimage', [CourseController::class, 'deleteCriticalImage'])->name('deleteCriticalImage');
+    
+            Route::post('/abstractimage', [CourseController::class, 'deleteAbstractImage'])->name('deleteAbstractImage');
+    
+            Route::post('/numericalimage', [CourseController::class, 'deleteNumericalImage'])->name('deleteNumericalImage');
+    
+            Route::post('/learnimage', [CourseController::class, 'deleteLearnImage'])->name('deleteLearnImage');
+    
+            Route::post('/questionbankimage', [CourseController::class, 'deleteQuestionBankImage'])->name('deleteQuestionBankImage');
+    
+            Route::post('/topicimage', [CourseController::class, 'deleteTopicImage'])->name('deleteTopicImage');
+    
+            Route::post('/fullmockimage', [CourseController::class, 'deleteFullmockImage'])->name('deleteFullmockImage');
+            // Store data for each tab
+            Route::post('/tab1', [CourseController::class, 'storeTab1'])->name('tab1.store');
+            Route::post('/tab2', [CourseController::class, 'storeTab2'])->name('tab2.store');
+            Route::post('/tab3', [CourseController::class, 'storeTab3'])->name('tab3.store');
+            Route::post('/tab4', [CourseController::class, 'storeTab4'])->name('tab4.store');
+    
+    
+            Route::post('/section3/tab1', [CourseController::class, 'storeSection3Tab1'])->name('section3.tab1.store');
+            Route::post('/section3/tab2', [CourseController::class, 'storeSection3Tab2'])->name('section3.tab2.store');
+            Route::post('/section3/tab3', [CourseController::class, 'storeSection3Tab3'])->name('section3.tab3.store');
+            Route::post('/section3/tab4', [CourseController::class, 'storeSection3Tab4'])->name('section3.tab4.store');
+            Route::post('/section3/tab5', [CourseController::class, 'storeSection3Tab5'])->name('section3.tab5.store');
+    
+    
+            Route::get('/{tip}/edit_subfaq',[CourseController::class,'edit_subfaq'])->name('edit_subfaq');
+            Route::post('update/{tip}',[CourseController::class,'update'])->name('update'); // Update route
+    
+            Route::delete('del/{tip}',[CourseController::class,'del_tip'])->name('del_tip');
+    
+            Route::post('/tab/change', [CourseController::class, 'tabchange'])->name('tabchange');
+    
+            Route::post('/tab/change1', [CourseController::class, 'tabchange1'])->name('tabchange1');
+    
+        });
+
+        Route::prefix('privacy')->name('privacy.')->group(function () {
+            Route::get('/', [PrivacyController::class, 'index'])->name('index');
+            Route::get('/create', [PrivacyController::class, 'create'])->name('create');
+            Route::post('/', [PrivacyController::class, 'storeSection1'])->name('store');
+    
+    
+        });
+
+        Route::prefix('terms')->name('terms.')->group(function () {
+            Route::get('/', [TermsAndConditionsController::class, 'index'])->name('index');
+            Route::get('/create', [TermsAndConditionsController::class, 'create'])->name('create');
+            Route::post('/', [TermsAndConditionsController::class, 'storeSection1'])->name('store');
+    
+        });
 
     });
 
-
+ 
     Route::middleware(['AdminPermission:admin_user'])->group(function () {
 
             Route::prefix('admin_user')->name('admin_user.')->group(function () {

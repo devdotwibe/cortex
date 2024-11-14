@@ -495,7 +495,7 @@
                     <img src="{{ asset('assets/images/studentfeedback.svg') }}" alt="Review Image" class="review-image">
                     
                     @if (!empty($courses->studentsfeedback))
-                        <h3 class="highlight">{{ $courses->studentsfeedback }}</h3>
+                        <h3  class="highlight"> <span></span>{{ $courses->studentsfeedback }}</h3>
                     @endif
 
                     <h2>
