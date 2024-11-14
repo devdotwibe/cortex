@@ -3224,7 +3224,7 @@ aside.side_bar.slider-btn .btn-slider {
 }
 
 .exam-container .container-wrap .lesson .lesson-body .mcq-row .mcq-container label {
-    width: 100%;
+    /* width: 100%; */
     font-family: 'Arial';
     font-size: 16px;
 }
