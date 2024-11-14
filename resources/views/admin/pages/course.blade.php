@@ -159,6 +159,14 @@
                                                     {{-- <button type="button" class="btn btn-danger" id="icondelete1" onclick="removeImage()"  style="position: absolute; top: 5px; right: 5px; {{ isset($course) && $course->image ? 'display: block;' : 'display: none;' }}">X</button> --}}
 
 
+                                                    
+                                                        <!-- Delete button for preview (before saving) -->
+                                                <button type="button" class="btn btn-danger imgid5" id="deleteicon1"
+                                                style="position: absolute; top: 5px; right: 5px; display: none;"
+                                                onclick="removeImage()">X</button>
+
+
+
                                                      <!-- Delete button for saved image -->
                                                      <button type="button" class="btn btn-danger" id="icondelete2"
                                                      style="position: absolute; top: 5px; right: 5px; {{ isset($course) && $course->image ? 'display: block;' : 'display: none;' }}"
