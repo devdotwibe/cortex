@@ -1008,7 +1008,7 @@
 
                                    
 
-
+                                    <div class="sec numericalsectionclass">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="anytimeimage" class="file-upload">Anytime Image <br>
@@ -1021,6 +1021,7 @@
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
+                                    </div>
 
 
 
@@ -1042,6 +1043,7 @@
                                                 @endif
                                             </div>
                                         </div>
+                                    
                                     </div>
 
 
