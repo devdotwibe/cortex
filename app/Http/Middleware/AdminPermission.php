@@ -14,7 +14,7 @@ class AdminPermission
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next ,...$opt): Response
+    public function handle(Request $request, Closure $next ,$opt): Response
     {
           /**
          * @var Admin
