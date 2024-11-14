@@ -86,7 +86,10 @@ Route::name('admin.')->prefix('admin')->group(function(){
         });
 
 
-        Route::resource("/exam",ExamController::class);
+        Route::middleware(['AdminPermission:exam_simulator'])->group(function () {
+
+            Route::resource("/exam",ExamController::class);
+        });
 
         Route::middleware(['AdminPermission:options'])->group(function () {
 
@@ -148,7 +151,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::post('/{exam}/import',[FullMockExamController::class,'importquestion'])->name('import');
         });
       
-        Route::middleware(['AdminPermission:options'])->group(function () {
+        Route::middleware(['AdminPermission:question_bank'])->group(function () {
 
             Route::prefix('question-bank')->name('question-bank.')->group(function () {
                 Route::get('/',[QuestionBankController::class,'index'])->name('index');
@@ -167,7 +170,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
             });
         });
 
-        Route::middleware(['AdminPermission:options'])->group(function () {
+        Route::middleware(['AdminPermission:exam_simulator'])->group(function () {
 
             Route::prefix('topic-test')->name('topic-test.')->group(function () {
 
