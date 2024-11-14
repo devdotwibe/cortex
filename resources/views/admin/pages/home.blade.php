@@ -448,7 +448,7 @@
                                                         <input type="file" name="prepareimage" id="prepareimage"
                                                             value="{{ old('prepareimage', optional($banner)->prepareimage) }}"
                                                             class="form-control" style="display: none;"
-                                                            onchange="previewImage(event, 'prepareImagePreview', this)">
+                                                            onchange="previewImage(event, 'prepareImagePreview', this)"data-id="imgid4">
                                                         @error('prepareimage')
                                                             <div class="text-danger">{{ $message }}</div>
                                                         @enderror
