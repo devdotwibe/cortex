@@ -110,19 +110,47 @@
                     <form  class="form" id="admin_permission_form" data-save="create" data-action="" data-createurl="" >
                         @csrf                
                         <div class="row"> 
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <div class="form-data">
-                                        <div class="forms-inputs mb-4"> 
-                                            <label for="name-table-subcategory-form-create">Sub Category Name</label>
-                                            <input type="search" name="name" id="name-table-subcategory-form-create" class="form-control "  >
-                                            <div class="invalid-feedback" id="name-error-table-subcategory-form-create"></div>
-                                        </div>
-                                    </div>
-                                </div>    
-                            </div>
+
+                           <div class="col-md-12" >
+
+                                <table class="table table-striped">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Permissions</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="admin-table-body">
+
+                                        <tr>
+                                            <td>Learn</td>
+                                            <td>
+                                                <div class="form-check form-switch">
+
+                                                    <input type="checkbox" class="form-check-input" name="learn" value="learn" role="switch" >
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Question Bank</td>
+                                            <td>
+                                                <div class="form-check form-switch">
+
+                                                    <input type="checkbox" class="form-check-input" name="learn" value="learn" role="switch" >
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+
+                                </table>
+
+                           </div>
+
                             <div class="col-md-4 pt-4">  
-                                <button type="submit" class="btn btn-dark" id="table-subcategory-form-submit"> Add + </button>  
+                                <button type="button" class="btn btn-dark" id="table-subcategory-form-submit"> Save </button>  
                                 <button type="button" class="btn btn-secondary" style="display: none" id="table-subcategory-form-clear" >Cancel</button>               
                             </div>
                         </div> 

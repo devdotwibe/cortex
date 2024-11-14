@@ -24,11 +24,7 @@ class HashtagController extends Controller
 
             return DataTables::of($hashtags)
                 ->addColumn('action', function ($data) {
-                    $hasAnyHashtags = Hashtag::where('hashtagstore_id', $data->id)->exists();
-                    if ($hasAnyHashtags) {
-                        // Data exists
-                        return "Posts exist for this hashtag.";
-                    } else {
+
                         return
                         // '<a onclick="editHashtag('."'".route('admin.community.hashtags.edit', $data->id)."'".')" class="btn btn-icons edit_btn">
                         //     <span class="adminside-icon">
@@ -46,7 +42,7 @@ class HashtagController extends Controller
                                 <img src="' . asset("assets/images/iconshover/material-symbols_delete-yellow.svg") . '" alt="Delete Active" title="Delete">
                             </span>
                         </a>';
-                    }
+                    
                    
                 })
                 ->addIndexColumn()
@@ -87,8 +83,7 @@ class HashtagController extends Controller
     {
         // Find the hashtag or fail
         $hashtag = Hashtagstore::findOrFail($id);
-        
-        // Delete the hashtag
+        $hashtagPosts = Hashtag::where('hashtagstore_id',$hashtag->id)->delete();
         $hashtag->delete();
     
         return redirect()->back()->with('success', 'Hashtag deleted successfully.');
