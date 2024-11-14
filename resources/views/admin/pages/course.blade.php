@@ -156,7 +156,7 @@
                                                     <img id="imagePreview-save" src="{{ url('d0/' . $course->image) }}" alt="Image Preview"
                                                         style="width: 100%; height: auto;">
                                                     <!-- Delete button for saved image -->
-                                                    <button type="button" class="btn btn-danger" id="icondelete1" onclick="removeSavedImage()" style="float: right;">X</button>
+                                                    <button type="button" class="btn btn-danger" id="icondelete1" onclick="removeImage()" style="float: right;">X</button>
                                                 @endif
                                     
                                               <!-- Dynamic image preview -->
