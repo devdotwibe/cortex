@@ -105,19 +105,29 @@
                         Dashboard
                     </a>
                 </li> --}}
-                <li class="side-item {{request()->is('admin/user') ? 'active':''}}">
-                    <a href="{{route("admin.user.index")}}">
-                        <span class="side-icon" >
-                            <img src="{{asset("assets/images/iconshover/user.svg")}}"  alt="Users">
-                        </span>
-                        <span class="active-icon">
-                            <img src="{{asset("assets/images/icons/user.svg")}}" alt="Users">
-                        </span>
-                        <span class="menutext">
-                        Users
-                        </span>
-                    </a>
-                </li>
+                @php 
+
+                    $admin = Auth::guard('admin')->user();
+
+                @endphp
+
+                @if($admin->role ==='master' || optional($admin->permission)->users ==='Y')
+
+                    <li class="side-item {{request()->is('admin/user') ? 'active':''}}">
+                        <a href="{{route("admin.user.index")}}">
+                            <span class="side-icon" >
+                                <img src="{{asset("assets/images/iconshover/user.svg")}}"  alt="Users">
+                            </span>
+                            <span class="active-icon">
+                                <img src="{{asset("assets/images/icons/user.svg")}}" alt="Users">
+                            </span>
+                            <span class="menutext">
+                            Users
+                            </span>
+                        </a>
+                    </li>
+                    
+                @endif
 
 {{-- 
                 <li class="side-item {{request()->is('admin/learn') ? 'active':''}}">
@@ -404,19 +414,6 @@
                     </ul>
                 </li>
                 
-
-                {{-- <li class="side-item {{request()->is('admin/faq') ? 'active':''}}">
-                    <a href="{{ route('admin.faq.index') }}">
-                        <span class="side-icon" >
-                            <img src="{{asset("assets/images/Dashboard-wht.svg")}}" alt="Dashboard">
-                        </span>
-                        <span class="active-icon">
-                            <img src="{{asset("assets/images/Dashboard-blk.svg")}}" alt="Dashboard">
-                        </span>
-                        Faq
-                    </a>
-                </li> --}}
-
                 <li class="side-item {{request()->is('admin/admin_user*') ? 'active':''}}">
                     <a href="{{ route('admin.admin_user.index') }}">
                         <span class="side-icon" >
