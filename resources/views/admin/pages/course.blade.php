@@ -162,7 +162,7 @@
                                                      <!-- Delete button for saved image -->
                                                      <button type="button" class="btn btn-danger" id="icondelete2"
                                                      style="position: absolute; top: 5px; right: 5px; {{ isset($course) && $course->image ? 'display: block;' : 'display: none;' }}"
-                                                     onclick="removeLearnImage()">X</button>
+                                                     onclick="removeImage()">X</button>
 
 
 
