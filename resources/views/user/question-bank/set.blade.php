@@ -13,23 +13,24 @@
                             <img src="{{asset("assets/images/exiticon-wht.svg")}}" alt="exiticon">
                         </a>
                     </div>
-                    <div class="timer exam-timer" id="exam_timer">
-                        <div class="minute">
-                            <span class="runner">00</span>
-                            <span>Mins</span>
-                        </div>
-                        <div class="seperator">
-                            <span>:</span>
-                            <span></span>
-                        </div>
-                        <div class="second">
-                            <span class="runner">00</span>
-                            <span>Seconds</span>
-                        </div>
-                    </div> 
+                    @if($userExam->timed=='timed')
+                        <div class="timer exam-timer" id="exam_timer">
+                            <div class="minute">
+                                <span class="runner">00</span>
+                                <span>Mins</span>
+                            </div>
+                            <div class="seperator">
+                                <span>:</span>
+                                <span></span>
+                            </div>
+                            <div class="second">
+                                <span class="runner">00</span>
+                                <span>Seconds</span>
+                            </div>
+                        </div> 
 
-                    <button class="btn hide-btn" id="hide_button" onclick="HideTime()">Hide Time</button>
-
+                        <button class="btn hide-btn" id="hide_button" onclick="HideTime()">Hide Time</button>
+                    @endif    
                 </div>
             </div>
             <div class="exam-center exam-progress-inner-item">
@@ -325,6 +326,12 @@
                     return true;
                 }
             });
+            timed= '{{ $userExam->timed }}';
+            if(timed=='timed') {
+                timed=true;
+            }else{
+                timed=false;
+            }
             summery_storage.totalcount={{$questioncount??0}};
             summery_storage.questionids=[]; 
             summery_storage.timercurrent={};
@@ -337,7 +344,7 @@
 
             summery_storage.answeridx=[];
             summery_storage.notansweridx=[];  
-            summery_storage.timerActive=true;
+            summery_storage.timerActive=timed;
             summery_storage.examActive=true;
             summery_storage.timetaken=0;
             localStorage.setItem("question-bank-summery{{ $userExam->id }}",JSON.stringify(summery_storage)) 
@@ -376,6 +383,7 @@
         }
         
         function countownRun(){
+            console.log(summery)
             if(summery.timerActive&&summery.examActive){ 
                 if(summery.endTime>0){ 
                     var d=summery.endTime;
@@ -771,10 +779,11 @@
             }) 
             if((localStorage.getItem("question-bank")||"timed")=="timed"){ 
                 $('.timer').show()
+                setInterval(countownRun,1000)
+
             }else{
                 $('.timer').hide()
             }
-            setInterval(countownRun,1000)
 
             $('.exam-exit a').click(function(e){
                 e.preventDefault();
