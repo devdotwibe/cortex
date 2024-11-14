@@ -432,44 +432,43 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::post('/store',[SettingsController::class,'store'])->name('store');
     });
 
-    Route::prefix('page')->name('page.')->group(function () {
-        Route::get('/', [PagesController::class, 'index'])->name('index');
-        Route::get('/create', [PagesController::class, 'create'])->name('create');
-        Route::post('/', [PagesController::class, 'store'])->name('store');
-        Route::post('/section2', [PagesController::class, 'storeSection2'])->name('section2');
-        Route::post('/section3', [PagesController::class, 'storeSection3'])->name('section3');
-        // Route::post('/section4', [PagesController::class, 'storeSection4'])->name('section4'); // Add this line// Add this line
-        Route::post('/section5', [PagesController::class, 'storeSection5'])->name('section4');
-        Route::post('/section6', [PagesController::class, 'storeSection6'])->name('section5');
-        Route::post('/section8', [PagesController::class, 'storeSection8'])->name('section6');
-        Route::post('/section9', [PagesController::class, 'storeSection9'])->name('section7');
-        Route::post('/section10', [PagesController::class, 'storeSection10'])->name('section8');
-        Route::get('/{setname}/edit', [PagesController::class, 'edit'])->name('edit');
-        Route::put('/{setname}', [PagesController::class, 'update'])->name('update');
-        Route::get('/{setname}', [PagesController::class, 'show'])->name('show');
-        Route::delete('/{setname}', [PagesController::class, 'destroy'])->name('destroy');
-        Route::get('/{setname}/visibility', [PagesController::class, 'visibility'])->name('visibility');
+    Route::middleware(['AdminPermission:admin_user'])->group(function () {
 
-        Route::delete('/admin/page/feature/{id}', [PagesController::class, 'destroy'])->name('feature.destroy');
+        Route::prefix('page')->name('page.')->group(function () {
+            Route::get('/', [PagesController::class, 'index'])->name('index');
+            Route::get('/create', [PagesController::class, 'create'])->name('create');
+            Route::post('/', [PagesController::class, 'store'])->name('store');
+            Route::post('/section2', [PagesController::class, 'storeSection2'])->name('section2');
+            Route::post('/section3', [PagesController::class, 'storeSection3'])->name('section3');
+            // Route::post('/section4', [PagesController::class, 'storeSection4'])->name('section4'); // Add this line// Add this line
+            Route::post('/section5', [PagesController::class, 'storeSection5'])->name('section4');
+            Route::post('/section6', [PagesController::class, 'storeSection6'])->name('section5');
+            Route::post('/section8', [PagesController::class, 'storeSection8'])->name('section6');
+            Route::post('/section9', [PagesController::class, 'storeSection9'])->name('section7');
+            Route::post('/section10', [PagesController::class, 'storeSection10'])->name('section8');
+            Route::get('/{setname}/edit', [PagesController::class, 'edit'])->name('edit');
+            Route::put('/{setname}', [PagesController::class, 'update'])->name('update');
+            Route::get('/{setname}', [PagesController::class, 'show'])->name('show');
+            Route::delete('/{setname}', [PagesController::class, 'destroy'])->name('destroy');
+            Route::get('/{setname}/visibility', [PagesController::class, 'visibility'])->name('visibility');
 
-
-        // Add the deleteImage route
-    Route::post('/delete-image', [PagesController::class, 'deleteImage'])->name('deleteImage');
-    Route::post('/delete-learn-image', [PagesController::class, 'deleteLearnImage'])->name('deleteLearnImage');
-    Route::post('/delete-practise-image', [PagesController::class, 'deletePractiseImage'])->name('deletePractiseImage');
-    Route::post('/delete-prepare-image', [PagesController::class, 'deletePrepareImage'])->name('deletePrepareImage');
-    Route::post('/delete-review-image', [PagesController::class, 'deleteReviewImage'])->name('deleteReviewImage');
-    Route::post('/delete-excel-image', [PagesController::class, 'deleteExcelImage'])->name('deleteExcelImage');
-
-    Route::post('/delete-analytics-image', [PagesController::class, 'deleteAnalyticsImage'])->name('deleteAnalyticsImage');
-    Route::post('/delete-anytime-image', [PagesController::class, 'deleteAnytimeImage'])->name('deleteAnytimeImage');
-    Route::post('/delete-unlimited-image', [PagesController::class, 'deleteUnlimitedImage'])->name('deleteUnlimitedImage');
-    Route::post('/delete-live-image', [PagesController::class, 'deleteLiveImage'])->name('deleteLiveImage');
+            Route::delete('/admin/page/feature/{id}', [PagesController::class, 'destroy'])->name('feature.destroy');
 
 
+            // Add the deleteImage route
+            Route::post('/delete-image', [PagesController::class, 'deleteImage'])->name('deleteImage');
+            Route::post('/delete-learn-image', [PagesController::class, 'deleteLearnImage'])->name('deleteLearnImage');
+            Route::post('/delete-practise-image', [PagesController::class, 'deletePractiseImage'])->name('deletePractiseImage');
+            Route::post('/delete-prepare-image', [PagesController::class, 'deletePrepareImage'])->name('deletePrepareImage');
+            Route::post('/delete-review-image', [PagesController::class, 'deleteReviewImage'])->name('deleteReviewImage');
+            Route::post('/delete-excel-image', [PagesController::class, 'deleteExcelImage'])->name('deleteExcelImage');
 
+            Route::post('/delete-analytics-image', [PagesController::class, 'deleteAnalyticsImage'])->name('deleteAnalyticsImage');
+            Route::post('/delete-anytime-image', [PagesController::class, 'deleteAnytimeImage'])->name('deleteAnytimeImage');
+            Route::post('/delete-unlimited-image', [PagesController::class, 'deleteUnlimitedImage'])->name('deleteUnlimitedImage');
+            Route::post('/delete-live-image', [PagesController::class, 'deleteLiveImage'])->name('deleteLiveImage');
 
-
+        });
     });
 
     Route::get('/set/view', [PagesController::class, 'set_table_show'])->name('set_table.show');
