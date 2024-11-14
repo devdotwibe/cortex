@@ -308,30 +308,33 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
         Route::post('/set/store/{slug}',[SetController::class,'set_store'])->name('set.set_store');
 
-        Route::prefix('live-class')->name('live-class.')->group(function () {
+        Route::middleware(['AdminPermission:live_teaching'])->group(function () {
 
-            Route::get('/',[LiveClassController::class,'index'])->name('index');
+            Route::prefix('live-class')->name('live-class.')->group(function () {
 
-            Route::post('/',[LiveClassController::class,'store'])->name('store');
+                Route::get('/',[LiveClassController::class,'index'])->name('index');
 
-            Route::post('/private/class/{private_class}/requests/update',[LiveClassController::class,'private_class_request_update'])->name('request.update');
-            Route::get('/private/class/{private_class}/requests/show',[LiveClassController::class,'private_class_request_show'])->name('request.show');
-            Route::post('/private/class/{private_class}/requests/accept',[LiveClassController::class,'private_class_request_accept'])->name('request.accept');
-            Route::post('/private/class/{private_class}/requests/reject',[LiveClassController::class,'private_class_request_reject'])->name('request.reject');
-            Route::get('/private/class/{private_class}/requests/status',[LiveClassController::class,'private_class_request_status'])->name('request.status');
+                Route::post('/',[LiveClassController::class,'store'])->name('store');
 
-            Route::post('/private/class/bulk-update',[LiveClassController::class,'bulkupdate'])->name('request.bulkupdate');
-            Route::post('/private/class/bulk-action',[LiveClassController::class,'bulkaction'])->name('request.bulkaction');
-            Route::delete('/private/class/{private_class}/requests',[LiveClassController::class,'private_class_request_destroy'])->name('request.destroy');
-            Route::get('/private/class/requests',[LiveClassController::class,'private_class_request'])->name('private_class_request');
-            Route::get('/private/class/requests/export',[LiveClassController::class,'private_class_request_export'])->name('private_class_request_export');
+                Route::post('/private/class/{private_class}/requests/update',[LiveClassController::class,'private_class_request_update'])->name('request.update');
+                Route::get('/private/class/{private_class}/requests/show',[LiveClassController::class,'private_class_request_show'])->name('request.show');
+                Route::post('/private/class/{private_class}/requests/accept',[LiveClassController::class,'private_class_request_accept'])->name('request.accept');
+                Route::post('/private/class/{private_class}/requests/reject',[LiveClassController::class,'private_class_request_reject'])->name('request.reject');
+                Route::get('/private/class/{private_class}/requests/status',[LiveClassController::class,'private_class_request_status'])->name('request.status');
 
-            Route::post('/private/class',[LiveClassController::class,'private_class'])->name('private_class');
+                Route::post('/private/class/bulk-update',[LiveClassController::class,'bulkupdate'])->name('request.bulkupdate');
+                Route::post('/private/class/bulk-action',[LiveClassController::class,'bulkaction'])->name('request.bulkaction');
+                Route::delete('/private/class/{private_class}/requests',[LiveClassController::class,'private_class_request_destroy'])->name('request.destroy');
+                Route::get('/private/class/requests',[LiveClassController::class,'private_class_request'])->name('private_class_request');
+                Route::get('/private/class/requests/export',[LiveClassController::class,'private_class_request_export'])->name('private_class_request_export');
 
-            Route::get('/private/class',[LiveClassController::class,'private_class_create'])->name('private_class_create');
+                Route::post('/private/class',[LiveClassController::class,'private_class'])->name('private_class');
 
-            Route::post('/intensive/class',[LiveClassController::class,'intensive_class'])->name('intensive_class');
+                Route::get('/private/class',[LiveClassController::class,'private_class_create'])->name('private_class_create');
 
+                Route::post('/intensive/class',[LiveClassController::class,'intensive_class'])->name('intensive_class');
+
+            });
         });
 
         Route::prefix('term')->name('term.')->group(function () {
