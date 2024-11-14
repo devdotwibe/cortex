@@ -167,20 +167,26 @@ Route::name('admin.')->prefix('admin')->group(function(){
             });
         });
 
-        Route::prefix('topic-test')->name('topic-test.')->group(function () {
-            Route::get('/',[TopicTestController::class,'index'])->name('index');
-            Route::post('/subtitle',[TopicTestController::class,'subtitle'])->name('subtitle');
-            Route::get('/{category}',[TopicTestController::class,'show'])->name('show');
+        Route::middleware(['AdminPermission:options'])->group(function () {
 
-            Route::post('/topic-test/bulk/action',[TopicTestController::class,'bulkaction'])->name('bulkaction');
+            Route::prefix('topic-test')->name('topic-test.')->group(function () {
+
+                Route::get('/',[TopicTestController::class,'index'])->name('index');
+                Route::post('/subtitle',[TopicTestController::class,'subtitle'])->name('subtitle');
+                Route::get('/{category}',[TopicTestController::class,'show'])->name('show');
+
+                Route::post('/topic-test/bulk/action',[TopicTestController::class,'bulkaction'])->name('bulkaction');
 
 
-            Route::get('/{category}/create',[TopicTestController::class,'create'])->name('create');
-            Route::get('/{category}/{question}/edit',[TopicTestController::class,'edit'])->name('edit');
-            Route::post('/{category}/store',[TopicTestController::class,'store'])->name('store');
-            Route::post('/{category}/updatetime',[TopicTestController::class,'updatetime'])->name('updatetime');
-            Route::post('/{category}/import',[TopicTestController::class,'importquestion'])->name('import');
+                Route::get('/{category}/create',[TopicTestController::class,'create'])->name('create');
+                Route::get('/{category}/{question}/edit',[TopicTestController::class,'edit'])->name('edit');
+                Route::post('/{category}/store',[TopicTestController::class,'store'])->name('store');
+                Route::post('/{category}/updatetime',[TopicTestController::class,'updatetime'])->name('updatetime');
+                Route::post('/{category}/import',[TopicTestController::class,'importquestion'])->name('import');
+            });
         });
+
+
         Route::resource("/question",QuestionController::class);
         Route::get('/question/{question}/visibility',[QuestionController::class,'visibility'])->name('question.visibility');
         // Route::resource("/learn",LearnController::class);
