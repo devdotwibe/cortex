@@ -126,7 +126,7 @@
                             </span>
                         </a>
                     </li>
-                    
+
                 @endif
 
 {{-- 
@@ -141,292 +141,325 @@
                         Learn
                     </a>
                 </li> --}}
-                <li class="side-item {{ request()->is('admin/learn*') ? 'active' : '' }}">
-                    <a href="{{ route('admin.learn.index') }}">
-                        <span class="side-icon">
-                            <img src="{{ asset('assets/images/iconshover/learn.svg') }}" alt="Learn Icon">
-                        </span>
-                        <span class="active-icon">
-                            <img src="{{ asset('assets/images/icons/learn.svg') }}" alt="Learn Active Icon">
-                        </span>
-                        <span class="menutext">
-                        Learn
-                        </span>
-                    </a>
-                </li>
+
+                @if($admin->role ==='master' || optional($admin->permission)->learn ==='Y')
+
+                    <li class="side-item {{ request()->is('admin/learn*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.learn.index') }}">
+                            <span class="side-icon">
+                                <img src="{{ asset('assets/images/iconshover/learn.svg') }}" alt="Learn Icon">
+                            </span>
+                            <span class="active-icon">
+                                <img src="{{ asset('assets/images/icons/learn.svg') }}" alt="Learn Active Icon">
+                            </span>
+                            <span class="menutext">
+                            Learn
+                            </span>
+                        </a>
+                    </li>
+
+                @endif
                 
 
+                @if($admin->role ==='master' || optional($admin->permission)->options ==='Y')
 
-                <li class="side-item side-dropdown">
-                    <a class="side-dropdown-toggle {{ request()->is('admin/category') || request()->is('admin/full-mock-exam-options') || request()->is('admin/payment') || request()->is('admin/payment-price') || request()->is('admin/coupon') ? 'active' : '' }}">
-                        <span class="side-icon">
-                            <img src="{{ asset('assets/images/iconshover/options.svg') }}" alt="Options">
-                        </span>
-                        <span class="active-icon">
-                            <img src="{{ asset('assets/images/icons/options.svg') }}" alt="Options">
-                        </span>
-                        <span class="menutext">Options</span>
-                    </a>
-                    <ul class="side-dropdown-menu" style="{{ !(request()->is('admin/category') || request()->is('admin/full-mock-exam-options') || request()->is('admin/payment') || request()->is('admin/payment-price') || request()->is('admin/coupon')) ? 'display: none;' : '' }}">
-                        <!-- Category -->
-                        <li class="side-item {{ request()->is('admin/category') ? 'active' : '' }}">
-                            <a href="{{ route('admin.category.index') }}">
-                                <span class="side-icon">
-                                    <img src="{{ asset('assets/images/iconshover/category.svg') }}" alt="Category">
-                                </span>
-                                <span class="active-icon">
-                                    <img src="{{ asset('assets/images/icons/categoryyellow.svg') }}" alt="Category Active">
-                                </span>
-                                <span class="menutext">Category</span>
-                            </a>
-                        </li>
-                
-                        <!-- Exam Simulator -->
-                        <li class="side-item {{ request()->is('admin/full-mock-exam-options') ? 'active' : '' }}">
-                            <a href="{{ route('admin.exam.options') }}">
-                                <span class="side-icon">
-                                    <img src="{{ asset('assets/images/iconshover/examsimulatoryellow.svg') }}" alt="Exam Simulator">
-                                </span>
-                                <span class="active-icon">
-                                    <img src="{{ asset('assets/images/icons/examsimulator5.svg') }}" alt="Exam Simulator Active">
-                                </span>
-                                <span class="menutext">Exam Simulator</span>
-                            </a>
-                        </li>
-                
-                        <!-- Payment -->
-                        <li class="side-item {{ request()->is('admin/payment') ? 'active' : '' }}">
-                            <a href="{{ route('admin.payment.index') }}">
-                                <span class="side-icon">
-                                    <img src="{{ asset('assets/images/iconshover/paymentyellow.svg') }}" alt="Payment">
-                                </span>
-                                <span class="active-icon">
-                                    <img src="{{ asset('assets/images/icons/payment.svg') }}" alt="Payment Active">
-                                </span>
-                                <span class="menutext">Payment</span>
-                            </a>
-                        </li>
-                
-                        <!-- Price -->
-                        <li class="side-item {{ request()->is('admin/payment-price') ? 'active' : '' }}">
-                            <a href="{{ route('admin.payment-price.index') }}">
-                                <span class="side-icon">
-                                    <img src="{{ asset('assets/images/iconshover/pricehoveryellow.svg') }}" alt="Price">
-                                </span>
-                                <span class="active-icon">
-                                    <img src="{{ asset('assets/images/icons/price.svg') }}" alt="Price Active">
-                                </span>
-                                <span class="menutext">Price</span>
-                            </a>
-                        </li>
-                
-                        <!-- Coupon and Settings -->
-                        <li class="side-item {{ request()->is('admin/coupon') ? 'active' : '' }}">
-                            <a href="{{ route('admin.coupon.index') }}">
-                                <span class="side-icon">
-                                    <img src="{{ asset('assets/images/iconshover/couponhoveryellow.svg') }}" alt="Coupon and Settings">
-                                </span>
-                                <span class="active-icon">
-                                    <img src="{{ asset('assets/images/icons/coupon1.svg') }}" alt="Coupon and Settings Active">
-                                </span>
-                                <span class="menutext">Coupon and Settings</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                    <li class="side-item side-dropdown">
+                        <a class="side-dropdown-toggle {{ request()->is('admin/category') || request()->is('admin/full-mock-exam-options') || request()->is('admin/payment') || request()->is('admin/payment-price') || request()->is('admin/coupon') ? 'active' : '' }}">
+                            <span class="side-icon">
+                                <img src="{{ asset('assets/images/iconshover/options.svg') }}" alt="Options">
+                            </span>
+                            <span class="active-icon">
+                                <img src="{{ asset('assets/images/icons/options.svg') }}" alt="Options">
+                            </span>
+                            <span class="menutext">Options</span>
+                        </a>
+                        <ul class="side-dropdown-menu" style="{{ !(request()->is('admin/category') || request()->is('admin/full-mock-exam-options') || request()->is('admin/payment') || request()->is('admin/payment-price') || request()->is('admin/coupon')) ? 'display: none;' : '' }}">
+                            <!-- Category -->
+                            <li class="side-item {{ request()->is('admin/category') ? 'active' : '' }}">
+                                <a href="{{ route('admin.category.index') }}">
+                                    <span class="side-icon">
+                                        <img src="{{ asset('assets/images/iconshover/category.svg') }}" alt="Category">
+                                    </span>
+                                    <span class="active-icon">
+                                        <img src="{{ asset('assets/images/icons/categoryyellow.svg') }}" alt="Category Active">
+                                    </span>
+                                    <span class="menutext">Category</span>
+                                </a>
+                            </li>
+                    
+                            <!-- Exam Simulator -->
+                            <li class="side-item {{ request()->is('admin/full-mock-exam-options') ? 'active' : '' }}">
+                                <a href="{{ route('admin.exam.options') }}">
+                                    <span class="side-icon">
+                                        <img src="{{ asset('assets/images/iconshover/examsimulatoryellow.svg') }}" alt="Exam Simulator">
+                                    </span>
+                                    <span class="active-icon">
+                                        <img src="{{ asset('assets/images/icons/examsimulator5.svg') }}" alt="Exam Simulator Active">
+                                    </span>
+                                    <span class="menutext">Exam Simulator</span>
+                                </a>
+                            </li>
+                    
+                            <!-- Payment -->
+                            <li class="side-item {{ request()->is('admin/payment') ? 'active' : '' }}">
+                                <a href="{{ route('admin.payment.index') }}">
+                                    <span class="side-icon">
+                                        <img src="{{ asset('assets/images/iconshover/paymentyellow.svg') }}" alt="Payment">
+                                    </span>
+                                    <span class="active-icon">
+                                        <img src="{{ asset('assets/images/icons/payment.svg') }}" alt="Payment Active">
+                                    </span>
+                                    <span class="menutext">Payment</span>
+                                </a>
+                            </li>
+                    
+                            <!-- Price -->
+                            <li class="side-item {{ request()->is('admin/payment-price') ? 'active' : '' }}">
+                                <a href="{{ route('admin.payment-price.index') }}">
+                                    <span class="side-icon">
+                                        <img src="{{ asset('assets/images/iconshover/pricehoveryellow.svg') }}" alt="Price">
+                                    </span>
+                                    <span class="active-icon">
+                                        <img src="{{ asset('assets/images/icons/price.svg') }}" alt="Price Active">
+                                    </span>
+                                    <span class="menutext">Price</span>
+                                </a>
+                            </li>
+                    
+                            <!-- Coupon and Settings -->
+                            <li class="side-item {{ request()->is('admin/coupon') ? 'active' : '' }}">
+                                <a href="{{ route('admin.coupon.index') }}">
+                                    <span class="side-icon">
+                                        <img src="{{ asset('assets/images/iconshover/couponhoveryellow.svg') }}" alt="Coupon and Settings">
+                                    </span>
+                                    <span class="active-icon">
+                                        <img src="{{ asset('assets/images/icons/coupon1.svg') }}" alt="Coupon and Settings Active">
+                                    </span>
+                                    <span class="menutext">Coupon and Settings</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                @endif
                 
 
-                <li class="side-item {{request()->is('admin/question-bank*') ? 'active':''}}">
-                    <a href="{{ route('admin.question-bank.index') }}">
-                        <span class="side-icon" >
-                            <img src="{{asset("assets/images/iconshover/questionbank.svg")}}" alt="Dashboard">
-                        </span>
-                        <span class="active-icon">
-                            <img src="{{asset("assets/images/icons/questionbank.svg")}}" alt="Dashboard">
-                        </span>
-                        <span class="menutext">
-                        Question Bank
-                        </span>
-                    </a>
-                </li>
+                @if($admin->role ==='master' || optional($admin->permission)->question_bank ==='Y')
+
+                    <li class="side-item {{request()->is('admin/question-bank*') ? 'active':''}}">
+                        <a href="{{ route('admin.question-bank.index') }}">
+                            <span class="side-icon" >
+                                <img src="{{asset("assets/images/iconshover/questionbank.svg")}}" alt="Dashboard">
+                            </span>
+                            <span class="active-icon">
+                                <img src="{{asset("assets/images/icons/questionbank.svg")}}" alt="Dashboard">
+                            </span>
+                            <span class="menutext">
+                            Question Bank
+                            </span>
+                        </a>
+                    </li>
+
+                @endif
                
 
-                <li class="side-item side-dropdown">
-                    <a class="side-dropdown-toggle {{ request()->is('admin/topic-test*') || request()->is('admin/exam*') ? 'active' : '' }}">
-                        <span class="side-icon">
-                            <img src="{{ asset('assets/images/iconshover/examsimulator.svg') }}" alt="Exam Simulator">
-                        </span>
-                        <span class="active-icon">
-                            <img src="{{ asset('assets/images/icons/examsimulator.svg') }}" alt="Exam Simulator">
-                        </span>
-                        <span class="menutext">
-                        Exam Simulator
-                        </span>
-                    </a>
-                    <ul class="side-dropdown-menu" style="{{ !(request()->is('admin/topic-test*') || request()->is('admin/exam*')) ? 'display: none;' : '' }}">
-                        <li class="side-item {{ request()->is('admin/topic-test*') ? 'active' : '' }}">
-                            <a href="{{ route('admin.topic-test.index') }}">
-                                <span class="side-icon">
-                                    <img src="{{ asset('assets/images/iconshover/topictesthover.svg') }}" alt="Topic Test">
-                                </span>
-                                <span class="active-icon">
-                                    <img src="{{ asset('assets/images/icons/topictest.svg') }}" alt="Topic Test Active">
-                                </span>
-                                <span class="menutext">
-                                Topic Test
-                                </span>
-                            </a>
-                        </li>
-                        <li class="side-item {{ request()->is('admin/exam*') ? 'active' : '' }}">
-                            <a href="{{ route('admin.exam.index') }}">
-                                <span class="side-icon">
-                                    <img src="{{ asset('assets/images/iconshover/mockexamhover.svg') }}" alt="Full Mock Exam">
-                                </span>
-                                <span class="active-icon">
-                                    <img src="{{ asset('assets/images/icons/mockexam.svg') }}" alt="Full Mock Exam Active">
-                                </span>
-                                <span class="menutext">
-                                Full Mock Exam
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                @if($admin->role ==='master' || optional($admin->permission)->exam_simulator ==='Y')
+
+                    <li class="side-item side-dropdown">
+                        <a class="side-dropdown-toggle {{ request()->is('admin/topic-test*') || request()->is('admin/exam*') ? 'active' : '' }}">
+                            <span class="side-icon">
+                                <img src="{{ asset('assets/images/iconshover/examsimulator.svg') }}" alt="Exam Simulator">
+                            </span>
+                            <span class="active-icon">
+                                <img src="{{ asset('assets/images/icons/examsimulator.svg') }}" alt="Exam Simulator">
+                            </span>
+                            <span class="menutext">
+                            Exam Simulator
+                            </span>
+                        </a>
+                        <ul class="side-dropdown-menu" style="{{ !(request()->is('admin/topic-test*') || request()->is('admin/exam*')) ? 'display: none;' : '' }}">
+                            <li class="side-item {{ request()->is('admin/topic-test*') ? 'active' : '' }}">
+                                <a href="{{ route('admin.topic-test.index') }}">
+                                    <span class="side-icon">
+                                        <img src="{{ asset('assets/images/iconshover/topictesthover.svg') }}" alt="Topic Test">
+                                    </span>
+                                    <span class="active-icon">
+                                        <img src="{{ asset('assets/images/icons/topictest.svg') }}" alt="Topic Test Active">
+                                    </span>
+                                    <span class="menutext">
+                                    Topic Test
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="side-item {{ request()->is('admin/exam*') ? 'active' : '' }}">
+                                <a href="{{ route('admin.exam.index') }}">
+                                    <span class="side-icon">
+                                        <img src="{{ asset('assets/images/iconshover/mockexamhover.svg') }}" alt="Full Mock Exam">
+                                    </span>
+                                    <span class="active-icon">
+                                        <img src="{{ asset('assets/images/icons/mockexam.svg') }}" alt="Full Mock Exam Active">
+                                    </span>
+                                    <span class="menutext">
+                                    Full Mock Exam
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                @endif
                 
 
-                <li class="side-item {{request()->is('admin/live-class*') ? 'active':''}}">
-                    <a href="{{ route('admin.live-class.index') }}">
-                        <span class="side-icon" >
-                            <img src="{{asset("assets/images/iconshover/onlineteaching.svg")}}" alt="Dashboard">
-                        </span>
-                        <span class="active-icon">
-                            <img src="{{asset("assets/images/icons/onlineteaching.svg")}}" alt="Dashboard">
-                        </span>
-                        <span class="menutext">
-                        Live Teaching
-                        </span>
-                    </a>
-                </li>
+                @if($admin->role ==='master' || optional($admin->permission)->live_teaching ==='Y')
+
+                    <li class="side-item {{request()->is('admin/live-class*') ? 'active':''}}">
+                        <a href="{{ route('admin.live-class.index') }}">
+                            <span class="side-icon" >
+                                <img src="{{asset("assets/images/iconshover/onlineteaching.svg")}}" alt="Dashboard">
+                            </span>
+                            <span class="active-icon">
+                                <img src="{{asset("assets/images/icons/onlineteaching.svg")}}" alt="Dashboard">
+                            </span>
+                            <span class="menutext">
+                            Live Teaching
+                            </span>
+                        </a>
+                    </li>
+
+                @endif
 
 
-                <li class="side-item {{request()->is('admin/community*') ? 'active':''}}">
-                    <a href="{{ route('admin.community.index') }}">
-                        <span class="side-icon" >
-                            <img src="{{asset("assets/images/iconshover/community.svg")}}" alt="Dashboard">
-                        </span>
-                        <span class="active-icon">
-                            <img src="{{asset("assets/images/icons/community.svg")}}" alt="Dashboard">
-                        </span>
-                        <span class="menutext">
-                        Community
-                        </span>
-                    </a>
-                </li>
+                @if($admin->role ==='master' || optional($admin->permission)->community ==='Y')
 
-                <li class="side-item side-dropdown">
-                    <a class="side-dropdown-toggle">
-                        <span class="side-icon">
-                            <img src="{{ asset('assets/images/iconshover/pages.svg') }}" alt="Pages">
-                        </span>
-                        <span class="active-icon">
-                            <img src="{{ asset('assets/images/icons/pages.svg') }}" alt="Pages Active">
-                        </span>
-                        <span class="menutext">Pages</span>
-                    </a>
-                    <ul class="side-dropdown-menu">
-                        <li class="side-item {{ request()->is('admin/page') ? 'active' : '' }}">
-                            <a href="{{ route('admin.page.index') }}">
-                                <span class="side-icon">
-                                    <img src="{{ asset('assets/images/iconshover/homehover.svg') }}" alt="Home">
-                                </span>
-                                <span class="active-icon">
-                                    <img src="{{ asset('assets/images/icons/home.svg') }}" alt="Home Active">
-                                </span>
-                                <span class="menutext">Home</span>
-                            </a>
-                        </li>
-                        <li class="side-item {{ request()->is('admin/faq') ? 'active' : '' }}">
-                            <a href="{{ route('admin.faq.index') }}">
-                                <span class="side-icon">
-                                    <img src="{{ asset('assets/images/iconshover/faqhover.svg') }}" alt="FAQ">
-                                </span>
-                                <span class="active-icon">
-                                    <img src="{{ asset('assets/images/icons/faq.svg') }}" alt="FAQ Active">
-                                </span>
-                                <span class="menutext">FAQ</span>
-                            </a>
-                        </li>
-                        <li class="side-item {{ request()->is('admin/support') ? 'active' : '' }}">
-                            <a href="{{ route('admin.support.index') }}">
-                                <span class="side-icon">
-                                    <img src="{{ asset('assets/images/iconshover/support.svg') }}" alt="Support">
-                                </span>
-                                <span class="active-icon">
-                                    <img src="{{ asset('assets/images/icons/support.svg') }}" alt="Support Active">
-                                </span>
-                                <span class="menutext">Support</span>
-                            </a>
-                        </li>
-                        <li class="side-item {{ request()->is('admin/tip') ? 'active' : '' }}">
-                            <a href="{{ route('admin.tip.index') }}">
-                                <span class="side-icon">
-                                    <img src="{{ asset('assets/images/iconshover/tipsandadvice.svg') }}" alt="Tips and Advice">
-                                </span>
-                                <span class="active-icon">
-                                    <img src="{{ asset('assets/images/icons/tipsandadvice.svg') }}" alt="Tips and Advice Active">
-                                </span>
-                                <span class="menutext">Tips and Advice</span>
-                            </a>
-                        </li>
-                        <li class="side-item {{ request()->is('admin/course') ? 'active' : '' }}">
-                            <a href="{{ route('admin.course.index') }}">
-                                <span class="side-icon">
-                                    <img src="{{ asset('assets/images/iconshover/coursehover.svg') }}" alt="Course">
-                                </span>
-                                <span class="active-icon">
-                                    <img src="{{ asset('assets/images/icons/course.svg') }}" alt="Course Active">
-                                </span>
-                                <span class="menutext">Course</span>
-                            </a>
-                        </li>
-                        <li class="side-item {{ request()->is('admin/privacy') ? 'active' : '' }}">
-                            <a href="{{ route('admin.privacy.index') }}">
-                                <span class="side-icon">
-                                    <img src="{{ asset('assets/images/iconshover/privacyhover.svg') }}" alt="Privacy Policy">
-                                </span>
-                                <span class="active-icon">
-                                    <img src="{{ asset('assets/images/icons/privacy.svg') }}" alt="Privacy Policy Active">
-                                </span>
-                                <span class="menutext">Privacy Policy</span>
-                            </a>
-                        </li>
-                        <li class="side-item {{ request()->is('admin/terms') ? 'active' : '' }}">
-                            <a href="{{ route('admin.terms.index') }}">
-                                <span class="side-icon">
-                                    <img src="{{ asset('assets/images/iconshover/termshover.svg') }}" alt="Terms & Conditions">
-                                </span>
-                                <span class="active-icon">
-                                    <img src="{{ asset('assets/images/icons/terms.svg') }}" alt="Terms & Conditions Active">
-                                </span>
-                                <span class="menutext">Terms & Conditions</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                    <li class="side-item {{request()->is('admin/community*') ? 'active':''}}">
+                        <a href="{{ route('admin.community.index') }}">
+                            <span class="side-icon" >
+                                <img src="{{asset("assets/images/iconshover/community.svg")}}" alt="Dashboard">
+                            </span>
+                            <span class="active-icon">
+                                <img src="{{asset("assets/images/icons/community.svg")}}" alt="Dashboard">
+                            </span>
+                            <span class="menutext">
+                            Community
+                            </span>
+                        </a>
+                    </li>
+
+                @endif
+
+                @if($admin->role ==='master' || optional($admin->permission)->pages ==='Y')
+
+                    <li class="side-item side-dropdown">
+                        <a class="side-dropdown-toggle">
+                            <span class="side-icon">
+                                <img src="{{ asset('assets/images/iconshover/pages.svg') }}" alt="Pages">
+                            </span>
+                            <span class="active-icon">
+                                <img src="{{ asset('assets/images/icons/pages.svg') }}" alt="Pages Active">
+                            </span>
+                            <span class="menutext">Pages</span>
+                        </a>
+                        <ul class="side-dropdown-menu">
+                            <li class="side-item {{ request()->is('admin/page') ? 'active' : '' }}">
+                                <a href="{{ route('admin.page.index') }}">
+                                    <span class="side-icon">
+                                        <img src="{{ asset('assets/images/iconshover/homehover.svg') }}" alt="Home">
+                                    </span>
+                                    <span class="active-icon">
+                                        <img src="{{ asset('assets/images/icons/home.svg') }}" alt="Home Active">
+                                    </span>
+                                    <span class="menutext">Home</span>
+                                </a>
+                            </li>
+                            <li class="side-item {{ request()->is('admin/faq') ? 'active' : '' }}">
+                                <a href="{{ route('admin.faq.index') }}">
+                                    <span class="side-icon">
+                                        <img src="{{ asset('assets/images/iconshover/faqhover.svg') }}" alt="FAQ">
+                                    </span>
+                                    <span class="active-icon">
+                                        <img src="{{ asset('assets/images/icons/faq.svg') }}" alt="FAQ Active">
+                                    </span>
+                                    <span class="menutext">FAQ</span>
+                                </a>
+                            </li>
+                            <li class="side-item {{ request()->is('admin/support') ? 'active' : '' }}">
+                                <a href="{{ route('admin.support.index') }}">
+                                    <span class="side-icon">
+                                        <img src="{{ asset('assets/images/iconshover/support.svg') }}" alt="Support">
+                                    </span>
+                                    <span class="active-icon">
+                                        <img src="{{ asset('assets/images/icons/support.svg') }}" alt="Support Active">
+                                    </span>
+                                    <span class="menutext">Support</span>
+                                </a>
+                            </li>
+                            <li class="side-item {{ request()->is('admin/tip') ? 'active' : '' }}">
+                                <a href="{{ route('admin.tip.index') }}">
+                                    <span class="side-icon">
+                                        <img src="{{ asset('assets/images/iconshover/tipsandadvice.svg') }}" alt="Tips and Advice">
+                                    </span>
+                                    <span class="active-icon">
+                                        <img src="{{ asset('assets/images/icons/tipsandadvice.svg') }}" alt="Tips and Advice Active">
+                                    </span>
+                                    <span class="menutext">Tips and Advice</span>
+                                </a>
+                            </li>
+                            <li class="side-item {{ request()->is('admin/course') ? 'active' : '' }}">
+                                <a href="{{ route('admin.course.index') }}">
+                                    <span class="side-icon">
+                                        <img src="{{ asset('assets/images/iconshover/coursehover.svg') }}" alt="Course">
+                                    </span>
+                                    <span class="active-icon">
+                                        <img src="{{ asset('assets/images/icons/course.svg') }}" alt="Course Active">
+                                    </span>
+                                    <span class="menutext">Course</span>
+                                </a>
+                            </li>
+                            <li class="side-item {{ request()->is('admin/privacy') ? 'active' : '' }}">
+                                <a href="{{ route('admin.privacy.index') }}">
+                                    <span class="side-icon">
+                                        <img src="{{ asset('assets/images/iconshover/privacyhover.svg') }}" alt="Privacy Policy">
+                                    </span>
+                                    <span class="active-icon">
+                                        <img src="{{ asset('assets/images/icons/privacy.svg') }}" alt="Privacy Policy Active">
+                                    </span>
+                                    <span class="menutext">Privacy Policy</span>
+                                </a>
+                            </li>
+                            <li class="side-item {{ request()->is('admin/terms') ? 'active' : '' }}">
+                                <a href="{{ route('admin.terms.index') }}">
+                                    <span class="side-icon">
+                                        <img src="{{ asset('assets/images/iconshover/termshover.svg') }}" alt="Terms & Conditions">
+                                    </span>
+                                    <span class="active-icon">
+                                        <img src="{{ asset('assets/images/icons/terms.svg') }}" alt="Terms & Conditions Active">
+                                    </span>
+                                    <span class="menutext">Terms & Conditions</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                @endif
                 
-                <li class="side-item {{request()->is('admin/admin_user*') ? 'active':''}}">
-                    <a href="{{ route('admin.admin_user.index') }}">
-                        <span class="side-icon" >
-                            <img src="{{asset("assets/images/iconshover/community.svg")}}" alt="Dashboard">
-                        </span>
-                        <span class="active-icon">
-                            <img src="{{asset("assets/images/icons/community.svg")}}" alt="Dashboard">
-                        </span>
-                        <span class="menutext">
-                            Admin Users
-                        </span>
-                    </a>
-                </li>
+
+                @if($admin->role ==='master')
+
+                    <li class="side-item {{request()->is('admin/admin_user*') ? 'active':''}}">
+                        <a href="{{ route('admin.admin_user.index') }}">
+                            <span class="side-icon" >
+                                <img src="{{asset("assets/images/iconshover/community.svg")}}" alt="Dashboard">
+                            </span>
+                            <span class="active-icon">
+                                <img src="{{asset("assets/images/icons/community.svg")}}" alt="Dashboard">
+                            </span>
+                            <span class="menutext">
+                                Admin Users
+                            </span>
+                        </a>
+                    </li>
+
+                @endif
 
                 <li class="side-item logout">
                     <a href="{{route('admin.logout')}}" class="log-out">
