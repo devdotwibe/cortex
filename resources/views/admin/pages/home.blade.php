@@ -943,73 +943,6 @@
                                         </div>
                                     </div>
                                     <div class="sec numericalsectionclass">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="analyticsimage" class="file-upload">Analytics Image <br>
-                                                <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
-                                            </label>
-                                            <input type="file" name="analyticsimage" id="analyticsimage"
-                                                class="form-control" style="display: none;"
-                                                onchange="previewImage(event, 'analyticsImagePreview')">
-                                            @error('analyticsimage')
-                                                <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-
-
-
-
-
-                                        <div class="form-group">
-                                            <label for="analyticsImagePreview">Analytics Image Preview</label>
-                                            <div id="analyticsImagePreviewContainer"
-                                                style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
-                                                @if (isset($banner) && $banner->analytics_image)
-                                                    <img id="analyticsImagePreview"
-                                                        src="{{ url('d0/' . $banner->analytics_image) }}"
-                                                        alt="Analytics Image Preview" style="width: 100%; height: auto;">
-                                                @else
-                                                    <img id="analyticsImagePreview" src="#"
-                                                        alt="Analytics Image Preview"
-                                                        style="display: none; width: 100%; height: auto;">
-                                                @endif
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="analyticscontent">Analytics Content*</label>
-                                            <textarea name="analyticscontent" id="analyticscontent" class="form-control" rows="5">{{ old('analyticscontent', optional($banner)->analytics_content) }}</textarea>
-                                            @error('analyticscontent')
-                                                <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
-
-                                    <!-- Anytime Section -->
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="anytimetitle">Anytime Title*</label>
-                                            <input type="text" name="anytimetitle" id="anytimetitle"
-                                                value="{{ old('anytimetitle', optional($banner)->anytime_title) }}"
-                                                class="form-control" placeholder="Anytime Title">
-                                            @error('anytimetitle')
-                                                <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
-
-                                   
-
-
-
-
-
-                                    <div class="sec numericalsectionclass">
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="analyticsimage" class="file-upload">Analytics Image <br>
@@ -1048,6 +981,76 @@
                                             </div>
                                         
                                     </div>
+
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="analyticscontent">Analytics Content*</label>
+                                            <textarea name="analyticscontent" id="analyticscontent" class="form-control" rows="5">{{ old('analyticscontent', optional($banner)->analytics_content) }}</textarea>
+                                            @error('analyticscontent')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <!-- Anytime Section -->
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="anytimetitle">Anytime Title*</label>
+                                            <input type="text" name="anytimetitle" id="anytimetitle"
+                                                value="{{ old('anytimetitle', optional($banner)->anytime_title) }}"
+                                                class="form-control" placeholder="Anytime Title">
+                                            @error('anytimetitle')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                   
+
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="anytimeimage" class="file-upload">Anytime Image <br>
+                                                <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                    alt="Upload Icon"></label>
+                                            <input type="file" name="anytimeimage" id="anytimeimage"
+                                                class="form-control" style="display: none;"
+                                                onchange="previewImage(event, 'anytimeImagePreview')">
+                                            @error('anytimeimage')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+
+
+
+
+
+                                        <div class="form-group">
+                                            <label for="anytimeImagePreview">Anytime Image Preview</label>
+                                            <div id="anytimeImagePreviewContainer"
+                                                style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
+                                                @if (isset($banner) && $banner->anytime_image)
+                                                    <img id="anytimeImagePreview"
+                                                        src="{{ url('d0/' . $banner->anytime_image) }}"
+                                                        alt="Anytime Image Preview" style="width: 100%; height: auto;">
+                                                @else
+                                                    <img id="anytimeImagePreview" src="#"
+                                                        alt="Anytime Image Preview"
+                                                        style="display: none; width: 100%; height: auto;">
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                   
+
+
+
+
+
                                     
 
                                     <div class="col-md-12">
