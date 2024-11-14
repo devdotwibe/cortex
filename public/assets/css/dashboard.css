@@ -4064,6 +4064,14 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
     transform: scale(1.01);
 }
 
+.live-class-section .col-md-6 {
+    max-width: 440px;
+}
+
+.live-class-section .row {
+    justify-content: center;
+}
+
 
 .learn-inner-section .lesson .lesson-body {
     margin: 0;
