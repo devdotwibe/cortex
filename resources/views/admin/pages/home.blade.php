@@ -857,7 +857,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="featureimage" class="file-upload">Feature Image1 <br>
+                                                        <label for="featureimage" class="file-upload">Feature Image <br>
                                                             <img src="{{ asset('assets/images/upfile.svg') }}"
                                                                 alt="Upload Icon"> </label>
                                                         <input type="file" name="featureimage[]" class="form-control"
