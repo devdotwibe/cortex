@@ -220,6 +220,73 @@
         </div>
     </div>
 
+
+    <div class="modal fade bd-example-modal-lg" id="edit_admin_user_modal" tabindex="-1" role="dialog"
+        aria-labelledby="sub-category-createLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" id="sub-category-modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="sub-category-createLabel"><span id="sub-category-id"></span>Change Password</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body"> 
+                    <form  class="form" id="edit_admin_user_form" data-save="create" data-action="" data-createurl="" >
+                        @csrf                
+                        <div class="row"> 
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <div class="form-data">
+                                        <div class="forms-inputs mb-4"> 
+                                            <label for="name-table-subcategory-form-create">Email</label>
+                                            <input type="text" readonly name="email" id="edit_email" class="form-control "  >
+                                            <div class="invalid-feedback" id="edit_email_error"></div>
+                                        </div>
+                                    </div>
+                                </div>    
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <div class="form-data">
+                                        <div class="forms-inputs mb-4"> 
+                                            <label for="edit_password">Password</label>
+                                            <input type="text" name="password" id="edit_password" class="form-control "  >
+                                            <div class="invalid-feedback" id="name-error-table-subcategory-form-create"></div>
+                                        </div>
+                                    </div>
+                                </div>    
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <div class="form-data">
+                                        <div class="forms-inputs mb-4"> 
+                                            <label for="edit_password">Conform Password</label>
+                                            <input type="text" name="conform_password" id="edit_conform_password" class="form-control "  >
+                                            <div class="invalid-feedback" id="name-error-table-subcategory-form-create"></div>
+                                        </div>
+                                    </div>
+                                </div>    
+                            </div>
+
+                            <input type="hidden" id="edit_admin_id" name="admin_id" >
+
+                            <div class="col-md-4 pt-4">  
+                                <button type="submit" class="btn btn-dark" id="table-subcategory-form-submit">Update</button>  
+                                <button type="button" class="btn btn-secondary" style="display: none" id="table-subcategory-form-clear" >Cancel</button>               
+                            </div>
+                        </div> 
+                    </form>
+
+                </div> 
+            </div>
+          
+        </div>
+    </div>
+
 @endpush
 
 @push('footer-script')
@@ -344,6 +411,36 @@
                         // }
                     }
                 });
+            }
+
+            function EditAdmin(element) 
+            {
+                var id = $(element).data('id');
+
+                $.ajax({
+                    url: '{{route('admin.admin_user.get_permission')}}',  
+                    method: 'get',
+                    data: {
+                        id: id,
+                    }, 
+                    success: function(response) {
+                        
+                        $('#edit_email').val(response.data.email);
+
+                        $('#edit_admin_id').val(response.data.id);
+
+                        $('#edit_admin_user_modal').modal('show');
+                    },
+
+                    error: function(xhr) {
+                        
+                        // var errors = xhr.responseJSON.errors;
+                        // if (errors) {
+                        
+                        // }
+                    }
+                });
+
             }
 
 
