@@ -175,7 +175,7 @@ trait ResourceController
                     switch ($act) {
                         case 'view':
                             $action.='                            
-                                   <a href="' . route(self::$routeName . ".show", $data->slug??$data->slug) . '" class="btn btn-icons eye-button">
+                                   <a href="' . route(self::$routeName . ".show", $data->slug??$data->id) . '" class="btn btn-icons eye-button">
                             <span class="adminside-icon">
                                 <img src="' . asset("assets/images/icons/mdi_incognito.svg") . '" alt="View">
                             </span>
@@ -188,27 +188,27 @@ trait ResourceController
                             break;
                         case 'edit':
                                 $action.='
-                               <a href="' . route(self::$routeName . ".edit", $data->slug??$data->slug) . '" class="btn btn-icons edit_btn">
-    <span class="adminside-icon">
-        <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
-    </span>
-    <span class="adminactive-icon">
-        <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active" title="Edit">
-    </span>
-</a>
+                               <a href="' . route(self::$routeName . ".edit", $data->slug??$data->id) . '" class="btn btn-icons edit_btn">
+                                    <span class="adminside-icon">
+                                        <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
+                                    </span>
+                                    <span class="adminactive-icon">
+                                        <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active" title="Edit">
+                                    </span>
+                                </a>
 
                                 ';
                             break;
                         case 'delete':
                                 $action.='
-                                <a class="btn btn-icons dlt_btn" data-delete="' . route(self::$routeName . ".destroy", $data->slug??$data->slug) . '">
-    <span class="adminside-icon">
-        <img src="' . asset("assets/images/icons/material-symbols_delete-outline.svg") . '" alt="Delete">
-    </span>
-    <span class="adminactive-icon">
-        <img src="' . asset("assets/images/iconshover/material-symbols_delete-yellow.svg") . '" alt="Delete Active" title="Delete">
-    </span>
-</a>
+                                <a class="btn btn-icons dlt_btn" data-delete="' . route(self::$routeName . ".destroy", $data->slug??$data->id) . '">
+                                    <span class="adminside-icon">
+                                        <img src="' . asset("assets/images/icons/material-symbols_delete-outline.svg") . '" alt="Delete">
+                                    </span>
+                                    <span class="adminactive-icon">
+                                        <img src="' . asset("assets/images/iconshover/material-symbols_delete-yellow.svg") . '" alt="Delete Active" title="Delete">
+                                    </span>
+                                </a>
  
                                 ';
                             break;

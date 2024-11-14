@@ -38,7 +38,7 @@ use App\Http\Controllers\Admin\UserAccessController;
 use App\Http\Controllers\Admin\TipsController;  
 use App\Http\Controllers\Admin\SubscriptionPaymentController;
 use App\Http\Controllers\Admin\TimetableController;
-
+use App\Http\Middleware\AdminPermission;
 use Illuminate\Support\Facades\Route;
 
 
@@ -57,71 +57,88 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::get('/upload/{tag}/cancel',[AdminMainController::class,'uploadcancel'])->name('uploadcancel');
 
         Route::get('/',[AdminMainController::class,'index']);
+
         Route::get('/dashboard',[AdminMainController::class,'index'])->name('dashboard');
+
+        Route::get('/admin_dashboard',[AdminMainController::class,'admin_dashboard'])->name('admin_dashboard');
+
         Route::get('/logout',[AdminMainController::class,'logout'])->name('logout');
 
-        Route::resource("/user",UserController::class);
-        Route::post('/user/{user}/resetpassword',[UserController::class,'resetpassword'])->name('user.resetpassword');
-        Route::post('/user/bulk/action',[UserController::class,'bulkaction'])->name('user.bulkaction');
-        Route::post('/user/bulk/update',[UserController::class,'bulkupdate'])->name('user.bulkupdate');
-        Route::get('/user/{user}/getdata',[UserController::class,'getdata'])->name('user.students');
-        Route::get('/user/{user}/spectate',[UserController::class,'userspectate'])->name('user.spectate');
 
-        Route::post('/import',[UserController::class,'import_users_from_csv'])->name('import_users_from_csv');
+        Route::middleware(['AdminPermission:users'])->group(function () {
 
-        Route::post('/import1',[UserController::class,'import_users_from_csv_submit'])->name('import_users_from_csv_submit');
+            Route::resource("/user",UserController::class);
+            Route::post('/user/{user}/resetpassword',[UserController::class,'resetpassword'])->name('user.resetpassword');
+            Route::post('/user/bulk/action',[UserController::class,'bulkaction'])->name('user.bulkaction');
+            Route::post('/user/bulk/update',[UserController::class,'bulkupdate'])->name('user.bulkupdate');
+            Route::get('/user/{user}/getdata',[UserController::class,'getdata'])->name('user.students');
+            Route::get('/user/{user}/spectate',[UserController::class,'userspectate'])->name('user.spectate');
+
+            Route::post('/import',[UserController::class,'import_users_from_csv'])->name('import_users_from_csv');
+
+            Route::post('/import1',[UserController::class,'import_users_from_csv_submit'])->name('import_users_from_csv_submit');
+
+            Route::get('/user/{user}/spectate1',[UserController::class,'userspectate1'])->name('user.spectate1');
+            Route::get('/user/{user}/comunity',[UserController::class,'usercomunity'])->name('user.comunity');
+            Route::get('/user/{user}/freeaccess',[UserController::class,'freeaccess'])->name('user.freeaccess');
+            Route::get('/user/{user}/termslist',[UserController::class,'termslist'])->name('user.termslist');
+
+            Route::prefix('subscriber')->name('subscriber.')->group(function () {
+                Route::get('/',[SubscribeUsersController::class,'index'])->name('index');
+            });
+
+        });
 
 
+        Route::middleware(['AdminPermission:exam_simulator'])->group(function () {
 
-        Route::get('/user/{user}/spectate1',[UserController::class,'userspectate1'])->name('user.spectate1');
-        Route::get('/user/{user}/comunity',[UserController::class,'usercomunity'])->name('user.comunity');
-        Route::get('/user/{user}/freeaccess',[UserController::class,'freeaccess'])->name('user.freeaccess');
-        Route::get('/user/{user}/termslist',[UserController::class,'termslist'])->name('user.termslist');
-        Route::resource("/exam",ExamController::class);
-        Route::get('/full-mock-exam-options',[ExamController::class,'examoptions'])->name('exam.options');
+            Route::resource("/exam",ExamController::class);
+        });
 
-      
+        Route::middleware(['AdminPermission:options'])->group(function () {
 
+            Route::get('/full-mock-exam-options',[ExamController::class,'examoptions'])->name('exam.options');
 
-        Route::post('/full-mock-exam-options',[ExamController::class,'examoptionssave']);
+            Route::post('/full-mock-exam-options',[ExamController::class,'examoptionssave']);
+            Route::resource("/payment",PaymentController::class);
+
+       });
+
+        
        
+       
+        Route::middleware(['AdminPermission:options'])->group(function () {
 
-        Route::resource("/payment",PaymentController::class);
-        Route::prefix('subscriber')->name('subscriber.')->group(function () {
-            Route::get('/',[SubscribeUsersController::class,'index'])->name('index');
+            Route::prefix('coupon')->name('coupon.')->group(function () {
+                Route::get('/',[CouponController::class,'index'])->name('index');
+                Route::get('/create',[CouponController::class,'create'])->name('create');
+                Route::post('/store',[CouponController::class,'store'])->name('store');
+                Route::get('/{coupon_offer}/show',[CouponController::class,'show'])->name('show');
+                Route::get('/{coupon_offer}/edit',[CouponController::class,'edit'])->name('edit');
+                Route::put('/{coupon_offer}/update',[CouponController::class,'update'])->name('update');
+                Route::delete('/{coupon_offer}/destroy',[CouponController::class,'destroy'])->name('destroy');
+    
+    
+                Route::post('/setting',[CouponController::class,'setting'])->name('setting');
+    
+            });
+
+            Route::prefix('payment-price')->name('payment-price.')->group(function () {
+                Route::get('/',[SubscriptionPaymentController::class,'index'])->name('index');
+                Route::post('/',[SubscriptionPaymentController::class,'store'])->name('store');
+                Route::post('/section-1', [SubscriptionPaymentController::class, 'storesection1'])->name('section1');
+                Route::post('/section-3', [SubscriptionPaymentController::class, 'storesection3'])->name('section3');
+                Route::post('/section-4', [SubscriptionPaymentController::class, 'storesection4'])->name('section4');
+                Route::put('/{subscription_plan}/update',[SubscriptionPaymentController::class,'update'])->name('update');
+                Route::delete('/{subscription_plan}/destroy',[SubscriptionPaymentController::class,'destroy'])->name('destroy');
+
+                Route::post('/delete-image', [SubscriptionPaymentController::class, 'deleteImage'])->name('deleteImage');
+                Route::post('/delete-feeling-image', [SubscriptionPaymentController::class, 'deleteFeelingImage'])->name('deleteFeelingImage');
+                Route::post('/payment-price/delete-image', [SubscriptionPaymentController::class, 'deleteImage2'])->name('deleteImage2');
+
+                });
         });
-        Route::prefix('coupon')->name('coupon.')->group(function () {
-            Route::get('/',[CouponController::class,'index'])->name('index');
-            Route::get('/create',[CouponController::class,'create'])->name('create');
-            Route::post('/store',[CouponController::class,'store'])->name('store');
-            Route::get('/{coupon_offer}/show',[CouponController::class,'show'])->name('show');
-            Route::get('/{coupon_offer}/edit',[CouponController::class,'edit'])->name('edit');
-            Route::put('/{coupon_offer}/update',[CouponController::class,'update'])->name('update');
-            Route::delete('/{coupon_offer}/destroy',[CouponController::class,'destroy'])->name('destroy');
 
-
-            Route::post('/setting',[CouponController::class,'setting'])->name('setting');
-
-        });
-        Route::prefix('payment-price')->name('payment-price.')->group(function () {
-            Route::get('/',[SubscriptionPaymentController::class,'index'])->name('index');
-            Route::post('/',[SubscriptionPaymentController::class,'store'])->name('store');
-            Route::post('/section-1', [SubscriptionPaymentController::class, 'storesection1'])->name('section1');
-            Route::post('/section-3', [SubscriptionPaymentController::class, 'storesection3'])->name('section3');
-            Route::post('/section-4', [SubscriptionPaymentController::class, 'storesection4'])->name('section4');
-            Route::put('/{subscription_plan}/update',[SubscriptionPaymentController::class,'update'])->name('update');
-            Route::delete('/{subscription_plan}/destroy',[SubscriptionPaymentController::class,'destroy'])->name('destroy');
-
-
-             // Delete image route
-    Route::post('/delete-image', [SubscriptionPaymentController::class, 'deleteImage'])->name('deleteImage');
-    Route::post('/delete-feeling-image', [SubscriptionPaymentController::class, 'deleteFeelingImage'])->name('deleteFeelingImage');
-    Route::post('/payment-price/delete-image', [SubscriptionPaymentController::class, 'deleteImage2'])->name('deleteImage2');
-
-
-
-
-        });
 
         Route::prefix('full-mock-exam')->name('full-mock-exam.')->group(function () {
             Route::get('/{exam}',[FullMockExamController::class,'index'])->name('index');
@@ -135,121 +152,109 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::post('/{exam}/store',[FullMockExamController::class,'store'])->name('store');
             Route::post('/{exam}/import',[FullMockExamController::class,'importquestion'])->name('import');
         });
-        // Route::prefix('question-bank-old')->name('question-bank-old.')->group(function () {
-        //     Route::get('/',[QuestionBankControllerOld::class,'index'])->name('index');
-        //     Route::post('/subtitle',[QuestionBankControllerOld::class,'subtitle'])->name('subtitle');
-        //     Route::get('/{category}',[QuestionBankControllerOld::class,'show'])->name('show');
-        //     Route::get('/{category}/create',[QuestionBankControllerOld::class,'create'])->name('create');
-        //     Route::get('/{category}/{question}/edit',[QuestionBankControllerOld::class,'edit'])->name('edit');
-        //     Route::post('/{category}/store',[QuestionBankControllerOld::class,'store'])->name('store');
-        // });
+      
+        Route::middleware(['AdminPermission:question_bank'])->group(function () {
 
-        Route::prefix('question-bank')->name('question-bank.')->group(function () {
-            Route::get('/',[QuestionBankController::class,'index'])->name('index');
-            Route::post('/subtitle',[QuestionBankController::class,'subtitle'])->name('subtitle');
-            Route::get('/{setname}',[QuestionBankController::class,'show'])->name('show');
+            Route::prefix('question-bank')->name('question-bank.')->group(function () {
+                Route::get('/',[QuestionBankController::class,'index'])->name('index');
+                Route::post('/subtitle',[QuestionBankController::class,'subtitle'])->name('subtitle');
+                Route::get('/{setname}',[QuestionBankController::class,'show'])->name('show');
 
-            Route::post('/question-bank/bulk/action',[QuestionBankController::class,'bulkaction'])->name('bulkaction');
+                Route::post('/question-bank/bulk/action',[QuestionBankController::class,'bulkaction'])->name('bulkaction');
 
 
-            Route::get('/{setname}/create',[QuestionBankController::class,'create'])->name('create');
-            Route::get('/{setname}/{question}/edit',[QuestionBankController::class,'edit'])->name('edit');
-            Route::post('/{setname}/store',[QuestionBankController::class,'store'])->name('store');
-            Route::get('/{category}/subcategory',[QuestionBankController::class,'subcategory'])->name('subcategory');
-            Route::get('/{sub_category}/set',[QuestionBankController::class,'subcategoryset'])->name('subcategoryset');
-            Route::post('/{setname}/import',[QuestionBankController::class,'importquestion'])->name('import');
+                Route::get('/{setname}/create',[QuestionBankController::class,'create'])->name('create');
+                Route::get('/{setname}/{question}/edit',[QuestionBankController::class,'edit'])->name('edit');
+                Route::post('/{setname}/store',[QuestionBankController::class,'store'])->name('store');
+                Route::get('/{category}/subcategory',[QuestionBankController::class,'subcategory'])->name('subcategory');
+                Route::get('/{sub_category}/set',[QuestionBankController::class,'subcategoryset'])->name('subcategoryset');
+                Route::post('/{setname}/import',[QuestionBankController::class,'importquestion'])->name('import');
+            });
         });
 
-        Route::prefix('topic-test')->name('topic-test.')->group(function () {
-            Route::get('/',[TopicTestController::class,'index'])->name('index');
-            Route::post('/subtitle',[TopicTestController::class,'subtitle'])->name('subtitle');
-            Route::get('/{category}',[TopicTestController::class,'show'])->name('show');
+        Route::middleware(['AdminPermission:exam_simulator'])->group(function () {
 
-            Route::post('/topic-test/bulk/action',[TopicTestController::class,'bulkaction'])->name('bulkaction');
+            Route::prefix('topic-test')->name('topic-test.')->group(function () {
+
+                Route::get('/',[TopicTestController::class,'index'])->name('index');
+                Route::post('/subtitle',[TopicTestController::class,'subtitle'])->name('subtitle');
+                Route::get('/{category}',[TopicTestController::class,'show'])->name('show');
+
+                Route::post('/topic-test/bulk/action',[TopicTestController::class,'bulkaction'])->name('bulkaction');
 
 
-            Route::get('/{category}/create',[TopicTestController::class,'create'])->name('create');
-            Route::get('/{category}/{question}/edit',[TopicTestController::class,'edit'])->name('edit');
-            Route::post('/{category}/store',[TopicTestController::class,'store'])->name('store');
-            Route::post('/{category}/updatetime',[TopicTestController::class,'updatetime'])->name('updatetime');
-            Route::post('/{category}/import',[TopicTestController::class,'importquestion'])->name('import');
+                Route::get('/{category}/create',[TopicTestController::class,'create'])->name('create');
+                Route::get('/{category}/{question}/edit',[TopicTestController::class,'edit'])->name('edit');
+                Route::post('/{category}/store',[TopicTestController::class,'store'])->name('store');
+                Route::post('/{category}/updatetime',[TopicTestController::class,'updatetime'])->name('updatetime');
+                Route::post('/{category}/import',[TopicTestController::class,'importquestion'])->name('import');
+            });
         });
+
+
         Route::resource("/question",QuestionController::class);
         Route::get('/question/{question}/visibility',[QuestionController::class,'visibility'])->name('question.visibility');
         // Route::resource("/learn",LearnController::class);
 
-        Route::prefix('learn')->name('learn.')->group(function () {
-            Route::get('/',[LearnController::class,'index'])->name('index');
-            Route::get('/{category}',[LearnController::class,'show'])->name('show');
 
+        Route::middleware(['AdminPermission:learn'])->group(function () {
 
-            Route::post('/learn/bulk/action',[LearnController::class,'bulkaction'])->name('bulkaction');
+            Route::prefix('learn')->name('learn.')->group(function () {
 
+                Route::get('/',[LearnController::class,'index'])->name('index');
+                Route::get('/{category}',[LearnController::class,'show'])->name('show');
 
-            Route::get('/{category}/create',[LearnController::class,'create'])->name('create');
-            Route::get('/{category}/{learn}/edit',[LearnController::class,'edit'])->name('edit');
-            Route::post('/{category}/store',[LearnController::class,'store'])->name('store');
-            Route::put('/{category}/{learn}/update',[LearnController::class,'update'])->name('update');
+                Route::post('/learn/bulk/action',[LearnController::class,'bulkaction'])->name('bulkaction');
+                Route::get('/{category}/create',[LearnController::class,'create'])->name('create');
+                Route::get('/{category}/{learn}/edit',[LearnController::class,'edit'])->name('edit');
+                Route::post('/{category}/store',[LearnController::class,'store'])->name('store');
+                Route::put('/{category}/{learn}/update',[LearnController::class,'update'])->name('update');
 
-            Route::get('/{learn}/visibility',[LearnController::class,'visibility'])->name('visibility');
-            Route::delete('/{category}/{learn}',[LearnController::class,'destroy'])->name('destroy');
+                Route::get('/{learn}/visibility',[LearnController::class,'visibility'])->name('visibility');
+                Route::delete('/{category}/{learn}',[LearnController::class,'destroy'])->name('destroy');
+            });
         });
 
 
-        Route::prefix('community')->name('community.')->group(function () {
-            Route::get('/', [CommunityControllerController::class, 'index'])->name('index');
-            Route::resource('/post', CommunityControllerController::class);
+        Route::middleware(['AdminPermission:community'])->group(function () {
 
-            Route::get('/search', [CommunityControllerController::class, 'search'])->name('search');
+            Route::prefix('community')->name('community.')->group(function () {
+                Route::get('/', [CommunityControllerController::class, 'index'])->name('index');
+                Route::resource('/post', CommunityControllerController::class);
 
-            Route::get('/hashtags', [HashtagController::class,'hashtags'])->name('hashtags');
-            Route::post('/hashtags/store', [HashtagController::class, 'store'])->name('hashtags.store');
-            Route::get('/hashtags/{hashtag}/edit', [HashtagController::class, 'edit'])->name('hashtags.edit'); // Adjusted for clarity
-            Route::post('/hashtags/{hashtag}', [HashtagController::class, 'update'])->name('hashtags.update'); // Added update route
-            // Route::get('/{hashtags}/edit',[HashtagController::class,'edit'])->name('hashtags.edit');
-            Route::delete('/{hashtags}',[HashtagController::class,'destroy'])->name('hashtags.destroy');
+                Route::get('/search', [CommunityControllerController::class, 'search'])->name('search');
 
-            Route::get('/report-post', [PostReportController::class,'index'])->name('report.index');
-            Route::delete('/report-post/{report_post}', [PostReportController::class,'destroy'])->name('report.destroy');
-            Route::get('/report-post/{report_post}', [PostReportController::class,'show'])->name('report.show');
-            Route::get('/report-post/{user}/ban-user', [PostReportController::class,'banuser'])->name('report.banuser');
-            Route::get('/report-post/{post}/block-post', [PostReportController::class,'hidepost'])->name('report.hidepost');
+                Route::get('/hashtags', [HashtagController::class,'hashtags'])->name('hashtags');
+                Route::post('/hashtags/store', [HashtagController::class, 'store'])->name('hashtags.store');
+                Route::get('/hashtags/{hashtag}/edit', [HashtagController::class, 'edit'])->name('hashtags.edit'); // Adjusted for clarity
+                Route::post('/hashtags/{hashtag}', [HashtagController::class, 'update'])->name('hashtags.update'); // Added update route
+        
+                Route::delete('/{hashtags}',[HashtagController::class,'destroy'])->name('hashtags.destroy');
+                Route::get('/report-post', [PostReportController::class,'index'])->name('report.index');
+                Route::delete('/report-post/{report_post}', [PostReportController::class,'destroy'])->name('report.destroy');
+                Route::get('/report-post/{report_post}', [PostReportController::class,'show'])->name('report.show');
+                Route::get('/report-post/{user}/ban-user', [PostReportController::class,'banuser'])->name('report.banuser');
+                Route::get('/report-post/{post}/block-post', [PostReportController::class,'hidepost'])->name('report.hidepost');
 
-
-
-            
-            
-            Route::get('/post/{post}/comment/{post_comment}/reply', [CommunityControllerController::class, 'postCommentReplay'])->name('post.comment.reply');
-            Route::delete('/post/{post}/comment/{post_comment}/delete', [CommunityControllerController::class, 'commentDestroy'])->name('post.comment.destroy');
-            
-           
-            
-
-            // Routes for hashtags management
-    // Route::get('/hashtags', [CommunityControllerController::class, 'index'])->name('hashtags.index');
-    // Route::post('/hashtags', [CommunityControllerController::class, 'store'])->name('hashtags.store');
-    // Route::delete('/hashtags/{hashtag}', [CommunityControllerController::class, 'destroy'])->name('hashtags.destroy');
-
-    // // Route to view posts by hashtag
-    // Route::get('/posts/hashtag/{hashtag}', [CommunityControllerController::class, 'postsByHashtag'])->name('posts.byHashtag');
-
-
-    
-
+                Route::get('/post/{post}/comment/{post_comment}/reply', [CommunityControllerController::class, 'postCommentReplay'])->name('post.comment.reply');
+                Route::delete('/post/{post}/comment/{post_comment}/delete', [CommunityControllerController::class, 'commentDestroy'])->name('post.comment.destroy');
+                
+            });
         });
 
-        // Route::resource("/options",CategoryController::class);
+        
+        Route::middleware(['AdminPermission:options'])->group(function () {
 
-
-        Route::prefix('category')->name('category.')->group(function () {
-            Route::get('/',[CategoryController::class,'index'])->name('index');
-            Route::get('/create',[CategoryController::class,'create'])->name('create');
-            Route::post('/',[CategoryController::class,'store'])->name('store');
-            Route::get('/{category}/edit',[CategoryController::class,'edit'])->name('edit');
-            Route::put('/{category}',[CategoryController::class,'update'])->name('update');
-            Route::get('/{category}',[CategoryController::class,'show'])->name('show');
-            Route::delete('/{category}',[CategoryController::class,'destroy'])->name('destroy');
-            Route::get('/{category}/visibility',[CategoryController::class,'visibility'])->name('visibility');
+            Route::prefix('category')->name('category.')->group(function () {
+                Route::get('/',[CategoryController::class,'index'])->name('index');
+                Route::get('/create',[CategoryController::class,'create'])->name('create');
+                Route::post('/',[CategoryController::class,'store'])->name('store');
+                Route::get('/{category}/edit',[CategoryController::class,'edit'])->name('edit');
+                Route::put('/{category}',[CategoryController::class,'update'])->name('update');
+                Route::get('/{category}',[CategoryController::class,'show'])->name('show');
+                Route::delete('/{category}',[CategoryController::class,'destroy'])->name('destroy');
+                Route::get('/{category}/visibility',[CategoryController::class,'visibility'])->name('visibility');
+            });
         });
 
         Route::post('/add-subcatecory/{category}',[CategoryController::class,'add_subcatecory'])->name('add_subcatecory');
@@ -289,30 +294,49 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
         Route::post('/set/store/{slug}',[SetController::class,'set_store'])->name('set.set_store');
 
-        Route::prefix('live-class')->name('live-class.')->group(function () {
+        Route::middleware(['AdminPermission:live_teaching'])->group(function () {
 
-            Route::get('/',[LiveClassController::class,'index'])->name('index');
+            Route::prefix('live-class')->name('live-class.')->group(function () {
 
-            Route::post('/',[LiveClassController::class,'store'])->name('store');
+                Route::get('/',[LiveClassController::class,'index'])->name('index');
 
-            Route::post('/private/class/{private_class}/requests/update',[LiveClassController::class,'private_class_request_update'])->name('request.update');
-            Route::get('/private/class/{private_class}/requests/show',[LiveClassController::class,'private_class_request_show'])->name('request.show');
-            Route::post('/private/class/{private_class}/requests/accept',[LiveClassController::class,'private_class_request_accept'])->name('request.accept');
-            Route::post('/private/class/{private_class}/requests/reject',[LiveClassController::class,'private_class_request_reject'])->name('request.reject');
-            Route::get('/private/class/{private_class}/requests/status',[LiveClassController::class,'private_class_request_status'])->name('request.status');
+                Route::post('/',[LiveClassController::class,'store'])->name('store');
 
-            Route::post('/private/class/bulk-update',[LiveClassController::class,'bulkupdate'])->name('request.bulkupdate');
-            Route::post('/private/class/bulk-action',[LiveClassController::class,'bulkaction'])->name('request.bulkaction');
-            Route::delete('/private/class/{private_class}/requests',[LiveClassController::class,'private_class_request_destroy'])->name('request.destroy');
-            Route::get('/private/class/requests',[LiveClassController::class,'private_class_request'])->name('private_class_request');
-            Route::get('/private/class/requests/export',[LiveClassController::class,'private_class_request_export'])->name('private_class_request_export');
+                Route::post('/private/class/{private_class}/requests/update',[LiveClassController::class,'private_class_request_update'])->name('request.update');
+                Route::get('/private/class/{private_class}/requests/show',[LiveClassController::class,'private_class_request_show'])->name('request.show');
+                Route::post('/private/class/{private_class}/requests/accept',[LiveClassController::class,'private_class_request_accept'])->name('request.accept');
+                Route::post('/private/class/{private_class}/requests/reject',[LiveClassController::class,'private_class_request_reject'])->name('request.reject');
+                Route::get('/private/class/{private_class}/requests/status',[LiveClassController::class,'private_class_request_status'])->name('request.status');
 
-            Route::post('/private/class',[LiveClassController::class,'private_class'])->name('private_class');
+                Route::post('/private/class/bulk-update',[LiveClassController::class,'bulkupdate'])->name('request.bulkupdate');
+                Route::post('/private/class/bulk-action',[LiveClassController::class,'bulkaction'])->name('request.bulkaction');
+                Route::delete('/private/class/{private_class}/requests',[LiveClassController::class,'private_class_request_destroy'])->name('request.destroy');
+                Route::get('/private/class/requests',[LiveClassController::class,'private_class_request'])->name('private_class_request');
+                Route::get('/private/class/requests/export',[LiveClassController::class,'private_class_request_export'])->name('private_class_request_export');
 
-            Route::get('/private/class',[LiveClassController::class,'private_class_create'])->name('private_class_create');
+                Route::post('/private/class',[LiveClassController::class,'private_class'])->name('private_class');
 
-            Route::post('/intensive/class',[LiveClassController::class,'intensive_class'])->name('intensive_class');
+                Route::get('/private/class',[LiveClassController::class,'private_class_create'])->name('private_class_create');
 
+                Route::post('/intensive/class',[LiveClassController::class,'intensive_class'])->name('intensive_class');
+
+            });
+
+                Route::prefix('timetable')->name('timetable.')->group(function () {
+                Route::get('/', [TimetableController::class, 'index'])->name('index');
+            
+                Route::post('/', [TimetableController::class, 'store'])->name('store');
+
+                Route::get('/edit/{id}', [TimetableController::class, 'edit'])->name('edit');
+
+                Route::post('/update/{id}', [TimetableController::class, 'update'])->name('update');
+                
+            
+                Route::delete('/delete/{id}', [TimetableController::class, 'destroy'])->name('destroy');
+
+                Route::get('/fetcheditdata/{id}', [TimetableController::class, 'fetcheditdata'])->name('fetcheditdata');
+
+                });
         });
 
         Route::prefix('term')->name('term.')->group(function () {
@@ -426,217 +450,197 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::post('/store',[SettingsController::class,'store'])->name('store');
     });
 
-    Route::prefix('page')->name('page.')->group(function () {
-        Route::get('/', [PagesController::class, 'index'])->name('index');
-        Route::get('/create', [PagesController::class, 'create'])->name('create');
-        Route::post('/', [PagesController::class, 'store'])->name('store');
-        Route::post('/section2', [PagesController::class, 'storeSection2'])->name('section2');
-        Route::post('/section3', [PagesController::class, 'storeSection3'])->name('section3');
-        // Route::post('/section4', [PagesController::class, 'storeSection4'])->name('section4'); // Add this line// Add this line
-        Route::post('/section5', [PagesController::class, 'storeSection5'])->name('section4');
-        Route::post('/section6', [PagesController::class, 'storeSection6'])->name('section5');
-        Route::post('/section8', [PagesController::class, 'storeSection8'])->name('section6');
-        Route::post('/section9', [PagesController::class, 'storeSection9'])->name('section7');
-        Route::post('/section10', [PagesController::class, 'storeSection10'])->name('section8');
-        Route::get('/{setname}/edit', [PagesController::class, 'edit'])->name('edit');
-        Route::put('/{setname}', [PagesController::class, 'update'])->name('update');
-        Route::get('/{setname}', [PagesController::class, 'show'])->name('show');
-        Route::delete('/{setname}', [PagesController::class, 'destroy'])->name('destroy');
-        Route::get('/{setname}/visibility', [PagesController::class, 'visibility'])->name('visibility');
+    Route::middleware(['AdminPermission:pages'])->group(function () {
 
-        Route::delete('/admin/page/feature/{id}', [PagesController::class, 'destroy'])->name('feature.destroy');
+        Route::prefix('page')->name('page.')->group(function () {
+            Route::get('/', [PagesController::class, 'index'])->name('index');
+            Route::get('/create', [PagesController::class, 'create'])->name('create');
+            Route::post('/', [PagesController::class, 'store'])->name('store');
+            Route::post('/section2', [PagesController::class, 'storeSection2'])->name('section2');
+            Route::post('/section3', [PagesController::class, 'storeSection3'])->name('section3');
+            // Route::post('/section4', [PagesController::class, 'storeSection4'])->name('section4'); // Add this line// Add this line
+            Route::post('/section5', [PagesController::class, 'storeSection5'])->name('section4');
+            Route::post('/section6', [PagesController::class, 'storeSection6'])->name('section5');
+            Route::post('/section8', [PagesController::class, 'storeSection8'])->name('section6');
+            Route::post('/section9', [PagesController::class, 'storeSection9'])->name('section7');
+            Route::post('/section10', [PagesController::class, 'storeSection10'])->name('section8');
+            Route::get('/{setname}/edit', [PagesController::class, 'edit'])->name('edit');
+            Route::put('/{setname}', [PagesController::class, 'update'])->name('update');
+            Route::get('/{setname}', [PagesController::class, 'show'])->name('show');
+            Route::delete('/{setname}', [PagesController::class, 'destroy'])->name('destroy');
+            Route::get('/{setname}/visibility', [PagesController::class, 'visibility'])->name('visibility');
+
+            Route::delete('/admin/page/feature/{id}', [PagesController::class, 'destroy'])->name('feature.destroy');
 
 
-        // Add the deleteImage route
-    Route::post('/delete-image', [PagesController::class, 'deleteImage'])->name('deleteImage');
-    Route::post('/delete-learn-image', [PagesController::class, 'deleteLearnImage'])->name('deleteLearnImage');
+            // Add the deleteImage route
+            Route::post('/delete-image', [PagesController::class, 'deleteImage'])->name('deleteImage');
+            Route::post('/delete-learn-image', [PagesController::class, 'deleteLearnImage'])->name('deleteLearnImage');
+            Route::post('/delete-practise-image', [PagesController::class, 'deletePractiseImage'])->name('deletePractiseImage');
+            Route::post('/delete-prepare-image', [PagesController::class, 'deletePrepareImage'])->name('deletePrepareImage');
+            Route::post('/delete-review-image', [PagesController::class, 'deleteReviewImage'])->name('deleteReviewImage');
+            Route::post('/delete-excel-image', [PagesController::class, 'deleteExcelImage'])->name('deleteExcelImage');
+
+            Route::post('/delete-analytics-image', [PagesController::class, 'deleteAnalyticsImage'])->name('deleteAnalyticsImage');
+            Route::post('/delete-anytime-image', [PagesController::class, 'deleteAnytimeImage'])->name('deleteAnytimeImage');
+            Route::post('/delete-unlimited-image', [PagesController::class, 'deleteUnlimitedImage'])->name('deleteUnlimitedImage');
+            Route::post('/delete-live-image', [PagesController::class, 'deleteLiveImage'])->name('deleteLiveImage');
+
+        });
     });
 
     Route::get('/set/view', [PagesController::class, 'set_table_show'])->name('set_table.show');
 
-    Route::prefix('faq')->name('faq.')->group(function () {
-        Route::get('/',[FaqController::class,'index'])->name('index');
-        Route::post('/',[FaqController::class,'store'])->name('store');
+    Route::middleware(['AdminPermission:pages'])->group(function () {
 
-        Route::post('/add-subfaq/{faq}',[FaqController::class,'add_subfaq'])->name('add_subfaq');
+        Route::prefix('faq')->name('faq.')->group(function () {
+            Route::get('/',[FaqController::class,'index'])->name('index');
+            Route::post('/',[FaqController::class,'store'])->name('store');
 
-        Route::post('/subfaq-store',[SubFaqController::class,'substore'])->name('subfaq-store');
-        Route::get('/subfaq-table',[SubFaqController::class,'subfaq_table'])->name('subfaq_table');
-        Route::get('/{faq}/edit_subfaq',[SubFaqController::class,'edit_subfaq'])->name('edit_subfaq');
-        Route::post('sub/{faq}',[SubFaqController::class,'update_subfaq'])->name('update_subfaq');
-        Route::delete('del/{faq}',[SubFaqController::class,'del_subfaq'])->name('del_subfaq');
+            Route::post('/add-subfaq/{faq}',[FaqController::class,'add_subfaq'])->name('add_subfaq');
 
-        Route::get('/{faq}/edit_faq',[FaqController::class,'edit_faq'])->name('edit_faq');
-        Route::post('/{faq}',[FaqController::class,'update_faq'])->name('update_faq');
-        Route::delete('/{faq}',[FaqController::class,'del_faq'])->name('del_faq');
+            Route::post('/subfaq-store',[SubFaqController::class,'substore'])->name('subfaq-store');
+            Route::get('/subfaq-table',[SubFaqController::class,'subfaq_table'])->name('subfaq_table');
+            Route::get('/{faq}/edit_subfaq',[SubFaqController::class,'edit_subfaq'])->name('edit_subfaq');
+            Route::post('sub/{faq}',[SubFaqController::class,'update_subfaq'])->name('update_subfaq');
+            Route::delete('del/{faq}',[SubFaqController::class,'del_subfaq'])->name('del_subfaq');
 
+            Route::get('/{faq}/edit_faq',[FaqController::class,'edit_faq'])->name('edit_faq');
+            Route::post('/{faq}',[FaqController::class,'update_faq'])->name('update_faq');
+            Route::delete('/{faq}',[FaqController::class,'del_faq'])->name('del_faq');
 
+        });
 
-    });
-
-
-
-    Route::prefix('support')->name('support.')->group(function () {
-        Route::get('/', [SupportController::class, 'index'])->name('index');
-        Route::get('/create', [SupportController::class, 'create'])->name('create');
-        Route::post('/', [SupportController::class, 'storeSection1'])->name('store');
-        // Route::post('/section2', [PagesController::class, 'storeSection2'])->name('section2');
-
-        Route::get('/{setname}/edit', [SupportController::class, 'edit'])->name('edit');
-        Route::put('/{setname}', [SupportController::class, 'update'])->name('update');
-        Route::get('/{setname}', [SupportController::class, 'show'])->name('show');
-        Route::delete('/{setname}', [SupportController::class, 'destroy'])->name('destroy');
-        Route::get('/{setname}/visibility', [SupportController::class, 'visibility'])->name('visibility');
-
-        Route::delete('/admin/page/feature/{id}', [SupportController::class, 'destroy'])->name('feature.destroy');
-
-
-
-
-    });
-
-
-
-
-    Route::prefix('tip')->name('tip.')->group(function () {
-        Route::get('/', [TipsController::class, 'index'])->name('index');
-
-        Route::get('/{tip}/create', [TipsController::class, 'create'])->name('create');
-        Route::get('/{tip}/storetip', [TipsController::class, 'storetip'])->name('storetip');
-        Route::post('/{tip}/store', [TipsController::class, 'store'])->name('store');
-        Route::get('/{tip}/edit', [TipsController::class, 'edit'])->name('edit'); // Ensure this route is defined
-
-        Route::get('/{tip}/edit_subfaq',[TipsController::class,'edit_subfaq'])->name('edit_subfaq');
-        Route::post('update/{tip}',[TipsController::class,'update'])->name('update'); // Update route
-
-        Route::delete('del/{tip}',[TipsController::class,'del_tip'])->name('del_tip');
-    });
-
-
-    Route::prefix('course')->name('course.')->group(function () {
-        Route::get('/', [CourseController::class, 'index'])->name('index');
-
-        Route::get('/{tip}/create', [CourseController::class, 'create'])->name('create');
-        Route::get('/{tip}/storetip', [CourseController::class, 'storetip'])->name('storetip');
-        Route::post('/{tip}/store', [CourseController::class, 'store'])->name('store');
-        Route::get('/{tip}/edit', [CourseController::class, 'edit'])->name('edit'); // Ensure this route is defined
-
-        Route::post('/course', [CourseController::class, 'storesection1'])->name('section1');
-
-        Route::post('/course1', [CourseController::class, 'storesection4'])->name('section2');
-
-        Route::post('/', [CourseController::class, 'storesection4'])->name('section4');
-
-        Route::post('/', [CourseController::class, 'storesection5'])->name('section5');
-
-
-        Route::post('/delete-image', [CourseController::class, 'deleteImage'])->name('deleteImage');
-
-
-        Route::post('/private-image', [CourseController::class, 'deletePrivateImage'])->name('deletePrivateImage');
-
-        Route::post('/logicalimage', [CourseController::class, 'deleteLogicalImage'])->name('deleteLogicalImage');
-        Route::post('/criticalimage', [CourseController::class, 'deleteCriticalImage'])->name('deleteCriticalImage');
-
-        Route::post('/abstractimage', [CourseController::class, 'deleteAbstractImage'])->name('deleteAbstractImage');
-
-        Route::post('/numericalimage', [CourseController::class, 'deleteNumericalImage'])->name('deleteNumericalImage');
-
-        Route::post('/learnimage', [CourseController::class, 'deleteLearnImage'])->name('deleteLearnImage');
-
-        Route::post('/questionbankimage', [CourseController::class, 'deleteQuestionBankImage'])->name('deleteQuestionBankImage');
-
-        Route::post('/topicimage', [CourseController::class, 'deleteTopicImage'])->name('deleteTopicImage');
-
-        Route::post('/fullmockimage', [CourseController::class, 'deleteFullmockImage'])->name('deleteFullmockImage');
-        // Store data for each tab
-        Route::post('/tab1', [CourseController::class, 'storeTab1'])->name('tab1.store');
-        Route::post('/tab2', [CourseController::class, 'storeTab2'])->name('tab2.store');
-        Route::post('/tab3', [CourseController::class, 'storeTab3'])->name('tab3.store');
-        Route::post('/tab4', [CourseController::class, 'storeTab4'])->name('tab4.store');
-
-
-
-
-        Route::post('/section3/tab1', [CourseController::class, 'storeSection3Tab1'])->name('section3.tab1.store');
-        Route::post('/section3/tab2', [CourseController::class, 'storeSection3Tab2'])->name('section3.tab2.store');
-        Route::post('/section3/tab3', [CourseController::class, 'storeSection3Tab3'])->name('section3.tab3.store');
-        Route::post('/section3/tab4', [CourseController::class, 'storeSection3Tab4'])->name('section3.tab4.store');
-        Route::post('/section3/tab5', [CourseController::class, 'storeSection3Tab5'])->name('section3.tab5.store');
-
-
-        Route::get('/{tip}/edit_subfaq',[CourseController::class,'edit_subfaq'])->name('edit_subfaq');
-        Route::post('update/{tip}',[CourseController::class,'update'])->name('update'); // Update route
-
-        Route::delete('del/{tip}',[CourseController::class,'del_tip'])->name('del_tip');
-
-        Route::post('/tab/change', [CourseController::class, 'tabchange'])->name('tabchange');
-
-        Route::post('/tab/change1', [CourseController::class, 'tabchange1'])->name('tabchange1');
-
-    });
- 
- 
-
-    Route::prefix('privacy')->name('privacy.')->group(function () {
-        Route::get('/', [PrivacyController::class, 'index'])->name('index');
-        Route::get('/create', [PrivacyController::class, 'create'])->name('create');
-        Route::post('/', [PrivacyController::class, 'storeSection1'])->name('store');
-
-       
-
-    });
-
-    Route::prefix('terms')->name('terms.')->group(function () {
-        Route::get('/', [TermsAndConditionsController::class, 'index'])->name('index');
-        Route::get('/create', [TermsAndConditionsController::class, 'create'])->name('create');
-        Route::post('/', [TermsAndConditionsController::class, 'storeSection1'])->name('store');
-
-       
-
-    });
-
- 
-
+        Route::prefix('support')->name('support.')->group(function () {
+            Route::get('/', [SupportController::class, 'index'])->name('index');
+            Route::get('/create', [SupportController::class, 'create'])->name('create');
+            Route::post('/', [SupportController::class, 'storeSection1'])->name('store');
+            // Route::post('/section2', [PagesController::class, 'storeSection2'])->name('section2');
     
-    Route::prefix('timetable')->name('timetable.')->group(function () {
-        Route::get('/', [TimetableController::class, 'index'])->name('index');
-       
-        Route::post('/', [TimetableController::class, 'store'])->name('store');
-
-       
- // Show the form for editing a specific timetable entry
- Route::get('/edit/{id}', [TimetableController::class, 'edit'])->name('edit');
-
-       
-
-
+            Route::get('/{setname}/edit', [SupportController::class, 'edit'])->name('edit');
+            Route::put('/{setname}', [SupportController::class, 'update'])->name('update');
+            Route::get('/{setname}', [SupportController::class, 'show'])->name('show');
+            Route::delete('/{setname}', [SupportController::class, 'destroy'])->name('destroy');
+            Route::get('/{setname}/visibility', [SupportController::class, 'visibility'])->name('visibility');
     
- // Update a specific timetable entry
- Route::post('/update/{id}', [TimetableController::class, 'update'])->name('update');
- 
- // Delete a specific timetable entry
- Route::delete('/delete/{id}', [TimetableController::class, 'destroy'])->name('destroy');
+            Route::delete('/admin/page/feature/{id}', [SupportController::class, 'destroy'])->name('feature.destroy');
+    
+        });
 
- Route::get('/fetcheditdata/{id}', [TimetableController::class, 'fetcheditdata'])->name('fetcheditdata');
-       
+        Route::prefix('tip')->name('tip.')->group(function () {
+            Route::get('/', [TipsController::class, 'index'])->name('index');
+    
+            Route::get('/{tip}/create', [TipsController::class, 'create'])->name('create');
+            Route::get('/{tip}/storetip', [TipsController::class, 'storetip'])->name('storetip');
+            Route::post('/{tip}/store', [TipsController::class, 'store'])->name('store');
+            Route::get('/{tip}/edit', [TipsController::class, 'edit'])->name('edit'); // Ensure this route is defined
+    
+            Route::get('/{tip}/edit_subfaq',[TipsController::class,'edit_subfaq'])->name('edit_subfaq');
+            Route::post('update/{tip}',[TipsController::class,'update'])->name('update'); // Update route
+    
+            Route::delete('del/{tip}',[TipsController::class,'del_tip'])->name('del_tip');
+        });
 
-   
+        Route::prefix('course')->name('course.')->group(function () {
+            Route::get('/', [CourseController::class, 'index'])->name('index');
+    
+            Route::get('/{tip}/create', [CourseController::class, 'create'])->name('create');
+            Route::get('/{tip}/storetip', [CourseController::class, 'storetip'])->name('storetip');
+            Route::post('/{tip}/store', [CourseController::class, 'store'])->name('store');
+            Route::get('/{tip}/edit', [CourseController::class, 'edit'])->name('edit'); // Ensure this route is defined
+    
+            Route::post('/course', [CourseController::class, 'storesection1'])->name('section1');
+    
+            Route::post('/course1', [CourseController::class, 'storesection4'])->name('section2');
+    
+            Route::post('/', [CourseController::class, 'storesection4'])->name('section4');
+    
+            Route::post('/', [CourseController::class, 'storesection5'])->name('section5');
+    
+    
+            Route::post('/delete-image', [CourseController::class, 'deleteImage'])->name('deleteImage');
+    
+    
+            Route::post('/private-image', [CourseController::class, 'deletePrivateImage'])->name('deletePrivateImage');
+    
+            Route::post('/logicalimage', [CourseController::class, 'deleteLogicalImage'])->name('deleteLogicalImage');
+            Route::post('/criticalimage', [CourseController::class, 'deleteCriticalImage'])->name('deleteCriticalImage');
+    
+            Route::post('/abstractimage', [CourseController::class, 'deleteAbstractImage'])->name('deleteAbstractImage');
+    
+            Route::post('/numericalimage', [CourseController::class, 'deleteNumericalImage'])->name('deleteNumericalImage');
+    
+            Route::post('/learnimage', [CourseController::class, 'deleteLearnImage'])->name('deleteLearnImage');
+    
+            Route::post('/questionbankimage', [CourseController::class, 'deleteQuestionBankImage'])->name('deleteQuestionBankImage');
+    
+            Route::post('/topicimage', [CourseController::class, 'deleteTopicImage'])->name('deleteTopicImage');
+    
+            Route::post('/fullmockimage', [CourseController::class, 'deleteFullmockImage'])->name('deleteFullmockImage');
+            // Store data for each tab
+            Route::post('/tab1', [CourseController::class, 'storeTab1'])->name('tab1.store');
+            Route::post('/tab2', [CourseController::class, 'storeTab2'])->name('tab2.store');
+            Route::post('/tab3', [CourseController::class, 'storeTab3'])->name('tab3.store');
+            Route::post('/tab4', [CourseController::class, 'storeTab4'])->name('tab4.store');
+    
+    
+            Route::post('/section3/tab1', [CourseController::class, 'storeSection3Tab1'])->name('section3.tab1.store');
+            Route::post('/section3/tab2', [CourseController::class, 'storeSection3Tab2'])->name('section3.tab2.store');
+            Route::post('/section3/tab3', [CourseController::class, 'storeSection3Tab3'])->name('section3.tab3.store');
+            Route::post('/section3/tab4', [CourseController::class, 'storeSection3Tab4'])->name('section3.tab4.store');
+            Route::post('/section3/tab5', [CourseController::class, 'storeSection3Tab5'])->name('section3.tab5.store');
+    
+    
+            Route::get('/{tip}/edit_subfaq',[CourseController::class,'edit_subfaq'])->name('edit_subfaq');
+            Route::post('update/{tip}',[CourseController::class,'update'])->name('update'); // Update route
+    
+            Route::delete('del/{tip}',[CourseController::class,'del_tip'])->name('del_tip');
+    
+            Route::post('/tab/change', [CourseController::class, 'tabchange'])->name('tabchange');
+    
+            Route::post('/tab/change1', [CourseController::class, 'tabchange1'])->name('tabchange1');
+    
+        });
+
+        Route::prefix('privacy')->name('privacy.')->group(function () {
+            Route::get('/', [PrivacyController::class, 'index'])->name('index');
+            Route::get('/create', [PrivacyController::class, 'create'])->name('create');
+            Route::post('/', [PrivacyController::class, 'storeSection1'])->name('store');
+    
+    
+        });
+
+        Route::prefix('terms')->name('terms.')->group(function () {
+            Route::get('/', [TermsAndConditionsController::class, 'index'])->name('index');
+            Route::get('/create', [TermsAndConditionsController::class, 'create'])->name('create');
+            Route::post('/', [TermsAndConditionsController::class, 'storeSection1'])->name('store');
+    
+        });
 
     });
 
+ 
+    Route::middleware(['AdminPermission:admin_user'])->group(function () {
 
-    Route::prefix('admin_user')->name('admin_user.')->group(function () {
+            Route::prefix('admin_user')->name('admin_user.')->group(function () {
 
-        Route::get('/', [AdminUserController::class, 'index'])->name('index');
+                Route::get('/', [AdminUserController::class, 'index'])->name('index');
 
-        Route::post('/store', [AdminUserController::class, 'store'])->name('store');
+                Route::post('/store', [AdminUserController::class, 'store'])->name('store');
 
-        Route::post('/edit', [AdminUserController::class, 'edit'])->name('edit');
+                Route::post('/edit', [AdminUserController::class, 'edit'])->name('edit');
 
-        Route::delete('/destroy', [AdminUserController::class, 'destroy'])->name('destroy');
+                Route::delete('/destroy/{admin_user}', [AdminUserController::class, 'destroy'])->name('destroy');
 
-    
+                Route::post('/save_permission', [AdminUserController::class, 'save_permission'])->name('save_permission');
+
+                Route::get('/get_permission', [AdminUserController::class, 'get_permission'])->name('get_permission');
+
+                Route::get('/admin_user', [AdminUserController::class, 'admin_user'])->name('admin_user');
+
+                Route::post('/update_admin_user', [AdminUserController::class, 'update_admin_user'])->name('update_admin_user');
+                
+            });
     });
 
    

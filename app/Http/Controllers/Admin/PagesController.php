@@ -733,5 +733,250 @@ class PagesController extends Controller
         return response()->json(['success' => false, 'message' => 'Image file not found.'], 404);
     }
 
+    public function deletePractiseImage(Request $request)
+    {
+        // Validate the image path
+        $request->validate([
+            'image_path' => 'required|string',
+        ]);
+    
+        // Retrieve the image path from the request
+        $imagePath = $request->input('image_path');
+        
+        // Check if the image file exists in storage
+        if (Storage::exists($imagePath)) {
+            // Delete the image file from storage
+            Storage::delete($imagePath);
+    
+            // Find the Banner instance and update the image field
+            $banner = Banner::first(); // Find the first banner or adjust based on your logic
+            if ($banner && $banner->practiseimage === $imagePath) {
+                // Clear the practiseimage field in the database
+                $banner->practiseimage = null;
+                $banner->save();
+            }
+    
+            // Return a success response
+            return response()->json(['success' => true, 'message' => 'Image deleted successfully']);
+        }
+    
+        // Return an error response if the image file does not exist
+        return response()->json(['success' => false, 'message' => 'Image file not found.'], 404);
+    }
+
+    public function deletePrepareImage(Request $request)
+{
+    $request->validate([
+        'image_path' => 'required|string',
+    ]);
+
+    $imagePath = $request->input('image_path');
+
+    if (Storage::exists($imagePath)) {
+        // Delete the image from storage
+        Storage::delete($imagePath);
+
+        // Find the Banner and update the image field
+        $banner = Banner::first(); // Adjust as needed
+        if ($banner && $banner->prepareimage === $imagePath) {
+            $banner->prepareimage = null;
+            $banner->save();
+        }
+
+        return response()->json(['success' => true, 'message' => 'Image deleted successfully']);
+    }
+
+    return response()->json(['success' => false, 'message' => 'Image file not found.'], 404);
+}
+
+
+public function deleteReviewImage(Request $request)
+{
+    $request->validate([
+        'image_path' => 'required|string',
+    ]);
+
+    // Retrieve the image path from the request
+    $imagePath = $request->input('image_path');
+
+    // Check if the image exists in storage
+    if (Storage::exists($imagePath)) {
+        // Delete the image from storage
+        Storage::delete($imagePath);
+
+        // Find the Banner instance and update the review image field
+        $banner = Banner::first(); // Adjust this logic as needed
+        if ($banner && $banner->reviewimage === $imagePath) {
+            // Clear the reviewimage field in the database
+            $banner->reviewimage = null;
+            $banner->save();
+        }
+
+        // Return a success response
+        return response()->json(['success' => true, 'message' => 'Image deleted successfully']);
+    }
+
+    // Return an error response if the image is not found
+    return response()->json(['success' => false, 'message' => 'Image file not found.'], 404);
+}
+
+
+public function deleteExcelImage(Request $request)
+{
+    $request->validate([
+        'image_path' => 'required|string',
+    ]);
+
+    // Retrieve the image path from the request
+    $imagePath = $request->input('image_path');
+
+    // Check if the image exists in storage
+    if (Storage::exists($imagePath)) {
+        // Delete the image from storage
+        Storage::delete($imagePath);
+
+        // Find the Banner instance and update the excel image field
+        $banner = Banner::first(); // Adjust this logic as needed
+        if ($banner && $banner->excelimage === $imagePath) {
+            // Clear the excelimage field in the database
+            $banner->excelimage = null;
+            $banner->save();
+        }
+
+        // Return a success response
+        return response()->json(['success' => true, 'message' => 'Image deleted successfully']);
+    }
+
+    // Return an error response if the image is not found
+    return response()->json(['success' => false, 'message' => 'Image file not found.'], 404);
+}
+
+
+public function deleteAnalyticsImage(Request $request)
+{
+    // Validate the image path
+    $request->validate([
+        'image_path' => 'required|string',
+    ]);
+
+    // Retrieve the image path from the request
+    $imagePath = $request->input('image_path');
+
+    // Check if the image exists in storage
+    if (Storage::exists($imagePath)) {
+        // Delete the image from storage
+        Storage::delete($imagePath);
+
+        // Find the Banner instance (adjust the query as needed)
+        $banner = Banner::first(); // You might need to adjust this if you're targeting a specific banner
+        if ($banner && $banner->analytics_image === $imagePath) {
+            // Clear the analytics_image field in the database
+            $banner->analytics_image = null;
+            $banner->save();
+        }
+
+        // Return a success response
+        return response()->json(['success' => true, 'message' => 'Analytics image deleted successfully']);
+    }
+
+    // Return an error response if the image is not found
+    return response()->json(['success' => false, 'message' => 'Image file not found.'], 404);
+}
+
+
+public function deleteAnytimeImage(Request $request)
+{
+    // Validate the image path
+    $request->validate([
+        'image_path' => 'required|string',
+    ]);
+
+    // Retrieve the image path from the request
+    $imagePath = $request->input('image_path');
+
+    // Check if the image exists in storage
+    if (Storage::exists($imagePath)) {
+        // Delete the image from storage
+        Storage::delete($imagePath);
+
+        // Find the Banner instance (adjust as needed)
+        $banner = Banner::first(); // Adjust this if targeting a specific banner
+        if ($banner && $banner->anytime_image === $imagePath) {
+            // Clear the anytime_image field in the database
+            $banner->anytime_image = null;
+            $banner->save();
+        }
+
+        // Return a success response
+        return response()->json(['success' => true, 'message' => 'Anytime image deleted successfully']);
+    }
+
+    // Return an error response if the image is not found
+    return response()->json(['success' => false, 'message' => 'Image file not found.'], 404);
+}
+
+
+public function deleteUnlimitedImage(Request $request)
+{
+    // Validate the image path
+    $request->validate([
+        'image_path' => 'required|string',
+    ]);
+
+    // Retrieve the image path from the request
+    $imagePath = $request->input('image_path');
+
+    // Check if the image exists in storage
+    if (Storage::exists($imagePath)) {
+        // Delete the image from storage
+        Storage::delete($imagePath);
+
+        // Find the Banner instance (adjust as needed)
+        $banner = Banner::first(); // Adjust this if targeting a specific banner
+        if ($banner && $banner->unlimited_image === $imagePath) {
+            // Clear the unlimited_image field in the database
+            $banner->unlimited_image = null;
+            $banner->save();
+        }
+
+        // Return a success response
+        return response()->json(['success' => true, 'message' => 'Unlimited image deleted successfully']);
+    }
+
+    // Return an error response if the image is not found
+    return response()->json(['success' => false, 'message' => 'Image file not found.'], 404);
+}
+
+
+public function deleteLiveImage(Request $request)
+{
+    // Validate the image path
+    $request->validate([
+        'image_path' => 'required|string',
+    ]);
+
+    // Retrieve the image path from the request
+    $imagePath = $request->input('image_path');
+
+    // Check if the image exists in storage
+    if (Storage::exists($imagePath)) {
+        // Delete the image from storage
+        Storage::delete($imagePath);
+
+        // Find the Banner instance (adjust as needed)
+        $banner = Banner::first(); // Adjust this if targeting a specific banner
+        if ($banner && $banner->live_image === $imagePath) {
+            // Clear the live_image field in the database
+            $banner->live_image = null;
+            $banner->save();
+        }
+
+        // Return a success response
+        return response()->json(['success' => true, 'message' => 'Live image deleted successfully']);
+    }
+
+    // Return an error response if the image is not found
+    return response()->json(['success' => false, 'message' => 'Image file not found.'], 404);
+}
 
 }

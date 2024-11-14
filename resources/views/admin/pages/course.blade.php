@@ -100,23 +100,9 @@
                                             </div>
                                         </div>
 
-                                        <div class="numericalsectionclass">
+                                        {{-- <div class="numericalsectionclass">
 
                                       
-
-                                        {{-- <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="image" class="file-upload">Image  <br>
-                                                    <img src="{{ asset('assets/images/upfile.svg') }}"
-                                                        alt="Upload Icon"> </label>
-                                                <input type="file" class="form-control" style="display: none;" name="image" id="imageInput" onchange="previewImage()">
-                                            
-                                            </div>
-                                        </div> --}}
-
-
-
-
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="image" class="file-upload">Section Image <br>
@@ -149,7 +135,70 @@
                                             </div>
                                         </div>
 
+                                    </div> --}}
+
+
+                                    <div class="numericalsectionclass">
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="image" class="file-upload">Section Image <br>
+                                                    <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon"></label>
+                                                <input type="file" class="form-control" style="display: none;" name="image" id="image" onchange="previewImage(event, 'imagePreview',this)" data-id="imgid1">
+                                            </div>
+                                        </div>
+                                    
+                                        <div class="form-group imgid1" id="imgid1">
+                                            <label for="imagePreview">Image Preview</label>
+                                            <div id="imagePreviewContainer" class="numericalclass">
+                                                @if (isset($course) && $course->image)
+                                                    <!-- Display saved image and delete button -->
+                                                    <img id="imagePreview-save" src="{{ url('d0/' . $course->image) }}" alt="Image Preview"
+                                                        style="width: 100%; height: auto;">
+                                                    <!-- Delete button for saved image -->
+                                                    {{-- <button type="button" class="btn btn-danger" id="icondelete1" onclick="removeImage()"  style="position: absolute; top: 5px; right: 5px; {{ isset($course) && $course->image ? 'display: block;' : 'display: none;' }}">X</button> --}}
+
+
+
+                                                    <img id="imagePreview-save"
+                                                    src="{{ isset($course) && $course->image ? url('d0/' . $course->image) : '' }}"
+                                                    alt="Image Preview"
+                                                    style="width: 100%; height: auto; display: {{ isset($course) && $course->image ? 'block' : 'none' }};">
+
+
+
+
+                                                    
+                                                        <!-- Delete button for preview (before saving) -->
+                                                <button type="button" class="btn btn-danger imgid5" id="deleteicon1"
+                                                style="position: absolute; top: 5px; right: 5px; display: none;"
+                                                onclick="removeImage()">X</button>
+
+
+
+                                                     <!-- Delete button for saved image -->
+                                                     <button type="button" class="btn btn-danger" id="icondelete1"
+                                                     style="position: absolute; top: 5px; right: 5px; {{ isset($course) && $course->image ? 'display: block;' : 'display: none;' }}"
+                                                     onclick="removeSectionImage()">X</button>
+
+
+
+                                                @endif
+                                    
+                                              <!-- Dynamic image preview -->
+                                              <img id="imagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
+                                    
+                                                <!-- Delete button for preview (before saving) -->
+                                                <button type="button" class="btn btn-danger" id="deleteicon1" style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removeImagePreview()">X</button>
+                                            </div>
+                                        </div>
+
+
+                                       
+                                    
                                     </div>
+                                    
+                                   
 
 
                                         <div class="col-md-12">
@@ -962,32 +1011,60 @@
 
 
 
-        function removeImage(button) {
+        // function removeImage(button) {
 
-            const courseId = button.value; 
-            const url = '{{ route('admin.course.deleteImage') }}'; 
+        //     const courseId = button.value; 
+        //     const url = '{{ route('admin.course.deleteImage') }}'; 
 
-            $.ajax({
-                type: 'POST',
-                url: url,
-                data: {
-                    _token: '{{ csrf_token() }}' 
-                },
-                success: function(response) {
-                    if (response.success) {
+        //     $.ajax({
+        //         type: 'POST',
+        //         url: url,
+        //         data: {
+        //             _token: '{{ csrf_token() }}' 
+        //         },
+        //         success: function(response) {
+        //             if (response.success) {
                        
-                        document.getElementById('imagePreview-save').style.display = 'none';
-                        button.style.display = 'none';
-                    } else {
-                        alert('Image could not be deleted. Please try again1.');
-                    }
-                },
-                error: function(xhr) {
-                    // Handle error response
-                    alert('Image could not be deleted. Please try again2.');
-                }
-            });
+        //                 document.getElementById('imagePreview-save').style.display = 'none';
+        //                 button.style.display = 'none';
+        //             } else {
+        //                 alert('Image could not be deleted. Please try again1.');
+        //             }
+        //         },
+        //         error: function(xhr) {
+        //             // Handle error response
+        //             alert('Image could not be deleted. Please try again2.');
+        //         }
+        //     });
+        // }
+
+
+        // Function to remove the Section image from the server when the delete button is clicked
+function removeSectionImage() {
+    const imagePath = "{{ $course->image }}"; // Set the correct image path for the Section image
+
+    $.ajax({
+        type: 'POST',
+        url: '{{ route('admin.page.deleteImage') }}', // Ensure this route matches the backend route for deleting Section image
+        data: {
+            _token: '{{ csrf_token() }}',
+            image_path: imagePath
+        },
+        success: function(response) {
+            if (response.success) {
+                $('#imgid1').hide();  // Hide the image preview container
+                document.getElementById('imagePreview-save').style.display = 'none'; // Hide the image preview
+                document.querySelector('#imagePreviewContainer button.btn-danger').style.display = 'none'; // Hide delete button
+            } else {
+                alert('Image could not be deleted. Please try again.');
+            }
+        },
+        error: function(xhr) {
+            alert('An error occurred. Please try again.');
         }
+    });
+}
+
     </script>
 
 
@@ -1261,7 +1338,7 @@
     </script>
 
 
-<script>
+{{-- <script>
     function previewImage() {
 
 
@@ -1288,7 +1365,7 @@
         }
     }
 
-    </script>
+    </script> --}}
 
 
 
@@ -1362,6 +1439,60 @@
             }
         });
     }
+
+
+
+
+    
+    // Function to preview the image when the file input changes
+    function previewImage(event, previewId, element) {
+        const reader = new FileReader();
+
+        reader.onload = function() {
+            const output = document.getElementById(previewId);
+            output.src = reader.result; // Set the preview image source
+            output.style.display = 'block'; // Display the preview image
+
+            // Get the class name (from data-id) to toggle visibility of related elements
+            var id = $(element).data('id');
+            $('.' + id).show(); // Show the preview container
+
+            // Show the delete button for preview and hide the delete button for saved image
+            document.getElementById('imgid1').style.display = 'block';
+            document.getElementById('deleteicon1').style.display = 'block';
+            document.getElementById('icondelete1').style.display = 'none'; // Hide the saved image delete button
+        };
+
+        if (event.target.files[0]) {
+            reader.readAsDataURL(event.target.files[0]); // Read the selected image
+        }
+    }
+
+    // Function to remove the preview image when the preview delete button is clicked
+    function removeImagePreview() {
+        // Clear the preview image and hide the preview container and delete button
+        const output = document.getElementById('imagePreview');
+        output.src = '';
+        output.style.display = 'none'; // Hide the preview image
+
+        document.getElementById('imgid1').style.display = 'none'; // Hide preview container
+        document.getElementById('deleteicon1').style.display = 'none'; // Hide delete button
+    }
+
+    // Function to remove the saved image when the saved delete button is clicked
+    function removeSavedImage() {
+      
+
+        const output = document.getElementById('imagePreview-save');
+                    output.src = '';
+                    output.style.display = 'none';
+
+                    document.getElementById('imgid1').style.display = 'none';
+                    document.getElementById('deleteicon1').style.display = 'none'; // Hide preview delete button
+                }
+
+
+    
 
 </script>
 

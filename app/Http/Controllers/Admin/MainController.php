@@ -18,6 +18,12 @@ class MainController extends Controller
         // return view("admin.dashboard");
         return redirect()->route('admin.user.index');
     }
+
+    public function admin_dashboard(Request $request){
+
+        return view("admin.dashboard");
+    }
+    
     public function login(Request $request){ 
         return view("auth.login");
     }
