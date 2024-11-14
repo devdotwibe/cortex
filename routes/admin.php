@@ -246,18 +246,19 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
         });
 
-        // Route::resource("/options",CategoryController::class);
+        
+        Route::middleware(['AdminPermission:options'])->group(function () {
 
-
-        Route::prefix('category')->name('category.')->group(function () {
-            Route::get('/',[CategoryController::class,'index'])->name('index');
-            Route::get('/create',[CategoryController::class,'create'])->name('create');
-            Route::post('/',[CategoryController::class,'store'])->name('store');
-            Route::get('/{category}/edit',[CategoryController::class,'edit'])->name('edit');
-            Route::put('/{category}',[CategoryController::class,'update'])->name('update');
-            Route::get('/{category}',[CategoryController::class,'show'])->name('show');
-            Route::delete('/{category}',[CategoryController::class,'destroy'])->name('destroy');
-            Route::get('/{category}/visibility',[CategoryController::class,'visibility'])->name('visibility');
+            Route::prefix('category')->name('category.')->group(function () {
+                Route::get('/',[CategoryController::class,'index'])->name('index');
+                Route::get('/create',[CategoryController::class,'create'])->name('create');
+                Route::post('/',[CategoryController::class,'store'])->name('store');
+                Route::get('/{category}/edit',[CategoryController::class,'edit'])->name('edit');
+                Route::put('/{category}',[CategoryController::class,'update'])->name('update');
+                Route::get('/{category}',[CategoryController::class,'show'])->name('show');
+                Route::delete('/{category}',[CategoryController::class,'destroy'])->name('destroy');
+                Route::get('/{category}/visibility',[CategoryController::class,'visibility'])->name('visibility');
+            });
         });
 
         Route::post('/add-subcatecory/{category}',[CategoryController::class,'add_subcatecory'])->name('add_subcatecory');
