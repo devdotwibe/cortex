@@ -2763,7 +2763,7 @@ function removePrepareImage() {
 
 
     // Function to preview the review image when a file is selected
-    function removeReviewImagePreview()(event, previewId) {
+    function previewReviewImage(event, previewId) {
         const reader = new FileReader();
 
         reader.onload = function() {
