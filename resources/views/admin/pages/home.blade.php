@@ -191,7 +191,7 @@
                                       
                                         <div class="form-group" id="imgid1" style="{{ isset($banner) && $banner->image ? '' : 'display: none;' }}">
                                             <label for="imagePreview">Image Preview</label>
-                                            <div id="imagePreviewContainer" style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px; position: relative;">
+                                            <div id="imagePreviewContainer" class="numericalclass" style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px; position: relative;">
                                                 <img id="imagePreview" src="{{ isset($banner) && $banner->image ? url('d0/' . $banner->image) : '' }}" alt="Image Preview" style="width: 100%; height: auto; display: {{ isset($banner) && $banner->image ? 'block' : 'none' }};">
                                                 
                                                 <!-- Delete button for preview (before saving) -->
