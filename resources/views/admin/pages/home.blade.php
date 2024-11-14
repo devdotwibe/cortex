@@ -482,22 +482,6 @@
 
 
 
-
-                                    <div class="form-group">
-                                        <label for="prepareImagePreview">Prepare Image Preview</label>
-                                        <div id="imagePreviewContainer"
-                                            style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
-                                            @if (isset($banner) && $banner->prepareimage)
-                                                <img id="prepareImagePreview"
-                                                    src="{{ url('d0/' . $banner->prepareimage) }}"
-                                                    alt="Prepare Image Preview" style="width: 100%; height: auto;">
-                                            @else
-                                                <img id="prepareImagePreview" src="#" alt="Prepare Image Preview"
-                                                    style="display: none; width: 100%; height: auto;">
-                                            @endif
-                                        </div>
-                                    </div>
-
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <div class="form-data">
