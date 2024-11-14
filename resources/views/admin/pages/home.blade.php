@@ -363,43 +363,47 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <div class="form-data">
-                                                <div class="forms-inputs mb-4">
-                                                    <label for="practiseimage" class="file-upload">Practice Image <br>
-                                                        <img src="{{ asset('assets/images/upfile.svg') }}"
-                                                            alt="Upload Icon"> </label>
-                                                    <input type="file" name="practiseimage" id="practiseimage"
-                                                        value="{{ old('practiseimage', optional($banner)->practiseimage) }}"
-                                                        class="form-control" style="display: none;"
-                                                        onchange="previewImage(event, 'practiseImagePreview')">
-                                                    @error('practiseimage')
-                                                        <div class="text-danger">{{ $message }}</div>
-                                                    @enderror
+                                    <div class="pricesection1 numericalsectionclass">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="form-data">
+                                                    <div class="forms-inputs mb-4">
+                                                        <label for="practiseimage" class="file-upload">Practice Image <br>
+                                                            <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
+                                                        </label>
+                                                        <input type="file" name="practiseimage" id="practiseimage"
+                                                            value="{{ old('practiseimage', optional($banner)->practiseimage) }}"
+                                                            class="form-control" style="display: none;"
+                                                            onchange="previewImage(event, 'practiseImagePreview', this)" data-id="imgid3">
+                                                        @error('practiseimage')
+                                                            <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-
-
-
-
-
-                                    <div class="form-group">
-                                        <label for="practiseImagePreview">Practice Image Preview</label>
-                                        <div id="imagePreviewContainer"
-                                            style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
-                                            @if (isset($banner) && $banner->practiseimage)
+                                    
+                                        <!-- Preview Practice Image Container -->
+                                        <div class="form-group imgid3" id="imgid3"
+                                            style="{{ isset($banner) && $banner->practiseimage ? '' : 'display: none;' }}">
+                                            <label for="practiseImagePreview">Practice Image Preview</label>
+                                            <div id="imagePreviewContainer" class="numericalclass"
+                                                style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px; position: relative;">
+                                                <!-- Image Preview -->
                                                 <img id="practiseImagePreview"
-                                                    src="{{ url('d0/' . $banner->practiseimage) }}"
-                                                    alt="Practice Image Preview" style="width: 100%; height: auto;">
-                                            @else
-                                                <img id="practiseImagePreview" src="#"
+                                                    src="{{ isset($banner) && $banner->practiseimage ? url('d0/' . $banner->practiseimage) : '' }}"
                                                     alt="Practice Image Preview"
-                                                    style="display: none; width: 100%; height: auto;">
-                                            @endif
+                                                    style="width: 100%; height: auto; display: {{ isset($banner) && $banner->practiseimage ? 'block' : 'none' }};">
+                                    
+                                                <!-- Delete button for preview (before saving) -->
+                                                <button type="button" class="btn btn-danger imgid3" id="deleteicon3"
+                                                    style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removePractiseImagePreview()">X</button>
+                                    
+                                                <!-- Delete button for saved image -->
+                                                <button type="button" class="btn btn-danger" id="icondelete3"
+                                                    style="position: absolute; top: 5px; right: 5px; {{ isset($banner) && $banner->practiseimage ? 'display: block;' : 'display: none;' }}"
+                                                    onclick="removePractiseImage()">X</button>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -2307,6 +2311,53 @@
             </script>
 
 
+<script>
+    // Function to preview the practiseimage when a file is selected
+    function previewPractiseImage(event, previewId) {
+        const reader = new FileReader();
+
+        reader.onload = function() {
+            const output = document.getElementById(previewId);
+            output.src = reader.result;
+            output.style.display = 'block';
+
+            // Show the practise image preview container and the preview delete button (icondelete3)
+            document.getElementById('imgid3').style.display = 'block';
+            document.getElementById('icondelete3').style.display = 'none'; // Hide saved delete button
+            document.getElementById('deleteicon3').style.display = 'block'; // Show preview delete button
+        };
+
+        if (event.target.files[0]) {
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    }
+
+    // Function to remove the practiseimage preview when the preview delete button (deleteicon3) is clicked
+    function removePractiseImagePreview() {
+        // Clear the practise image preview source and hide preview container and delete button
+        const output = document.getElementById('practiseImagePreview');
+        output.src = '';
+        output.style.display = 'none';
+
+        document.getElementById('imgid3').style.display = 'none';
+        document.getElementById('deleteicon3').style.display = 'none'; // Hide preview delete button
+    }
+
+    // Function to remove the saved practiseimage when the saved delete button (icondelete3) is clicked
+    function removePractiseImage() {
+        // Clear the practise image preview source and hide saved preview container and delete button
+        const output = document.getElementById('practiseImagePreview');
+        output.src = '';
+        output.style.display = 'none';
+
+        document.getElementById('icondelete3').style.display = 'none'; // Hide saved delete button
+        document.getElementById('practiseimage').value = ''; // Clear the file input
+
+        // Optionally, you can also make an AJAX call to delete the image from the server
+    }
+</script>
+
+
 
 
             <script>
@@ -2601,5 +2652,36 @@
                         }
                     });
                 }
+
+
+                function removePractiseImage() {
+    const imagePath = "{{ $banner->practiseimage }}"; // Set the correct image path for the practiseimage
+
+    // Send an AJAX request to delete the image
+    $.ajax({
+        type: 'POST',
+        url: '{{ route('admin.page.deletePractiseImage') }}', // Ensure this route matches the backend route for deleting practiseimage
+        data: {
+            _token: '{{ csrf_token() }}',
+            image_path: imagePath // Send the image path as part of the data
+        },
+        success: function(response) {
+            if (response.success) {
+                $('#imgid3').hide();
+                // Hide the image preview and the delete button
+                document.getElementById('practiseImagePreview').style.display = 'none';
+                document.querySelector('#imagePreviewContainer button.btn-danger').style.display = 'none';
+            } else {
+                alert('Image could not be deleted. Please try again.');
+            }
+        },
+        error: function(xhr) {
+            alert('An error occurred. Please try again.');
+        }
+    });
+}
+
+
+
             </script>
         @endpush
