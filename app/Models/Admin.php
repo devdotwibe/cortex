@@ -16,6 +16,6 @@ class Admin extends Authenticatable
 
 
     public function permission(){
-        return $this->belongsTo(AdminPermission::class);
+        return $this->belongsTo(AdminPermission::class,'id','admin_id');
     }
 }
