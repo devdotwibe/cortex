@@ -24,6 +24,8 @@ class AdminUserController extends Controller
     public function index (Request $request)
     {
         if($request->ajax()){
+
+            self::$defaultActions=["edit","delete"]; 
             return $this->where('role','!=','master')->buildTable();
         }
 
