@@ -275,7 +275,7 @@
                             <input type="hidden" id="edit_admin_id" name="admin_id" >
 
                             <div class="col-md-4 pt-4">  
-                                <button type="submit" class="btn btn-dark" id="table-subcategory-form-submit" onclick="EditAdminSubmit()">Update</button>  
+                                <button type="button" class="btn btn-dark" id="table-subcategory-form-submit" onclick="EditAdminSubmit()">Update</button>  
                                 <button type="button" class="btn btn-secondary" style="display: none" id="table-subcategory-form-clear" >Cancel</button>               
                             </div>
                         </div> 
