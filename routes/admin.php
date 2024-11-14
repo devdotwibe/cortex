@@ -184,21 +184,23 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::get('/question/{question}/visibility',[QuestionController::class,'visibility'])->name('question.visibility');
         // Route::resource("/learn",LearnController::class);
 
-        Route::prefix('learn')->name('learn.')->group(function () {
-            Route::get('/',[LearnController::class,'index'])->name('index');
-            Route::get('/{category}',[LearnController::class,'show'])->name('show');
 
+        Route::middleware(['AdminPermission:learn'])->group(function () {
 
-            Route::post('/learn/bulk/action',[LearnController::class,'bulkaction'])->name('bulkaction');
+            Route::prefix('learn')->name('learn.')->group(function () {
 
+                Route::get('/',[LearnController::class,'index'])->name('index');
+                Route::get('/{category}',[LearnController::class,'show'])->name('show');
 
-            Route::get('/{category}/create',[LearnController::class,'create'])->name('create');
-            Route::get('/{category}/{learn}/edit',[LearnController::class,'edit'])->name('edit');
-            Route::post('/{category}/store',[LearnController::class,'store'])->name('store');
-            Route::put('/{category}/{learn}/update',[LearnController::class,'update'])->name('update');
+                Route::post('/learn/bulk/action',[LearnController::class,'bulkaction'])->name('bulkaction');
+                Route::get('/{category}/create',[LearnController::class,'create'])->name('create');
+                Route::get('/{category}/{learn}/edit',[LearnController::class,'edit'])->name('edit');
+                Route::post('/{category}/store',[LearnController::class,'store'])->name('store');
+                Route::put('/{category}/{learn}/update',[LearnController::class,'update'])->name('update');
 
-            Route::get('/{learn}/visibility',[LearnController::class,'visibility'])->name('visibility');
-            Route::delete('/{category}/{learn}',[LearnController::class,'destroy'])->name('destroy');
+                Route::get('/{learn}/visibility',[LearnController::class,'visibility'])->name('visibility');
+                Route::delete('/{category}/{learn}',[LearnController::class,'destroy'])->name('destroy');
+            });
         });
 
 
