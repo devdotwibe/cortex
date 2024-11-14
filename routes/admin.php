@@ -83,6 +83,10 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::get('/user/{user}/freeaccess',[UserController::class,'freeaccess'])->name('user.freeaccess');
             Route::get('/user/{user}/termslist',[UserController::class,'termslist'])->name('user.termslist');
 
+            Route::prefix('subscriber')->name('subscriber.')->group(function () {
+                Route::get('/',[SubscribeUsersController::class,'index'])->name('index');
+            });
+
         });
 
 
@@ -101,9 +105,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
        });
 
         
-        Route::prefix('subscriber')->name('subscriber.')->group(function () {
-            Route::get('/',[SubscribeUsersController::class,'index'])->name('index');
-        });
+       
        
         Route::middleware(['AdminPermission:options'])->group(function () {
 
