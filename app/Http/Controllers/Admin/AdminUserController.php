@@ -25,16 +25,22 @@ class AdminUserController extends Controller
     {
         if($request->ajax()){
 
-            return $this->addAction(function($data){ 
-                $action= ' 
-                
-                ';
+            self::$defaultActions=['']; 
+            return $this->addAction(function($data){
+                return '
                
-                    $action.=  ''
 
-                       ; 
+                <a href="'.route("admin.full-mock-exam.index",["exam"=>$data->id]).'" class="btn btn-icons eye-button">
+                            <span class="adminside-icon">
+                                <img src="' . asset("assets/images/icons/mdi_incognito.svg") . '" alt="View">
+                            </span>
+                            <span class="adminactive-icon">
+                                <img src="' . asset("assets/images/iconshover/view-yellow.svg") . '" alt="View Active" title="View">
+                            </span>
+                 </a>
 
-                return $action;
+
+                ';
             })->buildTable();
         }
 
