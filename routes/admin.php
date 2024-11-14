@@ -93,10 +93,11 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::get('/full-mock-exam-options',[ExamController::class,'examoptions'])->name('exam.options');
 
             Route::post('/full-mock-exam-options',[ExamController::class,'examoptionssave']);
+            Route::resource("/payment",PaymentController::class);
 
        });
 
-        Route::resource("/payment",PaymentController::class);
+        
         Route::prefix('subscriber')->name('subscriber.')->group(function () {
             Route::get('/',[SubscribeUsersController::class,'index'])->name('index');
         });
@@ -113,6 +114,9 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::post('/setting',[CouponController::class,'setting'])->name('setting');
 
         });
+
+        Route::middleware(['AdminPermission:options'])->group(function () {
+
         Route::prefix('payment-price')->name('payment-price.')->group(function () {
             Route::get('/',[SubscriptionPaymentController::class,'index'])->name('index');
             Route::post('/',[SubscriptionPaymentController::class,'store'])->name('store');
@@ -122,16 +126,13 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::put('/{subscription_plan}/update',[SubscriptionPaymentController::class,'update'])->name('update');
             Route::delete('/{subscription_plan}/destroy',[SubscriptionPaymentController::class,'destroy'])->name('destroy');
 
+            Route::post('/delete-image', [SubscriptionPaymentController::class, 'deleteImage'])->name('deleteImage');
+            Route::post('/delete-feeling-image', [SubscriptionPaymentController::class, 'deleteFeelingImage'])->name('deleteFeelingImage');
+            Route::post('/payment-price/delete-image', [SubscriptionPaymentController::class, 'deleteImage2'])->name('deleteImage2');
 
-             // Delete image route
-    Route::post('/delete-image', [SubscriptionPaymentController::class, 'deleteImage'])->name('deleteImage');
-    Route::post('/delete-feeling-image', [SubscriptionPaymentController::class, 'deleteFeelingImage'])->name('deleteFeelingImage');
-    Route::post('/payment-price/delete-image', [SubscriptionPaymentController::class, 'deleteImage2'])->name('deleteImage2');
-
-
-
-
+            });
         });
+
 
         Route::prefix('full-mock-exam')->name('full-mock-exam.')->group(function () {
             Route::get('/{exam}',[FullMockExamController::class,'index'])->name('index');
