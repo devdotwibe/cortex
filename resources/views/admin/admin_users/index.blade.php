@@ -314,7 +314,7 @@
                         
                         if (response.status === 'success') {
                            
-                            showToast(response.message, 'success');
+                            showToast(response.message, 'success',{ autohide: true ,delay:3000 });
                         
                             $('#admin_user_form')[0].reset();
                         } 
@@ -466,7 +466,7 @@
 
                             $('#edit_admin_user_form')[0].reset();
 
-                            showToast(response.message, 'success');
+                            showToast(response.message, 'success',{ autohide: true ,delay:3000 });
                         } 
                     },
                     error: function(xhr) {
