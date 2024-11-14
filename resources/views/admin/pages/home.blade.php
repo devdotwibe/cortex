@@ -195,7 +195,7 @@
                                                 <img id="imagePreview" src="{{ isset($banner) && $banner->image ? url('d0/' . $banner->image) : '' }}" alt="Image Preview" style="width: 100%; height: auto; display: {{ isset($banner) && $banner->image ? 'block' : 'none' }};">
                                                 
                                                 <!-- Delete button for preview (before saving) -->
-                                                <button type="button" class="btn btn-danger" id="deleteicon" style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removeImagePreview()">X</button>
+                                                <button type="button" class="btn btn-danger" id="deleteicon" style="position: absolute; top: 5px; right: 5px; display: none;">X</button>
                                                 
                                                 <!-- Delete button for saved image -->
                                                 <button type="button" class="btn btn-danger" id="icondelete" style="position: absolute; top: 5px; right: 5px; {{ isset($banner) && $banner->image ? 'display: block;' : 'display: none;' }}" onclick="removeSavedImage()">X</button>
