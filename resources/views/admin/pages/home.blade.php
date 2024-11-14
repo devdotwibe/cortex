@@ -1156,7 +1156,7 @@
                                         <!-- Live Image Preview Section -->
                                         <div class="form-group imgid10" id="imgid10" style="{{ isset($banner) && $banner->live_image ? '' : 'display: none;' }}">
                                             <label for="liveImagePreview">Live Image Preview</label>
-                                            <div id="liveImagePreviewContainer"
+                                            <div id="liveImagePreviewContainer" class="numericalclass"
                                                 style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px; position: relative;">
                                                 <!-- Image Preview -->
                                                 <img id="liveImagePreview"
