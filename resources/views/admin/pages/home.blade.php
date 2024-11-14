@@ -288,7 +288,7 @@
                                     
                                         <!-- Preview Learn Image Container -->
                                         <!-- Preview Learn Image Container -->
-    <div class="form-group" id="imgid1" style="{{ isset($banner) && $banner->learnimage ? '' : 'display: none;' }}">
+    <div class="form-group" id="imgid2" style="{{ isset($banner) && $banner->learnimage ? '' : 'display: none;' }}">
         <label for="learnImagePreview">Learn Image Preview</label>
         <div id="learnImagePreviewContainer" class="numericalclass"
             style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px; position: relative;">
@@ -299,11 +299,11 @@
                 alt="Learn Image Preview" style="width: 100%; height: auto; display: {{ isset($banner) && $banner->learnimage ? 'block' : 'none' }};">
             
             <!-- Delete button for preview (before saving) -->
-            <button type="button" class="btn btn-danger" id="deleteicon"
+            <button type="button" class="btn btn-danger" id="deleteicon2"
                 style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removeLearnImagePreview()">X</button>
 
             <!-- Delete button for saved image -->
-            <button type="button" class="btn btn-danger" id="icondelete"
+            <button type="button" class="btn btn-danger" id="icondelete2"
                 style="position: absolute; top: 5px; right: 5px; {{ isset($banner) && $banner->learnimage ? 'display: block;' : 'display: none;' }}" 
                 onclick="removeLearnImage()">X</button>
         </div>
