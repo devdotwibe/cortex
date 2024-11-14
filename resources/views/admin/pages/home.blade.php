@@ -2206,7 +2206,22 @@
 
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
                 <script>
-                function previewImage(event, previewId) {
+//                       function previewImage(event, previewId) {
+//     const reader = new FileReader();
+//     reader.onload = function() {
+       
+//         const output = document.getElementById(previewId);
+//         output.src = reader.result;
+//         output.style.display = 'block';
+
+        
+//         document.getElementById('imgid1').style.display = 'block';
+//         document.querySelector('#imagePreviewContainer .btn-danger').style.display = 'block';
+//     };
+//     reader.readAsDataURL(event.target.files[0]);
+// }
+               
+function previewImage(event, previewId) {
     const reader = new FileReader();
 
     reader.onload = function() {
@@ -2225,7 +2240,6 @@
         reader.readAsDataURL(event.target.files[0]);
     }
 }
-
 
                 </script>
 
