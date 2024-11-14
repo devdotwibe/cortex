@@ -1270,45 +1270,49 @@
                                     </div>
 
                                     <!-- Excel Image -->
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <div class="form-data">
-                                                <div class="forms-inputs mb-4">
-                                                    <label for="excelimage" class="file-upload">Excel Image <br>
-                                                        <img src="{{ asset('assets/images/upfile.svg') }}"
-                                                            alt="Upload Icon"></label>
-                                                    <input type="file" name="excelimage" id="excelimage"
-                                                        class="form-control" style="display: none;"
-                                                        onchange="previewImage(event, 'excelImagePreview')">
-                                                    @error('excelimage')
-                                                        <div class="text-danger">{{ $message }}</div>
-                                                    @enderror
+                                    <div class="sec numericalsectionclass">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="form-data">
+                                                    <div class="forms-inputs mb-4">
+                                                        <label for="excelimage" class="file-upload">Excel Image <br>
+                                                            <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
+                                                        </label>
+                                                        <input type="file" name="excelimage" id="excelimage"
+                                                            class="form-control" style="display: none;"
+                                                            onchange="previewExcelImage(event, 'excelImagePreview', this)" data-id="imgid6">
+                                                        @error('excelimage')
+                                                            <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-
-
-
-
-
-
-                                    <!-- Image Preview -->
-                                    <div class="form-group">
-                                        <label for="excelImagePreview">Image Preview</label>
-                                        <div id="imagePreviewContainer"
-                                            style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
-                                            @if (isset($banner) && $banner->excelimage)
-                                                <img id="excelImagePreview" src="{{ url('d0/' . $banner->excelimage) }}"
-                                                    alt="Excel Image Preview" style="width: 100%; height: auto;">
-                                            @else
-                                                <img id="excelImagePreview" src="#" alt="Excel Image Preview"
-                                                    style="display: none; width: 100%; height: auto;">
-                                            @endif
+                                    
+                                        <!-- Preview Excel Image Container -->
+                                        <div class="form-group imgid6" id="imgid6" style="{{ isset($banner) && $banner->excelimage ? '' : 'display: none;' }}">
+                                            <label for="excelImagePreview">Excel Image Preview</label>
+                                            <div id="excelImagePreviewContainer" class="numericalclass"
+                                                style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px; position: relative;">
+                                                <!-- Image Preview -->
+                                                <img id="excelImagePreview"
+                                                    src="{{ isset($banner) && $banner->excelimage ? url('d0/' . $banner->excelimage) : '' }}"
+                                                    alt="Excel Image Preview"
+                                                    style="width: 100%; height: auto; display: {{ isset($banner) && $banner->excelimage ? 'block' : 'none' }};">
+                                    
+                                                <!-- Delete button for preview (before saving) -->
+                                                <button type="button" class="btn btn-danger imgid6" id="deleteicon6"
+                                                    style="position: absolute; top: 5px; right: 5px; display: none;"
+                                                    onclick="removeExcelImagePreview()">X</button>
+                                    
+                                                <!-- Delete button for saved image -->
+                                                <button type="button" class="btn btn-danger" id="icondelete6"
+                                                    style="position: absolute; top: 5px; right: 5px; {{ isset($banner) && $banner->excelimage ? 'display: block;' : 'display: none;' }}"
+                                                    onclick="removeExcelImage()">X</button>
+                                            </div>
                                         </div>
                                     </div>
-
-
+                                    
 
 
                                     <!-- Submit Button -->
@@ -2821,9 +2825,69 @@ function removeReviewImagePreview() {
             }
         });
     }
+
+    // Function to preview the Excel image when a file is selected
+function previewExcelImage(event, previewId, input) {
+    const reader = new FileReader();
+
+    reader.onload = function() {
+        const output = document.getElementById(previewId);
+        output.src = reader.result;
+        output.style.display = 'block';
+
+        // Show the Excel image preview container and the preview delete button
+        document.getElementById('imgid6').style.display = 'block';
+        document.getElementById('icondelete6').style.display = 'none'; // Hide saved delete button
+        document.getElementById('deleteicon6').style.display = 'block'; // Show preview delete button
+    };
+
+    if (event.target.files[0]) {
+        reader.readAsDataURL(event.target.files[0]);
+    }
+}
+
+// Function to remove the Excel image preview when the preview delete button (exceldeleteicon) is clicked
+function removeExcelImagePreview() {
+    // Clear the Excel image preview source and hide preview container and delete button
+    const output = document.getElementById('excelImagePreview');
+    output.src = '';
+    output.style.display = 'none';
+
+    document.getElementById('imgid6').style.display = 'none';
+    document.getElementById('deleteicon6').style.display = 'none'; // Hide preview delete button
+}
+
+// Function to remove the Excel image from the server when the delete button (excelimage delete) is clicked
+function removeExcelImage() {
+    const imagePath = "{{ $banner->excelimage }}"; // Set the correct image path for the Excel image
+
+    // Send an AJAX request to delete the image
+    $.ajax({
+        type: 'POST',
+        url: '{{ route('admin.page.deleteExcelImage') }}', // Ensure this route matches the backend route for deleting Excel image
+        data: {
+            _token: '{{ csrf_token() }}',
+            image_path: imagePath // Send the image path as part of the data
+        },
+        success: function(response) {
+            if (response.success) {
+                $('#imgid6').hide();
+                // Hide the image preview and the delete button
+                document.getElementById('excelImagePreview').style.display = 'none';
+                document.querySelector('#excelImagePreviewContainer button.btn-danger').style.display = 'none';
+            } else {
+                alert('Image could not be deleted. Please try again.');
+            }
+        },
+        error: function(xhr) {
+            alert('An error occurred. Please try again.');
+        }
+    });
+}
+
 </script>
 
 
 
-</script>
+
         @endpush
