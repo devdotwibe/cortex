@@ -2763,24 +2763,36 @@ function removePrepareImage() {
 
 
     // Function to preview the review image when a file is selected
-    function previewReviewImage(event, previewId) {
-        const reader = new FileReader();
+   // Function to preview the review image when a file is selected
+function previewReviewImage(event, previewId) {
+    const reader = new FileReader();
 
-        reader.onload = function() {
-            const output = document.getElementById(previewId);
-            output.src = reader.result;
-            output.style.display = 'block';
+    reader.onload = function() {
+        const output = document.getElementById(previewId);
+        output.src = reader.result;
+        output.style.display = 'block';
 
-            // Show the review image preview container and the preview delete button
-            document.getElementById('imgid5').style.display = 'block';
-            document.getElementById('deleteicon5').style.display = 'none'; // Hide saved delete button
-            document.getElementById('deleteicon5').style.display = 'block'; // Show preview delete button
-        };
+        // Show the review image preview container and the preview delete button (reviewicondelete)
+        document.getElementById('imgid5').style.display = 'block';
+        document.getElementById('icondelete5').style.display = 'none'; // Hide saved delete button
+        document.getElementById('deleteicon5').style.display = 'block'; // Show preview delete button
+    };
 
-        if (event.target.files[0]) {
-            reader.readAsDataURL(event.target.files[0]);
-        }
+    if (event.target.files[0]) {
+        reader.readAsDataURL(event.target.files[0]);
     }
+}
+
+// Function to remove the review image preview when the preview delete button (reviewdeleteicon) is clicked
+function removeReviewImagePreview() {
+    // Clear the review image preview source and hide preview container and delete button
+    const output = document.getElementById('reviewImagePreview');
+    output.src = '';
+    output.style.display = 'none';
+
+    document.getElementById('imgid5').style.display = 'none';
+    document.getElementById('deleteicon5').style.display = 'none'; // Hide preview delete button
+}
 
     // Function to remove the review image preview when the preview delete button (reviewdeleteicon) is clicked
     function removeReviewImage() {
