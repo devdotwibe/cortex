@@ -179,7 +179,7 @@
 
 
 
-                                                @endif
+                                               
                                     
                                               <!-- Dynamic image preview -->
                                               <img id="imagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
