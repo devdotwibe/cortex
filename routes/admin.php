@@ -636,7 +636,9 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
         Route::delete('/destroy', [AdminUserController::class, 'destroy'])->name('destroy');
 
-    
+        Route::post('/save_permission', [AdminUserController::class, 'save_permission'])->name('save_permission');
+
+        
     });
 
    

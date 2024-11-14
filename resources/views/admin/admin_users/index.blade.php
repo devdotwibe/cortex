@@ -291,33 +291,23 @@
                 console.log(admin_id,field_name,value);
 
                 $.ajax({
-                    url: '',  
-                    type: 'POST', 
-                    data: formData,  
-                    processData: false, 
-                    contentType: false, 
+                    url: '{{route('admin.admin_user.save_permission')}}',  
+                    method: 'POST',
+                    data: {
+                        id: admin_id,
+                        field_name: field_name,
+                        value: value,
+                    }, 
                     success: function(response) {
                         
-                        if (response.status === 'success') {
-                            
-                            alert('User added successfully!');
-                        
-                            $('#admin_user_form')[0].reset();
-                        } else {
-                            
-                            alert('Something went wrong, please try again.');
-                        }
+                        console.log(response);
                     },
                     error: function(xhr) {
                         
-                        var errors = xhr.responseJSON.errors;
-                        if (errors) {
-                            
-                            $.each(errors, function(field, message) {
-                                $('#' + field + '_error').html(message);
-                                $('#' + field).addClass('is-invalid');
-                            });
-                        }
+                        // var errors = xhr.responseJSON.errors;
+                        // if (errors) {
+                        
+                        // }
                     }
                 });
             }
