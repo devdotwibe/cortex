@@ -28,10 +28,9 @@ class AdminPermission
 
         if ($admin->role !='master') {
 
-            
             if(!empty($admin->permission))
             {
-                dd($admin->permission->users);
+               
                 switch ($opt) {
 
                     case 'users':
