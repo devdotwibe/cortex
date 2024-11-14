@@ -60,28 +60,30 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::get('/dashboard',[AdminMainController::class,'index'])->name('dashboard');
         Route::get('/logout',[AdminMainController::class,'logout'])->name('logout');
 
-        Route::resource("/user",UserController::class);
-        Route::post('/user/{user}/resetpassword',[UserController::class,'resetpassword'])->name('user.resetpassword');
-        Route::post('/user/bulk/action',[UserController::class,'bulkaction'])->name('user.bulkaction');
-        Route::post('/user/bulk/update',[UserController::class,'bulkupdate'])->name('user.bulkupdate');
-        Route::get('/user/{user}/getdata',[UserController::class,'getdata'])->name('user.students');
-        Route::get('/user/{user}/spectate',[UserController::class,'userspectate'])->name('user.spectate');
 
-        Route::post('/import',[UserController::class,'import_users_from_csv'])->name('import_users_from_csv');
+        Route::middleware(['AdminPermission:users'])->group(function () {
 
-        Route::post('/import1',[UserController::class,'import_users_from_csv_submit'])->name('import_users_from_csv_submit');
+            Route::resource("/user",UserController::class);
+            Route::post('/user/{user}/resetpassword',[UserController::class,'resetpassword'])->name('user.resetpassword');
+            Route::post('/user/bulk/action',[UserController::class,'bulkaction'])->name('user.bulkaction');
+            Route::post('/user/bulk/update',[UserController::class,'bulkupdate'])->name('user.bulkupdate');
+            Route::get('/user/{user}/getdata',[UserController::class,'getdata'])->name('user.students');
+            Route::get('/user/{user}/spectate',[UserController::class,'userspectate'])->name('user.spectate');
+
+            Route::post('/import',[UserController::class,'import_users_from_csv'])->name('import_users_from_csv');
+
+            Route::post('/import1',[UserController::class,'import_users_from_csv_submit'])->name('import_users_from_csv_submit');
+
+            Route::get('/user/{user}/spectate1',[UserController::class,'userspectate1'])->name('user.spectate1');
+            Route::get('/user/{user}/comunity',[UserController::class,'usercomunity'])->name('user.comunity');
+            Route::get('/user/{user}/freeaccess',[UserController::class,'freeaccess'])->name('user.freeaccess');
+            Route::get('/user/{user}/termslist',[UserController::class,'termslist'])->name('user.termslist');
+
+        });
 
 
-
-        Route::get('/user/{user}/spectate1',[UserController::class,'userspectate1'])->name('user.spectate1');
-        Route::get('/user/{user}/comunity',[UserController::class,'usercomunity'])->name('user.comunity');
-        Route::get('/user/{user}/freeaccess',[UserController::class,'freeaccess'])->name('user.freeaccess');
-        Route::get('/user/{user}/termslist',[UserController::class,'termslist'])->name('user.termslist');
         Route::resource("/exam",ExamController::class);
         Route::get('/full-mock-exam-options',[ExamController::class,'examoptions'])->name('exam.options');
-
-      
-
 
         Route::post('/full-mock-exam-options',[ExamController::class,'examoptionssave']);
        
@@ -604,36 +606,22 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::get('/create', [TermsAndConditionsController::class, 'create'])->name('create');
         Route::post('/', [TermsAndConditionsController::class, 'storeSection1'])->name('store');
 
-       
-
     });
 
  
-
-    
     Route::prefix('timetable')->name('timetable.')->group(function () {
-        Route::get('/', [TimetableController::class, 'index'])->name('index');
-       
-        Route::post('/', [TimetableController::class, 'store'])->name('store');
+                Route::get('/', [TimetableController::class, 'index'])->name('index');
+            
+                Route::post('/', [TimetableController::class, 'store'])->name('store');
 
-       
- // Show the form for editing a specific timetable entry
- Route::get('/edit/{id}', [TimetableController::class, 'edit'])->name('edit');
+        Route::get('/edit/{id}', [TimetableController::class, 'edit'])->name('edit');
 
-       
-
-
+        Route::post('/update/{id}', [TimetableController::class, 'update'])->name('update');
+        
     
- // Update a specific timetable entry
- Route::post('/update/{id}', [TimetableController::class, 'update'])->name('update');
- 
- // Delete a specific timetable entry
- Route::delete('/delete/{id}', [TimetableController::class, 'destroy'])->name('destroy');
+        Route::delete('/delete/{id}', [TimetableController::class, 'destroy'])->name('destroy');
 
- Route::get('/fetcheditdata/{id}', [TimetableController::class, 'fetcheditdata'])->name('fetcheditdata');
-       
-
-   
+        Route::get('/fetcheditdata/{id}', [TimetableController::class, 'fetcheditdata'])->name('fetcheditdata');
 
     });
 
