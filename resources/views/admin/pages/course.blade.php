@@ -162,7 +162,7 @@
                                                      <!-- Delete button for saved image -->
                                                      <button type="button" class="btn btn-danger" id="icondelete2"
                                                      style="position: absolute; top: 5px; right: 5px; {{ isset($course) && $course->image ? 'display: block;' : 'display: none;' }}"
-                                                     onclick="removeImage()">X</button>
+                                                     onclick="removeSectionImage()">X</button>
 
 
 
@@ -994,32 +994,60 @@
 
 
 
-        function removeImage(button) {
+        // function removeImage(button) {
 
-            const courseId = button.value; 
-            const url = '{{ route('admin.course.deleteImage') }}'; 
+        //     const courseId = button.value; 
+        //     const url = '{{ route('admin.course.deleteImage') }}'; 
 
-            $.ajax({
-                type: 'POST',
-                url: url,
-                data: {
-                    _token: '{{ csrf_token() }}' 
-                },
-                success: function(response) {
-                    if (response.success) {
+        //     $.ajax({
+        //         type: 'POST',
+        //         url: url,
+        //         data: {
+        //             _token: '{{ csrf_token() }}' 
+        //         },
+        //         success: function(response) {
+        //             if (response.success) {
                        
-                        document.getElementById('imagePreview-save').style.display = 'none';
-                        button.style.display = 'none';
-                    } else {
-                        alert('Image could not be deleted. Please try again1.');
-                    }
-                },
-                error: function(xhr) {
-                    // Handle error response
-                    alert('Image could not be deleted. Please try again2.');
-                }
-            });
+        //                 document.getElementById('imagePreview-save').style.display = 'none';
+        //                 button.style.display = 'none';
+        //             } else {
+        //                 alert('Image could not be deleted. Please try again1.');
+        //             }
+        //         },
+        //         error: function(xhr) {
+        //             // Handle error response
+        //             alert('Image could not be deleted. Please try again2.');
+        //         }
+        //     });
+        // }
+
+
+        // Function to remove the Section image from the server when the delete button is clicked
+function removeSectionImage() {
+    const imagePath = "{{ $course->image }}"; // Set the correct image path for the Section image
+
+    $.ajax({
+        type: 'POST',
+        url: '{{ route('admin.page.deleteImage') }}', // Ensure this route matches the backend route for deleting Section image
+        data: {
+            _token: '{{ csrf_token() }}',
+            image_path: imagePath
+        },
+        success: function(response) {
+            if (response.success) {
+                $('#imgid1').hide();  // Hide the image preview container
+                document.getElementById('imagePreview-save').style.display = 'none'; // Hide the image preview
+                document.querySelector('#imagePreviewContainer button.btn-danger').style.display = 'none'; // Hide delete button
+            } else {
+                alert('Image could not be deleted. Please try again.');
+            }
+        },
+        error: function(xhr) {
+            alert('An error occurred. Please try again.');
         }
+    });
+}
+
     </script>
 
 
