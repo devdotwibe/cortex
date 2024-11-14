@@ -29,12 +29,12 @@ class AdminUserController extends Controller
             return $this->where('role','super')
             ->addAction(function($data){
                 return '                
-                     <a onclick="editcoupon('."'".route("admin.coupon.edit",$data->id)."'".')" class="btn btn-icons edit_btn">
+                     <a onclick="ShowAdmin(this)" data-id="'.$data->id.'" class="btn btn-icons edit_btn">
                         <span class="adminside-icon">
-                        <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
+                        <img src="' . asset("assets/images/icons/mdi_incognito.svg") . '" alt="View">
                         </span>
                         <span class="adminactive-icon">
-                            <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active" title="Edit">
+                            <img src="' . asset("assets/images/iconshover/view-yellow.svg") . '" alt="View Active" title="View">
                         </span>
                     </a>
 
