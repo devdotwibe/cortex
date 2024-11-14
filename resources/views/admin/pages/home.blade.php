@@ -277,7 +277,7 @@
                                                         </label>
                                                         <input type="file" name="learnimage" id="learnimage"
                                                             value="{{ old('learnimage', optional($banner)->learnimage) }}"
-                                                            class="form-control" style="display: none;" onchange="previewImage(event, 'learnImagePreview')">
+                                                            class="form-control" style="display: none;" onchange="previewImage(event, 'learnImagePreview',this)" data-id="imgid2">
                                                         @error('learnimage')
                                                             <div class="text-danger">{{ $message }}</div>
                                                         @enderror
@@ -288,7 +288,7 @@
                                     
                                         <!-- Preview Learn Image Container -->
                                         <!-- Preview Learn Image Container -->
-    <div class="form-group" id="imgid2" style="{{ isset($banner) && $banner->learnimage ? '' : 'display: none;' }}">
+    <div class="form-group imgid2" id="imgid2" style="{{ isset($banner) && $banner->learnimage ? '' : 'display: none;' }}">
         <label for="learnImagePreview">Learn Image Preview</label>
         <div id="learnImagePreviewContainer" class="numericalclass"
             style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px; position: relative;">
@@ -299,7 +299,7 @@
                 alt="Learn Image Preview" style="width: 100%; height: auto; display: {{ isset($banner) && $banner->learnimage ? 'block' : 'none' }};">
             
             <!-- Delete button for preview (before saving) -->
-            <button type="button" class="btn btn-danger" id="deleteicon2"
+            <button type="button" class="btn btn-danger imgid2" id="deleteicon2"
                 style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removeLearnImagePreview()">X</button>
 
             <!-- Delete button for saved image -->
@@ -2215,13 +2215,17 @@
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
                 <script>
                       
-function previewImage(event, previewId) {
+function previewImage(event, previewId,element) {
     const reader = new FileReader();
 
     reader.onload = function() {
         const output = document.getElementById(previewId);
         output.src = reader.result;
         output.style.display = 'block';
+
+        var id = $(element).data('id');
+
+        $('.'+id).show();
 
         // Show the image preview container and the preview delete button (deleteicon)
         document.getElementById('imgid1').style.display = 'block';
