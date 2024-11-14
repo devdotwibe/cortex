@@ -211,13 +211,7 @@
                                         
                                
 
-                                        {{-- <div class="form-group" style="display: none;" id="imagePreview1">
-                                            <label for="imagePreview">Image Preview</label>
-                                            <div id="imagePreviewContainer" style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px;">
-                                               
-                                                <img id="imagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
-                                            </div>
-                                        </div> --}}
+                                
                                             
                                        
                                     </div>
@@ -272,19 +266,18 @@
                                             </div>
                                         </div>
                                     </div>
-<div class="sec">
+                                    <div class="sec numericalsectionclass">
 
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="learnimage"  class="file-upload">Learn Image  <br>
-                                                            <img src="{{ asset('assets/images/upfile.svg') }}"
-                                                                alt="Upload Icon"> </label>
+                                                        <label for="learnimage" class="file-upload">Learn Image <br>
+                                                            <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
+                                                        </label>
                                                         <input type="file" name="learnimage" id="learnimage"
                                                             value="{{ old('learnimage', optional($banner)->learnimage) }}"
-                                                            class="form-control"  style="display: none;"
-                                                            onchange="previewImage(event, 'learnImagePreview')">
+                                                            class="form-control" style="display: none;" onchange="previewImage(event, 'learnImagePreview')">
                                                         @error('learnimage')
                                                             <div class="text-danger">{{ $message }}</div>
                                                         @enderror
@@ -292,24 +285,34 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    
+                                        <!-- Preview Learn Image Container -->
+                                        <!-- Preview Learn Image Container -->
+    <div class="form-group" id="imgid2" style="{{ isset($banner) && $banner->learnimage ? '' : 'display: none;' }}">
+        <label for="learnImagePreview">Learn Image Preview</label>
+        <div id="learnImagePreviewContainer" class="numericalclass"
+            style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px; position: relative;">
+            
+            <!-- Image Preview -->
+            <img id="learnImagePreview" 
+                src="{{ isset($banner) && $banner->learnimage ? url('d0/' . $banner->learnimage) : '' }}"
+                alt="Learn Image Preview" style="width: 100%; height: auto; display: {{ isset($banner) && $banner->learnimage ? 'block' : 'none' }};">
+            
+            <!-- Delete button for preview (before saving) -->
+            <button type="button" class="btn btn-danger" id="deleteicon2"
+                style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removeLearnImagePreview()">X</button>
+
+            <!-- Delete button for saved image -->
+            <button type="button" class="btn btn-danger" id="icondelete2"
+                style="position: absolute; top: 5px; right: 5px; {{ isset($banner) && $banner->learnimage ? 'display: block;' : 'display: none;' }}" 
+                onclick="removeLearnImage()">X</button>
+        </div>
+    </div>
+</div>
 
                                        
 
-                                        <!-- Preview Learn Image Container -->
-                                        <div class="form-group">
-                                            <label for="learnImagePreview">Learn Image Preview</label>
-                                            <div id="learnImagePreviewContainer"
-                                                style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
-                                                @if (isset($banner) && $banner->learnimage)
-                                                    <img id="learnImagePreview"
-                                                        src="{{ url('d0/' . $banner->learnimage) }}"
-                                                        alt="Learn Image Preview" style="width: 100%; height: auto;">
-                                                @else
-                                                    <img id="learnImagePreview" src="#" alt="Learn Image Preview"
-                                                        style="display: none; width: 100%; height: auto;">
-                                                @endif
-                                            </div>
-                                        </div>
+                                     
                                     </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
@@ -2211,21 +2214,7 @@
 
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
                 <script>
-//                       function previewImage(event, previewId) {
-//     const reader = new FileReader();
-//     reader.onload = function() {
-       
-//         const output = document.getElementById(previewId);
-//         output.src = reader.result;
-//         output.style.display = 'block';
-
-        
-//         document.getElementById('imgid1').style.display = 'block';
-//         document.querySelector('#imagePreviewContainer .btn-danger').style.display = 'block';
-//     };
-//     reader.readAsDataURL(event.target.files[0]);
-// }
- // Function to handle image preview and delete button display during image selection
+                      
 function previewImage(event, previewId) {
     const reader = new FileReader();
 
@@ -2258,6 +2247,42 @@ function removeImagePreview() {
 
 
                 </script>
+
+<script>
+    // Function to preview the learnimage when a file is selected
+    function previewLearnImage(event, previewId) {
+        const reader = new FileReader();
+
+        reader.onload = function() {
+            const output = document.getElementById(previewId);
+            output.src = reader.result;
+            output.style.display = 'block';
+
+            // Show the learn image preview container and the preview delete button (learnicondelete)
+            document.getElementById('imgid2').style.display = 'block';
+            document.getElementById('icondelete2').style.display = 'none'; // Hide saved delete button
+            document.getElementById('deleteicon2').style.display = 'block'; // Show preview delete button
+        };
+
+        if (event.target.files[0]) {
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    }
+
+    // Function to remove the learnimage preview when the preview delete button (learndeleteicon) is clicked
+    function removeLearnImagePreview() {
+        // Clear the learn image preview source and hide preview container and delete button
+        const output = document.getElementById('learnImagePreview');
+        output.src = '';
+        output.style.display = 'none';
+
+        document.getElementById('imgid2').style.display = 'none';
+        document.getElementById('deleteicon2').style.display = 'none'; // Hide preview delete button
+    }
+</script>
+
+
+                    
 
                 <script>
                     document.addEventListener('DOMContentLoaded', function() {
@@ -2527,6 +2552,37 @@ function removeDiv(button, id) {
             }
         });
     }
+
+
+    function removeLearnImage() {
+    const imagePath = "{{ $banner->learnimage }}"; // Set the correct image path for the learnimage
+
+    // Send an AJAX request to delete the image
+    $.ajax({
+        type: 'POST',
+        url: '{{ route('admin.page.deleteLearnImage') }}', // Ensure this route matches the backend route for deleting learnimage
+        data: {
+            _token: '{{ csrf_token() }}',
+            image_path: imagePath // Send the image path as part of the data
+        },
+        success: function(response) {
+            if (response.success) {
+                $('#imgid2').hide();
+                // Hide the image preview and the delete button
+                document.getElementById('learnImagePreview').style.display = 'none';
+                document.querySelector('#learnImagePreviewContainer button.btn-danger').style.display = 'none';
+             
+            } else {
+                alert('Image could not be deleted. Please try again.');
+            }
+        },
+        error: function(xhr) {
+            alert('An error occurred. Please try again.');
+        }
+    });
+}
+
+
 </script>
        
             @endpush
