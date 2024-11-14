@@ -26,7 +26,20 @@ class AdminUserController extends Controller
         if($request->ajax()){
 
             self::$defaultActions=["edit","delete"]; 
-            return $this->where('role','super')->buildTable();
+            return $this->where('role','super')
+            ->addAction(function($data){
+                return '                
+                     <a onclick="editcoupon('."'".route("admin.coupon.edit",$data->id)."'".')" class="btn btn-icons edit_btn">
+                        <span class="adminside-icon">
+                        <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
+                        </span>
+                        <span class="adminactive-icon">
+                            <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active" title="Edit">
+                        </span>
+                    </a>
+
+                ';
+            })->buildTable();
         }
 
         return view('admin.admin_users.index');
