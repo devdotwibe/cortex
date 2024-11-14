@@ -417,6 +417,20 @@
                     </a>
                 </li> --}}
 
+                <li class="side-item {{request()->is('admin/admin_user*') ? 'active':''}}">
+                    <a href="{{ route('admin.admin_user.index') }}">
+                        <span class="side-icon" >
+                            <img src="{{asset("assets/images/iconshover/community.svg")}}" alt="Dashboard">
+                        </span>
+                        <span class="active-icon">
+                            <img src="{{asset("assets/images/icons/community.svg")}}" alt="Dashboard">
+                        </span>
+                        <span class="menutext">
+                            Admin Users
+                        </span>
+                    </a>
+                </li>
+
                 <li class="side-item logout">
                     <a href="{{route('admin.logout')}}" class="log-out">
                         <span class="side-icon">

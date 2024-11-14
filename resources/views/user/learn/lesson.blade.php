@@ -50,7 +50,7 @@
             </div>
             <div class="modal-body">
                 <p>Do you want to submit this assessment ?</p>
-                <p style="display:none" class="unfinish-message"> You still have <span class="unfinish-count">0</span> unfinished questions. </p>
+                <p style="display:none" class="unfinish-message"> You still have <span class="unfinish-count">0</span> unfinished <span class="question-text"> questions. </p>
                 @if($review>0)
                     <button type="button" onclick="lessonreviewconfirm()" class="btn btn-dark">Yes</button>
                 @else
@@ -66,7 +66,22 @@
 @endpush
 
 @push('footer-script')
+<script>
 
+    function updateUnfinishedMessage(count) {
+        const message = document.querySelector('.unfinish-message');
+        const countElement = document.querySelector('.unfinish-count');
+        const questionText = document.querySelector('.question-text');
+
+        if (count > 0) {
+            countElement.textContent = count;
+            questionText.textContent = count === 1 ? 'question' : 'questions';
+            message.style.display = 'block';
+        } else {
+            message.style.display = 'none';
+        }
+    }
+</script>
 
     {{-- <script src="https://player.vimeo.com/api/player.js"></script> --}}
     <script src="{{asset("assets/js/player.js")}}"></script>
@@ -539,6 +554,8 @@
                 }
                 updateprogress(function(){
                     $('#finish-exam-confirm').modal('show')
+                    updateUnfinishedMessage(unfinishcount);
+                    
                 })
             });
 

@@ -46,7 +46,7 @@
                                     <thead>
                                         <tr>
                                             <th data-th="Sl.No">Sl.No</th>
-                                            <th data-th="Category">Faq</th>
+                                            <th data-th="Category">FAQ</th>
 
                                             <th data-th="Action">Action</th>
                                         </tr>

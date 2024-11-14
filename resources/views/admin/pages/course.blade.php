@@ -74,7 +74,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="learn_btn_label">Learn Button Label</label>
+                                                        <label for="learn_btn_label">Learn Button Label*</label>
                                                         <input type="text" class="form-control" name="buttonlabel"
                                                             value="{{ old('buttonlabel', optional($course)->buttonlabel) }}">
                                                         @error('buttonlabel')
@@ -89,7 +89,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="learn_btn_link">Learn Button Link</label>
+                                                        <label for="learn_btn_link">Learn Button Link*</label>
                                                         <input type="text" class="form-control" name="buttonlink"
                                                             value="{{ old('buttonlink', optional($course)->buttonlink) }}">
                                                         @error('buttonlink')
@@ -184,7 +184,7 @@
                         @csrf
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="coursetitle">Course Title</label>
+                                <label for="coursetitle">Course Title*</label>
                                 <textarea class="form-control texteditor" name="coursetitle" id="coursetitle">{{ old('coursetitle', optional($course)->coursetitle) }}</textarea>
                             </div>
                         </div>
@@ -820,7 +820,7 @@
                                             <div class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <label for="privatecontent">Private Content</label>
+                                                        <label for="privatecontent">Private Content*</label>
                                                         <textarea class="form-control texteditor" name="privatecontent" id="privatecontent">{{ old('privatecontent', optional($course)->privatecontent) }}</textarea>
                                                         @error('privatecontent')
                                                             <div class="text-danger">{{ $message }}</div>

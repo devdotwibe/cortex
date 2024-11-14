@@ -175,7 +175,7 @@ trait ResourceController
                     switch ($act) {
                         case 'view':
                             $action.='                            
-                                   <a href="' . route(self::$routeName . ".show", $data->slug) . '" class="btn btn-icons eye-button">
+                                   <a href="' . route(self::$routeName . ".show", $data->slug??$data->slug) . '" class="btn btn-icons eye-button">
                             <span class="adminside-icon">
                                 <img src="' . asset("assets/images/icons/mdi_incognito.svg") . '" alt="View">
                             </span>
@@ -188,7 +188,7 @@ trait ResourceController
                             break;
                         case 'edit':
                                 $action.='
-                               <a href="' . route(self::$routeName . ".edit", $data->slug) . '" class="btn btn-icons edit_btn">
+                               <a href="' . route(self::$routeName . ".edit", $data->slug??$data->slug) . '" class="btn btn-icons edit_btn">
     <span class="adminside-icon">
         <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
     </span>
@@ -201,7 +201,7 @@ trait ResourceController
                             break;
                         case 'delete':
                                 $action.='
-                                <a class="btn btn-icons dlt_btn" data-delete="' . route(self::$routeName . ".destroy", $data->slug) . '">
+                                <a class="btn btn-icons dlt_btn" data-delete="' . route(self::$routeName . ".destroy", $data->slug??$data->slug) . '">
     <span class="adminside-icon">
         <img src="' . asset("assets/images/icons/material-symbols_delete-outline.svg") . '" alt="Delete">
     </span>
