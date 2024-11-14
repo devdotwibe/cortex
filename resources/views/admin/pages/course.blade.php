@@ -1421,14 +1421,19 @@
 
     // Function to remove the saved image when the saved delete button is clicked
     function removeSavedImage() {
-        // Hide the saved image and the delete button for it
-        const savedImage = document.getElementById('imagePreview-save');
-        savedImage.style.display = 'none'; // Hide the saved image
+      
 
-        // Hide the delete button for the saved image
-        document.getElementById('icondelete9').style.display = 'none'; // Hide the saved image delete button
-    }
-</script>
+        const output = document.getElementById('imagePreview-save');
+                    output.src = '';
+                    output.style.display = 'none';
+
+                    document.getElementById('imgid1').style.display = 'none';
+                    document.getElementById('deleteicon1').style.display = 'none'; // Hide preview delete button
+                }
+
+
+    
+
 </script>
 
 
