@@ -1834,9 +1834,9 @@
                                                 </div>
 
                                                 <!-- Image -->
-                                                {{-- <div class="col-md-12">
+                                                <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label for="image" class="file-upload">Image11 <br>
+                                                        <label for="image" class="file-upload">Image <br>
                                                             <img src="{{ asset('assets/images/upfile.svg') }}"
                                                                 alt="Upload Icon"> </label>
                                                         <input type="hidden" name="feedids[]"
@@ -1852,45 +1852,8 @@
                                                             <div class="text-danger">{{ $message }}</div>
                                                         @enderror
                                                     </div>
-                                                </div> --}}
-
-
-
-                                                <div class="col-md-12 numericalsectionclass">
-                                                    <div class="form-group">
-                                                        <label for="image" class="file-upload">Image11 <br>
-                                                            <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
-                                                        </label>
-                                                        <input type="hidden" name="feedids[]" value="{{ $item->id }}">
-                                                        <input type="file" name="imageupdate[]" class="form-control" style="display: none;">
-                                                        @error('imageupdate[]')
-                                                            <div class="text-danger">{{ $message }}</div>
-                                                        @enderror
-                                                
-                                                        <!-- Image Preview Container -->
-                                                        <div class="form-group" id="featureImageContainer_{{ $item->id }}"
-                                                            style="{{ !empty($item->image) ? '' : 'display: none;' }}; margin-top: 10px;">
-                                                            <label for="featureImagePreview_{{ $item->id }}">Image Preview</label>
-                                                            <div style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px; position: relative;">
-                                                                <!-- Image Preview -->
-                                                                <img id="featureImagePreview_{{ $item->id }}"
-                                                                    src="{{ !empty($item->image) ? url('d0/' . $item->image) : '' }}" alt="Feature Image Preview"
-                                                                    style="width: 100%; height: auto; display: {{ !empty($item->image) ? 'block' : 'none;' }}">
-                                                
-                                                                <!-- Delete Button for Preview (before saving) -->
-                                                                <button type="button" class="btn btn-danger" id="deletePreviewBtn_{{ $item->id }}"
-                                                                    style="position: absolute; top: 5px; right: 45px; display: none;"
-                                                                    onclick="removeFeatureImagePreview({{ $item->id }})">X</button>
-                                                
-                                                                <!-- Delete Button for Saved Image -->
-                                                                <button type="button" class="btn btn-danger" id="deleteSavedBtn_{{ $item->id }}"
-                                                                    style="position: absolute; top: 5px; right: 5px; {{ !empty($item->image) ? 'display: block;' : 'display: none;' }}"
-                                                                    onclick="removeFeatureImage({{ $item->id }})">X</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
                                                 </div>
-                                                
+
 
                                                 {{--                                                     
                                                     <div class="col-md-12">
@@ -3168,67 +3131,6 @@ function removeLiveImage() {
         },
         error: function(xhr) {
             alert('An error occurred. Please try again.');
-        }
-    });
-}
-
-
-
-// Function to preview the selected feature image
-function previewFeatureImage(event, previewId, itemId) {
-    const reader = new FileReader();
-
-    reader.onload = function () {
-        const output = document.getElementById(previewId);
-        output.src = reader.result;
-        output.style.display = 'block';
-
-        // Show preview container and buttons
-        document.getElementById(`featureImageContainer_${itemId}`).style.display = 'block';
-        document.getElementById(`deletePreviewBtn_${itemId}`).style.display = 'block'; // Show preview delete button
-        document.getElementById(`deleteSavedBtn_${itemId}`).style.display = 'none'; // Hide saved delete button
-    };
-
-    if (event.target.files[0]) {
-        reader.readAsDataURL(event.target.files[0]);
-    }
-}
-
-// Function to remove the feature image preview
-function removeFeatureImagePreview(itemId) {
-    // Clear the preview image source and hide related elements
-    const output = document.getElementById(`featureImagePreview_${itemId}`);
-    output.src = '';
-    output.style.display = 'none';
-
-    document.getElementById(`featureImageContainer_${itemId}`).style.display = 'none';
-    document.getElementById(`deletePreviewBtn_${itemId}`).style.display = 'none'; // Hide preview delete button
-}
-
-// Function to remove the saved feature image from the server
-function removeFeatureImage(itemId) {
-    // Send an AJAX request to delete the image
-    $.ajax({
-        type: 'POST',
-        url: '{{ route("admin.page.deleteFeatureImage") }}', // Backend route for deleting the feature image
-        data: {
-            _token: '{{ csrf_token() }}',
-            item_id: itemId // Pass item ID for backend handling if needed
-        },
-        success: function (response) {
-            if (response.success) {
-                document.getElementById(`featureImageContainer_${itemId}`).style.display = 'none';
-
-                // Hide preview and delete buttons
-                document.getElementById(`featureImagePreview_${itemId}`).style.display = 'none';
-                document.getElementById(`deleteSavedBtn_${itemId}`).style.display = 'none';
-            } else {
-                alert('Image could not be deleted. Please try again.');
-            }
-        },
-        error: function (xhr) {
-            console.error('Error:', xhr.responseText);
-            alert('An error occurred while deleting the image. Please try again.');
         }
     });
 }
