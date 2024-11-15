@@ -106,6 +106,8 @@
                 vimeoplay=false;
             });
 
+            console.log(examPlayers);
+
         }
     
     </script>
