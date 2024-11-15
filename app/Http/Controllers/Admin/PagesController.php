@@ -985,7 +985,7 @@ public function deleteFeatureImage(Request $request)
 {
     $id = $request->input('item_id');
 
-    $image = Course::find($id);
+    $image = Feed::find($id);
 
     // Check if the image file exists and delete it
     if ($image->image && Storage::exists($image->image)) {
