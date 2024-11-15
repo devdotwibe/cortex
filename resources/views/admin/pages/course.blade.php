@@ -1525,22 +1525,55 @@ function removeQuestionImage() {
 
 
 
-// Function to remove the Topic image from the server when the delete button is clicked
-function removeTopicImage(button) {
+// // Function to remove the Topic image from the server when the delete button is clicked
+// function removeTopicImage() {
+//     const courseId = button.value; // Get the course ID from the delete button value
+//     const imagePath = "{{ $course->topicimage }}"; // Set the correct image path for the Topic image
+
+//     $.ajax({
+//         type: 'POST',
+//         url: '{{ route('admin.course.deleteTopicImage') }}', // Ensure this route matches the backend route for deleting the Topic image
+//         data: {
+//             _token: '{{ csrf_token() }}',
+           
+//             image_path: imagePath
+//         },
+//         success: function(response) {
+//             if (response.success) {
+//                 $('#imgid20').hide(); // Hide the image preview container
+//                 document.getElementById('topicImagePreview-save').style.display = 'none'; // Hide the saved image preview
+//                 document.querySelector('#topicImagePreviewContainer button.btn-danger').style.display = 'none'; // Hide delete button
+//             } else {
+//                 alert('Image could not be deleted. Please try again.');
+//             }
+//         },
+//         error: function(xhr) {
+//             alert('An error occurred. Please try again.');
+//         }
+//     });
+// }
+
+
+
+
+function removeTopicImage() {
+
     const courseId = button.value; // Get the course ID from the delete button value
-    const imagePath = "{{ $course->topicimage }}"; // Set the correct image path for the Topic image
+    const imagePath = "{{ $course->questionbankimage }}"; // Set the correct image path for the Topic image
+
+
+    
 
     $.ajax({
         type: 'POST',
-        url: '{{ route('admin.course.deleteTopicImage') }}', // Ensure this route matches the backend route for deleting the Topic image
+        url: '{{ route('admin.course.deleteTopicImage') }}', // Ensure this route matches the backend route for deleting the Question Bank image
         data: {
             _token: '{{ csrf_token() }}',
-           
             image_path: imagePath
         },
         success: function(response) {
             if (response.success) {
-                $('#imgid20').hide(); // Hide the image preview container
+                $('#imgid20').hide();  // Hide the image preview container
                 document.getElementById('topicImagePreview-save').style.display = 'none'; // Hide the saved image preview
                 document.querySelector('#topicImagePreviewContainer button.btn-danger').style.display = 'none'; // Hide delete button
             } else {
@@ -1552,6 +1585,9 @@ function removeTopicImage(button) {
         }
     });
 }
+
+
+
 
 
 // Function to preview the Topic image when the file input changes
