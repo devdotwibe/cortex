@@ -477,6 +477,8 @@ class CourseController extends Controller
 
             $course->save();
 
+            dd( $course->image);
+
             return response()->json(['success' => true]);
         }
 
