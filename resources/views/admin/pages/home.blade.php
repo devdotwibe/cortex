@@ -3208,15 +3208,12 @@ function removeFeatureImagePreview(itemId) {
 
 // Function to remove the saved feature image from the server
 function removeFeatureImage(itemId) {
-    const imagePath = document.getElementById(`featureImagePreview_${itemId}`).src;
-
     // Send an AJAX request to delete the image
     $.ajax({
         type: 'POST',
         url: '{{ route("admin.page.deleteFeatureImage") }}', // Backend route for deleting the feature image
         data: {
             _token: '{{ csrf_token() }}',
-            image_path: imagePath,
             item_id: itemId // Pass item ID for backend handling if needed
         },
         success: function (response) {

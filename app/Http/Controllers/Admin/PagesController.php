@@ -983,11 +983,15 @@ public function deleteLiveImage(Request $request)
 
 public function deleteFeatureImage(Request $request)
 {
-    $imagePath = $request->input('image_path');
+    $id = $request->input('item_id');
+
+    $image = Course::find($id);
 
     // Check if the image file exists and delete it
-    if ($imagePath && Storage::exists($imagePath)) {
-        Storage::delete($imagePath);
+    if ($image->image && Storage::exists($image->image)) {
+        Storage::delete($image->image);
+        $image->image = null;
+        $image->save();
         return response()->json(['success' => true]);
     } else {
         return response()->json(['success' => false, 'message' => 'Image not found.']);
