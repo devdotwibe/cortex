@@ -13,26 +13,9 @@
 
             <div class="lesson-body">
 
-                <div class="row">
+                <div class="row" id="vimeo_video_show">
 
-                    <div class="col-md-12">
-
-                        <div class="video-row video-box">
-
-                            <div class="video-title"> <span> Video Explanation</span></div>
-
-                            <div class="video-container">
-
-                                <div class="videoframe" id="vimeo_video_show">
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
+                   
                 </div>
 
             </div>
@@ -98,13 +81,19 @@
             });
             examPlayers.getDuration().then(function(duration) { 
                 vimeotime=duration; 
+                console.log('Video Duration:', duration);
             }); 
             examPlayers.on('play', function() { 
+                console.log('Video is playing');
+
                 vimeoplay=true;
             });
             examPlayers.on('pause', function() { 
-                vimeoplay=false;
+                console.log('Video is paused');
+                vimeoplay=true;
             });
+
+            console.log(examPlayers);
 
         }
     
