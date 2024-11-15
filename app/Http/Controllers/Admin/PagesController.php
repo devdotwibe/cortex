@@ -433,7 +433,7 @@ class PagesController extends Controller
         $reviews = $request->input('review', []);
         $images = $request->file('image', []);
 
-        dd('$images');
+        dd($images);
 
         // Initialize the feedIds array
         $feedIds = [];
