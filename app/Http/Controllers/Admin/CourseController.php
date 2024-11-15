@@ -606,30 +606,51 @@ public function deleteNumericalImage()
     return response()->json(['success' => false], 404);
 }
 
-public function deleteLearnImage(Request $request)
-{
-    // Find the course by ID (you may adjust the logic to find the specific course)
-    $course = Courses::find($request->course_id); // Assuming you're passing course ID to identify the course
+// public function deleteLearnImage(Request $request)
+// {
+//     // Find the course by ID (you may adjust the logic to find the specific course)
+//     $course = Courses::find($request->course_id); // Assuming you're passing course ID to identify the course
 
-    if ($course && $course->learnimage) {
-        // Check if the learn image file exists in the storage
+//     if ($course && $course->learnimage) {
+//         // Check if the learn image file exists in the storage
+//         if (Storage::exists($course->learnimage)) {
+//             // Delete the learn image from the storage
+//             Storage::delete($course->learnimage);
+//         }
+
+//         // Set the learnimage field to null in the database
+//         $course->learnimage = null;
+//         $course->save();
+
+//         // Return a success response
+//         return response()->json(['success' => true]);
+//     }
+
+//     // Return a failure response if the learn image was not found
+//     return response()->json(['success' => false, 'message' => 'Image not found or already deleted.'], 404);
+// }
+
+
+
+
+public function deleteLearnImage()
+{
+    $course = Courses::first();
+
+    if ($course && $course->image) {
         if (Storage::exists($course->learnimage)) {
-            // Delete the learn image from the storage
             Storage::delete($course->learnimage);
         }
 
-        // Set the learnimage field to null in the database
+        // Set image to null and save the change
         $course->learnimage = null;
         $course->save();
 
-        // Return a success response
         return response()->json(['success' => true]);
     }
 
-    // Return a failure response if the learn image was not found
-    return response()->json(['success' => false, 'message' => 'Image not found or already deleted.'], 404);
+    return response()->json(['success' => false], 404);
 }
-
 public function deleteQuestionBankImage()
 {
     // Find the course by ID
