@@ -750,7 +750,7 @@ button.close {
 }
 
 .exam-container .container-wrap .lesson .lesson-body p img {
-    display: block;
+    /*display: block;*/
     width: 100%;
     margin-bottom: 28px;
 }
