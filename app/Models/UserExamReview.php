@@ -110,4 +110,9 @@ class UserExamReview extends Model
                 return $data->content;
         }
     }
+
+    public function exam()
+    {
+        return $this->belongsTo(Exam::class, 'exam_id');
+    }
 }
