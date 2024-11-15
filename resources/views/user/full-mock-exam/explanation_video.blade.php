@@ -80,6 +80,7 @@
                 controls: true,
                 autoplay: false,
                 muted: false,
+                ref: '0' 
             
             });
             examPlayers.getDuration().then(function(duration) { 
