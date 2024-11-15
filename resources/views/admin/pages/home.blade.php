@@ -1774,7 +1774,7 @@
     <div class="form-group">
         <div class="form-data">
             <div class="forms-inputs mb-4">
-                <label for="image" class="file-upload">Image <br>
+                <label for="image" class="file-upload">Image1 <br>
                     <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon"> </label>
 
                 <input type="file" name="imageupdate[]" class="form-control" style="display: none;"
