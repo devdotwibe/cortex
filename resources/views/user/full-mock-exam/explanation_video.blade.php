@@ -6,6 +6,10 @@
 <section class="exam-container" id="exam-container">
     <div class="container-wrap learnlessonclass">
         <div class="lesson">
+
+            <a class="lesson-exit float-start" href="{{route('full-mock-exam.complete',$userExamReview->slug)}}" title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip" >
+                <img src="{{asset("assets/images/exiticon.svg")}}" alt="exiticon">
+            </a>
           
             <div class="lesson-title">
                 <h5><span>{{$exam->title}}</span></h5>
