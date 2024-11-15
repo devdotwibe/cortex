@@ -136,6 +136,23 @@ class ExamController extends Controller
         return redirect()->route('admin.exam.index')->with("success","QuestionBankChapter deleted success");
     }
 
+    
+    public function get_expain_video(Request $request)
+    {
+        $slug = $request->exam_slug;
+      
+        $exam  = Exam::findSlug($slug);
+
+        if(!empty($exam))
+        {
+            return response()->json(['data' => $exam]);
+        }
+        
+        return response()->json([
+            'message' => 'The Exam is Not Found.'
+        ]);
+    }
+
     public function explanation_video(Request $request)
     {
         $request->validate([

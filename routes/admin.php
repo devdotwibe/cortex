@@ -93,7 +93,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::middleware(['AdminPermission:exam_simulator'])->group(function () {
 
             Route::resource("/exam",ExamController::class);
-
+            Route::get('/get_expain_video',[ExamController::class,'get_expain_video'])->name('exam.get_expain_video');
             Route::post('/explanation_video',[ExamController::class,'explanation_video'])->name('exam.explanation_video');
             
         });
