@@ -979,4 +979,39 @@ public function deleteLiveImage(Request $request)
     return response()->json(['success' => false, 'message' => 'Image file not found.'], 404);
 }
 
+
+
+public function revImage(Request $request)
+{
+    // Validate the image path
+    $request->validate([
+        'image_path' => 'required|string',
+    ]);
+
+    // Retrieve the image path from the request
+    $imagePath = $request->input('image_path');
+
+    // Check if the image exists in storage
+    if (Storage::exists($imagePath)) {
+        // Delete the image from storage
+        Storage::delete($imagePath);
+
+        // Find the Banner instance (adjust as needed)
+        $banner = Banner::first(); // Adjust this if targeting a specific banner
+        if ($banner && $banner->image === $imagePath) {
+            // Clear the live_image field in the database
+            $banner->image = null;
+            $banner->save();
+        }
+
+        // Return a success response
+        return response()->json(['success' => true, 'message' => 'Live image deleted successfully']);
+    }
+
+    // Return an error response if the image is not found
+    return response()->json(['success' => false, 'message' => 'Image file not found.'], 404);
+}
+
+
+
 }
