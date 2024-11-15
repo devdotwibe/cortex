@@ -152,8 +152,8 @@
                                             <label for="imagePreview">Image Preview</label>
                                             <div id="imagePreviewContainer" class="numericalclass">
                                                 @if (isset($course) && $course->image)
-                                                    <img id="imagePreview-save" src="{{ url('d0/' . $course->image) }}" alt="Image Preview"
-                                                         style="width: 100%; height: auto;">
+                                                    {{-- <img id="imagePreview-save" src="{{ url('d0/' . $course->image) }}" alt="Image Preview"
+                                                         style="width: 100%; height: auto;"> --}}
                                                     <button type="button" class="btn btn-danger" id="icondelete1" style="position: absolute; top: 5px; right: 5px;"
                                                             onclick="removeSectionImage()">X</button>
                                                 @endif
