@@ -1945,7 +1945,7 @@
 
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="review">Review*</label>
+                                                <label for="review">Review1*</label>
                                                 <textarea name="review[]" class="form-control" rows="5" placeholder="Review"></textarea>
                                                 @error('review')
                                                     <div class="text-danger">{{ $message }}</div>
