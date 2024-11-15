@@ -778,7 +778,7 @@
                                         </div>
                                     
                                         <!-- Preview Image Container -->
-                                        <div class="form-group fullmockPreviewContainer" id="fullmockPreviewContainer">
+                                        <div class="form-group    " id="fullmockPreviewContainer">
                                             <label for="fullmockImagePreview">Image Preview</label>
                                             <div id="fullmockImagePreviewContainer" class="numericalclass">
                                                 @if (isset($course) && $course->fullmockimage)
