@@ -695,39 +695,7 @@
                                             <textarea class="form-control texteditor" name="topiccontent" id="topiccontent">{{ old('topiccontent', optional($course)->topiccontent) }}</textarea>
                                         </div>
                                     </div>
-                                    {{-- <div class="numericalsectionclass">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="topicimage" class="file-upload">Topic Image  <br>
-                                                <img src="{{ asset('assets/images/upfile.svg') }}"
-                                                    alt="Upload Icon"> </label>
-                                            <input type="file" class="form-control"  style="display: none;" name="topicimage" id="topicimage">
-                                        </div>
-                                    </div>
-                                
-
-                                
- 
-
-                                <!-- Preview Image Container -->
-                                <!-- Preview Image Container -->
-                                <div class="form-group">
-                                    <label for="topicImagePreview">Image Preview</label>
-                                    <div id="topicImagePreviewContainer" class="numericalclass">
-                                    
-                                        @if (isset($course) && $course->topicimage)
-                                            <img id="topicImagePreview" src="{{ url('d0/' . $course->topicimage) }}"
-                                                alt="Image Preview" style="width: 100%; height: auto;">
-                                            <button type="button" onclick="removeTopicImage(this)"
-                                                value="{{ $course->id }}" class="btn btn-danger"
-                                                style="float: right;">X</button>
-                                        @else
-                                            <img id="topicImagePreview" src="#" alt="Image Preview"
-                                                style="display: none; width: 100%; height: auto;">
-                                        @endif
-                                    </div>
-                                </div>
-                            </div> --}}
+                 
 
                             <div class="numericalsectionclass">
                                 <div class="col-md-12">
@@ -799,39 +767,42 @@
                                         </div>
                                     </div>
                                     <div class="numericalsectionclass">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="fullmockimage" class="file-upload">Full Mock Image  <br>
-                                                <img src="{{ asset('assets/images/upfile.svg') }}"
-                                                    alt="Upload Icon"> </label>
-                                            <input type="file" class="form-control"  style="display: none;" name="fullmockimage" id="fullmockimage">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="fullmockimage" class="file-upload">Full Mock Image  
+                                                    <br>
+                                                    <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon"> 
+                                                </label>
+                                                <input type="file" class="form-control" style="display: none;" name="fullmockimage" id="fullmockimage" onchange="previewFullmockImage(event, 'fullmockImagePreview', this)">
+                                            </div>
+                                        </div>
+                                    
+                                        <!-- Preview Image Container -->
+                                        <div class="form-group" id="fullmockPreviewContainer">
+                                            <label for="fullmockImagePreview">Image Preview</label>
+                                            <div id="fullmockImagePreviewContainer" class="numericalclass">
+                                                @if (isset($course) && $course->fullmockimage)
+                                                    <!-- Display existing image if set -->
+                                                    <img id="fullmockImagePreview-save" src="{{ url('d0/' . $course->fullmockimage) }}" 
+                                                         alt="Image Preview" style="width: 100%; height: auto;">
+                                    
+                                                    <!-- Delete button for saved image -->
+                                                    <button type="button" class="btn btn-danger" id="deleteSavedFullmockImage" 
+                                                            style="position: absolute; top: 5px; right: 5px;" 
+                                                            onclick="removeFullmockImage()">X</button>
+                                                @endif
+                                    
+                                                <!-- Dynamic image preview (hidden by default) -->
+                                                <img id="fullmockImagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
+                                                
+                                                <!-- Delete button for dynamically uploaded image -->
+                                                <button type="button" class="btn btn-danger" id="deleteDynamicFullmockImage" 
+                                                        style="position: absolute; top: 5px; right: 5px; display: none;" 
+                                                        onclick="removeDynamicFullmockImage()">X</button>
+                                            </div>
                                         </div>
                                     </div>
-                                
-
-                             
-
-                                <!-- Preview Image Container -->
-                                <!-- Preview Image Container -->
-                                <div class="form-group">
-                                    <label for="fullmockImagePreview">Image Preview</label>
-                                    <div id="fullmockPreviewContainer" class="numericalclass">
-                                      
-                                        @if (isset($course) && $course->fullmockimage)
-                                            <img id="fullmockImagePreview"
-                                                src="{{ url('d0/' . $course->fullmockimage) }}" alt="Image Preview"
-                                                style="width: 100%; height: auto;">
-                                            <button type="button" onclick="removeFullmockImage(this)"
-                                                value="{{ $course->id }}" class="btn btn-danger"
-                                                style="float: right;">X</button>
-                                        @else
-                                            <img id="fullmockImagePreview" src="#" alt="Image Preview"
-                                                style="display: none; width: 100%; height: auto;">
-                                        @endif
-                                    </div>
-                                </div>
-
-                            </div>
+                                    
                         </div>
                                 <button type="submit" class="btn btn-dark fullmock" name="sub_section"
                                     value="tab4_save">Save</button>
@@ -1278,7 +1249,7 @@ function removeSectionImage() {
     </script> --}}
 
 
-    <script>
+    {{-- <script>
         function removeFullmockImage(button) {
             const courseId = button.value; // Get the course ID from the button value
             const url = '{{ route('admin.course.deleteFullmockImage', ':id') }}'.replace(':id',
@@ -1306,7 +1277,7 @@ function removeSectionImage() {
             });
         }
     </script>
-
+ --}}
 
 
 
@@ -1625,6 +1596,72 @@ function removeDynamicTopicImage() {
 
     // Clear the file input field
     document.getElementById('topicimage').value = '';
+}
+
+
+
+function removeFullmockImage() {
+    console.log('Removing full mock image');
+
+    const courseId = "{{ $course->id }}"; // Get the course ID
+    const imagePath = "{{ $course->fullmockimage }}"; // Set the image path for full mock image
+
+    $.ajax({
+        type: 'POST',
+        url: '{{ route('admin.course.deleteFullmockImage') }}', // Ensure this route matches the backend route for deleting the full mock image
+        data: {
+            _token: '{{ csrf_token() }}',
+            image_path: imagePath
+        },
+        success: function(response) {
+            if (response.success) {
+                $('#fullmockPreviewContainer').hide();  // Hide the preview container
+                document.getElementById('fullmockImagePreview-save').style.display = 'none'; // Hide the saved image preview
+                document.querySelector('#fullmockPreviewContainer button.btn-danger').style.display = 'none'; // Hide delete button
+            } else {
+                alert('Image could not be deleted. Please try again.');
+            }
+        },
+        error: function(xhr) {
+            alert('An error occurred. Please try again.');
+        }
+    });
+}
+
+
+
+// Function to preview the Full Mock image when the file input changes
+function previewFullmockImage(event, previewId, element) {
+    const reader = new FileReader();
+
+    reader.onload = function() {
+        const output = document.getElementById(previewId);
+        output.src = reader.result; // Set the preview image source
+        output.style.display = 'block'; // Display the preview image
+
+        // Show the preview container and delete button for the preview image
+        $('#fullmockPreviewContainer').show(); // Ensure the preview container ID matches your markup
+        $('#deleteIconFullmockImage').show(); // Show delete button for the preview image
+        $('#iconDeleteFullmockImage').hide(); // Hide delete button for the saved image
+    };
+
+    if (event.target.files[0]) {
+        reader.readAsDataURL(event.target.files[0]); // Read the selected image
+    }
+}
+
+// Function to remove the Full Mock preview image when the delete button is clicked
+function removeDynamicFullmockImage() {
+    // Clear the preview image and hide the preview container and delete button
+    const output = document.getElementById('fullmockImagePreview');
+    output.src = '';
+    output.style.display = 'none'; // Hide the preview image
+
+    $('#fullmockPreviewContainer').hide(); // Hide preview container
+    $('#iconDeleteFullmockImage').hide(); // Hide delete button for the preview image
+
+    // Clear the file input field
+    document.getElementById('fullmockimage').value = '';
 }
 
 

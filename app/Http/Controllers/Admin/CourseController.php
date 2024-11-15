@@ -744,31 +744,52 @@ public function deleteTopicImage()
 
 
 
+// public function deleteFullmockImage()
+// {
+//     // Find the course by ID
+//     $course = Courses::first();
+
+
+//     if ($course && $course->fullmockimage) {
+//         // Check if the fullmock image file exists in the storage
+//         if (Storage::exists($course->fullmockimage)) {
+//             // Delete the fullmock image from the storage
+//             Storage::delete($course->fullmockimage);
+//         }
+
+//         // Set the fullmockimage field to null in the database
+//         $course->fullmockimage = null;
+//         $course->save();
+
+//         // Return a success response
+//         return response()->json(['success' => true]);
+//     }
+
+//     // Return a failure response if the fullmock image was not found
+//     return response()->json(['success' => false], 404);
+// }
+
+
+
+
 public function deleteFullmockImage()
 {
-    // Find the course by ID
     $course = Courses::first();
 
-
     if ($course && $course->fullmockimage) {
-        // Check if the fullmock image file exists in the storage
         if (Storage::exists($course->fullmockimage)) {
-            // Delete the fullmock image from the storage
             Storage::delete($course->fullmockimage);
         }
 
-        // Set the fullmockimage field to null in the database
+        // Set image to null and save the change
         $course->fullmockimage = null;
         $course->save();
 
-        // Return a success response
         return response()->json(['success' => true]);
     }
 
-    // Return a failure response if the fullmock image was not found
     return response()->json(['success' => false], 404);
 }
-
 
 
     public function tabchange(Request $request)
