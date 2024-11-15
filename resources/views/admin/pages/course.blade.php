@@ -664,9 +664,6 @@
 
 
 
-
-
-
                                                 <!-- Delete button for saved image (if exists) -->
                                                 <button type="button" class="btn btn-danger" id="icondeletequestionbankimg" style="position: absolute; top: 5px; right: 5px; 
                                                     {{ isset($course) && $course->questionbankimage ? 'display: block;' : 'display: none;' }}" onclick="removeQuestionBankImage()">X</button>
