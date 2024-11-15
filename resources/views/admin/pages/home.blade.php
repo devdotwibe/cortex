@@ -1769,7 +1769,7 @@
 
 
 
-{{-- <!-- Image Upload with Preview -->
+<!-- Image Upload with Preview -->
 <div class="col-md-12 numericalsectionclass">
     <div class="form-group">
         <div class="form-data">
@@ -1786,7 +1786,7 @@
             </div>
         </div>
     </div>
-</div> --}}
+</div>
 
 <!-- Preview Image Container -->
 <div class="form-group imgid12" id="imgid12" style="display: none;">
