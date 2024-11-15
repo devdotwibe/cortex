@@ -13,26 +13,9 @@
 
             <div class="lesson-body">
 
-                <div class="row">
+                <div class="row" id="vimeo_video_show">
 
-                    <div class="col-md-12">
-
-                        <div class="video-row video-box">
-
-                            <div class="video-title"> <span> Video Explanation</span></div>
-
-                            <div class="video-container">
-
-                                <div class="videoframe" id="vimeo_video_show">
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
+                   
                 </div>
 
             </div>
