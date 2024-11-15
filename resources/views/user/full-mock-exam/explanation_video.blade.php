@@ -97,11 +97,12 @@
                 vimeotime=duration; 
                 console.log('Video Duration:', duration);
                 
-                pauseAtTime = duration - 1;
+                pauseAtTime = duration;
 
                 examPlayers.on('timeupdate', function(data) {
                     const currentTime = data.seconds; 
                     console.log('Current Time:', currentTime);
+
 
                     if (currentTime >= pauseAtTime && vimeoplay) {
                         examPlayers.pause().then(function() {
@@ -117,9 +118,9 @@
                 console.log('Video is playing');
 
                 vimeoplay=true;
-
                 examPlayers.on('timeupdate', function(data) {
                     const currentTime = data.seconds; 
+
                     console.log('Current Time:', currentTime);
 
                     if (currentTime >= pauseAtTime && vimeoplay) {
