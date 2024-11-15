@@ -94,7 +94,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
             Route::resource("/exam",ExamController::class);
 
-            Route::post('/explanation_video',[ExamController::class,'explanation_video'])->name('explanation_video');
+            Route::post('/explanation_video',[ExamController::class,'explanation_video'])->name('exam.explanation_video');
             
         });
 
