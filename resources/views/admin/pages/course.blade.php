@@ -647,7 +647,8 @@
                                         <!-- Preview Image Container -->
                                         <div class="form-group imgid10" id="imgid10" style="display: {{ isset($course) && $course->questionbankimage ? 'block' : 'none' }};">
                                             <label for="questionbankImagePreview">Image Preview</label>
-                                            <div class="numericalclass">
+                                            <div id="questionbankImagePreviewContainer" class="numericalclass">
+                                            
                                                 @if (isset($course) && $course->questionbankimage)
                                                     <!-- Display existing image if set -->
                                                     <img id="questionbankImagePreview-save" src="{{ url('d0/' . $course->questionbankimage) }}" alt="Image Preview" style="width: 100%; height: auto;">
@@ -1441,6 +1442,9 @@ function removeQuestionBankImage() {
         }
     });
 }
+
+
+
 
 
 
