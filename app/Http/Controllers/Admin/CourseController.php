@@ -462,30 +462,23 @@ class CourseController extends Controller
 
     public function deleteImage()
     {
-
-        dd('122');
         $course = Courses::first();
-
+    
         if ($course && $course->image) {
-
             if (Storage::exists($course->image)) {
-
                 Storage::delete($course->image);
-
-
             }
-
+    
+            // Set image to null and save the change
             $course->image = null;
-
             $course->save();
-
-            dd( $course->image);
-
+    
             return response()->json(['success' => true]);
         }
-
+    
         return response()->json(['success' => false], 404);
     }
+    
 
 
 public function deletePrivateImage()
