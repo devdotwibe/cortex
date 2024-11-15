@@ -830,6 +830,13 @@ button.close {
     padding-left: 45px;
     margin: 0 0 20px;
     font-size: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: start;
+}
+
+.exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check label {
+    margin: 2px 12px 0;
 }
 
 .exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check input {
