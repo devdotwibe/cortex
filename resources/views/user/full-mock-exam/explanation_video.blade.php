@@ -93,7 +93,8 @@
             });
             examPlayers.on('pause', function() { 
                 console.log('Video is paused');
-                vimeoplay=true;
+                vimeoplay=false;
+                $('#video-suggestions').hide();
             });
             examPlayer.on('ended', function() {
                 console.log('Video has ended');
