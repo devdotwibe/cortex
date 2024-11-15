@@ -695,7 +695,7 @@
                                             <textarea class="form-control texteditor" name="topiccontent" id="topiccontent">{{ old('topiccontent', optional($course)->topiccontent) }}</textarea>
                                         </div>
                                     </div>
-                                    <div class="numericalsectionclass">
+                                    {{-- <div class="numericalsectionclass">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="topicimage" class="file-upload">Topic Image  <br>
@@ -727,7 +727,51 @@
                                         @endif
                                     </div>
                                 </div>
+                            </div> --}}
+
+                            <div class="numericalsectionclass">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="topicimage" class="file-upload">
+                                            Topic Image  
+                                            <br>
+                                            <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
+                                        </label>
+                                        <input type="file" class="form-control" style="display: none;" name="topicimage" id="topicimage" 
+                                               onchange="previewTopicImage(event, 'topicImagePreview', this)" data-id="imgid20">
+                                    </div>
+                                </div>
+                            
+                                <!-- Preview Image Container -->
+                                <div class="form-group imgid20" id="imgid20" 
+                                     style="display: {{ isset($course) && $course->topicimage ? 'block' : 'none' }};">
+                                    <label for="topicImagePreview">Image Preview</label>
+                                    <div id="topicImagePreviewContainer" class="numericalclass">
+                                        @if (isset($course) && $course->topicimage)
+                                            <!-- Display existing image if set -->
+                                            <img id="topicImagePreview-save" src="{{ url('d0/' . $course->topicimage) }}" 
+                                                 alt="Image Preview" style="width: 100%; height: auto;">
+
+                                                 
+                                            <!-- Delete button for saved image -->
+                                            <button type="button" class="btn btn-danger" id="iconDeleteTopicImage" 
+                                                    style="position: absolute; top: 5px; right: 5px;" 
+                                                    onclick="removeTopicImage(this)" value="{{ $course->id }}">X</button>
+                                        @endif
+                            
+                                        <!-- Dynamic image preview (hidden by default) -->
+                                        <img id="topicImagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
+                                        
+                                        <!-- Delete button for dynamically uploaded image -->
+                                        <button type="button" class="btn btn-danger" id="deleteIconTopicImage" 
+                                                style="position: absolute; top: 5px; right: 5px; display: none;" 
+                                                onclick="removeDynamicTopicImage()">X</button>
+                                    </div>
+                                </div>
                             </div>
+
+                            
+
                         </div>
 
                                 <button type="submit" class="btn btn-dark topic" name="sub_section"
@@ -1202,7 +1246,7 @@ function removeSectionImage() {
         }
     </script> --}}
 
-    <script>
+    {{-- <script>
         function removeTopicImage(button) {
             const courseId = button.value; // Get the course ID from the button value
             const url = '{{ route('admin.course.deleteTopicImage', ':id') }}'.replace(':id',
@@ -1229,7 +1273,7 @@ function removeSectionImage() {
                 }
             });
         }
-    </script>
+    </script> --}}
 
 
     <script>
@@ -1478,6 +1522,74 @@ function removeQuestionImage() {
     // Clear the file input field
     document.getElementById('questionbankimage').value = '';
 }
+
+
+
+// Function to remove the Topic image from the server when the delete button is clicked
+function removeTopicImage(button) {
+    const courseId = button.value; // Get the course ID from the delete button value
+    const imagePath = "{{ $course->topicimage }}"; // Set the correct image path for the Topic image
+
+    $.ajax({
+        type: 'POST',
+        url: '{{ route('admin.course.deleteTopicImage') }}', // Ensure this route matches the backend route for deleting the Topic image
+        data: {
+            _token: '{{ csrf_token() }}',
+            course_id: courseId,
+            image_path: imagePath
+        },
+        success: function(response) {
+            if (response.success) {
+                $('#imgid20').hide(); // Hide the image preview container
+                document.getElementById('topicImagePreview-save').style.display = 'none'; // Hide the saved image preview
+                document.querySelector('#topicImagePreviewContainer button.btn-danger').style.display = 'none'; // Hide delete button
+            } else {
+                alert('Image could not be deleted. Please try again.');
+            }
+        },
+        error: function(xhr) {
+            alert('An error occurred. Please try again.');
+        }
+    });
+}
+
+
+// Function to preview the Topic image when the file input changes
+function previewTopicImage(event, previewId, element) {
+    const reader = new FileReader();
+
+    reader.onload = function() {
+        const output = document.getElementById(previewId);
+        output.src = reader.result; // Set the preview image source
+        output.style.display = 'block'; // Display the preview image
+
+        // Show the preview container and delete button for the preview image
+        $('#imgid20').show(); // Ensure the preview container ID matches your markup
+        $('#deleteIconTopicImage').show(); // Show delete button for the preview image
+        $('#iconDeleteTopicImage').hide(); // Hide delete button for the saved image
+    };
+
+    if (event.target.files[0]) {
+        reader.readAsDataURL(event.target.files[0]); // Read the selected image
+    }
+}
+
+// Function to remove the Topic preview image when the delete button is clicked
+function removeTopicImage() {
+    // Clear the preview image and hide the preview container and delete button
+    const output = document.getElementById('topicImagePreview');
+    output.src = '';
+    output.style.display = 'none'; // Hide the preview image
+
+    $('#imgid20').hide(); // Hide preview container
+    $('#iconDeleteTopicImage').hide(); // Hide delete button for the preview image
+
+    // Clear the file input field
+    document.getElementById('topicimage').value = '';
+}
+
+
+
 </script>
 
 @endpush
