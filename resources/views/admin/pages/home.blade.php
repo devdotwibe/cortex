@@ -1836,7 +1836,7 @@
                                                 <!-- Image -->
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label for="image" class="file-upload">Image1 <br>
+                                                        <label for="image" class="file-upload">Image11 <br>
                                                             <img src="{{ asset('assets/images/upfile.svg') }}"
                                                                 alt="Upload Icon"> </label>
                                                         <input type="hidden" name="feedids[]"
