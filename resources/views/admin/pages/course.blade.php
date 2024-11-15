@@ -1578,7 +1578,7 @@ function removeTopicImage() {
             if (response.success) {
                 $('#imgid20').hide();  // Hide the image preview container
                 document.getElementById('topicImagePreview-save').style.display = 'none'; // Hide the saved image preview
-                document.querySelector('#topicImagePreviewContainer btn btn-danger').style.display = 'none'; // Hide delete button
+                document.querySelector('#topicImagePreviewContainer button.btn-danger').style.display = 'none'; // Hide delete button
             } else {
                 alert('Image could not be deleted. Please try again.');
             }
