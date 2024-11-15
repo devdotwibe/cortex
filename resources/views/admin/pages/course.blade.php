@@ -1138,33 +1138,31 @@ function removeSectionImage() {
     </script>
 
 <script>
-    function removeLearnImage(button) {
-        const courseId = button.value; // Get the course ID from the button value
-        const url = '{{ route('admin.course.deleteLearnImage', ':id') }}'.replace(':id', courseId); // Construct the URL with the course ID
+    function removeLearnImage() {
+        const imagePath = "{{ $course->learnimage }}";
 
-        $.ajax({
-            type: 'POST',
-            url: url,
-            data: {
-                _token: '{{ csrf_token() }}' // Add CSRF token for Laravel protection
-            },
+        
+            $.ajax({
+        type: 'POST',
+        url: '{{ route('admin.course.deleteLearnImage') }}', // Ensure this route matches the backend route for deleting Section image
+        data: {
+            _token: '{{ csrf_token() }}',
+            image_path: imagePath
+        },
             success: function(response) {
                 if (response.success) {
-                    // Hide the image preview and the delete button after successful deletion
-                    document.getElementById('learnImagePreview-save').style.display = 'none'; // Hide saved image preview
-                    document.getElementById('learnImagePreview').style.display = 'none'; // Hide dynamic image preview
-                    document.getElementById('icondeletelearnimg').style.display = 'none'; // Hide delete button
-                    button.style.display = 'none'; // Hide the "X" button in the form
-                } else {
-                    alert('Image could not be deleted. Please try again.');
-                }
-            },
-            error: function(xhr) {
-                // Handle error response
+                    $('#imgid1').hide();  // Hide the image preview container
+                document.getElementById('imagePreview-save').style.display = 'none'; // Hide the image preview
+                document.querySelector('#imagePreviewContainer button.btn-danger').style.display = 'none'; // Hide delete button
+            } else {
                 alert('Image could not be deleted. Please try again.');
             }
-        });
-    }
+        },
+        error: function(xhr) {
+            alert('An error occurred. Please try again.');
+        }
+    });
+}
 </script>
 
 
