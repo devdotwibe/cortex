@@ -1022,7 +1022,7 @@ function removeSectionImage() {
 
     $.ajax({
         type: 'POST',
-        url: '{{ route('admin.page.deleteImage') }}', // Ensure this route matches the backend route for deleting Section image
+        url: '{{ route('admin.course.deleteImage') }}', // Ensure this route matches the backend route for deleting Section image
         data: {
             _token: '{{ csrf_token() }}',
             image_path: imagePath
