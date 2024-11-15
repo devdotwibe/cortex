@@ -606,11 +606,10 @@ public function deleteNumericalImage()
     return response()->json(['success' => false], 404);
 }
 
-
-public function deleteLearnImage()
+public function deleteLearnImage(Request $request)
 {
-    // Find the course by ID
-    $course = Courses::first();
+    // Find the course by ID (you may adjust the logic to find the specific course)
+    $course = Courses::find($request->course_id); // Assuming you're passing course ID to identify the course
 
     if ($course && $course->learnimage) {
         // Check if the learn image file exists in the storage
@@ -628,7 +627,7 @@ public function deleteLearnImage()
     }
 
     // Return a failure response if the learn image was not found
-    return response()->json(['success' => false], 404);
+    return response()->json(['success' => false, 'message' => 'Image not found or already deleted.'], 404);
 }
 
 public function deleteQuestionBankImage()
