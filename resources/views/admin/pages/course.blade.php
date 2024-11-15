@@ -1563,7 +1563,7 @@ function removeTopicImage() {
     const courseId = button.value; // Get the course ID from the delete button value
     const imagePath = "{{ $course->topicimage }}"; // Set the correct image path for the Topic image
 
-
+console.log(y);
     
 
     $.ajax({
