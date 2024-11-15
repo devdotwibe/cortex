@@ -163,6 +163,8 @@ Route::middleware(['auth', 'isUser'])->group(function () {
             Route::middleware('subscription:full-mock-exam')->get('/{exam}/review', [MockExamController::class, 'examreview'])->name('review');
             Route::get('/attempt/{user_exam_review}/preview', [MockExamController::class, 'preview'])->name('preview');
             Route::get('/{user_exam_review}/complete', [MockExamController::class, 'examcomplete'])->name('complete');
+            Route::get('/{user_exam_review}/explanation-video', [MockExamController::class, 'explanation_video'])->name('explanation_video');
+            
 
             Route::get('/{user_exam_review}/retry', [MockExamController::class, 'mocexamretry'])->name('retry');
             Route::post('/fetch/{attemt}/progress', [MockExamController::class, 'getprogress'])->name('attemtprogress');
