@@ -756,7 +756,7 @@
                                             <!-- Delete button for saved image -->
                                             <button type="button" class="btn btn-danger" id="iconDeleteTopicImage" 
                                                     style="position: absolute; top: 5px; right: 5px;" 
-                                                    onclick="removeTopicImage()" value="{{ $course->id }}">X</button>
+                                                    onclick="removeTopicImage()" >X</button>
                                         @endif
                             
                                         <!-- Dynamic image preview (hidden by default) -->
@@ -1535,7 +1535,7 @@ function removeTopicImage(button) {
         url: '{{ route('admin.course.deleteTopicImage') }}', // Ensure this route matches the backend route for deleting the Topic image
         data: {
             _token: '{{ csrf_token() }}',
-            course_id: courseId,
+           
             image_path: imagePath
         },
         success: function(response) {
