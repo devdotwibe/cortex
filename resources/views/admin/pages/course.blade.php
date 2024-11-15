@@ -172,11 +172,7 @@
 
                                             </div>
                                         </div>
-                                        
-
-
-                                       
-                                    
+                                                                        
                                     </div>
                                     
                                    
@@ -1460,7 +1456,7 @@ function removeImage() {
 }
 
     // Function to remove the saved image when the saved delete button is clicked
-    function removeSavedImage() {
+    function removeSectionImage() {
       
 
         const output = document.getElementById('imagePreview-save');
