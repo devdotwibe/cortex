@@ -81,7 +81,7 @@
 
                         @else
 
-                            <span>{{ ucfirst($admin->email) }}</span>
+                            <span>{{ substr($admin->email, 0, 5) }}</span>
 
                         @endif
 
