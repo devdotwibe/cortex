@@ -114,30 +114,42 @@ class ImportQuestions implements ShouldQueue
                     "sub_question" => (isset($this->fields['sub_question']) && isset($row[$this->fields['sub_question']])) ? nl2br($row[$this->fields['sub_question']]) : null,
                 ]);
             }
-            Answer::store([
-                "exam_id"=>$question->exam_id,
-                "question_id"=>$question->id,
-                "iscorrect"=>($row[$this->fields['iscorrect']]??"")=="A"?true:false,
-                "title"=>$row[$this->fields['answer_1']],
-            ]);
-            Answer::store([
-                "exam_id"=>$question->exam_id,
-                "question_id"=>$question->id,
-                "iscorrect"=>($row[$this->fields['iscorrect']]??"")=="B"?true:false,
-                "title"=>$row[$this->fields['answer_2']],
-            ]);
-            Answer::store([
-                "exam_id"=>$question->exam_id,
-                "question_id"=>$question->id,
-                "iscorrect"=>($row[$this->fields['iscorrect']]??"")=="C"?true:false,
-                "title" => (isset($this->fields['answer_3']) && isset($row[$this->fields['answer_3']])) ? $row[$this->fields['answer_3']] : null,
-            ]);
-            Answer::store([
-                "exam_id"=>$question->exam_id,
-                "question_id"=>$question->id,
-                "iscorrect"=>($row[$this->fields['iscorrect']]??"")=="D"?true:false,
-                "title" => (isset($this->fields['answer_4']) && isset($row[$this->fields['answer_4']])) ? $row[$this->fields['answer_4']] : null,
-            ]);
+            if($row[$this->fields['answer_1']])
+            {     
+                Answer::store([
+                    "exam_id"=>$question->exam_id,
+                    "question_id"=>$question->id,
+                    "iscorrect"=>($row[$this->fields['iscorrect']]??"")=="A"?true:false,
+                    "title"=>$row[$this->fields['answer_1']],
+                ]);
+            }
+            if($row[$this->fields['answer_2']])
+            { 
+                Answer::store([
+                    "exam_id"=>$question->exam_id,
+                    "question_id"=>$question->id,
+                    "iscorrect"=>($row[$this->fields['iscorrect']]??"")=="B"?true:false,
+                    "title"=>$row[$this->fields['answer_2']],
+                ]);
+            }
+            if($row[$this->fields['answer_3']])
+            { 
+                Answer::store([
+                    "exam_id"=>$question->exam_id,
+                    "question_id"=>$question->id,
+                    "iscorrect"=>($row[$this->fields['iscorrect']]??"")=="C"?true:false,
+                    "title" => (isset($this->fields['answer_3']) && isset($row[$this->fields['answer_3']])) ? $row[$this->fields['answer_3']] : null,
+                ]);
+            }
+            if($row[$this->fields['answer_4']])
+            { 
+                Answer::store([
+                    "exam_id"=>$question->exam_id,
+                    "question_id"=>$question->id,
+                    "iscorrect"=>($row[$this->fields['iscorrect']]??"")=="D"?true:false,
+                    "title" => (isset($this->fields['answer_4']) && isset($row[$this->fields['answer_4']])) ? $row[$this->fields['answer_4']] : null,
+                ]);
+            }
             $i++;
             OptionHelper::setData("{$this->exam->name}-import-question-completed",round($i*100/$count,2));
         }
