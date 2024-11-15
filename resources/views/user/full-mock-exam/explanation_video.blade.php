@@ -97,15 +97,30 @@
                 vimeotime=duration; 
                 console.log('Video Duration:', duration);
                 
-                pauseAtTime = duration - 0.1;
+                pauseAtTime = duration - 1;
 
                 examPlayers.on('timeupdate', function(data) {
-                    const currentTime = data.seconds; 
+                    const currentTime = data.seconds;
                     console.log('Current Time:', currentTime);
 
+                    // Pause the video 1 second before it ends
                     if (currentTime >= pauseAtTime && vimeoplay) {
                         examPlayers.pause().then(function() {
                             console.log('Video paused at ' + pauseAtTime + ' seconds');
+
+                            // Rewind to pauseAtTime to avoid playing the last second
+                            examPlayers.setCurrentTime(pauseAtTime).then(function() {
+                                console.log('Video rewound to ' + pauseAtTime + ' seconds');
+                            }).catch(function(error) {
+                                console.error('Error rewinding video:', error);
+                            });
+
+                            // Optionally, restart the video automatically
+                            examPlayers.play().then(function() {
+                                console.log('Video replayed');
+                            }).catch(function(error) {
+                                console.error('Error restarting video:', error);
+                            });
                         }).catch(function(error) {
                             console.error('Error pausing video:', error);
                         });
@@ -138,11 +153,16 @@
                 $('#video-suggestions').hide();
                 $('.vp-outro-content').hide();
             });
-            examPlayer.on('ended', function() {
-
-                vimeoplay=false;
+            
+            examPlayers.on('ended', function() {
                 console.log('Video has ended');
-
+                // Reset play state and replay the video
+                examPlayers.setCurrentTime(0).then(function() {
+                    examPlayers.play();
+                    console.log('Video restarted');
+                }).catch(function(error) {
+                    console.error('Error restarting video:', error);
+                });
             });
 
             console.log(examPlayers);
