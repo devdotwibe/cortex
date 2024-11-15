@@ -1151,9 +1151,9 @@ function removeSectionImage() {
         },
             success: function(response) {
                 if (response.success) {
-                    $('#imgid1').hide();  // Hide the image preview container
-                document.getElementById('imagePreview-save').style.display = 'none'; // Hide the image preview
-                document.querySelector('#imagePreviewContainer button.btn-danger').style.display = 'none'; // Hide delete button
+                    $('#learnimgid1').hide();  // Hide the image preview container
+                document.getElementById('learnImagePreview-save').style.display = 'none'; // Hide the image preview
+                document.querySelector('#learnImagePreviewContainer button.btn-danger').style.display = 'none'; // Hide delete button
             } else {
                 alert('Image could not be deleted. Please try again.');
             }
