@@ -78,5 +78,16 @@
 @push('footer-script')
     <script>
          
+
+         function UploadVideo(element)
+         {
+            var exam_slug = $(element).data('id');
+
+            console.log(exam_slug);
+
+         }
+
+
+
     </script>
 @endpush
