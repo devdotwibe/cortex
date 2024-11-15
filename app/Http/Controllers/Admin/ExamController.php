@@ -135,4 +135,11 @@ class ExamController extends Controller
         }        
         return redirect()->route('admin.exam.index')->with("success","QuestionBankChapter deleted success");
     }
+
+    public function explanation_video(Request $request)
+    {
+        dd($request->exam_id);
+    }
+
+
 }
