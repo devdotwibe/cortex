@@ -148,22 +148,16 @@
                                             </div>
                                         </div>
                                     
-                                        <div class="form-group imgid1" id="imgid1" style="display: {{ isset($course) && $course->image ? 'block' : 'none' }};">
+                                        <div class="form-group imgid1" id="imgid1" style="display: none;">
                                             <label for="imagePreview">Image Preview</label>
                                             <div id="imagePreviewContainer" class="numericalclass">
-                                                @if (isset($course) && $course->image)
-                                                    <img id="imagePreview-save" src="{{ url('d0/' . $course->image) }}" alt="Image Preview"
-                                                         style="width: 100%; height: auto;">
-                                                    <button type="button" class="btn btn-danger" id="icondelete1" style="position: absolute; top: 5px; right: 5px;"
-                                                            onclick="removeSectionImage()">X</button>
-                                                @endif
-                                        
                                                 <!-- Dynamic image preview -->
                                                 <img id="imagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
                                                 <button type="button" class="btn btn-danger" id="deleteicon1" style="position: absolute; top: 5px; right: 5px; display: none;"
                                                         onclick="removeImage()">X</button>
                                             </div>
                                         </div>
+                                        
                                         
 
 
