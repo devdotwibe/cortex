@@ -793,7 +793,7 @@
                                                 @endif
                                     
                                                 <!-- Dynamic image preview (hidden by default) -->
-                                                {{-- <img id="fullmockImagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;"> --}}
+                                                <img id="fullmockImagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
                                                 
 
                                                 
