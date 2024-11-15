@@ -95,8 +95,11 @@
                 console.log('Video is paused');
                 vimeoplay=true;
             });
+            examPlayer.on('ended', function() {
+                console.log('Video has ended');
 
-            $('#video-suggestions').hide();
+                $('#video-suggestions').hide();
+            });
 
             console.log(examPlayers);
 
