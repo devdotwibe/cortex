@@ -202,6 +202,7 @@
                         `).fadeIn();
                     }
                     if(v.learn_type=="short_notes"){
+                        isVideoType = true;
                         $('#lesson-questionlist-list').html(`
                             <div class="col-md-12">
                                 <div class="note-row" >
