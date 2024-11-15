@@ -28,7 +28,7 @@
                                 <span>Seconds</span>
                             </div>
                         </div>
-                        <button class="btn hide-btn" id="hide_button" onclick="HideTime()">Hide Time</button>
+                        <button class="btn hide-btn" id="hide_button" onclick="HideTime()">Hide <br> Time</button>
                     @endif    
                 </div>
             </div>
