@@ -77,7 +77,10 @@
             examPlayers =new Vimeo.Player(`vimo-videoframe`,{
                 id: vimeoid,
                 width: "100%",
-                controls: true
+                controls: true,
+                autoplay: false,
+                muted: false
+
             });
             examPlayers.getDuration().then(function(duration) { 
                 vimeotime=duration; 
@@ -92,6 +95,8 @@
                 console.log('Video is paused');
                 vimeoplay=true;
             });
+
+            $('#video-suggestions').hide();
 
             console.log(examPlayers);
 
