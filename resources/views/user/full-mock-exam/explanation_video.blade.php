@@ -11,7 +11,29 @@
                 <h5><span>{{$exam->title}}</span></h5>
             </div>
 
-            <div id="vimeo_video_show">
+            <div class="lesson-body">
+
+                <div class="row">
+
+                    <div class="col-md-12">
+
+                        <div class="video-row video-box">
+
+                            <div class="video-title"> <span> Video Explanation</span></div>
+
+                            <div class="video-container">
+
+                                <div class="videoframe" id="vimeo_video_show">
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
 
             </div>
            
