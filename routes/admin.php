@@ -488,7 +488,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::post('/delete-anytime-image', [PagesController::class, 'deleteAnytimeImage'])->name('deleteAnytimeImage');
             Route::post('/delete-unlimited-image', [PagesController::class, 'deleteUnlimitedImage'])->name('deleteUnlimitedImage');
             Route::post('/delete-live-image', [PagesController::class, 'deleteLiveImage'])->name('deleteLiveImage');
-            Route::post('/delete-li-image', [PagesController::class, 'revImage'])->name('revImage');
+            Route::post('deleteFeatureImage', [PagesController::class, 'deleteFeatureImage'])->name('deleteFeatureImage');
 
         });
     });
