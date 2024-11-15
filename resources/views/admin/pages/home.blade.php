@@ -1862,8 +1862,7 @@
                                                             <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
                                                         </label>
                                                         <input type="hidden" name="feedids[]" value="{{ $item->id }}">
-                                                        <input type="file" name="imageupdate[]" class="form-control" style="display: none;"
-                                                            onchange="previewFeatureImage(event, 'featureImagePreview_{{ $item->id }}', {{ $item->id }})">
+                                                        <input type="file" name="imageupdate[]" class="form-control" style="display: none;">
                                                         @error('imageupdate[]')
                                                             <div class="text-danger">{{ $message }}</div>
                                                         @enderror
