@@ -94,16 +94,20 @@
             examPlayers =new Vimeo.Player(`vimo-videoframe`,{
                 id: vimeoid,
                 width: "100%",
-                controls: false
+                controls: true
             });
             examPlayers.getDuration().then(function(duration) { 
                 vimeotime=duration; 
+                console.log('Video Duration:', duration);
             }); 
             examPlayers.on('play', function() { 
+                console.log('Video is playing');
+
                 vimeoplay=true;
             });
             examPlayers.on('pause', function() { 
-                vimeoplay=false;
+                console.log('Video is paused');
+                vimeoplay=true;
             });
 
             console.log(examPlayers);
