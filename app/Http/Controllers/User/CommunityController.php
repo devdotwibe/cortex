@@ -315,6 +315,8 @@ class CommunityController extends Controller
             }
         }
 
+        dd($request->hashtag);
+
         // $extractedHashtags = $request->input('hashtags');
 
         // Hashtag::firstOrCreate(['hashtag' => $extractedHashtags,'post_id' => $post->id]);
