@@ -155,6 +155,14 @@
                                                 <img id="imagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
                                                 <button type="button" class="btn btn-danger" id="deleteicon1" style="position: absolute; top: 5px; right: 5px; display: none;"
                                                         onclick="removeImage()">X</button>
+
+
+                                                         <!-- Delete button for saved image -->
+                                                     <button type="button" class="btn btn-danger" id="icondelete1"
+                                                     style="position: absolute; top: 5px; right: 5px; {{ isset($course) && $course->image ? 'display: block;' : 'display: none;' }}"
+                                                     onclick="removeSectionImage()">X</button>
+
+
                                             </div>
                                         </div>
                                         
