@@ -157,31 +157,18 @@
                                                         style="width: 100%; height: auto;">
                                                     <!-- Delete button for saved image -->
                                                     {{-- <button type="button" class="btn btn-danger" id="icondelete1" onclick="removeImage()"  style="position: absolute; top: 5px; right: 5px; {{ isset($course) && $course->image ? 'display: block;' : 'display: none;' }}">X</button> --}}
-
-
-
                                                     <img id="imagePreview-save"
                                                     src="{{ isset($course) && $course->image ? url('d0/' . $course->image) : '' }}"
                                                     alt="Image Preview"
-                                                    style="width: 100%; height: auto; display: {{ isset($course) && $course->image ? 'block' : 'none' }};">
-
-
-
-
-                                                    
+                                                    style="width: 100%; height: auto; display: {{ isset($course) && $course->image ? 'block' : 'none' }};">                                                  
                                                         <!-- Delete button for preview (before saving) -->
                                                 <button type="button" class="btn btn-danger imgid5" id="deleteicon1"
                                                 style="position: absolute; top: 5px; right: 5px; display: none;"
                                                 onclick="removeImage()">X</button>
-
-
-
-                                                     <!-- Delete button for saved image -->
+                                                   <!-- Delete button for saved image -->
                                                      <button type="button" class="btn btn-danger" id="icondelete1"
                                                      style="position: absolute; top: 5px; right: 5px; {{ isset($course) && $course->image ? 'display: block;' : 'display: none;' }}"
                                                      onclick="removeSectionImage()">X</button>
-
-
 
                                                 @endif
                                     
@@ -1469,7 +1456,7 @@ function removeSectionImage() {
     }
 
     // Function to remove the preview image when the preview delete button is clicked
-    function removeImagePreview() {
+    function removeImage() {
         // Clear the preview image and hide the preview container and delete button
         const output = document.getElementById('imagePreview');
         output.src = '';
