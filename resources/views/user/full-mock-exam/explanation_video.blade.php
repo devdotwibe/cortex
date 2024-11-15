@@ -78,6 +78,10 @@
                     </div>
                 </div>
             `).fadeIn();
+
+            let vimeoplay = false;
+            let pauseAtTime = 0;
+
             examPlayers =new Vimeo.Player(`vimo-videoframe`,{
                 id: vimeoid,
                 width: "100%",
@@ -92,12 +96,11 @@
             examPlayers.getDuration().then(function(duration) { 
                 vimeotime=duration; 
                 console.log('Video Duration:', duration);
-
-                const pauseAtTime = duration;  
+                
+                pauseAtTime = duration;
 
                 examPlayers.on('timeupdate', function(data) {
                     const currentTime = data.seconds; 
-
                     console.log('Current Time:', currentTime);
 
                     if (currentTime >= pauseAtTime && vimeoplay) {
@@ -114,9 +117,9 @@
                 console.log('Video is playing');
 
                 vimeoplay=true;
+
                 examPlayers.on('timeupdate', function(data) {
                     const currentTime = data.seconds; 
-
                     console.log('Current Time:', currentTime);
 
                     if (currentTime >= pauseAtTime && vimeoplay) {
