@@ -91,8 +91,8 @@
                             
 
                             <div class="form-group">
-                                <label for="hashtag-select">Select Hashtags</label>
-                                <select id="hashtag-select" name="hashtags[]" class="form-control" multiple="multiple">
+                                <label for="hashtag-select">Select Channel</label>
+                                <select id="hashtag-select" name="hashtags" class="form-control">
                                     @foreach($hashtags as $hashtag)
                                         <option value="{{ $hashtag->id }}">{{ $hashtag->hashtag }}</option>
                                     @endforeach
@@ -368,15 +368,15 @@
 
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        // Initialize Select2 with checkboxes enabled
-        $('#hashtag-select').select2({
-            placeholder: "Select hashtags",
-            allowClear: true,
-            templateResult: formatState, // Optional, to style the options
-            templateSelection: formatState
-        });
-    });
+    // $(document).ready(function() {
+    //     // Initialize Select2 with checkboxes enabled
+    //     $('#hashtag-select').select2({
+    //         placeholder: "Select hashtags",
+    //         allowClear: true,
+    //         templateResult: formatState, // Optional, to style the options
+    //         templateSelection: formatState
+    //     });
+    // });
 
     // Optional: Custom template for displaying checkboxes
     function formatState(state) {

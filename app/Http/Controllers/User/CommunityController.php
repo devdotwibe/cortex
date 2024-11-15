@@ -208,7 +208,7 @@ class CommunityController extends Controller
         if ($user->post_status !== "active") {
             return redirect()->route('community.index')->with('error', "Admin Banned from Community post");
         }
-        $hashtags = Hashtagstore::all();
+        $hashtags = Hashtag::all();
         return view('user.community.create', compact('hashtags'));
     }
     // public function store(Request $request)
@@ -311,15 +311,17 @@ class CommunityController extends Controller
 
 
 
-        $extractedHashtags = $request->input('hashtags', []);
+        $extractedHashtags = $request->input('hashtags');
+
+        Hashtag::firstOrCreate(['hashtag' => $extractedHashtags,'post_id' => $post->id]);
 
         // dd($extractedHashtags);
-        foreach ($extractedHashtags as $hashtag) {
-            if (!empty($hashtag)) {
-                $hash_value = HashtagStore::find($hashtag);
-                Hashtag::firstOrCreate(['hashtag' => $hash_value->hashtag, 'hashtagstore_id' => $hashtag, 'post_id' => $post->id]);
-            }
-        }
+        // foreach ($extractedHashtags as $hashtag) {
+        //     if (!empty($hashtag)) {
+        //         $hash_value = HashtagStore::find($hashtag);
+        //         Hashtag::firstOrCreate(['hashtag' => $hash_value->hashtag, 'hashtagstore_id' => $hashtag, 'post_id' => $post->id]);
+        //     }
+        // }
 
         return redirect()->route('community.index')->with('success', "Post published");
     }
