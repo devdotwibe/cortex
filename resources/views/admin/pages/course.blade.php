@@ -633,39 +633,35 @@
                                         </div>
                                     </div>
                                     <div class="numericalsectionclass">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="questionbankimage" class="file-upload">Question Bank Image <br>
-                                                <img src="{{ asset('assets/images/upfile.svg') }}"
-                                                    alt="Upload Icon"> </label>
-                                            <input type="file" class="form-control" style="display: none;" name="questionbankimage" id="questionbankimage">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="questionbankimage" class="file-upload">
+                                                    Question Bank Image  
+                                                    <br>
+                                                    <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon"> 
+                                                </label>
+                                                <input type="file" class="form-control" style="display: none;" name="questionbankimage" id="questionbankimage" onchange="previewQuestionBankImage(event, 'questionbankImagePreview', this)">
+                                            </div>
+                                        </div>
+                                    
+                                        <!-- Preview Image Container -->
+                                        <div class="form-group" id="questionbankContainer" style="display: {{ isset($course) && $course->questionbankimage ? 'block' : 'none' }};">
+                                            <label for="questionbankImagePreview">Image Preview</label>
+                                            <div class="numericalclass">
+                                                @if (isset($course) && $course->questionbankimage)
+                                                    <!-- Display existing image if set -->
+                                                    <img id="questionbankImagePreview-save" src="{{ url('d0/' . $course->questionbankimage) }}" alt="Image Preview" style="width: 100%; height: auto;">
+                                                    <button type="button" class="btn btn-danger" id="icondeletequestionbankimg" style="position: absolute; top: 5px; right: 5px;" onclick="removeQuestionBankImage()">X</button>
+                                                @else
+                                                    <!-- Dynamic image preview (hidden by default) -->
+                                                    <img id="questionbankImagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
+                                                    <button type="button" class="btn btn-danger" id="deleteiconquestionbankimg" style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removeQuestionBankImage()">X</button>
+                                                @endif
+                                            </div>
                                         </div>
                                     </div>
-                               
-
-                                
-                              
-                                <!-- Preview Image Container -->
-                                <!-- Preview Image Container -->
-                                <div class="form-group">
-                                    <label for="questionbankimage">Image Preview</label>
-                                    <div id="questionbankContainer" class="numericalclass">
-                                      
-                                        @if (isset($course) && $course->questionbankimage)
-                                            <img id="questionbankimage"
-                                                src="{{ url('d0/' . $course->questionbankimage) }}" alt="Image Preview"
-                                                style="width: 100%; height: auto;">
-                                            <button type="button" onclick="removeQuestionBankImage(this)"
-                                                value="{{ $course->id }}" class="btn btn-danger"
-                                                style="float: right;">X</button>
-                                        @else
-                                            <img id="questionbankimage" src="#" alt="Image Preview"
-                                                style="display: none; width: 100%; height: auto;">
-                                        @endif
-                                    </div>
-                                </div>
-
-                            </div>
+                                    
+                            
                         </div>
                                 <button type="submit" class="btn btn-dark qbank" name="sub_section"
                                     value="tab2_save">Save</button>
