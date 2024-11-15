@@ -1746,7 +1746,7 @@
                                                     </div>
                                                 </div>
 
-                                                {{-- <!-- Image -->
+                                                <!-- Image -->
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <div class="form-data">
@@ -1765,48 +1765,11 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div> --}}
+                                                </div>
 
 
 
-<!-- Image Upload with Preview -->
-<div class="col-md-12 numericalsectionclass">
-    <div class="form-group">
-        <div class="form-data">
-            <div class="forms-inputs mb-4">
-                <label for="image" class="file-upload">Image1 <br>
-                    <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon"> </label>
 
-                <input type="file" name="imageupdate[]" class="form-control" style="display: none;"
-                    onchange="previewFeatureImage(event, 'imagePreview', this)" data-id="imgid12">
-
-                @error('imageupdate.' . $k)
-                    <div class="text-danger">{{ $message }}</div>
-                @enderror
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Preview Image Container -->
-<div class="form-group imgid12" id="imgid12" style="display: none;">
-    <label for="imagePreview">Image Preview</label>
-    <div id="imagePreviewContainer" class="numericalclass"
-        style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px; position: relative;">
-        
-        <!-- Image Preview -->
-        <img id="imagePreview" src="" alt="Image Preview"
-            style="width: 100%; height: auto; display: none;">
-
-        <!-- Preview Delete Button -->
-        <button type="button" class="btn btn-danger imgid12" id="previewDeleteBtn"
-            style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removePreviewImage()">X</button>
-
-        <!-- Delete Button (for saved image) -->
-        <button type="button" class="btn btn-danger" id="deleteImageBtn"
-            style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removeImagerev()">X</button>
-    </div>
-</div>
 
 
 
@@ -1945,7 +1908,7 @@
 
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="review">Review1*</label>
+                                                <label for="review">Review*</label>
                                                 <textarea name="review[]" class="form-control" rows="5" placeholder="Review"></textarea>
                                                 @error('review')
                                                     <div class="text-danger">{{ $message }}</div>
@@ -1958,7 +1921,7 @@
 
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="image">Image1</label>
+                                                <label for="image">Image</label>
                                                 <input type="hidden" name="feedids[]" value="">
                                                 <input type="file" name="image[]" class="form-control"
                                                     onchange="previewFeatureImage(event)">
@@ -3173,68 +3136,6 @@ function removeLiveImage() {
 }
 
 
-
-
-function previewFeatureImage(event) {
-    const reader = new FileReader();
-
-    reader.onload = function() {
-        const output = document.getElementById('imagePreview');
-        output.src = reader.result;
-        output.style.display = 'block';
-
-        // Show the image preview container and the delete buttons
-        document.getElementById('imgid12').style.display = 'block';
-        document.getElementById('deleteImageBtn').style.display = 'none'; // Hide delete button for saved images
-        document.getElementById('previewDeleteBtn').style.display = 'block'; // Show preview delete button
-    };
-
-    if (event.target.files[0]) {
-        reader.readAsDataURL(event.target.files[0]);
-    }
-}
-
-// Function to remove the image preview (before saving)
-function removePreviewImage() {
-    // Clear the image preview source and hide preview container and delete button
-    const output = document.getElementById('imagePreview');
-    output.src = '';
-    output.style.display = 'none';
-
-    document.getElementById('imgid12').style.display = 'none';
-    document.getElementById('previewDeleteBtn').style.display = 'none'; // Hide preview delete button
-}
-
-// Function to remove the image from the server (for saved images)
-function removeImagerev() {
-    const imagePath = "{{ $banner->image }}"; // Set the saved image path dynamically if available
-
-    // Send an AJAX request to delete the image from the server
-    $.ajax({
-        type: 'POST',
-        url: '{{ route('admin.page.revImage') }}', // Ensure this route matches your backend for deleting the image
-        data: {
-            _token: '{{ csrf_token() }}',
-            image_path: imagePath // Send the image path to delete it from the server
-        },
-        success: function(response) {
-            if (response.success) {
-                // Hide the image preview and the delete button
-         
-
-                document.getElementById('imagePreview').style.display = 'none';
-                document.querySelector('#imagePreviewContainer button.btn-danger').style.display = 'none';
-
-
-            } else {
-                alert('Image could not be deleted. Please try again.');
-            }
-        },
-        error: function(xhr) {
-            alert('An error occurred while deleting the image. Please try again.');
-        }
-    });
-}
 
 </script>
 
