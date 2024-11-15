@@ -1834,7 +1834,7 @@
                                                 </div>
 
                                                 <!-- Image -->
-                                                <div class="col-md-12">
+                                                {{-- <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label for="image" class="file-upload">Image11 <br>
                                                             <img src="{{ asset('assets/images/upfile.svg') }}"
@@ -1852,11 +1852,11 @@
                                                             <div class="text-danger">{{ $message }}</div>
                                                         @enderror
                                                     </div>
-                                                </div>
+                                                </div> --}}
 
 
 
-                                                {{-- <div class="col-md-12 numericalsectionclass">
+                                                <div class="col-md-12 numericalsectionclass">
                                                     <div class="form-group">
                                                         <label for="image" class="file-upload">Image11 <br>
                                                             <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
@@ -1890,7 +1890,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                 --}}
+                                                
 
                                                 {{--                                                     
                                                     <div class="col-md-12">
