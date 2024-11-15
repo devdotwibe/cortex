@@ -640,23 +640,35 @@
                                                     <br>
                                                     <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon"> 
                                                 </label>
-                                                <input type="file" class="form-control" style="display: none;" name="questionbankimage" id="questionbankimage" onchange="previewQuestionBankImage(event, 'questionbankImagePreview', this)">
+                                                <input type="file" class="form-control" style="display: none;" name="questionbankimage" id="questionbankimage" onchange="previewQuestionBankImage(event, 'questionbankImagePreview', this)" data-id="imgid10">
                                             </div>
                                         </div>
                                     
                                         <!-- Preview Image Container -->
-                                        <div class="form-group" id="questionbankContainer" style="display: {{ isset($course) && $course->questionbankimage ? 'block' : 'none' }};">
+                                        <div class="form-group imgid10" id="imgid10" style="display: {{ isset($course) && $course->questionbankimage ? 'block' : 'none' }};">
                                             <label for="questionbankImagePreview">Image Preview</label>
                                             <div class="numericalclass">
                                                 @if (isset($course) && $course->questionbankimage)
                                                     <!-- Display existing image if set -->
                                                     <img id="questionbankImagePreview-save" src="{{ url('d0/' . $course->questionbankimage) }}" alt="Image Preview" style="width: 100%; height: auto;">
+                                                    <!-- Delete button for saved image -->
                                                     <button type="button" class="btn btn-danger" id="icondeletequestionbankimg" style="position: absolute; top: 5px; right: 5px;" onclick="removeQuestionBankImage()">X</button>
-                                                @else
-                                                    <!-- Dynamic image preview (hidden by default) -->
-                                                    <img id="questionbankImagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
-                                                    <button type="button" class="btn btn-danger" id="deleteiconquestionbankimg" style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removeQuestionBankImage()">X</button>
                                                 @endif
+                                    
+                                                <!-- Dynamic image preview (hidden by default) -->
+                                                <img id="questionbankImagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
+                                                
+                                                <button type="button" class="btn btn-danger" id="deleteiconquestionbankimg" style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removeQuestionImage()">X</button>
+                                    
+
+
+
+
+
+
+                                                <!-- Delete button for saved image (if exists) -->
+                                                <button type="button" class="btn btn-danger" id="icondeletequestionbankimg" style="position: absolute; top: 5px; right: 5px; 
+                                                    {{ isset($course) && $course->questionbankimage ? 'display: block;' : 'display: none;' }}" onclick="removeQuestionBankImage()">X</button>
                                             </div>
                                         </div>
                                     </div>
@@ -1163,7 +1175,7 @@ function removeSectionImage() {
 
 
 
-    <script>
+    {{-- <script>
         function removeQuestionBankImage(button) {
             const courseId = button.value; // Get the course ID from the button value
             const url = '{{ route('admin.course.deleteQuestionBankImage', ':id') }}'.replace(':id',
@@ -1190,7 +1202,7 @@ function removeSectionImage() {
                 }
             });
         }
-    </script>
+    </script> --}}
 
     <script>
         function removeTopicImage(button) {
@@ -1403,8 +1415,68 @@ function removeImage1() {
 
     
 
+
+// Function to remove the Question Bank image from the server when the delete button is clicked
+function removeQuestionBankImage() {
+    const imagePath = "{{ $course->questionbankimage }}"; // Set the correct image path for the Question Bank image
+
+    $.ajax({
+        type: 'POST',
+        url: '{{ route('admin.course.deleteQuestionBankImage') }}', // Ensure this route matches the backend route for deleting the Question Bank image
+        data: {
+            _token: '{{ csrf_token() }}',
+            image_path: imagePath
+        },
+        success: function(response) {
+            if (response.success) {
+                $('#imgid10').hide();  // Hide the image preview container
+                document.getElementById('questionbankImagePreview-save').style.display = 'none'; // Hide the saved image preview
+                document.querySelector('#questionbankImagePreviewContainer button.btn-danger').style.display = 'none'; // Hide delete button
+            } else {
+                alert('Image could not be deleted. Please try again.');
+            }
+        },
+        error: function(xhr) {
+            alert('An error occurred. Please try again.');
+        }
+    });
+}
+
+
+
+// Function to preview the Question Bank image when the file input changes
+function previewQuestionBankImage(event, previewId, element) {
+    const reader = new FileReader();
+
+    reader.onload = function() {
+        const output = document.getElementById(previewId);
+        output.src = reader.result; // Set the preview image source
+        output.style.display = 'block'; // Display the preview image
+
+        // Show the preview container and delete button for the preview image
+        $('#imgid10').show();
+        $('#deleteiconquestionbankimg').show(); // Show delete button for the preview image
+        $('#icondeletequestionbankimg').hide(); // Hide delete button for the saved image
+    };
+
+    if (event.target.files[0]) {
+        reader.readAsDataURL(event.target.files[0]); // Read the selected image
+    }
+}
+
+// Function to remove the Question Bank preview image when the delete button is clicked
+function removeQuestionImage() {
+    // Clear the preview image and hide the preview container and delete button
+    const output = document.getElementById('questionbankImagePreview');
+    output.src = '';
+    output.style.display = 'none'; // Hide the preview image
+
+    $('#imgid10').hide(); // Hide preview container
+    $('#deleteiconquestionbankimg').hide(); // Hide delete button for the preview image
+
+    // Clear the file input field
+    document.getElementById('questionbankimage').value = '';
+}
 </script>
-
-
 
 @endpush
