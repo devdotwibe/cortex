@@ -752,7 +752,7 @@ button.close {
 .exam-container .container-wrap .lesson .lesson-body p img {
     display: block;
     width: 100%;
-    margin: 0 auto 28px;
+    margin-bottom: 28px;
 }
 
 .exam-container .container-wrap.question-bank-review .lesson .lesson-body p {
