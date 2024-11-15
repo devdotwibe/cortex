@@ -69,34 +69,30 @@
 
     <section class="exam-footer">
         <div class="lesson-pagination">
-            <div class="lesson-left ">
+            <div class="lesson-left">
                 <a href="{{ route('question-bank.set.complete', $userExamReview->slug) }}" class="button left-btn"
                     title="Back">
                     <img src="{{ asset('assets/images/leftarrow.svg') }}" alt="<"> Back
                 </a>
             </div>
-
-
-
             <div class="exam-right exam-progress-inner-item">
-
                 <div class="progress-main">
-
-
-
                 </div>
             </div>
 
 
-
-
-
-
-            <div class="finish-btn">
-                <a href="{{ route('question-bank.show', $category->slug) }}" class="button right-btn" title="Next">
+    
+            <div class="lesson-right pagination-arrow" style="display:none">
+                <button class="button right-btn"> Next <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
+            </div>
+            <div class="lesson-finish pagination-arrow" style="display:none">
+                <button class="button finish-btn" onclick="window.location.href='{{ route('question-bank.show', $category->slug) }}'"> Finish Set <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
+            </div> 
+            {{-- <div class="finish-btn">
+                <a href="" class="button right-btn" title="Next">
                     Finish Set <img src="{{ asset('assets/images/rightarrow.svg') }}" alt=">">
                 </a>
-            </div>
+            </div> --}}
 
 
         </div>
@@ -109,14 +105,14 @@
             <div class="question-preview-title">
                 <h3>Review Summary</h3>
             </div>
-            {{-- <div class="question-preview-body">
+            <div class="question-preview-body">
                 <div class="row">
                     <div class="col-md-12">
                         <ul class="nav nav-tabs question-tab" id="questionPreviewTab" role="tablist">
                             <li class="nav-item" role="presentation"> 
                                 <button class="nav-link active" id="show-all-tab" data-bs-toggle="tab" data-bs-target="#show-all" type="button" role="tab" aria-controls="show-all" aria-selected="true"><div class="nav-status status-active"><img src="{{asset('assets/images/showall.svg')}}" alt="all"><span></span></div> Show All</button>
                             </li>
-                            <li class="nav-item" role="presentation"> 
+                            {{-- <li class="nav-item" role="presentation"> 
                                 <button class="nav-link" id="answered-tab" data-bs-toggle="tab" data-bs-target="#answered" type="button" role="tab" aria-controls="answered" aria-selected="false"><div class="nav-status status-active" ><span id="answered-nav">0</span></div> Answered</button>
                             </li>
                             <li class="nav-item" role="presentation"> 
@@ -127,7 +123,7 @@
                             </li>
                             <li class="nav-item" role="presentation"> 
                                 <button class="nav-link" id="flagged-tab" data-bs-toggle="tab" data-bs-target="#flagged" type="button" role="tab" aria-controls="flagged" aria-selected="false"><div class="nav-status status-active" ><img src="{{asset('assets/images/flaged.svg')}}" alt="all"><span id="flagged-nav">0</span> </div> Flagged</button>
-                            </li>
+                            </li> --}}
                         </ul>
                         <div class="tab-content" id="questionPreviewTabContent">
                             <div class="tab-pane fade show active" id="show-all" role="tabpanel" aria-labelledby="show-all-tab">
@@ -137,7 +133,7 @@
                                             <h3>Questions</h3>
                                             <p>Click a number to go question</p>
                                         </div>
-                                        <div class="tabbody">
+                                        {{-- <div class="tabbody">
                                             <div class="question-list">
                                                 @for ($i = 1; $i <= ($questioncount??0); $i++)
                                                     <div class="question-item" data-idx="{{$i}}">
@@ -148,11 +144,11 @@
                                                     </div>
                                                 @endfor
                                             </div>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="answered" role="tabpanel" aria-labelledby="answered-tab">
+                            {{-- <div class="tab-pane fade" id="answered" role="tabpanel" aria-labelledby="answered-tab">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="tabheader">
@@ -242,28 +238,15 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
-
-
                     </div>
                 </div>
-            </div> --}}
-
-            <div class="lesson-footer" id="lesson-footer-paginationmobile">
-                
             </div>
-
-
-
-
-
+            <div class="lesson-footer" id="lesson-footer-paginationmobile">                
+            </div>
         </div>
-
-
     </section>
-
-
 @endsection
 
 @push('footer-script')
@@ -468,11 +451,7 @@
 
                     })
                 }
-
-
                 $('.lesson-end').show();
-
-
                 if (res.next_page_url) {
                     $('.lesson-right').show()
                         .find('button.right-btn')
@@ -481,12 +460,13 @@
                 } else {
                     $('.lesson-finish').show();
                 }
-
                 if (res.prev_page_url) {
-                    $('.lesson-left').show()
-                        .find('button.left-btn')
-                        .data('pageurl', res.prev_page_url)
-                        .attr('onclick', `loadlessonreview('${res.prev_page_url}')`); // Adding onclick event
+                    $('.lesson-left a.left-btn')
+                        .attr('href', res.prev_page_url) // Change the URL
+                        .attr('title', 'New Title')  // Optionally change the title
+                        .find('img').attr('alt', '< Previous') // Optionally update the alt text of the image
+                        .end()
+                        .contents().last().replaceWith('Previous');
                 }
 
                 $('#menu-text').html(`Question <span> ${res.current_page} </span> `)
