@@ -756,7 +756,7 @@
                                             <!-- Delete button for saved image -->
                                             <button type="button" class="btn btn-danger" id="iconDeleteTopicImage" 
                                                     style="position: absolute; top: 5px; right: 5px;" 
-                                                    onclick="removeTopicImage(this)" value="{{ $course->id }}">X</button>
+                                                    onclick="removeTopicImage()" value="{{ $course->id }}">X</button>
                                         @endif
                             
                                         <!-- Dynamic image preview (hidden by default) -->
@@ -1575,7 +1575,7 @@ function previewTopicImage(event, previewId, element) {
 }
 
 // Function to remove the Topic preview image when the delete button is clicked
-function removeTopicImage() {
+function removeDynamicTopicImage() {
     // Clear the preview image and hide the preview container and delete button
     const output = document.getElementById('topicImagePreview');
     output.src = '';
