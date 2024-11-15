@@ -988,34 +988,6 @@
 
 
 
-        // function removeImage(button) {
-
-        //     const courseId = button.value; 
-        //     const url = '{{ route('admin.course.deleteImage') }}'; 
-
-        //     $.ajax({
-        //         type: 'POST',
-        //         url: url,
-        //         data: {
-        //             _token: '{{ csrf_token() }}' 
-        //         },
-        //         success: function(response) {
-        //             if (response.success) {
-                       
-        //                 document.getElementById('imagePreview-save').style.display = 'none';
-        //                 button.style.display = 'none';
-        //             } else {
-        //                 alert('Image could not be deleted. Please try again1.');
-        //             }
-        //         },
-        //         error: function(xhr) {
-        //             // Handle error response
-        //             alert('Image could not be deleted. Please try again2.');
-        //         }
-        //     });
-        // }
-
-
         // Function to remove the Section image from the server when the delete button is clicked
 function removeSectionImage() {
     const imagePath = "{{ $course->image }}"; // Set the correct image path for the Section image
@@ -1456,16 +1428,16 @@ function removeImage() {
 }
 
     // Function to remove the saved image when the saved delete button is clicked
-    function removeSavedImage() {
+    // function removeSavedImage() {
       
 
-        const output = document.getElementById('imagePreview-save');
-                    output.src = '';
-                    output.style.display = 'none';
+    //     const output = document.getElementById('imagePreview-save');
+    //                 output.src = '';
+    //                 output.style.display = 'none';
 
-                    document.getElementById('imgid1').style.display = 'none';
-                    document.getElementById('deleteicon1').style.display = 'none'; // Hide preview delete button
-                }
+    //                 document.getElementById('imgid1').style.display = 'none';
+    //                 document.getElementById('deleteicon1').style.display = 'none'; // Hide preview delete button
+    //             }
 
 
     
