@@ -98,7 +98,7 @@
                                         <div class="forms-inputs mb-8"> 
                                             <label for="name-table-subcategory-form-create">Vimeo video</label>
 
-                                            <input type="text"  name="explanation_video" id="explanation_video" class="form-control "  >
+                                            <input type="text"  name="explanation_video" id="explanation_video" class="form-control" placeholder="Vimeo Url"  >
 
                                             <div class="invalid-feedback" id="explanation_video_error"></div>
 
@@ -139,6 +139,49 @@
             console.log(exam_slug);
 
          }
+
+         
+         function VideoSubmit() 
+            {
+
+                $('.invalid-feedback').html('');
+
+                $('.form-control').removeClass('is-invalid');
+
+                var formElement = $('#explanation_video_form')[0]; 
+
+                var formData = new FormData(formElement);
+
+                $.ajax({
+                    url: $('#explanation_video_form').attr('action'),  
+                    type: 'POST', 
+                    data: formData,  
+                    processData: false, 
+                    contentType: false, 
+                    success: function(response) {
+                        
+                        if (response.status === 'success') {
+                            
+                            $('#explanation_video_modal').modal('hide');
+
+                            $('#explanation_video_form')[0].reset();
+
+                            showToast(response.message, 'success',{ autohide: true ,delay:3000 });
+                        } 
+                    },
+                    error: function(xhr) {
+                        
+                        var errors = xhr.responseJSON.errors;
+                        if (errors) {
+                            
+                            $.each(errors, function(field, message) {
+                                $('#' + field + '_error').html(message);
+                                $('#' + field).addClass('is-invalid');
+                            });
+                        }
+                    }
+                });
+            }
 
 
 

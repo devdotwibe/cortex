@@ -138,7 +138,21 @@ class ExamController extends Controller
 
     public function explanation_video(Request $request)
     {
-        dd($request->exam_id);
+        $request->validate([
+
+            "explanation_video"=>["required",'string'],
+        ]);
+
+        $exam = Exam::findSlug($request->exam_id);
+        if($exam)
+        {
+            $exam->explanation_video = $request->explanation_video;
+            $exam->save();
+    
+            return response()->json(['status' => 'success', 'message' => 'Explanation Video Added successfully!']);
+        }
+       
+        return response()->json(['status' => 'success', 'message' => 'Something Error!']);
     }
 
 
