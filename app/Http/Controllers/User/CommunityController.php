@@ -304,7 +304,7 @@ class CommunityController extends Controller
 
         $data['user_id'] = $user->id;
         $data['status'] = "publish";
-        $data['hashtag_id'] = $request->hashtag;
+        $data['hashtag_id'] = $request->hashtags;
         $post = Post::store($data);
         if ($request->type == "poll") {
             foreach ($request->input('option', []) as $k => $v) {
@@ -314,8 +314,6 @@ class CommunityController extends Controller
                 ]);
             }
         }
-
-        dd($request->hashtag);
 
         // $extractedHashtags = $request->input('hashtags');
 
