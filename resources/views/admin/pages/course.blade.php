@@ -729,7 +729,7 @@
                                 </div>
                             </div> --}}
 
-                            <div class="numericalsectionclass">
+                            {{-- <div class="numericalsectionclass">
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="topicimage" class="file-upload">
@@ -770,7 +770,7 @@
                                                 onclick="removeDynamicTopicImage()">X</button>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             
 
