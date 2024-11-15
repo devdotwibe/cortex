@@ -148,37 +148,23 @@
                                             </div>
                                         </div>
                                     
-                                        <div class="form-group imgid1" id="imgid1">
+                                        <div class="form-group imgid1" id="imgid1" style="display: {{ isset($course) && $course->image ? 'block' : 'none' }};">
                                             <label for="imagePreview">Image Preview</label>
                                             <div id="imagePreviewContainer" class="numericalclass">
                                                 @if (isset($course) && $course->image)
-                                                    <!-- Display saved image and delete button -->
                                                     <img id="imagePreview-save" src="{{ url('d0/' . $course->image) }}" alt="Image Preview"
-                                                        style="width: 100%; height: auto;">
-                                                    <!-- Delete button for saved image -->
-                                                    {{-- <button type="button" class="btn btn-danger" id="icondelete1" onclick="removeImage()"  style="position: absolute; top: 5px; right: 5px; {{ isset($course) && $course->image ? 'display: block;' : 'display: none;' }}">X</button> --}}
-                                                    <img id="imagePreview-save"
-                                                    src="{{ isset($course) && $course->image ? url('d0/' . $course->image) : '' }}"
-                                                    alt="Image Preview"
-                                                    style="width: 100%; height: auto; display: {{ isset($course) && $course->image ? 'block' : 'none' }};">                                                  
-                                                        <!-- Delete button for preview (before saving) -->
-                                                <button type="button" class="btn btn-danger imgid5" id="deleteicon1"
-                                                style="position: absolute; top: 5px; right: 5px; display: none;"
-                                                onclick="removeImage()">X</button>
-                                                   <!-- Delete button for saved image -->
-                                                     <button type="button" class="btn btn-danger" id="icondelete1"
-                                                     style="position: absolute; top: 5px; right: 5px; {{ isset($course) && $course->image ? 'display: block;' : 'display: none;' }}"
-                                                     onclick="removeSectionImage()">X</button>
-
+                                                         style="width: 100%; height: auto;">
+                                                    <button type="button" class="btn btn-danger" id="icondelete1" style="position: absolute; top: 5px; right: 5px;"
+                                                            onclick="removeSectionImage()">X</button>
                                                 @endif
-                                    
-                                              <!-- Dynamic image preview -->
-                                              <img id="imagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
-                                    
-                                                <!-- Delete button for preview (before saving) -->
-                                                <button type="button" class="btn btn-danger" id="deleteicon1" style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removeImagePreview()">X</button>
+                                        
+                                                <!-- Dynamic image preview -->
+                                                <img id="imagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
+                                                <button type="button" class="btn btn-danger" id="deleteicon1" style="position: absolute; top: 5px; right: 5px; display: none;"
+                                                        onclick="removeImage()">X</button>
                                             </div>
                                         </div>
+                                        
 
 
                                        
@@ -1432,39 +1418,38 @@ function removeSectionImage() {
 
     
     // Function to preview the image when the file input changes
-    function previewImage(event, previewId, element) {
-        const reader = new FileReader();
+function previewImage(event, previewId, element) {
+    const reader = new FileReader();
 
-        reader.onload = function() {
-            const output = document.getElementById(previewId);
-            output.src = reader.result; // Set the preview image source
-            output.style.display = 'block'; // Display the preview image
+    reader.onload = function() {
+        const output = document.getElementById(previewId);
+        output.src = reader.result; // Set the preview image source
+        output.style.display = 'block'; // Display the preview image
 
-            // Get the class name (from data-id) to toggle visibility of related elements
-            var id = $(element).data('id');
-            $('.' + id).show(); // Show the preview container
+        // Show the preview container and delete button
+        $('#imgid1').show();
+        $('#deleteicon1').show(); // Show delete button for the preview image
+        $('#icondelete1').hide(); // Hide delete button for the saved image
+    };
 
-            // Show the delete button for preview and hide the delete button for saved image
-            document.getElementById('imgid1').style.display = 'block';
-            document.getElementById('deleteicon1').style.display = 'block';
-            document.getElementById('icondelete1').style.display = 'none'; // Hide the saved image delete button
-        };
-
-        if (event.target.files[0]) {
-            reader.readAsDataURL(event.target.files[0]); // Read the selected image
-        }
+    if (event.target.files[0]) {
+        reader.readAsDataURL(event.target.files[0]); // Read the selected image
     }
+}
 
-    // Function to remove the preview image when the preview delete button is clicked
-    function removeImage() {
-        // Clear the preview image and hide the preview container and delete button
-        const output = document.getElementById('imagePreview');
-        output.src = '';
-        output.style.display = 'none'; // Hide the preview image
+// Function to remove the preview image when the delete button is clicked
+function removeImage() {
+    // Clear the preview image and hide the preview container and delete button
+    const output = document.getElementById('imagePreview');
+    output.src = '';
+    output.style.display = 'none'; // Hide the preview image
 
-        document.getElementById('imgid1').style.display = 'none'; // Hide preview container
-        document.getElementById('deleteicon1').style.display = 'none'; // Hide delete button
-    }
+    $('#imgid1').hide(); // Hide preview container
+    $('#deleteicon1').hide(); // Hide delete button for the preview image
+
+    // Clear the file input field
+    document.getElementById('image').value = '';
+}
 
     // Function to remove the saved image when the saved delete button is clicked
     function removeSavedImage() {
