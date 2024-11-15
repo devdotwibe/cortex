@@ -105,10 +105,10 @@
                 $('.vp-outro-content').hide();
             });
             examPlayer.on('ended', function() {
+
+                vimeoplay=false;
                 console.log('Video has ended');
 
-                $('#video-suggestions').hide();
-                $('.vp-outro-content').hide();
             });
 
             console.log(examPlayers);
