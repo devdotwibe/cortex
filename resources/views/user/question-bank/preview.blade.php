@@ -106,10 +106,152 @@
     <section class="modal-expand" id="question-preview-page" style="display: none;">
         <div class="container-wrap">
 
+            <div class="question-preview-title">
+                <h3>Review Summary</h3>
+            </div>
+            {{-- <div class="question-preview-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul class="nav nav-tabs question-tab" id="questionPreviewTab" role="tablist">
+                            <li class="nav-item" role="presentation"> 
+                                <button class="nav-link active" id="show-all-tab" data-bs-toggle="tab" data-bs-target="#show-all" type="button" role="tab" aria-controls="show-all" aria-selected="true"><div class="nav-status status-active"><img src="{{asset('assets/images/showall.svg')}}" alt="all"><span></span></div> Show All</button>
+                            </li>
+                            <li class="nav-item" role="presentation"> 
+                                <button class="nav-link" id="answered-tab" data-bs-toggle="tab" data-bs-target="#answered" type="button" role="tab" aria-controls="answered" aria-selected="false"><div class="nav-status status-active" ><span id="answered-nav">0</span></div> Answered</button>
+                            </li>
+                            <li class="nav-item" role="presentation"> 
+                                <button class="nav-link" id="not-answered-tab" data-bs-toggle="tab" data-bs-target="#not-answered" type="button" role="tab" aria-controls="not-answered" aria-selected="false"><div class="nav-status status-inactive" ><span id="not-answered-nav">0</span></div> Not Answered</button>
+                            </li>
+                            <li class="nav-item" role="presentation"> 
+                                <button class="nav-link" id="not-readed-tab" data-bs-toggle="tab" data-bs-target="#not-readed" type="button" role="tab" aria-controls="not-readed" aria-selected="false"><div class="nav-status"><span  id="not-readed-nav">{{($questioncount??0)}}</span></div> Not Read</button>
+                            </li>
+                            <li class="nav-item" role="presentation"> 
+                                <button class="nav-link" id="flagged-tab" data-bs-toggle="tab" data-bs-target="#flagged" type="button" role="tab" aria-controls="flagged" aria-selected="false"><div class="nav-status status-active" ><img src="{{asset('assets/images/flaged.svg')}}" alt="all"><span id="flagged-nav">0</span> </div> Flagged</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="questionPreviewTabContent">
+                            <div class="tab-pane fade show active" id="show-all" role="tabpanel" aria-labelledby="show-all-tab">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="tabheader">
+                                            <h3>Questions</h3>
+                                            <p>Click a number to go question</p>
+                                        </div>
+                                        <div class="tabbody">
+                                            <div class="question-list">
+                                                @for ($i = 1; $i <= ($questioncount??0); $i++)
+                                                    <div class="question-item" data-idx="{{$i}}">
+                                                        <button class="item-group" onclick="updateandsave(function(){loadlesson('{{ route('question-bank.set.show',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug,'user_exam'=>$slug,'page'=>$i]) }}');})">
+                                                            <img src="{{asset('assets/images/flaged.svg')}}" alt="all">
+                                                            <span>{{$i}}</span> 
+                                                        </button>
+                                                    </div>
+                                                @endfor
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="answered" role="tabpanel" aria-labelledby="answered-tab">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="tabheader">
+                                            <h3>Questions</h3>
+                                            <p>Click a number to go question</p>
+                                        </div>
+                                        <div class="tabbody">
+                                            <div class="question-list">
+                                                @for ($i = 1; $i <= ($questioncount??0); $i++)
+                                                    <div class="question-item" data-idx="{{$i}}">
+                                                        <button class="item-group" onclick="updateandsave(function(){loadlesson('{{ route('question-bank.set.show',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug,'user_exam'=>$slug,'page'=>$i]) }}');})">
+                                                            <img src="{{asset('assets/images/flaged.svg')}}" alt="all">
+                                                            <span>{{$i}}</span>
+                                                        </button>
+                                                    </div>
+                                                @endfor
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="not-answered" role="tabpanel" aria-labelledby="not-answered-tab">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="tabheader">
+                                            <h3>Questions</h3>
+                                            <p>Click a number to go question</p>
+                                        </div>
+                                        <div class="tabbody">
+                                            <div class="question-list">
+                                                @for ($i = 1; $i <= ($questioncount??0); $i++)
+                                                    <div class="question-item" data-idx="{{$i}}">
+                                                        <button class="item-group" onclick="updateandsave(function(){loadlesson('{{ route('question-bank.set.show',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug,'user_exam'=>$slug,'page'=>$i]) }}');})">
+                                                            <img src="{{asset('assets/images/flaged.svg')}}" alt="all">
+                                                            <span>{{$i}}</span> 
+                                                        </button>
+                                                    </div>
+                                                @endfor
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="not-readed" role="tabpanel" aria-labelledby="not-readed-tab">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="tabheader">
+                                            <h3>Questions</h3>
+                                            <p>Click a number to go question</p>
+                                        </div>
+                                        <div class="tabbody">
+                                            <div class="question-list">
+                                                @for ($i = 1; $i <= ($questioncount??0); $i++)
+                                                    <div class="question-item status-not-read"  data-idx="{{$i}}">
+                                                        <button class="item-group" onclick="updateandsave(function(){loadlesson('{{ route('question-bank.set.show',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug,'user_exam'=>$slug,'page'=>$i]) }}');})">
+                                                            <img src="{{asset('assets/images/flaged.svg')}}" alt="all">
+                                                            <span>{{$i}}</span> 
+                                                        </button>
+                                                    </div>
+                                                @endfor
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="flagged" role="tabpanel" aria-labelledby="flagged-tab">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="tabheader">
+                                            <h3>Questions</h3>
+                                            <p>Click a number to go question</p>
+                                        </div>
+                                        <div class="tabbody">
+                                            <div class="question-list">
+                                                @for ($i = 1; $i <= ($questioncount??0); $i++)
+                                                    <div class="question-item" data-idx="{{$i}}">
+                                                        <button class="item-group" onclick="updateandsave(function(){loadlesson('{{ route('question-bank.set.show',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug,'user_exam'=>$slug,'page'=>$i]) }}');})">
+                                                             
+                                                                <img src="{{asset('assets/images/flaged.svg')}}" alt="all">
+                                                                <span>{{$i}}</span>
+                                                             
+                                                        </button>
+                                                    </div>
+                                                @endfor
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
 
+                    </div>
+                </div>
+            </div> --}}
 
             <div class="lesson-footer" id="lesson-footer-paginationmobile">
+                
             </div>
 
 
@@ -211,9 +353,9 @@
                         const baseUrl = `{{ asset('d0') }}`;
                         $.each(ans, function(ai, av) {
                             const letter = String.fromCharCode(ai + 'A'.charCodeAt(0))
-                            const imageHtml = av && av.image
-                                                    ? `<img src="${baseUrl}/${av.image}" class="answer-image" />`
-                                                    : '';
+                            const imageHtml = av && av.image ?
+                                `<img src="${baseUrl}/${av.image}" class="answer-image" />` :
+                                '';
                             $(`#mcq-${lesseonId}-list`).append(`
                             <div class="form-check-ans">
                                 <span class="question-user-ans ${av.iscorrect?"correct":"wrong"}" data-ans="${av.slug}"></span>
@@ -265,43 +407,34 @@
                         //         var label_name = "<";
                         //     }
                         //     $('#lesson-footer-pagination').append(`
-                        //         <button class="${linkstatus} btn btn-secondary ${v.active?"active":""}" disabled  >${label_name}</button>
-                        //     `)
+                    //         <button class="${linkstatus} btn btn-secondary ${v.active?"active":""}" disabled  >${label_name}</button>
+                    //     `)
                         // } else {
                         //     $('#lesson-footer-pagination').append(`
-                        //         <button class="${linkstatus} btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
-                        //     `)
+                    //         <button class="${linkstatus} btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
+                    //     `)
                         // }
                         if (v.active || !v.url) {
-                            
+
                             var preclass = "";
                             if (k == 0 || k == res.links.length) {
-                             preclass = "prevnxtclass";
+                                preclass = "prevnxtclass";
                             }
-                            console.log(res.links.length);
-
-                            console.log(v.label);
-
-                            
                             $('#lesson-footer-pagination').append(`
                                 <button class="${linkstatus} btn btn-secondary  ${preclass} ${v.active?"active":""}" disabled  >${v.label} </button>
                             `)
                         } else {
-                            console.log(v.label);
-
                             var preclass = "";
-                            if (k == 0 || k == res.links.length-1) {
-                             preclass = "prevnxtclass";
+                            if (k == 0 || k == res.links.length - 1) {
+                                preclass = "prevnxtclass";
                             }
-                            
+
                             $('#lesson-footer-pagination').append(`
                                 <button class="${linkstatus} btn btn-secondary ${preclass}" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
                             `)
                         }
-
                     })
                 }
-
 
                 if (res.total > 1) {
                     $.each(res.links, function(k, v) {
@@ -309,24 +442,17 @@
                         if (k != 0 && k != res.links.length && useranswers[k - 1]) {
                             linkstatus = 'status-bad';
                             if (useranswers[k - 1].iscorrect) {
-
-
                                 linkstatus = "status-good";
-
-
                                 if (useranswers[k - 1].time_taken < {{ $examtime }}) {
                                     linkstatus = "status-exelent";
                                 }
                             }
                         }
                         if (v.active || !v.url) {
-
                             var label_name = v.label;
-
                             if (v.label == '« Previous') {
                                 var label_name = "<";
                             }
-
                             var preclass = "";
                             if (k == 0) {
                                 preclass = "preclass";
