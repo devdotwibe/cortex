@@ -1736,7 +1736,7 @@
                                                     <div class="form-group">
                                                         <div class="form-data">
                                                             <div class="forms-inputs mb-4">
-                                                                <label for="review">Review1*</label>
+                                                                <label for="review">Review*</label>
                                                                 <textarea name="reviewupdate[]" class="form-control" rows="5" placeholder="Review">{{ old('reviewupdate.' . $k, $item->review ?? '') }}</textarea>
                                                                 @error('reviewupdate.' . $k)
                                                                     <div class="text-danger">{{ $message }}</div>
@@ -1958,7 +1958,7 @@
 
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="image">Image</label>
+                                                <label for="image">Image1</label>
                                                 <input type="hidden" name="feedids[]" value="">
                                                 <input type="file" name="image[]" class="form-control"
                                                     onchange="previewFeatureImage(event)">
