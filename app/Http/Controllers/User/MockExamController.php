@@ -275,7 +275,7 @@ class MockExamController extends Controller
         
         $exam = $userExamReview->exam;
        
-        return view('user.full-mock-exam.explanation_video',compact('exam'));
+        return view('user.full-mock-exam.explanation_video',compact('exam','userExamReview'));
         
     }
 

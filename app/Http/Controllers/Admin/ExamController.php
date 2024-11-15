@@ -27,10 +27,10 @@ class ExamController extends Controller
 
                 <a data-id="'.$data->slug.'" class="btn btn-icons eye-button" onclick="UploadVideo(this)">
                             <span class="adminside-icon">
-                                <img src="' . asset("assets/images/icons/mdi_incognito.svg") . '" alt="View">
+                                <img src="' . asset("assets/images/video-clip-32-regular.svg") . '" alt="View">
                             </span>
                             <span class="adminactive-icon">
-                                <img src="' . asset("assets/images/iconshover/view-yellow.svg") . '" alt="View Active" title="View">
+                                <img src="' . asset("assets/images/hover-video-clip-32-regular.svg") . '" alt="View Active" title="View">
                             </span>
                  </a>
 

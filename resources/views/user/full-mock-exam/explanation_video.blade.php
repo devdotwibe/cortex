@@ -6,6 +6,10 @@
 <section class="exam-container" id="exam-container">
     <div class="container-wrap learnlessonclass">
         <div class="lesson">
+
+            <a class="lesson-exit float-start" href="{{route('full-mock-exam.complete',$userExamReview->slug)}}" title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip" >
+                <img src="{{asset("assets/images/exiticon.svg")}}" alt="exiticon">
+            </a>
           
             <div class="lesson-title">
                 <h5><span>{{$exam->title}}</span></h5>
@@ -77,20 +81,65 @@
             examPlayers =new Vimeo.Player(`vimo-videoframe`,{
                 id: vimeoid,
                 width: "100%",
-                controls: true
+                controls: true,
+                autoplay: false,
+                muted: false,
+                ref: '0' ,
+                dnt: true,
+                // loop: true
+            
             });
             examPlayers.getDuration().then(function(duration) { 
                 vimeotime=duration; 
                 console.log('Video Duration:', duration);
+
+                const pauseAtTime = duration;  
+
+                examPlayers.on('timeupdate', function(data) {
+                    const currentTime = data.seconds; 
+
+                    console.log('Current Time:', currentTime);
+
+                    if (currentTime >= pauseAtTime && vimeoplay) {
+                        examPlayers.pause().then(function() {
+                            console.log('Video paused at ' + pauseAtTime + ' seconds');
+                        }).catch(function(error) {
+                            console.error('Error pausing video:', error);
+                        });
+                    }
+                });
             }); 
             examPlayers.on('play', function() { 
+
                 console.log('Video is playing');
 
                 vimeoplay=true;
+                examPlayers.on('timeupdate', function(data) {
+                    const currentTime = data.seconds; 
+
+                    console.log('Current Time:', currentTime);
+
+                    if (currentTime >= pauseAtTime && vimeoplay) {
+                        examPlayers.pause().then(function() {
+                            console.log('Video paused at ' + pauseAtTime + ' seconds');
+                        }).catch(function(error) {
+                            console.error('Error pausing video:', error);
+                        });
+                    }
+                });
+
             });
             examPlayers.on('pause', function() { 
                 console.log('Video is paused');
-                vimeoplay=true;
+                vimeoplay=false;
+                $('#video-suggestions').hide();
+                $('.vp-outro-content').hide();
+            });
+            examPlayer.on('ended', function() {
+
+                vimeoplay=false;
+                console.log('Video has ended');
+
             });
 
             console.log(examPlayers);
