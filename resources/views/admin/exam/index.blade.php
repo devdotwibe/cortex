@@ -134,9 +134,24 @@
 
             $('#exam_id').val(exam_slug);
 
-            $('#explanation_video_modal').modal('show');
+            $.ajax({
 
-            console.log(exam_slug);
+                    url: '{{route('admin.exam.get_expain_video')}}',  
+                    method: 'get',
+                    data: {
+                        exam_slug: exam_slug,
+                    }, 
+                    success: function(response) {
+                        
+                        $('#explanation_video').val(response.data.explanation_video);
+
+                        $('#explanation_video_modal').modal('show');
+
+                    },
+                    error: function(xhr) {
+                        
+                    }
+                });
 
          }
 
