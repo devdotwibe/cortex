@@ -773,12 +773,12 @@
                                                     <br>
                                                     <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon"> 
                                                 </label>
-                                                <input type="file" class="form-control" style="display: none;" name="fullmockimage" id="fullmockimage" onchange="previewFullmockImage(event, 'fullmockImagePreview', this)">
+                                                <input type="file" class="form-control" style="display: none;" name="fullmockimage" id="fullmockimage" onchange="previewFullmockImage(event, 'fullmockImagePreview', this)"data-id="fullmockImagePreviewContainer">
                                             </div>
                                         </div>
                                     
                                         <!-- Preview Image Container -->
-                                        <div class="form-group    " id="fullmockPreviewContainer">
+                                        <div class="form-group  fullmockPreviewContainer" id="fullmockPreviewContainer">
                                             <label for="fullmockImagePreview">Image Preview</label>
                                             <div id="fullmockImagePreviewContainer" class="numericalclass">
                                                 @if (isset($course) && $course->fullmockimage)
