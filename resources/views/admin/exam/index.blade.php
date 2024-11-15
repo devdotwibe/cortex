@@ -110,7 +110,7 @@
                             <input type="hidden" id="exam_id" name="exam_id" >
 
                             <div class="col-md-4 pt-4">  
-                                <button type="button" class="btn btn-dark" id="table-subcategory-form-submit" onclick="VideoSubmit()">Save</button>  
+                                <button type="button" class="btn btn-dark" id="explanation_video_btn" onclick="VideoSubmit()">Save</button>  
                                 <button type="button" class="btn btn-secondary" style="display: none" id="table-subcategory-form-clear" >Cancel</button>               
                             </div>
                         </div> 
@@ -143,8 +143,18 @@
                     }, 
                     success: function(response) {
                         
-                        $('#explanation_video').val(response.data.explanation_video);
+                        if(response.data.explanation_video) 
+                        {
+                            $('#explanation_video').val(response.data.explanation_video);
 
+                            $('#explanation_video_btn').text('Update');
+
+                        }
+                        else
+                        {
+                            $('#explanation_video_btn').text('Save');
+                        }
+                        
                         $('#explanation_video_modal').modal('show');
 
                     },
