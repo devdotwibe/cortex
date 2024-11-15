@@ -651,29 +651,51 @@ public function deleteLearnImage()
 
     return response()->json(['success' => false], 404);
 }
+// public function deleteQuestionBankImage()
+// {
+//     // Find the course by ID
+//     $course = Courses::first();
+
+//     if ($course && $course->questionbankimage) {
+//         // Check if the question bank image file exists in the storage
+//         if (Storage::exists($course->questionbankimage)) {
+//             // Delete the question bank image from the storage
+//             Storage::delete($course->questionbankimage);
+//         }
+
+//         // Set the questionbankimage field to null in the database
+//         $course->questionbankimage = null;
+//         $course->save();
+
+//         // Return a success response
+//         return response()->json(['success' => true]);
+//     }
+
+//     // Return a failure response if the question bank image was not found
+//     return response()->json(['success' => false], 404);
+// }
+
+
+
 public function deleteQuestionBankImage()
 {
-    // Find the course by ID
     $course = Courses::first();
 
     if ($course && $course->questionbankimage) {
-        // Check if the question bank image file exists in the storage
         if (Storage::exists($course->questionbankimage)) {
-            // Delete the question bank image from the storage
             Storage::delete($course->questionbankimage);
         }
 
-        // Set the questionbankimage field to null in the database
+        // Set image to null and save the change
         $course->questionbankimage = null;
         $course->save();
 
-        // Return a success response
         return response()->json(['success' => true]);
     }
 
-    // Return a failure response if the question bank image was not found
     return response()->json(['success' => false], 404);
 }
+
 
 public function deleteTopicImage()
 {
