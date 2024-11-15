@@ -134,7 +134,10 @@ class CommunityController extends Controller
         if ($request->ajax() && (!empty($request->ref))) {
             $post = Post::where('id', '>', 0);
             if (!empty($hashtag)) {
-                $post->whereIn('id', Hashtag::where('hashtag', 'like', "%$hashtag%")->select('post_id'));
+
+                // $post->whereIn('id', Hashtag::where('hashtag', 'like', "%$hashtag%")->select('post_id'));
+
+                $post->whereIn('id', Hashtag::where('id',$hashtag)->select('post_id'));
             }
 
             if (!empty($userid)) {
