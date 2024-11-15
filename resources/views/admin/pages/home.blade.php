@@ -1770,7 +1770,7 @@
 
 
 <!-- Image Upload with Preview -->
-<div class="col-md-12">
+<div class="col-md-12 numericalsectionclass">
     <div class="form-group">
         <div class="form-data">
             <div class="forms-inputs mb-4">
