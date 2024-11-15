@@ -778,7 +778,7 @@
                                         </div>
                                     
                                         <!-- Preview Image Container -->
-                                        <div class="form-group fullmockPreviewContainer" id="fullmockPreviewContainer">
+                                        <div class="form-group    " id="fullmockPreviewContainer">
                                             <label for="fullmockImagePreview">Image Preview</label>
                                             <div id="fullmockImagePreviewContainer" class="numericalclass">
                                                 @if (isset($course) && $course->fullmockimage)
@@ -794,6 +794,8 @@
                                     
                                                 <!-- Dynamic image preview (hidden by default) -->
                                                 <img id="fullmockImagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
+                                                
+
                                                 
                                                 <!-- Delete button for dynamically uploaded image -->
                                                 <button type="button" class="btn btn-danger" id="deleteDynamicFullmockImage" 
