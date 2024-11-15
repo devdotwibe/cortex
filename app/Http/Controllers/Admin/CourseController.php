@@ -637,7 +637,7 @@ public function deleteLearnImage()
 {
     $course = Courses::first();
 
-    if ($course && $course->image) {
+    if ($course && $course->learnimage) {
         if (Storage::exists($course->learnimage)) {
             Storage::delete($course->learnimage);
         }
