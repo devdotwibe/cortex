@@ -92,10 +92,10 @@
                         @csrf                
                         <div class="row"> 
 
-                            <div class="col-md-4">
+                            <div class="col-md-8">
                                 <div class="form-group">
                                     <div class="form-data">
-                                        <div class="forms-inputs mb-4"> 
+                                        <div class="forms-inputs mb-8"> 
                                             <label for="name-table-subcategory-form-create">Vimeo video</label>
 
                                             <input type="text"  name="explanation_video" id="explanation_video" class="form-control "  >
