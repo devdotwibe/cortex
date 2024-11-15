@@ -95,11 +95,13 @@
                 console.log('Video is paused');
                 vimeoplay=false;
                 $('#video-suggestions').hide();
+                $('.vp-outro-content').hide();
             });
             examPlayer.on('ended', function() {
                 console.log('Video has ended');
 
                 $('#video-suggestions').hide();
+                $('.vp-outro-content').hide();
             });
 
             console.log(examPlayers);
