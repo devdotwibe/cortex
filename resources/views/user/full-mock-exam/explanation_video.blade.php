@@ -80,11 +80,7 @@
                 controls: true,
                 autoplay: false,
                 muted: false,
-                playsinline: true,  
-                byline: false,      
-                title: false,       
-                portrait: false 
-
+            
             });
             examPlayers.getDuration().then(function(duration) { 
                 vimeotime=duration; 
