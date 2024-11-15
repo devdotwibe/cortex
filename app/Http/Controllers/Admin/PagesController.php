@@ -994,7 +994,7 @@ public function deleteFeatureImage(Request $request)
         $image->save();
         return response()->json(['success' => true]);
     } else {
-        return response()->json(['success' => false, 'message' => 'Image not found.']);
+        return response()->json(['success' => false, 'message' => 'Image not found1.']);
     }
 }
 
