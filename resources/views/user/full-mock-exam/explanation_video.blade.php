@@ -110,9 +110,24 @@
                 });
             }); 
             examPlayers.on('play', function() { 
+                
                 console.log('Video is playing');
 
                 vimeoplay=true;
+                examPlayers.on('timeupdate', function(data) {
+                    const currentTime = data.seconds; 
+
+                    console.log('Current Time:', currentTime);
+
+                    if (currentTime >= pauseAtTime && vimeoplay) {
+                        examPlayers.pause().then(function() {
+                            console.log('Video paused at ' + pauseAtTime + ' seconds');
+                        }).catch(function(error) {
+                            console.error('Error pausing video:', error);
+                        });
+                    }
+                });
+
             });
             examPlayers.on('pause', function() { 
                 console.log('Video is paused');
