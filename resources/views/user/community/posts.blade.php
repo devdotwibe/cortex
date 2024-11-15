@@ -40,7 +40,7 @@
                             @foreach ($hashtags as $hashtag)
                                 <li class="list-group-item d-inline-block" >
                                     <a
-                                        href="{{ route('community.index', ['hashtag' => $hashtag]) }}">{{ $hashtag }}</a>
+                                        href="{{ route('community.index', ['hashtag' => $hashtag->id]) }}">{{ $hashtag->hashtag }}</a>
                                 </li>
                             @endforeach
                         </ul>
