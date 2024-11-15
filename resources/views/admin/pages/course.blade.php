@@ -1164,7 +1164,7 @@ function removeSectionImage() {
         }
     </script>
 
-    <script>
+    {{-- <script>
         function removeLearnImage(button) {
             const courseId = button.value; // Get the course ID from the button value
             const url = '{{ route('admin.course.deleteLearnImage', ':id') }}'.replace(':id',
@@ -1191,7 +1191,7 @@ function removeSectionImage() {
                 }
             });
         }
-    </script>
+    </script> --}}
 
 
     <script>
