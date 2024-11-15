@@ -94,7 +94,7 @@
             examPlayers =new Vimeo.Player(`vimo-videoframe`,{
                 id: vimeoid,
                 width: "100%",
-                controls: true
+                controls: false
             });
             examPlayers.getDuration().then(function(duration) { 
                 vimeotime=duration; 
