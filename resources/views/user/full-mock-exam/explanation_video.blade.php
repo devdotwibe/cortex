@@ -84,7 +84,9 @@
                 controls: true,
                 autoplay: false,
                 muted: false,
-                ref: '0' 
+                ref: '0' ,
+                dnt: true,
+                loop: true
             
             });
             examPlayers.getDuration().then(function(duration) { 
