@@ -462,6 +462,8 @@ class CourseController extends Controller
 
     public function deleteImage()
     {
+
+        dd('122');
         $course = Courses::first();
 
         if ($course && $course->image) {
