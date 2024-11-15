@@ -271,9 +271,11 @@ class MockExamController extends Controller
     
     public function explanation_video(Request $request,UserExamReview $userExamReview){ 
 
-        $user=Auth::user();   
+        $user=Auth::user();
+        
+        $exam = $userExamReview->exam;
        
-        return view('user.full-mock-exam.resultpage');
+        return view('user.full-mock-exam.explanation_video',compact('exam'));
         
     }
 
