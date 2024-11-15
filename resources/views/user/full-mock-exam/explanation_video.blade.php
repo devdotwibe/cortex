@@ -97,7 +97,7 @@
                 vimeotime=duration; 
                 console.log('Video Duration:', duration);
                 
-                pauseAtTime = duration;
+                pauseAtTime = duration - 0.1;
 
                 examPlayers.on('timeupdate', function(data) {
                     const currentTime = data.seconds; 
