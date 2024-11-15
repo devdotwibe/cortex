@@ -752,6 +752,8 @@
                                             <img id="topicImagePreview-save" src="{{ url('d0/' . $course->topicimage) }}" 
                                                  alt="Image Preview" style="width: 100%; height: auto;">
 
+                                                 <button type="button" class="btn btn-danger" id="iconDeleteTopicImage" style="position: absolute; top: 5px; right: 5px;" onclick="removeTopicImage()">X</button>
+
                                                  
                                             <!-- Delete button for saved image -->
                                             <button type="button" class="btn btn-danger" id="iconDeleteTopicImage" 
@@ -1575,7 +1577,7 @@ function removeTopicImage() {
             if (response.success) {
                 $('#imgid20').hide();  // Hide the image preview container
                 document.getElementById('topicImagePreview-save').style.display = 'none'; // Hide the saved image preview
-                document.querySelector('#topicImagePreviewContainer button.btn-danger').style.display = 'none'; // Hide delete button
+                document.querySelector('#topicImagePreviewContainer btn btn-danger').style.display = 'none'; // Hide delete button
             } else {
                 alert('Image could not be deleted. Please try again.');
             }
