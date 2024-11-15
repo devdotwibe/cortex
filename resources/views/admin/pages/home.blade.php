@@ -1774,7 +1774,7 @@
     <div class="form-group">
         <div class="form-data">
             <div class="forms-inputs mb-4">
-                <label for="image" class="file-upload">Image <br>
+                <label for="image" class="file-upload">Image1 <br>
                     <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon"> </label>
 
                 <input type="file" name="imageupdate[]" class="form-control" style="display: none;"
@@ -1945,7 +1945,7 @@
 
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="review">Review*</label>
+                                                <label for="review">Review1*</label>
                                                 <textarea name="review[]" class="form-control" rows="5" placeholder="Review"></textarea>
                                                 @error('review')
                                                     <div class="text-danger">{{ $message }}</div>
@@ -1958,7 +1958,7 @@
 
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="image">Image</label>
+                                                <label for="image">Image1</label>
                                                 <input type="hidden" name="feedids[]" value="">
                                                 <input type="file" name="image[]" class="form-control"
                                                     onchange="previewFeatureImage(event)">
