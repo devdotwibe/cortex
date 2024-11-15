@@ -1392,7 +1392,7 @@ function previewLearnImage(event, previewId, element) {
 }
 
 // Function to remove the Learn Image preview when the delete button is clicked
-function removeLearnImage() {
+function removeImage1() {
     // Clear the preview image and hide the preview container and delete button
     const output = document.getElementById('learnImagePreview');
     output.src = '';
