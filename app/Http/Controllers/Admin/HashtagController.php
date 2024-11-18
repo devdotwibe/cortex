@@ -60,16 +60,17 @@ class HashtagController extends Controller
     {
        
         $request->validate([
-            'hashtag' => [
-                'required',
-                'regex:/^#\w+$/', 
+            'hashtag' => [ 'required','regex:/^#\w+$/', 
+            'unique:hastags,hashtag'
+               
             ],
         ], [
             'hashtag.regex' => 'The hashtag must start with a # symbol',
+            'hashtag.unique' => 'This hashtag is already taken.',
         ]);
 
       
-        $hashtag = new Hashtag();
+        $hashtag = new Hashtag;
         $hashtag->hashtag = $request->hashtag; 
       
         $hashtag->save();
