@@ -318,8 +318,8 @@ class ExamQuestionController extends Controller
             $exam_time_sec = $examtime *60;
             // $examtime= $exam->time_of_exam;
 
-            if($exam_time_sec>0&&count($total_questions)>0){
-                $examtime=$exam_time_sec/count($total_questions);
+            if($exam_time_sec>0&& $total_questions>0 ){
+                $examtime=$exam_time_sec/$total_questions;
             }
         }
         return view("user.question-bank.preview",compact('category','exam','subCategory','setname','user','userExamReview','useranswer','examtime'));
