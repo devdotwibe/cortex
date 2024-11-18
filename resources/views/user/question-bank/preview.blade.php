@@ -441,11 +441,11 @@
                                 preclass = "preclass";
                             }
                             $('#lesson-footer-paginationmobile').append(`
-                                <button class="${linkstatus} btn btn-secondary  ${preclass} ${v.active?"active":""}" disabled   >${label_name}</button>
+                                <button class="${linkstatus} btn btn-secondary ${useranswers[k - 1].time_taken}  ${preclass} ${v.active?"active":""}" disabled   >${label_name}</button>
                             `)
                         } else {
                             $('#lesson-footer-paginationmobile').append(`
-                                <button class="${linkstatus} btn btn-secondary " onclick="loadlessonreview('${v.url}')" >${v.label}</button>
+                                <button class="${linkstatus} btn btn-secondary ${useranswers[k - 1].time_taken} " onclick="loadlessonreview('${v.url}')" >${v.label}</button>
                             `)
                         }
 
