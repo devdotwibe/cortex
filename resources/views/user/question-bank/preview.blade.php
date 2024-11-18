@@ -449,8 +449,7 @@
                                 }
                             });
                            
-                        
-                           time_take =  j.time_taken;
+                    
                         }
                         if (v.active || !v.url) {
                             var label_name = v.label;
@@ -466,7 +465,7 @@
                             `)
                         } else {
                             $('#lesson-footer-paginationmobile').append(`
-                                <button class="${linkstatus} btn btn-secondary ${time_take} ${total_time}" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
+                                <button class="${linkstatus} btn btn-secondary  ${total_time}" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
                             `)
                         }
 
