@@ -254,7 +254,7 @@ class CommunityControllerController extends Controller
 
     public function edit(Request $request, Post $post)
     {
-        $hashtags = Hashtagstore::all();
+        $hashtags = Hashtag::all();
         $post->load('hashtaglist');
         return view('admin.community.edit', compact('post', 'hashtags'));
     }
@@ -273,16 +273,18 @@ class CommunityControllerController extends Controller
 
                 'image' => ["nullable"],
             ]);
-            $post->load('hashtags');
+            // $post->load('hashtags');
             if ($request->has('hashtag')) {
-                foreach ($request->hashtag as $hashtagInput) {
-                    if (isset($hashtagInput)) {
-                        $hashtagSyncData[$hashtagInput] = [
-                            'hashtag' => Hashtagstore::where('id',$hashtagInput)->first()->hashtag?? 'test', // Save hashtag text or null
-                        ];
-                    }
-                }
-                $post->hashtags()->sync($hashtagSyncData);
+
+                // foreach ($request->hashtag as $hashtagInput) {
+                //     if (isset($hashtagInput)) {
+                //         $hashtagSyncData[$hashtagInput] = [
+                //             'hashtag' => Hashtagstore::where('id',$hashtagInput)->first()->hashtag?? 'test', // Save hashtag text or null
+                //         ];
+                //     }
+                // }
+                
+                // $post->hashtags()->sync($hashtagSyncData);
             }
         } else {
 

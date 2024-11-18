@@ -629,6 +629,7 @@ class CommunityController extends Controller
                 'hashtag' => ["required"],
                 'image' => ["nullable"],
             ]);
+            
             $post->load('hashtags');
             if ($request->has('hashtag')) {
                 foreach ($request->hashtag as $hashtagInput) {
