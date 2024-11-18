@@ -5,6 +5,13 @@
                 @csrf 
                 @method("PUT")
                 <div class="row">
+                    @php 
+                    if(count($fields[7]->value)>0){
+                        $choice = 1;
+                    }else{
+                        $choice = 0;
+                    }
+                    @endphp
                     @foreach ($fields as $item)
                         @if (($item->type??"text")=="hidden")
                             <input type="hidden" name="{{$item->name}}" id="{{$item->name}}-{{$frmID}}" value="{{old($item->name,$item->value??"")}}">
@@ -308,45 +315,47 @@
         }
 
         CKEDITOR.replaceAll('texteditor')
-
         $(document).ready(function () {
-            $("#{{$frmID}}").on("submit", function (e) {
-                let isValid = true;
-                const hasAtLeastOne = false;
+            let choice = "{{ $choice }}"
+            if (choice != 0) {
+                $("#{{$frmID}}").on("submit", function (e) {
+                    let isValid = true;
+                    const hasAtLeastOne = false;
 
-                $("input[name='answer[]']").each(function (index) {
-                    const answerField = $(this);
-                    const fileField = $("input[name='file_answer[]']").eq(index);
+                    $("input[name='answer[]']").each(function (index) {
+                        const answerField = $(this);
+                        const fileField = $("input[name='file_answer[]']").eq(index);
 
-                    const answerValue = answerField.val().trim();
-                    const fileValue = fileField.val();
-                    const existingFile = fileField.data("existing-file"); 
+                        const answerValue = answerField.val().trim();
+                        const fileValue = fileField.val();
+                        const existingFile = fileField.data("existing-file"); 
 
-                    if (!answerValue && !fileValue && !existingFile) {
+                        if (!answerValue && !fileValue && !existingFile) {
+                            isValid = false;
+
+                            answerField.addClass("is-invalid");
+                            fileField.addClass("is-invalid");
+                            const feedbackElement = fileField.next(".invalid-feedback");
+
+                        } else {
+                            answerField.removeClass("is-invalid");
+                            fileField.removeClass("is-invalid");
+                            fileField.next(".invalid-feedback").hide(); 
+                            hasAtLeastOne = true;
+
+                        }
+                    });
+                    if (!hasAtLeastOne) {
                         isValid = false;
-
-                        answerField.addClass("is-invalid");
-                        fileField.addClass("is-invalid");
-                        const feedbackElement = fileField.next(".invalid-feedback");
-
-                    } else {
-                        answerField.removeClass("is-invalid");
-                        fileField.removeClass("is-invalid");
-                        fileField.next(".invalid-feedback").hide(); 
-                        hasAtLeastOne = true;
-
+                        e.preventDefault(); // Prevent form submission
+                        alert("At least one answer or file must be provided.");
+                    }
+                    else if (!isValid) {
+                        e.preventDefault(); // Prevent form submission
+                        alert("Please ensure all fields are properly filled.");
                     }
                 });
-                if (!hasAtLeastOne) {
-                    isValid = false;
-                    e.preventDefault(); // Prevent form submission
-                    alert("At least one answer or file must be provided.");
-                }
-                else if (!isValid) {
-                    e.preventDefault(); // Prevent form submission
-                    alert("Please ensure all fields are properly filled.");
-                }
-            });
+            }
         });
     </script>
  
