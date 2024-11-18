@@ -61,7 +61,7 @@ class HashtagController extends Controller
        
         $request->validate([
             'hashtag' => [ 'required','regex:/^#\w+$/', 
-            'unique:hastags,hashtag'
+            'unique:hashtags,hashtag'
                
             ],
         ], [
