@@ -248,59 +248,11 @@ class ExamQuestionController extends Controller
                 return UserReviewAnswer::where('user_review_question_id',$question->id)->get();
             }
             $data = UserReviewQuestion::whereIn('review_type',['mcq'])->where('user_id',$user->id)->where('user_exam_review_id',$userExamReview->id)->paginate(1);
-            
-            $useranswer=UserReviewQuestion::leftJoin('user_review_answers','user_review_answers.user_review_question_id','user_review_questions.id')
-            ->where('user_review_answers.user_answer',true)
-            ->whereIn('user_review_questions.review_type',['mcq'])
-            ->where('user_review_questions.user_id',$user->id)
-            ->where('user_review_questions.user_exam_review_id',$userExamReview->id)
-            ->select('user_review_questions.id','user_review_questions.time_taken','user_review_answers.iscorrect')->get();
-
-
-            $question_id =null;
-
-            // $links = collect(range(1, $data->lastPage()))->map(function ($page) use ($data,$useranswer,$question_id) {
-
-            //     $useranswer->map(function ($value) use ($data,$page) {
-
-            //         if($page ==$value)
-            //         {
-            //             $question_id = $value;
-            //         }
-            //     });
-
-            //     return [
-            //         'url' => $data->url($page),
-            //         'label' => (string) $page,
-            //         'question'=> $question_id,
-            //         'active' => $page === $data->currentPage(),
-            //     ];
-            // });
-
-            $links = collect(range(1, $data->lastPage()))->map(function ($page) use ($data, $useranswer) {
-
-                $currentPageQuestions = $data->getCollection()->filter(function ($question) use ($page) {
-                    return $question->getPage() == $page;  
-                });
-            
-                // Initialize an empty array to hold the question ids for this page
-                $questionIds = [];
-            
-                // Match answers with the current page's questions
-                foreach ($currentPageQuestions as $question) {
-                    // Check if the question exists in the user's answers
-                    $userAnswer = $useranswer->firstWhere('id', $question->id);
-                    
-                    if ($userAnswer) {
-                        $questionIds[] = $question->id;  // Collect question IDs that have a user's answer
-                    }
-                }
-            
+            $links = collect(range(1, $data->lastPage()))->map(function ($page) use ($data) {
                 return [
-                    'url' => $data->url($page),  // Pagination URL for the page
-                    'label' => (string) $page,    // Label for the page (e.g., 1, 2, 3, ...)
-                    'question_ids' => $questionIds,  // Array of question IDs with answers for this page
-                    'active' => $page === $data->currentPage(),  // Is this the current page?
+                    'url' => $data->url($page),
+                    'label' => (string) $page,
+                    'active' => $page === $data->currentPage(),
                 ];
             });
         
@@ -309,7 +261,6 @@ class ExamQuestionController extends Controller
                 [
                     'url' => $data->previousPageUrl(),
                     'label' => '&laquo; Previous',
-                    'question'=>null,
                     'active' => false,
                 ],
             ])
@@ -318,7 +269,6 @@ class ExamQuestionController extends Controller
                 [
                     'url' => $data->nextPageUrl(),
                     'label' => 'Next &raquo;',
-                    'question'=>null,
                     'active' => false,
                 ],
             ]);
