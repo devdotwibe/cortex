@@ -1881,6 +1881,10 @@ section.post-section .post-item .post-actions a.post-action-btn span {
     align-items: center;
 }
 
+.analytic-exam .analytic-exam-item .overview-title .overview-center {
+    cursor: pointer;
+}
+
 .progress-list {
     width: 100%;
     display: flex;
