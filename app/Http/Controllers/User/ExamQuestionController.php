@@ -298,7 +298,7 @@ class ExamQuestionController extends Controller
                         ->whereIn('user_review_questions.review_type',['mcq'])
                         ->where('user_review_questions.user_id',$user->id)
                         ->where('user_review_questions.user_exam_review_id',$userExamReview->id)
-                        ->select('user_review_questions.id','user_review_questions.time_taken','user_review_answers.iscorrect','user_review_questions.id AS question_id')->get();
+                        ->select('user_review_questions.id','user_review_questions.time_taken')->get();
         $examtime=0;
         $exam_time_sec = 0;
         if($user->progress("exam-review-".$userExamReview->id."-timed",'')=="timed"){
