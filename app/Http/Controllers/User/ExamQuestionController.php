@@ -290,6 +290,9 @@ class ExamQuestionController extends Controller
                 'total' => $data->total(),
             ]);
         }
+
+        $total_questions = UserReviewQuestion::whereIn('review_type',['mcq'])->where('user_id',$user->id)->where('user_exam_review_id',$userExamReview->id)->count();
+
         $useranswer=UserReviewQuestion::leftJoin('user_review_answers','user_review_answers.user_review_question_id','user_review_questions.id')
                         ->where('user_review_answers.user_answer',true)
                         ->whereIn('user_review_questions.review_type',['mcq'])
@@ -315,8 +318,8 @@ class ExamQuestionController extends Controller
             $exam_time_sec = $examtime *60;
             // $examtime= $exam->time_of_exam;
 
-            if($exam_time_sec>0&&count($useranswer)>0){
-                $examtime=$exam_time_sec/count($useranswer);
+            if($exam_time_sec>0&&count($total_questions)>0){
+                $examtime=$exam_time_sec/count($total_questions);
             }
         }
         return view("user.question-bank.preview",compact('category','exam','subCategory','setname','user','userExamReview','useranswer','examtime'));
