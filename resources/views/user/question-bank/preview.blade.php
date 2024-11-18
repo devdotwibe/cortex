@@ -437,7 +437,7 @@
 
                             $.each(useranswers, function(i, j) {
 
-                                if(v.question_id == j.id)
+                                if(k == i)
                                 {
                                     linkstatus = 'status-bad';
                                     if (j.iscorrect) {
