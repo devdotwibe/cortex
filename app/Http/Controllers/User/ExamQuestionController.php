@@ -249,7 +249,16 @@ class ExamQuestionController extends Controller
             }
             $data = UserReviewQuestion::whereIn('review_type',['mcq'])->where('user_id',$user->id)->where('user_exam_review_id',$userExamReview->id)->paginate(1);
 
-            $questions = $data->items();
+            $data = UserReviewQuestion::whereIn('review_type',['mcq'])->where('user_id',$user->id)->where('user_exam_review_id',$userExamReview->id)->paginate(1);
+
+            $useranswer=UserReviewQuestion::leftJoin('user_review_answers','user_review_answers.user_review_question_id','user_review_questions.id')
+            ->where('user_review_answers.user_answer',true)
+            ->whereIn('user_review_questions.review_type',['mcq'])
+            ->where('user_review_questions.user_id',$user->id)
+            ->where('user_review_questions.user_exam_review_id',$userExamReview->id)
+            ->select('user_review_questions.id','user_review_questions.time_taken','user_review_answers.iscorrect')->get();
+
+            $questions = $useranswer;
 
             $links = collect(range(1, $data->lastPage()))->map(function ($page) use ($data) {
                 return [
@@ -277,9 +286,8 @@ class ExamQuestionController extends Controller
                     'active' => false,
                 ],
             ]);
-
+            
             $paginationLinks = $links->map(function ($link) use ($questions) {
-              
                 $link['questions'] = $questions;
                 return $link;
             });
@@ -299,7 +307,6 @@ class ExamQuestionController extends Controller
                 'prev_page_url' => $data->previousPageUrl(),
                 'to' => $data->lastItem(),
                 'total' => $data->total(),
-                'questions' => $questions,   
             ]);
         }
 
