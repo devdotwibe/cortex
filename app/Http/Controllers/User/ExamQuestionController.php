@@ -248,9 +248,7 @@ class ExamQuestionController extends Controller
                 return UserReviewAnswer::where('user_review_question_id',$question->id)->get();
             }
             $data = UserReviewQuestion::whereIn('review_type',['mcq'])->where('user_id',$user->id)->where('user_exam_review_id',$userExamReview->id)->paginate(1);
-
-            $data = UserReviewQuestion::whereIn('review_type',['mcq'])->where('user_id',$user->id)->where('user_exam_review_id',$userExamReview->id)->paginate(1);
-
+            
             $useranswer=UserReviewQuestion::leftJoin('user_review_answers','user_review_answers.user_review_question_id','user_review_questions.id')
             ->where('user_review_answers.user_answer',true)
             ->whereIn('user_review_questions.review_type',['mcq'])
@@ -258,46 +256,33 @@ class ExamQuestionController extends Controller
             ->where('user_review_questions.user_exam_review_id',$userExamReview->id)
             ->select('user_review_questions.id','user_review_questions.time_taken','user_review_answers.iscorrect')->get();
 
-            $questionsWithAnswers = $useranswer->keyBy('id');
 
-            // $links = collect(range(1, $data->lastPage()))->map(function ($page) use ($data) {
-            //     return [
-            //         'url' => $data->url($page),
-            //         'label' => (string) $page,
-            //         'active' => $page === $data->currentPage(),
-            //     ];
-            // });
+            $question_id =null;
 
+            $links = collect(range(1, $data->lastPage()))->map(function ($page) use ($data,$useranswer,$question_id) {
 
-            $links = collect(range(1, $data->lastPage()))->map(function ($page) use ($data, $questionsWithAnswers) {
-                // Get the questions for the current page
-                $currentPageQuestions = $data->getCollection()->filter(function ($question) use ($questionsWithAnswers) {
-                    return isset($questionsWithAnswers[$question->id]);
+                $useranswer->map(function ($value) use ($data,$page) {
+
+                    if($page ==$value)
+                    {
+                        $question_id = $value;
+                    }
                 });
-            
-                $questions = $currentPageQuestions->map(function ($question) use ($questionsWithAnswers) {
-                    return [
-                        'id' => $question->id,
-                        'question' => $question->slug,
-                        'time_taken' => $question->time_taken,
-                        'iscorrect' => $questionsWithAnswers[$question->id]->iscorrect,
-                    ];
-                });
-            
+
                 return [
                     'url' => $data->url($page),
                     'label' => (string) $page,
+                    'question'=> $question_id,
                     'active' => $page === $data->currentPage(),
-                    'questions' => $questions,
                 ];
             });
-
-
+        
+            // Add navigation links for Previous and Next
             $paginationLinks = collect([
                 [
                     'url' => $data->previousPageUrl(),
                     'label' => '&laquo; Previous',
-                    'questions'=>null,
+                    'question'=>null,
                     'active' => false,
                 ],
             ])
@@ -306,11 +291,11 @@ class ExamQuestionController extends Controller
                 [
                     'url' => $data->nextPageUrl(),
                     'label' => 'Next &raquo;',
-                    'questions'=>null,
+                    'question'=>null,
                     'active' => false,
                 ],
             ]);
-            
+        
             // Build the response structure
             return response()->json([
                 'current_page' => $data->currentPage(),
