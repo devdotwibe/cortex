@@ -305,10 +305,10 @@ class CommunityControllerController extends Controller
                 'option.*.required' => "This field is required",
             ]);
         }
-
+        
+        $data['hashtag_id'] = $request->hashtags;
         $post->update($data);
 
-        dd($request->hashtag_id);
         $ids = [];
         if ($request->type == "poll") {
             $optid = $request->input('option_id', []);
