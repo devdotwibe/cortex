@@ -114,7 +114,7 @@ class ImportQuestions implements ShouldQueue
                     "sub_question" => (isset($this->fields['sub_question']) && isset($row[$this->fields['sub_question']])) ? nl2br($row[$this->fields['sub_question']]) : null,
                 ]);
             }
-            if($row[$this->fields['answer_1']])
+            if(isset($row[$this->fields['answer_1']]))
             {     
                 Answer::store([
                     "exam_id"=>$question->exam_id,
@@ -123,7 +123,7 @@ class ImportQuestions implements ShouldQueue
                     "title"=>$row[$this->fields['answer_1']],
                 ]);
             }
-            if($row[$this->fields['answer_2']])
+            if(isset($row[$this->fields['answer_2']]))
             { 
                 Answer::store([
                     "exam_id"=>$question->exam_id,
@@ -132,7 +132,7 @@ class ImportQuestions implements ShouldQueue
                     "title"=>$row[$this->fields['answer_2']],
                 ]);
             }
-            if($row[$this->fields['answer_3']])
+            if(isset($row[$this->fields['answer_3']]))
             { 
                 Answer::store([
                     "exam_id"=>$question->exam_id,
@@ -141,7 +141,7 @@ class ImportQuestions implements ShouldQueue
                     "title" => (isset($this->fields['answer_3']) && isset($row[$this->fields['answer_3']])) ? $row[$this->fields['answer_3']] : null,
                 ]);
             }
-            if($row[$this->fields['answer_4']])
+            if(isset($row[$this->fields['answer_4']]))
             { 
                 Answer::store([
                     "exam_id"=>$question->exam_id,
