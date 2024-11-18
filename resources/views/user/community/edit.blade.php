@@ -84,7 +84,7 @@
                                     <option value="">Select a hashtag</option>
                                     @foreach($hashtags as $hashtag)
                                         <option value="{{ $hashtag->id }}" 
-                                            {{ optional($post->hashtaglist)->pluck('hashtagstore_id')->contains($hashtag->id) ? 'selected' : '' }}>
+                                            {{ $hashtag->id == $post->hastag_id ? 'selected' : '' }}>
                                             {{ $hashtag->hashtag }}
                                         </option>
                                     @endforeach

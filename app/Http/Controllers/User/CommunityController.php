@@ -611,8 +611,7 @@ class CommunityController extends Controller
          *  @var User
          */
         $user = Auth::user();
-        $hashtags = Hashtagstore::all();
-        $post->load('hashtaglist');
+        $hashtags = Hashtag::all();
         return view('user.community.edit', compact('post', 'user', 'hashtags'));
     }
     public function update(Request $request, Post $post)
