@@ -92,7 +92,9 @@
 
                             <div class="form-group">
                                 <label for="hashtag-select">Select Channel</label>
-                                <select id="hashtag-select" name="hashtags" class="form-control">
+                                <select  name="hashtags" class="form-control">
+
+                                    <option value="">Select Channel</option>
                                     @foreach($hashtags as $hashtag)
                                         <option value="{{ $hashtag->id }}">{{ $hashtag->hashtag }}</option>
                                     @endforeach
@@ -300,6 +302,7 @@
                     formData.append("file", this.files[0]);
                     formData.append("foldername", "post");
                     formData.append("file_type","image");
+                    formData.append("_token", $('meta[name="csrf-token"]').attr('content'));
                     $.ajax({
                         url : "{{route('upload')}}",
                         type : 'POST',

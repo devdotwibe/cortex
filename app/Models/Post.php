@@ -23,6 +23,7 @@ class Post extends Model
         'admin_id', 
         'status',
         'visible_status',
+        'hashtag_id'
     ];
 
     public function user(){

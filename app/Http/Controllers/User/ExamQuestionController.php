@@ -290,6 +290,9 @@ class ExamQuestionController extends Controller
                 'total' => $data->total(),
             ]);
         }
+
+        $total_questions = UserReviewQuestion::whereIn('review_type',['mcq'])->where('user_id',$user->id)->where('user_exam_review_id',$userExamReview->id)->count();
+
         $useranswer=UserReviewQuestion::leftJoin('user_review_answers','user_review_answers.user_review_question_id','user_review_questions.id')
                         ->where('user_review_answers.user_answer',true)
                         ->whereIn('user_review_questions.review_type',['mcq'])
@@ -297,14 +300,26 @@ class ExamQuestionController extends Controller
                         ->where('user_review_questions.user_exam_review_id',$userExamReview->id)
                         ->select('user_review_questions.id','user_review_questions.time_taken','user_review_answers.iscorrect')->get();
         $examtime=0;
+        $exam_time_sec = 0;
         if($user->progress("exam-review-".$userExamReview->id."-timed",'')=="timed"){
-            $times=explode(':',$user->progress("exam-review-".$userExamReview->id."-time_of_exam",'0:0'));
+
+            // $times=explode(':',$user->progress("exam-review-".$userExamReview->id."-time_of_exam",'0:0'));
+            // if(count($times)>0){
+            //     $examtime+=intval(trim($times[0]??"0"))*60;
+            //     $examtime+=intval(trim($times[1]??"0"));
+            // }
+            $examtime=0;
+            $times=explode(':',$setname->time_of_exam);
             if(count($times)>0){
                 $examtime+=intval(trim($times[0]??"0"))*60;
                 $examtime+=intval(trim($times[1]??"0"));
             }
-            if($examtime>0&&count($useranswer)>0){
-                $examtime=$examtime/count($useranswer);
+
+            $exam_time_sec = $examtime *60;
+            // $examtime= $exam->time_of_exam;
+
+            if($exam_time_sec>0&& $total_questions>0 ){
+                $examtime=$exam_time_sec/$total_questions;
             }
         }
         return view("user.question-bank.preview",compact('category','exam','subCategory','setname','user','userExamReview','useranswer','examtime'));

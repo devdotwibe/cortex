@@ -24,7 +24,7 @@
                                                     </div>
                                                     <input type="text" name="{{$item->name}}[]" id="{{$item->name}}-{{$frmID}}-{{$k}}" value="{{old($item->name)[$k]}}"  class="form-control  @error($item->name.".$k") is-invalid @enderror " placeholder="{{ucfirst($item->label??$item->name)}}" aria-placeholder="{{ucfirst($item->label??$item->name)}}" >
 
-                                                    <input type="file" name="file_{{$item->name}}[]" id="file_{{$item->name}}-{{$frmID}}-{{$k}}" accept="image/*" value="{{ old('file_'.$item->name) && is_array(old('file_'.$item->name)) ? old('file_'.$item->name)[$k] : '' }}"  class="form-control  @error('file_'.$item->name.".$k") is-invalid @enderror " >
+                                                    <input type="file" name="file_{{$item->name}}[]" id="file_{{$item->name}}-{{$frmID}}-{{$k}}"  accept="image/jpeg, image/png, image/gif" value="{{ old('file_'.$item->name) && is_array(old('file_'.$item->name)) ? old('file_'.$item->name)[$k] : '' }}"  class="form-control  @error('file_'.$item->name.".$k") is-invalid @enderror " >
                                                     <img id="preview-{{ $item->name }}-{{ $frmID }}-{{ uniqid() }}" src="{{old($item->name)[$k]}}" alt="Image Preview" style="display: none; width: 100px; margin-top: 10px;">
 
                                                     @if ($k!=0)
@@ -52,13 +52,9 @@
                                                         <input type="radio" class="input-group-check choice-check"  id="{{$item->name}}-{{$frmID}}-0-check" name="choice_{{$item->name}}" value="0" checked >
                                                     </div>
                                                     <input type="text" name="{{$item->name}}[]" id="{{$item->name}}-{{$frmID}}-0" value="" class="form-control  " placeholder="{{ucfirst($item->label??$item->name)}}" aria-placeholder="{{ucfirst($item->label??$item->name)}}" >
-                                                    <input type="file" name="file_{{$item->name}}[]" id="file_{{$item->name}}-{{$frmID}}-0" value=""  class="form-control" >
-                                                    <div class="invalid-feedback" id="upload-file">Please upload a valid image file (JPEG, PNG, GIF).</div>
-
+                                                    <input type="file" name="file_{{$item->name}}[]" id="file_{{$item->name}}-{{$frmID}}-0" onchange="validateImage(this, 'upload-file-{{$item->name}}-{{$frmID}}-0')" value=""  accept="image/jpeg, image/png, image/gif" class="form-control" >
+                                                    <div class="invalid-feedback" id="upload-file-{{ $item->name }}-{{ $frmID }}-0">Please upload a valid image file (JPEG, PNG, GIF).</div>
                                                     <img id="preview-{{ $item->name }}-{{ $frmID }}-0" src="#" alt="Image Preview" style="display: none; width: 100px; margin-top: 10px;">
-
-
-
                                                 </div>
 
                                             </div>
@@ -177,22 +173,15 @@
                                     <input type="radio" class="input-group-check choice-check"  id="${el}-check" name="choice_${name}" value="${ln}" >
                                 </div>
                                 <input type="text" name="${name}[]" id="${el}" value="" class="form-control" placeholder="${label}" aria-placeholder="${label}" >
-                                 <input type="file" name="file_${name}[]" id="${el}-file" value="" class="form-control" >
-   <img id="${el}-preview" src="#" alt="Image Preview" style="display:none; width: 100px; height: auto; margin-top: 10px;"/>
+                                 <input type="file" name="file_${name}[]" id="${el}-file" onchange="validateImage(this, 'upload-file-${name}-{{$frmID}}-${chcnt}')" value="" class="form-control" >
+                                    <div class="invalid-feedback" id="upload-file-${name}-{{$frmID}}-${chcnt}">Please upload a valid image file (JPEG, PNG, GIF).</div>
+                                    <img id="${el}-preview" src="#" alt="Image Preview" style="display:none; width: 100px; height: auto; margin-top: 10px;"/>
 
                                 
                                 <div class="input-group-append choice-check-group">
                                     <button type="button" onclick="removeChoice{{$frmID}}('#${name}-{{$frmID}}-choice-item-chcnt-${chcnt}','#${el}-check','${target}')" class="btn btn-danger "><img src="{{asset("assets/images/delete-black.svg")}}"></button>
                                 </div>
-
-
-
-                                
-
-
-
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -261,10 +250,10 @@
 
         CKEDITOR.replaceAll('texteditor')
 
-        function validateImage(input) {
+        function validateImage(input,id) {
             const file = input.files[0];
             const validImageTypes = ["image/jpeg", "image/png", "image/gif"];
-            const feedbackElement = document.getElementById(`upload-file`);
+            const feedbackElement = document.getElementById(id);
             if (file && !validImageTypes.includes(file.type)) {
                 input.classList.add('is-invalid');
                 feedbackElement.style.display = 'block';
@@ -274,12 +263,35 @@
                 feedbackElement.style.display = 'none';
             }
         }
+        $("form").on("submit", function (e) {
+    let isFormValid = true;
 
-        document.querySelectorAll('input[type="file"]').forEach(fileInput => {
-            fileInput.addEventListener('change', function() {
-                validateImage(this);
-            });
-        });
+    $("input[type='file']").each(function () {
+        if (this.files.length > 0) { 
+            const file = this.files[0];
+            const validImageTypes = ["image/jpeg", "image/png", "image/gif"];
+            const isValidFile = validImageTypes.includes(file.type);
+
+            if (!isValidFile) {
+                isFormValid = false;
+                $(this).addClass("is-invalid"); 
+                const feedbackElement = $(this).next(".invalid-feedback");
+                feedbackElement.text("Please upload a valid image file (JPEG, PNG, GIF).").show();
+            } else {
+                $(this).removeClass("is-invalid"); 
+                $(this).next(".invalid-feedback").hide(); 
+            }
+        } else {
+            $(this).removeClass("is-invalid"); 
+            $(this).next(".invalid-feedback").hide(); 
+        }
+    });
+
+    if (!isFormValid) {
+        e.preventDefault(); 
+        alert("Please ensure all uploaded files are valid before submitting.");
+    }
+});
     </script>
  
 @endpush

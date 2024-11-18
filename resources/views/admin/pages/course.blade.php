@@ -799,7 +799,7 @@
                                                 
                                                 <!-- Delete button for dynamically uploaded image -->
                                                 <button type="button" class="btn btn-danger" id="deleteDynamicFullmockImage" 
-                                                        style="position: absolute; top: 5px; right: 5px;" 
+                                                        style="position: absolute; top: 5px; right: 5px; display: none;" 
                                                         onclick="removeDynamicFullmockImage()">X</button>
                                             </div>
                                         </div>
