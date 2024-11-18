@@ -8,6 +8,7 @@
                     @php 
                     if(count($fields[7]->value)>0){
                         $choice = 1;
+                        $choiceName = $fields[7]->name;
                     }else{
                         $choice = 0;
                     }
@@ -318,31 +319,31 @@
         $(document).ready(function () {
             let choice = "{{ $choice }}"
             if (choice != 0) {
+                let name = "{{ $choiceName }}"
                 $("#{{$frmID}}").on("submit", function (e) {
                     let isValid = true;
-                    const hasAtLeastOne = false;
+                    let hasAtLeastOne = false;
 
-                    $("input[name='answer[]']").each(function (index) {
+                    $(`input[name='${name}[]']`).each(function (index) {
                         const answerField = $(this);
-                        const fileField = $("input[name='file_answer[]']").eq(index);
-
+                        const fileField = $(`input[name='file_${name}[]']`).eq(index);
                         const answerValue = answerField.val().trim();
                         const fileValue = fileField.val();
                         const existingFile = fileField.data("existing-file"); 
+                        console.log(answerValue)
 
                         if (!answerValue && !fileValue && !existingFile) {
                             isValid = false;
-
                             answerField.addClass("is-invalid");
                             fileField.addClass("is-invalid");
                             const feedbackElement = fileField.next(".invalid-feedback");
+                            feedbackElement.text("Either answer or file is required.").show();
 
                         } else {
                             answerField.removeClass("is-invalid");
                             fileField.removeClass("is-invalid");
                             fileField.next(".invalid-feedback").hide(); 
                             hasAtLeastOne = true;
-
                         }
                     });
                     if (!hasAtLeastOne) {
