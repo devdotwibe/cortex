@@ -283,7 +283,7 @@ class CommunityControllerController extends Controller
                 //         ];
                 //     }
                 // }
-                
+
                 // $post->hashtags()->sync($hashtagSyncData);
             }
         } else {
@@ -307,6 +307,8 @@ class CommunityControllerController extends Controller
         }
 
         $post->update($data);
+
+        dd($request->hashtag_id);
         $ids = [];
         if ($request->type == "poll") {
             $optid = $request->input('option_id', []);
