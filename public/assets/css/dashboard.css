@@ -7532,6 +7532,7 @@ nav.navbar.top-barhide {
 }
 
 .header_nav .header_wrapp .header_title .lesson .lesson-title {
+    width: 100%;
     margin: 0 0 0 35px;
 }
 
