@@ -10,10 +10,11 @@
         <div class="header_content">
             <div class="form-group">
                 <select class="form-control" onchange="togglegrapg(this.value)">
-                    <option value="topic-test-result">Topic Test Result</option>
-                    <option value="mock-exam-result">Mock Exam Result</option>
                     <option value="question-bank-result">Question Bank Result</option>
                     <option value="question-bank-timing">Question Bank Timing</option>
+                    <option value="topic-test-result">Topic Test Result</option>
+                    <option value="mock-exam-result">Mock Exam Result</option>
+
                 </select>
             </div>
         </div>
