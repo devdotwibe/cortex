@@ -300,6 +300,7 @@
                     formData.append("file", this.files[0]);
                     formData.append("foldername", "post");
                     formData.append("file_type","image");
+                    formData.append("_token", $('meta[name="csrf-token"]').attr('content'));
                     $.ajax({
                         url : "{{route('upload')}}",
                         type : 'POST',
