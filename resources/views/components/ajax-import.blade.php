@@ -110,12 +110,24 @@
                             cellText: false
                         });
                         var sheet_name_list = workbook.SheetNames;
+                        var firstColumnValues = {};
                         field_keys = [];
+                        firstRowValues = []; // Object to store first row (header) values for each sheet
+
                         $.each(sheet_name_list, function(k, v) {
                             var exceljson = XLSX.utils.sheet_to_json(workbook.Sheets[v], {
                                 raw: false,
                                 dateNF: 'yyyy-mm-dd'
                             });
+
+                            var sheetData = XLSX.utils.sheet_to_json(workbook.Sheets[v], {
+                                    header: 1 // Extracts raw array format
+                            });
+
+                            if (sheetData.length > 0) {
+                                firstRowValues= sheetData[0]; 
+                            }
+
                             if (exceljson.length > 0) {
                                 $.each(Object.keys(exceljson[0]), function(kkey, key) {
                                     field_keys.push(key.trim())
@@ -124,10 +136,11 @@
                                     import_{{ $id }}_data.push(Object.entries(row).reduce((acc, [key, value]) => { acc[key.trim()] = value; return acc; }, {})) 
                                 })
                             }
-                            
                         })
+                        console.log(field_keys)
+
                         options = "<option value=''>--Select--</option>";
-                        $.each(field_keys, function(skey, sop) {
+                        $.each(firstRowValues, function(skey, sop) {
                             options += "<option value='" + sop + "'>" + sop + "</option>"
                         })
                         $('.import-{{ $id }}-fields').html(options)
