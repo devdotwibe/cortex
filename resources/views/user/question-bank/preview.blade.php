@@ -422,6 +422,8 @@
                     })
                 }
 
+                console.log(res.total);
+                
                 if (res.total > 1) {
 
                     var time_take ="no time";
