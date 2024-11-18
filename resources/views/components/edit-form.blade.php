@@ -28,13 +28,13 @@
                                                             <input type="radio" class="input-group-label choice-label"  name="choice_{{$item->name}}" id="{{$item->name}}-{{$frmID}}-{{$k}}-check" value="{{$k}}" @checked(old('choice_'.$item->name)==$k) >
                                                         </div>
                                                         <input type="text" name="{{$item->name}}[]" id="{{$item->name}}-{{$frmID}}-{{$k}}" value="{{old($item->name)[$k]}}"  class="form-control  @error($item->name.".$k") is-invalid @enderror " placeholder="{{ucfirst($item->label??$item->name)}}" aria-placeholder="{{ucfirst($item->label??$item->name)}}" >
-                                                        <input type="file" name="file_{{$item->name}}[]" id="file_{{$item->name}}-{{$frmID}}-{{$k}}" value=""  accept="image/jpeg, image/png, image/gif"  class="form-control  @error('file_'.$item->name.".$k") is-invalid @enderror " onchange="previewImage(this, 'preview-{{$item->name}}-{{$frmID}}-{{$k}}')">
+                                                        <input type="file" name="file_{{$item->name}}[]" id="file_{{$item->name}}-{{$frmID}}-{{$k}}" value=""  data-existing-file="{{old('choice_'.$item->name."_image",[])[$k]??""}}"  accept="image/jpeg, image/png, image/gif"  class="form-control  @error('file_'.$item->name.".$k") is-invalid @enderror " onchange="previewImage(this, 'preview-{{$item->name}}-{{$frmID}}-{{$k}}')">
                                                             <img id="preview-{{ $item->name }}-{{ $frmID }}-{{ $k }}" src="{{old('choice_'.$item->name."_image",[])[$k]??""}}" alt="Image Preview"  style="width: 100px; height: 40px; object-fit: cover; margin-top: 10px; display: block;">
-                                                        @if ($k!=0)
+                                                        {{-- @if ($k!=0) --}}
                                                         <div class="input-group-append choice-check-group">
                                                             <button type="button" onclick="removeChoice{{$frmID}}('#{{$item->name}}-{{$frmID}}-choice-item-{{$k}}','#{{$item->name}}-{{$frmID}}-{{$k}}-check','#{{$item->name}}-{{$frmID}}-choice-group')" class="btn btn-danger "><img src="{{asset("assets/images/delete-black.svg")}}"></button>
                                                         </div>
-                                                        @endif
+                                                        {{-- @endif --}}
                                                         @error($item->name.".$k")
                                                         <div class="invalid-feedback">{{$message}}</div>
                                                         @enderror
@@ -60,18 +60,18 @@
                                                         <input type="radio" class="input-group-check choice-check" name="choice_{{$item->name}}" id="{{$item->name}}-{{$frmID}}-{{$k}}-check" value="{{$k}}" @checked($v->choice) >
                                                     </div>
                                                     <input type="text" name="{{$item->name}}[]" id="{{$item->name}}-{{$frmID}}-{{$k}}" value="{{$v->value}}"  class="form-control  @error($item->name.".$k") is-invalid @enderror " placeholder="{{ucfirst($item->label??$item->name)}}" aria-placeholder="{{ucfirst($item->label??$item->name)}}" >
-                                                    <input type="file" name="file_{{$item->name}}[]" id="file_{{$item->name}}-{{$frmID}}-0" value=""  accept="image/jpeg, image/png, image/gif" class="form-control" onchange="previewImage(this, 'preview-{{$item->name}}-{{$frmID}}-{{ $k }}')">
+                                                    <input type="file" name="file_{{$item->name}}[]" id="file_{{$item->name}}-{{$frmID}}-0" value="" @if($v->image) data-existing-file="{{$v->image}}" @else data-existing-file=""@endif accept="image/jpeg, image/png, image/gif" class="form-control" onchange="previewImage(this, 'preview-{{$item->name}}-{{$frmID}}-{{ $k }}')">
                                                     <div class="invalid-feedback" id="upload-file-{{ $item->name }}-{{ $frmID }}-0">Please upload a valid image file (JPEG, PNG, GIF).</div>
 
                                                     @isset($v->image)
                                                         <img id="preview-{{ $item->name }}-{{ $frmID }}-{{ $k }}" src="{{url($v->image)}}" alt="Image Preview"  style="width: 100px; height: 40px; object-fit: cover; margin-top: 10px; display: block;">
                                                     @endisset
 
-                                                    @if ($k!=0)
+                                                    {{-- @if ($k!=0) --}}
                                                     <div class="input-group-append choice-check-group">
                                                         <button type="button" onclick="removeChoice{{$frmID}}('#{{$item->name}}-{{$frmID}}-choice-item-{{$k}}','#{{$item->name}}-{{$frmID}}-{{$k}}-check','#{{$item->name}}-{{$frmID}}-choice-group')" class="btn btn-danger "><img src="{{asset("assets/images/delete-black.svg")}}"></button>
                                                     </div>
-                                                    @endif
+                                                    {{-- @endif --}}
                                                     @error($item->name.".$k")
                                                     <div class="invalid-feedback">{{$message}}</div>
                                                     @enderror
@@ -93,7 +93,9 @@
                                                         <input type="radio" class="input-group-check choice-check"  id="{{$item->name}}-{{$frmID}}-0-check" name="choice_{{$item->name}}" value="0" checked >
                                                     </div>
                                                     <input type="text" name="{{$item->name}}[]" id="{{$item->name}}-{{$frmID}}-0" value="" class="form-control  " placeholder="{{ucfirst($item->label??$item->name)}}" aria-placeholder="{{ucfirst($item->label??$item->name)}}" >
-                                                    
+                                                    <div class="input-group-append choice-check-group">
+                                                        <button type="button" onclick="removeChoice{{$frmID}}('#{{$item->name}}-{{$frmID}}-choice-item-0','#{{$item->name}}-{{$frmID}}-0-check','#{{$item->name}}-{{$frmID}}-choice-group')" class="btn btn-danger "><img src="{{asset("assets/images/delete-black.svg")}}"></button>
+                                                    </div>
                                                 </div>
 
                                             </div>
@@ -306,6 +308,46 @@
         }
 
         CKEDITOR.replaceAll('texteditor')
+
+        $(document).ready(function () {
+            $("#{{$frmID}}").on("submit", function (e) {
+                let isValid = true;
+                const hasAtLeastOne = false;
+
+                $("input[name='answer[]']").each(function (index) {
+                    const answerField = $(this);
+                    const fileField = $("input[name='file_answer[]']").eq(index);
+
+                    const answerValue = answerField.val().trim();
+                    const fileValue = fileField.val();
+                    const existingFile = fileField.data("existing-file"); 
+
+                    if (!answerValue && !fileValue && !existingFile) {
+                        isValid = false;
+
+                        answerField.addClass("is-invalid");
+                        fileField.addClass("is-invalid");
+                        const feedbackElement = fileField.next(".invalid-feedback");
+
+                    } else {
+                        answerField.removeClass("is-invalid");
+                        fileField.removeClass("is-invalid");
+                        fileField.next(".invalid-feedback").hide(); 
+                        hasAtLeastOne = true;
+
+                    }
+                });
+                if (!hasAtLeastOne) {
+                    isValid = false;
+                    e.preventDefault(); // Prevent form submission
+                    alert("At least one answer or file must be provided.");
+                }
+                else if (!isValid) {
+                    e.preventDefault(); // Prevent form submission
+                    alert("Please ensure all fields are properly filled.");
+                }
+            });
+        });
     </script>
  
 @endpush
