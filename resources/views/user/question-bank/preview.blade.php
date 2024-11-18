@@ -423,7 +423,7 @@
                 }
 
                 console.log(res.total);
-
+                
                 if (res.total > 1) {
 
                     var time_take ="no time";
@@ -432,7 +432,7 @@
 
                     $.each(res.links, function(k, v) {
                         let linkstatus =  'status-bad';
-                        if (k != 0 && k != res.links.length) {
+                        if (k != 0 && k != res.links.length && useranswers[k - 1]) {
                             linkstatus = 'status-bad';
                             if (useranswers[k - 1].iscorrect) {
                                 linkstatus = "status-good";
