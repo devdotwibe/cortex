@@ -263,35 +263,39 @@
                 feedbackElement.style.display = 'none';
             }
         }
-        $("form").on("submit", function (e) {
-    let isFormValid = true;
+        $(document).ready(function () {
+            $("#{{$frmID}}").on("submit", function (e) {
+                let isValid = true;
 
-    $("input[type='file']").each(function () {
-        if (this.files.length > 0) { 
-            const file = this.files[0];
-            const validImageTypes = ["image/jpeg", "image/png", "image/gif"];
-            const isValidFile = validImageTypes.includes(file.type);
+                // Loop through each group of inputs
+                $("input[name='answer[]']").each(function (index) {
+                    const answerField = $(this);
+                    const fileField = $("input[name='file_answer[]']").eq(index);
 
-            if (!isValidFile) {
-                isFormValid = false;
-                $(this).addClass("is-invalid"); 
-                const feedbackElement = $(this).next(".invalid-feedback");
-                feedbackElement.text("Please upload a valid image file (JPEG, PNG, GIF).").show();
-            } else {
-                $(this).removeClass("is-invalid"); 
-                $(this).next(".invalid-feedback").hide(); 
-            }
-        } else {
-            $(this).removeClass("is-invalid"); 
-            $(this).next(".invalid-feedback").hide(); 
-        }
-    });
+                    const answerValue = answerField.val().trim();
+                    const fileValue = fileField.val();
 
-    if (!isFormValid) {
-        e.preventDefault(); 
-        alert("Please ensure all uploaded files are valid before submitting.");
-    }
-});
+                    // Check if both fields are empty
+                    if (!answerValue && !fileValue) {
+                        isValid = false;
+                        answerField.addClass("is-invalid");
+                        fileField.addClass("is-invalid"); 
+                        const feedbackElement = fileField.next(".invalid-feedback");
+                        feedbackElement.text("Either answer or file is required.").show();
+                    } else {
+                        answerField.removeClass("is-invalid");
+                        fileField.removeClass("is-invalid");
+                        fileField.next(".invalid-feedback").hide(); 
+
+                    }
+                });
+
+                if (!isValid) {
+                    e.preventDefault();
+                    alert("Please ensure that either an answer or a file is provided for all fields.");
+                }
+            });
+        });
     </script>
  
 @endpush
