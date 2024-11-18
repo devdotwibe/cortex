@@ -305,8 +305,8 @@ class CommunityControllerController extends Controller
                 'option.*.required' => "This field is required",
             ]);
         }
-        
-        $data['hashtag_id'] = $request->hashtags;
+
+        $data['hashtag_id'] = $request->hashtag_id;
         $post->update($data);
 
         $ids = [];
