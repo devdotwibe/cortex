@@ -28,7 +28,7 @@ class UserReviewQuestion extends Model
         'title_text',
         'sub_question'
     ];
-    protected $hidden = ['user_id', 'id','exam_id','question_id','user_exam_review_id'];
+    protected $hidden = ['user_id','exam_id','question_id','user_exam_review_id'];
 
     protected $appends=[
         'total_user_taken_time', 
