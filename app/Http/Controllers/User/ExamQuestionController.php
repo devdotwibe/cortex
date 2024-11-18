@@ -309,7 +309,7 @@ class ExamQuestionController extends Controller
             //     $examtime+=intval(trim($times[1]??"0"));
             // }
             $examtime=0;
-            $times=explode(':',$exam->time_of_exam);
+            $times=explode(':',$setname->time_of_exam);
             if(count($times)>0){
                 $examtime+=intval(trim($times[0]??"0"))*60;
                 $examtime+=intval(trim($times[1]??"0"));
