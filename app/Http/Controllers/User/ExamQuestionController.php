@@ -259,21 +259,48 @@ class ExamQuestionController extends Controller
 
             $question_id =null;
 
-            $links = collect(range(1, $data->lastPage()))->map(function ($page) use ($data,$useranswer,$question_id) {
+            // $links = collect(range(1, $data->lastPage()))->map(function ($page) use ($data,$useranswer,$question_id) {
 
-                $useranswer->map(function ($value) use ($data,$page) {
+            //     $useranswer->map(function ($value) use ($data,$page) {
 
-                    if($page ==$value)
-                    {
-                        $question_id = $value;
-                    }
+            //         if($page ==$value)
+            //         {
+            //             $question_id = $value;
+            //         }
+            //     });
+
+            //     return [
+            //         'url' => $data->url($page),
+            //         'label' => (string) $page,
+            //         'question'=> $question_id,
+            //         'active' => $page === $data->currentPage(),
+            //     ];
+            // });
+
+            $links = collect(range(1, $data->lastPage()))->map(function ($page) use ($data, $useranswer) {
+
+                $currentPageQuestions = $data->getCollection()->filter(function ($question) use ($page) {
+                    return $question->getPage() == $page;  
                 });
-
+            
+                // Initialize an empty array to hold the question ids for this page
+                $questionIds = [];
+            
+                // Match answers with the current page's questions
+                foreach ($currentPageQuestions as $question) {
+                    // Check if the question exists in the user's answers
+                    $userAnswer = $useranswer->firstWhere('id', $question->id);
+                    
+                    if ($userAnswer) {
+                        $questionIds[] = $question->id;  // Collect question IDs that have a user's answer
+                    }
+                }
+            
                 return [
-                    'url' => $data->url($page),
-                    'label' => (string) $page,
-                    'question'=> $question_id,
-                    'active' => $page === $data->currentPage(),
+                    'url' => $data->url($page),  // Pagination URL for the page
+                    'label' => (string) $page,    // Label for the page (e.g., 1, 2, 3, ...)
+                    'question_ids' => $questionIds,  // Array of question IDs with answers for this page
+                    'active' => $page === $data->currentPage(),  // Is this the current page?
                 ];
             });
         
