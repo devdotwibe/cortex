@@ -1881,7 +1881,8 @@ section.post-section .post-item .post-actions a.post-action-btn span {
     align-items: center;
 }
 
-.analytic-exam .analytic-exam-item .overview-title .overview-center {
+.analytic-exam .analytic-exam-item .overview-title .overview-center,
+.analytic-exam .analytic-exam-item .overview-title .overview-right {
     cursor: pointer;
 }
 
