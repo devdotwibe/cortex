@@ -79,9 +79,9 @@
                                 </select>
                             </div> --}}
                             <div class="form-group">
-                                <label for="hashtag-select">Select Hashtag</label>
+                                <label for="hashtag-select">Select Channel</label>
                                 <select  name="hashtag[]" class="form-control">
-                                    <option value="">Select a hashtag</option>
+                                    <option value="">Select a Channel</option>
                                     @foreach($hashtags as $hashtag)
                                         <option value="{{ $hashtag->id }}" 
                                             {{ $hashtag->id == $post->hastag_id ? 'selected' : '' }}>
