@@ -3301,6 +3301,7 @@ aside.side_bar.slider-btn .btn-slider {
 
 .exam-container.questionclass.answerclass .container-wrap.nopaginationclass .lesson-body .row {
     height: 100%;
+    overflow-y: auto;
 }
 
 .exam-container.questionclass.answerclass .container-wrap.nopaginationclass .lesson-body .row .mcq-row {
