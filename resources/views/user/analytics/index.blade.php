@@ -34,7 +34,11 @@
                                     <div class="exam-overview"> 
                                         <div class="exam-overview-content">
                                             <div class="overview-title text-center">
-                                                <h3>{{ucfirst($item->name)}}</h3>
+                                                <h3>{{ucfirst($item->name)}}
+                                                    
+                                                    <img src="{{asset('assets/images/chevron-arrow-solid.svg')}}" >
+
+                                                </h3>
                                             </div>
                                             <div class="overview-graph">
                                                 <div class="overview-graph-body">
