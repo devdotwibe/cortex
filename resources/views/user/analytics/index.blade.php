@@ -35,9 +35,8 @@
                                     <div class="exam-overview"> 
                                         <div class="exam-overview-content">
                                             <div class="overview-title text-center">
-                                                <h3>{{ucfirst($item->name)}} 
-                                                    <span class="arrow-img"> <img src="{{asset('assets/images/chevron-arrow-solid.svg')}}" > </span>
-                                                </h3>
+                                                <h3>{{ucfirst($item->name)}} </h3>
+                                                   
                                             </div>
                                             <div class="overview-graph">
                                                 <div class="overview-graph-body">
@@ -181,10 +180,10 @@
                 let nextbtn = '';
                 let prevbtn = '';
                 if(res.next){
-                    nextbtn = `<a class="next-btn"  onclick="loadexamgrapg('${res.next}')"><img src="{{asset('assets/images/rightarrows1.svg')}}" alt="next" ></a>`;
+                    nextbtn = `<a class="next-btn"  onclick="loadexamgrapg('${res.next}')"><img src="{{asset('assets/images/chevron-arrow-solid.svg')}}" alt="next" ></a>`;
                 }
                 if(res.prev){
-                    prevbtn = `<a class="prev-btn"  onclick="loadexamgrapg('${res.prev}')"><img src="{{asset('assets/images/leftarrows1.svg')}}" alt="prev" ></a>`;
+                    prevbtn = `<a class="prev-btn"  onclick="loadexamgrapg('${res.prev}')"><img src="{{asset('assets/images/chevron-arrow-prev-solid .svg')}}" alt="prev" ></a>`;
                 }
                 $('#analytic-exam').html(`
                     <div class="row">
