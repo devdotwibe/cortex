@@ -1882,7 +1882,8 @@ section.post-section .post-item .post-actions a.post-action-btn span {
 }
 
 .analytic-exam .analytic-exam-item .overview-title .overview-center,
-.analytic-exam .analytic-exam-item .overview-title .overview-right {
+.analytic-exam .analytic-exam-item .overview-title .overview-right,
+.analytic-exam .analytic-exam-item .overview-title .overview-left {
     cursor: pointer;
 }
 
