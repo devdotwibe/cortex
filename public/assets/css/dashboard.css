@@ -537,8 +537,8 @@ button.close {
 
 .lesson .lesson-title {
     margin: 0 0 32px 35px;
-    padding: 2px 0 2px 15px;
-    border-left: 3px solid #ef9b10
+    padding: 2px 0 2px 0;
+    /*border-left: 3px solid #ef9b10*/
 }
 
 .lesson .lesson-title h3 {
