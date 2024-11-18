@@ -423,6 +423,11 @@
                 }
 
                 if (res.total > 1) {
+
+                    var time_take ="no time";
+
+                    var total_time = "{{ $examtime }}";
+
                     $.each(res.links, function(k, v) {
                         let linkstatus = "";
                         if (k != 0 && k != res.links.length && useranswers[k - 1]) {
@@ -433,6 +438,8 @@
                                     linkstatus = "status-exelent";
                                 }
                             }
+
+                           time_take =  useranswers[k - 1].time_taken
                         }
                         if (v.active || !v.url) {
                             var label_name = v.label;
@@ -444,11 +451,11 @@
                                 preclass = "preclass";
                             }
                             $('#lesson-footer-paginationmobile').append(`
-                                <button class="${linkstatus} btn btn-secondary ${res.data.time_taken}  ${preclass} ${v.active?"active":""}" disabled   >${label_name}</button>
+                                <button class="${linkstatus} btn btn-secondary  ${preclass} ${v.active?"active":""}" disabled   >${label_name}</button>
                             `)
                         } else {
                             $('#lesson-footer-paginationmobile').append(`
-                                <button class="${linkstatus} btn btn-secondary ${res.data.time_taken} " onclick="loadlessonreview('${v.url}')" >${v.label}</button>
+                                <button class="${linkstatus} btn btn-secondary ${time_take} ${total_time}" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
                             `)
                         }
 
