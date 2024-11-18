@@ -12,23 +12,24 @@
                         <div class="choice @if(!empty($item->addclass)) {{ $item->addclass }} @endif"  @if(!empty($item->display)) style="display:none" @endif>
                             <h3>{{ucfirst($item->label??$item->name)}}</h3>
                             <div class="choice-group col-md-12" id="{{$item->name}}-{{$frmID}}-choice-group" >
-                                @if (count(old($item->name,[]))>0)
-                                    @foreach(old($item->name,[]) as $k=> $v)
+                                @if (count(old($item->name,[]))>0) 
+                                    @foreach(old($item->name,[]) as $k=> $v) 
                                     <div class="choice-item mt-2" id="{{$item->name}}-{{$frmID}}-choice-item-{{$k}}"  >
                                         <div class="form-group">
                                             <div class="form-data">
                                                 <div class="forms-inputs mb-4"> 
                                                     <label for="{{$item->name}}-{{$frmID}}-{{$k}}">Choice</label>
                                                     <input type="hidden" name="choice_{{$item->name}}_id[]"  value="{{old('choice_'.$item->name."_id",[])[$k]??""}}">
+                                                    <input type="hidden" name="choice_{{$item->name}}_image[]"  value="{{old('choice_'.$item->name."_image",[])[$k]??""}}">
+
                                                     <div class="input-group">
                                                         <div class="input-group-prepend choice-check-group">
                                                             <label class="input-group-label choice-label" for="{{$item->name}}-{{$frmID}}-{{$k}}-check"></label>
                                                             <input type="radio" class="input-group-label choice-label"  name="choice_{{$item->name}}" id="{{$item->name}}-{{$frmID}}-{{$k}}-check" value="{{$k}}" @checked(old('choice_'.$item->name)==$k) >
                                                         </div>
                                                         <input type="text" name="{{$item->name}}[]" id="{{$item->name}}-{{$frmID}}-{{$k}}" value="{{old($item->name)[$k]}}"  class="form-control  @error($item->name.".$k") is-invalid @enderror " placeholder="{{ucfirst($item->label??$item->name)}}" aria-placeholder="{{ucfirst($item->label??$item->name)}}" >
-                                                        <input type="file" name="file_{{$item->name}}[]" id="file_{{$item->name}}-{{$frmID}}-{{$k}}" value=""  class="form-control  @error('file_'.$item->name.".$k") is-invalid @enderror " onchange="previewImage(this, 'preview-{{$item->name}}-{{$frmID}}-{{$k}}')">
-                                                        <img id="preview-{{ $item->name }}-{{ $frmID }}-{{ $k }}" src="file_{{old($item->name)[$k]}}" alt="Image Preview" style="width: 100px; height: 40px; object-fit: cover; margin-top: 10px; display: block;">
-                                                        
+                                                        <input type="file" name="file_{{$item->name}}[]" id="file_{{$item->name}}-{{$frmID}}-{{$k}}" value=""  accept="image/jpeg, image/png, image/gif"  class="form-control  @error('file_'.$item->name.".$k") is-invalid @enderror " onchange="previewImage(this, 'preview-{{$item->name}}-{{$frmID}}-{{$k}}')">
+                                                            <img id="preview-{{ $item->name }}-{{ $frmID }}-{{ $k }}" src="{{old('choice_'.$item->name."_image",[])[$k]??""}}" alt="Image Preview"  style="width: 100px; height: 40px; object-fit: cover; margin-top: 10px; display: block;">
                                                         @if ($k!=0)
                                                         <div class="input-group-append choice-check-group">
                                                             <button type="button" onclick="removeChoice{{$frmID}}('#{{$item->name}}-{{$frmID}}-choice-item-{{$k}}','#{{$item->name}}-{{$frmID}}-{{$k}}-check','#{{$item->name}}-{{$frmID}}-choice-group')" class="btn btn-danger "><img src="{{asset("assets/images/delete-black.svg")}}"></button>
@@ -45,22 +46,25 @@
                                     @endforeach
                                 @else
                                     
-                                @forelse ($item->value??[] as $k=> $v)
+                                @forelse ($item->value??[] as $k=> $v) 
                                 <div class="choice-item mt-2" id="{{$item->name}}-{{$frmID}}-choice-item-{{$k}}"  >
                                     <div class="form-group">
                                         <div class="form-data">
                                             <div class="forms-inputs mb-4"> 
                                                 <label for="{{$item->name}}-{{$frmID}}-{{$k}}">Choice</label>
                                                 <input type="hidden" name="choice_{{$item->name}}_id[]"  value="{{$v->id}}">
+                                                <input type="hidden" name="choice_{{$item->name}}_image[]"  value="{{$v->image}}">
                                                 <div class="input-group">
                                                     <div class="input-group-prepend choice-check-group">
                                                         <label class="input-group-label choice-label" for="{{$item->name}}-{{$frmID}}-{{$k}}-check"></label>
                                                         <input type="radio" class="input-group-check choice-check" name="choice_{{$item->name}}" id="{{$item->name}}-{{$frmID}}-{{$k}}-check" value="{{$k}}" @checked($v->choice) >
                                                     </div>
                                                     <input type="text" name="{{$item->name}}[]" id="{{$item->name}}-{{$frmID}}-{{$k}}" value="{{$v->value}}"  class="form-control  @error($item->name.".$k") is-invalid @enderror " placeholder="{{ucfirst($item->label??$item->name)}}" aria-placeholder="{{ucfirst($item->label??$item->name)}}" >
-                                                    <input type="file" name="file_{{$item->name}}[]" id="file_{{$item->name}}-{{$frmID}}-0" value=""  class="form-control" onchange="previewImage(this, 'preview-{{$item->name}}-{{$frmID}}-{{ $k }}')">
+                                                    <input type="file" name="file_{{$item->name}}[]" id="file_{{$item->name}}-{{$frmID}}-0" value=""  accept="image/jpeg, image/png, image/gif" class="form-control" onchange="previewImage(this, 'preview-{{$item->name}}-{{$frmID}}-{{ $k }}')">
+                                                    <div class="invalid-feedback" id="upload-file-{{ $item->name }}-{{ $frmID }}-0">Please upload a valid image file (JPEG, PNG, GIF).</div>
+
                                                     @isset($v->image)
-                                                    <img id="preview-{{ $item->name }}-{{ $frmID }}-{{ $k }}" src="{{$v->image}}" alt="Image Preview"  style="width: 100px; height: 40px; object-fit: cover; margin-top: 10px; display: block;">
+                                                        <img id="preview-{{ $item->name }}-{{ $frmID }}-{{ $k }}" src="{{url($v->image)}}" alt="Image Preview"  style="width: 100px; height: 40px; object-fit: cover; margin-top: 10px; display: block;">
                                                     @endisset
 
                                                     @if ($k!=0)
@@ -208,7 +212,11 @@
                                     <input type="radio" class="input-group-check choice-check"  id="${el}-check" name="choice_${name}" value="${ln}" >
                                 </div>
                                 <input type="text" name="${name}[]" id="${el}" value="" class="form-control" placeholder="${label}" aria-placeholder="${label}" >
-                                    <input type="file" name="file_${name}[]" id="${el}-file" value="" class="form-control" >
+                                    <input type="file" name="file_${name}[]" id="${el}-file" onchange="validateImage(this, 'upload-file-${name}-{{$frmID}}-${chcnt}')"  accept="image/jpeg, image/png, image/gif" value="" class="form-control" >
+                                    <div class="invalid-feedback" id="upload-file-${name}-{{$frmID}}-${chcnt}">Please upload a valid image file (JPEG, PNG, GIF).</div>
+
+                                    <img id="${el}-preview" src="#" alt="Image Preview" style="display:none; width: 100px; height: auto; margin-top: 10px;"/>
+
                                 <div class="input-group-append choice-check-group">
                                     <button type="button" onclick="removeChoice{{$frmID}}('#${name}-{{$frmID}}-choice-item-chcnt-${chcnt}','#${el}-check','${target}')" class="btn btn-danger "><img src="{{asset("assets/images/delete-black.svg")}}"></button>
                                 </div>
@@ -280,6 +288,22 @@
                 });
             }) 
         })
+        function validateImage(input,id) {
+            const file = input.files[0];
+            const validImageTypes = ["image/jpeg", "image/png", "image/gif"];
+            const feedbackElement = document.getElementById(id);
+            if (file && !validImageTypes.includes(file.type)) {
+                input.classList.add('is-invalid');
+                feedbackElement.style.display = 'block';
+                $(input).data("valid", false); // Mark input as invalid
+                input.value = ""; // Clear the input
+            } else {
+                input.classList.remove('is-invalid');
+                feedbackElement.style.display = 'none';
+                $(input).data("valid", true); // Mark input as valid
+
+            }
+        }
 
         CKEDITOR.replaceAll('texteditor')
     </script>
