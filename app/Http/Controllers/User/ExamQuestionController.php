@@ -297,6 +297,7 @@ class ExamQuestionController extends Controller
                         ->where('user_review_questions.user_exam_review_id',$userExamReview->id)
                         ->select('user_review_questions.id','user_review_questions.time_taken','user_review_answers.iscorrect')->get();
         $examtime=0;
+        $exam_time_sec = 0;
         if($user->progress("exam-review-".$userExamReview->id."-timed",'')=="timed"){
 
             // $times=explode(':',$user->progress("exam-review-".$userExamReview->id."-time_of_exam",'0:0'));
@@ -311,10 +312,11 @@ class ExamQuestionController extends Controller
                 $examtime+=intval(trim($times[1]??"0"));
             }
 
+            $exam_time_sec = $examtime *60;
             // $examtime= $exam->time_of_exam;
 
-            if($examtime>0&&count($useranswer)>0){
-                $examtime=$examtime/count($useranswer);
+            if($exam_time_sec>0&&count($useranswer)>0){
+                $examtime=$exam_time_sec/count($useranswer);
             }
         }
         return view("user.question-bank.preview",compact('category','exam','subCategory','setname','user','userExamReview','useranswer','examtime'));
