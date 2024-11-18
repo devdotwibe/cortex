@@ -299,6 +299,7 @@ class ExamQuestionController extends Controller
                 'prev_page_url' => $data->previousPageUrl(),
                 'to' => $data->lastItem(),
                 'total' => $data->total(),
+                'questions' => $questions,   
             ]);
         }
 
