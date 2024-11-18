@@ -4,6 +4,10 @@
             <form @if (!empty($params))   action="{{route("$name.store",$params)}}"    @else   action="{{route("$name.store")}}"   @endif class="form" id="{{$frmID}}" method="post" enctype="multipart/form-data">
                 @csrf 
                 <div class="row">
+                    @php                    
+                        $choice = 1;
+                        $choiceName = $fields[7]->name;
+                    @endphp
                     @foreach ($fields as $item)
                         @if (($item->type??"text")=="hidden")
                             <input type="hidden" name="{{$item->name}}" id="{{$item->name}}-{{$frmID}}" value="{{old($item->name,$item->value??"")}}">
@@ -263,39 +267,44 @@
                 feedbackElement.style.display = 'none';
             }
         }
-        $(document).ready(function () {
+        $(document).ready(function () {           
+            let choice = "{{ $choice }}"
+            let name = "{{ $choiceName }}"
             $("#{{$frmID}}").on("submit", function (e) {
-                let isValid = true;
+                if ($('.mcq_section').is(':visible') || $(`input[name='${name}[]']`).length > 1) {
+                    let isValid = true;
+                    // Loop through each group of inputs
+                    $(`input[name='${name}[]']`).each(function (index) {
+                        const answerField = $(this);
+                        const fileField = $(`input[name='file_${name}[]']`).eq(index);
 
-                // Loop through each group of inputs
-                $("input[name='answer[]']").each(function (index) {
-                    const answerField = $(this);
-                    const fileField = $("input[name='file_answer[]']").eq(index);
+                        const answerValue = answerField.val().trim();
+                        const fileValue = fileField.val();
 
-                    const answerValue = answerField.val().trim();
-                    const fileValue = fileField.val();
+                        // Check if both fields are empty
+                        if (!answerValue && !fileValue) {
+                            isValid = false;
+                            answerField.addClass("is-invalid");
+                            fileField.addClass("is-invalid"); 
+                            const feedbackElement = fileField.next(".invalid-feedback");
+                            feedbackElement.text("Either answer or file is required.").show();
+                        } else {
+                            answerField.removeClass("is-invalid");
+                            fileField.removeClass("is-invalid");
+                            fileField.next(".invalid-feedback").hide(); 
 
-                    // Check if both fields are empty
-                    if (!answerValue && !fileValue) {
-                        isValid = false;
-                        answerField.addClass("is-invalid");
-                        fileField.addClass("is-invalid"); 
-                        const feedbackElement = fileField.next(".invalid-feedback");
-                        feedbackElement.text("Either answer or file is required.").show();
-                    } else {
-                        answerField.removeClass("is-invalid");
-                        fileField.removeClass("is-invalid");
-                        fileField.next(".invalid-feedback").hide(); 
+                        }
+                    });
 
+                    if (!isValid) {
+                        e.preventDefault();
+                        alert("Please ensure that either an answer or a file is provided for all fields.");
                     }
-                });
-
-                if (!isValid) {
-                    e.preventDefault();
-                    alert("Please ensure that either an answer or a file is provided for all fields.");
                 }
+
             });
-        });
+
+         });
     </script>
  
 @endpush
