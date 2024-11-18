@@ -294,7 +294,7 @@ class ExamQuestionController extends Controller
         $total_questions = UserReviewQuestion::whereIn('review_type',['mcq'])->where('user_id',$user->id)->where('user_exam_review_id',$userExamReview->id)->count();
 
         $useranswer=UserReviewQuestion::leftJoin('user_review_answers','user_review_answers.user_review_question_id','user_review_questions.id')
-                        ->where('user_review_answers.user_answer',true)
+                        // ->where('user_review_answers.user_answer',true)
                         ->whereIn('user_review_questions.review_type',['mcq'])
                         ->where('user_review_questions.user_id',$user->id)
                         ->where('user_review_questions.user_exam_review_id',$userExamReview->id)
