@@ -1885,6 +1885,10 @@ section.post-section .post-item .post-actions a.post-action-btn span {
     cursor: pointer;
 }
 
+.analytic-exam .analytic-exam-item .overview-title .overview-dropdown .list-item a {
+    cursor: pointer;
+}
+
 .progress-list {
     width: 100%;
     display: flex;
