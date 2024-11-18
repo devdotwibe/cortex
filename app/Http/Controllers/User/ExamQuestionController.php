@@ -252,6 +252,7 @@ class ExamQuestionController extends Controller
                 return [
                     'url' => $data->url($page),
                     'label' => (string) $page,
+                    'question'=>$data->items(),
                     'active' => $page === $data->currentPage(),
                 ];
             });
@@ -261,7 +262,7 @@ class ExamQuestionController extends Controller
                 [
                     'url' => $data->previousPageUrl(),
                     'label' => '&laquo; Previous',
-                    'question_id' => $data->id,
+                    'question'=>$data->items(),
                     'active' => false,
                 ],
             ])
@@ -270,7 +271,7 @@ class ExamQuestionController extends Controller
                 [
                     'url' => $data->nextPageUrl(),
                     'label' => 'Next &raquo;',
-                    'question_id' => $data->id,
+                    'question'=>$data->items(),
                     'active' => false,
                 ],
             ]);
