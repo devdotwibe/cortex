@@ -29,16 +29,14 @@ class QuestionController extends Controller
                     "sub_category_set"=>['required'],
                     "description"=>['required'],
                     // "duration"=>["required"],
-                    "answer.*" => ["required_without:file_answer", 'string', 'max:150','nullable'],
+                    "answer.*" => ["required_without:file_answer", 'max:150'],
                     "file_answer.*" => ["required_without:answer", 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
                     "explanation"=>['nullable'],
                     "title_text"=>['nullable'],
                     "sub_question"=>['nullable'],
                 ],[
-                    'answer.*.required_without' => 'The answer field is required when file answer is not provided.',
-                    
-
-                    'file_answer.*.required_without' => 'The file answer is required when answer is not provided.',
+                    'answer.*.required_without' => 'The answer field is required when image answer is not provided.',
+                    'file_answer.*.required_without' => 'The image answer is required when answer is not provided.',
                     'file_answer.*.mimes' => 'Each file answer must be an image (jpeg, png, jpg, gif).',
                 ]);
                 break;
@@ -55,9 +53,9 @@ class QuestionController extends Controller
                     "title_text"=>['nullable'],
                     "sub_question"=>['nullable'],
                 ],[
-                    'answer.*.required_without' => 'The answer field is required when file answer is not provided.',
                     'answer.*.max' => 'sample.',
-                    'file_answer.*.required_without' => 'The file answer is required when answer is not provided.',
+                    'answer.*.required_without' => 'The answer field is required when image answer is not provided.',
+                    'file_answer.*.required_without' => 'The image answer is required when answer is not provided.',
                     'file_answer.*.mimes' => 'Each file answer must be an image (jpeg, png, jpg, gif).',
                 ]);
                 break;
@@ -74,8 +72,8 @@ class QuestionController extends Controller
                     "title_text"=>['nullable'],
                     "sub_question"=>['nullable'],
                 ],[
-                    'answer.*.required_without' => 'The answer field is required when file answer is not provided.',
-                    'file_answer.*.required_without' => 'The file answer is required when answer is not provided.',
+                    'answer.*.required_without' => 'The answer field is required when image answer is not provided.',
+                    'file_answer.*.required_without' => 'The image answer is required when answer is not provided.',
                     'file_answer.*.mimes' => 'Each file answer must be an image (jpeg, png, jpg, gif).',
                 ]);
                 break;
@@ -91,8 +89,8 @@ class QuestionController extends Controller
                     "answer.*" => ["required_without:file_answer", 'string', 'max:150','nullable'],
                     "file_answer.*" => ["required_without:answer", 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
                 ],[
-                    'answer.*.required_without' => 'The answer field is required when file answer is not provided.',
-                    'file_answer.*.required_without' => 'The file answer is required when answer is not provided.',
+                    'answer.*.required_without' => 'The answer field is required when image answer is not provided.',
+                    'file_answer.*.required_without' => 'The image answer is required when answer is not provided.',
                     'file_answer.*.mimes' => 'Each file answer must be an image (jpeg, png, jpg, gif).',
                 ]);
                 break;

@@ -20,7 +20,7 @@
                     "id"=>$ans->id,
                     "value"=>$ans->title,
                     "choice"=>$ans->iscorrect,
-                    "image"=>$ans->image ? url('d0',$ans->image) : Null,
+                    "image"=>$ans->image ? asset('d0').'/'.$ans->image : Null,
 
             ];
             }
