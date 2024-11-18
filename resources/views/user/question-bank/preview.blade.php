@@ -431,17 +431,26 @@
                     var total_time = "{{ $examtime }}";
 
                     $.each(res.links, function(k, v) {
-                        let linkstatus =  'status-bad';
-                        if (k != 0 && k != res.links.length && useranswers[k - 1]) {
-                            linkstatus = 'status-bad';
-                            if (useranswers[k - 1].iscorrect) {
-                                linkstatus = "status-good";
-                                if (useranswers[k - 1].time_taken < {{ $examtime }}) {
-                                    linkstatus = "status-exelent";
-                                }
-                            }
 
-                           time_take =  useranswers[k - 1].time_taken
+                        let linkstatus =  'status-bad';
+                        if (k != 0 && k != res.links.length ) {
+
+                            $.each(useranswers, function(i, j) {
+
+                                if(v.question_id == j.id)
+                                {
+                                    linkstatus = 'status-bad';
+                                    if (j.iscorrect) {
+                                        linkstatus = "status-good";
+                                        if (j.time_taken < {{ $examtime }}) {
+                                            linkstatus = "status-exelent";
+                                        }
+                                    } 
+                                }
+                            });
+                           
+                        
+                           time_take =  j.time_taken;
                         }
                         if (v.active || !v.url) {
                             var label_name = v.label;

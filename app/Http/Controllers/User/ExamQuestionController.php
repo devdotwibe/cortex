@@ -261,6 +261,7 @@ class ExamQuestionController extends Controller
                 [
                     'url' => $data->previousPageUrl(),
                     'label' => '&laquo; Previous',
+                    'question_id' => $data->id,
                     'active' => false,
                 ],
             ])
@@ -269,6 +270,7 @@ class ExamQuestionController extends Controller
                 [
                     'url' => $data->nextPageUrl(),
                     'label' => 'Next &raquo;',
+                    'question_id' => $data->id,
                     'active' => false,
                 ],
             ]);
