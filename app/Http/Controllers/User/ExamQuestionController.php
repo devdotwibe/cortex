@@ -248,11 +248,13 @@ class ExamQuestionController extends Controller
                 return UserReviewAnswer::where('user_review_question_id',$question->id)->get();
             }
             $data = UserReviewQuestion::whereIn('review_type',['mcq'])->where('user_id',$user->id)->where('user_exam_review_id',$userExamReview->id)->paginate(1);
+
+            $questions = $data->items();
+
             $links = collect(range(1, $data->lastPage()))->map(function ($page) use ($data) {
                 return [
                     'url' => $data->url($page),
                     'label' => (string) $page,
-                    'question'=>$data->items(),
                     'active' => $page === $data->currentPage(),
                 ];
             });
@@ -275,6 +277,12 @@ class ExamQuestionController extends Controller
                     'active' => false,
                 ],
             ]);
+
+            $paginationLinks = $links->map(function ($link) use ($questions) {
+              
+                $link['questions'] = $questions;
+                return $link;
+            });
         
             // Build the response structure
             return response()->json([
