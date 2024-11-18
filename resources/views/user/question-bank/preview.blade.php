@@ -252,6 +252,9 @@
 @push('footer-script')
     <script>
         var useranswers = @json($useranswer);
+
+        console.log(useranswers);
+        
         var timelist = @json(json_decode($user->progress('exam-reviewed-' . $userExamReview->id . '-times', '[]')));
 
         function generateRandomId(length) {
