@@ -169,6 +169,8 @@
     <script>
         var useranswers = @json($useranswer);
         
+        console.log(useranswers);
+        
         function generateRandomId(length) {
             const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
             let result = '';
@@ -276,21 +278,23 @@
 
                     $.each(res.links, function(k, v) {
                         let linkstatus = "";
-                        console.log(res.links.length);
-                        if (k != 0 && k != res.links.length && useranswers[k - 1]) {
-                            linkstatus = "status-bad";
 
-                            if (res.data.review_type == 'short_notes') {
-                    
+                        if (res.data.review_type == 'short_notes') {
+                                
                                 linkstatus = "status-grey";
                             }
-                            if (useranswers[k - 1].iscorrect) {
 
+                        console.log(res.links.length);
+
+                        if (k != 0 && k != res.links.length && useranswers[k - 1]) {
+                          
+                            linkstatus = "status-bad";
+
+                            if (useranswers[k - 1].iscorrect) {
 
                                 linkstatus = "status-good";
 
                             }
-
 
                         }
                         if (v.active || !v.url) {
