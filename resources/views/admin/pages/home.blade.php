@@ -2650,7 +2650,9 @@
 
                 // Function to remove the image
                 function removeImage() {
-                    const imagePath = "{{ $banner->image }}"; // Set the correct image path
+                    const imagePath = "{{ optional($banner)->image }}"; // Set the correct image path
+
+                 
 
                     // Send an AJAX request to delete the image
                     $.ajax({
