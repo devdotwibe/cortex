@@ -259,7 +259,7 @@ class TopicTestController extends Controller
             if ($request->ajax()) {
                 return response()->json(["success" => "Questions deleted successfully"]);
             }
-            return redirect()->route('admin.question-bank.show', $category->slug)
+            return redirect()->route('admin.topic-test.show', $category->slug)
                              ->with("success", "Questions deleted successfully");
         } else {
             $request->validate([
