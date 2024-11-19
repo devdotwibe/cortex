@@ -4,9 +4,15 @@
             <form @if (!empty($params))   action="{{route("$name.store",$params)}}"    @else   action="{{route("$name.store")}}"   @endif class="form" id="{{$frmID}}" method="post" enctype="multipart/form-data">
                 @csrf 
                 <div class="row">
-                    @php                    
-                        $choice = 1;
-                        $choiceName = $fields[7]->name;
+                    @php
+                        if(isset($fields[7])){
+                            $choice = 1;
+                            $choiceName = $fields[7]->name;
+                        }else{
+                            $choice = 0;
+                            $choiceName = '';
+                        }                    
+                        
                     @endphp
                     @foreach ($fields as $item)
                         @if (($item->type??"text")=="hidden")
