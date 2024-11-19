@@ -163,7 +163,9 @@ Route::name('admin.')->prefix('admin')->group(function(){
                 Route::post('/subtitle',[QuestionBankController::class,'subtitle'])->name('subtitle');
                 Route::get('/{setname}',[QuestionBankController::class,'show'])->name('show');
 
-                Route::post('/question-bank/bulk/action',[QuestionBankController::class,'bulkaction'])->name('bulkaction');
+                // Route::post('/question-bank/bulk/action',[QuestionBankController::class,'bulkaction'])->name('bulkaction');
+
+                Route::post('/{setname}/bulk/action', [QuestionBankController::class, 'bulkaction'])->name('bulkaction');
 
 
                 Route::get('/{setname}/create',[QuestionBankController::class,'create'])->name('create');
