@@ -222,55 +222,67 @@ class HomeWorkController extends Controller
 
 
     public function bulkaction(Request $request, HomeWorkQuestion $homeWork)
-{
+    {
+        $subCategoryId = $request->input('sub_category_id');
     
-    if (!empty($request->deleteaction)) {
-        if ($request->input('select_all', 'no') == "yes") {
-            // Delete all questions corresponding to the specific setname
-            HomeWorkQuestion::where('home_work_id', $homeWork->id)->delete();
+        if (!empty($request->deleteaction)) {
+            if ($request->input('select_all', 'no') == "yes") {
+                // Delete all questions corresponding to the specific homework
+                HomeWorkQuestion::where('home_work_id', $homeWork->id)->delete();
+            } else {
+                // Ensure selectbox is an array or default to an empty array
+                $selectBoxValues = is_array($request->input('selectbox', [])) ? $request->input('selectbox', []) : [];
+                
+                // Delete selected questions
+                HomeWorkQuestion::whereIn('id', $selectBoxValues)
+                    ->where('home_work_id', $homeWork->id)
+                    ->where('sub_category_id', $subCategoryId) // Ensure delete is done for the correct subcategory
+                    ->delete();
+            }
+    
+            if ($request->ajax()) {
+                return response()->json(["success" => "Questions deleted successfully"]);
+            }
+            return redirect()->route('admin.home-work.show', $homeWork->slug)
+                             ->with("success", "Questions deleted successfully");
         } else {
-            // Delete selected questions only
-            HomeWorkQuestion::whereIn('id', $request->input('selectbox', []))->delete();
+            $request->validate([
+                "bulkaction" => ['required']
+            ]);
+            $data = [];
+    
+            switch ($request->bulkaction) {
+                case 'visible_status':
+                    $data["visible_status"] = "show";
+                    break;
+                case 'visible_status_disable':
+                    $data["visible_status"] = "";
+                    break;
+                default:
+                    break;
+            }
+    
+            if ($request->input('select_all', 'no') == "yes") {
+                // Update visibility status for all questions corresponding to the specific homework
+                HomeWorkQuestion::where('home_work_id', $homeWork->id)->update($data);
+            } else {
+                // Ensure selectbox is an array or default to an empty array
+                $selectBoxValues = is_array($request->input('selectbox', [])) ? $request->input('selectbox', []) : [];
+                
+                // Update visibility status for selected questions
+                HomeWorkQuestion::whereIn('id', $selectBoxValues)
+                    ->where('home_work_id', $homeWork->id)
+                    ->where('sub_category_id', $subCategoryId) // Update for the correct subcategory
+                    ->update($data);
+            }
+    
+            if ($request->ajax()) {
+                return response()->json(["success" => "Questions updated successfully"]);
+            }
+            return redirect()->route('admin.home-work.show', $homeWork->slug)
+                             ->with("success", "Questions updated successfully");
         }
-
-        if ($request->ajax()) {
-            return response()->json(["success" => "Questions deleted successfully"]);
-        }
-        return redirect()->route('admin.home-work.show', $homeWork->slug)
-                         ->with("success", "Questions deleted successfully");
-    } else {
-        $request->validate([
-            "bulkaction" => ['required']
-        ]);
-        $data = [];
-
-        switch ($request->bulkaction) {
-            case 'visible_status':
-                $data["visible_status"] = "show";
-                break;
-            case 'visible_status_disable':
-                $data["visible_status"] = "";
-                break;
-            default:
-                break;
-        }
-
-        if ($request->input('select_all', 'no') == "yes") {
-            // Update visibility status for all questions corresponding to the specific setname
-            HomeWorkQuestion::where('home_work_id', $homeWork->id)->update($data);
-        } else {
-            // Update visibility status for selected questions only
-            HomeWorkQuestion::whereIn('id', $request->input('selectbox', []))->update($data);
-        }
-
-        if ($request->ajax()) {
-            return response()->json(["success" => "Questions updated successfully"]);
-        }
-        return redirect()->route('admin.home-work.show', $homeWork->slug)
-                         ->with("success", "Questions updated successfully");
     }
-}
-
-
+    
 
 }
