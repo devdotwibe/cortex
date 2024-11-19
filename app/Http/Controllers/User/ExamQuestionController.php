@@ -273,6 +273,10 @@ class ExamQuestionController extends Controller
                             $data_id = $user_review->where('user_review_question_id', $data_questions[$k]->id)->first()->id;
                         }
                     }
+                    else
+                    {
+                        $data_id = null;
+                    }
                 }
 
                 return [
