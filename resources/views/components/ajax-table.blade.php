@@ -11,6 +11,8 @@
                 <th>
                     <div class="form-check" id="table-{{ $tableid }}-bulk-box">
                         <input type="checkbox" id="table-{{ $tableid }}-bulk" class="form-check-box" name="select_all" value="yes">
+
+                        <input type="hidden" id="select_all_values" >
                     </div>
                 </th>                    
                 @endif
@@ -167,6 +169,15 @@
                 $('#table-{{ $tableid }}-delete').modal('show'); 
             }) 
             $('#table-{{ $tableid }}-bulk').change(function(){
+
+                let selectedValues = [];
+                
+                $('#table-{{ $tableid }} .selectbox:checked').each(function () {
+                    selectedValues.push($(this).val());
+                });
+
+                $('#select_all_values').val(JSON.stringify(selectedValues));
+
                 if($('#table-{{ $tableid }}-bulk').is(":checked")){
                     $('#table-{{ $tableid }} .selectbox-action').show()
                 }else{
@@ -214,6 +225,7 @@
                     data:function(d){
                         @if($bulkaction)
                             d.select_all=$('#table-{{ $tableid }}-bulk').is(':checked')?"yes":"no";
+                            d.select_all_values = $('#select_all_values').val();
                         @endif
 
                         @if(isset($beforeajax))

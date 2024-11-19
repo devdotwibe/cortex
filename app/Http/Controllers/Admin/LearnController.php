@@ -375,14 +375,14 @@ class LearnController extends Controller
 
     public function bulkaction(Request $request, Category $category)
     {
-        // Ensure the correct subcategory is selected
-        $subcategoryId = $request->input('sub_category_id'); // Assuming subcategory_id is passed in the request
+       
+        $subcategoryId = $request->input('sub_category_id'); 
         
         if (!empty($request->deleteaction)) {
             if ($request->input('select_all', 'no') == "yes") {
-                // Delete all questions corresponding to the specific category and subcategory
+               
                 Learn::where('category_id', $category->id)
-                    ->where('sub_category_id', $subcategoryId) // Make sure you filter by subcategory_id
+                    ->where('sub_category_id', $subcategoryId) 
                     ->delete();
             } else {
                 // Delete selected questions only, filtering by category and subcategory
