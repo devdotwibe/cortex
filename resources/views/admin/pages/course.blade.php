@@ -879,40 +879,32 @@
 
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="privateimage"  class="file-upload">Private Image <br>
-                                                    <img src="{{ asset('assets/images/upfile.svg') }}"
-                                                        alt="Upload Icon"> </label>
-                                                <input type="file" class="form-control" style="display: none;" name="privateimage" id="privateimage">
+                                                <label for="privateimage" class="file-upload">Private Image <br>
+                                                    <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon"></label>
+                                                <input type="file" class="form-control" style="display: none;" name="privateimage" id="privateimage" onchange="previewImage(event, 'privateImagePreview', this)" data-id="privateimgid">
                                             </div>
                                         </div>
-
-
-
-  
-
-
-
-                                        <!-- Preview Image Container -->
-                                        <div class="form-group">
+                                    
+                                        <div class="form-group privateimgid" id="privateimgid" style="display: {{ isset($course) && $course->privateimage ? 'block' : 'none' }};">
                                             <label for="privateImagePreview">Image Preview</label>
-                                            <div id="privateImagePreviewContainer"  class="numericalclass">
-                                              
+                                            <div id="privateImagePreviewContainer" class="numericalclass">
                                                 @if (isset($course) && $course->privateimage)
-                                                    <img id="privateImagePreview"
-                                                        src="{{ url('d0/' . $course->privateimage) }}"
-                                                        alt="Image Preview" style="width: 100%; height: auto;">
-                                                    <!-- Delete button for Private Image -->
-                                                    <button type="button" onclick="removePrivateImage(this)"
-                                                        value="{{ $course->id }}" class="btn btn-danger"
-                                                        style="float: right;">X</button>
-                                                @else
-                                                    <img id="privateImagePreview" src="#" alt="Image Preview"
-                                                        style="display: none; width: 100%; height: auto;">
+                                                    <!-- Saved Image Preview -->
+                                                    <img id="privateImagePreview-save" src="{{ url('d0/' . $course->privateimage) }}" alt="Image Preview" style="width: 100%; height: auto;">
+                                                    <button type="button" class="btn btn-danger" id="icondelete2" style="position: absolute; top: 5px; right: 5px;" onclick="removePrivateImage(this)">X</button>
                                                 @endif
+                                    
+                                                <!-- Dynamic Image Preview -->
+                                                <img id="privateImagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
+                                                <button type="button" class="btn btn-danger" id="deleteicon2" style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removeImage()">X</button>
+                                    
+                                                <!-- Delete Button for Saved Image -->
+                                                <button type="button" class="btn btn-danger" id="icondelete2" style="position: absolute; top: 5px; right: 5px; {{ isset($course) && $course->privateimage ? 'display: block;' : 'display: none;' }}" onclick="removePrivateImage(this)">X</button>
                                             </div>
                                         </div>
-
+                                    
                                     </div>
+                                    
 
 
 
@@ -1015,7 +1007,7 @@ function removeSectionImage() {
 
 
 
-    <script>
+    {{-- <script>
         function removePrivateImage(button) {
             const courseId = button.value; // Get the course ID from the button value
             const url = '{{ route('admin.course.deletePrivateImage', ':id') }}'.replace(':id',
@@ -1042,7 +1034,7 @@ function removeSectionImage() {
                 }
             });
         }
-    </script>
+    </script> --}}
 
 
     <script>
@@ -1668,6 +1660,36 @@ function removeDynamicFullmockImage() {
     document.getElementById('fullmockimage').value = '';
 }
 
+
+
+
+// Function to remove the Private Image from the server when the delete button is clicked
+function removePrivateImage(button) {
+    const imagePath = "{{ $course->privateimage }}"; // Set the correct image path for the Private Image
+    const courseId = button.value; // Get the course ID from the delete button value
+
+    $.ajax({
+        type: 'POST',
+        url: '{{ route('admin.course.deletePrivateImage') }}', // Ensure this route matches the backend route for deleting Private Image
+        data: {
+            _token: '{{ csrf_token() }}',
+            image_path: imagePath,
+            course_id: courseId
+        },
+        success: function(response) {
+            if (response.success) {
+                $('#privateimgid').hide(); // Hide the image preview container
+                document.getElementById('privateImagePreview-save').style.display = 'none'; // Hide the saved image preview
+                document.querySelector('#privateImagePreviewContainer button.btn-danger').style.display = 'none'; // Hide the delete button
+            } else {
+                alert('Image could not be deleted. Please try again.');
+            }
+        },
+        error: function(xhr) {
+            alert('An error occurred. Please try again.');
+        }
+    });
+}
 
 
 </script>

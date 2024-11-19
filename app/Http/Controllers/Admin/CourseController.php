@@ -481,29 +481,29 @@ class CourseController extends Controller
     
 
 
+
+
+
+
 public function deletePrivateImage()
 {
-    // Fetch the first course record (adjust this based on your needs if it should be fetched by ID)
     $course = Courses::first();
 
     if ($course && $course->privateimage) {
-        // Check if the private image file exists in the storage
         if (Storage::exists($course->privateimage)) {
-            // Delete the private image from the storage
             Storage::delete($course->privateimage);
         }
 
-        // Set the privateimage field to null in the database
+        // Set image to null and save the change
         $course->privateimage = null;
         $course->save();
 
-        // Return a success response
         return response()->json(['success' => true]);
     }
 
-    // Return a failure response if the private image was not found
     return response()->json(['success' => false], 404);
 }
+
 
 
 public function deleteLogicalImage()
