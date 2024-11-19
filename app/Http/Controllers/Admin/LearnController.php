@@ -378,9 +378,9 @@ class LearnController extends Controller
        
         $subcategoryId = $request->input('sub_category_id'); 
         
-        if (!empty($request->deleteaction) && (!empty($request->select_all_values)) ) {
+        if (!empty($request->deleteaction)  ) {
 
-            if ($request->input('select_all', 'no') == "yes") {
+            if ($request->input('select_all', 'no') == "yes" ) {
                dd($request->select_all_values);
                 Learn::whereIn('id', $request->select_all_values)
                    
