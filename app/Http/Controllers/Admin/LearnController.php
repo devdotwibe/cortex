@@ -371,48 +371,99 @@ class LearnController extends Controller
         return redirect()->route('admin.learn.index')->with("success", "Learn visibility change success");
     }
 
-    public function bulkaction(Request $request)
+    // public function bulkaction(Request $request)
+    // {
+    //     if (!empty($request->deleteaction)) {
+    //         if ($request->input('select_all', 'no') == "yes") {
+    //             Learn::where('id', '>', 0)->delete();
+    //         } else {
+    //             Learn::whereIn('id', $request->input('selectbox', []))->delete();
+    //         }
+    //         if ($request->ajax()) {
+    //             return response()->json(["success" => "Questions deleted success"]);
+    //         }
+    //         return redirect()->route('admin.learn.show')->with("success", "Questions deleted success");
+    //     } else {
+    //         $request->validate([
+    //             "bulkaction" => ['required']
+    //         ]);
+    //         $data = [];
+
+    //         switch ($request->bulkaction) {
+
+    //             case 'visible_status':
+    //                 $data["visible_status"] = "show";
+    //                 break;
+    //             case 'visible_status_disable':
+    //                 $data["visible_status"] = "";
+    //                 break;
+
+
+    //             default:
+    //                 # code...
+    //                 break;
+    //         }
+    //         if ($request->input('select_all', 'no') == "yes") {
+    //             Learn::where('id', '>', 0)->update($data);
+    //         } else {
+    //             Learn::whereIn('id', $request->input('selectbox', []))->update($data);
+    //         }
+
+    //         if ($request->ajax()) {
+    //             return response()->json(["success" => "Questions update success"]);
+    //         }
+    //         return redirect()->route('admin.learn.show')->with("success", "Questions update success");
+    //     }
+    // }
+
+
+    public function bulkaction(Request $request, category $category)
     {
         if (!empty($request->deleteaction)) {
             if ($request->input('select_all', 'no') == "yes") {
-                Learn::where('id', '>', 0)->delete();
+                // Delete all questions corresponding to the specific setname
+                Learn::where('category_id', $category->id)->delete();
             } else {
+                // Delete selected questions only
                 Learn::whereIn('id', $request->input('selectbox', []))->delete();
             }
+    
             if ($request->ajax()) {
-                return response()->json(["success" => "Questions deleted success"]);
+                return response()->json(["success" => "Questions deleted successfully"]);
             }
-            return redirect()->route('admin.learn.show')->with("success", "Questions deleted success");
+            return redirect()->route('admin.learn.show', $category->slug)
+                             ->with("success", "Questions deleted successfully");
         } else {
             $request->validate([
                 "bulkaction" => ['required']
             ]);
             $data = [];
-
+    
             switch ($request->bulkaction) {
-
                 case 'visible_status':
                     $data["visible_status"] = "show";
                     break;
                 case 'visible_status_disable':
                     $data["visible_status"] = "";
                     break;
-
-
                 default:
-                    # code...
                     break;
             }
+    
             if ($request->input('select_all', 'no') == "yes") {
-                Learn::where('id', '>', 0)->update($data);
+                // Update visibility status for all questions corresponding to the specific setname
+                Learn::where('category_id', $category->id)->update($data);
             } else {
+                // Update visibility status for selected questions only
                 Learn::whereIn('id', $request->input('selectbox', []))->update($data);
             }
-
+    
             if ($request->ajax()) {
-                return response()->json(["success" => "Questions update success"]);
+                return response()->json(["success" => "Questions updated successfully"]);
             }
-            return redirect()->route('admin.learn.show')->with("success", "Questions update success");
+            return redirect()->route('admin.learn.show', $category->slug)
+                             ->with("success", "Questions updated successfully");
         }
     }
+
 }

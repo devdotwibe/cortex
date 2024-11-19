@@ -211,7 +211,9 @@ Route::name('admin.')->prefix('admin')->group(function(){
                 Route::get('/',[LearnController::class,'index'])->name('index');
                 Route::get('/{category}',[LearnController::class,'show'])->name('show');
 
-                Route::post('/learn/bulk/action',[LearnController::class,'bulkaction'])->name('bulkaction');
+                // Route::post('/learn/bulk/action',[LearnController::class,'bulkaction'])->name('bulkaction');
+                Route::post('/{category}/bulk/action', [LearnController::class, 'bulkaction'])->name('bulkaction');
+
                 Route::get('/{category}/create',[LearnController::class,'create'])->name('create');
                 Route::get('/{category}/{learn}/edit',[LearnController::class,'edit'])->name('edit');
                 Route::post('/{category}/store',[LearnController::class,'store'])->name('store');
