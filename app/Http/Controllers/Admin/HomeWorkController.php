@@ -277,17 +277,24 @@ public function bulkaction(Request $request, HomeWork $homeWork)
     $booklet = $request->input('home_work_book_id');
 
     if (!empty($request->deleteaction)) {
+
         if ($request->input('select_all', 'no') == "yes") {
-            // Delete all questions corresponding to the specific homework
-            HomeWork::where('id', $homeWork->id)->delete();
-        } else {
-            // Ensure selectbox is an array or default to an empty array
-            $selectBoxValues = is_array($request->input('selectbox', [])) ? $request->input('selectbox', []) : [];
             
-            // Delete selected questions
+         
+            $selectAllValues = json_decode($request->select_all_values, true);
+            HomeWork::whereIn('id', $selectAllValues)  
+                ->delete();
+
+
+
+        } else {
+
+             $selectBoxValues = is_array($request->input('selectbox', [])) ? $request->input('selectbox', []) : [];
+            
+          
             HomeWork::whereIn('id', $selectBoxValues)
                 ->where('home_work_id', $homeWork->id)
-                ->where('home_work_book_id', $booklet) // Ensure delete is done for the correct subcategory
+                ->where('home_work_book_id', $booklet) 
                 ->delete();
         }
 
