@@ -379,6 +379,8 @@ class LearnController extends Controller
         
         if (!empty($request->deleteaction)  ) {
 
+            dd($request->input('select_all_values'));
+            
             if ($request->input('select_all', 'no') == "yes" ) {
                dd($request->input('select_all_values'));
                 Learn::whereIn('id', $request->select_all_values)
@@ -413,19 +415,6 @@ class LearnController extends Controller
                     break;
                 default:
                     break;
-            }
-    
-            if ($request->input('select_all', 'no') == "yes") {
-                // Update visibility status for all questions corresponding to the specific category and subcategory
-                Learn::where('category_id', $category->id)
-                    ->where('sub_category_id', $subcategoryId) // Make sure it updates for the specific subcategory
-                    ->update($data);
-            } else {
-                // Update visibility status for selected questions only, filtering by category and subcategory
-                Learn::whereIn('id', $request->input('selectbox', []))
-                    ->where('category_id', $category->id)
-                    ->where('sub_category_id', $subcategoryId) // Ensure the update is done for the correct subcategory
-                    ->update($data);
             }
     
             if ($request->ajax()) {
