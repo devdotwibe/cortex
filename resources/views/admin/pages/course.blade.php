@@ -1493,8 +1493,9 @@ function removeQuestionImage() {
 function removeTopicImage() {
     console.log('y');
 
-    const courseId = "{{ $course->id }}"; // Get the course ID from the delete button value
-    const imagePath = "{{ $course->topicimage }}"; // Set the correct image path for the Topic image
+    const courseId = "{{ optional($course)->id }}"; // Get the course ID from the delete button value
+const imagePath = "{{ optional($course)->topicimage }}"; // Set the correct image path for the Topic image
+
 
 
     
