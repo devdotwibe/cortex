@@ -282,6 +282,7 @@ public function bulkaction(Request $request, HomeWorkQuestion $homeWork)
             
          
             $selectAllValues = json_decode($request->select_all_values, true);
+            dd($selectAllValues);
             HomeWorkQuestion::whereIn('id', $selectAllValues)  
                 ->delete();
 
