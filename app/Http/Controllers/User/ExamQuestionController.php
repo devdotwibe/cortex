@@ -254,14 +254,25 @@ class ExamQuestionController extends Controller
 
             $user_review = UserReviewAnswer::where('user_id',$user->id)->where('user_answer',true)->where('user_exam_review_id',$userExamReview->id)->get();
 
-            $links = collect(range(1, $data->lastPage()))->map(function ($page) use ($data,$user_review) {
+            $links = collect(range(1, $data->lastPage()))->map(function ($page ,$i) use ($data,$user_review) {
 
-                $data_ids = $user_review->pluck('id')->toArray();
+                $data_ids = $user_review->pluck('question_id')->toArray();
+
+                $data_id = null;
+
+                $currentPageItems = $data->items();
+
+                foreach ($currentPageItems as $item) {
+                    if (in_array($item->question_id, $data_ids)) {
+                        $data_id = $item->question_id;
+                        break;
+                    }
+                }
 
                 return [
                     'url' => $data->url($page),
                     'label' => (string) $page,
-                    'data_id' => $data_ids,
+                    'data_id' => $data_id,
                     'active' => $page === $data->currentPage(),
                 ];
             });
