@@ -16,6 +16,7 @@
                            
                     }else{
                         $choice = 0;
+                        $choiceName = '';
                     }
                     @endphp
                     @foreach ($fields as $item)
