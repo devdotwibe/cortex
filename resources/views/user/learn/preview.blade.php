@@ -284,7 +284,7 @@
 
                             linkstatus = 'status-bad';
 
-                            if (v.ans_id == 'short_notes') {
+                            if (v.ques_type) {
                             
                                 linkstatus = "status-grey";
                             }
