@@ -404,36 +404,41 @@
                                         </div>
                                     </div>
                                     <div class="numericalsectionclass">
-
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="abstractimage" class="file-upload">Abstract Image <br>
-                                                <img src="{{ asset('assets/images/upfile.svg') }}"
-                                                    alt="Upload Icon"></label>
-                                            <input type="file" class="form-control" style="display: none;" name="abstractimage" id="abstractimage">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="abstractimage" class="file-upload">Abstract Image <br>
+                                                    <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
+                                                </label>
+                                                <input type="file" class="form-control" style="display: none;" name="abstractimage" id="abstractimage" onchange="previewAbstractImage(event, 'abstractImagePreview', this)">
+                                            </div>
+                                        </div>
+                                    
+                                        <!-- Preview Image Container -->
+                                        <div class="form-group" id="abstractimgid1" style="display: {{ isset($course) && $course->abstractimage ? 'block' : 'none' }};">
+                                            <label for="abstractImagePreview">Image Preview</label>
+                                            <div id="abstractImagePreviewContainer" class="numericalclass">
+                                                @if (isset($course) && $course->abstractimage)
+                                                    <img id="abstractImagePreview-save" src="{{ url('d0/' . $course->abstractimage) }}"
+                                                        alt="Image Preview" style="width: 100%; height: auto;">
+                                                    <button type="button" class="btn btn-danger" id="icondeleteabstractimg"
+                                                            style="position: absolute; top: 5px; right: 5px;"
+                                                            onclick="removeAbstractImage()">X</button>
+                                                @endif
+                                    
+                                                <!-- Dynamic image preview -->
+                                                <img id="abstractImagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
+                                                <button type="button" class="btn btn-danger" id="deleteiconabstractimg"
+                                                        style="position: absolute; top: 5px; right: 5px; display: none;"
+                                                        onclick="removeImageabstract()">X</button>
+                                    
+                                                <!-- Delete button for saved image -->
+                                                <button type="button" class="btn btn-danger" id="icondeleteabstractimg"
+                                                        style="position: absolute; top: 5px; right: 5px; 
+                                                               {{ isset($course) && $course->abstractimage ? 'display: block;' : 'display: none;' }};"
+                                                        onclick="removeAbstractImage()">X</button>
+                                            </div>
                                         </div>
                                     </div>
-
-                                  
-                                    <!-- Preview Image Container -->
-                                    <div class="form-group">
-                                        <label for="abstractImagePreview">Image Preview</label>
-                                        <div id="abstractImagePreviewContainer" class="numericalclass">
-                                          
-                                            @if (isset($course) && $course->abstractimage)
-                                                <img id="abstractImagePreview"
-                                                    src="{{ url('d0/' . $course->abstractimage) }}" alt="Image Preview"
-                                                    style="width: 100%; height: auto;">
-                                                <button type="button" onclick="removeAbstractImage(this)"
-                                                    value="{{ $course->id }}" class="btn btn-danger"
-                                                    style="float: right;">X</button>
-                                            @else
-                                                <img id="abstractImagePreview" src="#" alt="Image Preview"
-                                                    style="display: none; width: 100%; height: auto;">
-                                            @endif
-                                        </div>
-                                    </div>
-                                </div>
 
 
                                 </div>
@@ -1832,6 +1837,69 @@ function removeImagecritical() {
     document.getElementById('criticalimage').value = '';
 }
 
+
+
+
+function removeAbstractImage() {
+    const imagePath = "{{ $course->abstractimage }}";  // Get the path of the abstract image
+
+    $.ajax({
+        type: 'POST',
+        url: '{{ route('admin.course.deleteAbstractImage') }}',  // Ensure this route matches the backend route for deleting abstract image
+        data: {
+            _token: '{{ csrf_token() }}',
+            image_path: imagePath  // Send the image path to the backend
+        },
+        success: function(response) {
+            if (response.success) {
+                $('#abstractimgid1').hide();  // Hide the image preview container
+                document.getElementById('abstractImagePreview-save').style.display = 'none';  // Hide the saved image preview
+                document.querySelector('#abstractImagePreviewContainer button.btn-danger').style.display = 'none';  // Hide delete button
+            } else {
+                alert('Image could not be deleted. Please try again.');
+            }
+        },
+        error: function(xhr) {
+            alert('An error occurred. Please try again.');
+        }
+    });
+}
+
+
+
+// Function to preview the Abstract Image
+function previewAbstractImage(event, previewId, element) {
+    const reader = new FileReader();
+
+    reader.onload = function () {
+        const output = document.getElementById(previewId);
+        output.src = reader.result; // Set the preview image source
+        output.style.display = 'block'; // Display the preview image
+
+        // Show the preview container and delete button
+        $('#abstractimgid1').show();
+        $('#deleteiconabstractimg').show(); // Show delete button for the preview image
+        $('#icondeleteabstractimg').hide(); // Hide delete button for the saved image
+    };
+
+    if (event.target.files[0]) {
+        reader.readAsDataURL(event.target.files[0]); // Read the selected image
+    }
+}
+
+// Function to remove the Abstract Image preview when the delete button is clicked
+function removeImageabstract() {
+    // Clear the preview image and hide the preview container and delete button
+    const output = document.getElementById('abstractImagePreview');
+    output.src = '';
+    output.style.display = 'none'; // Hide the preview image
+
+    $('#abstractimgid1').hide(); // Hide preview container
+    $('#deleteiconabstractimg').hide(); // Hide delete button for the preview image
+
+    // Clear the file input field
+    document.getElementById('abstractimage').value = '';
+}
 
 
 </script>

@@ -550,29 +550,27 @@ public function deleteCriticalImage()
 
 
 
+
+
+
 public function deleteAbstractImage()
 {
     $course = Courses::first();
 
     if ($course && $course->abstractimage) {
-        // Check if the abstract image file exists in the storage
         if (Storage::exists($course->abstractimage)) {
-            // Delete the abstract image from the storage
             Storage::delete($course->abstractimage);
         }
 
-        // Set the abstractimage field to null in the database
+        // Set image to null and save the change
         $course->abstractimage = null;
         $course->save();
 
-        // Return a success response
         return response()->json(['success' => true]);
     }
 
-    // Return a failure response if the abstract image was not found
     return response()->json(['success' => false], 404);
 }
-
 
 
 public function deleteNumericalImage()
