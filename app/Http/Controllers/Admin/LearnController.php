@@ -382,8 +382,6 @@ class LearnController extends Controller
             if ($request->input('select_all', 'no') == "yes") {
                
                 $selectAllValues = json_decode($request->select_all_values, true);
-
-                dd($selectAllValues );
                 Learn::whereIn('id', $selectAllValues)  
                     ->delete();
             } else {
