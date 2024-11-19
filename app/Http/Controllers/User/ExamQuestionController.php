@@ -266,15 +266,15 @@ class ExamQuestionController extends Controller
 
                 $data_id = null;
 
-                $currentPageItems = $data_rews;
+                $currentPageItems = $user_review;
 
                 foreach ($currentPageItems as $k=> $item) {
 
-                    if(!empty($ans_ids[$k]->user_review_question_id) && isset($ans_ids[$k]->user_review_question_id))
-                    
-                    if ($item->id == $ans_ids[$k]->user_review_question_id) {
+                    if(!empty($data_questions[$k]->id) && isset($data_questions[$k]))
 
-                        $data_id = $ans_ids[$k]->user_review_question_id;  
+                    if ($item->user_review_question_id == $data_questions[$k]->id) {
+
+                        $data_id = $item->id;  
                     }
                     else
                     {
