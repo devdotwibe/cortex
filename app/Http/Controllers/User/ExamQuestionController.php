@@ -268,9 +268,9 @@ class ExamQuestionController extends Controller
                     
                     if (!empty($data_questions[$k])) {
                      
-                        if (in_array($item->id, $ans_ids)) {
+                        if (in_array($data_questions[$k]->id, $ans_ids)) {
                            
-                            $data_id = $user_review->where('user_review_question_id', $item->id)->first()->id;
+                            $data_id = $user_review->where('user_review_question_id', $data_questions[$k]->id)->first()->id;
                         }
                     }
                 }
