@@ -12,7 +12,7 @@
                     <div class="form-check" id="table-{{ $tableid }}-bulk-box">
                         <input type="checkbox" id="table-{{ $tableid }}-bulk" class="form-check-box" name="select_all" value="yes">
 
-                        <input type="hidden" id="select_all_values" >
+                        <input type="hidden" id="select_all_values" name="select_all_values" >
                     </div>
                 </th>                    
                 @endif
