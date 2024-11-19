@@ -258,17 +258,15 @@ class ExamQuestionController extends Controller
 
             $ans_ids = $user_review->pluck('user_review_question_id')->toArray();
              
+            $data_ids = [];
+
             foreach ($data_questions as $k => $item) {
-                
-                if (!empty($user_review[$k])) {
-                 
-                    if ($item->id == $user_review[$k]->user_review_question_id) {
-                       
-                        $data_ids[] = $user_review[$k]->id;
+                if (!empty($user_review->get($k))) {
+                    if ($item->id == $user_review->get($k)->user_review_question_id) {
+                        
+                        $data_ids[] = $user_review->get($k)->id;
                     }
-                }
-                else
-                {
+                } else {
                     $data_ids[] = null;
                 }
             }
@@ -278,7 +276,7 @@ class ExamQuestionController extends Controller
                 return [
                     'url' => $data->url($page),
                     'label' => (string) $page,
-                    'ans' => $data_ids[$i],
+                    'ans' => isset($data_ids[$i]) ? $data_ids[$i] : null,
                     'active' => $page === $data->currentPage(),
                 ];
             });
