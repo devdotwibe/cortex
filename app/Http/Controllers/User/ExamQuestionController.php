@@ -260,23 +260,43 @@ class ExamQuestionController extends Controller
              
             $data_ids = [];
 
-            foreach ($data_questions as $k => $item) {
-                if (!empty($user_review->get($k))) {
-                    if ($item->id == $user_review->get($k)->user_review_question_id) {
+            $index = [];
+
+            // foreach ($data_questions as $k => $item) {
+
+            //         if ($item->id == $user_review->get($k)->user_review_question_id && isset($user_review->get($k))) {
                         
-                        $data_ids[] = $user_review->get($k)->id;
-                    }
+            //             $data_ids[$k] = $user_review->get($k)->id;
+            //             $index[] =$k;
+            //         }
+            //         else {
+            //             $data_ids[$k] = null;
+            //             $index[] =$k;
+            //         }
+            // }
+            foreach ($data_questions as $k => $item) {
+               
+                $user_answer = $user_review->where('user_review_question_id', $item->id)->first();
+            
+                if ($user_answer) {
+                    $data_ids[$k] = $user_answer->id;
+                    $index[] = $k;
                 } else {
-                    $data_ids[] = null;
+                    $data_ids[$k] = null;
+                    $index[] = $k;
                 }
             }
 
-            $links = collect(range(1, $data->lastPage()))->map(function ($page ,$i) use ($data,$user_review,$data_ids) {
+            $links = collect(range(1, $data->lastPage()))->map(function ($page ,$i) use ($data,$ans_ids,$data_ids,$index) {
+
+                $value = isset($data_ids[$i]) ? $data_ids[$i] : null;
 
                 return [
                     'url' => $data->url($page),
                     'label' => (string) $page,
-                    'ans' => isset($data_ids[$i+1]) ? $data_ids[$i+1] : null,
+                    'ques'=>$ans_ids,
+                    'ans' => $value,
+                    'index'=>$data_ids,
                     'active' => $page === $data->currentPage(),
                 ];
             });
