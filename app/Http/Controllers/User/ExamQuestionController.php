@@ -256,8 +256,6 @@ class ExamQuestionController extends Controller
 
             $user_review = UserReviewAnswer::where('user_id',$user->id)->where('user_answer',true)->where('user_exam_review_id',$userExamReview->id)->get();
 
-            $ans_ids = $user_review->pluck('user_review_question_id')->toArray();
-             
             $data_ids = [];
 
             foreach ($data_questions as $k => $item) {
@@ -266,21 +264,20 @@ class ExamQuestionController extends Controller
             
                 if ($user_answer) {
                     $data_ids[$k] = $user_answer->id;
-                    $index[] = $k;
+                    
                 } else {
                     $data_ids[$k] = null;
-                    $index[] = $k;
                 }
             }
 
-            $links = collect(range(1, $data->lastPage()))->map(function ($page ,$i) use ($data,$ans_ids,$data_ids,$index) {
+            $links = collect(range(1, $data->lastPage()))->map(function ($page ,$i) use ($data,$data_ids) {
 
                 $value = isset($data_ids[$i]) ? $data_ids[$i] : null;
 
                 return [
                     'url' => $data->url($page),
                     'label' => (string) $page,
-                    'ans' => $value,
+                    'ans_id' => $value,
                     'active' => $page === $data->currentPage(),
                 ];
             });
@@ -326,7 +323,8 @@ class ExamQuestionController extends Controller
                         ->whereIn('user_review_questions.review_type',['mcq'])
                         ->where('user_review_questions.user_id',$user->id)
                         ->where('user_review_questions.user_exam_review_id',$userExamReview->id)
-                        ->select('user_review_questions.id','user_review_questions.time_taken','user_review_answers.iscorrect','user_review_answers.id','user_review_answers.user_review_question_id')->get();
+                        ->select('user_review_questions.id','user_review_questions.time_taken','user_review_answers.iscorrect','user_review_answers.id')->get();
+
         $examtime=0;
         $exam_time_sec = 0;
         if($user->progress("exam-review-".$userExamReview->id."-timed",'')=="timed"){
@@ -336,7 +334,7 @@ class ExamQuestionController extends Controller
             //     $examtime+=intval(trim($times[0]??"0"))*60;
             //     $examtime+=intval(trim($times[1]??"0"));
             // }
-            $examtime=0;
+            
             $times=explode(':',$setname->time_of_exam);
             if(count($times)>0){
                 $examtime+=intval(trim($times[0]??"0"))*60;

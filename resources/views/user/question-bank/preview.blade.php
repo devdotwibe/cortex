@@ -426,18 +426,17 @@
                 
                 if (res.total > 1) {
 
-                    var time_take ="no time";
-
                     var total_time = "{{ $examtime }}";
 
                     $.each(res.links, function(k, v) {
 
                         let linkstatus =  'status-bad';
+                        
                         if (k != 0 && k != res.links.length ) {
 
                             $.each(useranswers, function(i, j) {
 
-                                if(v.ans == j.id)
+                                if(v.ans_id == j.id)
                                 {
                                     linkstatus = 'status-bad';
                                     if (j.iscorrect) {
