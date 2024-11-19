@@ -258,20 +258,18 @@ class ExamQuestionController extends Controller
 
             $links = collect(range(1, $data->lastPage()))->map(function ($page ,$i) use ($data,$user_review,$data_questions) {
 
-                $data_ids = $user_review->pluck('id')->toArray();
-                $ans_ids = $user_review->pluck('user_review_question_id')->toArray(); // Pluck answer question IDs
-                $data_rews = $data_questions->pluck('id')->toArray(); // Pluck question IDs
-
+                $ans_ids = $user_review->pluck('user_review_question_id')->toArray();
+             
                 $data_id = null;
 
-                $currentPageItems = $data->getCollection(); 
+                $currentPageItems = $data->getCollection();
 
                 foreach ($currentPageItems as $k => $item) {
-                    // Ensure the question exists in the list of all questions
+                    
                     if (!empty($data_questions[$k])) {
-                        // Compare the answer's question_id with the question's id
+                     
                         if (in_array($item->id, $ans_ids)) {
-                            // If the answer exists for the question, assign the answer's ID
+                           
                             $data_id = $user_review->where('user_review_question_id', $item->id)->first()->id;
                         }
                     }
@@ -280,9 +278,7 @@ class ExamQuestionController extends Controller
                 return [
                     'url' => $data->url($page),
                     'label' => (string) $page,
-                    'data_id' => $data_id,
-                    'ans_id' => $ans_ids,
-                    'ques_id'=>  $data_rews,
+                    'ans' => $data_id,
                     'active' => $page === $data->currentPage(),
                 ];
             });
@@ -329,7 +325,7 @@ class ExamQuestionController extends Controller
                         ->whereIn('user_review_questions.review_type',['mcq'])
                         ->where('user_review_questions.user_id',$user->id)
                         ->where('user_review_questions.user_exam_review_id',$userExamReview->id)
-                        ->select('user_review_questions.id','user_review_questions.time_taken','user_review_answers.iscorrect','user_review_answers.user_review_question_id','user_review_answers.id')->get();
+                        ->select('user_review_questions.id','user_review_questions.time_taken','user_review_answers.iscorrect','user_review_answers.id')->get();
         $examtime=0;
         $exam_time_sec = 0;
         if($user->progress("exam-review-".$userExamReview->id."-timed",'')=="timed"){
