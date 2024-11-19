@@ -263,16 +263,16 @@ class ExamQuestionController extends Controller
             $index = [];
 
             foreach ($data_questions as $k => $item) {
-                if (!empty($user_review->get($k))) {
-                    if ($item->id == $user_review->get($k)->user_review_question_id) {
+
+                    if ($item->id == $user_review->get($k)->user_review_question_id && isset($user_review->get($k))) {
                         
                         $data_ids[$k] = $user_review->get($k)->id;
                         $index[] =$k;
                     }
-                } else {
-                    $data_ids[$k] = null;
-                    $index[] =$k;
-                }
+                    else {
+                        $data_ids[$k] = null;
+                        $index[] =$k;
+                    }
             }
 
             $links = collect(range(1, $data->lastPage()))->map(function ($page ,$i) use ($data,$ans_ids,$data_ids,$index) {
