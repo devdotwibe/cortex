@@ -1462,7 +1462,7 @@ function removeQuestionImage() {
 // // Function to remove the Topic image from the server when the delete button is clicked
 // function removeTopicImage() {
 //     const courseId = button.value; // Get the course ID from the delete button value
-//     const imagePath = "{{ $course->topicimage }}"; // Set the correct image path for the Topic image
+
 
 //     $.ajax({
 //         type: 'POST',
