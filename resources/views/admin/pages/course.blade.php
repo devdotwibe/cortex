@@ -1565,8 +1565,9 @@ function removeDynamicTopicImage() {
 function removeFullmockImage() {
     console.log('Removing full mock image');
 
-    const courseId = "{{ $course->id }}"; // Get the course ID
-    const imagePath = "{{ $course->fullmockimage }}"; // Set the image path for full mock image
+    const courseId = "{{ optional($course)->id }}"; // Get the course ID
+const imagePath = "{{ optional($course)->fullmockimage }}"; // Set the image path for full mock image
+
 
     $.ajax({
         type: 'POST',
