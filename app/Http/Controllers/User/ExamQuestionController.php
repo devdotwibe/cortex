@@ -268,7 +268,7 @@ class ExamQuestionController extends Controller
 
                 foreach ($currentPageItems as $item) {
                     if (in_array($item, $data_ids)) {
-                        $data_id = $item->id;
+                        $data_id = $item;
                         break;
                     }
                     else
