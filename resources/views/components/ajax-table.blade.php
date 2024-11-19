@@ -170,6 +170,20 @@
             }) 
             $('#table-{{ $tableid }}-bulk').change(function(){
 
+                let isChecked = $('#table-{{ $tableid }}-bulk').is(":checked");
+    $('#table-{{ $tableid }} .selectbox').prop('checked', isChecked);
+
+    // Collect all selected values into an array
+    let selectedValues = [];
+    if (isChecked) {
+        $('#table-{{ $tableid }} .selectbox').each(function () {
+            selectedValues.push($(this).val());
+        });
+    }
+
+    // Store the array as a string in the hidden input
+    $('#select_all_values').val(JSON.stringify(selectedValues));
+
                 if($('#table-{{ $tableid }}-bulk').is(":checked")){
                     $('#table-{{ $tableid }} .selectbox-action').show()
                 }else{
@@ -178,15 +192,6 @@
                 $('#table-{{ $tableid }}').DataTable().ajax.reload(); 
             })
             $(document).on('change','#table-{{ $tableid }} .selectbox',function(e){
-
-                let selectedValues = [];
-                
-                $('#table-{{ $tableid }} .selectbox:checked').each(function () {
-                    selectedValues.push($(this).val());
-                });
-
-                $('#select_all_values').val(JSON.stringify(selectedValues));
-                
                 if(!$(this).is(":checked")){
                     $('#table-{{ $tableid }}-bulk').prop("checked",false);
                 }
