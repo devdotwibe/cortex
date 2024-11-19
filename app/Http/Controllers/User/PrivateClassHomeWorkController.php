@@ -134,7 +134,48 @@ class PrivateClassHomeWorkController extends Controller
                 $question=HomeWorkReviewQuestion::findSlug($request->question);
                 return HomeWorkReviewAnswer::where('home_work_review_question_id',$question->id)->where('home_work_review_id',$homeWorkReview->id)->get();
             }
-            return HomeWorkReviewQuestion::whereIn('review_type',['mcq'])->where('home_work_review_id',$homeWorkReview->id)->where('user_id',$user->id)->paginate(1);
+            $data = HomeWorkReviewQuestion::whereIn('review_type',['mcq'])->where('home_work_review_id',$homeWorkReview->id)->where('user_id',$user->id)->paginate(1);
+            $links = collect(range(1, $data->lastPage()))->map(function ($page) use ($data) {
+                return [
+                    'url' => $data->url($page),
+                    'label' => (string) $page,
+                    'active' => $page === $data->currentPage(),
+                ];
+            });
+        
+            // Add navigation links for Previous and Next
+            $paginationLinks = collect([
+                [
+                    'url' => $data->previousPageUrl(),
+                    'label' => '&laquo; Previous',
+                    'active' => false,
+                ],
+            ])
+            ->merge($links)
+            ->merge([
+                [
+                    'url' => $data->nextPageUrl(),
+                    'label' => 'Next &raquo;',
+                    'active' => false,
+                ],
+            ]);
+        
+            // Build the response structure
+            return response()->json([
+                'current_page' => $data->currentPage(),
+                'data' => $data->items(),
+                'first_page_url' => $data->url(1),
+                'from' => $data->firstItem(),
+                'last_page' => $data->lastPage(),
+                'last_page_url' => $data->url($data->lastPage()),
+                'links' => $paginationLinks,
+                'next_page_url' => $data->nextPageUrl(),
+                'path' => $data->path(),
+                'per_page' => $data->perPage(),
+                'prev_page_url' => $data->previousPageUrl(),
+                'to' => $data->lastItem(),
+                'total' => $data->total(),
+            ]);
         }
         return view("user.home-work.preview",compact('homeWork','homeWorkBook','user','homeWorkReview'));
     }

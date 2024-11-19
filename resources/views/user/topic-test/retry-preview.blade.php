@@ -1,82 +1,83 @@
 @extends('layouts.exam')
-@section('headerclass','header-class')
-@section('title', $exam->subtitle($category->id,"Topic ".($category->getIdx()+1)).':'.$category->name)
+@section('headerclass', 'header-class')
+@section('title', $exam->subtitle($category->id, 'Topic ' . ($category->getIdx() + 1)) . ':' . $category->name)
 @section('content')
-<section class="exam-container questionclass answerclass ">
-    <div class="exam-progress quest-progress">
-        <div class="exam-progress-inner">
-            <div class="exam-progress-inner-item exam-left">
-                <div class="progress-main">
+    <section class="exam-container questionclass answerclass ">
+        <div class="exam-progress quest-progress">
+            <div class="exam-progress-inner">
+                <div class="exam-progress-inner-item exam-left">
+                    <div class="progress-main">
 
-                    <div class="exam-exit ">
-                        <a  href="{{route('topic-test.index',['page'=>'back','slug'=>$userExamReview->slug,'category'=>$category->slug])}}" title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
-                            <img src="{{asset("assets/images/exiticon-wht.svg")}}" alt="exiticon">
-                        </a>
-                    </div>
+                        <div class="exam-exit ">
+                            <a href="{{ route('topic-test.index', ['page' => 'back', 'slug' => $userExamReview->slug, 'category' => $category->slug]) }}"
+                                title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
+                                <img src="{{ asset('assets/images/exiticon-wht.svg') }}" alt="exiticon">
+                            </a>
+                        </div>
 
-                    {{-- <div class="question-number">
+                        {{-- <div class="question-number">
                         <span>Question: </span>
                     </div> --}}
-    
-                   
 
-                    
-                </div>
-            </div>
-           
-            <div class="question-header question-number">
-                <div class="progress-menus">
-                    <div class="menu-text">
-                        <span id="menu-text" >Question <span> 0 </span>   <span>0 </span> </span>
-                      
-                    </div>
-                    <div class="menu-icon"> 
-                        <a onclick="toglepreviewpage()" >
-                            {{-- <img src="{{asset("assets/images/menu.svg")}}" alt="exiticon"> --}}
-                        </a>
+
+
+
                     </div>
                 </div>
+
+                <div class="question-header question-number">
+                    <div class="progress-menus">
+                        <div class="menu-text">
+                            <span id="menu-text">Question <span> 0 </span> <span>0 </span> </span>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="menu-icon modecolor">
+                    <a onclick="toglepreviewpage()">
+                        <img src="{{ asset('assets/images/menu.svg') }}" alt="exiticon">
+                    </a>
+                </div>
+                <div class="Review-mode">
+                    <span>Review Mode </span>
+                </div>
+
             </div>
 
-            <div class="Review-mode">
-                <span>Review Mode </span>
-            </div>
-           
         </div>
-        
-    </div>
 
-    <div class="container-wrap mcq-container-wrap topic-test-review">
-        <div class="lesson">            
-            {{-- <a class="lesson-exit float-start" href="{{route('topic-test.index',['page'=>'back','slug'=>$userExamReview->slug,'category'=>$category->slug])}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
+        <div class="container-wrap mcq-container-wrap topic-test-review">
+            <div class="lesson">
+                {{-- <a class="lesson-exit float-start" href="{{route('topic-test.index',['page'=>'back','slug'=>$userExamReview->slug,'category'=>$category->slug])}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
                 <img src="{{asset("assets/images/exiticon.svg")}}" alt="exiticon">
             </a>  --}}
-            <div class="lesson-body"> 
-                <div class="row" id="lesson-questionlist-list" style="display: none">
+                <div class="lesson-body">
+                    <div class="row" id="lesson-questionlist-list" style="display: none">
+                    </div>
+                </div>
+                <div class="lesson-footer" id="lesson-footer-pagination">
                 </div>
             </div>
-            <div class="lesson-footer" id="lesson-footer-pagination"> 
-            </div>           
         </div>
-    </div> 
-</section> 
-<section class="exam-footer"> 
-    <div class="lesson-pagination">
-      
-
-        <div class="lesson-left ">
-            <a href="{{ route('topic-test.complete', $userExamReview->slug) }}" class="button left-btn" title="Back">
-                <img src="{{ asset('assets/images/leftarrow.svg') }}" alt="<"> Back 
-            </a>
-        </div>
+    </section>
+    <section class="exam-footer">
+        <div class="lesson-pagination">
 
 
-        <div class="exam-right exam-progress-inner-item">
+            <div class="lesson-left ">
+                <a href="{{ route('topic-test.complete', $userExamReview->slug) }}" class="button left-btn" title="Back">
+                    <img src="{{ asset('assets/images/leftarrow.svg') }}" alt="<"> Back
+                </a>
+            </div>
 
-            <div class="progress-main">
 
-                
-                {{-- <div class="bookmark">
+            <div class="exam-right exam-progress-inner-item">
+
+                <div class="progress-main">
+
+
+                    {{-- <div class="bookmark">
                     
                     <a class="" id="bookmark-current" >
                         
@@ -88,42 +89,86 @@
                         </span>
                     </a>
                 </div> --}}
+                </div>
             </div>
-        </div>
-        
 
 
-      
 
-{{-- 
+
+
+            {{-- 
         <div class="lesson-right pagination-arrow" style="display:none">
             <button class="button right-btn"> Next <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
         </div>
         <div class="lesson-finish pagination-arrow" style="display:none">
             <button class="button finish-btn" onclick="window.location.href='{{ route('full-mock-exam.index') }}'"> Finish Set <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
         </div>  --}}
-        
 
 
-        <div class="finish-btn">
-            <a href="{{ route('topic-test.index') }}" class="button right-btn" title="Next">
-                Finish Set <img src="{{ asset('assets/images/rightarrow.svg') }}" alt=">">
-            </a>
+
+          <div class="lesson-right pagination-arrow" style="display:none">
+                <button class="button right-btn"> Next <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
+            </div>
+            <div class="finish-btn" style="display:none">
+                <a href="{{ route('topic-test.index', $category->slug) }}" class="button right-btn" title="Next">
+                    Finish Set <img src="{{ asset('assets/images/rightarrow.svg') }}" alt=">">
+                </a>
+            </div>
+
+
+
+
+
+        </div>
+    </section>
+
+    <section class="modal-expand" id="question-preview-page" style="display: none;">
+        <div class="container-wrap">
+            <div class="question-preview-title">
+                <h3>Review Summary</h3>
+            </div>
+            <div class="question-preview-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul class="nav nav-tabs question-tab" id="questionPreviewTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="show-all-tab" data-bs-toggle="tab"
+                                    data-bs-target="#show-all" type="button" role="tab" aria-controls="show-all"
+                                    aria-selected="true">
+                                    <div class="nav-status status-active"><img
+                                            src="{{ asset('assets/images/showall.svg') }}" alt="all"><span></span>
+                                    </div> Show All
+                                </button>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="questionPreviewTabContent">
+                            <div class="tab-pane fade show active" id="show-all" role="tabpanel"
+                                aria-labelledby="show-all-tab">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="tabheader">
+                                            <h3>Questions</h3>
+                                            <p>Click a number to go question</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="lesson-footer" id="lesson-footer-paginationmobile">
+            </div>
         </div>
 
 
-
-        
-
-    </div> 
-</section>
-
+    </section>
 @endsection
 
-@push('footer-script') 
+@push('footer-script')
+    <script>
+        var useranswers = @json($useranswer);
 
-<script>
-        var useranswers=@json($useranswer);
         function generateRandomId(length) {
             const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
             let result = '';
@@ -135,13 +180,18 @@
 
             return result;
         }
-        function loadlessonreview(reviewurl){ 
-            $.get(reviewurl||"{{ route('topic-test.retry.preview', ['user_exam_review' => $userExamReview->slug, 'exam_retry_review' => $examRetryReview->slug]) }}",function(res){
-                $('.pagination-arrow').hide();
-                $('#lesson-footer-pagination').html('')
-                const lesseonId=generateRandomId(10); 
-                $.each(res.data,function(k,v){  
-                    $('#lesson-questionlist-list').html(`
+
+        function loadlessonreview(reviewurl) {
+            $.get(reviewurl ||
+                "{{ route('topic-test.retry.preview', ['user_exam_review' => $userExamReview->slug, 'exam_retry_review' => $examRetryReview->slug]) }}",
+                function(res) {
+                    $('.pagination-arrow').hide();
+                    $('#lesson-footer-pagination').html('')
+                    $('#lesson-footer-paginationmobile').html('')
+
+                    const lesseonId = generateRandomId(10);
+                    $.each(res.data, function(k, v) {
+                        $('#lesson-questionlist-list').html(`
                         <div class="col-md-12">
                             <div class="mcq-row" >
                                 <div class="mcq-title">
@@ -188,16 +238,18 @@
                             </div>
                         </div>
                     `).fadeIn();
-                    $.get("{{ route('topic-test.retry.preview', ['user_exam_review' => $userExamReview->slug, 'exam_retry_review' => $examRetryReview->slug]) }}",{question:v.slug},function(ans){
-                        $(`#mcq-${lesseonId}-list`).html('')
-                        $(`#mcq-${lesseonId}-list-progress`).html('')
-                        const baseUrl = `{{ asset('d0') }}`;
-                        $.each(ans,function(ai,av){
-                            const letter = String.fromCharCode(ai + 'A'.charCodeAt(0))
-                            const imageHtml = av && av.image
-                                                    ? `<img src="${baseUrl}/${av.image}" class="answer-image" />`
-                                                    : '';
-                            $(`#mcq-${lesseonId}-list`).append(`
+                        $.get("{{ route('topic-test.retry.preview', ['user_exam_review' => $userExamReview->slug, 'exam_retry_review' => $examRetryReview->slug]) }}", {
+                            question: v.slug
+                        }, function(ans) {
+                            $(`#mcq-${lesseonId}-list`).html('')
+                            $(`#mcq-${lesseonId}-list-progress`).html('')
+                            const baseUrl = `{{ asset('d0') }}`;
+                            $.each(ans, function(ai, av) {
+                                const letter = String.fromCharCode(ai + 'A'.charCodeAt(0))
+                                const imageHtml = av && av.image ?
+                                    `<img src="${baseUrl}/${av.image}" class="answer-image" />` :
+                                    '';
+                                $(`#mcq-${lesseonId}-list`).append(`
                             <div class="form-check-ans">
                                 <span class="question-user-ans ${av.iscorrect?"correct":"wrong"}" data-ans="${av.slug}"></span>
                                 <div class="form-check">
@@ -207,7 +259,7 @@
                                 </div>  
                             </div>
                             `)
-                            $(`#mcq-${lesseonId}-list-progress`).append(`
+                                $(`#mcq-${lesseonId}-list-progress`).append(`
                                 <div class="form-progress-ans ans-${av.iscorrect?"select":"no-select"}"> 
                                     <div class="form-progress">       
                                         <label for="user-answer-${lesseonId}-ans-progress-item-${ai}" >${ letter }</label>
@@ -215,69 +267,92 @@
                                     </div>  
                                 </div>
                             `)
-                            if(av.iscorrect){
-                                $(`#mcq-${lesseonId}-correct`).text(`: ${ letter } `)
-                            }
-                        }) 
-                    },'json')
-                     
-                }) 
-                if(res.total>1){
-                     $.each(res.links,function(k,v){
-                        let linkstatus="";
-                        if(k!=0&&k!=res.links.length&&useranswers[k-1]){
-                            linkstatus='status-bad';
-                            if(useranswers[k-1].iscorrect){
-                                linkstatus="status-good";
-                                if(useranswers[k-1].time_taken<{{$examtime}}){
-                                    linkstatus="status-exelent";
+                                if (av.iscorrect) {
+                                    $(`#mcq-${lesseonId}-correct`).text(`: ${ letter } `)
+                                }
+                            })
+                        }, 'json')
+
+                    })
+                    if (res.total > 1) {
+                        $.each(res.links, function(k, v) {
+                            let linkstatus = "";
+                            if (k != 0 && k != res.links.length && useranswers[k - 1]) {
+                                linkstatus = 'status-bad';
+                                if (useranswers[k - 1].iscorrect) {
+                                    linkstatus = "status-good";
+                                    if (useranswers[k - 1].time_taken < {{ $examtime }}) {
+                                        linkstatus = "status-exelent";
+                                    }
                                 }
                             }
-                        }
-                        if(v.active||!v.url){
-                            $('#lesson-footer-pagination').append(`
+                            if (v.active || !v.url) {
+
+                                var label_name = v.label;
+
+                                if (v.label == '« Previous') {
+                                    var label_name = "<";
+                                }
+
+                                var preclass = "";
+                                if (k == 0) {
+                                    preclass = "preclass";
+                                }
+                                $('#lesson-footer-paginationmobile').append(`
+                            <button class="${linkstatus} btn btn-secondary  {$preclass} ${v.active?"active":""}" disabled   >${label_name}</button>
+                            `)
+                            } else {
+                                $('#lesson-footer-paginationmobile').append(`
+                            <button class="${linkstatus} btn btn-secondary " onclick="loadlessonreview('${v.url}')" >${v.label}</button>
+                            `)
+                            }
+                            if (v.active || !v.url) {
+                                $('#lesson-footer-pagination').append(`
                                 <button class="${linkstatus} btn btn-secondary ${v.active?"active":""}" disabled  >${v.label}</button>
                             `)
-                        }else{
-                            $('#lesson-footer-pagination').append(`
+                            } else {
+                                $('#lesson-footer-pagination').append(`
                                 <button class="${linkstatus} btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
                             `)
-                        }
-                     })
-                }
-                $('.lesson-end').show();
+                            }
+                        })
+                    }
+                    $('.lesson-end').show();
 
 
-if (res.next_page_url) { 
-$('.lesson-right').show()
-.find('button.right-btn')
-.data('pageurl', res.next_page_url)
-.attr('onclick', `loadlessonreview('${res.next_page_url}')`); // Adding onclick event
-} else {
-$('.lesson-finish').show();
-}
+                    if (res.next_page_url) {
+                    $('.lesson-right').show()
+                        .find('button.right-btn')
+                        .data('pageurl', res.next_page_url)
+                        .attr('onclick', `loadlessonreview('${res.next_page_url}')`); // Adding onclick event
+                        $('.finish-btn').hide();
+                    } else {
+                        $('.finish-btn').show();
+                    }
 
-if (res.prev_page_url) {
-$('.lesson-left').show()
-.find('button.left-btn')
-.data('pageurl', res.prev_page_url)
-.attr('onclick', `loadlessonreview('${res.prev_page_url}')`); // Adding onclick event
-}
+                    if (res.prev_page_url) {
+                        $('.lesson-left a.left-btn')
+                            .attr('href', res.prev_page_url) // Change the URL
+                            .attr('title', 'New Title')  // Optionally change the title
+                            .find('img').attr('alt', '< Previous') // Optionally update the alt text of the image
+                            .end()
+                            .contents().last().replaceWith('Previous');
+                    }
 
-$('#menu-text').html(`Question <span> ${res.current_page} </span> `)
+                    $('#menu-text').html(`Question <span> ${res.current_page} </span> `)
 
-},'json')
+                }, 'json')
 
-}
+        }
 
-$(function(){
-loadlessonreview()
-})
-function toglepreviewpage(){
-// timerActive=!timerActive; 
-$('#question-preview-page').slideToggle()
-$('#question-answer-page').fadeToggle()
-}
-</script>
+        $(function() {
+            loadlessonreview()
+        })
 
+        function toglepreviewpage() {
+            // timerActive=!timerActive; 
+            $('#question-preview-page').slideToggle()
+            $('#question-answer-page').fadeToggle()
+        }
+    </script>
 @endpush

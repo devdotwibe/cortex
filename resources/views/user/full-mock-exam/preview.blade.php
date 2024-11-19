@@ -103,17 +103,17 @@
 
 
 
-            {{-- 
+            
         <div class="lesson-right pagination-arrow" style="display:none">
             <button class="button right-btn"> Next <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
         </div>
         <div class="lesson-finish pagination-arrow" style="display:none">
             <button class="button finish-btn" onclick="window.location.href='{{ route('full-mock-exam.index') }}'"> Finish Set <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
-        </div>  --}}
+        </div> 
 
 
 
-            <div class="finish-btn">
+            <div class="finish-btn" style="display:none">
                 <a href="{{ route('full-mock-exam.index') }}" class="button right-btn" title="Next">
                     Finish Set <img src="{{ asset('assets/images/rightarrow.svg') }}" alt=">">
                 </a>
@@ -128,23 +128,43 @@
 
     <section class="modal-expand" id="question-preview-page" style="display: none;">
         <div class="container-wrap">
-
-
-
-
+            <div class="question-preview-title">
+                <h3>Review Summary</h3>
+            </div>
+            <div class="question-preview-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul class="nav nav-tabs question-tab" id="questionPreviewTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="show-all-tab" data-bs-toggle="tab"
+                                    data-bs-target="#show-all" type="button" role="tab" aria-controls="show-all"
+                                    aria-selected="true">
+                                    <div class="nav-status status-active"><img
+                                            src="{{ asset('assets/images/showall.svg') }}" alt="all"><span></span>
+                                    </div> Show All
+                                </button>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="questionPreviewTabContent">
+                            <div class="tab-pane fade show active" id="show-all" role="tabpanel"
+                                aria-labelledby="show-all-tab">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="tabheader">
+                                            <h3>Questions</h3>
+                                            <p>Click a number to go question</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="lesson-footer" id="lesson-footer-paginationmobile">
             </div>
-
-
-
-
-
         </div>
-
-
     </section>
-
-
 @endsection
 
 @push('footer-script')
@@ -226,9 +246,9 @@
                         const baseUrl = `{{ asset('d0') }}`;
                         $.each(ans, function(ai, av) {
                             const letter = String.fromCharCode(ai + 'A'.charCodeAt(0))
-                            const imageHtml = av && av.image
-                                                    ? `<img src="${baseUrl}/${av.image}" class="answer-image" />`
-                                                    : '';
+                            const imageHtml = av && av.image ?
+                                `<img src="${baseUrl}/${av.image}" class="answer-image" />` :
+                                '';
                             $(`#mcq-${lesseonId}-list`).append(`
                             <div class="form-check-ans">
                                 <span class="question-user-ans ${av.iscorrect?"correct":"wrong"}" data-ans="${av.slug}"></span>
@@ -267,16 +287,16 @@
                             }
                         }
                         if (v.active || !v.url) {
-                            
+
                             var preclass = "";
                             if (k == 0 || k == res.links.length) {
-                             preclass = "prevnxtclass";
+                                preclass = "prevnxtclass";
                             }
                             console.log(res.links.length);
 
                             console.log(v.label);
 
-                            
+
                             $('#lesson-footer-pagination').append(`
                                 <button class="${linkstatus} btn btn-secondary  ${preclass} ${v.active?"active":""}" disabled  >${v.label} </button>
                             `)
@@ -284,10 +304,10 @@
                             console.log(v.label);
 
                             var preclass = "";
-                            if (k == 0 || k == res.links.length-1) {
-                             preclass = "prevnxtclass";
+                            if (k == 0 || k == res.links.length - 1) {
+                                preclass = "prevnxtclass";
                             }
-                            
+
                             $('#lesson-footer-pagination').append(`
                                 <button class="${linkstatus} btn btn-secondary ${preclass}" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
                             `)
@@ -336,8 +356,6 @@
                         }
 
                     })
-
-                    console.log(res.links.length);
                 }
 
                 $('.lesson-end').show();
@@ -348,15 +366,20 @@
                         .find('button.right-btn')
                         .data('pageurl', res.next_page_url)
                         .attr('onclick', `loadlessonreview('${res.next_page_url}')`); // Adding onclick event
+                    $('.finish-btn').hide();
                 } else {
-                    $('.lesson-finish').show();
+                    $('.finish-btn').show();
                 }
 
                 if (res.prev_page_url) {
-                    $('.lesson-left').show()
-                        .find('button.left-btn')
-                        .data('pageurl', res.prev_page_url)
-                        .attr('onclick', `loadlessonreview('${res.prev_page_url}')`); // Adding onclick event
+                    console.log(res.prev_page_url)
+
+                    $('.lesson-left a.left-btn')
+                        .attr('href', res.prev_page_url) // Change the URL
+                        .attr('title', 'New Title')  // Optionally change the title
+                        .find('img').attr('alt', '< Previous') // Optionally update the alt text of the image
+                        .end()
+                        .contents().last().replaceWith('Previous');
                 }
 
                 $('#menu-text').html(`Question <span> ${res.current_page} </span> `)

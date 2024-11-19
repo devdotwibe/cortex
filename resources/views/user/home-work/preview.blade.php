@@ -67,8 +67,8 @@
                     <div class="row" id="lesson-questionlist-list" style="display: none">
                     </div>
                 </div>
-                <div class="lesson-footer" id="lesson-footer-pagination">
-                </div>
+                {{-- <div class="lesson-footer" id="lesson-footer-pagination">
+                </div> --}}
             </div>
         </div>
     </section>
@@ -112,14 +112,14 @@
 
 
 
-            {{-- <div class="lesson-right pagination-arrow" style="display:none">
+            <div class="lesson-right pagination-arrow" style="display:none">
             <button class="button right-btn"> Next <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
         </div>
         <div class="lesson-finish pagination-arrow" style="display:none">
             <button class="button finish-btn" onclick="window.location.href='{{ route('home-work.show',$homeWork->slug) }}'"> Finish Set <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
-        </div>   --}}
+        </div>  
 
-            <div class="finish-btn">
+            <div class="finish-btn" style="display:none">
                 <a href="{{ route('home-work.show', $homeWork->slug) }}" class="button right-btn" title="Next">
                     Finish Set <img src="{{ asset('assets/images/rightarrow.svg') }}" alt="Right arrow">
                 </a>
@@ -305,11 +305,14 @@
                     $('.lesson-finish').show();
                 }
 
+               
                 if (res.prev_page_url) {
-                    $('.lesson-left').show()
-                        .find('button.left-btn')
-                        .data('pageurl', res.prev_page_url)
-                        .attr('onclick', `loadlessonreview('${res.prev_page_url}')`); // Adding onclick event
+                    $('.lesson-left a.left-btn')
+                        .attr('href', res.prev_page_url) // Change the URL
+                        .attr('title', 'New Title')  // Optionally change the title
+                        .find('img').attr('alt', '< Previous') // Optionally update the alt text of the image
+                        .end()
+                        .contents().last().replaceWith('Previous');
                 }
 
                 $('#menu-text').html(`Question <span> ${res.current_page} </span> `)
