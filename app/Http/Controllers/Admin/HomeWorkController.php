@@ -221,9 +221,9 @@ class HomeWorkController extends Controller
     }
 
 
-    public function bulkaction(Request $request, HomeWorkQuestion $homeWork)
+    public function bulkaction(Request $request, HomeWork $homeWork)
 {
-    dd("123");
+   
     if (!empty($request->deleteaction)) {
         if ($request->input('select_all', 'no') == "yes") {
             // Delete all questions corresponding to the specific setname
