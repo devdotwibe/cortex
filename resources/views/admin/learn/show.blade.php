@@ -87,6 +87,7 @@ $(function() {
         }
         function questionbeforeajax(data){
             data.sub_category=$('#subcat-list').val()||null;
+            data.select_all_values = $('#select_all_values').val()||null;
             return data;
         }
 
