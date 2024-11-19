@@ -197,105 +197,52 @@ class TopicTestController extends Controller
         ]);
     } 
 
-    // public function bulkaction(Request $request)
-    // {
-    //     if (!empty($request->deleteaction)) {
-    //         if ($request->input('select_all', 'no') == "yes") {
-    //             Question::where('id', '>', 0)->delete();
-    //         } else {
-    //             Question::whereIn('id', $request->input('selectbox', []))->delete();
-    //         }
-    //         if ($request->ajax()) {
-    //             return response()->json(["success" => "Questions deleted success"]);
-    //         }
-    //         return redirect()->route('admin.topic-test.show')->with("success", "Questions deleted success");
-    //     } else {
-    //         $request->validate([
-    //             "bulkaction" => ['required']
-    //         ]);
-    //         $data = [];
-
-    //         switch ($request->bulkaction) {
-              
-    //             case 'visible_status':
-    //                 $data["visible_status"] = "show";
-    //                 break;
-    //             case 'visible_status_disable':
-    //                 $data["visible_status"] = "";
-    //                 break;
-                
-
-    //             default:
-    //                 # code...
-    //                 break;
-    //         }
-    //         if ($request->input('select_all', 'no') == "yes") {
-    //             Question::where('id', '>', 0)->update($data);
-    //         } else {
-    //             Question::whereIn('id', $request->input('selectbox', []))->update($data);
-    //         }
-
-    //         if ($request->ajax()) {
-    //             return response()->json(["success" => "Questions update success"]);
-    //         }
-    //         return redirect()->route('admin.topic-test.show')->with("success", "Questions update success");
-    //     }
-    // }
-
-
-
-
-    public function bulkaction(Request $request, Setname $setname)
+    public function bulkaction(Request $request)
     {
         if (!empty($request->deleteaction)) {
             if ($request->input('select_all', 'no') == "yes") {
-                // Delete all questions corresponding to the specific setname
-                Question::where('sub_category_set', $setname->id)->delete();
+                Question::where('id', '>', 0)->delete();
             } else {
-                // Delete selected questions only
                 Question::whereIn('id', $request->input('selectbox', []))->delete();
             }
-    
             if ($request->ajax()) {
-                return response()->json(["success" => "Questions deleted successfully"]);
+                return response()->json(["success" => "Questions deleted success"]);
             }
-            return redirect()->route('admin.question-bank.show', $setname->slug)
-                             ->with("success", "Questions deleted successfully");
+            return redirect()->route('admin.topic-test.show')->with("success", "Questions deleted success");
         } else {
             $request->validate([
                 "bulkaction" => ['required']
             ]);
             $data = [];
-    
+
             switch ($request->bulkaction) {
+              
                 case 'visible_status':
                     $data["visible_status"] = "show";
                     break;
                 case 'visible_status_disable':
                     $data["visible_status"] = "";
                     break;
+                
+
                 default:
+                    # code...
                     break;
             }
-    
             if ($request->input('select_all', 'no') == "yes") {
-                // Update visibility status for all questions corresponding to the specific setname
-                Question::where('sub_category_set', $setname->id)->update($data);
+                Question::where('id', '>', 0)->update($data);
             } else {
-                // Update visibility status for selected questions only
                 Question::whereIn('id', $request->input('selectbox', []))->update($data);
             }
-    
+
             if ($request->ajax()) {
-                return response()->json(["success" => "Questions updated successfully"]);
+                return response()->json(["success" => "Questions update success"]);
             }
-            return redirect()->route('admin.topic-test.show', $setname->slug)
-                             ->with("success", "Questions updated successfully");
+            return redirect()->route('admin.topic-test.show')->with("success", "Questions update success");
         }
     }
 
+
     
-
-
 
 }
