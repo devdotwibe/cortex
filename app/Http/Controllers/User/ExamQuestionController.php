@@ -277,7 +277,7 @@ class ExamQuestionController extends Controller
                     'url' => $data->url($page),
                     'label' => (string) $page,
                     'ques'=>$ans_ids,
-                    'ans' => isset($data_ids[$i]) ? $data_ids[$i] : null,
+                    'ans' => isset($data_ids[$i]) ? $data_ids[15] : null,
                     'active' => $page === $data->currentPage(),
                 ];
             });
