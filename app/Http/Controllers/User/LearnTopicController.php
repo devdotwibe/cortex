@@ -163,11 +163,49 @@ class LearnTopicController extends Controller
                 $question=UserReviewQuestion::findSlug($request->question);
                 return UserReviewAnswer::where('user_review_question_id',$question->id)->get(['slug','title','user_answer','iscorrect','description','image']);
             }
-            $data = UserReviewQuestion::whereIn('review_type',['mcq','short_notes'])->where('user_exam_review_id',$userExamReview->id)->paginate(1,['title','note','slug','review_type','user_answer','currect_answer','explanation']);
-            $links = collect(range(1, $data->lastPage()))->map(function ($page) use ($data) {
+            $data = UserReviewQuestion::whereIn('review_type',['mcq','short_notes'])->where('user_id',$user->id)->where('user_exam_review_id',$userExamReview->id)->paginate(1,['title','note','slug','review_type','user_answer','currect_answer','explanation']);
+
+            $data_questions = UserReviewQuestion::whereIn('review_type',['mcq','short_notes'])->where('user_id',$user->id)->where('user_exam_review_id',$userExamReview->id)->get();
+
+            $user_review = UserReviewAnswer::where('user_id',$user->id)->where('user_answer',true)->where('user_exam_review_id',$userExamReview->id)->get();
+
+            $data_ids = [];
+
+            $que_types = [];
+
+            foreach ($data_questions as $k => $item) {
+               
+                $user_answer = $user_review->where('user_review_question_id', $item->id)->first();
+
+                $user_ques_type = $user_review->where('user_review_question_id', $item->id)->where('review_type',['short_notes'])->first();
+            
+                if ($user_answer) {
+                    $data_ids[$k] = $user_answer->id;
+                    
+                } else {
+                    $data_ids[$k] = null;
+                }
+                
+                if ($item->review_type =='short_notes') {
+
+                    $que_types[$k] = true;
+                    
+                } else {
+                    $que_types[$k] = false;
+                }
+            }
+
+            $links = collect(range(1, $data->lastPage()))->map(function ($page ,$i) use ($data,$data_ids,$que_types) {
+
+                $value = isset($data_ids[$i]) ? $data_ids[$i] : null;
+
+                $ques_value = isset($que_types[$i]) ? $que_types[$i] : null;
+
                 return [
                     'url' => $data->url($page),
                     'label' => (string) $page,
+                    'ans_id' => $value,
+                    'ques_type' => $ques_value,
                     'active' => $page === $data->currentPage(),
                 ];
             });
@@ -208,11 +246,11 @@ class LearnTopicController extends Controller
         }
 
         $useranswer=UserReviewQuestion::leftJoin('user_review_answers','user_review_answers.user_review_question_id','user_review_questions.id')
-                                        ->where('user_review_answers.user_answer',true)
-                                        ->whereIn('user_review_questions.review_type',['mcq'])
-                                        ->where('user_review_questions.user_id',$user->id)
-                                        ->where('user_review_questions.user_exam_review_id',$userExamReview->id)
-                                        ->select('user_review_questions.id','user_review_questions.time_taken','user_review_answers.iscorrect')->get();
+                            ->where('user_review_answers.user_answer',true)
+                            ->whereIn('user_review_questions.review_type',['mcq'])
+                            ->where('user_review_questions.user_id',$user->id)
+                            ->where('user_review_questions.user_exam_review_id',$userExamReview->id)
+                            ->select('user_review_questions.id','user_review_questions.time_taken','user_review_answers.iscorrect','user_review_answers.id')->get();
         
         return view("user.learn.preview",compact('category','exam','subCategory','user','userExamReview','useranswer'));
     }

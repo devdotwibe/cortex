@@ -12,6 +12,7 @@ use App\Models\ExamRetryAnswer;
 use App\Models\ExamRetryQuestion;
 use App\Models\ExamRetryReview;
 use App\Models\Question;
+use App\Models\Setname;
 use App\Models\User;
 use App\Models\UserExam;
 use App\Models\UserExamAnswer;
@@ -291,6 +292,7 @@ class TopicExamController extends Controller
         $category = Category::find($userExamReview->category_id);
         // Session::forget("topic-test-attempt");
         $exam = Exam::where("name", 'topic-test')->first();
+
         if (empty($exam)) {
             $exam = Exam::store([
                 "title" => "Topic Test",
@@ -308,11 +310,36 @@ class TopicExamController extends Controller
                 $question = UserReviewQuestion::findSlug($request->question);
                 return UserReviewAnswer::where('user_review_question_id', $question->id)->get();
             }
+
             $data = UserReviewQuestion::whereIn('review_type', ['mcq'])->where('user_exam_review_id', $userExamReview->id)->where('user_id', $user->id)->paginate(1);
-            $links = collect(range(1, $data->lastPage()))->map(function ($page) use ($data) {
+
+            $data_questions = UserReviewQuestion::whereIn('review_type',['mcq'])->where('user_id',$user->id)->where('user_exam_review_id',$userExamReview->id)->get();
+
+            $user_review = UserReviewAnswer::where('user_id',$user->id)->where('user_answer',true)->where('user_exam_review_id',$userExamReview->id)->get();
+
+            $data_ids = [];
+
+            foreach ($data_questions as $k => $item) {
+               
+                $user_answer = $user_review->where('user_review_question_id', $item->id)->first();
+            
+                if ($user_answer) {
+                    $data_ids[$k] = $user_answer->id;
+                    $index[] = $k;
+                } else {
+                    $data_ids[$k] = null;
+                    $index[] = $k;
+                }
+            }
+
+            $links = collect(range(1, $data->lastPage()))->map(function ($page ,$i) use ($data,$data_ids) {
+
+                $value = isset($data_ids[$i]) ? $data_ids[$i] : null;
+
                 return [
                     'url' => $data->url($page),
                     'label' => (string) $page,
+                    'ans_id' => $value,
                     'active' => $page === $data->currentPage(),
                 ];
             });
@@ -351,21 +378,41 @@ class TopicExamController extends Controller
                 'total' => $data->total(),
             ]);
         }
+
+        $total_questions = UserReviewQuestion::whereIn('review_type',['mcq'])->where('user_id',$user->id)->where('user_exam_review_id',$userExamReview->id)->count();
+
         $useranswer = UserReviewQuestion::leftJoin('user_review_answers', 'user_review_answers.user_review_question_id', 'user_review_questions.id')
             ->where('user_review_answers.user_answer', true)
             ->whereIn('user_review_questions.review_type', ['mcq'])
             ->where('user_review_questions.user_id', $user->id)
             ->where('user_review_questions.user_exam_review_id', $userExamReview->id)
-            ->select('user_review_questions.id', 'user_review_questions.time_taken', 'user_review_answers.iscorrect')->get();
+            ->select('user_review_questions.id', 'user_review_questions.time_taken', 'user_review_answers.iscorrect','user_review_answers.id')->get();
+
         $examtime = 0;
+
+        $exam_time_sec = 0;
+
         if ($user->progress("exam-review-" . $userExamReview->id . "-timed", '') == "timed") {
-            $times = explode(':', $user->progress("exam-review-" . $userExamReview->id . "-time_of_exam", '0:0'));
-            if (count($times) > 0) {
-                $examtime += intval(trim($times[0] ?? "0")) * 60;
-                $examtime += intval(trim($times[1] ?? "0"));
+
+            // $times = explode(':', $user->progress("exam-review-" . $userExamReview->id . "-time_of_exam", '0:0'));
+
+            // if (count($times) > 0) {
+            //     $examtime += intval(trim($times[0] ?? "0")) * 60;
+            //     $examtime += intval(trim($times[1] ?? "0"));
+            // }
+            // if ($examtime > 0 && count($useranswer) > 0) {
+            //     $examtime = $examtime / count($useranswer);
+            // }
+            $times=explode(':',$category->time_of_exam);
+
+            if(count($times)>0){
+                $examtime+=intval(trim($times[0]??"0"))*60;
+                $examtime+=intval(trim($times[1]??"0"));
             }
-            if ($examtime > 0 && count($useranswer) > 0) {
-                $examtime = $examtime / count($useranswer);
+            $exam_time_sec = $examtime *60;
+          
+            if($exam_time_sec>0&& $total_questions>0 ){
+                $examtime=$exam_time_sec/$total_questions;
             }
         }
         return view("user.topic-test.preview", compact('category', 'exam', 'user', 'userExamReview', 'useranswer', 'examtime'));

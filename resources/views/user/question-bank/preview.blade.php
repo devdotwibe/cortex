@@ -369,75 +369,74 @@
                 })
 
 
-                if (res.total > 1) {
-                    $.each(res.links, function(k, v) {
-                        let linkstatus = 'status-bad mob-view';
-                        if (k != 0 && k != res.links.length && useranswers[k - 1]) {
-                            linkstatus = 'status-bad mob-view';
-                            if (useranswers[k - 1].iscorrect) {
+                // if (res.total > 1) {
+                //     $.each(res.links, function(k, v) {
+                //         let linkstatus = 'status-bad mob-view';
+                //         if (k != 0 && k != res.links.length && useranswers[k - 1]) {
+                //             linkstatus = 'status-bad mob-view';
+                //             if (useranswers[k - 1].iscorrect) {
 
 
-                                linkstatus = "status-good mob-view";
+                //                 linkstatus = "status-good mob-view";
 
 
-                                if (useranswers[k - 1].time_taken < {{ $examtime }}) {
-                                    linkstatus = "status-exelent mob-view";
-                                }
-                            }
-                        }
-                        // if (v.active || !v.url) {
+                //                 if (useranswers[k - 1].time_taken < {{ $examtime }}) {
+                //                     linkstatus = "status-exelent mob-view";
+                //                 }
+                //             }
+                //         }
+                //         // if (v.active || !v.url) {
 
-                        //     var label_name = v.label;
+                //         //     var label_name = v.label;
 
-                        //     if (v.label == '« Previous') {
-                        //         var label_name = "<";
-                        //     }
-                        //     $('#lesson-footer-pagination').append(`
-                    //         <button class="${linkstatus} btn btn-secondary ${v.active?"active":""}" disabled  >${label_name}</button>
-                    //     `)
-                        // } else {
-                        //     $('#lesson-footer-pagination').append(`
-                    //         <button class="${linkstatus} btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
-                    //     `)
-                        // }
-                        if (v.active || !v.url) {
+                //         //     if (v.label == '« Previous') {
+                //         //         var label_name = "<";
+                //         //     }
+                //         //     $('#lesson-footer-pagination').append(`
+                //     //         <button class="${linkstatus} btn btn-secondary ${v.active?"active":""}" disabled  >${label_name}</button>
+                //     //     `)
+                //         // } else {
+                //         //     $('#lesson-footer-pagination').append(`
+                //     //         <button class="${linkstatus} btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
+                //     //     `)
+                //         // }
+                //         if (v.active || !v.url) {
 
-                            var preclass = "";
-                            if (k == 0 || k == res.links.length) {
-                                preclass = "prevnxtclass";
-                            }
-                            $('#lesson-footer-pagination').append(`
-                                <button class="${linkstatus} btn btn-secondary  ${preclass} ${v.active?"active":""}" disabled  >${v.label} </button>
-                            `)
-                        } else {
-                            var preclass = "";
-                            if (k == 0 || k == res.links.length - 1) {
-                                preclass = "prevnxtclass";
-                            }
+                //             var preclass = "";
+                //             if (k == 0 || k == res.links.length) {
+                //                 preclass = "prevnxtclass";
+                //             }
+                //             $('#lesson-footer-pagination').append(`
+                //                 <button class="${linkstatus} btn btn-secondary  ${preclass} ${v.active?"active":""}" disabled  >${v.label} </button>
+                //             `)
+                //         } else {
+                //             var preclass = "";
+                //             if (k == 0 || k == res.links.length - 1) {
+                //                 preclass = "prevnxtclass";
+                //             }
 
-                            $('#lesson-footer-pagination').append(`
-                                <button class="${linkstatus} btn btn-secondary ${preclass}" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
-                            `)
-                        }
-                    })
-                }
+                //             $('#lesson-footer-pagination').append(`
+                //                 <button class="${linkstatus} btn btn-secondary ${preclass}" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
+                //             `)
+                //         }
+                //     })
+                // }
 
                 console.log(res.total);
                 
                 if (res.total > 1) {
-
-                    var time_take ="no time";
 
                     var total_time = "{{ $examtime }}";
 
                     $.each(res.links, function(k, v) {
 
                         let linkstatus =  'status-bad';
+                        
                         if (k != 0 && k != res.links.length ) {
 
                             $.each(useranswers, function(i, j) {
 
-                                if(k == i)
+                                if(v.ans_id == j.id)
                                 {
                                     linkstatus = 'status-bad';
                                     if (j.iscorrect) {
@@ -451,6 +450,7 @@
                            
                     
                         }
+                        
                         if (v.active || !v.url) {
                             var label_name = v.label;
                             if (v.label == '« Previous') {

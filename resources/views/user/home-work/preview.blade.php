@@ -152,6 +152,9 @@
 
 @push('footer-script')
     <script>
+
+        var home_work_answer = @json($home_work_answer);
+
         function generateRandomId(length) {
             const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
             let result = '';
@@ -235,58 +238,38 @@
                     }, 'json')
 
                 })
+               
                 if (res.total > 1) {
+
                     $.each(res.links, function(k, v) {
 
+                        let linkstatus =  'status-bad';
 
-                        let linkstatuss = "";
-                        if (k != 0 && k != res.links.length-1) {
+                        if (k != 0 && k != res.links.length ) {
 
-                            linkstatuss = 'mob-view';
-                        }
-                        
-     
-     if (v.active || !v.url) {
-            var preclass = "";
-            if (k == 0 || k == res.links.length - 1) {
-                preclass = "prevnxtclass"; 
-            }
-            console.log(res.links.length); 
-            console.log(v.label); 
-           
-            $('#lesson-footer-pagination').append(`
-                <button class="${linkstatuss} btn btn-secondary ${preclass} ${v.active ? "active" : ""}" disabled>${v.label}</button>
-            `);
-        } else {
-            console.log(v.label); 
-            
-            var preclass = "";
-            if (k == 0 || k == res.links.length - 1) {
-                preclass = "prevnxtclass"; 
-            }
+                            $.each(home_work_answer, function(i, j) {
 
-           
-            $('#lesson-footer-pagination').append(`
-                <button class="${linkstatuss} btn btn-secondary ${preclass}" onclick="loadlessonreview('${v.url}')">${v.label}</button>
-            `);
-        }
-                    })
-                }
+                                    if(v.ans_id == j.id)
+                                    {
+                                        linkstatus = 'status-bad';
+
+                                        if (j.iscorrect) {
+
+                                            linkstatus = "status-exelent";
+
+                                        } 
+                                    }
+                                });
+                            }
 
 
-
-
-
-
-                if (res.total > 1) {
-                    $.each(res.links, function(k, v) {
                         if (v.active || !v.url) {
                             $('#lesson-footer-paginationmobile').append(`
-                                <button class="btn btn-secondary ${v.active?"active":""}" disabled  >${v.label}</button>
+                                <button class="${linkstatus} btn btn-secondary ${v.active?"active":""}" disabled  >${v.label}</button>
                             `)
                         } else {
                             $('#lesson-footer-paginationmobile').append(`
-                                <button class="btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
+                                <button class="${linkstatus} btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
                             `)
                         }
                     })

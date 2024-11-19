@@ -219,4 +219,119 @@ class HomeWorkController extends Controller
         }        
         return redirect()->route('admin.home-work.show',$homeWork->slug)->with("success"," Question visibility change success");
     }
+
+
+//     public function bulkaction(Request $request, HomeWorkQuestion $homeWork)
+// {
+    
+//     if (!empty($request->deleteaction)) {
+//         if ($request->input('select_all', 'no') == "yes") {
+//             // Delete all questions corresponding to the specific setname
+//             HomeWorkQuestion::where('home_work_id', $homeWork->id)->delete();
+//         } else {
+//             // Delete selected questions only
+//             HomeWorkQuestion::whereIn('id', $request->input('selectbox', []))->delete();
+//         }
+
+//         if ($request->ajax()) {
+//             return response()->json(["success" => "Questions deleted successfully"]);
+//         }
+//         return redirect()->route('admin.home-work.show', $homeWork->slug)
+//                          ->with("success", "Questions deleted successfully");
+//     } else {
+//         $request->validate([
+//             "bulkaction" => ['required']
+//         ]);
+//         $data = [];
+
+//         switch ($request->bulkaction) {
+//             case 'visible_status':
+//                 $data["visible_status"] = "show";
+//                 break;
+//             case 'visible_status_disable':
+//                 $data["visible_status"] = "";
+//                 break;
+//             default:
+//                 break;
+//         }
+
+//         if ($request->input('select_all', 'no') == "yes") {
+//             // Update visibility status for all questions corresponding to the specific setname
+//             HomeWorkQuestion::where('home_work_id', $homeWork->id)->update($data);
+//         } else {
+//             // Update visibility status for selected questions only
+//             HomeWorkQuestion::whereIn('id', $request->input('selectbox', []))->update($data);
+//         }
+
+//         if ($request->ajax()) {
+//             return response()->json(["success" => "Questions updated successfully"]);
+//         }
+//         return redirect()->route('admin.home-work.show', $homeWork->slug)
+//                          ->with("success", "Questions updated successfully");
+//     }
+// }
+
+
+public function bulkaction(Request $request, HomeWorkQuestion $homeWork)
+{
+    $booklet = $request->input('home_work_book_id');
+
+    if (!empty($request->deleteaction)) {
+
+        if ($request->input('select_all', 'no') == "yes") {
+            
+         
+            $selectAllValues = json_decode($request->select_all_values, true);
+            dd($selectAllValues);
+            HomeWorkQuestion::whereIn('id', $selectAllValues)  
+                ->delete();
+
+
+
+        } else {
+
+             $selectBoxValues = is_array($request->input('selectbox', [])) ? $request->input('selectbox', []) : [];
+            
+          
+             HomeWorkQuestion::whereIn('id', $selectBoxValues)
+                ->where('home_work_id', $homeWork->id)
+                ->where('home_work_book_id', $booklet) 
+                ->delete();
+        }
+
+        if ($request->ajax()) {
+            return response()->json(["success" => "Questions deleted successfully"]);
+        }
+        return redirect()->route('admin.home-work.show', $homeWork->slug)
+                         ->with("success", "Questions deleted successfully");
+    } else {
+        $request->validate([
+            "bulkaction" => ['required']
+        ]);
+        $data = [];
+
+        switch ($request->bulkaction) {
+            case 'visible_status':
+                $data["visible_status"] = "show";
+                break;
+            case 'visible_status_disable':
+                $data["visible_status"] = "";
+                break;
+            default:
+                break;
+        }
+
+       
+
+        if ($request->ajax()) {
+            return response()->json(["success" => "Questions updated successfully"]);
+        }
+        return redirect()->route('admin.home-work.show', $homeWork->slug)
+                         ->with("success", "Questions updated successfully");
+    }
+}
+
+
+
+
 }

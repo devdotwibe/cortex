@@ -169,6 +169,8 @@
     <script>
         var useranswers = @json($useranswer);
         
+        console.log(useranswers);
+
         function generateRandomId(length) {
             const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
             let result = '';
@@ -271,93 +273,38 @@
                     }
                 })
 
+               
                 if (res.total > 1) {
+
                     $.each(res.links, function(k, v) {
+
                         let linkstatus = "";
-                        console.log(res.links.length);
-                        if (k != 0 && k != res.links.length && useranswers[k - 1]) {
-                            linkstatus = 'status-bad mob-view';
 
+                         if (k != 0 && k != res.links.length ) {
 
-                            if (res.data.review_type == 'short_notes') {
+                            linkstatus = 'status-bad';
 
-                                linkstatus = "status-grey mob-view";
-                            }
-                            if (useranswers[k - 1].iscorrect) {
-
-
-                                linkstatus = "status-good mob-view";
-
-
-
-                            }
-
-
-                        }
-                        // if (v.active || !v.url) {
-                        //     $('#lesson-footer-pagination').append(`
-                        //         <button class="btn btn-secondary  ${linkstatus} ${v.active?"active":""}" disabled  >${v.label}</button>
-                        //     `)
-                        // } else {
-                        //     $('#lesson-footer-pagination').append(`
-                        //         <button class="btn btn-secondary ${linkstatus}" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
-                        //     `)
-                        // }
-
-                        if (v.active || !v.url) {
+                            if (v.ques_type) {
                             
-                            var preclass = "";
-                            if (k == 0 || k == res.links.length) {
-                             preclass = "prevnxtclass";
-                            }
-                            console.log(res.links.length);
-
-                            console.log(v.label);
-
-                            
-                            // $('#lesson-footer-pagination').append(`
-                            //     <button class="${linkstatus} btn btn-secondary  ${preclass} ${v.active?"active":""}" disabled  >${v.label} </button>
-                            // `)
-                        } else {
-                            console.log(v.label);
-
-                            var preclass = "";
-                            if (k == 0 || k == res.links.length-1) {
-                             preclass = "prevnxtclass";
-                            }
-                            
-                            // $('#lesson-footer-pagination').append(`
-                            //     <button class="${linkstatus} btn btn-secondary ${preclass}" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
-                            // `)
-                        }
-                    })
-                }
-
-
-
-                if (res.total > 1) {
-                    $.each(res.links, function(k, v) {
-                        let linkstatus = "";
-                        console.log(res.links.length);
-                        if (k != 0 && k != res.links.length && useranswers[k - 1]) {
-                            linkstatus = "status-bad";
-
-
-                            if (res.data.review_type == 'short_notes') {
-                                // If the review type is 'short_notes', assign 'status-grey'
                                 linkstatus = "status-grey";
                             }
-                            if (useranswers[k - 1].iscorrect) {
 
+                            $.each(useranswers, function(i, j) {
 
-                                linkstatus = "status-good";
+                                if(v.ans_id == j.id)
+                                {
+                                    linkstatus = 'status-bad';
 
-
-
-                            }
-
-
+                                    if (j.iscorrect) {
+                                
+                                        linkstatus = "status-exelent";
+                                       
+                                    } 
+                                }
+                            }); 
+                    
                         }
+
                         if (v.active || !v.url) {
                             $('#lesson-footer-paginationmobile').append(`
                                 <button class="btn btn-secondary  ${linkstatus} ${v.active?"active":""}" disabled  >${v.label}</button>

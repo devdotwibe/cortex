@@ -274,60 +274,72 @@
                     }, 'json')
 
                 })
+
+                // if (res.total > 1) {
+                //     $.each(res.links, function(k, v) {
+                //         let linkstatus = "";
+                //         if (k != 0 && k != res.links.length && useranswers[k - 1]) {
+                //             linkstatus = 'status-bad mob-view';
+                //             if (useranswers[k - 1].iscorrect) {
+                //                 linkstatus = "status-good mob-view";
+                //                 if (useranswers[k - 1].time_taken < {{ $examtime }}) {
+                //                     linkstatus = "status-exelent mob-view";
+                //                 }
+                //             }
+                //         }
+                //         if (v.active || !v.url) {
+
+                //             var preclass = "";
+                //             if (k == 0 || k == res.links.length) {
+                //                 preclass = "prevnxtclass";
+                //             }
+                //             console.log(res.links.length);
+
+                //             console.log(v.label);
+
+
+                //             $('#lesson-footer-pagination').append(`
+                //                 <button class="${linkstatus} btn btn-secondary  ${preclass} ${v.active?"active":""}" disabled  >${v.label} </button>
+                //             `)
+                //         } else {
+                //             console.log(v.label);
+
+                //             var preclass = "";
+                //             if (k == 0 || k == res.links.length - 1) {
+                //                 preclass = "prevnxtclass";
+                //             }
+
+                //             $('#lesson-footer-pagination').append(`
+                //                 <button class="${linkstatus} btn btn-secondary ${preclass}" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
+                //             `)
+                //         }
+                //     })
+                // }
+
+
                 if (res.total > 1) {
-                    $.each(res.links, function(k, v) {
-                        let linkstatus = "";
-                        if (k != 0 && k != res.links.length && useranswers[k - 1]) {
-                            linkstatus = 'status-bad mob-view';
-                            if (useranswers[k - 1].iscorrect) {
-                                linkstatus = "status-good mob-view";
-                                if (useranswers[k - 1].time_taken < {{ $examtime }}) {
-                                    linkstatus = "status-exelent mob-view";
-                                }
-                            }
-                        }
-                        if (v.active || !v.url) {
 
-                            var preclass = "";
-                            if (k == 0 || k == res.links.length) {
-                                preclass = "prevnxtclass";
-                            }
-
-                            $('#lesson-footer-pagination').append(`
-                                <button class="${linkstatus} btn btn-secondary  ${preclass} ${v.active?"active":""}" disabled  >${v.label} </button>
-                            `)
-                        } else {
-
-                            var preclass = "";
-                            if (k == 0 || k == res.links.length - 1) {
-                                preclass = "prevnxtclass";
-                            }
-
-                            $('#lesson-footer-pagination').append(`
-                                <button class="${linkstatus} btn btn-secondary ${preclass}" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
-                            `)
-                        }
-                    })
-                }
-
-
-                if (res.total > 1) {
-
+                    var total_time = "{{ $examtime }}";
 
                     $.each(res.links, function(k, v) {
-                        let linkstatus = "";
-                        if (k != 0 && k != res.links.length && useranswers[k - 1]) {
-                            linkstatus = 'status-bad';
-                            if (useranswers[k - 1].iscorrect) {
 
+                        let linkstatus ='status-bad';
 
-                                linkstatus = "status-good";
+                        if (k != 0 && k != res.links.length ) {
 
+                             $.each(useranswers, function(i, j) {
 
-                                if (useranswers[k - 1].time_taken < {{ $examtime }}) {
-                                    linkstatus = "status-exelent";
+                                if(v.ans_id == j.id)
+                                {
+                                    linkstatus = 'status-bad';
+                                    if (j.iscorrect) {
+                                        linkstatus = "status-good";
+                                        if (j.time_taken < {{ $examtime }}) {
+                                            linkstatus = "status-exelent";
+                                        }
+                                    } 
                                 }
-                            }
+                            });
                         }
                         if (v.active || !v.url) {
 
@@ -346,7 +358,7 @@
                                 `)
                         } else {
                             $('#lesson-footer-paginationmobile').append(`
-                              <button class="${linkstatus} btn btn-secondary " onclick="loadlessonreview('${v.url}')" >${v.label}</button>
+                              <button class="${linkstatus} btn btn-secondary ${total_time}" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
                                 `)
                         }
 

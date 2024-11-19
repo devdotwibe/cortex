@@ -371,62 +371,29 @@ class LearnController extends Controller
         return redirect()->route('admin.learn.index')->with("success", "Learn visibility change success");
     }
 
-    // public function bulkaction(Request $request)
-    // {
-    //     if (!empty($request->deleteaction)) {
-    //         if ($request->input('select_all', 'no') == "yes") {
-    //             Learn::where('id', '>', 0)->delete();
-    //         } else {
-    //             Learn::whereIn('id', $request->input('selectbox', []))->delete();
-    //         }
-    //         if ($request->ajax()) {
-    //             return response()->json(["success" => "Questions deleted success"]);
-    //         }
-    //         return redirect()->route('admin.learn.show')->with("success", "Questions deleted success");
-    //     } else {
-    //         $request->validate([
-    //             "bulkaction" => ['required']
-    //         ]);
-    //         $data = [];
 
-    //         switch ($request->bulkaction) {
-
-    //             case 'visible_status':
-    //                 $data["visible_status"] = "show";
-    //                 break;
-    //             case 'visible_status_disable':
-    //                 $data["visible_status"] = "";
-    //                 break;
-
-
-    //             default:
-    //                 # code...
-    //                 break;
-    //         }
-    //         if ($request->input('select_all', 'no') == "yes") {
-    //             Learn::where('id', '>', 0)->update($data);
-    //         } else {
-    //             Learn::whereIn('id', $request->input('selectbox', []))->update($data);
-    //         }
-
-    //         if ($request->ajax()) {
-    //             return response()->json(["success" => "Questions update success"]);
-    //         }
-    //         return redirect()->route('admin.learn.show')->with("success", "Questions update success");
-    //     }
-    // }
-
-
-    public function bulkaction(Request $request, category $category)
+    public function bulkaction(Request $request, Category $category)
     {
-        if (!empty($request->deleteaction)) {
+       
+        $subcategoryId = $request->input('sub_category_id'); 
+        
+        if (!empty($request->deleteaction)  ) {
+
             if ($request->input('select_all', 'no') == "yes") {
-                // Delete all questions corresponding to the specific setname
-                Learn::where('category_id', $category->id)->delete();
+               
+                $selectAllValues = json_decode($request->select_all_values, true);
+                Learn::whereIn('id', $selectAllValues)  
+                    ->delete();
             } else {
-                // Delete selected questions only
-                Learn::whereIn('id', $request->input('selectbox', []))->delete();
+                // Ensure selectbox is an array or default to an empty array
+                $selectBoxValues = is_array($request->input('selectbox', [])) ? $request->input('selectbox', []) : [];
+                
+                Learn::whereIn('id', $selectBoxValues)
+                    ->where('category_id', $category->id)
+                    ->where('sub_category_id', $subcategoryId) // Ensure the delete is done for the correct subcategory
+                    ->delete();
             }
+            
     
             if ($request->ajax()) {
                 return response()->json(["success" => "Questions deleted successfully"]);
@@ -434,6 +401,7 @@ class LearnController extends Controller
             return redirect()->route('admin.learn.show', $category->slug)
                              ->with("success", "Questions deleted successfully");
         } else {
+            // Handle the bulk actions like visibility update
             $request->validate([
                 "bulkaction" => ['required']
             ]);
@@ -450,14 +418,6 @@ class LearnController extends Controller
                     break;
             }
     
-            if ($request->input('select_all', 'no') == "yes") {
-                // Update visibility status for all questions corresponding to the specific setname
-                Learn::where('category_id', $category->id)->update($data);
-            } else {
-                // Update visibility status for selected questions only
-                Learn::whereIn('id', $request->input('selectbox', []))->update($data);
-            }
-    
             if ($request->ajax()) {
                 return response()->json(["success" => "Questions updated successfully"]);
             }
@@ -466,4 +426,8 @@ class LearnController extends Controller
         }
     }
 
+
+
+
+    
 }
