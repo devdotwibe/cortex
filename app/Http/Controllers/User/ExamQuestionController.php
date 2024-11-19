@@ -276,7 +276,7 @@ class ExamQuestionController extends Controller
                 return [
                     'url' => $data->url($page),
                     'label' => (string) $page,
-                    'ans' => isset($data_ids[$i]) ? $data_ids[$i] : null,
+                    'ans' => isset($data_ids[$i+1]) ? $data_ids[$i+1] : null,
                     'active' => $page === $data->currentPage(),
                 ];
             });
@@ -323,7 +323,7 @@ class ExamQuestionController extends Controller
                         ->whereIn('user_review_questions.review_type',['mcq'])
                         ->where('user_review_questions.user_id',$user->id)
                         ->where('user_review_questions.user_exam_review_id',$userExamReview->id)
-                        ->select('user_review_questions.id','user_review_questions.time_taken','user_review_answers.iscorrect','user_review_answers.id')->get();
+                        ->select('user_review_questions.id','user_review_questions.time_taken','user_review_answers.iscorrect','user_review_answers.id','user_review_answers.user_review_question_id')->get();
         $examtime=0;
         $exam_time_sec = 0;
         if($user->progress("exam-review-".$userExamReview->id."-timed",'')=="timed"){
