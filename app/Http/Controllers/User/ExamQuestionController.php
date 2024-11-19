@@ -258,27 +258,22 @@ class ExamQuestionController extends Controller
 
             $links = collect(range(1, $data->lastPage()))->map(function ($page ,$i) use ($data,$user_review,$data_questions) {
 
-                $data_ids = $user_review;
-
-                $ans_ids = $user_review;
-
-                $data_rews = $data_questions;
+                $data_ids = $user_review->pluck('id')->toArray();
+                $ans_ids = $user_review->pluck('user_review_question_id')->toArray(); // Pluck answer question IDs
+                $data_rews = $data_questions->pluck('id')->toArray(); // Pluck question IDs
 
                 $data_id = null;
 
-                $currentPageItems = $user_review;
+                $currentPageItems = $data->getCollection(); 
 
-                foreach ($currentPageItems as $k=> $item) {
-
-                    if(!empty($data_questions[$k]->id) && isset($data_questions[$k]))
-
-                    if ($item->user_review_question_id == $data_questions[$k]->id) {
-
-                        $data_id = $item->id;  
-                    }
-                    else
-                    {
-                        $data_id = null;
+                foreach ($currentPageItems as $k => $item) {
+                    // Ensure the question exists in the list of all questions
+                    if (!empty($data_questions[$k])) {
+                        // Compare the answer's question_id with the question's id
+                        if (in_array($item->id, $ans_ids)) {
+                            // If the answer exists for the question, assign the answer's ID
+                            $data_id = $user_review->where('user_review_question_id', $item->id)->first()->id;
+                        }
                     }
                 }
 
