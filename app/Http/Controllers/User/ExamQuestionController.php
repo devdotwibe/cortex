@@ -256,7 +256,7 @@ class ExamQuestionController extends Controller
 
             $links = collect(range(1, $data->lastPage()))->map(function ($page) use ($data,$user_review) {
 
-                $data_ids = $user_review->pluck('question_id')->toArray();
+                $data_ids = $user_review->pluck('id')->toArray();
 
                 return [
                     'url' => $data->url($page),
