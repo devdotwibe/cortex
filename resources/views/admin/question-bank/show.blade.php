@@ -1,6 +1,11 @@
 @extends('layouts.admin')
 @section('title', $category->name.' -> '.$subcategory->name.' -> '.$setname->name.' -> '.' Questions')
 @section('content')
+<style>
+    input[type="image"] {
+    display: none;
+}
+</style>
 <section class="header_nav">
     <div class="header_wrapp">
         <div class="header_title">
