@@ -375,36 +375,39 @@ class LearnController extends Controller
 
     public function bulkaction(Request $request, Category $category)
     {
-       
         $subcategoryId = $request->input('sub_category_id'); 
-        
-        if (!empty($request->deleteaction) && (!empty($request->select_all_values)) ) {
-
-            if ($request->input('select_all', 'no') == "yes") {
-               
-                Learn::whereIn('id', $request->select_all_values)
-                   
+    
+        // Validate required inputs
+        $request->validate([
+            'select_all_values' => ['nullable', 'array'],
+            'selectbox' => ['nullable', 'array'],
+            'bulkaction' => ['nullable', 'string'],
+            'deleteaction' => ['nullable', 'string'],
+        ]);
+    
+        if (!empty($request->deleteaction) && (!empty($request->select_all_values) || !empty($request->selectbox))) {
+            // Handle delete action
+            if ($request->input('select_all', 'no') === "yes") {
+                // Delete all selected records
+                Learn::where('category_id', $category->id)
+                    ->where('sub_category_id', $subcategoryId)
+                    ->whereIn('id', $request->select_all_values)
                     ->delete();
             } else {
-               
-                Learn::whereIn('id', $request->input('selectbox', []))
-                    ->where('category_id', $category->id)
-                    ->where('sub_category_id', $subcategoryId) // Ensure the delete is done for the correct subcategory
+                // Delete only explicitly selected records
+                Learn::where('category_id', $category->id)
+                    ->where('sub_category_id', $subcategoryId)
+                    ->whereIn('id', $request->input('selectbox', []))
                     ->delete();
             }
     
-            if ($request->ajax()) {
-                return response()->json(["success" => "Questions deleted successfully"]);
-            }
-            return redirect()->route('admin.learn.show', $category->slug)
-                             ->with("success", "Questions deleted successfully");
-        } else {
-            // Handle the bulk actions like visibility update
-            $request->validate([
-                "bulkaction" => ['required']
-            ]);
+            $responseMessage = "Questions deleted successfully";
+    
+        } elseif (!empty($request->bulkaction)) {
+            // Handle bulk update actions
             $data = [];
     
+            // Determine the action type
             switch ($request->bulkaction) {
                 case 'visible_status':
                     $data["visible_status"] = "show";
@@ -413,28 +416,36 @@ class LearnController extends Controller
                     $data["visible_status"] = "";
                     break;
                 default:
-                    break;
+                    return redirect()->route('admin.learn.show', $category->slug)
+                                     ->withErrors(["error" => "Invalid bulk action selected."]);
             }
     
-            if ($request->input('select_all', 'no') == "yes") {
-                // Update visibility status for all questions corresponding to the specific category and subcategory
+            if ($request->input('select_all', 'no') === "yes") {
+                // Update visibility for all records within the category and subcategory
                 Learn::where('category_id', $category->id)
-                    ->where('sub_category_id', $subcategoryId) // Make sure it updates for the specific subcategory
+                    ->where('sub_category_id', $subcategoryId)
                     ->update($data);
             } else {
-                // Update visibility status for selected questions only, filtering by category and subcategory
-                Learn::whereIn('id', $request->input('selectbox', []))
-                    ->where('category_id', $category->id)
-                    ->where('sub_category_id', $subcategoryId) // Ensure the update is done for the correct subcategory
+                // Update visibility for explicitly selected records
+                Learn::where('category_id', $category->id)
+                    ->where('sub_category_id', $subcategoryId)
+                    ->whereIn('id', $request->input('selectbox', []))
                     ->update($data);
             }
     
-            if ($request->ajax()) {
-                return response()->json(["success" => "Questions updated successfully"]);
-            }
+            $responseMessage = "Questions updated successfully";
+        } else {
             return redirect()->route('admin.learn.show', $category->slug)
-                             ->with("success", "Questions updated successfully");
+                             ->withErrors(["error" => "No action was performed."]);
         }
+    
+        // Return response based on request type
+        if ($request->ajax()) {
+            return response()->json(["success" => $responseMessage]);
+        }
+    
+        return redirect()->route('admin.learn.show', $category->slug)
+                         ->with("success", $responseMessage);
     }
     
 }
