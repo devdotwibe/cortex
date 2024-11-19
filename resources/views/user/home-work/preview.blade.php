@@ -255,7 +255,7 @@
 
                                         if (j.iscorrect) {
 
-                                            linkstatus = "status-good";
+                                            linkstatus = "status-exelent";
 
                                         } 
                                     }
