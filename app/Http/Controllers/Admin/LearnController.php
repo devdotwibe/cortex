@@ -381,8 +381,8 @@ class LearnController extends Controller
 
             if ($request->input('select_all', 'no') == "yes") {
                
-                $selectAllValues = implode(',',$request->select_all_values);
-                Learn::whereIn('id', $selectAllValues)
+                $selectAllValues = explode(',',$request->select_all_values);
+                Learn::whereIn('id', $selectAllValues)  
                     ->delete();
             } else {
                 // Ensure selectbox is an array or default to an empty array
