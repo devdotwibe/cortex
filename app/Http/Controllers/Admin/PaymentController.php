@@ -16,8 +16,8 @@ class PaymentController extends Controller
 
         if($request->ajax()){
 
-            dd($request->search);
-            
+            dd($request->search['value']);
+
             self::$model=PaymentTransation::class;
             self::$defaultActions=[""];
             return  $this->with('user')->whereHas('user')->addColumn('username',function($data){
