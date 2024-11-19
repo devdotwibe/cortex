@@ -208,7 +208,7 @@ class PrivateClassHomeWorkController extends Controller
                             ->where('home_work_review_answers.user_answer',true)
                             ->whereIn('home_work_review_questions.review_type',['mcq'])
                             ->where('home_work_review_questions.user_id',$user->id)
-                            ->where('home_work_review_questions.user_exam_review_id',$userExamReview->id)
+                            ->where('home_work_review_questions.user_exam_review_id',$homeWorkReview->id)
                             ->select('home_work_review_questions.id','home_work_review_questions.time_taken','home_work_review_answers.iscorrect','home_work_review_answers.id')->get();
     
            
