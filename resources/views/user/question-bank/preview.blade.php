@@ -477,6 +477,7 @@
                         .find('button.right-btn')
                         .data('pageurl', res.next_page_url)
                         .attr('onclick', `loadlessonreview('${res.next_page_url}')`); // Adding onclick event
+                        $('.lesson-finish').hide();
                 } else {
                     $('.lesson-finish').show();
                 }
