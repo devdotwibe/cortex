@@ -69,12 +69,16 @@
 
     <section class="exam-footer">
         <div class="lesson-pagination">
-            <div class="lesson-left">
+            <div class="lesson-left pagination-arrow" style="display: none">
+                <button class="button left-btn"><img src="{{ asset('assets/images/leftarrow.svg') }}" alt="<"> Previous
+                </button>
+            </div>
+            {{-- <div class="lesson-left">
                 <a href="{{ route('question-bank.set.complete', $userExamReview->slug) }}" class="button left-btn"
                     title="Back">
                     <img src="{{ asset('assets/images/leftarrow.svg') }}" alt="<"> Back
                 </a>
-            </div>
+            </div> --}}
             <div class="exam-right exam-progress-inner-item">
                 <div class="progress-main">
                 </div>
@@ -482,12 +486,10 @@
                     $('.lesson-finish').show();
                 }
                 if (res.prev_page_url) {
-                    $('.lesson-left a.left-btn')
-                        .attr('href', res.prev_page_url) // Change the URL
-                        .attr('title', 'New Title')  // Optionally change the title
-                        .find('img').attr('alt', '< Previous') // Optionally update the alt text of the image
-                        .end()
-                        .contents().last().replaceWith('Previous');
+                    $('.lesson-left').show()
+                        .find('button.left-btn')
+                        .data('pageurl', res.prev_page_url)
+                        .attr('onclick', `loadlessonreview('${res.prev_page_url}')`); // Adding onclick event
                 }
 
                 $('#menu-text').html(`Question <span> ${res.current_page} </span> `)

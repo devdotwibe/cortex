@@ -78,7 +78,7 @@
     <section class="exam-footer">
         <div class="lesson-pagination">
             <div class="lesson-left pagination-arrow" style="display: none">
-                <button class="button left-btn"><img src="{{ asset('assets/images/leftarrow.svg') }}" alt="<"> Back
+                <button class="button left-btn"><img src="{{ asset('assets/images/leftarrow.svg') }}" alt="<"> Previous
                 </button>
             </div>
 
@@ -188,6 +188,8 @@
                 $('.pagination-arrow').hide();
                 $('#lesson-footer-pagination').html('')
                 $('#lesson-footer-paginationmobile').html('')
+                $('#question-preview-page').hide()
+
                 const lesseonId = generateRandomId(10);
                 $.each(res.data, function(k, v) {
                     if (v.review_type == "short_notes") {
