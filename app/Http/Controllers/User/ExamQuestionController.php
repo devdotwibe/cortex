@@ -267,6 +267,10 @@ class ExamQuestionController extends Controller
                         $data_id = $item->id;
                         break;
                     }
+                    else
+                    {
+                        $data_id = null;
+                    }
                 }
 
                 return [
