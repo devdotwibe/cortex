@@ -24,7 +24,7 @@ class UserReviewAnswer extends Model
         'answer_id',
         'user_id'
     ];
-    protected $hidden = ['user_id', 'id','exam_id','question_id','answer_id','user_exam_review_id','user_review_question_id'];
+    protected $hidden = ['user_id', 'id','exam_id','question_id','answer_id','user_exam_review_id'];
 
     protected $appends=[
         'total_user_answered'
