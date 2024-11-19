@@ -284,7 +284,7 @@
 
                             linkstatus = 'status-bad';
 
-                            if (v.ans_id. == 'short_notes') {
+                            if (v.ans_id == 'short_notes') {
                             
                                 linkstatus = "status-grey";
                             }
