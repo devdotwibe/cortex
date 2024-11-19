@@ -256,15 +256,15 @@ class ExamQuestionController extends Controller
 
             $links = collect(range(1, $data->lastPage()))->map(function ($page ,$i) use ($data,$user_review) {
 
-                $data_ids = $user_review->pluck('question_id')->toArray();
+                $data_ids = $user_review->pluck('user_exam_review_id')->toArray();
 
                 $data_id = null;
 
                 $currentPageItems = $data->items();
 
                 foreach ($currentPageItems as $item) {
-                    if (in_array($item->question_id, $data_ids)) {
-                        $data_id = $item->question_id;
+                    if (in_array($item->id, $data_ids)) {
+                        $data_id = $item->id;
                         break;
                     }
                 }
