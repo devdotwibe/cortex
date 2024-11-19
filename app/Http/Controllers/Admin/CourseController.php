@@ -506,27 +506,24 @@ public function deletePrivateImage()
 
 
 
+
+
 public function deleteLogicalImage()
 {
-    // Find the course by ID
     $course = Courses::first();
 
     if ($course && $course->logicalimage) {
-        // Check if the logical image file exists in the storage
         if (Storage::exists($course->logicalimage)) {
-            // Delete the logical image from the storage
             Storage::delete($course->logicalimage);
         }
 
-        // Set the logicalimage field to null in the database
+        // Set image to null and save the change
         $course->logicalimage = null;
         $course->save();
 
-        // Return a success response
         return response()->json(['success' => true]);
     }
 
-    // Return a failure response if the logical image was not found
     return response()->json(['success' => false], 404);
 }
 

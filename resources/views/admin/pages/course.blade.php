@@ -253,46 +253,44 @@
                                         </div>
                                     </div>
                                     <div class="numericalsectionclass">
-
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="logicalimage"  class="file-upload">Logical Image  <br>
-                                                <img src="{{ asset('assets/images/upfile.svg') }}"
-                                                    alt="Upload Icon"></label>
-                                            <input type="file" class="form-control" style="display: none;" name="logicalimage" id="logicalimage">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="logicalimage" class="file-upload">Logical Image <br>
+                                                    <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
+                                                </label>
+                                                <input type="file" class="form-control" style="display: none;" name="logicalimage" id="logicalimage" 
+                                                       onchange="previewLogicalImage(event, 'logicalImagePreview', this)" data-id="logicalimgid1">
+                                            </div>
+                                        </div>
+                                    
+                                        <!-- Preview Image Container -->
+                                        <div class="form-group logicalimgid1" id="logicalimgid1" 
+                                             style="display: {{ isset($course) && $course->logicalimage ? 'block' : 'none' }};">
+                                            <label for="logicalImagePreview">Image Preview</label>
+                                            <div id="logicalImagePreviewContainer" class="numericalclass">
+                                                @if (isset($course) && $course->logicalimage)
+                                                    <img id="logicalImagePreview-save" src="{{ url('d0/' . $course->logicalimage) }}"
+                                                         alt="Image Preview" style="width: 100%; height: auto;">
+                                                    <button type="button" class="btn btn-danger" id="icondeletelogicalimg" 
+                                                            style="position: absolute; top: 5px; right: 5px;" 
+                                                            onclick="removeLogicalImage()">X</button>
+                                                @endif
+                                    
+                                                <!-- Dynamic image preview -->
+                                                <img id="logicalImagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
+                                                <button type="button" class="btn btn-danger" id="deleteiconlogicalimg" 
+                                                        style="position: absolute; top: 5px; right: 5px; display: none;" 
+                                                        onclick="removeImage2()">X</button>
+                                    
+                                                <!-- Delete button for saved image -->
+                                                <button type="button" class="btn btn-danger" id="icondeletelogicalimg"
+                                                        style="position: absolute; top: 5px; right: 5px; 
+                                                               {{ isset($course) && $course->logicalimage ? 'display: block;' : 'display: none;' }};"
+                                                        onclick="removeLogicalImage()">X</button>
+                                            </div>
                                         </div>
                                     </div>
-
-
-
-
-
-
-
-
-
-
-
-                                    <!-- Preview Image Container -->
-                                    <div class="form-group">
-                                        <label for="logicalImagePreview">Image Preview</label>
-                                        <div id="logicalImagePreviewContainer" class="numericalclass">
-                                          
-                                            @if (isset($course) && $course->logicalimage)
-                                                <img id="logicalImagePreview-save"
-                                                    src="{{ url('d0/' . $course->logicalimage) }}" alt="Image Preview"
-                                                    style="width: 100%; height: auto;">
-                                                <button type="button" onclick="removeLogicalImage(this)"
-                                                    value="{{ $course->id }}" class="btn btn-danger"
-                                                    style="float: right;">X</button>
-                                                    @endif
-                                                <img id="logicalImagePreview" src="#" alt="Image Preview"
-                                                    style="display: none; width: 100%; height: auto;">
-
-                                        </div>
-                                    </div>
-                                </div>
-
+                                    
 
                                 </div>
                                 <button type="submit" class="btn btn-dark logical" name="sub_section"
@@ -1037,7 +1035,7 @@ function removeSectionImage() {
     </script> --}}
 
 
-    <script>
+    {{-- <script>
         function removeLogicalImage(button) {
             const courseId = button.value; // Get the course ID from the button value
             const url = '{{ route('admin.course.deleteLogicalImage') }}'; // Construct the URL with the course ID
@@ -1063,7 +1061,7 @@ function removeSectionImage() {
                 }
             });
         }
-    </script>
+    </script> --}}
 
 
     <script>
@@ -1724,6 +1722,71 @@ function removeImageprivate() {
 
     // Clear the file input field
     document.getElementById('privateimage').value = '';
+}
+
+
+
+
+
+    function removeLogicalImage() {
+        const imagePath = "{{ $course->logicalimage }}";
+
+        $.ajax({
+            type: 'POST',
+            url: '{{ route('admin.course.deleteLogicalImage') }}', // Ensure this route matches the backend route for deleting logical image
+            data: {
+                _token: '{{ csrf_token() }}',
+                image_path: imagePath
+            },
+            success: function(response) {
+                if (response.success) {
+                    $('#logicalimgid1').hide();  // Hide the image preview container
+                    document.getElementById('logicalImagePreview-save').style.display = 'none'; // Hide the image preview
+                    document.querySelector('#logicalImagePreviewContainer button.btn-danger').style.display = 'none'; // Hide delete button
+                } else {
+                    alert('Image could not be deleted. Please try again.');
+                }
+            },
+            error: function(xhr) {
+                alert('An error occurred. Please try again.');
+            }
+        });
+    }
+
+
+
+// Function to preview the Logical Image
+function previewLogicalImage(event, previewId, element) {
+    const reader = new FileReader();
+
+    reader.onload = function () {
+        const output = document.getElementById(previewId);
+        output.src = reader.result; // Set the preview image source
+        output.style.display = 'block'; // Display the preview image
+
+        // Show the preview container and delete button
+        $('#logicalimgid1').show();
+        $('#deleteiconlogicalimg').show(); // Show delete button for the preview image
+        $('#icondeletelogicalimg').hide(); // Hide delete button for the saved image
+    };
+
+    if (event.target.files[0]) {
+        reader.readAsDataURL(event.target.files[0]); // Read the selected image
+    }
+}
+
+// Function to remove the Logical Image preview when the delete button is clicked
+function removeImage2() {
+    // Clear the preview image and hide the preview container and delete button
+    const output = document.getElementById('logicalImagePreview');
+    output.src = '';
+    output.style.display = 'none'; // Hide the preview image
+
+    $('#logicalimgid1').hide(); // Hide preview container
+    $('#deleteiconlogicalimg').hide(); // Hide delete button for the preview image
+
+    // Clear the file input field
+    document.getElementById('logicalimage').value = '';
 }
 
 
