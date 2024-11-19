@@ -379,18 +379,22 @@ class LearnController extends Controller
         
         if (!empty($request->deleteaction)  ) {
 
-            if ($request->input('select_all', 'no') == "yes" ) {
-              
-                Learn::whereIn('id', $request->select_all_values)
-                   
+            if ($request->input('select_all', 'no') == "yes") {
+                // Ensure select_all_values is an array or default to an empty array
+                $selectAllValues = is_array($request->select_all_values) ? $request->select_all_values : [];
+                
+                Learn::whereIn('id', $selectAllValues)
                     ->delete();
             } else {
-               
-                Learn::whereIn('id', $request->input('selectbox', []))
+                // Ensure selectbox is an array or default to an empty array
+                $selectBoxValues = is_array($request->input('selectbox', [])) ? $request->input('selectbox', []) : [];
+                
+                Learn::whereIn('id', $selectBoxValues)
                     ->where('category_id', $category->id)
                     ->where('sub_category_id', $subcategoryId) // Ensure the delete is done for the correct subcategory
                     ->delete();
             }
+            
     
             if ($request->ajax()) {
                 return response()->json(["success" => "Questions deleted successfully"]);
