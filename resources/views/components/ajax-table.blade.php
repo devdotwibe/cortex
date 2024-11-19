@@ -171,18 +171,18 @@
             $('#table-{{ $tableid }}-bulk').change(function(){
 
                 let isChecked = $('#table-{{ $tableid }}-bulk').is(":checked");
-                $('#table-{{ $tableid }} .selectbox').prop('checked', isChecked);
+            $('#table-{{ $tableid }} .selectbox').prop('checked', isChecked);
 
-                // Collect all selected values into an array
-                let selectedValues = [];
-                if (isChecked) {
-                    $('#table-{{ $tableid }} .selectbox').each(function () {
-                        selectedValues.push($(this).val());
-                    });
-                }
+            // Collect all selected values into an array
+            let selectedValues = [];
+            if (isChecked) {
+                $('#table-{{ $tableid }} .selectbox').each(function () {
+                    selectedValues.push($(this).val());
+                });
+            }
 
-                // Store the array as a string in the hidden input
-                $('#select_all_values').val(JSON.stringify(selectedValues));
+            // Store the array as a string in the hidden input
+            $('#select_all_values').val(JSON.stringify(selectedValues));
 
                 if($('#table-{{ $tableid }}-bulk').is(":checked")){
                     $('#table-{{ $tableid }} .selectbox-action').show()
