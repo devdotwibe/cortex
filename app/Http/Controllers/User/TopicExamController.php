@@ -293,8 +293,6 @@ class TopicExamController extends Controller
         // Session::forget("topic-test-attempt");
         $exam = Exam::where("name", 'topic-test')->first();
 
-        $setname=Setname::find($userExamReview->sub_category_set);
-        
         if (empty($exam)) {
             $exam = Exam::store([
                 "title" => "Topic Test",
@@ -405,7 +403,7 @@ class TopicExamController extends Controller
             // if ($examtime > 0 && count($useranswer) > 0) {
             //     $examtime = $examtime / count($useranswer);
             // }
-            $times=explode(':',$setname->time_of_exam);
+            $times=explode(':',$category->time_of_exam);
 
             if(count($times)>0){
                 $examtime+=intval(trim($times[0]??"0"))*60;
