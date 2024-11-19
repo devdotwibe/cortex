@@ -365,42 +365,43 @@
             if (choice != 0) {
                 let name = "{{ $choiceName }}"
                 console.log(name)
-
-                $("#{{$frmID}}").on("submit", function (e) {
-                    let isValid = true;
-                    $(`input[name='${name}[]']`).each(function (index) {
-                        const answerField = $(this);
-                        const fileField = $(`input[name='file_${name}[]']`).eq(index);
-                        const answerValue = answerField.val().trim();
-                        const fileValue = fileField.val();
-                        const existingFile = fileField.data("existing-file"); 
-                        if (!answerValue && !fileValue && !existingFile) {
-                            isValid = false;
-                            answerField.addClass("is-invalid");
-                            fileField.addClass("is-invalid");
-                            const feedbackElement = fileField.next(".invalid-feedback");
-                            feedbackElement.text("Either answer or file is required.").show();
-                            if (!firstInvalidFeedback) {
-                                firstInvalidFeedback = feedbackElement;
+                if ($('.mcq_section').is(':visible') || $(`input[name='${name}[]']`).length > 1) {
+                    $("#{{$frmID}}").on("submit", function (e) {
+                        let isValid = true;
+                        $(`input[name='${name}[]']`).each(function (index) {
+                            const answerField = $(this);
+                            const fileField = $(`input[name='file_${name}[]']`).eq(index);
+                            const answerValue = answerField.val().trim();
+                            const fileValue = fileField.val();
+                            const existingFile = fileField.data("existing-file"); 
+                            if (!answerValue && !fileValue && !existingFile) {
+                                isValid = false;
+                                answerField.addClass("is-invalid");
+                                fileField.addClass("is-invalid");
+                                const feedbackElement = fileField.next(".invalid-feedback");
+                                feedbackElement.text("Either answer or file is required.").show();
+                                if (!firstInvalidFeedback) {
+                                    firstInvalidFeedback = feedbackElement;
+                                }
+                            } else {
+                                answerField.removeClass("is-invalid");
+                                fileField.removeClass("is-invalid");
+                                fileField.next(".invalid-feedback").hide(); 
                             }
-                        } else {
-                            answerField.removeClass("is-invalid");
-                            fileField.removeClass("is-invalid");
-                            fileField.next(".invalid-feedback").hide(); 
+                        });
+                            
+                        if (!isValid && firstInvalidFeedback) {
+                            e.preventDefault(); // Prevent form submission
+                            $('html, body').animate(
+                                {
+                                    scrollTop: firstInvalidFeedback.offset().top - 100, 
+                                },
+                                500 
+                            );
+                            firstInvalidFeedback.attr("tabindex", "-1").focus(); 
                         }
                     });
-                        
-                    if (!isValid && firstInvalidFeedback) {
-                        e.preventDefault(); // Prevent form submission
-                        $('html, body').animate(
-                            {
-                                scrollTop: firstInvalidFeedback.offset().top - 100, 
-                            },
-                            500 
-                        );
-                        firstInvalidFeedback.attr("tabindex", "-1").focus(); 
-                    }
-                });
+                }
             }
         });
     </script>
