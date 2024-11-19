@@ -785,6 +785,8 @@
                                                     <!-- Display existing image if set -->
                                                     <img id="fullmockImagePreview-save" src="{{ url('d0/' . $course->fullmockimage) }}" 
                                                          alt="Image Preview" style="width: 100%; height: auto;">
+
+                                                         <button type="button" class="btn btn-danger" id="deleteSavedFullmockImage" style="position: absolute; top: 5px; right: 5px;" onclick="removeFullmockImage()">X</button>
                                     
                                                     <!-- Delete button for saved image -->
                                                     <button type="button" class="btn btn-danger" id="deleteSavedFullmockImage" 
