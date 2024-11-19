@@ -2681,7 +2681,8 @@
 
 
                 function removeLearnImage() {
-                    const imagePath = "{{ $banner->learnimage }}"; // Set the correct image path for the learnimage
+                    const imagePath = "{{ optional($banner)->learnimage }}";
+                    // Set the correct image path for the learnimage
 
                     // Send an AJAX request to delete the image
                     $.ajax({
@@ -2711,7 +2712,8 @@
 
 
                 function removePractiseImage() {
-    const imagePath = "{{ $banner->practiseimage }}"; // Set the correct image path for the practiseimage
+                    const imagePath = "{{ optional($banner)->practiseimage }}";
+                    // Set the correct image path for the practiseimage
 
     // Send an AJAX request to delete the image
     $.ajax({
@@ -2775,7 +2777,8 @@
 <script>
 
 function removePrepareImage() {
-    const imagePath = "{{ $banner->prepareimage }}"; // Set the correct image path for the prepareimage
+    const imagePath = "{{ optional($banner)->prepareimage }}";
+    // Set the correct image path for the prepareimage
 
     // Send an AJAX request to delete the image
     $.ajax({
@@ -2838,7 +2841,8 @@ function removeReviewImagePreview() {
 
     // Function to remove the review image preview when the preview delete button (reviewdeleteicon) is clicked
     function removeReviewImage() {
-        const imagePath = "{{ $banner->reviewimage }}"; // Set the correct image path for the review image
+        const imagePath = "{{ optional($banner)->reviewimage }}";
+        // Set the correct image path for the review image
 
         // Send an AJAX request to delete the image
         $.ajax({
@@ -2897,7 +2901,8 @@ function removeExcelImagePreview() {
 
 // Function to remove the Excel image from the server when the delete button (excelimage delete) is clicked
 function removeExcelImage() {
-    const imagePath = "{{ $banner->excelimage }}"; // Set the correct image path for the Excel image
+    const imagePath = "{{ optional($banner)->excelimage }}";
+    // Set the correct image path for the Excel image
 
     // Send an AJAX request to delete the image
     $.ajax({
@@ -2957,7 +2962,8 @@ function removeAnalyticsImagePreview() {
 
 // Function to remove the Analytics image from the server when the delete button (icondelete7) is clicked
 function removeAnalyticsImage() {
-    const imagePath = "{{ $banner->analytics_image }}"; // Set the correct image path for the Analytics image
+    const imagePath = "{{ optional($banner)->analytics_image }}";
+ // Set the correct image path for the Analytics image
 
     // Send an AJAX request to delete the image
     $.ajax({
@@ -3017,7 +3023,8 @@ function removeAnytimeImagePreview() {
 
 // Function to remove the Anytime image from the server when the delete button is clicked
 function removeAnytimeImage() {
-    const imagePath = "{{ $banner->anytime_image }}"; // Set the correct image path for the Anytime image
+    const imagePath = "{{ optional($banner)->anytime_image }}";
+    // Set the correct image path for the Anytime image
 
     $.ajax({
         type: 'POST',
@@ -3056,7 +3063,8 @@ function removeUnlimitedImagePreview() {
 
 // Function to remove the Unlimited image from the server when the delete button is clicked
 function removeUnlimitedImage() {
-    const imagePath = "{{ $banner->unlimited_image }}"; // Set the correct image path for the Unlimited image
+    const imagePath = "{{ optional($banner)->unlimited_image }}";
+    // Set the correct image path for the Unlimited image
 
     $.ajax({
         type: 'POST',
@@ -3113,7 +3121,8 @@ function removeLiveImagePreview() {
 
 // Function to remove the Live image from the server when the delete button is clicked
 function removeLiveImage() {
-    const imagePath = "{{ $banner->live_image }}"; // Set the correct image path for the Live image
+    const imagePath = "{{ optional($banner)->live_image }}";
+    // Set the correct image path for the Live image
 
     $.ajax({
         type: 'POST',

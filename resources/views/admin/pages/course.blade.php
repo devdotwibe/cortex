@@ -994,7 +994,8 @@
 
         // Function to remove the Section image from the server when the delete button is clicked
 function removeSectionImage() {
-    const imagePath = "{{ $course->image }}"; // Set the correct image path for the Section image
+    const imagePath = "{{ optional($course)->image }}";
+    // Set the correct image path for the Section image
 
     $.ajax({
         type: 'POST',
@@ -1120,7 +1121,8 @@ function removeSectionImage() {
 
 <script>
     function removeLearnImage() {
-        const imagePath = "{{ $course->learnimage }}";
+        const imagePath = "{{ optional($course)->learnimage }}";
+
 
         
             $.ajax({
@@ -1391,7 +1393,8 @@ function removeImage1() {
 
 // Function to remove the Question Bank image from the server when the delete button is clicked
 function removeQuestionBankImage() {
-    const imagePath = "{{ $course->questionbankimage }}"; // Set the correct image path for the Question Bank image
+    const imagePath = "{{ optional($course)->questionbankimage }}";
+    // Set the correct image path for the Question Bank image
 
     $.ajax({
         type: 'POST',
@@ -1459,7 +1462,7 @@ function removeQuestionImage() {
 // // Function to remove the Topic image from the server when the delete button is clicked
 // function removeTopicImage() {
 //     const courseId = button.value; // Get the course ID from the delete button value
-//     const imagePath = "{{ $course->topicimage }}"; // Set the correct image path for the Topic image
+
 
 //     $.ajax({
 //         type: 'POST',
@@ -1490,8 +1493,9 @@ function removeQuestionImage() {
 function removeTopicImage() {
     console.log('y');
 
-    const courseId = "{{ $course->id }}"; // Get the course ID from the delete button value
-    const imagePath = "{{ $course->topicimage }}"; // Set the correct image path for the Topic image
+    const courseId = "{{ optional($course)->id }}"; // Get the course ID from the delete button value
+const imagePath = "{{ optional($course)->topicimage }}"; // Set the correct image path for the Topic image
+
 
 
     
@@ -1627,7 +1631,8 @@ function removeDynamicFullmockImage() {
 
 // Function to remove the Private Image from the server when the delete button is clicked
 function removePrivateImage(button) {
-    const imagePath = "{{ $course->privateimage }}"; // Set the correct image path for the Private Image
+    const imagePath = "{{ optional($course)->privateimage }}";
+    // Set the correct image path for the Private Image
     const courseId = button.value; // Get the course ID from the delete button value
 
     $.ajax({
@@ -1693,7 +1698,8 @@ function removeImageprivate() {
 
 
     function removeLogicalImage() {
-        const imagePath = "{{ $course->logicalimage }}";
+        const imagePath = "{{ optional($course)->logicalimage }}";
+
 
         $.ajax({
             type: 'POST',
@@ -1755,7 +1761,8 @@ function removeImage2() {
 
 
 function removeCriticalImage() {
-    const imagePath = "{{ $course->criticalimage }}";
+    const imagePath = "{{ optional($course)->criticalimage }}";
+
 
     $.ajax({
         type: 'POST',
@@ -1820,7 +1827,8 @@ function removeImagecritical() {
 
 
 function removeAbstractImage() {
-    const imagePath = "{{ $course->abstractimage }}";  // Get the path of the abstract image
+    const imagePath = "{{ optional($course)->abstractimage }}";
+    // Get the path of the abstract image
 
     $.ajax({
         type: 'POST',
@@ -1884,7 +1892,8 @@ function removeImageabstract() {
 
 
 function removeNumericalImage() {
-    const imagePath = "{{ $course->numericalimage }}";
+    const imagePath = "{{ optional($course)->numericalimage }}";
+
 
     $.ajax({
         type: 'POST',
