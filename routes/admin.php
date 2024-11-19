@@ -432,6 +432,10 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::delete('/{home_work}/question/{home_work_question}/destroy',[HomeWorkController::class,'destroy'])->name('destroy');
             Route::get('/{home_work}/question/{home_work_question}/visibility',[HomeWorkController::class,'questionvisibility'])->name('visibility');
 
+            Route::post('/{home_work}/bulk/action', [HomeWorkController::class, 'bulkaction'])->name('bulkaction');
+
+
+
             Route::post('/home-work/booklet/create',[HomeWorkController::class,'storebooklet'])->name('storebooklet');
             Route::get('/home-work/booklet/{home_work_book}/show',[HomeWorkController::class,'showbooklet'])->name('showbooklet');
             Route::put('/home-work/booklet/{home_work_book}/update',[HomeWorkController::class,'updatebooklet'])->name('updatebooklet');
