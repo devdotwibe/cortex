@@ -25,6 +25,15 @@ class ExamController extends Controller
                 return '
                
 
+                <a data-id="'.$data->slug.'" class="btn btn-icons eye-button" onclick="UploadVideo(this)">
+                            <span class="adminside-icon">
+                                <img src="' . asset("assets/images/video-clip-32-regular.svg") . '" alt="View">
+                            </span>
+                            <span class="adminactive-icon">
+                                <img src="' . asset("assets/images/hover-video-clip-32-regular.svg") . '" alt="View Active" title="View">
+                            </span>
+                 </a>
+
                 <a href="'.route("admin.full-mock-exam.index",["exam"=>$data->slug]).'" class="btn btn-icons eye-button">
                             <span class="adminside-icon">
                                 <img src="' . asset("assets/images/icons/mdi_incognito.svg") . '" alt="View">
@@ -126,4 +135,42 @@ class ExamController extends Controller
         }        
         return redirect()->route('admin.exam.index')->with("success","QuestionBankChapter deleted success");
     }
+
+    
+    public function get_expain_video(Request $request)
+    {
+        $slug = $request->exam_slug;
+      
+        $exam  = Exam::findSlug($slug);
+
+        if(!empty($exam))
+        {
+            return response()->json(['data' => $exam]);
+        }
+        
+        return response()->json([
+            'message' => 'The Exam is Not Found.'
+        ]);
+    }
+
+    public function explanation_video(Request $request)
+    {
+        $request->validate([
+
+            "explanation_video"=>["required",'string'],
+        ]);
+
+        $exam = Exam::findSlug($request->exam_id);
+        if($exam)
+        {
+            $exam->explanation_video = $request->explanation_video;
+            $exam->save();
+    
+            return response()->json(['status' => 'success', 'message' => 'Explanation Video Added successfully!']);
+        }
+       
+        return response()->json(['status' => 'success', 'message' => 'Something Error!']);
+    }
+
+
 }

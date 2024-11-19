@@ -93,6 +93,9 @@ Route::name('admin.')->prefix('admin')->group(function(){
         Route::middleware(['AdminPermission:exam_simulator'])->group(function () {
 
             Route::resource("/exam",ExamController::class);
+            Route::get('/get_expain_video',[ExamController::class,'get_expain_video'])->name('exam.get_expain_video');
+            Route::post('/explanation_video',[ExamController::class,'explanation_video'])->name('exam.explanation_video');
+            
         });
 
         Route::middleware(['AdminPermission:options'])->group(function () {
@@ -160,7 +163,9 @@ Route::name('admin.')->prefix('admin')->group(function(){
                 Route::post('/subtitle',[QuestionBankController::class,'subtitle'])->name('subtitle');
                 Route::get('/{setname}',[QuestionBankController::class,'show'])->name('show');
 
-                Route::post('/question-bank/bulk/action',[QuestionBankController::class,'bulkaction'])->name('bulkaction');
+                // Route::post('/question-bank/bulk/action',[QuestionBankController::class,'bulkaction'])->name('bulkaction');
+
+                Route::post('/{setname}/bulk/action', [QuestionBankController::class, 'bulkaction'])->name('bulkaction');
 
 
                 Route::get('/{setname}/create',[QuestionBankController::class,'create'])->name('create');
@@ -180,7 +185,9 @@ Route::name('admin.')->prefix('admin')->group(function(){
                 Route::post('/subtitle',[TopicTestController::class,'subtitle'])->name('subtitle');
                 Route::get('/{category}',[TopicTestController::class,'show'])->name('show');
 
-                Route::post('/topic-test/bulk/action',[TopicTestController::class,'bulkaction'])->name('bulkaction');
+                // Route::post('/topic-test/bulk/action',[TopicTestController::class,'bulkaction'])->name('bulkaction');
+
+                Route::post('/{category}/bulk/action', [TopicTestController::class, 'bulkaction'])->name('bulkaction');
 
 
                 Route::get('/{category}/create',[TopicTestController::class,'create'])->name('create');
@@ -204,7 +211,9 @@ Route::name('admin.')->prefix('admin')->group(function(){
                 Route::get('/',[LearnController::class,'index'])->name('index');
                 Route::get('/{category}',[LearnController::class,'show'])->name('show');
 
-                Route::post('/learn/bulk/action',[LearnController::class,'bulkaction'])->name('bulkaction');
+                // Route::post('/learn/bulk/action',[LearnController::class,'bulkaction'])->name('bulkaction');
+                Route::post('/{category}/bulk/action', [LearnController::class, 'bulkaction'])->name('bulkaction');
+
                 Route::get('/{category}/create',[LearnController::class,'create'])->name('create');
                 Route::get('/{category}/{learn}/edit',[LearnController::class,'edit'])->name('edit');
                 Route::post('/{category}/store',[LearnController::class,'store'])->name('store');
@@ -485,6 +494,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::post('/delete-anytime-image', [PagesController::class, 'deleteAnytimeImage'])->name('deleteAnytimeImage');
             Route::post('/delete-unlimited-image', [PagesController::class, 'deleteUnlimitedImage'])->name('deleteUnlimitedImage');
             Route::post('/delete-live-image', [PagesController::class, 'deleteLiveImage'])->name('deleteLiveImage');
+           
 
         });
     });

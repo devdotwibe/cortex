@@ -20,7 +20,7 @@ class HashtagController extends Controller
 
             
             // Fetch all hashtags
-            $hashtags = Hashtagstore::where('id',">",0);
+            $hashtags = Hashtag::where('id',">",0);
 
             return DataTables::of($hashtags)
                 ->addColumn('action', function ($data) {
@@ -60,16 +60,17 @@ class HashtagController extends Controller
     {
        
         $request->validate([
-            'hashtag' => [
-                'required',
-                'regex:/^#\w+$/', 
+            'hashtag' => [ 'required','regex:/^#\w+$/', 
+            'unique:hashtags,hashtag'
+               
             ],
         ], [
             'hashtag.regex' => 'The hashtag must start with a # symbol',
+            'hashtag.unique' => 'This hashtag is already taken.',
         ]);
 
       
-        $hashtag = new Hashtagstore();
+        $hashtag = new Hashtag;
         $hashtag->hashtag = $request->hashtag; 
       
         $hashtag->save();
@@ -82,8 +83,8 @@ class HashtagController extends Controller
     public function destroy($id)
     {
         // Find the hashtag or fail
-        $hashtag = Hashtagstore::findOrFail($id);
-        $hashtagPosts = Hashtag::where('hashtagstore_id',$hashtag->id)->delete();
+        $hashtag = Hashtag::findOrFail($id);
+        // $hashtagPosts = Hashtag::where('hashtagstore_id',$hashtag->id)->delete();
         $hashtag->delete();
     
         return redirect()->back()->with('success', 'Hashtag deleted successfully.');
@@ -92,7 +93,7 @@ class HashtagController extends Controller
     public function edit($id)
     {
         // Find the hashtag or fail
-        $hashtag = Hashtagstore::findOrFail($id);
+        $hashtag = Hashtag::findOrFail($id);
         
         // Return a view with the hashtag data (you might need to create this view)
         return response()->json($hashtag);
@@ -106,7 +107,7 @@ class HashtagController extends Controller
         ]);
     
         // Find the hashtag or fail
-        $hashtag = Hashtagstore::findOrFail($id);
+        $hashtag = Hashtag::findOrFail($id);
     
         // Update the hashtag with the new value
         $hashtag->hashtag = $request->hashtag;

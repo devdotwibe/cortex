@@ -537,8 +537,8 @@ button.close {
 
 .lesson .lesson-title {
     margin: 0 0 32px 35px;
-    padding: 2px 0 2px 15px;
-    border-left: 3px solid #ef9b10
+    padding: 2px 0 2px 0;
+    /*border-left: 3px solid #ef9b10*/
 }
 
 .lesson .lesson-title h3 {
@@ -750,9 +750,9 @@ button.close {
 }
 
 .exam-container .container-wrap .lesson .lesson-body p img {
-    display: block;
+    /*display: block;*/
     width: 100%;
-    margin: 0 0 28px;
+    margin-bottom: 28px;
 }
 
 .exam-container .container-wrap.question-bank-review .lesson .lesson-body p {
@@ -830,6 +830,13 @@ button.close {
     padding-left: 45px;
     margin: 0 0 20px;
     font-size: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: start;
+}
+
+.exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check label {
+    margin: 2px 12px 0;
 }
 
 .exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check input {
@@ -1872,6 +1879,16 @@ section.post-section .post-item .post-actions a.post-action-btn span {
     width: 100%;
     justify-content: center;
     align-items: center;
+}
+
+.analytic-exam .analytic-exam-item .overview-title .overview-center,
+.analytic-exam .analytic-exam-item .overview-title .overview-right,
+.analytic-exam .analytic-exam-item .overview-title .overview-left {
+    cursor: pointer;
+}
+
+.analytic-exam .analytic-exam-item .overview-title .overview-dropdown .list-item a {
+    cursor: pointer;
 }
 
 .progress-list {
@@ -3294,6 +3311,7 @@ aside.side_bar.slider-btn .btn-slider {
 
 .exam-container.questionclass.answerclass .container-wrap.nopaginationclass .lesson-body .row {
     height: 100%;
+    overflow-y: auto;
 }
 
 .exam-container.questionclass.answerclass .container-wrap.nopaginationclass .lesson-body .row .mcq-row {
@@ -6860,8 +6878,8 @@ nav.navbar.header-class {
 
 .critical-reasoning .backtitleclass h2 {
     margin: 0;
-    padding-left: 15px;
-    border-left: 3px solid #ef9b10;
+    /*padding-left: 15px;
+    border-left: 3px solid #ef9b10;*/
 }
 
 .critical-reasoning .backtitleclass .back-btn {
@@ -7524,6 +7542,7 @@ nav.navbar.top-barhide {
 }
 
 .header_nav .header_wrapp .header_title .lesson .lesson-title {
+    width: 100%;
     margin: 0 0 0 35px;
 }
 

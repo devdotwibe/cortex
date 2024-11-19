@@ -463,100 +463,93 @@ class CourseController extends Controller
     public function deleteImage()
     {
         $course = Courses::first();
-
+    
         if ($course && $course->image) {
-
             if (Storage::exists($course->image)) {
-
                 Storage::delete($course->image);
-
-
             }
-
+    
+            // Set image to null and save the change
             $course->image = null;
-
             $course->save();
-
+    
             return response()->json(['success' => true]);
         }
-
+    
         return response()->json(['success' => false], 404);
     }
+    
+
+
+
+
 
 
 public function deletePrivateImage()
 {
-    // Fetch the first course record (adjust this based on your needs if it should be fetched by ID)
     $course = Courses::first();
 
     if ($course && $course->privateimage) {
-        // Check if the private image file exists in the storage
         if (Storage::exists($course->privateimage)) {
-            // Delete the private image from the storage
             Storage::delete($course->privateimage);
         }
 
-        // Set the privateimage field to null in the database
+        // Set image to null and save the change
         $course->privateimage = null;
         $course->save();
 
-        // Return a success response
         return response()->json(['success' => true]);
     }
 
-    // Return a failure response if the private image was not found
     return response()->json(['success' => false], 404);
 }
+
+
+
 
 
 public function deleteLogicalImage()
 {
-    // Find the course by ID
     $course = Courses::first();
 
     if ($course && $course->logicalimage) {
-        // Check if the logical image file exists in the storage
         if (Storage::exists($course->logicalimage)) {
-            // Delete the logical image from the storage
             Storage::delete($course->logicalimage);
         }
 
-        // Set the logicalimage field to null in the database
+        // Set image to null and save the change
         $course->logicalimage = null;
         $course->save();
 
-        // Return a success response
         return response()->json(['success' => true]);
     }
 
-    // Return a failure response if the logical image was not found
     return response()->json(['success' => false], 404);
 }
+
 
 
 public function deleteCriticalImage()
 {
-    // Find the course by ID
     $course = Courses::first();
 
     if ($course && $course->criticalimage) {
-        // Check if the critical image file exists in the storage
         if (Storage::exists($course->criticalimage)) {
-            // Delete the critical image from the storage
             Storage::delete($course->criticalimage);
         }
 
-        // Set the criticalimage field to null in the database
+        // Set image to null and save the change
         $course->criticalimage = null;
         $course->save();
 
-        // Return a success response
         return response()->json(['success' => true]);
     }
 
-    // Return a failure response if the critical image was not found
     return response()->json(['success' => false], 404);
 }
+
+
+
 
 
 
@@ -565,147 +558,230 @@ public function deleteAbstractImage()
     $course = Courses::first();
 
     if ($course && $course->abstractimage) {
-        // Check if the abstract image file exists in the storage
         if (Storage::exists($course->abstractimage)) {
-            // Delete the abstract image from the storage
             Storage::delete($course->abstractimage);
         }
 
-        // Set the abstractimage field to null in the database
+        // Set image to null and save the change
         $course->abstractimage = null;
         $course->save();
 
-        // Return a success response
         return response()->json(['success' => true]);
     }
 
-    // Return a failure response if the abstract image was not found
     return response()->json(['success' => false], 404);
 }
+
 
 
 
 public function deleteNumericalImage()
 {
-    // Find the course by ID
     $course = Courses::first();
 
     if ($course && $course->numericalimage) {
-        // Check if the numerical image file exists in the storage
         if (Storage::exists($course->numericalimage)) {
-            // Delete the numerical image from the storage
             Storage::delete($course->numericalimage);
         }
 
-        // Set the numericalimage field to null in the database
+        // Set image to null and save the change
         $course->numericalimage = null;
         $course->save();
 
-        // Return a success response
         return response()->json(['success' => true]);
     }
 
-    // Return a failure response if the numerical image was not found
     return response()->json(['success' => false], 404);
 }
+
+
+
+
+
+// public function deleteLearnImage(Request $request)
+// {
+//     // Find the course by ID (you may adjust the logic to find the specific course)
+//     $course = Courses::find($request->course_id); // Assuming you're passing course ID to identify the course
+
+//     if ($course && $course->learnimage) {
+//         // Check if the learn image file exists in the storage
+//         if (Storage::exists($course->learnimage)) {
+//             // Delete the learn image from the storage
+//             Storage::delete($course->learnimage);
+//         }
+
+//         // Set the learnimage field to null in the database
+//         $course->learnimage = null;
+//         $course->save();
+
+//         // Return a success response
+//         return response()->json(['success' => true]);
+//     }
+
+//     // Return a failure response if the learn image was not found
+//     return response()->json(['success' => false, 'message' => 'Image not found or already deleted.'], 404);
+// }
+
+
 
 
 public function deleteLearnImage()
 {
-    // Find the course by ID
     $course = Courses::first();
 
     if ($course && $course->learnimage) {
-        // Check if the learn image file exists in the storage
         if (Storage::exists($course->learnimage)) {
-            // Delete the learn image from the storage
             Storage::delete($course->learnimage);
         }
 
-        // Set the learnimage field to null in the database
+        // Set image to null and save the change
         $course->learnimage = null;
         $course->save();
 
-        // Return a success response
         return response()->json(['success' => true]);
     }
 
-    // Return a failure response if the learn image was not found
     return response()->json(['success' => false], 404);
 }
+// public function deleteQuestionBankImage()
+// {
+//     // Find the course by ID
+//     $course = Courses::first();
+
+//     if ($course && $course->questionbankimage) {
+//         // Check if the question bank image file exists in the storage
+//         if (Storage::exists($course->questionbankimage)) {
+//             // Delete the question bank image from the storage
+//             Storage::delete($course->questionbankimage);
+//         }
+
+//         // Set the questionbankimage field to null in the database
+//         $course->questionbankimage = null;
+//         $course->save();
+
+//         // Return a success response
+//         return response()->json(['success' => true]);
+//     }
+
+//     // Return a failure response if the question bank image was not found
+//     return response()->json(['success' => false], 404);
+// }
+
+
 
 public function deleteQuestionBankImage()
 {
-    // Find the course by ID
     $course = Courses::first();
 
     if ($course && $course->questionbankimage) {
-        // Check if the question bank image file exists in the storage
         if (Storage::exists($course->questionbankimage)) {
-            // Delete the question bank image from the storage
             Storage::delete($course->questionbankimage);
         }
 
-        // Set the questionbankimage field to null in the database
+        // Set image to null and save the change
         $course->questionbankimage = null;
         $course->save();
 
-        // Return a success response
         return response()->json(['success' => true]);
     }
 
-    // Return a failure response if the question bank image was not found
     return response()->json(['success' => false], 404);
 }
+
+
+// public function deleteTopicImage()
+// {
+//     // Find the course by ID
+//     $course = Courses::first();
+
+//     if ($course && $course->topicimage) {
+//         // Check if the topic image file exists in the storage
+//         if (Storage::exists($course->topicimage)) {
+//             // Delete the topic image from the storage
+//             Storage::delete($course->topicimage);
+//         }
+
+//         // Set the topicimage field to null in the database
+//         $course->topicimage = null;
+//         $course->save();
+
+//         // Return a success response
+//         return response()->json(['success' => true]);
+//     }
+
+//     // Return a failure response if the topic image was not found
+//     return response()->json(['success' => false], 404);
+// }
+
 
 public function deleteTopicImage()
 {
-    // Find the course by ID
     $course = Courses::first();
 
     if ($course && $course->topicimage) {
-        // Check if the topic image file exists in the storage
         if (Storage::exists($course->topicimage)) {
-            // Delete the topic image from the storage
             Storage::delete($course->topicimage);
         }
 
-        // Set the topicimage field to null in the database
+        // Set image to null and save the change
         $course->topicimage = null;
         $course->save();
 
-        // Return a success response
         return response()->json(['success' => true]);
     }
 
-    // Return a failure response if the topic image was not found
     return response()->json(['success' => false], 404);
 }
+
+
+
+
+// public function deleteFullmockImage()
+// {
+//     // Find the course by ID
+//     $course = Courses::first();
+
+
+//     if ($course && $course->fullmockimage) {
+//         // Check if the fullmock image file exists in the storage
+//         if (Storage::exists($course->fullmockimage)) {
+//             // Delete the fullmock image from the storage
+//             Storage::delete($course->fullmockimage);
+//         }
+
+//         // Set the fullmockimage field to null in the database
+//         $course->fullmockimage = null;
+//         $course->save();
+
+//         // Return a success response
+//         return response()->json(['success' => true]);
+//     }
+
+//     // Return a failure response if the fullmock image was not found
+//     return response()->json(['success' => false], 404);
+// }
+
+
+
+
 public function deleteFullmockImage()
 {
-    // Find the course by ID
     $course = Courses::first();
 
-
     if ($course && $course->fullmockimage) {
-        // Check if the fullmock image file exists in the storage
         if (Storage::exists($course->fullmockimage)) {
-            // Delete the fullmock image from the storage
             Storage::delete($course->fullmockimage);
         }
 
-        // Set the fullmockimage field to null in the database
+        // Set image to null and save the change
         $course->fullmockimage = null;
         $course->save();
 
-        // Return a success response
         return response()->json(['success' => true]);
     }
 
-    // Return a failure response if the fullmock image was not found
     return response()->json(['success' => false], 404);
 }
-
 
 
     public function tabchange(Request $request)

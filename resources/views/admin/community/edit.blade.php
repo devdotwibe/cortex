@@ -82,11 +82,11 @@
 
                             <div class="form-group">
                                 <label for="hashtag-select">Select Hashtag</label>
-                                <select id="hashtag-select" name="hashtag[]" class="form-control" multiple>
+                                <select  name="hashtag_id" class="form-control" >
                                     <option value="">Select a hashtag</option>
                                     @foreach($hashtags as $hashtag)
                                         <option value="{{ $hashtag->id }}" 
-                                            {{ optional($post->hashtaglist)->pluck('hashtagstore_id')->contains($hashtag->id) ? 'selected' : '' }}>
+                                            {{ $hashtag->id == $post->hashtag_id ? 'selected' : '' }}>
                                             {{ $hashtag->hashtag }}
                                         </option>
                                     @endforeach
@@ -322,6 +322,7 @@
                     formData.append("file", this.files[0]);
                     formData.append("foldername", "post");
                     formData.append("file_type","image");
+                    formData.append("_token", $('meta[name="csrf-token"]').attr('content'));
                     $.ajax({
                         url : "{{route('admin.upload')}}",
                         type : 'POST',

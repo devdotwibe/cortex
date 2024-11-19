@@ -26,10 +26,7 @@ class CommunityControllerController extends Controller
         // $hashtags = Hashtag::groupBy('hashtag')->pluck('hashtag');
 
 
-        $hashtags = Hashtagstore::where('hashtag', 'LIKE', '#%')
-        ->whereIn('id',Hashtag::select('hashtagstore_id'))
-            ->groupBy('hashtag')
-            ->pluck('hashtag');
+        $hashtags = Hashtag::all();
 
         $hashtag = $request->input('hashtag');
 
@@ -39,7 +36,9 @@ class CommunityControllerController extends Controller
         if ($request->ajax()) {
             $posts = Post::where('id', '>', 0);
             if (!empty($hashtag)) {
-                $posts->whereIn('id', Hashtag::where('hashtag', 'like', "%$hashtag%")->select('post_id'));
+                // $posts->whereIn('id', Hashtag::where('hashtag', 'like', "%$hashtag%")->select('post_id'));
+
+                $posts->where('hashtag_id',$hashtag);
             }
 
             if (!empty($userid)) {
@@ -95,7 +94,8 @@ class CommunityControllerController extends Controller
     }
     public function create(Request $request)
     {
-        $hashtags = Hashtagstore::all();
+        $hashtags = Hashtag::all();
+
         return view('admin.community.create', compact('hashtags'));
     }
 
@@ -146,6 +146,7 @@ class CommunityControllerController extends Controller
 
         $data['status'] = "publish";
         $data['admin_id'] = $admin->id;
+        $data['hashtag_id'] = $request->hashtags;
 
         // Create the post
         $post = Post::store($data);
@@ -180,15 +181,15 @@ class CommunityControllerController extends Controller
 
 
 
-    $extractedHashtags = $request->input('hashtags',[]);
+    // $extractedHashtags = $request->input('hashtags',[]);
 
-    // dd($extractedHashtags);
-    foreach ($extractedHashtags as $hashtag) {
-        if (!empty($hashtag)) {
-            $hash_value = Hashtagstore::find($hashtag);
-            Hashtag::firstOrCreate(['hashtag'=>$hash_value->hashtag,'hashtagstore_id' => $hashtag, 'post_id' => $post->id]);
-        }
-    }
+    // // dd($extractedHashtags);
+    // foreach ($extractedHashtags as $hashtag) {
+    //     if (!empty($hashtag)) {
+    //         $hash_value = Hashtagstore::find($hashtag);
+    //         Hashtag::firstOrCreate(['hashtag'=>$hash_value->hashtag,'hashtagstore_id' => $hashtag, 'post_id' => $post->id]);
+    //     }
+    // }
         return redirect()->route('admin.community.index')->with('success', "Post published");
     }
 
@@ -253,7 +254,7 @@ class CommunityControllerController extends Controller
 
     public function edit(Request $request, Post $post)
     {
-        $hashtags = Hashtagstore::all();
+        $hashtags = Hashtag::all();
         $post->load('hashtaglist');
         return view('admin.community.edit', compact('post', 'hashtags'));
     }
@@ -272,16 +273,18 @@ class CommunityControllerController extends Controller
 
                 'image' => ["nullable"],
             ]);
-            $post->load('hashtags');
+            // $post->load('hashtags');
             if ($request->has('hashtag')) {
-                foreach ($request->hashtag as $hashtagInput) {
-                    if (isset($hashtagInput)) {
-                        $hashtagSyncData[$hashtagInput] = [
-                            'hashtag' => Hashtagstore::where('id',$hashtagInput)->first()->hashtag?? 'test', // Save hashtag text or null
-                        ];
-                    }
-                }
-                $post->hashtags()->sync($hashtagSyncData);
+
+                // foreach ($request->hashtag as $hashtagInput) {
+                //     if (isset($hashtagInput)) {
+                //         $hashtagSyncData[$hashtagInput] = [
+                //             'hashtag' => Hashtagstore::where('id',$hashtagInput)->first()->hashtag?? 'test', // Save hashtag text or null
+                //         ];
+                //     }
+                // }
+
+                // $post->hashtags()->sync($hashtagSyncData);
             }
         } else {
 
@@ -303,7 +306,9 @@ class CommunityControllerController extends Controller
             ]);
         }
 
+        $data['hashtag_id'] = $request->hashtag_id;
         $post->update($data);
+
         $ids = [];
         if ($request->type == "poll") {
             $optid = $request->input('option_id', []);

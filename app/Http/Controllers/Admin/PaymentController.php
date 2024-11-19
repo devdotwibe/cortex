@@ -15,9 +15,20 @@ class PaymentController extends Controller
     public function index(Request $request){
 
         if($request->ajax()){
+
             self::$model=PaymentTransation::class;
+           
             self::$defaultActions=[""];
-            return  $this->whereHas('user')->addColumn('username',function($data){
+
+            // if(!empty($request->search['value']))
+            // {
+            //     $search = $request->search['value'];
+            //     self::$model->whereHas('user', function($query) use ($search) {
+            //         $query->where('name', 'like', "%{$search}%");
+            //     });
+            // }
+            
+            return  $this->with('user')->whereHas('user')->addColumn('username',function($data){
                 return optional($data->user)->name;
             })->buildTable();
         }

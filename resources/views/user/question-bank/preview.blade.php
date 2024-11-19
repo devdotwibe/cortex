@@ -252,6 +252,9 @@
 @push('footer-script')
     <script>
         var useranswers = @json($useranswer);
+
+        console.log(useranswers);
+        
         var timelist = @json(json_decode($user->progress('exam-reviewed-' . $userExamReview->id . '-times', '[]')));
 
         function generateRandomId(length) {
@@ -368,7 +371,7 @@
 
                 if (res.total > 1) {
                     $.each(res.links, function(k, v) {
-                        let linkstatus = "";
+                        let linkstatus = 'status-bad mob-view';
                         if (k != 0 && k != res.links.length && useranswers[k - 1]) {
                             linkstatus = 'status-bad mob-view';
                             if (useranswers[k - 1].iscorrect) {
@@ -419,17 +422,34 @@
                     })
                 }
 
+                console.log(res.total);
+                
                 if (res.total > 1) {
+
+                    var time_take ="no time";
+
+                    var total_time = "{{ $examtime }}";
+
                     $.each(res.links, function(k, v) {
-                        let linkstatus = "";
-                        if (k != 0 && k != res.links.length && useranswers[k - 1]) {
-                            linkstatus = 'status-bad';
-                            if (useranswers[k - 1].iscorrect) {
-                                linkstatus = "status-good";
-                                if (useranswers[k - 1].time_taken < {{ $examtime }}) {
-                                    linkstatus = "status-exelent";
+
+                        let linkstatus =  'status-bad';
+                        if (k != 0 && k != res.links.length ) {
+
+                            $.each(useranswers, function(i, j) {
+
+                                if(k == i)
+                                {
+                                    linkstatus = 'status-bad';
+                                    if (j.iscorrect) {
+                                        linkstatus = "status-good";
+                                        if (j.time_taken < {{ $examtime }}) {
+                                            linkstatus = "status-exelent";
+                                        }
+                                    } 
                                 }
-                            }
+                            });
+                           
+                    
                         }
                         if (v.active || !v.url) {
                             var label_name = v.label;
@@ -441,11 +461,11 @@
                                 preclass = "preclass";
                             }
                             $('#lesson-footer-paginationmobile').append(`
-                                <button class="${linkstatus} btn btn-secondary  {$preclass} ${v.active?"active":""}" disabled   >${label_name}</button>
+                                <button class="${linkstatus} btn btn-secondary  ${preclass} ${v.active?"active":""}" disabled   >${label_name}</button>
                             `)
                         } else {
                             $('#lesson-footer-paginationmobile').append(`
-                                <button class="${linkstatus} btn btn-secondary " onclick="loadlessonreview('${v.url}')" >${v.label}</button>
+                                <button class="${linkstatus} btn btn-secondary  ${total_time}" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
                             `)
                         }
 

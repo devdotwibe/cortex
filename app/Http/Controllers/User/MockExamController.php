@@ -267,6 +267,18 @@ class MockExamController extends Controller
         return view('user.full-mock-exam.resultpage',compact('chartdata','chartbackgroundColor','chartlabel','category','userExamReview','passed','attemttime','questioncount','attemtcount'));
         
     }
+
+    
+    public function explanation_video(Request $request,UserExamReview $userExamReview){ 
+
+        $user=Auth::user();
+        
+        $exam = $userExamReview->exam;
+       
+        return view('user.full-mock-exam.explanation_video',compact('exam','userExamReview'));
+        
+    }
+
     public function preview(Request $request,UserExamReview $userExamReview){
         $exam=Exam::find( $userExamReview->exam_id );
         // Session::forget("full-mock-exam-attempt");

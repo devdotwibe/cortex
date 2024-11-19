@@ -67,7 +67,7 @@
                             </form>
                         </div>
 
-                        <x-ajax-table :bulkaction="true" bulkactionlink="{{route('admin.topic-test.bulkaction')}}"  tableid="categoryquestiontable"  
+                        <x-ajax-table :bulkaction="true" bulkactionlink="{{ route('admin.topic-test.bulkaction', ['category' => $category->slug]) }}"  tableid="categoryquestiontable"  
                         
                         :bulkotheraction='[
                             ["name"=>"Enable Visible Access","value"=>"visible_status"],

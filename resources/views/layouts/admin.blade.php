@@ -65,10 +65,26 @@
                         <a class="dropdown-item" href="#">Something else here</a>
                     </div>
                 </li> --}}
+                @php
+
+                    $admin = Auth::guard('admin')->user();
+
+                @endphp
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarLogin" role="button"
                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span>{{ auth('admin')->user()->name }}</span>
+
+                        @if ($admin->role === 'master')
+
+                            <span>{{ $admin->name }}</span>
+
+                        @else
+
+                            <span>{{ substr($admin->email, 0, 5) }}</span>
+
+                        @endif
+
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarLogin">
 
@@ -107,11 +123,7 @@
                         Dashboard
                     </a>
                 </li> --}}
-                @php
-
-                    $admin = Auth::guard('admin')->user();
-
-                @endphp
+                
 
                 @if ($admin->role === 'master' || optional($admin->permission)->users === 'Y')
                     <li class="side-item {{ request()->is('admin/user') ? 'active' : '' }}">
@@ -124,6 +136,22 @@
                             </span>
                             <span class="menutext">
                                 Users
+                            </span>
+                        </a>
+                    </li>
+                @endif
+
+                @if ($admin->role === 'master')
+                    <li class="side-item {{ request()->is('admin/admin_user*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.admin_user.index') }}">
+                            <span class="side-icon">
+                                <img src="{{ asset('assets/images/iconshover/community.svg') }}" alt="Dashboard">
+                            </span>
+                            <span class="active-icon">
+                                <img src="{{ asset('assets/images/icons/community.svg') }}" alt="Dashboard">
+                            </span>
+                            <span class="menutext">
+                                Admin Users
                             </span>
                         </a>
                     </li>
@@ -458,22 +486,6 @@
                     </li>
                 @endif
 
-
-                @if ($admin->role === 'master')
-                    <li class="side-item {{ request()->is('admin/admin_user*') ? 'active' : '' }}">
-                        <a href="{{ route('admin.admin_user.index') }}">
-                            <span class="side-icon">
-                                <img src="{{ asset('assets/images/iconshover/community.svg') }}" alt="Dashboard">
-                            </span>
-                            <span class="active-icon">
-                                <img src="{{ asset('assets/images/icons/community.svg') }}" alt="Dashboard">
-                            </span>
-                            <span class="menutext">
-                                Admin Users
-                            </span>
-                        </a>
-                    </li>
-                @endif
 
                 <li class="side-item logout">
                     <a href="{{ route('admin.logout') }}" class="log-out">

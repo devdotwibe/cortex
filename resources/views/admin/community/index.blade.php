@@ -42,7 +42,7 @@
                                 @foreach ($hashtags as $hashtag)
                                     <li class="list-group-item d-inline-block" >
                                         <a
-                                            href="{{ route('admin.community.index', ['hashtag' => $hashtag]) }}">{{ $hashtag }}</a>
+                                            href="{{ route('admin.community.index', ['hashtag' => $hashtag->id]) }}">{{ $hashtag->hashtag }}</a>
                                     </li>
                                 @endforeach
                             </ul>
@@ -54,7 +54,7 @@
                         <select id="hashtagDropdown" class="form-select" onchange="location = this.value;">
                             <option value="">Choose a Channel</option> <!-- Default option -->
                             @foreach ($hashtags as $hashtag)
-                                <option value="{{ route('admin.community.index', ['hashtag' => $hashtag]) }}">{{ $hashtag }}</option>
+                                <option value="{{ route('admin.community.index', ['hashtag' => $hashtag->id]) }}">{{ $hashtag->hashtag }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -235,9 +235,7 @@
                         <div class="post-content">
                             ${v.description||""}
                         </div>
-                         <div class="post-content">
-                            ${v.hashtags||""}
-                        </div>
+
                         <div class="poll-options">
                             ${polloption}
                         </div>

@@ -91,8 +91,10 @@
                             
 
                             <div class="form-group">
-                                <label for="hashtag-select">Select Hashtags</label>
-                                <select id="hashtag-select" name="hashtags[]" class="form-control" multiple="multiple">
+                                <label for="hashtag-select">Select Channel</label>
+                                <select  name="hashtags" class="form-control">
+
+                                    <option value="">Select Channel</option>
                                     @foreach($hashtags as $hashtag)
                                         <option value="{{ $hashtag->id }}">{{ $hashtag->hashtag }}</option>
                                     @endforeach
@@ -300,6 +302,7 @@
                     formData.append("file", this.files[0]);
                     formData.append("foldername", "post");
                     formData.append("file_type","image");
+                    formData.append("_token", $('meta[name="csrf-token"]').attr('content'));
                     $.ajax({
                         url : "{{route('upload')}}",
                         type : 'POST',
@@ -368,15 +371,15 @@
 
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        // Initialize Select2 with checkboxes enabled
-        $('#hashtag-select').select2({
-            placeholder: "Select hashtags",
-            allowClear: true,
-            templateResult: formatState, // Optional, to style the options
-            templateSelection: formatState
-        });
-    });
+    // $(document).ready(function() {
+    //     // Initialize Select2 with checkboxes enabled
+    //     $('#hashtag-select').select2({
+    //         placeholder: "Select hashtags",
+    //         allowClear: true,
+    //         templateResult: formatState, // Optional, to style the options
+    //         templateSelection: formatState
+    //     });
+    // });
 
     // Optional: Custom template for displaying checkboxes
     function formatState(state) {

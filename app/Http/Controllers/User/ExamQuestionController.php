@@ -247,11 +247,32 @@ class ExamQuestionController extends Controller
                 $question=UserReviewQuestion::findSlug($request->question);
                 return UserReviewAnswer::where('user_review_question_id',$question->id)->get();
             }
+
+           
+
             $data = UserReviewQuestion::whereIn('review_type',['mcq'])->where('user_id',$user->id)->where('user_exam_review_id',$userExamReview->id)->paginate(1);
-            $links = collect(range(1, $data->lastPage()))->map(function ($page) use ($data) {
+
+            $user_review = UserReviewAnswer::where('user_id',$user->id)->where('user_answer',true)->where('user_exam_review_id',$userExamReview->id)->get();
+
+            $links = collect(range(1, $data->lastPage()))->map(function ($page ,$i) use ($data,$user_review) {
+
+                $data_ids = $user_review->pluck('question_id')->toArray();
+
+                $data_id = null;
+
+                $currentPageItems = $data->items();
+
+                foreach ($currentPageItems as $item) {
+                    if (in_array($item->question_id, $data_ids)) {
+                        $data_id = $item->question_id;
+                        break;
+                    }
+                }
+
                 return [
                     'url' => $data->url($page),
                     'label' => (string) $page,
+                    'data_id' => $data_id,
                     'active' => $page === $data->currentPage(),
                 ];
             });
@@ -290,21 +311,36 @@ class ExamQuestionController extends Controller
                 'total' => $data->total(),
             ]);
         }
+
+        $total_questions = UserReviewQuestion::whereIn('review_type',['mcq'])->where('user_id',$user->id)->where('user_exam_review_id',$userExamReview->id)->count();
+
         $useranswer=UserReviewQuestion::leftJoin('user_review_answers','user_review_answers.user_review_question_id','user_review_questions.id')
                         ->where('user_review_answers.user_answer',true)
                         ->whereIn('user_review_questions.review_type',['mcq'])
                         ->where('user_review_questions.user_id',$user->id)
                         ->where('user_review_questions.user_exam_review_id',$userExamReview->id)
-                        ->select('user_review_questions.id','user_review_questions.time_taken','user_review_answers.iscorrect')->get();
+                        ->select('user_review_questions.id','user_review_questions.time_taken','user_review_answers.iscorrect','user_review_answers.user_review_question_id','user_review_answers.id')->get();
         $examtime=0;
+        $exam_time_sec = 0;
         if($user->progress("exam-review-".$userExamReview->id."-timed",'')=="timed"){
-            $times=explode(':',$user->progress("exam-review-".$userExamReview->id."-time_of_exam",'0:0'));
+
+            // $times=explode(':',$user->progress("exam-review-".$userExamReview->id."-time_of_exam",'0:0'));
+            // if(count($times)>0){
+            //     $examtime+=intval(trim($times[0]??"0"))*60;
+            //     $examtime+=intval(trim($times[1]??"0"));
+            // }
+            $examtime=0;
+            $times=explode(':',$setname->time_of_exam);
             if(count($times)>0){
                 $examtime+=intval(trim($times[0]??"0"))*60;
                 $examtime+=intval(trim($times[1]??"0"));
             }
-            if($examtime>0&&count($useranswer)>0){
-                $examtime=$examtime/count($useranswer);
+
+            $exam_time_sec = $examtime *60;
+            // $examtime= $exam->time_of_exam;
+
+            if($exam_time_sec>0&& $total_questions>0 ){
+                $examtime=$exam_time_sec/$total_questions;
             }
         }
         return view("user.question-bank.preview",compact('category','exam','subCategory','setname','user','userExamReview','useranswer','examtime'));

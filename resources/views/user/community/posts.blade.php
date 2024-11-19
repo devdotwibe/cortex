@@ -40,7 +40,7 @@
                             @foreach ($hashtags as $hashtag)
                                 <li class="list-group-item d-inline-block" >
                                     <a
-                                        href="{{ route('community.index', ['hashtag' => $hashtag]) }}">{{ $hashtag }}</a>
+                                        href="{{ route('community.index', ['hashtag' => $hashtag->id]) }}">{{ $hashtag->hashtag }}</a>
                                 </li>
                             @endforeach
                         </ul>
@@ -227,9 +227,7 @@
                             <div class="post-content">
                                 ${v.description||""}
                             </div>
-                             <div class="post-content 23">
-                            ${v.hashtags||""}
-                        </div>
+                             
                         </a>
                         <div class="poll-options">
                             ${polloption}
