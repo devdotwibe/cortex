@@ -252,7 +252,7 @@ class ExamQuestionController extends Controller
 
             $data = UserReviewQuestion::whereIn('review_type',['mcq'])->where('user_id',$user->id)->where('user_exam_review_id',$userExamReview->id)->paginate(1);
 
-            $user_review = UserReviewAnswer::where('user_id',$user->id)->where('user_exam_review_id',$userExamReview->id)->get();
+            $user_review = UserReviewAnswer::where('user_id',$user->id)->where('user_answer',true)->where('user_exam_review_id',$userExamReview->id)->get();
 
             $links = collect(range(1, $data->lastPage()))->map(function ($page) use ($data,$user_review) {
 
