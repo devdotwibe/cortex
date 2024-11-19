@@ -123,10 +123,32 @@
 
     <section class="modal-expand" id="question-preview-page" style="display: none;">
         <div class="container-wrap">
-
-
-
-
+            <div class="question-preview-title">
+                <h3>Review Summary</h3>
+            </div>
+            <div class="question-preview-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul class="nav nav-tabs question-tab" id="questionPreviewTab" role="tablist">
+                            <li class="nav-item" role="presentation"> 
+                                <button class="nav-link active" id="show-all-tab" data-bs-toggle="tab" data-bs-target="#show-all" type="button" role="tab" aria-controls="show-all" aria-selected="true"><div class="nav-status status-active"><img src="{{asset('assets/images/showall.svg')}}" alt="all"><span></span></div> Show All</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="questionPreviewTabContent">
+                            <div class="tab-pane fade show active" id="show-all" role="tabpanel" aria-labelledby="show-all-tab">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="tabheader">
+                                            <h3>Questions</h3>
+                                            <p>Click a number to go question</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="lesson-footer" id="lesson-footer-paginationmobile">
             </div>
 
@@ -293,9 +315,9 @@
                             console.log(v.label);
 
                             
-                            $('#lesson-footer-pagination').append(`
-                                <button class="${linkstatus} btn btn-secondary  ${preclass} ${v.active?"active":""}" disabled  >${v.label} </button>
-                            `)
+                            // $('#lesson-footer-pagination').append(`
+                            //     <button class="${linkstatus} btn btn-secondary  ${preclass} ${v.active?"active":""}" disabled  >${v.label} </button>
+                            // `)
                         } else {
                             console.log(v.label);
 
@@ -304,9 +326,9 @@
                              preclass = "prevnxtclass";
                             }
                             
-                            $('#lesson-footer-pagination').append(`
-                                <button class="${linkstatus} btn btn-secondary ${preclass}" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
-                            `)
+                            // $('#lesson-footer-pagination').append(`
+                            //     <button class="${linkstatus} btn btn-secondary ${preclass}" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
+                            // `)
                         }
                     })
                 }

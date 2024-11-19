@@ -5,18 +5,14 @@
                 @csrf 
                 @method("PUT")
                 <div class="row">
-                    @php  
-                    if(isset($fields[7]->value) && ($fields[7]->value != Null)){
-                        $choice = 1;
-                        if($fields[7]->name!='sub_question'){
-                            $choiceName = $fields[7]->name;
-                        }else{
-                            $choiceName = 'answer';
+                    @php   
+                    $choice = 0;
+                    $choiceName = '';
+                    foreach ($fields as $item) {
+                        if (isset($item->name) && ($item->name === 'answer' || $item->name === 'mcq_answer')) {
+                            $choiceName = $item->name;
+                            $choice = 1;
                         }
-                           
-                    }else{
-                        $choice = 0;
-                        $choiceName = '';
                     }
                     @endphp
                     @foreach ($fields as $item)
@@ -44,11 +40,11 @@
                                                         <input type="text" name="{{$item->name}}[]" id="{{$item->name}}-{{$frmID}}-{{$k}}" value="{{old($item->name)[$k]}}"  class="form-control  @error($item->name.".$k") is-invalid @enderror " placeholder="{{ucfirst($item->label??$item->name)}}" aria-placeholder="{{ucfirst($item->label??$item->name)}}" >
                                                         <input type="file" name="file_{{$item->name}}[]" id="file_{{$item->name}}-{{$frmID}}-{{$k}}" value=""  data-existing-file="{{old('choice_'.$item->name."_image",[])[$k]??""}}"  accept="image/jpeg, image/png, image/gif"  class="form-control  @error('file_'.$item->name.".$k") is-invalid @enderror " onchange="previewImage(this, 'preview-{{$item->name}}-{{$frmID}}-{{$k}}')">
                                                             <img id="preview-{{ $item->name }}-{{ $frmID }}-{{ $k }}" src="{{old('choice_'.$item->name."_image",[])[$k]??""}}" alt="Image Preview"  style="width: 100px; height: 40px; object-fit: cover; margin-top: 10px; display: block;">
-                                                        {{-- @if ($k!=0) --}}
+                                                        @if ($k!=0)
                                                         <div class="input-group-append choice-check-group">
                                                             <button type="button" onclick="removeChoice{{$frmID}}('#{{$item->name}}-{{$frmID}}-choice-item-{{$k}}','#{{$item->name}}-{{$frmID}}-{{$k}}-check','#{{$item->name}}-{{$frmID}}-choice-group')" class="btn btn-danger "><img src="{{asset("assets/images/delete-black.svg")}}"></button>
                                                         </div>
-                                                        {{-- @endif --}}
+                                                        @endif
                                                         @error($item->name.".$k")
                                                         <div class="invalid-feedback">{{$message}}</div>
                                                         @enderror
@@ -78,14 +74,20 @@
                                                     <div class="invalid-feedback" id="upload-file-{{ $item->name }}-{{ $frmID }}-0">Please upload a valid image file (JPEG, PNG, GIF).</div>
 
                                                     @isset($v->image)
-                                                        <img id="preview-{{ $item->name }}-{{ $frmID }}-{{ $k }}" src="{{url($v->image)}}" alt="Image Preview"  style="width: 100px; height: 40px; object-fit: cover; margin-top: 10px; display: block;">
+                                                        <img id="preview-{{ $item->name }}-{{ $frmID }}-{{ $k }}" src="{{url($v->image)}}" alt="Image Preview" class="img-thumbnail"  style="width: 100px; height: 40px; object-fit: cover; margin-top: 10px; display: block;">
+                                                        {{-- <div class="image-preview position-relative">                                                
+                                                            <span class="remove-image" 
+                                                                  onclick="removeImage('{{$item->name}}-{{$frmID}}-{{$k}}', '{{$v->image}}')" style="cursor: pointer">×</span>
+                                                            
+                                                        </div>
+                                                        <input type="hidden" name="existing_file_{{$item->name}}[]" value="{{$v->image}}"> --}}
                                                     @endisset
 
-                                                    {{-- @if ($k!=0) --}}
+                                                    @if ($k!=0)
                                                     <div class="input-group-append choice-check-group">
                                                         <button type="button" onclick="removeChoice{{$frmID}}('#{{$item->name}}-{{$frmID}}-choice-item-{{$k}}','#{{$item->name}}-{{$frmID}}-{{$k}}-check','#{{$item->name}}-{{$frmID}}-choice-group')" class="btn btn-danger "><img src="{{asset("assets/images/delete-black.svg")}}"></button>
                                                     </div>
-                                                    {{-- @endif --}}
+                                                    @endif
                                                     @error($item->name.".$k")
                                                     <div class="invalid-feedback">{{$message}}</div>
                                                     @enderror
@@ -185,6 +187,41 @@
 @push('footer-script')
 
     <script>
+        function removeImage(containerId, imagePath) {
+            // Confirm deletion
+            if (!confirm("Are you sure you want to remove this image?")) {
+                return;
+            }
+
+            // Remove the preview container
+            const container = document.getElementById(`image-container-${containerId}`);
+            if (container) {
+                container.innerHTML = `
+                    <input type="file" name="file_${containerId}[]" id="file_${containerId}" accept="image/jpeg, image/png, image/gif" class="form-control mt-2">
+                `;
+            }
+
+            // Optionally send an AJAX request to delete the image from the server
+            /*
+            fetch('/delete-image', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({ image: imagePath })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log("Image removed successfully.");
+                } else {
+                    console.error("Failed to remove image.");
+                }
+            })
+            .catch(error => console.error("Error:", error));
+            */
+        }
         function previewImage(input, previewId) {
             const file = input.files[0];
             const preview = document.getElementById(previewId);
@@ -324,42 +361,44 @@
         CKEDITOR.replaceAll('texteditor')
         $(document).ready(function () {
             let choice = "{{ $choice }}"
-
+            let firstInvalidFeedback = null; 
             if (choice != 0) {
                 let name = "{{ $choiceName }}"
+                console.log(name)
+
                 $("#{{$frmID}}").on("submit", function (e) {
                     let isValid = true;
-                    let hasAtLeastOne = false;
                     $(`input[name='${name}[]']`).each(function (index) {
                         const answerField = $(this);
                         const fileField = $(`input[name='file_${name}[]']`).eq(index);
                         const answerValue = answerField.val().trim();
                         const fileValue = fileField.val();
                         const existingFile = fileField.data("existing-file"); 
-                        console.log(answerField)
-
                         if (!answerValue && !fileValue && !existingFile) {
                             isValid = false;
                             answerField.addClass("is-invalid");
                             fileField.addClass("is-invalid");
                             const feedbackElement = fileField.next(".invalid-feedback");
                             feedbackElement.text("Either answer or file is required.").show();
-
+                            if (!firstInvalidFeedback) {
+                                firstInvalidFeedback = feedbackElement;
+                            }
                         } else {
                             answerField.removeClass("is-invalid");
                             fileField.removeClass("is-invalid");
                             fileField.next(".invalid-feedback").hide(); 
-                            hasAtLeastOne = true;
                         }
                     });
-                    if (!hasAtLeastOne) {
-                        isValid = false;
+                        
+                    if (!isValid && firstInvalidFeedback) {
                         e.preventDefault(); // Prevent form submission
-                        alert("At least one answer or file must be provided.");
-                    }
-                    else if (!isValid) {
-                        e.preventDefault(); // Prevent form submission
-                        alert("Please ensure all fields are properly filled.");
+                        $('html, body').animate(
+                            {
+                                scrollTop: firstInvalidFeedback.offset().top - 100, 
+                            },
+                            500 
+                        );
+                        firstInvalidFeedback.attr("tabindex", "-1").focus(); 
                     }
                 });
             }

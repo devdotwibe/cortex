@@ -47,8 +47,8 @@ class QuestionController extends Controller
                     "category_id"=>['required'],
                     "description"=>['required'],
                     // "duration"=>["required"],
-                    "answer.*" => ["required_without:file_answer", 'string', 'max:150','nullable'],
-                    "file_answer.*" => ["required_without:answer", 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+                    "answer.*" => ["required_without:file_answer.*", 'string', 'max:150','nullable'],
+                    "file_answer.*" => ["required_without:answer.*", 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
                     "explanation"=>['nullable'],
                     "title_text"=>['nullable'],
                     "sub_question"=>['nullable'],
@@ -66,8 +66,8 @@ class QuestionController extends Controller
                     "category_id"=>['required'], 
                     "description"=>['required'],
                     // "duration"=>["required"],
-                    "answer.*" => ["required_without:file_answer", 'string', 'max:150','nullable'],
-                    "file_answer.*" => ["required_without:answer", 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+                    "answer.*" => ["required_without:file_answer.*", 'string', 'max:150','nullable'],
+                    "file_answer.*" => ["required_without:answer.*", 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
                     "explanation"=>['nullable'],
                     "title_text"=>['nullable'],
                     "sub_question"=>['nullable'],
@@ -103,9 +103,14 @@ class QuestionController extends Controller
         
 
         $question = Question::store($questiondat);
+        $existingFiles = $request->input("existing_file_answer");
+
         foreach ($request->answer as $k => $ans) {
             $imageName = "";
-        
+            if (isset($existingFiles)) {
+                // This means there's an existing file
+                // You can handle the logic here (e.g., retain the existing file)
+            }
             if (isset($featureimages[$k])) {
                 $featureImage = $featureimages[$k];
                 $featureImageName = "questionimages/" . $featureImage->hashName();
