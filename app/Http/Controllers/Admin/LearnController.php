@@ -376,19 +376,19 @@ class LearnController extends Controller
     public function bulkaction(Request $request, Category $category)
     {
         // Ensure the correct subcategory is selected
-        $subcategoryId = $request->input('subcategory_id'); // Assuming subcategory_id is passed in the request
+        $subcategoryId = $request->input('sub_category_id'); // Assuming subcategory_id is passed in the request
         
         if (!empty($request->deleteaction)) {
             if ($request->input('select_all', 'no') == "yes") {
                 // Delete all questions corresponding to the specific category and subcategory
                 Learn::where('category_id', $category->id)
-                    ->where('subcategory_id', $subcategoryId) // Make sure you filter by subcategory_id
+                    ->where('sub_category_id', $subcategoryId) // Make sure you filter by subcategory_id
                     ->delete();
             } else {
                 // Delete selected questions only, filtering by category and subcategory
                 Learn::whereIn('id', $request->input('selectbox', []))
                     ->where('category_id', $category->id)
-                    ->where('subcategory_id', $subcategoryId) // Ensure the delete is done for the correct subcategory
+                    ->where('sub_category_id', $subcategoryId) // Ensure the delete is done for the correct subcategory
                     ->delete();
             }
     
@@ -418,13 +418,13 @@ class LearnController extends Controller
             if ($request->input('select_all', 'no') == "yes") {
                 // Update visibility status for all questions corresponding to the specific category and subcategory
                 Learn::where('category_id', $category->id)
-                    ->where('subcategory_id', $subcategoryId) // Make sure it updates for the specific subcategory
+                    ->where('sub_category_id', $subcategoryId) // Make sure it updates for the specific subcategory
                     ->update($data);
             } else {
                 // Update visibility status for selected questions only, filtering by category and subcategory
                 Learn::whereIn('id', $request->input('selectbox', []))
                     ->where('category_id', $category->id)
-                    ->where('subcategory_id', $subcategoryId) // Ensure the update is done for the correct subcategory
+                    ->where('sub_category_id', $subcategoryId) // Ensure the update is done for the correct subcategory
                     ->update($data);
             }
     
