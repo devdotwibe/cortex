@@ -432,7 +432,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
             Route::delete('/{home_work}/question/{home_work_question}/destroy',[HomeWorkController::class,'destroy'])->name('destroy');
             Route::get('/{home_work}/question/{home_work_question}/visibility',[HomeWorkController::class,'questionvisibility'])->name('visibility');
 
-            Route::post('/{home_work}/bulk/action', [HomeWorkController::class, 'bulkaction'])->name('bulkaction');
+            Route::post('/{home_work_question}/bulk/action', [HomeWorkController::class, 'bulkaction'])->name('bulkaction');
 
 
 
