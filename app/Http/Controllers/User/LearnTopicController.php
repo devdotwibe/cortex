@@ -185,8 +185,8 @@ class LearnTopicController extends Controller
                 } else {
                     $data_ids[$k] = null;
                 }
-
-                if ($user_ques_type) {
+                
+                if ($item->review_type =='short_notes') {
 
                     $que_types[$k] = true;
                     
