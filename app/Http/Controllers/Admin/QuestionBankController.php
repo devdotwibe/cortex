@@ -16,67 +16,70 @@ use Illuminate\Support\Facades\Storage;
 
 class QuestionBankController extends Controller
 {
-   
-    use ResourceController; 
-    public function index(Request $request){
+
+    use ResourceController;
+    public function index(Request $request)
+    {
         self::reset();
         self::$model = Category::class;
-        self::$routeName = "admin.question-bank"; 
-        $categorys=$this->buildResult();
+        self::$routeName = "admin.question-bank";
+        $categorys = $this->buildResult();
 
-        $exam=Exam::where("name",'question-bank')->first();
-        if(empty($exam)){
-            $exam=Exam::store([
-                "title"=>"Question Bank",
-                "name"=>"question-bank",
+        $exam = Exam::where("name", 'question-bank')->first();
+        if (empty($exam)) {
+            $exam = Exam::store([
+                "title" => "Question Bank",
+                "name" => "question-bank",
             ]);
-            $exam=Exam::find( $exam->id );
+            $exam = Exam::find($exam->id);
         }
 
-        return view("admin.question-bank.index",compact('categorys','exam'));
+        return view("admin.question-bank.index", compact('categorys', 'exam'));
     }
-    public function subtitle(Request $request){
-        $data=$request->validate([
-            "exam_id"=>['required'],
-            "category_id"=>['required'],
-            "title"=>['required'],
+    public function subtitle(Request $request)
+    {
+        $data = $request->validate([
+            "exam_id" => ['required'],
+            "category_id" => ['required'],
+            "title" => ['required'],
         ]);
-        $icon=$request->icon;
-        if(!empty($icon)){
-            $data['icon']=$icon=="delete"?"":$icon;
+        $icon = $request->icon;
+        if (!empty($icon)) {
+            $data['icon'] = $icon == "delete" ? "" : $icon;
         }
-        $categorytitle=ExamCategoryTitle::where('exam_id',$data['exam_id'])->where('category_id',$data['category_id'])->first();
-        if(empty($categorytitle)){
-            $categorytitle=ExamCategoryTitle::store($data);
-        }else{
+        $categorytitle = ExamCategoryTitle::where('exam_id', $data['exam_id'])->where('category_id', $data['category_id'])->first();
+        if (empty($categorytitle)) {
+            $categorytitle = ExamCategoryTitle::store($data);
+        } else {
             $categorytitle->update($data);
         }
-        if(!empty($icon)){
-            $data['icon']=$icon=="delete"?"":url('d0/'.$icon);
+        if (!empty($icon)) {
+            $data['icon'] = $icon == "delete" ? "" : url('d0/' . $icon);
         }
         return $data;
     }
-    
-    public function show(Request $request,Setname $setname){
+
+    public function show(Request $request, Setname $setname)
+    {
         self::reset();
         self::$model = Question::class;
-        self::$routeName = "admin.question"; 
-        self::$defaultActions=["delete"];
-        
-        $exam=Exam::where("name",'question-bank')->first();
-        if(empty($exam)){
-            $exam=Exam::store([
-                "title"=>"Question Bank",
-                "name"=>"question-bank",
+        self::$routeName = "admin.question";
+        self::$defaultActions = ["delete"];
+
+        $exam = Exam::where("name", 'question-bank')->first();
+        if (empty($exam)) {
+            $exam = Exam::store([
+                "title" => "Question Bank",
+                "name" => "question-bank",
             ]);
-            $exam=Exam::find( $exam->id );
+            $exam = Exam::find($exam->id);
         }
-        
-        if($request->ajax()){  
-            return  $this->where('exam_id',$exam->id)->where('category_id',$setname->category_id)->where('sub_category_id',$setname->sub_category_id)->where('sub_category_set',$setname->id)->addAction(function($data)use($setname){
-                    return '
+
+        if ($request->ajax()) {
+            return  $this->where('exam_id', $exam->id)->where('category_id', $setname->category_id)->where('sub_category_id', $setname->sub_category_id)->where('sub_category_set', $setname->id)->addAction(function ($data) use ($setname) {
+                return '
                    
-                   <a href="'.route("admin.question-bank.edit",["setname"=>$setname->slug,"question"=>$data->slug]).'" class="btn btn-icons edit_btn">
+                   <a href="' . route("admin.question-bank.edit", ["setname" => $setname->slug, "question" => $data->slug]) . '" class="btn btn-icons edit_btn">
     <span class="adminside-icon">
       <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
     </span>
@@ -86,52 +89,55 @@ class QuestionBankController extends Controller
 </a>
 
                     ';
-                })->addColumn('visibility',function($data){
-                    return '                
+            })->addColumn('visibility', function ($data) {
+                return '                
                         <div class="form-check ">
-                            <input type="checkbox"  class="user-visibility form-check-box" name="visibility" value="'.($data->id).'" '.($data->visible_status=="show"?"checked":"").' onchange="visiblechangerefresh('."'".route("admin.question.visibility",$data->slug)."'".')" > 
+                            <input type="checkbox"  class="user-visibility form-check-box" name="visibility" value="' . ($data->id) . '" ' . ($data->visible_status == "show" ? "checked" : "") . ' onchange="visiblechangerefresh(' . "'" . route("admin.question.visibility", $data->slug) . "'" . ')" > 
                         </div>
                     ';
-                })
-                ->buildTable(['description','visibility']);
-        } 
-        $category=Category::find($setname->category_id);
-        $subcategory=SubCategory::find($setname->sub_category_id);
-        return view("admin.question-bank.show",compact('category','subcategory','setname','exam'));
-    }
-    public function create(Request $request,Setname $setname){ 
-        
-        $exam=Exam::where("name",'question-bank')->first();
-        if(empty($exam)){
-            $exam=Exam::store([
-                "title"=>"Question Bank",
-                "name"=>"question-bank",
-            ]);
-            $exam=Exam::find( $exam->id );
-        }        
-        $category=Category::find($setname->category_id);
-        $subcategory=SubCategory::find($setname->sub_category_id);
-        return view("admin.question-bank.create",compact('category','subcategory','setname','exam'));
-    } 
-
-    public function edit(Request $request,Setname $setname,Question $question){  
-        $exam=Exam::where("name",'question-bank')->first();
-        if(empty($exam)){
-            $exam=Exam::store([
-                "title"=>"Question Bank",
-                "name"=>"question-bank",
-            ]);
-            $exam=Exam::find( $exam->id );
+            })
+                ->buildTable(['description', 'visibility']);
         }
-        $category=Category::find($setname->category_id);
-        $subcategory=SubCategory::find($setname->sub_category_id);
-        
-        return view("admin.question-bank.edit",compact('category','subcategory','setname','exam','question'));
+        $category = Category::find($setname->category_id);
+        $subcategory = SubCategory::find($setname->sub_category_id);
+        return view("admin.question-bank.show", compact('category', 'subcategory', 'setname', 'exam'));
+    }
+    public function create(Request $request, Setname $setname)
+    {
+
+        $exam = Exam::where("name", 'question-bank')->first();
+        if (empty($exam)) {
+            $exam = Exam::store([
+                "title" => "Question Bank",
+                "name" => "question-bank",
+            ]);
+            $exam = Exam::find($exam->id);
+        }
+        $category = Category::find($setname->category_id);
+        $subcategory = SubCategory::find($setname->sub_category_id);
+        return view("admin.question-bank.create", compact('category', 'subcategory', 'setname', 'exam'));
+    }
+
+    public function edit(Request $request, Setname $setname, Question $question)
+    {
+        $exam = Exam::where("name", 'question-bank')->first();
+        if (empty($exam)) {
+            $exam = Exam::store([
+                "title" => "Question Bank",
+                "name" => "question-bank",
+            ]);
+            $exam = Exam::find($exam->id);
+        }
+        $category = Category::find($setname->category_id);
+        $subcategory = SubCategory::find($setname->sub_category_id);
+
+        return view("admin.question-bank.edit", compact('category', 'subcategory', 'setname', 'exam', 'question'));
     }
 
 
-    public function subcategory(Request $request,Category $category){ 
-        $subcategory=[];
+    public function subcategory(Request $request, Category $category)
+    {
+        $subcategory = [];
         $category->with('category');
         foreach ($category->subcategories as $row) {
             // $sets=[];
@@ -139,57 +145,59 @@ class QuestionBankController extends Controller
             //     $set->questionsUrl=route('admin.question-bank.show',$set->slug);
             //     $sets[]=$set;
             // }
-            $row->category_name=$row->category->name;
-            $row->subsetUrl=route('admin.set.set_store', $row->slug);
-            $row->setUrl=route('admin.question-bank.subcategoryset',$row->slug);
-            $subcategory[]=$row;
+            $row->category_name = $row->category->name;
+            $row->subsetUrl = route('admin.set.set_store', $row->slug);
+            $row->setUrl = route('admin.question-bank.subcategoryset', $row->slug);
+            $subcategory[] = $row;
         }
         return $subcategory;
-    } 
-    public function subcategoryset(Request $request,SubCategory $subCategory){ 
-        $sets=[];
-        foreach ($subCategory->setname as $row) {            
-            $row->questionsUrl=route('admin.question-bank.show',$row->slug);
-            $sets[]=$row; 
+    }
+    public function subcategoryset(Request $request, SubCategory $subCategory)
+    {
+        $sets = [];
+        foreach ($subCategory->setname as $row) {
+            $row->questionsUrl = route('admin.question-bank.show', $row->slug);
+            $sets[] = $row;
         }
         return $sets;
-    } 
-    public function importquestion(Request $request,Setname $setname){ 
+    }
+    public function importquestion(Request $request, Setname $setname)
+    {
         $request->validate([
-            'import_fields'=>['required'],
-            'import_fields.*'=>['required'],
-            'import_datas'=>['required','file','mimes:json']
+            'import_fields' => ['required'],
+            'import_fields.*' => ['required'],
+            'import_datas' => ['required', 'file', 'mimes:json']
         ]);
- 
+
         $file = $request->file('import_datas');
         $name = $file->hashName();
         Storage::put("importfile", $file);
-        
-        $exam=Exam::where("name",'question-bank')->first();
-        if(empty($exam)){
-            $exam=Exam::store([
-                "title"=>"Question Bank",
-                "name"=>"question-bank",
+
+        $exam = Exam::where("name", 'question-bank')->first();
+        if (empty($exam)) {
+            $exam = Exam::store([
+                "title" => "Question Bank",
+                "name" => "question-bank",
             ]);
-            $exam=Exam::find( $exam->id );
-        }        
-        $category=Category::find($setname->category_id);
-        $subcategory=SubCategory::find($setname->sub_category_id); 
-        
+            $exam = Exam::find($exam->id);
+        }
+        $category = Category::find($setname->category_id);
+        $subcategory = SubCategory::find($setname->sub_category_id);
+
         dispatch(new ImportQuestions(
-            filename:$name,
-            exam:$exam,
-            category:$category,
-            subCategory:$subcategory,
-            setname:$setname,
-            fields:$request->import_fields
+            filename: $name,
+            exam: $exam,
+            category: $category,
+            subCategory: $subcategory,
+            setname: $setname,
+            fields: $request->import_fields
         ));
 
         return response()->json([
-            'success'=>"Import started"
+            'success' => "Import started"
         ]);
-    } 
-    
+    }
+
 
 
     // public function bulkaction(Request $request)
@@ -211,14 +219,14 @@ class QuestionBankController extends Controller
     //         $data = [];
 
     //         switch ($request->bulkaction) {
-              
+
     //             case 'visible_status':
     //                 $data["visible_status"] = "show";
     //                 break;
     //             case 'visible_status_disable':
     //                 $data["visible_status"] = "";
     //                 break;
-                
+
 
     //             default:
     //                 # code...
@@ -239,54 +247,51 @@ class QuestionBankController extends Controller
 
 
     public function bulkaction(Request $request, Setname $setname)
-{
-    if (!empty($request->deleteaction)) {
-        if ($request->input('select_all', 'no') == "yes") {
-            // Delete all questions corresponding to the specific setname
-            Question::where('sub_category_set', $setname->id)->delete();
+    {
+        if (!empty($request->deleteaction)) {
+            if ($request->input('select_all', 'no') == "yes") {
+                // Delete all questions corresponding to the specific setname
+                Question::where('sub_category_set', $setname->id)->delete();
+            } else {
+                // Delete selected questions only
+                Question::whereIn('id', $request->input('selectbox', []))->delete();
+            }
+
+            if ($request->ajax()) {
+                return response()->json(["success" => "Questions deleted successfully"]);
+            }
+            return redirect()->route('admin.question-bank.show', $setname->slug)
+                ->with("success", "Questions deleted successfully");
         } else {
-            // Delete selected questions only
-            Question::whereIn('id', $request->input('selectbox', []))->delete();
-        }
+            $request->validate([
+                "bulkaction" => ['required']
+            ]);
+            $data = [];
 
-        if ($request->ajax()) {
-            return response()->json(["success" => "Questions deleted successfully"]);
-        }
-        return redirect()->route('admin.question-bank.show', $setname->slug)
-                         ->with("success", "Questions deleted successfully");
-    } else {
-        $request->validate([
-            "bulkaction" => ['required']
-        ]);
-        $data = [];
+            switch ($request->bulkaction) {
+                case 'visible_status':
+                    $data["visible_status"] = "show";
+                    break;
+                case 'visible_status_disable':
+                    $data["visible_status"] = "";
+                    break;
+                default:
+                    break;
+            }
 
-        switch ($request->bulkaction) {
-            case 'visible_status':
-                $data["visible_status"] = "show";
-                break;
-            case 'visible_status_disable':
-                $data["visible_status"] = "";
-                break;
-            default:
-                break;
-        }
+            if ($request->input('select_all', 'no') == "yes") {
+                // Update visibility status for all questions corresponding to the specific setname
+                Question::where('sub_category_set', $setname->id)->update($data);
+            } else {
+                // Update visibility status for selected questions only
+                Question::whereIn('id', $request->input('selectbox', []))->update($data);
+            }
 
-        if ($request->input('select_all', 'no') == "yes") {
-            // Update visibility status for all questions corresponding to the specific setname
-            Question::where('sub_category_set', $setname->id)->update($data);
-        } else {
-            // Update visibility status for selected questions only
-            Question::whereIn('id', $request->input('selectbox', []))->update($data);
+            if ($request->ajax()) {
+                return response()->json(["success" => "Questions updated successfully"]);
+            }
+            return redirect()->route('admin.question-bank.show', $setname->slug)
+                ->with("success", "Questions updated successfully");
         }
-
-        if ($request->ajax()) {
-            return response()->json(["success" => "Questions updated successfully"]);
-        }
-        return redirect()->route('admin.question-bank.show', $setname->slug)
-                         ->with("success", "Questions updated successfully");
     }
-}
-
-
-
 }
