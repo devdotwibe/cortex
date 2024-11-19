@@ -287,6 +287,7 @@ class ExamQuestionController extends Controller
                     'label' => (string) $page,
                     'data_id' => $data_id,
                     'ans_id' => $ans_ids,
+                    'ques_id'=>  $data_rews,
                     'active' => $page === $data->currentPage(),
                 ];
             });
