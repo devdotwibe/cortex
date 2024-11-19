@@ -279,7 +279,7 @@ public function bulkaction(Request $request, HomeWork $homeWork)
     if (!empty($request->deleteaction)) {
         if ($request->input('select_all', 'no') == "yes") {
             // Delete all questions corresponding to the specific homework
-            HomeWork::where('home_work_id', $homeWork->id)->delete();
+            HomeWork::where('id', $homeWork->id)->delete();
         } else {
             // Ensure selectbox is an array or default to an empty array
             $selectBoxValues = is_array($request->input('selectbox', [])) ? $request->input('selectbox', []) : [];
