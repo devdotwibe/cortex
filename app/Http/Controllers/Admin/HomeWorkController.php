@@ -272,20 +272,20 @@ class HomeWorkController extends Controller
 // }
 
 
-public function bulkaction(Request $request, HomeWorkQuestion $homeWork)
+public function bulkaction(Request $request, HomeWork $homeWork)
 {
     $subCategoryId = $request->input('sub_category_id');
 
     if (!empty($request->deleteaction)) {
         if ($request->input('select_all', 'no') == "yes") {
             // Delete all questions corresponding to the specific homework
-            HomeWorkQuestion::where('home_work_id', $homeWork->id)->delete();
+            HomeWork::where('home_work_id', $homeWork->id)->delete();
         } else {
             // Ensure selectbox is an array or default to an empty array
             $selectBoxValues = is_array($request->input('selectbox', [])) ? $request->input('selectbox', []) : [];
             
             // Delete selected questions
-            HomeWorkQuestion::whereIn('id', $selectBoxValues)
+            HomeWork::whereIn('id', $selectBoxValues)
                 ->where('home_work_id', $homeWork->id)
                 ->where('sub_category_id', $subCategoryId) // Ensure delete is done for the correct subcategory
                 ->delete();
