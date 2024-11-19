@@ -250,7 +250,7 @@ class TopicTestController extends Controller
         if (!empty($request->deleteaction)) {
             if ($request->input('select_all', 'no') == "yes") {
                 // Delete all questions corresponding to the specific setname
-                Question::where('sub_category_set', $category->id)->delete();
+                Question::where('category_id', $category->id)->delete();
             } else {
                 // Delete selected questions only
                 Question::whereIn('id', $request->input('selectbox', []))->delete();
@@ -280,7 +280,7 @@ class TopicTestController extends Controller
     
             if ($request->input('select_all', 'no') == "yes") {
                 // Update visibility status for all questions corresponding to the specific setname
-                Question::where('sub_category_set', $category->id)->update($data);
+                Question::where('category_id', $category->id)->update($data);
             } else {
                 // Update visibility status for selected questions only
                 Question::whereIn('id', $request->input('selectbox', []))->update($data);
