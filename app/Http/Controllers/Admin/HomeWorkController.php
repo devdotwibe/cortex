@@ -277,25 +277,32 @@ public function bulkaction(Request $request, HomeWorkQuestion $homeWork)
     $booklet = $request->input('home_work_book_id');
 
     if (!empty($request->deleteaction)) {
-
         if ($request->input('select_all', 'no') == "yes") {
-            
-         
             $selectAllValues = json_decode($request->select_all_values, true);
-            HomeWorkQuestion::whereIn('id', $selectAllValues)  
-                ->delete();
+            
+            // Check if the IDs exist before attempting to delete
+            $existingIds = HomeWorkQuestion::whereIn('id', $selectAllValues)
+                ->where('home_work_book_id', $booklet)
+                ->pluck('id')
+                ->toArray();
 
-
+            if (count($existingIds) > 0) {
+                HomeWorkQuestion::whereIn('id', $existingIds)->delete();
+            }
 
         } else {
-
-             $selectBoxValues = is_array($request->input('selectbox', [])) ? $request->input('selectbox', []) : [];
+            $selectBoxValues = is_array($request->input('selectbox', [])) ? $request->input('selectbox', []) : [];
             
-          
-             HomeWorkQuestion::whereIn('id', $selectBoxValues)
+            // Ensure IDs exist before deletion
+            $existingIds = HomeWorkQuestion::whereIn('id', $selectBoxValues)
                 ->where('home_work_id', $homeWork->id)
-                ->where('home_work_book_id', $booklet) 
-                ->delete();
+                ->where('home_work_book_id', $booklet)
+                ->pluck('id')
+                ->toArray();
+
+            if (count($existingIds) > 0) {
+                HomeWorkQuestion::whereIn('id', $existingIds)->delete();
+            }
         }
 
         if ($request->ajax()) {
@@ -320,7 +327,13 @@ public function bulkaction(Request $request, HomeWorkQuestion $homeWork)
                 break;
         }
 
-       
+        if (!empty($data)) {
+            // Update records that exist and match the criteria
+            HomeWorkQuestion::whereIn('id', $request->input('selectbox', []))
+                ->where('home_work_id', $homeWork->id)
+                ->where('home_work_book_id', $booklet)
+                ->update($data);
+        }
 
         if ($request->ajax()) {
             return response()->json(["success" => "Questions updated successfully"]);
@@ -329,8 +342,5 @@ public function bulkaction(Request $request, HomeWorkQuestion $homeWork)
                          ->with("success", "Questions updated successfully");
     }
 }
-
-
-
 
 }
