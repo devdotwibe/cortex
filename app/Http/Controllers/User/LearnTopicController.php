@@ -163,7 +163,48 @@ class LearnTopicController extends Controller
                 $question=UserReviewQuestion::findSlug($request->question);
                 return UserReviewAnswer::where('user_review_question_id',$question->id)->get(['slug','title','user_answer','iscorrect','description','image']);
             }
-            return UserReviewQuestion::whereIn('review_type',['mcq','short_notes'])->where('user_exam_review_id',$userExamReview->id)->paginate(1,['title','note','slug','review_type','user_answer','currect_answer','explanation']);
+            $data = UserReviewQuestion::whereIn('review_type',['mcq','short_notes'])->where('user_exam_review_id',$userExamReview->id)->paginate(1,['title','note','slug','review_type','user_answer','currect_answer','explanation']);
+            $links = collect(range(1, $data->lastPage()))->map(function ($page) use ($data) {
+                return [
+                    'url' => $data->url($page),
+                    'label' => (string) $page,
+                    'active' => $page === $data->currentPage(),
+                ];
+            });
+        
+            // Add navigation links for Previous and Next
+            $paginationLinks = collect([
+                [
+                    'url' => $data->previousPageUrl(),
+                    'label' => '&laquo; Previous',
+                    'active' => false,
+                ],
+            ])
+            ->merge($links)
+            ->merge([
+                [
+                    'url' => $data->nextPageUrl(),
+                    'label' => 'Next &raquo;',
+                    'active' => false,
+                ],
+            ]);
+        
+            // Build the response structure
+            return response()->json([
+                'current_page' => $data->currentPage(),
+                'data' => $data->items(),
+                'first_page_url' => $data->url(1),
+                'from' => $data->firstItem(),
+                'last_page' => $data->lastPage(),
+                'last_page_url' => $data->url($data->lastPage()),
+                'links' => $paginationLinks,
+                'next_page_url' => $data->nextPageUrl(),
+                'path' => $data->path(),
+                'per_page' => $data->perPage(),
+                'prev_page_url' => $data->previousPageUrl(),
+                'to' => $data->lastItem(),
+                'total' => $data->total(),
+            ]);
         }
 
         $useranswer=UserReviewQuestion::leftJoin('user_review_answers','user_review_answers.user_review_question_id','user_review_questions.id')

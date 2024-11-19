@@ -5,14 +5,14 @@
                 @csrf 
                 <div class="row">
                     @php
-                        if(isset($fields[7])){
-                            $choice = 1;
-                            $choiceName = $fields[7]->name;
-                        }else{
-                            $choice = 0;
-                            $choiceName = '';
-                        }                    
-                        
+                        $choice = 0;
+                        $choiceName = '';
+                        foreach ($fields as $item) {
+                            if (isset($item->name) && ($item->name === 'answer' || $item->name === 'mcq_answer')) {
+                                $choiceName = $item->name;
+                                $choice = 1;
+                            }
+                        }                                         
                     @endphp
                     @foreach ($fields as $item)
                         @if (($item->type??"text")=="hidden")
@@ -276,6 +276,8 @@
         $(document).ready(function () {           
             let choice = "{{ $choice }}"
             let name = "{{ $choiceName }}"
+            let firstInvalidFeedback = null; 
+
             $("#{{$frmID}}").on("submit", function (e) {
                 if ($('.mcq_section').is(':visible') || $(`input[name='${name}[]']`).length > 1) {
                     let isValid = true;
@@ -294,6 +296,9 @@
                             fileField.addClass("is-invalid"); 
                             const feedbackElement = fileField.next(".invalid-feedback");
                             feedbackElement.text("Either answer or file is required.").show();
+                            if (!firstInvalidFeedback) {
+                                firstInvalidFeedback = feedbackElement;
+                            }
                         } else {
                             answerField.removeClass("is-invalid");
                             fileField.removeClass("is-invalid");
@@ -302,9 +307,15 @@
                         }
                     });
 
-                    if (!isValid) {
-                        e.preventDefault();
-                        alert("Please ensure that either an answer or a file is provided for all fields.");
+                    if (!isValid && firstInvalidFeedback) {
+                        e.preventDefault(); // Prevent form submission
+                        $('html, body').animate(
+                            {
+                                scrollTop: firstInvalidFeedback.offset().top - 100, 
+                            },
+                            500 
+                        );
+                        firstInvalidFeedback.attr("tabindex", "-1").focus(); 
                     }
                 }
 
