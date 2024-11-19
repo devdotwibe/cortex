@@ -20,13 +20,13 @@ class PaymentController extends Controller
            
             self::$defaultActions=[""];
 
-            if(!empty($request->search['value']))
-            {
-                $search = $request->search['value'];
-                self::$model->whereHas('user', function($query) use ($search) {
-                    $query->where('name', 'like', "%{$search}%");
-                });
-            }
+            // if(!empty($request->search['value']))
+            // {
+            //     $search = $request->search['value'];
+            //     self::$model->whereHas('user', function($query) use ($search) {
+            //         $query->where('name', 'like', "%{$search}%");
+            //     });
+            // }
             
             return  $this->with('user')->whereHas('user')->addColumn('username',function($data){
                 return optional($data->user)->name;
