@@ -256,33 +256,29 @@ class ExamQuestionController extends Controller
 
             $user_review = UserReviewAnswer::where('user_id',$user->id)->where('user_answer',true)->where('user_exam_review_id',$userExamReview->id)->get();
 
-            $links = collect(range(1, $data->lastPage()))->map(function ($page ,$i) use ($data,$user_review,$data_questions) {
-
-                $ans_ids = $user_review->pluck('user_review_question_id')->toArray();
+            $ans_ids = $user_review->pluck('user_review_question_id')->toArray();
              
-                $data_id = null;
-
-                $currentPageItems = $data->getCollection();
-
-                foreach ($currentPageItems as $k => $item) {
-                    
-                    if (!empty($data_questions[$k])) {
-                     
-                        if (in_array($data_questions[$k]->id, $ans_ids)) {
-                           
-                            $data_id = $user_review->where('user_review_question_id', $data_questions[$k]->id)->first()->id;
-                        }
-                    }
-                    else
-                    {
-                        $data_id = null;
+            foreach ($data_questions as $k => $item) {
+                
+                if (!empty($user_review[$k])) {
+                 
+                    if ($item->id == $user_review[$k]->user_review_question_id) {
+                       
+                        $data_ids[] = $user_review[$k]->id;
                     }
                 }
+                else
+                {
+                    $data_ids[] = null;
+                }
+            }
+
+            $links = collect(range(1, $data->lastPage()))->map(function ($page ,$i) use ($data,$user_review,$data_ids) {
 
                 return [
                     'url' => $data->url($page),
                     'label' => (string) $page,
-                    'ans' => $data_id,
+                    'ans' => $data_ids[$i],
                     'active' => $page === $data->currentPage(),
                 ];
             });
