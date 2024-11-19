@@ -16,7 +16,8 @@ class PaymentController extends Controller
 
         if($request->ajax()){
 
-            self::$model=PaymentTransation::class;
+            self:: $model = PaymentTransation::query();
+           
             self::$defaultActions=[""];
 
             if(!empty($request->search['value']))
