@@ -881,7 +881,7 @@
                                             <div class="form-group">
                                                 <label for="privateimage" class="file-upload">Private Image <br>
                                                     <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon"></label>
-                                                <input type="file" class="form-control" style="display: none;" name="privateimage" id="privateimage" onchange="previewImage(event, 'privateImagePreview', this)" data-id="privateimgid">
+                                                <input type="file" class="form-control" style="display: none;" name="privateimage" id="privateimage" onchange="previewImageprivate(event, 'privateImagePreview', this)" data-id="privateimgid">
                                             </div>
                                         </div>
                                     
@@ -896,7 +896,7 @@
                                     
                                                 <!-- Dynamic Image Preview -->
                                                 <img id="privateImagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
-                                                <button type="button" class="btn btn-danger" id="deleteicon2" style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removeImage()">X</button>
+                                                <button type="button" class="btn btn-danger" id="deleteicon2" style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removeImageprivate()">X</button>
                                     
                                                 <!-- Delete Button for Saved Image -->
                                                 <button type="button" class="btn btn-danger" id="icondelete2" style="position: absolute; top: 5px; right: 5px; {{ isset($course) && $course->privateimage ? 'display: block;' : 'display: none;' }}" onclick="removePrivateImage(this)">X</button>
@@ -1693,7 +1693,7 @@ function removePrivateImage(button) {
 
 
 // Function to preview the private image when the file input changes
-function previewPrivateImage(event, previewId, element) {
+function previewImageprivate(event, previewId, element) {
     const reader = new FileReader();
 
     reader.onload = function() {
@@ -1713,7 +1713,7 @@ function previewPrivateImage(event, previewId, element) {
 }
 
 // Function to remove the private preview image when the delete button is clicked
-function removePrivateImagePreview() {
+function removeImageprivate() {
     // Clear the preview image and hide the preview container and delete button
     const output = document.getElementById('privateImagePreview');
     output.src = '';
