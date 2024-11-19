@@ -5,10 +5,15 @@
                 @csrf 
                 @method("PUT")
                 <div class="row">
-                    @php 
+                    @php  
                     if(isset($fields[7]->value) && ($fields[7]->value != Null)){
                         $choice = 1;
-                        $choiceName = $fields[7]->name;
+                        if($fields[7]->name!='sub_question'){
+                            $choiceName = $fields[7]->name;
+                        }else{
+                            $choiceName = 'answer';
+                        }
+                           
                     }else{
                         $choice = 0;
                     }
@@ -318,19 +323,19 @@
         CKEDITOR.replaceAll('texteditor')
         $(document).ready(function () {
             let choice = "{{ $choice }}"
+
             if (choice != 0) {
                 let name = "{{ $choiceName }}"
                 $("#{{$frmID}}").on("submit", function (e) {
                     let isValid = true;
                     let hasAtLeastOne = false;
-
                     $(`input[name='${name}[]']`).each(function (index) {
                         const answerField = $(this);
                         const fileField = $(`input[name='file_${name}[]']`).eq(index);
                         const answerValue = answerField.val().trim();
                         const fileValue = fileField.val();
                         const existingFile = fileField.data("existing-file"); 
-                        console.log(answerValue)
+                        console.log(answerField)
 
                         if (!answerValue && !fileValue && !existingFile) {
                             isValid = false;
