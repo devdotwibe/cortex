@@ -1692,6 +1692,41 @@ function removePrivateImage(button) {
 }
 
 
+// Function to preview the private image when the file input changes
+function previewPrivateImage(event, previewId, element) {
+    const reader = new FileReader();
+
+    reader.onload = function() {
+        const output = document.getElementById(previewId);
+        output.src = reader.result; // Set the preview image source
+        output.style.display = 'block'; // Display the preview image
+
+        // Show the preview container and delete button
+        $('#privateimgid').show();
+        $('#deleteicon2').show(); // Show delete button for the preview image
+        $('#icondelete2').hide(); // Hide delete button for the saved image
+    };
+
+    if (event.target.files[0]) {
+        reader.readAsDataURL(event.target.files[0]); // Read the selected image
+    }
+}
+
+// Function to remove the private preview image when the delete button is clicked
+function removePrivateImagePreview() {
+    // Clear the preview image and hide the preview container and delete button
+    const output = document.getElementById('privateImagePreview');
+    output.src = '';
+    output.style.display = 'none'; // Hide the preview image
+
+    $('#privateimgid').hide(); // Hide preview container
+    $('#deleteicon2').hide(); // Hide delete button for the preview image
+
+    // Clear the file input field
+    document.getElementById('privateimage').value = '';
+}
+
+
 </script>
 
 @endpush
