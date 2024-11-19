@@ -1645,7 +1645,7 @@ function previewFullmockImage(event, previewId, element) {
 
         // Show the preview container and delete button for the preview image
         $('#fullmockPreviewContainer').show(); // Ensure the preview container ID matches your markup
-        $('#deleteIconFullmockImage').show(); // Show delete button for the preview image
+        $('#deleteDynamicFullmockImage').show(); // Show delete button for the preview image
         $('#iconDeleteFullmockImage').hide(); // Hide delete button for the saved image
     };
 
