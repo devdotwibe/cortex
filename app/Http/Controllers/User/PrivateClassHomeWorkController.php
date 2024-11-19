@@ -140,26 +140,32 @@ class PrivateClassHomeWorkController extends Controller
 
             $data_questions = HomeWorkReviewQuestion::whereIn('review_type',['mcq'])->where('home_work_review_id',$homeWorkReview->id)->where('user_id',$user->id)->get();
 
-            // $user_review = UserReviewAnswer::where('user_id',$user->id)->where('user_answer',true)->where('user_exam_review_id',$userExamReview->id)->get();
+            $user_review = HomeWorkReviewAnswer::where('user_id',$user->id)->where('user_answer',true)->where('user_exam_review_id',$homeWorkReview->id)->get();
 
-            // $data_ids = [];
+            $data_ids = [];
 
-            // foreach ($data_questions as $k => $item) {
+            foreach ($data_questions as $k => $item) {
                
-            //     $user_answer = $user_review->where('user_review_question_id', $item->id)->first();
+                $user_answer = $user_review->where('home_work_review_question_id', $item->id)->first();
             
-            //     if ($user_answer) {
-            //         $data_ids[$k] = $user_answer->id;
+                if ($user_answer) {
+                    $data_ids[$k] = $user_answer->id;
                     
-            //     } else {
-            //         $data_ids[$k] = null;
-            //     }
-            // }
+                } else {
+                    $data_ids[$k] = null;
+                }
+            }
 
-            $links = collect(range(1, $data->lastPage()))->map(function ($page) use ($data) {
+            $links = collect(range(1, $data->lastPage()))->map(function ($page ,$i) use ($data,$data_ids) {
+
+                $value = isset($data_ids[$i]) ? $data_ids[$i] : null;
+
                 return [
                     'url' => $data->url($page),
                     'label' => (string) $page,
+
+                    'ans_id' => $value,
+
                     'active' => $page === $data->currentPage(),
                 ];
             });
@@ -197,8 +203,18 @@ class PrivateClassHomeWorkController extends Controller
                 'to' => $data->lastItem(),
                 'total' => $data->total(),
             ]);
+
+            $home_work_answer=HomeWorkReviewQuestion::leftJoin('home_work_review_answers','home_work_review_answers.home_work_review_question_id','home_work_review_questions.id')
+                            ->where('home_work_review_answers.user_answer',true)
+                            ->whereIn('home_work_review_questions.review_type',['mcq'])
+                            ->where('home_work_review_questions.user_id',$user->id)
+                            ->where('home_work_review_questions.user_exam_review_id',$userExamReview->id)
+                            ->select('home_work_review_questions.id','home_work_review_questions.time_taken','home_work_review_answers.iscorrect','home_work_review_answers.id')->get();
+    
+           
+
         }
-        return view("user.home-work.preview",compact('homeWork','homeWorkBook','user','homeWorkReview'));
+        return view("user.home-work.preview",compact('homeWork','homeWorkBook','user','homeWorkReview','home_work_answer'));
     }
 
     public function booklethistory(Request $request,HomeWork $homeWork,HomeWorkBook $homeWorkBook){ 
