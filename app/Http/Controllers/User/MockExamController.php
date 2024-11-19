@@ -546,10 +546,33 @@ class MockExamController extends Controller
 
         $attemttime = "$m:$s";
         $questioncount = ExamRetryQuestion::where('exam_retry_review_id', $examRetryReview->id)->count();
+        $chartlabel=[];
+        $chartbackgroundColor=[];
+        $chartdata=[];
+        $userReviewAnswers = ExamRetryAnswer::select('mark',DB::raw('count(mark) as marked_users'))
+                                                ->fromSub(function ($query)use($userExamReview){
+                                                    $query->from('user_review_answers')
+                                                            ->where('user_exam_review_id','<=',$userExamReview->id)
+                                                            ->whereIn('user_exam_review_id',UserExamReview::where('name','full-mock-exam')
+                                                                                                            ->where('user_exam_review_id','<=',$userExamReview->id)
+                                                                                                            ->where('exam_id',$userExamReview->exam_id)
+                                                                                                            ->groupBy('user_id')
+                                                                                                            ->select(DB::raw('MAX(id)')))
+                                                            ->where('iscorrect',true)
+                                                            ->where('user_answer',true)
+                                                            ->select(DB::raw('count(user_id) as mark'));
+                                                }, 'subquery')
+                                                ->groupBy('mark')
+                                                ->get();
+        foreach ($userReviewAnswers as  $row) { 
+            $chartlabel[]=strval($row->mark);
+            $chartbackgroundColor[]=$passed==$row->mark? "#ef9b10" : '#dfdfdf';
+            $chartdata[]=$row->marked_users;
+        } 
         $attemtcount = ExamRetryReview::where('user_exam_review_id', $userExamReview->id)->where('user_id', $user->id)->where('id', '<', $examRetryReview->id)->count() + 1;
         $categorylist = Category::all();
 
-        return view('user.full-mock-exam.retry-result', compact('passed', 'categorylist', 'questioncount', 'attemttime', 'attemtcount', 'userExamReview', 'examRetryReview'));
+        return view('user.full-mock-exam.retry-result', compact('passed', 'categorylist', 'questioncount', 'attemttime', 'attemtcount', 'userExamReview', 'examRetryReview','chartlabel','chartbackgroundColor','chartdata'));
     }
 
     public function retrypreview(Request $request, UserExamReview $userExamReview, ExamRetryReview $examRetryReview)
