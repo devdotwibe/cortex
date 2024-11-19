@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Trait\ResourceModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class ExamRetryAnswer extends Model
 {
@@ -25,4 +26,26 @@ class ExamRetryAnswer extends Model
         'answer_id',
         'user_id'
     ];
+    protected $appends=[
+        'total_user_answered'
+    ];
+    public function getTotalUserAnsweredAttribute()
+    {  
+        $latestReviewQuery = ExamRetryReview::where('exam_id', $this->exam_id)
+                                            ->groupBy('user_id')
+                                            ->select(DB::raw('MAX(id)')); 
+        $ansthis = ExamRetryAnswer::whereIn('exam_retry_review_id', $latestReviewQuery)
+                                    ->where('exam_id', $this->exam_id)
+                                    ->where('question_id', $this->question_id)
+                                    ->where('answer_id', $this->answer_id)
+                                    ->where('user_answer', true)
+                                    ->count();
+
+        $ansthisall = ExamRetryAnswer::whereIn('exam_retry_review_id', $latestReviewQuery)
+                                        ->where('exam_id', $this->exam_id)
+                                        ->where('question_id', $this->question_id)
+                                        ->where('user_answer', true)
+                                        ->count();
+        return $ansthis > 0 ? ($ansthis * 100) / $ansthisall : 0;
+    }
 }

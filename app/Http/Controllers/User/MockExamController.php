@@ -340,7 +340,8 @@ class MockExamController extends Controller
                         ->whereIn('user_review_questions.review_type',['mcq'])
                         ->where('user_review_questions.user_id',$user->id)
                         ->where('user_review_questions.user_exam_review_id',$userExamReview->id)
-                        ->select('user_review_questions.id','user_review_questions.time_taken','user_review_answers.iscorrect')->get();
+                        ->select('user_review_questions.id','user_review_questions.time_taken','user_review_answers.iscorrect')
+                        ->get();
         $examtime=0;
         if($user->progress("exam-review-".$userExamReview->id."-timed",'')=="timed"){
             $times=explode(':',$user->progress("exam-review-".$userExamReview->id."-time_of_exam",'0:0'));
@@ -598,7 +599,7 @@ class MockExamController extends Controller
             ->where('exam_retry_questions.exam_retry_review_id', $examRetryReview->id)
             ->select('exam_retry_questions.id', 'exam_retry_questions.time_taken', 'exam_retry_answers.iscorrect')->get();
         $examtime = 0;
-
+        
         $times = explode(':', $examRetryReview->time_of_exam ?? '0:0');
         if (count($times) > 0) {
             $examtime += intval(trim($times[0] ?? "0")) * 60;

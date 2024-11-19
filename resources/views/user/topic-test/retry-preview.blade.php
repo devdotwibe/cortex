@@ -223,7 +223,7 @@
                                           
                                         </div>
                                          <p>${v.explanation||''}</p>
-                                        {{-- <div id="mcq-${lesseonId}-ans-progress" class="form-group">
+                                        <div id="mcq-${lesseonId}-ans-progress" class="form-group">
                                             <div class="form-data" >
                                                 <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list-progress"> 
                                                     
@@ -232,7 +232,7 @@
                                             <div>
                                                 <p>You spent ${v.time_taken||0} seconds on this question. The average student spent ${v.total_user_taken_time||0} seconds on this question<p>
                                             </div>
-                                        </div> --}}
+                                        </div> 
                                     </div>
                                 </div>
                             </div>
@@ -244,7 +244,7 @@
                             $(`#mcq-${lesseonId}-list`).html('')
                             $(`#mcq-${lesseonId}-list-progress`).html('')
                             const baseUrl = `{{ asset('d0') }}`;
-                            $.each(ans, function(ai, av) {
+                            $.each(ans, function(ai, av) { console.log(av)
                                 const letter = String.fromCharCode(ai + 'A'.charCodeAt(0))
                                 const imageHtml = av && av.image ?
                                     `<img src="${baseUrl}/${av.image}" class="answer-image" />` :
@@ -263,7 +263,7 @@
                                 <div class="form-progress-ans ans-${av.iscorrect?"select":"no-select"}"> 
                                     <div class="form-progress">       
                                         <label for="user-answer-${lesseonId}-ans-progress-item-${ai}" >${ letter }</label>
-                                        <progress id="user-answer-${lesseonId}-ans-progress-item-${ai}" max="100" value="${av.total_user_answered||0}"/>
+                                        <progress id="user-answer-${lesseonId}-ans-progress-item-${ai}" max="100" value="${av.total_user_answered||0}"/></progress> <span>${((av.total_user_answered||0)*1).toFixed(2)}%</span>
                                     </div>  
                                 </div>
                             `)

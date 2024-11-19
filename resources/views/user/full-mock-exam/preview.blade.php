@@ -292,16 +292,11 @@
                             if (k == 0 || k == res.links.length) {
                                 preclass = "prevnxtclass";
                             }
-                            console.log(res.links.length);
-
-                            console.log(v.label);
-
 
                             $('#lesson-footer-pagination').append(`
                                 <button class="${linkstatus} btn btn-secondary  ${preclass} ${v.active?"active":""}" disabled  >${v.label} </button>
                             `)
                         } else {
-                            console.log(v.label);
 
                             var preclass = "";
                             if (k == 0 || k == res.links.length - 1) {
@@ -376,7 +371,7 @@
 
                     $('.lesson-left a.left-btn')
                         .attr('href', res.prev_page_url) // Change the URL
-                        .attr('title', 'New Title')  // Optionally change the title
+                        .attr('onclick', `loadlessonreview('${res.prev_page_url}')`) 
                         .find('img').attr('alt', '< Previous') // Optionally update the alt text of the image
                         .end()
                         .contents().last().replaceWith('Previous');

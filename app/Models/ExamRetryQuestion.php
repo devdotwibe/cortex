@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Trait\ResourceModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class ExamRetryQuestion extends Model
 {
@@ -32,4 +33,13 @@ class ExamRetryQuestion extends Model
         'sub_category_id',
         'sub_category_set'
     ];
+    protected $appends=[
+        'total_user_taken_time', 
+    ]; 
+    public function getTotalUserTakenTimeAttribute(){
+        return round(ExamRetryQuestion::whereIn('exam_retry_review_id',ExamRetryReview::where('exam_id',$this->exam_id)->groupBy('user_id')->select(DB::raw('MAX(id)')))->where('exam_id',$this->exam_id)->where('question_id',$this->question_id)->whereNotNull('time_taken')->where('time_taken','>',0)->average('time_taken'),2);
+    }
+    public function answers(){
+        return $this->hasMany(ExamRetryAnswer::class);
+    }
 }
