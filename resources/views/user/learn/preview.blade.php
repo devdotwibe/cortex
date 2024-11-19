@@ -170,7 +170,7 @@
         var useranswers = @json($useranswer);
         
         console.log(useranswers);
-        
+
         function generateRandomId(length) {
             const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
             let result = '';
@@ -277,26 +277,34 @@
                 if (res.total > 1) {
 
                     $.each(res.links, function(k, v) {
+
                         let linkstatus = "";
 
-                        if (res.data.review_type == 'short_notes') {
-                                
+                         if (k != 0 && k != res.links.length ) {
+
+                            linkstatus = 'status-bad';
+
+                            if (v.ans_id. == 'short_notes') {
+                            
                                 linkstatus = "status-grey";
                             }
 
-                        console.log(res.links.length);
+                            $.each(useranswers, function(i, j) {
 
-                        if (k != 0 && k != res.links.length && useranswers[k - 1]) {
-                          
-                            linkstatus = "status-bad";
+                                if(v.ans_id == j.id)
+                                {
+                                    linkstatus = 'status-bad';
 
-                            if (useranswers[k - 1].iscorrect) {
-
-                                linkstatus = "status-good";
-
-                            }
-
+                                    if (j.iscorrect) {
+                                
+                                        linkstatus = "status-good";
+                                       
+                                    } 
+                                }
+                            }); 
+                    
                         }
+
                         if (v.active || !v.url) {
                             $('#lesson-footer-paginationmobile').append(`
                                 <button class="btn btn-secondary  ${linkstatus} ${v.active?"active":""}" disabled  >${v.label}</button>
