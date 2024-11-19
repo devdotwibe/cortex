@@ -293,10 +293,33 @@ class MockExamController extends Controller
                 return UserReviewAnswer::where('user_review_question_id',$question->id)->get();
             }
             $data = UserReviewQuestion::whereIn('review_type',['mcq'])->where('user_exam_review_id',$userExamReview->id)->where('user_id',$user->id)->paginate(1);
-            $links = collect(range(1, $data->lastPage()))->map(function ($page) use ($data) {
+
+            $data_questions = UserReviewQuestion::whereIn('review_type',['mcq'])->where('user_id',$user->id)->where('user_exam_review_id',$userExamReview->id)->get();
+
+            $user_review = UserReviewAnswer::where('user_id',$user->id)->where('user_answer',true)->where('user_exam_review_id',$userExamReview->id)->get();
+
+            $data_ids = [];
+
+            foreach ($data_questions as $k => $item) {
+               
+                $user_answer = $user_review->where('user_review_question_id', $item->id)->first();
+            
+                if ($user_answer) {
+                    $data_ids[$k] = $user_answer->id;
+                    
+                } else {
+                    $data_ids[$k] = null;
+                }
+            }
+
+             $links = collect(range(1, $data->lastPage()))->map(function ($page ,$i) use ($data,$data_ids) {
+
+                $value = isset($data_ids[$i]) ? $data_ids[$i] : null;
+
                 return [
                     'url' => $data->url($page),
                     'label' => (string) $page,
+                    'ans_id' => $value,
                     'active' => $page === $data->currentPage(),
                 ];
             });
@@ -335,21 +358,41 @@ class MockExamController extends Controller
                 'total' => $data->total(),
             ]);
         }
+
+        $total_questions = UserReviewQuestion::whereIn('review_type',['mcq'])->where('user_id',$user->id)->where('user_exam_review_id',$userExamReview->id)->count();
+
         $useranswer=UserReviewQuestion::leftJoin('user_review_answers','user_review_answers.user_review_question_id','user_review_questions.id')
                         ->where('user_review_answers.user_answer',true)
                         ->whereIn('user_review_questions.review_type',['mcq'])
                         ->where('user_review_questions.user_id',$user->id)
                         ->where('user_review_questions.user_exam_review_id',$userExamReview->id)
-                        ->select('user_review_questions.id','user_review_questions.time_taken','user_review_answers.iscorrect')->get();
+                        ->select('user_review_questions.id','user_review_questions.time_taken','user_review_answers.iscorrect','user_review_answers.id')->get();
+
         $examtime=0;
+        $exam_time_sec = 0;
+
         if($user->progress("exam-review-".$userExamReview->id."-timed",'')=="timed"){
-            $times=explode(':',$user->progress("exam-review-".$userExamReview->id."-time_of_exam",'0:0'));
+
+            // $times=explode(':',$user->progress("exam-review-".$userExamReview->id."-time_of_exam",'0:0'));
+            // if(count($times)>0){
+            //     $examtime+=intval(trim($times[0]??"0"))*60;
+            //     $examtime+=intval(trim($times[1]??"0"));
+            // }
+            // if($examtime>0&&count($useranswer)>0){
+            //     $examtime=$examtime/count($useranswer);
+            // }
+
+            $times=explode(':',$exam->time_of_exam);
             if(count($times)>0){
                 $examtime+=intval(trim($times[0]??"0"))*60;
                 $examtime+=intval(trim($times[1]??"0"));
             }
-            if($examtime>0&&count($useranswer)>0){
-                $examtime=$examtime/count($useranswer);
+
+            $exam_time_sec = $examtime *60;
+            // $examtime= $exam->time_of_exam;
+
+            if($exam_time_sec>0&& $total_questions>0 ){
+                $examtime=$exam_time_sec/$total_questions;
             }
         }
         return view("user.full-mock-exam.preview",compact('exam','user','userExamReview','useranswer','examtime'));
@@ -546,10 +589,33 @@ class MockExamController extends Controller
 
         $attemttime = "$m:$s";
         $questioncount = ExamRetryQuestion::where('exam_retry_review_id', $examRetryReview->id)->count();
+        $chartlabel=[];
+        $chartbackgroundColor=[];
+        $chartdata=[];
+        $userReviewAnswers = ExamRetryAnswer::select('mark',DB::raw('count(mark) as marked_users'))
+                                                ->fromSub(function ($query)use($userExamReview){
+                                                    $query->from('user_review_answers')
+                                                            ->where('user_exam_review_id','<=',$userExamReview->id)
+                                                            ->whereIn('user_exam_review_id',UserExamReview::where('name','full-mock-exam')
+                                                                                                            ->where('user_exam_review_id','<=',$userExamReview->id)
+                                                                                                            ->where('exam_id',$userExamReview->exam_id)
+                                                                                                            ->groupBy('user_id')
+                                                                                                            ->select(DB::raw('MAX(id)')))
+                                                            ->where('iscorrect',true)
+                                                            ->where('user_answer',true)
+                                                            ->select(DB::raw('count(user_id) as mark'));
+                                                }, 'subquery')
+                                                ->groupBy('mark')
+                                                ->get();
+        foreach ($userReviewAnswers as  $row) { 
+            $chartlabel[]=strval($row->mark);
+            $chartbackgroundColor[]=$passed==$row->mark? "#ef9b10" : '#dfdfdf';
+            $chartdata[]=$row->marked_users;
+        } 
         $attemtcount = ExamRetryReview::where('user_exam_review_id', $userExamReview->id)->where('user_id', $user->id)->where('id', '<', $examRetryReview->id)->count() + 1;
         $categorylist = Category::all();
 
-        return view('user.full-mock-exam.retry-result', compact('passed', 'categorylist', 'questioncount', 'attemttime', 'attemtcount', 'userExamReview', 'examRetryReview'));
+        return view('user.full-mock-exam.retry-result', compact('passed', 'categorylist', 'questioncount', 'attemttime', 'attemtcount', 'userExamReview', 'examRetryReview','chartlabel','chartbackgroundColor','chartdata'));
     }
 
     public function retrypreview(Request $request, UserExamReview $userExamReview, ExamRetryReview $examRetryReview)
