@@ -382,11 +382,11 @@ class LearnController extends Controller
 
             if ($request->input('select_all', 'no') == "yes") {
                
-                Learn::whereIn('category_id', $request->select_all_values)
+                Learn::whereIn('id', $request->select_all_values)
                    
                     ->delete();
             } else {
-                // Delete selected questions only, filtering by category and subcategory
+               
                 Learn::whereIn('id', $request->input('selectbox', []))
                     ->where('category_id', $category->id)
                     ->where('sub_category_id', $subcategoryId) // Ensure the delete is done for the correct subcategory
