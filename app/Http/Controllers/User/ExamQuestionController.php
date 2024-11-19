@@ -258,19 +258,19 @@ class ExamQuestionController extends Controller
 
             $links = collect(range(1, $data->lastPage()))->map(function ($page ,$i) use ($data,$user_review,$data_questions) {
 
-                $data_ids = $user_review->pluck('user_review_question_id')->toArray();
+                $data_ids = $user_review;
 
-                $ans_ids = $user_review->pluck('id')->toArray();
+                $ans_ids = $user_review;
 
-                $data_rews = $data_questions->pluck('id')->toArray();
+                $data_rews = $data_questions;
 
                 $data_id = null;
 
                 $currentPageItems = $data_rews;
 
-                foreach ($currentPageItems as $item) {
-                    if (in_array($item, $data_ids)) {
-                        $data_id = $item;
+                foreach ($currentPageItems as $k=> $item) {
+                    if (in_array($item->id, $ans_ids[$k]->user_review_question_id)) {
+                        $data_id = $ans_ids[$k]->user_review_question_id;
                         break;
                     }
                     else
