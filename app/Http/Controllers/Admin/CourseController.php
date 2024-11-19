@@ -528,27 +528,23 @@ public function deleteLogicalImage()
 }
 
 
+
 public function deleteCriticalImage()
 {
-    // Find the course by ID
     $course = Courses::first();
 
     if ($course && $course->criticalimage) {
-        // Check if the critical image file exists in the storage
         if (Storage::exists($course->criticalimage)) {
-            // Delete the critical image from the storage
             Storage::delete($course->criticalimage);
         }
 
-        // Set the criticalimage field to null in the database
+        // Set image to null and save the change
         $course->criticalimage = null;
         $course->save();
 
-        // Return a success response
         return response()->json(['success' => true]);
     }
 
-    // Return a failure response if the critical image was not found
     return response()->json(['success' => false], 404);
 }
 

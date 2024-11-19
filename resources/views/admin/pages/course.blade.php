@@ -328,38 +328,45 @@
                                     </div>
 
                                     <div class="numericalsectionclass">
-
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="criticalimage"  class="file-upload">Critical Image <br>
-                                                <img src="{{ asset('assets/images/upfile.svg') }}"
-                                                    alt="Upload Icon"></label>
-                                            <input type="file" class="form-control" style="display: none;" name="criticalimage" id="criticalimage">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="criticalimage" class="file-upload">Critical Image <br>
+                                                    <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
+                                                </label>
+                                                <input type="file" class="form-control" style="display: none;" name="criticalimage" id="criticalimage" 
+                                                       onchange="previewCriticalImage(event, 'criticalImagePreview', this)" data-id="criticalimgid1">
+                                            </div>
+                                        </div>
+                                    
+                                        <!-- Preview Image Container -->
+                                        <div class="form-group criticalimgid1" id="criticalimgid1" 
+                                             style="display: {{ isset($course) && $course->criticalimage ? 'block' : 'none' }};">
+                                            <label for="criticalImagePreview">Image Preview</label>
+                                            <div id="criticalImagePreviewContainer" class="numericalclass">
+                                                @if (isset($course) && $course->criticalimage)
+                                                    <img id="criticalImagePreview-save" src="{{ url('d0/' . $course->criticalimage) }}" 
+                                                         alt="Image Preview" style="width: 100%; height: auto;">
+                                                    <button type="button" class="btn btn-danger" id="icondeletecriticalimg" 
+                                                            style="position: absolute; top: 5px; right: 5px;" 
+                                                            onclick="removeCriticalImage()">X</button>
+                                                @endif
+                                    
+                                                <!-- Dynamic image preview -->
+                                                <img id="criticalImagePreview" src="#" alt="Image Preview" 
+                                                     style="display: none; width: 100%; height: auto;">
+                                                <button type="button" class="btn btn-danger" id="deleteiconcriticalimg" 
+                                                        style="position: absolute; top: 5px; right: 5px; display: none;" 
+                                                        onclick="removeImagecritical()">X</button>
+                                    
+                                                <!-- Delete button for saved image -->
+                                                <button type="button" class="btn btn-danger" id="icondeletecriticalimg"
+                                                        style="position: absolute; top: 5px; right: 5px;
+                                                               {{ isset($course) && $course->criticalimage ? 'display: block;' : 'display: none;' }};"
+                                                        onclick="removeCriticalImage()">X</button>
+                                            </div>
                                         </div>
                                     </div>
-
-
- 
-
-                                    <!-- Preview Image Container -->
-                                    <div class="form-group">
-                                        <label for="criticalImagePreview">Image Preview</label>
-                                        <div id="criticalImagePreviewContainer" class="numericalclass">
-                                           
-                                            @if (isset($course) && $course->criticalimage)
-                                                <img id="criticalImagePreview"
-                                                    src="{{ url('d0/' . $course->criticalimage) }}" alt="Image Preview"
-                                                    style="width: 100%; height: auto;">
-                                                <button type="button" onclick="removeCriticalImage(this)"
-                                                    value="{{ $course->id }}" class="btn btn-danger"
-                                                    style="float: right;">X</button>
-                                            @else
-                                                <img id="criticalImagePreview" src="#" alt="Image Preview"
-                                                    style="display: none; width: 100%; height: auto;">
-                                            @endif
-                                        </div>
-                                    </div>
-                                </div>
+                                    
 
                                 </div>
                                 <button type="submit" class="btn btn-dark critical" name="sub_section"
@@ -1064,34 +1071,7 @@ function removeSectionImage() {
     </script> --}}
 
 
-    <script>
-        function removeCriticalImage(button) {
-            const courseId = button.value; // Get the course ID from the button value
-            const url = '{{ route('admin.course.deleteCriticalImage', ':id') }}'.replace(':id',
-            courseId); // Construct the URL with the course ID
-
-            $.ajax({
-                type: 'POST',
-                url: url,
-                data: {
-                    _token: '{{ csrf_token() }}' // Add CSRF token for Laravel protection
-                },
-                success: function(response) {
-                    if (response.success) {
-                        // Hide the image and button after successful deletion
-                        document.getElementById('criticalImagePreview').style.display = 'none';
-                        button.style.display = 'none';
-                    } else {
-                        alert('Image could not be deleted. Please try again.');
-                    }
-                },
-                error: function(xhr) {
-                    // Handle error response
-                    alert('Image could not be deleted. Please try again.');
-                }
-            });
-        }
-    </script>
+   
 
 
     <script>
@@ -1788,6 +1768,70 @@ function removeImage2() {
     // Clear the file input field
     document.getElementById('logicalimage').value = '';
 }
+
+
+function removeCriticalImage() {
+    const imagePath = "{{ $course->criticalimage }}";
+
+    $.ajax({
+        type: 'POST',
+        url: '{{ route('admin.course.deleteCriticalImage') }}', // Ensure this route matches the backend route for deleting critical image
+        data: {
+            _token: '{{ csrf_token() }}',
+            image_path: imagePath
+        },
+        success: function(response) {
+            if (response.success) {
+                $('#criticalimgid1').hide();  // Hide the image preview container
+                document.getElementById('criticalImagePreview-save').style.display = 'none'; // Hide the image preview
+                document.querySelector('#criticalImagePreviewContainer button.btn-danger').style.display = 'none'; // Hide delete button
+            } else {
+                alert('Image could not be deleted. Please try again.');
+            }
+        },
+        error: function(xhr) {
+            alert('An error occurred. Please try again.');
+        }
+    });
+}
+
+
+
+// Function to preview the Critical Image
+function previewCriticalImage(event, previewId, element) {
+    const reader = new FileReader();
+
+    reader.onload = function () {
+        const output = document.getElementById(previewId);
+        output.src = reader.result; // Set the preview image source
+        output.style.display = 'block'; // Display the preview image
+
+        // Show the preview container and delete button
+        $('#criticalimgid1').show();
+        $('#deleteiconcriticalimg').show(); // Show delete button for the preview image
+        $('#icondeletecriticalimg').hide(); // Hide delete button for the saved image
+    };
+
+    if (event.target.files[0]) {
+        reader.readAsDataURL(event.target.files[0]); // Read the selected image
+    }
+}
+
+
+// Function to remove the Critical Image preview when the delete button is clicked
+function removeImagecritical() {
+    // Clear the preview image and hide the preview container and delete button
+    const output = document.getElementById('criticalImagePreview');
+    output.src = '';
+    output.style.display = 'none'; // Hide the preview image
+
+    $('#criticalimgid1').hide(); // Hide preview container
+    $('#deleteiconcriticalimg').hide(); // Hide delete button for the preview image
+
+    // Clear the file input field
+    document.getElementById('criticalimage').value = '';
+}
+
 
 
 </script>
