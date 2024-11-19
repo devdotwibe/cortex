@@ -260,20 +260,6 @@ class ExamQuestionController extends Controller
              
             $data_ids = [];
 
-            $index = [];
-
-            // foreach ($data_questions as $k => $item) {
-
-            //         if ($item->id == $user_review->get($k)->user_review_question_id && isset($user_review->get($k))) {
-                        
-            //             $data_ids[$k] = $user_review->get($k)->id;
-            //             $index[] =$k;
-            //         }
-            //         else {
-            //             $data_ids[$k] = null;
-            //             $index[] =$k;
-            //         }
-            // }
             foreach ($data_questions as $k => $item) {
                
                 $user_answer = $user_review->where('user_review_question_id', $item->id)->first();
@@ -294,14 +280,11 @@ class ExamQuestionController extends Controller
                 return [
                     'url' => $data->url($page),
                     'label' => (string) $page,
-                    'ques'=>$ans_ids,
                     'ans' => $value,
-                    'index'=>$data_ids,
                     'active' => $page === $data->currentPage(),
                 ];
             });
         
-            // Add navigation links for Previous and Next
             $paginationLinks = collect([
                 [
                     'url' => $data->previousPageUrl(),
