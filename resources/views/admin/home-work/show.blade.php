@@ -32,7 +32,7 @@
 <section class="content_section admin_section"> 
     <div class="container">
         <div class="row">
-            <x-ajax-table :bulkaction="true" bulkactionlink="{{ route('admin.home-work.bulkaction', ['home_work' => $homework->slug]) }}"  tableid="categoryquestiontable"   
+            <x-ajax-table :bulkaction="true" bulkactionlink="{{ route('admin.home-work.bulkaction', ['home_work' => $homeWork->slug]) }}"  tableid="categoryquestiontable"   
             
                 :bulkotheraction='[
                     ["name"=>"Enable Visible Access","value"=>"visible_status"],
