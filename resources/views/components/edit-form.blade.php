@@ -6,7 +6,7 @@
                 @method("PUT")
                 <div class="row">
                     @php 
-                    if(count($fields[7]->value)>0){
+                    if(isset($fields[7]->value) && ($fields[7]->value != Null)){
                         $choice = 1;
                         $choiceName = $fields[7]->name;
                     }else{
