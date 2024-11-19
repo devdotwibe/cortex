@@ -221,16 +221,74 @@ class HomeWorkController extends Controller
     }
 
 
-    public function bulkaction(Request $request, HomeWorkQuestion $homeWork)
-{
+//     public function bulkaction(Request $request, HomeWorkQuestion $homeWork)
+// {
     
+//     if (!empty($request->deleteaction)) {
+//         if ($request->input('select_all', 'no') == "yes") {
+//             // Delete all questions corresponding to the specific setname
+//             HomeWorkQuestion::where('home_work_id', $homeWork->id)->delete();
+//         } else {
+//             // Delete selected questions only
+//             HomeWorkQuestion::whereIn('id', $request->input('selectbox', []))->delete();
+//         }
+
+//         if ($request->ajax()) {
+//             return response()->json(["success" => "Questions deleted successfully"]);
+//         }
+//         return redirect()->route('admin.home-work.show', $homeWork->slug)
+//                          ->with("success", "Questions deleted successfully");
+//     } else {
+//         $request->validate([
+//             "bulkaction" => ['required']
+//         ]);
+//         $data = [];
+
+//         switch ($request->bulkaction) {
+//             case 'visible_status':
+//                 $data["visible_status"] = "show";
+//                 break;
+//             case 'visible_status_disable':
+//                 $data["visible_status"] = "";
+//                 break;
+//             default:
+//                 break;
+//         }
+
+//         if ($request->input('select_all', 'no') == "yes") {
+//             // Update visibility status for all questions corresponding to the specific setname
+//             HomeWorkQuestion::where('home_work_id', $homeWork->id)->update($data);
+//         } else {
+//             // Update visibility status for selected questions only
+//             HomeWorkQuestion::whereIn('id', $request->input('selectbox', []))->update($data);
+//         }
+
+//         if ($request->ajax()) {
+//             return response()->json(["success" => "Questions updated successfully"]);
+//         }
+//         return redirect()->route('admin.home-work.show', $homeWork->slug)
+//                          ->with("success", "Questions updated successfully");
+//     }
+// }
+
+
+public function bulkaction(Request $request, HomeWork $homeWork)
+{
+    $booklet = $request->input('home_work_book_id');
+
     if (!empty($request->deleteaction)) {
         if ($request->input('select_all', 'no') == "yes") {
-            // Delete all questions corresponding to the specific setname
-            HomeWorkQuestion::where('home_work_id', $homeWork->id)->delete();
+            // Delete all questions corresponding to the specific homework
+            HomeWork::where('id', $homeWork->id)->delete();
         } else {
-            // Delete selected questions only
-            HomeWorkQuestion::whereIn('id', $request->input('selectbox', []))->delete();
+            // Ensure selectbox is an array or default to an empty array
+            $selectBoxValues = is_array($request->input('selectbox', [])) ? $request->input('selectbox', []) : [];
+            
+            // Delete selected questions
+            HomeWork::whereIn('id', $selectBoxValues)
+                ->where('home_work_id', $homeWork->id)
+                ->where('home_work_book_id', $booklet) // Ensure delete is done for the correct subcategory
+                ->delete();
         }
 
         if ($request->ajax()) {
@@ -255,13 +313,7 @@ class HomeWorkController extends Controller
                 break;
         }
 
-        if ($request->input('select_all', 'no') == "yes") {
-            // Update visibility status for all questions corresponding to the specific setname
-            HomeWorkQuestion::where('home_work_id', $homeWork->id)->update($data);
-        } else {
-            // Update visibility status for selected questions only
-            HomeWorkQuestion::whereIn('id', $request->input('selectbox', []))->update($data);
-        }
+       
 
         if ($request->ajax()) {
             return response()->json(["success" => "Questions updated successfully"]);
@@ -270,6 +322,7 @@ class HomeWorkController extends Controller
                          ->with("success", "Questions updated successfully");
     }
 }
+
 
 
 
