@@ -271,12 +271,13 @@ class ExamQuestionController extends Controller
                 }
             }
 
-            $links = collect(range(1, $data->lastPage()))->map(function ($page ,$i) use ($data,$user_review,$data_ids) {
+            $links = collect(range(1, $data->lastPage()))->map(function ($page ,$i) use ($data,$ans_ids,$data_ids) {
 
                 return [
                     'url' => $data->url($page),
                     'label' => (string) $page,
-                    'ans' => isset($data_ids[$i+1]) ? $data_ids[$i+1] : null,
+                    'ques'=>$ans_ids,
+                    'ans' => isset($data_ids[$i]) ? $data_ids[$i] : null,
                     'active' => $page === $data->currentPage(),
                 ];
             });
