@@ -134,7 +134,27 @@ class PrivateClassHomeWorkController extends Controller
                 $question=HomeWorkReviewQuestion::findSlug($request->question);
                 return HomeWorkReviewAnswer::where('home_work_review_question_id',$question->id)->where('home_work_review_id',$homeWorkReview->id)->get();
             }
+
             $data = HomeWorkReviewQuestion::whereIn('review_type',['mcq'])->where('home_work_review_id',$homeWorkReview->id)->where('user_id',$user->id)->paginate(1);
+
+            $data_questions = HomeWorkReviewQuestion::whereIn('review_type',['mcq'])->where('home_work_review_id',$homeWorkReview->id)->where('user_id',$user->id)->get();
+
+            $user_review = UserReviewAnswer::where('user_id',$user->id)->where('user_answer',true)->where('user_exam_review_id',$userExamReview->id)->get();
+
+            $data_ids = [];
+
+            foreach ($data_questions as $k => $item) {
+               
+                $user_answer = $user_review->where('user_review_question_id', $item->id)->first();
+            
+                if ($user_answer) {
+                    $data_ids[$k] = $user_answer->id;
+                    
+                } else {
+                    $data_ids[$k] = null;
+                }
+            }
+
             $links = collect(range(1, $data->lastPage()))->map(function ($page) use ($data) {
                 return [
                     'url' => $data->url($page),
