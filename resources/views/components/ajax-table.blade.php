@@ -170,14 +170,6 @@
             }) 
             $('#table-{{ $tableid }}-bulk').change(function(){
 
-                let selectedValues = [];
-                
-                $('#table-{{ $tableid }} .selectbox:checked').each(function () {
-                    selectedValues.push($(this).val());
-                });
-
-                $('#select_all_values').val(JSON.stringify(selectedValues));
-
                 if($('#table-{{ $tableid }}-bulk').is(":checked")){
                     $('#table-{{ $tableid }} .selectbox-action').show()
                 }else{
@@ -186,6 +178,15 @@
                 $('#table-{{ $tableid }}').DataTable().ajax.reload(); 
             })
             $(document).on('change','#table-{{ $tableid }} .selectbox',function(e){
+
+                let selectedValues = [];
+                
+                $('#table-{{ $tableid }} .selectbox:checked').each(function () {
+                    selectedValues.push($(this).val());
+                });
+
+                $('#select_all_values').val(JSON.stringify(selectedValues));
+                
                 if(!$(this).is(":checked")){
                     $('#table-{{ $tableid }}-bulk').prop("checked",false);
                 }
