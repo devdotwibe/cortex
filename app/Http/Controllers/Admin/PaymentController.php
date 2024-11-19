@@ -15,6 +15,9 @@ class PaymentController extends Controller
     public function index(Request $request){
 
         if($request->ajax()){
+
+            dd($request->search);
+            
             self::$model=PaymentTransation::class;
             self::$defaultActions=[""];
             return  $this->with('user')->whereHas('user')->addColumn('username',function($data){
