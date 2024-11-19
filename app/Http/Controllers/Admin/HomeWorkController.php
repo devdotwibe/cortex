@@ -221,16 +221,16 @@ class HomeWorkController extends Controller
     }
 
 
-    public function bulkaction(Request $request, HomeWork $homeWork)
+    public function bulkaction(Request $request, HomeWorkQuestion $homeWork)
 {
-   
+    
     if (!empty($request->deleteaction)) {
         if ($request->input('select_all', 'no') == "yes") {
             // Delete all questions corresponding to the specific setname
-            HomeWork::where('home_work_id', $homeWork->id)->delete();
+            HomeWorkQuestion::where('home_work_id', $homeWork->id)->delete();
         } else {
             // Delete selected questions only
-            HomeWork::whereIn('id', $request->input('selectbox', []))->delete();
+            HomeWorkQuestion::whereIn('id', $request->input('selectbox', []))->delete();
         }
 
         if ($request->ajax()) {
@@ -257,10 +257,10 @@ class HomeWorkController extends Controller
 
         if ($request->input('select_all', 'no') == "yes") {
             // Update visibility status for all questions corresponding to the specific setname
-            HomeWork::where('home_work_id', $homeWork->id)->update($data);
+            HomeWorkQuestion::where('home_work_id', $homeWork->id)->update($data);
         } else {
             // Update visibility status for selected questions only
-            HomeWork::whereIn('id', $request->input('selectbox', []))->update($data);
+            HomeWorkQuestion::whereIn('id', $request->input('selectbox', []))->update($data);
         }
 
         if ($request->ajax()) {
