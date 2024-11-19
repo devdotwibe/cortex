@@ -320,10 +320,10 @@
                 if (res.total > 1) {
 
                     var total_time = "{{ $examtime }}";
-                    
+
                     $.each(res.links, function(k, v) {
 
-                        let linkstatus  'status-bad';
+                        let linkstatus ='status-bad';
 
                         if (k != 0 && k != res.links.length ) {
 
