@@ -16,7 +16,7 @@ class PaymentController extends Controller
 
         if($request->ajax()){
 
-            self:: $model = PaymentTransation::query();
+            self:: $model = PaymentTransation::where('id','>',0);
            
             self::$defaultActions=[""];
 
