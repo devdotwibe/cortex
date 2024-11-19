@@ -140,7 +140,7 @@ class PrivateClassHomeWorkController extends Controller
 
             $data_questions = HomeWorkReviewQuestion::whereIn('review_type',['mcq'])->where('home_work_review_id',$homeWorkReview->id)->where('user_id',$user->id)->get();
 
-            $user_review = HomeWorkReviewAnswer::where('user_id',$user->id)->where('user_answer',true)->where('home_work_review_id',$homeWorkReview->id)->get();
+            $user_review = HomeWorkReviewAnswer::where('user_answer',true)->where('home_work_review_id',$homeWorkReview->id)->get();
 
             $data_ids = [];
 
