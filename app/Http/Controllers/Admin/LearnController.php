@@ -378,11 +378,12 @@ class LearnController extends Controller
        
         $subcategoryId = $request->input('sub_category_id'); 
         
-        if (!empty($request->deleteaction)) {
+        if (!empty($request->deleteaction) && (!empty($request->select_all_values)) ) {
+
             if ($request->input('select_all', 'no') == "yes") {
                
-                Learn::where('category_id', $category->id)
-                    ->where('sub_category_id', $subcategoryId) 
+                Learn::whereIn('category_id', $request->select_all_values)
+                   
                     ->delete();
             } else {
                 // Delete selected questions only, filtering by category and subcategory
