@@ -274,7 +274,7 @@ class HomeWorkController extends Controller
 
 public function bulkaction(Request $request, HomeWork $homeWork)
 {
-    $subCategoryId = $request->input('sub_category_id');
+    $booklet = $request->input('home_work_book_id');
 
     if (!empty($request->deleteaction)) {
         if ($request->input('select_all', 'no') == "yes") {
@@ -287,7 +287,7 @@ public function bulkaction(Request $request, HomeWork $homeWork)
             // Delete selected questions
             HomeWork::whereIn('id', $selectBoxValues)
                 ->where('home_work_id', $homeWork->id)
-                ->where('sub_category_id', $subCategoryId) // Ensure delete is done for the correct subcategory
+                ->where('home_work_book_id', $booklet) // Ensure delete is done for the correct subcategory
                 ->delete();
         }
 
