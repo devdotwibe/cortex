@@ -485,39 +485,45 @@
                                         </div>
                                     </div> --}}
 
-                            <div class="numericalsectionclass">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="numericalimage" class="file-upload">Numerical Image  <br>
-                                                <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
-                                            </label>
-                                            <input type="file" class="form-control" style="display: none;" name="numericalimage" id="numericalimage">
+                                    <div class="numericalsectionclass">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="numericalimage" class="file-upload">Numerical Image <br>
+                                                    <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
+                                                </label>
+                                                <input type="file" class="form-control" style="display: none;" name="numericalimage" id="numericalimage" 
+                                                       onchange="previewNumericalImage(event, 'numericalImagePreview', this)">
+                                            </div>
+                                        </div>
+                                    
+                                        <!-- Preview Image Container -->
+                                        <div class="form-group numericalimgid2" id="numericalimgid2" 
+                                             style="display: {{ isset($course) && $course->numericalimage ? 'block' : 'none' }};">
+                                            <label for="numericalImagePreview">Image Preview</label>
+                                            <div id="numericalImagePreviewContainer" class="numericalclass">
+                                                @if (isset($course) && $course->numericalimage)
+                                                    <img id="numericalImagePreview-save" src="{{ url('d0/' . $course->numericalimage) }}"
+                                                         alt="Image Preview" style="width: 100%; height: auto;">
+                                                    <button type="button" class="btn btn-danger" id="icondeletenumericalimg" 
+                                                            style="position: absolute; top: 5px; right: 5px;" 
+                                                            onclick="removeNumericalImage()">X</button>
+                                                @endif
+                                    
+                                                <!-- Dynamic image preview -->
+                                                <img id="numericalImagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
+                                                <button type="button" class="btn btn-danger" id="deleteiconnumericalimg" 
+                                                        style="position: absolute; top: 5px; right: 5px; display: none;" 
+                                                        onclick="removeImagenumerical()">X</button>
+                                    
+                                                <!-- Delete button for saved image -->
+                                                <button type="button" class="btn btn-danger" id="icondeletenumericalimg"
+                                                        style="position: absolute; top: 5px; right: 5px; 
+                                                               {{ isset($course) && $course->numericalimage ? 'display: block;' : 'display: none;' }};"
+                                                        onclick="removeNumericalImage()">X</button>
+                                            </div>
                                         </div>
                                     </div>
                                     
-
-
-
-                                    <!-- Preview Image Container -->
-                                    <!-- Preview Image Container -->
-                                    <div class="form-group">
-                                        <label for="numericalImagePreview">Image Preview</label>
-                                        <div id="numericalImagePreviewContainer" class="numericalclass">
-                                            @if (isset($course) && $course->numericalimage)
-                                                <img id="numericalImagePreview" 
-                                                    src="{{ url('d0/' . $course->numericalimage) }}" alt="Image Preview"
-                                                    style="width: 100%; height: auto;">
-                                                <button type="button" onclick="removeNumericalImage(this)"
-                                                    value="{{ $course->id }}" class="btn btn-danger"
-                                                    style="float: right;">X</button>
-                                            @else
-                                                <img id="numericalImagePreview" src="#" alt="Image Preview"
-                                                    style="display: none; width: 100%; height: auto;">
-                                            @endif
-                                        </div>
-                                    </div>
-                                </div>
-
 
                                 </div>
                                 <button type="submit" class="btn btn-dark numerical" name="sub_section"
@@ -1110,34 +1116,7 @@ function removeSectionImage() {
 
 
 
-    <script>
-        function removeNumericalImage(button) {
-            const courseId = button.value; // Get the course ID from the button value
-            const url = '{{ route('admin.course.deleteNumericalImage', ':id') }}'.replace(':id',
-            courseId); // Construct the URL with the course ID
-
-            $.ajax({
-                type: 'POST',
-                url: url,
-                data: {
-                    _token: '{{ csrf_token() }}' // Add CSRF token for Laravel protection
-                },
-                success: function(response) {
-                    if (response.success) {
-                        // Hide the image and button after successful deletion
-                        document.getElementById('numericalImagePreview').style.display = 'none';
-                        button.style.display = 'none';
-                    } else {
-                        alert('Image could not be deleted. Please try again.');
-                    }
-                },
-                error: function(xhr) {
-                    // Handle error response
-                    alert('Image could not be deleted. Please try again.');
-                }
-            });
-        }
-    </script>
+    
 
 <script>
     function removeLearnImage() {
@@ -1899,6 +1878,68 @@ function removeImageabstract() {
 
     // Clear the file input field
     document.getElementById('abstractimage').value = '';
+}
+
+
+
+
+function removeNumericalImage() {
+    const imagePath = "{{ $course->numericalimage }}";
+
+    $.ajax({
+        type: 'POST',
+        url: '{{ route('admin.course.deleteNumericalImage') }}', // Ensure this route matches the backend route for deleting numerical image
+        data: {
+            _token: '{{ csrf_token() }}',
+            image_path: imagePath
+        },
+        success: function(response) {
+            if (response.success) {
+                $('#numericalimgid2').hide();  // Hide the image preview container
+                document.getElementById('numericalImagePreview-save').style.display = 'none'; // Hide the image preview
+                document.querySelector('#numericalImagePreviewContainer button.btn-danger').style.display = 'none'; // Hide delete button
+            } else {
+                alert('Image could not be deleted. Please try again.');
+            }
+        },
+        error: function(xhr) {
+            alert('An error occurred. Please try again.');
+        }
+    });
+}
+
+
+// Function to preview the Numerical Image
+function previewNumericalImage(event, previewId, element) {
+    const reader = new FileReader();
+
+    reader.onload = function () {
+        const output = document.getElementById(previewId);
+        output.src = reader.result; // Set the preview image source
+        output.style.display = 'block'; // Display the preview image
+
+        // Show the preview container and delete button
+        $('#numericalimgid2').show();
+        $('#deleteiconnumericalimg').show(); // Show delete button for the preview image
+        $('#icondeletenumericalimg').hide(); // Hide delete button for the saved image
+    };
+
+    if (event.target.files[0]) {
+        reader.readAsDataURL(event.target.files[0]); // Read the selected image
+    }
+}
+// Function to remove the Numerical Image preview when the delete button is clicked
+function removeImagenumerical() {
+    // Clear the preview image and hide the preview container and delete button
+    const output = document.getElementById('numericalImagePreview');
+    output.src = '';
+    output.style.display = 'none'; // Hide the preview image
+
+    $('#numericalimgid2').hide(); // Hide preview container
+    $('#deleteiconnumericalimg').hide(); // Hide delete button for the preview image
+
+    // Clear the file input field
+    document.getElementById('numericalimage').value = '';
 }
 
 

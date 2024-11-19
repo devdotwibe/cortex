@@ -573,29 +573,30 @@ public function deleteAbstractImage()
 }
 
 
+
+
 public function deleteNumericalImage()
 {
-    // Find the course by ID
     $course = Courses::first();
 
     if ($course && $course->numericalimage) {
-        // Check if the numerical image file exists in the storage
         if (Storage::exists($course->numericalimage)) {
-            // Delete the numerical image from the storage
             Storage::delete($course->numericalimage);
         }
 
-        // Set the numericalimage field to null in the database
+        // Set image to null and save the change
         $course->numericalimage = null;
         $course->save();
 
-        // Return a success response
         return response()->json(['success' => true]);
     }
 
-    // Return a failure response if the numerical image was not found
     return response()->json(['success' => false], 404);
 }
+
+
+
+
 
 // public function deleteLearnImage(Request $request)
 // {
