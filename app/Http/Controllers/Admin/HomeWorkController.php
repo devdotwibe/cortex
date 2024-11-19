@@ -272,7 +272,7 @@ class HomeWorkController extends Controller
 // }
 
 
-public function bulkaction(Request $request, HomeWork $homeWork)
+public function bulkaction(Request $request, HomeWorkQuestion $homeWork)
 {
     $booklet = $request->input('home_work_book_id');
 
@@ -282,7 +282,7 @@ public function bulkaction(Request $request, HomeWork $homeWork)
             
          
             $selectAllValues = json_decode($request->select_all_values, true);
-            HomeWork::whereIn('id', $selectAllValues)  
+            HomeWorkQuestion::whereIn('id', $selectAllValues)  
                 ->delete();
 
 
@@ -292,7 +292,7 @@ public function bulkaction(Request $request, HomeWork $homeWork)
              $selectBoxValues = is_array($request->input('selectbox', [])) ? $request->input('selectbox', []) : [];
             
           
-            HomeWork::whereIn('id', $selectBoxValues)
+             HomeWorkQuestion::whereIn('id', $selectBoxValues)
                 ->where('home_work_id', $homeWork->id)
                 ->where('home_work_book_id', $booklet) 
                 ->delete();
