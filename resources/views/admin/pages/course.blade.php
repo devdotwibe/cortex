@@ -773,7 +773,7 @@
                                                     <br>
                                                     <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon"> 
                                                 </label>
-                                                <input type="file" class="form-control" style="display: none;" name="fullmockimage" id="fullmockimage" onchange="previewFullmockImage(event, 'fullmockImagePreview', this)"data-id="fullmockImagePreviewContainer">
+                                                <input type="file" class="form-control" style="display: none;" name="fullmockimage" id="fullmockimage" onchange="previewFullmockImage(event, 'fullmockImagePreview', this)"data-id="fullmockPreviewContainer">
                                             </div>
                                         </div>
                                     
