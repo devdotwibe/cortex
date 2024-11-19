@@ -260,6 +260,8 @@ class ExamQuestionController extends Controller
 
                 $data_ids = $user_review->pluck('user_review_question_id')->toArray();
 
+                $ans_ids = $user_review->pluck('id')->toArray();
+
                 $data_rews = $data_questions->pluck('id')->toArray();
 
                 $data_id = null;
@@ -281,6 +283,7 @@ class ExamQuestionController extends Controller
                     'url' => $data->url($page),
                     'label' => (string) $page,
                     'data_id' => $data_id,
+                    'ans_id' => $ans_ids,
                     'active' => $page === $data->currentPage(),
                 ];
             });
