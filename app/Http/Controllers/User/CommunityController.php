@@ -282,20 +282,11 @@ class CommunityController extends Controller
 
             $data = $request->validate([
                 // 'description' => ["required"],
-                'description' => [
-    "required",
-    "string",
-    "max:300",
-    function ($attribute, $value, $fail) {
-        if (preg_match('/https?:\/\/|www\./i', $value)) {
-            $fail('Links are not allowed in the description.');
-        }
-        if (preg_match('/#/', $value)) {
-            $fail('Hashtags are not allowed in the description.');
-        }
-    },
-],
-
+                'description' => ["required", 'string', "max:300", function ($attribute, $value, $fail) {
+                    if (preg_match('/#/', $value)) {
+                        $fail('Hashtags are not allowed in the description.');
+                    }
+                }],
                 'type' => ["required"],
                 'option' => ["required", 'array', 'min:2', 'max:5'],
                 'option.*' => ["required", 'max:255'],
