@@ -1527,7 +1527,7 @@ function removeExcelImage() {
                 // Hide the image preview and the delete button
                 $('#imgid3').hide(); // Hide the image container
                 document.getElementById('excelImagePreview').style.display = 'none'; // Hide the preview image
-                document.querySelector('#excelImagePreviewContainer button.btn-danger').style.display = 'none'; // Hide the delete button
+                document.querySelector('#imagePreviewContainer button.btn-danger').style.display = 'none'; // Hide the delete button
             } else {
                 alert('Image could not be deleted. Please try again.');
             }
