@@ -52,7 +52,8 @@
                   @guest('admin')  
                   @if((auth('web')->user()->is_free_access) || (optional(auth('web')->user()->subscription())->status ?? "") == "subscribed" ||1)
 
-                    <a class="btn btn-warning m-2" href="{{route('live-class.privateclass.form',$user->slug)}}">Enter</a>
+                    <a class="btn btn-warning m-2" href="{{route('live-class.privateclass.form',$user->slug)}}">Register</a>
+                    {{-- <a class="btn btn-outline-warning m-2" href="#" onclick="showLockedModal()">Register</a> --}}
 
                     @else
                   <a class="btn btn-outline-warning m-2" href="#" onclick="showLockedModal()">Register</a>
