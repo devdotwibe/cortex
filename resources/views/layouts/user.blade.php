@@ -48,7 +48,7 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarLogin" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span>{{ ucfirst(auth('web')->user()->name) }}</span>
+                        <span>{{ ucfirst(substr(auth('web')->user()->name, 0, 5)) }}</span>
                     </a>
                    
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarLogin">
