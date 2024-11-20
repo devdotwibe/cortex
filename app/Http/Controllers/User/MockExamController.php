@@ -633,23 +633,102 @@ class MockExamController extends Controller
                 return ExamRetryAnswer::where('exam_retry_question_id', $question->id)->get();
             }
             return ExamRetryQuestion::whereIn('review_type', ['mcq'])->where('exam_retry_review_id', $examRetryReview->id)->where('user_id', $user->id)->paginate(1);
+
+        $data = ExamRetryQuestion::whereIn('review_type', ['mcq'])->where('exam_retry_review_id', $examRetryReview->id)->where('user_id', $user->id)->paginate(1);
+
+        $data_questions = ExamRetryQuestion::whereIn('review_type',['mcq'])->where('user_id',$user->id)->where('exam_retry_review_id',$examRetryReview->id)->get();
+
+        $exam_review = ExamRetryAnswer::where('user_id',$user->id)->where('user_answer',true)->where('exam_retry_review_id',$examRetryReview->id)->get();
+
+        $data_ids = [];
+
+        foreach ($data_questions as $k => $item) {
+           
+            $exam_answer = $exam_review->where('exam_retry_question_id', $item->id)->first();
+        
+            if ($exam_answer) {
+                $data_ids[$k] = $exam_answer->id;
+                
+            } else {
+                $data_ids[$k] = null;
+            }
         }
+
+            $links = collect(range(1, $data->lastPage()))->map(function ($page ,$i) use ($data,$data_ids) {
+
+                $value = isset($data_ids[$i]) ? $data_ids[$i] : null;
+
+                return [
+                    'url' => $data->url($page),
+                    'label' => (string) $page,
+                    'ans_id' => $value,
+                    'active' => $page === $data->currentPage(),
+                ];
+            });
+        
+            $paginationLinks = collect([
+                [
+                    'url' => $data->previousPageUrl(),
+                    'label' => '&laquo; Previous',
+                    'active' => false,
+                ],
+            ])
+            ->merge($links)
+            ->merge([
+                [
+                    'url' => $data->nextPageUrl(),
+                    'label' => 'Next &raquo;',
+                    'active' => false,
+                ],
+            ]);
+        
+            return response()->json([
+                'current_page' => $data->currentPage(),
+                'data' => $data->items(),
+                'first_page_url' => $data->url(1),
+                'from' => $data->firstItem(),
+                'last_page' => $data->lastPage(),
+                'last_page_url' => $data->url($data->lastPage()),
+                'links' => $paginationLinks,
+                'next_page_url' => $data->nextPageUrl(),
+                'path' => $data->path(),
+                'per_page' => $data->perPage(),
+                'prev_page_url' => $data->previousPageUrl(),
+                'to' => $data->lastItem(),
+                'total' => $data->total(),
+            ]);
+
+        }
+
+        $total_questions = ExamRetryQuestion::whereIn('review_type',['mcq'])->where('user_id',$user->id)->where('exam_retry_review_id',$examRetryReview->id)->count();
+
         $useranswer = ExamRetryQuestion::leftJoin('exam_retry_answers', 'exam_retry_answers.exam_retry_question_id', 'exam_retry_questions.id')
             ->where('exam_retry_answers.user_answer', true)
             ->whereIn('exam_retry_questions.review_type', ['mcq'])
             ->where('exam_retry_questions.user_id', $user->id)
             ->where('exam_retry_questions.exam_retry_review_id', $examRetryReview->id)
-            ->select('exam_retry_questions.id', 'exam_retry_questions.time_taken', 'exam_retry_answers.iscorrect')->get();
+            ->select('exam_retry_questions.id', 'exam_retry_questions.time_taken', 'exam_retry_answers.iscorrect','exam_retry_answers.id')->get();
+
         $examtime = 0;
+
+        $exam_time_sec = 0;
 
         $times = explode(':', $examRetryReview->time_of_exam ?? '0:0');
         if (count($times) > 0) {
             $examtime += intval(trim($times[0] ?? "0")) * 60;
             $examtime += intval(trim($times[1] ?? "0"));
         }
-        if ($examtime > 0 && count($useranswer) > 0) {
-            $examtime = $examtime / count($useranswer);
+
+        $exam_time_sec = $examtime *60;
+
+        if($exam_time_sec>0&& $total_questions>0 ){
+            $examtime=$exam_time_sec/$total_questions;
         }
+        
+        // if ($examtime > 0 && count($useranswer) > 0) {
+        //     $examtime = $examtime / count($useranswer);
+        // }
+
         return view("user.full-mock-exam.retry-preview", compact(  'exam', 'user', 'userExamReview', 'useranswer', 'examtime', 'examRetryReview'));
 
     }

@@ -100,13 +100,13 @@
                                     <h5>Ranking</h5>
                                     <h3>Top {{round($passed*100/$questioncount,2)}}%</h3>
                                 </div>
-                                <div class="overview-graph">
+                                {{-- <div class="overview-graph">
                                     <div class="overview-graph-body">
                                         <div class="overview-graph-inner"> 
                                             <canvas id="myChart" class="overview-graph-bar" width="100%" ></canvas>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -126,7 +126,7 @@
     <script>
         localStorage.removeItem("topic-test-summery-retry")
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script> 
         $(document).ready(function() {
 
@@ -161,5 +161,5 @@
                 },
             });
         })
-    </script>
+    </script> --}}
 @endpush
