@@ -74,7 +74,7 @@ class ExamQuestionController extends Controller
 
         $lessons=SubCategory::where('category_id',$category->id)->whereHas('setname',function($qry)use($exam){
             $qry->whereHas("questions",function($qry)use($exam){
-                $qry->where('exam_id',$exam->id)->orderBy('updated_at', 'desc')->get();
+                $qry->where('exam_id',$exam->id)->orderBy('updated_at', 'asc');
             });
             $qry->where('time_of_exam', '!=', '00:00')
             ->where('time_of_exam', '!=', '00 : 00');
