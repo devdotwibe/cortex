@@ -928,7 +928,7 @@
                                                                     <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
                                                                 </label>
                                                                 <input type="file" name="feelingimage" id="feelingimage" class="form-control d-none"
-                                                                       onchange="previewImage(event, 'feelingimagePreview', this)" data-id="imgid2">
+                                                                       onchange="previewImage22(event, 'feelingimagePreview', this)" data-id="imgid2">
                                                                 @error('feelingimage')
                                                                     <div class="text-danger">{{ $message }}</div>
                                                                 @enderror
@@ -1428,7 +1428,26 @@ function removePreviewImage() {
 
     
 
- 
+  // Function to preview the image when the file input changes
+  function previewImage22(event, previewId, element) {
+    const reader = new FileReader();
+
+    reader.onload = function() {
+        const output = document.getElementById(previewId);
+        output.src = reader.result; // Set the preview image source
+        output.style.display = 'block'; // Display the preview image
+
+        // Show the preview container and delete button
+        $('#imgid2').show();
+        $('#deletefeel').show(); // Show delete button for the preview image
+        $('#deleteFeelingImage').hide(); // Hide delete button for the saved image
+    };
+
+    if (event.target.files[0]) {
+        reader.readAsDataURL(event.target.files[0]); // Read the selected image
+    }
+}
+
 
 
 
@@ -1452,6 +1471,33 @@ function removefeelImage() {
     // You could trigger an AJAX request here to delete the image from the server
 }
 
+    
+function removeFeelingImage() {
+    const imagePath = "{{ optional($price)->feelingimage }}"; // Get the image path for the feeling image
+
+    // Send an AJAX request to delete the image
+    $.ajax({
+        type: 'POST',
+        url: '{{ route('admin.payment-price.deleteFeelingImage') }}', // Use the route to delete the feeling image
+        data: {
+            _token: '{{ csrf_token() }}',
+            image_path: imagePath // Pass the image path to the backend
+        },
+        success: function(response) {
+            if (response.success) {
+                // Hide the image preview and the delete button
+                $('#imgid2').hide(); 
+                document.getElementById('feelingimagePreview').style.display = 'none';
+                document.querySelector('#feelingimageContainer button.btn-danger').style.display = 'none';
+            } else {
+                alert('Image could not be deleted. Please try again.');
+            }
+        },
+        error: function(xhr) {
+            alert('An error occurred. Please try again.');
+        }
+    });
+}
 
 
 
