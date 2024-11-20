@@ -1355,7 +1355,7 @@
                         $('#imgid1').hide(); 
                         // Hide the image preview and the delete button
                         document.getElementById('imagePreview-save').style.display = 'none';
-                        document.querySelector('imagePreviewContainer button.btn-danger').style.display = 'none';
+                        document.querySelector('#imagePreviewContainer button.btn-danger').style.display = 'none';
                     } else {
                         alert('Image could not be deleted. Please try again.');
                     }
