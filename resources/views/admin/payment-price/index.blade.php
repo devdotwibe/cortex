@@ -959,7 +959,7 @@
 
 
                                                                    <!-- Dynamic image preview -->
-                                                        <img id="imagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
+                                                        <img id="imagePreview1" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
                                                         <button type="button" class="btn btn-danger" id="deletefeel"
                                                                 style="position: absolute; top: 5px; right: 5px; display: none;"
                                                                 onclick="removefeelImage()">X</button>
@@ -1457,7 +1457,7 @@ function removeFeelingImage() {
 // Function to remove the dynamically previewed image when the delete button is clicked
 function removefeelImage() {
     // Clear the preview image and hide the preview container and delete button
-    const output = document.getElementById('feelingimagePreview');
+    const output = document.getElementById('imagePreview1');
     output.src = ''; // Clear the image source
     output.style.display = 'none'; // Hide the preview image
 
