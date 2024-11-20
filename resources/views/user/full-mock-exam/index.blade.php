@@ -16,6 +16,8 @@
                         <div class="card-body">
                             <div class="exam-list">
                                 @foreach ($exams as $k => $exam)
+                                @if($exam->time_of_exam && $exam->time_of_exam !== '00 : 00')
+
                                     <div class="exam-title">
                                         <h3>{{ $exam->title }}</h3>
                                         @if ($user->is_free_access||(optional($user->subscription())->status??"")=="subscribed"||$k == 0) 
@@ -36,6 +38,7 @@
                                        
                                         @endif
                                     </div>
+                                    @endif
                                 @endforeach
                             </div>
                             <div class="exam-list-pagination">
