@@ -29,8 +29,6 @@ class CategoryController extends Controller
 
             return $this->addAction(function($data){ 
 
-                $question_count = $data->getQuestion->count();
-
                 $action= ' 
                     <a onclick="subcategorylist(\''.route('admin.add_subcatecory', $data->slug).'\', \''.$data->slug.'\', \''.$data->name.'\')" class="btn btn-icons view_btn" data-id="'.$data->name.'">+</a>
 
