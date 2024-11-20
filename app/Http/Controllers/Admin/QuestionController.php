@@ -20,9 +20,6 @@ class QuestionController extends Controller
         self::$routeName = "admin.question-bank.section";
     } 
     public function store(Request $request){
-
-        dd($request->title_text);
-
         switch ($request->input('exam_type',"")) {
             case 'question-bank':
                 $questiondat=$request->validate([
