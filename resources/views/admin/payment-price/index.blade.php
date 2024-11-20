@@ -1322,7 +1322,34 @@
         }
     </script>
 
-   
+    <script>
+        // Function to remove the Feeling image
+        function removeFeelingImage() {
+            const imagePath = "{{ url('d0/' . optional($price)->feelingimage) }}"; // Set the correct image path
+
+            // Send an AJAX request to delete the image
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('admin.payment-price.deleteFeelingImage') }}', // Make sure this matches the correct route
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    image_path: imagePath // Send the image path as part of the data
+                },
+                success: function(response) {
+                    if (response.success) {
+                        // Hide the image preview and the delete button
+                        document.getElementById('feelingimagePreview').style.display = 'none';
+                        document.querySelector('button.btn-danger').style.display = 'none';
+                    } else {
+                        alert('Image could not be deleted. Please try again.');
+                    }
+                },
+                error: function(xhr) {
+                    alert('An error occurred. Please try again.');
+                }
+            });
+        }
+    </script>
 
     <script>
         function removeSavedImage() {
@@ -1442,7 +1469,7 @@ function removeFeelingImage() {
         // Show the preview container and delete button
         $('#imgid2').show();
         $('#deletefeel').show(); // Show delete button for the preview image
-        $('#deleteFeelingImage').hide(); // Hide delete button for the saved image
+        $('#icondelete').hide(); // Hide delete button for the saved image
     };
 
     if (event.target.files[0]) {
