@@ -46,7 +46,7 @@
                             </div>
                             <div class="lesson-row-sets"> 
                                 @foreach ($item->setname()->whereHas('questions',function($qry)use($exam){
-                                    $qry->where('exam_id',$exam->id)->orderBy('updated_at','desc');
+                                    $qry->where('exam_id',$exam->id)->orderBy('updated_at','asc');
                                 })->get() as $sk=> $set)
                                 @if($set->time_of_exam && $set->time_of_exam !== '00 : 00')
                                     <div class="sets-item">
