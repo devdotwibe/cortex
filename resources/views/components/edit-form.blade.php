@@ -70,17 +70,18 @@
                                                         <input type="radio" class="input-group-check choice-check" name="choice_{{$item->name}}" id="{{$item->name}}-{{$frmID}}-{{$k}}-check" value="{{$k}}" @checked($v->choice) >
                                                     </div>
                                                     <input type="text" name="{{$item->name}}[]" id="{{$item->name}}-{{$frmID}}-{{$k}}" value="{{$v->value}}"  class="form-control  @error($item->name.".$k") is-invalid @enderror " placeholder="{{ucfirst($item->label??$item->name)}}" aria-placeholder="{{ucfirst($item->label??$item->name)}}" >
-                                                    <input type="file" name="file_{{$item->name}}[]" id="file_{{$item->name}}-{{$frmID}}-0" value="" @if($v->image) data-existing-file="{{$v->image}}" @else data-existing-file=""@endif accept="image/jpeg, image/png, image/gif" class="form-control" onchange="previewImage(this, 'preview-{{$item->name}}-{{$frmID}}-{{ $k }}')">
+                                                    <input type="file" name="file_{{$item->name}}[]" id="file_{{$item->name}}-{{$frmID}}-{{$k}}" value="" @if($v->image) data-existing-file="{{$v->image}}" @else data-existing-file=""@endif accept="image/jpeg, image/png, image/gif" class="form-control" onchange="previewImage(this, 'preview-{{$item->name}}-{{$frmID}}-{{ $k }}')">
                                                     <div class="invalid-feedback" id="upload-file-{{ $item->name }}-{{ $frmID }}-0">Please upload a valid image file (JPEG, PNG, GIF).</div>
 
                                                     @isset($v->image)
                                                         <img id="preview-{{ $item->name }}-{{ $frmID }}-{{ $k }}" src="{{url($v->image)}}" alt="Image Preview" class="img-thumbnail"  style="width: 100px; height: 40px; object-fit: cover; margin-top: 10px; display: block;">
-                                                        {{-- <div class="image-preview position-relative">                                                
-                                                            <span class="remove-image" 
-                                                                  onclick="removeImage('{{$item->name}}-{{$frmID}}-{{$k}}', '{{$v->image}}')" style="cursor: pointer">×</span>
-                                                            
+                                                        <div class="image-preview position-relative">                                                
+                                                            <span class="remove-image" id="span-{{ $item->name }}-{{ $frmID }}-{{ $k }}"
+                                                                  onclick="showConfirmDeleteModal('{{$item->name}}-{{$frmID}}-{{$k}}', '{{$v->image}}','{{$v->id}}')" style="cursor: pointer">×</span>
+                                            
                                                         </div>
-                                                        <input type="hidden" name="existing_file_{{$item->name}}[]" value="{{$v->image}}"> --}}
+                                                    @else
+                                                        <img id="preview-{{ $item->name }}-{{ $frmID }}-{{ $k }}" src="" alt="Image Preview" class="img-thumbnail"  style="width: 100px; height: 40px; object-fit: cover; margin-top: 10px; display: none;">
                                                     @endisset
 
                                                     @if ($k!=0)
@@ -182,45 +183,78 @@
 </div>
 
 
-
+<!-- Modal -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to remove this image?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Remove</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 @push('footer-script')
 
     <script>
-        function removeImage(containerId, imagePath) {
-            // Confirm deletion
-            if (!confirm("Are you sure you want to remove this image?")) {
-                return;
-            }
+        function showConfirmDeleteModal(containerId, imagePath, answerId) {
+            // Store the details in the modal's button for later use
+            $('#confirmDeleteBtn').attr('data-container-id', containerId);
+            $('#confirmDeleteBtn').attr('data-image-path', imagePath);
+            $('#confirmDeleteBtn').attr('data-answer-id', answerId);
 
-            // Remove the preview container
-            const container = document.getElementById(`image-container-${containerId}`);
-            if (container) {
-                container.innerHTML = `
-                    <input type="file" name="file_${containerId}[]" id="file_${containerId}" accept="image/jpeg, image/png, image/gif" class="form-control mt-2">
-                `;
-            }
+            // Show the modal
+            $('#confirmDeleteModal').modal('show');
+        }
+        $('#confirmDeleteBtn').click(function () {
+            var containerId = $(this).attr('data-container-id');
+            var imagePath = $(this).attr('data-image-path');
+            var answerId = $(this).attr('data-answer-id');
 
-            // Optionally send an AJAX request to delete the image from the server
-            /*
-            fetch('/delete-image', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            // Call the function to remove the image
+            removeImage(containerId, imagePath, answerId);
+
+            // Close the modal
+            $('#confirmDeleteModal').modal('hide');
+        });
+        function removeImage(containerId, imagePath, answerId) {
+           
+            $.ajax({
+                url: '{{ route('admin.delete.image') }}', // Replace with your actual route
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}', // Include CSRF token
+                    image: imagePath,
+                    id: answerId
                 },
-                body: JSON.stringify({ image: imagePath })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    console.log("Image removed successfully.");
-                } else {
-                    console.error("Failed to remove image.");
+                success: function (response) {
+                    if (response.success) {
+                        // Hide the container for the image preview and input
+                        $('#preview-' + containerId).hide();
+                        $('#preview-' + containerId).removeAttr('src');
+
+                        $('#span-' + containerId).hide();
+                        $('#file_'+ containerId).removeAttr('data-existing-file');
+
+                    } else {
+                        alert('Failed to remove the image. Try again.');
+                    }
+                },
+                error: function () {
+                    alert('An error occurred. Please try again.');
                 }
-            })
-            .catch(error => console.error("Error:", error));
-            */
+            });
+           
         }
         function previewImage(input, previewId) {
             const file = input.files[0];
@@ -267,8 +301,7 @@
                                 <input type="text" name="${name}[]" id="${el}" value="" class="form-control" placeholder="${label}" aria-placeholder="${label}" >
                                     <input type="file" name="file_${name}[]" id="${el}-file" onchange="validateImage(this, 'upload-file-${name}-{{$frmID}}-${chcnt}')"  accept="image/jpeg, image/png, image/gif" value="" class="form-control" >
                                     <div class="invalid-feedback" id="upload-file-${name}-{{$frmID}}-${chcnt}">Please upload a valid image file (JPEG, PNG, GIF).</div>
-
-                                    <img id="${el}-preview" src="#" alt="Image Preview" style="display:none; width: 100px; height: auto; margin-top: 10px;"/>
+                                    <img id="preview-${name}" src="" alt="Image Preview" class="img-thumbnail"  style="width: 100px; height: 40px; object-fit: cover; margin-top: 10px; display: none;">
 
                                 <div class="input-group-append choice-check-group">
                                     <button type="button" onclick="removeChoice{{$frmID}}('#${name}-{{$frmID}}-choice-item-chcnt-${chcnt}','#${el}-check','${target}')" class="btn btn-danger "><img src="{{asset("assets/images/delete-black.svg")}}"></button>

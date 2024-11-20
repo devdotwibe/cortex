@@ -148,7 +148,16 @@ class TopicTestController extends Controller
     }
     public function updatetime(Request $request,Category $category){
         $data=$request->validate([
-            'time_of_exam'=>"required"
+            'time_of_exam'=>[
+                'required',
+                function ($attribute, $value, $fail) {
+                    $validTimeFormat = '/^(0[0-9]|1[0-9]|2[0-3]) ?: ?[0-5][0-9]$/';
+
+                    if (!preg_match($validTimeFormat, $value) || $value === '00:00' || $value === '00 : 00') {
+                        $fail('The time of exam must not be 00:00.');
+                    }
+                },
+            ],
         ]);
      
         $exam=Exam::where("name",'topic-test')->first();

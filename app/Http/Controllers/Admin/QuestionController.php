@@ -7,6 +7,7 @@ use App\Models\Answer;
 use App\Models\Question;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class QuestionController extends Controller
@@ -266,5 +267,22 @@ class QuestionController extends Controller
         }        
         $redirect=$request->redirect??route('admin.question.index');
         return redirect($redirect)->with("success","Question has been successfully deleted");
+    }
+    public function deleteImage(Request $request)
+    {
+        $image = $request->input('image');
+        $answerId = $request->input('id');
+
+        $imagePath = Answer::where('id', $answerId)->value('image');
+        if ($imagePath && Storage::exists($imagePath)) {
+            Storage::delete($imagePath);
+        }
+
+        $deleted = Answer::where('id', $answerId)->update(['image'=>Null]);
+
+        return response()->json([
+            'success' => $deleted,
+            'message' => $deleted ? 'Image deleted successfully.' : 'Failed to delete image.'
+        ]);
     }
 }
