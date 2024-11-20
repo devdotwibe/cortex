@@ -1429,27 +1429,6 @@ function removePreviewImage() {
     
 
  
-    // Function to preview the image when the file input changes
-    function previewImage(event, previewId, element) {
-    const reader = new FileReader();
-
-    reader.onload = function() {
-        const output = document.getElementById(previewId);
-        output.src = reader.result; // Set the preview image source
-        output.style.display = 'block'; // Display the preview image
-
-        // Show the preview container and delete button
-        $('#imgid2').show();
-        $('#deletefeel').show(); // Show delete button for the preview image
-        $('#deleteFeelingImage').hide(); // Hide delete button for the saved image
-    };
-
-    if (event.target.files[0]) {
-        reader.readAsDataURL(event.target.files[0]); // Read the selected image
-    }
-}
-
-
 
 
 
