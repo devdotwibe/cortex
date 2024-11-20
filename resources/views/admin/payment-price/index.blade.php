@@ -744,20 +744,17 @@
                                       
 
                                             <!-- Image Upload -->
-                                            <div class="pricesection1 numericalsectionclass ">
+                                            <div class="pricesection1 numericalsectionclass">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <div class="form-data">
                                                             <div class="forms-inputs mb-4">
                                                                 <label for="image" class="file-upload">
-                                                                    Upload Image
-                                                                    <br>
-                                                                    <img src="{{ asset('assets/images/upfile.svg') }}"
-                                                                        alt="Upload Icon">
+                                                                    Upload Image <br>
+                                                                    <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
                                                                 </label>
-                                                                <input type="file" name="image" id="image"
-                                                                    class="form-control" style="display: none;"
-                                                                    onchange="previewImage(event, 'imagePreview')">
+                                                                <input type="file" name="image" id="image" class="form-control" style="display: none;"
+                                                                       onchange="previewImage(event, 'imagePreview', this)" data-id="imgid1">
                                                                 @error('image')
                                                                     <div class="text-danger">{{ $message }}</div>
                                                                 @enderror
@@ -765,27 +762,34 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
-
-
-
-
+                                            
                                                 <!-- Image Preview -->
-                                                <div class="form-group">
+                                            
+                                                    <div class="form-group imgid1" id="imgid1" style="display: {{ isset($price) && $price->image ? 'block' : 'none' }};">
                                                     <label for="imagePreview">Image Preview</label>
                                                     <div id="imagePreviewContainer" class="numericalclass"
-                                                        style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px; position: relative;">
+                                                         style="border: 1px solid #ddd; padding: 10px; width: 150px; height: 150px; position: relative;">
+                                            
+                                                        <!-- Display saved image if available -->
                                                         @if (isset($price) && $price->image)
-                                                            <img id="imagePreview"
-                                                                src="{{ url('d0/' . $price->image) }}"
-                                                                alt="Image Preview" style="width: 100%; height: auto;">
-                                                            <button type="button" class="btn btn-danger"
-                                                                style="float: right;" onclick="removeImage()">X</button>
-                                                            <!-- Delete button -->
-                                                        @else
-                                                            <img id="imagePreview" src="#" alt="Image Preview"
-                                                                style="display: none; width: 100%; height: auto;">
+                                                            <img id="imagePreview-save" src="{{ url('d0/' . $price->image) }}" alt="Image Preview"
+                                                                 style="width: 100%; height: auto;">
+                                                            <button type="button" class="btn btn-danger" id="icondelete"
+                                                                    style="position: absolute; top: 5px; right: 5px;"
+                                                                    onclick="removeSavedImage()">X</button>
                                                         @endif
+                                            
+                                                        <!-- Dynamic image preview -->
+                                                        <img id="imagePreview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
+                                                        <button type="button" class="btn btn-danger" id="deleteIcon"
+                                                                style="position: absolute; top: 5px; right: 5px; display: none;"
+                                                                onclick="removePreviewImage()">X</button>
+
+                                                                 <!-- Delete button for saved image -->
+                                                     <button type="button" class="btn btn-danger" id="icondelete"
+                                                     style="position: absolute; top: 5px; right: 5px; {{ isset($price) && $price->image ? 'display: block;' : 'display: none;' }}"
+                                                     onclick="removeSavedImage()">X</button>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -1334,7 +1338,7 @@
     </script>
 
     <script>
-        function removeImage() {
+        function removeSavedImage() {
             const imagePath = "{{ url('d0/' . optional($price)->image) }}"; // Get the image path from the backend
 
             // Send an AJAX request to delete the image
@@ -1347,9 +1351,10 @@
                 },
                 success: function(response) {
                     if (response.success) {
+                        $('#imgid1').hide(); 
                         // Hide the image preview and the delete button
-                        document.getElementById('imagePreview').style.display = 'none';
-                        document.querySelector('button.btn-danger').style.display = 'none';
+                        document.getElementById('imagePreview-save').style.display = 'none';
+                        document.querySelector('imagePreviewContainer button.btn-danger').style.display = 'none';
                     } else {
                         alert('Image could not be deleted. Please try again.');
                     }
@@ -1359,5 +1364,11 @@
                 }
             });
         }
+
+
+
+
+    
+
     </script>
 @endpush
