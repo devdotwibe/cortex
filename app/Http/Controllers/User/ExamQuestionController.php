@@ -79,7 +79,7 @@ class ExamQuestionController extends Controller
             $qry->where('time_of_exam', '!=', '00:00')
             ->where('time_of_exam', '!=', '00 : 00');
         })
-        ->orderBy('updated_at', 'desc')->get();
+        // ->orderBy('updated_at', 'desc')->get();
 
         /**
          *  @var User
