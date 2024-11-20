@@ -559,8 +559,8 @@
                             const baseUrl = `{{ asset('d0') }}`;
                             $.each(ans,function(ai,av){
                                 const letter = String.fromCharCode(ai + 'A'.charCodeAt(0))
-                                const imageHtml = av.answer && av.answer.image
-                                                    ? `<img src="${baseUrl}/${av.answer.image}" class="answer-image" />`
+                                const imageHtml = av && av.image
+                                                    ? `<img src="${baseUrl}/${av.image}" class="answer-image" />`
                                                     : '';
                                 $(`#mcq-${lesseonId}-list`).append(`
                                     <div class="form-check">
