@@ -62,9 +62,9 @@
                 <div class="card-body"> 
                     <h3>Continue Where You Left Off</h3>
                     <div class="session-links">
-                        <a href="{{$user->progress("review-recent-link",route('learn.index'))}}" class="btn btn-outline-secondary" @if($user->userProgress->count()==0) disabled @endif>Review Recent</a>
+                        <a  class="btn btn-outline-secondary" @if($user->userProgress->count()==0) disabled  @else href="{{$user->progress("review-recent-link",route('learn.index'))}}" @endif>Review Recent</a>
                         <span>or</span>
-                        <a href="{{$user->progress("attempt-recent-link",route('learn.index'))}}" class="btn btn-outline-warning" @if($user->userProgress->count()==0) disabled @endif>Practice Next</a>
+                        <a  class="btn btn-outline-warning" @if($user->userProgress->count()==0) disabled @else href="{{$user->progress("attempt-recent-link",route('learn.index'))}}" @endif>Practice Next</a>
                     </div> 
                 </div>
             </div>
