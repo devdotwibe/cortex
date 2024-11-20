@@ -9,7 +9,7 @@
         <div class="question-preview">  
             <div class="question-preview-title">
                 <img src="{{asset("assets/images/congratulaton.svg")}}" alt="">
-                <h3> Congratulation on Completing the Set! </h3>
+                <h3> Congratulations on Completing the Set! </h3>
             </div>
             <div class="question-preview-body">
                 <div class="row">
