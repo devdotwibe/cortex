@@ -783,7 +783,6 @@ class TopicExamController extends Controller
                 ],
             ]);
         
-            // Build the response structure
             return response()->json([
                 'current_page' => $data->currentPage(),
                 'data' => $data->items(),

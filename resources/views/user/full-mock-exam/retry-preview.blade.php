@@ -69,8 +69,11 @@
         <div class="lesson-pagination">
 
 
-            <div class="lesson-left pagination-arrow" style="display: none" >
-                <button class="button left-btn"><img src="{{asset('assets/images/leftarrow.svg')}}" alt="<"> Previous </button>
+            <div class="lesson-left ">
+                <a href="{{ route('full-mock-exam.complete', $userExamReview->slug) }}" class="button left-btn"
+                    title="Back">
+                    <img src="{{ asset('assets/images/leftarrow.svg') }}" alt="<"> Back
+                </a>
             </div>
 
 
@@ -184,8 +187,7 @@
                     $('.pagination-arrow').hide();
                     $('#lesson-footer-pagination').html('')
                     $('#lesson-footer-paginationmobile').html('')
-                    $('#question-preview-page').fadeOut()
-                    $('#question-answer-page').fadeIn()
+
                     const lesseonId = generateRandomId(10);
                     $.each(res.data, function(k, v) {
                         $('#lesson-questionlist-list').html(`
@@ -220,7 +222,7 @@
                                          
                                         </div>
                                       <p>${v.explanation||''}</p>
-                                        <div id="mcq-${lesseonId}-ans-progress" class="form-group">
+                                        {{-- <div id="mcq-${lesseonId}-ans-progress" class="form-group">
                                             <div class="form-data" >
                                                 <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list-progress"> 
                                                     
@@ -229,7 +231,7 @@
                                             <div>
                                                 <p>You spent ${v.time_taken||0} seconds on this question. The average student spent ${v.total_user_taken_time||0} seconds on this question<p>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                             </div>
@@ -241,7 +243,7 @@
                             $(`#mcq-${lesseonId}-list`).html('')
                             $(`#mcq-${lesseonId}-list-progress`).html('')
                             const baseUrl = `{{ asset('d0') }}`;
-                            $.each(ans, function(ai, av) { console.log(av)
+                            $.each(ans, function(ai, av) {
                                 const letter = String.fromCharCode(ai + 'A'.charCodeAt(0))
                                 const imageHtml = av && av.image ?
                                     `<img src="${baseUrl}/${av.image}" class="answer-image" />` :
@@ -260,7 +262,7 @@
                                 <div class="form-progress-ans ans-${av.iscorrect?"select":"no-select"}"> 
                                     <div class="form-progress">       
                                         <label for="user-answer-${lesseonId}-ans-progress-item-${ai}" >${ letter }</label>
-                                        <progress id="user-answer-${lesseonId}-ans-progress-item-${ai}" max="100" value="${av.total_user_answered||0}"></progress> <span>${((av.total_user_answered||0)*1).toFixed(2)}%</span>
+                                        <progress id="user-answer-${lesseonId}-ans-progress-item-${ai}" max="100" value="${av.total_user_answered||0}"/>
                                     </div>  
                                 </div>
                             `)
@@ -272,17 +274,30 @@
 
                     })
                     if (res.total > 1) {
+
+                        var total_time = "{{ $examtime }}";
+
                         $.each(res.links, function(k, v) {
-                            let linkstatus = "";
-                            if (k != 0 && k != res.links.length && useranswers[k - 1]) {
-                                linkstatus = 'status-bad';
-                                if (useranswers[k - 1].iscorrect) {
-                                    linkstatus = "status-good";
-                                    if (useranswers[k - 1].time_taken < {{ $examtime }}) {
-                                        linkstatus = "status-exelent";
-                                    }
+
+                           let linkstatus =  'status-bad';
+
+                           if (k != 0 && k != res.links.length ) {
+
+                                $.each(useranswers, function(i, j) {
+
+                                        if(v.ans_id == j.id)
+                                        {
+                                            linkstatus = 'status-bad';
+                                            if (j.iscorrect) {
+                                                linkstatus = "status-good";
+                                                if (j.time_taken < {{ $examtime }}) {
+                                                    linkstatus = "status-exelent";
+                                                }
+                                            } 
+                                        }
+                                    });
                                 }
-                            }
+
                             if (v.active || !v.url) {
 
                                 var preclass = "";
@@ -369,10 +384,12 @@
                                             }
                                           
                                             if (res.prev_page_url) {
-                                                $('.lesson-left').show()
-                                                    .find('button.left-btn')
-                                                    .data('pageurl', res.prev_page_url)
-                                                    .attr('onclick', `loadlessonreview('${res.prev_page_url}')`); // Adding onclick event
+                                                $('.lesson-left a.left-btn')
+                                                    .attr('href', res.prev_page_url) // Change the URL
+                                                    .attr('title', 'New Title')  // Optionally change the title
+                                                    .find('img').attr('alt', '< Previous') // Optionally update the alt text of the image
+                                                    .end()
+                                                    .contents().last().replaceWith('Previous');
                                             }
 
                                             $('#menu-text').html(`Question <span> ${res.current_page} </span> `)
