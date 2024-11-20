@@ -267,7 +267,7 @@
                 })
 
                
-                if (res.total > 1) {
+                if (res.total > 0) {
 
                     $.each(res.links, function(k, v) {
 
