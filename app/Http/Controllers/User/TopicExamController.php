@@ -808,7 +808,7 @@ class TopicExamController extends Controller
             ->whereIn('exam_retry_questions.review_type', ['mcq'])
             ->where('exam_retry_questions.user_id', $user->id)
             ->where('exam_retry_questions.exam_retry_review_id', $examRetryReview->id)
-            ->select('exam_retry_questions.id', 'exam_retry_questions.time_taken', 'exam_retry_answers.iscorrect','user_review_answers.id')->get();
+            ->select('exam_retry_questions.id', 'exam_retry_questions.time_taken', 'exam_retry_answers.iscorrect','exam_retry_answers.id')->get();
 
         $examtime = 0;
 
