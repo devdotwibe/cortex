@@ -5,7 +5,7 @@
     <div class="header_wrapp">
         <div class="header_title">
             <div class="back-btn" id="back-btn" style="display: block"> <!-- Ensure proper display value -->
-                <a href="{{ route('live-class.workshop',$live_class->live) }}">
+                <a href="{{ route('live-class.workshop',$live_class->slug) }}">
                     <img src="{{ asset('assets/images/leftarrowblack.svg') }}" alt="">
                 </a>
             </div>
