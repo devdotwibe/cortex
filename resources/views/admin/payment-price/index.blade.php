@@ -1068,12 +1068,10 @@
                                                             <div class="forms-inputs mb-4">
                                                                 <label for="excelimage" class="file-upload">
                                                                     Excel Image <br>
-                                                                    <img src="{{ asset('assets/images/upfile.svg') }}"
-                                                                        alt="Upload Icon">
+                                                                    <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
                                                                 </label>
-                                                                <input type="file" name="excelimage" id="excelimage"
-                                                                    class="form-control" style="display: none;"
-                                                                    onchange="previewImage(event, 'excelImagePreview')">
+                                                                <input type="file" name="excelimage" id="excelimage" class="form-control d-none"
+                                                                    onchange="previewImage23(event, 'ImagePreview23', this)" data-id="imgid3">
                                                                 @error('excelimage')
                                                                     <div class="text-danger">{{ $message }}</div>
                                                                 @enderror
@@ -1081,29 +1079,42 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
-
-
-                                                <div class="form-group">
+                                            
+                                                <!-- Image Preview Section -->
+                                                <div class="form-group imgid3" id="imgid3" style="display: {{ isset($price) && $price->excelimage ? 'block' : 'none' }};">
                                                     <label for="excelImagePreview">Image Preview</label>
-                                                    <div id="imagePreviewContainer" class="numericalclass"
-                                                        style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px;">
+                                                    <div id="imagePreviewContainer" class="numericalclass" style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px; position: relative;">
                                                         @if (isset($price) && $price->excelimage)
-                                                            <img id="excelImagePreview"
-                                                                src="{{ url('d0/' . $price->excelimage) }}"
-                                                                alt="Excel Image Preview"
+                                                            <img id="excelImagePreview" src="{{ url('d0/' . $price->excelimage) }}" alt="Excel Image Preview"
                                                                 style="width: 100%; height: auto;">
-                                                            <button type="button" onclick="removeExcelImage()"
-                                                                class="btn btn-danger" style="float: right;">X</button>
-                                                        @else
-                                                            <img id="excelImagePreview" src="#"
-                                                                alt="Excel Image Preview"
-                                                                style="display: none; width: 100%; height: auto;">
-                                                        @endif
+                                                           
+
+                                                                <button type="button" class="btn btn-danger" id="deleteExcel"
+                                                                style="position: absolute; top: 5px; right: 5px;"
+                                                                onclick="removeExcelImage()">X</button>
+
+
+                                                       
+                                                                @endif
+
+
+                                                        
+                                                                   <!-- Dynamic image preview -->
+                                                                   <img id="ImagePreview23" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;">
+                                                                   <button type="button" class="btn btn-danger" id="deleteExcelImage"
+                                                                           style="position: absolute; top: 5px; right: 5px; display: none;"
+                                                                           onclick="removeExImage()">X</button>
+           
+                                                                            <!-- Delete button for saved image -->
+                                                                <button type="button" class="btn btn-danger" id="deleteExcel"
+                                                                style="position: absolute; top: 5px; right: 5px; {{ isset($price) && $price->excelimage ? 'display: block;' : 'display: none;' }}"
+                                                                onclick="removeExcelImage()">X</button>
+
+
                                                     </div>
                                                 </div>
                                             </div>
-
+                                            
                                         </div>
 
 
@@ -1489,6 +1500,34 @@ function removeFeelingImage() {
                 $('#imgid2').hide(); 
                 document.getElementById('feelingimagePreview').style.display = 'none';
                 document.querySelector('#feelingimageContainer button.btn-danger').style.display = 'none';
+            } else {
+                alert('Image could not be deleted. Please try again.');
+            }
+        },
+        error: function(xhr) {
+            alert('An error occurred. Please try again.');
+        }
+    });
+}
+
+
+function removeExcelImage() {
+    const imagePath = "{{ optional($price)->excelimage }}"; // Get the image path for the Excel image
+
+    // Send an AJAX request to delete the image
+    $.ajax({
+        type: 'POST',
+        url: '{{ route('admin.payment-price.deleteExcelImage') }}', // Use the route to delete the Excel image
+        data: {
+            _token: '{{ csrf_token() }}',
+            image_path: imagePath // Pass the image path to the backend
+        },
+        success: function(response) {
+            if (response.success) {
+                // Hide the image preview and the delete button
+                $('#imgid3').hide(); // Hide the image container
+                document.getElementById('excelImagePreview').style.display = 'none'; // Hide the preview image
+                document.querySelector('#excelImagePreviewContainer button.btn-danger').style.display = 'none'; // Hide the delete button
             } else {
                 alert('Image could not be deleted. Please try again.');
             }
