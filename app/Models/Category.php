@@ -90,8 +90,7 @@ class Category extends Model
     }
 
     public function getQuestion(){
-
-        return $this->hasMany(Question::class);
         
+        return $this->hasMany(Question::class,'category_id','id');
     }
 }

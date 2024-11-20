@@ -46,7 +46,7 @@ class CategoryController extends Controller
                     </a>
                 ';
 
-                if(empty($data->subcategories) || count($data->subcategories) == 0 || $question_count ==0)
+                if((empty($data->subcategories) || count($data->subcategories) == 0 ) && (empty($data->getQuestion) || count($data->getQuestion) == 0 ))
                 { 
                     $action.=  
 
