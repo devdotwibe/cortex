@@ -641,7 +641,7 @@ class MockExamController extends Controller
             ->where('exam_retry_questions.exam_retry_review_id', $examRetryReview->id)
             ->select('exam_retry_questions.id', 'exam_retry_questions.time_taken', 'exam_retry_answers.iscorrect')->get();
         $examtime = 0;
-
+        
         $times = explode(':', $examRetryReview->time_of_exam ?? '0:0');
         if (count($times) > 0) {
             $examtime += intval(trim($times[0] ?? "0")) * 60;

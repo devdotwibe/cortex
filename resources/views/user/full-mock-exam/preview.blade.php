@@ -71,11 +71,8 @@
         <div class="lesson-pagination">
 
 
-            <div class="lesson-left ">
-                <a href="{{ route('full-mock-exam.complete', $userExamReview->slug) }}" class="button left-btn"
-                    title="Back">
-                    <img src="{{ asset('assets/images/leftarrow.svg') }}" alt="<"> Back
-                </a>
+            <div class="lesson-left pagination-arrow" style="display: none" >
+                <button class="button left-btn"><img src="{{asset('assets/images/leftarrow.svg')}}" alt="<"> Previous </button>
             </div>
 
 
@@ -188,6 +185,8 @@
                 $('.pagination-arrow').hide();
                 $('#lesson-footer-pagination').html('')
                 $('#lesson-footer-paginationmobile').html('')
+                $('#question-preview-page').fadeOut()
+                $('#question-answer-page').fadeIn()
                 const lesseonId = generateRandomId(10);
                 $.each(res.data, function(k, v) {
                     $('#lesson-questionlist-list').html(`
@@ -377,16 +376,11 @@
                 } else {
                     $('.finish-btn').show();
                 }
-
                 if (res.prev_page_url) {
-                    console.log(res.prev_page_url)
-
-                    $('.lesson-left a.left-btn')
-                        .attr('href', res.prev_page_url) // Change the URL
-                        .attr('title', 'New Title')  // Optionally change the title
-                        .find('img').attr('alt', '< Previous') // Optionally update the alt text of the image
-                        .end()
-                        .contents().last().replaceWith('Previous');
+                    $('.lesson-left').show()
+                        .find('button.left-btn')
+                        .data('pageurl', res.prev_page_url)
+                        .attr('onclick', `loadlessonreview('${res.prev_page_url}')`); // Adding onclick event
                 }
 
                 $('#menu-text').html(`Question <span> ${res.current_page} </span> `)
