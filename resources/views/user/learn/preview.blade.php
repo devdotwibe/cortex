@@ -300,7 +300,7 @@
 
                         if (v.active || !v.url) {
                             $('#lesson-footer-paginationmobile').append(`
-                                <button class="btn btn-secondary  ${linkstatus} ${v.active?"active":""}" >${v.label}</button>
+                                <button class="btn btn-secondary  ${linkstatus} ${v.active?"active":""}" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
                             `)
                         } else {
                             $('#lesson-footer-paginationmobile').append(`
