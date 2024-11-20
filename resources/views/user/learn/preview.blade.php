@@ -179,9 +179,7 @@
                 $('.pagination-arrow').hide();
                 $('#lesson-footer-pagination').html('')
                 $('#lesson-footer-paginationmobile').html('')
-             
-                $('#question-preview-page').slideToggle()
-                $('#question-answer-page').fadeToggle()
+                $('#question-preview-page').hide()
 
                 const lesseonId = generateRandomId(10);
                 $.each(res.data, function(k, v) {
@@ -302,7 +300,7 @@
 
                         if (v.active || !v.url) {
                             $('#lesson-footer-paginationmobile').append(`
-                                <button class="btn btn-secondary  ${linkstatus} ${v.active?"active":""}" disabled  >${v.label}</button>
+                                <button class="btn btn-secondary  ${linkstatus} ${v.active?"active":""}" ${v.active?"disabled":""}   >${v.label}</button>
                             `)
                         } else {
                             $('#lesson-footer-paginationmobile').append(`
