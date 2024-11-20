@@ -45,6 +45,12 @@ class ExamQuestionController extends Controller
 
         $categorys=$this->whereHas('subcategories',function($qry)use($exam){
             $qry->whereIn("id",Question::where('exam_id',$exam->id)->select('sub_category_id'));
+            $qry->whereHas('setname', function ($setnameQuery) {
+                $setnameQuery->where(function ($query) {
+                    $query->where('time_of_exam', '!=', '00:00')
+                          ->where('time_of_exam', '!=', '00 : 00');
+                });
+            });
         })->buildResult();
 
         /**
@@ -70,6 +76,8 @@ class ExamQuestionController extends Controller
             $qry->whereHas("questions",function($qry)use($exam){
                 $qry->where('exam_id',$exam->id);
             });
+            $qry->where('time_of_exam', '!=', '00:00')
+            ->where('time_of_exam', '!=', '00 : 00');
         })
         ->orderBy('updated_at', 'asc')->get();
 
