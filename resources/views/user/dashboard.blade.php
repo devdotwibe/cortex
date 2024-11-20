@@ -564,7 +564,7 @@
         showreminder()
         $('.datepicker').datepicker({
             dateFormat:'yy-mm-dd',
-            // minDate:0
+            minDate:0
         });
         $('#exam-reminder-add-form').submit(function(e){
             e.preventDefault() 
