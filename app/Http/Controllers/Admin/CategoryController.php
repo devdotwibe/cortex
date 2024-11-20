@@ -46,11 +46,11 @@ class CategoryController extends Controller
                     </a>
                 ';
 
-                if((empty($data->subcategories) || count($data->subcategories) == 0 ) && (empty($data->getQuestion) || count($data->getQuestion) == 0 ))
+                if((empty($data->subcategories) || count($data->subcategories) == 0 ) || (empty($data->getQuestion) || count($data->getQuestion) == 0 ))
                 { 
                     $action.=  
 
-                       '<a  class="btn btn-icons dlt_btn" data-delete="'.route("admin.category.destroy",$data->slug).'" >
+                       '<a  class="btn btn-icons dlt_btn .'.$data->getQuestion.'." data-delete="'.route("admin.category.destroy",$data->slug).'" >
                         <span class="adminside-icon">
                             <img src="' . asset("assets/images/icons/material-symbols_delete-outline.svg") . '" alt="Delete">
                         </span>
