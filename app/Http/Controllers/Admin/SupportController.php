@@ -31,8 +31,6 @@ class SupportController extends Controller
 
     ]);
 
-    dd($request->description);
-
     // Check if a Support record already exists
     $support = Support::first();
 
