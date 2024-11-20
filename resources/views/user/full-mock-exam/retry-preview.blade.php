@@ -276,79 +276,27 @@
 
                     if (res.total > 1) {
 
-                        var total_time = "{{ $examtime }}";
-
                         $.each(res.links, function(k, v) {
 
-                           let linkstatus =  'status-bad';
+                            let linkstatus =  'status-bad';
 
-                           if (k != 0 && k != res.links.length ) {
+                            if (k != 0 && k != res.links.length ) {
 
                                 $.each(useranswers, function(i, j) {
 
-                                        if(v.ans_id == j.id)
-                                        {
-                                            linkstatus = 'status-bad';
-
-                                            if (j.iscorrect) {
-                                                linkstatus = "status-good";
-                                                if (j.time_taken < {{ $examtime }}) {
-                                                    linkstatus = "status-exelent";
-                                                }
-                                            } 
-                                        }
-                                    });
-                                }
-
-                            if (v.active || !v.url) {
-
-                                var label_name = v.label;
-
-                                if (v.label == '« Previous') {
-                                    var label_name = "<";
-                                }
-
-                                var preclass = "";
-                                if (k == 0) {
-                                    preclass = "preclass";
-                                }
-                                $('#lesson-footer-paginationmobile').append(`
-                            <button class="${linkstatus} btn btn-secondary  {$preclass} ${v.active?"active":""}" disabled   >${label_name}</button>
-                            `)
-                            } else {
-                                $('#lesson-footer-paginationmobile').append(`
-                            <button class="${linkstatus} btn btn-secondary " onclick="loadlessonreview('${v.url}')" >${v.label}</button>
-                            `)
-                            }
-                            if (v.active || !v.url) {
-                                $('#lesson-footer-pagination').append(`
-                                <button class="${linkstatus} btn btn-secondary ${v.active?"active":""}" disabled  >${v.label}</button>
-                            `)
-                            } else {
-                                $('#lesson-footer-pagination').append(`
-                                <button class="${linkstatus} btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
-                            `)
-                            }
-                        })
-                    }
-                    if (res.total > 1) {
-
-
-                        $.each(res.links, function(k, v) {
-                            let linkstatus = "";
-                            if (k != 0 && k != res.links.length && useranswers[k - 1]) {
-                                linkstatus = 'status-bad';
-                                if (useranswers[k - 1].iscorrect) {
-
-
-                                    linkstatus = "status-good";
-
-
-                                    if (useranswers[k - 1].time_taken < {{ $examtime }}) {
-                                        linkstatus = "status-exelent";
+                                    if(v.ans_id == j.id)
+                                    {
+                                        linkstatus = 'status-bad';
+                                        if (j.iscorrect) {
+                                            linkstatus = "status-good";
+                                            if (j.time_taken < {{ $examtime }}) {
+                                                linkstatus = "status-exelent";
+                                            }
+                                        } 
                                     }
-                                }
+                                });
                             }
+
                             if (v.active || !v.url) {
 
                                 var label_name = v.label;
@@ -357,47 +305,47 @@
                                     var label_name = "<";
                                 }
 
-                                var preclass = "";
-                                if (k == 0) {
-                                    preclass = "preclass";
-                                }
-                                    $('#lesson-footer-paginationmobile').append(`
-                                    <button class="${linkstatus} btn btn-secondary  ${preclass} ${v.active?"active":""}" disabled>${label_name}</button>
-                                        `)
-                                } else {
-                                                        $('#lesson-footer-paginationmobile').append(`
-                                <button class="${linkstatus} btn btn-secondary " onclick="loadlessonreview('${v.url}')" >${v.label}</button>
+                            var preclass = "";
+                            if (k == 0) {
+                                preclass = "preclass";
+                            }
+                                $('#lesson-footer-paginationmobile').append(`
+                                <button class="${linkstatus} btn btn-secondary  ${preclass} ${v.active?"active":""}" disabled>${label_name}</button>
                                     `)
-                                                    }
+                            } else {
+                                                    $('#lesson-footer-paginationmobile').append(`
+                            <button class="${linkstatus} btn btn-secondary " onclick="loadlessonreview('${v.url}')" >${v.label}</button>
+                                `)
+                            }
 
-                                                })
+                        })
 
-                                                console.log(res.links.length);
-                                            }
-                                            $('.lesson-end').show();
+                        console.log(res.links.length);
+                    }
+                    $('.lesson-end').show();
 
 
-                                            if (res.next_page_url) {
-                                                $('.lesson-right').show()
-                                                    .find('button.right-btn')
-                                                    .data('pageurl', res.next_page_url)
-                                                    .attr('onclick', `loadlessonreview('${res.next_page_url}')`); // Adding onclick event
-                                            } else {
-                                                $('.lesson-finish').show();
-                                            }
-                                          
-                                            if (res.prev_page_url) {
-                                                $('.lesson-left a.left-btn')
-                                                    .attr('href', res.prev_page_url) // Change the URL
-                                                    .attr('title', 'New Title')  // Optionally change the title
-                                                    .find('img').attr('alt', '< Previous') // Optionally update the alt text of the image
-                                                    .end()
-                                                    .contents().last().replaceWith('Previous');
-                                            }
+                    if (res.next_page_url) {
+                        $('.lesson-right').show()
+                            .find('button.right-btn')
+                            .data('pageurl', res.next_page_url)
+                            .attr('onclick', `loadlessonreview('${res.next_page_url}')`); 
+                    } else {
+                        $('.lesson-finish').show();
+                    }
+                    
+                    if (res.prev_page_url) {
+                        $('.lesson-left a.left-btn')
+                            .attr('href', res.prev_page_url) 
+                            .attr('title', 'New Title')  
+                            .find('img').attr('alt', '< Previous') 
+                            .end()
+                            .contents().last().replaceWith('Previous');
+                    }
 
-                                            $('#menu-text').html(`Question <span> ${res.current_page} </span> `)
+                    $('#menu-text').html(`Question <span> ${res.current_page} </span> `)
 
-                                        }, 'json')
+                }, 'json')
 
                             }
 
