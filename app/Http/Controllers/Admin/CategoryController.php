@@ -28,24 +28,25 @@ class CategoryController extends Controller
         if($request->ajax()){
 
             return $this->addAction(function($data){ 
+
+                $question_count = $data->getQuestion->count();
+
                 $action= ' 
                     <a onclick="subcategorylist(\''.route('admin.add_subcatecory', $data->slug).'\', \''.$data->slug.'\', \''.$data->name.'\')" class="btn btn-icons view_btn" data-id="'.$data->name.'">+</a>
 
 
 
                    <a onclick="updatecategory('."'".route('admin.category.edit', $data->slug)."'".')"  class="btn btn-icons edit_btn">
-    <span class="adminside-icon">
-      <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
-    </span>
-    <span class="adminactive-icon">
-        <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active" title="Edit">
-    </span>
-</a>
-
-
-
+                        <span class="adminside-icon">
+                        <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
+                        </span>
+                        <span class="adminactive-icon">
+                            <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active" title="Edit">
+                        </span>
+                    </a>
                 ';
-                if(empty($data->subcategories) || count($data->subcategories) == 0)
+
+                if(empty($data->subcategories) || count($data->subcategories) == 0 && $question_count ==0)
                 { 
                     $action.=  
 

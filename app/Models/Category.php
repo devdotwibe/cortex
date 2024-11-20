@@ -88,4 +88,10 @@ class Category extends Model
     {
         return $this->hasMany(Tips::class);
     }
+
+    public function getQuestion(){
+
+        return $this->hasMany(Question::class);
+        
+    }
 }
