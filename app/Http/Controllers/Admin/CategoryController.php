@@ -44,7 +44,7 @@ class CategoryController extends Controller
                     </a>
                 ';
 
-                if((empty($data->subcategories) || count($data->subcategories) == 0 ) && (empty($data->getQuestionCount('full-mock-exam')) == 0 ))
+                if((empty($data->subcategories) || count($data->subcategories) == 0 ) && ($data->getQuestionCount('full-mock-exam')) == 0 )
                 { 
                     $action.=  
 
