@@ -274,9 +274,6 @@ class QuestionController extends Controller
         $answerId = $request->input('id');
 
         $imagePath = Answer::where('id', $answerId)->value('image');
-        if ($imagePath && Storage::exists($imagePath)) {
-            Storage::delete($imagePath);
-        }
 
         $deleted = Answer::where('id', $answerId)->update(['image'=>Null]);
 
