@@ -273,7 +273,7 @@
                         }, 'json')
 
                     })
-                    
+
                     if (res.total > 1) {
 
                         var total_time = "{{ $examtime }}";
@@ -289,6 +289,7 @@
                                         if(v.ans_id == j.id)
                                         {
                                             linkstatus = 'status-bad';
+
                                             if (j.iscorrect) {
                                                 linkstatus = "status-good";
                                                 if (j.time_taken < {{ $examtime }}) {
@@ -301,21 +302,22 @@
 
                             if (v.active || !v.url) {
 
-                                var preclass = "";
-                                if (k == 0 || k == res.links.length) {
-                                    preclass = "prevnxtclass";
-                                }
-                                $('#lesson-footer-pagination').append(`
-                                <button class="${linkstatus} btn btn-secondary  ${preclass} ${v.active?"active":""}" disabled  >${v.label} </button>
-                            `)
-                            } else {
-                                var preclass = "";
-                                if (k == 0 || k == res.links.length - 1) {
-                                    preclass = "prevnxtclass";
+                                var label_name = v.label;
+
+                                if (v.label == '« Previous') {
+                                    var label_name = "<";
                                 }
 
-                                $('#lesson-footer-pagination').append(`
-                                <button class="${linkstatus} btn btn-secondary ${preclass}" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
+                                var preclass = "";
+                                if (k == 0) {
+                                    preclass = "preclass";
+                                }
+                                $('#lesson-footer-paginationmobile').append(`
+                            <button class="${linkstatus} btn btn-secondary  {$preclass} ${v.active?"active":""}" disabled   >${label_name}</button>
+                            `)
+                            } else {
+                                $('#lesson-footer-paginationmobile').append(`
+                            <button class="${linkstatus} btn btn-secondary " onclick="loadlessonreview('${v.url}')" >${v.label}</button>
                             `)
                             }
                             if (v.active || !v.url) {
