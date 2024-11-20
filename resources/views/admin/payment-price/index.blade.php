@@ -1339,7 +1339,8 @@
 
     <script>
         function removeSavedImage() {
-            const imagePath = "{{ optional($price)->image) }}"; // Get the image path from the backend
+            
+            const imagePath = "{{ optional($price)->image }}"; // Get the image path from the backend
 
             // Send an AJAX request to delete the image
             $.ajax({
