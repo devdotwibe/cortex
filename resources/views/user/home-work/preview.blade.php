@@ -231,7 +231,7 @@
 
                 })
                
-                if (res.total > 1) {
+                if (res.total > 0) {
 
                     $.each(res.links, function(k, v) {
 
@@ -257,7 +257,7 @@
 
                         if (v.active || !v.url) {
                             $('#lesson-footer-paginationmobile').append(`
-                                <button class="${linkstatus} btn btn-secondary ${v.active?"active":""}" disabled  >${v.label}</button>
+                                <button class="${linkstatus} btn btn-secondary ${v.active?"active":""}" onclick="loadlessonreview('${v.url}')"  >${v.label}</button>
                             `)
                         } else {
                             $('#lesson-footer-paginationmobile').append(`

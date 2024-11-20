@@ -273,7 +273,7 @@
 
                     })
 
-                    if (res.total > 1) {
+                    if (res.total > 0) {
 
                         $.each(res.links, function(k, v) {
 
@@ -309,7 +309,7 @@
                                 preclass = "preclass";
                             }
                                 $('#lesson-footer-paginationmobile').append(`
-                                <button class="${linkstatus} btn btn-secondary  ${preclass} ${v.active?"active":""}" disabled>${label_name}</button>
+                                <button class="${linkstatus} btn btn-secondary  ${preclass} ${v.active?"active":""}" onclick="loadlessonreview('${v.url}')" >${label_name}</button>
                                     `)
                             } else {
                                                     $('#lesson-footer-paginationmobile').append(`
