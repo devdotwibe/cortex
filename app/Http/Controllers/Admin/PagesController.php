@@ -606,6 +606,7 @@ class PagesController extends Controller
         'ourprocessimageupdate.*.required' => 'The process image field is required.',
     ]);
 
+    dd($request->input('ourprocessheadingupdate', []));
     // Save banner data
     $banner = Banner::first();
     if (empty($banner)) {
