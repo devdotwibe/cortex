@@ -25,7 +25,7 @@ class CategoryController extends Controller
     
     function index(Request $request)
     {
-        // if($request->ajax()){
+        if($request->ajax()){
 
             return $this->addAction(function($data){ 
 
