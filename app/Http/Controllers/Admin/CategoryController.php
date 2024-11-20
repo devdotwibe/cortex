@@ -29,8 +29,6 @@ class CategoryController extends Controller
 
             return $this->addAction(function($data){ 
 
-                $question_count = $data->getQuestion->count();
-
                 $action= ' 
                     <a onclick="subcategorylist(\''.route('admin.add_subcatecory', $data->slug).'\', \''.$data->slug.'\', \''.$data->name.'\')" class="btn btn-icons view_btn" data-id="'.$data->name.'">+</a>
 
@@ -46,7 +44,7 @@ class CategoryController extends Controller
                     </a>
                 ';
 
-                if((empty($data->subcategories) || count($data->subcategories) == 0 ) && (empty($data->getQuestionCount('full-mock-exam')) == 0 ))
+                if((empty($data->subcategories) || count($data->subcategories) == 0 ) && ($data->getQuestionCount('full-mock-exam')) == 0 )
                 { 
                     $action.=  
 
