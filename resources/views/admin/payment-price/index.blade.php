@@ -928,7 +928,7 @@
                                                                     <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
                                                                 </label>
                                                                 <input type="file" name="feelingimage" id="feelingimage" class="form-control d-none"
-                                                                       onchange="previewImage22(event, 'feelingimagePreview', this)" data-id="imgid2">
+                                                                       onchange="previewImage22(event, 'imagePreview22', this)" data-id="imgid2">
                                                                 @error('feelingimage')
                                                                     <div class="text-danger">{{ $message }}</div>
                                                                 @enderror
