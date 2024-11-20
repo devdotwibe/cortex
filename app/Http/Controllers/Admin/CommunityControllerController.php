@@ -369,15 +369,13 @@ class CommunityControllerController extends Controller
     {
         $query = $request->input('query');
 
-        // Fetch users whose name matches the query
-        $users = User::where('name', 'like', '%' . $query . '%')->get();
+       
+        $users = User::whereHas('userpost')->where('name', 'like', '%' . $query . '%')->get();
 
-        // Filter the posts based on the selected user's ID
         $posts = Post::whereIn('user_id', $users->pluck('id'))
-            ->with('user') // Eager load user data
+            ->with('user')
             ->get();
 
-        // Return unique users and posts
         return response()->json(['users' => $users->unique('id'), 'posts' => $posts]);
     }
 
