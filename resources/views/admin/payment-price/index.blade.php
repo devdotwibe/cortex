@@ -1454,7 +1454,7 @@ function removePreviewImage() {
 // Function to remove the dynamically previewed image when the delete button is clicked
 function removefeelImage() {
     // Clear the preview image and hide the preview container and delete button
-    const output = document.getElementById('feelingimagePreview');
+    const output = document.getElementById('imagePreview22');
     output.src = ''; // Clear the image source
     output.style.display = 'none'; // Hide the preview image
 
