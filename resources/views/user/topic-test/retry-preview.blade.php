@@ -273,6 +273,7 @@
                         }, 'json')
 
                     })
+                    
                     if (res.total > 1) {
 
                         var total_time = "{{ $examtime }}";
