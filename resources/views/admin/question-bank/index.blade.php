@@ -126,7 +126,8 @@
                                 <div class="form-data">
                                     <div class="forms-inputs mb-4">
                                         <label for="time_of_exam-table-subcategoryset-form-create">Exam Duration (HH:MM)</label>
-                                        <input type="search" name="time_of_exam" id="time_of_exam-table-subcategoryset-form-create" class="form-control "  >
+                                        <input type="time" name="time_of_exam" id="time_of_exam-table-subcategoryset-form-create" class="form-control" min="00:01" required>
+                                        <span class="error-message" style="color: red; display: none;">Time must not be 00:00.</span>
                                         <div class="invalid-feedback" id="time_of_exam-error-table-subcategoryset-form-create"></div>
                                     </div>
                                 </div>
