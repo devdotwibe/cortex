@@ -21,7 +21,7 @@ class AnalyticsController extends Controller
 
         if($request->ajax()){
             $page=$request->page??1;
-            $data = Exam::where('name',"full-mock-exam")->skip($page-1)->take(1)->first();
+            $data = Exam::where('name',"full-mock-exam")->whereHas('questions')->get()->skip($page-1)->take(1)->first();
             $categorydata=[];
             foreach ($category as $cat) {
                 $categorydata[]=[
