@@ -201,6 +201,8 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
         Route::resource("/question",QuestionController::class);
         Route::get('/question/{question}/visibility',[QuestionController::class,'visibility'])->name('question.visibility');
+        Route::post('question/delete/image', [QuestionController::class, 'deleteImage'])->name('delete.image');
+
         // Route::resource("/learn",LearnController::class);
 
 
