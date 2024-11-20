@@ -48,6 +48,7 @@
                                 @foreach ($item->setname()->whereHas('questions',function($qry)use($exam){
                                     $qry->where('exam_id',$exam->id);
                                 })->get() as $sk=> $set)
+                                @if($set->time_of_exam && $set->time_of_exam !== '00 : 00')
                                     <div class="sets-item">
                                         @if ($user->is_free_access||(optional($user->subscription())->status??"")=="subscribed"||($k == 0&&$sk==0)) 
                                         <a @if($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$item->id.'-set-'.$set->id.'-complete-review',"no")=="yes") 
@@ -60,7 +61,8 @@
                                         @endif
                                             <span class="sets-title">{{$set->name}}</span>
                                         </a>
-                                    </div>                                    
+                                    </div>  
+                                @endif                                  
                                 @endforeach
                             </div> 
                         </div> 

@@ -632,7 +632,8 @@ class MockExamController extends Controller
                 $question = ExamRetryQuestion::findSlug($request->question);
                 return ExamRetryAnswer::where('exam_retry_question_id', $question->id)->get();
             }
-            return ExamRetryQuestion::whereIn('review_type', ['mcq'])->where('exam_retry_review_id', $examRetryReview->id)->where('user_id', $user->id)->paginate(1);
+            
+            // return ExamRetryQuestion::whereIn('review_type', ['mcq'])->where('exam_retry_review_id', $examRetryReview->id)->where('user_id', $user->id)->paginate(1);
 
         $data = ExamRetryQuestion::whereIn('review_type', ['mcq'])->where('exam_retry_review_id', $examRetryReview->id)->where('user_id', $user->id)->paginate(1);
 
