@@ -14,7 +14,7 @@
     <div class="container">
 
 
-        {{-- <x-create-form 
+        <x-create-form 
             name="admin.home-work" 
             :params='[
                 "home_work"=>$homeWork->slug
@@ -29,7 +29,7 @@
                 ["name"=>"answer","label"=>"answer" ,"type"=>"choice" ,"size"=>12],
                 ["name"=>"explanation","label"=>"Explanation","size"=>12,"type"=>"editor" ],
             ]' 
-        />   --}}
+        />  
 
         <x-create-form name="admin.learn" :params="[$homeWork->slug]" :cancel="route('admin.learn.show',$homeWork->slug)" frmID="learnForm" btnsubmit="Save" :fields='[
             ["name"=>"category_id", "value"=>$homeWork->id,"type"=>"hidden"],
