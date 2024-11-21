@@ -320,8 +320,8 @@ class LearnController extends Controller
                 if (!empty($request->choice_mcq_answer_id[$k] ?? "")) {
                     $learnAns = LearnAnswer::find($request->choice_mcq_answer_id[$k]);
                 }
-                if(!empty($request->choice_answer_image[$k] ?? "")){
-                    $image=$request->choice_answer_image[$k];
+                if(!empty($request->choice_mcq_answer_image[$k] ?? "")){
+                    $image=$request->choice_mcq_answer_image[$k];
                 }
                 
                 if (isset($featureimages[$k])) {
