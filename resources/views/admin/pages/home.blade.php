@@ -951,7 +951,7 @@
                                                                 <br>
                                                                 <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
                                                             </label>
-                                                            <input type="file" name="featureimage[]" class="form-control" style="display: none;" id="featureimage" onchange="previewFeatureImagefea(event,'uniqueclass')">
+                                                            <input type="file" name="featureimage[]" class="form-control" style="display: none;" id="featureimage" onchange="previewFirst(event,'uniqueclass')">
                                                             
                                                             <!-- Display Image Preview Here -->
                                                             <div id="preview-container" style="margin-top: 10px; display: none;" class="uniqueclass" >
@@ -3425,6 +3425,34 @@
         var previewImage = document.getElementById('preview-image-' + itemId);
         var previewContainer = document.getElementById('preview-container-' + itemId);
         var deleteButton = document.getElementById('deleteicon-' + itemId);
+
+        // Set the image source to the selected file
+        previewImage.src = e.target.result;
+
+        // Show the preview image container
+        previewContainer.style.display = 'block';
+        previewImage.style.display = 'block'; // Ensure the image is visible
+        
+        // Show the delete button
+        deleteButton.style.display = 'inline-block'; // Display the delete button
+    };
+
+    // Read the file as a data URL
+    reader.readAsDataURL(event.target.files[0]);
+}
+
+
+
+
+
+function previewFirst(event, itemId) {
+    var reader = new FileReader();
+
+    // Handle the file reading process
+    reader.onload = function(e) {
+        var previewImage = document.getElementById('featureimage');
+        var previewContainer = document.getElementById('preview-image');
+        var deleteButton = document.getElementById('uniqueid');
 
         // Set the image source to the selected file
         previewImage.src = e.target.result;
