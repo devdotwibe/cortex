@@ -954,10 +954,10 @@
                                                             <input type="file" name="featureimage[]" class="form-control" style="display: none;" id="featureimagefirst" onchange="previewFirst(event)">
                                                             
                                                             <!-- Display Image Preview Here -->
-                                                            <div id="preview-container" style="margin-top: 10px; display: none;">
+                                                            <div id="preview-containerfirst" style="margin-top: 10px; display: none;">
                                                                 <img id="preview-imagefirst" src="" alt="Image Preview" style="max-width: 100px; display: none;">
                                                                 <!-- Delete button for preview (before saving) -->
-                                                                <button type="button" class="btn btn-danger" id="deleteicon" style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removerepimgfirst()">Delete image</button>
+                                                                <button type="button" class="btn btn-danger" id="deleteiconfirst" style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removerepimgfirst()">Delete image</button>
                                                             </div>
                                             
                                                             @error('featureimage')
@@ -3451,9 +3451,9 @@ function previewFirst(event) {
 
         // Handle the file reading process
         reader.onload = function(e) {
-            var previewImage = document.getElementById("preview-image");
-            var previewContainer = document.getElementById("preview-container");
-            var deleteButton = document.getElementById("deleteicon");
+            var previewImage = document.getElementById("preview-imagefirst");
+            var previewContainer = document.getElementById("preview-containerfirst");
+            var deleteButton = document.getElementById("deleteiconfirst");
 
             // Set the image source to the selected file
             previewImage.src = e.target.result;
@@ -3636,16 +3636,16 @@ function removerepimg(featureIndex) {
 // Function to remove image preview and reset the file input
 function removerepimgfirst(featureIndex) {
     // Hide the preview container
-    document.getElementById('preview-container').style.display = "none";
+    document.getElementById('preview-containerfirst').style.display = "none";
     
     // Reset the file input value
     document.getElementById('featureimagefirst').value = "";
     
     // Hide the delete button
-    document.getElementById('deleteicon').style.display = "none";
+    document.getElementById('deleteiconfirst').style.display = "none";
     
     // Optionally, reset the image preview to a blank state (or other fallback image)
-    document.getElementById('preview-image').src = "";
+    document.getElementById('preview-imagefirst').src = "";
 }
 
 </script>
