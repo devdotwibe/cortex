@@ -2292,7 +2292,7 @@
                                                             <div class="form-data">
                                                                 <div class="forms-inputs mb-4">
                                                                     <label for="ourprocessimage-{{ $item->id }}"
-                                                                        class="file-upload">Process Icon* <br>
+                                                                        class="file-upload">Process Icon1* <br>
                                                                         <img src="{{ asset('assets/images/upfile.svg') }}"
                                                                             alt="Upload Icon">
                                                                     </label>
