@@ -3208,6 +3208,48 @@ function removeLiveImage() {
 
 
 
+
+
+
+function removeFeatureImage(index) {
+    const imagePath = document.getElementById(`imagePreview_${index}`).src;
+    const imagePathWithoutDomain = imagePath.replace(window.location.origin, ''); // Remove the domain part from the image path
+
+    // Send an AJAX request to delete the image
+    $.ajax({
+        type: 'POST',
+        url: '{{ route('admin.page.deleteFeatureImage') }}', // Ensure this route matches the backend route for deleting feature image
+        data: {
+            _token: '{{ csrf_token() }}',
+            image_path: imagePathWithoutDomain // Send the image path without the domain
+        },
+        success: function(response) {
+            if (response.success) {
+                // Hide the image preview and the delete button
+                const previewContainer = document.getElementById(`featurePreviewContainer_${index}`);
+                const previewImage = document.getElementById(`imagePreview_${index}`);
+                const deleteButton = document.getElementById(`deleteSavedButton_${index}`);
+
+                previewImage.style.display = 'none';
+                previewContainer.style.display = 'none';
+                deleteButton.style.display = 'none';
+
+                // Optionally, reset the file input value
+                document.getElementById(`featureimage_${index}`).value = '';
+
+                // Optionally, you can add a hidden input to mark this image for deletion on the server if necessary
+                alert('Feature image has been deleted.');
+            } else {
+                alert('Image could not be deleted. Please try again.');
+            }
+        },
+        error: function(xhr) {
+            alert('An error occurred. Please try again.');
+        }
+    });
+}
+
+
 </script>
 
 
