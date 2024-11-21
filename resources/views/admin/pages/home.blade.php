@@ -830,10 +830,10 @@
                                                                 </div>
                                                 
 
-                                                                  <!-- Delete button for preview (before saving) -->
-                                                    <button type="button" class="btn btn-danger imgid121" id="deleteicon121"
-                                                    style="position: absolute; top: 5px; right: 5px; display: none;"
-                                                    onclick="removeImagedelete()">Delete</button>
+                                                                                <!-- Delete button for preview (before saving) -->
+                                                                    <button type="button" class="btn btn-danger imgid121" id="deleteicon121"
+                                                                    style="position: absolute; top: 5px; right: 5px; display: none;"
+                                                                    onclick="removeImagedelete()">Delete</button>
 
 
 
