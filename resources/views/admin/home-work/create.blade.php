@@ -68,7 +68,7 @@
         });
         function cclickback(e){
 
-            console.log(e.value);
+            console.log(e.val());
 
            if(e.value == 'short_notes')
             {
