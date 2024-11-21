@@ -36,8 +36,14 @@ class PostReportController extends Controller
     }
     public function banuser(Request $request,User $user){
 
-        $request->report_post;
-        dd($request->report_post);
+        $reportPost = ReportPost::findSlug($request->report_post);
+
+        $reportPost->status ='banned';
+
+        $reportPost->save();
+
+        dd('banned');
+
         $user->update([
             'post_status'=>"banned"
         ]); 
