@@ -825,7 +825,7 @@
                                                 </div> --}}
 
 
-                                                    <div class="col-md-12">
+                                                    <div class="col-md-12 numericalsectionclass">
                                                         <div class="form-group">
                                                             <div class="form-data">
                                                                 <div class="forms-inputs mb-4">
@@ -844,8 +844,8 @@
                                                                         onchange="previewFeatureImagefea(event, '{{ $item->id }}')">
 
                                                                     <!-- Display Image Preview Here -->
-                                                                    <div id="preview-container-{{ $item->id }}"
-                                                                        style="margin-top: 10px;">
+                                                                    <div id="preview-container-{{ $item->id }}" 
+                                                                        style="margin-top: 10px;" class="numericalclass" >
                                                                         <img id="preview-image-{{ $item->id }}"
                                                                             src="" alt="Image Preview"
                                                                             style="max-width: 100px; display: none;">
@@ -866,7 +866,7 @@
                                                                             id="deleteiconfeature-{{ $item->id }}"
                                                                             onclick="removeFeatureImage(this, '{{ $item->id }}')"
                                                                             data-id="feature_cls-{{ $item->id }}"
-                                                                            data-image-path="{{ $item->image }}">Delete</button>
+                                                                            data-image-path="{{ $item->image }}">X</button>
 
                                                                         <img src="{{ url('d0/' . $item->image) }}"
                                                                             alt="Feature Image"
