@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', optioanl($post)->title??'Post Not Found')
+@section('title', optional($post)->title??'Post Not Found')
 @section('content')
 
 <section class="header_nav">
