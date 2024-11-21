@@ -843,7 +843,7 @@
                                                                     @endif
                                                                 </div> --}}
 
-                                                                <button type="button" class="btn btn-danger" id="deleteicon"
+                                                                <button type="button" class="btn btn-danger" id="deleteiconfeature"
                                                                 onclick="removeFeatureImage(this, '{{  $item->id }}')"
                                                                 data-feature-id="id">hi</button>
                                                 
@@ -3228,7 +3228,7 @@ function removeFeatureImage(element,itemId) {
             if (response.success) {
                 // Hide the image preview and the delete button for saved image
                 $('#featureImagePreview-' + itemId).hide();
-                $('#deleteicon').hide();
+                $('#deleteiconfeature').hide();
                 
                 // Optionally, you can reset the image input to allow uploading a new image
                 $('#featureimage-' + itemId).val('');
