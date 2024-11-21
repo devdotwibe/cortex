@@ -3366,7 +3366,7 @@ aside.side_bar.slider-btn .btn-slider {
 
 .exam-container .container-wrap .lesson .lesson-body .mcq-row ol {
     width: 100%;
-    float: none;
+    float: left;
     counter-reset: my-awesome-counter;
     margin:0 auto 28px;
     position: relative;
