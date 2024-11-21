@@ -128,6 +128,7 @@ class HomeWorkController extends Controller
         }
 
         $data['home_work_id']=$homeWork->id;
+        $data['home_work_type']=$request->home_work_type;
         $homeWorkQuestion->update($data);
         $ansIds=[]; 
         $featureimages = $request->file('file_answer', []);
@@ -207,15 +208,13 @@ class HomeWorkController extends Controller
 
             default:
                 $data = $request->validate([
-                    "category_id" => ['required'],
-                    "sub_category_id" => ['required'],
-                    "title" => ['required'],
-                    "learn_type" => ["required"],
+                    "home_work_type" => ["required"],
                 ]);
                 break;
         }
 
         $data['home_work_id']=$homeWork->id;
+        $data['home_work_type']=$request->home_work_type;
         $question=HomeWorkQuestion::store($data);
         $featureimages = $request->file('file_answer', []);
         foreach($request->answer as $k =>$ans){
