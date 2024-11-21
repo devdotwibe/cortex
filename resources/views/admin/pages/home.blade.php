@@ -947,15 +947,15 @@
                                                 <div class="form-group">
                                                     <div class="form-data">
                                                         <div class="forms-inputs mb-4">
-                                                            <label for="featureimage" class="file-upload">Feature Image22
+                                                            <label for="featureimagefirst" class="file-upload">Feature Image22
                                                                 <br>
                                                                 <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
                                                             </label>
-                                                            <input type="file" name="featureimage[]" class="form-control" style="display: none;" id="featureimage" onchange="previewFirst(event,'uniqueclass')">
+                                                            <input type="file" name="featureimage[]" class="form-control" style="display: none;" id="featureimagefirst" onchange="previewFirst(event,'uniqueclass')">
                                                             
                                                             <!-- Display Image Preview Here -->
                                                             <div id="preview-container" style="margin-top: 10px; display: none;" class="uniqueclass" >
-                                                                <img id="preview-image" src="" alt="Image Preview" style="max-width: 100px; display: none;">
+                                                                <img id="preview-imagefirst" src="" alt="Image Preview" style="max-width: 100px; display: none;">
                                                                 <!-- Delete button for preview (before saving) -->
                                                                 <button type="button" class="btn btn-danger uniqueclass" id="uniqueid" style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removerepimg()">Delete image</button>
                                                             </div>
@@ -3450,8 +3450,8 @@ function previewFirst(event, itemId) {
 
     // Handle the file reading process
     reader.onload = function(e) {
-        var previewImage = document.getElementById('featureimage');
-        var previewContainer = document.getElementById('preview-image');
+        var previewImage = document.getElementById('featureimagefirst');
+        var previewContainer = document.getElementById('preview-imagefirst');
         var deleteButton = document.getElementById('uniqueid');
 
         // Set the image source to the selected file
@@ -3468,6 +3468,10 @@ function previewFirst(event, itemId) {
     // Read the file as a data URL
     reader.readAsDataURL(event.target.files[0]);
 }
+
+
+
+
 
 
 function removeImagedelete(itemId) {
