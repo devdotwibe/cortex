@@ -14,6 +14,7 @@ use App\Models\Hashtagstore;
 use App\Models\PollOption;
 use App\Models\Post;
 use App\Models\PostComment;
+use App\Models\ReportPost;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -352,6 +353,14 @@ class CommunityControllerController extends Controller
     }
     public function destroy(Request $request, Post $post)
     {
+        $report_post = ReportPost::where('post_id',$post->id)->first();
+
+       if(!empty($report_post))
+       {
+            $report_post->status = 'deleted';
+            $report_post->save();
+       }
+
         $post->delete();
         return redirect()->route('admin.community.index')->with('success', "Post Deleted");
     }
