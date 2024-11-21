@@ -947,7 +947,7 @@
                                                 <div class="form-group">
                                                     <div class="form-data">
                                                         <div class="forms-inputs mb-4">
-                                                            <label for="featureimagefirst" class="file-upload">Feature Image
+                                                            <label for="featureimagefirst" class="file-upload">Feature Image22
                                                                 <br>
                                                                 <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
                                                             </label>
@@ -955,7 +955,7 @@
                                                             
                                                             <!-- Display Image Preview Here -->
                                                             <div id="preview-container" style="margin-top: 10px; display: none;">
-                                                                <img id="preview-image" src="" alt="Image Preview" style="max-width: 100px; display: none;">
+                                                                <img id="preview-imagefirst" src="" alt="Image Preview" style="max-width: 100px; display: none;">
                                                                 <!-- Delete button for preview (before saving) -->
                                                                 <button type="button" class="btn btn-danger" id="deleteicon" style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removerepimgfirst()">Delete image</button>
                                                             </div>
