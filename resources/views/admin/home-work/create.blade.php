@@ -14,7 +14,7 @@
     <div class="container">
 
 
-        {{-- <x-create-form 
+        <x-create-form 
             name="admin.home-work" 
             :params='[
                 "home_work"=>$homeWork->slug
@@ -29,12 +29,11 @@
                 ["name"=>"answer","label"=>"answer" ,"type"=>"choice" ,"size"=>12],
                 ["name"=>"explanation","label"=>"Explanation","size"=>12,"type"=>"editor" ],
             ]' 
-        />   --}}
+        />  
 
         <x-create-form name="admin.learn" :params="[$homeWork->slug]" :cancel="route('admin.learn.show',$homeWork->slug)" frmID="learnForm" btnsubmit="Save" :fields='[
-            ["name"=>"category_id", "value"=>$homeWork->id,"type"=>"hidden"],
-            ["name"=>"redirect", "value"=>route("admin.learn.show",$homeWork->slug),"type"=>"hidden"],
-            ["name"=>"sub_category_id" ,"label"=>"Sub Category","ajaxurl"=>route("admin.learn.show",$homeWork->slug),"type"=>"select","child"=>"sub_category_set","size"=>4],
+            ["name"=>"redirect", "value"=>route("admin.home-work.show",$homeWork->slug),"type"=>"hidden"],
+             ["name"=>"home_work_book_id" ,"label"=>"Week Booklet","ajaxurl"=>route("admin.home-work.create",$homeWork->slug),"type"=>"select","size"=>4],
              ["name"=>"title", "placeholder"=>"Title","label"=>"Title","size"=>4,"type"=>"text"], 
             ["name"=>"learn_type","event"=>["change"=>"cclickback"] ,"label"=>"Learn Type","placeholder"=>"Select Learn Type","type"=>"select","size"=>4,"options"=>[["value"=>"video","text"=>"Video"],["value"=>"notes","text"=>"Note"],["value"=>"short_notes","text"=>"Short Note Questions"],["value"=>"mcq","text"=>"MCQs Questions"]]],
              
