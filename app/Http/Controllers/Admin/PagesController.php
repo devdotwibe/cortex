@@ -1074,9 +1074,7 @@ public function deleteImagesection7(Request $request)
         return response()->json(['success' => false, 'message' => 'Process not found']);
     }
     
-           
-
-            
-
-
 }
+}     
+
+        
