@@ -36,6 +36,8 @@ class PostReportController extends Controller
         {
             $reportPost->status = "deleted";
             $reportPost->save();
+
+            dd($reportPost->status);
         }
 
         return view('admin.report-post.show',compact('postUser','post','user','reportPost'));
