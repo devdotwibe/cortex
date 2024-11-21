@@ -702,7 +702,7 @@
 
 
                                                 <!-- Feature Image -->
-                                                {{-- <div class="col-md-12">
+                                                <div class="col-md-12">
                                                     <div class="form-group">
                                                         <div class="form-data">
                                                             <div class="forms-inputs mb-4">
@@ -733,54 +733,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div> --}}
-
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <div class="form-data">
-                                                            <div class="forms-inputs mb-4">
-                                                                <!-- File Upload Label -->
-                                                                <label for="featureimage_{{ $k }}" class="file-upload">Feature Image <br>
-                                                                    <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
-                                                                </label>
-                                                
-                                                                <!-- Hidden Input for IDs -->
-                                                                <input type="hidden" name="featureids[]" value="{{ old('featureids.' . $k, $item->id ?? '') }}">
-                                                
-                                                                <!-- File Input -->
-                                                                <input type="file" name="featureimageupdate[]" id="featureimage_{{ $k }}" 
-                                                                       class="form-control d-none"
-                                                                       onchange="previewFeatureImage(event, {{ $k }})">
-                                                
-                                                                <!-- Preview Section -->
-                                                                <div id="featurePreviewContainer_{{ $k }}" style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px; position: relative; margin-top: 10px; display: {{ !empty($item->image) ? 'block' : 'none' }};">
-                                                
-                                                                    <!-- Image Preview -->
-                                                                    <img id="imagePreview_{{ $k }}" 
-                                                                         src="{{ !empty($item->image) ? asset('path/to/images/' . $item->image) : '' }}" 
-                                                                         alt="Feature Image Preview" 
-                                                                         style="width: 100%; height: auto; display: {{ !empty($item->image) ? 'block' : 'none' }};">
-                                                
-                                                                    <!-- Delete Button for Unsaved Preview -->
-                                                                    <button type="button" class="btn btn-danger" id="deletePreviewButton_{{ $k }}" 
-                                                                            style="position: absolute; top: 5px; right: 45px; display: none;" 
-                                                                            onclick="removeFeatureImagePreview({{ $k }})">X</button>
-                                                
-                                                                    <!-- Delete Button for Saved Image -->
-                                                                    <button type="button" class="btn btn-danger" id="deleteSavedButton_{{ $k }}" 
-                                                                            style="position: absolute; top: 5px; right: 5px; {{ !empty($item->image) ? 'display: block;' : 'display: none;' }}" 
-                                                                            onclick="removeFeatureImage({{ $k }})">X</button>
-                                                                </div>
-                                                
-                                                                <!-- Error Message -->
-                                                                @error('featureimageupdate.' . $k)
-                                                                    <div class="text-danger">{{ $message }}</div>
-                                                                @enderror
-                                                            </div>
-                                                        </div>
-                                                    </div>
                                                 </div>
-                                                
 
 
 
@@ -829,7 +782,7 @@
                                                 </div>
 
                                                 <!-- Feature Image -->
-                                                <div class="col-md-12">
+                                                {{-- <div class="col-md-12">
                                                     <div class="form-group">
                                                         <div class="form-data">
                                                             <div class="forms-inputs mb-4">
@@ -856,7 +809,58 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                </div> --}}
+
+
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <div class="form-data">
+                                                            <div class="forms-inputs mb-4">
+                                                                <label for="featureimage-{{ $item->id }}" class="file-upload">Feature Image1 <br>
+                                                                    <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
+                                                                </label>
+                                                                <input type="hidden" name="featureids[]" value="{{ $item->id }}">
+                                                                <input type="file" id="featureimage-{{ $item->id }}" name="featureimageupdate[]"
+                                                                    class="form-control" style="display: none;" onchange="previewFeatureImage(event, '{{ $item->id }}')">
+                                                
+                                                                {{-- <!-- Preview Image Container -->
+                                                                <div id="featureImagePreviewContainer-{{ $item->id }}" style="display: none; margin-top: 10px; position: relative;">
+                                                                    <!-- Image Preview -->
+                                                                    <img id="featureImagePreview-{{ $item->id }}"
+                                                                        src="" alt="Feature Image Preview"
+                                                                        style="max-width: 100px; height: auto; display: none;">
+                                                                    
+                                                                    <!-- Delete button for preview (before saving) -->
+                                                                    <button type="button" class="btn btn-danger" id="deleteicon-preview-{{ $item->id }}"
+                                                                        style="position: absolute; top: 5px; right: 5px; display: none;"
+                                                                        onclick="removeFeatureImagePreview('{{ $item->id }}')">X</button>
+                                                
+                                                                    <!-- Delete button for saved image -->
+                                                                    @if (!empty($item->image))
+                                                                        <button type="button" class="btn btn-danger" id="deleteicon-saved-{{ $item->id }}"
+                                                                            style="position: absolute; top: 5px; right: 5px; display: block;"
+                                                                            onclick="removeFeatureImage('{{ $item->id }}')">X</button>
+                                                                    @endif
+                                                                </div> --}}
+
+                                                                <button type="button" class="btn btn-danger" id="deleteiconfeature"
+                                                                onclick="removeFeatureImage(this, '{{  $item->id }}')"
+                                                                data-feature-id="id">hi</button>
+                                                
+                                                                <!-- Display existing saved image if available -->
+                                                                @if (!empty($item->image))
+                                                                    <img src="{{ url('d0/' . $item->image) }}" alt="Feature Image"
+                                                                        style="max-width: 100px; margin-top: 10px;">
+                                                                @endif
+                                                
+                                                                @error('featureimage')
+                                                                    <div class="text-danger">{{ $message }}</div>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
+                                                
 
 
 
@@ -3196,6 +3200,40 @@ function removeLiveImage() {
                 $('#imgid10').hide();
                 document.getElementById('liveImagePreview').style.display = 'none';
                 document.querySelector('#liveImagePreviewContainer button.btn-danger').style.display = 'none';
+            } else {
+                alert('Image could not be deleted. Please try again.');
+            }
+        },
+        error: function(xhr) {
+            alert('An error occurred. Please try again.');
+        }
+    });
+}
+
+
+
+
+function removeFeatureImage(element,itemId) {
+    const imagePath = "{{ optional($item)->image }}"; // Get the image path for the feature image
+
+    // Send an AJAX request to delete the image
+    $.ajax({
+        type: 'POST',
+        url: '{{ route('admin.page.deleteFeatureImage') }}', // Ensure this route matches the backend route for deleting feature images
+        data: {
+            _token: '{{ csrf_token() }}',
+            id: itemId // Send the image path as part of the data
+        },
+        success: function(response) {
+            if (response.success) {
+                // Hide the image preview and the delete button for saved image
+                $('#featureImagePreview-' + itemId).hide();
+                $('#deleteiconfeature').hide();
+                
+                // Optionally, you can reset the image input to allow uploading a new image
+                $('#featureimage-' + itemId).val('');
+                
+                alert('Image deleted successfully.');
             } else {
                 alert('Image could not be deleted. Please try again.');
             }

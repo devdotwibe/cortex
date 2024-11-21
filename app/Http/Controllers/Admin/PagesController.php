@@ -979,4 +979,36 @@ public function deleteLiveImage(Request $request)
     return response()->json(['success' => false, 'message' => 'Image file not found.'], 404);
 }
 
+
+public function deleteFeatureImage(Request $request)
+{
+
+    $feature = Feature::find($request->id);
+
+    if ($feature) {
+        // Get the image path from the request
+        $imagePath = $feature->image ;
+
+        // Check if the file exists in the storage and delete it
+        if (Storage::exists($imagePath)) {
+            // Delete the image from storage
+            Storage::delete($imagePath);
+
+            // Update the feature record to remove the image from the database
+            $feature->image = null;
+            $feature->save();
+
+            // Return a success response
+            return response()->json(['success' => true, 'message' => 'Image deleted successfully']);
+        } else {
+            // If the file doesn't exist
+            return response()->json(['success' => false, 'message' => 'Image not found']);
+        }
+    }
+
+    // If the feature doesn't exist
+    return response()->json(['success' => false, 'message' => 'Feature not found']);
+}
+
+
 }
