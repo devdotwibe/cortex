@@ -2484,11 +2484,11 @@
                         <textarea name="featurecontentupdate[]" id="featurecontent${featureIndex}" class="form-control" rows="5" placeholder="Feature Description"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="featureimage_${featureIndex}" class="file-upload">Feature Image <br>   <img src="{{ asset('assets/images/upfile.svg') }}"
+                        <label for="featureimage_text${featureIndex}" class="file-upload">Feature Image <br>   <img src="{{ asset('assets/images/upfile.svg') }}"
                                                             alt="Upload Icon"> </label>
-                        <input type="file" name="featureimageupdate[]" onchange="previewFeatureImagefea(event, '${featureIndex}')" id="featureimage_${featureIndex}" class="form-control"  style="display: none;">
-                         <div id="preview-container-${featureIndex}" style="margin-top: 10px;">
-                        <img id="preview-image-${featureIndex}" src="" alt="Image Preview" style="max-width: 100px; display: none;">
+                        <input type="file" name="featureimageupdate[]" onchange="previewFeatureImagefea(event, 'text${featureIndex}')" id="featureimage_text${featureIndex}" class="form-control"  style="display: none;">
+                         <div id="preview-container-text${featureIndex}" style="margin-top: 10px;">
+                        <img id="preview-image-text${featureIndex}" src="" alt="Image Preview" style="max-width: 100px; display: none;">
                          </div>
                     </div>
                 </div>
