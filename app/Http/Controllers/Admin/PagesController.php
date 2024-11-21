@@ -1058,34 +1058,25 @@ public function deleteImagesection7(Request $request)
             if (Storage::exists($imagePath)) {
                 // Delete the image from storage
                 Storage::delete($imagePath);
-            }
-
-            // Update the feed record to remove the image
+                // Update the feed record to remove the image
             $feed->image = null;
             $feed->save();
 
+             // Return a success response
+             return response()->json(['success' => true, 'message' => 'Process image deleted successfully']);
+            } else {
+                // If the image doesn't exist in storage
+                return response()->json(['success' => false, 'message' => 'Process image not found']);
+            }
+        }
+    
+        // If the process doesn't exist
+        return response()->json(['success' => false, 'message' => 'Process not found']);
+    }
+    
            
 
-            // Return a success response
-            return response()->json([
-                'success' => true,
-                'message' => 'Image deleted successfully.',
-            ]);
-        } else {
-            // Return a response if the image path doesn't match
-            return response()->json([
-                'success' => false,
-                'message' => 'Image path does not match the record.',
-            ]);
-        }
-    }
-
-    // If the feed record is not found
-    return response()->json([
-        'success' => false,
-        'message' => 'Feed record not found.',
-    ]);
-}
+            
 
 
 }
