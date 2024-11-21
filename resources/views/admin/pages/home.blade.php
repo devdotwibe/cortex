@@ -3476,26 +3476,29 @@ Copy code
 
 
 function previewFirst(event) {
-        var reader = new FileReader();
+    var reader = new FileReader();
 
-        // Handle the file reading process
-        reader.onload = function(e) {
-            var previewImage = document.getElementById("preview-imagefirst");
-            var previewContainer = document.getElementById("preview-containerfirst");
-            var deleteButton = document.getElementById("deleteiconfirst");
+    // Handle the file reading process
+    reader.onload = function(e) {
+        var previewImage = document.getElementById("preview-imagefirst");
+        var previewContainer = document.getElementById("preview-containerfirst");
+        var deleteButton = document.getElementById("deleteiconfirst");
 
-            // Set the image source to the selected file
-            previewImage.src = e.target.result;
+        // Set the image source to the selected file
+        previewImage.src = e.target.result;
 
-            // Show the preview image container and the delete button
-            previewContainer.style.display = 'block';
-            previewImage.style.display = 'block'; // Ensure the image is visible
-            deleteButton.style.display = 'inline-block'; // Display the delete button
-        };
+        // Show the preview image container and the delete button
+        previewContainer.style.display = 'block';
+        previewImage.style.display = 'block'; // Ensure the image is visible
+        deleteButton.style.display = 'inline-block'; // Display the delete button
+    };
 
-        // Read the file as a data URL
+    // Check if a file is selected before attempting to read it
+    if (event.target.files && event.target.files[0]) {
+        // Read the file as a data URL (for image preview)
         reader.readAsDataURL(event.target.files[0]);
     }
+}
 
 
 
