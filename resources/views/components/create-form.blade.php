@@ -7,12 +7,16 @@
                     @php
                         $choice = 0;
                         $choiceName = '';
+                        $exam_type = '';
                         foreach ($fields as $item) {
                             if (isset($item->name) && ($item->name === 'answer' || $item->name === 'mcq_answer')) {
                                 $choiceName = $item->name;
                                 $choice = 1;
                             }
-                        }                                         
+                            if (isset($item->name) && ($item->name === 'exam_type')) {
+                                $exam_type = $item->value;
+                            }
+                        }  
                     @endphp
                     @foreach ($fields as $item)
                         @if (($item->type??"text")=="hidden")
@@ -92,6 +96,7 @@
                                                 @break
                                             @case('editor')
                                                 <textarea name="{{$item->name}}" id="{{$item->name}}-{{$frmID}}"  class="form-control texteditor @error($item->name) is-invalid @enderror "  rows="5">{{old($item->name)}}</textarea>
+                                                <div class="invalid-feedback" id="{{$item->name}}-{{$frmID}}-texteditor"></div>
                                                 @break
                                             @case('textarea')
                                                 <textarea name="{{$item->name}}" id="{{$item->name}}-{{$frmID}}"  class="form-control @error($item->name) is-invalid @enderror "  rows="5">{{old($item->name)}}</textarea>
@@ -107,7 +112,9 @@
                                                     @if(!empty(old($item->name)))
                                                         {{-- <option value="{{old($item->name)}}">{{old("selectval".$item->name)}}</option> --}}
                                                     @endif
-                                                </select>                                                
+                                                </select>
+                                                <div class="invalid-feedback" id="select-{{$frmID}}"></div>
+                                                
                                                 @break
                                             @default 
                                             <input type="{{$item->type??"text"}}" name="{{$item->name}}" id="{{$item->name}}-{{$frmID}}" value="{{old($item->name)}}" class="form-control  @error($item->name) is-invalid @enderror " placeholder="{{ucfirst($item->placeholder??$item->name)}}" aria-placeholder="{{ucfirst($item->placeholder??$item->name)}}" >
@@ -290,15 +297,54 @@
             let choice = "{{ $choice }}"
             let name = "{{ $choiceName }}"
             let firstInvalidFeedback = null; 
-
+            let exam = '{{ $exam_type }}';
             $("#{{$frmID}}").on("submit", function (e) {
+                if(exam=='full-mock-exam'){
+                    let isValid = true;
+                    const categoryField = $(this).find('[name="category_id"]');
+                    const categoryValue = categoryField.val()??'';
+                    const descriptionField = $(this).find('[name="description"]');
+                    const descriptionValue = descriptionField.val().trim() ?? '';
+                    if (categoryValue === '') {
+                        categoryField.addClass("is-invalid");
+                        $('#select-{{$frmID}}').text('Category is required.').show();
+                        isValid = false;
+                        if (!firstInvalidFeedback) {
+                            firstInvalidFeedback = $('#select-{{$frmID}}');
+                        }
+                    } else {
+                        categoryField.removeClass('is-invalid');
+                    }
+
+                    if (descriptionValue === '') {
+                        descriptionField.addClass("is-invalid");
+                        $('#description-{{$frmID}}-texteditor').text('Description is required.').show();
+                        isValid = false;
+                        if (!firstInvalidFeedback) {
+                            firstInvalidFeedback = $('#description-{{$frmID}}');
+                        }
+
+                    } else {
+                        descriptionField.removeClass('is-invalid');
+                    }
+                    if (!isValid && firstInvalidFeedback) {
+                        e.preventDefault(); // Prevent form submission
+                        $('html, body').animate(
+                            {
+                                scrollTop: firstInvalidFeedback.offset().top - 100, 
+                            },
+                            500 
+                        );
+                        firstInvalidFeedback.attr("tabindex", "-1").focus(); 
+                    }
+                }
                 if ($('.mcq_section').is(':visible') || $(`input[name='${name}[]']`).length > 1) {
                     let isValid = true;
+                    
                     // Loop through each group of inputs
                     $(`input[name='${name}[]']`).each(function (index) {
                         const answerField = $(this);
                         const fileField = $(`input[name='file_${name}[]']`).eq(index);
-
                         const answerValue = answerField.val().trim();
                         const fileValue = fileField.val();
 
