@@ -859,10 +859,16 @@
                                                                         onclick="removeImagedelete()">Delete</button> --}}
 
                                                                          <!-- Delete button for preview (before saving) -->
-                                                                    <button type="button" class="btn btn-danger imgid{{ $item->id }}"
+                                                                    {{-- <button type="button" class="btn btn-danger imgid{{ $item->id }}"
                                                                         id="deleteicon-{{ $item->id }}"
                                                                         style="position: absolute; top: 5px; right: 5px; display: none;"
-                                                                        onclick="removerepimg(this)">Delete</button>
+                                                                        onclick="removerepimg(this)">Delete</button> --}}
+
+                                                                        <button type="button" class="btn btn-danger imgid{{ $item->id }}"
+                                                                            id="deleteicon-{{ $item->id }}"
+                                                                            style="position: absolute; top: 5px; right: 5px; display: none;"
+                                                                            onclick="removerepimg(this); hideFeatureImagePreview('{{ $item->id }}')">Delete</button>
+                                                                        
 
 
 
@@ -3540,6 +3546,14 @@ function removeimgImage(element, itemId) {
             alert('An error occurred. Please try again.');
         }
     });
+}
+
+
+
+// Function to hide the element with class "imgid{{ $item->id }}"
+function hideFeatureImagePreview(itemId) {
+    // Use jQuery to hide the element by class
+    $(".imgid" + itemId).hide();
 }
 
 </script>
