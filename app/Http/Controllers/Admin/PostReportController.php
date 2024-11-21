@@ -35,6 +35,7 @@ class PostReportController extends Controller
         if(empty($postUser))
         {
             $reportPost->status = "deleted";
+            $reportPost->save();
         }
 
         return view('admin.report-post.show',compact('postUser','post','user','reportPost'));
