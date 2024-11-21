@@ -3634,7 +3634,7 @@ function removerepimg(featureIndex) {
 }
 
 // Function to remove image preview and reset the file input
-function removerepimgfirst(featureIndex) {
+function removerepimgfirst() {
     // Hide the preview container
     document.getElementById('preview-containerfirst').style.display = "none";
     
@@ -3644,7 +3644,7 @@ function removerepimgfirst(featureIndex) {
     // Hide the delete button
     document.getElementById('deleteiconfirst').style.display = "none";
     
-    // Optionally, reset the image preview to a blank state (or other fallback image)
+    // Reset the image preview to a blank state (or other fallback image)
     document.getElementById('preview-imagefirst').src = "";
 }
 
