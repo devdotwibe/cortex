@@ -1919,7 +1919,7 @@
 
 
 
-                                        {{-- <div class="col-md-12">
+                                        <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="image">Image</label>
                                                 <input type="hidden" name="feedids[]" value="">
@@ -1930,21 +1930,21 @@
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
-                                        </div> --}}
+                                        </div>
 
-                                        <div class="col-md-12">
+                                        {{-- <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="image" class="file-upload">Image <br>
                                                     <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
                                                 </label>
                                                 <input type="hidden" name="feedids[]" value="">
-                                                <input type="file" id="image" name="image[]" class="form-control"  onchange="previewFeatureImage(event)">
+                                                <input type="file" id="image" name="image[]" class="form-control" style="display: block;" onchange="previewFeatureImage(event)">
                                         
                                                 @error('image')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
-                                        </div>
+                                        </div> --}}
                                         
 
 
