@@ -3442,15 +3442,25 @@
 }
 
 
-                    function removeImagedelete(itemId) {
-                        // Clear the learn image preview source and hide preview container and delete button
-                        const output = document.getElementById('preview-container-' + itemId);
-                        output.src = '';
-                        output.style.display = 'none';
+function removeImagedelete(itemId) {
+    // Clear the learn image preview source and hide preview container and delete button
+    const output = document.getElementById('preview-container-' + itemId);
+    if (output) {
+        output.src = '';
+        output.style.display = 'none';
+    }
 
-                        const deleteIcon = document.getElementById('deleteicon-' + itemId);
-                        document.getElementById('deleteicon-{{ $item->id }}').style.display = 'none'; // Hide preview delete button
-                    }
+    const imgId = document.getElementById('imgid121');
+    if (imgId) {
+        imgId.style.display = 'none';
+    }
+
+    const deleteIcon = document.getElementById('deleteicon-' + itemId);
+    if (deleteIcon) {
+        deleteIcon.style.display = 'none'; // Hide preview delete button
+    }
+}
+
 
                     
                     function previewprocessImage(event, itemId) {
