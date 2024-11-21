@@ -2622,7 +2622,10 @@
                         <img id="preview-image-text${featureIndex}" src="" alt="Image Preview" style="max-width: 100px; display: none;">
 
                        
-                    <button type="button" id="deleteicon-text${featureIndex}" class="btn btn-danger" style="display: none; margin-top: 10px;" onclick="removerepimg('text${featureIndex}')">Delete</button>
+                  
+                       <button type="button" class="btn btn-danger imgid{{ $item->id }}" id="deleteicon-{{ $item->id }}"
+                       style="position: absolute; top: 5px; right: 5px; display: none;"
+                         onclick="removerepimg(this)">Delete</button>
 
 
                          </div>
