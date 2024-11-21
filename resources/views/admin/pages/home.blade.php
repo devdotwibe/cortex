@@ -1938,7 +1938,7 @@
                                                     <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
                                                 </label>
                                                 <input type="hidden" name="feedids[]" value="">
-                                                <input type="file" id="image" name="image[]" class="form-control" style="display: none;" onchange="previewFeatureImage(event)">
+                                                <input type="file" id="image" name="image[]" class="form-control" style="display: block;" onchange="previewFeatureImage(event)">
                                         
                                                 @error('image')
                                                     <div class="text-danger">{{ $message }}</div>
