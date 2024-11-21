@@ -71,7 +71,7 @@ class HomeWorkController extends Controller
                 })
 
                 
-                ->buildTable(['description','visibility']);
+                ->buildTable(['visibility','question']);
         } 
         return view('admin.home-work.show',compact('homeWork'));
     }
