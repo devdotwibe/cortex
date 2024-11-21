@@ -1042,5 +1042,47 @@ public function deleteProcessImage(Request $request)
 }
 
 
+public function deleteImagesection7(Request $request)
+{
+    
+   
+
+    // Find the feed record by its ID
+    $feed = Feed::find($request->id);
+
+    if ($feed) {
+        // Check if the image path matches the provided path
+        if ($feed->image === $request->image_path) {
+            // Check if the image exists in storage
+            if (Storage::exists($feed->image)) {
+                // Delete the image from storage
+                Storage::delete($feed->image);
+            }
+
+            // Update the feed record to remove the image
+            $feed->image = null;
+            $feed->save();
+
+            // Return a success response
+            return response()->json([
+                'success' => true,
+                'message' => 'Image deleted successfully.',
+            ]);
+        } else {
+            // Return a response if the image path doesn't match
+            return response()->json([
+                'success' => false,
+                'message' => 'Image path does not match the record.',
+            ]);
+        }
+    }
+
+    // If the feed record is not found
+    return response()->json([
+        'success' => false,
+        'message' => 'Feed record not found.',
+    ]);
+}
+
 
 }

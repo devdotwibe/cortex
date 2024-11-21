@@ -1935,24 +1935,53 @@
                                                     <!-- Image -->
                                                     <div class="col-md-12">
                                                         <div class="form-group">
-                                                            <label for="image" class="file-upload">Image1 <br>
-                                                                <img src="{{ asset('assets/images/upfile.svg') }}"
-                                                                    alt="Upload Icon"> </label>
-                                                            <input type="hidden" name="feedids[]"
-                                                                value="{{ $item->id }}">
-                                                            <input type="file" name="imageupdate[]"
-                                                                class="form-control" style="display: none;"
-                                                                onchange="previewFeatureImage(event)">
-                                                            @if (!empty($item->image))
-                                                                <img src="{{ url('d0/' . $item->image) }}"
-                                                                    alt="Image"
-                                                                    style="max-width: 100px; margin-top: 10px;">
-                                                            @endif
-                                                            @error('image')
-                                                                <div class="text-danger">{{ $message }}</div>
-                                                            @enderror
+                                                            <div class="form-data">
+                                                                <div class="forms-inputs mb-4">
+                                                                    <!-- Label for file upload -->
+                                                                    <label for="feedimage-{{ $item->id }}" class="file-upload">
+                                                                        Image1 <br>
+                                                                        <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
+                                                                    </label>
+                                                    
+                                                                    <!-- Hidden input for item ID -->
+                                                                    <input type="hidden" name="feedids[]" value="{{ $item->id }}">
+                                                    
+                                                                    <!-- File input -->
+                                                                    <input type="file" id="feedimage-{{ $item->id }}" name="imageupdate[]" class="form-control"
+                                                                        style="display: none;" onchange="previewimgImage(event, '{{ $item->id }}')">
+                                                    
+                                                                    <!-- Preview container for new image -->
+                                                                    <div id="preview-container-{{ $item->id }}" style="margin-top: 10px;">
+                                                                        <img id="preview-image-{{ $item->id }}" src="" alt="Image Preview"
+                                                                            style="max-width: 100px; display: none;">
+                                                                    </div>
+                                                    
+                                                                    <!-- Delete button for preview (before saving) -->
+                                                                    <button type="button" class="btn btn-danger imgid121" id="deleteicon-{{ $item->id }}"
+                                                                        style="position: absolute; top: 5px; right: 5px; display: none;"
+                                                                        onclick="removeImagedelete('{{ $item->id }}')">Delete</button>
+                                                    
+                                                                    <!-- Display existing saved image if available -->
+                                                                    @if (!empty($item->image))
+                                                                        <button type="button" class="btn btn-danger" id="deleteiconfeature-{{ $item->id }}"
+                                                                            onclick="removeimgImage(this, '{{ $item->id }}')"
+                                                                            data-id="feed_cls-{{ $item->id }}"
+                                                                            data-image-path="{{ $item->image }}">Delete</button>
+                                                    
+                                                                        <img src="{{ url('d0/' . $item->image) }}" alt="Image"
+                                                                            class="feed_cls-{{ $item->id }}"
+                                                                            style="max-width: 100px; margin-top: 10px;">
+                                                                    @endif
+                                                    
+                                                                    <!-- Error handling -->
+                                                                    @error('image')
+                                                                        <div class="text-danger">{{ $message }}</div>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
+                                                    
 
 
                                                     {{--                                                     
@@ -2648,12 +2677,27 @@
                     <textarea name="review[]" id="review${feedIndex}" class="form-control" rows="5" placeholder="Review"></textarea>
                 </div>
 
+            
+
+
+
                 <!-- Image Field -->
-                <div class="form-group">
-                    <label for="image_${feedIndex}" class="file-upload">Image  <br>   <img src="{{ asset('assets/images/upfile.svg') }}"
-                                                            alt="Upload Icon"></label>
-                    <input type="file" name="image[]" id="image_${feedIndex}" class="form-control"  style="display: none;" onchange="previewFeedImage(event)">
-                </div>
+<div class="form-group">
+    <label for="image_${feedIndex}" class="file-upload">
+        Image <br>
+        <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
+    </label>
+
+
+    <input type="file" name="image[]" id="image_${feedIndex}" class="form-control" style="display: none;" onchange="previewimgImage(event, '${feedIndex}')">
+    
+    <!-- Preview Container -->
+    <div id="preview-container-${feedIndex}" style="margin-top: 10px;">
+        <img id="preview-image-${feedIndex}" src="" alt="Image Preview" style="max-width: 100px; display: none;">
+    </div>
+</div>
+
+
 
                 <!-- Close Button -->
                 <button type="button" class="btn btn-danger" onclick="removeFeedItem('feedItem_${feedIndex}')">X</button>
@@ -3428,6 +3472,63 @@ function removeImagedelete(itemId) {
             }
         });
     }
+
+
+
+
+    function previewimgImage(event, itemId) {
+    var reader = new FileReader();
+
+    // Handle the file reading process
+    reader.onload = function(e) {
+        // Select the elements dynamically based on the itemId
+        var previewImage = document.getElementById('preview-image-' + itemId);
+        var previewContainer = document.getElementById('preview-container-' + itemId);
+        var deleteIcon = document.getElementById('deleteicon131-' + itemId);
+
+        // Set the image source to the selected file
+        previewImage.src = e.target.result;
+
+        // Show the preview image and the delete icon
+        previewContainer.style.display = 'block';
+        previewImage.style.display = 'block'; // Ensure the image is visible
+        deleteIcon.style.display = 'block';  // Display the delete button
+    };
+
+    // Read the file as a data URL
+    reader.readAsDataURL(event.target.files[0]);
+}
+
+
+
+function removeimgImage(element, itemId) {
+    const imagePath = $(element).data('image-path'); // Get image path from data attribute
+    const className = $(element).data('id'); // Get class from data attribute
+
+    // AJAX request to delete the image
+    $.ajax({
+        type: 'POST',
+        url: '{{ route('admin.page.deleteImagesection7') }}', // Replace with your actual route
+        data: {
+            _token: '{{ csrf_token() }}', // CSRF token for security
+            id: itemId, // ID of the item
+            image_path: imagePath // Path of the image to be deleted
+        },
+        success: function(response) {
+            if (response.success) {
+                // On success, hide the image and delete button
+                $('.' + className).hide(); // Hide the image container
+                $(element).hide(); // Hide the delete button
+            } else {
+                alert(response.message || 'Image could not be deleted. Please try again.');
+            }
+        },
+        error: function(xhr) {
+            alert('An error occurred. Please try again.');
+        }
+    });
+}
+
 </script>
 
 

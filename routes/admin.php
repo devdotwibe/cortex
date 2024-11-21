@@ -488,7 +488,7 @@ Route::name('admin.')->prefix('admin')->group(function(){
 
             Route::post('/deleteFeatureImage', [PagesController::class, 'deleteFeatureImage'])->name('deleteFeatureImage');
             Route::post('/deleteProcessImage', [PagesController::class, 'deleteProcessImage'])->name('deleteProcessImage');
-
+            Route::post('/deleteImage', [PagesController::class, 'deleteImage'])->name('deleteImagesection7');
             Route::delete('/admin/page/feature/{id}', [PagesController::class, 'destroy'])->name('feature.destroy');
 
 
