@@ -854,7 +854,7 @@
 
                                                                     <!-- Delete button for preview (before saving) -->
                                                                     <button type="button" class="btn btn-danger imgid121"
-                                                                        id="deleteicon121"
+                                                                        id="deleteicon-{{ $item->id }}"
                                                                         style="position: absolute; top: 5px; right: 5px; display: none;"
                                                                         onclick="removeImagedelete()">Delete</button>
 
@@ -2541,26 +2541,33 @@
 
 
                             let featureHTML = `
-                <div class="feature-item mb-3">
-                    <h4>Feature ${featureIndex}</h4>
+               <div class="feature-item mb-3" id="feature-item-${featureIndex}">
+    <h4>Feature ${featureIndex}</h4>
 
-                    <div class="form-group">
-                        <label for="featuresubtitle${featureIndex}">Feature Heading</label>
-                        <input type="text" name="featuresubtitleupdate[]" id="featuresubtitle${featureIndex}" class="form-control" placeholder="Feature Heading">
-                    </div>
-                    <div class="form-group">
-                        <label for="featurecontent${featureIndex}">Feature Description</label>
-                        <textarea name="featurecontentupdate[]" id="featurecontent${featureIndex}" class="form-control" rows="5" placeholder="Feature Description"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="featureimage_text${featureIndex}" class="file-upload">Feature Image <br>   <img src="{{ asset('assets/images/upfile.svg') }}"
-                                                            alt="Upload Icon"> </label>
-                        <input type="file" name="featureimageupdate[]" onchange="previewFeatureImagefea(event, 'text${featureIndex}')" id="featureimage_text${featureIndex}" class="form-control"  style="display: none;">
-                         <div id="preview-container-text${featureIndex}" style="margin-top: 10px;">
-                        <img id="preview-image-text${featureIndex}" src="" alt="Image Preview" style="max-width: 100px; display: none;">
-                         </div>
-                    </div>
-                </div>
+    <div class="form-group">
+        <label for="featuresubtitle${featureIndex}">Feature Heading</label>
+        <input type="text" name="featuresubtitleupdate[]" id="featuresubtitle${featureIndex}" class="form-control" placeholder="Feature Heading">
+    </div>
+
+    <div class="form-group">
+        <label for="featurecontent${featureIndex}">Feature Description</label>
+        <textarea name="featurecontentupdate[]" id="featurecontent${featureIndex}" class="form-control" rows="5" placeholder="Feature Description"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="featureimage_text${featureIndex}" class="file-upload">Feature Image <br>
+            <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
+        </label>
+        <input type="file" name="featureimageupdate[]" onchange="previewFeatureImagefea(event, ${featureIndex})" id="featureimage_text${featureIndex}" class="form-control" style="display: none;">
+        
+        <div id="preview-container-text${featureIndex}" style="margin-top: 10px; display: none;">
+            <img id="preview-image-text${featureIndex}" src="" alt="Image Preview" style="max-width: 100px; display: none;">
+        </div>
+        
+        <button type="button" class="btn btn-danger" id="deleteicon-text${featureIndex}" style="display: none;" onclick="removeFeatureImage(${featureIndex})">Delete</button>
+    </div>
+</div>
+
             `;
 
 
@@ -3304,37 +3311,40 @@
                     }
 
 
-
                     function previewFeatureImagefea(event, itemId) {
-                        var reader = new FileReader();
+    var reader = new FileReader();
 
-                        // Handle the file reading process
-                        reader.onload = function(e) {
-                            var previewImage = document.getElementById('preview-image-' + itemId);
-                            var previewContainer = document.getElementById('preview-container-' + itemId);
+    // Handle the file reading process
+    reader.onload = function(e) {
+        var previewImage = document.getElementById('preview-image-' + itemId);
+        var previewContainer = document.getElementById('preview-container-' + itemId);
+        var deleteButton = document.getElementById('deleteicon-' + itemId); // Get the delete button
 
-                            // Set the image source to the selected file
-                            previewImage.src = e.target.result;
+        // Set the image source to the selected file
+        previewImage.src = e.target.result;
 
-                            // Show the preview image container
-                            previewContainer.style.display = 'block';
-                            previewImage.style.display = 'block'; // Ensure the image is visible
-                        };
+        // Show the preview image container and the delete button
+        previewContainer.style.display = 'block';
+        previewImage.style.display = 'block'; // Ensure the image is visible
+        deleteButton.style.display = 'block'; // Show the delete button
+    };
 
-                        // Read the file as a data URL
-                        reader.readAsDataURL(event.target.files[0]);
-                    }
+    // Read the file as a data URL
+    reader.readAsDataURL(event.target.files[0]);
+}
 
 
-                    function removeImagedelete() {
-                        // Clear the learn image preview source and hide preview container and delete button
-                        const output = document.getElementById('preview-container-{{ $item->id }}');
-                        output.src = '';
-                        output.style.display = 'none';
+function removeImagedelete(itemId) {
+    // Clear the image preview source and hide preview container and delete button
+    const previewImage = document.getElementById('preview-image-' + itemId);
+    const previewContainer = document.getElementById('preview-container-' + itemId);
+    const deleteButton = document.getElementById('deleteicon-' + itemId); 
 
-                        document.getElementById('imgid121').style.display = 'none';
-                        document.getElementById('deleteicon121').style.display = 'none'; // Hide preview delete button
-                    }
+    previewImage.src = ''; // Clear the image
+    previewContainer.style.display = 'none'; // Hide the preview container
+    deleteButton.style.display = 'none'; // Hide the delete button
+}
+
 
                     
                 </script>
