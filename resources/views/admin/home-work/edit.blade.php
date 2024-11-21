@@ -33,7 +33,7 @@
             ["name"=>"home_work_type","event"=>["change"=>"cclickback"] ,"label"=>"Home Work Type","placeholder"=>"Select Home Work Type","type"=>"select","size"=>4,"value"=>$homeWorkQuestion->home_work_type,"options"=>[["value"=>"short_notes","text"=>"Short Note Questions"],["value"=>"mcq","text"=>"MCQs Questions"]]],
              
            
-             ["name"=>"description", "addclass"=>"mcq_question","display"=>"block" , "label"=>"Question","size"=>12,"type"=>"editor", "value"=>$homeWorkQuestion->description], 
+             ["name"=>"description", "addclass"=>"mcq_question","display"=>"block" , "label"=>"Question","size"=>12,"type"=>"editor", ,"value"=>$homeWorkQuestion->description], 
              ["name"=>"answer", "addclass"=>"mcq_question","display"=>"block" ,"label"=>"answer" ,"type"=>"choice" ,"size"=>12 ,"value"=>$choices],
              ["name"=>"explanation", "addclass"=>"mcq_question","display"=>"block" , "label"=>"Explanation","size"=>12,"type"=>"editor" ,"value"=>$homeWorkQuestion->explanation ],
 
