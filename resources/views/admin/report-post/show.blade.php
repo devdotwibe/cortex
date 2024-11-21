@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', $post->title)
+@section('title', optioanl($post)->title??'Post Not Found')
 @section('content')
 
 <section class="header_nav">
@@ -17,7 +17,7 @@
              
                 <li class="nav_item"><a href="{{route('admin.community.report.banuser',$postUser->slug)}}" class=" btn btn-danger">Ban User</a></li> 
                 @endif
-                
+
                 @if(optional($post)->visible_status=="show")
                 <li class="nav_item"><a href="{{route('admin.community.post.edit',$post->slug)}}" class="nav_link btn">Edit Post</a></li>       
                
