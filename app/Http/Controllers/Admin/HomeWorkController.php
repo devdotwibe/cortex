@@ -96,6 +96,7 @@ class HomeWorkController extends Controller
         foreach($request->answer as $k =>$ans){
             $answer=null;
             $imageName= Null;
+            $image=Null;
             if (isset($featureimages[$k])) {
                 $featureImage = $featureimages[$k];
                 $featureImageName = "questionimages/" . $featureImage->hashName();
@@ -104,6 +105,9 @@ class HomeWorkController extends Controller
             }
             if(!empty($request->choice_answer_id[$k]??"")){
                 $answer=HomeWorkAnswer::find($request->choice_answer_id[$k]??"");
+            }
+            if(!empty($request->choice_answer_image[$k] ?? "")){
+                $image=$request->choice_answer_image[$k];
             }
             if(empty($answer)){
                 $answer=HomeWorkAnswer::store([
@@ -123,6 +127,9 @@ class HomeWorkController extends Controller
                     "iscorrect"=>$k==($request->choice_answer??0)?true:false,
                     "title"=>$ans
                 ];
+                if(!$image){
+                    $data['image']=Null;
+                }
                 if(isset($imageName)){
                     $data['image']=$imageName;
                 }

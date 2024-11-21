@@ -8,12 +8,21 @@
                     @php   
                     $choice = 0;
                     $choiceName = '';
+                    $learn = Null;
+                    $homework = Null;
                     foreach ($fields as $item) {
                         if (isset($item->name) && ($item->name === 'answer' || $item->name === 'mcq_answer')) {
                             $choiceName = $item->name;
                             $choice = 1;
                         }
+                        if (isset($item->name) && ($item->name === 'learn_type')) {
+                            $learn = $item->name;
+                        }
+                        if (isset($item->name) && ($item->name === 'home_work_book_id')) {
+                            $homework = $item->name;
+                        }
                     }
+                    $table = $learn ?? $homework;
                     @endphp
                     @foreach ($fields as $item)
                         @if (($item->type??"text")=="hidden")
@@ -63,7 +72,7 @@
                                             <div class="forms-inputs mb-4"> 
                                                 <label for="{{$item->name}}-{{$frmID}}-{{$k}}">Choice</label>
                                                 <input type="hidden" name="choice_{{$item->name}}_id[]"  value="{{$v->id}}">
-                                                <input type="hidden" name="choice_{{$item->name}}_image[]"  value="{{$v->image}}">
+                                                <input type="hidden" name="choice_{{$item->name}}_image[]" id="image_{{ $item->name }}-{{ $frmID }}-{{ $k }}" value="{{$v->image}}">
                                                 <div class="input-group">
                                                     <div class="input-group-prepend choice-check-group">
                                                         <label class="input-group-label choice-label" for="{{$item->name}}-{{$frmID}}-{{$k}}-check"></label>
@@ -240,32 +249,42 @@
             $('#confirmDeleteModal').modal('hide');
         });
         function removeImage(containerId, imagePath, answerId) {
-           
-            $.ajax({
-                url: '{{ route('admin.delete.image') }}', // Replace with your actual route
-                type: 'POST',
-                data: {
-                    _token: '{{ csrf_token() }}', // Include CSRF token
-                    image: imagePath,
-                    id: answerId
-                },
-                success: function (response) {
-                    if (response.success) {
-                        // Hide the container for the image preview and input
-                        $('#preview-' + containerId).hide();
-                        $('#preview-' + containerId).removeAttr('src');
+            $('#preview-' + containerId).hide();
+            $('#preview-' + containerId).removeAttr('src');
 
-                        $('#span-' + containerId).hide();
-                        $('#file_'+ containerId).removeAttr('data-existing-file');
-                        $('#file_'+ containerId).val('');
-                    } else {
-                        alert('Failed to remove the image. Try again.');
-                    }
-                },
-                error: function () {
-                    alert('An error occurred. Please try again.');
-                }
-            });
+            $('#span-' + containerId).hide();
+            $('#file_'+ containerId).removeAttr('data-existing-file');
+            $('#file_'+ containerId).val('');
+            $('#image_'+ containerId).val('');
+
+            
+        //    var table = '{{ $table }}';
+        //     $.ajax({
+        //         url: '{{ route('admin.delete.image') }}', // Replace with your actual route
+        //         type: 'POST',
+        //         data: {
+        //             _token: '{{ csrf_token() }}', // Include CSRF token
+        //             image: imagePath,
+        //             id: answerId,
+        //             table:table
+        //         },
+        //         success: function (response) {
+        //             if (response.success) {
+        //                 // Hide the container for the image preview and input
+        //                 $('#preview-' + containerId).hide();
+        //                 $('#preview-' + containerId).removeAttr('src');
+
+        //                 $('#span-' + containerId).hide();
+        //                 $('#file_'+ containerId).removeAttr('data-existing-file');
+        //                 $('#file_'+ containerId).val('');
+        //             } else {
+        //                 alert('Failed to remove the image. Try again.');
+        //             }
+        //         },
+        //         error: function () {
+        //             alert('An error occurred. Please try again.');
+        //         }
+        //     });
            
         }
         function previewImage(input, previewId) {

@@ -316,9 +316,14 @@ class LearnController extends Controller
             foreach ($request->mcq_answer as $k => $ans) {
                 $learnAns = null;
                 $imageName = Null;
+                $image = Null;
                 if (!empty($request->choice_mcq_answer_id[$k] ?? "")) {
                     $learnAns = LearnAnswer::find($request->choice_mcq_answer_id[$k]);
                 }
+                if(!empty($request->choice_answer_image[$k] ?? "")){
+                    $image=$request->choice_answer_image[$k];
+                }
+                
                 if (isset($featureimages[$k])) {
                     $featureImage = $featureimages[$k];
                     $featureImageName = "questionimages/" . $featureImage->hashName();
@@ -338,6 +343,9 @@ class LearnController extends Controller
                         "iscorrect" => $k == ($request->choice_mcq_answer ?? 0) ? true : false,
                         "title" => $ans
                     ];
+                    if(!$image){
+                        $data['image']=Null;
+                    }
                     if(isset($imageName)){
                         $data['image']=$imageName;
                     }
