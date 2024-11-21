@@ -821,7 +821,7 @@
                                                                 </label>
                                                                 <input type="hidden" name="featureids[]" value="{{ $item->id }}">
                                                                 <input type="file" id="featureimage-{{ $item->id }}" name="featureimageupdate[]"
-                                                                    class="form-control" style="display: none;" onchange="previewFeatureImage(event, '{{ $item->id }}')">
+                                                                    class="form-control" style="display: none;" onchange="previewFeaimage(event, '{{ $item->id }}')">
                                                 
                                                                 <!-- Preview Image -->
                                                                 <div id="image-preview-{{ $item->id }}" class="image-preview-container" style="display: none;">
@@ -3231,7 +3231,7 @@ function removeLiveImage() {
 
 
     // Function to preview the image before upload
-function previewFeatureImage(event, itemId) {
+function previewFeaimage(event, itemId) {
     var file = event.target.files[0]; // Get the selected file
     var reader = new FileReader(); // Create a new FileReader object
 
