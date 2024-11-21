@@ -39,7 +39,7 @@
 
              ["name"=>"short_question", "addclass"=>"short_section","display"=>"none" , "label"=>"Question","size"=>12,"type"=>"editor" ,"value"=>$homeWorkQuestion->short_question],
 
-            ["name"=>"short_answer", "addclass"=>"short_section" ,"display"=>"none" , "placeholder"=>"Type Answer Here","label"=>"Answer","size"=>12,"type"=>"editor" ,"value"=>$homeWorkQuestion->short_answer], 
+            ["name"=>"short_answer", "addclass"=>"short_section" ,"display"=>"none" , "placeholder"=>"Type Answer Here","label"=>"Answer","size"=>12,"type"=>"editor" ,"value"=>$homeWorkQuestion->short_answer,], 
 
         ]'  />
     </div>
