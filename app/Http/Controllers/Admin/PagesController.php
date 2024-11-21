@@ -1041,17 +1041,11 @@ public function deleteProcessImage(Request $request)
     return response()->json(['success' => false, 'message' => 'Process not found']);
 }
 
+
 public function deleteImagesection7(Request $request)
 {
-    // Validate the incoming request
-    $request->validate([
-        'id' => 'required|integer|exists:feeds,id',
-        'image_path' => 'required|string|max:255',
-    ], [
-        'id.required' => 'Feed ID is required.',
-        'image_path.required' => 'Image path is required.',
-        'id.exists' => 'Feed record not found.',
-    ]);
+    
+   
 
     // Find the feed record by its ID
     $feed = Feed::find($request->id);
@@ -1059,8 +1053,7 @@ public function deleteImagesection7(Request $request)
     if ($feed) {
         // Check if the image path matches the provided path
         $imagePath = $feed->image;
-
-        if ($imagePath === $request->image_path) {
+        if ($feed->image === $request->image_path) {
             // Check if the image exists in storage
             if (Storage::exists($imagePath)) {
                 // Delete the image from storage
@@ -1070,6 +1063,8 @@ public function deleteImagesection7(Request $request)
             // Update the feed record to remove the image
             $feed->image = null;
             $feed->save();
+
+           
 
             // Return a success response
             return response()->json([
@@ -1091,5 +1086,6 @@ public function deleteImagesection7(Request $request)
         'message' => 'Feed record not found.',
     ]);
 }
+
 
 }
