@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', $post->title)
+@section('title', optional($post)->title??'Post Not Found')
 @section('content')
 
 <section class="header_nav">
@@ -8,7 +8,7 @@
             <a href="{{route('admin.community.index')}}"><img src="{{asset('assets/images/leftarrowblack.svg')}}" alt=""></a>
         </div>
         <div class="header_title">
-            <h2>{{$post->title}}</h2>
+            <h2>{{optional($post)->title??"Post Not Found"}}</h2>
         </div> 
         <div class="header_right">
             <ul class="nav_bar"> 
@@ -17,8 +17,10 @@
              
                 <li class="nav_item"><a href="{{route('admin.community.report.banuser',$postUser->slug)}}" class=" btn btn-danger">Ban User</a></li> 
                 @endif
+
+                @if(optional($post)->visible_status=="show")
                 <li class="nav_item"><a href="{{route('admin.community.post.edit',$post->slug)}}" class="nav_link btn">Edit Post</a></li>       
-                @if($post->visible_status=="show")
+               
                 <li class="nav_item"><a href="{{route('admin.community.report.hidepost',$post->slug)}}"   class="btn btn-outline-danger">Block Post</a></li>
                 @else
                 @endif      
@@ -55,6 +57,8 @@
         </div>
     </div>
 </section>
+
+@if(!empty($post))
 
 <section class="content_section admin_section">
     <div class="container"> 
@@ -116,9 +120,14 @@
         </div>
     </div>
 </section> 
+
+@endif
+
 @endsection 
 @push('modals') 
     
+@if(!empty($post))
+
     <div class="modal fade" id="delete-post" tabindex="-1" role="dialog" aria-labelledby="Label" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -140,6 +149,9 @@
             </div>
         </div>
     </div>  
+
+    @endif
+
 @endpush
 
 @push('footer-script')

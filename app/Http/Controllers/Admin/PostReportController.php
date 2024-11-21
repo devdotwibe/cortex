@@ -29,7 +29,17 @@ class PostReportController extends Controller
     public function show(Request $request,ReportPost $reportPost){
         $post=Post::find($reportPost->post_id);
         $user=User::find($reportPost->user_id);
-        $postUser=User::find($post->user_id);
+
+        $postUser=User::find(optional($post)->user_id);
+
+        if(empty($postUser))
+        {
+            $reportPost->status = "deleted";
+            $reportPost->save();
+
+            dd($reportPost->status);
+        }
+
         return view('admin.report-post.show',compact('postUser','post','user','reportPost'));
     }
     public function banuser(Request $request,User $user){
