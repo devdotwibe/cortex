@@ -42,8 +42,6 @@ class PostReportController extends Controller
 
         $reportPost->save();
 
-        dd('banned');
-
         $user->update([
             'post_status'=>"banned"
         ]); 
