@@ -829,6 +829,14 @@
                                                                     <img id="preview-image-{{ $item->id }}" src="" alt="Image Preview" style="max-width: 100px; display: none;">
                                                                 </div>
                                                 
+
+                                                                  <!-- Delete button for preview (before saving) -->
+                                                    <button type="button" class="btn btn-danger imgid121" id="deleteicon121"
+                                                    style="position: absolute; top: 5px; right: 5px; display: none;"
+                                                    onclick="removeImagedelete()">Delete</button>
+
+
+
                                                                 <!-- Display existing saved image if available -->
                                                                 @if (!empty($item->image))
                                                                 <button type="button" class="btn btn-danger" id="deleteiconfeature-{{ $item->id }}"
@@ -3250,6 +3258,19 @@ function previewFeatureImagefea(event, itemId) {
     // Read the file as a data URL
     reader.readAsDataURL(event.target.files[0]);
 }
+
+
+function removeImagedelete() {
+                    // Clear the learn image preview source and hide preview container and delete button
+                    const output = document.getElementById('preview-container-{{ $item->id }}');
+                    output.src = '';
+                    output.style.display = 'none';
+
+                    document.getElementById('imgid121').style.display = 'none';
+                    document.getElementById('deleteicon121').style.display = 'none'; // Hide preview delete button
+                }
+
+
 </script>
 
         @endpush
