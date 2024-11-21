@@ -31,15 +31,16 @@
             ]' 
         />  
 
-        <x-create-form name="admin.learn" :params="[$homeWork->slug]" :cancel="route('admin.learn.show',$homeWork->slug)" frmID="learnForm" btnsubmit="Save" :fields='[
+        <x-create-form name="admin.home-work" :params='["home_work"=>$homeWork->slug]'  :cancel="route('admin.home-work.show',$homeWork->slug)" frmID="learnForm" btnsubmit="Save" :fields='[
             ["name"=>"redirect", "value"=>route("admin.home-work.show",$homeWork->slug),"type"=>"hidden"],
              ["name"=>"home_work_book_id" ,"label"=>"Week Booklet","ajaxurl"=>route("admin.home-work.create",$homeWork->slug),"type"=>"select","size"=>4],
             ["name"=>"learn_type","event"=>["change"=>"cclickback"] ,"label"=>"Learn Type","placeholder"=>"Select Learn Type","type"=>"select","size"=>4,"options"=>[["value"=>"short_notes","text"=>"Short Note Questions"],["value"=>"mcq","text"=>"MCQs Questions"]]],
              
            
-            ["name"=>"mcq_question", "addclass"=>"mcq_question","display"=>"none" , "label"=>"Question","size"=>12,"type"=>"editor"], 
-            ["name"=>"mcq_answer", "addclass"=>"mcq_question" , "display"=>"none", "label"=>"answer" ,"type"=>"choice" ,"size"=>12],
-            ["name"=>"explanation", "addclass"=>"mcq_question","display"=>"none" , "label"=>"Explanation","size"=>12,"type"=>"editor" ],
+             ["name"=>"description", "addclass"=>"mcq_question","display"=>"none" , "label"=>"Question","size"=>12,"type"=>"editor"], 
+             ["name"=>"answer", "addclass"=>"mcq_question","display"=>"none" ,"label"=>"answer" ,"type"=>"choice" ,"size"=>12],
+             ["name"=>"explanation", "addclass"=>"mcq_question","display"=>"none" , "label"=>"Explanation","size"=>12,"type"=>"editor" ],
+
              ["name"=>"short_question", "addclass"=>"short_section","display"=>"none" , "label"=>"Question","size"=>12,"type"=>"editor"],
 
             ["name"=>"short_answer", "addclass"=>"short_section" ,"display"=>"none" , "placeholder"=>"Type Answer Here","label"=>"Answer","size"=>12,"type"=>"editor"], 
