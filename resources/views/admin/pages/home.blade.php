@@ -822,29 +822,15 @@
                                                                 <input type="hidden" name="featureids[]" value="{{ $item->id }}">
                                                                 <input type="file" id="featureimage-{{ $item->id }}" name="featureimageupdate[]"
                                                                     class="form-control" style="display: none;" onchange="previewFeatureImage(event, '{{ $item->id }}')">
-                                                
-                                                                <!-- Preview Image Container -->
-                                                                <div id="featureImagePreviewContainer-{{ $item->id }}" style="display: none; margin-top: 10px; position: relative;">
-                                                                    <!-- Image Preview -->
-                                                                    <img id="featureImagePreview-{{ $item->id }}"
-                                                                        src="" alt="Feature Image Preview"
-                                                                        style="max-width: 100px; height: auto; display: none;">
-                                                                    
-                                                                    <!-- Delete button for preview (before saving) -->
-                                                                    <button type="button" class="btn btn-danger" id="deleteicon-preview-{{ $item->id }}"
-                                                                        style="position: absolute; top: 5px; right: 5px; display: none;"
-                                                                        onclick="removeFeatureImagePreview('{{ $item->id }}')">X</button>
-                                                
-                                                                    <!-- Delete button for saved image -->
-                                                                    @if (!empty($item->image))
-                                                                        <button type="button" class="btn btn-danger" id="deleteicon-saved-{{ $item->id }}"
-                                                                            style="position: absolute; top: 5px; right: 5px; display: block;"
-                                                                            onclick="removeFeatureImage('{{ $item->id }}')">X</button>
-                                                                    @endif
-                                                                </div>
-                                                
+                                            
                                                                 <!-- Display existing saved image if available -->
                                                                 @if (!empty($item->image))
+
+                                                             
+                                                                    <button type="button" class="btn btn-danger"
+                                                                    onclick="removeDiv1(this, 'close-{{ $item->id }}')"
+                                                                    data-feature-id="{{ $item1->id }}">X</button>
+
                                                                     <img src="{{ url('d0/' . $item->image) }}" alt="Feature Image"
                                                                         style="max-width: 100px; margin-top: 10px;">
                                                                 @endif
