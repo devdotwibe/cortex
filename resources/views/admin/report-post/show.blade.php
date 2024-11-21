@@ -19,7 +19,7 @@
                 @endif
 
                 @if(optional($post)->visible_status=="show")
-                <li class="nav_item"><a href="{{route('admin.community.post.edit',$post->slug)}}" class="nav_link btn">Edit Post</a></li>       
+                <li class="nav_item"><a href="{{route('admin.community.post.edit',['post'=>$post->slug,'report_post'=>$reportPost->slug])}}" class="nav_link btn">Edit Post</a></li>       
                
                 <li class="nav_item"><a href="{{route('admin.community.report.hidepost',$post->slug)}}"   class="btn btn-outline-danger">Block Post</a></li>
                 @else
