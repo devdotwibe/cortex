@@ -15,6 +15,7 @@
 
         @php
             $choices=[];
+            if(!empty($homeWorkQuestion->answers) isset($homeWorkQuestion->answers))
             foreach ($homeWorkQuestion->answers as $ans) {
                 $choices[]=[
                     "id"=>$ans->id,
