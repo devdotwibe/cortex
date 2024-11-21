@@ -823,33 +823,18 @@
                                                                 <input type="file" id="featureimage-{{ $item->id }}" name="featureimageupdate[]"
                                                                     class="form-control" style="display: none;" onchange="previewFeatureImage(event, '{{ $item->id }}')">
                                                 
-                                                                {{-- <!-- Preview Image Container -->
-                                                                <div id="featureImagePreviewContainer-{{ $item->id }}" style="display: none; margin-top: 10px; position: relative;">
-                                                                    <!-- Image Preview -->
-                                                                    <img id="featureImagePreview-{{ $item->id }}"
-                                                                        src="" alt="Feature Image Preview"
-                                                                        style="max-width: 100px; height: auto; display: none;">
-                                                                    
-                                                                    <!-- Delete button for preview (before saving) -->
-                                                                    <button type="button" class="btn btn-danger" id="deleteicon-preview-{{ $item->id }}"
-                                                                        style="position: absolute; top: 5px; right: 5px; display: none;"
-                                                                        onclick="removeFeatureImagePreview('{{ $item->id }}')">X</button>
-                                                
-                                                                    <!-- Delete button for saved image -->
-                                                                    @if (!empty($item->image))
-                                                                        <button type="button" class="btn btn-danger" id="deleteicon-saved-{{ $item->id }}"
-                                                                            style="position: absolute; top: 5px; right: 5px; display: block;"
-                                                                            onclick="removeFeatureImage('{{ $item->id }}')">X</button>
-                                                                    @endif
-                                                                </div> --}}
-
-                                                              
+                                                                <!-- Preview Image -->
+                                                                <div id="image-preview-{{ $item->id }}" class="image-preview-container" style="display: none;">
+                                                                    <img id="preview-image-{{ $item->id }}" src="" alt="Image Preview" style="max-width: 100px; margin-top: 10px;">
+                                                                </div>
                                                 
                                                                 <!-- Display existing saved image if available -->
                                                                 @if (!empty($item->image))
-                                                                <button type="button" class="btn btn-danger feature_cls-{{  $item->id }}" id="deleteiconfeature-{{  $item->id }}"
-                                                                onclick="removeFeatureImage(this, '{{  $item->id }}')" data-id="feature_cls-{{  $item->id }}"
-                                                                data-feature-id="id">hi</button>
+                                                                    <button type="button" class="btn btn-danger" id="deleteiconfeature-{{ $item->id }}"
+                                                                        onclick="removeFeatureImage(this, '{{ $item->id }}')" 
+                                                                        data-id="feature_cls-{{ $item->id }}" 
+                                                                        data-image-path="{{ $item->image }}">Delete</button>
+                                                
                                                                     <img src="{{ url('d0/' . $item->image) }}" alt="Feature Image" class="feature_cls-{{  $item->id }}"
                                                                         style="max-width: 100px; margin-top: 10px;">
                                                                 @endif
@@ -861,6 +846,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                
                                                 
 
 
@@ -3212,35 +3198,56 @@ function removeLiveImage() {
 }
 
 
+</script>
 
-
-function removeFeatureImage(element,itemId) {
-    const imagePath = "{{ optional($item)->image }}"; // Get the image path for the feature image
-
-    var class = $(element).data('id');
-    $.ajax({
-        type: 'POST',
-        url: '{{ route('admin.page.deleteFeatureImage') }}', // Ensure this route matches the backend route for deleting feature images
-        data: {
-            _token: '{{ csrf_token() }}',
-            id: itemId // Send the image path as part of the data
-        },
-        success: function(response) {
-            if (response.success) {
-                // Hide the image preview and the delete button for saved image
-                $('.'+class).hide();
-               
-            } else {
-                alert('Image could not be deleted. Please try again.');
+<script>
+    function removeFeatureImage(element, itemId) {
+        const imagePath = $(element).data('image-path'); // Get image path from data attribute
+        var className = $(element).data('id'); // Get class from data attribute
+        
+        $.ajax({
+            type: 'POST',
+            url: '{{ route('admin.page.deleteFeatureImage') }}',
+            data: {
+                _token: '{{ csrf_token() }}',
+                id: itemId,
+                image_path: imagePath
+            },
+            success: function(response) {
+                if (response.success) {
+                    // Hide image and button on success
+                    $('.' + className).hide(); 
+                    $(element).hide();
+                } else {
+                    alert('Image could not be deleted. Please try again.');
+                }
+            },
+            error: function(xhr) {
+                alert('An error occurred. Please try again.');
             }
-        },
-        error: function(xhr) {
-            alert('An error occurred. Please try again.');
-        }
-    });
+        });
+    }
+
+
+
+    // Function to preview the image before upload
+function previewFeatureImage(event, itemId) {
+    var file = event.target.files[0]; // Get the selected file
+    var reader = new FileReader(); // Create a new FileReader object
+
+    reader.onload = function(e) {
+        // Set the preview image source to the selected file
+        var previewImage = document.getElementById('preview-image-' + itemId);
+        previewImage.src = e.target.result;
+
+        // Show the preview container
+        document.getElementById('image-preview-' + itemId).style.display = 'block';
+    };
+
+    if (file) {
+        reader.readAsDataURL(file); // Read the selected file as a data URL
+    }
 }
-
-
 
 </script>
 
