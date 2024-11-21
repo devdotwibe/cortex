@@ -3556,10 +3556,19 @@ function removeimgImage(element, itemId) {
 
 
 
-// Function to hide the element with class "imgid{{ $item->id }}"
-function removerepimg(itemId) {
-    // Use jQuery to hide the element by class
-    $(".imgid" + itemId).hide();
+// Function to remove image preview and reset the file input
+function removerepimg(featureIndex) {
+    // Hide the preview container
+    document.getElementById(`preview-container-${featureIndex}`).style.display = "none";
+    
+    // Reset the file input value
+    document.getElementById(`featureimage_${featureIndex}`).value = "";
+    
+    // Hide the delete button
+    document.getElementById(`deleteicon-${featureIndex}`).style.display = "none";
+    
+    // Optionally, reset the image preview to a blank state (or other fallback image)
+    document.getElementById(`preview-image-${featureIndex}`).src = "";
 }
 
 </script>
