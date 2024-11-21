@@ -954,10 +954,10 @@
                                                             <input type="file" name="featureimage[]" class="form-control" style="display: none;" id="featureimage" onchange="previewFeatureImagefea(event)">
                                                             
                                                             <!-- Display Image Preview Here -->
-                                                            <div id="preview-container" style="margin-top: 10px; display: none;">
+                                                            <div id="preview-container" style="margin-top: 10px; display: none;" class="btn btn-danger uniqueclass">
                                                                 <img id="preview-image" src="" alt="Image Preview" style="max-width: 100px; display: none;">
                                                                 <!-- Delete button for preview (before saving) -->
-                                                                <button type="button" class="btn btn-danger" id="deleteicon" style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removerepimg()">Delete image</button>
+                                                                <button type="button" class="btn btn-danger uniqueclass" id="deleteicon" style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removerepimg()">Delete image</button>
                                                             </div>
                                             
                                                             @error('featureimage')
