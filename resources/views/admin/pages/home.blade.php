@@ -861,7 +861,7 @@
                                                             <img src="{{ asset('assets/images/upfile.svg') }}"
                                                                 alt="Upload Icon"> </label>
                                                         <input type="file" name="featureimage[]" class="form-control"
-                                                            style="display: none;" onchange="previewFeatureImage(event)">
+                                                            style="display: none;" id="featureimage" onchange="previewFeatureImage(event)">
                                                         @error('featureimage')
                                                             <div class="text-danger">{{ $message }}</div>
                                                         @enderror
