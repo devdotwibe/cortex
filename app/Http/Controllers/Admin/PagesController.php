@@ -1011,4 +1011,37 @@ public function deleteFeatureImage(Request $request)
 }
 
 
+
+public function deleteProcessImage(Request $request)
+{
+    // Find the process record by its ID
+    $process = Process::find($request->id);
+
+    if ($process) {
+        // Get the image path from the process record
+        $imagePath = $process->ourprocessimage;
+
+        // Check if the file exists in the storage and delete it
+        if (Storage::exists($imagePath)) {
+            // Delete the image from storage
+            Storage::delete($imagePath);
+
+            // Update the process record to remove the image from the database
+            $process->ourprocessimage = null;
+            $process->save();
+
+            // Return a success response
+            return response()->json(['success' => true, 'message' => 'Process image deleted successfully']);
+        } else {
+            // If the file doesn't exist
+            return response()->json(['success' => false, 'message' => 'Process image not found']);
+        }
+    }
+
+    // If the process doesn't exist
+    return response()->json(['success' => false, 'message' => 'Process not found']);
+}
+
+
+
 }

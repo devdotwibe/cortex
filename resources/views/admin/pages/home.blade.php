@@ -3400,5 +3400,35 @@ function removeImagedelete(itemId) {
 
 
 
-                </script>
+    function removeProcessImage(element, processId) {
+        const imagePath = $(element).data('image-path'); // Get image path from data attribute
+        var className = $(element).data('id'); // Get class from data attribute
+
+        $.ajax({
+            type: 'POST',
+            url: '{{ route('admin.page.deleteProcessImage') }}', // Define the route for deleting the process image
+            data: {
+                _token: '{{ csrf_token() }}',
+                id: processId,
+                image_path: imagePath
+            },
+            success: function(response) {
+                if (response.success) {
+                    // Hide image and button on success
+                    $('.' + className).hide();
+                    $(element).hide();
+                } else {
+                    alert('Process image could not be deleted. Please try again.');
+                }
+            },
+            error: function(xhr) {
+                alert('An error occurred. Please try again.');
+            }
+        });
+    }
+</script>
+
+
+
+                
             @endpush
