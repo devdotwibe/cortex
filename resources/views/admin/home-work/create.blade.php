@@ -51,3 +51,36 @@
     </div>
 </section> 
 @endsection
+
+@push('footer-script')
+    <script>
+        $(function() {
+             var value = $("#learn_type-learnForm").val();
+             switch (value) {
+                
+                case 'short_notes':
+                        $('.short_section').show();
+                    break;
+                case 'mcq':
+                        $('.mcq_section').show(); 
+                    break;
+                default:
+            }
+        });
+        function cclickback(e){
+
+           if(e.value == 'short_notes')
+            {
+              
+                $('.mcq_section').hide();
+                $('.short_section').show();
+            }
+            else(e.value == 'mcq')
+            {
+                $('.short_section').hide();
+                $('.mcq_section').show(); 
+            }
+         }
+         
+    </script>
+@endpush
