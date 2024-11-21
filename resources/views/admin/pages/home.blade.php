@@ -3228,7 +3228,7 @@ function removeFeatureImage(itemId) {
             if (response.success) {
                 // Hide the image preview and the delete button for saved image
                 $('#featureImagePreview-' + itemId).hide();
-                $('#deleteicon-saved-' + itemId).hide();
+                $('#deleteicon').hide();
                 
                 // Optionally, you can reset the image input to allow uploading a new image
                 $('#featureimage-' + itemId).val('');
