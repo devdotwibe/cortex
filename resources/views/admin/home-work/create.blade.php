@@ -31,10 +31,10 @@
             ]' 
         />   --}}
 
-        <x-create-form name="admin.learn" :params="[$category->slug]" :cancel="route('admin.learn.show',$category->slug)" frmID="learnForm" btnsubmit="Save" :fields='[
-            ["name"=>"category_id", "value"=>$category->id,"type"=>"hidden"],
-            ["name"=>"redirect", "value"=>route("admin.learn.show",$category->slug),"type"=>"hidden"],
-            ["name"=>"sub_category_id" ,"label"=>"Sub Category","ajaxurl"=>route("admin.learn.show",$category->slug),"type"=>"select","child"=>"sub_category_set","size"=>4],
+        <x-create-form name="admin.learn" :params="[$homeWork->slug]" :cancel="route('admin.learn.show',$homeWork->slug)" frmID="learnForm" btnsubmit="Save" :fields='[
+            ["name"=>"category_id", "value"=>$homeWork->id,"type"=>"hidden"],
+            ["name"=>"redirect", "value"=>route("admin.learn.show",$homeWork->slug),"type"=>"hidden"],
+            ["name"=>"sub_category_id" ,"label"=>"Sub Category","ajaxurl"=>route("admin.learn.show",$homeWork->slug),"type"=>"select","child"=>"sub_category_set","size"=>4],
              ["name"=>"title", "placeholder"=>"Title","label"=>"Title","size"=>4,"type"=>"text"], 
             ["name"=>"learn_type","event"=>["change"=>"cclickback"] ,"label"=>"Learn Type","placeholder"=>"Select Learn Type","type"=>"select","size"=>4,"options"=>[["value"=>"video","text"=>"Video"],["value"=>"notes","text"=>"Note"],["value"=>"short_notes","text"=>"Short Note Questions"],["value"=>"mcq","text"=>"MCQs Questions"]]],
              
