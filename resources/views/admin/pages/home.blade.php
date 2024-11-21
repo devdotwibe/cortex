@@ -955,7 +955,7 @@
                                                             
                                                             <!-- Display Image Preview Here -->
                                                             <div id="preview-container" style="margin-top: 10px; display: none;" class="uniqueclass" >
-                                                                <img id="preview-imagefirst" src="" alt="Image Preview" style="max-width: 100px; display: none;">
+                                                                <img id="preview-image" src="" alt="Image Preview" style="max-width: 100px; display: none;">
                                                                 <!-- Delete button for preview (before saving) -->
                                                                 <button type="button" class="btn btn-danger uniqueclass" id="uniqueid" style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removerepimg()">Delete image</button>
                                                             </div>
