@@ -842,9 +842,10 @@
                                                                             onclick="removeFeatureImage('{{ $item->id }}')">X</button>
                                                                     @endif
                                                                 </div> --}}
+
                                                                 <button type="button" class="btn btn-danger" id="deleteicon"
-                                                                    style="position: absolute; top: 5px; right: 5px; "
-                                                                    onclick="removeFeatureImage()">hi</button>
+                                                                onclick="removeFeatureImage(this, 'close-{{ $item->id }}')"
+                                                                data-feature-id="id">hi</button>
                                                 
                                                                 <!-- Display existing saved image if available -->
                                                                 @if (!empty($item->image))
