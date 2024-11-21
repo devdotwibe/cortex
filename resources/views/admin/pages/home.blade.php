@@ -859,10 +859,10 @@
                                                                         onclick="removeImagedelete()">Delete</button> --}}
 
                                                                          <!-- Delete button for preview (before saving) -->
-                                                                    <button type="button" class="btn btn-danger imgid{{ $item->id }}"
+                                                                    {{-- <button type="button" class="btn btn-danger imgid{{ $item->id }}"
                                                                         id="deleteicon-{{ $item->id }}"
                                                                         style="position: absolute; top: 5px; right: 5px; display: none;"
-                                                                        onclick="removerepimg(this)">Delete</button>
+                                                                        onclick="removerepimg(this)">Delete</button> --}}
 
                                                                         <button type="button" class="btn btn-danger imgid{{ $item->id }}"
                                                                             id="deleteicon-{{ $item->id }}"
