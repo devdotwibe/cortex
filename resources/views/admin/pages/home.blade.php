@@ -2243,7 +2243,7 @@
                                                             <img src="{{ asset('assets/images/upfile.svg') }}"
                                                                 alt="Upload Icon"> </label>
                                                         <input type="file" name="ourprocessimage[]"
-                                                            class="form-control" style="display: none;"
+                                                            class="form-control" id="ourprocessimage" style="display: none;"
                                                             onchange="previewFeatureImage(event)">
                                                         @error('ourprocessimage')
                                                             <div class="text-danger">{{ $message }}</div>
