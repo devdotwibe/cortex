@@ -3446,31 +3446,27 @@
 
 
 
-function previewFirst(event, itemId) {
-    var reader = new FileReader();
+function previewFirst(event) {
+        var reader = new FileReader();
 
-    // Handle the file reading process
-    reader.onload = function(e) {
-        var previewImage = document.getElementById('featureimagefirst');
-        var previewContainer = document.getElementById('preview-imagefirst');
-        var deleteButton = document.getElementById('uniqueid');
+        // Handle the file reading process
+        reader.onload = function(e) {
+            var previewImage = document.getElementById("preview-image");
+            var previewContainer = document.getElementById("preview-container");
+            var deleteButton = document.getElementById("deleteicon");
 
-        // Set the image source to the selected file
-        previewImage.src = e.target.result;
+            // Set the image source to the selected file
+            previewImage.src = e.target.result;
 
-        // Show the preview image container
-        previewContainer.style.display = 'block';
-        previewImage.style.display = 'block'; // Ensure the image is visible
-        
-        // Show the delete button
-        deleteButton.style.display = 'inline-block'; // Display the delete button
-    };
+            // Show the preview image container and the delete button
+            previewContainer.style.display = 'block';
+            previewImage.style.display = 'block'; // Ensure the image is visible
+            deleteButton.style.display = 'inline-block'; // Display the delete button
+        };
 
-    // Read the file as a data URL
-    reader.readAsDataURL(event.target.files[0]);
-}
-
-
+        // Read the file as a data URL
+        reader.readAsDataURL(event.target.files[0]);
+    }
 
 
 
