@@ -957,7 +957,7 @@
                                                             <div id="preview-container" style="margin-top: 10px; display: none;">
                                                                 <img id="preview-image" src="" alt="Image Preview" style="max-width: 100px; display: none;">
                                                                 <!-- Delete button for preview (before saving) -->
-                                                                <button type="button" class="btn btn-danger" id="deleteicon" style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removerepimg()">Delete image</button>
+                                                                <button type="button" class="btn btn-danger" id="deleteicon" style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removerepimgfirst()">Delete image</button>
                                                             </div>
                                             
                                                             @error('featureimage')
@@ -3631,6 +3631,21 @@ function removerepimg(featureIndex) {
     
     // Optionally, reset the image preview to a blank state (or other fallback image)
     document.getElementById(`preview-image-${featureIndex}`).src = "";
+}
+
+// Function to remove image preview and reset the file input
+function removerepimgfirst(featureIndex) {
+    // Hide the preview container
+    document.getElementById('preview-container').style.display = "none";
+    
+    // Reset the file input value
+    document.getElementById('featureimagefirst').value = "";
+    
+    // Hide the delete button
+    document.getElementById('deleteicon').style.display = "none";
+    
+    // Optionally, reset the image preview to a blank state (or other fallback image)
+    document.getElementById('preview-image').src = "";
 }
 
 </script>
