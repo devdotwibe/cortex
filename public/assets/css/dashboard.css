@@ -3352,6 +3352,7 @@ aside.side_bar.slider-btn .btn-slider {
     margin: 0 0 8px;
     padding: 0 0 0 15px;
     letter-spacing: normal;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .exam-container .container-wrap .lesson .lesson-body .mcq-row ul li:before {
@@ -3381,6 +3382,7 @@ aside.side_bar.slider-btn .btn-slider {
     width: auto;
     margin: 0 0 8px;
     position: relative;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .exam-container .container-wrap .lesson .lesson-body .mcq-row ol li:before {
