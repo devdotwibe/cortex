@@ -267,7 +267,7 @@ class CommunityControllerController extends Controller
 
         if(!empty($reportPost))
         {
-            $reportPost->status ='banned';
+            $reportPost->status ='edited';
 
             $reportPost->save();
         }
