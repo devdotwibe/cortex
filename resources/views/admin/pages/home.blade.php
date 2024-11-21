@@ -3399,24 +3399,28 @@
 
 
                     function previewFeatureImagefea(event, itemId) {
-                        var reader = new FileReader();
+    var reader = new FileReader();
 
-                        // Handle the file reading process
-                        reader.onload = function(e) {
-                            var previewImage = document.getElementById('preview-image-' + itemId);
-                            var previewContainer = document.getElementById('preview-container-' + itemId);
+    // Handle the file reading process
+    reader.onload = function(e) {
+        var previewImage = document.getElementById('preview-image-' + itemId);
+        var previewContainer = document.getElementById('preview-container-' + itemId);
+        var deleteButton = document.getElementById('deleteicon-' + itemId);
 
-                            // Set the image source to the selected file
-                            previewImage.src = e.target.result;
+        // Set the image source to the selected file
+        previewImage.src = e.target.result;
 
-                            // Show the preview image container
-                            previewContainer.style.display = 'block';
-                            previewImage.style.display = 'block'; // Ensure the image is visible
-                        };
+        // Show the preview image container
+        previewContainer.style.display = 'block';
+        previewImage.style.display = 'block'; // Ensure the image is visible
+        
+        // Show the delete button
+        deleteButton.style.display = 'inline-block'; // Display the delete button
+    };
 
-                        // Read the file as a data URL
-                        reader.readAsDataURL(event.target.files[0]);
-                    }
+    // Read the file as a data URL
+    reader.readAsDataURL(event.target.files[0]);
+}
 
 
                     function removeImagedelete() {
