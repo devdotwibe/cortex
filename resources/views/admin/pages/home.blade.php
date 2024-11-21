@@ -947,8 +947,7 @@
                                                 <div class="form-group">
                                                     <div class="form-data">
                                                         <div class="forms-inputs mb-4">
-                                                            <label for="featureimagefirst" class="file-upload">
-                                                                Feature Image22
+                                                            <label for="featureimagefirst" class="file-upload">Feature Image22
                                                                 <br>
                                                                 <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
                                                             </label>
@@ -956,7 +955,7 @@
                                                             
                                                             <!-- Display Image Preview Here -->
                                                             <div id="preview-containerfirst" style="margin-top: 10px; display: none;">
-                                                                <img id="preview-imagefirst" src="" alt="Image Preview" style="max-width: 100px; display: block;">
+                                                                <img id="preview-imagefirst" src="" alt="Image Preview" style="max-width: 100px; display: none;">
                                                                 <!-- Delete button for preview (before saving) -->
                                                                 <button type="button" class="btn btn-danger" id="deleteiconfirst" style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removerepimgfirst()">Delete image</button>
                                                             </div>
@@ -968,7 +967,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            
                                             
                                             
 
@@ -3636,7 +3634,7 @@ function removerepimg(featureIndex) {
 }
 
 // Function to remove image preview and reset the file input
-function removerepimgfirst() {
+function removerepimgfirst(featureIndex) {
     // Hide the preview container
     document.getElementById('preview-containerfirst').style.display = "none";
     
@@ -3646,7 +3644,7 @@ function removerepimgfirst() {
     // Hide the delete button
     document.getElementById('deleteiconfirst').style.display = "none";
     
-    // Reset the image preview to a blank state (or other fallback image)
+    // Optionally, reset the image preview to a blank state (or other fallback image)
     document.getElementById('preview-imagefirst').src = "";
 }
 
