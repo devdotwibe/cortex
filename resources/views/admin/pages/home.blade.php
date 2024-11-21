@@ -3306,35 +3306,44 @@
 
 
                     function previewFeatureImagefea(event, itemId) {
-                        var reader = new FileReader();
+    var reader = new FileReader();
 
-                        // Handle the file reading process
-                        reader.onload = function(e) {
-                            var previewImage = document.getElementById('preview-image-' + itemId);
-                            var previewContainer = document.getElementById('preview-container-' + itemId);
+    // Handle the file reading process
+    reader.onload = function(e) {
+        var previewImage = document.getElementById('preview-image-' + itemId);
+        var previewContainer = document.getElementById('preview-container-' + itemId);
+        var deleteButton = document.getElementById('deleteicon121');
 
-                            // Set the image source to the selected file
-                            previewImage.src = e.target.result;
+        // Set the image source to the selected file
+        previewImage.src = e.target.result;
 
-                            // Show the preview image container
-                            previewContainer.style.display = 'block';
-                            previewImage.style.display = 'block'; // Ensure the image is visible
-                        };
+        // Show the preview image container
+        previewContainer.style.display = 'block';
+        previewImage.style.display = 'block'; // Ensure the image is visible
 
-                        // Read the file as a data URL
-                        reader.readAsDataURL(event.target.files[0]);
-                    }
+        // Show the delete button after selecting an image
+        deleteButton.style.display = 'block';
+    };
 
+    // Read the file as a data URL
+    reader.readAsDataURL(event.target.files[0]);
+}
 
-                    function removeImagedelete() {
-                        // Clear the learn image preview source and hide preview container and delete button
-                        const output = document.getElementById('preview-container-{{ $item->id }}');
-                        output.src = '';
-                        output.style.display = 'none';
+function removeImagedelete() {
+    // Get the preview container and delete button
+    const previewContainer = document.getElementById('preview-container-{{ $item->id }}');
+    const previewImage = document.getElementById('preview-image-{{ $item->id }}');
+    const deleteButton = document.getElementById('deleteicon121');
 
-                        document.getElementById('imgid121').style.display = 'none';
-                        document.getElementById('deleteicon121').style.display = 'none'; // Hide preview delete button
-                    }
+    // Clear the preview image and hide the preview container
+    previewImage.src = '';
+    previewContainer.style.display = 'none';
+    previewImage.style.display = 'none';
+
+    // Hide the delete button
+    deleteButton.style.display = 'none';
+}
+
 
                     
                 </script>
