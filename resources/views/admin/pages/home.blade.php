@@ -866,7 +866,7 @@
                                                                             id="deleteiconfeature-{{ $item->id }}"
                                                                             onclick="removeFeatureImage(this, '{{ $item->id }}')"
                                                                             data-id="feature_cls-{{ $item->id }}"
-                                                                            data-image-path="{{ $item->image }}">X</button>
+                                                                            data-image-path="{{ $item->image }}">Delete</button>
 
                                                                         <img src="{{ url('d0/' . $item->image) }}"
                                                                             alt="Feature Image"
