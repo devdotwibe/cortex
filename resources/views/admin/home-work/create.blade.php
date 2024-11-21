@@ -76,7 +76,7 @@
                 $('.mcq_section').hide();
                 $('.short_section').show();
             }
-            else($(e).val() == 'mcq')
+            else
             {
                 $('.short_section').hide();
                 $('.mcq_section').show(); 
