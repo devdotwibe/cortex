@@ -954,10 +954,10 @@
                                                             <input type="file" name="featureimage[]" class="form-control" style="display: none;" id="featureimage" onchange="previewFeatureImagefea(event)">
                                                             
                                                             <!-- Display Image Preview Here -->
-                                                            <div id="preview-container" style="margin-top: 10px; display: none;" >
-                                                                <img id="preview-image" src="" alt="Image Preview" class="btn btn-danger uniqueclass" style="max-width: 100px; display: none;">
+                                                            <div id="preview-container" style="margin-top: 10px; display: none;" class="uniqueclass" >
+                                                                <img id="preview-image" src="" alt="Image Preview" style="max-width: 100px; display: none;">
                                                                 <!-- Delete button for preview (before saving) -->
-                                                                <button type="button" class="btn btn-danger uniqueclass" id="deleteicon" style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removerepimg()">Delete image</button>
+                                                                <button type="button" class="btn btn-danger uniqueclass" id="uniqueid" style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removerepimg()">Delete image</button>
                                                             </div>
                                             
                                                             @error('featureimage')
@@ -3442,15 +3442,25 @@
 }
 
 
-                    function removeImagedelete() {
-                        // Clear the learn image preview source and hide preview container and delete button
-                        const output = document.getElementById('preview-container-{{ $item->id }}');
-                        output.src = '';
-                        output.style.display = 'none';
+function removeImagedelete(itemId) {
+    // Clear the learn image preview source and hide preview container and delete button
+    const output = document.getElementById('preview-container-' + itemId);
+    if (output) {
+        output.src = '';
+        output.style.display = 'none';
+    }
 
-                        document.getElementById('imgid121').style.display = 'none';
-                        document.getElementById('deleteicon-{{ $item->id }}').style.display = 'none'; // Hide preview delete button
-                    }
+    const imgId = document.getElementById('imgid121');
+    if (imgId) {
+        imgId.style.display = 'none';
+    }
+
+    const deleteIcon = document.getElementById('deleteicon-' + itemId);
+    if (deleteIcon) {
+        deleteIcon.style.display = 'none'; // Hide preview delete button
+    }
+}
+
 
                     
                     function previewprocessImage(event, itemId) {
