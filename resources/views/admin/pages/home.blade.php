@@ -926,7 +926,7 @@
                                                 <div class="form-group">
                                                     <div class="form-data">
                                                         <div class="forms-inputs mb-4">
-                                                            <label for="featureimage" class="file-upload">Feature Image
+                                                            <label for="featureimage" class="file-upload">Feature Image1
                                                                 <br>
                                                                 <img src="{{ asset('assets/images/upfile.svg') }}"
                                                                     alt="Upload Icon"> </label>
@@ -2050,7 +2050,7 @@
 
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label for="image">Image2</label>
+                                                    <label for="image">Image</label>
                                                     <input type="hidden" name="feedids[]" value="">
                                                     <input type="file" name="image[]" class="form-control"
                                                         onchange="previewFeatureImage(event)">
