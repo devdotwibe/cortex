@@ -2742,16 +2742,16 @@
     </div>
 
     <div class="form-group">
-        <label for="ourprocessimage${processIndex}" class="file-upload">Our Process Icon <br> 
+        <label for="ourprocessimage-text${processIndex}" class="file-upload">Our Process Icon <br> 
             <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
         </label>
-        <input type="file" name="ourprocessimageupdate[]" id="ourprocessimage${processIndex}" class="form-control" style="display: none;" onchange="previewprocessImage(event, '${processIndex}')">
+        <input type="file" name="ourprocessimageupdate[]" id="ourprocessimage-text${processIndex}" class="form-control" style="display: none;" onchange="previewprocessImage(event, 'text${processIndex}')">
      
 
         <!-- Image Preview Section -->
 
-        <div id="preview-container-${processIndex}" style="margin-top: 10px;">
-            <img id="preview-image-${processIndex}" src="" alt="Image Preview" style="max-width: 100px; display: none;">
+        <div id="preview-container-text${processIndex}" style="margin-top: 10px;">
+            <img id="preview-image-text${processIndex}" src="" alt="Image Preview" style="max-width: 100px; display: none;">
         </div>
     </div>
 </div>
