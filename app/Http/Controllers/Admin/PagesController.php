@@ -1015,7 +1015,7 @@ public function deleteFeatureImage(Request $request)
 public function deleteProcessImage(Request $request)
 {
     // Find the process record by its ID
-    $process = Process::find($request->id);
+    $process = OurProcess::find($request->id);
 
     if ($process) {
         // Get the image path from the process record
