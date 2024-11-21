@@ -982,13 +982,7 @@ public function deleteLiveImage(Request $request)
 
 public function deleteFeatureImage(Request $request)
 {
-    // Validate the incoming request for feature ID and image path
-    $request->validate([
-        'feature_id' => 'required|exists:features,id', // Ensure the feature exists
-        'image_path' => 'required|string', // The path of the image
-    ]);
 
-    // Retrieve the feature record by ID
     $feature = Feature::find($request->id);
 
     if ($feature) {
