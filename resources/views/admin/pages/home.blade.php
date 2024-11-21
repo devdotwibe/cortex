@@ -823,16 +823,18 @@
                                                                 <input type="file" id="featureimage-{{ $item->id }}" name="featureimageupdate[]"
                                                                     class="form-control" style="display: none;" onchange="previewFeatureImage(event, '{{ $item->id }}')">
                                                 
-                                                                      
+                                                                <!-- Preview Image -->
+                                                                <div id="image-preview-{{ $item->id }}" class="image-preview-container" style="display: none;">
+                                                                    <img id="preview-image-{{ $item->id }}" src="" alt="Image Preview" style="max-width: 100px; margin-top: 10px;">
+                                                                </div>
                                                 
                                                                 <!-- Display existing saved image if available -->
                                                                 @if (!empty($item->image))
-                                                                <button type="button" class="btn btn-danger" id="deleteiconfeature-{{ $item->id }}"
-                                                                    onclick="removeFeatureImage(this, '{{ $item->id }}')" 
-                                                                    data-id="feature_cls-{{ $item->id }}" 
-                                                                    data-image-path="{{ $item->image }}">Delete</button>
-
-
+                                                                    <button type="button" class="btn btn-danger" id="deleteiconfeature-{{ $item->id }}"
+                                                                        onclick="removeFeatureImage(this, '{{ $item->id }}')" 
+                                                                        data-id="feature_cls-{{ $item->id }}" 
+                                                                        data-image-path="{{ $item->image }}">Delete</button>
+                                                
                                                                     <img src="{{ url('d0/' . $item->image) }}" alt="Feature Image" class="feature_cls-{{  $item->id }}"
                                                                         style="max-width: 100px; margin-top: 10px;">
                                                                 @endif
@@ -844,6 +846,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                
                                                 
 
 
@@ -3224,6 +3227,28 @@ function removeLiveImage() {
             }
         });
     }
+
+
+
+    // Function to preview the image before upload
+function previewFeatureImage(event, itemId) {
+    var file = event.target.files[0]; // Get the selected file
+    var reader = new FileReader(); // Create a new FileReader object
+
+    reader.onload = function(e) {
+        // Set the preview image source to the selected file
+        var previewImage = document.getElementById('preview-image-' + itemId);
+        previewImage.src = e.target.result;
+
+        // Show the preview container
+        document.getElementById('image-preview-' + itemId).style.display = 'block';
+    };
+
+    if (file) {
+        reader.readAsDataURL(file); // Read the selected file as a data URL
+    }
+}
+
 </script>
 
 
