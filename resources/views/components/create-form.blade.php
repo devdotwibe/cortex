@@ -195,7 +195,7 @@
                                     <input type="radio" class="input-group-check choice-check"  id="${el}-check" name="choice_${name}" value="${ln}" >
                                 </div>
                                 <input type="text" name="${name}[]" id="${el}" value="" class="form-control" placeholder="${label}" aria-placeholder="${label}" >
-                                 <input type="file" name="file_${name}[]" id="file_${name}-{{$frmID}}-${chcnt}" onchange="previewImage(this, 'preview-${name}-{{$frmID}}-${chcnt}')" value="" class="form-control" >
+                                 <input type="file" name="file_${name}[]" id="file_${name}-{{$frmID}}-${chcnt}" onchange="previewImage(this, 'preview-${name}-{{$frmID}}-${chcnt}')" value=""  accept="image/jpeg, image/png, image/gif" class="form-control" >
                                     <div class="invalid-feedback" id="upload-file-${name}-{{$frmID}}-${chcnt}">Please upload a valid image file (JPEG, PNG, GIF).</div>
                                     <img id="preview-${name}-{{$frmID}}-${chcnt}" src="#" alt="Image Preview"  class="img-thumbnail" style="display:none; width: 100px; height: 40px; object-fit: cover; margin-top: 10px;"/>
                                     <span class="remove-image" id="preview-${name}-{{$frmID}}-${chcnt}-span" onclick="removeImage('${name}-{{$frmID}}-${chcnt}')"  style="cursor: pointer; display: none;margin-left: -8px; margin-top: 3px;">×</span>
