@@ -847,10 +847,10 @@
                                                 
                                                                 <!-- Display existing saved image if available -->
                                                                 @if (!empty($item->image))
-                                                                <button type="button" class="btn btn-danger" id="deleteiconfeature"
-                                                                onclick="removeFeatureImage(this, '{{  $item->id }}')"
+                                                                <button type="button" class="btn btn-danger feature_cls-{{  $item->id }}" id="deleteiconfeature-{{  $item->id }}"
+                                                                onclick="removeFeatureImage(this, '{{  $item->id }}')" data-id="feature_cls-{{  $item->id }}"
                                                                 data-feature-id="id">hi</button>
-                                                                    <img src="{{ url('d0/' . $item->image) }}" alt="Feature Image"
+                                                                    <img src="{{ url('d0/' . $item->image) }}" alt="Feature Image" class="feature_cls-{{  $item->id }}"
                                                                         style="max-width: 100px; margin-top: 10px;">
                                                                 @endif
                                                 
@@ -3217,7 +3217,7 @@ function removeLiveImage() {
 function removeFeatureImage(element,itemId) {
     const imagePath = "{{ optional($item)->image }}"; // Get the image path for the feature image
 
-    // Send an AJAX request to delete the image
+    var class = $(element).data('id');
     $.ajax({
         type: 'POST',
         url: '{{ route('admin.page.deleteFeatureImage') }}', // Ensure this route matches the backend route for deleting feature images
@@ -3228,13 +3228,8 @@ function removeFeatureImage(element,itemId) {
         success: function(response) {
             if (response.success) {
                 // Hide the image preview and the delete button for saved image
-                $('#featureImagePreview-' + itemId).hide();
-                $('#deleteiconfeature').hide();
-                
-                // Optionally, you can reset the image input to allow uploading a new image
-                $('#featureimage-' + itemId).val('');
-                
-                alert('Image deleted successfully.');
+                $('.'+class).hide();
+               
             } else {
                 alert('Image could not be deleted. Please try again.');
             }
