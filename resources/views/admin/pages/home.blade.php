@@ -924,6 +924,25 @@
                                                 </div>
                                             </div>
 
+                                            {{-- <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <div class="form-data">
+                                                        <div class="forms-inputs mb-4">
+                                                            <label for="featureimage" class="file-upload">Feature Image22
+                                                                <br>
+                                                                <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                                    alt="Upload Icon"> </label>
+                                                            <input type="file" name="featureimage[]"
+                                                                class="form-control" style="display: none;"
+                                                                id="featureimage" onchange="previewFeatureImage(event)">
+                                                            @error('featureimage')
+                                                                <div class="text-danger">{{ $message }}</div>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> --}}
+
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <div class="form-data">
