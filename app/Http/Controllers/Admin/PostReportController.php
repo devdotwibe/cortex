@@ -51,6 +51,16 @@ class PostReportController extends Controller
         return redirect()->back()->with("success","User has been banned");
     }
     public function hidepost(Request $request,Post $post){
+
+        $reportPost = ReportPost::findSlug($request->report_post);
+
+        if(!empty($reportPost))
+        {
+            $reportPost->status ='blocked post';
+
+            $reportPost->save();
+        }
+        
         $post->update([
             'visible_status'=>"hide"
         ]);  

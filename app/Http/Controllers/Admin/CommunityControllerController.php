@@ -255,12 +255,23 @@ class CommunityControllerController extends Controller
 
     public function edit(Request $request, Post $post)
     {
+        $reportPost =$request->report_post;
+
         $hashtags = Hashtag::all();
         $post->load('hashtaglist');
-        return view('admin.community.edit', compact('post', 'hashtags'));
+        return view('admin.community.edit', compact('post', 'hashtags','reportPost'));
     }
     public function update(Request $request, Post $post)
     {
+        $reportPost = ReportPost::findSlug($request->report_post);
+
+        if(!empty($reportPost))
+        {
+            $reportPost->status ='edited';
+
+            $reportPost->save();
+        }
+       
         $type = $request->type ?? "post";
         if ($type == "post") {
             $data = $request->validate([
