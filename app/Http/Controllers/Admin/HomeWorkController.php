@@ -58,7 +58,20 @@ class HomeWorkController extends Controller
                         </div>
                     '; 
                 })
-                ->buildTable(['description','visibility']);
+                ->addColumn('question',function($data)use($homeWork){
+                   
+                    if($data->exam_type =='mcq')
+                    {
+                        return $data->description;
+                    }
+                    else
+                    {
+                        return $data->short_question;
+                    }
+                })
+
+                
+                ->buildTable(['visibility','question']);
         } 
         return view('admin.home-work.show',compact('homeWork'));
     }
