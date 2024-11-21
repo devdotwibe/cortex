@@ -845,7 +845,7 @@
 
                                                                     <!-- Display Image Preview Here -->
                                                                     <div id="preview-container-{{ $item->id }}" 
-                                                                        style="margin-top: 10px;" class="numericalclass" >
+                                                                        style="margin-top: 10px;" class="numericalclass imgid{{ $item->id }}" >
                                                                         <img id="preview-image-{{ $item->id }}"
                                                                             src="" alt="Image Preview"
                                                                             style="max-width: 100px; display: none;">
@@ -853,10 +853,16 @@
 
 
                                                                     <!-- Delete button for preview (before saving) -->
-                                                                    <button type="button" class="btn btn-danger imgid121"
+                                                                    {{-- <button type="button" class="btn btn-danger imgid{{ $item->id }}"
                                                                         id="deleteicon-{{ $item->id }}"
                                                                         style="position: absolute; top: 5px; right: 5px; display: none;"
-                                                                        onclick="removeImagedelete()">Delete</button>
+                                                                        onclick="removeImagedelete()">Delete</button> --}}
+
+                                                                         <!-- Delete button for preview (before saving) -->
+                                                                    <button type="button" class="btn btn-danger imgid{{ $item->id }}"
+                                                                        id="deleteicon-{{ $item->id }}"
+                                                                        style="position: absolute; top: 5px; right: 5px; display: none;"
+                                                                        onclick="removerepimg(this)">Delete</button>
 
 
 
