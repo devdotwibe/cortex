@@ -833,7 +833,7 @@ button.close {
     display: flex;
     flex-wrap: wrap;
     align-items: start;
-    position: relative;
+    position: relative
 }
 
 .exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check label {
