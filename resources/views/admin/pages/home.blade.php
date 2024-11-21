@@ -943,30 +943,39 @@
                                                 </div>
                                             </div> --}}
 
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <div class="form-data">
-                                                        <div class="forms-inputs mb-4">
-                                                            <label for="featureimagefirst" class="file-upload">Feature Image22
-                                                                <br>
-                                                                <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
-                                                            </label>
-                                                            <input type="file" name="featureimage[]" class="form-control" style="display: none;" id="featureimagefirst" onchange="previewFirst(event)">
-                                            
-                                                            <!-- Display Image Preview Here -->
-                                                            <div id="preview-container" style="margin-top: 10px; display: none;">
-                                                                <img id="preview-imagefirst" src="" alt="Image Preview" style="max-width: 100px; display: none;">
-                                                                <!-- Delete button for preview (before saving) -->
-                                                                <button type="button" class="btn btn-danger" id="deleteicon" style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removerepimg()">Delete image</button>
-                                                            </div>
-                                            
-                                                            @error('featureimage')
-                                                                <div class="text-danger">{{ $message }}</div>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                           
+To display the "Delete Image" button along with the image preview when a file is selected, you can make sure the delete button is visible after the image is shown. This is done in the previewFirst function where the button’s display style is changed to inline-block, making it visible.
+
+Here’s the updated version of your code that ensures the "Delete Image" button is shown when the image preview is displayed, and the button allows you to remove the preview:
+
+Updated HTML and JavaScript for Image Preview and Delete Button:
+html
+Copy code
+<div class="col-md-12">
+    <div class="form-group">
+        <div class="form-data">
+            <div class="forms-inputs mb-4">
+                <label for="featureimagefirst" class="file-upload">Feature Image22
+                    <br>
+                    <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
+                </label>
+                <input type="file" name="featureimage[]" class="form-control" style="display: none;" id="featureimagefirst" onchange="previewFirst(event)">
+
+                <!-- Display Image Preview Here -->
+                <div id="preview-container" style="margin-top: 10px; display: none;">
+                    <img id="preview-imagefirst" src="" alt="Image Preview" style="max-width: 100px; display: none;">
+                    <!-- Delete button for preview (before saving) -->
+                    <button type="button" class="btn btn-danger" id="deleteicon" style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removerepimg()">Delete image</button>
+                </div>
+
+                @error('featureimage')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+        </div>
+    </div>
+</div>
+
                                             
 
 
@@ -3443,7 +3452,6 @@
 
 
 
-
 function previewFirst(event) {
         var file = event.target.files[0];
         var reader = new FileReader();
@@ -3470,7 +3478,6 @@ function previewFirst(event) {
             reader.readAsDataURL(file);
         }
     }
-
 
 
 
@@ -3635,7 +3642,6 @@ function removerepimg() {
         // Optionally, reset the image preview to a blank state
         document.getElementById('preview-imagefirst').src = "";
     }
-
 </script>
 
 
