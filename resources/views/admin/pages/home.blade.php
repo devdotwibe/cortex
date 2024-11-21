@@ -951,13 +951,13 @@
                                                                 <br>
                                                                 <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
                                                             </label>
-                                                            <input type="file" name="featureimage[]" class="form-control" style="display: none;" id="featureimagefirst" onchange="previewFirst(event,'uniqueclass')">
-                                                            
+                                                            <input type="file" name="featureimage[]" class="form-control" style="display: none;" id="featureimagefirst" onchange="previewFirst(event)">
+                                            
                                                             <!-- Display Image Preview Here -->
-                                                            <div id="preview-container" style="margin-top: 10px; display: none;" class="uniqueclass" >
+                                                            <div id="preview-container" style="margin-top: 10px; display: none;">
                                                                 <img id="preview-imagefirst" src="" alt="Image Preview" style="max-width: 100px; display: none;">
                                                                 <!-- Delete button for preview (before saving) -->
-                                                                <button type="button" class="btn btn-danger uniqueclass" id="uniqueid" style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removerepimg()">Delete image</button>
+                                                                <button type="button" class="btn btn-danger" id="deleteicon" style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removerepimg()">Delete image</button>
                                                             </div>
                                             
                                                             @error('featureimage')
@@ -3444,30 +3444,32 @@
 
 
 
+function previewFirst(event) {
+        var file = event.target.files[0];
+        var reader = new FileReader();
 
-function previewFirst(event, itemId) {
-    var reader = new FileReader();
+        // Handle the file reading process
+        reader.onload = function(e) {
+            var previewImage = document.getElementById('preview-imagefirst');
+            var previewContainer = document.getElementById('preview-container');
+            var deleteButton = document.getElementById('deleteicon');
 
-    // Handle the file reading process
-    reader.onload = function(e) {
-        var previewImage = document.getElementById('featureimagefirst');
-        var previewContainer = document.getElementById('preview-imagefirst');
-        var deleteButton = document.getElementById('uniqueid');
+            // Set the image source to the selected file
+            previewImage.src = e.target.result;
 
-        // Set the image source to the selected file
-        previewImage.src = e.target.result;
+            // Show the preview image container
+            previewContainer.style.display = 'block';
+            previewImage.style.display = 'block'; // Ensure the image is visible
+            
+            // Show the delete button
+            deleteButton.style.display = 'inline-block'; // Display the delete button
+        };
 
-        // Show the preview image container
-        previewContainer.style.display = 'block';
-        previewImage.style.display = 'block'; // Ensure the image is visible
-        
-        // Show the delete button
-        deleteButton.style.display = 'inline-block'; // Display the delete button
-    };
-
-    // Read the file as a data URL
-    reader.readAsDataURL(event.target.files[0]);
-}
+        // Read the file as a data URL
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
 
 
 
@@ -3620,21 +3622,19 @@ function removeimgImage(element, itemId) {
 }
 
 
-
-// Function to remove image preview and reset the file input
-function removerepimg(featureIndex) {
-    // Hide the preview container
-    document.getElementById(`preview-container-${featureIndex}`).style.display = "none";
-    
-    // Reset the file input value
-    document.getElementById(`featureimage_${featureIndex}`).value = "";
-    
-    // Hide the delete button
-    document.getElementById(`deleteicon-${featureIndex}`).style.display = "none";
-    
-    // Optionally, reset the image preview to a blank state (or other fallback image)
-    document.getElementById(`preview-image-${featureIndex}`).src = "";
-}
+function removerepimg() {
+        // Hide the preview container
+        document.getElementById('preview-container').style.display = "none";
+        
+        // Reset the file input value
+        document.getElementById('featureimagefirst').value = "";
+        
+        // Hide the delete button
+        document.getElementById('deleteicon').style.display = "none";
+        
+        // Optionally, reset the image preview to a blank state
+        document.getElementById('preview-imagefirst').src = "";
+    }
 
 </script>
 
