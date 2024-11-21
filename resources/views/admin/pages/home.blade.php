@@ -829,7 +829,7 @@
                                                              
                                                                     <button type="button" class="btn btn-danger"
                                                                     onclick="removeDiv1(this, 'close-{{ $item->id }}')"
-                                                                    data-feature-id="id">X</button>
+                                                                    data-feature-id="id">hi</button>
 
                                                                     <img src="{{ url('d0/' . $item->image) }}" alt="Feature Image"
                                                                         style="max-width: 100px; margin-top: 10px;">
