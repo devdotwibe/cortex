@@ -37,9 +37,9 @@
             ["name"=>"learn_type","event"=>["change"=>"cclickback"] ,"label"=>"Learn Type","placeholder"=>"Select Learn Type","type"=>"select","size"=>4,"options"=>[["value"=>"short_notes","text"=>"Short Note Questions"],["value"=>"mcq","text"=>"MCQs Questions"]]],
              
            
-            ["name"=>"mcq_question", "addclass"=>"mcq_section","display"=>"none" , "label"=>"Question","size"=>12,"type"=>"editor"], 
-            ["name"=>"mcq_answer", "addclass"=>"mcq_section" , "display"=>"none", "label"=>"answer" ,"type"=>"choice" ,"size"=>12],
-            ["name"=>"explanation", "addclass"=>"mcq_section","display"=>"none" , "label"=>"Explanation","size"=>12,"type"=>"editor" ],
+            ["name"=>"mcq_question", "addclass"=>"mcq_question","display"=>"none" , "label"=>"Question","size"=>12,"type"=>"editor"], 
+            ["name"=>"mcq_answer", "addclass"=>"mcq_question" , "display"=>"none", "label"=>"answer" ,"type"=>"choice" ,"size"=>12],
+            ["name"=>"explanation", "addclass"=>"mcq_question","display"=>"none" , "label"=>"Explanation","size"=>12,"type"=>"editor" ],
              ["name"=>"short_question", "addclass"=>"short_section","display"=>"none" , "label"=>"Question","size"=>12,"type"=>"editor"],
 
             ["name"=>"short_answer", "addclass"=>"short_section" ,"display"=>"none" , "placeholder"=>"Type Answer Here","label"=>"Answer","size"=>12,"type"=>"editor"], 
@@ -61,7 +61,7 @@
                         $('.short_section').show();
                     break;
                 case 'mcq':
-                        $('.mcq_section').show(); 
+                        $('.mcq_question').show(); 
                     break;
                 default:
             }
@@ -73,13 +73,13 @@
            if($(e).val() == 'short_notes')
             {
               
-                $('.mcq_section').hide();
+                $('.mcq_question').hide();
                 $('.short_section').show();
             }
             else
             {
                 $('.short_section').hide();
-                $('.mcq_section').show(); 
+                $('.mcq_question').show(); 
             }
          }
          
