@@ -844,7 +844,7 @@
                                                                 </div> --}}
 
                                                                 <button type="button" class="btn btn-danger" id="deleteicon"
-                                                                onclick="removeFeatureImage(this, 'close-{{ $item->id }}')"
+                                                                onclick="removeFeatureImage(this, '{{  $item->id }}')"
                                                                 data-feature-id="id">hi</button>
                                                 
                                                                 <!-- Display existing saved image if available -->
@@ -3213,7 +3213,7 @@ function removeLiveImage() {
 
 
 
-function removeFeatureImage(itemId) {
+function removeFeatureImage(element,itemId) {
     const imagePath = "{{ optional($item)->image }}"; // Get the image path for the feature image
 
     // Send an AJAX request to delete the image
@@ -3222,7 +3222,7 @@ function removeFeatureImage(itemId) {
         url: '{{ route('admin.page.deleteFeatureImage') }}', // Ensure this route matches the backend route for deleting feature images
         data: {
             _token: '{{ csrf_token() }}',
-            image_path: imagePath // Send the image path as part of the data
+            id: itemId // Send the image path as part of the data
         },
         success: function(response) {
             if (response.success) {

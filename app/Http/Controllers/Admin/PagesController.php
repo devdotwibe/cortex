@@ -989,11 +989,11 @@ public function deleteFeatureImage(Request $request)
     ]);
 
     // Retrieve the feature record by ID
-    $feature = Feature::find($request->input('feature_id'));
+    $feature = Feature::find($request->id);
 
     if ($feature) {
         // Get the image path from the request
-        $imagePath = $request->input('image_path');
+        $imagePath = $feature->image ;
 
         // Check if the file exists in the storage and delete it
         if (Storage::exists($imagePath)) {
