@@ -3442,13 +3442,13 @@
 }
 
 
-                    function removeImagedelete() {
+                    function removeImagedelete(itemId) {
                         // Clear the learn image preview source and hide preview container and delete button
-                        const output = document.getElementById('preview-container-{{ $item->id }}');
+                        const output = document.getElementById('preview-container-' + itemId);
                         output.src = '';
                         output.style.display = 'none';
 
-                        document.getElementById('imgid121').style.display = 'none';
+                        const deleteIcon = document.getElementById('deleteicon-' + itemId);
                         document.getElementById('deleteicon-{{ $item->id }}').style.display = 'none'; // Hide preview delete button
                     }
 
