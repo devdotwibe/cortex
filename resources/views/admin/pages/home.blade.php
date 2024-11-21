@@ -2621,10 +2621,10 @@
                          <div id="preview-container-text${featureIndex}" style="margin-top: 10px;">
                         <img id="preview-image-text${featureIndex}" src="" alt="Image Preview" style="max-width: 100px; display: none;">
 
-                        <!-- Remove Button -->
-    <button type="button" id="deleteicon-text${featureIndex}" class="btn btn-danger" style="display: none; margin-top: 10px;" onclick="removerepimg('text${featureIndex}')">Delete</button>
+                       
+                    <button type="button" id="deleteicon-text${featureIndex}" class="btn btn-danger" style="display: none; margin-top: 10px;" onclick="removerepimg('text${featureIndex}')">Delete</button>
 
-    
+
                          </div>
                     </div>
                 </div>
