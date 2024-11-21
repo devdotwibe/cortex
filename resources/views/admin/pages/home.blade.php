@@ -843,12 +843,13 @@
                                                                     @endif
                                                                 </div> --}}
 
-                                                                <button type="button" class="btn btn-danger" id="deleteiconfeature"
-                                                                onclick="removeFeatureImage(this, '{{  $item->id }}')"
-                                                                data-feature-id="id">hi</button>
+                                                              
                                                 
                                                                 <!-- Display existing saved image if available -->
                                                                 @if (!empty($item->image))
+                                                                <button type="button" class="btn btn-danger" id="deleteiconfeature"
+                                                                onclick="removeFeatureImage(this, '{{  $item->id }}')"
+                                                                data-feature-id="id">hi</button>
                                                                     <img src="{{ url('d0/' . $item->image) }}" alt="Feature Image"
                                                                         style="max-width: 100px; margin-top: 10px;">
                                                                 @endif
