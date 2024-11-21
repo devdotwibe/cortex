@@ -951,7 +951,7 @@
                                                                 <br>
                                                                 <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
                                                             </label>
-                                                            <input type="file" name="featureimage[]" class="form-control" style="display: none;" id="featureimage" onchange="previewFeatureImagefea(event)">
+                                                            <input type="file" name="featureimage[]" class="form-control" style="display: none;" id="featureimage" onchange="previewFeatureImagefea(event,'uniqueclass')">
                                                             
                                                             <!-- Display Image Preview Here -->
                                                             <div id="preview-container" style="margin-top: 10px; display: none;" class="uniqueclass" >
