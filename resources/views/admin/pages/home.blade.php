@@ -3305,46 +3305,37 @@
 
 
 
+                    function previewFeatureImagefea(event, itemId) {
+                        var reader = new FileReader();
+
+                        // Handle the file reading process
+                        reader.onload = function(e) {
+                            var previewImage = document.getElementById('preview-image-' + itemId);
+                            var previewContainer = document.getElementById('preview-container-' + itemId);
+
+                            // Set the image source to the selected file
+                            previewImage.src = e.target.result;
+
+                            // Show the preview image container
+                            previewContainer.style.display = 'block';
+                            previewImage.style.display = 'block'; // Ensure the image is visible
+                        };
+
+                        // Read the file as a data URL
+                        reader.readAsDataURL(event.target.files[0]);
+                    }
+
+
+                    function removeImagedelete() {
+                        // Clear the learn image preview source and hide preview container and delete button
+                        const output = document.getElementById('preview-container-{{ $item->id }}');
+                        output.src = '';
+                        output.style.display = 'none';
+
+                        document.getElementById('imgid121').style.display = 'none';
+                        document.getElementById('deleteicon121').style.display = 'none'; // Hide preview delete button
+                    }
+
                     
-    function previewFeatureImagefea(event, itemId) {
-        const reader = new FileReader();
-
-        reader.onload = function () {
-            const previewImage = document.getElementById('preview-image-' + itemId);
-            previewImage.src = reader.result;
-            previewImage.style.display = 'block';  // Show the preview image
-
-            // Show the image preview container
-            document.getElementById('preview-container-' + itemId).style.display = 'block';
-
-            // Show the delete button for the preview image
-            const deleteButton = document.getElementById('deleteicon121');
-            deleteButton.style.display = 'block';  // Make the delete button visible
-
-            // Optionally, hide the existing image if it's replaced by a new one
-            const existingImage = document.querySelector('.feature_cls-' + itemId);
-            if (existingImage) {
-                existingImage.style.display = 'none'; // Hide the old image if any
-            }
-        };
-
-        if (event.target.files[0]) {
-            reader.readAsDataURL(event.target.files[0]);
-        }
-    }
-
-    // Function to remove the image preview when the "Delete" button is clicked
-    function removeImagedelete() {
-        // Get the image preview element by ID and hide it
-        const previewImage = document.getElementById('preview-image-' + event.target.dataset.id);
-        previewImage.src = '';
-        previewImage.style.display = 'none';
-
-        // Hide the preview container and delete icon (for the preview image)
-        document.getElementById('preview-container-' + event.target.dataset.id).style.display = 'none';
-        document.getElementById('deleteicon121').style.display = 'none';
-    }
-</script>
-
-               
+                </script>
             @endpush
