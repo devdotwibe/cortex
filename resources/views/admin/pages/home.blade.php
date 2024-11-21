@@ -735,53 +735,6 @@
                                                     </div>
                                                 </div>
 
-                                                {{-- <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <div class="form-data">
-                                                            <div class="forms-inputs mb-4">
-                                                                <!-- File Upload Label -->
-                                                                <label for="featureimage_{{ $k }}" class="file-upload">Feature Image <br>
-                                                                    <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
-                                                                </label>
-                                                
-                                                                <!-- Hidden Input for IDs -->
-                                                                <input type="hidden" name="featureids[]" value="{{ old('featureids.' . $k, $item->id ?? '') }}">
-                                                
-                                                                <!-- File Input -->
-                                                                <input type="file" name="featureimageupdate[]" id="featureimage_{{ $k }}" 
-                                                                       class="form-control d-none"
-                                                                       onchange="previewFeatureImage(event, {{ $k }})">
-                                                
-                                                                <!-- Preview Section -->
-                                                                <div id="featurePreviewContainer_{{ $k }}" style="border: 1px solid #ddd; padding: 10px; width: 132px; height: 150px; position: relative; margin-top: 10px; display: {{ !empty($item->image) ? 'block' : 'none' }};">
-                                                
-                                                                    <!-- Image Preview -->
-                                                                    <img id="imagePreview_{{ $k }}" 
-                                                                         src="{{ !empty($item->image) ? asset('path/to/images/' . $item->image) : '' }}" 
-                                                                         alt="Feature Image Preview" 
-                                                                         style="width: 100%; height: auto; display: {{ !empty($item->image) ? 'block' : 'none' }};">
-                                                
-                                                                    <!-- Delete Button for Unsaved Preview -->
-                                                                    <button type="button" class="btn btn-danger" id="deletePreviewButton_{{ $k }}" 
-                                                                            style="position: absolute; top: 5px; right: 45px; display: none;" 
-                                                                            onclick="removeFeatureImagePreview({{ $k }})">X</button>
-                                                
-                                                                    <!-- Delete Button for Saved Image -->
-                                                                    <button type="button" class="btn btn-danger" id="deleteSavedButton_{{ $k }}" 
-                                                                            style="position: absolute; top: 5px; right: 5px; {{ !empty($item->image) ? 'display: block;' : 'display: none;' }}" 
-                                                                            onclick="removeFeatureImage({{ $k }})">X</button>
-                                                                </div>
-                                                
-                                                                <!-- Error Message -->
-                                                                @error('featureimageupdate.' . $k)
-                                                                    <div class="text-danger">{{ $message }}</div>
-                                                                @enderror
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                 --}}
-
 
 
 
