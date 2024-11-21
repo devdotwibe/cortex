@@ -3326,14 +3326,26 @@
                     }
 
 
-                    function removeImagedelete() {
-                        // Clear the learn image preview source and hide preview container and delete button
-                        const output = document.getElementById('preview-container-{{ $item->id }}');
-                        output.src = '';
-                        output.style.display = 'none';
+                    // function removeImagedelete() {
+                    //     // Clear the learn image preview source and hide preview container and delete button
+                    //     const output = document.getElementById('preview-container-{{ $item->id }}');
+                    //     output.src = '';
+                    //     output.style.display = 'none';
 
-                        document.getElementById('imgid121').style.display = 'none';
-                        document.getElementById('deleteicon121').style.display = 'none'; // Hide preview delete button
-                    }
+                    //     document.getElementById('imgid121').style.display = 'none';
+                    //     document.getElementById('deleteicon121').style.display = 'none'; // Hide preview delete button
+                    // }
+
+                        // Function to remove the image preview when the "Delete" button is clicked
+    function removeImagedelete() {
+        // Get the image preview element by ID and hide it
+        const previewImage = document.getElementById('preview-image-' + event.target.dataset.id);
+        previewImage.src = '';
+        previewImage.style.display = 'none';
+
+        // Hide the preview container and delete icon (for the preview image)
+        document.getElementById('preview-container-' + event.target.dataset.id).style.display = 'none';
+        document.getElementById('deleteicon121').style.display = 'none';
+    }
                 </script>
             @endpush
