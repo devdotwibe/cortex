@@ -35,6 +35,9 @@ class PostReportController extends Controller
         return view('admin.report-post.show',compact('postUser','post','user','reportPost'));
     }
     public function banuser(Request $request,User $user){
+
+        $request->report_post;
+        dd($request->report_post);
         $user->update([
             'post_status'=>"banned"
         ]); 
