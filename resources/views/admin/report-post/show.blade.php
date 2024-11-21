@@ -126,6 +126,8 @@
 @endsection 
 @push('modals') 
     
+@if(!empty($post))
+
     <div class="modal fade" id="delete-post" tabindex="-1" role="dialog" aria-labelledby="Label" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -135,7 +137,7 @@
                     <button type="button" class="close"  data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{route('admin.community.post.destroy',optional($post)->slug)}}"  id="delete-post-form" method="post">
+                    <form action="{{route('admin.community.post.destroy',$post->slug)}}"  id="delete-post-form" method="post">
                         @csrf
                         @method("DELETE")
                         <p>Are you sure you want to delete the record </p>
@@ -147,6 +149,9 @@
             </div>
         </div>
     </div>  
+
+    @endif
+
 @endpush
 
 @push('footer-script')
