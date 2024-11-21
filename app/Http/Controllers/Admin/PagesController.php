@@ -1052,16 +1052,19 @@ public function deleteImagesection7(Request $request)
 
     if ($feed) {
         // Check if the image path matches the provided path
+        $imagePath = $feed->image;
         if ($feed->image === $request->image_path) {
             // Check if the image exists in storage
-            if (Storage::exists($feed->image)) {
+            if (Storage::exists($imagePath)) {
                 // Delete the image from storage
-                Storage::delete($feed->image);
+                Storage::delete($imagePath);
             }
 
             // Update the feed record to remove the image
             $feed->image = null;
             $feed->save();
+
+           
 
             // Return a success response
             return response()->json([
