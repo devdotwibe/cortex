@@ -78,7 +78,8 @@
                                                         <div class="image-preview position-relative">                                                
                                                             <span class="remove-image" id="span-{{ $item->name }}-{{ $frmID }}-{{ $k }}"
                                                                   onclick="showConfirmDeleteModal('{{$item->name}}-{{$frmID}}-{{$k}}', '{{$v->image}}','{{$v->id}}')" style="cursor: pointer">×</span>
-                                            
+                                                                  <span class="remove-image" id="preview-{{ $item->name }}-{{ $frmID }}-{{ $k }}-span" onclick="removeNewImage('{{$item->name}}-{{$frmID}}-{{ $k }}')"  style="cursor: pointer; display: none; margin-left: -8px; margin-top: 3px;">×</span>
+
                                                         </div>
                                                     @else
                                                         <img id="preview-{{ $item->name }}-{{ $frmID }}-{{ $k }}" src="" alt="Image Preview" class="img-thumbnail"  style="width: 100px; height: 40px; object-fit: cover; margin-top: 10px; display: none;">
@@ -198,7 +199,7 @@
                 Are you sure you want to remove this image?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                 <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Remove</button>
             </div>
         </div>
