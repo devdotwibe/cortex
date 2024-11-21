@@ -8,7 +8,7 @@
             <a href="{{route('admin.community.index')}}"><img src="{{asset('assets/images/leftarrowblack.svg')}}" alt=""></a>
         </div>
         <div class="header_title">
-            <h2>{{$post->title}}</h2>
+            <h2>{{optional($post)->title??"Post Not Found"}}</h2>
         </div> 
         <div class="header_right">
             <ul class="nav_bar"> 
@@ -17,8 +17,10 @@
              
                 <li class="nav_item"><a href="{{route('admin.community.report.banuser',$postUser->slug)}}" class=" btn btn-danger">Ban User</a></li> 
                 @endif
+                
+                @if(optional($post)->visible_status=="show")
                 <li class="nav_item"><a href="{{route('admin.community.post.edit',$post->slug)}}" class="nav_link btn">Edit Post</a></li>       
-                @if($post->visible_status=="show")
+               
                 <li class="nav_item"><a href="{{route('admin.community.report.hidepost',$post->slug)}}"   class="btn btn-outline-danger">Block Post</a></li>
                 @else
                 @endif      
