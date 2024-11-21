@@ -735,7 +735,7 @@
                                                     </div>
                                                 </div> --}}
 
-                                                <div class="col-md-12">
+                                                {{-- <div class="col-md-12">
                                                     <div class="form-group">
                                                         <div class="form-data">
                                                             <div class="forms-inputs mb-4">
@@ -780,7 +780,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                
+                                                 --}}
 
 
 
