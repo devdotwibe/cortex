@@ -2486,7 +2486,10 @@
                     <div class="form-group">
                         <label for="featureimage_${featureIndex}" class="file-upload">Feature Image <br>   <img src="{{ asset('assets/images/upfile.svg') }}"
                                                             alt="Upload Icon"> </label>
-                        <input type="file" name="featureimageupdate[]" id="featureimage_${featureIndex}" class="form-control"  style="display: none;" onchange="previewFeatureImage(event)">
+                        <input type="file" name="featureimageupdate[]" onchange="previewFeatureImagefea(event, '${featureIndex}')" id="featureimage_${featureIndex}" class="form-control"  style="display: none;">
+                         <div id="preview-container-${featureIndex}" style="margin-top: 10px;">
+                        <img id="preview-image-${featureIndex}" src="" alt="Image Preview" style="max-width: 100px; display: none;">
+                         </div>
                     </div>
                 </div>
             `;
