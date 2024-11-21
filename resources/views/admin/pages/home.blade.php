@@ -2558,7 +2558,7 @@
                         <input type="file" name="featureimageupdate[]" onchange="previewFeatureImagefea(event, 'text${featureIndex}')" id="featureimage_text${featureIndex}" class="form-control"  style="display: none;">
                          <div id="preview-container-text${featureIndex}" style="margin-top: 10px;">
                         <img id="preview-image-text${featureIndex}" src="" alt="Image Preview" style="max-width: 100px; display: none;">
-                         <!-- Delete button for preview image -->
+                        
         <button type="button" class="btn btn-danger" id="deleteicon-text${featureIndex}" 
                 style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removeImagedelete(${featureIndex})">
             Delete
