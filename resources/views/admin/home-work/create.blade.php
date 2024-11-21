@@ -19,9 +19,9 @@
             ["name"=>"home_work_type","event"=>["change"=>"cclickback"] ,"label"=>"Home Work Type","placeholder"=>"Select Home Work Type","type"=>"select","size"=>4,"options"=>[["value"=>"short_notes","text"=>"Short Note Questions"],["value"=>"mcq","text"=>"MCQs Questions"]]],
              
            
-             ["name"=>"description", "addclass"=>"mcq_question","display"=>"none" , "label"=>"Question","size"=>12,"type"=>"editor"], 
-             ["name"=>"answer", "addclass"=>"mcq_question","display"=>"none" ,"label"=>"answer" ,"type"=>"choice" ,"size"=>12],
-             ["name"=>"explanation", "addclass"=>"mcq_question","display"=>"none" , "label"=>"Explanation","size"=>12,"type"=>"editor" ],
+             ["name"=>"description", "addclass"=>"mcq_question","display"=>"block" , "label"=>"Question","size"=>12,"type"=>"editor"], 
+             ["name"=>"answer", "addclass"=>"mcq_question","display"=>"block" ,"label"=>"answer" ,"type"=>"choice" ,"size"=>12],
+             ["name"=>"explanation", "addclass"=>"mcq_question","display"=>"block" , "label"=>"Explanation","size"=>12,"type"=>"editor" ],
 
              ["name"=>"short_question", "addclass"=>"short_section","display"=>"none" , "label"=>"Question","size"=>12,"type"=>"editor"],
 
