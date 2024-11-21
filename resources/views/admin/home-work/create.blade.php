@@ -70,13 +70,13 @@
 
             console.log($(e).val());
 
-           if(e.value == 'short_notes')
+           if($(e).val() == 'short_notes')
             {
               
                 $('.mcq_section').hide();
                 $('.short_section').show();
             }
-            else(e.value == 'mcq')
+            else($(e).val() == 'mcq')
             {
                 $('.short_section').hide();
                 $('.mcq_section').show(); 
