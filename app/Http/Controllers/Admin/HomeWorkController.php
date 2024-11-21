@@ -92,16 +92,41 @@ class HomeWorkController extends Controller
         return view('admin.home-work.edit',compact('homeWork','homeWorkQuestion'));
     }
     public function update(Request $request,HomeWork $homeWork,HomeWorkQuestion $homeWorkQuestion){
-        $data=$request->validate([
-            'home_work_book_id'=>['required'],
-            'description'=>['required'],
-            'answer'=>['required'],
-            "answer.*" => [ 'string', 'max:150','nullable'],
-            "file_answer.*" => [ 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048','nullable'],
-            'explanation'=>['required']
-        ],[
-            'file_answer.*.mimes' => 'Each file answer must be an image (jpeg, png, jpg, gif).',
-        ]);
+
+        switch ($request->input('home_work_type', "")) {
+
+            case 'short_notes':
+                $data = $request->validate([
+                    "home_work_book_id" => ['required'],
+                    "short_question" => ['required'],
+                    "short_answer" => ["required"],
+                ]);
+                break;
+            case 'mcq':
+                $data = $request->validate([
+                    "home_work_book_id" => ['required'],
+                    "description" => ['required'],
+                    "answer" => ['required'],
+                    "answer.*" => ["required_without:file_mcq_answer", 'string', 'max:150','nullable'],
+                    "file_answer.*" => ["required_without:mcq_answer", 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+                    "explanation" => ['nullable']
+                ], [
+                    'answer.*.required_without' => 'The answer field is required when file answer is not provided.',
+                    'file_answer.*.required_without' => 'The file answer is required when answer is not provided.',
+                    'file_answer.*.mimes' => 'Each file answer must be an image (jpeg, png, jpg, gif).',
+                ]);
+                break;
+
+            default:
+                $data = $request->validate([
+                    "category_id" => ['required'],
+                    "sub_category_id" => ['required'],
+                    "title" => ['required'],
+                    "learn_type" => ["required"],
+                ]);
+                break;
+        }
+
         $data['home_work_id']=$homeWork->id;
         $homeWorkQuestion->update($data);
         $ansIds=[]; 
