@@ -816,36 +816,37 @@
                                                     <div class="form-group">
                                                         <div class="form-data">
                                                             <div class="forms-inputs mb-4">
-                                                                <label for="featureimage-{{ $item->id }}" class="file-upload">Feature Image1 <br>
+                                                                <label for="featureimage-{{ $item->id }}" class="file-upload">
+                                                                    Feature Image1 <br>
                                                                     <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
                                                                 </label>
                                                                 <input type="hidden" name="featureids[]" value="{{ $item->id }}">
                                                                 <input type="file" id="featureimage-{{ $item->id }}" name="featureimageupdate[]"
-                                                                    class="form-control" style="display: none;" onchange="previewFeatureImage(event, '{{ $item->id }}')">
+                                                                    class="form-control" style="display: none;" onchange="previewFeatureImagefea(event, '{{ $item->id }}')">
                                                 
-                                                                      
+                                                                <!-- Display Image Preview Here -->
+                                                                <div id="preview-container-{{ $item->id }}" style="margin-top: 10px;">
+                                                                    <img id="preview-image-{{ $item->id }}" src="" alt="Image Preview" style="max-width: 100px; display: none;">
+                                                                </div>
                                                 
                                                                 <!-- Display existing saved image if available -->
                                                                 @if (!empty($item->image))
                                                                 <button type="button" class="btn btn-danger" id="deleteiconfeature-{{ $item->id }}"
-                                                                    onclick="removeFeatureImage(this, '{{ $item->id }}')" 
-                                                                    data-id="feature_cls-{{ $item->id }}" 
+                                                                    onclick="removeFeatureImage(this, '{{ $item->id }}')" data-id="feature_cls-{{ $item->id }}"
                                                                     data-image-path="{{ $item->image }}">Delete</button>
-
-
-                                                                    <img src="{{ url('d0/' . $item->image) }}" alt="Feature Image" class="feature_cls-{{  $item->id }}"
-                                                                        style="max-width: 100px; margin-top: 10px;">
+                                                
+                                                                <img src="{{ url('d0/' . $item->image) }}" alt="Feature Image" class="feature_cls-{{  $item->id }}"
+                                                                    style="max-width: 100px; margin-top: 10px;">
                                                                 @endif
                                                 
                                                                 @error('featureimage')
-                                                                    <div class="text-danger">{{ $message }}</div>
+                                                                <div class="text-danger">{{ $message }}</div>
                                                                 @enderror
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 
-
 
 
 
@@ -3224,9 +3225,28 @@ function removeLiveImage() {
             }
         });
     }
+
+
+
+function previewFeatureImagefea(event, itemId) {
+    var reader = new FileReader();
+    
+    // Handle the file reading process
+    reader.onload = function(e) {
+        var previewImage = document.getElementById('preview-image-' + itemId);
+        var previewContainer = document.getElementById('preview-container-' + itemId);
+
+        // Set the image source to the selected file
+        previewImage.src = e.target.result;
+
+        // Show the preview image container
+        previewContainer.style.display = 'block';
+        previewImage.style.display = 'block'; // Ensure the image is visible
+    };
+    
+    // Read the file as a data URL
+    reader.readAsDataURL(event.target.files[0]);
+}
 </script>
-
-
-
 
         @endpush
