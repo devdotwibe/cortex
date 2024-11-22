@@ -1965,7 +1965,7 @@
                                                     </div>
 
                                                     <!-- Image -->
-                                                    <div class="col-md-12 ">
+                                                    <div class="col-md-12  numericalsectionclass ">
                                                         <div class="form-group">
                                                             <div class="form-data">
                                                                 <div class="forms-inputs mb-4">
@@ -1983,13 +1983,13 @@
                                                                         style="display: none;" onchange="previewimgImage(event, '{{ $item->id }}')">
                                                     
                                                                     <!-- Preview container for new image -->
-                                                                    <div id="preview-container-{{ $item->id }}" style="margin-top: 10px;">
-                                                                        <img id="preview-image-{{ $item->id }}" src="" alt="Image Preview"
+                                                                    <div id="preview-container2-{{ $item->id }}" style="margin-top: 10px;"  class="numericalclass imgidrev{{ $item->id }}">
+                                                                        <img id="preview-image2-{{ $item->id }}" src="" alt="Image Preview"
                                                                             style="max-width: 100px; display: none;">
                                                                     </div>
                                                     
                                                                     <!-- Delete button for preview (before saving) -->
-                                                                    <button type="button" class="btn btn-danger imgid121" id="deleteicon-{{ $item->id }}"
+                                                                    <button type="button" class="btn btn-danger  imgidrev{{ $item->id }}" id="deleteicon-{{ $item->id }}"
                                                                         style="position: absolute; top: 5px; right: 5px; display: none;"
                                                                         onclick="removeImagedelete('{{ $item->id }}')">Delete</button>
                                                     
