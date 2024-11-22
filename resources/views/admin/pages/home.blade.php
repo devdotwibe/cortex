@@ -2652,7 +2652,7 @@
                         <img id="preview-image-text${featureIndex}" src="" alt="Image Preview" style="max-width: 100px; display: none;">
 
                        
-                    <button type="button" id="deleteicon-text${featureIndex}" class="btn btn-danger" style="display: none; margin-top: 10px;" onclick="removerepimg('text${featureIndex}')">Delete image</button>
+                    <button type="button" id="deleteicon-text${featureIndex}" class="btn btn-danger" style="display: none; margin-top: 10px;" onclick="removerepimg('text${featureIndex}')">Delete image1</button>
                     
 
 
