@@ -2375,7 +2375,7 @@
                                                     
                                                                     <!-- Delete button for preview (before saving) -->
                                                                     <button type="button" class="btn btn-danger imgidpro{{ $item->id }}" id="deleteicon121-{{ $item->id }}" 
-                                                                        style="" onclick="removeImagedeletepro(this)">
+                                                                        style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removeImagedeletepro(this)">
                                                                         Delete
                                                                     </button>
                                                     
@@ -2852,7 +2852,7 @@
         <div id="preview-container-text${processIndex}" style="margin-top: 10px;">
             <img id="preview-image-text${processIndex}" src="" alt="Image Preview" style="max-width: 100px; display: none;">
 
-              <button type="button" id="deleteicon-text1${processIndex}" class="btn btn-danger" style="display: none; margin-top: 10px;" onclick="removeImagedeletepro('text${processIndex}')">Delete image</button>
+              <button type="button" id="deleteicon-text1${processIndex}" class="btn btn-danger" style="" onclick="removeImagedeletepro('text${processIndex}')">Delete image</button>
 
 
         </div>
