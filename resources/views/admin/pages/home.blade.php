@@ -3511,7 +3511,7 @@ function removeImagedelete(itemId) {
 
     // Handle the file reading process
     reader.onload = function(e) {
-        var previewImage = document.getElementById('preview-image-' + itemId);
+        var previewImage = document.getElementById('preview-image1-' + itemId);
         var previewContainer = document.getElementById('preview-container1-' + itemId);
         var deleteButton = document.getElementById('deleteicon121-' + itemId);
 
@@ -3531,8 +3531,8 @@ function removeImagedelete(itemId) {
 }
 
 function removeImagedelete(itemId) {
-    var previewImage = document.getElementById('preview-image-' + itemId);
-    var previewContainer = document.getElementById('preview-container-' + itemId);
+    var previewImage = document.getElementById('preview-image1-' + itemId);
+    var previewContainer = document.getElementById('preview-container1-' + itemId);
     var deleteButton = document.getElementById('deleteicon121-' + itemId);
 
     // Reset the preview
