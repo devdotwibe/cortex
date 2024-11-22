@@ -1989,9 +1989,9 @@
                                                                     </div>
                                                     
                                                                     <!-- Delete button for preview (before saving) -->
-                                                                    <button type="button" class="btn btn-danger  imgidrev{{ $item->id }}" id="deleteicon-{{ $item->id }}"
+                                                                    <button type="button" class="btn btn-danger  imgidrev{{ $item->id }}" id="deleteicon123-{{ $item->id }}"
                                                                         style="position: absolute; top: 5px; right: 5px; display: none;"
-                                                                        onclick="removeImagedelete('{{ $item->id }}')">Delete</button>
+                                                                        onclick="reviewimgdelete(this)">Delete</button>
                                                     
                                                                     <!-- Display existing saved image if available -->
                                                                     @if (!empty($item->image))
@@ -2761,6 +2761,9 @@
     <!-- Preview Container -->
     <div id="preview-container-${feedIndex}" style="margin-top: 10px;">
         <img id="preview-image-${feedIndex}" src="" alt="Image Preview" style="max-width: 100px; display: none;">
+
+           <button type="button" id="deleteicon-text1${feedIndex}" class="btn btn-danger" style="" onclick="reviewimgdelete('text${feedIndex}')">Delete image</button>
+
     </div>
 </div>
 
@@ -3776,6 +3779,34 @@ function removePreviewImage() {
     // Optionally, reset the image preview to a blank state (or other fallback image)
     document.getElementById('preview-imagerevfirst').src = "";
 }
+
+
+
+
+
+                    function reviewimgdelete(processIndex) {
+                        // Hide the preview container
+                        document.getElementById(`preview-container-${processIndex}`).style.display = "none";
+
+                        // Reset the file input value
+                        document.getElementById(`feedimage-${processIndex}`).value = "";
+
+                        // Hide the delete button
+                        document.getElementById(`deleteicon123-${processIndex}`).style.display = "none";
+
+                        // Optionally, reset the image preview to a blank state (or other fallback image)
+                        document.getElementById(`preview-image-${processIndex}`).src = "";
+                    }
+
+
+
+
+
+
+
+
+
+
 
 </script>
 
