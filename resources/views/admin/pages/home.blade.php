@@ -957,7 +957,7 @@
                                                             <div id="preview-containerfirst" style="margin-top: 10px; display: none;">
                                                                 <img id="preview-imagefirst" src="" alt="Image Preview" style="max-width: 100px; display: none;">
                                                                 <!-- Delete button for preview (before saving) -->
-                                                                <button type="button" class="btn btn-danger" id="deleteiconfirst" style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removerepimgfirst()">Delete image1</button>
+                                                                <button type="button" class="btn btn-danger" id="deleteiconfirst"  onclick="removerepimgfirst()">Delete image</button>
                                                             </div>
                                             
                                                             @error('featureimage')
