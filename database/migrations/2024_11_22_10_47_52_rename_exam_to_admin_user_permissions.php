@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::table('admin_permissions', function (Blueprint $table) {
             $table->string('topic_exam')->default('N');
-            $table->string('full_mock_exam')->default('N');
+
         });
 
     }
@@ -24,7 +24,6 @@ return new class extends Migration {
     {
         Schema::table('admins', function (Blueprint $table) {
             $table->dropColumn('topic_exam');
-            $table->dropColumn('full_mock_exam');
         });
     }
 };
