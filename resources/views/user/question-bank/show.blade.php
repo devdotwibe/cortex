@@ -142,10 +142,37 @@
     
     <script> 
     localStorage.setItem("question-bank", "timed");
+    let v='timed'
     function changemode(v){
-        console.log(v);
         localStorage.setItem("question-bank", v);
+        console.log(v)
     }
+    let summery_storage = new Proxy({}, {
+                get: function(target, propertyName) {
+                    return target[propertyName] || null;
+                },
+                set: function(target, propertyName, value) {
+                    target[propertyName] = value;
+                    return true;
+                }
+            });
+            timed= v
+            summery_storage.totalcount={{$questioncount??0}};
+            summery_storage.questionids=[]; 
+            summery_storage.timercurrent={};
+            summery_storage.flagcurrent={};
+            summery_storage.endTime=0; 
+            summery_storage.currentSlug=""; 
+            summery_storage.flagdx={};
+            summery_storage.verifydx={};
+            summery_storage.cudx=1;
+
+            summery_storage.answeridx=[];
+            summery_storage.notansweridx=[];  
+            summery_storage.timerActive=timed;
+            summery_storage.examActive=true;
+            summery_storage.timetaken=0;
+            localStorage.setItem("question-bank-summery",JSON.stringify(summery_storage)) 
     async function confimexam(url){
         var mode = document.querySelector('input[name="timed"]:checked').value;
         if(await showConfirm({ title:"Start the question set in " + mode + " mode?" })){

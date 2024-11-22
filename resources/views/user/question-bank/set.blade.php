@@ -318,58 +318,36 @@
     <script> 
 
         function HideTime() {
-            const timerDiv = $('#exam_timer');
-            const button = $('#hide_button');
+                const timerDiv = $('#exam_timer');
+                const button = $('#hide_button');
 
-            timerDiv.slideToggle(300, function() {
-            if (timerDiv.is(':visible')) {
-                button.html('Hide <br> Time');
-            } else {
-                button.html('<img src="{{ asset("assets/images/flat-color-icons_clock.svg") }}" alt="Show Time Icon">');
-                button.insertAfter(timerDiv);
-            }
-        });
-    }
-       
-        if (localStorage.getItem("question-bank-summery{{ $userExam->id }}")) {
-            let storedData = JSON.parse(localStorage.getItem("question-bank-summery{{ $userExam->id }}"));
-        } else {
-            let summery_storage = new Proxy({}, {
-                get: function(target, propertyName) {
-                    return target[propertyName] || null;
-                },
-                set: function(target, propertyName, value) {
-                    target[propertyName] = value;
-                    return true;
+                timerDiv.slideToggle(300, function() {
+                if (timerDiv.is(':visible')) {
+                    button.html('Hide <br> Time');
+                } else {
+                    button.html('<img src="{{ asset("assets/images/flat-color-icons_clock.svg") }}" alt="Show Time Icon">');
+                    button.insertAfter(timerDiv);
                 }
             });
-            timed= '{{ $userExam->timed }}';
-            if(timed=='timed') {
-                timed=true;
-            }else{
-                timed=false;
-            }
-            summery_storage.totalcount={{$questioncount??0}};
-            summery_storage.questionids=[]; 
-            summery_storage.timercurrent={};
-            summery_storage.flagcurrent={};
-            summery_storage.endTime={{$endtime}}*60; 
-            summery_storage.currentSlug=""; 
-            summery_storage.flagdx={};
-            summery_storage.verifydx={};
-            summery_storage.cudx=1;
-
-            summery_storage.answeridx=[];
-            summery_storage.notansweridx=[];  
-            summery_storage.timerActive=timed;
-            summery_storage.examActive=true;
-            summery_storage.timetaken=0;
-            localStorage.setItem("question-bank-summery{{ $userExam->id }}",JSON.stringify(summery_storage)) 
         }
+      
         var progressurl="{!! $user->progress("exam-{$exam->id}-topic-{$category->id}-lesson-{$subCategory->id}-set-{$setname->id}-progress-url","") !!}";
-        let storage = JSON.parse(localStorage.getItem("question-bank-summery{{ $userExam->id }}"))||{}; 
+        
+        let storage = JSON.parse(localStorage.getItem("question-bank-summery"))||{}; 
+        timed= '{{ $userExam->timed }}';
+        if(timed=='timed') {
+            timed=true;
+        }else{
+            timed=false;
+        }
+        if(!storage.started){
+            storage.totalcount={{$questioncount??0}};
+            storage.endTime={{$endtime}}*60; 
+            storage.timerActive=timed;
+            storage.started=true;
+        }       
         let summery = new Proxy({...storage,save:function(target){ 
-            localStorage.setItem("question-bank-summery{{ $userExam->id }}",JSON.stringify(summery));
+            localStorage.setItem("question-bank-summery",JSON.stringify(summery));
             return true; } }, {
             get: function(target, propertyName) {
                 return target[propertyName] || null;
@@ -400,7 +378,6 @@
         }
         
         function countownRun(){
-            console.log(summery)
             if(summery.timerActive&&summery.examActive){ 
                 if(summery.endTime>0){ 
                     var d=summery.endTime;
@@ -495,6 +472,10 @@
             }
         }
          function loadlesson(pageurl=null){ 
+            console.log('Timer Active:', summery.timerActive);
+            console.log('Exam Active:', summery.examActive);
+            console.log(summery)
+
             $.get(pageurl||"{{ route('question-bank.set.show',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug,'user_exam'=>$slug]) }}",
             function(res){ 
                 $('.pagination-arrow').hide();
