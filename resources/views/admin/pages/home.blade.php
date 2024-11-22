@@ -844,21 +844,23 @@
                                                                         onchange="previewFeatureImagefea(event, '{{ $item->id }}')">
 
                                                                     <!-- Display Image Preview Here -->
-                                                                    <div id="preview-container-{{ $item->id }}" 
-                                                                        style="margin-top: 10px;" class="numericalclass imgid{{ $item->id }}" >
+                                                                    <div id="preview-container-{{ $item->id }}"
+                                                                        style="margin-top: 10px;"
+                                                                        class="numericalclass imgid{{ $item->id }}">
                                                                         <img id="preview-image-{{ $item->id }}"
                                                                             src="" alt="Image Preview"
                                                                             style="max-width: 100px; display: none;">
                                                                     </div>
 
 
-                                                                         <!-- Delete button for preview (before saving) -->
-                                                                    <button type="button" class="btn btn-danger imgid{{ $item->id }}"
+                                                                    <!-- Delete button for preview (before saving) -->
+                                                                    <button type="button"
+                                                                        class="btn btn-danger imgid{{ $item->id }}"
                                                                         id="deleteicon-{{ $item->id }}"
                                                                         style="position: absolute; top: 5px; right: 5px; display: none;"
                                                                         onclick="removerepimg(this)">Delete image</button>
 
-                                                                       
+
 
 
 
@@ -947,19 +949,28 @@
                                                 <div class="form-group">
                                                     <div class="form-data">
                                                         <div class="forms-inputs mb-4">
-                                                            <label for="featureimagefirst" class="file-upload">Feature Image22
+                                                            <label for="featureimagefirst" class="file-upload">Feature
+                                                                Image22
                                                                 <br>
-                                                                <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
+                                                                <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                                    alt="Upload Icon">
                                                             </label>
-                                                            <input type="file" name="featureimage[]" class="form-control" style="display: none;" id="featureimagefirst" onchange="previewFirst(event)">
-                                                            
+                                                            <input type="file" name="featureimage[]"
+                                                                class="form-control" style="display: none;"
+                                                                id="featureimagefirst" onchange="previewFirst(event)">
+
                                                             <!-- Display Image Preview Here -->
-                                                            <div id="preview-containerfirst" style="margin-top: 10px; display: none;">
-                                                                <img id="preview-imagefirst" src="" alt="Image Preview" style="max-width: 100px; display: none;">
+                                                            <div id="preview-containerfirst"
+                                                                style="margin-top: 10px; display: none;">
+                                                                <img id="preview-imagefirst" src=""
+                                                                    alt="Image Preview"
+                                                                    style="max-width: 100px; display: none;">
                                                                 <!-- Delete button for preview (before saving) -->
-                                                                <button type="button" class="btn btn-danger" id="deleteiconfirst"  onclick="removerepimgfirst()">Delete image</button>
+                                                                <button type="button" class="btn btn-danger"
+                                                                    id="deleteiconfirst"
+                                                                    onclick="removerepimgfirst()">Delete image</button>
                                                             </div>
-                                            
+
                                                             @error('featureimage')
                                                                 <div class="text-danger">{{ $message }}</div>
                                                             @enderror
@@ -967,11 +978,11 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            
-                                            
 
 
-                                            
+
+
+
 
                                         @endif
 
@@ -1881,7 +1892,8 @@
                                                         <div class="form-group">
                                                             <div class="form-data">
                                                                 <div class="forms-inputs mb-4">
-                                                                    <label for="image" class="file-upload">Image1 <br>
+                                                                    <label for="image" class="file-upload">Image1
+                                                                        <br>
                                                                         <img src="{{ asset('assets/images/upfile.svg') }}"
                                                                             alt="Upload Icon"> </label>
 
@@ -1965,46 +1977,59 @@
                                                     </div>
 
                                                     <!-- Image -->
-                                                    <div class="col-md-12">
+                                                    <div class="col-md-12 numericalsectionclass">
                                                         <div class="form-group">
                                                             <div class="form-data">
                                                                 <div class="forms-inputs mb-4">
                                                                     <!-- Label for file upload -->
-                                                                    <label for="feedimage-{{ $item->id }}" class="file-upload">
+                                                                    <label for="feedimage-{{ $item->id }}"
+                                                                        class="file-upload">
                                                                         Image2 <br>
-                                                                        <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
+                                                                        <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                                            alt="Upload Icon">
                                                                     </label>
-                                                    
+
                                                                     <!-- Hidden input for item ID -->
-                                                                    <input type="hidden" name="feedids[]" value="{{ $item->id }}">
-                                                    
+                                                                    <input type="hidden" name="feedids[]"
+                                                                        value="{{ $item->id }}">
+
                                                                     <!-- File input -->
-                                                                    <input type="file" id="feedimage-{{ $item->id }}" name="imageupdate[]" class="form-control"
-                                                                        style="display: none;" onchange="previewimgImage(event, '{{ $item->id }}')">
-                                                    
+                                                                    <input type="file"
+                                                                        id="feedimage-{{ $item->id }}"
+                                                                        name="imageupdate[]" class="form-control"
+                                                                        style="display: none;"
+                                                                        onchange="previewimgImage(event, '{{ $item->id }}')">
+
                                                                     <!-- Preview container for new image -->
-                                                                    <div id="preview-container-{{ $item->id }}" style="margin-top: 10px;">
-                                                                        <img id="preview-image-{{ $item->id }}" src="" alt="Image Preview"
+                                                                    <div id="preview-container11-{{ $item->id }}"
+                                                                        style="margin-top: 10px;"
+                                                                        class="numericalclass imgid2255{{ $item->id }}">
+                                                                        <img id="preview-image-{{ $item->id }}"
+                                                                            src="" alt="Image Preview"
                                                                             style="max-width: 100px; display: none;">
                                                                     </div>
-                                                    
+
                                                                     <!-- Delete button for preview (before saving) -->
-                                                                    <button type="button" class="btn btn-danger imgid121" id="deleteicon-{{ $item->id }}"
+                                                                    <button type="button"
+                                                                        class="btn btn-danger imgid2255{{ $item->id }}"
+                                                                        id="deleteicon2255-{{ $item->id }}"
                                                                         style="position: absolute; top: 5px; right: 5px; display: none;"
-                                                                        onclick="removeImagedelete('{{ $item->id }}')">Delete</button>
-                                                    
+                                                                        onclick="imagereviewdelete('{{ $item->id }}')">Delete Image</button>
+
                                                                     <!-- Display existing saved image if available -->
                                                                     @if (!empty($item->image))
-                                                                        <button type="button" class="btn btn-danger" id="deleteiconfeature-{{ $item->id }}"
+                                                                        <button type="button" class="btn btn-danger"
+                                                                            id="deleteicon2255-{{ $item->id }}"
                                                                             onclick="removeimgImage(this, '{{ $item->id }}')"
                                                                             data-id="feed_cls-{{ $item->id }}"
                                                                             data-image-path="{{ $item->image }}">Delete</button>
-                                                    
-                                                                        <img src="{{ url('d0/' . $item->image) }}" alt="Image"
+
+                                                                        <img src="{{ url('d0/' . $item->image) }}"
+                                                                            alt="Image"
                                                                             class="feed_cls-{{ $item->id }}"
                                                                             style="max-width: 100px; margin-top: 10px;">
                                                                     @endif
-                                                    
+
                                                                     <!-- Error handling -->
                                                                     @error('image')
                                                                         <div class="text-danger">{{ $message }}</div>
@@ -2013,7 +2038,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    
+
 
 
                                                     {{--                                                     
@@ -2086,18 +2111,26 @@
                                                         <div class="forms-inputs mb-4">
                                                             <label for="revimagefirst" class="file-upload">
                                                                 Image3 <br>
-                                                                <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
+                                                                <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                                    alt="Upload Icon">
                                                             </label>
-                                            
-                                                            <input type="file" name="image[]" class="form-control" style="display: none;" id="revimagefirst" onchange="previewrevImage(event)">
-                                            
+
+                                                            <input type="file" name="image[]" class="form-control"
+                                                                style="display: none;" id="revimagefirst"
+                                                                onchange="previewrevImage(event)">
+
                                                             <!-- Image Preview Container -->
-                                                            <div id="preview-containerrevfirst" style="margin-top: 10px; display: none;">
-                                                                <img id="preview-imagerevfirst" src="" alt="Image Preview" style="max-width: 100px; display: none;">
+                                                            <div id="preview-containerrevfirst"
+                                                                style="margin-top: 10px; display: none;">
+                                                                <img id="preview-imagerevfirst" src=""
+                                                                    alt="Image Preview"
+                                                                    style="max-width: 100px; display: none;">
                                                                 <!-- Delete button for preview (before saving) -->
-                                                                <button type="button" class="btn btn-danger" id="delete-iconrevfirst" style="" onclick="removePreviewImage()">Delete image</button>
+                                                                <button type="button" class="btn btn-danger"
+                                                                    id="delete-iconrevfirst" style=""
+                                                                    onclick="removePreviewImage()">Delete image</button>
                                                             </div>
-                                            
+
                                                             @error('image')
                                                                 <div class="text-danger">{{ $message }}</div>
                                                             @enderror
@@ -2110,7 +2143,7 @@
 
 
 
-                                          
+
 
                                             {{-- <div class="col-md-12">
                                             <div class="form-group">
@@ -2371,36 +2404,52 @@
                                                         <div class="form-group">
                                                             <div class="form-data">
                                                                 <div class="forms-inputs mb-4">
-                                                                    <label for="ourprocessimage-{{ $item->id }}" class="file-upload">
+                                                                    <label for="ourprocessimage-{{ $item->id }}"
+                                                                        class="file-upload">
                                                                         Process Icon1* <br>
-                                                                        <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
+                                                                        <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                                            alt="Upload Icon">
                                                                     </label>
-                                                                    <input type="hidden" name="processids[]" value="{{ $item->id }}">
-                                                                    <input type="file" id="ourprocessimage-{{ $item->id }}" name="ourprocessimageupdate[]"
-                                                                        class="form-control" style="display: none;" onchange="previewprocessImage(event, '{{ $item->id }}')">
-                                                    
+                                                                    <input type="hidden" name="processids[]"
+                                                                        value="{{ $item->id }}">
+                                                                    <input type="file"
+                                                                        id="ourprocessimage-{{ $item->id }}"
+                                                                        name="ourprocessimageupdate[]"
+                                                                        class="form-control" style="display: none;"
+                                                                        onchange="previewprocessImage(event, '{{ $item->id }}')">
+
                                                                     <!-- Display Image Preview Here -->
-                                                                    <div id="preview-container1-{{ $item->id }}" style="margin-top: 10px;" class="numericalclass imgidpro{{ $item->id }}">
-                                                                        <img id="preview-image1-{{ $item->id }}" src="" alt="Image Preview" 
+                                                                    <div id="preview-container1-{{ $item->id }}"
+                                                                        style="margin-top: 10px;"
+                                                                        class="numericalclass imgidpro{{ $item->id }}">
+                                                                        <img id="preview-image1-{{ $item->id }}"
+                                                                            src="" alt="Image Preview"
                                                                             style="max-width: 100px; display: none;">
                                                                     </div>
-                                                    
+
                                                                     <!-- Delete button for preview (before saving) -->
-                                                                    <button type="button" class="btn btn-danger imgidpro{{ $item->id }}" id="deleteicon121-{{ $item->id }}" 
-                                                                        style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removeImagedeletepro(this)">
+                                                                    <button type="button"
+                                                                        class="btn btn-danger imgidpro{{ $item->id }}"
+                                                                        id="deleteicon121-{{ $item->id }}"
+                                                                        style="position: absolute; top: 5px; right: 5px; display: none;"
+                                                                        onclick="removeImagedeletepro(this)">
                                                                         Delete
                                                                     </button>
-                                                    
+
                                                                     <!-- Display existing saved image if available -->
                                                                     @if (!empty($item->ourprocessimage))
-                                                                        <button type="button" class="btn btn-danger" id="deleteiconfeature-{{ $item->id }}"
-                                                                            onclick="removeProcessImage(this, '{{ $item->id }}')" data-id="process_cls-{{ $item->id }}"
+                                                                        <button type="button" class="btn btn-danger"
+                                                                            id="deleteiconfeature-{{ $item->id }}"
+                                                                            onclick="removeProcessImage(this, '{{ $item->id }}')"
+                                                                            data-id="process_cls-{{ $item->id }}"
                                                                             data-image-path="{{ $item->ourprocessimage }}">Delete</button>
-                                                    
-                                                                        <img src="{{ url('d0/' . $item->ourprocessimage) }}" alt="Process Image"
-                                                                            class="process_cls-{{ $item->id }}" style="max-width: 100px; margin-top: 10px;">
+
+                                                                        <img src="{{ url('d0/' . $item->ourprocessimage) }}"
+                                                                            alt="Process Image"
+                                                                            class="process_cls-{{ $item->id }}"
+                                                                            style="max-width: 100px; margin-top: 10px;">
                                                                     @endif
-                                                    
+
                                                                     @error('ourprocessimageupdate')
                                                                         <div class="text-danger">{{ $message }}</div>
                                                                     @enderror
@@ -2408,7 +2457,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    
+
 
 
 
@@ -2452,19 +2501,29 @@
                                                             <label for="ourprocessimagefirst" class="file-upload">
                                                                 Process Icon22*
                                                                 <br>
-                                                                <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
+                                                                <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                                    alt="Upload Icon">
                                                             </label>
-                                            
+
                                                             <!-- Hidden File Input -->
-                                                            <input type="file" name="ourprocessimage[]" class="form-control" id="ourprocessimagefirst" style="display: none;" onchange="previewProcessImagefirst(event)">
-                                            
+                                                            <input type="file" name="ourprocessimage[]"
+                                                                class="form-control" id="ourprocessimagefirst"
+                                                                style="display: none;"
+                                                                onchange="previewProcessImagefirst(event)">
+
                                                             <!-- Image Preview Section -->
-                                                            <div id="preview-container-processfirst" style="margin-top: 10px; display: none;">
-                                                                <img id="preview-image-processfirst" src="" alt="Image Preview" style="max-width: 100px; display: none;">
+                                                            <div id="preview-container-processfirst"
+                                                                style="margin-top: 10px; display: none;">
+                                                                <img id="preview-image-processfirst" src=""
+                                                                    alt="Image Preview"
+                                                                    style="max-width: 100px; display: none;">
                                                                 <!-- Delete Button -->
-                                                                <button type="button" class="btn btn-danger btn-sm" id="delete-icon-processfirst"  onclick="removeProcessImagefirst()">Delete Image</button>
+                                                                <button type="button" class="btn btn-danger btn-sm"
+                                                                    id="delete-icon-processfirst"
+                                                                    onclick="removeProcessImagefirst()">Delete
+                                                                    Image</button>
                                                             </div>
-                                            
+
                                                             <!-- Validation Error Display -->
                                                             @error('ourprocessimage')
                                                                 <div class="text-danger">{{ $message }}</div>
@@ -2750,21 +2809,21 @@
 
                 <!-- Image Field -->
 <div class="form-group">
-    <label for="image_${feedIndex}" class="file-upload">
+    <label for="image_text${feedIndex}" class="file-upload">
         Image <br>
         <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
     </label>
 
 
-    <input type="file" name="image[]" id="image_${feedIndex}" class="form-control" style="display: none;" onchange="previewimgImage(event, '${feedIndex}')">
+    <input type="file" name="image[]" id="image_${feedIndex}" class="form-control" style="display: none;" id="image_text${featureIndex}" onchange="previewimgImage(event, '${feedIndex}')">
     
     <!-- Preview Container -->
-    <div id="preview-container-${feedIndex}" style="margin-top: 10px;">
-        <img id="preview-image-${feedIndex}" src="" alt="Image Preview" style="max-width: 100px; display: none;">
+    <div id="preview-container-text${feedIndex}" style="margin-top: 10px;">
+        <img id="preview-image-text${feedIndex}" src="" alt="Image Preview" style="max-width: 100px; display: none;">
     </div>
 </div>
 
-
+     <button type="button" id="deleteicon-text123${feedIndex}" class="btn btn-danger" style="display: none; margin-top: 10px;" onclick="imagereviewdelete('text${feedIndex}')">Delete image</button>
 
                 <!-- Close Button -->
                 <button type="button" class="btn btn-danger" onclick="removeFeedItem('feedItem_${feedIndex}')">X</button>
@@ -3445,342 +3504,363 @@
 
 
                     function previewFeatureImagefea(event, itemId) {
-    var reader = new FileReader();
+                        var reader = new FileReader();
 
-    // Handle the file reading process
-    reader.onload = function(e) {
-        var previewImage = document.getElementById('preview-image-' + itemId);
-        var previewContainer = document.getElementById('preview-container-' + itemId);
-        var deleteButton = document.getElementById('deleteicon-' + itemId);
+                        // Handle the file reading process
+                        reader.onload = function(e) {
+                            var previewImage = document.getElementById('preview-image-' + itemId);
+                            var previewContainer = document.getElementById('preview-container-' + itemId);
+                            var deleteButton = document.getElementById('deleteicon-' + itemId);
 
-        // Set the image source to the selected file
-        previewImage.src = e.target.result;
+                            // Set the image source to the selected file
+                            previewImage.src = e.target.result;
 
-        // Show the preview image container
-        previewContainer.style.display = 'block';
-        previewImage.style.display = 'block'; // Ensure the image is visible
-        
-        // Show the delete button
-        deleteButton.style.display = 'inline-block'; // Display the delete button
-    };
+                            // Show the preview image container
+                            previewContainer.style.display = 'block';
+                            previewImage.style.display = 'block'; // Ensure the image is visible
 
-    // Read the file as a data URL
-    reader.readAsDataURL(event.target.files[0]);
-}
+                            // Show the delete button
+                            deleteButton.style.display = 'inline-block'; // Display the delete button
+                        };
 
-
-
-
-
-function previewFirst(event) {
-        var reader = new FileReader();
-
-        // Handle the file reading process
-        reader.onload = function(e) {
-            var previewImage = document.getElementById("preview-imagefirst");
-            var previewContainer = document.getElementById("preview-containerfirst");
-            var deleteButton = document.getElementById("deleteiconfirst");
-
-            // Set the image source to the selected file
-            previewImage.src = e.target.result;
-
-            // Show the preview image container and the delete button
-            previewContainer.style.display = 'block';
-            previewImage.style.display = 'block'; // Ensure the image is visible
-            deleteButton.style.display = 'inline-block'; // Display the delete button
-        };
-
-        // Read the file as a data URL
-        reader.readAsDataURL(event.target.files[0]);
-    }
+                        // Read the file as a data URL
+                        reader.readAsDataURL(event.target.files[0]);
+                    }
 
 
 
 
-function removeImagedelete(itemId) {
-    // Clear the learn image preview source and hide preview container and delete button
-    const output = document.getElementById('preview-container-' + itemId);
-    if (output) {
-        output.src = '';
-        output.style.display = 'none';
-    }
 
-    const imgId = document.getElementById('imgid121');
-    if (imgId) {
-        imgId.style.display = 'none';
-    }
+                    function previewFirst(event) {
+                        var reader = new FileReader();
 
-    const deleteIcon = document.getElementById('deleteicon-' + itemId);
-    if (deleteIcon) {
-        deleteIcon.style.display = 'none'; // Hide preview delete button
-    }
-}
+                        // Handle the file reading process
+                        reader.onload = function(e) {
+                            var previewImage = document.getElementById("preview-imagefirst");
+                            var previewContainer = document.getElementById("preview-containerfirst");
+                            var deleteButton = document.getElementById("deleteiconfirst");
+
+                            // Set the image source to the selected file
+                            previewImage.src = e.target.result;
+
+                            // Show the preview image container and the delete button
+                            previewContainer.style.display = 'block';
+                            previewImage.style.display = 'block'; // Ensure the image is visible
+                            deleteButton.style.display = 'inline-block'; // Display the delete button
+                        };
+
+                        // Read the file as a data URL
+                        reader.readAsDataURL(event.target.files[0]);
+                    }
 
 
-                    
+
+
+                    function removeImagedelete(itemId) {
+                        // Clear the learn image preview source and hide preview container and delete button
+                        const output = document.getElementById('preview-container-' + itemId);
+                        if (output) {
+                            output.src = '';
+                            output.style.display = 'none';
+                        }
+
+                        const imgId = document.getElementById('imgid121');
+                        if (imgId) {
+                            imgId.style.display = 'none';
+                        }
+
+                        const deleteIcon = document.getElementById('deleteicon-' + itemId);
+                        if (deleteIcon) {
+                            deleteIcon.style.display = 'none'; // Hide preview delete button
+                        }
+                    }
+
+
+
                     function previewprocessImage(event, itemId) {
-    var reader = new FileReader();
-
-    // Handle the file reading process
-    reader.onload = function(e) {
-        var previewImage = document.getElementById('preview-image-' + itemId);
-        var previewContainer = document.getElementById('preview-container-' + itemId);
-        var deleteButton = document.getElementById('deleteicon121-' + itemId);
-
-        // Set the image source to the selected file
-        previewImage.src = e.target.result;
-
-        // Show the preview image container and image
-        previewContainer.style.display = 'block';
-        previewImage.style.display = 'block';
-
-        // Show the delete button for image preview
-        deleteButton.style.display = 'inline-block';
-    };
-
-    // Read the file as a data URL
-    reader.readAsDataURL(event.target.files[0]);
-}
-
-function removeImagedelete(itemId) {
-    var previewImage = document.getElementById('preview-image-' + itemId);
-    var previewContainer = document.getElementById('preview-container-' + itemId);
-    var deleteButton = document.getElementById('deleteicon121-' + itemId);
-
-    // Reset the preview
-    previewImage.src = '';
-    previewImage.style.display = 'none';
-    previewContainer.style.display = 'none';
-    deleteButton.style.display = 'none';
-
-    // Reset the file input
-    document.getElementById('ourprocessimage-' + itemId).value = '';
-}
-
-
-
-    function removeProcessImage(element, processId) {
-        const imagePath = $(element).data('image-path'); // Get image path from data attribute
-        var className = $(element).data('id'); // Get class from data attribute
-
-        $.ajax({
-            type: 'POST',
-            url: '{{ route('admin.page.deleteProcessImage') }}', // Define the route for deleting the process image
-            data: {
-                _token: '{{ csrf_token() }}',
-                id: processId,
-                image_path: imagePath
-            },
-            success: function(response) {
-                if (response.success) {
-                    // Hide image and button on success
-                    $('.' + className).hide();
-                    $(element).hide();
-                } else {
-                    alert('Process image could not be deleted. Please try again.');
-                }
-            },
-            error: function(xhr) {
-                alert('An error occurred. Please try again.');
-            }
-        });
-    }
-
-
-
-
-    function previewimgImage(event, itemId) {
-    var reader = new FileReader();
-
-    // Handle the file reading process
-    reader.onload = function(e) {
-        // Select the elements dynamically based on the itemId
-        var previewImage = document.getElementById('preview-image-' + itemId);
-        var previewContainer = document.getElementById('preview-container-' + itemId);
-        var deleteIcon = document.getElementById('deleteicon131-' + itemId);
-
-        // Set the image source to the selected file
-        previewImage.src = e.target.result;
-
-        // Show the preview image and the delete icon
-        previewContainer.style.display = 'block';
-        previewImage.style.display = 'block'; // Ensure the image is visible
-        deleteIcon.style.display = 'block';  // Display the delete button
-    };
-
-    // Read the file as a data URL
-    reader.readAsDataURL(event.target.files[0]);
-}
-
-
-
-function removeimgImage(element, itemId) {
-    const imagePath = $(element).data('image-path'); // Get image path from data attribute
-    const className = $(element).data('id'); // Get class from data attribute
-
-    // AJAX request to delete the image
-    $.ajax({
-        type: 'POST',
-        url: '{{ route('admin.page.deleteImagesection7') }}', // Replace with your actual route
-        data: {
-            _token: '{{ csrf_token() }}', // CSRF token for security
-            id: itemId, // ID of the item
-            image_path: imagePath // Path of the image to be deleted
-        },
-        success: function(response) {
-            if (response.success) {
-                // On success, hide the image and delete button
-                $('.' + className).hide(); // Hide the image container
-                $(element).hide(); // Hide the delete button
-            } else {
-                alert(response.message || 'Image could not be deleted. Please try again.');
-            }
-        },
-        error: function(xhr) {
-            alert('An error occurred. Please try again.');
-        }
-    });
-}
-
-
-
-// Function to remove image preview and reset the file input
-function removerepimg(featureIndex) {
-    // Hide the preview container
-    document.getElementById(`preview-container-${featureIndex}`).style.display = "none";
-    
-    // Reset the file input value
-    document.getElementById(`featureimage_${featureIndex}`).value = "";
-    
-    // Hide the delete button
-    document.getElementById(`deleteicon-${featureIndex}`).style.display = "none";
-    
-    // Optionally, reset the image preview to a blank state (or other fallback image)
-    document.getElementById(`preview-image-${featureIndex}`).src = "";
-}
-
-// Function to remove image preview and reset the file input
-function removerepimgfirst(featureIndex) {
-    // Hide the preview container
-    document.getElementById('preview-containerfirst').style.display = "none";
-    
-    // Reset the file input value
-    document.getElementById('featureimagefirst').value = "";
-    
-    // Hide the delete button
-    document.getElementById('deleteiconfirst').style.display = "none";
-    
-    // Optionally, reset the image preview to a blank state (or other fallback image)
-    document.getElementById('preview-imagefirst').src = "";
-}
-
-
-
-
-function previewProcessImagefirst(event) {
-    var reader = new FileReader();
-
-    // Handle the file reading process
-    reader.onload = function(e) {
-        var previewImage = document.getElementById("preview-image-processfirst");
-        var previewContainer = document.getElementById("preview-container-processfirst");
-        var deleteButton = document.getElementById("delete-icon-processfirst");
+                        var reader = new FileReader();
+
+                        // Handle the file reading process
+                        reader.onload = function(e) {
+                            var previewImage = document.getElementById('preview-image-' + itemId);
+                            var previewContainer = document.getElementById('preview-container-' + itemId);
+                            var deleteButton = document.getElementById('deleteicon121-' + itemId);
+
+                            // Set the image source to the selected file
+                            previewImage.src = e.target.result;
+
+                            // Show the preview image container and image
+                            previewContainer.style.display = 'block';
+                            previewImage.style.display = 'block';
+
+                            // Show the delete button for image preview
+                            deleteButton.style.display = 'inline-block';
+                        };
+
+                        // Read the file as a data URL
+                        reader.readAsDataURL(event.target.files[0]);
+                    }
+
+                    function removeImagedelete(itemId) {
+                        var previewImage = document.getElementById('preview-image-' + itemId);
+                        var previewContainer = document.getElementById('preview-container-' + itemId);
+                        var deleteButton = document.getElementById('deleteicon121-' + itemId);
+
+                        // Reset the preview
+                        previewImage.src = '';
+                        previewImage.style.display = 'none';
+                        previewContainer.style.display = 'none';
+                        deleteButton.style.display = 'none';
+
+                        // Reset the file input
+                        document.getElementById('ourprocessimage-' + itemId).value = '';
+                    }
+
+
+
+                    function removeProcessImage(element, processId) {
+                        const imagePath = $(element).data('image-path'); // Get image path from data attribute
+                        var className = $(element).data('id'); // Get class from data attribute
+
+                        $.ajax({
+                            type: 'POST',
+                            url: '{{ route('admin.page.deleteProcessImage') }}', // Define the route for deleting the process image
+                            data: {
+                                _token: '{{ csrf_token() }}',
+                                id: processId,
+                                image_path: imagePath
+                            },
+                            success: function(response) {
+                                if (response.success) {
+                                    // Hide image and button on success
+                                    $('.' + className).hide();
+                                    $(element).hide();
+                                } else {
+                                    alert('Process image could not be deleted. Please try again.');
+                                }
+                            },
+                            error: function(xhr) {
+                                alert('An error occurred. Please try again.');
+                            }
+                        });
+                    }
+
+
+
+
+                    function previewimgImage(event, itemId) {
+                        var reader = new FileReader();
+
+                        // Handle the file reading process
+                        reader.onload = function(e) {
+                            // Select the elements dynamically based on the itemId
+                            var previewImage = document.getElementById('preview-image-' + itemId);
+                            var previewContainer = document.getElementById('preview-container-' + itemId);
+                            var deleteIcon = document.getElementById('deleteicon131-' + itemId);
+
+                            // Set the image source to the selected file
+                            previewImage.src = e.target.result;
 
-        // Set the image source to the selected file
-        previewImage.src = e.target.result;
+                            // Show the preview image and the delete icon
+                            previewContainer.style.display = 'block';
+                            previewImage.style.display = 'block'; // Ensure the image is visible
+                            deleteIcon.style.display = 'block'; // Display the delete button
+                        };
 
-        // Show the preview image container and the delete button
-        previewContainer.style.display = 'block';
-        previewImage.style.display = 'block'; // Ensure the image is visible
-        deleteButton.style.display = 'inline-block'; // Display the delete button
-    };
+                        // Read the file as a data URL
+                        reader.readAsDataURL(event.target.files[0]);
+                    }
 
-    reader.readAsDataURL(event.target.files[0]);
-}
 
 
+                    function removeimgImage(element, itemId) {
+                        const imagePath = $(element).data('image-path'); // Get image path from data attribute
+                        const className = $(element).data('id'); // Get class from data attribute
 
+                        // AJAX request to delete the image
+                        $.ajax({
+                            type: 'POST',
+                            url: '{{ route('admin.page.deleteImagesection7') }}', // Replace with your actual route
+                            data: {
+                                _token: '{{ csrf_token() }}', // CSRF token for security
+                                id: itemId, // ID of the item
+                                image_path: imagePath // Path of the image to be deleted
+                            },
+                            success: function(response) {
+                                if (response.success) {
+                                    // On success, hide the image and delete button
+                                    $('.' + className).hide(); // Hide the image container
+                                    $(element).hide(); // Hide the delete button
+                                } else {
+                                    alert(response.message || 'Image could not be deleted. Please try again.');
+                                }
+                            },
+                            error: function(xhr) {
+                                alert('An error occurred. Please try again.');
+                            }
+                        });
+                    }
 
-function removeProcessImagefirst() {
-    // Hide the preview container
-    document.getElementById('preview-container-processfirst').style.display = "none";
 
-    // Reset the file input value
-    document.getElementById('ourprocessimagefirst').value = "";
 
-    // Hide the delete button
-    document.getElementById('delete-icon-processfirst').style.display = "none";
+                    // Function to remove image preview and reset the file input
+                    function removerepimg(featureIndex) {
+                        // Hide the preview container
+                        document.getElementById(`preview-container-${featureIndex}`).style.display = "none";
 
-    // Reset the image preview to a blank state
-    document.getElementById('preview-image-processfirst').src = "";
-}
+                        // Reset the file input value
+                        document.getElementById(`featureimage_${featureIndex}`).value = "";
 
+                        // Hide the delete button
+                        document.getElementById(`deleteicon-${featureIndex}`).style.display = "none";
 
+                        // Optionally, reset the image preview to a blank state (or other fallback image)
+                        document.getElementById(`preview-image-${featureIndex}`).src = "";
+                    }
 
-function removeImagedeletepro(processIndex) {
-    // Hide the preview container
-    document.getElementById(`preview-container-${processIndex}`).style.display = "none";
-    
-    // Reset the file input value
-    document.getElementById(`ourprocessimage_${processIndex}`).value = "";
-    
-    // Hide the delete button
-    document.getElementById(`deleteicon121-${processIndex}`).style.display = "none";
-    
-    // Optionally, reset the image preview to a blank state (or other fallback image)
-    document.getElementById(`preview-image-${processIndex}`).src = "";
-}
+                    // Function to remove image preview and reset the file input
+                    function removerepimgfirst(featureIndex) {
+                        // Hide the preview container
+                        document.getElementById('preview-containerfirst').style.display = "none";
 
+                        // Reset the file input value
+                        document.getElementById('featureimagefirst').value = "";
 
+                        // Hide the delete button
+                        document.getElementById('deleteiconfirst').style.display = "none";
 
+                        // Optionally, reset the image preview to a blank state (or other fallback image)
+                        document.getElementById('preview-imagefirst').src = "";
+                    }
 
 
 
-function previewrevImage(event) {
-    var reader = new FileReader();
 
-    // Handle the file reading process
-    reader.onload = function(e) {
-        var previewImage = document.getElementById("preview-imagerevfirst");
-        var previewContainer = document.getElementById("preview-containerrevfirst");
-        var deleteButton = document.getElementById("delete-iconrevfirst");
+                    function previewProcessImagefirst(event) {
+                        var reader = new FileReader();
 
-        // Set the image source to the selected file
-        previewImage.src = e.target.result;
+                        // Handle the file reading process
+                        reader.onload = function(e) {
+                            var previewImage = document.getElementById("preview-image-processfirst");
+                            var previewContainer = document.getElementById("preview-container-processfirst");
+                            var deleteButton = document.getElementById("delete-icon-processfirst");
 
-        // Show the preview image container and the delete button
-        previewContainer.style.display = 'block';
-        previewImage.style.display = 'block'; // Ensure the image is visible
-        deleteButton.style.display = 'inline-block'; // Display the delete button
-    };
+                            // Set the image source to the selected file
+                            previewImage.src = e.target.result;
 
-    // Read the file as a data URL
-    reader.readAsDataURL(event.target.files[0]);
-}
+                            // Show the preview image container and the delete button
+                            previewContainer.style.display = 'block';
+                            previewImage.style.display = 'block'; // Ensure the image is visible
+                            deleteButton.style.display = 'inline-block'; // Display the delete button
+                        };
 
+                        reader.readAsDataURL(event.target.files[0]);
+                    }
 
 
 
 
+                    function removeProcessImagefirst() {
+                        // Hide the preview container
+                        document.getElementById('preview-container-processfirst').style.display = "none";
 
-// Function to remove image preview and reset the file input
-function removePreviewImage() {
-    // Hide the preview container
-    document.getElementById('preview-containerrevfirst').style.display = "none";
-    
-    // Reset the file input value
-    document.getElementById('revimagefirst').value = "";
-    
-    // Hide the delete button
-    document.getElementById('delete-iconrevfirst').style.display = "none";
-    
-    // Optionally, reset the image preview to a blank state (or other fallback image)
-    document.getElementById('preview-imagerevfirst').src = "";
-}
+                        // Reset the file input value
+                        document.getElementById('ourprocessimagefirst').value = "";
 
-</script>
+                        // Hide the delete button
+                        document.getElementById('delete-icon-processfirst').style.display = "none";
 
+                        // Reset the image preview to a blank state
+                        document.getElementById('preview-image-processfirst').src = "";
+                    }
 
 
-                
+
+                    function removeImagedeletepro(processIndex) {
+                        // Hide the preview container
+                        document.getElementById(`preview-container-${processIndex}`).style.display = "none";
+
+                        // Reset the file input value
+                        document.getElementById(`ourprocessimage_${processIndex}`).value = "";
+
+                        // Hide the delete button
+                        document.getElementById(`deleteicon121-${processIndex}`).style.display = "none";
+
+                        // Optionally, reset the image preview to a blank state (or other fallback image)
+                        document.getElementById(`preview-image-${processIndex}`).src = "";
+                    }
+
+
+
+
+
+
+                    function previewrevImage(event) {
+                        var reader = new FileReader();
+
+                        // Handle the file reading process
+                        reader.onload = function(e) {
+                            var previewImage = document.getElementById("preview-imagerevfirst");
+                            var previewContainer = document.getElementById("preview-containerrevfirst");
+                            var deleteButton = document.getElementById("delete-iconrevfirst");
+
+                            // Set the image source to the selected file
+                            previewImage.src = e.target.result;
+
+                            // Show the preview image container and the delete button
+                            previewContainer.style.display = 'block';
+                            previewImage.style.display = 'block'; // Ensure the image is visible
+                            deleteButton.style.display = 'inline-block'; // Display the delete button
+                        };
+
+                        // Read the file as a data URL
+                        reader.readAsDataURL(event.target.files[0]);
+                    }
+
+
+
+
+
+
+                    // Function to remove image preview and reset the file input
+                    function removePreviewImage() {
+                        // Hide the preview container
+                        document.getElementById('preview-containerrevfirst').style.display = "none";
+
+                        // Reset the file input value
+                        document.getElementById('revimagefirst').value = "";
+
+                        // Hide the delete button
+                        document.getElementById('delete-iconrevfirst').style.display = "none";
+
+                        // Optionally, reset the image preview to a blank state (or other fallback image)
+                        document.getElementById('preview-imagerevfirst').src = "";
+                    }
+
+
+                                        // Function to remove image preview and reset the file input
+                    function imagereviewdelete(feedIndex) {
+                        // Hide the preview container
+                        document.getElementById(`preview-container-${feedIndex}`).style.display = "none";
+                        
+                        // Reset the file input value
+                        document.getElementById(`feedimage${feedIndex}`).value = "";
+                        
+                        // Hide the delete button
+                        document.getElementById(`deleteicon2255-${feedIndex}`).style.display = "none";
+                        
+                        // Optionally, reset the image preview to a blank state (or other fallback image)
+                        document.getElementById(`preview-image-${feedIndex}`).src = "";
+                    }
+
+                </script>
+
+
+
+
+
+
+
+
+
             @endpush
