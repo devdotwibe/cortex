@@ -7732,7 +7732,7 @@ nav.navbar.top-barhide {
     }
 
     .exam-container.answerclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group {
-        height: calc(100vh - 140px);
+        height: calc(100vh - 200px);
     }
 
     .exam-container.answerclass .mcq-container-wrap.question-bank-review .lesson .lesson-body .mcq-container .mcq-answer {
