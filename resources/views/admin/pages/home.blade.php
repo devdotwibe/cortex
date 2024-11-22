@@ -1881,7 +1881,7 @@
                                                         <div class="form-group">
                                                             <div class="form-data">
                                                                 <div class="forms-inputs mb-4">
-                                                                    <label for="image" class="file-upload">Image <br>
+                                                                    <label for="image" class="file-upload">Image1 <br>
                                                                         <img src="{{ asset('assets/images/upfile.svg') }}"
                                                                             alt="Upload Icon"> </label>
 
@@ -1971,7 +1971,7 @@
                                                                 <div class="forms-inputs mb-4">
                                                                     <!-- Label for file upload -->
                                                                     <label for="feedimage-{{ $item->id }}" class="file-upload">
-                                                                        Image1 <br>
+                                                                        Image2 <br>
                                                                         <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
                                                                     </label>
                                                     
@@ -2084,19 +2084,31 @@
                                                 <div class="form-group">
                                                     <div class="form-data">
                                                         <div class="forms-inputs mb-4">
-                                                    <label for="image" class="file-upload">Image <br>  <img src="{{ asset('assets/images/upfile.svg') }}"
-                                                        alt="Upload Icon">  </label>
-                                                   
-                                                    <input type="file" name="image[]" class="form-control"  style="display: none;"
-                                                    id="image" onchange="previewFeatureImage(event)">
-
-                                                    @error('image')
-                                                        <div class="text-danger">{{ $message }}</div>
-                                                    @enderror
+                                                            <label for="revimagefirst" class="file-upload">
+                                                                Image3 <br>
+                                                                <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
+                                                            </label>
+                                            
+                                                            <input type="file" name="image[]" class="form-control" style="display: none;" id="revimagefirst" onchange="previewrevImage(event)">
+                                            
+                                                            <!-- Image Preview Container -->
+                                                            <div id="preview-containerrevfirst" style="margin-top: 10px; display: none;">
+                                                                <img id="preview-imagerevfirst" src="" alt="Image Preview" style="max-width: 100px; display: none;">
+                                                                <!-- Delete button for preview (before saving) -->
+                                                                <button type="button" class="btn btn-danger" id="delete-iconrevfirst" style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removePreviewImage()">Delete image</button>
+                                                            </div>
+                                            
+                                                            @error('image')
+                                                                <div class="text-danger">{{ $message }}</div>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
+
+
+
+
 
                                           
 
@@ -3717,6 +3729,53 @@ function removeImagedeletepro(processIndex) {
     
     // Optionally, reset the image preview to a blank state (or other fallback image)
     document.getElementById(`preview-image-${processIndex}`).src = "";
+}
+
+
+
+
+
+
+function previewrevImage(event) {
+    var reader = new FileReader();
+
+    // Handle the file reading process
+    reader.onload = function(e) {
+        var previewImage = document.getElementById("preview-imagerevfirst");
+        var previewContainer = document.getElementById("preview-containerrevfirst");
+        var deleteButton = document.getElementById("delete-iconrevfirst");
+
+        // Set the image source to the selected file
+        previewImage.src = e.target.result;
+
+        // Show the preview image container and the delete button
+        previewContainer.style.display = 'block';
+        previewImage.style.display = 'block'; // Ensure the image is visible
+        deleteButton.style.display = 'inline-block'; // Display the delete button
+    };
+
+    // Read the file as a data URL
+    reader.readAsDataURL(event.target.files[0]);
+}
+
+
+
+
+
+
+// Function to remove image preview and reset the file input
+function removePreviewImage() {
+    // Hide the preview container
+    document.getElementById('preview-containerrevfirst').style.display = "none";
+    
+    // Reset the file input value
+    document.getElementById('revimagefirst').value = "";
+    
+    // Hide the delete button
+    document.getElementById('delete-iconrevfirst').style.display = "none";
+    
+    // Optionally, reset the image preview to a blank state (or other fallback image)
+    document.getElementById('preview-imagerevfirst').src = "";
 }
 
 </script>
