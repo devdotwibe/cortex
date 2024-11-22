@@ -3758,6 +3758,26 @@ function previewrevImage(event) {
     reader.readAsDataURL(event.target.files[0]);
 }
 
+
+
+
+
+
+// Function to remove image preview and reset the file input
+function removePreviewImage() {
+    // Hide the preview container
+    document.getElementById('preview-containerrevfirst').style.display = "none";
+    
+    // Reset the file input value
+    document.getElementById('revimagefirst').value = "";
+    
+    // Hide the delete button
+    document.getElementById('delete-iconrevfirst').style.display = "none";
+    
+    // Optionally, reset the image preview to a blank state (or other fallback image)
+    document.getElementById('preview-imagerevfirst').src = "";
+}
+
 </script>
 
 
