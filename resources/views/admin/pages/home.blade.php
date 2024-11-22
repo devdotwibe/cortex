@@ -2375,10 +2375,9 @@
                                                     
                                                                     <!-- Delete button for preview (before saving) -->
                                                                     <button type="button" class="btn btn-danger imgidpro{{ $item->id }}" id="deleteicon121-{{ $item->id }}" 
-                                                                        style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removeImagedeletepro('{{ $item->id }}')">
+                                                                        style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removeImagedeletepro(this)">
                                                                         Delete
-                                                                </button>
-                                                                
+                                                                    </button>
                                                     
                                                                     <!-- Display existing saved image if available -->
                                                                     @if (!empty($item->ourprocessimage))
@@ -2850,8 +2849,8 @@
 
         <!-- Image Preview Section -->
 
-        <div id="preview-container-text${processIndex}" style="margin-top: 10px;">
-            <img id="preview-image-text${processIndex}" src="" alt="Image Preview" style="max-width: 100px; display: none;">
+        <div id="preview-container1-text${processIndex}" style="margin-top: 10px;">
+            <img id="preview-image1-text${processIndex}" src="" alt="Image Preview" style="max-width: 100px; display: none;">
 
               <button type="button" id="deleteicon-text1${processIndex}" class="btn btn-danger" style="display: none; margin-top: 10px;" onclick="removeImagedeletepro('text${processIndex}')">Delete image</button>
 
@@ -3507,14 +3506,14 @@ function removeImagedelete(itemId) {
 
 
                     
-function previewprocessImage(event, itemId) {
+                    function previewprocessImage(event, itemId) {
     var reader = new FileReader();
 
     // Handle the file reading process
     reader.onload = function(e) {
-        var previewImage = document.getElementById('preview-image1-' + itemId);  // Image preview element
-        var previewContainer = document.getElementById('preview-container1-' + itemId);  // Preview container element
-        var deleteButton = document.getElementById('deleteicon121-' + itemId);  // Delete button
+        var previewImage = document.getElementById('preview-image1-' + itemId);
+        var previewContainer = document.getElementById('preview-container1-' + itemId);
+        var deleteButton = document.getElementById('deleteicon121-' + itemId);
 
         // Set the image source to the selected file
         previewImage.src = e.target.result;
@@ -3524,13 +3523,12 @@ function previewprocessImage(event, itemId) {
         previewImage.style.display = 'block';
 
         // Show the delete button for image preview
-        deleteButton.style.display = 'inline-block';  // Change display to inline-block
+        deleteButton.style.display = 'inline-block';
     };
 
-    // Start reading the file as a data URL
+    // Read the file as a data URL
     reader.readAsDataURL(event.target.files[0]);
 }
-
 
 function removeImagedelete(itemId) {
     var previewImage = document.getElementById('preview-image-' + itemId);
