@@ -144,7 +144,9 @@ section{width: 100%; float: left;}
 .card-title h3,
 .card-title h4,
 .card-title h5,
-.card-title h6 {font-weight: 700;}
+.card-title h6 {font-weight: 500;}
+
+.card-icon-container p {color: #888;  font-size: 28px;  line-height: 1.5}
 
 .features-wrapp1 {padding: 85px 0; position: relative; text-align: center;}
 .features-wrapp1 h2 { font-size: 40px; font-weight: 500; color: #000; line-height: 1.56; margin: 0 0 50px;}
@@ -455,7 +457,7 @@ p.card-text { font-size: 26px;}
 .course-wrapp h2 { font-size: 42px;}
 .contact-wrapp h2 { font-size: 38px;}
 
-
+.card-icon-container p {font-size: 26px;}
 }
 
 
@@ -497,6 +499,7 @@ p.card-text { font-size: 22px;}
 .footer-wrapp .footer-buttons .btn.btn-primary {font-size: 17px;}
 .footer-wrapp .footer-buttons .btn.btn-secondary { font-size: 17px;}
 
+.card-icon-container p {font-size: 22px;}
 }
 
 @media screen and (max-width:991px){
@@ -570,6 +573,8 @@ p.card-text { font-size: 18px;}
 
 .footer-wrapp .footer-buttons .btn.btn-primary {font-size: 14px; padding: 12px 19px;}
 .footer-wrapp .footer-buttons .btn.btn-secondary { font-size: 14px; padding: 12px 19px; }
+
+.card-icon-container p {font-size: 18px;;}
 
 }
 
@@ -646,6 +651,7 @@ p.card-text { font-size: 18px;}
 .learning-wrapp .learning-row { flex-direction: column-reverse;}
 .footer-wrapp .footer-col1 img {  width: 300px;}
 
+.card-icon-container p {font-size: 18px;}
 
 }
 
