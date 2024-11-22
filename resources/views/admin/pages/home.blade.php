@@ -2360,7 +2360,7 @@
                                                             <div class="form-data">
                                                                 <div class="forms-inputs mb-4">
                                                                     <label for="ourprocessimage-{{ $item->id }}" class="file-upload">
-                                                                        Process Icon* <br>
+                                                                        Process Icon1* <br>
                                                                         <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
                                                                     </label>
                                                                     <input type="hidden" name="processids[]" value="{{ $item->id }}">
@@ -2368,20 +2368,20 @@
                                                                         class="form-control" style="display: none;" onchange="previewprocessImage(event, '{{ $item->id }}')">
                                                     
                                                                     <!-- Display Image Preview Here -->
-                                                                    <div id="preview-container1-{{ $item->id }}" style="margin-top: 10px;" class="numericalclass">
+                                                                    <div id="preview-container1-{{ $item->id }}" style="margin-top: 10px;" class="numericalclass imgidpro{{ $item->id">
                                                                         <img id="preview-image1-{{ $item->id }}" src="" alt="Image Preview" 
                                                                             style="max-width: 100px; display: none;">
                                                                     </div>
                                                     
                                                                     <!-- Delete button for preview (before saving) -->
-                                                                    <button type="button" class="btn btn-danger imgid121" id="deleteicon121" 
-                                                                        style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removeImagedelete('{{ $item->id }}')">
-                                                                        Delete
+                                                                    <button type="button" class="btn btn-danger imgid121 imgidpro{{ $item->id" id="deleteicon121-{{ $item->id }}" 
+                                                                        style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removeImagedelete(this)">
+                                                                        Delete image
                                                                     </button>
                                                     
                                                                     <!-- Display existing saved image if available -->
                                                                     @if (!empty($item->ourprocessimage))
-                                                                        <button type="button" class="btn btn-danger" id="deleteiconfeature-{{ $item->id }}"
+                                                                        <button type="button" class="btn btn-danger" id="deleteiconprocess-{{ $item->id }}"
                                                                             onclick="removeProcessImage(this, '{{ $item->id }}')" data-id="process_cls-{{ $item->id }}"
                                                                             data-image-path="{{ $item->ourprocessimage }}">Delete</button>
                                                     
@@ -2851,6 +2851,10 @@
 
         <div id="preview-container-text${processIndex}" style="margin-top: 10px;">
             <img id="preview-image-text${processIndex}" src="" alt="Image Preview" style="max-width: 100px; display: none;">
+
+              <button type="button" id="deleteicon-textt${processIndex}" class="btn btn-danger" style="display: none; margin-top: 10px;" onclick="removeImagedelete('text${processIndex}')">Delete image</button>
+
+
         </div>
     </div>
 </div>
