@@ -2823,8 +2823,7 @@
     </div>
 </div>
 
-     <button type="button" id="deleteicon-text123${feedIndex}" class="btn btn-danger" style="display: none; margin-top: 10px;" onclick="imagereviewdelete('text${feedIndex}')">Delete image</button>
-
+   
                 <!-- Close Button -->
                 <button type="button" class="btn btn-danger" onclick="removeFeedItem('feedItem_${feedIndex}')">X</button>
             </div>
