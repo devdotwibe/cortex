@@ -2368,10 +2368,11 @@
                                                                         class="form-control" style="display: none;" onchange="previewprocessImage(event, '{{ $item->id }}')">
                                                     
                                                                     <!-- Display Image Preview Here -->
-                                                                    <div id="preview-container1-{{ $item->id }}" style="margin-top: 10px;" class="numericalclass imgidpro{{ $item->id">
+                                                                    <div id="preview-container1-{{ $item->id }}" style="margin-top: 10px;" class="numericalclass imgidpro{{ $item->id }}">
                                                                         <img id="preview-image1-{{ $item->id }}" src="" alt="Image Preview" 
-                                                                            style="max-width: 100px; display: none;">
+                                                                             style="max-width: 100px; display: none;">
                                                                     </div>
+                                                                    
                                                     
                                                                     <!-- Delete button for preview (before saving) -->
                                                                     <button type="button" class="btn btn-danger imgid121 imgidpro{{ $item->id" id="deleteicon121-{{ $item->id }}" 
