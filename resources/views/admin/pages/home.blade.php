@@ -2360,7 +2360,7 @@
                                                             <div class="form-data">
                                                                 <div class="forms-inputs mb-4">
                                                                     <label for="ourprocessimage-{{ $item->id }}" class="file-upload">
-                                                                        Process Icon* <br>
+                                                                        Process Icon1* <br>
                                                                         <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
                                                                     </label>
                                                                     <input type="hidden" name="processids[]" value="{{ $item->id }}">
@@ -2450,7 +2450,7 @@
                                                             <div id="preview-container-processfirst" style="margin-top: 10px; display: none;">
                                                                 <img id="preview-image-processfirst" src="" alt="Image Preview" style="max-width: 100px; display: none;">
                                                                 <!-- Delete Button -->
-                                                                <button type="button" class="btn btn-danger btn-sm" id="delete-icon-processfirst" style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removeProcessImagefirst()">Delete Image</button>
+                                                                <button type="button" class="btn btn-danger btn-sm" id="delete-icon-processfirst"  onclick="removeProcessImagefirst()">Delete Image</button>
                                                             </div>
                                             
                                                             <!-- Validation Error Display -->
