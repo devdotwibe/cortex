@@ -11,11 +11,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('admin_permissions', function (Blueprint $table) {
-
-            $table->renameColumn('exam_simulator', 'topic_exam')->default('N')->change();
-        });
-
-        Schema::table('admin_permissions', function (Blueprint $table) {
+            $table->string('topic_exam')->default('N');
             $table->string('full_mock_exam')->default('N');
         });
 
@@ -27,10 +23,8 @@ return new class extends Migration {
     public function down(): void
     {
         Schema::table('admins', function (Blueprint $table) {
-
-            $table->renameColumn('topic_exam', 'exam_simulator');
+            $table->dropColumn('topic_exam');
             $table->dropColumn('full_mock_exam');
-
         });
     }
 };
