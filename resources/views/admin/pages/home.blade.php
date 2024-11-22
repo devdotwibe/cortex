@@ -2277,11 +2277,9 @@
                                                                     <label for="ourprocessimage">Process Icon*</label>
                                                                     <input type="hidden" name="processids[]"
                                                                         value="{{ old('processids.' . $k, $item->id ?? '') }}">
-                                                                        <input type="file" name="ourprocessimageupdate[]"
+                                                                    <input type="file" name="ourprocessimageupdate[]"
                                                                         class="form-control"
-                                                                        onchange="previewFeatureImage(event)" 
-                                                                        id="ourprocessimage1-{{ optional($item)->id }}">
-                                                                 
+                                                                        onchange="previewFeatureImage(event)">
 
                                                                     @if (!empty($item->image))
                                                                         <img src="{{ asset('path/to/images/' . $item->image) }}"
@@ -2851,8 +2849,8 @@
 
         <!-- Image Preview Section -->
 
-        <div id="preview-container1-text${processIndex}" style="margin-top: 10px;">
-            <img id="preview-image1-text${processIndex}" src="" alt="Image Preview" style="max-width: 100px; display: none;">
+        <div id="preview-container-text${processIndex}" style="margin-top: 10px;">
+            <img id="preview-image-text${processIndex}" src="" alt="Image Preview" style="max-width: 100px; display: none;">
 
               <button type="button" id="deleteicon-text1${processIndex}" class="btn btn-danger" style="display: none; margin-top: 10px;" onclick="removeImagedeletepro('text${processIndex}')">Delete image</button>
 
