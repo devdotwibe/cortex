@@ -2375,10 +2375,13 @@
                                                                     
                                                     
                                                                     <!-- Delete button for preview (before saving) -->
-                                                                    <button type="button" class="btn btn-danger imgid121 imgidpro{{ $item->id" id="deleteicon121-{{ $item->id }}" 
-                                                                        style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removeImagedelete(this)">
-                                                                        Delete image
-                                                                    </button>
+                                                                    <button type="button" class="btn btn-danger imgid121 imgidpro{{ $item->id }}" 
+                                                                        id="deleteicon121-{{ $item->id }}" 
+                                                                        style="position: absolute; top: 5px; right: 5px; display: none;" 
+                                                                        onclick="removeImagedelete(this)">
+                                                                    Delete image
+                                                                </button>
+                                                                
                                                     
                                                                     <!-- Display existing saved image if available -->
                                                                     @if (!empty($item->ourprocessimage))
