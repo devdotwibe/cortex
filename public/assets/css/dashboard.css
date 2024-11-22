@@ -3345,7 +3345,7 @@ aside.side_bar.slider-btn .btn-slider {
 }
 
 .exam-container .container-wrap .lesson .lesson-body .mcq-row ul li {
-    float: none;
+    float: left;
     font-size: 16px;
     color: #212121;
     line-height: 1.5;
@@ -3353,6 +3353,7 @@ aside.side_bar.slider-btn .btn-slider {
     margin: 0 0 8px;
     padding: 0 0 0 15px;
     letter-spacing: normal;
+    font-family: 'Arial';
 }
 
 .exam-container .container-wrap .lesson .lesson-body .mcq-row ul li:before {
@@ -3367,7 +3368,7 @@ aside.side_bar.slider-btn .btn-slider {
 
 .exam-container .container-wrap .lesson .lesson-body .mcq-row ol {
     width: 100%;
-    float: none;
+    float: left;
     counter-reset: my-awesome-counter;
     margin:0 auto 28px;
     position: relative;
@@ -3382,6 +3383,7 @@ aside.side_bar.slider-btn .btn-slider {
     width: auto;
     margin: 0 0 8px;
     position: relative;
+    font-family: 'Arial';
 }
 
 .exam-container .container-wrap .lesson .lesson-body .mcq-row ol li:before {
