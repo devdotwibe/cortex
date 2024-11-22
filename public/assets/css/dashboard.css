@@ -3351,7 +3351,7 @@ aside.side_bar.slider-btn .btn-slider {
     line-height: 1.5;
     position:relative;
     margin: 0 0 8px;
-    padding: 0 0 0 15px;
+    padding: 0 0 0 26px;
     letter-spacing: normal;
     font-family: 'Arial';
 }
@@ -3359,7 +3359,7 @@ aside.side_bar.slider-btn .btn-slider {
 .exam-container .container-wrap .lesson .lesson-body .mcq-row ul li:before {
     content: "\2022 ";
     position: absolute;
-    left: 2px;
+    left: 14px;
     color: #212121;
     font-size: 16px;
     top: 5px;
