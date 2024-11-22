@@ -3707,7 +3707,7 @@ function removeProcessImagefirst() {
 
 function removeImagedeletepro(processIndex) {
     // Hide the preview container
-    document.getElementById(`preview-container1-${processIndex}`).style.display = "none";
+    document.getElementById(`preview-container-${processIndex}`).style.display = "none";
     
     // Reset the file input value
     document.getElementById(`ourprocessimage_${processIndex}`).value = "";
@@ -3716,7 +3716,7 @@ function removeImagedeletepro(processIndex) {
     document.getElementById(`deleteicon121-${processIndex}`).style.display = "none";
     
     // Optionally, reset the image preview to a blank state (or other fallback image)
-    document.getElementById(`preview-image1-${processIndex}`).src = "";
+    document.getElementById(`preview-image-${processIndex}`).src = "";
 }
 
 </script>
