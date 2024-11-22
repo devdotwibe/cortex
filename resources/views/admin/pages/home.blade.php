@@ -2652,7 +2652,7 @@
                         <img id="preview-image-text${featureIndex}" src="" alt="Image Preview" style="max-width: 100px; display: none;">
 
                        
-                    <button type="button" id="deleteicon-text${featureIndex}" class="btn btn-danger" style="display: none; margin-top: 10px;" onclick="removerepimg('text${featureIndex}')">Delete image1</button>
+                    <button type="button" id="deleteicon-text${featureIndex}" class="btn btn-danger" style="display: none; margin-top: 10px;" onclick="removerepimg('text${featureIndex}')">Delete image</button>
                     
 
 
@@ -3511,8 +3511,8 @@ function removeImagedelete(itemId) {
 
     // Handle the file reading process
     reader.onload = function(e) {
-        var previewImage = document.getElementById('preview-image1-' + itemId);
-        var previewContainer = document.getElementById('preview-container1-' + itemId);
+        var previewImage = document.getElementById('preview-image-' + itemId);
+        var previewContainer = document.getElementById('preview-container-' + itemId);
         var deleteButton = document.getElementById('deleteicon121-' + itemId);
 
         // Set the image source to the selected file
@@ -3710,7 +3710,7 @@ function removeImagedeletepro(processIndex) {
     document.getElementById(`preview-container1-${processIndex}`).style.display = "none";
     
     // Reset the file input value
-    document.getElementById(`ourprocessimage1_${processIndex}`).value = "";
+    document.getElementById(`ourprocessimage_${processIndex}`).value = "";
     
     // Hide the delete button
     document.getElementById(`deleteicon121-${processIndex}`).style.display = "none";
