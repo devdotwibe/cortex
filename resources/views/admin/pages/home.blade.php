@@ -3784,18 +3784,18 @@ function removePreviewImage() {
 
 
 
-                    function reviewimgdelete(processIndex) {
+                    function reviewimgdelete(feedIndex) {
                         // Hide the preview container
-                        document.getElementById(`preview-container-${processIndex}`).style.display = "none";
+                        document.getElementById(`preview-container-${feedIndex}`).style.display = "none";
 
                         // Reset the file input value
-                        document.getElementById(`feedimage-${processIndex}`).value = "";
+                        document.getElementById(`feedimage-${feedIndex}`).value = "";
 
                         // Hide the delete button
-                        document.getElementById(`deleteicon123-${processIndex}`).style.display = "none";
+                        document.getElementById(`deleteicon123-${feedIndex}`).style.display = "none";
 
                         // Optionally, reset the image preview to a blank state (or other fallback image)
-                        document.getElementById(`preview-image-${processIndex}`).src = "";
+                        document.getElementById(`preview-image-${feedIndex}`).src = "";
                     }
 
 
