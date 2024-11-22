@@ -833,6 +833,7 @@ button.close {
     display: flex;
     flex-wrap: wrap;
     align-items: start;
+    position: relative
 }
 
 .exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check label {
@@ -844,7 +845,7 @@ button.close {
     height: 20px;
     border-radius: 50%;
     border: 1px solid;
-    position: relative;
+    position: absolute;
     top: -4px;
     box-shadow: none;
     margin-left: -43px;
@@ -3350,6 +3351,7 @@ aside.side_bar.slider-btn .btn-slider {
     line-height: 1.5;
     position:relative;
     margin: 0 0 8px;
+
     padding: 0 0 0 26px;
     letter-spacing: normal;
     font-family: 'Arial';
@@ -6276,7 +6278,7 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 }
 
 .questionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer {
-    height: calc(100vh - 266px) !important;
+    height: calc(100vh - 226px) !important;
     padding: 0 50px 50px;
     overflow-y: auto;
 }
@@ -6445,13 +6447,13 @@ nav.navbar.header-class {
 }
 
 .exam-container.answerclass .mcq-container-wrap.question-bank-review .lesson .lesson-body .mcq-container .mcq-group {
-    height: calc(100vh - 266px);
+    height: calc(100vh - 226px);
     font-family: 'Arial';
     font-size: 18px;
 }
 
 .exam-container.answerclass .mcq-container-wrap.question-bank-review .lesson .lesson-body .mcq-container .mcq-answer {
-    height: calc(100vh - 266px);
+    height: calc(100vh - 226px);
 }
 
 .exam-container.questionclass.answerclass .container-wrap {
@@ -7740,7 +7742,7 @@ nav.navbar.top-barhide {
     }
 
     .exam-container.answerclass .mcq-container-wrap.question-bank-review .lesson .lesson-body .mcq-container .mcq-group {
-        height: calc(100vh - 207px);
+        height: calc(100vh - 172px);
     }
 
     .exam-container.answerclass .topic-test-review .lesson .lesson-body .mcq-container .mcq-answer {
@@ -7752,7 +7754,7 @@ nav.navbar.top-barhide {
     }
 
     .questionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer {
-        height: calc(100vh - 207px) !important;
+        height: calc(100vh - 172px) !important;
     }
     
     .critical-reasoning h2 {
@@ -8171,12 +8173,12 @@ nav.navbar.top-barhide {
 
     .questionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group {
         padding: 20px;
-        height: calc(100vh - 190px) !important;
+        height: calc(100vh - 170px) !important;
     }
 
     .questionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer {
         padding: 20px;
-        height: calc(100vh - 190px) !important;
+        height: calc(100vh - 170px) !important;
     }
 
     .questionclass .mcq-container-wrap .lesson .lesson-body .col-md-12 {
