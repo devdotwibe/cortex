@@ -2095,7 +2095,7 @@
                                                             <div id="preview-containerrevfirst" style="margin-top: 10px; display: none;">
                                                                 <img id="preview-imagerevfirst" src="" alt="Image Preview" style="max-width: 100px; display: none;">
                                                                 <!-- Delete button for preview (before saving) -->
-                                                                <button type="button" class="btn btn-danger" id="delete-iconrevfirst" style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removePreviewImage()">Delete image</button>
+                                                                <button type="button" class="btn btn-danger" id="delete-iconrevfirst" style="" onclick="removePreviewImage()">Delete image</button>
                                                             </div>
                                             
                                                             @error('image')
