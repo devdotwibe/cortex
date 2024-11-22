@@ -3345,13 +3345,12 @@ aside.side_bar.slider-btn .btn-slider {
 }
 
 .exam-container .container-wrap .lesson .lesson-body .mcq-row ul li {
-    float: left;
+    float: none;
     font-size: 16px;
     color: #212121;
     line-height: 1.5;
     position:relative;
     margin: 0 0 8px;
-
     padding: 0 0 0 26px;
     letter-spacing: normal;
     font-family: 'Arial';
@@ -3409,7 +3408,7 @@ aside.side_bar.slider-btn .btn-slider {
 }
 
 .exam-container .container-wrap .lesson .lesson-body ul li {
-    float: left;
+    float: none;
     font-size: 16px;
     color: #212121;
     line-height: 1.5;
