@@ -13,9 +13,12 @@ return new class extends Migration {
         Schema::table('admin_permissions', function (Blueprint $table) {
 
             $table->renameColumn('exam_simulator', 'topic_exam');
-            $table->string('full_mock_exam')->default('N');
-
         });
+
+        Schema::table('admin_permissions', function (Blueprint $table) {
+            $table->string('full_mock_exam')->default('N');
+        });
+
     }
 
     /**
