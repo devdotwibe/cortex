@@ -177,7 +177,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
             });
         });
 
-        Route::middleware(['AdminPermission:exam_simulator'])->group(function () {
+        Route::middleware(['AdminPermission:topic_exam'])->group(function () {
 
             Route::prefix('topic-test')->name('topic-test.')->group(function () {
 
