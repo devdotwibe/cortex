@@ -2360,7 +2360,7 @@
                                                             <div class="form-data">
                                                                 <div class="forms-inputs mb-4">
                                                                     <label for="ourprocessimage-{{ $item->id }}" class="file-upload">
-                                                                        Process Icon1* <br>
+                                                                        Process Icon* <br>
                                                                         <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
                                                                     </label>
                                                                     <input type="hidden" name="processids[]" value="{{ $item->id }}">
