@@ -2436,15 +2436,24 @@
                                                 <div class="form-group">
                                                     <div class="form-data">
                                                         <div class="forms-inputs mb-4">
-                                                            <label for="ourprocessimage" class="file-upload">Process
-                                                                Icon22*
+                                                            <!-- File Upload Label -->
+                                                            <label for="ourprocessimagefirst" class="file-upload">
+                                                                Process Icon22*
                                                                 <br>
-                                                                <img src="{{ asset('assets/images/upfile.svg') }}"
-                                                                    alt="Upload Icon"> </label>
-                                                            <input type="file" name="ourprocessimage[]"
-                                                                class="form-control" id="ourprocessimage"
-                                                                style="display: none;"
-                                                                onchange="previewFeatureImage(event)">
+                                                                <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
+                                                            </label>
+                                            
+                                                            <!-- Hidden File Input -->
+                                                            <input type="file" name="ourprocessimage[]" class="form-control" id="ourprocessimagefirst" style="display: none;" onchange="previewProcessImagefirst(event)">
+                                            
+                                                            <!-- Image Preview Section -->
+                                                            <div id="preview-container-processfirst" style="margin-top: 10px; display: none;">
+                                                                <img id="preview-image-processfirst" src="" alt="Image Preview" style="max-width: 100px; display: none;">
+                                                                <!-- Delete Button -->
+                                                                <button type="button" class="btn btn-danger btn-sm" id="delete-icon-processfirst" style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removeProcessImagefirst()">Delete Image</button>
+                                                            </div>
+                                            
+                                                            <!-- Validation Error Display -->
                                                             @error('ourprocessimage')
                                                                 <div class="text-danger">{{ $message }}</div>
                                                             @enderror
@@ -2452,6 +2461,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+
 
                                         @endif
 
@@ -3647,6 +3657,48 @@ function removerepimgfirst(featureIndex) {
     // Optionally, reset the image preview to a blank state (or other fallback image)
     document.getElementById('preview-imagefirst').src = "";
 }
+
+
+
+
+function previewProcessImagefirst(event) {
+    var reader = new FileReader();
+
+    // Handle the file reading process
+    reader.onload = function(e) {
+        var previewImage = document.getElementById("preview-image-processfirst");
+        var previewContainer = document.getElementById("preview-container-processfirst");
+        var deleteButton = document.getElementById("delete-icon-processfirst");
+
+        // Set the image source to the selected file
+        previewImage.src = e.target.result;
+
+        // Show the preview image container and the delete button
+        previewContainer.style.display = 'block';
+        previewImage.style.display = 'block'; // Ensure the image is visible
+        deleteButton.style.display = 'inline-block'; // Display the delete button
+    };
+
+    reader.readAsDataURL(event.target.files[0]);
+}
+
+
+
+
+function removeProcessImagefirst() {
+    // Hide the preview container
+    document.getElementById('preview-container-processfirst').style.display = "none";
+
+    // Reset the file input value
+    document.getElementById('ourprocessimagefirst').value = "";
+
+    // Hide the delete button
+    document.getElementById('delete-icon-processfirst').style.display = "none";
+
+    // Reset the image preview to a blank state
+    document.getElementById('preview-image-processfirst').src = "";
+}
+
 
 </script>
 
