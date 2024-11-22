@@ -2360,7 +2360,7 @@
                                                             <div class="form-data">
                                                                 <div class="forms-inputs mb-4">
                                                                     <label for="ourprocessimage-{{ $item->id }}" class="file-upload">
-                                                                        Process Icon* <br>
+                                                                        Process Icon1* <br>
                                                                         <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
                                                                     </label>
                                                                     <input type="hidden" name="processids[]" value="{{ $item->id }}">
@@ -2368,20 +2368,24 @@
                                                                         class="form-control" style="display: none;" onchange="previewprocessImage(event, '{{ $item->id }}')">
                                                     
                                                                     <!-- Display Image Preview Here -->
-                                                                    <div id="preview-container1-{{ $item->id }}" style="margin-top: 10px;" class="numericalclass">
+                                                                    <div id="preview-container1-{{ $item->id }}" style="margin-top: 10px;" class="numericalclass imgidpro{{ $item->id }}">
                                                                         <img id="preview-image1-{{ $item->id }}" src="" alt="Image Preview" 
-                                                                            style="max-width: 100px; display: none;">
+                                                                             style="max-width: 100px; display: none;">
                                                                     </div>
+                                                                    
                                                     
                                                                     <!-- Delete button for preview (before saving) -->
-                                                                    <button type="button" class="btn btn-danger imgid121" id="deleteicon121" 
-                                                                        style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removeImagedelete('{{ $item->id }}')">
-                                                                        Delete
-                                                                    </button>
+                                                                    <button type="button" class="btn btn-danger imgid121 imgidpro{{ $item->id }}" 
+                                                                        id="deleteicon121-{{ $item->id }}" 
+                                                                        style="position: absolute; top: 5px; right: 5px; display: none;" 
+                                                                        onclick="removeImagedelete(this)">
+                                                                    Delete image
+                                                                </button>
+                                                                
                                                     
                                                                     <!-- Display existing saved image if available -->
                                                                     @if (!empty($item->ourprocessimage))
-                                                                        <button type="button" class="btn btn-danger" id="deleteiconfeature-{{ $item->id }}"
+                                                                        <button type="button" class="btn btn-danger" id="deleteiconprocess-{{ $item->id }}"
                                                                             onclick="removeProcessImage(this, '{{ $item->id }}')" data-id="process_cls-{{ $item->id }}"
                                                                             data-image-path="{{ $item->ourprocessimage }}">Delete</button>
                                                     
@@ -2436,15 +2440,24 @@
                                                 <div class="form-group">
                                                     <div class="form-data">
                                                         <div class="forms-inputs mb-4">
-                                                            <label for="ourprocessimage" class="file-upload">Process
-                                                                Icon22*
+                                                            <!-- File Upload Label -->
+                                                            <label for="ourprocessimagefirst" class="file-upload">
+                                                                Process Icon22*
                                                                 <br>
-                                                                <img src="{{ asset('assets/images/upfile.svg') }}"
-                                                                    alt="Upload Icon"> </label>
-                                                            <input type="file" name="ourprocessimage[]"
-                                                                class="form-control" id="ourprocessimage"
-                                                                style="display: none;"
-                                                                onchange="previewFeatureImage(event)">
+                                                                <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
+                                                            </label>
+                                            
+                                                            <!-- Hidden File Input -->
+                                                            <input type="file" name="ourprocessimage[]" class="form-control" id="ourprocessimagefirst" style="display: none;" onchange="previewProcessImagefirst(event)">
+                                            
+                                                            <!-- Image Preview Section -->
+                                                            <div id="preview-container-processfirst" style="margin-top: 10px; display: none;">
+                                                                <img id="preview-image-processfirst" src="" alt="Image Preview" style="max-width: 100px; display: none;">
+                                                                <!-- Delete Button -->
+                                                                <button type="button" class="btn btn-danger btn-sm" id="delete-icon-processfirst" style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removeProcessImagefirst()">Delete Image</button>
+                                                            </div>
+                                            
+                                                            <!-- Validation Error Display -->
                                                             @error('ourprocessimage')
                                                                 <div class="text-danger">{{ $message }}</div>
                                                             @enderror
@@ -2452,6 +2465,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+
 
                                         @endif
 
@@ -2841,6 +2855,10 @@
 
         <div id="preview-container-text${processIndex}" style="margin-top: 10px;">
             <img id="preview-image-text${processIndex}" src="" alt="Image Preview" style="max-width: 100px; display: none;">
+
+              <button type="button" id="deleteicon-textt${processIndex}" class="btn btn-danger" style="display: none; margin-top: 10px;" onclick="removeImagedelete('text${processIndex}')">Delete image</button>
+
+
         </div>
     </div>
 </div>
@@ -3647,6 +3665,48 @@ function removerepimgfirst(featureIndex) {
     // Optionally, reset the image preview to a blank state (or other fallback image)
     document.getElementById('preview-imagefirst').src = "";
 }
+
+
+
+
+function previewProcessImagefirst(event) {
+    var reader = new FileReader();
+
+    // Handle the file reading process
+    reader.onload = function(e) {
+        var previewImage = document.getElementById("preview-image-processfirst");
+        var previewContainer = document.getElementById("preview-container-processfirst");
+        var deleteButton = document.getElementById("delete-icon-processfirst");
+
+        // Set the image source to the selected file
+        previewImage.src = e.target.result;
+
+        // Show the preview image container and the delete button
+        previewContainer.style.display = 'block';
+        previewImage.style.display = 'block'; // Ensure the image is visible
+        deleteButton.style.display = 'inline-block'; // Display the delete button
+    };
+
+    reader.readAsDataURL(event.target.files[0]);
+}
+
+
+
+
+function removeProcessImagefirst() {
+    // Hide the preview container
+    document.getElementById('preview-container-processfirst').style.display = "none";
+
+    // Reset the file input value
+    document.getElementById('ourprocessimagefirst').value = "";
+
+    // Hide the delete button
+    document.getElementById('delete-icon-processfirst').style.display = "none";
+
+    // Reset the image preview to a blank state
+    document.getElementById('preview-image-processfirst').src = "";
+}
+
 
 </script>
 
