@@ -9,7 +9,7 @@
         <div class="question-preview">  
             <div class="question-preview-title">
                 <img src="{{asset("assets/images/congratulaton.svg")}}" alt="">
-                <h3> Congratulation on Completing the Set! </h3>
+                <h3> Congratulations on Completing the Set! </h3>
             </div>
             <div class="question-preview-body">
                 <div class="row">
@@ -38,7 +38,7 @@
                                                 <span>#{{$attemtcount}}</span>
                                             </div> 
                                             <div class="mark-label">
-                                                <span>Attemt Date :</span>
+                                                <span>Attempt Date :</span>
                                                 <span>@if(!empty($userExamReview->created_at)) {{$userExamReview->created_at->format('d M Y')}} @endif</span>
                                             </div> 
                                         </div> 

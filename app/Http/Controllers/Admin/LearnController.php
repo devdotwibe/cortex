@@ -174,7 +174,7 @@ class LearnController extends Controller
                 $learn_data = $request->validate([
                     "category_id" => ['required'],
                     "sub_category_id" => ['required'],
-                    "video_url" => ['required'],
+                    "video_url" => ['required', 'max:255'],
                 ]);
                 break;
 
