@@ -979,4 +979,102 @@ public function deleteLiveImage(Request $request)
     return response()->json(['success' => false, 'message' => 'Image file not found.'], 404);
 }
 
+
+public function deleteFeatureImage(Request $request)
+{
+
+    $feature = Feature::find($request->id);
+
+    if ($feature) {
+        // Get the image path from the request
+        $imagePath = $feature->image ;
+
+        // Check if the file exists in the storage and delete it
+        if (Storage::exists($imagePath)) {
+            // Delete the image from storage
+            Storage::delete($imagePath);
+
+            // Update the feature record to remove the image from the database
+            $feature->image = null;
+            $feature->save();
+
+            // Return a success response
+            return response()->json(['success' => true, 'message' => 'Image deleted successfully']);
+        } else {
+            // If the file doesn't exist
+            return response()->json(['success' => false, 'message' => 'Image not found']);
+        }
+    }
+
+    // If the feature doesn't exist
+    return response()->json(['success' => false, 'message' => 'Feature not found']);
 }
+
+
+public function deleteProcessImage(Request $request)
+{
+    // Find the process record by its ID
+    $process = OurProcess::find($request->id);
+
+    if ($process) {
+        // Get the image path from the process record
+        $imagePath = $process->ourprocessimage;
+
+        // Check if the image exists in storage and delete it
+        if (Storage::exists($imagePath)) {
+            // Delete the image from storage
+            Storage::delete($imagePath);
+
+            // Update the process record to remove the image
+            $process->ourprocessimage = null;
+            $process->save();
+
+            // Return a success response
+            return response()->json(['success' => true, 'message' => 'Process image deleted successfully']);
+        } else {
+            // If the image doesn't exist in storage
+            return response()->json(['success' => false, 'message' => 'Process image not found']);
+        }
+    }
+
+    // If the process doesn't exist
+    return response()->json(['success' => false, 'message' => 'Process not found']);
+}
+
+
+public function deleteImagesection7(Request $request)
+{
+    
+   
+
+    // Find the feed record by its ID
+    $feed = Feed::find($request->id);
+
+    if ($feed) {
+        // Check if the image path matches the provided path
+        $imagePath = $feed->image;
+        if ($feed->image === $request->image_path) {
+            // Check if the image exists in storage
+            if (Storage::exists($imagePath)) {
+                // Delete the image from storage
+                Storage::delete($imagePath);
+                // Update the feed record to remove the image
+            $feed->image = null;
+            $feed->save();
+
+             // Return a success response
+             return response()->json(['success' => true, 'message' => 'Process image deleted successfully']);
+            } else {
+                // If the image doesn't exist in storage
+                return response()->json(['success' => false, 'message' => 'Process image not found']);
+            }
+        }
+    
+        // If the process doesn't exist
+        return response()->json(['success' => false, 'message' => 'Process not found']);
+    }
+    
+}
+}     
+
+        

@@ -29,10 +29,19 @@ class PostReportController extends Controller
     public function show(Request $request,ReportPost $reportPost){
         $post=Post::find($reportPost->post_id);
         $user=User::find($reportPost->user_id);
-        $postUser=User::find($post->user_id);
+
+        $postUser=User::find(optional($post)->user_id);
+
         return view('admin.report-post.show',compact('postUser','post','user','reportPost'));
     }
     public function banuser(Request $request,User $user){
+
+        $reportPost = ReportPost::findSlug($request->report_post);
+
+        $reportPost->status ='banned';
+
+        $reportPost->save();
+
         $user->update([
             'post_status'=>"banned"
         ]); 
@@ -42,6 +51,16 @@ class PostReportController extends Controller
         return redirect()->back()->with("success","User has been banned");
     }
     public function hidepost(Request $request,Post $post){
+
+        $reportPost = ReportPost::findSlug($request->report_post);
+
+        if(!empty($reportPost))
+        {
+            $reportPost->status ='blocked post';
+
+            $reportPost->save();
+        }
+        
         $post->update([
             'visible_status'=>"hide"
         ]);  

@@ -18,6 +18,8 @@ class HomeWorkQuestion extends Model
         'description',
         'explanation',
         'visible_status',
+        'short_question',
+        'short_answer',
         'home_work_id', 
         'home_work_book_id',
     ];
