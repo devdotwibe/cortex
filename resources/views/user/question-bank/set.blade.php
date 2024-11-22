@@ -318,18 +318,18 @@
     <script> 
 
         function HideTime() {
-            const timerDiv = $('#exam_timer');
-            const button = $('#hide_button');
+                const timerDiv = $('#exam_timer');
+                const button = $('#hide_button');
 
-            timerDiv.slideToggle(300, function() {
-            if (timerDiv.is(':visible')) {
-                button.html('Hide <br> Time');
-            } else {
-                button.html('<img src="{{ asset("assets/images/flat-color-icons_clock.svg") }}" alt="Show Time Icon">');
-                button.insertAfter(timerDiv);
-            }
-        });
-    }
+                timerDiv.slideToggle(300, function() {
+                if (timerDiv.is(':visible')) {
+                    button.html('Hide <br> Time');
+                } else {
+                    button.html('<img src="{{ asset("assets/images/flat-color-icons_clock.svg") }}" alt="Show Time Icon">');
+                    button.insertAfter(timerDiv);
+                }
+            });
+        }
        
         if (localStorage.getItem("question-bank-summery{{ $userExam->id }}")) {
             let storedData = JSON.parse(localStorage.getItem("question-bank-summery{{ $userExam->id }}"));
@@ -400,7 +400,6 @@
         }
         
         function countownRun(){
-            console.log(summery)
             if(summery.timerActive&&summery.examActive){ 
                 if(summery.endTime>0){ 
                     var d=summery.endTime;
@@ -495,6 +494,10 @@
             }
         }
          function loadlesson(pageurl=null){ 
+            console.log('Timer Active:', summery.timerActive);
+            console.log('Exam Active:', summery.examActive);
+            console.log(summery)
+
             $.get(pageurl||"{{ route('question-bank.set.show',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug,'user_exam'=>$slug]) }}",
             function(res){ 
                 $('.pagination-arrow').hide();
@@ -559,8 +562,8 @@
                             const baseUrl = `{{ asset('d0') }}`;
                             $.each(ans,function(ai,av){
                                 const letter = String.fromCharCode(ai + 'A'.charCodeAt(0))
-                                const imageHtml = av.answer && av.answer.image
-                                                    ? `<img src="${baseUrl}/${av.answer.image}" class="answer-image" />`
+                                const imageHtml = av && av.image
+                                                    ? `<img src="${baseUrl}/${av.image}" class="answer-image" />`
                                                     : '';
                                 $(`#mcq-${lesseonId}-list`).append(`
                                     <div class="form-check">
