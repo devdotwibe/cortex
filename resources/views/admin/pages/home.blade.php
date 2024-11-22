@@ -3792,7 +3792,7 @@ function removePreviewImage() {
                         document.getElementById(`feedimage-${feedIndex}`).value = "";
 
                         // Hide the delete button
-                        document.getElementById(`deleteicon131-${feedIndex}`).style.display = "none";
+                        document.getElementById(`deleteicon-${feedIndex}`).style.display = "none";
 
                         // Optionally, reset the image preview to a blank state (or other fallback image)
                         document.getElementById(`preview-image-${feedIndex}`).src = "";
