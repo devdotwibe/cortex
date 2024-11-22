@@ -2274,7 +2274,7 @@
                                                         <div class="form-group">
                                                             <div class="form-data">
                                                                 <div class="forms-inputs mb-4">
-                                                                    <label for="ourprocessimage">Process Icon22*</label>
+                                                                    <label for="ourprocessimage">Process Icon*</label>
                                                                     <input type="hidden" name="processids[]"
                                                                         value="{{ old('processids.' . $k, $item->id ?? '') }}">
                                                                     <input type="file" name="ourprocessimageupdate[]"
@@ -2360,7 +2360,7 @@
                                                             <div class="form-data">
                                                                 <div class="forms-inputs mb-4">
                                                                     <label for="ourprocessimage-{{ $item->id }}" class="file-upload">
-                                                                        Process Icon* <br>
+                                                                        Process Icon22* <br>
                                                                         <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
                                                                     </label>
                                                                     <input type="hidden" name="processids[]" value="{{ $item->id }}">
