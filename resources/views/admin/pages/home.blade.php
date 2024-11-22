@@ -1881,7 +1881,7 @@
                                                         <div class="form-group">
                                                             <div class="form-data">
                                                                 <div class="forms-inputs mb-4">
-                                                                    <label for="image" class="file-upload">Image <br>
+                                                                    <label for="image" class="file-upload">Image1 <br>
                                                                         <img src="{{ asset('assets/images/upfile.svg') }}"
                                                                             alt="Upload Icon"> </label>
 
@@ -1971,7 +1971,7 @@
                                                                 <div class="forms-inputs mb-4">
                                                                     <!-- Label for file upload -->
                                                                     <label for="feedimage-{{ $item->id }}" class="file-upload">
-                                                                        Image1 <br>
+                                                                        Image2 <br>
                                                                         <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
                                                                     </label>
                                                     
@@ -2084,7 +2084,7 @@
                                                 <div class="form-group">
                                                     <div class="form-data">
                                                         <div class="forms-inputs mb-4">
-                                                    <label for="image" class="file-upload">Image <br>  <img src="{{ asset('assets/images/upfile.svg') }}"
+                                                    <label for="image" class="file-upload">Image3 <br>  <img src="{{ asset('assets/images/upfile.svg') }}"
                                                         alt="Upload Icon">  </label>
                                                    
                                                     <input type="file" name="image[]" class="form-control"  style="display: none;"
