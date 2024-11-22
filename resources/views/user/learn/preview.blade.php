@@ -26,28 +26,19 @@
                     </div>
                 </div>
 
-                <div class="question-header question-number">
-                    <div class="progress-menus">
+                <div class="exam-center exam-progress-inner-item">
+                    <div class="progress-menu">
                         <div class="menu-text">
-                            <span id="menu-text">Question <span> 0 </span> <span>0 </span> </span>
+                            <span id="menu-text" >Question <span> 0 </span>  of <span>0 </span> </span>
 
                         </div>
                         <div class="menu-icon">
                             <a onclick="toglepreviewpage()">
-                                {{-- <img src="{{asset("assets/images/menu.svg")}}" alt="exiticon"> --}}
+                                <img src="{{ asset('assets/images/menu.svg') }}" alt="exiticon">
                             </a>
                         </div>
                     </div>
                 </div>
-
-
-
-                <div class="menu-icon modecolor">
-                    <a onclick="toglepreviewpage()">
-                        <img src="{{ asset('assets/images/menu.svg') }}" alt="exiticon">
-                    </a>
-                </div>
-
 
                 <div class="Review-mode">
                     <span>Review Mode </span>
@@ -276,7 +267,7 @@
                 })
 
                
-                if (res.total > 1) {
+                if (res.total > 0) {
 
                     $.each(res.links, function(k, v) {
 
@@ -309,7 +300,7 @@
 
                         if (v.active || !v.url) {
                             $('#lesson-footer-paginationmobile').append(`
-                                <button class="btn btn-secondary  ${linkstatus} ${v.active?"active":""}" disabled  >${v.label}</button>
+                                <button class="btn btn-secondary  ${linkstatus} ${v.active?"active":""}" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
                             `)
                         } else {
                             $('#lesson-footer-paginationmobile').append(`
@@ -339,7 +330,7 @@
                         .attr('onclick', `loadlessonreview('${res.prev_page_url}')`); // Adding onclick event
                 }
 
-                $('#menu-text').html(`Question <span> ${res.current_page} </span> `)
+                $('#menu-text').html(`Question <span> ${res.current_page} </span> of <span> ${res.total}</span>`)
 
             }, 'json')
 
