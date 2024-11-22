@@ -2279,7 +2279,7 @@
                                                                         value="{{ old('processids.' . $k, $item->id ?? '') }}">
                                                                     <input type="file" name="ourprocessimageupdate[]"
                                                                         class="form-control"
-                                                                        onchange="previewFeatureImage(event)">
+                                                                        onchange="previewFeatureImage(event)"  id="ourprocessimage1-{{ $item->id }}">
 
                                                                     @if (!empty($item->image))
                                                                         <img src="{{ asset('path/to/images/' . $item->image) }}"
@@ -3710,7 +3710,7 @@ function removeImagedeletepro(processIndex) {
     document.getElementById(`preview-container1-${processIndex}`).style.display = "none";
     
     // Reset the file input value
-    document.getElementById(`ourprocessimage_${processIndex}`).value = "";
+    document.getElementById(`ourprocessimage1_${processIndex}`).value = "";
     
     // Hide the delete button
     document.getElementById(`deleteicon121-${processIndex}`).style.display = "none";
