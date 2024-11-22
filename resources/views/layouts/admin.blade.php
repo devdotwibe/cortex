@@ -296,7 +296,8 @@
                 @endif
 
 
-                @if ($admin->role === 'master' || optional($admin->permission)->exam_simulator === 'Y')
+                @if ($admin->role === 'master' || optional($admin->permission)->topic_exam === 'Y' || optional($admin->permission)->full_mock_exam === 'Y')
+
                     <li class="side-item side-dropdown">
                         <a
                             class="side-dropdown-toggle {{ request()->is('admin/topic-test*') || request()->is('admin/exam*') ? 'active' : '' }}">
@@ -313,21 +314,29 @@
                         </a>
                         <ul class="side-dropdown-menu"
                             style="{{ !(request()->is('admin/topic-test*') || request()->is('admin/exam*')) ? 'display: none;' : '' }}">
-                            <li class="side-item {{ request()->is('admin/topic-test*') ? 'active' : '' }}">
-                                <a href="{{ route('admin.topic-test.index') }}">
-                                    <span class="side-icon">
-                                        <img src="{{ asset('assets/images/iconshover/topictesthover.svg') }}"
-                                            alt="Topic Test">
-                                    </span>
-                                    <span class="active-icon">
-                                        <img src="{{ asset('assets/images/icons/topictest.svg') }}"
-                                            alt="Topic Test Active">
-                                    </span>
-                                    <span class="menutext">
-                                        Topic Test
-                                    </span>
-                                </a>
-                            </li>
+
+                            @if ($admin->role === 'master' || optional($admin->permission)->topic_exam === 'Y')
+
+                                <li class="side-item {{ request()->is('admin/topic-test*') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.topic-test.index') }}">
+                                        <span class="side-icon">
+                                            <img src="{{ asset('assets/images/iconshover/topictesthover.svg') }}"
+                                                alt="Topic Test">
+                                        </span>
+                                        <span class="active-icon">
+                                            <img src="{{ asset('assets/images/icons/topictest.svg') }}"
+                                                alt="Topic Test Active">
+                                        </span>
+                                        <span class="menutext">
+                                            Topic Test
+                                        </span>
+                                    </a>
+                                </li>
+
+                            @endif
+
+                            @if ($admin->role === 'master' || optional($admin->permission)->full_mock_exam === 'Y')
+
                             <li class="side-item {{ request()->is('admin/exam*') ? 'active' : '' }}">
                                 <a href="{{ route('admin.exam.index') }}">
                                     <span class="side-icon">
@@ -343,9 +352,14 @@
                                     </span>
                                 </a>
                             </li>
+
+                            @endif 
+
                         </ul>
                     </li>
+
                 @endif
+                
 
 
                 @if ($admin->role === 'master' || optional($admin->permission)->live_teaching === 'Y')
