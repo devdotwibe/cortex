@@ -2375,7 +2375,7 @@
                                                     
                                                                     <!-- Delete button for preview (before saving) -->
                                                                     <button type="button" class="btn btn-danger imgidpro{{ $item->id }}" id="deleteicon121-{{ $item->id }}" 
-                                                                        style="position: absolute; top: 5px; right: 5px; display: none;" onclick="removeImagedeletepro(this)">
+                                                                        style="" onclick="removeImagedeletepro(this)">
                                                                         Delete
                                                                     </button>
                                                     
