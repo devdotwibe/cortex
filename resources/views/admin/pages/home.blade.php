@@ -1989,7 +1989,7 @@
                                                                     </div>
                                                     
                                                                     <!-- Delete button for preview (before saving) -->
-                                                                    <button type="button" class="btn btn-danger  imgidrev{{ $item->id }}" id="deleteicon123-{{ $item->id }}"
+                                                                    <button type="button" class="btn btn-danger  imgidrev{{ $item->id }}" id="deleteicon131-{{ $item->id }}"
                                                                         style="position: absolute; top: 5px; right: 5px; display: none;"
                                                                         onclick="reviewimgdelete(this)">Delete</button>
                                                     
@@ -3792,7 +3792,7 @@ function removePreviewImage() {
                         document.getElementById(`feedimage-${feedIndex}`).value = "";
 
                         // Hide the delete button
-                        document.getElementById(`deleteicon123-${feedIndex}`).style.display = "none";
+                        document.getElementById(`deleteicon131-${feedIndex}`).style.display = "none";
 
                         // Optionally, reset the image preview to a blank state (or other fallback image)
                         document.getElementById(`preview-image-${feedIndex}`).src = "";
