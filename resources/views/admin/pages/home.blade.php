@@ -2001,7 +2001,7 @@
                                                                         onchange="previewimgImage(event, '{{ $item->id }}')">
 
                                                                     <!-- Preview container for new image -->
-                                                                    <div id="preview-container11-{{ $item->id }}"
+                                                                    <div id="preview-container-{{ $item->id }}"
                                                                         style="margin-top: 10px;"
                                                                         class="numericalclass imgid2255{{ $item->id }}">
                                                                         <img id="preview-image-{{ $item->id }}"
@@ -2823,7 +2823,8 @@
     </div>
 </div>
 
-   
+     <button type="button" id="deleteicon-text123${feedIndex}" class="btn btn-danger" style="display: none; margin-top: 10px;" onclick="imagereviewdelete('text${feedIndex}')">Delete image</button>
+
                 <!-- Close Button -->
                 <button type="button" class="btn btn-danger" onclick="removeFeedItem('feedItem_${feedIndex}')">X</button>
             </div>
@@ -3835,31 +3836,6 @@
                         // Optionally, reset the image preview to a blank state (or other fallback image)
                         document.getElementById('preview-imagerevfirst').src = "";
                     }
-
-
-                                        // Function to remove image preview and reset the file input
-                    function imagereviewdelete(feedIndex) {
-                        // Hide the preview container
-                        document.getElementById(`preview-container-${feedIndex}`).style.display = "none";
-                        
-                        // Reset the file input value
-                        document.getElementById(`feedimage${feedIndex}`).value = "";
-                        
-                        // Hide the delete button
-                        document.getElementById(`deleteicon2255-${feedIndex}`).style.display = "none";
-                        
-                        // Optionally, reset the image preview to a blank state (or other fallback image)
-                        document.getElementById(`preview-image-${feedIndex}`).src = "";
-                    }
-
                 </script>
-
-
-
-
-
-
-
-
-
+                
             @endpush
