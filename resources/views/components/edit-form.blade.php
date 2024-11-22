@@ -8,12 +8,21 @@
                     @php   
                     $choice = 0;
                     $choiceName = '';
+                    $learn = Null;
+                    $homework = Null;
                     foreach ($fields as $item) {
                         if (isset($item->name) && ($item->name === 'answer' || $item->name === 'mcq_answer')) {
                             $choiceName = $item->name;
                             $choice = 1;
                         }
+                        if (isset($item->name) && ($item->name === 'learn_type')) {
+                            $learn = $item->name;
+                        }
+                        if (isset($item->name) && ($item->name === 'home_work_book_id')) {
+                            $homework = $item->name;
+                        }
                     }
+                    $table = $learn ?? $homework;
                     @endphp
                     @foreach ($fields as $item)
                         @if (($item->type??"text")=="hidden")
@@ -39,7 +48,7 @@
                                                         </div>
                                                         <input type="text" name="{{$item->name}}[]" id="{{$item->name}}-{{$frmID}}-{{$k}}" value="{{old($item->name)[$k]}}"  class="form-control  @error($item->name.".$k") is-invalid @enderror " placeholder="{{ucfirst($item->label??$item->name)}}" aria-placeholder="{{ucfirst($item->label??$item->name)}}" >
                                                         <input type="file" name="file_{{$item->name}}[]" id="file_{{$item->name}}-{{$frmID}}-{{$k}}" value=""  data-existing-file="{{old('choice_'.$item->name."_image",[])[$k]??""}}"  accept="image/jpeg, image/png, image/gif"  class="form-control  @error('file_'.$item->name.".$k") is-invalid @enderror " onchange="previewImage(this, 'preview-{{$item->name}}-{{$frmID}}-{{$k}}')">
-                                                            <img id="preview-{{ $item->name }}-{{ $frmID }}-{{ $k }}" src="{{old('choice_'.$item->name."_image",[])[$k]??""}}" alt="Image Preview"  style="width: 100px; height: 40px; object-fit: cover; margin-top: 10px; display: block;">
+                                                        <img id="preview-{{ $item->name }}-{{ $frmID }}-{{ $k }}" src="{{old('choice_'.$item->name."_image",[])[$k]??""}}" alt="Image Preview"  style="width: 100px; height: 40px; object-fit: cover; margin-top: 10px; display: block;">
                                                         @if ($k!=0)
                                                         <div class="input-group-append choice-check-group">
                                                             <button type="button" onclick="removeChoice{{$frmID}}('#{{$item->name}}-{{$frmID}}-choice-item-{{$k}}','#{{$item->name}}-{{$frmID}}-{{$k}}-check','#{{$item->name}}-{{$frmID}}-choice-group')" class="btn btn-danger "><img src="{{asset("assets/images/delete-black.svg")}}"></button>
@@ -63,24 +72,27 @@
                                             <div class="forms-inputs mb-4"> 
                                                 <label for="{{$item->name}}-{{$frmID}}-{{$k}}">Choice</label>
                                                 <input type="hidden" name="choice_{{$item->name}}_id[]"  value="{{$v->id}}">
-                                                <input type="hidden" name="choice_{{$item->name}}_image[]"  value="{{$v->image}}">
+                                                <input type="hidden" name="choice_{{$item->name}}_image[]" id="image_{{ $item->name }}-{{ $frmID }}-{{ $k }}" value="{{$v->image}}">
                                                 <div class="input-group">
                                                     <div class="input-group-prepend choice-check-group">
                                                         <label class="input-group-label choice-label" for="{{$item->name}}-{{$frmID}}-{{$k}}-check"></label>
                                                         <input type="radio" class="input-group-check choice-check" name="choice_{{$item->name}}" id="{{$item->name}}-{{$frmID}}-{{$k}}-check" value="{{$k}}" @checked($v->choice) >
                                                     </div>
                                                     <input type="text" name="{{$item->name}}[]" id="{{$item->name}}-{{$frmID}}-{{$k}}" value="{{$v->value}}"  class="form-control  @error($item->name.".$k") is-invalid @enderror " placeholder="{{ucfirst($item->label??$item->name)}}" aria-placeholder="{{ucfirst($item->label??$item->name)}}" >
-                                                    <input type="file" name="file_{{$item->name}}[]" id="file_{{$item->name}}-{{$frmID}}-0" value="" @if($v->image) data-existing-file="{{$v->image}}" @else data-existing-file=""@endif accept="image/jpeg, image/png, image/gif" class="form-control" onchange="previewImage(this, 'preview-{{$item->name}}-{{$frmID}}-{{ $k }}')">
+                                                    <input type="file" name="file_{{$item->name}}[]" id="file_{{$item->name}}-{{$frmID}}-{{$k}}" value="" @if($v->image) data-existing-file="{{$v->image}}" @else data-existing-file=""@endif accept="image/jpeg, image/png, image/gif" class="form-control" onchange="previewImage(this, 'preview-{{$item->name}}-{{$frmID}}-{{ $k }}')">
                                                     <div class="invalid-feedback" id="upload-file-{{ $item->name }}-{{ $frmID }}-0">Please upload a valid image file (JPEG, PNG, GIF).</div>
 
                                                     @isset($v->image)
                                                         <img id="preview-{{ $item->name }}-{{ $frmID }}-{{ $k }}" src="{{url($v->image)}}" alt="Image Preview" class="img-thumbnail"  style="width: 100px; height: 40px; object-fit: cover; margin-top: 10px; display: block;">
-                                                        {{-- <div class="image-preview position-relative">                                                
-                                                            <span class="remove-image" 
-                                                                  onclick="removeImage('{{$item->name}}-{{$frmID}}-{{$k}}', '{{$v->image}}')" style="cursor: pointer">×</span>
-                                                            
+                                                        <div class="image-preview position-relative">                                                
+                                                            <span class="remove-image" id="span-{{ $item->name }}-{{ $frmID }}-{{ $k }}"
+                                                                  onclick="showConfirmDeleteModal('{{$item->name}}-{{$frmID}}-{{$k}}', '{{$v->image}}','{{$v->id}}')" style="cursor: pointer">×</span>
+                                                                  <span class="remove-image" id="preview-{{ $item->name }}-{{ $frmID }}-{{ $k }}-span" onclick="removeNewImage('{{$item->name}}-{{$frmID}}-{{ $k }}')"  style="cursor: pointer; display: none; margin-left: -8px; margin-top: 3px;">×</span>
+
                                                         </div>
-                                                        <input type="hidden" name="existing_file_{{$item->name}}[]" value="{{$v->image}}"> --}}
+                                                    @else
+                                                        <img id="preview-{{ $item->name }}-{{ $frmID }}-{{ $k }}" src="" alt="Image Preview" class="img-thumbnail"  style="width: 100px; height: 40px; object-fit: cover; margin-top: 10px; display: none;">
+                                                        <span class="remove-image" id="preview-{{ $item->name }}-{{ $frmID }}-{{ $k }}-span" onclick="removeNewImage('{{$item->name}}-{{$frmID}}-{{ $k }}')"  style="cursor: pointer; display: none; margin-left: -8px; margin-top: 3px;">×</span>
                                                     @endisset
 
                                                     @if ($k!=0)
@@ -182,60 +194,116 @@
 </div>
 
 
-
+<!-- Modal -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to remove this image?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Remove</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 @push('footer-script')
 
     <script>
-        function removeImage(containerId, imagePath) {
-            // Confirm deletion
-            if (!confirm("Are you sure you want to remove this image?")) {
-                return;
-            }
+         function removeNewImage(id) {
+            const input = document.getElementById('file_'+id);
+            const previewImage = document.getElementById('preview-'+id);
+            const span = document.getElementById('preview-'+id+'-span');
 
-            // Remove the preview container
-            const container = document.getElementById(`image-container-${containerId}`);
-            if (container) {
-                container.innerHTML = `
-                    <input type="file" name="file_${containerId}[]" id="file_${containerId}" accept="image/jpeg, image/png, image/gif" class="form-control mt-2">
-                `;
-            }
+            input.value = '';
+            previewImage.style.display = 'none';
+            span.style.display = 'none';
+            previewImage.src = '';
+        }
+        function showConfirmDeleteModal(containerId, imagePath, answerId) {
+            // Store the details in the modal's button for later use
+            $('#confirmDeleteBtn').attr('data-container-id', containerId);
+            $('#confirmDeleteBtn').attr('data-image-path', imagePath);
+            $('#confirmDeleteBtn').attr('data-answer-id', answerId);
 
-            // Optionally send an AJAX request to delete the image from the server
-            /*
-            fetch('/delete-image', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                },
-                body: JSON.stringify({ image: imagePath })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    console.log("Image removed successfully.");
-                } else {
-                    console.error("Failed to remove image.");
-                }
-            })
-            .catch(error => console.error("Error:", error));
-            */
+            // Show the modal
+            $('#confirmDeleteModal').modal('show');
+        }
+        $('#confirmDeleteBtn').click(function () {
+            var containerId = $(this).attr('data-container-id');
+            var imagePath = $(this).attr('data-image-path');
+            var answerId = $(this).attr('data-answer-id');
+
+            // Call the function to remove the image
+            removeImage(containerId, imagePath, answerId);
+
+            // Close the modal
+            $('#confirmDeleteModal').modal('hide');
+        });
+        function removeImage(containerId, imagePath, answerId) {
+            $('#preview-' + containerId).hide();
+            $('#preview-' + containerId).removeAttr('src');
+
+            $('#span-' + containerId).hide();
+            $('#file_'+ containerId).removeAttr('data-existing-file');
+            $('#file_'+ containerId).val('');
+            $('#image_'+ containerId).val('');
+
+            
+        //    var table = '{{ $table }}';
+        //     $.ajax({
+        //         url: '{{ route('admin.delete.image') }}', // Replace with your actual route
+        //         type: 'POST',
+        //         data: {
+        //             _token: '{{ csrf_token() }}', // Include CSRF token
+        //             image: imagePath,
+        //             id: answerId,
+        //             table:table
+        //         },
+        //         success: function (response) {
+        //             if (response.success) {
+        //                 // Hide the container for the image preview and input
+        //                 $('#preview-' + containerId).hide();
+        //                 $('#preview-' + containerId).removeAttr('src');
+
+        //                 $('#span-' + containerId).hide();
+        //                 $('#file_'+ containerId).removeAttr('data-existing-file');
+        //                 $('#file_'+ containerId).val('');
+        //             } else {
+        //                 alert('Failed to remove the image. Try again.');
+        //             }
+        //         },
+        //         error: function () {
+        //             alert('An error occurred. Please try again.');
+        //         }
+        //     });
+           
         }
         function previewImage(input, previewId) {
             const file = input.files[0];
             const preview = document.getElementById(previewId);
-
+            const span = document.getElementById(previewId+'-span');
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     preview.src = e.target.result; // Set the image source to the loaded file
                     preview.style.display = 'block'; // Show the image preview
+                    span.style.display = 'block';
                 };
                 reader.readAsDataURL(file);
             } else {
                 preview.src = '#'; // Reset the image source
                 preview.style.display = 'none'; // Hide the image preview if no file is selected
+                span.style.display = 'none';
+
             }
         }
         var chcnt=$('.choice-item').length;
@@ -265,10 +333,10 @@
                                     <input type="radio" class="input-group-check choice-check"  id="${el}-check" name="choice_${name}" value="${ln}" >
                                 </div>
                                 <input type="text" name="${name}[]" id="${el}" value="" class="form-control" placeholder="${label}" aria-placeholder="${label}" >
-                                    <input type="file" name="file_${name}[]" id="${el}-file" onchange="validateImage(this, 'upload-file-${name}-{{$frmID}}-${chcnt}')"  accept="image/jpeg, image/png, image/gif" value="" class="form-control" >
+                                    <input type="file" name="file_${name}[]" id="file_${name}-{{$frmID}}-${chcnt}" onchange="previewImage(this, 'preview-${name}-{{$frmID}}-${chcnt}')"  accept="image/jpeg, image/png, image/gif" value="" class="form-control" >
                                     <div class="invalid-feedback" id="upload-file-${name}-{{$frmID}}-${chcnt}">Please upload a valid image file (JPEG, PNG, GIF).</div>
-
-                                    <img id="${el}-preview" src="#" alt="Image Preview" style="display:none; width: 100px; height: auto; margin-top: 10px;"/>
+                                    <img id="preview-${name}-{{$frmID}}-${chcnt}" src="" alt="Image Preview" class="img-thumbnail"  style="width: 100px; height: 40px; object-fit: cover; margin-top: 10px; display: none;">
+                                    <span class="remove-image" id="preview-${name}-{{$frmID}}-${chcnt}-span" onclick="removeNewImage('${name}-{{$frmID}}-${chcnt}')"  style="cursor: pointer; display: none;margin-left: -8px; margin-top: 3px;">×</span>
 
                                 <div class="input-group-append choice-check-group">
                                     <button type="button" onclick="removeChoice{{$frmID}}('#${name}-{{$frmID}}-choice-item-chcnt-${chcnt}','#${el}-check','${target}')" class="btn btn-danger "><img src="{{asset("assets/images/delete-black.svg")}}"></button>

@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Answer;
+use App\Models\HomeWorkAnswer;
+use App\Models\LearnAnswer;
 use App\Models\Question;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class QuestionController extends Controller
@@ -207,9 +210,13 @@ class QuestionController extends Controller
       
         $featureimages = $request->file('file_answer', []);
         foreach($request->answer as $k =>$ans){
-            $answer=null;
+            $answer=Null;
+            $image=Null;
             if(!empty($request->choice_answer_id[$k]??"")){
                 $answer=Answer::find($request->choice_answer_id[$k]??"");
+            }
+            if(!empty($request->choice_answer_image[$k] ?? "")){
+                $image=$request->choice_answer_image[$k];
             }
 
              // Handle image upload if provided
@@ -225,7 +232,7 @@ class QuestionController extends Controller
                     "question_id"=>$question->id,
                     "iscorrect"=>$k==($request->choice_answer??0)?true:false,
                     "title"=>$ans,
-                   'image' => $imageName,
+                    'image' => $imageName,
                 ]);
 
             }else{
@@ -235,6 +242,9 @@ class QuestionController extends Controller
                     "iscorrect"=>$k==($request->choice_answer??0)?true:false,
                     "title"=>$ans,
                 ];
+                if(!$image){
+                    $data['image']=Null;
+                }
                 if(isset($imageName)){
                     $data['image']=$imageName;
                 }
@@ -266,5 +276,24 @@ class QuestionController extends Controller
         }        
         $redirect=$request->redirect??route('admin.question.index');
         return redirect($redirect)->with("success","Question has been successfully deleted");
+    }
+    public function deleteImage(Request $request)
+    {
+        $image = $request->input('image');
+        $answerId = $request->input('id');
+        $table = $request->input('table');
+        if($table=='home_work_book_id'){
+            $deleted = HomeWorkAnswer::where('id', $answerId)->update(['image'=>Null]);
+        } elseif($table=='learn_type'){
+            $deleted = LearnAnswer::where('id', $answerId)->update(['image'=>Null]);
+        }else{
+            $deleted = Answer::where('id', $answerId)->update(['image'=>Null]);
+        }
+        
+
+        return response()->json([
+            'success' => $deleted,
+            'message' => $deleted ? 'Image deleted successfully.' : 'Failed to delete image.'
+        ]);
     }
 }
