@@ -3338,7 +3338,7 @@ aside.side_bar.slider-btn .btn-slider {
 
 .exam-container .container-wrap .lesson .lesson-body .mcq-row ul {
     width: 100%;
-    float: none;
+    float: left;
     margin: 0 auto 20px;
     padding-left: 0px;
 }
@@ -3389,15 +3389,19 @@ aside.side_bar.slider-btn .btn-slider {
     content: counter(step-counter)'.';
     margin-right: 0px;
     position: absolute;
-    left: 0;
+    left: 8px;
     color: #212121;
     font-size: 16px;
     top: 0;
 }
 
+.exam-container .container-wrap .lesson .lesson-body strong {
+    font-weight: bold;
+}
+
 .exam-container .container-wrap .lesson .lesson-body ul {
     width: 100%;
-    float: none;
+    float: left;
     margin: 0 auto 20px;
     padding-left: 0px;
 }
@@ -3449,7 +3453,7 @@ aside.side_bar.slider-btn .btn-slider {
     content: counter(step-counter)'.';
     margin-right: 0px;
     position: absolute;
-    left: 0;
+    left: 8px;
     color: #212121;
     font-size: 16px;
     top: 0;
