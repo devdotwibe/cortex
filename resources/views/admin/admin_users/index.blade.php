@@ -164,11 +164,21 @@
                                         </tr>
 
                                         <tr>
-                                            <td>Exam Simulator</td>
+                                            <td>Topic Exam</td>
                                             <td>
                                                 <div class="form-check form-switch">
 
-                                                    <input type="checkbox" onchange="AddPermission(this)" data-name="exam_simulator" class="form-check-input" name="exam_simulator" value="Y" role="switch" >
+                                                    <input type="checkbox" onchange="AddPermission(this)" data-name="topic_exam" class="form-check-input" name="topic_exam" value="Y" role="switch" >
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                         <tr>
+                                            <td>Full Mock Exam</td>
+                                            <td>
+                                                <div class="form-check form-switch">
+
+                                                    <input type="checkbox" onchange="AddPermission(this)" data-name="full_mock_exam" class="form-check-input" name="full_mock_exam" value="Y" role="switch" >
                                                 </div>
                                             </td>
                                         </tr>
