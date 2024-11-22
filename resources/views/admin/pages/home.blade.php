@@ -2277,9 +2277,11 @@
                                                                     <label for="ourprocessimage">Process Icon*</label>
                                                                     <input type="hidden" name="processids[]"
                                                                         value="{{ old('processids.' . $k, $item->id ?? '') }}">
-                                                                    <input type="file" name="ourprocessimageupdate[]"
+                                                                        <input type="file" name="ourprocessimageupdate[]"
                                                                         class="form-control"
-                                                                        onchange="previewFeatureImage(event)"  id="ourprocessimage1-{{ $item->id }}">
+                                                                        onchange="previewFeatureImage(event)" 
+                                                                        id="ourprocessimage1-{{ optional($item)->id }}">
+                                                                 
 
                                                                     @if (!empty($item->image))
                                                                         <img src="{{ asset('path/to/images/' . $item->image) }}"
