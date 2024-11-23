@@ -38,7 +38,7 @@ class UserController extends Controller
             if (!empty($request->usertype)) {
                 switch ($request->usertype) {
                     case 'free-users':
-                        $this->where("status", 'unsubscribed');
+                        $this->where("is_free_access", false);
                         break;
                     case 'paid-users':
                         $this->where(function ($qry) {
