@@ -154,11 +154,21 @@ class PrivateClassHomeWorkController extends Controller
 
                 $user_answer = $user_review->where('home_work_review_question_id', $item->id)->first();
 
+
                 if ($user_answer) {
                     $data_ids[$k] = $user_answer->id;
 
                 } else {
                     $data_ids[$k] = null;
+                }
+
+                if ($item->review_type == 'short_notes') {
+
+                    $que_types[$k] = true;
+
+                } else {
+
+                    $que_types[$k] = false;
                 }
             }
 
