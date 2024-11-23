@@ -53,7 +53,7 @@ class SubmitHomeWorkReview implements ShouldQueue
                 'review_type' => $question->home_work_type,
                 'note' => $question->description,
                 'explanation' => $question->explanation,
-                'currect_answer' => $question->explanation,
+                'currect_answer' => $question->short_answer,
                 'user_answer' => $user_answer,
                 'home_work_id' => $this->review->home_work_id,
                 'home_work_book_id' => $this->review->home_work_book_id,
