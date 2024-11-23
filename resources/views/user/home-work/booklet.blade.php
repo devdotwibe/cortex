@@ -428,6 +428,35 @@
                         `).fadeIn();
 
                         }
+                        if(v.home_work_type=="short_notes"){
+                            isVideoType = true;
+                            $('#lesson-questionlist-list').html(`
+                                <div class="col-md-12">
+                                    <div class="note-row" >
+                                        <div class="note-title">
+                                            <span>${v.title||""}</span>
+                                        </div>
+                                        <div class="note-container">
+                                            <div id="note-${lesseonId}">
+                                                ${v.short_question}
+                                            </div>
+                                            <div id="note-${lesseonId}-ans" class="form-group">
+                                                <div class="form-data">
+                                                    <div class="forms-inputs mb-4">
+                                                        <input type="text" name="answer" data-question="${v.slug}" id="user-answer-${lesseonId}" value="" class="form-control" placeholder="Write your answer hear" aria-placeholder="Write your answer hear" autocomplete="off" >
+                                                        <div class="invalid-feedback" id="error-answer-field" >The field is required</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            `).fadeIn();
+
+                            refreshquestionanswer(v.slug,function(data){
+                                $(`#note-${lesseonId}-ans input[name="answer"]`).val(data.value);
+                            })
+                        }
 
                         if(!summery.timercurrent[v.slug]){ 
                             summery.timercurrent[v.slug]=0; 
