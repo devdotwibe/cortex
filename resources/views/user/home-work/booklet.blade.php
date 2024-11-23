@@ -434,7 +434,7 @@
                                 <div class="col-md-12">
                                     <div class="note-row" >
                                         <div class="note-title">
-                                            <span>${v.title}</span>
+                                            <span>${v.title||""}</span>
                                         </div>
                                         <div class="note-container">
                                             <div id="note-${lesseonId}">
