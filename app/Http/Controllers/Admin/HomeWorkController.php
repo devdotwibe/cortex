@@ -217,24 +217,27 @@ class HomeWorkController extends Controller
         $data['home_work_id'] = $homeWork->id;
         $data['home_work_type'] = $request->home_work_type;
         $question = HomeWorkQuestion::store($data);
-        $featureimages = $request->file('file_answer', []);
-        foreach ($request->answer as $k => $ans) {
-            $imageName = "";
-            if (isset($featureimages[$k])) {
-                $featureImage = $featureimages[$k];
-                $featureImageName = "questionimages/" . $featureImage->hashName();
-                Storage::put('questionimages', $featureImage);
-                $imageName = $featureImageName;
-            }
-            HomeWorkAnswer::store([
-                "home_work_id" => $homeWork->id,
-                "home_work_book_id" => $question->home_work_book_id,
-                "home_work_question_id" => $question->id,
-                "iscorrect" => $k == ($request->choice_answer ?? 0) ? true : false,
-                "title" => $ans,
-                'image' => $imageName,
 
-            ]);
+        if ($request->learn_type === "mcq") {
+
+            $featureimages = $request->file('file_answer', []);
+            foreach ($request->answer as $k => $ans) {
+                $imageName = "";
+                if (isset($featureimages[$k])) {
+                    $featureImage = $featureimages[$k];
+                    $featureImageName = "questionimages/" . $featureImage->hashName();
+                    Storage::put('questionimages', $featureImage);
+                    $imageName = $featureImageName;
+                }
+                HomeWorkAnswer::store([
+                    "home_work_id" => $homeWork->id,
+                    "home_work_book_id" => $question->home_work_book_id,
+                    "home_work_question_id" => $question->id,
+                    "iscorrect" => $k == ($request->choice_answer ?? 0) ? true : false,
+                    "title" => $ans,
+                    'image' => $imageName,
+                ]);
+            }
         }
         $redirect = $request->redirect ?? route('admin.home-work.show', $homeWork->slug);
         return redirect($redirect)->with("success", "Question has been successfully created");
