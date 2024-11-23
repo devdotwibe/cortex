@@ -57,7 +57,7 @@
 @push('footer-script')
     <script>
         $(function() {
-             var value = $("#learn_type-learnForm").val();
+             var value = $("#home_work_type-learnForm").val();
              switch (value) {
                 
                 case 'short_notes':
