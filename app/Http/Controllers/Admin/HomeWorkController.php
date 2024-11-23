@@ -61,7 +61,7 @@ class HomeWorkController extends Controller
                 })
                 ->addColumn('question', function ($data) use ($homeWork) {
 
-                    if ($data->exam_type == 'mcq') {
+                    if ($data->home_work_type == 'mcq') {
                         return $data->description;
                     } else {
                         return $data->short_question;
