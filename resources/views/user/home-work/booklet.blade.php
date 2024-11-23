@@ -400,6 +400,9 @@
                 }
                 summery.save()
                 $.each(res.data,function(k,v){ 
+
+                    if(v.home_work_type=="mcq"){
+
                         $('#lesson-questionlist-list').html(`
                             <div class="col-md-12">
                                 <div class="mcq-row" >
@@ -423,6 +426,9 @@
                                 </div>
                             </div>
                         `).fadeIn();
+
+                        }
+
                         if(!summery.timercurrent[v.slug]){ 
                             summery.timercurrent[v.slug]=0; 
                         } 
