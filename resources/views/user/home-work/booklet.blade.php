@@ -455,7 +455,6 @@
 
                             refreshquestionanswer(v.slug,function(data){
                                 $(`#note-${lesseonId}-ans input[name="answer"]`).val(data.value);
-                                console.log(summery.questionids,'print in refere short');
                                  if(data.value){
                                     summery.answeridx.push(summery.cudx) 
                                     summery.answeridx = [...new Set(summery.answeridx)]
@@ -463,7 +462,6 @@
                                     summery.save();
                                     refreshstatus(summery.cudx,'answered');
                                 }
-
                             })
                         }
 
@@ -593,9 +591,9 @@
                 }),
             }); 
          }
-         async function (question,callback){
+         async function refreshquestionanswer(question,callback){
             const csrf= $('meta[name="csrf-token"]').attr('content'); 
-            const response = await refreshquestionanswerfetch("{{route('getprogress')}}", {
+            const response = await fetch("{{route('getprogress')}}", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
