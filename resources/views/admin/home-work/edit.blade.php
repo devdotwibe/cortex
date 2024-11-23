@@ -36,7 +36,7 @@
             ["name"=>"redirect", "value"=>route("admin.home-work.show",$homeWork->slug),"type"=>"hidden"],
 
               ["name"=>"home_work_book_id" ,"label"=>"Week Booklet","ajaxurl"=>route("admin.home-work.show",$homeWork->slug),"type"=>"select", "size"=>4 ,"value"=>$homeWorkQuestion->home_work_book_id,"valuetext"=>$homeWorkQuestion->homeWorkBook->title],
-
+            ["name"=>"title", "placeholder"=>"Title","label"=>"Title","size"=>4,"type"=>"text","value"=>$homeWorkQuestion->title], 
             ["name"=>"home_work_type","event"=>["change"=>"cclickback"] ,"label"=>"Home Work Type","placeholder"=>"Select Home Work Type","type"=>"select","size"=>4,"value"=>$homeWorkQuestion->home_work_type,"options"=>[["value"=>"short_notes","text"=>"Short Note Questions"],["value"=>"mcq","text"=>"MCQs Questions"]]],
              
            
