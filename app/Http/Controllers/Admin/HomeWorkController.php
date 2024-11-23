@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller; 
+use App\Http\Controllers\Controller;
 use App\Models\HomeWork;
 use App\Models\HomeWorkAnswer;
 use App\Models\HomeWorkBook;
@@ -13,22 +13,23 @@ use Illuminate\Support\Facades\Storage;
 
 class HomeWorkController extends Controller
 {
-    use ResourceController; 
-    public function show(Request $request,HomeWork $homeWork){
+    use ResourceController;
+    public function show(Request $request, HomeWork $homeWork)
+    {
         self::reset();
         self::$model = HomeWorkQuestion::class;
-        self::$routeName = "admin.home-work"; 
-        self::$defaultActions=['']; 
-        if($request->ajax()){
-            if(!empty($request->booklet)){
-                $this->where('home_work_book_id',$request->booklet);
+        self::$routeName = "admin.home-work";
+        self::$defaultActions = [''];
+        if ($request->ajax()) {
+            if (!empty($request->booklet)) {
+                $this->where('home_work_book_id', $request->booklet);
             }
-            return $this->where('home_work_id',$homeWork->id) 
-                ->addAction(function($data)use($homeWork){
+            return $this->where('home_work_id', $homeWork->id)
+                ->addAction(function ($data) use ($homeWork) {
                     return '
                    
 
- <a href="'.route("admin.home-work.edit",["home_work"=>$homeWork->slug,"home_work_question"=>$data->slug]).'" class="btn btn-icons edit_btn">
+ <a href="' . route("admin.home-work.edit", ["home_work" => $homeWork->slug, "home_work_question" => $data->slug]) . '" class="btn btn-icons edit_btn">
     <span class="adminside-icon">
       <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
     </span>
@@ -41,7 +42,7 @@ class HomeWorkController extends Controller
                      
 
 
-                     <a  class="btn btn-icons dlt_btn" data-delete="'.route("admin.home-work.destroy",["home_work"=>$homeWork->slug,"home_work_question"=>$data->slug]).'">
+                     <a  class="btn btn-icons dlt_btn" data-delete="' . route("admin.home-work.destroy", ["home_work" => $homeWork->slug, "home_work_question" => $data->slug]) . '">
                             <span class="adminside-icon">
                                 <img src="' . asset("assets/images/icons/material-symbols_delete-outline.svg") . '" alt="Delete">
                             </span>
@@ -51,47 +52,47 @@ class HomeWorkController extends Controller
                         </a> 
 
                     ';
-                })->addColumn('visibility',function($data)use($homeWork){
+                })->addColumn('visibility', function ($data) use ($homeWork) {
                     return '                
                         <div class="form-check ">
-                            <input type="checkbox"  class="user-visibility form-check-box" name="visibility" value="'.($data->id).'" '.($data->visible_status=="show"?"checked":"").' onchange="visiblechangerefresh('."'".route("admin.home-work.visibility",["home_work"=>$homeWork->slug,"home_work_question"=>$data->slug])."'".')" > 
+                            <input type="checkbox"  class="user-visibility form-check-box" name="visibility" value="' . ($data->id) . '" ' . ($data->visible_status == "show" ? "checked" : "") . ' onchange="visiblechangerefresh(' . "'" . route("admin.home-work.visibility", ["home_work" => $homeWork->slug, "home_work_question" => $data->slug]) . "'" . ')" > 
                         </div>
-                    '; 
+                    ';
                 })
-                ->addColumn('question',function($data)use($homeWork){
-                   
-                    if($data->exam_type =='mcq')
-                    {
+                ->addColumn('question', function ($data) use ($homeWork) {
+
+                    if ($data->exam_type == 'mcq') {
                         return $data->description;
-                    }
-                    else
-                    {
+                    } else {
                         return $data->short_question;
                     }
                 })
 
-                
-                ->buildTable(['visibility','question']);
-        } 
-        return view('admin.home-work.show',compact('homeWork'));
+
+                ->buildTable(['visibility', 'question']);
+        }
+        return view('admin.home-work.show', compact('homeWork'));
     }
-    public function create(Request $request,HomeWork $homeWork){
-        if($request->ajax()){
+    public function create(Request $request, HomeWork $homeWork)
+    {
+        if ($request->ajax()) {
             self::reset();
-            self::$model = HomeWorkBook::class; 
-            return $this->where('home_work_id',$homeWork->id)->buildSelectOption('title');
-        }  
-        return view('admin.home-work.create',compact('homeWork'));
+            self::$model = HomeWorkBook::class;
+            return $this->where('home_work_id', $homeWork->id)->buildSelectOption('title');
+        }
+        return view('admin.home-work.create', compact('homeWork'));
     }
-    public function edit(Request $request,HomeWork $homeWork,HomeWorkQuestion $homeWorkQuestion){
-        if($request->ajax()){
+    public function edit(Request $request, HomeWork $homeWork, HomeWorkQuestion $homeWorkQuestion)
+    {
+        if ($request->ajax()) {
             self::reset();
-            self::$model = HomeWorkBook::class; 
-            return $this->where('home_work_id',$homeWork->id)->buildSelectOption('title');
-        }  
-        return view('admin.home-work.edit',compact('homeWork','homeWorkQuestion'));
+            self::$model = HomeWorkBook::class;
+            return $this->where('home_work_id', $homeWork->id)->buildSelectOption('title');
+        }
+        return view('admin.home-work.edit', compact('homeWork', 'homeWorkQuestion'));
     }
-    public function update(Request $request,HomeWork $homeWork,HomeWorkQuestion $homeWorkQuestion){
+    public function update(Request $request, HomeWork $homeWork, HomeWorkQuestion $homeWorkQuestion)
+    {
 
         switch ($request->input('home_work_type', "")) {
 
@@ -107,7 +108,7 @@ class HomeWorkController extends Controller
                     "home_work_book_id" => ['required'],
                     "description" => ['required'],
                     "answer" => ['required'],
-                    "answer.*" => ["required_without:file_mcq_answer", 'string', 'max:150','nullable'],
+                    "answer.*" => ["required_without:file_mcq_answer", 'string', 'max:150', 'nullable'],
                     "file_answer.*" => ["required_without:mcq_answer", 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
                     "explanation" => ['nullable']
                 ], [
@@ -119,68 +120,68 @@ class HomeWorkController extends Controller
 
             default:
                 $data = $request->validate([
-                    "category_id" => ['required'],
-                    "sub_category_id" => ['required'],
+                    "home_work_book_id" => ['required'],
                     "title" => ['required'],
-                    "learn_type" => ["required"],
+                    "home_work_type" => ["required"],
                 ]);
                 break;
         }
 
-        $data['home_work_id']=$homeWork->id;
-        $data['home_work_type']=$request->home_work_type;
+        $data['home_work_id'] = $homeWork->id;
+        $data['home_work_type'] = $request->home_work_type;
         $homeWorkQuestion->update($data);
-        $ansIds=[]; 
+        $ansIds = [];
         $featureimages = $request->file('file_answer', []);
-        foreach($request->answer as $k =>$ans){
-            $answer=null;
-            $imageName= Null;
-            $image=Null;
+        foreach ($request->answer as $k => $ans) {
+            $answer = null;
+            $imageName = Null;
+            $image = Null;
             if (isset($featureimages[$k])) {
                 $featureImage = $featureimages[$k];
                 $featureImageName = "questionimages/" . $featureImage->hashName();
                 Storage::put('questionimages', $featureImage);
                 $imageName = $featureImageName;
             }
-            if(!empty($request->choice_answer_id[$k]??"")){
-                $answer=HomeWorkAnswer::find($request->choice_answer_id[$k]??"");
+            if (!empty($request->choice_answer_id[$k] ?? "")) {
+                $answer = HomeWorkAnswer::find($request->choice_answer_id[$k] ?? "");
             }
-            if(!empty($request->choice_answer_image[$k] ?? "")){
-                $image=$request->choice_answer_image[$k];
+            if (!empty($request->choice_answer_image[$k] ?? "")) {
+                $image = $request->choice_answer_image[$k];
             }
-            if(empty($answer)){
-                $answer=HomeWorkAnswer::store([
-                    "home_work_id"=>$homeWork->id,
-                    "home_work_book_id"=>$homeWorkQuestion->home_work_book_id,
-                    "home_work_question_id"=>$homeWorkQuestion->id,
-                    "iscorrect"=>$k==($request->choice_answer??0)?true:false,
-                    "title"=>$ans,
-                    "image"=>$imageName
+            if (empty($answer)) {
+                $answer = HomeWorkAnswer::store([
+                    "home_work_id" => $homeWork->id,
+                    "home_work_book_id" => $homeWorkQuestion->home_work_book_id,
+                    "home_work_question_id" => $homeWorkQuestion->id,
+                    "iscorrect" => $k == ($request->choice_answer ?? 0) ? true : false,
+                    "title" => $ans,
+                    "image" => $imageName
                 ]);
 
-            }else{
-                $data=[
-                    "home_work_id"=>$homeWork->id,
-                    "home_work_book_id"=>$homeWorkQuestion->home_work_book_id,
-                    "home_work_question_id"=>$homeWorkQuestion->id,
-                    "iscorrect"=>$k==($request->choice_answer??0)?true:false,
-                    "title"=>$ans
+            } else {
+                $data = [
+                    "home_work_id" => $homeWork->id,
+                    "home_work_book_id" => $homeWorkQuestion->home_work_book_id,
+                    "home_work_question_id" => $homeWorkQuestion->id,
+                    "iscorrect" => $k == ($request->choice_answer ?? 0) ? true : false,
+                    "title" => $ans
                 ];
-                if(!$image){
-                    $data['image']=Null;
+                if (!$image) {
+                    $data['image'] = Null;
                 }
-                if(isset($imageName)){
-                    $data['image']=$imageName;
+                if (isset($imageName)) {
+                    $data['image'] = $imageName;
                 }
                 $answer->update($data);
             }
-            $ansIds[]=$answer->id;
+            $ansIds[] = $answer->id;
         }
-        HomeWorkAnswer::where('home_work_question_id',$homeWorkQuestion->id)->whereNotIn('id',$ansIds)->delete();
-        $redirect=$request->redirect??route('admin.home-work.show',$homeWork->slug);
-        return redirect($redirect)->with("success","Question has been successfully updated");
+        HomeWorkAnswer::where('home_work_question_id', $homeWorkQuestion->id)->whereNotIn('id', $ansIds)->delete();
+        $redirect = $request->redirect ?? route('admin.home-work.show', $homeWork->slug);
+        return redirect($redirect)->with("success", "Question has been successfully updated");
     }
-    public function store(Request $request,HomeWork $homeWork){
+    public function store(Request $request, HomeWork $homeWork)
+    {
 
         switch ($request->input('home_work_type', "")) {
 
@@ -196,7 +197,7 @@ class HomeWorkController extends Controller
                     "home_work_book_id" => ['required'],
                     "description" => ['required'],
                     "answer" => ['required'],
-                    "answer.*" => ["required_without:file_mcq_answer", 'string', 'max:150','nullable'],
+                    "answer.*" => ["required_without:file_mcq_answer", 'string', 'max:150', 'nullable'],
                     "file_answer.*" => ["required_without:mcq_answer", 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
                     "explanation" => ['nullable']
                 ], [
@@ -213,11 +214,11 @@ class HomeWorkController extends Controller
                 break;
         }
 
-        $data['home_work_id']=$homeWork->id;
-        $data['home_work_type']=$request->home_work_type;
-        $question=HomeWorkQuestion::store($data);
+        $data['home_work_id'] = $homeWork->id;
+        $data['home_work_type'] = $request->home_work_type;
+        $question = HomeWorkQuestion::store($data);
         $featureimages = $request->file('file_answer', []);
-        foreach($request->answer as $k =>$ans){
+        foreach ($request->answer as $k => $ans) {
             $imageName = "";
             if (isset($featureimages[$k])) {
                 $featureImage = $featureimages[$k];
@@ -226,72 +227,78 @@ class HomeWorkController extends Controller
                 $imageName = $featureImageName;
             }
             HomeWorkAnswer::store([
-                "home_work_id"=>$homeWork->id,
-                "home_work_book_id"=>$question->home_work_book_id,
-                "home_work_question_id"=>$question->id,
-                "iscorrect"=>$k==($request->choice_answer??0)?true:false,
-                "title"=>$ans,
+                "home_work_id" => $homeWork->id,
+                "home_work_book_id" => $question->home_work_book_id,
+                "home_work_question_id" => $question->id,
+                "iscorrect" => $k == ($request->choice_answer ?? 0) ? true : false,
+                "title" => $ans,
                 'image' => $imageName,
 
             ]);
         }
-        $redirect=$request->redirect??route('admin.home-work.show',$homeWork->slug);
-        return redirect($redirect)->with("success","Question has been successfully created");
+        $redirect = $request->redirect ?? route('admin.home-work.show', $homeWork->slug);
+        return redirect($redirect)->with("success", "Question has been successfully created");
     }
-    public function destroy(Request $request,HomeWork $homeWork,HomeWorkQuestion $homeWorkQuestion){
+    public function destroy(Request $request, HomeWork $homeWork, HomeWorkQuestion $homeWorkQuestion)
+    {
         $homeWorkQuestion->delete();
-        if($request->ajax()){
-            return response()->json(["success"=>"Question has been deleted"]);
-        }        
-        return redirect()->route('admin.home-work.show',$homeWork->slug)->with("success","Question has been deleted");
+        if ($request->ajax()) {
+            return response()->json(["success" => "Question has been deleted"]);
+        }
+        return redirect()->route('admin.home-work.show', $homeWork->slug)->with("success", "Question has been deleted");
     }
-    public function storebooklet(Request $request){
-        $data=$request->validate([
-            'home_work'=>['required'],
-            'title'=>['required'], 
+    public function storebooklet(Request $request)
+    {
+        $data = $request->validate([
+            'home_work' => ['required'],
+            'title' => ['required'],
         ]);
-        $homeWork=HomeWork::findSlug($data['home_work']);
-        $data['home_work_id']=$homeWork->id;
+        $homeWork = HomeWork::findSlug($data['home_work']);
+        $data['home_work_id'] = $homeWork->id;
         HomeWorkBook::store($data);
-        if($request->ajax()){
-            return response()->json(["success"=>"Week Booklet has been successfully created"]);
-        }        
-        return redirect()->route('admin.live-class.private_class_create')->with("success","Week Booklet has been successfully created");
+        if ($request->ajax()) {
+            return response()->json(["success" => "Week Booklet has been successfully created"]);
+        }
+        return redirect()->route('admin.live-class.private_class_create')->with("success", "Week Booklet has been successfully created");
     }
-    public function updatebooklet(Request $request,HomeWorkBook $homeWorkBook){
-        $data=$request->validate([ 
-            'title'=>['required'], 
-        ]); 
+    public function updatebooklet(Request $request, HomeWorkBook $homeWorkBook)
+    {
+        $data = $request->validate([
+            'title' => ['required'],
+        ]);
         $homeWorkBook->update($data);
-        if($request->ajax()){
-            return response()->json(["success"=>"Week Booklet has been successfully created"]);
-        }        
-        return redirect()->route('admin.live-class.private_class_create')->with("success","Week Booklet has been successfully created");
+        if ($request->ajax()) {
+            return response()->json(["success" => "Week Booklet has been successfully created"]);
+        }
+        return redirect()->route('admin.live-class.private_class_create')->with("success", "Week Booklet has been successfully created");
     }
-    public function showbooklet(Request $request,HomeWorkBook $homeWorkBook){
-        $homeWorkBook->updateUrl=route('admin.home-work.updatebooklet',$homeWorkBook->slug);
+    public function showbooklet(Request $request, HomeWorkBook $homeWorkBook)
+    {
+        $homeWorkBook->updateUrl = route('admin.home-work.updatebooklet', $homeWorkBook->slug);
         return $homeWorkBook;
     }
-    public function destroybooklet(Request $request,HomeWorkBook $homeWorkBook){
+    public function destroybooklet(Request $request, HomeWorkBook $homeWorkBook)
+    {
         $homeWorkBook->delete();
-        if($request->ajax()){
-            return response()->json(["success"=>"{$homeWorkBook->title} has been deleted"]);
-        }        
-        return redirect()->route('admin.live-class.private_class_create')->with("success","{$homeWorkBook->title} has been deleted");
+        if ($request->ajax()) {
+            return response()->json(["success" => "{$homeWorkBook->title} has been deleted"]);
+        }
+        return redirect()->route('admin.live-class.private_class_create')->with("success", "{$homeWorkBook->title} has been deleted");
     }
-    public function questionvisibility(Request $request,HomeWork $homeWork,HomeWorkQuestion $homeWorkQuestion){
-        $homeWorkQuestion->update(['visible_status'=>($homeWorkQuestion->visible_status??"")=="show"?"hide":"show"]);        
-        if($request->ajax()){
-            return response()->json(["success"=>" Question visibility change success"]);
-        }        
-        return redirect()->route('admin.home-work.show',$homeWork->slug)->with("success"," Question visibility change success");
+    public function questionvisibility(Request $request, HomeWork $homeWork, HomeWorkQuestion $homeWorkQuestion)
+    {
+        $homeWorkQuestion->update(['visible_status' => ($homeWorkQuestion->visible_status ?? "") == "show" ? "hide" : "show"]);
+        if ($request->ajax()) {
+            return response()->json(["success" => " Question visibility change success"]);
+        }
+        return redirect()->route('admin.home-work.show', $homeWork->slug)->with("success", " Question visibility change success");
     }
 
 
-//     public function bulkaction(Request $request, HomeWorkQuestion $homeWork)
+    //     public function bulkaction(Request $request, HomeWorkQuestion $homeWork)
 // {
-    
-//     if (!empty($request->deleteaction)) {
+
+    //     if (!empty($request->deleteaction)) {
 //         if ($request->input('select_all', 'no') == "yes") {
 //             // Delete all questions corresponding to the specific setname
 //             HomeWorkQuestion::where('home_work_id', $homeWork->id)->delete();
@@ -300,7 +307,7 @@ class HomeWorkController extends Controller
 //             HomeWorkQuestion::whereIn('id', $request->input('selectbox', []))->delete();
 //         }
 
-//         if ($request->ajax()) {
+    //         if ($request->ajax()) {
 //             return response()->json(["success" => "Questions deleted successfully"]);
 //         }
 //         return redirect()->route('admin.home-work.show', $homeWork->slug)
@@ -311,7 +318,7 @@ class HomeWorkController extends Controller
 //         ]);
 //         $data = [];
 
-//         switch ($request->bulkaction) {
+    //         switch ($request->bulkaction) {
 //             case 'visible_status':
 //                 $data["visible_status"] = "show";
 //                 break;
@@ -322,7 +329,7 @@ class HomeWorkController extends Controller
 //                 break;
 //         }
 
-//         if ($request->input('select_all', 'no') == "yes") {
+    //         if ($request->input('select_all', 'no') == "yes") {
 //             // Update visibility status for all questions corresponding to the specific setname
 //             HomeWorkQuestion::where('home_work_id', $homeWork->id)->update($data);
 //         } else {
@@ -330,7 +337,7 @@ class HomeWorkController extends Controller
 //             HomeWorkQuestion::whereIn('id', $request->input('selectbox', []))->update($data);
 //         }
 
-//         if ($request->ajax()) {
+    //         if ($request->ajax()) {
 //             return response()->json(["success" => "Questions updated successfully"]);
 //         }
 //         return redirect()->route('admin.home-work.show', $homeWork->slug)
@@ -339,64 +346,64 @@ class HomeWorkController extends Controller
 // }
 
 
-public function bulkaction(Request $request, HomeWork $homeWork)
-{
-    $booklet = $request->input('home_work_book_id');
+    public function bulkaction(Request $request, HomeWork $homeWork)
+    {
+        $booklet = $request->input('home_work_book_id');
 
-    if (!empty($request->deleteaction)) {
+        if (!empty($request->deleteaction)) {
 
-        if ($request->input('select_all', 'no') == "yes") {
-            
-         
-            $selectAllValues = json_decode($request->select_all_values, true);
-            
-            HomeWorkQuestion::whereIn('id', $selectAllValues)  
-                ->delete();
+            if ($request->input('select_all', 'no') == "yes") {
 
 
+                $selectAllValues = json_decode($request->select_all_values, true);
 
+                HomeWorkQuestion::whereIn('id', $selectAllValues)
+                    ->delete();
+
+
+
+            } else {
+
+                $selectBoxValues = is_array($request->input('selectbox', [])) ? $request->input('selectbox', []) : [];
+
+
+                HomeWorkQuestion::whereIn('id', $selectBoxValues)
+                    ->where('home_work_id', $homeWork->id)
+                    ->where('home_work_book_id', $booklet)
+                    ->delete();
+            }
+
+            if ($request->ajax()) {
+                return response()->json(["success" => "Questions deleted successfully"]);
+            }
+            return redirect()->route('admin.home-work.show', $homeWork->slug)
+                ->with("success", "Questions deleted successfully");
         } else {
+            $request->validate([
+                "bulkaction" => ['required']
+            ]);
+            $data = [];
 
-             $selectBoxValues = is_array($request->input('selectbox', [])) ? $request->input('selectbox', []) : [];
-            
-          
-             HomeWorkQuestion::whereIn('id', $selectBoxValues)
-                ->where('home_work_id', $homeWork->id)
-                ->where('home_work_book_id', $booklet) 
-                ->delete();
+            switch ($request->bulkaction) {
+                case 'visible_status':
+                    $data["visible_status"] = "show";
+                    break;
+                case 'visible_status_disable':
+                    $data["visible_status"] = "";
+                    break;
+                default:
+                    break;
+            }
+
+
+
+            if ($request->ajax()) {
+                return response()->json(["success" => "Questions updated successfully"]);
+            }
+            return redirect()->route('admin.home-work.show', $homeWork->slug)
+                ->with("success", "Questions updated successfully");
         }
-
-        if ($request->ajax()) {
-            return response()->json(["success" => "Questions deleted successfully"]);
-        }
-        return redirect()->route('admin.home-work.show', $homeWork->slug)
-                         ->with("success", "Questions deleted successfully");
-    } else {
-        $request->validate([
-            "bulkaction" => ['required']
-        ]);
-        $data = [];
-
-        switch ($request->bulkaction) {
-            case 'visible_status':
-                $data["visible_status"] = "show";
-                break;
-            case 'visible_status_disable':
-                $data["visible_status"] = "";
-                break;
-            default:
-                break;
-        }
-
-       
-
-        if ($request->ajax()) {
-            return response()->json(["success" => "Questions updated successfully"]);
-        }
-        return redirect()->route('admin.home-work.show', $homeWork->slug)
-                         ->with("success", "Questions updated successfully");
     }
-}
 
 
 
