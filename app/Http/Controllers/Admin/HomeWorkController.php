@@ -209,6 +209,8 @@ class HomeWorkController extends Controller
 
             default:
                 $data = $request->validate([
+                    "home_work_book_id" => ['required'],
+                    "title" => ['required'],
                     "home_work_type" => ["required"],
                 ]);
                 break;
