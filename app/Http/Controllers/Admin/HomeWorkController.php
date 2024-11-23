@@ -108,8 +108,8 @@ class HomeWorkController extends Controller
                     "home_work_book_id" => ['required'],
                     "description" => ['required'],
                     "answer" => ['required'],
-                    "answer.*" => ["required_without:file_mcq_answer", 'string', 'max:150', 'nullable'],
-                    "file_answer.*" => ["required_without:mcq_answer", 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+                    "answer.*" => ["required_without:file_answer", 'string', 'max:150', 'nullable'],
+                    "file_answer.*" => ["required_without:answer", 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
                     "explanation" => ['nullable']
                 ], [
                     'answer.*.required_without' => 'The answer field is required when file answer is not provided.',
@@ -198,8 +198,8 @@ class HomeWorkController extends Controller
                     "home_work_book_id" => ['required'],
                     "description" => ['required'],
                     "answer" => ['required'],
-                    "answer.*" => ["required_without:file_mcq_answer", 'string', 'max:150', 'nullable'],
-                    "file_answer.*" => ["required_without:mcq_answer", 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+                    "answer.*" => ["required_without:file_answer", 'string', 'max:150', 'nullable'],
+                    "file_answer.*" => ["required_without:answer", 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
                     "explanation" => ['nullable']
                 ], [
                     'answer.*.required_without' => 'The answer field is required when file answer is not provided.',
