@@ -17,7 +17,7 @@
                         <div class="card-body">
                             <form class="form" id="table-category-form-create" data-save="create" method="post"
                                 action="{{ route('admin.faq.store') }}">
-                                @csrf
+
                                 <div class="row tabouter">
                                     <div class="col-md-4">
                                         <div class="form-group">
