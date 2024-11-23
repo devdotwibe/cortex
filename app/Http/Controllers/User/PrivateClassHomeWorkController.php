@@ -64,7 +64,7 @@ class PrivateClassHomeWorkController extends Controller
                 $question = HomeWorkQuestion::findSlug($request->question);
                 return HomeWorkAnswer::where('home_work_question_id', $question->id)->get(['slug', 'title', 'image']);
             }
-            return HomeWorkQuestion::where('home_work_id', $homeWork->id)->where('home_work_book_id', $homeWorkBook->id)->paginate(1, ['slug', 'title', 'description', 'duration', 'short_question']);
+            return HomeWorkQuestion::where('home_work_id', $homeWork->id)->where('home_work_book_id', $homeWorkBook->id)->paginate(1, ['slug', 'title', 'description', 'duration', 'short_question', 'home_work_type']);
         }
         $questioncount = HomeWorkQuestion::where('home_work_id', $homeWork->id)->where('home_work_book_id', $homeWorkBook->id)->count();
         return view('user.home-work.booklet', compact('homeWork', 'homeWorkBook', 'questioncount', 'user'));
