@@ -455,6 +455,13 @@
 
                             refreshquestionanswer(v.slug,function(data){
                                 $(`#note-${lesseonId}-ans input[name="answer"]`).val(data.value);
+                                 if(data.value){
+                                    summery.answeridx.push(summery.cudx) 
+                                    summery.answeridx = [...new Set(summery.answeridx)]
+                                    summery.notansweridx=summery.notansweridx.filter(item => item !== summery.cudx)
+                                    summery.save();
+                                    refreshstatus(summery.cudx,'answered');
+                                }
                             })
                         }
 
@@ -650,7 +657,35 @@
                         refreshstatus(summery.cudx,'not-answered');
                     }
                 })
-            } 
+            }
+
+            if ($('#lesson-questionlist-list .forms-inputs input[name="answer"]').length > 0) {
+                $('#lesson-questionlist-list .forms-inputs input[name="answer"]').each(function() {
+                const question = $(this).data('question');
+                const answer = $(this).val();
+
+                updatequestionanswer(question, answer);
+                verifyquestion(question, answer);
+
+                // Update summary based on whether an answer is provided
+                if (answer) {
+                    // Add to answered, remove from not-answered
+                    summery.answeridx.push(summery.cudx);
+                    summery.answeridx = [...new Set(summery.answeridx)];
+                    summery.notansweridx = summery.notansweridx.filter(item => item !== summery.cudx);
+                    summery.save();
+                    refreshstatus(summery.cudx, 'answered');
+                } else {
+                    // Add to not-answered, remove from answered
+                    summery.notansweridx.push(summery.cudx);
+                    summery.notansweridx = [...new Set(summery.notansweridx)];
+                    summery.answeridx = summery.answeridx.filter(item => item !== summery.cudx);
+                    summery.save();
+                    refreshstatus(summery.cudx, 'not-answered');
+                }
+            });
+        }
+
             updateprogress(callback) 
          }
           

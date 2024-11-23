@@ -271,9 +271,16 @@
 
                     $.each(res.links, function(k, v) {
 
-                        let linkstatus =  'status-bad';
+                        let linkstatus = "";
 
                         if (k != 0 && k != res.links.length ) {
+
+                            linkstatus = 'status-bad';
+
+                            if (v.ques_type) {
+                            
+                                linkstatus = "status-grey";
+                            }
 
                             $.each(home_work_answer, function(i, j) {
 
