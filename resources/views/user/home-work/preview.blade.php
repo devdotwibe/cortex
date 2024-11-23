@@ -170,31 +170,67 @@
                 $('#question-answer-page').fadeIn()
                 const lesseonId = generateRandomId(10);
                 $.each(res.data, function(k, v) {
-                    $('#lesson-questionlist-list').html(`
-                        <div class="col-md-12">
-                            <div class="mcq-row" >
-                                <div class="mcq-title">
-                                    <span>${v.title||""}</span>
-                                </div>
-                                <div class="mcq-container">
-                                    <div id="mcq-${lesseonId}">
-                                       <p> ${v.note||""}</p>
+
+                    if (v.review_type == "short_notes") {
+                        $('#lesson-questionlist-list').html(`
+                            <div class="col-md-12">
+                                <div class="note-row" >
+                                    <div class="note-title">
+                                        <span>${v.title||""}</span>
                                     </div>
-                                    <div id="mcq-${lesseonId}-ans" class="form-group">
-                                        <div class="form-data" >
-                                            <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list"> 
-                                                
-                                            </div> 
+                                    <div class="note-container">
+                                        <div id="note-${lesseonId}">
+                                            ${v.note||""}
+                                        </div>
+                                        <div id="note-${lesseonId}-ans" class="form-group">
+                                            <div class="form-data">
+                                                <div class="forms-inputs mb-4"> 
+                                                    <input type="text" readonly name="answer" data-question="${v.slug}" id="user-answer-${lesseonId}" value="${v.user_answer}" class="form-control" placeholder="Write your answer hear" aria-placeholder="Write your answer hear" >        
+                                                    <div class="invalid-feedback" id="error-answer-field" >The field is required</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="note-currect" id="note-${lesseonId}-answer"> 
+                                            <label> <strong> Correct Answer </strong> </label>
+                                            ${v.currect_answer}
                                         </div>
                                     </div>
-                                    <div id="mcq-${lesseonId}-explanation" class="correctanswerclass"> 
-                                       <label> <strong>Correct Answer <span id="mcq-${lesseonId}-correct"></span> </strong></label>
-                                   </div> 
-                                      <p>${v.explanation||''}</p>
                                 </div>
                             </div>
-                        </div>
-                    `).fadeIn();
+                        `).fadeIn();
+                    }
+
+                    if (v.review_type == "mcq") {
+
+                        $('#lesson-questionlist-list').html(`
+                            <div class="col-md-12">
+                                <div class="mcq-row" >
+                                    <div class="mcq-title">
+                                        <span>${v.title||""}</span>
+                                    </div>
+                                    <div class="mcq-container">
+                                        <div id="mcq-${lesseonId}">
+                                        <p> ${v.note||""}</p>
+                                        </div>
+                                        <div id="mcq-${lesseonId}-ans" class="form-group">
+                                            <div class="form-data" >
+                                                <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list"> 
+                                                    
+                                                </div> 
+                                            </div>
+                                        </div>
+                                        <div id="mcq-${lesseonId}-explanation" class="correctanswerclass"> 
+                                        <label> <strong>Correct Answer <span id="mcq-${lesseonId}-correct"></span> </strong></label>
+                                    </div> 
+                                        <p>${v.explanation||''}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        `).fadeIn();
+
+                    }
+
+
                     $.get("{{ route('home-work.preview', $homeWorkReview->slug) }}", {
                         question: v.slug
                     }, function(ans) {
