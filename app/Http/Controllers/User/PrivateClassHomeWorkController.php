@@ -172,16 +172,17 @@ class PrivateClassHomeWorkController extends Controller
                 }
             }
 
-            $links = collect(range(1, $data->lastPage()))->map(function ($page, $i) use ($data, $data_ids) {
+            $links = collect(range(1, $data->lastPage()))->map(function ($page, $i) use ($data, $data_ids, $que_types) {
+
 
                 $value = isset($data_ids[$i]) ? $data_ids[$i] : null;
+                $ques_value = isset($que_types[$i]) ? $que_types[$i] : null;
 
                 return [
                     'url' => $data->url($page),
                     'label' => (string) $page,
-
                     'ans_id' => $value,
-
+                    'ques_type' => $ques_value,
                     'active' => $page === $data->currentPage(),
                 ];
             });
