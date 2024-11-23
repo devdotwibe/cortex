@@ -27,17 +27,15 @@ class SetController extends Controller
             'time_of_exam' => [
                                 'required',
                                 function ($attribute, $value, $fail) {
-                                    $validTimeFormat = '/^(0[0-9]|1[0-9]|2[0-3]) ?: ?[0-5][0-9]$/';
-
+                                    $validTimeFormat = '/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/';
+                                
                                     if (!preg_match($validTimeFormat, $value)) {
-                                        if ($value === '00:00' || $value === '00 : 00') {
-                                            $fail('The time of exam must not be 00:00.');
-                                        } else {
-                                            $fail('The time of exam must not be 23:59.');
-                                        }
+                                        $fail('The time of exam must not be 23:59.');
+                                    } elseif ($value === '00:00' || $value === '00 : 00') {
+                                        $fail('The time of exam must not be 00:00.');
                                     }
-                                    
                                 },
+                                
                             ],
         ]);
 
