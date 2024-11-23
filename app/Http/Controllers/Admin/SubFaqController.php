@@ -116,7 +116,8 @@ class SubFaqController extends Controller
 
         }
 
-        return response()->json(['success',"Faq Updated Successfully",'type'=>'faq']);
+        // return response()->json(['success',"Faq Updated Successfully",'type'=>'faq']);
+        return redirect()->route('admin.faq.index')->with(["success"=>"Faq Updated Successfully"]);
     
     }
 
