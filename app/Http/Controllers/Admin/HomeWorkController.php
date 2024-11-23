@@ -127,6 +127,7 @@ class HomeWorkController extends Controller
                 break;
         }
 
+        $data['title'] = $request->title;
         $data['home_work_id'] = $homeWork->id;
         $data['home_work_type'] = $request->home_work_type;
         $homeWorkQuestion->update($data);
@@ -216,6 +217,7 @@ class HomeWorkController extends Controller
                 break;
         }
 
+        $data['title'] = $request->title;
         $data['home_work_id'] = $homeWork->id;
         $data['home_work_type'] = $request->home_work_type;
         $question = HomeWorkQuestion::store($data);
