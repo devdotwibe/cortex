@@ -218,7 +218,7 @@ class HomeWorkController extends Controller
         $data['home_work_type'] = $request->home_work_type;
         $question = HomeWorkQuestion::store($data);
 
-        if ($request->learn_type === "mcq") {
+        if ($request->home_work_type === "mcq") {
 
             $featureimages = $request->file('file_answer', []);
             foreach ($request->answer as $k => $ans) {
