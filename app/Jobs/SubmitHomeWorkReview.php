@@ -66,18 +66,21 @@ class SubmitHomeWorkReview implements ShouldQueue
             if ($question->home_work_type == 'mcq') {
 
                 foreach ($question->answers as $ans) {
-                    HomeWorkReviewAnswer::store([
-                        'home_work_review_id' => $this->review->id,
-                        'home_work_review_question_id' => $revquestion->id,
-                        'title' => $ans->title,
-                        'image' => $ans->image,
-                        'iscorrect' => $ans->iscorrect,
-                        'user_answer' => (($ans->slug == $user_answer) ? true : false),
-                        'home_work_id' => $this->review->home_work_id,
-                        'home_work_book_id' => $this->review->home_work_book_id,
-                        'home_work_question_id' => $question->id,
-                        'home_work_answer_id' => $ans->id,
-                    ]);
+                    if (!empty($ans)) {
+                        HomeWorkReviewAnswer::store([
+                            'home_work_review_id' => $this->review->id,
+                            'home_work_review_question_id' => $revquestion->id,
+                            'title' => $ans->title,
+                            'image' => $ans->image,
+                            'iscorrect' => $ans->iscorrect,
+                            'user_answer' => (($ans->slug == $user_answer) ? true : false),
+                            'home_work_id' => $this->review->home_work_id,
+                            'home_work_book_id' => $this->review->home_work_book_id,
+                            'home_work_question_id' => $question->id,
+                            'home_work_answer_id' => $ans->id,
+                        ]);
+                    }
+
                 }
             }
             $user->setProgress("home-work-{$homeWork->id}-booklet-{$homeWorkBook->id}-answer-of-" . $question->slug, null);
