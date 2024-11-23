@@ -657,7 +657,27 @@
                         refreshstatus(summery.cudx,'not-answered');
                     }
                 })
-            } 
+            }
+
+            if($('#lesson-questionlist-list .forms-inputs input[name="answer"]').length>0){
+
+                updatequestionanswer($(this).data('question'),$(this).val());
+                    verifyquestion($(this).data('question'),$(this).val());
+                    if($(this).val()){
+                        summery.answeridx.push(summery.cudx) 
+                        summery.answeridx = [...new Set(summery.answeridx)]
+                        summery.notansweridx=summery.notansweridx.filter(item => item !== summery.cudx)
+                        summery.save();
+                        refreshstatus(summery.cudx,'answered');
+                    }else{
+                        summery.notansweridx.push(summery.cudx) 
+                        summery.notansweridx = [...new Set(summery.notansweridx)]
+                        summery.answeridx=summery.answeridx.filter(item => item !== summery.cudx)
+                        summery.save();
+                        refreshstatus(summery.cudx,'not-answered');
+                    }
+            }
+
             updateprogress(callback) 
          }
           
