@@ -2762,7 +2762,7 @@
     <div id="preview-container-${feedIndex}" style="margin-top: 10px;">
         <img id="preview-image-${feedIndex}" src="" alt="Image Preview" style="max-width: 100px; display: none;">
 
-           <button type="button" id="deleteicon-text1${feedIndex}" class="btn btn-danger" style="" onclick="reviewimgdelete('text${feedIndex}')">Delete image</button>
+           <button type="button" id="deleteicon-text1${feedIndex}" class="btn btn-danger" style="display: none; margin-top: 10px;" onclick="reviewimgdelete('text${feedIndex}')">Delete image</button>
 
     </div>
 </div>
