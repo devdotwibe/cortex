@@ -759,7 +759,7 @@
                                             @endforeach
                                         @elseif(!empty($features) && count($features) > 0)
                                             @foreach ($features as $k => $item)
-                                                <div class="outer-feature" id="close-{{ $item->id }}">
+                                                <div class="outer-feature" id="close-{{ $item->id }}{{ $k == 0 ? '-dele' : '' }}">
 
                                                     <!-- Feature Subtitle -->
                                                     <div class="col-md-12">
