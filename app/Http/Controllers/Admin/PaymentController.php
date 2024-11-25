@@ -72,7 +72,7 @@ class PaymentController extends Controller
                 return ucfirst($data->status); // Payment status with first letter capitalized
             })
             ->addColumn("slug", function ($data) {
-                return $data->payment_id; // Payment ID
+                return $data->slug; // Payment ID
             })
             ->make(true);
     }
