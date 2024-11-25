@@ -2848,7 +2848,7 @@
                             processIndex++;
 
                             let processHTML = `
-<div class="process-item mb-3">
+<div class="process-item mb-3" id="processItem_${processIndex}">
     <h4>Process ${processIndex}</h4>
 
     <div class="form-group">
@@ -2873,6 +2873,9 @@
 
         </div>
     </div>
+    
+   <!-- Close Button -->
+                <button type="button" class="btn btn-danger" onclick="removeprocessItem('processItem_${processIndex}')">X</button>
 </div>
 `;
 
@@ -3829,6 +3832,18 @@ function removeFeatureItem(featureItemId) {
 }
 
 
+
+
+function removeprocessItem(processItemId) {
+    // Get the element by its ID
+    var processItem = document.getElementById(processItemId);
+    if (processItem) {
+        // Hide the element by setting its display property to 'none'
+        processItem.style.display = 'none';
+    } else {
+        console.error(`Element with ID "${processItemId}" not found.`);
+    }
+}
 
 
 </script>
