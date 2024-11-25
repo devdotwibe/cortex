@@ -856,7 +856,7 @@
                                                                     <button type="button" class="btn btn-danger imgid{{ $item->id }}"
                                                                         id="deleteicon-{{ $item->id }}"
                                                                         style="display: none;"
-                                                                        onclick="removerepimgfirst(this)">Delete image1</button>
+                                                                        onclick="removerepimg(this)">Delete image1</button>
 
                                                                        
 
