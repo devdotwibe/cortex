@@ -1087,7 +1087,7 @@ public function deleteProcessImage(Request $request)
 
 public function deleteImagesection7(Request $request)
 {
-    
+    dd("hi");
    
 
     // Find the feed record by its ID
