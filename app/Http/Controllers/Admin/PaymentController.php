@@ -50,7 +50,7 @@ class PaymentController extends Controller
                 ->orWhere('payment_transations.amount', 'like', "%{$search}%")
                 ->orWhere('payment_transations.status', 'like', "%{$search}%")
                 ->orWhere('payment_transations.stype', 'like', "%{$search}%")
-                ->orWhere('payment_transations.payment_id', 'like', "%{$search}%")
+                ->orWhere('payment_transations.slug', 'like', "%{$search}%")
                 ->orWhere('payment_transations.created_at', 'like', "%{$search}%");
         });
 
