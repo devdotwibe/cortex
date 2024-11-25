@@ -3810,7 +3810,7 @@ function removePreviewImage() {
 
                     function removeFeedItem(feedItemId) {
     // Get the element by its ID
-    var feeItem = document.getElementById(feedItemId);
+    var feedItem = document.getElementById(feedItemId);
     if (feedItem) {
         // Hide the element by setting its display property to 'none'
         feedItem.style.display = 'none';
