@@ -1802,7 +1802,7 @@
                                         @if (count($stud) > 0 && isset($stud))
 
                                             @foreach ($stud as $k => $item)
-                                                <div class="outer-feature" id="close-{{ $k }}">
+                                                <div class="outer-feature" id="close-{{ $k }}{{ $k == 0 ? '-delet' : '' }}">
 
 
 
