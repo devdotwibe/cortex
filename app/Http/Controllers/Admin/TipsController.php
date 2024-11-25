@@ -62,9 +62,14 @@ class TipsController extends Controller
                     
 
                 })
-           
+                ->addColumn("tip", function ($data) {
+                    return strip_tags($data->tip); // Strip HTML tags from the tip
+                })
+                ->addColumn("advice", function ($data) {
+                    return strip_tags($data->advice); // Strip HTML tags from the advice
+                })
                 ->addIndexColumn()
-                ->rawColumns(['action'])
+                ->rawColumns(['action','tip','advice'])
                 ->make(true);
         }
 
