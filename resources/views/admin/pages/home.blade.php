@@ -899,7 +899,7 @@
                                                 <div class="form-group">
                                                     <div class="form-data">
                                                         <div class="forms-inputs mb-4">
-                                                            <label for="featuresubtitle">Feature Heading*</label>
+                                                            <label for="featuresubtitle">Feature Heading</label>
                                                             <input type="text" name="featuresubtitle[]"
                                                                 class="form-control" placeholder="Feature Heading">
                                                             @error('featuresubtitle')
@@ -914,7 +914,7 @@
                                                 <div class="form-group">
                                                     <div class="form-data">
                                                         <div class="forms-inputs mb-4">
-                                                            <label for="featurecontent">Feature Description*</label>
+                                                            <label for="featurecontent">Feature Description</label>
                                                             <textarea name="featurecontent[]" class="form-control" rows="5" placeholder="Feature Description"></textarea>
                                                             @error('featurecontent')
                                                                 <div class="text-danger">{{ $message }}</div>
@@ -947,7 +947,7 @@
                                                 <div class="form-group">
                                                     <div class="form-data">
                                                         <div class="forms-inputs mb-4">
-                                                            <label for="featureimagefirst" class="file-upload">Feature Image22
+                                                            <label for="featureimagefirst" class="file-upload">Feature Image
                                                                 <br>
                                                                 <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
                                                             </label>
