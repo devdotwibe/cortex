@@ -29,7 +29,8 @@ class SubscribeUsersController extends Controller
                                         ->orWhere('subscription_plans.title', 'like', "%{$search}%")
                                         ->orWhere('amount', 'like', "%{$search}%")
                                         ->orWhere('expire_at', 'like', "%{$search}%")
-                                        ->orWhere('user_subscriptions.created_at', 'like', "%{$search}%");
+                                        ->orWhere('user_subscriptions.created_at', 'like', "%{$search}%")
+                                        ->orWhere('payment_id', 'like', "%{$search}%");
                                 });
             if(!empty($request->plan)){
                 $plan=SubscriptionPlan::findSlug($request->plan);
