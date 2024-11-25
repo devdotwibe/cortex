@@ -1096,7 +1096,7 @@ public function deleteImagesection7(Request $request)
     if ($feed) {
     
         $imagePath = $feed->image;
-        if ($feed->image === $request->image_path) {
+     
            
             if (Storage::exists($imagePath)) {
              
@@ -1118,6 +1118,6 @@ public function deleteImagesection7(Request $request)
     }
     
 }
-}     
+   
 
         
