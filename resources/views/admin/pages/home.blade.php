@@ -2768,7 +2768,8 @@
 </div>
 
 
-
+   <!-- Close Button -->
+                <button type="button" class="btn btn-danger" onclick="removeFeedItem('feedItem_${feedIndex}')">X</button>
               
             </div>
         `;
