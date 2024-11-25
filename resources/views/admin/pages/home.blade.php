@@ -2328,7 +2328,8 @@
                                             @endforeach
                                         @elseif(!empty($ourprocess) && count($ourprocess) > 0)
                                             @foreach ($ourprocess as $k => $item)
-                                                <div class="outer-feature" id="close-{{ $item->id }}">
+
+                                                <div class="outer-feature" id="close-{{ $item->id }}{{ $k == 0 ? '-del' : '' }}">
 
 
 
