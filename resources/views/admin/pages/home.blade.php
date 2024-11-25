@@ -831,7 +831,7 @@
                                                                 <div class="forms-inputs mb-4">
                                                                     <label for="featureimage-{{ $item->id }}"
                                                                         class="file-upload">
-                                                                        Feature Image1 <br>
+                                                                        Feature Image <br>
                                                                         <img src="{{ asset('assets/images/upfile.svg') }}"
                                                                             alt="Upload Icon">
                                                                     </label>
@@ -856,7 +856,7 @@
                                                                     <button type="button" class="btn btn-danger imgid{{ $item->id }}"
                                                                         id="deleteicon-{{ $item->id }}"
                                                                         style="position: absolute; top: 5px; right: 5px; display: none;"
-                                                                        onclick="removerepimg(this)">Delete image</button>
+                                                                        onclick="removerepimg(this)">Delete image1</button>
 
                                                                        
 
