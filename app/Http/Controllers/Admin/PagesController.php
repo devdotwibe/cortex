@@ -1096,7 +1096,8 @@ public function deleteImagesection7(Request $request)
     if ($feed) {
     
         $imagePath = $feed->image;
-      
+        if ($feed->image === $request->image_path) {
+           
             if (Storage::exists($imagePath)) {
              
                 Storage::delete($imagePath);
@@ -1110,6 +1111,7 @@ public function deleteImagesection7(Request $request)
                 
                 return response()->json(['success' => false, 'message' => 'Process image not found']);
             }
+        }
     
       
         return response()->json(['success' => false, 'message' => 'Process not found']);
