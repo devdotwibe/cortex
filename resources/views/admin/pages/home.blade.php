@@ -3599,7 +3599,7 @@ function removeImagedelete(itemId) {
         // Select the elements dynamically based on the itemId
         var previewImage = document.getElementById('preview-image-' + itemId);
         var previewContainer = document.getElementById('preview-container-' + itemId);
-        var deleteIcon = document.getElementById('deleteicon-text-' + itemId);
+        var deleteIcon = document.getElementById('deleteicon-text' + itemId);
 
         // Set the image source to the selected file
         previewImage.src = e.target.result;
