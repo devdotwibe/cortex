@@ -42,40 +42,44 @@ class PaymentController extends Controller
     if ($request->ajax()) {
         $data = PaymentTransation::select(
             'payment_transations.*',
-            'users.name as username',
-            'users.email as usermail'
+            'users.name as username'
         )
         ->join('users', 'users.id', '=', 'payment_transations.user_id') // Join with users table
-        ->when(request('search')['value'], function ($query, $search) {
+        ->when($request->search['value'] ?? null, function ($query, $search) {
             $query->where('users.name', 'like', "%{$search}%")
-                ->orWhere('users.email', 'like', "%{$search}%")
                 ->orWhere('payment_transations.amount', 'like', "%{$search}%")
+                ->orWhere('payment_transations.status', 'like', "%{$search}%")
+                ->orWhere('payment_transations.stype', 'like', "%{$search}%")
                 ->orWhere('payment_transations.payment_id', 'like', "%{$search}%")
                 ->orWhere('payment_transations.created_at', 'like', "%{$search}%");
         });
 
         return DataTables::of($data)
             ->addIndexColumn()
-            ->addColumn("usermail", function ($data) {
-                return $data->usermail;
-            })
             ->addColumn("username", function ($data) {
-                return $data->username;
+                return $data->username; // User name from joined table
             })
             ->addColumn("date", function ($data) {
                 return Carbon::parse($data->created_at)->format("Y-m-d");
             })
-            ->addColumn("amount", function ($data) {
-                return number_format($data->amount, 2); // Format amount to two decimal places
+            ->addColumn("stype", function ($data) {
+                return $data->stype; // Payment type
             })
-            ->addColumn("payment_id", function ($data) {
-                return $data->payment_id;
+            ->addColumn("amount", function ($data) {
+                return number_format($data->amount, 2); // Payment amount formatted
+            })
+            ->addColumn("status", function ($data) {
+                return ucfirst($data->status); // Payment status with first letter capitalized
+            })
+            ->addColumn("slug", function ($data) {
+                return $data->payment_id; // Payment ID
             })
             ->make(true);
     }
 
     return view('admin.payment.index');
 }
+
 
     public function store(Request $request){
         $request->validate([
