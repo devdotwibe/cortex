@@ -1802,7 +1802,7 @@
                                         @if (count($stud) > 0 && isset($stud))
 
                                             @foreach ($stud as $k => $item)
-                                                <div class="outer-feature" id="close-{{ $k }}{{ $k == 0 ? '-delet' : '' }}">
+                                                <div class="outer-feature" id="close-{{ $k }}">
 
 
 
@@ -1913,7 +1913,7 @@
                                             @endforeach
                                         @elseif(!empty($feed) && count($feed) > 0)
                                             @foreach ($feed as $k => $item)
-                                                <div class="outer-feature" id="closefeed-{{ $item->id }}">
+                                                <div class="outer-feature" id="closefeed-{{ $item->id }}{{ $k == 0 ? '-delet' : '' }}">
                                                     <!-- Name -->
                                                     <div class="col-md-12">
                                                         <div class="form-group">
