@@ -2645,7 +2645,7 @@
 
 
                             let featureHTML = `
-                <div class="feature-item mb-3">
+                <div class="feature-item mb-3" id="featureItem_${featureIndex}">
                     <h4>Feature ${featureIndex}</h4>
 
                     <div class="form-group">
@@ -2670,6 +2670,7 @@
 
                          </div>
                     </div>
+                    <button type="button" class="btn btn-danger" onclick="removeFeatureItem('featureItem_${featureIndex}')">X</button>
                 </div>
             `;
 
@@ -3805,7 +3806,7 @@ function removePreviewImage() {
 
                     function removeFeedItem(feedItemId) {
     // Get the element by its ID
-    var feedItem = document.getElementById(feedItemId);
+    var feeItem = document.getElementById(feedItemId);
     if (feedItem) {
         // Hide the element by setting its display property to 'none'
         feedItem.style.display = 'none';
@@ -3815,6 +3816,17 @@ function removePreviewImage() {
 }
 
 
+
+function removeFeatureItem(featureItemId) {
+    // Get the element by its ID
+    var feeatureItem = document.getElementById(featureItemId);
+    if (feeatureItem) {
+        // Hide the element by setting its display property to 'none'
+        feeatureItem.style.display = 'none';
+    } else {
+        console.error(`Element with ID "${featureItemId}" not found.`);
+    }
+}
 
 
 
