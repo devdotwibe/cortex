@@ -654,7 +654,7 @@ class PagesController extends Controller
     OurProcess::whereNotIn('id', $proids)->delete();
 
     // Redirect back with success message
-    return redirect()->route('admin.page.index')->with('success', 'Section 10 data has been successfully saved.');
+    return redirect()->route('admin.page.index')->with('success', 'Section 4 data has been successfully saved.');
 }
 
 

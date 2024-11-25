@@ -2456,7 +2456,7 @@
                                                             </label>
                                             
                                                             <!-- Hidden File Input -->
-                                                            <input type="file" name="ourprocessimage[]" class="form-control" id="ourprocessimagefirst" style="display: none;" onchange="previewProcessImagefirst(event)">
+                                                            <input type="file" name="ourprocessimageupdate[]" class="form-control" id="ourprocessimagefirst" style="display: none;" onchange="previewProcessImagefirst(event)">
                                             
                                                             <!-- Image Preview Section -->
                                                             <div id="preview-container-processfirst" style="margin-top: 10px; display: none;">
@@ -2466,7 +2466,7 @@
                                                             </div>
                                             
                                                             <!-- Validation Error Display -->
-                                                            @error('ourprocessimage')
+                                                            @error('ourprocessimageupdate')
                                                                 <div class="text-danger">{{ $message }}</div>
                                                             @enderror
                                                         </div>
