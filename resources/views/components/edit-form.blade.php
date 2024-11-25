@@ -399,16 +399,47 @@
         $(document).ready(function () {
             let choice = "{{ $choice }}"
             let firstInvalidFeedback = null; 
+            
             if (choice != 0) {
                 let name = "{{ $choiceName }}"
                 let exam = '{{ $exam_type }}';
-                if ($('.mcq_section').is(':visible') || exam=='full-mock-exam' || exam=='topic-test' || exam=='question-bank') {
+                if ($('.mcq_section').is(':visible') || exam=='full-mock-exam' || exam=='topic-test' || exam=='question-bank' || name=='mcq_answer') {
                     $("#{{$frmID}}").on("submit", function (e) {
                         let isValid = true;
                         const categoryField = $(this).find('[name="category_id"]');
                         const categoryValue = categoryField.val()??'';
-                        const descriptionField = $(this).find('[name="description"]');
-                        const descriptionValue = descriptionField.val().trim() ?? '';
+                        if(name=='mcq_answer'){
+                            const descriptionField = $(this).find('[name="mcq_question"]');
+                            const descriptionValue = descriptionField.val().trim() ?? '';
+                            if (CKEDITOR.instances['mcq_question-{{ $frmID }}'].getData().trim() === '') {
+                                descriptionField.addClass("is-invalid");
+                                $('#mcq_question-{{$frmID}}-texteditor').text('Question is required.').show();
+                                isValid = false;
+                                if (!firstInvalidFeedback) {
+                                    firstInvalidFeedback = $('#mcq_question-{{$frmID}}-texteditor');
+                                }
+
+                            } else {
+                                descriptionField.removeClass('is-invalid');
+                                $('#mcq_question-{{$frmID}}-texteditor').hide();
+                            }
+                        }else{
+                            const descriptionField = $(this).find('[name="description"]');
+                            const descriptionValue = descriptionField.val().trim() ?? '';
+                            if (CKEDITOR.instances['description-{{ $frmID }}'].getData().trim() === '') {
+                                descriptionField.addClass("is-invalid");
+                                $('#description-{{$frmID}}-texteditor').text('Description is required.').show();
+                                isValid = false;
+                                if (!firstInvalidFeedback) {
+                                    firstInvalidFeedback = $('#description-{{$frmID}}-texteditor');
+                                }
+
+                            } else {
+                                descriptionField.removeClass('is-invalid');
+                                $('#description-{{$frmID}}-texteditor').hide();
+                            }
+                        }
+                        
                         if(exam=='full-mock-exam'){
                             if (categoryValue === '') {
                                 categoryField.addClass("is-invalid");
@@ -423,18 +454,7 @@
                                 }
                         }
 
-                        if (CKEDITOR.instances['description-{{ $frmID }}'].getData().trim() === '') {
-                            descriptionField.addClass("is-invalid");
-                            $('#description-{{$frmID}}-texteditor').text('Description is required.').show();
-                            isValid = false;
-                            if (!firstInvalidFeedback) {
-                                firstInvalidFeedback = $('#description-{{$frmID}}-texteditor');
-                            }
-
-                        } else {
-                            descriptionField.removeClass('is-invalid');
-                            $('#description-{{$frmID}}-texteditor').hide();
-                        }
+                        
                         $(`input[name='${name}[]']`).each(function (index) {
                             const answerField = $(this);
                             const fileField = $(`input[name='file_${name}[]']`).eq(index);
@@ -450,7 +470,17 @@
                                 if (!firstInvalidFeedback) {
                                     firstInvalidFeedback = feedbackElement;
                                 }
-                            } else {
+                            }else if(answerValue && answerValue.length>100){
+                                isValid = false;
+                                answerField.addClass("is-invalid");
+                                fileField.addClass("is-invalid"); 
+                                const feedbackElement = fileField.next(".invalid-feedback");
+                                feedbackElement.text("Answer lenghth should not be greater than 150.").show();
+                                if (!firstInvalidFeedback) {
+                                    firstInvalidFeedback = feedbackElement;
+                                }
+                            } 
+                            else {
                                 answerField.removeClass("is-invalid");
                                 fileField.removeClass("is-invalid");
                                 fileField.next(".invalid-feedback").hide(); 
