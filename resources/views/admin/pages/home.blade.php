@@ -3654,6 +3654,7 @@ function removeimgImage(element, itemId) {
 
 // Function to remove image preview and reset the file input
 function removerepimg(featureIndex) {
+    console.log('y');
     // Hide the preview container
     document.getElementById(`preview-container-${featureIndex}`).style.display = "none";
     
