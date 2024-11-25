@@ -679,7 +679,7 @@
                                                         <div class="form-group">
                                                             <div class="form-data">
                                                                 <div class="forms-inputs mb-4">
-                                                                    <label for="featuresubtitle">Feature Heading</label>
+                                                                    <label for="featuresubtitle">Feature Heading*</label>
                                                                     <input type="text" name="featuresubtitleupdate[]"
                                                                         class="form-control" placeholder="Feature Heading"
                                                                         value="{{ old('featuresubtitleupdate.' . $k) }}">
@@ -698,7 +698,7 @@
                                                         <div class="form-group">
                                                             <div class="form-data">
                                                                 <div class="forms-inputs mb-4">
-                                                                    <label for="featurecontent">Feature Description</label>
+                                                                    <label for="featurecontent">Feature Description*</label>
                                                                     <textarea name="featurecontentupdate[]" class="form-control" rows="5" placeholder="Feature Description">{{ old('featurecontentupdate.' . $k) }}</textarea>
                                                                     @error('featurecontentupdate.' . $k)
                                                                         <div class="text-danger">{{ $message }}</div>
