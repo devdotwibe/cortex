@@ -501,22 +501,46 @@ class PagesController extends Controller
 
 
 
-    public function destroyy($id)
-    {
-        $feed = Feed::find($id);
+    // public function destroyy($id)
+    // {
+    //     $feed = Feed::find($id);
 
-        if ($feed) {
-            // Delete the feature from the database
-            $feed->delete();
+    //     if ($feed) {
+    //         // Delete the feature from the database
+    //         $feed->delete();
 
-            // Return a success response
-            return response()->json(['success' => true]);
+    //         // Return a success response
+    //         return response()->json(['success' => true]);
+    //     }
+
+    //     // Return a failure response if feature not found
+    //     return response()->json(['success' => false], 404);
+    // }
+
+
+    
+
+public function destroyy($id)
+{
+    // Find the feed record by id
+    $feed = Feed::find($id);
+
+    if ($feed) {
+        // Delete the image file from storage if it exists
+        if ($feed->image && Storage::exists($feed->image)) {
+            Storage::delete($feed->image);
         }
 
-        // Return a failure response if feature not found
-        return response()->json(['success' => false], 404);
+        // Delete the record from the database
+        $feed->delete();
+
+        // Return a success response
+        return response()->json(['success' => true]);
     }
 
+    // Return a failure response if feed not found
+    return response()->json(['success' => false], 404);
+}
 
 
 
