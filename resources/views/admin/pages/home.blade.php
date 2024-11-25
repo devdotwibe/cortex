@@ -3527,7 +3527,7 @@ function removeImagedelete(itemId) {
     reader.onload = function(e) {
         var previewImage = document.getElementById('preview-image-' + itemId);
         var previewContainer = document.getElementById('preview-container-' + itemId);
-        var deleteButton = document.getElementById('deleteicon121-' + itemId);
+        var deleteButton = document.getElementById('deleteicon-' + itemId);
 
         // Set the image source to the selected file
         previewImage.src = e.target.result;
