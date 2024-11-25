@@ -111,18 +111,14 @@
                     name: 'tip', 
                     orderable: true, 
                     searchable: true,
-                    render: function(data, type, row) {
-                        return $('<div/>').html(data).text(); // Decode HTML entities for 'tip'
-                    }
+                 
                 },
                 { 
                     data: 'advice', 
                     name: 'advice', 
                     orderable: true, 
                     searchable: true,
-                    render: function(data, type, row) {
-                        return $('<div/>').html(data).text(); // Decode HTML entities for 'advice'
-                    }
+                 
                 },
                 { data: 'action', name: 'action', orderable: false, searchable: false }
             ]
