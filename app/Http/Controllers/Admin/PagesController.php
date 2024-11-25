@@ -716,7 +716,6 @@ public function destroyy($id)
 
     public function deleteImage(Request $request)
     {
-        dd("ff");
         // Validate the image path
         $request->validate([
             'image_path' => 'required|string',
