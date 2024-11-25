@@ -3659,7 +3659,7 @@ function removerepimg(featureIndex) {
     document.getElementById(`preview-container-${featureIndex}`).style.display = "none";
     
     // Reset the file input value
-    document.getElementById(`featureimage_${featureIndex}`).value = "";
+    document.getElementById(`featureimage-${featureIndex}`).value = "";
     
     // Hide the delete button
     document.getElementById(`deleteicon-${featureIndex}`).style.display = "none";
