@@ -3803,6 +3803,16 @@ function removePreviewImage() {
 
 
 
+                    function removeFeedItem(feedItemId) {
+    // Get the element by its ID
+    var feedItem = document.getElementById(feedItemId);
+    if (feedItem) {
+        // Hide the element by setting its display property to 'none'
+        feedItem.style.display = 'none';
+    } else {
+        console.error(`Element with ID "${feedItemId}" not found.`);
+    }
+}
 
 
 
