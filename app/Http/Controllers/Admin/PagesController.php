@@ -487,7 +487,19 @@ class PagesController extends Controller
             }
         }
 
-        // Delete feeds that were not included in the request
+        $feed = Feed::whereNotIn('id', $feedIds)->get();
+
+        if ($feed) {
+       
+            foreach($feed as $item)
+            {
+                if ($item->image && Storage::exists($item->image)) {
+                    Storage::delete($item->image);
+                }
+
+            }
+        }
+           
         Feed::whereNotIn('id', $feedIds)->delete();
 
         // Redirect back with success message
@@ -498,47 +510,27 @@ class PagesController extends Controller
 
 
 
-
-
-
-    // public function destroyy($id)
-    // {
-    //     $feed = Feed::find($id);
-
-    //     if ($feed) {
-    //         // Delete the feature from the database
-    //         $feed->delete();
-
-    //         // Return a success response
-    //         return response()->json(['success' => true]);
-    //     }
-
-    //     // Return a failure response if feature not found
-    //     return response()->json(['success' => false], 404);
-    // }
-
-
     
 
 public function destroyy($id)
 {
-    // Find the feed record by id
+ 
     $feed = Feed::find($id);
 
     if ($feed) {
-        // Delete the image file from storage if it exists
+       
         if ($feed->image && Storage::exists($feed->image)) {
             Storage::delete($feed->image);
         }
 
-        // Delete the record from the database
+      
         $feed->delete();
 
-        // Return a success response
+      
         return response()->json(['success' => true]);
     }
 
-    // Return a failure response if feed not found
+    
     return response()->json(['success' => false], 404);
 }
 
