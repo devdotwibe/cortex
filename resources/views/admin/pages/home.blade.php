@@ -2762,7 +2762,7 @@
     <div id="preview-container-${feedIndex}" style="margin-top: 10px;">
         <img id="preview-image-${feedIndex}" src="" alt="Image Preview" style="max-width: 100px; display: none;">
 
-           <button type="button" id="deleteicon-text1${feedIndex}" class="btn btn-danger" style="display: none; margin-top: 10px;" onclick="reviewimgdelete('text${feedIndex}')">Delete image</button>
+           <button type="button" id="deleteicon-text${feedIndex}" class="btn btn-danger" style="display: none; margin-top: 10px;" onclick="reviewimgdelete('text${feedIndex}')">Delete image</button>
 
     </div>
 </div>
@@ -3599,7 +3599,7 @@ function removeImagedelete(itemId) {
         // Select the elements dynamically based on the itemId
         var previewImage = document.getElementById('preview-image-' + itemId);
         var previewContainer = document.getElementById('preview-container-' + itemId);
-        var deleteIcon = document.getElementById('deleteicon131-' + itemId);
+        var deleteIcon = document.getElementById('deleteicon-' + itemId);
 
         // Set the image source to the selected file
         previewImage.src = e.target.result;
