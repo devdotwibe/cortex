@@ -595,7 +595,7 @@ class PagesController extends Controller
 
     public function storeSection10(Request $request)
 {
-    // Validate the request data for Section 10
+    // Validate the request data for Section 4
     $request->validate([
         'ourprocesstitle' => 'required|nullable|max:255',
         'ourprocesssubtitle' => 'required|nullable|max:255',
@@ -629,12 +629,19 @@ class PagesController extends Controller
         $process->ourprocessheading = $heading;
 
         // Handle file upload
-        if (isset($ourprocessimages[$key]) && $ourprocessimages[$key] instanceof \Illuminate\Http\UploadedFile) {
+        if (isset($ourprocessimages[$key])) {
             $image = $ourprocessimages[$key];
             $imagePath = 'features/' . $image->hashName();
-            $image->storeAs('features', $image->hashName()); // Store the image
+            Storage::put('features', $image);
             $process->ourprocessimage = $imagePath;
+
+           
         }
+
+
+
+
+
 
         $process->save();
         $proids[] = $process->id;
@@ -644,7 +651,7 @@ class PagesController extends Controller
     OurProcess::whereNotIn('id', $proids)->delete();
 
     // Redirect back with success message
-    return redirect()->route('admin.page.index')->with('success', 'Section 10 data has been successfully saved.');
+    return redirect()->route('admin.page.index')->with('success', 'Section 4 data has been successfully saved.');
 }
 
 
