@@ -20,11 +20,16 @@ class SubscribeUsersController extends Controller
         if($request->ajax()){ 
            
            
-            $data = UserSubscription::select('user_subscriptions.*', 'users.name as username', 'users.email as usermail')
+            $data = UserSubscription::select('user_subscriptions.*', 'users.name as username', 'users.email as usermail','subscription_plans.title as plan')
                                 ->join('users', 'users.id', '=', 'user_subscriptions.user_id') // Join with the users table
+                                ->leftjoin('subscription_plans', 'subscription_plans.id', '=', 'user_subscriptions.subscription_plan_id') // Join with the users table
                                 ->when(request('search')['value'], function ($query, $search) {
                                     $query->where('users.name', 'like', "%{$search}%")
-                                        ->orWhere('users.email', 'like', "%{$search}%");
+                                        ->orWhere('users.email', 'like', "%{$search}%")
+                                        ->orWhere('subscription_plans.title', 'like', "%{$search}%")
+                                        ->orWhere('amount', 'like', "%{$search}%")
+                                        ->orWhere('expire_at', 'like', "%{$search}%")
+                                        ->orWhere('user_subscriptions.created_at', 'like', "%{$search}%");
                                 });
             if(!empty($request->plan)){
                 $plan=SubscriptionPlan::findSlug($request->plan);
