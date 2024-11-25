@@ -107,14 +107,14 @@
             columns: [
                 { data: 'DT_RowIndex', name: 'id', orderable: true, searchable: false },
                 { 
-                    data: 'tip', 
+                    data: 'tips', 
                     name: 'tip', 
                     orderable: true, 
                     searchable: true,
                  
                 },
                 { 
-                    data: 'advice', 
+                    data: 'advices', 
                     name: 'advice', 
                     orderable: true, 
                     searchable: true,
