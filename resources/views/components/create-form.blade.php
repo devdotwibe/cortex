@@ -38,8 +38,9 @@
                                                     </div>
                                                     <input type="text" name="{{$item->name}}[]" id="{{$item->name}}-{{$frmID}}-{{$k}}" value="{{old($item->name)[$k]}}"  class="form-control  @error($item->name.".$k") is-invalid @enderror " placeholder="{{ucfirst($item->label??$item->name)}}" aria-placeholder="{{ucfirst($item->label??$item->name)}}" >
 
-                                                    <input type="file" name="file_{{$item->name}}[]" id="file_{{$item->name}}-{{$frmID}}-{{$k}}"  accept="image/jpeg, image/png, image/gif" value="{{ old('file_'.$item->name) && is_array(old('file_'.$item->name)) ? old('file_'.$item->name)[$k] : '' }}"  class="form-control  @error('file_'.$item->name.".$k") is-invalid @enderror " >
-                                                    <img id="preview-{{ $item->name }}-{{ $frmID }}-{{ uniqid() }}" src="{{old($item->name)[$k]}}" alt="Image Preview" style="display: none; width: 100px; margin-top: 10px;">
+                                                    <input type="file" name="file_{{$item->name}}[]" id="file_{{$item->name}}-{{$frmID}}-{{$k}}"  accept="image/jpeg, image/png, image/gif" value="{{ old('file_'.$item->name) && is_array(old('file_'.$item->name)) ? old('file_'.$item->name)[$k] : '' }}"  class="form-control  @error('file_'.$item->name.".$k") is-invalid @enderror " onchange="previewImage(this, 'preview-{{$item->name}}-{{$frmID}}-{{ $k }}')" >
+                                                    <img id="preview-{{ $item->name }}-{{ $frmID }}-{{$k}}" src="{{old($item->name)[$k]}}" alt="Image Preview" class="img-thumbnail"  style="width: 100px; height: 40px; object-fit: cover;  margin-top: 10px; display: none;">
+                                                    <span class="remove-image" id="preview-{{ $item->name }}-{{ $frmID }}-{{$k}}-span" onclick="removeImage('{{$item->name}}-{{$frmID}}-{{$k}}')"  style="cursor: pointer; display: none;margin-left: -8px; margin-top: 3px;">×</span>
 
                                                     @if ($k!=0)
                                                     <div class="input-group-append choice-check-group">
@@ -299,46 +300,50 @@
             let firstInvalidFeedback = null; 
             let exam = '{{ $exam_type }}';
             $("#{{$frmID}}").on("submit", function (e) {
-                if(exam=='full-mock-exam'){
+                if(exam=='full-mock-exam' || exam=='topic-test' || exam=='question-bank'){
                     let isValid = true;
                     const categoryField = $(this).find('[name="category_id"]');
                     const categoryValue = categoryField.val()??'';
                     const descriptionField = $(this).find('[name="description"]');
                     const descriptionValue = descriptionField.val().trim() ?? '';
-                    if (categoryValue === '') {
-                        categoryField.addClass("is-invalid");
-                        $('#select-{{$frmID}}').text('Category is required.').show();
-                        isValid = false;
-                        if (!firstInvalidFeedback) {
-                            firstInvalidFeedback = $('#select-{{$frmID}}');
-                        }
-                    } else {
-                        categoryField.removeClass('is-invalid');
+                    if(exam=='full-mock-exam'){
+                        if (categoryValue === '') {
+                            categoryField.addClass("is-invalid");
+                            $('#select-{{$frmID}}').text('Category is required.').show();
+                            isValid = false;
+                            if (!firstInvalidFeedback) {
+                                firstInvalidFeedback = $('#select-{{$frmID}}');
+                            }
+                        } else {
+                            categoryField.removeClass('is-invalid');
+                            $('#select-{{$frmID}}').hide();
+                            }
                     }
 
-                    if (descriptionValue === '') {
+                    if (CKEDITOR.instances['description-{{ $frmID }}'].getData().trim() === '') {
                         descriptionField.addClass("is-invalid");
                         $('#description-{{$frmID}}-texteditor').text('Description is required.').show();
                         isValid = false;
                         if (!firstInvalidFeedback) {
-                            firstInvalidFeedback = $('#description-{{$frmID}}');
+                            firstInvalidFeedback = $('#description-{{$frmID}}-texteditor');
                         }
 
                     } else {
                         descriptionField.removeClass('is-invalid');
+                        $('#description-{{$frmID}}-texteditor').hide();
                     }
                     if (!isValid && firstInvalidFeedback) {
                         e.preventDefault(); // Prevent form submission
                         $('html, body').animate(
                             {
-                                scrollTop: firstInvalidFeedback.offset().top - 100, 
+                                scrollTop: firstInvalidFeedback.offset().top - 50, 
                             },
                             500 
                         );
                         firstInvalidFeedback.attr("tabindex", "-1").focus(); 
                     }
                 }
-                if ($('.mcq_section').is(':visible') || $(`input[name='${name}[]']`).length > 1) {
+                if ($('.mcq_section').is(':visible') || exam=='full-mock-exam' || exam=='topic-test' || exam=='question-bank') {
                     let isValid = true;
                     
                     // Loop through each group of inputs
@@ -347,7 +352,7 @@
                         const fileField = $(`input[name='file_${name}[]']`).eq(index);
                         const answerValue = answerField.val().trim();
                         const fileValue = fileField.val();
-
+                        
                         // Check if both fields are empty
                         if (!answerValue && !fileValue) {
                             isValid = false;
@@ -358,12 +363,22 @@
                             if (!firstInvalidFeedback) {
                                 firstInvalidFeedback = feedbackElement;
                             }
-                        } else {
-                            answerField.removeClass("is-invalid");
-                            fileField.removeClass("is-invalid");
-                            fileField.next(".invalid-feedback").hide(); 
-
+                        } else if(answerValue && answerValue.length>100){
+                            isValid = false;
+                            answerField.addClass("is-invalid");
+                            fileField.addClass("is-invalid"); 
+                            const feedbackElement = fileField.next(".invalid-feedback");
+                            feedbackElement.text("Answer lenghth should not be greater than 150.").show();
+                            if (!firstInvalidFeedback) {
+                                firstInvalidFeedback = feedbackElement;
+                            }
                         }
+                        else
+                            {
+                                answerField.removeClass("is-invalid");
+                                fileField.removeClass("is-invalid");
+                                fileField.next(".invalid-feedback").hide(); 
+                            }
                     });
 
                     if (!isValid && firstInvalidFeedback) {
@@ -375,6 +390,7 @@
                             500 
                         );
                         firstInvalidFeedback.attr("tabindex", "-1").focus(); 
+                        firstInvalidFeedback = null;
                     }
                 }
 

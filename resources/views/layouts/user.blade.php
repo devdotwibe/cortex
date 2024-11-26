@@ -48,7 +48,7 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarLogin" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span>{{ ucfirst(auth('web')->user()->name) }}</span>
+                        <span>{{ ucfirst(substr(auth('web')->user()->name, 0, 5)) }}</span>
                     </a>
                    
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarLogin">
@@ -179,7 +179,9 @@
 
                 <li class="side-item {{request()->is('live-class*') ? 'active':''}}">
                    
-                        <a @if(auth('admin')->check() &&!(auth('web')->user()->is_free_access) && (optional(auth('web')->user()->subscription())->status ?? "") !== "subscribed") data-bs-toggle="modal" data-bs-target="#adminsubModal"  @else href="{{ route('live-class.index') }}" @endif >  
+                    {{-- <a @if(!auth('admin')->check() &&!(auth('web')->user()->is_free_access) && (optional(auth('web')->user()->subscription())->status ?? "") !== "subscribed") data-bs-toggle="modal" data-bs-target="#adminsubModal"  @else href="{{ route('live-class.index') }}" @endif >   --}}
+
+             <a  href="{{ route('live-class.index') }}">
                         <span class="side-icon" >
                             <img src="{{asset("assets/images/iconshover/onlineteaching.svg")}}" alt="Dashboard">
                         </span>

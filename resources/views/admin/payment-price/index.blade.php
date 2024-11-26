@@ -1573,8 +1573,7 @@ function removeExImage() {
     // Clear the file input field
     document.getElementById('excelimage').value = '';
 
-    // Optionally, you can trigger an AJAX request here to delete the image from the server if needed
-    // You could send the request to remove the image from the backend if the file is already uploaded
+    
 }
 
 

@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 #[ScopedBy([VisibleStatus::class])]
 class HomeWorkQuestion extends Model
 {
-    use HasFactory,ResourceModel;
+    use HasFactory, ResourceModel;
     protected $fillable = [
         'slug',
         'title',
@@ -18,13 +18,18 @@ class HomeWorkQuestion extends Model
         'description',
         'explanation',
         'visible_status',
-        'home_work_id', 
+        'short_question',
+        'short_answer',
+        'home_work_id',
         'home_work_book_id',
+        'home_work_type',
     ];
-    public function homeWorkBook(){
+    public function homeWorkBook()
+    {
         return $this->belongsTo(HomeWorkBook::class);
     }
-    public function answers(){
+    public function answers()
+    {
         return $this->hasMany(HomeWorkAnswer::class);
     }
 }

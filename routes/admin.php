@@ -199,7 +199,6 @@ Route::name('admin.')->prefix('admin')->group(function () {
         });
 
 
-
         Route::resource("/question", QuestionController::class);
         Route::get('/question/{question}/visibility', [QuestionController::class, 'visibility'])->name('question.visibility');
         Route::post('question/delete/image', [QuestionController::class, 'deleteImage'])->name('delete.image');
@@ -486,6 +485,9 @@ Route::name('admin.')->prefix('admin')->group(function () {
                 Route::delete('/{setname}', [PagesController::class, 'destroy'])->name('destroy');
                 Route::get('/{setname}/visibility', [PagesController::class, 'visibility'])->name('visibility');
 
+                Route::post('/deleteFeatureImage', [PagesController::class, 'deleteFeatureImage'])->name('deleteFeatureImage');
+                Route::post('/deleteProcessImage', [PagesController::class, 'deleteProcessImage'])->name('deleteProcessImage');
+                Route::post('/deleteImagesection7', [PagesController::class, 'deleteImagesection7'])->name('deleteImagesection7');
                 Route::delete('/admin/page/feature/{id}', [PagesController::class, 'destroy'])->name('feature.destroy');
 
 

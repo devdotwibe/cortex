@@ -280,6 +280,20 @@
         ],
         allowedContent: true, 
     })
+
+    CKEDITOR.instances['description-community-post-type'].on('paste', function (event) {
+
+    event.stop();
+
+    const pastedData = event.data.dataValue;
+
+    
+    const plainText = pastedData.replace(/<a[^>]*>(.*?)<\/a>/g, '$1');
+
+    
+    this.insertHtml(plainText);
+});
+
     function removeimage(){
         $('#selected-files').html(``)
         $('#image-url').val("") 

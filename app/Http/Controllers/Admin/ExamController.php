@@ -109,10 +109,10 @@ class ExamController extends Controller
   
     public function examoptionssave(Request $request){
         $request->validate([
-            'description'=>'required',
-            'title'=>'required',
-            'description1'=>'required',
-            'title1'=>'required',
+            'description'=>'',
+            'title'=>'',
+            'description1'=>'',
+            'title1'=>'',
             
         ]);
         OptionHelper::setData("exam_simulator_title", $request->title);
