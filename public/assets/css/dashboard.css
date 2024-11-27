@@ -3460,6 +3460,78 @@ aside.side_bar.slider-btn .btn-slider {
     top: 0;
 }
 
+.exam-list-pagination {
+    width: 100%;
+}
+
+.exam-list-pagination .flex.items-center {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.exam-list-pagination .flex.items-center .flex.flex-1 {
+    order: 1;
+    display: none;
+}
+
+.exam-list-pagination .flex.items-center .hidden {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 14px 3px 4px;
+}
+
+.exam-list-pagination .flex.items-center .hidden div:first-child {
+    width: auto;
+    display: inline-block;
+    margin-right: auto;
+}
+
+.exam-list-pagination .flex.items-center .hidden div > span {
+    width: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.exam-list-pagination .flex.items-center .hidden div > span >span {
+    width: auto;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.exam-list-pagination .flex.items-center .hidden div:nth-child(2) {
+    width: auto;
+    display: inline-block;
+}
+
+.exam-list-pagination .flex.items-center .hidden div > span > span span.relative.inline-flex.items-center.px-2.py-2 {
+    padding: 7px 10px !important;
+}
+
+.exam-list-pagination .flex.items-center .hidden div > span > span span.py-2 {
+    padding: 7px 14px !important;
+}
+
+.exam-list-pagination .flex.items-center .hidden div > span > span span.relative.inline-flex.items-center.px-2.py-2 svg {
+    width: 12px;
+    height: 12px;
+}
+
+.exam-list-pagination .flex.items-center .hidden div > span  a.items-center.px-4.py-2 {
+    padding: 7px 14px !important;
+}
+
+.exam-list-pagination .flex.items-center .hidden div > span  a.items-center.px-2.py-2 {
+    padding: 7px 12px !important;
+}
+
+.exam-list-pagination .flex.items-center .hidden div > span > a.items-center.px-2.py-2 svg {
+    width: 12px;
+    height: 12px;
+}
+
 @media screen and (max-width:1399px) {
     .exam-container .question-bank-review .lesson #lesson-footer-pagination {
         padding: 15px 0;
