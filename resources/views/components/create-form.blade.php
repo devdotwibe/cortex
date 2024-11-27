@@ -352,7 +352,7 @@
                         const fileField = $(`input[name='file_${name}[]']`).eq(index);
                         const answerValue = answerField.val().trim();
                         const fileValue = fileField.val();
-
+                        
                         // Check if both fields are empty
                         if (!answerValue && !fileValue) {
                             isValid = false;
@@ -363,10 +363,21 @@
                             if (!firstInvalidFeedback) {
                                 firstInvalidFeedback = feedbackElement;
                             }
-                        } else {
-                            answerField.removeClass("is-invalid");
-                            fileField.removeClass("is-invalid");
-                            fileField.next(".invalid-feedback").hide(); 
+                        } else if(answerValue && answerValue.length>100){
+                            isValid = false;
+                            answerField.addClass("is-invalid");
+                            fileField.addClass("is-invalid"); 
+                            const feedbackElement = fileField.next(".invalid-feedback");
+                            feedbackElement.text("Answer lenghth should not be greater than 150.").show();
+                            if (!firstInvalidFeedback) {
+                                firstInvalidFeedback = feedbackElement;
+                            }
+                        }
+                        else
+                            {
+                                answerField.removeClass("is-invalid");
+                                fileField.removeClass("is-invalid");
+                                fileField.next(".invalid-feedback").hide(); 
                             }
                     });
 

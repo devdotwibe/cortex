@@ -679,7 +679,7 @@
                                                         <div class="form-group">
                                                             <div class="form-data">
                                                                 <div class="forms-inputs mb-4">
-                                                                    <label for="featuresubtitle">Feature Heading</label>
+                                                                    <label for="featuresubtitle">Feature Heading*</label>
                                                                     <input type="text" name="featuresubtitleupdate[]"
                                                                         class="form-control" placeholder="Feature Heading"
                                                                         value="{{ old('featuresubtitleupdate.' . $k) }}">
@@ -698,7 +698,7 @@
                                                         <div class="form-group">
                                                             <div class="form-data">
                                                                 <div class="forms-inputs mb-4">
-                                                                    <label for="featurecontent">Feature Description</label>
+                                                                    <label for="featurecontent">Feature Description*</label>
                                                                     <textarea name="featurecontentupdate[]" class="form-control" rows="5" placeholder="Feature Description">{{ old('featurecontentupdate.' . $k) }}</textarea>
                                                                     @error('featurecontentupdate.' . $k)
                                                                         <div class="text-danger">{{ $message }}</div>
@@ -759,7 +759,7 @@
                                             @endforeach
                                         @elseif(!empty($features) && count($features) > 0)
                                             @foreach ($features as $k => $item)
-                                                <div class="outer-feature" id="close-{{ $item->id }}">
+                                                <div class="outer-feature" id="close-{{ $item->id }}{{ $k == 0 ? '-dele' : '' }}">
 
                                                     <!-- Feature Subtitle -->
                                                     <div class="col-md-12">
@@ -831,7 +831,7 @@
                                                                 <div class="forms-inputs mb-4">
                                                                     <label for="featureimage-{{ $item->id }}"
                                                                         class="file-upload">
-                                                                        Feature Image1 <br>
+                                                                        Feature Image <br>
                                                                         <img src="{{ asset('assets/images/upfile.svg') }}"
                                                                             alt="Upload Icon">
                                                                     </label>
@@ -855,8 +855,8 @@
                                                                          <!-- Delete button for preview (before saving) -->
                                                                     <button type="button" class="btn btn-danger imgid{{ $item->id }}"
                                                                         id="deleteicon-{{ $item->id }}"
-                                                                        style="position: absolute; top: 5px; right: 5px; display: none;"
-                                                                        onclick="removerepimg(this)">Delete image</button>
+                                                                        style="display: none;"
+                                                                        onclick="removerepimg(this)">Delete image13</button>
 
                                                                        
 
@@ -947,7 +947,7 @@
                                                 <div class="form-group">
                                                     <div class="form-data">
                                                         <div class="forms-inputs mb-4">
-                                                            <label for="featureimagefirst" class="file-upload">Feature Image22
+                                                            <label for="featureimagefirst" class="file-upload">Feature Image
                                                                 <br>
                                                                 <img src="{{ asset('assets/images/upfile.svg') }}" alt="Upload Icon">
                                                             </label>
@@ -1913,7 +1913,7 @@
                                             @endforeach
                                         @elseif(!empty($feed) && count($feed) > 0)
                                             @foreach ($feed as $k => $item)
-                                                <div class="outer-feature" id="closefeed-{{ $item->id }}">
+                                                <div class="outer-feature" id="closefeed-{{ $item->id }}{{ $k == 0 ? '-delet' : '' }}">
                                                     <!-- Name -->
                                                     <div class="col-md-12">
                                                         <div class="form-group">
@@ -2328,7 +2328,8 @@
                                             @endforeach
                                         @elseif(!empty($ourprocess) && count($ourprocess) > 0)
                                             @foreach ($ourprocess as $k => $item)
-                                                <div class="outer-feature" id="close-{{ $item->id }}">
+
+                                                <div class="outer-feature" id="close-{{ $item->id }}{{ $k == 0 ? '-del' : '' }}">
 
 
 
@@ -2456,7 +2457,7 @@
                                                             </label>
                                             
                                                             <!-- Hidden File Input -->
-                                                            <input type="file" name="ourprocessimage[]" class="form-control" id="ourprocessimagefirst" style="display: none;" onchange="previewProcessImagefirst(event)">
+                                                            <input type="file" name="ourprocessimageupdate[]" class="form-control" id="ourprocessimagefirst" style="display: none;" onchange="previewProcessImagefirst(event)">
                                             
                                                             <!-- Image Preview Section -->
                                                             <div id="preview-container-processfirst" style="margin-top: 10px; display: none;">
@@ -2466,7 +2467,7 @@
                                                             </div>
                                             
                                                             <!-- Validation Error Display -->
-                                                            @error('ourprocessimage')
+                                                            @error('ourprocessimageupdate')
                                                                 <div class="text-danger">{{ $message }}</div>
                                                             @enderror
                                                         </div>
@@ -2645,7 +2646,7 @@
 
 
                             let featureHTML = `
-                <div class="feature-item mb-3">
+                <div class="feature-item mb-3" id="featureItem_${featureIndex}">
                     <h4>Feature ${featureIndex}</h4>
 
                     <div class="form-group">
@@ -2670,6 +2671,7 @@
 
                          </div>
                     </div>
+                    <button type="button" class="btn btn-danger" onclick="removeFeatureItem('featureItem_${featureIndex}')">X</button>
                 </div>
             `;
 
@@ -2762,13 +2764,14 @@
     <div id="preview-container-${feedIndex}" style="margin-top: 10px;">
         <img id="preview-image-${feedIndex}" src="" alt="Image Preview" style="max-width: 100px; display: none;">
 
-           <button type="button" id="deleteicon-text1${feedIndex}" class="btn btn-danger" style="" onclick="reviewimgdelete('text${feedIndex}')">Delete image</button>
+           <button type="button" id="deleteicon-text${feedIndex}" class="btn btn-danger" style="display: none; margin-top: 10px;" onclick="reviewimgdelete('text${feedIndex}')">Delete image</button>
 
     </div>
 </div>
 
 
-
+   <!-- Close Button -->
+                <button type="button" class="btn btn-danger" onclick="removeFeedItem('feedItem_${feedIndex}')">X</button>
               
             </div>
         `;
@@ -2846,7 +2849,7 @@
                             processIndex++;
 
                             let processHTML = `
-<div class="process-item mb-3">
+<div class="process-item mb-3" id="processItem_${processIndex}">
     <h4>Process ${processIndex}</h4>
 
     <div class="form-group">
@@ -2866,11 +2869,14 @@
         <div id="preview-container-text${processIndex}" style="margin-top: 10px;">
             <img id="preview-image-text${processIndex}" src="" alt="Image Preview" style="max-width: 100px; display: none;">
 
-              <button type="button" id="deleteicon-text1${processIndex}" class="btn btn-danger" style="" onclick="removeImagedeletepro('text${processIndex}')">Delete image</button>
+              <button type="button" id="deleteicon-text${processIndex}" class="btn btn-danger" style="display: none; margin-top: 10px;" onclick="removeImagedeletepro('text${processIndex}')">Delete image</button>
 
 
         </div>
     </div>
+    
+   <!-- Close Button -->
+                <button type="button" class="btn btn-danger" onclick="removeprocessItem('processItem_${processIndex}')">X</button>
 </div>
 `;
 
@@ -3527,7 +3533,7 @@ function removeImagedelete(itemId) {
     reader.onload = function(e) {
         var previewImage = document.getElementById('preview-image-' + itemId);
         var previewContainer = document.getElementById('preview-container-' + itemId);
-        var deleteButton = document.getElementById('deleteicon121-' + itemId);
+        var deleteButton = document.getElementById('deleteicon-' + itemId);
 
         // Set the image source to the selected file
         previewImage.src = e.target.result;
@@ -3599,7 +3605,7 @@ function removeImagedelete(itemId) {
         // Select the elements dynamically based on the itemId
         var previewImage = document.getElementById('preview-image-' + itemId);
         var previewContainer = document.getElementById('preview-container-' + itemId);
-        var deleteIcon = document.getElementById('deleteicon131-' + itemId);
+        var deleteIcon = document.getElementById('deleteicon-text' + itemId);
 
         // Set the image source to the selected file
         previewImage.src = e.target.result;
@@ -3648,11 +3654,12 @@ function removeimgImage(element, itemId) {
 
 // Function to remove image preview and reset the file input
 function removerepimg(featureIndex) {
+    console.log('y');
     // Hide the preview container
     document.getElementById(`preview-container-${featureIndex}`).style.display = "none";
     
     // Reset the file input value
-    document.getElementById(`featureimage_${featureIndex}`).value = "";
+    document.getElementById(`featureimage-${featureIndex}`).value = "";
     
     // Hide the delete button
     document.getElementById(`deleteicon-${featureIndex}`).style.display = "none";
@@ -3802,10 +3809,43 @@ function removePreviewImage() {
 
 
 
+                    function removeFeedItem(feedItemId) {
+    // Get the element by its ID
+    var feedItem = document.getElementById(feedItemId);
+    if (feedItem) {
+        // Hide the element by setting its display property to 'none'
+        feedItem.style.display = 'none';
+    } else {
+        console.error(`Element with ID "${feedItemId}" not found.`);
+    }
+}
+
+
+
+function removeFeatureItem(featureItemId) {
+    // Get the element by its ID
+    var feeatureItem = document.getElementById(featureItemId);
+    if (feeatureItem) {
+        // Hide the element by setting its display property to 'none'
+        feeatureItem.style.display = 'none';
+    } else {
+        console.error(`Element with ID "${featureItemId}" not found.`);
+    }
+}
 
 
 
 
+function removeprocessItem(processItemId) {
+    // Get the element by its ID
+    var processItem = document.getElementById(processItemId);
+    if (processItem) {
+        // Hide the element by setting its display property to 'none'
+        processItem.style.display = 'none';
+    } else {
+        console.error(`Element with ID "${processItemId}" not found.`);
+    }
+}
 
 
 </script>

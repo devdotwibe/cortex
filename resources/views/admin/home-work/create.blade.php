@@ -21,6 +21,7 @@
         <x-create-form name="admin.home-work" :params='["home_work"=>$homeWork->slug]'  :cancel="route('admin.home-work.show',$homeWork->slug)" frmID="learnForm" btnsubmit="Save" :fields='[
             ["name"=>"redirect", "value"=>route("admin.home-work.show",$homeWork->slug),"type"=>"hidden"],
              ["name"=>"home_work_book_id" ,"label"=>"Week Booklet","ajaxurl"=>route("admin.home-work.create",$homeWork->slug),"type"=>"select","size"=>4],
+              ["name"=>"title", "placeholder"=>"Title","label"=>"Title","size"=>4,"type"=>"text"], 
             ["name"=>"home_work_type","event"=>["change"=>"cclickback"] ,"label"=>"Home Work Type","placeholder"=>"Select Home Work Type","type"=>"select","size"=>4,"options"=>[["value"=>"short_notes","text"=>"Short Note Questions"],["value"=>"mcq","text"=>"MCQs Questions"]]],
              
            
@@ -42,7 +43,7 @@
 @push('footer-script')
     <script>
         $(function() {
-             var value = $("#learn_type-learnForm").val();
+             var value = $("#home_work_type-learnForm").val();
              switch (value) {
                 
                 case 'short_notes':
