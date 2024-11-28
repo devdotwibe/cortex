@@ -871,7 +871,7 @@
                                                                             data-image-path="{{ $item->image }}">Delete</button>
 
                                                                         <img src="{{ url('d0/' . $item->image) }}"
-                                                                            alt="Feature Image"
+                                                                            alt="Feature Image" id="tohideimg-{{ $item->id }}"
                                                                             class="feature_cls-{{ $item->id }}"
                                                                             style="max-width: 100px; margin-top: 10px;">
                                                                     @endif
@@ -3461,11 +3461,15 @@
         var previewContainer = document.getElementById('preview-container-' + itemId);
         var deleteButton = document.getElementById('deleteicon-' + itemId);
 
+        var deleteimg2 = document.getElementById('tohideimg-' + itemId);
+
         // Set the image source to the selected file
         previewImage.src = e.target.result;
 
         // Show the preview image container
         previewContainer.style.display = 'block';
+
+        deleteimg2.style.display = 'none';
         previewImage.style.display = 'block'; // Ensure the image is visible
         
         // Show the delete button
