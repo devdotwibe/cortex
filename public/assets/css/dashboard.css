@@ -6317,6 +6317,7 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
     align-items: center;
     font-weight: 600;
     font-size: 22px;
+    font-family: 'Arial';
 }
 
 .exam-container.topictestclass .summery-wrap .summery-title .back-btn {
