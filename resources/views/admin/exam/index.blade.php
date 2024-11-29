@@ -213,6 +213,31 @@ $(function() {
              }
             ]
         });
+
+
+        // Load More Button Event
+$('#loadMore').on('click', function() {
+console.log('y');
+start += limit; 
+$(this).prop('disabled', true).text('Loading...');
+$.ajax({
+    url: nextPageUrl,
+method: 'GET',
+data: {
+    start: start,
+    limit: limit
+},
+success: function(response) {
+   
+    $('#mocktableid').DataTable().ajax.reload(); 
+    if (response.data.length < limit) {
+        // $('#loadMore').hide();
+    }
+}
+});
+});
+
+
     });
          
 
@@ -258,27 +283,7 @@ $(function() {
          
         
 
-// Load More Button Event
-$('#loadMore').on('click', function() {
-console.log('y');
-start += limit; 
-$(this).prop('disabled', true).text('Loading...');
-$.ajax({
-    url: nextPageUrl,
-method: 'GET',
-data: {
-    start: start,
-    limit: limit
-},
-success: function(response) {
-   
-    $('#mocktableid').DataTable().ajax.reload(); 
-    if (response.data.length < limit) {
-        // $('#loadMore').hide();
-    }
-}
-});
-});
+
 
 
 
