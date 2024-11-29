@@ -64,14 +64,14 @@ class ExamController extends Controller
         
             $start = $request->get('start', 0);
             $length = $request->get('length', 10); 
+    
+            $examQuery = Exam::where('id', '>', 0); 
+    
+            $totalRecords = $examQuery->count();
+    
+            $exams = $examQuery->skip($start)->take($length)->get();
 
-            $exam = Exam::where('id','>',0);
-
-            $totalRecords = $exam->count();
-
-            $exams = $exam->skip($start)->take($length)->get();
-
-            return DataTables::of($exam)
+            return DataTables::of($exams)
                 ->addColumn("action", function ($data) {
                     return '
 
