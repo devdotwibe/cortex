@@ -115,6 +115,7 @@ class HomeWorkController extends Controller
                 ], [
                     'answer.*.required_without' => 'The answer field is required when file answer is not provided.',
                     'file_answer.*.required_without' => 'The file answer is required when answer is not provided.',
+                    'choice_answer_image.*.required_without' => 'The file answer is required when answer is not provided.',
                     'file_answer.*.mimes' => 'Each file answer must be an image (jpeg, png, jpg, gif).',
                 ]);
                 break;
