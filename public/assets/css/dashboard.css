@@ -5293,9 +5293,9 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
     float: left;
 }
 
-.mcq-title-text p {
+/* .mcq-title-text p {
     margin: 0 !important;
-}
+} */
 
 .modal {
     background: rgb(0 0 0 / 50%);
