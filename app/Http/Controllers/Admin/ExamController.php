@@ -23,28 +23,22 @@ class ExamController extends Controller
             self::$defaultActions=["edit","delete"]; 
 
 
-               
-        $start = $request->get('start');
-        $limit = $request->get('limit');
-
-        if (empty($start)) {
-            $start = 0; 
-        }
-
-        if (empty($limit)) {
-            $limit = 10; 
-        }
-
-       
-        $data = Exam::offset($start)->limit($limit)->get(); 
-
-       
-        return response()->json([
-            'data' => $data,
-            'recordsTotal' => Exam::count(), 
-            'recordsFiltered' => Exam::count(), 
-        ]);
-    }
+            $start = $request->get('start');
+            $limit = $request->get('limit');
+    
+            if (!empty($start)&&!empty($limit)) {
+                
+                $data = Exam::offset($start)->limit($limit)->get(); 
+    
+           
+                return response()->json([
+                    'data' => $data,
+                    'recordsTotal' => Exam::count(), 
+                    'recordsFiltered' => Exam::count(), 
+                ]);
+            }
+           
+        
 
 
             return $this->addAction(function($data){
