@@ -67,15 +67,15 @@ class ExamController extends Controller
             $exam = Exam::orderBy('id', 'DESC');
 
             // Apply pagination if request parameters exist
-            $exam = $exam->paginate($request->get('limit', 10));  // Default limit is 10 if not provided
+            $exam = $exam->paginate($request->get('limit', 12));  // Default limit is 10 if not provided
         
             // Format the response with pagination details
             return [
-                'current_page' => $exam->currentPage(),              // Current page
-                'total_pages' => $exam->lastPage(),                  // Total number of pages
-                'total_items' => $exam->total(),                     // Total number of ite            // Paginated items
-                'prev' => $exam->previousPageUrl(),                  // Previous page URL
-                'next' => $exam->nextPageUrl()                       // Next page URL
+                'current_page' => $exam->currentPage(),              
+                'total_pages' => $exam->lastPage(),                  
+                'total_items' => $exam->total(),                             
+                'prev' => $exam->previousPageUrl(),               
+                'next' => $exam->nextPageUrl()                       
             ];
         }
 
@@ -128,7 +128,14 @@ class ExamController extends Controller
                 ->make(true);
         }
 
-        return view("admin.exam.index");
+        $exam = Exam::orderBy('id', 'DESC');
+
+        // Apply pagination if request parameters exist
+        $exam = $exam->paginate($request->get('limit', 12)); 
+
+         $url=$exam->nextPageUrl(); 
+
+        return view("admin.exam.index",compact('url'));
     }
 
 

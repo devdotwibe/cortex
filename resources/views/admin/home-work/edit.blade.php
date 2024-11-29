@@ -32,7 +32,7 @@
             }
         @endphp
       
-        <x-edit-form  id="c" name="admin.home-work" :params='["home_work"=>$homeWork->slug,"home_work_question"=>$homeWorkQuestion->slug]'  :cancel="route('admin.home-work.show',$homeWork->slug)"   frmID="learnForm" btnsubmit="Save" :fields='[
+        <x-home-form  id="c" name="admin.home-work" :params='["home_work"=>$homeWork->slug,"home_work_question"=>$homeWorkQuestion->slug]'  :cancel="route('admin.home-work.show',$homeWork->slug)"   frmID="learnForm" btnsubmit="Save" :fields='[
             ["name"=>"redirect", "value"=>route("admin.home-work.show",$homeWork->slug),"type"=>"hidden"],
 
               ["name"=>"home_work_book_id" ,"label"=>"Week Booklet","ajaxurl"=>route("admin.home-work.show",$homeWork->slug),"type"=>"select", "size"=>4 ,"value"=>$homeWorkQuestion->home_work_book_id,"valuetext"=>$homeWorkQuestion->homeWorkBook->title],
