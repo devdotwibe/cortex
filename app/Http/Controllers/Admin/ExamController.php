@@ -62,7 +62,7 @@ class ExamController extends Controller
 
         $exam = Exam::where('id','>',0);
 
-        if ($request->has('datatables')) {
+        if ($request->ajax()) {
 
             $start = $request->get('start');
             $limit = $request->get('limit');
@@ -75,18 +75,6 @@ class ExamController extends Controller
             {
                 $exam = $exam->skip(1)->take(12);
             }
-
-            // $exam = $exam->orderBy('id', 'DESC')->paginate();
-
-            // return [
-            //     'current_page' => $exam->currentPage(),
-            //     'total_pages' => $exam->lastPage(),
-            //     'total_items' => $exam->total(),
-            //     'items_per_page' => $exam->perPage(),
-             
-            //     'prev' => $exam->previousPageUrl(),
-            //     'next' => $exam->nextPageUrl()
-            // ];
 
 
             return DataTables::of($exam)
