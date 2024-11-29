@@ -343,6 +343,7 @@
 
          // Load More Button Event
     $('#loadMore').on('click', function() {
+        console.log('y');
         start += limit; // Increment start by limit
         $.ajax({
             url: "{{ $url }}",
