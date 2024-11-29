@@ -158,6 +158,11 @@ $(function() {
             order: [[0, 'desc']],
             ajax: {
                 url: "{{ request()->fullUrl() }}",
+                data:function(d){
+                    d.start = d.start || 0; 
+                    d.limit = d.length || 12;
+                        
+                    }
                 type: 'GET',
                 dataSrc: function(json) {
                     return json.data; // Return the data for DataTables
@@ -244,6 +249,40 @@ $(function() {
 
          }
 
+
+         
+        
+
+// Load More Button Event
+$('#loadMore').on('click', function() {
+console.log('y');
+start += limit; 
+$.ajax({
+url: "{{ $url }}",
+method: 'GET',
+data: {
+    start: start,
+    limit: limit
+},
+success: function(response) {
+    // Append new rows to the table
+    response.data.forEach(function(row) {
+        table_{{ $tableid }}.row.add(row).draw(false);
+    });
+
+    // Hide the button if no more data
+    if (response.data.length < limit) {
+        $('#loadMore').hide();
+    }
+}
+});
+});
+
+
+@endif
+
+
+})
          
          function VideoSubmit() 
             {

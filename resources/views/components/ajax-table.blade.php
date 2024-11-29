@@ -242,8 +242,7 @@
                         return d;
                         @endif
 
-                        d.start = d.start || 0; 
-                        d.limit = d.length || 10;
+                   
                     }
                 },
 
@@ -284,9 +283,7 @@
                         {{$tableinit}}(table_{{ $tableid }},info,settings,'table-{{ $tableid }}')
                     @endif
                     
-                    @if(!empty($hidepagination))
-                    $("#table-{{ $tableid }}_wrapper .pagination").hide();
-                    @endif
+                   
                 },
                 drawCallback: function() {
                     var info = this.api().page.info();
@@ -313,9 +310,7 @@
                         $('#table-{{ $tableid }} .selectbox-action').hide()
                     }
 
-                    @if(!empty($hidepagination))
-                    $("#table-{{ $tableid }}_wrapper .pagination").hide();
-                    @endif
+                   
                 },
                 columns: [
                     @if($bulkaction)
@@ -352,38 +347,6 @@
             })
 
 
-            @if(!empty($hidepagination))
-
-                // Load More Button Event
-                $('#loadMore').on('click', function() {
-                console.log('y');
-                start += limit; 
-                $.ajax({
-                url: "{{ $url }}",
-                method: 'GET',
-                data: {
-                    start: start,
-                    limit: limit
-                },
-                success: function(response) {
-                    // Append new rows to the table
-                    response.data.forEach(function(row) {
-                        table_{{ $tableid }}.row.add(row).draw(false);
-                    });
-
-                    // Hide the button if no more data
-                    if (response.data.length < limit) {
-                        $('#loadMore').hide();
-                    }
-                }
-                });
-                });
-
-
-                @endif
-
-
-        })
 
 
 
