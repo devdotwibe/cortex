@@ -91,7 +91,7 @@
         </div>
     </div>
     <!-- Load More Button -->
-<button id="loadMore" class="btn btn-primary">Load More</button>
+    <button id="load-more-btn" data-url="">Load More</button>
 
 </section>
 @endsection
@@ -151,6 +151,9 @@
 let start = 0;
 let limit = 12;
 $(function() {
+
+    var nextPageUrl = $('#load-more-btn').data('url');
+
         $('#mocktableid').DataTable({
             paging: false,
             bAutoWidth: false,
@@ -258,8 +261,9 @@ $(function() {
 $('#loadMore').on('click', function() {
 console.log('y');
 start += limit; 
+$(this).prop('disabled', true).text('Loading...');
 $.ajax({
-url: "{{ request()->fullUrl() }}?ajax=true",
+    url: nextPageUrl,
 method: 'GET',
 data: {
     start: start,
