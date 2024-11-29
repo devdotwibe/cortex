@@ -359,7 +359,7 @@
                 success: function(response) {
                     // Append new rows to the table
                     response.data.forEach(function(row) {
-                        table.row.add(row).draw(false);
+                        table_{{ $tableid }}.row.add(row).draw(false);
                     });
 
                     // Hide the button if no more data
