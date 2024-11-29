@@ -410,6 +410,14 @@
             $('#private-class-modal').modal('hide');
         }
         function deletecallbackafter(){
+
+            loadclassdetail('{{route('admin.term.class_detail')}}');
+
+            loadlessonmaterial('{{route('admin.term.lesson_material')}}');
+            loadlessonmaterial('{{route('admin.term.lesson_material')}}');
+
+            loadlessonrecord('{{route('admin.term.lesson_recording')}}');
+
             $('#private-class-modal').modal('show');
         }
         function weekbooklet(event,slug)
