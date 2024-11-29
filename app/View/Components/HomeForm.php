@@ -7,7 +7,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 use Illuminate\Support\Str;
 
-class EditForm extends Component
+class HomeForm extends Component
 {
     public $id;
     public $frmID;
