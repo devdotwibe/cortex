@@ -71,8 +71,7 @@ class ExamController extends Controller
             // Get the total count of records
             $totalRecords = $examQuery->count();
     
-            // Apply pagination: using limit() and offset() correctly
-            $exams = $examQuery->limit($length)->offset($start);
+            $exams = $examQuery->limit($length)->offset($start)->get();
     
             return DataTables::of($exams)
 
