@@ -18,16 +18,6 @@
 <section class="invite-wrap mt-2">
     <div class="container">
 
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
         @php
             $choices=[];
             if(!empty($homeWorkQuestion->answers) && isset($homeWorkQuestion->answers))
