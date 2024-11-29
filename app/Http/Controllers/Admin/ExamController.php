@@ -61,20 +61,23 @@ class ExamController extends Controller
 
         if ($request->ajax()) {
 
-        
-            $start = $request->get('start', 0); // Default to 0 if not present
-            $length = $request->get('length', 10); // Default to 10 if not present
-    
-           
-            $examQuery = Exam::where('id', '>', 0); 
-    
-          
-            $totalRecords = $examQuery->count();
-    
-
-            // $exams = $examQuery->limit($length)->skip($start)->get();
-    
-            return DataTables::of($examQuery)
+           // Get the 'start' and 'length' parameters from the request for pagination
+           $start = $request->get('start', 0); // Default to 0 if not present
+           $length = $request->get('length', 10); // Default to 10 if not present
+   
+           // Start query to get exams
+           $examQuery = Exam::where('id', '>', 0)->orderBy('id', 'desc'); // Example query to order exams by id
+   
+           // Count the total records (this is necessary for pagination)
+           $totalRecords = $examQuery->count();
+   
+           // Paginate the results based on 'start' and 'length'
+           $exam = $examQuery->skip($start)->take($length)->get(); // Using skip and take for pagination
+   
+           // You don't need to manually calculate the pagination details in the DataTables response
+           // Instead, DataTables will handle the pagination automatically with the correct values
+           // Return paginated data
+           return DataTables::of($exam)
 
                 ->addColumn("action", function ($data) {
                     return '
@@ -106,7 +109,6 @@ class ExamController extends Controller
               
                 ->addIndexColumn()
                 ->rawColumns(['action'])
-                ->setTotalRecords($totalRecords)
                 ->make(true);
         }
 
