@@ -411,6 +411,8 @@
         }
         function deletecallbackafter(){
 
+            console.log('test');
+            
             loadclassdetail('{{route('admin.term.class_detail')}}');
 
             loadlessonmaterial('{{route('admin.term.lesson_material')}}');
