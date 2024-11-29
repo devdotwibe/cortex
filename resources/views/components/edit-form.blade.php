@@ -45,12 +45,12 @@
                                                         <input type="file" name="file_{{$item->name}}[]" id="file_{{$item->name}}-{{$frmID}}-{{$k}}" value=""  data-existing-file="{{old('choice_'.$item->name."_image",[])[$k]??""}}"  accept="image/jpeg, image/png, image/gif"  class="form-control  @error('file_'.$item->name.'.'.$k) is-invalid @enderror @error('choice_'.$item->name.'_image'.'.'.$k) is-invalid @enderror " onchange="previewImage(this, 'preview-{{$item->name}}-{{$frmID}}-{{$k}}')">
 
 
-                                                    @isset(old('choice_{{$item->name}}_image')[$k])
+                                                    @if(!empty(old('choice_'.$item->name."_image",[])[$k]))
                                                         <img id="preview-{{ $item->name }}-{{ $frmID }}-{{ $k }}"   src="{{ url(old('choice_'.$item->name.'_image')[$k]) }}"  alt="Image Preview" class="img-thumbnail"  style="width: 100px; height: 40px; object-fit: cover; margin-top: 10px; display: block;">
                                                         <div class="image-preview position-relative">                                                
                                                             <span class="remove-image" id="span-{{ $item->name }}-{{ $frmID }}-{{ $k }}"
                                                                   
-                                                                    onclick="showConfirmDeleteModal('{{$item->name}}-{{$frmID}}-{{$k}}', '{{ old('choice_'.$item->name.'_image')[$k] }}', '{{ old('choice_'.$item->name.'_id') }}')" style="cursor: pointer">×</span>
+                                                                    onclick="showConfirmDeleteModal('{{$item->name}}-{{$frmID}}-{{$k}}', '{{ old('choice_'.$item->name.'_image')[$k] }}', '{{ old('choice_'.$item->name.'_id')[$k] }}')" style="cursor: pointer">×</span>
 
                                                                     <span class="remove-image" id="preview-{{ $item->name }}-{{ $frmID }}-{{ $k }}-span" onclick="removeNewImage('{{$item->name}}-{{$frmID}}-{{ $k }}')"  style="cursor: pointer; display: none; margin-left: -8px; margin-top: 3px;">×</span>
 
