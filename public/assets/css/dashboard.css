@@ -735,6 +735,11 @@ button.close {
     font-size: 20px;
     font-weight: 600;
     margin: 0 0 20px;
+    font-family: 'Arial';
+}
+
+.exam-container .container-wrap .lesson .lesson-body .note-title span {
+    font-family: 'Arial';
 }
 
 .exam-container .container-wrap .lesson .lesson-body .note-container {
@@ -2351,6 +2356,7 @@ aside.side_bar.slider-btn .btn-slider {
 .header_nav .header_wrapp .header_title h2 {
     font-size: 20px;
     font-weight: 700;
+
 }
 
 .header_nav .header_wrapp .header_right ul.nav_bar {
