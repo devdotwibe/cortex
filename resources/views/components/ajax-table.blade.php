@@ -164,7 +164,7 @@
                 $('#{{ $popupid }}').modal('hide');
 
                 @endif
-              
+
                 $("#table-{{ $tableid }}-delete-form").attr("action",url);  
                 $('#table-{{ $tableid }}-delete').modal('show'); 
             }) 
@@ -223,8 +223,6 @@
                 })
                 return false;
             })
-            let start = 0; 
-                let limit = 10; 
             table_{{ $tableid }}=$('#table-{{ $tableid }}').DataTable({
                 processing: true,
                 serverSide: true,
@@ -241,19 +239,11 @@
                         @else
                         return d;
                         @endif
-
-                   
                     }
                 },
-
-               
-                info: false, // Disable the "Showing x to y of z entries"
                 order: [
                     [0, 'DESC']
                 ],
-               
-                
-                
                 initComplete: function(settings) {
                     var info = this.api().page.info();
                     if (info.pages > 1) {
@@ -282,8 +272,6 @@
                     @if(!empty($tableinit))
                         {{$tableinit}}(table_{{ $tableid }},info,settings,'table-{{ $tableid }}')
                     @endif
-                    
-                   
                 },
                 drawCallback: function() {
                     var info = this.api().page.info();
@@ -309,8 +297,6 @@
                     }else{
                         $('#table-{{ $tableid }} .selectbox-action').hide()
                     }
-
-                   
                 },
                 columns: [
                     @if($bulkaction)
@@ -345,10 +331,6 @@
                     @endif
                 ],
             })
-
-
-
-
-
+        })
     </script>
 @endpush
