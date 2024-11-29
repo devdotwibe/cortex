@@ -46,7 +46,7 @@
 
 
                                                     @isset(old('choice_{{$item->name}}_image')[$k])
-                                                        <img id="preview-{{ $item->name }}-{{ $frmID }}-{{ $k }}" src="{{url(old('choice_{{$item->name}}_image')[$k])}}" alt="Image Preview" class="img-thumbnail"  style="width: 100px; height: 40px; object-fit: cover; margin-top: 10px; display: block;">
+                                                        <img id="preview-{{ $item->name }}-{{ $frmID }}-{{ $k }}"   src="{{ url(old('choice_'.$item->name.'_image')[$k]) }}"  alt="Image Preview" class="img-thumbnail"  style="width: 100px; height: 40px; object-fit: cover; margin-top: 10px; display: block;">
                                                         <div class="image-preview position-relative">                                                
                                                             <span class="remove-image" id="span-{{ $item->name }}-{{ $frmID }}-{{ $k }}"
                                                                     onclick="showConfirmDeleteModal('{{$item->name}}-{{$frmID}}-{{$k}}', '{{old('choice_{{$item->name}}_image')[$k]}}','{{choice_{{$item->name}}_id}}')" style="cursor: pointer">×</span>
