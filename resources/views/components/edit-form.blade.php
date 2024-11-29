@@ -43,12 +43,29 @@
                                                         </div>
                                                         <input type="text" name="{{$item->name}}[]" id="{{$item->name}}-{{$frmID}}-{{$k}}" value="{{old($item->name)[$k]}}"  class="form-control  @error($item->name.".$k") is-invalid @enderror " placeholder="{{ucfirst($item->label??$item->name)}}" aria-placeholder="{{ucfirst($item->label??$item->name)}}" >
                                                         <input type="file" name="file_{{$item->name}}[]" id="file_{{$item->name}}-{{$frmID}}-{{$k}}" value=""  data-existing-file="{{old('choice_'.$item->name."_image",[])[$k]??""}}"  accept="image/jpeg, image/png, image/gif"  class="form-control  @error('file_'.$item->name.'.'.$k) is-invalid @enderror @error('choice_'.$item->name.'_image'.'.'.$k) is-invalid @enderror " onchange="previewImage(this, 'preview-{{$item->name}}-{{$frmID}}-{{$k}}')">
-                                                        <img id="preview-{{ $item->name }}-{{ $frmID }}-{{$k}}" src="{{old('choice_'.$item->name)[$k] ?? ''}}" alt="Image Preview" class="img-thumbnail"  style="width: 100px; height: 40px; object-fit: cover;  margin-top: 10px; display: none;">
-                                                        <span class="remove-image" id="preview-{{ $item->name }}-{{ $frmID }}-{{$k}}-span" onclick="removeImage('{{$item->name}}-{{$frmID}}-{{$k}}')"  style="cursor: pointer; display: none;margin-left: -8px; margin-top: 3px;">×</span>  @if ($k!=0)
-                                                        <div class="input-group-append choice-check-group">
-                                                            <button type="button" onclick="removeChoice{{$frmID}}('#{{$item->name}}-{{$frmID}}-choice-item-{{$k}}','#{{$item->name}}-{{$frmID}}-{{$k}}-check','#{{$item->name}}-{{$frmID}}-choice-group')" class="btn btn-danger "><img src="{{asset("assets/images/delete-black.svg")}}"></button>
+
+
+                                                    @isset(old('choice_{{$item->name}}_image')[$k])
+                                                        <img id="preview-{{ $item->name }}-{{ $frmID }}-{{ $k }}" src="{{url(old('choice_{{$item->name}}_image')[$k])}}" alt="Image Preview" class="img-thumbnail"  style="width: 100px; height: 40px; object-fit: cover; margin-top: 10px; display: block;">
+                                                        <div class="image-preview position-relative">                                                
+                                                            <span class="remove-image" id="span-{{ $item->name }}-{{ $frmID }}-{{ $k }}"
+                                                                    onclick="showConfirmDeleteModal('{{$item->name}}-{{$frmID}}-{{$k}}', '{{old('choice_{{$item->name}}_image')[$k]}}','{{choice_{{$item->name}}_id}}')" style="cursor: pointer">×</span>
+                                                                    <span class="remove-image" id="preview-{{ $item->name }}-{{ $frmID }}-{{ $k }}-span" onclick="removeNewImage('{{$item->name}}-{{$frmID}}-{{ $k }}')"  style="cursor: pointer; display: none; margin-left: -8px; margin-top: 3px;">×</span>
+
                                                         </div>
+                                                    @else
+
+                                                        <img id="preview-{{ $item->name }}-{{ $frmID }}-{{$k}}" src="{{old('choice_'.$item->name)[$k] ?? ''}}" alt="Image Preview" class="img-thumbnail"  style="width: 100px; height: 40px; object-fit: cover;  margin-top: 10px; display: none;">
+                                                        <span class="remove-image" id="preview-{{ $item->name }}-{{ $frmID }}-{{$k}}-span" onclick="removeImage('{{$item->name}}-{{$frmID}}-{{$k}}')"  style="cursor: pointer; display: none;margin-left: -8px; margin-top: 3px;">×</span> 
+                                                        @if ($k!=0)
+                                                            <div class="input-group-append choice-check-group">
+                                                                <button type="button" onclick="removeChoice{{$frmID}}('#{{$item->name}}-{{$frmID}}-choice-item-{{$k}}','#{{$item->name}}-{{$frmID}}-{{$k}}-check','#{{$item->name}}-{{$frmID}}-choice-group')" class="btn btn-danger "><img src="{{asset("assets/images/delete-black.svg")}}"></button>
+                                                            </div>
+
                                                         @endif
+
+                                                    @endisset
+                                                       
                                                         @error($item->name.".$k")
                                                         <div class="invalid-feedback">{{$message}}</div>
                                                         @enderror
