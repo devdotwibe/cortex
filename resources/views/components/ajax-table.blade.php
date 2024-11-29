@@ -254,12 +254,7 @@
                 ],
                
                 
-                drawCallback: function(settings) {
-                    @if(!empty($hidepagination))
-                        $('.dataTables_paginate').hide(); // Hide pagination controls
-                    @endif
-    }
-                 }
+                
                 initComplete: function(settings) {
                     var info = this.api().page.info();
                     if (info.pages > 1) {
@@ -313,6 +308,10 @@
                     }else{
                         $('#table-{{ $tableid }} .selectbox-action').hide()
                     }
+
+                    @if(!empty($hidepagination))
+                        $('.dataTables_paginate').hide();
+                    @endif
                 },
                 columns: [
                     @if($bulkaction)
