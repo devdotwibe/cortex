@@ -253,9 +253,10 @@
                     [0, 'DESC']
                 ],
                
-                   @if(!empty($hidepagination))
+                
                    drawCallback: function(settings) {
                // Hide the pagination controls on every redraw
+               @if(!empty($hidepagination))
                    $('.dataTables_paginate').hide();
                @endif
                  }
