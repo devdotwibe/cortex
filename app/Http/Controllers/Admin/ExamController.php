@@ -62,41 +62,25 @@ class ExamController extends Controller
 
         $exam = Exam::where('id','>',0);
 
-        if ($request->ajax==true) {
-
-            $exam = Exam::orderBy('id', 'DESC');
-
-            // Apply pagination if request parameters exist
-            $exam = $exam->paginate($request->get('limit', 12));  // Default limit is 10 if not provided
-        
-            // Format the response with pagination details
-            return [
-                'current_page' => $exam->currentPage(),              
-                'total_pages' => $exam->lastPage(),                  
-                'total_items' => $exam->total(),                             
-                'prev' => $exam->previousPageUrl(),               
-                'next' => $exam->nextPageUrl()                       
-            ];
-        }
-
         if ($request->ajax()) {
 
-            $start = $request->get('start');
-            $limit = $request->get('limit');
-
-            if(!empty($start)&& (!empty($limit)))
-            {
+            // Get pagination parameters from the request
+            $start = $request->get('start', 0); // Default to 0 if not provided
+            $limit = $request->get('limit', 12); // Default limit to 12 if not provided
+    
+            // Apply pagination using skip and take
             $exam = $exam->skip($start)->take($limit);
-            }
-            else
-            {
-                $exam = $exam->skip(1)->take(12);
-            }
+    
+            // Get the results for the current page
+            $results = $exam->get();
+    
+            // Calculate total items for pagination (use count on the original query without pagination)
+            $totalItems = Exam::count();
 
 
-            return DataTables::of($exam)
-                ->addColumn("action", function ($data) {
-                    return '
+            return DataTables::of($results)
+            ->addColumn("action", function ($data) {
+                return '
 
                             <a data-id="'.$data->slug.'" class="btn btn-icons eye-button" onclick="UploadVideo(this)">
                                         <span class="adminside-icon">
