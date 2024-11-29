@@ -62,6 +62,25 @@ class ExamController extends Controller
 
         $exam = Exam::where('id','>',0);
 
+        if ($request->ajax==true) {
+
+            $exam = Exam::orderBy('id', 'DESC');
+
+            // Apply pagination if request parameters exist
+            $exam = $exam->paginate($request->get('limit', 10));  // Default limit is 10 if not provided
+        
+            // Format the response with pagination details
+            return [
+                'current_page' => $exam->currentPage(),              // Current page
+                'total_pages' => $exam->lastPage(),                  // Total number of pages
+                'total_items' => $exam->total(),                     // Total number of items
+                'items_per_page' => $exam->perPage(),                // Number of items per page
+                'data' => $exam->items(),                            // Paginated items
+                'prev' => $exam->previousPageUrl(),                  // Previous page URL
+                'next' => $exam->nextPageUrl()                       // Next page URL
+            ];
+        }
+
         if ($request->ajax()) {
 
             $start = $request->get('start');

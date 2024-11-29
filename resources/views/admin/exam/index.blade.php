@@ -259,7 +259,7 @@ $('#loadMore').on('click', function() {
 console.log('y');
 start += limit; 
 $.ajax({
-url: "{{ request()->fullUrl() }}",
+url: "{{ request()->fullUrl() }}?ajax=true",
 method: 'GET',
 data: {
     start: start,
@@ -269,7 +269,7 @@ success: function(response) {
    
     $('#mocktableid').DataTable().ajax.reload(); 
     if (response.data.length < limit) {
-        $('#loadMore').hide();
+        // $('#loadMore').hide();
     }
 }
 });
