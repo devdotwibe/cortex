@@ -108,8 +108,8 @@ class HomeWorkController extends Controller
                     "home_work_book_id" => ['required'],
                     "description" => ['required'],
                     "answer" => ['required'],
-                    "answer.*" => ["required_without:choice_answer_image", 'string', 'max:150', 'nullable'],
-                    "choice_answer_image.*" => ["required_without:file_answer"],
+                    "answer.*" => ["      :choice_answer_image", 'string', 'max:150', 'nullable'],
+                    "choice_answer_image.*" => ["required_without:answer"],
                     "file_answer.*" => ["required_without:answer", 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
                     "explanation" => ['nullable']
                 ], [
