@@ -149,7 +149,7 @@
     <script>
 
 let start = 0;
-let limit = 0;
+let limit = 12;
 $(function() {
         $('#mocktableid').DataTable({
             paging: false,
