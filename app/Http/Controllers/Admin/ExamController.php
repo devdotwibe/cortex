@@ -66,7 +66,7 @@ class ExamController extends Controller
             $length = $request->get('length', 10); // Default to 10 if not present
     
            
-            $examQuery = Exam::where('id', '>', 0)->orderBy('id', 'desc'); 
+            $examQuery = Exam::where('id', '>', 0); 
     
           
             $totalRecords = $examQuery->count();
@@ -74,7 +74,7 @@ class ExamController extends Controller
 
             // $exams = $examQuery->limit($length)->skip($start)->get();
     
-            return DataTables::of($exams)
+            return DataTables::of($examQuery)
 
                 ->addColumn("action", function ($data) {
                     return '
