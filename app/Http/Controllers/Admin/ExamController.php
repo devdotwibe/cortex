@@ -62,7 +62,7 @@ class ExamController extends Controller
 
         $exam = Exam::where('id','>',0);
 
-        if ($request->ajax()) {
+        if ($request->has('datatables')) {
 
             $start = $request->get('start');
             $limit = $request->get('limit');
