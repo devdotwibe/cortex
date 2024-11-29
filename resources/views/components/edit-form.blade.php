@@ -50,7 +50,7 @@
                                                         <div class="image-preview position-relative">                                                
                                                             <span class="remove-image" id="span-{{ $item->name }}-{{ $frmID }}-{{ $k }}"
                                                                   
-                                                                    onclick="showConfirmDeleteModal('{{$item->name}}-{{$frmID}}-{{$k}}', '{{ old('choice_'.$item->name.'_image')[$k] }}', '{{ old('choice_'.$item->name.'_id') }}')" style="cursor: pointer">×</span>
+                                                                    onclick="showConfirmDeleteModal('{{$item->name}}-{{$frmID}}-{{$k}}', '{{ old('choice_'.$item->name.'_image')[$k] }}', '{{ old('choice_'.$item->name.'_id')[$k] }}')" style="cursor: pointer">×</span>
 
                                                                     <span class="remove-image" id="preview-{{ $item->name }}-{{ $frmID }}-{{ $k }}-span" onclick="removeNewImage('{{$item->name}}-{{$frmID}}-{{ $k }}')"  style="cursor: pointer; display: none; margin-left: -8px; margin-top: 3px;">×</span>
 
