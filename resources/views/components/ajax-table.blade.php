@@ -239,6 +239,9 @@
                         @else
                         return d;
                         @endif
+
+                        d.start = d.start || 0; 
+                        d.limit = d.length || 10;
                     }
                 },
 
@@ -344,7 +347,7 @@
          // Load More Button Event
     $('#loadMore').on('click', function() {
         console.log('y');
-        start += limit; // Increment start by limit
+        start += limit; 
         $.ajax({
             url: "{{ $url }}",
             method: 'GET',
