@@ -68,7 +68,13 @@ class ExamController extends Controller
             $limit = $request->get('limit');
 
             if(!empty($start)&& (!empty($limit)))
+            {
             $exam = $exam->skip($start)->take($limit);
+            }
+            else
+            {
+                $exam = $exam->skip(1)->take(12);
+            }
 
 
             return DataTables::of($exam)
