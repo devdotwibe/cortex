@@ -164,7 +164,7 @@
                 $('#{{ $popupid }}').modal('hide');
 
                 @endif
-              
+
                 $("#table-{{ $tableid }}-delete-form").attr("action",url);  
                 $('#table-{{ $tableid }}-delete').modal('show'); 
             }) 
@@ -223,8 +223,6 @@
                 })
                 return false;
             })
-            let start = 0; 
-                let limit = 10; 
             table_{{ $tableid }}=$('#table-{{ $tableid }}').DataTable({
                 processing: true,
                 serverSide: true,
@@ -241,20 +239,11 @@
                         @else
                         return d;
                         @endif
-
-                        d.start = d.start || 0; 
-                        d.limit = d.length || 10;
                     }
                 },
-
-               
-                info: false, // Disable the "Showing x to y of z entries"
                 order: [
                     [0, 'DESC']
                 ],
-               
-                
-                
                 initComplete: function(settings) {
                     var info = this.api().page.info();
                     if (info.pages > 1) {
@@ -283,10 +272,6 @@
                     @if(!empty($tableinit))
                         {{$tableinit}}(table_{{ $tableid }},info,settings,'table-{{ $tableid }}')
                     @endif
-                    
-                    @if(!empty($hidepagination))
-                    $("#table-{{ $tableid }}_wrapper .pagination").hide();
-                    @endif
                 },
                 drawCallback: function() {
                     var info = this.api().page.info();
@@ -312,10 +297,6 @@
                     }else{
                         $('#table-{{ $tableid }} .selectbox-action').hide()
                     }
-
-                    @if(!empty($hidepagination))
-                    $("#table-{{ $tableid }}_wrapper .pagination").hide();
-                    @endif
                 },
                 columns: [
                     @if($bulkaction)
@@ -350,42 +331,6 @@
                     @endif
                 ],
             })
-
-
-            @if(!empty($hidepagination))
-
-                // Load More Button Event
-                $('#loadMore').on('click', function() {
-                console.log('y');
-                start += limit; 
-                $.ajax({
-                url: "{{ $url }}",
-                method: 'GET',
-                data: {
-                    start: start,
-                    limit: limit
-                },
-                success: function(response) {
-                    // Append new rows to the table
-                    response.data.forEach(function(row) {
-                        table_{{ $tableid }}.row.add(row).draw(false);
-                    });
-
-                    // Hide the button if no more data
-                    if (response.data.length < limit) {
-                        $('#loadMore').hide();
-                    }
-                }
-                });
-                });
-
-
-                @endif
-
-
         })
-
-
-
     </script>
 @endpush
