@@ -414,6 +414,8 @@
 
             var term = $('#add_term_name').text();
 
+            console.log(term);
+            
             if(term == 'Class Details')
             {
                 loadclassdetail('{{route('admin.term.class_detail')}}');
