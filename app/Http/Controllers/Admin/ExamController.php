@@ -76,7 +76,7 @@ class ExamController extends Controller
                 $exam = $exam->skip(1)->take(12);
             }
 
-            $exam = $exam->orderBy('id', 'DESC')->paginate();
+            // $exam = $exam->orderBy('id', 'DESC')->paginate();
 
             return [
                 'current_page' => $exam->currentPage(),
