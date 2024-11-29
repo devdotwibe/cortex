@@ -269,7 +269,7 @@ success: function(response) {
    
     $('#mocktableid').DataTable().ajax.reload(); 
     if (response.data.length < limit) {
-        $('#loadMore').hide();
+        // $('#loadMore').hide();
     }
 }
 });
