@@ -223,6 +223,8 @@
                 })
                 return false;
             })
+            let start = 0; 
+                let limit = 10; 
             table_{{ $tableid }}=$('#table-{{ $tableid }}').DataTable({
                 processing: true,
                 serverSide: true,
