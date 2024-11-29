@@ -78,15 +78,15 @@ class ExamController extends Controller
 
             // $exam = $exam->orderBy('id', 'DESC')->paginate();
 
-            return [
-                'current_page' => $exam->currentPage(),
-                'total_pages' => $exam->lastPage(),
-                'total_items' => $exam->total(),
-                'items_per_page' => $exam->perPage(),
+            // return [
+            //     'current_page' => $exam->currentPage(),
+            //     'total_pages' => $exam->lastPage(),
+            //     'total_items' => $exam->total(),
+            //     'items_per_page' => $exam->perPage(),
              
-                'prev' => $exam->previousPageUrl(),
-                'next' => $exam->nextPageUrl()
-            ];
+            //     'prev' => $exam->previousPageUrl(),
+            //     'next' => $exam->nextPageUrl()
+            // ];
 
 
             return DataTables::of($exam)
