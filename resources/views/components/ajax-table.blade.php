@@ -310,7 +310,7 @@
                     }
 
                     @if(!empty($hidepagination))
-                        $('.pagination').hide();
+                    $("#table-{{ $tableid }}_wrapper .pagination").hide();
                     @endif
                 },
                 columns: [
