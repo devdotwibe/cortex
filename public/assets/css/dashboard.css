@@ -842,7 +842,7 @@ button.close {
 }
 
 .exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check label {
-    margin: 2px 12px 0;
+    margin: 0 12px 0;
 }
 
 .exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check input {
@@ -851,7 +851,7 @@ button.close {
     border-radius: 50%;
     border: 1px solid;
     position: absolute;
-    top: -4px;
+    top: -2px;
     box-shadow: none;
     margin-left: -20px;
 }
@@ -5293,9 +5293,9 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
     float: left;
 }
 
-.mcq-title-text p {
+/* .mcq-title-text p {
     margin: 0 !important;
-}
+} */
 
 .modal {
     background: rgb(0 0 0 / 50%);
@@ -6956,6 +6956,7 @@ nav.navbar.header-class {
 .exam-container .container-wrap .lesson .lesson-body p,
 .exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check label {
     font-family: 'Arial';
+    line-height: 1.5;
 }
 
 .exam-container.answerclass.onequestionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .correctanswerclass label {
