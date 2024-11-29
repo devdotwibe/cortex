@@ -310,7 +310,7 @@
                     }
 
                     @if(!empty($hidepagination))
-                        $('.dataTables_paginate').hide();
+                        $('.pagination').hide();
                     @endif
                 },
                 columns: [
