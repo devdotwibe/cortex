@@ -162,7 +162,7 @@ $(function() {
                     d.start = d.start || 0; 
                     d.limit = d.length || 12;
                         
-                    }
+                    },
                 type: 'GET',
                 dataSrc: function(json) {
                     return json.data; // Return the data for DataTables
