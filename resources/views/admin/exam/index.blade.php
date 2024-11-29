@@ -91,7 +91,7 @@
         </div>
     </div>
     <!-- Load More Button -->
-    <button id="loadMore" data-url="{{ $url }}" CLASS="btn btn-primary">Load More</button>
+     
     
 
 </section>
@@ -230,9 +230,23 @@ data: {
 success: function(response) {
    
     $('#mocktableid').DataTable().ajax.reload(); 
-    if (response.data.length < limit) {
-        // $('#loadMore').hide();
+
+    nextPageUrl = response.next; 
+
+      $('#loadMore').data('url', nextPageUrl);
+
+      start += limit;
+
+    // If no more data, disable the "Load More" button or hide it
+    if (!nextPageUrl) {
+        $('#loadMore').prop('disabled', true).text('No More Data');
+        // Optionally hide the button: $('#loadMore').hide();
+    } else {
+        // Re-enable the button and change the text back
+        $('#loadMore').prop('disabled', false).text('Load More');
     }
+
+
 }
 });
 });
