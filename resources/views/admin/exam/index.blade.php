@@ -174,7 +174,7 @@ $(function() {
             columns: [
                 { data: 'DT_RowIndex', name: 'id', orderable: true, searchable: false },
                 { 
-                    data: 'Date', 
+                    data: 'date', 
                     name: 'created_at', 
                     orderable: true, 
                     searchable: true,
