@@ -82,9 +82,9 @@ class ExamController extends Controller
             }
 
          
-            // $exam = $exam->paginate($request->get('limit', 12)); 
+            $exam = $exam->paginate($request->get('limit', 12));  // Default limit is 10 if not provided
         
-            
+            // Format the response with pagination details
             return [
                 'current_page' => $exam->currentPage(),              
                 'total_pages' => $exam->lastPage(),                  
