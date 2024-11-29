@@ -73,9 +73,7 @@ class ExamController extends Controller
             return [
                 'current_page' => $exam->currentPage(),              // Current page
                 'total_pages' => $exam->lastPage(),                  // Total number of pages
-                'total_items' => $exam->total(),                     // Total number of items
-                'items_per_page' => $exam->perPage(),                // Number of items per page
-                'data' => $exam->items(),                            // Paginated items
+                'total_items' => $exam->total(),                     // Total number of ite            // Paginated items
                 'prev' => $exam->previousPageUrl(),                  // Previous page URL
                 'next' => $exam->nextPageUrl()                       // Next page URL
             ];
