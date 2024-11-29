@@ -156,11 +156,11 @@ $(document).ready(function() {
     var start = 0; // Start page
     var length = 12; // Number of items per page
 
-    var table = $('#cmsTable').DataTable({
+    var table = $('#mocktableid').DataTable({
         processing: true,
         serverSide: true,
         ajax: {
-            url: '{{ route("admin.exam.index") }}', // Route to the controller method
+            url: "{{ request()->fullUrl() }}", // Route to the controller method
             type: 'GET',
             data: function(d) {
                 // Pass the start and length to the backend
@@ -230,7 +230,7 @@ $(document).ready(function() {
         // Increase the start value and fetch the next page
         start += length;
         $.ajax({
-            url: '{{ route("admin.exam.index") }}',
+            url: "{{ request()->fullUrl() }}",
             type: 'GET',
             data: {
                 start: start,
