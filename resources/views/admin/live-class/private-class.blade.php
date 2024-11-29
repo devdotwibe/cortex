@@ -211,6 +211,7 @@
                     <x-ajax-table
                 
                         popupid="private-class-modal"
+                        deletecallbackafter='deletecallbackafter'
                         tableid="class_detail"
                         :url="route('admin.term.show_table')"
                         :coloumns="[
@@ -225,6 +226,7 @@
                     <x-ajax-table
                     
                         popupid="private-class-modal"
+                        deletecallbackafter='deletecallbackafter'
                         tableid='lesson_material'
                         :url="route('admin.term.show_table_lesson_material')"
                         :coloumns="[
@@ -239,6 +241,7 @@
                     <x-ajax-table
                     
                         popupid="private-class-modal"
+                        deletecallbackafter='deletecallbackafter'
                         tableid='home_work'
                         :url="route('admin.term.show_table_home_work')"
                         :coloumns="[
@@ -254,6 +257,7 @@
                     
                         popupid="private-class-modal"
                         tableid='lesson_recording'
+                        deletecallbackafter='deletecallbackafter'
 
                         :url="route('admin.term.show_table_lesson_recording')"
                         :coloumns="[
@@ -368,22 +372,18 @@
             event.preventDefault();
             event.stopPropagation();
 
-           
-            
 
             if (term == 'class_detail') {
-    $('#add_term_name').text('Class Details');
-} else if (term == 'lesson_material') {
-    $('#add_term_name').text('Lesson Material');
-} else if (term == 'home_work') {
-    $('#add_term_name').text('Home Work Submission');
-} else if (term == 'lesson_recording') {
-    $('#add_term_name').text('Lesson Recording');
-} else {
-    $('#add_term_name').text('Add Term');
-}
-
-
+                $('#add_term_name').text('Class Details');
+            } else if (term == 'lesson_material') {
+                $('#add_term_name').text('Lesson Material');
+            } else if (term == 'home_work') {
+                $('#add_term_name').text('Home Work Submission');
+            } else if (term == 'lesson_recording') {
+                $('#add_term_name').text('Lesson Recording');
+            } else {
+                $('#add_term_name').text('Add Term');
+            }
 
             $('#private-class-booklet-modal-content').hide()
             $('#private-class-modal-content').show()
@@ -407,9 +407,32 @@
         }
 
         function deletecallbackbefore(){ 
+
             $('#private-class-modal').modal('hide');
         }
         function deletecallbackafter(){
+
+            var term = $('#add_term_name').text();
+
+            console.log(term);
+            
+            if(term == 'Class Details')
+            {
+                loadclassdetail('{{route('admin.term.class_detail')}}');
+            }
+            else if(term == 'Lesson Material')
+            {
+                loadlessonmaterial('{{route('admin.term.lesson_material')}}');
+            }
+            else if(term == 'Home Work Submission')
+            {
+                loadhomework('{{route('admin.term.home_work')}}');
+            }
+            else if(term == 'Lesson Recording')
+            { 
+                loadlessonrecord('{{route('admin.term.lesson_recording')}}');
+            }
+
             $('#private-class-modal').modal('show');
         }
         function weekbooklet(event,slug)

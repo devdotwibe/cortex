@@ -735,6 +735,11 @@ button.close {
     font-size: 20px;
     font-weight: 600;
     margin: 0 0 20px;
+    font-family: 'Arial';
+}
+
+.exam-container .container-wrap .lesson .lesson-body .note-title span {
+    font-family: 'Arial';
 }
 
 .exam-container .container-wrap .lesson .lesson-body .note-container {
@@ -2351,6 +2356,7 @@ aside.side_bar.slider-btn .btn-slider {
 .header_nav .header_wrapp .header_title h2 {
     font-size: 20px;
     font-weight: 700;
+
 }
 
 .header_nav .header_wrapp .header_right ul.nav_bar {
@@ -2982,6 +2988,12 @@ aside.side_bar.slider-btn .btn-slider {
     font-size: 20px;
     margin: 0 0 20px;
     line-height: 1.56;
+    font-family: 'Arial';
+}
+
+.exam-container .summery-wrap p strong {
+    font-weight: bold;
+    font-family: 'Arial';
 }
 
 .exam-container .summery-wrap .summery-action {
@@ -3398,6 +3410,7 @@ aside.side_bar.slider-btn .btn-slider {
 
 .exam-container .container-wrap .lesson .lesson-body strong {
     font-weight: bold;
+    font-family: 'Arial';
 }
 
 .exam-container .container-wrap .lesson .lesson-body ul {
@@ -3460,6 +3473,7 @@ aside.side_bar.slider-btn .btn-slider {
     top: 0;
 }
 
+<<<<<<< HEAD
 .exam-container .container-wrap .lesson .lesson-body strong {
     font-weight: bold;
 }
@@ -3522,6 +3536,78 @@ aside.side_bar.slider-btn .btn-slider {
     color: #212121;
     font-size: 16px;
     top: 0;
+=======
+.exam-list-pagination {
+    width: 100%;
+}
+
+.exam-list-pagination .flex.items-center {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.exam-list-pagination .flex.items-center .flex.flex-1 {
+    order: 1;
+    display: none;
+}
+
+.exam-list-pagination .flex.items-center .hidden {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 14px 3px 4px;
+}
+
+.exam-list-pagination .flex.items-center .hidden div:first-child {
+    width: auto;
+    display: inline-block;
+    margin-right: auto;
+}
+
+.exam-list-pagination .flex.items-center .hidden div > span {
+    width: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.exam-list-pagination .flex.items-center .hidden div > span >span {
+    width: auto;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.exam-list-pagination .flex.items-center .hidden div:nth-child(2) {
+    width: auto;
+    display: inline-block;
+}
+
+.exam-list-pagination .flex.items-center .hidden div > span > span span.relative.inline-flex.items-center.px-2.py-2 {
+    padding: 7px 10px !important;
+}
+
+.exam-list-pagination .flex.items-center .hidden div > span > span span.py-2 {
+    padding: 7px 14px !important;
+}
+
+.exam-list-pagination .flex.items-center .hidden div > span > span span.relative.inline-flex.items-center.px-2.py-2 svg {
+    width: 12px;
+    height: 12px;
+}
+
+.exam-list-pagination .flex.items-center .hidden div > span  a.items-center.px-4.py-2 {
+    padding: 7px 14px !important;
+}
+
+.exam-list-pagination .flex.items-center .hidden div > span  a.items-center.px-2.py-2 {
+    padding: 7px 12px !important;
+}
+
+.exam-list-pagination .flex.items-center .hidden div > span > a.items-center.px-2.py-2 svg {
+    width: 12px;
+    height: 12px;
+>>>>>>> testing
 }
 
 @media screen and (max-width:1399px) {
@@ -6289,6 +6375,7 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
     border-left: 3px solid #ef9b10;
     padding-left: 15px;
     line-height: 1;
+    font-family: 'Arial';
 }
 
 .exam-container.topictestclass .summery-wrap .summery-title {
@@ -6307,6 +6394,7 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
     font-weight: 600;
     font-size: 22px;
     margin: 0 0;
+    font-family: 'Arial';
 }
 
 .exam-container.topictestclass .summery-wrap .time-of-exam {
@@ -6317,12 +6405,14 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 .exam-container.topictestclass .summery-wrap .time-of-exam label {
     font-size: 22px;
     font-weight: 600;
+    font-family: 'Arial';
 }
 
 .exam-container.topictestclass .summery-wrap .time-of-exam input {
     font-size: 22px;
     font-weight: 600;
     width: 83px;
+    font-family: 'Arial';
 }
 
 /* .questionclass .mcq-container-wrap {
