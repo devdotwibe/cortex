@@ -62,16 +62,20 @@ class ExamController extends Controller
         if ($request->ajax()) {
 
         
-            $start = $request->get('start', 0);
-            $length = $request->get('length', 10); 
+            $start = $request->get('start', 0); // Default to 0 if not present
+            $length = $request->get('length', 10); // Default to 10 if not present
     
-            $examQuery = Exam::where('id', '>', 0); 
+            // Query to get the exams, with pagination
+            $examQuery = Exam::where('id', '>', 0); // Base query
     
+            // Get the total count of records
             $totalRecords = $examQuery->count();
     
-            $exams = $examQuery->skip($start)->take($length);
-
+            // Apply pagination: using limit() and offset() correctly
+            $exams = $examQuery->limit($length)->offset($start)->get();
+    
             return DataTables::of($exams)
+            
                 ->addColumn("action", function ($data) {
                     return '
 
