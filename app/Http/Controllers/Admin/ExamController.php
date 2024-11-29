@@ -59,40 +59,17 @@ class ExamController extends Controller
 
         public function index(Request $request){
 
-
-        $exam = Exam::where('id','>',0);
-
-        if ($request->ajax==true) {
-
-            $exam = Exam::orderBy('id', 'DESC');
-
-            // Apply pagination if request parameters exist
-            $exam = $exam->paginate($request->get('limit', 12));  // Default limit is 10 if not provided
-        
-            // Format the response with pagination details
-            return [
-                'current_page' => $exam->currentPage(),              
-                'total_pages' => $exam->lastPage(),                  
-                'total_items' => $exam->total(),                             
-                'prev' => $exam->previousPageUrl(),               
-                'next' => $exam->nextPageUrl()                       
-            ];
-        }
-
         if ($request->ajax()) {
 
-            $start = $request->get('start');
-            $limit = $request->get('limit');
+        
+            $start = $request->get('start', 0);
+            $length = $request->get('length', 10); 
 
-            if(!empty($start)&& (!empty($limit)))
-            {
-            $exam = $exam->skip($start)->take($limit);
-            }
-            else
-            {
-                $exam = $exam->skip(1)->take(12);
-            }
+            $exam = Exam::where('id','>',0);
 
+            $totalRecords = $exam->count();
+
+            $exams = $exam->skip($start)->take($length)->get();
 
             return DataTables::of($exam)
                 ->addColumn("action", function ($data) {
@@ -125,17 +102,11 @@ class ExamController extends Controller
               
                 ->addIndexColumn()
                 ->rawColumns(['action'])
+                ->setTotalRecords($totalRecords)
                 ->make(true);
         }
 
-        $exam = Exam::orderBy('id', 'DESC');
-
-        // Apply pagination if request parameters exist
-        $exam = $exam->paginate($request->get('limit', 12)); 
-
-         $url=$exam->nextPageUrl(); 
-
-        return view("admin.exam.index",compact('url'));
+        return view("admin.exam.index");
     }
 
 

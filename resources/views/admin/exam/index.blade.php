@@ -92,9 +92,9 @@
     </div>
     <!-- Load More Button -->
 
-    <button id="loadMore" data-url="{{ $url }}" class="btn btn-primary">Load More</button>
+    <button id="loadMoreButton" style="display:none;">Load More</button>
 
-     
+
     
 
 </section>
@@ -152,37 +152,36 @@
 @push('footer-script')
     <script>
 
-let start = 0;
-let limit = 12;
 $(function() {
 
-    var nextPageUrl = $('#loadMore').data('url');
-
-        $('#mocktableid').DataTable({
+   
+    var oTable =  $('#mocktableid').DataTable({
             paging: false,
             bAutoWidth: false,
             processing: true,
             serverSide: true,
+            pageLength: 12,
+            paging: false,
             order: [[0, 'desc']],
             ajax: {
                 url: "{{ request()->fullUrl() }}",
-                data:function(d){
-                    d.start = d.start || 0; 
-                    d.limit = d.length || 12;
-                        
-                    },
+            
                 type: 'GET',
                 dataSrc: function(json) {
-                    return json.data; // Return the data for DataTables
+                    return json.data;
                 },
-                error: function(xhr, error, thrown) {
-                    console.error(xhr.responseText); // Log any errors for debugging
-                }
             },
             initComplete: function(settings) {
                 var info = this.api().page.info();
                 $(".dataTables_paginate").toggle(info.pages > 1);
                 $(".dataTables_info").toggle(info.recordsTotal > 0);
+            },
+            drawCallback: function(settings) {
+                if (settings.json.data.length < settings.json.recordsTotal) {
+                    $('#loadMoreButton').show(); 
+                } else {
+                    $('#loadMoreButton').hide();
+                }
             },
             columns: [
                 { data: 'DT_RowIndex', name: 'id', orderable: true, searchable: false },
@@ -217,43 +216,16 @@ $(function() {
             ]
         });
 
+        var nextPageStart = 12;
+        $('#loadMoreButton').on('click', function() {
+            
+            nextPageStart += 12;
 
-        // Load More Button Event
-$('#loadMore').on('click', function() {
-console.log('y');
-start += limit; 
-$(this).prop('disabled', true).text('Loading...');
-$.ajax({
-    url: nextPageUrl,
-method: 'GET',
-data: {
-    start: start,
-    limit: limit
-},
-success: function(response) {
-   
-    $('#mocktableid').DataTable().ajax.reload(); 
+           
+            oTable.ajax.url(url + '?start=' + nextPageStart).load();
 
-    nextPageUrl = response.next; 
-
-      $('#loadMore').data('url', nextPageUrl);
-
-      start += limit;
-
-    // If no more data, disable the "Load More" button or hide it
-    if (!nextPageUrl) {
-        $('#loadMore').prop('disabled', true).text('No More Data');
-        // Optionally hide the button: $('#loadMore').hide();
-    } else {
-        // Re-enable the button and change the text back
-        $('#loadMore').prop('disabled', false).text('Load More');
-    }
-
-
-}
-});
-});
-
+            $(this).hide();
+        });
 
     });
          
