@@ -832,7 +832,7 @@ button.close {
 }
 
 .exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check {
-    padding-left: 45px;
+    padding-left: 20px;
     margin: 0 0 20px;
     font-size: 16px;
     display: flex;
@@ -842,7 +842,7 @@ button.close {
 }
 
 .exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check label {
-    margin: 2px 12px 0;
+    margin: 0 12px 0;
 }
 
 .exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check input {
@@ -851,9 +851,9 @@ button.close {
     border-radius: 50%;
     border: 1px solid;
     position: absolute;
-    top: -4px;
+    top: -2px;
     box-shadow: none;
-    margin-left: -43px;
+    margin-left: -20px;
 }
 
 .exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check img.answer-image {
@@ -3371,10 +3371,10 @@ aside.side_bar.slider-btn .btn-slider {
 .exam-container .container-wrap .lesson .lesson-body .mcq-row ul li:before {
     content: "\2022 ";
     position: absolute;
-    left: 14px;
+    left: 11px;
     color: #212121;
-    font-size: 16px;
-    top: 5px;
+    font-size: 26px;
+    top: -3px;
     line-height: normal;
 }
 
@@ -5293,9 +5293,9 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
     float: left;
 }
 
-.mcq-title-text p {
+/* .mcq-title-text p {
     margin: 0 !important;
-}
+} */
 
 .modal {
     background: rgb(0 0 0 / 50%);
@@ -6317,6 +6317,7 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
     align-items: center;
     font-weight: 600;
     font-size: 22px;
+    font-family: 'Arial';
 }
 
 .exam-container.topictestclass .summery-wrap .summery-title .back-btn {
@@ -6521,7 +6522,7 @@ nav.navbar.header-class {
 }
 
 .exam-container.answerclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group {
-    height: calc(100vh - 190px);
+    height: calc(100vh - 245px);
 }
 
 .exam-container.answerclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer {
@@ -6955,6 +6956,7 @@ nav.navbar.header-class {
 .exam-container .container-wrap .lesson .lesson-body p,
 .exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check label {
     font-family: 'Arial';
+    line-height: 1.5;
 }
 
 .exam-container.answerclass.onequestionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .correctanswerclass label {

@@ -81,7 +81,7 @@ class CommunityControllerController extends Controller
 
                 ];
             }
-            return [
+            return [  
                 'current_page' => $posts->currentPage(),
                 'total_pages' => $posts->lastPage(),
                 'total_items' => $posts->total(),

@@ -91,7 +91,11 @@
         </div>
     </div>
     <!-- Load More Button -->
-<button id="loadMore" class="btn btn-primary">Load More</button>
+
+    <button id="loadMore" data-url="{{ $url }}" class="btn btn-primary">Load More</button>
+
+     
+    
 
 </section>
 @endsection
@@ -151,6 +155,9 @@
 let start = 0;
 let limit = 12;
 $(function() {
+
+    var nextPageUrl = $('#loadMore').data('url');
+
         $('#mocktableid').DataTable({
             paging: false,
             bAutoWidth: false,
@@ -209,6 +216,45 @@ $(function() {
              }
             ]
         });
+
+
+        // Load More Button Event
+$('#loadMore').on('click', function() {
+console.log('y');
+start += limit; 
+$(this).prop('disabled', true).text('Loading...');
+$.ajax({
+    url: nextPageUrl,
+method: 'GET',
+data: {
+    start: start,
+    limit: limit
+},
+success: function(response) {
+   
+    $('#mocktableid').DataTable().ajax.reload(); 
+
+    nextPageUrl = response.next; 
+
+      $('#loadMore').data('url', nextPageUrl);
+
+      start += limit;
+
+    // If no more data, disable the "Load More" button or hide it
+    if (!nextPageUrl) {
+        $('#loadMore').prop('disabled', true).text('No More Data');
+        // Optionally hide the button: $('#loadMore').hide();
+    } else {
+        // Re-enable the button and change the text back
+        $('#loadMore').prop('disabled', false).text('Load More');
+    }
+
+
+}
+});
+});
+
+
     });
          
 
@@ -254,26 +300,7 @@ $(function() {
          
         
 
-// Load More Button Event
-$('#loadMore').on('click', function() {
-console.log('y');
-start += limit; 
-$.ajax({
-url: "{{ request()->fullUrl() }}",
-method: 'GET',
-data: {
-    start: start,
-    limit: limit
-},
-success: function(response) {
-   
-    $('#mocktableid').DataTable().ajax.reload(); 
-    if (response.data.length < limit) {
-        $('#loadMore').hide();
-    }
-}
-});
-});
+
 
 
 
