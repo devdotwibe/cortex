@@ -148,7 +148,7 @@
 @push('footer-script')
     <script>
 
-
+let start = 0;
 $(function() {
         $('#mocktableid').DataTable({
             paging: false,
