@@ -247,13 +247,19 @@
                     }
                 },
 
-                @if(!empty($hidepagination))
-                paging: false,
-                @endif
+               
                 info: false, // Disable the "Showing x to y of z entries"
                 order: [
                     [0, 'DESC']
                 ],
+               
+                
+                drawCallback: function(settings) {
+                    @if(!empty($hidepagination))
+                        $('.dataTables_paginate').hide(); // Hide pagination controls
+                    @endif
+    }
+                 }
                 initComplete: function(settings) {
                     var info = this.api().page.info();
                     if (info.pages > 1) {
