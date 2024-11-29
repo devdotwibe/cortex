@@ -69,7 +69,7 @@ class ExamController extends Controller
     
             $totalRecords = $examQuery->count();
     
-            $exams = $examQuery->skip($start)->take($length)->get();
+            $exams = $examQuery->skip($start)->take($length);
 
             return DataTables::of($exams)
                 ->addColumn("action", function ($data) {
