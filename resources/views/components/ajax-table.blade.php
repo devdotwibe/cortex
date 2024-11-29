@@ -164,7 +164,7 @@
                 $('#{{ $popupid }}').modal('hide');
 
                 @endif
-
+              
                 $("#table-{{ $tableid }}-delete-form").attr("action",url);  
                 $('#table-{{ $tableid }}-delete').modal('show'); 
             }) 
@@ -241,6 +241,13 @@
                         @endif
                     }
                 },
+
+                @if(!empty($hidepagination))
+
+                paging: false,
+
+                @endif
+
                 order: [
                     [0, 'DESC']
                 ],

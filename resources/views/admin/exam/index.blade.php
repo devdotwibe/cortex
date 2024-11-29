@@ -65,7 +65,7 @@
 <section class="content_section admin_section">
     <div class="container">
         <div class="row">
-            <x-ajax-table :coloumns='[
+            <x-ajax-table  hidepagination="true" :coloumns='[
                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
                 ["th"=>"Title","name"=>"title","data"=>"title"], 
                 ["th"=>"Time Of Exam","name"=>"time_of_exam","data"=>"time_of_exam"], 
@@ -208,6 +208,7 @@
                     }
                 });
             }
+
 
 
 
