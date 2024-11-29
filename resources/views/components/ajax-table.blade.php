@@ -337,5 +337,35 @@
                 ],
             })
         })
+
+
+        @if(!empty($hidepagination))
+
+         // Load More Button Event
+    $('#loadMore').on('click', function() {
+        start += limit; // Increment start by limit
+        $.ajax({
+            url: "{{ $url }}",
+            method: 'GET',
+            data: {
+                start: start,
+                limit: limit
+            },
+            success: function(response) {
+                // Append new rows to the table
+                response.data.forEach(function(row) {
+                    table.row.add(row).draw(false);
+                });
+
+                // Hide the button if no more data
+                if (response.data.length < limit) {
+                    $('#loadMore').hide();
+                }
+            }
+        });
+    });
+
+
+        @endif
     </script>
 @endpush
