@@ -152,82 +152,83 @@
 @push('footer-script')
     <script>
 
-$(function() {
+$(document).ready(function() {
+    var start = 0; // Start page
+    var length = 12; // Number of items per page
 
-   
-    var oTable =  $('#mocktableid').DataTable({
-            paging: false,
-            bAutoWidth: false,
-            processing: true,
-            serverSide: true,
-            pageLength: 12,
-            paging: false,
-            order: [[0, 'desc']],
-            ajax: {
-                url: "{{ request()->fullUrl() }}",
-            
-                type: 'GET',
-                dataSrc: function(json) {
-                    return json.data;
-                },
+    var table = $('#cmsTable').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: '{{ route("admin.exam.index") }}', // Route to the controller method
+            type: 'GET',
+            data: function(d) {
+                // Pass the start and length to the backend
+                d.start = start;
+                d.length = length;
             },
-            initComplete: function(settings) {
-                var info = this.api().page.info();
-                $(".dataTables_paginate").toggle(info.pages > 1);
-                $(".dataTables_info").toggle(info.recordsTotal > 0);
-            },
-            drawCallback: function(settings) {
-                if (settings.json.data.length < settings.json.recordsTotal) {
-                    $('#loadMoreButton').show(); 
+            dataSrc: function(json) {
+                // Append the data to the table body
+                json.data.forEach(function(item) {
+                    var row = table.row.add([
+                        item.slug,
+                        item.created_at,
+                        item.action // Assuming the action is generated dynamically
+                    ]).draw(false);
+                });
+
+                // Check if there are more records to load
+                if (json.data.length < length) {
+                    // Hide the load more button if no more records
+                    $('#loadMoreButton').hide();
                 } else {
+                    // Show the load more button if there are more records
+                    $('#loadMoreButton').show();
+                }
+
+                return json.data;
+            }
+        },
+        columns: [
+            { data: 'slug' },
+            { data: 'created_at' },
+            { data: 'action', orderable: false, searchable: false }
+        ],
+        pageLength: length, // Number of records to show per page
+        lengthChange: false, // Disable the option to change page size
+        dom: 'lrtip' // Remove default pagination controls
+    });
+
+    // Handle "Load More" button click
+    $('#loadMoreButton').on('click', function() {
+        // Increase the start value and fetch the next page
+        start += length;
+        $.ajax({
+            url: '{{ route("admin.exam.index") }}',
+            type: 'GET',
+            data: {
+                start: start,
+                length: length
+            },
+            success: function(response) {
+                // Append the next batch of records to the table
+                response.data.forEach(function(item) {
+                    table.row.add([
+                        item.slug,
+                        item.created_at,
+                        item.action // Assuming action buttons are dynamically generated
+                    ]).draw(false);
+                });
+
+                // If there are no more records to load, hide the "Load More" button
+                if (response.data.length < length) {
                     $('#loadMoreButton').hide();
                 }
-            },
-            columns: [
-                { data: 'DT_RowIndex', name: 'id', orderable: true, searchable: false },
-                { 
-                    data: 'date', 
-                    name: 'created_at', 
-                    orderable: true, 
-                    searchable: true,
-                 
-                },
-                
-                { 
-                    data: 'title', 
-                    name: 'title', 
-                    orderable: true, 
-                    searchable: true,
-                 
-                },
-                { 
-                    data: 'time_of_exam', 
-                    name: 'time_of_exam', 
-                    orderable: true, 
-                    searchable: true,
-                 
-                },
-               
-                { data: 'action',
-                 name: 'action', 
-                orderable: false, 
-                searchable: false
-             }
-            ]
+            }
         });
-
-        var nextPageStart = 12;
-        $('#loadMoreButton').on('click', function() {
-            
-            nextPageStart += 12;
-
-           
-            oTable.ajax.url(url + '?start=' + nextPageStart).load();
-
-            $(this).hide();
-        });
-
     });
+});
+
          
 
          function UploadVideo(element)

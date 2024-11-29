@@ -57,63 +57,46 @@ class ExamController extends Controller
         //     })->where("name","full-mock-exam")->buildTable();
         // }
 
-        public function index(Request $request){
+        public function index(Request $request)
+{
+    if ($request->ajax()) {
 
-        if ($request->ajax()) {
+        // Get the 'start' and 'length' parameters from the request
+        $start = $request->get('start', 0); // Default to 0 if not present
+        $length = $request->get('length', 12); // Default to 12 if not present
 
-           // Get the 'start' and 'length' parameters from the request for pagination
-           $start = $request->get('start', 0); // Default to 0 if not present
-           $length = $request->get('length', 10); // Default to 10 if not present
-   
-           // Start query to get exams
-           $examQuery = Exam::where('id', '>', 0)->orderBy('id', 'desc'); // Example query to order exams by id
-   
-           // Count the total records (this is necessary for pagination)
-           $totalRecords = $examQuery->count();
-   
-           // Paginate the results based on 'start' and 'length'
-           $exam = $examQuery->skip($start)->take($length)->get(); // Using skip and take for pagination
-   
-           // You don't need to manually calculate the pagination details in the DataTables response
-           // Instead, DataTables will handle the pagination automatically with the correct values
-           // Return paginated data
-           return DataTables::of($exam)
+        // Build the query for exams
+        $examQuery = Exam::where('id', '>', 0); // You can add more filters here
 
-                ->addColumn("action", function ($data) {
-                    return '
+        // Get the total number of records (for pagination info)
+        $totalRecords = $examQuery->count();
 
-                            <a data-id="'.$data->slug.'" class="btn btn-icons eye-button" onclick="UploadVideo(this)">
-                                        <span class="adminside-icon">
-                                            <img src="' . asset("assets/images/video-clip-32-regular.svg") . '" alt="View">
-                                        </span>
-                                        <span class="adminactive-icon">
-                                            <img src="' . asset("assets/images/hover-video-clip-32-regular.svg") . '" alt="View Active" title="View">
-                                        </span>
-                             </a>
-            
-                            <a href="'.route("admin.full-mock-exam.index",["exam"=>$data->slug]).'" class="btn btn-icons eye-button">
-                                        <span class="adminside-icon">
-                                            <img src="' . asset("assets/images/icons/mdi_incognito.svg") . '" alt="View">
-                                        </span>
-                                        <span class="adminactive-icon">
-                                            <img src="' . asset("assets/images/iconshover/view-yellow.svg") . '" alt="View Active" title="View">
-                                        </span>
-                             </a>
-            
-            
-                            ';
+        // Get the exams with pagination using 'skip' and 'take' to handle the custom pagination
+        $exams = $examQuery->skip($start)->take($length)->get();
 
-                })->addColumn('date',function($data){
-                    return $data->created_at->format('Y-m-d');
-                })
-              
-                ->addIndexColumn()
-                ->rawColumns(['action'])
-                ->make(true);
-        }
+        // Prepare the response data
+        $data = $exams->map(function ($exam) {
+            return [
+                'slug' => $exam->slug,
+                'created_at' => $exam->created_at->format('Y-m-d'),
+                'action' => view('admin.exam.action_button', compact('exam'))->render(), // Assuming action button view exists
+            ];
+        });
 
-        return view("admin.exam.index");
+        // Prepare the result for DataTables
+        $result = [
+            'data' => $data, // The exam data
+            'recordsTotal' => $totalRecords, // Total number of records
+            'recordsFiltered' => $totalRecords, // Filtered number of records (for search functionality)
+        ];
+
+        // Return the DataTables response
+        return response()->json($result);
     }
+
+    return view('admin.exam.index');
+}
+
 
 
 
