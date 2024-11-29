@@ -283,6 +283,10 @@
                     @if(!empty($tableinit))
                         {{$tableinit}}(table_{{ $tableid }},info,settings,'table-{{ $tableid }}')
                     @endif
+                    
+                    @if(!empty($hidepagination))
+                    $("#table-{{ $tableid }}_wrapper .pagination").hide();
+                    @endif
                 },
                 drawCallback: function() {
                     var info = this.api().page.info();
