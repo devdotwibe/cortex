@@ -34,7 +34,7 @@
                                                 <div class="forms-inputs mb-4"> 
                                                     <label for="{{$item->name}}-{{$frmID}}-{{$k}}">Choice</label>
                                                     <input type="hidden" name="choice_{{$item->name}}_id[]"  value="{{old('choice_'.$item->name."_id",[])[$k]??""}}">
-                                                    <input type="hidden" name="choice_{{$item->name}}_image[]"  value="{{old('choice_'.$item->name."_image",[])[$k]??""}}">
+                                                    <input type="hidden" name="choice_{{$item->name}}_image[]" id="image_{{$item->name}}-{{$frmID}}-{{$k}}"  value="{{old('choice_'.$item->name."_image",[])[$k]??""}}">
 
                                                     <div class="input-group">
                                                         <div class="input-group-prepend choice-check-group">
