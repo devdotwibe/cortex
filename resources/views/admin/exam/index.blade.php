@@ -190,9 +190,35 @@ $(document).ready(function() {
             }
         },
         columns: [
-            { data: 'slug' },
-            { data: 'created_at' },
-            { data: 'action', orderable: false, searchable: false }
+            { data: 'DT_RowIndex', name: 'id', orderable: true, searchable: false },
+                { 
+                    data: 'date', 
+                    name: 'created_at', 
+                    orderable: true, 
+                    searchable: true,
+                 
+                },
+                
+                { 
+                    data: 'title', 
+                    name: 'title', 
+                    orderable: true, 
+                    searchable: true,
+                 
+                },
+                { 
+                    data: 'time_of_exam', 
+                    name: 'time_of_exam', 
+                    orderable: true, 
+                    searchable: true,
+                 
+                },
+               
+                { data: 'action',
+                 name: 'action', 
+                orderable: false, 
+                searchable: false
+             }
         ],
         pageLength: length, // Number of records to show per page
         lengthChange: false, // Disable the option to change page size
