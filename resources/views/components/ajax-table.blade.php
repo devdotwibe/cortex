@@ -254,11 +254,11 @@
                 ],
                
                 
-                   drawCallback: function(settings) {
-               // Hide the pagination controls on every redraw
-               @if(!empty($hidepagination))
-                   $('.dataTables_paginate').hide();
-               @endif
+                drawCallback: function(settings) {
+                    @if(!empty($hidepagination))
+                        $('.dataTables_paginate').hide(); // Hide pagination controls
+                    @endif
+    }
                  }
                 initComplete: function(settings) {
                     var info = this.api().page.info();
