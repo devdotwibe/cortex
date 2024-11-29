@@ -52,6 +52,9 @@
                                                         @error($item->name.".$k")
                                                         <div class="invalid-feedback">{{$message}}</div>
                                                         @enderror
+                                                        @error('choice_'.$item->name.'_image'.'.'.$k)
+                                                        <div class="invalid-feedback">{{$message}}</div>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                             </div>
