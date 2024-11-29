@@ -247,13 +247,18 @@
                     }
                 },
 
-                @if(!empty($hidepagination))
-                paging: false,
-                @endif
+               
                 info: false, // Disable the "Showing x to y of z entries"
                 order: [
                     [0, 'DESC']
                 ],
+               
+                   @if(!empty($hidepagination))
+                   drawCallback: function(settings) {
+               // Hide the pagination controls on every redraw
+                   $('.dataTables_paginate').hide();
+               @endif
+                 }
                 initComplete: function(settings) {
                     var info = this.api().page.info();
                     if (info.pages > 1) {
