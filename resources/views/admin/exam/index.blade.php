@@ -91,7 +91,8 @@
         </div>
     </div>
     <!-- Load More Button -->
-    <button id="load-more-btn" data-url="">Load More</button>
+    <button id="loadMore" data-url="" CLASS="btn btn-primary">Load More</button>
+    
 
 </section>
 @endsection
