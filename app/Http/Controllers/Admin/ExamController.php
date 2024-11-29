@@ -77,9 +77,9 @@ class ExamController extends Controller
         // Prepare the response data
         $data = $exams->map(function ($exam) {
             return [
-                'slug' => $exam->slug,
+                'id' => $exam->id,
                 'created_at' => $exam->created_at->format('Y-m-d'),
-                'action' => view('admin.exam.action_button', compact('exam'))->render(), // Assuming action button view exists
+                'action' => view('admin.exam.index', compact('exam'))->render(), // Assuming action button view exists
             ];
         });
 
