@@ -18,6 +18,12 @@
 <section class="invite-wrap mt-2">
     <div class="container">
 
+        @if($errors->has())
+            @foreach ($errors->all() as $error)
+                <div>{{ $error }}</div>
+            @endforeach
+        @endif
+
         @php
             $choices=[];
             if(!empty($homeWorkQuestion->answers) && isset($homeWorkQuestion->answers))
