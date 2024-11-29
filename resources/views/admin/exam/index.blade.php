@@ -153,7 +153,7 @@ let start = 0;
 let limit = 12;
 $(function() {
 
-    var nextPageUrl = $('#load-more-btn').data('url');
+    var nextPageUrl = $('#loadMore').data('url');
 
         $('#mocktableid').DataTable({
             paging: false,
