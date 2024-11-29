@@ -279,10 +279,8 @@ success: function(response) {
 });
 
 
-@endif
 
 
-})
          
          function VideoSubmit() 
             {
