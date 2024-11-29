@@ -21,6 +21,32 @@ class ExamController extends Controller
     public function index(Request $request){
         if($request->ajax()){
             self::$defaultActions=["edit","delete"]; 
+
+
+               
+        $start = $request->get('start');
+        $limit = $request->get('limit');
+
+        if (empty($start)) {
+            $start = 0; 
+        }
+
+        if (empty($limit)) {
+            $limit = 10; 
+        }
+
+       
+        $data = Exam::offset($start)->limit($limit)->get(); 
+
+       
+        return response()->json([
+            'data' => $data,
+            'recordsTotal' => Exam::count(), 
+            'recordsFiltered' => Exam::count(), 
+        ]);
+    }
+
+
             return $this->addAction(function($data){
                 return '
                

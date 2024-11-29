@@ -72,6 +72,9 @@
             ]' />
         </div>
     </div>
+    <!-- Load More Button -->
+<button id="loadMore" class="btn btn-primary">Load More</button>
+
 </section>
 @endsection
 
