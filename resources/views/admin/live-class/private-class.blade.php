@@ -211,6 +211,7 @@
                     <x-ajax-table
                 
                         popupid="private-class-modal"
+                        deletecallbackafter='deletecallbackafter'
                         tableid="class_detail"
                         :url="route('admin.term.show_table')"
                         :coloumns="[
@@ -225,6 +226,7 @@
                     <x-ajax-table
                     
                         popupid="private-class-modal"
+                        deletecallbackafter='deletecallbackafter'
                         tableid='lesson_material'
                         :url="route('admin.term.show_table_lesson_material')"
                         :coloumns="[
@@ -239,6 +241,7 @@
                     <x-ajax-table
                     
                         popupid="private-class-modal"
+                        deletecallbackafter='deletecallbackafter'
                         tableid='home_work'
                         :url="route('admin.term.show_table_home_work')"
                         :coloumns="[
@@ -254,6 +257,7 @@
                     
                         popupid="private-class-modal"
                         tableid='lesson_recording'
+                        deletecallbackafter='deletecallbackafter'
 
                         :url="route('admin.term.show_table_lesson_recording')"
                         :coloumns="[
@@ -407,9 +411,22 @@
         }
 
         function deletecallbackbefore(){ 
+
+            console.log(' werwer');
+
             $('#private-class-modal').modal('hide');
         }
         function deletecallbackafter(){
+
+            console.log('test');
+
+            loadclassdetail('{{route('admin.term.class_detail')}}');
+
+            loadlessonmaterial('{{route('admin.term.lesson_material')}}');
+            loadlessonmaterial('{{route('admin.term.lesson_material')}}');
+
+            loadlessonrecord('{{route('admin.term.lesson_recording')}}');
+
             $('#private-class-modal').modal('show');
         }
         function weekbooklet(event,slug)
