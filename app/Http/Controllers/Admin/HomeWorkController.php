@@ -104,6 +104,7 @@ class HomeWorkController extends Controller
                 ]);
                 break;
             case 'mcq':
+                dd($request);
                 $data = $request->validate([
                     "home_work_book_id" => ['required'],
                     "description" => ['required'],
