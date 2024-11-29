@@ -104,13 +104,15 @@ class HomeWorkController extends Controller
                 ]);
                 break;
             case 'mcq':
-                dd($request);
+                // dd($request);
                 $data = $request->validate([
                     "home_work_book_id" => ['required'],
                     "description" => ['required'],
                     "answer" => ['required'],
-                   "answer.*" => ["required_without_all:choice_answer_image,file_answer", 'string', 'max:150', 'nullable'],
-                    "file_answer.*" => ["required_without_all:answer,choice_answer_image", 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+                   "answer.*" => ["required_without_all:choice_answer_image.*,file_answer.*", 'string', 'max:150', 'nullable'],
+                  
+
+                    "file_answer.*" => ["required_without_all:answer.*,choice_answer_image.*", 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
                     "explanation" => ['nullable']
                 ], [
                     'answer.*.required_without_all' => 'The answer field is required when file answer is not provided.',
