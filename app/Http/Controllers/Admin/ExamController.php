@@ -65,15 +65,14 @@ class ExamController extends Controller
             $start = $request->get('start', 0); // Default to 0 if not present
             $length = $request->get('length', 10); // Default to 10 if not present
     
-            // Query to get the exams, with pagination
-            $examQuery = Exam::where('id', '>', 0)->orderBy('id', 'desc'); // Base query with ordering
+           
+            $examQuery = Exam::where('id', '>', 0)->orderBy('id', 'desc'); 
     
-            // Get the total count of records (this is necessary for pagination)
+          
             $totalRecords = $examQuery->count();
     
-            // Apply pagination: using limit() and offset() correctly
-            // Corrected query using limit() and offset()
-            $exams = $examQuery->limit($length)->skip($start)->get();
+
+            // $exams = $examQuery->limit($length)->skip($start)->get();
     
             return DataTables::of($exams)
 
