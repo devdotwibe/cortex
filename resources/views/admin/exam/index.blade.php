@@ -265,12 +265,8 @@ data: {
     limit: limit
 },
 success: function(response) {
-    // Append new rows to the table
-    response.data.forEach(function(row) {
-        table_{{ $tableid }}.row.add(row).draw(false);
-    });
-
-    // Hide the button if no more data
+   
+    $('#mocktableid').DataTable().ajax.reload(); 
     if (response.data.length < limit) {
         $('#loadMore').hide();
     }
