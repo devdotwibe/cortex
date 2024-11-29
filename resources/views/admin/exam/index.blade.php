@@ -258,7 +258,7 @@ $('#loadMore').on('click', function() {
 console.log('y');
 start += limit; 
 $.ajax({
-url: "{{ $url }}",
+url: "{{ request()->fullUrl() }}",
 method: 'GET',
 data: {
     start: start,
