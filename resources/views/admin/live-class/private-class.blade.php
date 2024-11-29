@@ -407,12 +407,15 @@
         }
 
         function deletecallbackbefore(){ 
+
+            console.log(' werwer');
+
             $('#private-class-modal').modal('hide');
         }
         function deletecallbackafter(){
 
             console.log('test');
-            
+
             loadclassdetail('{{route('admin.term.class_detail')}}');
 
             loadlessonmaterial('{{route('admin.term.lesson_material')}}');
