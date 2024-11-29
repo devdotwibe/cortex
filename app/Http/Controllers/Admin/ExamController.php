@@ -67,6 +67,7 @@ class ExamController extends Controller
             $start = $request->get('start');
             $limit = $request->get('limit');
 
+            if(!empty($start)&& (!empty($limit)))
             $exam = $exam->skip($start)->take($limit);
 
 
