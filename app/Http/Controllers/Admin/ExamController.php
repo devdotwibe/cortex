@@ -57,62 +57,78 @@ class ExamController extends Controller
         //     })->where("name","full-mock-exam")->buildTable();
         // }
 
-        public function index(Request $request){
-
-
-        $exam = Exam::where('id','>',0);
-
-        if ($request->ajax()) {
-
-            $start = $request->get('start');
-            $limit = $request->get('limit');
-
-            if(!empty($start)&& (!empty($limit)))
-            {
-            $exam = $exam->skip($start)->take($limit);
+        public function index(Request $request)
+        {
+            // Base query
+            $exam = Exam::query();
+        
+            // Check if request is AJAX
+            if ($request->ajax()) {
+                // Fetch start and limit from the request
+                $start = $request->get('start');
+                $limit = $request->get('limit');
+        
+                // Apply pagination limits
+                if (!empty($start) && !empty($limit)) {
+                    $exam = $exam->skip($start)->take($limit);
+                } else {
+                    $exam = $exam->take(12); // Default limit
+                }
+        
+                // Order by ID in descending order
+                $exam = $exam->orderBy('id', 'DESC');
+        
+                // Paginate results
+                $paginated = $exam->paginate($limit ?? 12);
+        
+                // Return pagination details
+                return response()->json([
+                    'current_page' => $paginated->currentPage(),
+                    'total_pages' => $paginated->lastPage(),
+                    'total_items' => $paginated->total(),
+                    'items_per_page' => $paginated->perPage(),
+                    'prev' => $paginated->previousPageUrl(),
+                    'next' => $paginated->nextPageUrl(),
+                ]);
             }
-            else
-            {
-                $exam = $exam->skip(1)->take(12);
+        
+            // For DataTables
+            if ($request->has('datatables')) {
+                $exam = Exam::orderBy('id', 'DESC'); // Fetch all exams for DataTables
+        
+                return DataTables::of($exam)
+                    ->addColumn('action', function ($data) {
+                        return '
+                            <a data-id="' . $data->slug . '" class="btn btn-icons eye-button" onclick="UploadVideo(this)">
+                                <span class="adminside-icon">
+                                    <img src="' . asset("assets/images/video-clip-32-regular.svg") . '" alt="View">
+                                </span>
+                                <span class="adminactive-icon">
+                                    <img src="' . asset("assets/images/hover-video-clip-32-regular.svg") . '" alt="View Active" title="View">
+                                </span>
+                            </a>
+                            <a href="' . route("admin.full-mock-exam.index", ["exam" => $data->slug]) . '" class="btn btn-icons eye-button">
+                                <span class="adminside-icon">
+                                    <img src="' . asset("assets/images/icons/mdi_incognito.svg") . '" alt="View">
+                                </span>
+                                <span class="adminactive-icon">
+                                    <img src="' . asset("assets/images/iconshover/view-yellow.svg") . '" alt="View Active" title="View">
+                                </span>
+                            </a>
+                        ';
+                    })
+                    ->addColumn('date', function ($data) {
+                        return $data->created_at->format('Y-m-d');
+                    })
+                    ->addIndexColumn()
+                    ->rawColumns(['action'])
+                    ->make(true);
             }
-
-
-            return DataTables::of($exam)
-                ->addColumn("action", function ($data) {
-                    return '
-
-                            <a data-id="'.$data->slug.'" class="btn btn-icons eye-button" onclick="UploadVideo(this)">
-                                        <span class="adminside-icon">
-                                            <img src="' . asset("assets/images/video-clip-32-regular.svg") . '" alt="View">
-                                        </span>
-                                        <span class="adminactive-icon">
-                                            <img src="' . asset("assets/images/hover-video-clip-32-regular.svg") . '" alt="View Active" title="View">
-                                        </span>
-                             </a>
-            
-                            <a href="'.route("admin.full-mock-exam.index",["exam"=>$data->slug]).'" class="btn btn-icons eye-button">
-                                        <span class="adminside-icon">
-                                            <img src="' . asset("assets/images/icons/mdi_incognito.svg") . '" alt="View">
-                                        </span>
-                                        <span class="adminactive-icon">
-                                            <img src="' . asset("assets/images/iconshover/view-yellow.svg") . '" alt="View Active" title="View">
-                                        </span>
-                             </a>
-            
-            
-                            ';
-
-                })->addColumn('date',function($data){
-                    return $data->created_at->format('Y-m-d');
-                })
-              
-                ->addIndexColumn()
-                ->rawColumns(['action'])
-                ->make(true);
+        
+            // Render the default view for non-AJAX requests
+            return view("admin.exam.index");
         }
-
-        return view("admin.exam.index");
-    }
+        
 
 
 
