@@ -74,12 +74,15 @@ class ExamController extends Controller
         // Get the exams with pagination using 'skip' and 'take' to handle the custom pagination
         $exams = $examQuery->skip($start)->take($length)->get();
 
-        // Prepare the response data
+       
         $data = $exams->map(function ($exam) {
             return [
+                'DT_RowIndex' => $exam->id, 
                 'id' => $exam->id,
-                'created_at' => $exam->created_at->format('Y-m-d'),
-                'action' => view('admin.exam.index', compact('exam'))->render(), // Assuming action button view exists
+                'date' => $exam->created_at->format('Y-m-d'), 
+                'title' => $exam->title, 
+                'time_of_exam' => $exam->time_of_exam, 
+                'action' => 'test',
             ];
         });
 
