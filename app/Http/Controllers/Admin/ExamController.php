@@ -57,49 +57,86 @@ class ExamController extends Controller
         //     })->where("name","full-mock-exam")->buildTable();
         // }
 
-        public function index(Request $request)
-{
-    if ($request->ajax()) {
+        public function index(Request $request){
 
-        // Get the 'start' and 'length' parameters from the request
-        $start = $request->get('start', 0); // Default to 0 if not present
-        $length = $request->get('length', 12); // Default to 12 if not present
 
-        // Build the query for exams
-        $examQuery = Exam::where('id', '>', 0); // You can add more filters here
+        $exam = Exam::where('id','>',0);
 
-        // Get the total number of records (for pagination info)
-        $totalRecords = $examQuery->count();
+        if ($request->ajax==true) {
 
-        // Get the exams with pagination using 'skip' and 'take' to handle the custom pagination
-        $exams = $examQuery->skip($start)->take($length)->get();
+            $exam = Exam::orderBy('id', 'DESC');
 
-       
-        $data = $exams->map(function ($exam) {
+            // Apply pagination if request parameters exist
+            $exam = $exam->paginate($request->get('limit', 12));  // Default limit is 10 if not provided
+        
+            // Format the response with pagination details
             return [
-                'DT_RowIndex' => $exam->id, 
-                'id' => $exam->id,
-                'date' => $exam->created_at->format('Y-m-d'), 
-                'title' => $exam->title, 
-                'time_of_exam' => $exam->time_of_exam, 
-                'action' => 'test',
+                'current_page' => $exam->currentPage(),              
+                'total_pages' => $exam->lastPage(),                  
+                'total_items' => $exam->total(),                             
+                'prev' => $exam->previousPageUrl(),               
+                'next' => $exam->nextPageUrl()                       
             ];
-        });
+        }
 
-        // Prepare the result for DataTables
-        $result = [
-            'data' => $data, // The exam data
-            'recordsTotal' => $totalRecords, // Total number of records
-            'recordsFiltered' => $totalRecords, // Filtered number of records (for search functionality)
-        ];
+        if ($request->ajax()) {
 
-        // Return the DataTables response
-        return response()->json($result);
+            $start = $request->get('start');
+            $limit = $request->get('limit');
+
+            if(!empty($start)&& (!empty($limit)))
+            {
+            $exam = $exam->skip($start)->take($limit);
+            }
+            else
+            {
+                $exam = $exam->skip(1)->take(12);
+            }
+
+
+            return DataTables::of($exam)
+                ->addColumn("action", function ($data) {
+                    return '
+
+                            <a data-id="'.$data->slug.'" class="btn btn-icons eye-button" onclick="UploadVideo(this)">
+                                        <span class="adminside-icon">
+                                            <img src="' . asset("assets/images/video-clip-32-regular.svg") . '" alt="View">
+                                        </span>
+                                        <span class="adminactive-icon">
+                                            <img src="' . asset("assets/images/hover-video-clip-32-regular.svg") . '" alt="View Active" title="View">
+                                        </span>
+                             </a>
+            
+                            <a href="'.route("admin.full-mock-exam.index",["exam"=>$data->slug]).'" class="btn btn-icons eye-button">
+                                        <span class="adminside-icon">
+                                            <img src="' . asset("assets/images/icons/mdi_incognito.svg") . '" alt="View">
+                                        </span>
+                                        <span class="adminactive-icon">
+                                            <img src="' . asset("assets/images/iconshover/view-yellow.svg") . '" alt="View Active" title="View">
+                                        </span>
+                             </a>
+            
+            
+                            ';
+
+                })->addColumn('date',function($data){
+                    return $data->created_at->format('Y-m-d');
+                })
+              
+                ->addIndexColumn()
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+
+        $exam = Exam::orderBy('id', 'DESC');
+
+        // Apply pagination if request parameters exist
+        $exam = $exam->paginate($request->get('limit', 12)); 
+
+         $url=$exam->nextPageUrl(); 
+
+        return view("admin.exam.index",compact('url'));
     }
-
-    return view('admin.exam.index');
-}
-
 
 
 

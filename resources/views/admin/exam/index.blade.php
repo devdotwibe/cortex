@@ -92,9 +92,9 @@
     </div>
     <!-- Load More Button -->
 
-    <button id="loadMoreButton" style="display:none;">Load More</button>
+    <button id="loadMore" data-url="{{ $url }}" class="btn btn-primary">Load More</button>
 
-
+     
     
 
 </section>
@@ -152,45 +152,40 @@
 @push('footer-script')
     <script>
 
-$(document).ready(function() {
-    var start = 0; // Start page
-    var length = 12; // Number of items per page
+let start = 0;
+let limit = 12;
+$(function() {
 
-    var table = $('#mocktableid').DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: {
-            url: "{{ request()->fullUrl() }}", // Route to the controller method
-            type: 'GET',
-            data: function(d) {
-                // Pass the start and length to the backend
-                d.start = start;
-                d.length = length;
-            },
-            dataSrc: function(json) {
-                // Append the data to the table body
-                json.data.forEach(function(item) {
-                    var row = table.row.add([
-                        item.slug,
-                        item.created_at,
-                        item.action // Assuming the action is generated dynamically
-                    ]).draw(false);
-                });
+    var nextPageUrl = $('#loadMore').data('url');
 
-                // Check if there are more records to load
-                if (json.data.length < length) {
-                    // Hide the load more button if no more records
-                    $('#loadMoreButton').hide();
-                } else {
-                    // Show the load more button if there are more records
-                    $('#loadMoreButton').show();
+        $('#mocktableid').DataTable({
+            paging: false,
+            bAutoWidth: false,
+            processing: true,
+            serverSide: true,
+            order: [[0, 'desc']],
+            ajax: {
+                url: "{{ request()->fullUrl() }}",
+                data:function(d){
+                    d.start = d.start || 0; 
+                    d.limit = d.length || 12;
+                        
+                    },
+                type: 'GET',
+                dataSrc: function(json) {
+                    return json.data; // Return the data for DataTables
+                },
+                error: function(xhr, error, thrown) {
+                    console.error(xhr.responseText); // Log any errors for debugging
                 }
-
-                return json.data;
-            }
-        },
-        columns: [
-            { data: 'DT_RowIndex', name: 'id', orderable: true, searchable: false },
+            },
+            initComplete: function(settings) {
+                var info = this.api().page.info();
+                $(".dataTables_paginate").toggle(info.pages > 1);
+                $(".dataTables_info").toggle(info.recordsTotal > 0);
+            },
+            columns: [
+                { data: 'DT_RowIndex', name: 'id', orderable: true, searchable: false },
                 { 
                     data: 'date', 
                     name: 'created_at', 
@@ -219,42 +214,48 @@ $(document).ready(function() {
                 orderable: false, 
                 searchable: false
              }
-        ],
-        pageLength: length, // Number of records to show per page
-        lengthChange: false, // Disable the option to change page size
-        dom: 'lrtip' // Remove default pagination controls
-    });
-
-    // Handle "Load More" button click
-    $('#loadMoreButton').on('click', function() {
-        // Increase the start value and fetch the next page
-        start += length;
-        $.ajax({
-            url: "{{ request()->fullUrl() }}",
-            type: 'GET',
-            data: {
-                start: start,
-                length: length
-            },
-            success: function(response) {
-                // Append the next batch of records to the table
-                response.data.forEach(function(item) {
-                    table.row.add([
-                        item.slug,
-                        item.created_at,
-                        item.action // Assuming action buttons are dynamically generated
-                    ]).draw(false);
-                });
-
-                // If there are no more records to load, hide the "Load More" button
-                if (response.data.length < length) {
-                    $('#loadMoreButton').hide();
-                }
-            }
+            ]
         });
-    });
+
+
+        // Load More Button Event
+$('#loadMore').on('click', function() {
+console.log('y');
+start += limit; 
+$(this).prop('disabled', true).text('Loading...');
+$.ajax({
+    url: nextPageUrl,
+method: 'GET',
+data: {
+    start: start,
+    limit: limit
+},
+success: function(response) {
+   
+    $('#mocktableid').DataTable().ajax.reload(); 
+
+    nextPageUrl = response.next; 
+
+      $('#loadMore').data('url', nextPageUrl);
+
+      start += limit;
+
+    // If no more data, disable the "Load More" button or hide it
+    if (!nextPageUrl) {
+        $('#loadMore').prop('disabled', true).text('No More Data');
+        // Optionally hide the button: $('#loadMore').hide();
+    } else {
+        // Re-enable the button and change the text back
+        $('#loadMore').prop('disabled', false).text('Load More');
+    }
+
+
+}
+});
 });
 
+
+    });
          
 
          function UploadVideo(element)
