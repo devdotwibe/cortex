@@ -243,11 +243,9 @@
                 },
 
                 @if(!empty($hidepagination))
-
                 paging: false,
-
                 @endif
-
+                info: false, // Disable the "Showing x to y of z entries"
                 order: [
                     [0, 'DESC']
                 ],
