@@ -91,6 +91,9 @@
         </div>
     </div>
     <!-- Load More Button -->
+
+    <button id="loadMore" data-url="{{ $url }}" class="btn btn-primary">Load More</button>
+
      
     
 
