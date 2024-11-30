@@ -159,7 +159,6 @@ $(function() {
     var nextPageUrl = $('#loadMore').data('url');
 
         $('#mocktableid').DataTable({
-            paging: false,
             bAutoWidth: false,
             processing: true,
             serverSide: true,
