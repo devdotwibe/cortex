@@ -227,6 +227,7 @@
             table_{{ $tableid }}=$('#table-{{ $tableid }}').DataTable({
                 processing: true,
                 serverSide: true,
+                pagination: false,
                 ajax: {
                     url: "{{ $url }}",
                     data:function(d){
