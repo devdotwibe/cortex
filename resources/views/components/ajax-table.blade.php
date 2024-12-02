@@ -227,8 +227,8 @@
             table_{{ $tableid }}=$('#table-{{ $tableid }}').DataTable({
                 processing: true,
                 serverSide: true,
-                ordering: true,
             
+               paging: false,
                 ajax: {
                     url: "{{ $url }}",
                     data:function(d){
@@ -249,11 +249,6 @@
                     order: [
                         [0, 'DESC']
                     ],
-                @else
-                order: [
-                        [2, 'ASC']
-                    ],
-
                 @endif
 
                 initComplete: function(settings) {
@@ -319,21 +314,13 @@
                         searchable: false,
                     },
                     @endif
-                    @if($order)
+
                     {
                         data: 'DT_RowIndex',
                         name: 'id',
                         orderable: true,
                         searchable: false,
                     },
-                    @else
-                    {
-                        data: 'DT_RowIndex',
-                        name: 'order_no',
-                        orderable: true,
-                        searchable: false,
-                    },
-                    @endif
                     @foreach ($coloumns as $item)
                         {
                             data: '{{ $item->data }}',

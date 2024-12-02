@@ -27,9 +27,6 @@ class Question extends Model
         'sub_question',
         'order_no'
     ];
-    protected $casts = [
-        'order_no' => 'integer',
-    ];
     
     public function category(){
         return $this->belongsTo(Category::class);
