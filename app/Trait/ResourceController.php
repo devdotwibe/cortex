@@ -78,6 +78,12 @@ trait ResourceController
         foreach(self::$whereCondition as $condition){
             $query->where(...$condition);
         }
+        foreach(self::$orderbycondition as $condition){
+            $query->orderBy($condition[0]??"",$condition[1]??null);
+        }
+        foreach(self::$orderbyrawcondition as $condition){
+            $query->orderByRaw($condition[0]??"",$condition[1]??null);
+        }
 
         foreach(self::$whereInCondition as $condition){
             $query->whereIn(...$condition);
@@ -254,6 +260,12 @@ trait ResourceController
         $query=app(self::$model)->query();
         foreach(self::$whereCondition as $condition){
             $query->where($condition[0]??"",$condition[1]??null);
+        }
+        foreach(self::$orderbycondition as $condition){
+            $query->orderBy($condition[0]??"",$condition[1]??null);
+        }
+        foreach(self::$orderbyrawcondition as $condition){
+            $query->orderByRaw($condition[0]??"",$condition[1]??null);
         }
         foreach(self::$whereHasCondition as $condition){
             if(count($condition)==1){
