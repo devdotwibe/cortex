@@ -221,7 +221,7 @@ class QuestionController extends Controller
 
         foreach($questionToUpdate as $item)
         {
-            $ques_count = Question::where('id','<=',$item->id)->where('category_id', $request->category_id)->where('exam_id', $question->exam_id)->count();
+            $ques_count = Question::where('category_id', $request->category_id)->where('exam_id', $question->exam_id)->where('id','<=',$item->id)->count();
             
            $item->order =  $ques_count;
 
