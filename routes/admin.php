@@ -145,10 +145,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
 
         Route::prefix('full-mock-exam')->name('full-mock-exam.')->group(function () {
             Route::get('/{exam}', [FullMockExamController::class, 'index'])->name('index');
-
-            Route::post('/full-mock-exam/bulk/action', [FullMockExamController::class, 'bulkaction'])->name('bulkaction');
-
-
+            Route::post('/{exam}/bulk/action', [FullMockExamController::class, 'bulkaction'])->name('bulkaction');
             Route::get('/{exam}/question/{question}', [FullMockExamController::class, 'show'])->name('show');
             Route::get('/{exam}/create', [FullMockExamController::class, 'create'])->name('create');
             Route::get('/{exam}/question/{question}/edit', [FullMockExamController::class, 'edit'])->name('edit');
