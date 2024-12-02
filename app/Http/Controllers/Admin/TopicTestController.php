@@ -112,11 +112,11 @@ class TopicTestController extends Controller
             }
             elseif($name=="order"){
                 self::reset();
-                self::$model = Exam::class; 
+                self::$model = Question::class; 
 
                 // $examCount = Exam::where('topic')->count();
 
-                return $this->where('id','>',0)->where('name','topic-test')->buildSelectOption('id');
+                return $this->where('id','>',0)->where('category_id',$category->id)->buildSelectOption('id');
 
 
             }else{
