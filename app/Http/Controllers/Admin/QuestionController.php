@@ -240,12 +240,7 @@ class QuestionController extends Controller
             $count =$ques_count->where('id','<=',$item->id)->count();
             
            $item->order = $k +1;
-           if($k ==1)
-           {
-            dd($item->description);
-           }
-           
-
+          
            $item->save();
         }
                 
