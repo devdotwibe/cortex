@@ -52,8 +52,6 @@ class TopicTestController extends Controller
             }
             $this->orderBy('order', 'ASC');
 
-            dd($this);
-        
             return $this->where('exam_id',$exam->id)
                 ->where('category_id',$category->id)
                 ->addAction(function($data)use($category){
