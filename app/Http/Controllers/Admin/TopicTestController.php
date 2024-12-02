@@ -113,7 +113,7 @@ class TopicTestController extends Controller
             elseif($name=="order"){
                 self::reset();
                 self::$model = Exam::class; 
-                return $this->where('order',$request->order??0)->buildSelectOption();
+                return $this->where('id',$request->id??0)->buildSelectOption();
             }else{
                 self::reset();
                 self::$model = SubCategory::class; 
