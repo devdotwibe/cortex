@@ -267,11 +267,7 @@ class QuestionController extends Controller
         
         
       
-        $questiondat['order'] = $request->order;
-        $question->update($questiondat);
-        
-
-        $questiondat['order']=$request->order;
+        // $questiondat['order']=$request->order;
 
         $question->update($questiondat);
         $ansIds=[];
