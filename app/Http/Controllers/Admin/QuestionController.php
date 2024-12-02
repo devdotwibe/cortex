@@ -262,10 +262,18 @@ class QuestionController extends Controller
             }
         }
         
-        
-      
-        $questiondat['order']=$request->order;
+        $cq_count = Question::where('id','<=', $question->id)
+        ->where('category_id', $request->category_id)
+        ->where('exam_id', $question->exam_id)
+        ->count();
 
+        $questiondat['order'] = $cq_count;
+
+        if(!empty($request->order))
+        {
+            $questiondat['order']=$request->order;
+        }
+        
         $question->update($questiondat);
         $ansIds=[];
 
