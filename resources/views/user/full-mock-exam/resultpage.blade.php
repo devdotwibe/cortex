@@ -37,7 +37,7 @@
                                     @endif
                                     <a class="btn btn-warning btn-lg" id="review-link" href="{{route('full-mock-exam.preview',$userExamReview->slug)}}">Review Set</a>
 
-                                    <a class="btn btn-warning btn-lg video-btn" id="explanation_video" href="{{route('full-mock-exam.explanation_video',$userExamReview->slug)}}">Explanation Video1</a>
+                                    <a class="btn btn-warning btn-lg video-btn" id="explanation_video" href="{{route('full-mock-exam.explanation_video',$userExamReview->slug)}}">Explanation Video</a>
 
                                     <a href="{{route('full-mock-exam.index')}}" class="btn btn-outline-dark btn-lg">Exit Set</a>
                                 </div>
