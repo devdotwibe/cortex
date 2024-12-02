@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('questions', function (Blueprint $table) {
-            $table->string('order_no')->default('9999999999');
+            $table->integer('order_no')->default('9999999999');
         });
     }
 
