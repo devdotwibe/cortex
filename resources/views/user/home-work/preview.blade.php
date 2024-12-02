@@ -185,7 +185,7 @@
                                         <div id="note-${lesseonId}-ans" class="form-group">
                                             <div class="form-data">
                                                 <div class="forms-inputs mb-4"> 
-                                                    <input type="text" readonly name="answer" data-question="${v.slug}" id="user-answer-${lesseonId}" value="${v.user_answer}" class="form-control" placeholder="Write your answer hear" aria-placeholder="Write your answer hear" >        
+                                                    <input type="text" readonly name="answer" data-question="${v.slug}" id="user-answer-${lesseonId}" value="${v.user_answer}" class="form-control" placeholder="Write your answer here" aria-placeholder="Write your answer here" >        
                                                     <div class="invalid-feedback" id="error-answer-field" >The field is required</div>
                                                 </div>
                                             </div>
