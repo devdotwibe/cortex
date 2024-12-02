@@ -51,7 +51,6 @@ class TopicTestController extends Controller
                 $this->where('sub_category_id',$request->sub_category_id);
             }
             $this->orderBy('order', 'ASC');
-           
 
             return $this->where('exam_id',$exam->id)
                 ->where('category_id',$category->id)
