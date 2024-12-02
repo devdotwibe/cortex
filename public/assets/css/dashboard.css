@@ -3131,7 +3131,7 @@ aside.side_bar.slider-btn .btn-slider {
     content: "";
     position: absolute;
     width: 1px;
-    height: 100%;
+    height: 92.35%;
     top: 0;
     left: 50%;
     transform: translateX(-50%);
@@ -7599,9 +7599,9 @@ nav.navbar.top-barhide {
     padding: 0;
 }
 
-.content_section.mock-class .exam-list .exam-title {
+/* .content_section.mock-class .exam-list .exam-title {
     margin: 0 0 0;
-}
+} */
 
 
 .modal.importadmin-user .modal-dialog .modal-content {
