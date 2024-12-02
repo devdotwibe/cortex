@@ -109,11 +109,11 @@ class QuestionController extends Controller
         
         if(!empty($question_count))
         {
-            $questiondat['order'] = $question_count+1; 
+            $questiondat['order_no'] = $question_count+1; 
         }
         else
         {
-            $questiondat['order'] = 1; 
+            $questiondat['order_no'] = 1; 
         }
 
         $question = Question::store($questiondat);
@@ -226,7 +226,7 @@ class QuestionController extends Controller
         }
 
     
-        if (!empty($request->order)) {
+        if (!empty($request->order_no)) {
 
             $questionToUpdate = Question::where('id', $question->id)
                 ->where('category_id', $request->category_id)
@@ -235,7 +235,7 @@ class QuestionController extends Controller
         
             if (!empty($questionToUpdate)) {
                 $currentOrder = $questionToUpdate->order;
-                $newOrder = $request->order;
+                $newOrder = $request->order_no;
         
                 if ($currentOrder != $newOrder) {
         
@@ -243,20 +243,20 @@ class QuestionController extends Controller
                       
                         Question::where('category_id', $request->category_id)
                             ->where('exam_id', $question->exam_id)
-                            ->where('order', '>', $currentOrder)
-                            ->where('order', '<=', $newOrder)
-                            ->decrement('order');  
+                            ->where('order_no', '>', $currentOrder)
+                            ->where('order_no', '<=', $newOrder)
+                            ->decrement('order_no');  
                     } 
                     else {
                        
                         Question::where('category_id', $request->category_id)
                             ->where('exam_id', $question->exam_id)
-                            ->where('order', '<', $currentOrder)
-                            ->where('order', '>=', $newOrder)
-                            ->increment('order');
+                            ->where('order_no', '<', $currentOrder)
+                            ->where('order_no', '>=', $newOrder)
+                            ->increment('order_no');
                     }
                     
-                    $questionToUpdate->order = $newOrder;
+                    $questionToUpdate->order_no = $newOrder;
                     $questionToUpdate->save();
                 }
             }
@@ -267,11 +267,11 @@ class QuestionController extends Controller
         ->where('exam_id', $question->exam_id)
         ->count();
 
-        $questiondat['order'] = $cq_count;
+        $questiondat['order_no'] = $cq_count;
 
-        if(!empty($request->order))
+        if(!empty($request->order_no))
         {
-            $questiondat['order']=$request->order;
+            $questiondat['order_no']=$request->order_no;
         }
         
         $question->update($questiondat);
