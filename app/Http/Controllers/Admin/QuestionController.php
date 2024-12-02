@@ -231,7 +231,7 @@ class QuestionController extends Controller
 
         dd(Question::
         where('category_id', $request->category_id)
-       ->where('exam_id', $exam->id)->count());
+       ->where('exam_id', $exam->id)->get());
 
         foreach($questionToUpdate as $k => $item)
         {
