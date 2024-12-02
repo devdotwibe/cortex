@@ -114,9 +114,11 @@ class TopicTestController extends Controller
                 self::reset();
                 self::$model = Question::class; 
 
-                $examCount = Question::where('category_id',$category->id)->where('sub_category_id',$request->parent_id??0)->count();
+                $exam=Exam::where("name",'topic-test')->first();
 
-                $exams= Question::where('category_id',$category->id)->where('sub_category_id',$request->parent_id??0)->get();
+                $examCount = Question::where('category_id',$category->id)->where('exan_id',$exam->id??0)->count();
+
+                $exams= Question::where('category_id',$category->id)->where('exan_id',$exam->id??0)->get();
                 $results= [];
 
                 foreach($exams as $k=> $item)
