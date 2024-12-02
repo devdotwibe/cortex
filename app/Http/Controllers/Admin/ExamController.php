@@ -56,7 +56,16 @@ class ExamController extends Controller
     public function store(Request $request){
         $examdat=$request->validate([
             "title"=>"required",
-            "time_of_exam"=>"required"
+            "time_of_exam"=>[
+                'required',
+                function ($attribute, $value, $fail) {
+                    $validTimeFormat = '/^(0[0-9]|1[0-9]|2[0-3]) ?: ?[0-5][0-9]$/';
+
+                    if (!preg_match($validTimeFormat, $value) || $value === '00:00' || $value === '00 : 00') {
+                        $fail('The time of exam must not be 00:00.');
+                    }
+                },
+            ],
         ]);
         $examdat['name']="full-mock-exam";
         $exam=Exam::store($examdat);        
@@ -100,10 +109,10 @@ class ExamController extends Controller
   
     public function examoptionssave(Request $request){
         $request->validate([
-            'description'=>'required',
-            'title'=>'required',
-            'description1'=>'required',
-            'title1'=>'required',
+            'description'=>'',
+            'title'=>'',
+            'description1'=>'',
+            'title1'=>'',
             
         ]);
         OptionHelper::setData("exam_simulator_title", $request->title);
@@ -122,7 +131,16 @@ class ExamController extends Controller
     public function update(Request $request,Exam $exam){
         $examdat=$request->validate([
             "title"=>"required",
-            "time_of_exam"=>"required"
+            "time_of_exam"=>[
+                'required',
+                function ($attribute, $value, $fail) {
+                    $validTimeFormat = '/^(0[0-9]|1[0-9]|2[0-3]) ?: ?[0-5][0-9]$/';
+
+                    if (!preg_match($validTimeFormat, $value) || $value === '00:00' || $value === '00 : 00') {
+                        $fail('The time of exam must not be 23:59.');
+                    }
+                },
+            ],
         ]);
         $exam->update($examdat);        
         return redirect()->route('admin.exam.index')->with("success","Exam updated success");

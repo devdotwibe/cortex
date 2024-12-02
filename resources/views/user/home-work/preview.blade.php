@@ -26,25 +26,21 @@
                     </div>
                 </div>
 
-                <div class="question-header question-number">
-                    <div class="progress-menus">
+                <div class="exam-center exam-progress-inner-item">
+                    <div class="progress-menu">
                         <div class="menu-text">
-                            <span id="menu-text">Question <span> 0 </span> <span>0 </span> </span>
+                            <span id="menu-text" >Question <span> 0 </span>  of <span>0 </span> </span>
 
                         </div>
-                        <div class="menu-icon">
+                        <div class="menu-icon ">
                             <a onclick="toglepreviewpage()">
-                                {{-- <img src="{{asset("assets/images/menu.svg")}}" alt="exiticon"> --}}
+                                <img src="{{ asset('assets/images/menu.svg') }}" alt="exiticon">
                             </a>
                         </div>
                     </div>
                 </div>
 
-                <div class="menu-icon modecolor">
-                    <a onclick="toglepreviewpage()">
-                        <img src="{{ asset('assets/images/menu.svg') }}" alt="exiticon">
-                    </a>
-                </div>
+               
 
 
                 <div class="Review-mode">
@@ -174,31 +170,67 @@
                 $('#question-answer-page').fadeIn()
                 const lesseonId = generateRandomId(10);
                 $.each(res.data, function(k, v) {
-                    $('#lesson-questionlist-list').html(`
-                        <div class="col-md-12">
-                            <div class="mcq-row" >
-                                <div class="mcq-title">
-                                    <span>${v.title||""}</span>
-                                </div>
-                                <div class="mcq-container">
-                                    <div id="mcq-${lesseonId}">
-                                       <p> ${v.note||""}</p>
+
+                    if (v.review_type == "short_notes") {
+                        $('#lesson-questionlist-list').html(`
+                            <div class="col-md-12">
+                                <div class="note-row" >
+                                    <div class="note-title">
+                                        <span>${v.title||""}</span>
                                     </div>
-                                    <div id="mcq-${lesseonId}-ans" class="form-group">
-                                        <div class="form-data" >
-                                            <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list"> 
-                                                
-                                            </div> 
+                                    <div class="note-container">
+                                        <div id="note-${lesseonId}">
+                                            ${v.note||""}
+                                        </div>
+                                        <div id="note-${lesseonId}-ans" class="form-group">
+                                            <div class="form-data">
+                                                <div class="forms-inputs mb-4"> 
+                                                    <input type="text" readonly name="answer" data-question="${v.slug}" id="user-answer-${lesseonId}" value="${v.user_answer}" class="form-control" placeholder="Write your answer hear" aria-placeholder="Write your answer hear" >        
+                                                    <div class="invalid-feedback" id="error-answer-field" >The field is required</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="note-currect" id="note-${lesseonId}-answer"> 
+                                            <label> <strong> Correct Answer </strong> </label>
+                                            ${v.currect_answer}
                                         </div>
                                     </div>
-                                    <div id="mcq-${lesseonId}-explanation" class="correctanswerclass"> 
-                                       <label> <strong>Correct Answer <span id="mcq-${lesseonId}-correct"></span> </strong></label>
-                                   </div> 
-                                      <p>${v.explanation||''}</p>
                                 </div>
                             </div>
-                        </div>
-                    `).fadeIn();
+                        `).fadeIn();
+                    }
+
+                    if (v.review_type == "mcq") {
+
+                        $('#lesson-questionlist-list').html(`
+                            <div class="col-md-12">
+                                <div class="mcq-row" >
+                                    <div class="mcq-title">
+                                        <span>${v.title||""}</span>
+                                    </div>
+                                    <div class="mcq-container">
+                                        <div id="mcq-${lesseonId}">
+                                        <p> ${v.note||""}</p>
+                                        </div>
+                                        <div id="mcq-${lesseonId}-ans" class="form-group">
+                                            <div class="form-data" >
+                                                <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list"> 
+                                                    
+                                                </div> 
+                                            </div>
+                                        </div>
+                                        <div id="mcq-${lesseonId}-explanation" class="correctanswerclass"> 
+                                        <label> <strong>Correct Answer <span id="mcq-${lesseonId}-correct"></span> </strong></label>
+                                    </div> 
+                                        <p>${v.explanation||''}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        `).fadeIn();
+
+                    }
+
+
                     $.get("{{ route('home-work.preview', $homeWorkReview->slug) }}", {
                         question: v.slug
                     }, function(ans) {
@@ -235,13 +267,20 @@
 
                 })
                
-                if (res.total > 1) {
+                if (res.total > 0) {
 
                     $.each(res.links, function(k, v) {
 
-                        let linkstatus =  'status-bad';
+                        let linkstatus = "";
 
                         if (k != 0 && k != res.links.length ) {
+
+                            linkstatus = 'status-bad';
+
+                            if (v.ques_type) {
+                            
+                                linkstatus = "status-grey";
+                            }
 
                             $.each(home_work_answer, function(i, j) {
 
@@ -261,7 +300,7 @@
 
                         if (v.active || !v.url) {
                             $('#lesson-footer-paginationmobile').append(`
-                                <button class="${linkstatus} btn btn-secondary ${v.active?"active":""}" disabled  >${v.label}</button>
+                                <button class="${linkstatus} btn btn-secondary ${v.active?"active":""}" onclick="loadlessonreview('${v.url}')"  >${v.label}</button>
                             `)
                         } else {
                             $('#lesson-footer-paginationmobile').append(`
@@ -292,7 +331,7 @@
                         .attr('onclick', `loadlessonreview('${res.prev_page_url}')`); // Adding onclick event
                 }
 
-                $('#menu-text').html(`Question <span> ${res.current_page} </span> `)
+                $('#menu-text').html(`Question <span> ${res.current_page} </span> of <span> ${res.total}</span>`)
 
             }, 'json')
 

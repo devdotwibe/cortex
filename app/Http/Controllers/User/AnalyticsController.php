@@ -17,11 +17,11 @@ class AnalyticsController extends Controller
          */
         $user=Auth::user(); 
         $category = Category::all();  
-        $mockExams = Exam::where('name', "full-mock-exam")->get(); // Get all relevant exams
+        $mockExams = Exam::where('name', "full-mock-exam")->whereHas('questions')->get();
 
         if($request->ajax()){
             $page=$request->page??1;
-            $data = Exam::where('name',"full-mock-exam")->skip($page-1)->take(1)->first();
+            $data = Exam::where('name',"full-mock-exam")->whereHas('questions')->get()->skip($page-1)->take(1)->first();
             $categorydata=[];
             foreach ($category as $cat) {
                 $categorydata[]=[

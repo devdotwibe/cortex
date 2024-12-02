@@ -26,6 +26,7 @@ class AjaxTable extends Component
     public $bulkactionlink;
     public $tableinit;
     public $deletecallbackbefore;
+    public $hidepagination;
     public $deletecallbackafter;
     public $action;
     public $bulkotheraction;
@@ -34,7 +35,7 @@ class AjaxTable extends Component
      *
      * @return void
      */
-    public function __construct($coloumns,$url=null,$fields=null,$tableid=null,$popupid=null,$ajaxcreate=null,$createurl=null,$cancel=null,$btnsubmit=null,$onclick=null,$beforeajax=null,$bulkaction=false,$bulkactionlink=null,$tableinit=null,$deletecallbackbefore=null,$deletecallbackafter=null,$action=true,$bulkotheraction=null)
+    public function __construct($coloumns,$url=null,$fields=null,$tableid=null,$hidepagination=null,$popupid=null,$ajaxcreate=null,$createurl=null,$cancel=null,$btnsubmit=null,$onclick=null,$beforeajax=null,$bulkaction=false,$bulkactionlink=null,$tableinit=null,$deletecallbackbefore=null,$deletecallbackafter=null,$action=true,$bulkotheraction=null)
     {
         $this->coloumns = json_decode(json_encode($coloumns),false); 
         $this->url = $url??url()->current();
@@ -43,6 +44,7 @@ class AjaxTable extends Component
         $this->fields = json_decode(json_encode($fields),false); 
         $this->tableid = $tableid??"tb".Str::random(5).time();
         $this->popupid = $popupid??null;
+        $this->hidepagination = $hidepagination??null;
         $this->btnsubmit = $btnsubmit??"Save";
         $this->cancel = $cancel;
         $this->onclick = $onclick;

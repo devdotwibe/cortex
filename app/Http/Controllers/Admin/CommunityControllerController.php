@@ -14,6 +14,7 @@ use App\Models\Hashtagstore;
 use App\Models\PollOption;
 use App\Models\Post;
 use App\Models\PostComment;
+use App\Models\ReportPost;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -80,7 +81,7 @@ class CommunityControllerController extends Controller
 
                 ];
             }
-            return [
+            return [  
                 'current_page' => $posts->currentPage(),
                 'total_pages' => $posts->lastPage(),
                 'total_items' => $posts->total(),
@@ -254,12 +255,23 @@ class CommunityControllerController extends Controller
 
     public function edit(Request $request, Post $post)
     {
+        $reportPost =$request->report_post;
+
         $hashtags = Hashtag::all();
         $post->load('hashtaglist');
-        return view('admin.community.edit', compact('post', 'hashtags'));
+        return view('admin.community.edit', compact('post', 'hashtags','reportPost'));
     }
     public function update(Request $request, Post $post)
     {
+        $reportPost = ReportPost::findSlug($request->report_post);
+
+        if(!empty($reportPost))
+        {
+            $reportPost->status ='edited';
+
+            $reportPost->save();
+        }
+       
         $type = $request->type ?? "post";
         if ($type == "post") {
             $data = $request->validate([
@@ -352,6 +364,14 @@ class CommunityControllerController extends Controller
     }
     public function destroy(Request $request, Post $post)
     {
+        $report_post = ReportPost::where('post_id',$post->id)->first();
+
+       if(!empty($report_post))
+       {
+            $report_post->status = 'deleted';
+            $report_post->save();
+       }
+
         $post->delete();
         return redirect()->route('admin.community.index')->with('success', "Post Deleted");
     }
@@ -369,15 +389,13 @@ class CommunityControllerController extends Controller
     {
         $query = $request->input('query');
 
-        // Fetch users whose name matches the query
-        $users = User::where('name', 'like', '%' . $query . '%')->get();
+       
+        $users = User::whereHas('userpost')->where('name', 'like', '%' . $query . '%')->get();
 
-        // Filter the posts based on the selected user's ID
         $posts = Post::whereIn('user_id', $users->pluck('id'))
-            ->with('user') // Eager load user data
+            ->with('user')
             ->get();
 
-        // Return unique users and posts
         return response()->json(['users' => $users->unique('id'), 'posts' => $posts]);
     }
 

@@ -487,7 +487,19 @@ class PagesController extends Controller
             }
         }
 
-        // Delete feeds that were not included in the request
+        $feed = Feed::whereNotIn('id', $feedIds)->get();
+
+        if ($feed) {
+       
+            foreach($feed as $item)
+            {
+                if ($item->image && Storage::exists($item->image)) {
+                    Storage::delete($item->image);
+                }
+
+            }
+        }
+           
         Feed::whereNotIn('id', $feedIds)->delete();
 
         // Redirect back with success message
@@ -498,25 +510,46 @@ class PagesController extends Controller
 
 
 
+    
+
+// public function destroyy($id)
+// {
+ 
+//     $feed = Feed::find($id);
+
+//     if ($feed) {
+       
+//         if ($feed->image && Storage::exists($feed->image)) {
+//             Storage::delete($feed->image);
+//         }
+
+      
+//         $feed->delete();
+
+      
+//         return response()->json(['success' => true]);
+//     }
+
+    
+//     return response()->json(['success' => false], 404);
+// }
 
 
+public function destroyy($id)
+{
+    $feed = Feed::find($id);
 
-    public function destroyy($id)
-    {
-        $feed = Feed::find($id);
+    if ($feed) {
+        // Delete the feature from the database
+        $feed->delete();
 
-        if ($feed) {
-            // Delete the feature from the database
-            $feed->delete();
-
-            // Return a success response
-            return response()->json(['success' => true]);
-        }
-
-        // Return a failure response if feature not found
-        return response()->json(['success' => false], 404);
+        // Return a success response
+        return response()->json(['success' => true]);
     }
 
+    // Return a failure response if feature not found
+    return response()->json(['success' => false], 404);
+}
 
 
 
@@ -628,12 +661,22 @@ class PagesController extends Controller
         // Set process heading
         $process->ourprocessheading = $heading;
 
-        // Handle file upload
-        if (isset($ourprocessimages[$key]) && $ourprocessimages[$key] instanceof \Illuminate\Http\UploadedFile) {
+        // // Handle file upload
+        // if (isset($ourprocessimages[$key]) && $ourprocessimages[$key] instanceof \Illuminate\Http\UploadedFile) {
+        //     $image = $ourprocessimages[$key];
+        //     $imagePath = 'features/' . $image->hashName();
+        //     $image->storeAs('features', $image->hashName()); // Store the image
+        //     $process->ourprocessimage = $imagePath;
+        // }
+
+        
+         if (isset($ourprocessimages[$key])) {
             $image = $ourprocessimages[$key];
             $imagePath = 'features/' . $image->hashName();
-            $image->storeAs('features', $image->hashName()); // Store the image
+            Storage::put('features', $image);
             $process->ourprocessimage = $imagePath;
+
+           
         }
 
         $process->save();
@@ -644,7 +687,7 @@ class PagesController extends Controller
     OurProcess::whereNotIn('id', $proids)->delete();
 
     // Redirect back with success message
-    return redirect()->route('admin.page.index')->with('success', 'Section 10 data has been successfully saved.');
+    return redirect()->route('admin.page.index')->with('success', 'Section 4 data has been successfully saved.');
 }
 
 
@@ -979,4 +1022,102 @@ public function deleteLiveImage(Request $request)
     return response()->json(['success' => false, 'message' => 'Image file not found.'], 404);
 }
 
+
+public function deleteFeatureImage(Request $request)
+{
+
+    $feature = Feature::find($request->id);
+
+    if ($feature) {
+        // Get the image path from the request
+        $imagePath = $feature->image ;
+
+        // Check if the file exists in the storage and delete it
+        if (Storage::exists($imagePath)) {
+            // Delete the image from storage
+            Storage::delete($imagePath);
+
+            // Update the feature record to remove the image from the database
+            $feature->image = null;
+            $feature->save();
+
+            // Return a success response
+            return response()->json(['success' => true, 'message' => 'Image deleted successfully']);
+        } else {
+            // If the file doesn't exist
+            return response()->json(['success' => false, 'message' => 'Image not found']);
+        }
+    }
+
+    // If the feature doesn't exist
+    return response()->json(['success' => false, 'message' => 'Feature not found']);
 }
+
+
+public function deleteProcessImage(Request $request)
+{
+    // Find the process record by its ID
+    $process = OurProcess::find($request->id);
+
+    if ($process) {
+        // Get the image path from the process record
+        $imagePath = $process->ourprocessimage;
+
+        // Check if the image exists in storage and delete it
+        if (Storage::exists($imagePath)) {
+            // Delete the image from storage
+            Storage::delete($imagePath);
+
+            // Update the process record to remove the image
+            $process->ourprocessimage = null;
+            $process->save();
+
+            // Return a success response
+            return response()->json(['success' => true, 'message' => 'Process image deleted successfully']);
+        } else {
+            // If the image doesn't exist in storage
+            return response()->json(['success' => false, 'message' => 'Process image not found']);
+        }
+    }
+
+    // If the process doesn't exist
+    return response()->json(['success' => false, 'message' => 'Process not found']);
+}
+
+
+public function deleteImagesection7(Request $request)
+{
+
+   
+
+    // Find the feed record by its ID
+    $feed = Feed::find($request->id);
+
+    if ($feed) {
+    
+        $imagePath = $feed->image;
+     
+           
+            if (Storage::exists($imagePath)) {
+             
+                Storage::delete($imagePath);
+             
+            $feed->image = null;
+            $feed->save();
+
+            
+             return response()->json(['success' => true, 'message' => 'Process image deleted successfully']);
+            } else {
+                
+                return response()->json(['success' => false, 'message' => 'Process image not found']);
+            }
+        }
+    
+      
+        return response()->json(['success' => false, 'message' => 'Process not found']);
+    }
+    
+}
+   
+
+        

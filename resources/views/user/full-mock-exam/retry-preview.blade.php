@@ -69,11 +69,8 @@
         <div class="lesson-pagination">
 
 
-            <div class="lesson-left ">
-                <a href="{{ route('full-mock-exam.complete', $userExamReview->slug) }}" class="button left-btn"
-                    title="Back">
-                    <img src="{{ asset('assets/images/leftarrow.svg') }}" alt="<"> Back
-                </a>
+            <div class="lesson-left pagination-arrow" style="display: none" >
+                <button class="button left-btn"><img src="{{asset('assets/images/leftarrow.svg')}}" alt="<"> Previous </button>
             </div>
 
 
@@ -189,7 +186,6 @@
                     $('#lesson-footer-paginationmobile').html('')
                     $('#question-preview-page').fadeOut()
                     $('#question-answer-page').fadeIn()
-
                     const lesseonId = generateRandomId(10);
                     $.each(res.data, function(k, v) {
                         $('#lesson-questionlist-list').html(`
@@ -224,7 +220,7 @@
                                          
                                         </div>
                                       <p>${v.explanation||''}</p>
-                                        {{-- <div id="mcq-${lesseonId}-ans-progress" class="form-group">
+                                        <div id="mcq-${lesseonId}-ans-progress" class="form-group">
                                             <div class="form-data" >
                                                 <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list-progress"> 
                                                     
@@ -233,7 +229,7 @@
                                             <div>
                                                 <p>You spent ${v.time_taken||0} seconds on this question. The average student spent ${v.total_user_taken_time||0} seconds on this question<p>
                                             </div>
-                                        </div> --}}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -264,7 +260,7 @@
                                 <div class="form-progress-ans ans-${av.iscorrect?"select":"no-select"}"> 
                                     <div class="form-progress">       
                                         <label for="user-answer-${lesseonId}-ans-progress-item-${ai}" >${ letter }</label>
-                                        <progress id="user-answer-${lesseonId}-ans-progress-item-${ai}" max="100" value="${av.total_user_answered||0}"/>
+                                        <progress id="user-answer-${lesseonId}-ans-progress-item-${ai}" max="100" value="${av.total_user_answered||0}"></progress> <span>${((av.total_user_answered||0)*1).toFixed(2)}%</span>
                                     </div>  
                                 </div>
                             `)
@@ -275,30 +271,66 @@
                         }, 'json')
 
                     })
+                    if (res.total > 1) {
+                        $.each(res.links, function(k, v) {
+                            let linkstatus = "";
+                            if (k != 0 && k != res.links.length && useranswers[k - 1]) {
+                                linkstatus = 'status-bad';
+                                if (useranswers[k - 1].iscorrect) {
+                                    linkstatus = "status-good";
+                                    if (useranswers[k - 1].time_taken < {{ $examtime }}) {
+                                        linkstatus = "status-exelent";
+                                    }
+                                }
+                            }
+                            if (v.active || !v.url) {
 
+                                var preclass = "";
+                                if (k == 0 || k == res.links.length) {
+                                    preclass = "prevnxtclass";
+                                }
+                                $('#lesson-footer-pagination').append(`
+                                <button class="${linkstatus} btn btn-secondary  ${preclass} ${v.active?"active":""}" disabled  >${v.label} </button>
+                            `)
+                            } else {
+                                var preclass = "";
+                                if (k == 0 || k == res.links.length - 1) {
+                                    preclass = "prevnxtclass";
+                                }
+
+                                $('#lesson-footer-pagination').append(`
+                                <button class="${linkstatus} btn btn-secondary ${preclass}" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
+                            `)
+                            }
+                            if (v.active || !v.url) {
+                                $('#lesson-footer-pagination').append(`
+                                <button class="${linkstatus} btn btn-secondary ${v.active?"active":""}" disabled  >${v.label}</button>
+                            `)
+                            } else {
+                                $('#lesson-footer-pagination').append(`
+                                <button class="${linkstatus} btn btn-secondary" onclick="loadlessonreview('${v.url}')" >${v.label}</button>
+                            `)
+                            }
+                        })
+                    }
                     if (res.total > 1) {
 
+
                         $.each(res.links, function(k, v) {
+                            let linkstatus = "";
+                            if (k != 0 && k != res.links.length && useranswers[k - 1]) {
+                                linkstatus = 'status-bad';
+                                if (useranswers[k - 1].iscorrect) {
 
-                            let linkstatus =  'status-bad';
 
-                            if (k != 0 && k != res.links.length ) {
+                                    linkstatus = "status-good";
 
-                                $.each(useranswers, function(i, j) {
 
-                                    if(v.ans_id == j.id)
-                                    {
-                                        linkstatus = 'status-bad';
-                                        if (j.iscorrect) {
-                                            linkstatus = "status-good";
-                                            if (j.time_taken < {{ $examtime }}) {
-                                                linkstatus = "status-exelent";
-                                            }
-                                        } 
+                                    if (useranswers[k - 1].time_taken < {{ $examtime }}) {
+                                        linkstatus = "status-exelent";
                                     }
-                                });
+                                }
                             }
-
                             if (v.active || !v.url) {
 
                                 var label_name = v.label;
@@ -307,47 +339,45 @@
                                     var label_name = "<";
                                 }
 
-                            var preclass = "";
-                            if (k == 0) {
-                                preclass = "preclass";
-                            }
-                                $('#lesson-footer-paginationmobile').append(`
-                                <button class="${linkstatus} btn btn-secondary  ${preclass} ${v.active?"active":""}" disabled>${label_name}</button>
+                                var preclass = "";
+                                if (k == 0) {
+                                    preclass = "preclass";
+                                }
+                                    $('#lesson-footer-paginationmobile').append(`
+                                    <button class="${linkstatus} btn btn-secondary  ${preclass} ${v.active?"active":""}" disabled>${label_name}</button>
+                                        `)
+                                } else {
+                                                        $('#lesson-footer-paginationmobile').append(`
+                                <button class="${linkstatus} btn btn-secondary " onclick="loadlessonreview('${v.url}')" >${v.label}</button>
                                     `)
-                            } else {
-                                                    $('#lesson-footer-paginationmobile').append(`
-                            <button class="${linkstatus} btn btn-secondary " onclick="loadlessonreview('${v.url}')" >${v.label}</button>
-                                `)
-                            }
+                                                    }
 
-                        })
+                                                })
 
-                        console.log(res.links.length);
-                    }
-                    $('.lesson-end').show();
+                                                console.log(res.links.length);
+                                            }
+                                            $('.lesson-end').show();
 
 
-                    if (res.next_page_url) {
-                        $('.lesson-right').show()
-                            .find('button.right-btn')
-                            .data('pageurl', res.next_page_url)
-                            .attr('onclick', `loadlessonreview('${res.next_page_url}')`); 
-                    } else {
-                        $('.lesson-finish').show();
-                    }
-                    
-                    if (res.prev_page_url) {
-                        $('.lesson-left a.left-btn')
-                            .attr('href', res.prev_page_url) 
-                            .attr('title', 'New Title')  
-                            .find('img').attr('alt', '< Previous') 
-                            .end()
-                            .contents().last().replaceWith('Previous');
-                    }
+                                            if (res.next_page_url) {
+                                                $('.lesson-right').show()
+                                                    .find('button.right-btn')
+                                                    .data('pageurl', res.next_page_url)
+                                                    .attr('onclick', `loadlessonreview('${res.next_page_url}')`); // Adding onclick event
+                                            } else {
+                                                $('.lesson-finish').show();
+                                            }
+                                          
+                                            if (res.prev_page_url) {
+                                                $('.lesson-left').show()
+                                                    .find('button.left-btn')
+                                                    .data('pageurl', res.prev_page_url)
+                                                    .attr('onclick', `loadlessonreview('${res.prev_page_url}')`); // Adding onclick event
+                                            }
 
-                    $('#menu-text').html(`Question <span> ${res.current_page} </span> `)
+                                            $('#menu-text').html(`Question <span> ${res.current_page} </span> `)
 
-                }, 'json')
+                                        }, 'json')
 
                             }
 

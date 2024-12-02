@@ -30,7 +30,7 @@
         <div class="row"> 
             <div class="card">
                 <div class="card-body">
-                    <form action="{{route('admin.community.post.update',$post->slug)}}" class="form" id="post-section-crete-form" method="post">
+                    <form action="{{route('admin.community.post.update',['post'=>$post->slug,'report_post'=>$reportPost])}}" class="form" id="post-section-crete-form" method="post">
                         @csrf 
                         @method('PUT')
                         <input type="hidden" name="type" class="community-post-type" value="{{old('type',$post->type)}}">

@@ -25,20 +25,21 @@
                     </div>
                 </div>
 
-                <div class="question-header question-number">
-                    <div class="progress-menus">
+                <div class="exam-center exam-progress-inner-item">
+                    <div class="progress-menu">
                         <div class="menu-text">
-                            <span id="menu-text">Question <span> 0 </span> <span>0 </span> </span>
+                            <span id="menu-text" >Question <span> 0 </span>  of <span>0 </span> </span>
 
+                        </div>
+                        <div class="menu-icon">
+                            <a onclick="toglepreviewpage()">
+                                <img src="{{ asset('assets/images/menu.svg') }}" alt="exiticon">
+                            </a>
                         </div>
 
                     </div>
                 </div>
-                <div class="menu-icon modecolor">
-                    <a onclick="toglepreviewpage()">
-                        <img src="{{ asset('assets/images/menu.svg') }}" alt="exiticon">
-                    </a>
-                </div>
+               
                 <div class="Review-mode">
                     <span>Review Mode </span>
                 </div>
@@ -274,7 +275,7 @@
 
                     })
                     
-                    if (res.total > 1) {
+                    if (res.total > 0) {
 
                         var total_time = "{{ $examtime }}";
 
@@ -312,7 +313,7 @@
                                     preclass = "preclass";
                                 }
                                 $('#lesson-footer-paginationmobile').append(`
-                            <button class="${linkstatus} btn btn-secondary  {$preclass} ${v.active?"active":""}" disabled   >${label_name}</button>
+                            <button class="${linkstatus} btn btn-secondary  {$preclass} ${v.active?"active":""}" onclick="loadlessonreview('${v.url}')"   >${label_name}</button>
                             `)
                             } else {
                                 $('#lesson-footer-paginationmobile').append(`
@@ -321,7 +322,7 @@
                             }
                             if (v.active || !v.url) {
                                 $('#lesson-footer-pagination').append(`
-                                <button class="${linkstatus} btn btn-secondary ${v.active?"active":""}" disabled  >${v.label}</button>
+                                <button class="${linkstatus} btn btn-secondary ${v.active?"active":""}" onclick="loadlessonreview('${v.url}')"  >${v.label}</button>
                             `)
                             } else {
                                 $('#lesson-footer-pagination').append(`
@@ -350,7 +351,7 @@
                             .attr('onclick', `loadlessonreview('${res.prev_page_url}')`); // Adding onclick event
                     }
 
-                    $('#menu-text').html(`Question <span> ${res.current_page} </span> `)
+                    $('#menu-text').html(`Question <span> ${res.current_page} </span> of <span> ${res.total}</span>`)
 
                 }, 'json')
 

@@ -264,13 +264,30 @@ class MainController extends Controller
             $date = Carbon::parse($reminder->remind_date); 
             $reminder->showUrl=route('reminder.show',$reminder->slug);
             $reminder->updateUrl=route('reminder.update',$reminder->slug);
-            $reminder->title="{$reminder->name} in ".($date->diffForHumans(null,[
-                'syntax' => Carbon::DIFF_ABSOLUTE,
-            ]))." ( ".$date->format('jS F')." )";
+
+            if ($date->isToday())
+            {
+                $reminder->title="{$reminder->name} Today ( ".$date->format('jS F')." )";
+            }
+            elseif ($date->isPast()) 
+            {
+                $reminder->title="{$reminder->name} Expired ( ".$date->format('jS F')." )";
+            }
+            else
+            {
+                $reminder->title="{$reminder->name} in ".($date->diffForHumans(null,[
+                    'syntax' => Carbon::DIFF_ABSOLUTE,
+                ]))." ( ".$date->format('jS F')." )";
+            }
+
         }
+
+
+
         return response()->json([
             "reminder"=>$reminder
         ]);
+
     }
 
     public function showreminder(Request $request,Reminder $reminder){

@@ -400,6 +400,9 @@
                 }
                 summery.save()
                 $.each(res.data,function(k,v){ 
+
+                    if(v.home_work_type=="mcq"){
+
                         $('#lesson-questionlist-list').html(`
                             <div class="col-md-12">
                                 <div class="mcq-row" >
@@ -423,6 +426,45 @@
                                 </div>
                             </div>
                         `).fadeIn();
+
+                        }
+                        if(v.home_work_type=="short_notes"){
+                            isVideoType = true;
+                            $('#lesson-questionlist-list').html(`
+                                <div class="col-md-12">
+                                    <div class="note-row" >
+                                        <div class="note-title">
+                                            <span>${v.title||""}</span>
+                                        </div>
+                                        <div class="note-container">
+                                            <div id="note-${lesseonId}">
+                                                ${v.short_question}
+                                            </div>
+                                            <div id="note-${lesseonId}-ans" class="form-group">
+                                                <div class="form-data">
+                                                    <div class="forms-inputs mb-4">
+                                                        <input type="text" name="answer" data-question="${v.slug}" id="user-answer-${lesseonId}" value="" class="form-control" placeholder="Write your answer hear" aria-placeholder="Write your answer hear" autocomplete="off" >
+                                                        <div class="invalid-feedback" id="error-answer-field" >The field is required</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            `).fadeIn();
+
+                            refreshquestionanswer(v.slug,function(data){
+                                $(`#note-${lesseonId}-ans input[name="answer"]`).val(data.value);
+                                 if(data.value){
+                                    summery.answeridx.push(summery.cudx) 
+                                    summery.answeridx = [...new Set(summery.answeridx)]
+                                    summery.notansweridx=summery.notansweridx.filter(item => item !== summery.cudx)
+                                    summery.save();
+                                    refreshstatus(summery.cudx,'answered');
+                                }
+                            })
+                        }
+
                         if(!summery.timercurrent[v.slug]){ 
                             summery.timercurrent[v.slug]=0; 
                         } 
@@ -615,7 +657,35 @@
                         refreshstatus(summery.cudx,'not-answered');
                     }
                 })
-            } 
+            }
+
+            if ($('#lesson-questionlist-list .forms-inputs input[name="answer"]').length > 0) {
+                $('#lesson-questionlist-list .forms-inputs input[name="answer"]').each(function() {
+                const question = $(this).data('question');
+                const answer = $(this).val();
+
+                updatequestionanswer(question, answer);
+                verifyquestion(question, answer);
+
+                // Update summary based on whether an answer is provided
+                if (answer) {
+                    // Add to answered, remove from not-answered
+                    summery.answeridx.push(summery.cudx);
+                    summery.answeridx = [...new Set(summery.answeridx)];
+                    summery.notansweridx = summery.notansweridx.filter(item => item !== summery.cudx);
+                    summery.save();
+                    refreshstatus(summery.cudx, 'answered');
+                } else {
+                    // Add to not-answered, remove from answered
+                    summery.notansweridx.push(summery.cudx);
+                    summery.notansweridx = [...new Set(summery.notansweridx)];
+                    summery.answeridx = summery.answeridx.filter(item => item !== summery.cudx);
+                    summery.save();
+                    refreshstatus(summery.cudx, 'not-answered');
+                }
+            });
+        }
+
             updateprogress(callback) 
          }
           

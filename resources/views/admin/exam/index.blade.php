@@ -133,7 +133,6 @@
             var exam_slug = $(element).data('id');
 
             $('#exam_id').val(exam_slug);
-            
 
             $.ajax({
 
