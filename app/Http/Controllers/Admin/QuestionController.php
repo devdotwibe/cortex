@@ -219,8 +219,6 @@ class QuestionController extends Controller
                  where('category_id', $request->category_id)
                 ->where('exam_id', $question->exam_id)->count();
 
-        dd($questionToUpdate);
-
         foreach($questionToUpdate as $item)
         {
             $ques_count = Question::where('category_id', $request->category_id)->where('exam_id', $question->exam_id);
