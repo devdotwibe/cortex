@@ -248,7 +248,7 @@ class QuestionController extends Controller
                 ->first();
         
             if (!empty($questionToUpdate)) {
-                $currentOrder = $questionToUpdate->order;
+                $currentOrder = $questionToUpdate->order_no;
                 $newOrder = $request->order_no;
         
                 if ($currentOrder != $newOrder) {
@@ -259,7 +259,7 @@ class QuestionController extends Controller
                             ->where('exam_id', $question->exam_id)
                             ->where('order_no', '>', $currentOrder)
                             ->where('order_no', '<=', $newOrder)
-                            ->increment('order_no', 1);
+                            ->decrement('order_no');  
                     } 
                     else {
                        
@@ -267,7 +267,7 @@ class QuestionController extends Controller
                             ->where('exam_id', $question->exam_id)
                             ->where('order_no', '<', $currentOrder)
                             ->where('order_no', '>=', $newOrder)
-                            ->decrement('order_no', 1);
+                            ->increment('order_no');
                     }
                     
                     $questionToUpdate->order_no = $newOrder;
