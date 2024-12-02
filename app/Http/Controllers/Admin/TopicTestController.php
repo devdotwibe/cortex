@@ -116,7 +116,7 @@ class TopicTestController extends Controller
 
                 // $examCount = Exam::where('topic')->count();
 
-                return $this->where('id','>',0)->where('name','topic-exam')->buildSelectOption('id');
+                return $this->where('id','>',0)->where('name','topic-test')->buildSelectOption('id');
 
 
             }else{
