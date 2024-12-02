@@ -54,8 +54,8 @@ class TopicTestController extends Controller
            
             $this->buildPagination(12); 
             
-            return $this->where('exam_id',$exam->id)
-                ->where('category_id',$category->id)
+            return $this->where('exam_id',$exam->id)->orderBy('order', 'ASC')
+                ->where('category_id',$category->id)->buildPagination(12)
                 ->addAction(function($data)use($category){
                     return '
                    
