@@ -379,6 +379,10 @@ main {
     margin: 0 0 0 12px;
 }
 
+.content_section .row .card-body a {
+    cursor: pointer;
+}
+
 nav.navbar .dropdown .nav-link.dropdown-toggle {
     padding-right: 20px;
     background: url(../images/chevron-down.svg) no-repeat center;
