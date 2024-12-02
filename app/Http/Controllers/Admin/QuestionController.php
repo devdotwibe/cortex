@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Answer;
+use App\Models\Exam;
 use App\Models\HomeWorkAnswer;
 use App\Models\LearnAnswer;
 use App\Models\Question;
@@ -214,6 +215,17 @@ class QuestionController extends Controller
                 ]);
                 break;
         }
+
+        $exam=Exam::where("name",'topic-test')->first();
+        if(empty($exam)){
+            $exam=Exam::store([
+                "title"=>"Topic Test",
+                "name"=>"topic-test",
+            ]);
+            $exam=Exam::find( $exam->id );
+        }
+
+    
         if (!empty($request->order)) {
 
             $questionToUpdate = Question::where('id', $question->id)
@@ -252,10 +264,6 @@ class QuestionController extends Controller
         
         
       
-        $questiondat['order'] = $request->order;
-        $question->update($questiondat);
-        
-
         $questiondat['order']=$request->order;
 
         $question->update($questiondat);
