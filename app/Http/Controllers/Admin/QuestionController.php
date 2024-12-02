@@ -225,65 +225,46 @@ class QuestionController extends Controller
             $exam=Exam::find( $exam->id );
         }
 
-        $questionToUpdate = Question::
-                 where('category_id', $request->category_id)
-                ->where('exam_id', $exam->id)->get();
+    
+        if (!empty($request->order)) {
 
-    //     dd(Question::
-    //     where('category_id', $request->category_id)
-    //    ->where('exam_id', $exam->id)->get());
-
-        foreach($questionToUpdate as $k => $item)
-        {
-            $ques_count = Question::where('category_id', $request->category_id)->where('exam_id', $exam->id);
-
-            $count =$ques_count->where('id','<=',$item->id)->count();
-            
-           $item->order = $k +1;
-          
-           $item->save();
-        }
-                
-
-        // if (!empty($request->order)) {
-
-        //     $questionToUpdate = Question::where('id', $question->id)
-        //         ->where('category_id', $request->category_id)
-        //         ->where('exam_id', $question->exam_id)
-        //         ->first();
+            $questionToUpdate = Question::where('id', $question->id)
+                ->where('category_id', $request->category_id)
+                ->where('exam_id', $question->exam_id)
+                ->first();
         
-        //     if (!empty($questionToUpdate)) {
-        //         $currentOrder = $questionToUpdate->order;
-        //         $newOrder = $request->order;
+            if (!empty($questionToUpdate)) {
+                $currentOrder = $questionToUpdate->order;
+                $newOrder = $request->order;
         
-        //         if ($currentOrder != $newOrder) {
+                if ($currentOrder != $newOrder) {
         
-        //             if ($newOrder > $currentOrder) {
+                    if ($newOrder > $currentOrder) {
                       
-        //                 Question::where('category_id', $request->category_id)
-        //                     ->where('exam_id', $question->exam_id)
-        //                     ->where('order', '>', $currentOrder)
-        //                     ->where('order', '<=', $newOrder)
-        //                     ->decrement('order');  
-        //             } 
-        //             else {
+                        Question::where('category_id', $request->category_id)
+                            ->where('exam_id', $question->exam_id)
+                            ->where('order', '>', $currentOrder)
+                            ->where('order', '<=', $newOrder)
+                            ->decrement('order');  
+                    } 
+                    else {
                        
-        //                 Question::where('category_id', $request->category_id)
-        //                     ->where('exam_id', $question->exam_id)
-        //                     ->where('order', '<', $currentOrder)
-        //                     ->where('order', '>=', $newOrder)
-        //                     ->increment('order');
-        //             }
+                        Question::where('category_id', $request->category_id)
+                            ->where('exam_id', $question->exam_id)
+                            ->where('order', '<', $currentOrder)
+                            ->where('order', '>=', $newOrder)
+                            ->increment('order');
+                    }
                     
-        //             $questionToUpdate->order = $newOrder;
-        //             $questionToUpdate->save();
-        //         }
-        //     }
-        // }
+                    $questionToUpdate->order = $newOrder;
+                    $questionToUpdate->save();
+                }
+            }
+        }
         
         
       
-        // $questiondat['order']=$request->order;
+        $questiondat['order']=$request->order;
 
         $question->update($questiondat);
         $ansIds=[];
