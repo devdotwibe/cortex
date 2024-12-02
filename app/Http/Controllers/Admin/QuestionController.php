@@ -224,7 +224,7 @@ class QuestionController extends Controller
                             ->where('exam_id', $question->exam_id)
                             ->where('order', '>', $currentOrder)
                             ->where('order', '<=', $newOrder)
-                            ->increment('order'); 
+                            ->decrement('order');  
                     } 
                     else {
                        
@@ -232,7 +232,7 @@ class QuestionController extends Controller
                             ->where('exam_id', $question->exam_id)
                             ->where('order', '<', $currentOrder)
                             ->where('order', '>=', $newOrder)
-                            ->decrement('order'); 
+                            ->increment('order');
                     }
                     
                     $questionToUpdate->order = $newOrder;
