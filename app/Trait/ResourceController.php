@@ -21,6 +21,7 @@ trait ResourceController
     protected static $whereCondition=[];
     protected static $withCondition=[];
     protected static $orderbycondition=[];
+    protected static $orderbyrawcondition=[];
     protected static $whereHasCondition=[];
 
     protected static $whereInCondition=[];
@@ -36,6 +37,7 @@ trait ResourceController
      $whereCondition=[];
      $withCondition=[];
      $orderbycondition=[];
+     $orderbyrawcondition=[];
      $whereHasCondition=[];
      $whereInCondition=[];
     }
@@ -55,6 +57,10 @@ trait ResourceController
         self::$orderbycondition[]=$condition;
         return $this;
     }
+    public function orderByRaw(...$condition){
+        self::$orderbyrawcondition[]=$condition;
+        return $this;
+    }
     public function whereHas(...$condition){
         self::$whereHasCondition[]=$condition;
         return $this;
@@ -71,6 +77,12 @@ trait ResourceController
         }
         foreach(self::$whereCondition as $condition){
             $query->where(...$condition);
+        }
+        foreach(self::$orderbycondition as $condition){
+            $query->orderBy($condition[0]??"",$condition[1]??null);
+        }
+        foreach(self::$orderbyrawcondition as $condition){
+            $query->orderByRaw($condition[0]??"",$condition[1]??null);
         }
 
         foreach(self::$whereInCondition as $condition){
@@ -110,6 +122,9 @@ trait ResourceController
         foreach(self::$orderbycondition as $condition){
             $query->orderBy($condition[0]??"",$condition[1]??null);
         }
+        foreach(self::$orderbyrawcondition as $condition){
+            $query->orderByRaw($condition[0]??"",$condition[1]??null);
+        }
         foreach(self::$whereHasCondition as $condition){
             if(count($condition)==1){
                 $query->has($condition[0]);
@@ -123,6 +138,12 @@ trait ResourceController
         $query=app(self::$model)->query();
         foreach(self::$whereCondition as $condition){
             $query->where($condition[0]??"",$condition[1]??null);
+        }
+        foreach(self::$orderbycondition as $condition){
+            $query->orderBy($condition[0]??"",$condition[1]??null);
+        }
+        foreach(self::$orderbyrawcondition as $condition){
+            $query->orderByRaw($condition[0]??"",$condition[1]??null);
         }
         foreach(self::$whereHasCondition as $condition){
             if(count($condition)==1){
@@ -147,6 +168,13 @@ trait ResourceController
                 $query->whereHas(...$condition);
             }
         }
+        foreach(self::$orderbycondition as $condition){
+            $query->orderBy($condition[0]??"",$condition[1]??null);
+        }
+        foreach(self::$orderbyrawcondition as $condition){
+            $query->orderByRaw($condition[0]??"",$condition[1]??null);
+        }
+        
         $table=DataTables::of($query);
         $table->addColumn('selectbox',function($data){
             return ' 
@@ -232,6 +260,12 @@ trait ResourceController
         $query=app(self::$model)->query();
         foreach(self::$whereCondition as $condition){
             $query->where($condition[0]??"",$condition[1]??null);
+        }
+        foreach(self::$orderbycondition as $condition){
+            $query->orderBy($condition[0]??"",$condition[1]??null);
+        }
+        foreach(self::$orderbyrawcondition as $condition){
+            $query->orderByRaw($condition[0]??"",$condition[1]??null);
         }
         foreach(self::$whereHasCondition as $condition){
             if(count($condition)==1){

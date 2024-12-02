@@ -112,11 +112,17 @@ class FullMockExamController extends Controller
     } 
 
 
-    public function bulkaction(Request $request)
+    public function bulkaction(Request $request,Exam $exam)
     {
         if (!empty($request->deleteaction)) {
             if ($request->input('select_all', 'no') == "yes") {
-                Question::where('id', '>', 0)->delete();
+                if($request->category){
+                    Question::where('exam_id', $exam->id)
+                            ->where('category_id',$request->category)
+                            ->delete();     
+                }else{
+                    Question::where('exam_id', $exam->id)->delete();     
+                }
             } else {
                 Question::whereIn('id', $request->input('selectbox', []))->delete();
             }
@@ -145,7 +151,13 @@ class FullMockExamController extends Controller
                     break;
             }
             if ($request->input('select_all', 'no') == "yes") {
-                Question::where('id', '>', 0)->update($data);
+                if($request->category){
+                    Question::where('exam_id', $exam->id)
+                            ->where('category_id',$request->category)
+                            ->update($data);
+                }else{
+                    Question::where('exam_id', $exam->id)->update($data);
+                }
             } else {
                 Question::whereIn('id', $request->input('selectbox', []))->update($data);
             }
