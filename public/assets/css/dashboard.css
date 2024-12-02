@@ -3382,6 +3382,10 @@ aside.side_bar.slider-btn .btn-slider {
     line-height: normal;
 }
 
+.exam-container .container-wrap .lesson .lesson-body .mcq-row ul li p {
+    float: none;
+}
+
 .exam-container .container-wrap .lesson .lesson-body .mcq-row ol {
     width: 100%;
     float: left;
@@ -3410,6 +3414,10 @@ aside.side_bar.slider-btn .btn-slider {
     color: #212121;
     font-size: 16px;
     top: 0;
+}
+
+.exam-container .container-wrap .lesson .lesson-body .mcq-row ol li p {
+    float: none;
 }
 
 .exam-container .container-wrap .lesson .lesson-body strong {
