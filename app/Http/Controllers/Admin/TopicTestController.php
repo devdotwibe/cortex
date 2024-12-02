@@ -77,7 +77,9 @@ class TopicTestController extends Controller
                         </div>
                     ';
                 })
-               ->buildTable(['description','visibility']);
+               ->buildTable(['description','visibility'])->buildPagination();
+
+
         } 
         return view("admin.topic-test.show",compact('category','exam'));
     }
