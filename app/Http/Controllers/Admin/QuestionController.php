@@ -205,28 +205,42 @@ class QuestionController extends Controller
                 break;
         }
         if (!empty($request->order)) {
-          
-            $questions = Question::where('order', $request->order)
+
+            // First, get the question to be updated
+            $questionToUpdate = Question::where('id', $question->id)
                 ->where('category_id', $request->category_id)
                 ->where('exam_id', $question->exam_id)
                 ->first();
-           
-            if (!empty($questions)) {
-               
-                $questionto = Question::where('category_id', $request->category_id)
-                    ->where('exam_id', $question->exam_id)
-                    ->where('order', '<', $request->order) 
-                    ->orderBy('order', 'ASC')
-                    ->get();
         
-                
-                foreach ($questionto as $k => $item) {
-                    $item->order = $k; 
-                    $item->save(); 
+            if (!empty($questionToUpdate)) {
+                $currentOrder = $questionToUpdate->order;
+                $newOrder = $request->order;
+        
+                if ($currentOrder != $newOrder) {
+        
+                    if ($newOrder > $currentOrder) {
+                      
+                        Question::where('category_id', $request->category_id)
+                            ->where('exam_id', $question->exam_id)
+                            ->where('order', '>', $currentOrder)
+                            ->where('order', '<=', $newOrder)
+                            ->increment('order'); 
+                    } 
+                    else {
+                       
+                        Question::where('category_id', $request->category_id)
+                            ->where('exam_id', $question->exam_id)
+                            ->where('order', '<', $currentOrder)
+                            ->where('order', '>=', $newOrder)
+                            ->decrement('order'); 
+                    }
+                    
+                    $questionToUpdate->order = $newOrder;
+                    $questionToUpdate->save();
                 }
- 
             }
         }
+        
         
       
         $questiondat['order'] = $request->order;
