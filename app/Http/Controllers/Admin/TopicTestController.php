@@ -117,20 +117,19 @@ class TopicTestController extends Controller
                 $examCount = Question::where('category_id',$category->id)->count();
 
                 $exams= Question::where('category_id',$category->id)->get();
-                // $results= [];
+                $results= [];
 
-                // foreach($exams as $k=> $item)
-                // {
-                //     $results[] = [
-                //         'id' => $item->id, 
-                //         'text' => $k+1
-                //     ];
-                // }
-                // return   $results;
+                foreach($exams as $k=> $item)
+                {
+                    $results[] = [
+                        'id' => $k+1, 
+                        'text' => $k+1
+                    ];
+                }
 
-                // dd($this->where('id','>',0)->where('category_id',$category->id)->buildSelectOption('id'));
-                return $this->where('id','>',0)->where('category_id',$category->id)->buildSelectOption('id');
-
+                return [
+                    'results' => $results
+                ];
 
             }else{
                 self::reset();
