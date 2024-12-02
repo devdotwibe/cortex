@@ -158,6 +158,10 @@ class TopicTestController extends Controller
             ]);
             $exam=Exam::find( $exam->id );
         } 
+        if($question->order === '9999999999')
+        {
+            $question->order="";
+        }
         return view("admin.topic-test.edit",compact('category','exam','question'));
     }
     public function subtitle(Request $request){
