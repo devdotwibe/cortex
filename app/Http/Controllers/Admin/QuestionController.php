@@ -229,13 +229,13 @@ class QuestionController extends Controller
                  where('category_id', $request->category_id)
                 ->where('exam_id', $exam->id)->get();
 
-        foreach($questionToUpdate as $item)
+        foreach($questionToUpdate as $k => $item)
         {
             $ques_count = Question::where('category_id', $request->category_id)->where('exam_id', $exam->id);
 
             $count =$ques_count->where('id','<=',$item->id)->count();
             
-           $item->order =  $count;
+           $item->order = $k +1;
 
            $item->save();
         }
