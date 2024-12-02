@@ -50,10 +50,9 @@ class TopicTestController extends Controller
             if(!empty($request->sub_category_id)){
                 $this->where('sub_category_id',$request->sub_category_id);
             }
-            $this->orderBy('order', 'ASC')->buildPagination(12);
-           
+          
             return $this->where('exam_id',$exam->id)
-                ->where('category_id',$category->id)
+                ->where('category_id',$category->id)->orderBy('order', 'ASC')->buildPagination(12)
                 ->addAction(function($data)use($category){
                     return '
                    
