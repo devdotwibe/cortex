@@ -114,9 +114,22 @@ class TopicTestController extends Controller
                 self::reset();
                 self::$model = Question::class; 
 
-                // $examCount = Exam::where('topic')->count();
-                dd($this->where('id','>',0)->where('category_id',$category->id)->buildSelectOption('id'));
-                return $this->where('id','>',0)->where('category_id',$category->id)->buildSelectOption('id');
+                $examCount = Exam::where('category_id',$category->id)->count();
+
+                $exams= Exam::where('category_id',$category->id)->get();
+                $results= [];
+
+                foreach($exams as $k=> $item)
+                {
+                    $results[] = [
+                        'id' => $item->id, 
+                        'text' => $item->id
+                    ];
+                }
+                return   $results;
+
+                // dd($this->where('id','>',0)->where('category_id',$category->id)->buildSelectOption('id'));
+                // return $this->where('id','>',0)->where('category_id',$category->id)->buildSelectOption('id');
 
 
             }else{
