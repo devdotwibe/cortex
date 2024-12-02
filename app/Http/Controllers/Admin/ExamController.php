@@ -9,7 +9,6 @@ use App\Support\Helpers\OptionHelper;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
 use Stripe\Stripe;
-use Yajra\DataTables\Facades\DataTables;
 
 class ExamController extends Controller
 {
@@ -19,128 +18,45 @@ class ExamController extends Controller
         self::$model=Exam::class;
         self::$routeName="admin.exam";
     } 
-   
-
-        // if($request->ajax()){
-
-        //     self::$defaultActions=["edit","delete"]; 
-
-
-        //     $start = $request->get('start');
-        //     $limit = $request->get('limit');
-    
-
-            // return $this->addAction(function($data){
-        //         return '
+    public function index(Request $request){
+        if($request->ajax()){
+            self::$defaultActions=["edit","delete"]; 
+            return $this->addAction(function($data){
+                return '
                
 
-        //         <a data-id="'.$data->slug.'" class="btn btn-icons eye-button" onclick="UploadVideo(this)">
-        //                     <span class="adminside-icon">
-        //                         <img src="' . asset("assets/images/video-clip-32-regular.svg") . '" alt="View">
-        //                     </span>
-        //                     <span class="adminactive-icon">
-        //                         <img src="' . asset("assets/images/hover-video-clip-32-regular.svg") . '" alt="View Active" title="View">
-        //                     </span>
-        //          </a>
+                <a data-id="'.$data->slug.'" class="btn btn-icons eye-button" onclick="UploadVideo(this)">
+                            <span class="adminside-icon">
+                                <img src="' . asset("assets/images/video-clip-32-regular.svg") . '" alt="View">
+                            </span>
+                            <span class="adminactive-icon">
+                                <img src="' . asset("assets/images/hover-video-clip-32-regular.svg") . '" alt="View Active" title="View">
+                            </span>
+                 </a>
 
-        //         <a href="'.route("admin.full-mock-exam.index",["exam"=>$data->slug]).'" class="btn btn-icons eye-button">
-        //                     <span class="adminside-icon">
-        //                         <img src="' . asset("assets/images/icons/mdi_incognito.svg") . '" alt="View">
-        //                     </span>
-        //                     <span class="adminactive-icon">
-        //                         <img src="' . asset("assets/images/iconshover/view-yellow.svg") . '" alt="View Active" title="View">
-        //                     </span>
-        //          </a>
-
-
-        //         ';
-        //     })->where("name","full-mock-exam")->buildTable();
-        // }
-
-        public function index(Request $request){
+                <a href="'.route("admin.full-mock-exam.index",["exam"=>$data->slug]).'" class="btn btn-icons eye-button">
+                            <span class="adminside-icon">
+                                <img src="' . asset("assets/images/icons/mdi_incognito.svg") . '" alt="View">
+                            </span>
+                            <span class="adminactive-icon">
+                                <img src="' . asset("assets/images/iconshover/view-yellow.svg") . '" alt="View Active" title="View">
+                            </span>
+                 </a>
 
 
-        $exam = Exam::where('id','>',0);
-
-        if ($request->ajax()) {
-
-            // Get pagination parameters from the request
-            $start = $request->get('start', 0); // Default to 0 if not provided
-            $limit = $request->get('limit', 12); // Default limit to 12 if not provided
-    
-            // Apply pagination using skip and take
-            $exam = $exam->skip($start)->take($limit);
-    
-            // Get the results for the current page
-            $results = $exam->get();
-    
-            // Calculate total items for pagination (use count on the original query without pagination)
-            $totalItems = Exam::count();
-
-
-            return DataTables::of($results)
-            ->addColumn("action", function ($data) {
-                return '
-
-                            <a data-id="'.$data->slug.'" class="btn btn-icons eye-button" onclick="UploadVideo(this)">
-                                        <span class="adminside-icon">
-                                            <img src="' . asset("assets/images/video-clip-32-regular.svg") . '" alt="View">
-                                        </span>
-                                        <span class="adminactive-icon">
-                                            <img src="' . asset("assets/images/hover-video-clip-32-regular.svg") . '" alt="View Active" title="View">
-                                        </span>
-                             </a>
-            
-                            <a href="'.route("admin.full-mock-exam.index",["exam"=>$data->slug]).'" class="btn btn-icons eye-button">
-                                        <span class="adminside-icon">
-                                            <img src="' . asset("assets/images/icons/mdi_incognito.svg") . '" alt="View">
-                                        </span>
-                                        <span class="adminactive-icon">
-                                            <img src="' . asset("assets/images/iconshover/view-yellow.svg") . '" alt="View Active" title="View">
-                                        </span>
-                             </a>
-            
-            
-                            ';
-
-                })->addColumn('date',function($data){
-                    return $data->created_at->format('Y-m-d');
-                })
-              
-                ->addIndexColumn()
-                ->rawColumns(['action'])
-                ->make(true);
+                ';
+            })->where("name","full-mock-exam")->buildTable();
         }
-
-        $exam = Exam::orderBy('id', 'DESC');
-
-        // Apply pagination if request parameters exist
-        $exam = $exam->paginate($request->get('limit', 12)); 
-
-         $url=$exam->nextPageUrl(); 
-
-        return view("admin.exam.index",compact('url'));
+        $totalexam=$this->where("name","full-mock-exam")->totalCount();
+        return view("admin.exam.index",compact('totalexam'));
     }
-
-
-
-
     public function create(Request $request){
         return view("admin.exam.create");
     }
     public function store(Request $request){
         $examdat=$request->validate([
             "title"=>"required",
-            "time_of_exam"=>[
-                'required',
-                function ($attribute, $value, $fail) {
-                    $validTimeFormat = '/^(0[0-9]|1[0-9]|2[0-3]) ?: ?[0-5][0-9]$/';
-
-                    if (!preg_match($validTimeFormat, $value) || $value === '00:00' || $value === '00 : 00') {
-                        $fail('The time of exam must not be 00:00.');
-                    }
-                },
-            ],
+            "time_of_exam"=>"required"
         ]);
         $examdat['name']="full-mock-exam";
         $exam=Exam::store($examdat);        
@@ -184,10 +100,10 @@ class ExamController extends Controller
   
     public function examoptionssave(Request $request){
         $request->validate([
-            'description'=>'',
-            'title'=>'',
-            'description1'=>'',
-            'title1'=>'',
+            'description'=>'required',
+            'title'=>'required',
+            'description1'=>'required',
+            'title1'=>'required',
             
         ]);
         OptionHelper::setData("exam_simulator_title", $request->title);
@@ -206,16 +122,7 @@ class ExamController extends Controller
     public function update(Request $request,Exam $exam){
         $examdat=$request->validate([
             "title"=>"required",
-            "time_of_exam"=>[
-                'required',
-                function ($attribute, $value, $fail) {
-                    $validTimeFormat = '/^(0[0-9]|1[0-9]|2[0-3]) ?: ?[0-5][0-9]$/';
-
-                    if (!preg_match($validTimeFormat, $value) || $value === '00:00' || $value === '00 : 00') {
-                        $fail('The time of exam must not be 00:00.');
-                    }
-                },
-            ],
+            "time_of_exam"=>"required"
         ]);
         $exam->update($examdat);        
         return redirect()->route('admin.exam.index')->with("success","Exam updated success");
