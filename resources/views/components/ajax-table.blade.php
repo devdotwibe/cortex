@@ -251,7 +251,7 @@
                     ],
                 @else
                 order: [
-                        [0, 'DESC']
+                        [1, 'ASC']
                     ],
 
                 @endif
