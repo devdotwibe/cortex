@@ -241,9 +241,13 @@
                         @endif
                     }
                 },
-                order: [
-                    [0, 'DESC']
-                ],
+
+                @if($order)
+                    order: [
+                        [0, 'DESC']
+                    ],
+                @endif
+
                 initComplete: function(settings) {
                     var info = this.api().page.info();
                     if (info.pages > 1) {
