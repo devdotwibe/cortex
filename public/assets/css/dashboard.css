@@ -833,7 +833,7 @@ button.close {
 
 .exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check {
     padding-left: 20px;
-    margin: 0 0 20px;
+    margin: 0 0 30px;
     font-size: 16px;
     display: flex;
     flex-wrap: wrap;
@@ -842,7 +842,7 @@ button.close {
 }
 
 .exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check label {
-    margin: 0 12px 0;
+    margin: 0 12px 0 22px;
 }
 
 .exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check input {
@@ -854,6 +854,10 @@ button.close {
     top: -2px;
     box-shadow: none;
     margin-left: -20px;
+}
+
+.exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check label span {
+    padding-right: 6px;
 }
 
 .exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check img.answer-image {
@@ -3127,7 +3131,7 @@ aside.side_bar.slider-btn .btn-slider {
     content: "";
     position: absolute;
     width: 1px;
-    height: 100%;
+    height: 92.35%;
     top: 0;
     left: 50%;
     transform: translateX(-50%);
@@ -3300,7 +3304,7 @@ aside.side_bar.slider-btn .btn-slider {
 }
 
 .questionclass .mcq-container-wrap.nopaginationclass .lesson .lesson-body .mcq-container .mcq-group, .questionclass .mcq-container-wrap.nopaginationclass .lesson .lesson-body .mcq-container .mcq-answer {
-    height: calc(100vh - 180px) !important;
+    height: calc(100vh - 240px) !important;
     min-height: inherit !important;
 }
 
@@ -3362,7 +3366,7 @@ aside.side_bar.slider-btn .btn-slider {
     color: #212121;
     line-height: 1.5;
     position:relative;
-    margin: 0 0 8px;
+    margin: 0 0 10px;
     padding: 0 0 0 26px;
     letter-spacing: normal;
     font-family: 'Arial';
@@ -3426,7 +3430,7 @@ aside.side_bar.slider-btn .btn-slider {
     color: #212121;
     line-height: 1.5;
     position:relative;
-    margin: 0 0 8px;
+    margin: 0 0 10px;
     padding: 0 0 0 26px;
     letter-spacing: normal;
     font-family: 'Arial';
@@ -3435,10 +3439,10 @@ aside.side_bar.slider-btn .btn-slider {
 .exam-container .container-wrap .lesson .lesson-body ul li:before {
     content: "\2022 ";
     position: absolute;
-    left: 14px;
+    left: 11px;
     color: #212121;
-    font-size: 16px;
-    top: 5px;
+    font-size: 26px;
+    top: -3px;
     line-height: normal;
 }
 
@@ -4125,7 +4129,7 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 .workshop-wrap .workshop-content ul li {
     font-size: 20px;
     line-height: 1.5;
-    margin: 0 0 15px;
+    margin: 0 0 10px;
     padding-left: 15px;
     position: relative;
 }
@@ -4134,6 +4138,8 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
     content: "\2022";
     position: relative;
     left: -10px;
+    font-size: 26px;
+    top: 2px;
 }
 
 .workshop-action .btn {
@@ -5287,7 +5293,7 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
     padding: 10px 10px;
     border: 1px solid #414141;
     border-radius: 0;
-    margin: 0 0 20px;
+    margin: 0 0 10px;
     font-family: 'Arial';
     font-size: 18px;
     float: left;
@@ -7593,9 +7599,9 @@ nav.navbar.top-barhide {
     padding: 0;
 }
 
-.content_section.mock-class .exam-list .exam-title {
+/* .content_section.mock-class .exam-list .exam-title {
     margin: 0 0 0;
-}
+} */
 
 
 .modal.importadmin-user .modal-dialog .modal-content {
