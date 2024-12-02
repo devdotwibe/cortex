@@ -52,7 +52,7 @@ class TopicTestController extends Controller
             }
             $this->orderBy('order', 'ASC');
            
-            $this->buildPagination(); 
+            $this->buildPagination(12); 
             
             return $this->where('exam_id',$exam->id)
                 ->where('category_id',$category->id)
