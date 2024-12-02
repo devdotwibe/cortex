@@ -52,7 +52,7 @@ class TopicTestController extends Controller
             }
             $questionsQuery = $this->where('exam_id', $exam->id)
             ->where('category_id', $category->id)
-            ->orderBy('order', 'ASC');  // Apply orde
+            ->orderBy('order', 'DESC');
 
             return $questionsQuery
                 ->addAction(function($data)use($category){
