@@ -13,6 +13,7 @@
                         <input type="checkbox" id="table-{{ $tableid }}-bulk" class="form-check-box" name="select_all" value="yes">
 
                         <input type="hidden" id="select_all_values" name="select_all_values" >
+                        <input type="hidden" id="cat_id" name="category" >
                     </div>
                 </th>                    
                 @endif
