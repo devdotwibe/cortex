@@ -103,6 +103,16 @@ class TopicTestController extends Controller
     } 
 
     public function edit(Request $request,Category $category,Question $question){ 
+
+        $exam=Exam::where("name",'topic-test')->first();
+        if(empty($exam)){
+            $exam=Exam::store([
+                "title"=>"Topic Test",
+                "name"=>"topic-test",
+            ]);
+            $exam=Exam::find( $exam->id );
+        }
+
         if($request->ajax()){
             $name=$request->name??"";
             if($name=="sub_category_set"){
@@ -114,11 +124,9 @@ class TopicTestController extends Controller
                 self::reset();
                 self::$model = Question::class; 
 
-                $exam=Exam::where("name",'topic-test')->first();
-
                 $examCount = Question::where('category_id',$category->id)->where('exam_id',$exam->id??0)->count();
 
-                $exams= Question::where('category_id',$category->id)->where('exam_id',$exam->parent_id??0)->get();
+                $exams= Question::where('category_id',$category->id)->where('exam_id',$exam->id??0)->get();
                 $results= [];
 
                 foreach($exams as $k=> $item)
