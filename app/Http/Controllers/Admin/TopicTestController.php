@@ -50,6 +50,9 @@ class TopicTestController extends Controller
             if(!empty($request->sub_category_id)){
                 $this->where('sub_category_id',$request->sub_category_id);
             }
+            $this->orderBy('order', 'ASC')->orderBy('order', 'ASC');
+           
+
             return $this->where('exam_id',$exam->id)
                 ->where('category_id',$category->id)
                 ->addAction(function($data)use($category){
@@ -74,7 +77,7 @@ class TopicTestController extends Controller
                         </div>
                     ';
                 })
-                ->buildTable(['description','visibility']);
+               ->buildTable(['description','visibility']);
         } 
         return view("admin.topic-test.show",compact('category','exam'));
     }
@@ -103,6 +106,16 @@ class TopicTestController extends Controller
     } 
 
     public function edit(Request $request,Category $category,Question $question){ 
+
+        $exam=Exam::where("name",'topic-test')->first();
+        if(empty($exam)){
+            $exam=Exam::store([
+                "title"=>"Topic Test",
+                "name"=>"topic-test",
+            ]);
+            $exam=Exam::find( $exam->id );
+        }
+
         if($request->ajax()){
             $name=$request->name??"";
             if($name=="sub_category_set"){
@@ -114,9 +127,9 @@ class TopicTestController extends Controller
                 self::reset();
                 self::$model = Question::class; 
 
-                $examCount = Question::where('category_id',$category->id)->count();
+                $examCount = Question::where('category_id',$category->id)->where('exam_id',$exam->id??0)->count();
 
-                $exams= Question::where('category_id',$category->id)->get();
+                $exams= Question::where('category_id',$category->id)->where('exam_id',$exam->id??0)->get();
                 $results= [];
 
                 foreach($exams as $k=> $item)
@@ -145,6 +158,10 @@ class TopicTestController extends Controller
             ]);
             $exam=Exam::find( $exam->id );
         } 
+        if($question->order === '9999999999')
+        {
+            $question->order="";
+        }
         return view("admin.topic-test.edit",compact('category','exam','question'));
     }
     public function subtitle(Request $request){
@@ -276,12 +293,14 @@ class TopicTestController extends Controller
 
 
 
-    public function bulkaction(Request $request, category $category)
+    public function bulkaction(Request $request, Category $category ,Exam $exam)
     {
         if (!empty($request->deleteaction)) {
             if ($request->input('select_all', 'no') == "yes") {
                 // Delete all questions corresponding to the specific setname
-                Question::where('category_id', $category->id)->delete();
+                Question::where('category_id', $category->id)
+                        ->where('exam_id',$exam->id)
+                        ->delete();
             } else {
                 // Delete selected questions only
                 Question::whereIn('id', $request->input('selectbox', []))->delete();
@@ -311,7 +330,9 @@ class TopicTestController extends Controller
     
             if ($request->input('select_all', 'no') == "yes") {
                 // Update visibility status for all questions corresponding to the specific setname
-                Question::where('category_id', $category->id)->update($data);
+                Question::where('category_id', $category->id)
+                        ->where('exam_id',$exam->id)
+                        ->update($data);
             } else {
                 // Update visibility status for selected questions only
                 Question::whereIn('id', $request->input('selectbox', []))->update($data);

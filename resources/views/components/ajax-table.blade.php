@@ -13,6 +13,7 @@
                         <input type="checkbox" id="table-{{ $tableid }}-bulk" class="form-check-box" name="select_all" value="yes">
 
                         <input type="hidden" id="select_all_values" name="select_all_values" >
+                        <input type="hidden" id="cat_id" name="category" >
                     </div>
                 </th>                    
                 @endif
@@ -241,9 +242,13 @@
                         @endif
                     }
                 },
-                order: [
-                    [0, 'DESC']
-                ],
+
+                @if($order)
+                    order: [
+                        [0, 'DESC']
+                    ],
+                @endif
+
                 initComplete: function(settings) {
                     var info = this.api().page.info();
                     if (info.pages > 1) {

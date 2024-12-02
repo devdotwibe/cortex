@@ -48,7 +48,7 @@
 <section class="content_section admin_section">
     <div class="container">
         <div class="row">
-            <x-ajax-table :bulkaction="true" bulkactionlink="{{route('admin.full-mock-exam.bulkaction')}}"
+            <x-ajax-table :bulkaction="true" :beforeajax="true" bulkactionlink="{{route('admin.full-mock-exam.bulkaction', ['exam'=>$exam->slug] )}}"
             
             
             :bulkotheraction='[
@@ -110,6 +110,7 @@ $(function() {
  
         function questionbeforeajax(data){
             data.category=$('#cat-list').val()||null;
+            console.log(data)
             return data;
         }
 
@@ -122,6 +123,7 @@ $(function() {
                 if (questiontable != null) {
                     questiontable.ajax.reload()
                 }
+                $('#cat_id').val($('#cat-list').val())
             })
         })
     </script>
