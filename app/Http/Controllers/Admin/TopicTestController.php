@@ -50,10 +50,8 @@ class TopicTestController extends Controller
             if(!empty($request->sub_category_id)){
                 $this->where('sub_category_id',$request->sub_category_id);
             }
-            $this->orderBy('order', 'ASC');
-           
-            $this->buildPagination(); 
-            
+            $this->orderBy('order_no', 'ASC');
+
             return $this->where('exam_id',$exam->id)
                 ->where('category_id',$category->id)
                 ->addAction(function($data)use($category){
@@ -124,7 +122,7 @@ class TopicTestController extends Controller
                 self::$model = Setname::class; 
                 return $this->where('sub_category_id',$request->parent_id??0)/*->where('category_id',$category->id)*/->buildSelectOption();
             }
-            elseif($name=="order"){
+            elseif($name=="order_no"){
                 self::reset();
                 self::$model = Question::class; 
 
@@ -159,9 +157,9 @@ class TopicTestController extends Controller
             ]);
             $exam=Exam::find( $exam->id );
         } 
-        if($question->order === '9999999999')
+        if($question->order_no === '9999999999')
         {
-            $question->order="";
+            $question->order_no="";
         }
         return view("admin.topic-test.edit",compact('category','exam','question'));
     }
