@@ -124,6 +124,9 @@ trait ResourceController
         foreach(self::$whereCondition as $condition){
             $query->where($condition[0]??"",$condition[1]??null);
         }
+        foreach(self::$orderbycondition as $condition){
+            $query->orderBy($condition[0]??"",$condition[1]??null);
+        }
         foreach(self::$whereHasCondition as $condition){
             if(count($condition)==1){
                 $query->has($condition[0]);
@@ -147,6 +150,10 @@ trait ResourceController
                 $query->whereHas(...$condition);
             }
         }
+        foreach(self::$orderbycondition as $condition){
+            $query->orderBy($condition[0]??"",$condition[1]??null);
+        }
+        
         $table=DataTables::of($query);
         $table->addColumn('selectbox',function($data){
             return ' 

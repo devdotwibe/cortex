@@ -50,6 +50,8 @@ class TopicTestController extends Controller
             if(!empty($request->sub_category_id)){
                 $this->where('sub_category_id',$request->sub_category_id);
             }
+            $this->orderBy('order','ASC')->orderBy('updated_at','ASC');
+
             return $this->where('exam_id',$exam->id)
                 ->where('category_id',$category->id)
                 ->addAction(function($data)use($category){
@@ -74,7 +76,7 @@ class TopicTestController extends Controller
                         </div>
                     ';
                 })
-                ->buildTable(['description','visibility']);
+               ->buildTable(['description','visibility']);
         } 
         return view("admin.topic-test.show",compact('category','exam'));
     }
@@ -103,12 +105,44 @@ class TopicTestController extends Controller
     } 
 
     public function edit(Request $request,Category $category,Question $question){ 
+
+        $exam=Exam::where("name",'topic-test')->first();
+        if(empty($exam)){
+            $exam=Exam::store([
+                "title"=>"Topic Test",
+                "name"=>"topic-test",
+            ]);
+            $exam=Exam::find( $exam->id );
+        }
+
         if($request->ajax()){
             $name=$request->name??"";
             if($name=="sub_category_set"){
                 self::reset();
                 self::$model = Setname::class; 
                 return $this->where('sub_category_id',$request->parent_id??0)/*->where('category_id',$category->id)*/->buildSelectOption();
+            }
+            elseif($name=="order"){
+                self::reset();
+                self::$model = Question::class; 
+
+                $examCount = Question::where('category_id',$category->id)->where('exam_id',$exam->id??0)->count();
+
+                $exams= Question::where('category_id',$category->id)->where('exam_id',$exam->id??0)->get();
+                $results= [];
+
+                foreach($exams as $k=> $item)
+                {
+                    $results[] = [
+                        'id' => $k+1, 
+                        'text' => $k+1
+                    ];
+                }
+
+                return [
+                    'results' => $results
+                ];
+
             }else{
                 self::reset();
                 self::$model = SubCategory::class; 
