@@ -122,7 +122,7 @@ class TopicTestController extends Controller
                 foreach($exams as $k=> $item)
                 {
                     $results[] = [
-                        'id' => $item->id, 
+                        'id' => $k+1, 
                         'text' => $k+1
                     ];
                 }
