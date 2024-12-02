@@ -103,7 +103,17 @@ class QuestionController extends Controller
 
         $featureimages = $request->file('file_answer', []);
 
+        $question_count = Question::where('category_id', $request->category_id)
+        ->where('exam_id', $request->exam_id)->count();
         
+        if(!empty($question_count))
+        {
+            $questiondat['order'] = $question_count+1; 
+        }
+        else
+        {
+            $questiondat['order'] = 1; 
+        }
 
         $question = Question::store($questiondat);
         $existingFiles = $request->input("existing_file_answer");
@@ -206,7 +216,6 @@ class QuestionController extends Controller
         }
         if (!empty($request->order)) {
 
-            // First, get the question to be updated
             $questionToUpdate = Question::where('id', $question->id)
                 ->where('category_id', $request->category_id)
                 ->where('exam_id', $question->exam_id)
