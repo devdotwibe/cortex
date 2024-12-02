@@ -70,6 +70,7 @@
                         </div>
 
                         <x-ajax-table :bulkaction="true" bulkactionlink="{{ route('admin.topic-test.bulkaction', ['category' => $category->slug,'exam'=>$exam->slug]) }}"  tableid="categoryquestiontable"  
+
                         
                         :bulkotheraction='[
                             ["name"=>"Enable Visible Access","value"=>"visible_status"],
