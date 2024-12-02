@@ -248,7 +248,7 @@ class QuestionController extends Controller
                 ->first();
         
             if (!empty($questionToUpdate)) {
-                $currentOrder = $questionToUpdate->order;
+                $currentOrder = $questionToUpdate->order_no;
                 $newOrder = $request->order_no;
         
                 if ($currentOrder != $newOrder) {
