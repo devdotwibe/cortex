@@ -235,7 +235,7 @@ class QuestionController extends Controller
 
         $count =$ques_count->where('id','<=',$item->id)->count();
         
-        $item->order = $k +1;
+        $item->order_no = $k +1;
         
         $item->save();
         }
