@@ -54,8 +54,7 @@ class TopicTestController extends Controller
             ->where('category_id', $category->id)
             ->orderBy('order', 'ASC');  // Apply orde
 
-            return $questionsQuery->where('exam_id',$exam->id)
-                ->where('category_id',$category->id)
+            return $questionsQuery
                 ->addAction(function($data)use($category){
                     return '
                    
