@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Answer;
+use App\Models\Exam;
 use App\Models\HomeWorkAnswer;
 use App\Models\LearnAnswer;
 use App\Models\Question;
@@ -215,13 +216,22 @@ class QuestionController extends Controller
                 break;
         }
 
+        $exam=Exam::where("name",'topic-test')->first();
+        if(empty($exam)){
+            $exam=Exam::store([
+                "title"=>"Topic Test",
+                "name"=>"topic-test",
+            ]);
+            $exam=Exam::find( $exam->id );
+        }
+
         $questionToUpdate = Question::
                  where('category_id', $request->category_id)
-                ->where('exam_id', $question->exam_id)->get();
+                ->where('exam_id', $exam->id)->get();
 
         foreach($questionToUpdate as $item)
         {
-            $ques_count = Question::where('category_id', $request->category_id)->where('exam_id', $question->exam_id);
+            $ques_count = Question::where('category_id', $request->category_id)->where('exam_id', $exam->id);
 
             $count =$ques_count->where('id','<=',$item->id)->count();
             
