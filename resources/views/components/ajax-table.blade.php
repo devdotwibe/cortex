@@ -251,7 +251,7 @@
                     ],
                 @else
                 order: [
-                        [1, 'ASC']
+                        [2, 'ASC']
                     ],
 
                 @endif
