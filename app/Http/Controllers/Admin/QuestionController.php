@@ -276,17 +276,17 @@ class QuestionController extends Controller
         //     }
         // }
         
-        $cq_count = Question::where('id','<=', $question->id)
-        ->where('category_id', $request->category_id)
-        ->where('exam_id', $question->exam_id)
-        ->count();
+        // $cq_count = Question::where('id','<=', $question->id)
+        // ->where('category_id', $request->category_id)
+        // ->where('exam_id', $question->exam_id)
+        // ->count();
 
-        $questiondat['order_no'] = $cq_count;
+        // $questiondat['order_no'] = $cq_count;
 
-        if(!empty($request->order_no))
-        {
-            $questiondat['order_no']=$request->order_no;
-        }
+        // if(!empty($request->order_no))
+        // {
+        //     $questiondat['order_no']=$request->order_no;
+        // }
         
         $question->update($questiondat);
         $ansIds=[];
