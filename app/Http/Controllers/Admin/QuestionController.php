@@ -204,6 +204,9 @@ class QuestionController extends Controller
                 ]);
                 break;
         }
+
+        $questiondat['order']=$request->order;
+
         $question->update($questiondat);
         $ansIds=[];
 
