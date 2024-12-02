@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('questions', function (Blueprint $table) {
-            $table->integer('order_no')->default('9999999999');
+            $table->bigInteger('order_no')->default(9999999999);
+
         });
     }
 
