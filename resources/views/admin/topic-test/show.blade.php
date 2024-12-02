@@ -69,7 +69,7 @@
                             </form>
                         </div>
 
-                        <x-ajax-table :bulkaction="true" bulkactionlink="{{ route('admin.topic-test.bulkaction', ['category' => $category->slug,'exam'=>$exam->slug]) }}"  tableid="categoryquestiontable"  
+                        <x-ajax-table :bulkaction="true" :order="true" bulkactionlink="{{ route('admin.topic-test.bulkaction', ['category' => $category->slug,'exam'=>$exam->slug]) }}"  tableid="categoryquestiontable"  
 
                         
                         :bulkotheraction='[
