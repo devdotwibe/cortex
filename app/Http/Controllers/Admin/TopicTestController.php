@@ -109,6 +109,11 @@ class TopicTestController extends Controller
                 self::reset();
                 self::$model = Setname::class; 
                 return $this->where('sub_category_id',$request->parent_id??0)/*->where('category_id',$category->id)*/->buildSelectOption();
+            }
+            elseif($name=="order"){
+                self::reset();
+                self::$model = Exam::class; 
+                return $this->where('order',$request->order??0)->buildSelectOption();
             }else{
                 self::reset();
                 self::$model = SubCategory::class; 
