@@ -214,41 +214,56 @@ class QuestionController extends Controller
                 ]);
                 break;
         }
-        if (!empty($request->order)) {
 
-            $questionToUpdate = Question::where('id', $question->id)
-                ->where('category_id', $request->category_id)
-                ->where('exam_id', $question->exam_id)
-                ->first();
-        
-            if (!empty($questionToUpdate)) {
-                $currentOrder = $questionToUpdate->order;
-                $newOrder = $request->order;
-        
-                if ($currentOrder != $newOrder) {
-        
-                    if ($newOrder > $currentOrder) {
-                      
-                        Question::where('category_id', $request->category_id)
-                            ->where('exam_id', $question->exam_id)
-                            ->where('order', '>', $currentOrder)
-                            ->where('order', '<=', $newOrder)
-                            ->decrement('order');  
-                    } 
-                    else {
-                       
-                        Question::where('category_id', $request->category_id)
-                            ->where('exam_id', $question->exam_id)
-                            ->where('order', '<', $currentOrder)
-                            ->where('order', '>=', $newOrder)
-                            ->increment('order');
-                    }
-                    
-                    $questionToUpdate->order = $newOrder;
-                    $questionToUpdate->save();
-                }
-            }
+        $questionToUpdate = Question::
+                 where('category_id', $request->category_id)
+                ->where('exam_id', $question->exam_id)->get();
+
+        foreach($questionToUpdate as $item)
+        {
+            $ques_count = Question::where('id','<',$item->id)->where('category_id', $request->category_id)->where('exam_id', $question->exam_id)->count();
+            
+           $item->order =  $ques_count+1;
+
+           $item->save();
         }
+                
+
+        // if (!empty($request->order)) {
+
+        //     $questionToUpdate = Question::where('id', $question->id)
+        //         ->where('category_id', $request->category_id)
+        //         ->where('exam_id', $question->exam_id)
+        //         ->first();
+        
+        //     if (!empty($questionToUpdate)) {
+        //         $currentOrder = $questionToUpdate->order;
+        //         $newOrder = $request->order;
+        
+        //         if ($currentOrder != $newOrder) {
+        
+        //             if ($newOrder > $currentOrder) {
+                      
+        //                 Question::where('category_id', $request->category_id)
+        //                     ->where('exam_id', $question->exam_id)
+        //                     ->where('order', '>', $currentOrder)
+        //                     ->where('order', '<=', $newOrder)
+        //                     ->decrement('order');  
+        //             } 
+        //             else {
+                       
+        //                 Question::where('category_id', $request->category_id)
+        //                     ->where('exam_id', $question->exam_id)
+        //                     ->where('order', '<', $currentOrder)
+        //                     ->where('order', '>=', $newOrder)
+        //                     ->increment('order');
+        //             }
+                    
+        //             $questionToUpdate->order = $newOrder;
+        //             $questionToUpdate->save();
+        //         }
+        //     }
+        // }
         
         
       
