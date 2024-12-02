@@ -64,39 +64,14 @@
 </section> --}}
 <section class="content_section admin_section">
     <div class="container">
-        {{-- <div class="row">
-            <x-ajax-table  hidepagination="true" :coloumns='[
+        <div class="row">
+            <x-ajax-table :coloumns='[
                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
                 ["th"=>"Title","name"=>"title","data"=>"title"], 
                 ["th"=>"Time Of Exam","name"=>"time_of_exam","data"=>"time_of_exam"], 
             ]' />
-        </div> --}}
-        <div class="row">
-            <div class="table-outer table-exammock">
-                <table class="table" id="mocktableid" style="width: 100%">
-                    <thead>
-                        <tr>
-                            <th data-th="Sl.No">Sl.No</th>
-                            <th data-th="Date">Date</th>
-                            <th data-th="Title">Title</th>
-                            <th data-th="Advice">Time Of Exam</th>
-                            <th data-th="Action">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {{-- The DataTables will handle the content dynamically --}}
-                    </tbody>
-                </table>
-            </div>
         </div>
     </div>
-    <!-- Load More Button -->
-
-    <button id="loadMore" data-url="{{ $url }}" class="btn btn-primary">Load More</button>
-
-     
-    
-
 </section>
 @endsection
 
@@ -151,111 +126,6 @@
 
 @push('footer-script')
     <script>
-
-let start = 0;
-let limit = 12;
-$(function() {
-
-    var nextPageUrl = $('#loadMore').data('url');
-
-        $('#mocktableid').DataTable({
-            paging: false,
-            bAutoWidth: false,
-            processing: true,
-            serverSide: true,
-            order: [[0, 'desc']],
-            ajax: {
-                url: "{{ request()->fullUrl() }}",
-                data:function(d){
-                    d.start = d.start || 0; 
-                    d.limit = d.length || 12;
-                        
-                    },
-                type: 'GET',
-                dataSrc: function(json) {
-                    return json.data; // Return the data for DataTables
-                },
-                error: function(xhr, error, thrown) {
-                    console.error(xhr.responseText); // Log any errors for debugging
-                }
-            },
-            initComplete: function(settings) {
-                var info = this.api().page.info();
-                $(".dataTables_paginate").toggle(info.pages > 1);
-                $(".dataTables_info").toggle(info.recordsTotal > 0);
-            },
-            columns: [
-                { data: 'DT_RowIndex', name: 'id', orderable: true, searchable: false },
-                { 
-                    data: 'date', 
-                    name: 'created_at', 
-                    orderable: true, 
-                    searchable: true,
-                 
-                },
-                
-                { 
-                    data: 'title', 
-                    name: 'title', 
-                    orderable: true, 
-                    searchable: true,
-                 
-                },
-                { 
-                    data: 'time_of_exam', 
-                    name: 'time_of_exam', 
-                    orderable: true, 
-                    searchable: true,
-                 
-                },
-               
-                { data: 'action',
-                 name: 'action', 
-                orderable: false, 
-                searchable: false
-             }
-            ]
-        });
-
-
-        // Load More Button Event
-$('#loadMore').on('click', function() {
-console.log('y');
-start += limit; 
-$(this).prop('disabled', true).text('Loading...');
-$.ajax({
-    url: nextPageUrl,
-method: 'GET',
-data: {
-    start: start,
-    limit: limit
-},
-success: function(response) {
-   
-    $('#mocktableid').DataTable().ajax.reload(); 
-
-    nextPageUrl = response.next; 
-
-      $('#loadMore').data('url', nextPageUrl);
-
-      start += limit;
-
-    // If no more data, disable the "Load More" button or hide it
-    if (!nextPageUrl) {
-        $('#loadMore').prop('disabled', true).text('No More Data');
-        // Optionally hide the button: $('#loadMore').hide();
-    } else {
-        // Re-enable the button and change the text back
-        $('#loadMore').prop('disabled', false).text('Load More');
-    }
-
-
-}
-});
-});
-
-
-    });
          
 
          function UploadVideo(element)
@@ -295,15 +165,6 @@ success: function(response) {
                 });
 
          }
-
-
-         
-        
-
-
-
-
-
 
          
          function VideoSubmit() 
@@ -347,7 +208,6 @@ success: function(response) {
                     }
                 });
             }
-
 
 
 
