@@ -123,7 +123,7 @@ class TopicTestController extends Controller
                 {
                     $results[] = [
                         'id' => $item->id, 
-                        'text' => $item->id
+                        'text' => $k+1
                     ];
                 }
                 return   $results;
