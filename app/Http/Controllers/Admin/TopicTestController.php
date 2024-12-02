@@ -46,13 +46,12 @@ class TopicTestController extends Controller
             ]);
             $exam=Exam::find( $exam->id );
         }
-
-        $this->orderBy('order', 'ASC'); 
-      
         if($request->ajax()){
             if(!empty($request->sub_category_id)){
                 $this->where('sub_category_id',$request->sub_category_id);
             }
+            $this->orderBy('order', 'ASC');
+        
             return $this->where('exam_id',$exam->id)
                 ->where('category_id',$category->id)
                 ->addAction(function($data)use($category){
@@ -77,9 +76,7 @@ class TopicTestController extends Controller
                         </div>
                     ';
                 })
-               ->buildTable(['description','visibility'])->buildPagination();
-
-
+               ->buildTable(['description','visibility']);
         } 
         return view("admin.topic-test.show",compact('category','exam'));
     }
