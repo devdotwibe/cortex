@@ -228,7 +228,6 @@
                 processing: true,
                 serverSide: true,
             
-               paging: false,
                 ajax: {
                     url: "{{ $url }}",
                     data:function(d){
