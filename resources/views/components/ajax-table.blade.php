@@ -329,7 +329,7 @@
                     @else
                     {
                         data: 'DT_RowIndex',
-                        name: 'order',
+                        name: 'order_no',
                         orderable: true,
                         searchable: false,
                     },
