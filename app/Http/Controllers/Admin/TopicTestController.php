@@ -50,6 +50,8 @@ class TopicTestController extends Controller
             if(!empty($request->sub_category_id)){
                 $this->where('sub_category_id',$request->sub_category_id);
             }
+            $this->orderBy('order','ASC');
+
             return $this->where('exam_id',$exam->id)
                 ->where('category_id',$category->id)
                 ->addAction(function($data)use($category){
@@ -74,7 +76,7 @@ class TopicTestController extends Controller
                         </div>
                     ';
                 })
-                ->orderBy('order','ASC')->buildTable(['description','visibility']);
+               ->buildTable(['description','visibility']);
         } 
         return view("admin.topic-test.show",compact('category','exam'));
     }
