@@ -84,7 +84,7 @@
                         
                         
                         :coloumns="[
-                             ['th' => 'Order', 'name' => 'order', 'data' => 'order'],
+                             ['th' => 'Order', 'name' => 'order_no', 'data' => 'order_no'],
                             ['th' => 'Date', 'name' => 'created_at', 'data' => 'date'],
                             ['th' => 'Question', 'name' => 'description', 'data' => 'description'],
                             ['th' => 'Visible', 'name' => 'visible_status', 'data' => 'visibility'],
