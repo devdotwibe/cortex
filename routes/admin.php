@@ -184,7 +184,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
 
                 // Route::post('/topic-test/bulk/action',[TopicTestController::class,'bulkaction'])->name('bulkaction');
 
-                Route::post('/{category}/bulk/action', [TopicTestController::class, 'bulkaction'])->name('bulkaction');
+                Route::post('/{category}/{exam}/bulk/action', [TopicTestController::class, 'bulkaction'])->name('bulkaction');
 
 
                 Route::get('/{category}/create', [TopicTestController::class, 'create'])->name('create');

@@ -117,7 +117,9 @@ class FullMockExamController extends Controller
         if (!empty($request->deleteaction)) {
             if ($request->input('select_all', 'no') == "yes") {
                 if($request->category){
-                    Question::where('exam_id', $exam->id)->where('category_id',$request->category)->delete();     
+                    Question::where('exam_id', $exam->id)
+                            ->where('category_id',$request->category)
+                            ->delete();     
                 }else{
                     Question::where('exam_id', $exam->id)->delete();     
                 }

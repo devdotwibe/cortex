@@ -290,12 +290,14 @@ class TopicTestController extends Controller
 
 
 
-    public function bulkaction(Request $request, category $category)
+    public function bulkaction(Request $request, Category $category ,Exam $exam)
     {
         if (!empty($request->deleteaction)) {
             if ($request->input('select_all', 'no') == "yes") {
                 // Delete all questions corresponding to the specific setname
-                Question::where('category_id', $category->id)->delete();
+                Question::where('category_id', $category->id)
+                        ->where('exam_id',$exam->id)
+                        ->delete();
             } else {
                 // Delete selected questions only
                 Question::whereIn('id', $request->input('selectbox', []))->delete();
@@ -325,7 +327,9 @@ class TopicTestController extends Controller
     
             if ($request->input('select_all', 'no') == "yes") {
                 // Update visibility status for all questions corresponding to the specific setname
-                Question::where('category_id', $category->id)->update($data);
+                Question::where('category_id', $category->id)
+                        ->where('exam_id',$exam->id)
+                        ->update($data);
             } else {
                 // Update visibility status for selected questions only
                 Question::whereIn('id', $request->input('selectbox', []))->update($data);
