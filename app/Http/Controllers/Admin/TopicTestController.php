@@ -47,8 +47,8 @@ class TopicTestController extends Controller
             $exam=Exam::find( $exam->id );
         }
 
-        $this->orderBy('order', 'ASC')->buildPagination(12);
-
+        $this->orderBy('order', 'ASC'); 
+      
         if($request->ajax()){
             if(!empty($request->sub_category_id)){
                 $this->where('sub_category_id',$request->sub_category_id);
