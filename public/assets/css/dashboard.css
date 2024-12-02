@@ -4125,7 +4125,7 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 .workshop-wrap .workshop-content ul li {
     font-size: 20px;
     line-height: 1.5;
-    margin: 0 0 15px;
+    margin: 0 0 10px;
     padding-left: 15px;
     position: relative;
 }
@@ -4134,6 +4134,8 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
     content: "\2022";
     position: relative;
     left: -10px;
+    font-size: 26px;
+    top: 2px;
 }
 
 .workshop-action .btn {
