@@ -255,25 +255,31 @@ class QuestionController extends Controller
         
                     if ($newOrder > $currentOrder) {
                       
-                        Question::where('category_id', $request->category_id)
+                        $ques =Question::where('category_id', $request->category_id)
                             ->where('exam_id', $question->exam_id)
                             ->where('order_no', '>', $currentOrder)
                             ->where('order_no', '<=', $newOrder)
-                            ->get()
-                            ->each(function($q) {
-                                $q->decrement('order_no', 1);
-                            });
+                            ->get();
+
+                        foreach($ques as $item)
+                        {
+                            $item->order_no = $item->order_no -1;
+                            $item->save();
+                        }
+                           
                     } 
                     else {
                        
-                        Question::where('category_id', $request->category_id)
+                        $ques = Question::where('category_id', $request->category_id)
                             ->where('exam_id', $question->exam_id)
                             ->where('order_no', '<', $currentOrder)
                             ->where('order_no', '>=', $newOrder)
-                            ->get()
-                            ->each(function($q) {
-                                $q->increment('order_no', 1); 
-                            });
+                            ->get();
+                                foreach($ques as $item)
+                            {
+                                $item->order_no = $item->order_no + 1;
+                                $item->save();
+                            }
                     }
                     
                     $questionToUpdate->order_no = $newOrder;
