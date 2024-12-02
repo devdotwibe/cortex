@@ -74,7 +74,7 @@ class TopicTestController extends Controller
                         </div>
                     ';
                 })
-                ->buildTable(['description','visibility']);
+                ->orderBy('order','ASC')->buildTable(['description','visibility']);
         } 
         return view("admin.topic-test.show",compact('category','exam'));
     }
