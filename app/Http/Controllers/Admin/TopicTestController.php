@@ -126,14 +126,10 @@ class TopicTestController extends Controller
                         'text' => $k+1
                     ];
                 }
-                
+
                 return [
                     'results' => $results
                 ];
-
-                // dd($this->where('id','>',0)->where('category_id',$category->id)->buildSelectOption('id'));
-                // return $this->where('id','>',0)->where('category_id',$category->id)->buildSelectOption('id');
-
 
             }else{
                 self::reset();

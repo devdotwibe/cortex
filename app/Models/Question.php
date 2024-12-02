@@ -24,7 +24,8 @@ class Question extends Model
         'explanation',
         'visible_status',
         'title_text',
-        'sub_question'
+        'sub_question',
+        'order'
     ];
     public function category(){
         return $this->belongsTo(Category::class);
