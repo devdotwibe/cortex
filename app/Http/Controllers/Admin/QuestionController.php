@@ -259,7 +259,10 @@ class QuestionController extends Controller
                             ->where('exam_id', $question->exam_id)
                             ->where('order_no', '>', $currentOrder)
                             ->where('order_no', '<=', $newOrder)
-                            ->decrement('order_no', 1);
+                            ->get()
+                            ->each(function($q) {
+                                $q->decrement('order_no', 1);
+                            });
                     } 
                     else {
                        
@@ -267,7 +270,10 @@ class QuestionController extends Controller
                             ->where('exam_id', $question->exam_id)
                             ->where('order_no', '<', $currentOrder)
                             ->where('order_no', '>=', $newOrder)
-                            ->increment('order_no', 1);
+                            ->get()
+                            ->each(function($q) {
+                                $q->increment('order_no', 1); 
+                            });
                     }
                     
                     $questionToUpdate->order_no = $newOrder;
