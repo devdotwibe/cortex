@@ -50,7 +50,7 @@ class TopicTestController extends Controller
             if(!empty($request->sub_category_id)){
                 $this->where('sub_category_id',$request->sub_category_id);
             }
-            $this->orderBy('order', 'DESC');
+            $this->orderBy('order', 'ASC');
            
 
             return $this->where('exam_id',$exam->id)
