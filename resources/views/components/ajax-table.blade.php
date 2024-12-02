@@ -249,6 +249,11 @@
                     order: [
                         [0, 'DESC']
                     ],
+                @else
+                order: [
+                        [0, 'DESC']
+                    ],
+
                 @endif
 
                 initComplete: function(settings) {
@@ -314,13 +319,21 @@
                         searchable: false,
                     },
                     @endif
-
+                    @if($order)
                     {
                         data: 'DT_RowIndex',
                         name: 'id',
                         orderable: true,
                         searchable: false,
                     },
+                    @else
+                    {
+                        data: 'DT_RowIndex',
+                        name: 'order',
+                        orderable: true,
+                        searchable: false,
+                    },
+                    @endif
                     @foreach ($coloumns as $item)
                         {
                             data: '{{ $item->data }}',
