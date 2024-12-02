@@ -21,7 +21,7 @@ class AjaxTable extends Component
     public $cancel;
     public $onclick;
     public $beforeajax;
-
+    public $order;
     public $bulkaction;
     public $bulkactionlink;
     public $tableinit;
@@ -35,7 +35,7 @@ class AjaxTable extends Component
      *
      * @return void
      */
-    public function __construct($coloumns,$url=null,$fields=null,$tableid=null,$hidepagination=null,$popupid=null,$ajaxcreate=null,$createurl=null,$cancel=null,$btnsubmit=null,$onclick=null,$beforeajax=null,$bulkaction=false,$bulkactionlink=null,$tableinit=null,$deletecallbackbefore=null,$deletecallbackafter=null,$action=true,$bulkotheraction=null)
+    public function __construct($coloumns,$url=null,$order=null,$fields=null,$tableid=null,$hidepagination=null,$popupid=null,$ajaxcreate=null,$createurl=null,$cancel=null,$btnsubmit=null,$onclick=null,$beforeajax=null,$bulkaction=false,$bulkactionlink=null,$tableinit=null,$deletecallbackbefore=null,$deletecallbackafter=null,$action=true,$bulkotheraction=null)
     {
         $this->coloumns = json_decode(json_encode($coloumns),false); 
         $this->url = $url??url()->current();
@@ -50,6 +50,7 @@ class AjaxTable extends Component
         $this->onclick = $onclick;
         $this->beforeajax = $beforeajax;
         $this->bulkaction = $bulkaction;
+        $this->order = $order??true;
         $this->bulkactionlink = $bulkactionlink;
         $this->tableinit = $tableinit;
         $this->deletecallbackbefore=$deletecallbackbefore;
