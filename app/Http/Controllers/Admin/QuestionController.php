@@ -204,6 +204,34 @@ class QuestionController extends Controller
                 ]);
                 break;
         }
+        if (!empty($request->order)) {
+          
+            $questions = Question::where('order', $request->order)
+                ->where('category_id', $request->category_id)
+                ->where('exam_id', $question->exam_id)
+                ->first();
+           
+            if (!empty($questions)) {
+               
+                $questionto = Question::where('category_id', $request->category_id)
+                    ->where('exam_id', $question->exam_id)
+                    ->where('order', '<', $request->order) 
+                    ->orderBy('order', 'ASC')
+                    ->get();
+        
+                
+                foreach ($questionto as $k => $item) {
+                    $item->order = $k; 
+                    $item->save(); 
+                }
+ 
+            }
+        }
+        
+      
+        $questiondat['order'] = $request->order;
+        $question->update($questiondat);
+        
 
         $questiondat['order']=$request->order;
 
