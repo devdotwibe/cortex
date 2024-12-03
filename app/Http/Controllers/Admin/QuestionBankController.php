@@ -76,17 +76,41 @@ class QuestionBankController extends Controller
         }
 
         if ($request->ajax()) {
-            return  $this->where('exam_id', $exam->id)->where('category_id', $setname->category_id)->where('sub_category_id', $setname->sub_category_id)->where('sub_category_set', $setname->id)->addAction(function ($data) use ($setname) {
+
+            $this->orderBy('order_no', 'ASC');
+
+            $examCount = Question::where('exam_id',$exam->id??0)->where('category_id',$setname->category_id)->where('sub_category_id', $setname->sub_category_id)->where('sub_category_set', $setname->id)->count();
+
+            return  $this->where('exam_id', $exam->id)->where('category_id', $setname->category_id)->where('sub_category_id', $setname->sub_category_id)->where('sub_category_set', $setname->id)
+            ->addAction(function ($data) use ($setname,$examCount) {
+
+                $button = '';  
+
+                $selected ="";
+
+                $results = "";
+
+                for ($i = 1; $i <= $examCount; $i++) {
+
+                    $selected = ($data->order_no == $i) ? 'selected' : ''; 
+
+                    $results .= '<option value="' . $i . '" ' . $selected . '>' . $i . '</option>';
+                }
+
+                $button .= '<select name="work_update_coordinator" onchange="OrderChange(this)" data-type="question_bank" data-id="' . $data->id . '" data-exam="' . $data->exam_id . '" data-category="' . $data->category_id . '" data-subcategory="' . $data->sub_category_id . '"  data-subcategoryset="' . $data->sub_category_set . '">'; 
+                $button .= $results;
+                $button .= '</select>';
+
                 return '
                    
                    <a href="' . route("admin.question-bank.edit", ["setname" => $setname->slug, "question" => $data->slug]) . '" class="btn btn-icons edit_btn">
-    <span class="adminside-icon">
-      <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
-    </span>
-    <span class="adminactive-icon">
-        <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active" title="Edit">
-    </span>
-</a>
+                        <span class="adminside-icon">
+                        <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
+                        </span>
+                        <span class="adminactive-icon">
+                            <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active" title="Edit">
+                        </span>
+                    </a>
 
                     ';
             })->addColumn('visibility', function ($data) {
