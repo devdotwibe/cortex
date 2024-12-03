@@ -10,6 +10,7 @@ use App\Models\Question;
 use App\Models\SubCategory;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class FullMockExamController extends Controller
@@ -140,16 +141,37 @@ class FullMockExamController extends Controller
     {
         if (!empty($request->deleteaction)) {
             if ($request->input('select_all', 'no') == "yes") {
+
                 if($request->category){
+
+                    
+                $admin = Auth::guard('admin')->user();
+                                
+                Question::where('exam_id', $exam->id)->where('category_id',$request->category)
+                ->update(['admin_id' => $admin->id]);
+
                     Question::where('exam_id', $exam->id)
                             ->where('category_id',$request->category)
                             ->delete();     
                 }else{
+
+                    $admin = Auth::guard('admin')->user();
+                                
+                    Question::where('exam_id', $exam->id)
+                    ->update(['admin_id' => $admin->id]);
+
                     Question::where('exam_id', $exam->id)->delete();     
                 }
             } else {
+
+                $admin = Auth::guard('admin')->user();
+                                
+                Question::whereIn('id', $request->input('selectbox', []))
+                ->update(['admin_id' => $admin->id]);
+
                 Question::whereIn('id', $request->input('selectbox', []))->delete();
             }
+
             if ($request->ajax()) {
                 return response()->json(["success" => "Questions deleted success"]);
             }

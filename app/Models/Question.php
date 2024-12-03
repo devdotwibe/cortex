@@ -27,6 +27,7 @@ class Question extends Model
         'title_text',
         'sub_question',
         'order_no',
+        'admin_id',
     ];
     
     public function category(){
