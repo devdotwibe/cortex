@@ -54,11 +54,10 @@ class TopicTestController extends Controller
 
             $examCount = Question::where('category_id',$category->id)->where('exam_id',$exam->id??0)->count();
 
-            $results="";
+            $results = "";
 
-            for($i=1;$i<=$examCount;$i++)
-            {
-                $results .=`<option value=".$i.">.$i. </option>`;
+            for ($i = 1; $i <= $examCount; $i++) {
+                $results .= '<option value="' . $i . '">' . $i . '</option>';
             }
 
             return $this->where('exam_id',$exam->id)
@@ -77,7 +76,7 @@ class TopicTestController extends Controller
             </a>
 
             <select>
-                    '.$results.'
+                ' . $results . '
             </select>
 
 
