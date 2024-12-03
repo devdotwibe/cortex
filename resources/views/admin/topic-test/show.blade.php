@@ -131,6 +131,7 @@ $(function() {
                 success: function(res) {
 
                     console.log(res);
+                    $('#table-categoryquestiontable').DataTable().ajax.reload(); 
 
                 }
 
