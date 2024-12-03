@@ -533,7 +533,7 @@ class QuestionController extends Controller
                                     if (!empty($order)) {
         
                                     $questionToUpdate = HomeWorkQuestion::where('id', $question_id)
-                                        ->where('category_id', $category_id)
+                                        ->where('home_work_id', $category_id)
                                         ->first();
         
                                     if (!empty($questionToUpdate)) {
