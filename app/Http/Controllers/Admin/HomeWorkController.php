@@ -422,6 +422,14 @@ class HomeWorkController extends Controller
 
                 $selectBoxValues = is_array($request->input('selectbox', [])) ? $request->input('selectbox', []) : [];
 
+                dd($selectBoxValues);
+
+                $admin = Auth::guard('admin')->user();
+                
+                HomeWorkQuestion::whereIn('id', $selectBoxValues)
+                ->where('home_work_id', $homeWork->id)
+                ->where('home_work_book_id', $booklet)
+                ->update(['admin_id' => $admin->id]);
 
                 HomeWorkQuestion::whereIn('id', $selectBoxValues)
                     ->where('home_work_id', $homeWork->id)
