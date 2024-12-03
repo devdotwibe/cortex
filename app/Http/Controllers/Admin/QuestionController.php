@@ -598,7 +598,7 @@ class QuestionController extends Controller
 
         $admin = Auth::guard('admin')->user();
         
-        $question->deleted_user = $admin->email;
+        $question->admin_id = $admin->id;
 
         $question->save();
 
