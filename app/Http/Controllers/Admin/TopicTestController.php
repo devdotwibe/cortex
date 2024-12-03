@@ -51,12 +51,9 @@ class TopicTestController extends Controller
                 $this->where('sub_category_id',$request->sub_category_id);
             }
             $this->orderBy('order_no', 'ASC');
-<<<<<<< HEAD
-=======
 
             
             $examCount = Question::where('category_id',$category->id)->where('exam_id',$exam->id??0)->count();
->>>>>>> testing
 
             return $this->where('exam_id',$exam->id)
                 ->where('category_id',$category->id)
