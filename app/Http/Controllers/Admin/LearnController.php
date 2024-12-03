@@ -246,6 +246,18 @@ class LearnController extends Controller
         }
 
 
+        $question_count = Learn::where('category_id', $request->category_id)->count();
+
+        
+        if(!empty($question_count))
+        {
+            $learn_data['order_no'] = $question_count+1; 
+        }
+        else
+        {
+            $learn_data['order_no'] = 1; 
+        }
+
         $learn_data['title'] = $request->title;
 
         $learn_data['learn_type'] = $request->learn_type;
