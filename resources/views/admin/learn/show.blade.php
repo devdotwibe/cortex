@@ -29,7 +29,7 @@
 <section class="content_section admin_section learn_show">
     <div class="container">
         <div class="row">
-            <x-ajax-table :bulkaction="true" bulkactionlink="{{route('admin.learn.bulkaction', ['category' => $category->slug])}}"
+            <x-ajax-table :bulkaction="true" bulkactionlink="{{route('admin.learn.bulkaction', ['category' => $category->slug])}}" tableid="categoryquestiontable"
             
             
             :bulkotheraction='[
