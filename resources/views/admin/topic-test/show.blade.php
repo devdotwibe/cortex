@@ -104,6 +104,33 @@ $(function() {
     }, 500); 
 });
 
+        function OrderChange(element)
+        {
+            var id = $(element).attr('data-id');
+
+            var value = $(element).val();
+
+            console.log(value,id);
+
+            var url = APP_URL + '/admin/coordinator_update';
+
+            $.ajax({
+                url: url,
+
+                method: 'POST',
+                data: {
+                    id: id,
+                    value: value,
+                },
+                success: function(res) {
+
+                    console.log(res);
+
+                }
+
+            });
+
+        }
  
         var questiontable = null;
         function importupdate(){ 
