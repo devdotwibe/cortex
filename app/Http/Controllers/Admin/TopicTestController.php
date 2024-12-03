@@ -52,9 +52,19 @@ class TopicTestController extends Controller
             }
             $this->orderBy('order_no', 'ASC');
 
+            $examCount = Question::where('category_id',$category->id)->where('exam_id',$exam->id??0)->count();
+
+            $results="";
+
+            for($i=1;$i<=$examCount;$i++)
+            {
+                $results .=`<option value=".$i.">.$i. </option>`;
+            }
+
             return $this->where('exam_id',$exam->id)
                 ->where('category_id',$category->id)
-                ->addAction(function($data)use($category){
+
+                ->addAction(function($data)use($category,$results){
                     return '
                    
                         <a href="'.route("admin.topic-test.edit",["category"=>$category->slug,"question"=>$data->slug]).'" class="btn btn-icons edit_btn">
@@ -66,6 +76,9 @@ class TopicTestController extends Controller
                 </span>
             </a>
 
+            <select>
+                    '.$results.'
+            </select>
 
 
                     ';
