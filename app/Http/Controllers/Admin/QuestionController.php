@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Answer;
 use App\Models\Exam;
 use App\Models\HomeWorkAnswer;
+use App\Models\Learn;
 use App\Models\LearnAnswer;
 use App\Models\Question;
 use App\Trait\ResourceController;
@@ -467,7 +468,7 @@ class QuestionController extends Controller
                 
                     case 'learn':
 
-                        $questionToUpdate = Question:: where('category_id', $category_id)->get();
+                        $questionToUpdate = Learn:: where('category_id', $category_id)->get();
                       
                                 foreach($questionToUpdate as $k => $item)
                                 {
@@ -478,7 +479,7 @@ class QuestionController extends Controller
     
                                 if (!empty($order)) {
     
-                                $questionToUpdate = Question::where('id', $question_id)
+                                $questionToUpdate = Learn::where('id', $question_id)
                                     ->where('category_id', $category_id)
                                     ->first();
     
@@ -490,14 +491,14 @@ class QuestionController extends Controller
     
                                         if ($newOrder > $currentOrder) {
                                         
-                                            Question::where('category_id', $category_id)
+                                            Learn::where('category_id', $category_id)
                                                 ->where('order_no', '>', $currentOrder)
                                                 ->where('order_no', '<=', $newOrder)
                                                 ->decrement('order_no');  
                                         } 
                                         else {
                                         
-                                            Question::where('category_id', $category_id)
+                                            Learn::where('category_id', $category_id)
                                                 ->where('order_no', '<', $currentOrder)
                                                 ->where('order_no', '>=', $newOrder)
                                                 ->increment('order_no');
