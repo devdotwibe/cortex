@@ -408,6 +408,11 @@ class HomeWorkController extends Controller
 
                 $selectAllValues = json_decode($request->select_all_values, true);
 
+                $admin = Auth::guard('admin')->user();
+                
+                HomeWorkQuestion::whereIn('id', $selectAllValues)
+                ->update(['admin_id' => $admin->id]);
+
                 HomeWorkQuestion::whereIn('id', $selectAllValues)
                     ->delete();
 

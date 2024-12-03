@@ -26,6 +26,7 @@ class HomeWorkQuestion extends Model
         'home_work_book_id',
         'home_work_type',
         'order_no',
+        'admin_id',
     ];
     public function homeWorkBook()
     {
