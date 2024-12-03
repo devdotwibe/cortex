@@ -25,11 +25,7 @@ class Question extends Model
         'visible_status',
         'title_text',
         'sub_question',
-<<<<<<< HEAD
-        'order_no'
-=======
         'order_no',
->>>>>>> testing
     ];
     
     public function category(){
