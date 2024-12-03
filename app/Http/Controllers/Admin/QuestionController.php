@@ -283,119 +283,198 @@ class QuestionController extends Controller
 
         $category_id = $request->category_id;
 
-        if(!empty($category_id))
-        {
+        $subcategory_id = $request->subcategory_id;
 
-            $questionToUpdate = Question::
-            where('category_id', $category_id)
-        ->where('exam_id', $exam_id)->get();
+        $subcategoryset = $request->subcategoryset;
 
-            foreach($questionToUpdate as $k => $item)
-            {
-            $ques_count = Question::where('category_id', $category_id)->where('exam_id', $exam_id);
+        $type = $request->type;
+    
+            switch ($type) {
 
-                $item->order_no = $k +1;
-            
-                $item->save();
-            }
-        
-            if (!empty($order)) {
+                case 'topic_test':
 
-                $questionToUpdate = Question::where('id', $question_id)
-                    ->where('category_id', $category_id)
-                    ->where('exam_id', $exam_id)
-                    ->first();
-            
-                if (!empty($questionToUpdate)) {
-                    $currentOrder = $questionToUpdate->order_no;
-                    $newOrder = $order;
-            
-                    if ($currentOrder != $newOrder) {
-            
-                        if ($newOrder > $currentOrder) {
-                        
-                            Question::where('category_id', $category_id)
+                    $questionToUpdate = Question:: where('category_id', $category_id)
+
+                    ->where('exam_id', $exam_id)->get();
+
+                            foreach($questionToUpdate as $k => $item)
+                            {
+                                $item->order_no = $k +1;
+
+                                $item->save();
+                            }
+
+                            if (!empty($order)) {
+
+                            $questionToUpdate = Question::where('id', $question_id)
+                                ->where('category_id', $category_id)
                                 ->where('exam_id', $exam_id)
-                                ->where('order_no', '>', $currentOrder)
-                                ->where('order_no', '<=', $newOrder)
-                                ->decrement('order_no');  
-                        } 
-                        else {
-                        
-                            Question::where('category_id', $category_id)
-                                ->where('exam_id', $exam_id)
-                                ->where('order_no', '<', $currentOrder)
-                                ->where('order_no', '>=', $newOrder)
-                                ->increment('order_no');
-                        }
-                        
-                        $questionToUpdate->order_no = $newOrder;
-                        $questionToUpdate->save();
-                    }
-                }
-            }
+                                ->first();
 
-            return response()->json([
-                'message' => 'order corrected.',
-                'success' =>true
-            ]);
-        }
-        else
-        {
+                            if (!empty($questionToUpdate)) {
+                                $currentOrder = $questionToUpdate->order_no;
+                                $newOrder = $order;
 
-            $questionToUpdate = Question::where('exam_id', $exam_id)->get();
+                                if ($currentOrder != $newOrder) {
+
+                                    if ($newOrder > $currentOrder) {
+                                    
+                                        Question::where('category_id', $category_id)
+                                            ->where('exam_id', $exam_id)
+                                            ->where('order_no', '>', $currentOrder)
+                                            ->where('order_no', '<=', $newOrder)
+                                            ->decrement('order_no');  
+                                    } 
+                                    else {
+                                    
+                                        Question::where('category_id', $category_id)
+                                            ->where('exam_id', $exam_id)
+                                            ->where('order_no', '<', $currentOrder)
+                                            ->where('order_no', '>=', $newOrder)
+                                            ->increment('order_no');
+                                    }
+                                    
+                                    $questionToUpdate->order_no = $newOrder;
+                                    $questionToUpdate->save();
+                                }
+                            }
+                            }
+
+                            return response()->json([
+                                'message' => 'order corrected.',
+                                'success' =>true
+                            ]);
+                
+                   
+                    break;
+    
+                case 'full_mock':
+
+                    $questionToUpdate = Question::where('exam_id', $exam_id)->get();
            
-            foreach($questionToUpdate as $k => $item)
-            {
-            $ques_count = Question::where('exam_id', $exam_id);
+                    foreach($questionToUpdate as $k => $item)
+                    {
+                        $item->order_no = $k +1;
+                    
+                        $item->save();
+                    }
+                
+                    if (!empty($order)) {
+        
+                        $questionToUpdate = Question::where('id', $question_id)
+                            ->where('exam_id', $exam_id)
+                            ->first();
+                    
+                        if (!empty($questionToUpdate)) {
+                            $currentOrder = $questionToUpdate->order_no;
+                            $newOrder = $order;
+                    
+                            if ($currentOrder != $newOrder) {
+                    
+                                if ($newOrder > $currentOrder) {
+                                
+                                    Question::
+                                         where('exam_id', $exam_id)
+                                        ->where('order_no', '>', $currentOrder)
+                                        ->where('order_no', '<=', $newOrder)
+                                        ->decrement('order_no');  
+                                } 
+                                else {
+                                
+                                    Question::
+                                         where('exam_id', $exam_id)
+                                        ->where('order_no', '<', $currentOrder)
+                                        ->where('order_no', '>=', $newOrder)
+                                        ->increment('order_no');
+                                }
+                                
+                                $questionToUpdate->order_no = $newOrder;
+                                $questionToUpdate->save();
+                            }
+                        }
+                    }
+        
+                    return response()->json([
+                        'message' => 'order corrected.',
+                        'success' =>true
+                    ]);
+                   
+                    break;
+    
+                case 'question_bank':
 
-                $item->order_no = $k +1;
-            
-                $item->save();
+                    $questionToUpdate = Question:: where('category_id', $category_id)
+                    ->where('sub_category_id', $subcategory_id)
+                    ->where('sub_category_set', $subcategoryset)
+                    ->where('exam_id', $exam_id)->get();
+
+                            foreach($questionToUpdate as $k => $item)
+                            {
+                                $item->order_no = $k +1;
+
+                                $item->save();
+                            }
+
+                            if (!empty($order)) {
+
+                            $questionToUpdate = Question::where('id', $question_id)
+                                ->where('category_id', $category_id)
+                                ->where('sub_category_id', $subcategory_id)
+                                ->where('sub_category_set', $subcategoryset)
+                                ->where('exam_id', $exam_id)
+                                ->first();
+
+                            if (!empty($questionToUpdate)) {
+                                $currentOrder = $questionToUpdate->order_no;
+                                $newOrder = $order;
+
+                                if ($currentOrder != $newOrder) {
+
+                                    if ($newOrder > $currentOrder) {
+                                    
+                                        Question::where('category_id', $category_id)
+                                            ->where('sub_category_id', $subcategory_id)
+                                            ->where('sub_category_set', $subcategoryset)
+                                            ->where('exam_id', $exam_id)
+                                            ->where('order_no', '>', $currentOrder)
+                                            ->where('order_no', '<=', $newOrder)
+                                            ->decrement('order_no');  
+                                    } 
+                                    else {
+                                    
+                                        Question::where('category_id', $category_id)
+                                            ->where('sub_category_id', $subcategory_id)
+                                            ->where('sub_category_set', $subcategoryset)
+                                            ->where('exam_id', $exam_id)
+                                            ->where('order_no', '<', $currentOrder)
+                                            ->where('order_no', '>=', $newOrder)
+                                            ->increment('order_no');
+                                    }
+                                    
+                                    $questionToUpdate->order_no = $newOrder;
+                                    $questionToUpdate->save();
+                                }
+                            }
+                            }
+
+                            return response()->json([
+                                'message' => 'order corrected.',
+                                'success' =>true
+                            ]);
+                   
+
+                    break;
+                
+                default:
+                  
+                        return response()->json([
+                            'message' => 'order corrected.',
+                            'success' =>false
+                        ]);
+
+                    break;
             }
         
-            if (!empty($order)) {
-
-                $questionToUpdate = Question::where('id', $question_id)
-                    ->where('exam_id', $exam_id)
-                    ->first();
-            
-                if (!empty($questionToUpdate)) {
-                    $currentOrder = $questionToUpdate->order_no;
-                    $newOrder = $order;
-            
-                    if ($currentOrder != $newOrder) {
-            
-                        if ($newOrder > $currentOrder) {
-                        
-                            Question::
-                                 where('exam_id', $exam_id)
-                                ->where('order_no', '>', $currentOrder)
-                                ->where('order_no', '<=', $newOrder)
-                                ->decrement('order_no');  
-                        } 
-                        else {
-                        
-                            Question::
-                                 where('exam_id', $exam_id)
-                                ->where('order_no', '<', $currentOrder)
-                                ->where('order_no', '>=', $newOrder)
-                                ->increment('order_no');
-                        }
-                        
-                        $questionToUpdate->order_no = $newOrder;
-                        $questionToUpdate->save();
-                    }
-                }
-            }
-
-            return response()->json([
-                'message' => 'order corrected.',
-                'success' =>true
-            ]);
-
-        }
-
     }
 
     public function visibility(Request $request,Question $question){

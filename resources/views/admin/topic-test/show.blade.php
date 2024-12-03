@@ -104,40 +104,50 @@ $(function() {
     }, 500); 
 });
 
-        function OrderChange(element)
-        {
-            var id = $(element).attr('data-id');
+            function OrderChange(element)
 
-            var value = $(element).val();
+            {
+                var id = $(element).attr('data-id');
 
-            var exam_id = $(element).attr('data-exam');
+                var value = $(element).val();
 
-            var category_id = $(element).attr('data-category');
+                var exam_id = $(element).attr('data-exam');
 
-            console.log(value,id);
+                var category_id = $(element).attr('data-category');
 
-            var url = '{{route('admin.order_change')}}';
+                var subcategory_id = $(element).attr('data-subcategory');
 
-            $.ajax({
-                url: url,
+                var subcategoryset = $(element).attr('data-subcategoryset');
 
-                method: 'POST',
-                data: {
-                    id: id,
-                    value: value,
-                    exam_id: exam_id,
-                    category_id: category_id,
-                },
-                success: function(res) {
+                var type = $(element).attr('data-type');
 
-                    console.log(res);
-                    $('#table-categoryquestiontable').DataTable().ajax.reload(); 
+                console.log(value,id);
 
-                }
+                var url = '{{route('admin.order_change')}}';
 
-            });
+                $.ajax({
+                    url: url,
 
-        }
+                    method: 'POST',
+                    data: {
+                        id: id,
+                        value: value,
+                        exam_id: exam_id,
+                        category_id: category_id,
+                        subcategory_id: subcategory_id,
+                        subcategoryset: subcategoryset,
+                        type: type,
+                    },
+                    success: function(res) {
+
+                        console.log(res);
+                        $('#table-categoryquestiontable').DataTable().ajax.reload(); 
+
+                    }
+
+                });
+
+            }
  
         var questiontable = null;
         function importupdate(){ 

@@ -82,9 +82,9 @@ $(function() {
     }, 500); 
 });
 
-            function OrderChange(element)
-            {
+        function OrderChange(element)
 
+        {
             var id = $(element).attr('data-id');
 
             var value = $(element).val();
@@ -92,6 +92,12 @@ $(function() {
             var exam_id = $(element).attr('data-exam');
 
             var category_id = $(element).attr('data-category');
+
+            var subcategory_id = $(element).attr('data-subcategory');
+
+            var subcategoryset = $(element).attr('data-subcategoryset');
+
+            var type = $(element).attr('data-type');
 
             console.log(value,id);
 
@@ -106,6 +112,9 @@ $(function() {
                     value: value,
                     exam_id: exam_id,
                     category_id: category_id,
+                    subcategory_id: subcategory_id,
+                    subcategoryset: subcategoryset,
+                    type: type,
                 },
                 success: function(res) {
 
