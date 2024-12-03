@@ -77,12 +77,10 @@ class TopicTestController extends Controller
                     $results .= '<option value="' . $i . '" '.$selected.'>' . $i . '</option>';
 
                 }
-                
-                    $button .= '<select name="work_update_coordinator" onchange="OnSelect(this)" data-id="'.$data->id.'">'; 
-    
-                    $button .= $results;
-    
-                    $button .= '</select>';
+
+                $button .= '<select name="work_update_coordinator" onchange="OnSelect(this)" data-id="' . $data->id . '">'; 
+                $button .= $results;
+                $button .= '</select>';
 
                 
                     return '
@@ -96,7 +94,7 @@ class TopicTestController extends Controller
                 </span>
             </a>
 
-            '.$button.'
+              ' . $button . '
 
 
                     ';
