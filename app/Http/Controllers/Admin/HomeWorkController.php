@@ -9,6 +9,7 @@ use App\Models\HomeWorkBook;
 use App\Models\HomeWorkQuestion;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class HomeWorkController extends Controller
@@ -285,6 +286,12 @@ class HomeWorkController extends Controller
     }
     public function destroy(Request $request, HomeWork $homeWork, HomeWorkQuestion $homeWorkQuestion)
     {
+        $admin = Auth::guard('admin')->user();
+        
+        $homeWorkQuestion->admin_id = $admin->id;
+
+        $homeWorkQuestion->save();
+        
         $homeWorkQuestion->delete();
         if ($request->ajax()) {
             return response()->json(["success" => "Question has been deleted"]);

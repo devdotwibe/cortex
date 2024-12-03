@@ -11,6 +11,7 @@ use App\Models\Setname;
 use App\Models\SubCategory;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class LearnController extends Controller
@@ -400,7 +401,15 @@ class LearnController extends Controller
     public function destroy(Request $request, Category $category, Learn $learn)
     {
         LearnAnswer::where('learn_id', $learn->id)->delete();
+
+        $admin = Auth::guard('admin')->user();
+        
+        $learn->admin_id = $admin->id;
+
+        $learn->save();
+
         $learn->delete();
+        
         if ($request->ajax()) {
             return response()->json(["success" => "Learn has been successfully deleted"]);
         }

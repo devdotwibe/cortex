@@ -7,11 +7,12 @@ use App\Trait\ResourceModel;
 use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 #[ScopedBy([VisibleStatus::class])]
 class Learn extends Model
 {
-    use HasFactory,ResourceModel;
+    use HasFactory,ResourceModel,SoftDeletes;
 
     protected $fillable = [
         'slug',
