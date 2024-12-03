@@ -491,23 +491,39 @@ class QuestionController extends Controller
     
                                     if ($currentOrder != $newOrder) {
     
-                                        if ($newOrder > $currentOrder) {
-                                        
-                                            Learn::where('category_id', $category_id)
-                                                ->where('order_no', '>', $currentOrder)
-                                                ->where('order_no', '<=', $newOrder)
-                                                ->decrement('order_no');  
-                                        } 
-                                        else {
-                                        
-                                            Learn::where('category_id', $category_id)
-                                                ->where('order_no', '<', $currentOrder)
-                                                ->where('order_no', '>=', $newOrder)
-                                                ->increment('order_no');
+                                        if (abs($currentOrder - $newOrder) == 1) {
+                                         
+                                            $otherQuestion = Learn::where('category_id', $category_id)
+                                                ->where('order_no', $newOrder)
+                                                ->first();
+                                
+                                            $questionToUpdate->order_no = $newOrder;
+                                            $otherQuestion->order_no = $currentOrder;
+                                
+                                            $questionToUpdate->save();
+                                            $otherQuestion->save();
                                         }
+                                        else
+                                        {
+                                            if ($newOrder > $currentOrder) {
                                         
-                                        $questionToUpdate->order_no = $newOrder;
-                                        $questionToUpdate->save();
+                                                Learn::where('category_id', $category_id)
+                                                    ->where('order_no', '>', $currentOrder)
+                                                    ->where('order_no', '<=', $newOrder)
+                                                    ->decrement('order_no');  
+                                            } 
+                                            else {
+                                            
+                                                Learn::where('category_id', $category_id)
+                                                    ->where('order_no', '<', $currentOrder)
+                                                    ->where('order_no', '>=', $newOrder)
+                                                    ->increment('order_no');
+                                            }
+                                            
+                                            $questionToUpdate->order_no = $newOrder;
+                                            $questionToUpdate->save();
+
+                                        } 
                                     }
                                 }
                                 }
