@@ -1748,7 +1748,7 @@ section.post-section .post-item .post-actions a.post-action-btn {
 }
 
 section.post-section .post-item .post-actions a.post-action-btn img {
-    width: 35px;
+    width: 20px;
     margin: 5px 5px;
 }
 
@@ -2655,8 +2655,10 @@ aside.side_bar.slider-btn .btn-slider {
 
 #review-history-modal .modal-dialog {
     max-width: 900px;
-    top: 50%;
+    top: 45%;
     transform: translateY(-50%);
+    max-height: 38vw;
+    overflow-y: auto;
 }
 
 #review-history-modal .modal-content .table-outer::-webkit-scrollbar {
@@ -8509,6 +8511,11 @@ nav.navbar.top-barhide {
         bottom: -5px;
     }
 
+    #review-history-modal .modal-dialog {
+        width: 94%;
+        max-height: 54.5vw;
+    }
+
 }
 
 @media screen and (max-width:767px) {
@@ -8784,6 +8791,12 @@ nav.navbar.top-barhide {
     #review-history-modal .modal-dialog {
         top: 0;
         transform: none;
+    }
+
+    #review-history-modal .modal-dialog {
+        width: 94%;
+        height: 100%;
+        max-height: 100%;
     }
 
     .post-search {
