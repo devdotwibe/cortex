@@ -320,25 +320,43 @@ class QuestionController extends Controller
 
                                 if ($currentOrder != $newOrder) {
 
-                                    if ($newOrder > $currentOrder) {
-                                    
-                                        Question::where('category_id', $category_id)
+                                    if (abs($currentOrder - $newOrder) == 1) {
+                                         
+                                        $otherQuestion =Question::where('category_id', $category_id)
                                             ->where('exam_id', $exam_id)
-                                            ->where('order_no', '>', $currentOrder)
-                                            ->where('order_no', '<=', $newOrder)
-                                            ->decrement('order_no');  
-                                    } 
-                                    else {
-                                    
-                                        Question::where('category_id', $category_id)
-                                            ->where('exam_id', $exam_id)
-                                            ->where('order_no', '<', $currentOrder)
-                                            ->where('order_no', '>=', $newOrder)
-                                            ->increment('order_no');
+                                            ->where('order_no', $newOrder)
+                                            ->first();
+                            
+                                        $questionToUpdate->order_no = $newOrder;
+                                        $otherQuestion->order_no = $currentOrder;
+                            
+                                        $questionToUpdate->save();
+                                        $otherQuestion->save();
                                     }
-                                    
-                                    $questionToUpdate->order_no = $newOrder;
-                                    $questionToUpdate->save();
+                                    else
+                                    {
+
+                                        if ($newOrder > $currentOrder) {
+                                        
+                                            Question::where('category_id', $category_id)
+                                                ->where('exam_id', $exam_id)
+                                                ->where('order_no', '>', $currentOrder)
+                                                ->where('order_no', '<=', $newOrder)
+                                                ->decrement('order_no');  
+                                        } 
+                                        else {
+                                        
+                                            Question::where('category_id', $category_id)
+                                                ->where('exam_id', $exam_id)
+                                                ->where('order_no', '<', $currentOrder)
+                                                ->where('order_no', '>=', $newOrder)
+                                                ->increment('order_no');
+                                        }
+                                        
+                                        $questionToUpdate->order_no = $newOrder;
+                                        $questionToUpdate->save();
+                                    }
+
                                 }
                             }
                             }
@@ -374,25 +392,44 @@ class QuestionController extends Controller
                     
                             if ($currentOrder != $newOrder) {
                     
-                                if ($newOrder > $currentOrder) {
-                                
-                                    Question::
-                                         where('exam_id', $exam_id)
-                                        ->where('order_no', '>', $currentOrder)
-                                        ->where('order_no', '<=', $newOrder)
-                                        ->decrement('order_no');  
-                                } 
-                                else {
-                                
-                                    Question::
-                                         where('exam_id', $exam_id)
-                                        ->where('order_no', '<', $currentOrder)
-                                        ->where('order_no', '>=', $newOrder)
-                                        ->increment('order_no');
+                                if (abs($currentOrder - $newOrder) == 1) {
+                                         
+                                    $otherQuestion =Question::
+                                        where('exam_id', $exam_id)
+                                        ->where('order_no', $newOrder)
+                                        ->first();
+                        
+                                    $questionToUpdate->order_no = $newOrder;
+                                    $otherQuestion->order_no = $currentOrder;
+                        
+                                    $questionToUpdate->save();
+                                    $otherQuestion->save();
                                 }
-                                
-                                $questionToUpdate->order_no = $newOrder;
-                                $questionToUpdate->save();
+                                else
+                                {
+
+                                    if ($newOrder > $currentOrder) {
+                                    
+                                        Question::
+                                            where('exam_id', $exam_id)
+                                            ->where('order_no', '>', $currentOrder)
+                                            ->where('order_no', '<=', $newOrder)
+                                            ->decrement('order_no');  
+                                    } 
+                                    else {
+                                    
+                                        Question::
+                                            where('exam_id', $exam_id)
+                                            ->where('order_no', '<', $currentOrder)
+                                            ->where('order_no', '>=', $newOrder)
+                                            ->increment('order_no');
+                                    }
+                                    
+                                    $questionToUpdate->order_no = $newOrder;
+                                    $questionToUpdate->save();
+
+                                }
+
                             }
                         }
                     }
@@ -433,29 +470,48 @@ class QuestionController extends Controller
 
                                 if ($currentOrder != $newOrder) {
 
-                                    if ($newOrder > $currentOrder) {
-                                    
-                                        Question::where('category_id', $category_id)
+                                    if (abs($currentOrder - $newOrder) == 1) {
+                                         
+                                        $otherQuestion =  Question::where('category_id', $category_id)
                                             ->where('sub_category_id', $subcategory_id)
                                             ->where('sub_category_set', $subcategoryset)
                                             ->where('exam_id', $exam_id)
-                                            ->where('order_no', '>', $currentOrder)
-                                            ->where('order_no', '<=', $newOrder)
-                                            ->decrement('order_no');  
-                                    } 
-                                    else {
-                                    
-                                        Question::where('category_id', $category_id)
-                                            ->where('sub_category_id', $subcategory_id)
-                                            ->where('sub_category_set', $subcategoryset)
-                                            ->where('exam_id', $exam_id)
-                                            ->where('order_no', '<', $currentOrder)
-                                            ->where('order_no', '>=', $newOrder)
-                                            ->increment('order_no');
+                                            ->where('order_no', $newOrder)
+                                            ->first();
+                            
+                                        $questionToUpdate->order_no = $newOrder;
+                                        $otherQuestion->order_no = $currentOrder;
+                            
+                                        $questionToUpdate->save();
+                                        $otherQuestion->save();
                                     }
-                                    
-                                    $questionToUpdate->order_no = $newOrder;
-                                    $questionToUpdate->save();
+                                    else
+                                    {
+                                        if ($newOrder > $currentOrder) {
+                                        
+                                            Question::where('category_id', $category_id)
+                                                ->where('sub_category_id', $subcategory_id)
+                                                ->where('sub_category_set', $subcategoryset)
+                                                ->where('exam_id', $exam_id)
+                                                ->where('order_no', '>', $currentOrder)
+                                                ->where('order_no', '<=', $newOrder)
+                                                ->decrement('order_no');  
+                                        } 
+                                        else {
+                                        
+                                            Question::where('category_id', $category_id)
+                                                ->where('sub_category_id', $subcategory_id)
+                                                ->where('sub_category_set', $subcategoryset)
+                                                ->where('exam_id', $exam_id)
+                                                ->where('order_no', '<', $currentOrder)
+                                                ->where('order_no', '>=', $newOrder)
+                                                ->increment('order_no');
+                                        }
+                                        
+                                        $questionToUpdate->order_no = $newOrder;
+                                        $questionToUpdate->save();
+
+                                    }
                                 }
                             }
                             }
@@ -559,23 +615,41 @@ class QuestionController extends Controller
         
                                         if ($currentOrder != $newOrder) {
         
-                                            if ($newOrder > $currentOrder) {
-                                            
-                                                HomeWorkQuestion::where('home_work_id', $category_id)
-                                                    ->where('order_no', '>', $currentOrder)
-                                                    ->where('order_no', '<=', $newOrder)
-                                                    ->decrement('order_no');  
-                                            } 
-                                            else {
-                                            
-                                                HomeWorkQuestion::where('home_work_id', $category_id)
-                                                    ->where('order_no', '<', $currentOrder)
-                                                    ->where('order_no', '>=', $newOrder)
-                                                    ->increment('order_no');
+                                            if (abs($currentOrder - $newOrder) == 1) {
+                                         
+                                                $otherQuestion = HomeWorkQuestion::where('home_work_id', $category_id)
+                                                    ->where('order_no', $newOrder)
+                                                    ->first();
+                                    
+                                                $questionToUpdate->order_no = $newOrder;
+                                                $otherQuestion->order_no = $currentOrder;
+                                    
+                                                $questionToUpdate->save();
+                                                $otherQuestion->save();
                                             }
-                                            
-                                            $questionToUpdate->order_no = $newOrder;
-                                            $questionToUpdate->save();
+                                            else
+                                            {
+
+                                                if ($newOrder > $currentOrder) {
+                                                
+                                                    HomeWorkQuestion::where('home_work_id', $category_id)
+                                                        ->where('order_no', '>', $currentOrder)
+                                                        ->where('order_no', '<=', $newOrder)
+                                                        ->decrement('order_no');  
+                                                } 
+                                                else {
+                                                
+                                                    HomeWorkQuestion::where('home_work_id', $category_id)
+                                                        ->where('order_no', '<', $currentOrder)
+                                                        ->where('order_no', '>=', $newOrder)
+                                                        ->increment('order_no');
+                                                }
+                                                
+                                                $questionToUpdate->order_no = $newOrder;
+                                                $questionToUpdate->save();
+
+                                            }
+
                                         }
                                     }
                                     }
