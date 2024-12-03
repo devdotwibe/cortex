@@ -12,6 +12,7 @@ use App\Models\Setname;
 use App\Models\SubCategory;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class TopicTestController extends Controller
@@ -320,12 +321,22 @@ class TopicTestController extends Controller
     {
         if (!empty($request->deleteaction)) {
             if ($request->input('select_all', 'no') == "yes") {
-                // Delete all questions corresponding to the specific setname
+               
+                $admin = Auth::guard('admin')->user();
+                                
+                Question::where('exam_id', $exam->id)->where('category_id',$request->category)
+                ->update(['admin_id' => $admin->id]);
+                
                 Question::where('category_id', $category->id)
                         ->where('exam_id',$exam->id)
                         ->delete();
             } else {
-                // Delete selected questions only
+
+                $admin = Auth::guard('admin')->user();
+                                
+                Question::whereIn('id', $request->input('selectbox', []))
+                ->update(['admin_id' => $admin->id]);
+                
                 Question::whereIn('id', $request->input('selectbox', []))->delete();
             }
     
