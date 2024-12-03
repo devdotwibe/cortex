@@ -107,6 +107,8 @@ class QuestionController extends Controller
         $question_count = Question::where('category_id', $request->category_id)
         ->where('exam_id', $request->exam_id)->count();
         
+        dd($question_count);
+
         if(!empty($question_count))
         {
             $questiondat['order_no'] = $question_count+1; 
