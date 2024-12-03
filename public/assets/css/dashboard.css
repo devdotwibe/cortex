@@ -2655,8 +2655,10 @@ aside.side_bar.slider-btn .btn-slider {
 
 #review-history-modal .modal-dialog {
     max-width: 900px;
-    top: 50%;
+    top: 45%;
     transform: translateY(-50%);
+    max-height: 38vw;
+    overflow-y: auto;
 }
 
 #review-history-modal .modal-content .table-outer::-webkit-scrollbar {
