@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Answer;
+use App\Models\Exam;
 use App\Models\HomeWorkAnswer;
 use App\Models\LearnAnswer;
 use App\Models\Question;
@@ -103,7 +104,17 @@ class QuestionController extends Controller
 
         $featureimages = $request->file('file_answer', []);
 
+        $question_count = Question::where('category_id', $request->category_id)
+        ->where('exam_id', $request->exam_id)->count();
         
+        if(!empty($question_count))
+        {
+            $questiondat['order_no'] = $question_count+1; 
+        }
+        else
+        {
+            $questiondat['order_no'] = 1; 
+        }
 
         $question = Question::store($questiondat);
         $existingFiles = $request->input("existing_file_answer");
@@ -205,8 +216,78 @@ class QuestionController extends Controller
                 break;
         }
 
-        $questiondat['order']=$request->order;
+        $exam=Exam::where("name",'topic-test')->first();
+        if(empty($exam)){
+            $exam=Exam::store([
+                "title"=>"Topic Test",
+                "name"=>"topic-test",
+            ]);
+            $exam=Exam::find( $exam->id );
+        }
 
+    //     $questionToUpdate = Question::
+    //     where('category_id', $request->category_id)
+    //    ->where('exam_id', $exam->id)->get();
+
+    //     foreach($questionToUpdate as $k => $item)
+    //     {
+    //     $ques_count = Question::where('category_id', $request->category_id)->where('exam_id', $exam->id);
+
+    //     $count =$ques_count->where('id','<=',$item->id)->count();
+        
+    //     $item->order_no = $k +1;
+        
+    //     $item->save();
+    //     }
+    
+        if (!empty($request->order_no)) {
+
+            $questionToUpdate = Question::where('id', $question->id)
+                ->where('category_id', $request->category_id)
+                ->where('exam_id', $question->exam_id)
+                ->first();
+        
+            if (!empty($questionToUpdate)) {
+                $currentOrder = $questionToUpdate->order_no;
+                $newOrder = $request->order_no;
+        
+                if ($currentOrder != $newOrder) {
+        
+                    if ($newOrder > $currentOrder) {
+                      
+                        Question::where('category_id', $request->category_id)
+                            ->where('exam_id', $question->exam_id)
+                            ->where('order_no', '>', $currentOrder)
+                            ->where('order_no', '<=', $newOrder)
+                            ->decrement('order_no');  
+                    } 
+                    else {
+                       
+                        Question::where('category_id', $request->category_id)
+                            ->where('exam_id', $question->exam_id)
+                            ->where('order_no', '<', $currentOrder)
+                            ->where('order_no', '>=', $newOrder)
+                            ->increment('order_no');
+                    }
+                    
+                    $questionToUpdate->order_no = $newOrder;
+                    $questionToUpdate->save();
+                }
+            }
+        }
+        
+        $cq_count = Question::where('id','<=', $question->id)
+        ->where('category_id', $request->category_id)
+        ->where('exam_id', $question->exam_id)
+        ->count();
+
+        $questiondat['order_no'] = $cq_count;
+
+        if(!empty($request->order_no))
+        {
+            $questiondat['order_no']=$request->order_no;
+        }
+        
         $question->update($questiondat);
         $ansIds=[];
 
