@@ -451,16 +451,11 @@ class LearnController extends Controller
                 $selectBoxValues = is_array($request->input('selectbox', [])) ? $request->input('selectbox', []) : [];
                 
                 $admin = Auth::guard('admin')->user();
-                
-                Learn::whereIn('id', $selectBoxValues)
-                ->where('category_id', $category->id)
-                ->where('sub_category_id', $subcategoryId) 
-                ->update(['admin_id' => $admin->id]);
 
-                Learn::whereIn('id', $selectBoxValues)
-                    ->where('category_id', $category->id)
-                    ->where('sub_category_id', $subcategoryId) 
-                    ->delete();
+                Learn::whereIn('id', $selectBoxValues)->update(['admin_id' => $admin->id]);
+         
+                Learn::whereIn('id', $selectBoxValues)->delete();
+                   
             }
             
     
