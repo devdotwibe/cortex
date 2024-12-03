@@ -494,15 +494,15 @@ class QuestionController extends Controller
                                         if ($newOrder > $currentOrder) {
                                         
                                             Learn::where('category_id', $category_id)
-                                                ->where('order_no', '>', $currentOrder)
-                                                ->where('order_no', '<=', $newOrder)
+                                                ->where('order_no', '<', $currentOrder)
+                                                ->where('order_no', '>=', $newOrder)
                                                 ->increment('order_no');
                                         } 
                                         else {
                                         
                                             Learn::where('category_id', $category_id)
-                                                ->where('order_no', '<', $currentOrder)
-                                                ->where('order_no', '>=', $newOrder)
+                                                ->where('order_no', '>', $currentOrder)
+                                                ->where('order_no', '<=', $newOrder)
                                                 ->decrement('order_no');  
                                         }
                                         
