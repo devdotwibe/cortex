@@ -110,9 +110,13 @@ $(function() {
 
             var value = $(element).val();
 
+            var exam_id = $(element).attr('data-exam');
+
+            var category_id = $(element).attr('data-category');
+
             console.log(value,id);
 
-            var url = APP_URL + '/admin/coordinator_update';
+            var url = '{{route('admin.order_change')}}';
 
             $.ajax({
                 url: url,
@@ -121,6 +125,8 @@ $(function() {
                 data: {
                     id: id,
                     value: value,
+                    exam_id: exam_id,
+                    category_id: category_id,
                 },
                 success: function(res) {
 
