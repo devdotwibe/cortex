@@ -49,7 +49,7 @@ class FullMockExamController extends Controller
                         $results .= '<option value="' . $i . '" ' . $selected . '>' . $i . '</option>';
                     }
 
-                    $button .= '<select name="work_update_coordinator" onchange="OrderChange(this)" data-id="' . $data->id . '" data-exam="' . $data->exam_id . '" data-category="' . $data->category_id . '" >'; 
+                    $button .= '<select name="work_update_coordinator" onchange="OrderChange(this)" data-id="' . $data->id . '" data-exam="' . $data->exam_id . '" data-category="" >'; 
                     $button .= $results;
                     $button .= '</select>';
                     
@@ -64,7 +64,7 @@ class FullMockExamController extends Controller
                         <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active" title="Edit">
                     </span>
                 </a>
-                
+
                  ' . $button . '
 
 
