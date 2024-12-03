@@ -53,29 +53,24 @@ class TopicTestController extends Controller
             $this->orderBy('order_no', 'ASC');
 
             
+            $examCount = Question::where('category_id',$category->id)->where('exam_id',$exam->id??0)->count();
+
             return $this->where('exam_id',$exam->id)
                 ->where('category_id',$category->id)
 
-                ->addAction(function($data)use($category){
+                ->addAction(function($data)use($category,$examCount){
 
                     $button = '';  
 
                     $selected ="";
 
-                $examCount = Question::where('category_id',$category->id)->where('exam_id',$exam->id??0)->count();
-
                 $results = "";
 
                 for ($i = 1; $i <= $examCount; $i++) {
 
-                    if($data->order_no == $i)
-                    {
-                        $selected ="selected";
-                    }
+                    $selected = ($data->order_no == $i) ? 'selected' : ''; 
 
-                    
-                    $results .= '<option value="' . $i . '" '.$selected.'>' . $i . '</option>';
-
+                    $results .= '<option value="' . $i . '" ' . $selected . '>' . $i . '</option>';
                 }
 
                 $button .= '<select name="work_update_coordinator" onchange="OnSelect(this)" data-id="' . $data->id . '">'; 
