@@ -12,6 +12,7 @@ use App\Models\LearnAnswer;
 use App\Models\Question;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
@@ -592,8 +593,17 @@ class QuestionController extends Controller
     }
     
     public function destroy(Request $request,Question $question){ 
+
         Answer::where("question_id",$question->id)->delete();
+
+        $admin = Auth::guard('admin')->user();
+        
+        $question->deleted_user = $admin->email;
+
+        $question->save();
+
         $question->delete();
+
         if($request->ajax()){
             return response()->json(["success"=>"Question has been successfully deleted"]);
         }        
