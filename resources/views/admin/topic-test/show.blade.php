@@ -104,6 +104,40 @@ $(function() {
     }, 500); 
 });
 
+        function OrderChange(element)
+        {
+            var id = $(element).attr('data-id');
+
+            var value = $(element).val();
+
+            var exam_id = $(element).attr('data-exam');
+
+            var category_id = $(element).attr('data-category');
+
+            console.log(value,id);
+
+            var url = '{{route('admin.order_change')}}';
+
+            $.ajax({
+                url: url,
+
+                method: 'POST',
+                data: {
+                    id: id,
+                    value: value,
+                    exam_id: exam_id,
+                    category_id: category_id,
+                },
+                success: function(res) {
+
+                    console.log(res);
+                    $('#table-categoryquestiontable').DataTable().ajax.reload(); 
+
+                }
+
+            });
+
+        }
  
         var questiontable = null;
         function importupdate(){ 

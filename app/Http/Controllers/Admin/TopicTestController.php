@@ -51,10 +51,36 @@ class TopicTestController extends Controller
                 $this->where('sub_category_id',$request->sub_category_id);
             }
             $this->orderBy('order_no', 'ASC');
+<<<<<<< HEAD
+=======
+
+            
+            $examCount = Question::where('category_id',$category->id)->where('exam_id',$exam->id??0)->count();
+>>>>>>> testing
 
             return $this->where('exam_id',$exam->id)
                 ->where('category_id',$category->id)
-                ->addAction(function($data)use($category){
+
+                ->addAction(function($data)use($category,$examCount){
+
+                    $button = '';  
+
+                    $selected ="";
+
+                $results = "";
+
+                for ($i = 1; $i <= $examCount; $i++) {
+
+                    $selected = ($data->order_no == $i) ? 'selected' : ''; 
+
+                    $results .= '<option value="' . $i . '" ' . $selected . '>' . $i . '</option>';
+                }
+
+                $button .= '<select name="work_update_coordinator" onchange="OrderChange(this)" data-id="' . $data->id . '" data-exam="' . $data->exam_id . '" data-category="' . $data->category_id . '" >'; 
+                $button .= $results;
+                $button .= '</select>';
+
+                
                     return '
                    
                         <a href="'.route("admin.topic-test.edit",["category"=>$category->slug,"question"=>$data->slug]).'" class="btn btn-icons edit_btn">
@@ -66,6 +92,7 @@ class TopicTestController extends Controller
                 </span>
             </a>
 
+              ' . $button . '
 
 
                     ';

@@ -25,8 +25,12 @@
             ["name"=>"exam_type", "value"=>"topic-test","type"=>"hidden"],
             ["name"=>"category_id", "value"=>$category->id,"type"=>"hidden"],
             ["name"=>"redirect", "value"=>route("admin.topic-test.show",$category->slug),"type"=>"hidden"],
+<<<<<<< HEAD
             
            ["name"=>"order_no" ,"label"=>"Order","ajaxurl"=>route("admin.exam.create",$exam->slug),"type"=>"select","value"=>$question->order_no,"valuetext"=>$question->order_no,"size"=>4],  
+=======
+         
+>>>>>>> testing
 
             ["name"=>"title_text","label"=>"Title Text","size"=>12,"type"=>"editor","value"=>$question->title_text],
             ["name"=>"description","label"=>"Left Question","size"=>12,"type"=>"editor","value"=>$question->description], 

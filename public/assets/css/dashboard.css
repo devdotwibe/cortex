@@ -6380,8 +6380,14 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 
 .questionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group {
     height: calc(100vh - 245px);
-    padding: 0 40px 50px;
+    padding: 0 40px 20px;
     overflow-y: auto;
+}
+
+.exam-container .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group .mcq-description {
+    width: 100%;
+    display: block;
+    float: left;
 }
 
 .questionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer {
