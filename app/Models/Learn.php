@@ -28,6 +28,7 @@ class Learn extends Model
         'sub_category_id',
         'visible_status',
         'order_no',
+        'admin_id',
     ];
 
 

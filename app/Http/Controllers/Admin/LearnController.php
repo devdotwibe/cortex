@@ -437,15 +437,29 @@ class LearnController extends Controller
             if ($request->input('select_all', 'no') == "yes") {
                
                 $selectAllValues = json_decode($request->select_all_values, true);
+                
+                $admin = Auth::guard('admin')->user();
+                                
+                Learn::whereIn('id', $selectAllValues)
+                ->update(['admin_id' => $admin->id]);
+
                 Learn::whereIn('id', $selectAllValues)  
                     ->delete();
+
             } else {
-                // Ensure selectbox is an array or default to an empty array
+               
                 $selectBoxValues = is_array($request->input('selectbox', [])) ? $request->input('selectbox', []) : [];
                 
+                $admin = Auth::guard('admin')->user();
+                
+                Learn::whereIn('id', $selectBoxValues)
+                ->where('category_id', $category->id)
+                ->where('sub_category_id', $subcategoryId) 
+                ->update(['admin_id' => $admin->id]);
+
                 Learn::whereIn('id', $selectBoxValues)
                     ->where('category_id', $category->id)
-                    ->where('sub_category_id', $subcategoryId) // Ensure the delete is done for the correct subcategory
+                    ->where('sub_category_id', $subcategoryId) 
                     ->delete();
             }
             
