@@ -112,6 +112,8 @@ class QuestionBankController extends Controller
                         </span>
                     </a>
 
+                     ' . $button . '
+
                     ';
             })->addColumn('visibility', function ($data) {
                 return '                
