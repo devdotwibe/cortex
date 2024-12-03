@@ -242,6 +242,18 @@ class HomeWorkController extends Controller
                 break;
         }
 
+        $question_count = HomeWorkQuestion::where('home_work_id', $homeWork->id)->count();
+
+        
+        if(!empty($question_count))
+        {
+            $data['order_no'] = $question_count+1; 
+        }
+        else
+        {
+            $data['order_no'] = 1; 
+        }
+
         $data['title'] = $request->title;
         $data['home_work_id'] = $homeWork->id;
         $data['home_work_type'] = $request->home_work_type;
