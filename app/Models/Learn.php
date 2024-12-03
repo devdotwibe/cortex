@@ -25,7 +25,8 @@ class Learn extends Model
         'mcq_question',
         'category_id',
         'sub_category_id',
-        'visible_status'
+        'visible_status',
+        'order_no',
     ];
 
 

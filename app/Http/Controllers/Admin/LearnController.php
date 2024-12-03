@@ -56,19 +56,43 @@ class LearnController extends Controller
             if (!empty($request->sub_category)) {
                 $this->where('sub_category_id', $request->sub_category);
             }
+
+            $this->orderBy('order_no', 'ASC');
+
+            $examCount = Learn::where('category_id',$category->id)->count();
+
             return $this->where('category_id', $category->id)
-                ->addAction(function ($data) use ($category) {
+                ->addAction(function ($data) use ($category,$examCount) {
+
+                    $button = '';  
+
+                    $selected ="";
+
+                $results = "";
+
+                for ($i = 1; $i <= $examCount; $i++) {
+
+                    $selected = ($data->order_no == $i) ? 'selected' : ''; 
+
+                    $results .= '<option value="' . $i . '" ' . $selected . '>' . $i . '</option>';
+                }
+
+                $button .= '<select name="work_update_coordinator" onchange="OrderChange(this)" data-type="learn" data-id="' . $data->id . '" data-exam="" data-category="' . $data->category_id . '" data-subcategory=""  data-subcategoryset="" >'; 
+                $button .= $results;
+                $button .= '</select>';
+
+
                     return '
                   
 
                      <a href="' . route("admin.learn.edit", ["category" => $category->slug, "learn" => $data->slug]) . '" class="btn btn-icons edit_btn">
-    <span class="adminside-icon">
-      <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
-    </span>
-    <span class="adminactive-icon">
-        <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active" title="Edit">
-    </span>
-</a>
+                        <span class="adminside-icon">
+                        <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
+                        </span>
+                        <span class="adminactive-icon">
+                            <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active" title="Edit">
+                        </span>
+                    </a>
 
 
                     
@@ -80,6 +104,8 @@ class LearnController extends Controller
                                 <img src="' . asset("assets/images/iconshover/material-symbols_delete-yellow.svg") . '" alt="Delete Active" title="Delete">
                             </span>
                         </a> 
+
+                         ' . $button . '
 
                     ';
                 })->addColumn('visibility', function ($data) {
