@@ -93,9 +93,7 @@ class TopicTestController extends Controller
                 </span>
             </a>
 
-            <select>
-                ' . $results . '
-            </select>
+            '.$button.'
 
 
                     ';
