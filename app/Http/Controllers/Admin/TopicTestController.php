@@ -58,6 +58,8 @@ class TopicTestController extends Controller
 
                 ->addAction(function($data)use($category){
 
+                    $button = '';  
+
                     $selected ="";
 
                 $examCount = Question::where('category_id',$category->id)->where('exam_id',$exam->id??0)->count();
@@ -74,14 +76,15 @@ class TopicTestController extends Controller
                     
                     $results .= '<option value="' . $i . '" '.$selected.'>' . $i . '</option>';
 
-                    $button = '';
+                }
+                
                     $button .= '<select name="work_update_coordinator" onchange="OnSelect(this)" data-id="'.$data->id.'">'; 
     
                     $button .= $results;
     
                     $button .= '</select>';
 
-                }
+                
                     return '
                    
                         <a href="'.route("admin.topic-test.edit",["category"=>$category->slug,"question"=>$data->slug]).'" class="btn btn-icons edit_btn">
