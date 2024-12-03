@@ -604,8 +604,6 @@ class QuestionController extends Controller
 
         $question->delete();
 
-        dd('tet');
-
         if($request->ajax()){
             return response()->json(["success"=>"Question has been successfully deleted"]);
         }        
