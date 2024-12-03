@@ -283,59 +283,118 @@ class QuestionController extends Controller
 
         $category_id = $request->category_id;
 
-        $questionToUpdate = Question::
-        where('category_id', $category_id)
-       ->where('exam_id', $exam_id)->get();
-
-        foreach($questionToUpdate as $k => $item)
+        if(!empty($category_id))
         {
-        $ques_count = Question::where('category_id', $category_id)->where('exam_id', $exam_id);
 
-            $item->order_no = $k +1;
-        
-            $item->save();
-        }
-    
-        if (!empty($order)) {
+            $questionToUpdate = Question::
+            where('category_id', $category_id)
+        ->where('exam_id', $exam_id)->get();
 
-            $questionToUpdate = Question::where('id', $question_id)
-                ->where('category_id', $category_id)
-                ->where('exam_id', $exam_id)
-                ->first();
+            foreach($questionToUpdate as $k => $item)
+            {
+            $ques_count = Question::where('category_id', $category_id)->where('exam_id', $exam_id);
+
+                $item->order_no = $k +1;
+            
+                $item->save();
+            }
         
-            if (!empty($questionToUpdate)) {
-                $currentOrder = $questionToUpdate->order_no;
-                $newOrder = $order;
-        
-                if ($currentOrder != $newOrder) {
-        
-                    if ($newOrder > $currentOrder) {
-                      
-                        Question::where('category_id', $category_id)
-                            ->where('exam_id', $exam_id)
-                            ->where('order_no', '>', $currentOrder)
-                            ->where('order_no', '<=', $newOrder)
-                            ->decrement('order_no');  
-                    } 
-                    else {
-                       
-                        Question::where('category_id', $category_id)
-                            ->where('exam_id', $exam_id)
-                            ->where('order_no', '<', $currentOrder)
-                            ->where('order_no', '>=', $newOrder)
-                            ->increment('order_no');
+            if (!empty($order)) {
+
+                $questionToUpdate = Question::where('id', $question_id)
+                    ->where('category_id', $category_id)
+                    ->where('exam_id', $exam_id)
+                    ->first();
+            
+                if (!empty($questionToUpdate)) {
+                    $currentOrder = $questionToUpdate->order_no;
+                    $newOrder = $order;
+            
+                    if ($currentOrder != $newOrder) {
+            
+                        if ($newOrder > $currentOrder) {
+                        
+                            Question::where('category_id', $category_id)
+                                ->where('exam_id', $exam_id)
+                                ->where('order_no', '>', $currentOrder)
+                                ->where('order_no', '<=', $newOrder)
+                                ->decrement('order_no');  
+                        } 
+                        else {
+                        
+                            Question::where('category_id', $category_id)
+                                ->where('exam_id', $exam_id)
+                                ->where('order_no', '<', $currentOrder)
+                                ->where('order_no', '>=', $newOrder)
+                                ->increment('order_no');
+                        }
+                        
+                        $questionToUpdate->order_no = $newOrder;
+                        $questionToUpdate->save();
                     }
-                    
-                    $questionToUpdate->order_no = $newOrder;
-                    $questionToUpdate->save();
                 }
             }
-        }
 
-        return response()->json([
-            'message' => 'order corrected.',
-            'success' =>true
-        ]);
+            return response()->json([
+                'message' => 'order corrected.',
+                'success' =>true
+            ]);
+        }
+        else
+        {
+
+            $questionToUpdate = Question::where('exam_id', $exam_id)->get();
+           
+            foreach($questionToUpdate as $k => $item)
+            {
+            $ques_count = Question::where('exam_id', $exam_id);
+
+                $item->order_no = $k +1;
+            
+                $item->save();
+            }
+        
+            if (!empty($order)) {
+
+                $questionToUpdate = Question::where('id', $question_id)
+                    ->where('exam_id', $exam_id)
+                    ->first();
+            
+                if (!empty($questionToUpdate)) {
+                    $currentOrder = $questionToUpdate->order_no;
+                    $newOrder = $order;
+            
+                    if ($currentOrder != $newOrder) {
+            
+                        if ($newOrder > $currentOrder) {
+                        
+                            Question::
+                                 where('exam_id', $exam_id)
+                                ->where('order_no', '>', $currentOrder)
+                                ->where('order_no', '<=', $newOrder)
+                                ->decrement('order_no');  
+                        } 
+                        else {
+                        
+                            Question::
+                                 where('exam_id', $exam_id)
+                                ->where('order_no', '<', $currentOrder)
+                                ->where('order_no', '>=', $newOrder)
+                                ->increment('order_no');
+                        }
+                        
+                        $questionToUpdate->order_no = $newOrder;
+                        $questionToUpdate->save();
+                    }
+                }
+            }
+
+            return response()->json([
+                'message' => 'order corrected.',
+                'success' =>true
+            ]);
+
+        }
 
     }
 

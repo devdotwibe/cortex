@@ -50,7 +50,8 @@
         <div class="row">
             <x-ajax-table :bulkaction="true" :beforeajax="true" bulkactionlink="{{route('admin.full-mock-exam.bulkaction', ['exam'=>$exam->slug] )}}"
             
-            
+            tableid="categoryquestiontable"
+             
             :bulkotheraction='[
                 ["name"=>"Enable Visible Access","value"=>"visible_status"],
                 ["name"=>"Disable Visible Access","value"=>"visible_status_disable"],
@@ -80,6 +81,42 @@ $(function() {
         $('table tr td p img').hide(); 
     }, 500); 
 });
+
+            function OrderChange(element)
+            {
+
+            var id = $(element).attr('data-id');
+
+            var value = $(element).val();
+
+            var exam_id = $(element).attr('data-exam');
+
+            var category_id = $(element).attr('data-category');
+
+            console.log(value,id);
+
+            var url = '{{route('admin.order_change')}}';
+
+            $.ajax({
+                url: url,
+
+                method: 'POST',
+                data: {
+                    id: id,
+                    value: value,
+                    exam_id: exam_id,
+                    category_id: category_id,
+                },
+                success: function(res) {
+
+                    console.log(res);
+                    $('#table-categoryquestiontable').DataTable().ajax.reload(); 
+
+                }
+
+            });
+
+        }
 
         var questiontable = null;
         function questiontableinit(table) {
