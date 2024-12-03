@@ -465,6 +465,58 @@ class QuestionController extends Controller
 
                     break;
                 
+                    case 'learn':
+
+                        $questionToUpdate = Question:: where('category_id', $category_id)->get();
+                      
+                                foreach($questionToUpdate as $k => $item)
+                                {
+                                    $item->order_no = $k +1;
+    
+                                    $item->save();
+                                }
+    
+                                if (!empty($order)) {
+    
+                                $questionToUpdate = Question::where('id', $question_id)
+                                    ->where('category_id', $category_id)
+                                    ->first();
+    
+                                if (!empty($questionToUpdate)) {
+                                    $currentOrder = $questionToUpdate->order_no;
+                                    $newOrder = $order;
+    
+                                    if ($currentOrder != $newOrder) {
+    
+                                        if ($newOrder > $currentOrder) {
+                                        
+                                            Question::where('category_id', $category_id)
+                                                ->where('order_no', '>', $currentOrder)
+                                                ->where('order_no', '<=', $newOrder)
+                                                ->decrement('order_no');  
+                                        } 
+                                        else {
+                                        
+                                            Question::where('category_id', $category_id)
+                                                ->where('order_no', '<', $currentOrder)
+                                                ->where('order_no', '>=', $newOrder)
+                                                ->increment('order_no');
+                                        }
+                                        
+                                        $questionToUpdate->order_no = $newOrder;
+                                        $questionToUpdate->save();
+                                    }
+                                }
+                                }
+    
+                                return response()->json([
+                                    'message' => 'order corrected.',
+                                    'success' =>true
+                                ]);
+                       
+    
+                        break;
+
                 default:
                   
                         return response()->json([
