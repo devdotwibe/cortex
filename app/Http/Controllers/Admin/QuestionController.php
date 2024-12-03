@@ -496,14 +496,14 @@ class QuestionController extends Controller
                                             Learn::where('category_id', $category_id)
                                                 ->where('order_no', '>', $currentOrder)
                                                 ->where('order_no', '<=', $newOrder)
-                                                ->decrement('order_no');  
+                                                ->increment('order_no');
                                         } 
                                         else {
                                         
                                             Learn::where('category_id', $category_id)
                                                 ->where('order_no', '<', $currentOrder)
                                                 ->where('order_no', '>=', $newOrder)
-                                                ->increment('order_no');
+                                                ->decrement('order_no');  
                                         }
                                         
                                         $questionToUpdate->order_no = $newOrder;
