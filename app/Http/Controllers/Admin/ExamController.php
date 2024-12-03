@@ -56,8 +56,17 @@ class ExamController extends Controller
     public function store(Request $request){
         $examdat=$request->validate([
             "title"=>"required",
-            "time_of_exam"=>"required"
-        ]);
+            "time_of_exam"=>[
+                            'required',
+                            function ($attribute, $value, $fail) {
+                                $validTimeFormat = '/^(0[0-9]|1[0-9]|2[0-3]) ?: ?[0-5][0-9]$/';
+
+                                if (!preg_match($validTimeFormat, $value) || $value === '00:00' || $value === '00 : 00') {
+                                    $fail('The time of exam must not be 00:00.');
+                                }
+                            },
+                        ],        
+            ]);
         $examdat['name']="full-mock-exam";
         $exam=Exam::store($examdat);        
         return redirect()->route('admin.exam.index')->with("success","Exam updated success");

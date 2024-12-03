@@ -5,11 +5,11 @@
 <section class="header_nav">
     <div class="header_wrapp">
         <div class="header_title">
-            <div class="back-btn" id="back-btn" style="display: block"> <!-- Ensure proper display value -->
+            {{-- <div class="back-btn" id="back-btn" style="display: block"> <!-- Ensure proper display value -->
                 <a href="{{ route('admin.lesson-record.show',$lessonRecording->slug) }}">
                     <img src="{{ asset('assets/images/leftarrowblack.svg') }}" alt="">
                 </a>
-            </div>
+            </div> --}}
 
 
             <h2> Lesson Recording  -> {{ $lessonRecording->term_name  }} -> Create</h2>
