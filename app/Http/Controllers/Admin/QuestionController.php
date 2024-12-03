@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Answer;
 use App\Models\Exam;
 use App\Models\HomeWorkAnswer;
+use App\Models\HomeWorkQuestion;
 use App\Models\Learn;
 use App\Models\LearnAnswer;
 use App\Models\Question;
@@ -517,6 +518,58 @@ class QuestionController extends Controller
                        
     
                         break;
+
+                        case 'home_work':
+
+                            $questionToUpdate = HomeWorkQuestion:: where('home_work_id', $category_id)->get();
+                          
+                                    foreach($questionToUpdate as $k => $item)
+                                    {
+                                        $item->order_no = $k +1;
+        
+                                        $item->save();
+                                    }
+        
+                                    if (!empty($order)) {
+        
+                                    $questionToUpdate = HomeWorkQuestion::where('id', $question_id)
+                                        ->where('category_id', $category_id)
+                                        ->first();
+        
+                                    if (!empty($questionToUpdate)) {
+                                        $currentOrder = $questionToUpdate->order_no;
+                                        $newOrder = $order;
+        
+                                        if ($currentOrder != $newOrder) {
+        
+                                            if ($newOrder > $currentOrder) {
+                                            
+                                                HomeWorkQuestion::where('home_work_id', $category_id)
+                                                    ->where('order_no', '>', $currentOrder)
+                                                    ->where('order_no', '<=', $newOrder)
+                                                    ->decrement('order_no');  
+                                            } 
+                                            else {
+                                            
+                                                HomeWorkQuestion::where('home_work_id', $category_id)
+                                                    ->where('order_no', '<', $currentOrder)
+                                                    ->where('order_no', '>=', $newOrder)
+                                                    ->increment('order_no');
+                                            }
+                                            
+                                            $questionToUpdate->order_no = $newOrder;
+                                            $questionToUpdate->save();
+                                        }
+                                    }
+                                    }
+        
+                                    return response()->json([
+                                        'message' => 'order corrected.',
+                                        'success' =>true
+                                    ]);
+                           
+        
+                            break;
 
                 default:
                   

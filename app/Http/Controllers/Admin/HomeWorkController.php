@@ -24,22 +24,42 @@ class HomeWorkController extends Controller
             if (!empty($request->booklet)) {
                 $this->where('home_work_book_id', $request->booklet);
             }
+
+            $this->orderBy('order_no', 'ASC');
+
+            $examCount = HomeWorkQuestion::where('home_work_id',$homeWork->id)->count();
+
             return $this->where('home_work_id', $homeWork->id)
-                ->addAction(function ($data) use ($homeWork) {
+
+                ->addAction(function ($data) use ($homeWork,$examCount) {
+
+                    $button = '';  
+
+                    $selected ="";
+
+                $results = "";
+
+                for ($i = 1; $i <= $examCount; $i++) {
+
+                    $selected = ($data->order_no == $i) ? 'selected' : ''; 
+
+                    $results .= '<option value="' . $i . '" ' . $selected . '>' . $i . '</option>';
+                }
+
+                $button .= '<select name="work_update_coordinator" onchange="OrderChange(this)" data-type="home_work" data-id="' . $data->id . '" data-exam="" data-category="' . $data->home_work_id . '" data-subcategory=""  data-subcategoryset="" >'; 
+                $button .= $results;
+                $button .= '</select>';
+
                     return '
                    
-
- <a href="' . route("admin.home-work.edit", ["home_work" => $homeWork->slug, "home_work_question" => $data->slug]) . '" class="btn btn-icons edit_btn">
-    <span class="adminside-icon">
-      <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
-    </span>
-    <span class="adminactive-icon">
-        <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active" title="Edit">
-    </span>
-</a>
-
-
-                     
+                    <a href="' . route("admin.home-work.edit", ["home_work" => $homeWork->slug, "home_work_question" => $data->slug]) . '" class="btn btn-icons edit_btn">
+                        <span class="adminside-icon">
+                        <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
+                        </span>
+                        <span class="adminactive-icon">
+                            <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active" title="Edit">
+                        </span>
+                    </a>
 
 
                      <a  class="btn btn-icons dlt_btn" data-delete="' . route("admin.home-work.destroy", ["home_work" => $homeWork->slug, "home_work_question" => $data->slug]) . '">
@@ -50,6 +70,8 @@ class HomeWorkController extends Controller
                                 <img src="' . asset("assets/images/iconshover/material-symbols_delete-yellow.svg") . '" alt="Delete Active" title="Delete">
                             </span>
                         </a> 
+
+                         ' . $button . '
 
                     ';
                 })->addColumn('visibility', function ($data) use ($homeWork) {
