@@ -29,19 +29,43 @@ class FullMockExamController extends Controller
             if(!empty($request->category)){
                 $this->where('category_id',$request->category);
             }
+            $this->orderBy('order_no', 'ASC');
+
+            $examCount = Question::where('exam_id',$exam->id??0)->count();
+
             return $this->where('exam_id',$exam->id) 
-                ->addAction(function($data)use($exam){
+                ->addAction(function($data)use($exam,$examCount){
+
+                    $button = '';  
+
+                    $selected ="";
+
+                    $results = "";
+
+                    for ($i = 1; $i <= $examCount; $i++) {
+
+                        $selected = ($data->order_no == $i) ? 'selected' : ''; 
+
+                        $results .= '<option value="' . $i . '" ' . $selected . '>' . $i . '</option>';
+                    }
+
+                    $button .= '<select name="work_update_coordinator" onchange="OrderChange(this)" data-id="' . $data->id . '" data-exam="' . $data->exam_id . '" data-category="' . $data->category_id . '" >'; 
+                    $button .= $results;
+                    $button .= '</select>';
+                    
                     return '
                     
 
-                      <a href="'.route("admin.full-mock-exam.edit",["exam"=>$exam->slug,"question"=>$data->slug]).'" class="btn btn-icons edit_btn">
-    <span class="adminside-icon">
-      <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
-    </span>
-    <span class="adminactive-icon">
-        <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active" title="Edit">
-    </span>
-</a>
+                <a href="'.route("admin.full-mock-exam.edit",["exam"=>$exam->slug,"question"=>$data->slug]).'" class="btn btn-icons edit_btn">
+                    <span class="adminside-icon">
+                    <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
+                    </span>
+                    <span class="adminactive-icon">
+                        <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active" title="Edit">
+                    </span>
+                </a>
+                
+                 ' . $button . '
 
 
                     ';
