@@ -547,20 +547,20 @@ class QuestionController extends Controller
     
                                     if ($currentOrder != $newOrder) {
     
-                                        if (abs($currentOrder - $newOrder) == 1) {
+                                        // if (abs($currentOrder - $newOrder) == 1) {
                                          
-                                            $otherQuestion = Learn::where('category_id', $category_id)
-                                                ->where('order_no', $newOrder)
-                                                ->first();
+                                        //     $otherQuestion = Learn::where('category_id', $category_id)
+                                        //         ->where('order_no', $newOrder)
+                                        //         ->first();
                                 
-                                            $questionToUpdate->order_no = $newOrder;
-                                            $otherQuestion->order_no = $currentOrder;
+                                        //     $questionToUpdate->order_no = $newOrder;
+                                        //     $otherQuestion->order_no = $currentOrder;
                                 
-                                            $questionToUpdate->save();
-                                            $otherQuestion->save();
-                                        }
-                                        else
-                                        {
+                                        //     $questionToUpdate->save();
+                                        //     $otherQuestion->save();
+                                        // }
+                                        // else
+                                        // {
                                             if ($newOrder > $currentOrder) {
                                         
                                                 Learn::where('category_id', $category_id)
@@ -581,7 +581,7 @@ class QuestionController extends Controller
 
                                         } 
                                     }
-                                }
+                                // }
                                 }
     
                                 return response()->json([
