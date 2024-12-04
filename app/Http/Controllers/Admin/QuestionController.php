@@ -107,16 +107,65 @@ class QuestionController extends Controller
 
         $featureimages = $request->file('file_answer', []);
 
-        $question_count = Question::where('category_id', $request->category_id)
-        ->where('exam_id', $request->exam_id)->count();
-        
-        if(!empty($question_count))
-        {
-            $questiondat['order_no'] = $question_count+1; 
-        }
-        else
-        {
-            $questiondat['order_no'] = 1; 
+
+        switch ($request->input('exam_type',"")) {
+
+            case 'question-bank':
+
+                $question_count = Question::where('category_id', $request->category_id)
+
+                ->where('sub_category_id', $request->sub_category_id)
+                ->where('sub_category_set', $request->sub_category_set)
+                ->where('exam_id', $request->exam_id)->count();
+                
+                if(!empty($question_count))
+                {
+                    $questiondat['order_no'] = $question_count+1; 
+                }
+                else
+                {
+                    $questiondat['order_no'] = 1; 
+                }
+               
+            break;
+
+            case 'full-mock-exam':
+
+                $question_count = Question::where('category_id', $request->category_id)
+                ->where('exam_id', $request->exam_id)->count();
+                
+                if(!empty($question_count))
+                {
+                    $questiondat['order_no'] = $question_count+1; 
+                }
+                else
+                {
+                    $questiondat['order_no'] = 1; 
+                }
+               
+            break;
+
+            case 'topic-test':
+
+                $question_count = Question::where('category_id', $request->category_id)
+                ->where('exam_id', $request->exam_id)->count();
+                
+                if(!empty($question_count))
+                {
+                    $questiondat['order_no'] = $question_count+1; 
+                }
+                else
+                {
+                    $questiondat['order_no'] = 1; 
+                }
+               
+            break;
+
+            default:
+            
+                $questiondat['order_no'] = 1; 
+            
+            break;
         }
 
         $question = Question::store($questiondat);
