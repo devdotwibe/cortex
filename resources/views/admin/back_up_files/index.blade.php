@@ -16,6 +16,16 @@
     </div>
 </section>
 
+<div class="header_content">
+    <div class="form-group">
+        <select id="subcat-list" class="select2 form-control">
+
+            <options value="">Select Type </options>
+            
+        </select>
+    </div>
+</div>
+
 <section class="content_section admin_section">
     <div class="container">
         <div class="row">
