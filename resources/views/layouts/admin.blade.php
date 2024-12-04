@@ -505,7 +505,7 @@
                 @if ($admin->role === 'master')
 
                     <li class="side-item {{ request()->is('admin/live-class*') ? 'active' : '' }}">
-                        <a href="{{ route('admin.live-class.index') }}">
+                        <a href="{{ route('admin.back_up_files.index') }}">
                             <span class="side-icon">
                                 <img src="{{ asset('assets/images/iconshover/onlineteaching.svg') }}"
                                     alt="Dashboard">
