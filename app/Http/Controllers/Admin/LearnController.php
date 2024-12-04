@@ -56,7 +56,7 @@ class LearnController extends Controller
         $category_sub=SubCategory::whereHas('learns')->first();
         
         if (empty($request->sub_category)) {
-            
+
             $this->where('sub_category_id', $category_sub->id);
             $sub_category =$category_sub->id;
         }
@@ -66,12 +66,17 @@ class LearnController extends Controller
                 $this->where('sub_category_id', $request->sub_category);
 
                 $sub_category = $request->sub_category;
+
+                $examCount = Learn::where('category_id',$category->id)->where('sub_category_id',$sub_category)->count();
+            }
+            else
+            {
+                $sub_category =$category_sub->id;
+
+                $examCount = Learn::where('category_id',$category->id)->where('sub_category_id',$sub_category)->count();
             }
            
-
             $this->orderBy('order_no', 'ASC');
-
-            $examCount = Learn::where('category_id',$category->id)->where('sub_category_id',$sub_category)->count();
 
             return $this->where('category_id', $category->id)
                 ->addAction(function ($data) use ($category,$examCount) {
