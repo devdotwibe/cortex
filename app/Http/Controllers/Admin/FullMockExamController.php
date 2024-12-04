@@ -37,7 +37,7 @@ class FullMockExamController extends Controller
 
                 $category_id = $request->category;
 
-                $examCount = Question::where('category_id',$category->id)->where('exam_id',$exam->id??0)->count();
+                $examCount = Question::where('category_id',$request->category)->where('exam_id',$exam->id??0)->count();
             }
             else
             {
