@@ -17,7 +17,7 @@ class BackUpController extends Controller
     public function index(Request $request)
     {
        
-        $questions = Question::withTrashed()->where('id','>','0')->whereNotNull('deleted_at');
+        $questions = Question::with('adminUser')->withTrashed()->where('id','>','0')->whereNotNull('deleted_at');
 
         if ($request->ajax()) {
             return DataTables::of($questions)
@@ -38,11 +38,9 @@ class BackUpController extends Controller
 
                 })
                
-                ->addColumn("action", function ($data) use($id) {
+                ->addColumn("action", function ($data) {
                     return
-                        
-
-
+                    
                         '<a onclick="delsubfaq('."'".route('admin.tip.del_tip', $data->id)."'".')" class="btn btn-icons edit_btn">
                         <span class="adminside-icon">
                             <img src="' . asset("assets/images/icons/material-symbols_delete-outline.svg") . '" alt="Delete">
@@ -50,21 +48,7 @@ class BackUpController extends Controller
                         <span class="adminactive-icon">
                             <img src="' . asset("assets/images/iconshover/material-symbols_delete-yellow.svg") . '" alt="Delete Active" title="Delete">
                         </span>
-                    </a> '.
-
-
-                       
-
-                        '<a href="' . route('admin.tip.edit_subfaq', ['tip'=>$data->id,'cat_id'=>$id]) . '" data-id="'. $id.'" class="btn btn-icons edit_btn">
-                        <span class="adminside-icon">
-                          <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
-                        </span>
-                        <span class="adminactive-icon">
-                            <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active" title="Edit">
-                        </span>
-                    </a>';
-
-                    
+                    </a> ';
 
                 })
 
