@@ -2768,7 +2768,7 @@ aside.side_bar.slider-btn .btn-slider {
     margin-left: -80px;
     margin-top: -10px;
     width: 9%;
-
+    cursor: pointer;
 }
 
 .confirm-modal .modal-content {
