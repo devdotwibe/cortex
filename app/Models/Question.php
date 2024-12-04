@@ -31,7 +31,7 @@ class Question extends Model
     ];
     
     public function adminUser(){
-        return $this->belongsTo(Admin::class);
+        return $this->belongsTo(Admin::class,'admin_id');
     }
 
     public function questionExam(){

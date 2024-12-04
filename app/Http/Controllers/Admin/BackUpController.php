@@ -17,7 +17,7 @@ class BackUpController extends Controller
     public function index(Request $request)
     {
        
-        $questions = Question::withTrashed()->where('id','>','0')->whereNotNull('deleted_at');
+        $questions = Question::with('adminUser')->withTrashed()->where('id','>','0')->whereNotNull('deleted_at');
 
         if ($request->ajax()) {
             return DataTables::of($questions)
