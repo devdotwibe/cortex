@@ -31,7 +31,7 @@ class Question extends Model
     ];
     
     public function questionExam(){
-        return $this->belongsTo(Exam::class);
+        return $this->hasOne(Exam::class);
     }
 
     public function category(){
