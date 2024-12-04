@@ -1152,6 +1152,10 @@ button.close {
     margin: 5px 5px 0px 0px;
 }
 
+.progress-menu .menu-icon > a {
+    cursor: pointer;
+}
+
 .question-time {
     width: 100px;
     justify-content: center;
@@ -6739,6 +6743,10 @@ nav.navbar.header-class {
     margin-right: 0;
 }
 
+.table-outer table tbody tr td:nth-child(11) .btn-icons {
+    width: 23px;
+    margin: 0 2px 0 0;
+}
 
 .modal-expand.modal-expand-result .container-wrap .result-preview-body .col-md-3 {
     background: #fff;
