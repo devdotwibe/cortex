@@ -91,7 +91,7 @@ class LearnController extends Controller
 
                     $selected = ($data->order_no == $i) ? 'selected' : ''; 
 
-                    $results .= '<option value="' . $i . '" ' . $selected . '>' . $i . '</option>';
+                    $results .= '<option data-order="'.$data->order_no.'" value="' . $i . '" ' . $selected . '>' . $i . '</option>';
                 }
 
                 $button .= '<select name="work_update_coordinator" onchange="OrderChange(this)" data-type="learn" data-id="' . $data->id . '" data-exam="" data-category="' . $data->category_id . '" data-subcategory="' . $data->sub_category_id . '"  data-subcategoryset="" >'; 
