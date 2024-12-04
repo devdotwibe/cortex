@@ -23,6 +23,7 @@ class HomeWorkReviewQuestion extends Model
         'home_work_book_id',
         'home_work_question_id',
         'user_id',
-        'home_work_review_id', 
+        'home_work_review_id',
+        'order_no' 
     ];
 }

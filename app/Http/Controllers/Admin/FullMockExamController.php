@@ -26,13 +26,28 @@ class FullMockExamController extends Controller
     public function index(Request $request,Exam $exam){ 
         self::$defaultActions=["delete"];
 
+        $category=Category::whereHas('question')->first();
+        
+       
         if($request->ajax()){
-            if(!empty($request->category)){
-                $this->where('category_id',$request->category);
-            }
-            $this->orderBy('order_no', 'ASC');
 
-            $examCount = Question::where('exam_id',$exam->id??0)->count();
+            if(!empty($request->category)){
+
+                $this->where('category_id',$request->category);
+
+                $category_id = $request->category;
+
+                $examCount = Question::where('category_id',$request->category)->where('exam_id',$exam->id??0)->count();
+            }
+            else
+            {
+                $this->where('category_id', $category->id);
+
+                $category_id =$category->id;
+                $examCount = Question::where('category_id',$category->id)->where('exam_id',$exam->id??0)->count();
+            }
+            
+            $this->orderBy('order_no', 'ASC');
 
             return $this->where('exam_id',$exam->id) 
                 ->addAction(function($data)use($exam,$examCount){
@@ -50,7 +65,7 @@ class FullMockExamController extends Controller
                         $results .= '<option value="' . $i . '" ' . $selected . '>' . $i . '</option>';
                     }
 
-                    $button .= '<select name="work_update_coordinator" onchange="OrderChange(this)" data-type="full_mock" data-id="' . $data->id . '" data-exam="' . $data->exam_id . '" data-category="" data-subcategory=""  data-subcategoryset="">'; 
+                    $button .= '<select name="work_update_coordinator" onchange="OrderChange(this)" data-type="full_mock" data-id="' . $data->id . '" data-exam="' . $data->exam_id . '" data-category="' . $data->category_id . '" data-subcategory=""  data-subcategoryset="">'; 
                     $button .= $results;
                     $button .= '</select>';
                     

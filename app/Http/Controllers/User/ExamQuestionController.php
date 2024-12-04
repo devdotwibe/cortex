@@ -136,7 +136,8 @@ class ExamQuestionController extends Controller
                     'title_text'=>$question->title_text, 
                     'sub_question'=>$question->sub_question, 
                     'question_id'=>$question->id,
-                    'user_id'=>$user->id
+                    'user_id'=>$user->id,
+                    'order_no'=>$question->order_no
                 ]);
                 foreach($question->answers as $answer){
                     UserExamAnswer::store([
@@ -205,6 +206,7 @@ class ExamQuestionController extends Controller
                                 ->where('category_id',$category->id)
                                 ->where('sub_category_id',$subCategory->id)
                                 ->where('sub_category_set',$setname->id)
+                                ->orderBy('order_no')
                                 ->paginate(1,['slug','title','description','duration','title_text','sub_question']);
             }
             $questioncount=UserExamQuestion::where('user_exam_id',$userExam->id)
@@ -258,7 +260,7 @@ class ExamQuestionController extends Controller
 
            
 
-            $data = UserReviewQuestion::whereIn('review_type',['mcq'])->where('user_id',$user->id)->where('user_exam_review_id',$userExamReview->id)->paginate(1);
+            $data = UserReviewQuestion::whereIn('review_type',['mcq'])->where('user_id',$user->id)->where('user_exam_review_id',$userExamReview->id)->orderBy('order_no')->paginate(1);
 
             $data_questions = UserReviewQuestion::whereIn('review_type',['mcq'])->where('user_id',$user->id)->where('user_exam_review_id',$userExamReview->id)->get();
 

@@ -87,7 +87,6 @@
 <script>
     $(function() {
         $('#back_up_table').DataTable({
-            paging: false,
             bAutoWidth: false,
             processing: true,
             serverSide: true,

@@ -25,7 +25,8 @@ class UserExamQuestion extends Model
         'title_text',
         'sub_question',
         'user_id',
-        'question_id'
+        'question_id',
+        'order_no'
     ];
     public function answers(){
         return $this->hasMany(UserExamAnswer::class);

@@ -2755,6 +2755,7 @@ aside.side_bar.slider-btn .btn-slider {
 .set-container .option-toggle .option-item {
     border: 1px solid #BDBDBD;
     background: #D9D9D9;
+    cursor: pointer;
 }
 
 .set-container .option-toggle .option-item label.option-item-label {
@@ -2767,7 +2768,7 @@ aside.side_bar.slider-btn .btn-slider {
     margin-left: -80px;
     margin-top: -10px;
     width: 9%;
-
+    cursor: pointer;
 }
 
 .confirm-modal .modal-content {
@@ -6748,6 +6749,10 @@ nav.navbar.header-class {
     margin: 0 2px 0 0;
 }
 
+.admin_section .table-outer table tbody tr td:last-child {
+    min-width: 108px;
+}
+
 .modal-expand.modal-expand-result .container-wrap .result-preview-body .col-md-3 {
     background: #fff;
     padding: 30px;
@@ -7847,15 +7852,15 @@ nav.navbar.top-barhide {
     }
 
     .progress-menu {
-        padding: 10px 40px;
+        padding: 7px 40px;
     }
 
     .progress-menu .menu-text {
-        font-size: 22px;
+        font-size: 20px;
     }
 
     .progress-menu .menu-text #menu-text span {
-        font-size: 28px;
+        font-size: 22px;
     }
 
     .progress-main .timer span {
@@ -7953,6 +7958,7 @@ nav.navbar.top-barhide {
 
     .progress-menu .menu-icon {
         width: 40px;
+        margin: 2px 0 0;
     }
 
     .exam-container.topictestclass .summery-wrap .summery-title h1 {
@@ -8148,7 +8154,7 @@ nav.navbar.top-barhide {
     }
 
     .progress-menu {
-        padding: 15px 30px;
+        padding: 6px 30px;
     }
 
     .progress-main .timer span {
@@ -8339,7 +8345,7 @@ nav.navbar.top-barhide {
     }
 
     .progress-menu {
-        padding: 10px 15px;
+        padding: 8px 15px;
     }
 
     .progress-menu .menu-text {
@@ -9303,7 +9309,7 @@ nav.navbar.top-barhide {
     }
 
     .progress-menu {
-        padding: 10px;
+        padding: 7px 10px;
     }
 
     .exam-progress>.exam-progress-inner {
