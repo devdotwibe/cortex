@@ -121,7 +121,8 @@ class TopicExamController extends Controller
                     'title_text'=>$question->title_text, 
                     'sub_question'=>$question->sub_question, 
                     'question_id'=>$question->id,
-                    'user_id'=>$user->id
+                    'user_id'=>$user->id,
+                    'order_no'=>$question->order_no
                 ]);
                 foreach($question->answers as $answer){
                     UserExamAnswer::store([
@@ -170,7 +171,7 @@ class TopicExamController extends Controller
                     // return UserExamAnswer::where('user_exam_question_id', $question->id)->with('answer')->get(['slug', 'title']);
                     return UserExamAnswer::where('user_exam_question_id', $question->id)->with('answer')->select(['slug', 'title', 'answer_id'])->get();
                 }
-                return UserExamQuestion::where('user_exam_id', $attemt->id)->paginate(1, ['slug', 'title', 'description', 'duration','title_text','sub_question']);
+                return UserExamQuestion::where('user_exam_id', $attemt->id)->orderBy('order_no')->paginate(1, ['slug', 'title', 'description', 'duration','title_text','sub_question']);
             }
             $questioncount = UserExamQuestion::where('user_exam_id', $attemt->id)->where('exam_id', $exam->id)->count();
             $endtime = 0;
