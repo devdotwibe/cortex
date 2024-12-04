@@ -132,15 +132,15 @@ function OrderChange(element)
                 }
             }, 'json');
         }
-       
+        function questionbeforeajax(data){
+            data.sub_category=$('#subcat-list').val()||$('#sub_default').val();
+            data.select_all_values = $('#select_all_values').val()||null;
+            return data;
+        }
 
         $(function(){
 
-            function questionbeforeajax(data){
-                data.sub_category=$('#subcat-list').val()||$('#sub_default').val();
-                data.select_all_values = $('#select_all_values').val()||null;
-                return data;
-            }
+            $('#table-categoryquestiontable').DataTable().ajax.reload(); 
             
             var defaultValue = $('#sub_default').val();
 
