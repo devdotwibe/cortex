@@ -227,7 +227,8 @@ class SubmitReview implements ShouldQueue
                 'title_text'=> $question->title_text,
                 'sub_question'=> $question->sub_question,
                 'user_id'=>$this->review->user_id,
-                'time_taken'=>$takentime[$question->slug]??0
+                'time_taken'=>$takentime[$question->slug]??0,
+                'order_no'=>$question->order_no
             ]);
             
             $takentimereview[$revquestion->slug]=$takentime[$question->slug]??0;
@@ -276,7 +277,8 @@ class SubmitReview implements ShouldQueue
                 'title_text'=> $question->title_text,
                 'sub_question'=> $question->sub_question,
                 'user_id'=>$this->review->user_id,
-                'time_taken'=>$takentime[$question->slug]??0
+                'time_taken'=>$takentime[$question->slug]??0,
+                'order_no'=>$question->order_no
             ]);
             $takentimereview[$revquestion->slug]=$takentime[$question->slug]??0;
             
