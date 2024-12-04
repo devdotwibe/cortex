@@ -56,7 +56,6 @@ class LearnController extends Controller
         $category_sub=SubCategory::whereHas('learns')->first();
         
         if (empty($request->sub_category)) {
-            
             $this->where('sub_category_id', $category_sub->id);
         }
 
@@ -139,7 +138,7 @@ class LearnController extends Controller
             ]);
             $exam = Exam::find($exam->id);
         }
-        return view("admin.learn.show", compact('category', 'exam','category_sub'));
+        return view("admin.learn.show", compact('category', 'exam'));
     }
 
 

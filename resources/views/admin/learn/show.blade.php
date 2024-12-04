@@ -137,42 +137,15 @@ function OrderChange(element)
             return data;
         }
 
-        // $(function(){
-        //     $('.select2').select2().change(function(){
-        //         if (questiontable != null) {
-        //             questiontable.ajax.reload()
-        //         }
-        //     })
-        // })
+        $(function(){
 
-
-        $(document).ready(function() {
-    // Initialize the Select2 element
-    $('#subcat-list').select2({
-        placeholder: "Select a Sub Category",
-        allowClear: true,
-        ajax: {
-            url: '{{ route('admin.learn.create', $category->slug) }}', // Replace with dynamic URL if needed
-            dataType: 'json',
-            delay: 250, // Optional delay to prevent too many requests
-            processResults: function (data) {
-                return {
-                    results: data.map(function(item) {
-                        return {
-                            id: item.id, // Assuming the API returns an 'id'
-                            text: item.text // Assuming the API returns a 'text'
-                        };
-                    })
-                };
-            },
-            cache: true
-        }
-    });
-
-    // Manually trigger the select options
-    $('#subcat-list').trigger('select2:open');
-});
-
-
+            $('#subcat-list').select2('open');
+            
+            $('.select2').select2().change(function(){
+                if (questiontable != null) {
+                    questiontable.ajax.reload()
+                }
+            })
+        })
     </script>
 @endpush
