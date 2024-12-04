@@ -139,7 +139,16 @@ function OrderChange(element)
         }
 
         $(function(){
+
+            var defaultValue = $('#sub_default').val();
+            
+            $('.select2').select2().val(defaultValue).trigger('change');
+
             $('.select2').select2().change(function(){
+
+                var value = $('#sub_default').val();
+                value.selected;
+
                 if (questiontable != null) {
                     questiontable.ajax.reload()
                 }
