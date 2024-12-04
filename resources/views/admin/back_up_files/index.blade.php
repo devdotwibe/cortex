@@ -19,8 +19,13 @@
             <div class="form-group">
                 <select id="back_up_filter" class="form-control custom-select">
         
-                    <option value="">Select Type </option>
-        
+                    <option value="">Select Exam Type </option>
+                    <option value="learn">Learn</option>
+                    <option value="question-bank">Question Bank</option>
+                    <option value="topic-test">Topic Test</option>
+                    <option value="full-mock-exam">Full Mock Exam</option>
+                    <option value="home-work">Home Work</option>
+
                 </select>
             </div>
         </div>
