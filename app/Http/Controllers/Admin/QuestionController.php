@@ -694,6 +694,43 @@ class QuestionController extends Controller
         
         $question->admin_id = $admin->id;
 
+        $type = $question->questionExam->name;
+
+        switch ($type) {
+
+            case 'topic-test':
+
+                Question::where('order_no','>',$question->order_no)
+                ->where('category_id', $question->category_id)
+                ->where('exam_id', $question->exam_id)
+                ->decrement('order_no');
+            
+                break;
+
+            case 'full-mock-exam':
+
+                Question::where('order_no','>',$question->order_no)
+                ->where('exam_id', $question->exam_id)
+                ->decrement('order_no');
+            
+                break;
+
+            case 'question-bank':
+
+                Question::where('order_no','>',$question->order_no)
+                ->where('category_id', $question->category_id)
+                ->where('sub_category_id', $question->sub_category_id)
+                ->where('sub_category_set', $question->sub_category_set)
+                ->where('exam_id', $question->exam_id)
+                ->decrement('order_no');
+            
+                break;  
+
+        default:
+            
+            break;
+
+    
         $question->save();
 
         $question->delete();
