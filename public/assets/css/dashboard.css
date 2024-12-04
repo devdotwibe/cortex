@@ -7340,6 +7340,10 @@ nav.navbar.top-barhide {
     width: 49%;
 }
 
+.category-section>.container>.row>.col-md-6 > a {
+    cursor: pointer;
+}
+
 .admin-topic>.container>.row {
     justify-content: space-between;
 }
@@ -8016,6 +8020,10 @@ nav.navbar.top-barhide {
 
     .side_bar .sidebar-content .sidebar-nav {
         width: 220px;
+    }
+
+    .sidebar-content ul ul li.side-item a {
+        font-size: 12.5px;
     }
 
     .slider-active .content_outer {
