@@ -148,7 +148,7 @@ function OrderChange(element)
                 placeholder: "Select a Sub Category",
                 allowClear: true,
                 ajax: {
-                    url: $('#subcat-list').data('ajax--url'), // Fetch options using AJAX
+                    url: "{{ route('admin.learn.create', $category->slug) }}", // Fetch options using AJAX
                     dataType: 'json',
                     delay: 250,
                     data: function (params) {
