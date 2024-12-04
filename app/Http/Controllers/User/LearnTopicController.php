@@ -132,7 +132,7 @@ class LearnTopicController extends Controller
                 $learn = Learn::findSlug($request->question);
                 return LearnAnswer::where('learn_id', $learn->id)->get(['slug', 'title', 'image']);
             }
-            return Learn::where('category_id', $category->id)->where('sub_category_id', $subCategory->id)->paginate(1, ['slug', 'learn_type', 'title', 'short_question', 'video_url', 'note', 'mcq_question']);
+            return Learn::where('category_id', $category->id)->where('sub_category_id', $subCategory->id)->orderBy('order_no')->paginate(1, ['slug', 'learn_type', 'title', 'short_question', 'video_url', 'note', 'mcq_question']);
         }
         $learncount = Learn::where('category_id', $category->id)->where('sub_category_id', $subCategory->id)->count();
         $review = Learn::where('category_id', $category->id)
