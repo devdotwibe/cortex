@@ -6743,10 +6743,10 @@ nav.navbar.header-class {
     margin-right: 0;
 }
 
-.table-outer table tbody tr td:nth-child(11) .btn-icons {
+/* .table-outer table tbody tr td:nth-child(11) .btn-icons {
     width: 23px;
     margin: 0 2px 0 0;
-}
+} */
 
 .modal-expand.modal-expand-result .container-wrap .result-preview-body .col-md-3 {
     background: #fff;
