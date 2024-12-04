@@ -25,6 +25,10 @@ class Category extends Model
     {
         return $this->hasMany(SubCategory::class,'category_id','id');
     }
+    public function question()
+    {
+        return $this->belongsTo(Question::class);
+    }
 
     public function getExamAvg($exam){
         $anscnt=UserReviewAnswer::whereIn('user_exam_review_id',UserExamReview::whereIn('exam_id',Exam::where('name',$exam)->select('id'))->where("category_id",$this->id)->groupBy('user_id')->select(DB::raw('MAX(id)')))->whereIn('exam_id',Exam::where('name',$exam)->select('id'))->whereIn('question_id',Question::whereIn('exam_id',Exam::where('name',$exam)->select('id'))->where("category_id",$this->id)->select('id'))->where('iscorrect',true)->where('user_answer',true)->count();
