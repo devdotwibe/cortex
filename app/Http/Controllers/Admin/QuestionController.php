@@ -300,12 +300,12 @@ class QuestionController extends Controller
 
                     ->where('exam_id', $exam_id)->get();
 
-                            foreach($questionToUpdate as $k => $item)
-                            {
-                                $item->order_no = $k +1;
+                            // foreach($questionToUpdate as $k => $item)
+                            // {
+                            //     $item->order_no = $k +1;
 
-                                $item->save();
-                            }
+                            //     $item->save();
+                            // }
 
                             if (!empty($order)) {
 
@@ -373,12 +373,12 @@ class QuestionController extends Controller
 
                     $questionToUpdate = Question::where('exam_id', $exam_id)->get();
            
-                    foreach($questionToUpdate as $k => $item)
-                    {
-                        $item->order_no = $k +1;
+                    // foreach($questionToUpdate as $k => $item)
+                    // {
+                    //     $item->order_no = $k +1;
                     
-                        $item->save();
-                    }
+                    //     $item->save();
+                    // }
                 
                     if (!empty($order)) {
         
@@ -448,12 +448,12 @@ class QuestionController extends Controller
                     ->where('sub_category_set', $subcategoryset)
                     ->where('exam_id', $exam_id)->get();
 
-                            foreach($questionToUpdate as $k => $item)
-                            {
-                                $item->order_no = $k +1;
+                            // foreach($questionToUpdate as $k => $item)
+                            // {
+                            //     $item->order_no = $k +1;
 
-                                $item->save();
-                            }
+                            //     $item->save();
+                            // }
 
                             if (!empty($order)) {
 
@@ -526,19 +526,20 @@ class QuestionController extends Controller
                 
                     case 'learn':
 
-                        $questionToUpdate = Learn:: where('category_id', $category_id)->get();
+                        $questionToUpdate = Learn:: where('category_id', $category_id)->where('sub_category_id', $subcategory_id)->get();
                       
-                                foreach($questionToUpdate as $k => $item)
-                                {
-                                    $item->order_no = $k +1;
+                                // foreach($questionToUpdate as $k => $item)
+                                // {
+                                //     $item->order_no = $k +1;
     
-                                    $item->save();
-                                }
+                                //     $item->save();
+                                // }
     
                                 if (!empty($order)) {
     
                                 $questionToUpdate = Learn::where('id', $question_id)
                                     ->where('category_id', $category_id)
+                                    ->where('sub_category_id', $subcategory_id)
                                     ->first();
     
                                 if (!empty($questionToUpdate)) {
@@ -550,6 +551,7 @@ class QuestionController extends Controller
                                         if (abs($currentOrder - $newOrder) == 1) {
                                          
                                             $otherQuestion = Learn::where('category_id', $category_id)
+                                                ->where('sub_category_id', $subcategory_id)
                                                 ->where('order_no', $newOrder)
                                                 ->first();
                                 
@@ -564,6 +566,7 @@ class QuestionController extends Controller
                                             if ($newOrder > $currentOrder) {
                                         
                                                 Learn::where('category_id', $category_id)
+                                                    ->where('sub_category_id', $subcategory_id)
                                                     ->where('order_no', '>', $currentOrder)
                                                     ->where('order_no', '<=', $newOrder)
                                                     ->decrement('order_no');  
@@ -571,6 +574,7 @@ class QuestionController extends Controller
                                             else {
                                             
                                                 Learn::where('category_id', $category_id)
+                                                    ->where('sub_category_id', $subcategory_id)
                                                     ->where('order_no', '<', $currentOrder)
                                                     ->where('order_no', '>=', $newOrder)
                                                     ->increment('order_no');
@@ -596,12 +600,12 @@ class QuestionController extends Controller
 
                             $questionToUpdate = HomeWorkQuestion:: where('home_work_id', $category_id)->get();
                           
-                                    foreach($questionToUpdate as $k => $item)
-                                    {
-                                        $item->order_no = $k +1;
+                                    // foreach($questionToUpdate as $k => $item)
+                                    // {
+                                    //     $item->order_no = $k +1;
         
-                                        $item->save();
-                                    }
+                                    //     $item->save();
+                                    // }
         
                                     if (!empty($order)) {
         
@@ -690,6 +694,45 @@ class QuestionController extends Controller
         
         $question->admin_id = $admin->id;
 
+        $type = $question->questionExam->name;
+
+        switch ($type) {
+
+            case 'topic-test':
+
+                Question::where('order_no','>',$question->order_no)
+                ->where('category_id', $question->category_id)
+                ->where('exam_id', $question->exam_id)
+                ->decrement('order_no');
+            
+                break;
+
+            case 'full-mock-exam':
+
+                Question::where('order_no','>',$question->order_no)
+                ->where('exam_id', $question->exam_id)
+                ->decrement('order_no');
+            
+                break;
+
+            case 'question-bank':
+
+                Question::where('order_no','>',$question->order_no)
+                ->where('category_id', $question->category_id)
+                ->where('sub_category_id', $question->sub_category_id)
+                ->where('sub_category_set', $question->sub_category_set)
+                ->where('exam_id', $question->exam_id)
+                ->decrement('order_no');
+            
+                break;  
+
+            default:
+                
+                break;
+
+         }
+
+    
         $question->save();
 
         $question->delete();
@@ -700,6 +743,7 @@ class QuestionController extends Controller
         $redirect=$request->redirect??route('admin.question.index');
         return redirect($redirect)->with("success","Question has been successfully deleted");
     }
+
     public function deleteImage(Request $request)
     {
         $image = $request->input('image');
