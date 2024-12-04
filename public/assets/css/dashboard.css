@@ -2325,8 +2325,12 @@ aside.side_bar.slider-btn .side-item.status {
     font-size: 14.5px;
 }
 
-aside.side_bar.slider-btn .sidebar-content ul ul li.side-item a {
+aside.side_bar .sidebar-content ul ul li.side-item a {
     padding-left: 18px;
+}
+
+aside.side_bar.slider-btn .sidebar-content ul ul li.side-item a {
+    padding-left: 30px;
 }
 
 aside.side_bar.slider-btn .btn-slider {
