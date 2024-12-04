@@ -580,7 +580,7 @@ class TopicExamController extends Controller
                     $question = UserExamQuestion::findSlug($request->question);
                     return UserExamAnswer::where('user_exam_question_id', $question->id)->get(['slug', 'title','image']);
                 }
-                return UserExamQuestion::whereNotIn('slug', session("exam-retry-questions" . $userExamReview->id, []))->where('user_exam_id',$userExam->id)->paginate(1, ['slug', 'title', 'description', 'duration','title_text','sub_question']);
+                return UserExamQuestion::whereNotIn('slug', session("exam-retry-questions" . $userExamReview->id, []))->where('user_exam_id',$userExam->id)->orderBy('order_no')->paginate(1, ['slug', 'title', 'description', 'duration','title_text','sub_question']);
             }
             $questioncount = UserExamQuestion::whereNotIn('slug', session("exam-retry-questions" . $userExamReview->id, []))->where('user_exam_id',$userExam->id)->count();
             $endtime = 1 * $questioncount;
