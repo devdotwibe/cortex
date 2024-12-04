@@ -138,11 +138,28 @@ function OrderChange(element)
         }
 
         $(function(){
-            $('.select2').select2().change(function(){
-                if (questiontable != null) {
-                    questiontable.ajax.reload()
-                }
-            })
+            var selectElement = $('#subcat-list').select2({
+                placeholder: "Select a Sub Category",
+                allowClear: true
+            });
+
+  
+        selectElement.on('select2:open', function() {
+            var firstOption = selectElement.find('option:first');
+            
+         
+            selectElement.val(firstOption.val()).trigger('change');
+        });
+
+       
+        selectElement.select2('open');
+
+      
+        selectElement.change(function() {
+            if (questiontable != null) {
+                questiontable.ajax.reload();
+            }
+        });
         })
     </script>
 @endpush
