@@ -2755,6 +2755,7 @@ aside.side_bar.slider-btn .btn-slider {
 .set-container .option-toggle .option-item {
     border: 1px solid #BDBDBD;
     background: #D9D9D9;
+    cursor: pointer;
 }
 
 .set-container .option-toggle .option-item label.option-item-label {
