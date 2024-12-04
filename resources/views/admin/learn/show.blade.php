@@ -15,8 +15,6 @@
             <input type="hidden" id="sub_default" value="{{$category_sub->id}}">
             <div class="form-group">
                 <select id="subcat-list" class="select2 form-control" data-placeholder="Select a Sub Category" data-allow-clear="true" data-ajax--url="{{ route('admin.learn.create', $category->slug) }}"></select>
-            
-                <option value="{{ $category_sub->id }}" selected>{{ $category_sub->name }}</option>
             </div>
         </div>
         <div class="header_right">
@@ -142,14 +140,43 @@ function OrderChange(element)
 
         $(function(){
 
+
+            var defaultValue = '{{ $sub_category->id ?? '' }}'; // Set default to $sub_category->id if available
+
+// Initialize the select2 dropdown
+            $('#subcat-list').select2({
+                placeholder: "Select a Sub Category",
+                allowClear: true,
+                ajax: {
+                    url: "{{ route('admin.learn.create', $category->slug) }}", // Fetch options using AJAX
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            q: params.term, // Search term
+                            page: params.page || 1
+                        };
+                    },
+                    processResults: function (data, params) {
+                        params.page = params.page || 1;
+                        return {
+                            results: data.results, // Return the options data
+                            pagination: {
+                                more: data.pagination.more // Check if there are more options
+                            }
+                        };
+                    },
+                    cache: true
+                }
+            });
+
             var defaultValue = '{{ $sub_category->id ?? '' }}';
 
             $('.select2').select2().val(defaultValue).trigger('change');
 
             $('.select2').select2().change(function(){
 
-                var value = $('#sub_default').val();
-                value.selected;
+                var selectedValue = $(this).val();
 
                 if (questiontable != null) {
                     questiontable.ajax.reload()
