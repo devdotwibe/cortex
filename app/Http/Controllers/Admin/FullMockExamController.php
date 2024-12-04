@@ -28,12 +28,7 @@ class FullMockExamController extends Controller
 
         $category=Category::whereHas('question')->first();
         
-        if (empty($request->category)) {
-
-            $this->where('category_id', $category->id);
-            $category_id =$category->id;
-        }
-
+       
         if($request->ajax()){
 
             if(!empty($request->category)){
@@ -46,6 +41,8 @@ class FullMockExamController extends Controller
             }
             else
             {
+                $this->where('category_id', $category->id);
+
                 $category_id =$category->id;
                 $examCount = Question::where('category_id',$category->id)->where('exam_id',$exam->id??0)->count();
             }
