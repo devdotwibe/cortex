@@ -17,7 +17,7 @@
 
         <div class="header_content">
             <div class="form-group">
-                <select id="back_up_filter" class="form-control custom-select">
+                <select id="back_up_filter" class="form-control custom-select" onchange="">
         
                     <option value="">Select Exam Type </option>
                     <option value="learn">Learn</option>
@@ -48,7 +48,7 @@
                             <th data-th="question">Question</th>
                             <th data-th="question">Question Type</th>
                             <th data-th="delted_at">Deleted At</th>
-                            <th data-th="Action">Action</th>
+                           
                         </tr>
                     </thead>
                     <tbody>
@@ -139,12 +139,6 @@
                  
                 },
 
-                {   
-                    data: 'action',
-                     name: 'action', 
-                    orderable: false,
-                    searchable: false 
-                }
             ]
         });
     });
