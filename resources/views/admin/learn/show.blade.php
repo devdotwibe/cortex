@@ -12,6 +12,7 @@
             <h2>{{ $category->name }}</h2>
         </div> <!-- Closing tag added here -->
         <div class="header_content">
+            <input type="hidden" id="sub_default" value="{{$sub_category}}">
             <div class="form-group">
                 <select id="subcat-list" class="select2 form-control" data-placeholder="Select a Sub Category" data-allow-clear="true" data-ajax--url="{{ route('admin.learn.create', $category->slug) }}"></select>
             </div>
@@ -132,7 +133,7 @@ function OrderChange(element)
             }, 'json');
         }
         function questionbeforeajax(data){
-            data.sub_category=$('#subcat-list').val()||null;
+            data.sub_category=$('#subcat-list').val()||$('#sub_default').val();
             data.select_all_values = $('#select_all_values').val()||null;
             return data;
         }
