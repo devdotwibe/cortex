@@ -132,16 +132,18 @@ function OrderChange(element)
                 }
             }, 'json');
         }
-        function questionbeforeajax(data){
-            data.sub_category=$('#subcat-list').val()||$('#sub_default').val();
-            data.select_all_values = $('#select_all_values').val()||null;
-            return data;
-        }
+       
 
         $(function(){
 
-            var defaultValue = $('#sub_default').val();
+            function questionbeforeajax(data){
+                data.sub_category=$('#subcat-list').val()||$('#sub_default').val();
+                data.select_all_values = $('#select_all_values').val()||null;
+                return data;
+            }
             
+            var defaultValue = $('#sub_default').val();
+
             $('.select2').select2().val(defaultValue).trigger('change');
 
             $('.select2').select2().change(function(){
