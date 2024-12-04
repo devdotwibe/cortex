@@ -53,14 +53,24 @@ class LearnController extends Controller
         self::$routeName = "admin.learn";
         self::$defaultActions = [];
 
+        $category_sub=SubCategory::whereHas('learns')->first();
+        
         if ($request->ajax()) {
             if (!empty($request->sub_category)) {
                 $this->where('sub_category_id', $request->sub_category);
+
+                $sub_category = $request->sub_category;
+            }
+            else
+            {
+                $this->where('sub_category_id', $category_sub->id);
+
+                $sub_category =$category_sub->id;
             }
 
             $this->orderBy('order_no', 'ASC');
 
-            $examCount = Learn::where('category_id',$category->id)->count();
+            $examCount = Learn::where('category_id',$category->id)->where('sub_category_id',$sub_category)->count();
 
             return $this->where('category_id', $category->id)
                 ->addAction(function ($data) use ($category,$examCount) {
@@ -78,7 +88,7 @@ class LearnController extends Controller
                     $results .= '<option value="' . $i . '" ' . $selected . '>' . $i . '</option>';
                 }
 
-                $button .= '<select name="work_update_coordinator" onchange="OrderChange(this)" data-type="learn" data-id="' . $data->id . '" data-exam="" data-category="' . $data->category_id . '" data-subcategory=""  data-subcategoryset="" >'; 
+                $button .= '<select name="work_update_coordinator" onchange="OrderChange(this)" data-type="learn" data-id="' . $data->id . '" data-exam="" data-category="' . $data->category_id . '" data-subcategory="' . $data->sub_category_id . '"  data-subcategoryset="" >'; 
                 $button .= $results;
                 $button .= '</select>';
 
@@ -247,7 +257,7 @@ class LearnController extends Controller
         }
 
 
-        $question_count = Learn::where('category_id', $request->category_id)->count();
+        $question_count = Learn::where('category_id', $request->category_id)->where('sub_category_id', $request->sub_category_id)->count();
 
         
         if(!empty($question_count))
