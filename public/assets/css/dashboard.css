@@ -7851,15 +7851,15 @@ nav.navbar.top-barhide {
     }
 
     .progress-menu {
-        padding: 10px 40px;
+        padding: 7px 40px;
     }
 
     .progress-menu .menu-text {
-        font-size: 22px;
+        font-size: 20px;
     }
 
     .progress-menu .menu-text #menu-text span {
-        font-size: 28px;
+        font-size: 22px;
     }
 
     .progress-main .timer span {
@@ -7957,6 +7957,7 @@ nav.navbar.top-barhide {
 
     .progress-menu .menu-icon {
         width: 40px;
+        margin: 2px 0 0;
     }
 
     .exam-container.topictestclass .summery-wrap .summery-title h1 {
@@ -8152,7 +8153,7 @@ nav.navbar.top-barhide {
     }
 
     .progress-menu {
-        padding: 15px 30px;
+        padding: 6px 30px;
     }
 
     .progress-main .timer span {
