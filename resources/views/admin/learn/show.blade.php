@@ -12,7 +12,6 @@
             <h2>{{ $category->name }}</h2>
         </div> <!-- Closing tag added here -->
         <div class="header_content">
-            <input type="hidden" id="sub_default" value="{{$category_sub->id}}">
             <div class="form-group">
                 <select id="subcat-list" class="select2 form-control" data-placeholder="Select a Sub Category" data-allow-clear="true" data-ajax--url="{{ route('admin.learn.create', $category->slug) }}"></select>
             </div>
@@ -133,55 +132,47 @@ function OrderChange(element)
             }, 'json');
         }
         function questionbeforeajax(data){
-            data.sub_category=$('#subcat-list').val()||$('#sub_default').val();
+            data.sub_category=$('#subcat-list').val()||null;
             data.select_all_values = $('#select_all_values').val()||null;
             return data;
         }
 
-        $(function(){
+        // $(function(){
+        //     $('.select2').select2().change(function(){
+        //         if (questiontable != null) {
+        //             questiontable.ajax.reload()
+        //         }
+        //     })
+        // })
 
 
-            var defaultValue = '{{ $sub_category->id ?? '' }}'; // Set default to $sub_category->id if available
-
-// Initialize the select2 dropdown
-            $('#subcat-list').select2({
-                placeholder: "Select a Sub Category",
-                allowClear: true,
-                ajax: {
-                    url: "{{ route('admin.learn.create', $category->slug) }}", // Fetch options using AJAX
-                    dataType: 'json',
-                    delay: 250,
-                    data: function (params) {
+        $(document).ready(function() {
+    // Initialize the Select2 element
+    $('#subcat-list').select2({
+        placeholder: "Select a Sub Category",
+        allowClear: true,
+        ajax: {
+            url: '{{ route('admin.learn.create', $category->slug) }}', // Replace with dynamic URL if needed
+            dataType: 'json',
+            delay: 250, // Optional delay to prevent too many requests
+            processResults: function (data) {
+                return {
+                    results: data.map(function(item) {
                         return {
-                            q: params.term, // Search term
-                            page: params.page || 1
+                            id: item.id, // Assuming the API returns an 'id'
+                            text: item.text // Assuming the API returns a 'text'
                         };
-                    },
-                    processResults: function (data, params) {
-                        params.page = params.page || 1;
-                        return {
-                            results: data.results, // Return the options data
-                            pagination: {
-                                more: data.pagination.more // Check if there are more options
-                            }
-                        };
-                    },
-                    cache: true
-                }
-            });
+                    })
+                };
+            },
+            cache: true
+        }
+    });
 
-            var defaultValue = '{{ $sub_category->id ?? '' }}';
+    // Manually trigger the select options
+    $('#subcat-list').trigger('select2:open');
+});
 
-            $('.select2').select2().val(defaultValue).trigger('change');
 
-            $('.select2').select2().change(function(){
-
-                var selectedValue = $(this).val();
-
-                if (questiontable != null) {
-                    questiontable.ajax.reload()
-                }
-            })
-        })
     </script>
 @endpush
