@@ -3,6 +3,8 @@
 @section('content')
 
 <section class="header_nav">
+
+
     <div class="header_wrapp">
         <div class="header_title">
             <div class="back-btn" id="back-btn" style="display: block"> <!-- Ensure proper display value -->
@@ -14,17 +16,18 @@
         </div>
 
     </div>
-</section>
 
-<div class="header_content">
-    <div class="form-group">
-        <select id="subcat-list" class="form-control">
-
-            <options value="">Select Type </options>
-
-        </select>
+    <div class="header_content">
+        <div class="form-group">
+            <select id="subcat-list" class="form-control">
+    
+                <options value="">Select Type </options>
+    
+            </select>
+        </div>
     </div>
-</div>
+    
+</section>
 
 <section class="content_section admin_section">
     <div class="container">
