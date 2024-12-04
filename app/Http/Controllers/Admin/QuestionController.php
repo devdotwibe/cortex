@@ -726,9 +726,11 @@ class QuestionController extends Controller
             
                 break;  
 
-        default:
-            
-            break;
+            default:
+                
+                break;
+
+         }
 
     
         $question->save();
@@ -741,6 +743,7 @@ class QuestionController extends Controller
         $redirect=$request->redirect??route('admin.question.index');
         return redirect($redirect)->with("success","Question has been successfully deleted");
     }
+
     public function deleteImage(Request $request)
     {
         $image = $request->input('image');
