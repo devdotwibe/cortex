@@ -56,10 +56,10 @@ class LearnController extends Controller
         $category_sub=SubCategory::whereHas('learns')->first();
         
         if (empty($request->sub_category)) {
+            
             $this->where('sub_category_id', $category_sub->id);
+            $sub_category =$category_sub->id;
         }
-
-        $sub_category =$category_sub->id;
 
         if ($request->ajax()) {
             if (!empty($request->sub_category)) {
