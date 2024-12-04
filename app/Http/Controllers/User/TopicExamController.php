@@ -700,7 +700,7 @@ class TopicExamController extends Controller
         foreach (UserReviewAnswer::select('mark', DB::raw('count(mark) as marked_users'))->fromSub(function ($query) use ($userExamReview) {
             $query->from('user_review_answers')->where('user_exam_review_id', '<=', $userExamReview->id)->whereIn('user_exam_review_id', UserExamReview::where('name', 'topic-test')->where('user_exam_review_id', '<=', $userExamReview->id)->where('exam_id', $userExamReview->exam_id)->where('category_id', $userExamReview->category_id)->groupBy('user_id')->select(DB::raw('MAX(id)')))
             ->where('iscorrect', true)->where('user_answer', true)->select(DB::raw('count(user_id) as mark'));
-        }, 'subquery')->groupBy('mark')->get() as $row) {
+        }, 'subquery')->groupBy('mark')->orderBy('order_no')->get() as $row) {
             $chartlabel[] = strval($row->mark);
             $chartbackgroundColor[] = $passed == $row->mark ? "#ef9b10" : '#dfdfdf';
             $chartdata[] = $row->marked_users;
