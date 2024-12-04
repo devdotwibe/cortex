@@ -528,12 +528,12 @@ class QuestionController extends Controller
 
                         $questionToUpdate = Learn:: where('category_id', $category_id)->get();
                       
-                                foreach($questionToUpdate as $k => $item)
-                                {
-                                    $item->order_no = $k +1;
+                                // foreach($questionToUpdate as $k => $item)
+                                // {
+                                //     $item->order_no = $k +1;
     
-                                    $item->save();
-                                }
+                                //     $item->save();
+                                // }
     
                                 if (!empty($order)) {
     
