@@ -140,8 +140,6 @@ function OrderChange(element)
 
         $(function(){
 
-            $('#table-categoryquestiontable').DataTable().ajax.reload(); 
-            
             var defaultValue = $('#sub_default').val();
 
             $('.select2').select2().val(defaultValue).trigger('change');
