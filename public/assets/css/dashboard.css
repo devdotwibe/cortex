@@ -6748,6 +6748,10 @@ nav.navbar.header-class {
     margin: 0 2px 0 0;
 }
 
+.admin_section .table-outer table tbody tr td:last-child {
+    min-width: 108px;
+}
+
 .modal-expand.modal-expand-result .container-wrap .result-preview-body .col-md-3 {
     background: #fff;
     padding: 30px;
