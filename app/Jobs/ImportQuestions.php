@@ -81,6 +81,7 @@ class ImportQuestions implements ShouldQueue
         $datalist=Storage::json("importfile/{$this->filename}")??[];
       
         $count=count($datalist);
+        
         foreach ($datalist as $i => $row) {
             if(OptionHelper::getData("{$this->exam->name}-import-question","stop")=="stop"){
                 break;
@@ -92,7 +93,21 @@ class ImportQuestions implements ShouldQueue
                
                 );
                 $category_id = $category->id;
+
+                $question_count = Question::where('category_id',$category_id)
+                ->where('exam_id', $this->exam->id)->count();
+                
+                if(!empty($question_count))
+                {
+                    $order = $question_count+1; 
+                }
+                else
+                {
+                    $order = 1; 
+                }
+
                 $question=Question::store([
+                    "order_no"=>$order,
                     "exam_id"=>$this->exam->id,
                     "category_id"=>$category_id,
                     "sub_category_id"=>optional($this->subCategory)->id,
@@ -103,7 +118,21 @@ class ImportQuestions implements ShouldQueue
                     "explanation" => (isset($this->fields['explanation']) && isset($row[$this->fields['explanation']])) ? nl2br($row[$this->fields['explanation']]) : null,
                 ]);
             } else{
+
+                $question_count = Question::where('category_id',optional($this->category)->id)
+                ->where('exam_id', $this->exam->id)->count();
+                
+                if(!empty($question_count))
+                {
+                    $order = $question_count+1; 
+                }
+                else
+                {
+                    $order = 1; 
+                }
+
                 $question=Question::store([
+                    "order_no"=>$order,
                     "exam_id"=>$this->exam->id,
                     "category_id"=>optional($this->category)->id,
                     "sub_category_id"=>optional($this->subCategory)->id,
