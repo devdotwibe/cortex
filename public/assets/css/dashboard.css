@@ -2317,7 +2317,7 @@ aside.side_bar.slider-btn .side-item.status {
 }
 
 .sidebar-content ul li.side-item .side-dropdown-menu {
-    width: 83%;
+    width: 87%;
     float: right;
 }
 
@@ -2325,7 +2325,7 @@ aside.side_bar.slider-btn .side-item.status {
     font-size: 14.5px;
 }
 
-aside .sidebar-content ul ul li.side-item a {
+aside.side_bar.slider-btn .sidebar-content ul ul li.side-item a {
     padding-left: 18px;
 }
 
