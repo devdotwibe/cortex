@@ -150,10 +150,6 @@ function OrderChange(element)
          
             selectElement.val(firstOption.val()).trigger('change');
         });
-
-       
-        selectElement.select2('open');
-
       
         selectElement.change(function() {
             if (questiontable != null) {
