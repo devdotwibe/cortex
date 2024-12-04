@@ -15,18 +15,20 @@
             <h2> Back Up Files</h2>
         </div>
 
+        <div class="header_content">
+            <div class="form-group">
+                <select id="subcat-list" class="form-control">
+        
+                    <options value="">Select Type </options>
+        
+                </select>
+            </div>
+        </div>
+
     </div>
 
-    <div class="header_content">
-        <div class="form-group">
-            <select id="subcat-list" class="form-control">
-    
-                <options value="">Select Type </options>
-    
-            </select>
-        </div>
-    </div>
-    
+ 
+
 </section>
 
 <section class="content_section admin_section">
