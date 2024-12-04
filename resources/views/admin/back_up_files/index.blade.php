@@ -17,9 +17,9 @@
 
         <div class="header_content">
             <div class="form-group">
-                <select id="back_up_filter" class="form-control custom-select">
+                <select id="back_up_filter" class="custom-select">
         
-                    <options value="">Select Type </options>
+                    <option value="">Select Type </option>
         
                 </select>
             </div>
