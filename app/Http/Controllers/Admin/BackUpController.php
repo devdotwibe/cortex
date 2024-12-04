@@ -17,14 +17,20 @@ class BackUpController extends Controller
     public function index(Request $request)
     {
        
-        $questions = Question::with('adminUser')->withTrashed()->where('id','>','0')->whereNotNull('deleted_at');
+        $questions = Question::with('adminUser','questionExam')->onlyTrashed()->where('id','>','0');
 
         if ($request->ajax()) {
             return DataTables::of($questions)
 
                 ->addColumn("admin_user", function ($data) {
 
-                   return $data->adminUser->email;
+                    return $data->adminUser ? $data->adminUser->email : 'No Admin';
+
+                })
+
+                ->addColumn("question_type", function ($data) {
+
+                    return $data->questionExam ? $data->questionExam->name : 'No Admin';
 
                 })
 

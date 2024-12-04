@@ -3,6 +3,8 @@
 @section('content')
 
 <section class="header_nav">
+
+
     <div class="header_wrapp">
         <div class="header_title">
             <div class="back-btn" id="back-btn" style="display: block"> <!-- Ensure proper display value -->
@@ -13,7 +15,25 @@
             <h2> Back Up Files</h2>
         </div>
 
+        <div class="header_content">
+            <div class="form-group">
+                <select id="back_up_filter" class="form-control custom-select">
+        
+                    <option value="">Select Exam Type </option>
+                    <option value="learn">Learn</option>
+                    <option value="question-bank">Question Bank</option>
+                    <option value="topic-test">Topic Test</option>
+                    <option value="full-mock-exam">Full Mock Exam</option>
+                    <option value="home-work">Home Work</option>
+
+                </select>
+            </div>
+        </div>
+
     </div>
+
+ 
+
 </section>
 
 <section class="content_section admin_section">
@@ -26,6 +46,7 @@
                             <th data-th="Sl.No">Sl.No</th>
                             <th data-th="user">Admin User Name</th>
                             <th data-th="question">Question</th>
+                            <th data-th="question">Question Type</th>
                             <th data-th="delted_at">Deleted At</th>
                             <th data-th="Action">Action</th>
                         </tr>
@@ -102,6 +123,14 @@
                     searchable: true,
                  
                 },
+                { 
+                    data: 'question_type', 
+                    name: 'question_type', 
+                    orderable: true, 
+                    searchable: true,
+                 
+                },
+                
                 { 
                     data: 'deleted_at', 
                     name: 'deleted_at', 
