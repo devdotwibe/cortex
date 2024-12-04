@@ -94,8 +94,8 @@ class ImportQuestions implements ShouldQueue
                 );
                 $category_id = $category->id;
 
-                $question_count = Question::where('category_id',$category_id)
-                ->where('exam_id', $this->exam->id)->count();
+                $question_count = Question::where('exam_id', $this->exam->id)->count();
+                
                 
                 if(!empty($question_count))
                 {
