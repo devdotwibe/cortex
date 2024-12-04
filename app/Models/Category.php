@@ -27,7 +27,7 @@ class Category extends Model
     }
     public function question()
     {
-        return $this->belongsTo(Question::class,'category_id');
+        return $this->hasMany(Question::class,'category_id','id');
     }
 
     public function getExamAvg($exam){
