@@ -138,9 +138,6 @@ function OrderChange(element)
         }
 
         $(function(){
-
-            $('#subcat-list').select2('open');
-            
             $('.select2').select2().change(function(){
                 if (questiontable != null) {
                     questiontable.ajax.reload()
