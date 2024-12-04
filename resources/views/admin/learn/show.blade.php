@@ -12,9 +12,11 @@
             <h2>{{ $category->name }}</h2>
         </div> <!-- Closing tag added here -->
         <div class="header_content">
-            <input type="hidden" id="sub_default" value="{{$sub_category}}">
+            <input type="hidden" id="sub_default" value="{{$category_sub->id}}">
             <div class="form-group">
                 <select id="subcat-list" class="select2 form-control" data-placeholder="Select a Sub Category" data-allow-clear="true" data-ajax--url="{{ route('admin.learn.create', $category->slug) }}"></select>
+            
+                <option value="{{ $category_sub->id }}" selected>{{ $category_sub->name }}</option>
             </div>
         </div>
         <div class="header_right">
@@ -140,7 +142,7 @@ function OrderChange(element)
 
         $(function(){
 
-            var defaultValue = $('#sub_default').val();
+            var defaultValue = '{{ $sub_category->id ?? '' }}';
 
             $('.select2').select2().val(defaultValue).trigger('change');
 
