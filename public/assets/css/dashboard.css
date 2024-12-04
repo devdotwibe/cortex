@@ -1324,7 +1324,11 @@ button.close {
 .tabbody .question-item.status-flag .item-group img {
     display: block;
     width: 65%;
-    margin: -19px 0 0;
+    margin: 3px 0 0;
+    float: left;
+    position: absolute;
+    left: 0;
+    top: 0;
 }
 
 .question-preview-title,
@@ -8481,6 +8485,11 @@ nav.navbar.top-barhide {
         margin: 5px;
     }
 
+    .tabbody .question-item.status-flag .item-group img {
+        width: 55%;
+        margin: 8px 0 0 2px;
+    }
+
     .modal-expand {
         top: 55px;
         padding: 0 15px;
@@ -8845,6 +8854,11 @@ nav.navbar.top-barhide {
     .tabbody .question-item {
         width: 45px;
         margin: 5px;
+    }
+
+    .tabbody .question-item.status-flag .item-group img {
+        width: 50%;
+        margin: 10px 0 0 5px;
     }
 
     .question-tab .nav-link {
