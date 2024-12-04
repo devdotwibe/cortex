@@ -425,7 +425,7 @@ class LearnController extends Controller
         Learn::where('order_no','<',$learn->order_no)
         ->where('category_id',$learn->category_id)
         ->where('sub_category_id',$learn->sub_category_id)
-        ->increment('order_no');
+        ->decrement('order_no');
 
         $learn->save();
 
