@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\Admin\BackUpController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\FaqController;
@@ -658,6 +659,20 @@ Route::name('admin.')->prefix('admin')->group(function () {
                 Route::post('/update_admin_user', [AdminUserController::class, 'update_admin_user'])->name('update_admin_user');
 
             });
+
+            Route::prefix('back_up_files')->name('back_up_files.')->group(function () {
+
+                Route::get('/', [BackUpController::class, 'index'])->name('index');
+
+                Route::post('/store', [BackUpController::class, 'store'])->name('store');
+
+                Route::post('/edit', [BackUpController::class, 'edit'])->name('edit');
+
+                Route::delete('/destroy/{admin_user}', [BackUpController::class, 'destroy'])->name('destroy');
+
+            });
+
+
         });
 
 

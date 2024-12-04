@@ -30,6 +30,10 @@ class Question extends Model
         'admin_id',
     ];
     
+    public function adminUser(){
+        return $this->belongsTo(Admin::class);
+    }
+
     public function questionExam(){
         return $this->belongsTo(Exam::class,'exam_id');
     }
