@@ -138,27 +138,6 @@ function OrderChange(element)
         }
 
         $(function(){
-
-            var selectElement = $('#subcat-list').select2({
-                placeholder: "Select a Sub Category",
-                allowClear: true
-            });
-
-              
-              selectElement.on('select2:open', function() {
-                // Find the first selectable option in the dropdown
-                var firstOption = $('.select2-results__options .select2-results__option--selectable:first');
-
-                // Manually mark the first option as selected (aria-selected) and set the value
-                firstOption.attr('aria-selected', 'true');
-                firstOption.closest('ul').find('.select2-results__option').removeClass('select2-results__option--highlighted'); // Remove highlight from others
-                firstOption.addClass('select2-results__option--highlighted'); // Highlight the first option
-
-                // Select the first option programmatically
-                selectElement.val(firstOption.data('select2-id')).trigger('change');
-            });
-
-              
             $('.select2').select2().change(function(){
                 if (questiontable != null) {
                     questiontable.ajax.reload()
