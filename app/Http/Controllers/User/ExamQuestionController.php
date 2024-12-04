@@ -136,7 +136,8 @@ class ExamQuestionController extends Controller
                     'title_text'=>$question->title_text, 
                     'sub_question'=>$question->sub_question, 
                     'question_id'=>$question->id,
-                    'user_id'=>$user->id
+                    'user_id'=>$user->id,
+                    'order_no'=>$question->order_no
                 ]);
                 foreach($question->answers as $answer){
                     UserExamAnswer::store([
