@@ -2316,6 +2316,23 @@ aside.side_bar.slider-btn .side-item.status {
     background-position-x: 90%;
 }
 
+.sidebar-content ul li.side-item .side-dropdown-menu {
+    width: 87%;
+    float: right;
+}
+
+.sidebar-content ul ul li.side-item a {
+    font-size: 14.5px;
+}
+
+aside.side_bar .sidebar-content ul ul li.side-item a {
+    padding-left: 18px;
+}
+
+aside.side_bar.slider-btn .sidebar-content ul ul li.side-item a {
+    padding-left: 30px;
+}
+
 aside.side_bar.slider-btn .btn-slider {
     transform: translateY(-50%) rotate(180deg);
 }
