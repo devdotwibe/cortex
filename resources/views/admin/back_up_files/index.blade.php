@@ -26,6 +26,7 @@
                             <th data-th="Sl.No">Sl.No</th>
                             <th data-th="user">Admin User Name</th>
                             <th data-th="question">Question</th>
+                            <th data-th="question">Question Type</th>
                             <th data-th="delted_at">Deleted At</th>
                             <th data-th="Action">Action</th>
                         </tr>
@@ -102,6 +103,14 @@
                     searchable: true,
                  
                 },
+                { 
+                    data: 'question_type', 
+                    name: 'question_type', 
+                    orderable: true, 
+                    searchable: true,
+                 
+                },
+                
                 { 
                     data: 'deleted_at', 
                     name: 'deleted_at', 
