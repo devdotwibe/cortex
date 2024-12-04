@@ -735,7 +735,7 @@ class TopicExamController extends Controller
                 return ExamRetryAnswer::where('exam_retry_question_id', $question->id)->get();
             }
 
-            $data = ExamRetryQuestion::whereIn('review_type', ['mcq'])->where('exam_retry_review_id', $examRetryReview->id)->where('user_id', $user->id)->paginate(1);
+            $data = ExamRetryQuestion::whereIn('review_type', ['mcq'])->where('exam_retry_review_id', $examRetryReview->id)->where('user_id', $user->id)->orderBy('order_no')->paginate(1);
 
             $data_questions = ExamRetryQuestion::whereIn('review_type',['mcq'])->where('user_id',$user->id)->where('exam_retry_review_id',$examRetryReview->id)->get();
 
