@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('exam_retry_questions', function (Blueprint $table) {
-            //
+            $table->bigInteger('order_no')->default(9999999999);
         });
     }
 
@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('exam_retry_questions', function (Blueprint $table) {
-            //
+            $table->dropColumn('order_no');
         });
     }
 };
