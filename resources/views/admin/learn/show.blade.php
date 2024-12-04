@@ -142,14 +142,13 @@ function OrderChange(element)
 
         $(function(){
 
-            var defaultValue = '{{ $sub_category->id ?? '' }}';
+            $('#subcat-list').select2().val(defaultValue).trigger('change');
 
             $('.select2').select2().val(defaultValue).trigger('change');
 
             $('.select2').select2().change(function(){
 
-                var value = $('#sub_default').val();
-                value.selected;
+                var selectedValue = $(this).val();
 
                 if (questiontable != null) {
                     questiontable.ajax.reload()
