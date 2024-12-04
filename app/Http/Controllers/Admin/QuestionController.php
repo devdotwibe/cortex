@@ -371,7 +371,7 @@ class QuestionController extends Controller
     
                 case 'full_mock':
 
-                    $questionToUpdate = Question::where('exam_id', $exam_id)->get();
+                    $questionToUpdate = Question::where('category_id', $category_id)->where('exam_id', $exam_id)->get();
            
                     // foreach($questionToUpdate as $k => $item)
                     // {
@@ -383,6 +383,7 @@ class QuestionController extends Controller
                     if (!empty($order)) {
         
                         $questionToUpdate = Question::where('id', $question_id)
+                            ->where('category_id', $category_id)
                             ->where('exam_id', $exam_id)
                             ->first();
                     
@@ -396,6 +397,7 @@ class QuestionController extends Controller
                                          
                                     $otherQuestion =Question::
                                         where('exam_id', $exam_id)
+                                        ->where('category_id', $category_id)
                                         ->where('order_no', $newOrder)
                                         ->first();
                         
@@ -412,6 +414,7 @@ class QuestionController extends Controller
                                     
                                         Question::
                                             where('exam_id', $exam_id)
+                                            ->where('category_id', $category_id)
                                             ->where('order_no', '>', $currentOrder)
                                             ->where('order_no', '<=', $newOrder)
                                             ->decrement('order_no');  
@@ -420,6 +423,7 @@ class QuestionController extends Controller
                                     
                                         Question::
                                             where('exam_id', $exam_id)
+                                            ->where('category_id', $category_id)
                                             ->where('order_no', '<', $currentOrder)
                                             ->where('order_no', '>=', $newOrder)
                                             ->increment('order_no');

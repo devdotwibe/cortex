@@ -68,7 +68,7 @@ class FullMockExamController extends Controller
                         $results .= '<option value="' . $i . '" ' . $selected . '>' . $i . '</option>';
                     }
 
-                    $button .= '<select name="work_update_coordinator" onchange="OrderChange(this)" data-type="full_mock" data-id="' . $data->id . '" data-exam="' . $data->exam_id . '" data-category="" data-subcategory=""  data-subcategoryset="">'; 
+                    $button .= '<select name="work_update_coordinator" onchange="OrderChange(this)" data-type="full_mock" data-id="' . $data->id . '" data-exam="' . $data->exam_id . '" data-category="' . $data->category_id . '" data-subcategory=""  data-subcategoryset="">'; 
                     $button .= $results;
                     $button .= '</select>';
                     
