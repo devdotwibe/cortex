@@ -8574,6 +8574,10 @@ nav.navbar.top-barhide {
         max-height: 54.5vw;
     }
 
+    .live-class-section .col-md-6 {
+        width: 49%;
+    }
+
 }
 
 @media screen and (max-width:767px) {
@@ -8964,6 +8968,10 @@ nav.navbar.top-barhide {
 
     .exam-container.questionclass.answerclass .container-wrap.nopaginationclass .lesson-body {
         overflow: hidden;
+    }
+
+    .live-class-section .col-md-6 {
+        width: 100%;
     }
 }
 
