@@ -33,7 +33,7 @@ class HomeWorkController extends Controller
             $examCount = HomeWorkQuestion::where('home_work_id',$homeWork->id)->count();
 
             return $this->where('home_work_id', $homeWork->id)
-                ->addAction(function ($data) use ($homeWork,$homeWorkBook) {
+                ->addAction(function ($data) use ($homeWork,$homeWorkBook,$examCount) {
                   $button = '';  
                   $selected ="";
                    $results = "";
