@@ -19,7 +19,7 @@
                         <div class="card-body">
                             <div class="category">
                                 <div class="category-image">
-                                    <img src="{{$exam->examIcon($item->id,asset("assets/images/c:\Users\User\Downloads\topictestuser-red.svg"))}}">
+                                    <img src="{{$exam->examIcon($item->id,asset("assets/images/topictestuser-red.svg"))}}">
                                 </div>
                                 <div class="category-content">
                                     <div class="topictestcontent">
