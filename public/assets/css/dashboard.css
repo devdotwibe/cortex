@@ -337,6 +337,10 @@ main {
     align-items: center;
 }
 
+.category.cat-1 {
+    margin: 14px 0 2px;
+}
+
 .tips-class .category a {
     width: 100%;
     display: flex;
@@ -1791,6 +1795,7 @@ section.post-section .post-item .post-actions a.post-action-btn span {
     border: 1px solid #e9eaeb;
     display: inline-flex;
     flex-wrap: wrap;
+    margin: 5px 0 10px;
 }
 
 .class-term .class-term-content .zoom-list .zoom-item .zoom-id {
@@ -2155,13 +2160,13 @@ section.post-section .post-container .post-item .post-content {
 
 button.btn-slider {
     position: absolute;
-    right: -20px;
+    right: -17px;
     top: 50%;
     transform: translateY(-50%);
     z-index: 9;
     padding: 0;
-    width: 30px;
-    height: 30px;
+    width: 36px;
+    height: 36px;
     transition: all .25s ease-in-out;
 }
 
@@ -4284,17 +4289,19 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 }
 
 .live-class-section .card.private-class-card {
-    border: 1px solid #3F8D26;
-    border-radius: 20px;
+    border: 1px solid #398F17;
+    border-radius: 10px;
     transition: all .25s ease-in-out;
     height: 100%;
+    background: #F9FBFA;
 }
 
 .live-class-section .card.workshop-card {
-    border: 1px solid #334CA9;
-    border-radius: 20px;
+    border: 1px solid #3A47B0;
+    border-radius: 10px;
     transition: all .25s ease-in-out;
     height: 100%;
+    background: #FBFDFF;
 }
 
 .live-class-section .card .card-body {
@@ -4321,7 +4328,7 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 
 .live-class-section .private-class-card .card-body .category h3 {
     font-size: 24px;
-    color: #3F8D26;
+    color: #398F17;
     margin: 0 0 20px;
 }
 
@@ -4331,13 +4338,13 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 
 .live-class-section .card .card-body .category p {
     font-size: 16px;
-    color: #4A4A4A;
+    color: #398F17;
     line-height: 1.56;
 }
 
 .live-class-section .card.workshop-card h3 {
     font-size: 24px;
-    color: #334CA9;
+    color: #3A47B0;
     margin: 0 0 20px;
 }
 
@@ -4346,13 +4353,21 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 }
 
 .live-class-section .col-md-6 {
-    max-width: 440px;
+    max-width: 418px;
+    margin: 0 1% 0 0;
+}
+
+.live-class-section .col-md-6:last-child {
+    margin-right: 0;
 }
 
 .live-class-section .row {
     justify-content: center;
 }
 
+.live-class-section .workshop .card .card-body .category p {
+    color: #3A47B0;
+}
 
 .learn-inner-section .lesson .lesson-body {
     margin: 0;
@@ -4368,6 +4383,7 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 
 .content_section .row {
     margin: 0;
+    justify-content: center;
 }
 
 .content_section .card {
@@ -5356,13 +5372,15 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 
 .private_section .workshopclass .card {
     border: 1px solid #3F8D26;
-    border-radius: 20px;
+    border-radius: 10px;
     transition: all .25s ease-in-out;
     height: 100%;
+    background: #F9FBFA;
 }
 
 .private_section .card .card-body {
     padding: 40px;
+    background: #F9FBFA;
 }
 
 .private_section .card .card-body .category-image {
@@ -5401,10 +5419,18 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
     line-height: 1.56;
 }
 
+.private_section .workshopclass .card .card-body .category p {
+    color: #3F8D26;
+}
+
 .private_section .intensivework .card h3 {
     font-size: 24px;
     color: #334CA9;
     margin: 0 0 20px;
+}
+
+.private_section .workshopclass .card .card-body .category p {
+    color: #334CA9;
 }
 
 .private_section .card:hover {
@@ -5413,9 +5439,10 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 
 .private_section .intensivework .card {
     border: 1px solid #334CA9;
-    border-radius: 20px;
+    border-radius: 10px;
     transition: all .25s ease-in-out;
     height: 100%;
+    background: #FBFDFF;
 }
 
 .private_section .card .card-body .category button.btn-live-class {
@@ -5514,7 +5541,15 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 }
 
 .private_section .row .col-md-6.privateclass {
-    max-width: 440px;
+    max-width: 418px;
+}
+
+.private_section .row .col-md-6 {
+    margin: 0 1% 0 0;
+}
+
+.private_section .row .col-md-6:last-child {
+    margin-right: 0;
 }
 
 #live-private-modal .modal-dialog {
@@ -7994,6 +8029,10 @@ nav.navbar.top-barhide {
         height: calc(100vh - 200px);
     }
 
+    .private_section .row .col-md-6 {
+        width: 49%;
+    }
+
 }
 
 @media screen and (max-width:1199px) {
@@ -8564,6 +8603,10 @@ nav.navbar.top-barhide {
         max-height: 54.5vw;
     }
 
+    .live-class-section .col-md-6 {
+        width: 49%;
+    }
+
 }
 
 @media screen and (max-width:767px) {
@@ -8954,6 +8997,15 @@ nav.navbar.top-barhide {
 
     .exam-container.questionclass.answerclass .container-wrap.nopaginationclass .lesson-body {
         overflow: hidden;
+    }
+
+    .live-class-section .col-md-6 {
+        width: 100%;
+    }
+
+    .private_section .row .col-md-6 {
+        width: 100%;
+        margin: 0;
     }
 }
 
