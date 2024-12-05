@@ -26,30 +26,19 @@ class FullMockExamController extends Controller
     public function index(Request $request,Exam $exam){ 
         self::$defaultActions=["delete"];
 
-        $category=Category::whereHas('question')->first();
-        
-       
         if($request->ajax()){
 
             if(!empty($request->category)){
 
                 $this->where('category_id',$request->category);
-
-                $category_id = $request->category;
-
-                $examCount = Question::where('category_id',$request->category)->where('exam_id',$exam->id??0)->count();
             }
-            else
-            {
-                $this->where('category_id', $category->id);
-
-                $category_id =$category->id;
-                $examCount = Question::where('category_id',$category->id)->where('exam_id',$exam->id??0)->count();
-            }
-            
+        
             $this->orderBy('order_no', 'ASC');
 
+            $examCount = Question::where('exam_id',$exam->id??0)->count();
+
             return $this->where('exam_id',$exam->id) 
+
                 ->addAction(function($data)use($exam,$examCount){
 
                     $button = '';  

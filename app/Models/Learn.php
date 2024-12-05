@@ -32,7 +32,11 @@ class Learn extends Model
     ];
 
 
-
+    public function adminUser()
+    {
+        return $this->belongsTo(Admin::class,'admin_id');
+    }
+    
     public function learnanswers()
     {
         return $this->hasMany(LearnAnswer::class,'learn_id','id');
