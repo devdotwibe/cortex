@@ -4284,14 +4284,14 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 }
 
 .live-class-section .card.private-class-card {
-    border: 1px solid #3F8D26;
+    border: 1px solid #398F17;
     border-radius: 10px;
     transition: all .25s ease-in-out;
     height: 100%;
 }
 
 .live-class-section .card.workshop-card {
-    border: 1px solid #334CA9;
+    border: 1px solid #3A47B0;
     border-radius: 10px;
     transition: all .25s ease-in-out;
     height: 100%;
@@ -4321,7 +4321,7 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 
 .live-class-section .private-class-card .card-body .category h3 {
     font-size: 24px;
-    color: #3F8D26;
+    color: #398F17;
     margin: 0 0 20px;
 }
 
@@ -4331,13 +4331,13 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 
 .live-class-section .card .card-body .category p {
     font-size: 16px;
-    color: #4A4A4A;
+    color: #398F17;
     line-height: 1.56;
 }
 
 .live-class-section .card.workshop-card h3 {
     font-size: 24px;
-    color: #334CA9;
+    color: #3A47B0;
     margin: 0 0 20px;
 }
 
@@ -4353,6 +4353,9 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
     justify-content: center;
 }
 
+.live-class-section .workshop .card .card-body .category p {
+    color: #3A47B0;
+}
 
 .learn-inner-section .lesson .lesson-body {
     margin: 0;
