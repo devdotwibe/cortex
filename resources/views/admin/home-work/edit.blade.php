@@ -6,7 +6,7 @@
     <div class="header_wrapp">
         <div class="header_title">
             <div class="back-btn" id="back-btn" style="display: block"> <!-- Ensure proper display value -->
-                <a href="{{ route('admin.home-work.show',$homeWork->slug) }}">
+                <a href="{{ route('admin.home-work.show',['home_work'=>$homeWork->slug,'home_work_book'=>$homeWorkBook->slug]) }}">
                     <img src="{{ asset('assets/images/leftarrowblack.svg') }}" alt="">
                 </a>
             </div>
@@ -32,14 +32,9 @@
             }
         @endphp
       
-        <x-home-form  id="c" name="admin.home-work" :params='["home_work"=>$homeWork->slug,"home_work_question"=>$homeWorkQuestion->slug]'  :cancel="route('admin.home-work.show',$homeWork->slug)"   frmID="learnForm" btnsubmit="Save" :fields='[
-            ["name"=>"redirect", "value"=>route("admin.home-work.show",$homeWork->slug),"type"=>"hidden"],
-
-              ["name"=>"home_work_book_id" ,"label"=>"Week Booklet","ajaxurl"=>route("admin.home-work.show",$homeWork->slug),"type"=>"select", "size"=>4 ,"value"=>$homeWorkQuestion->home_work_book_id,"valuetext"=>$homeWorkQuestion->homeWorkBook->title],
-            ["name"=>"title", "placeholder"=>"Title","label"=>"Title","size"=>4,"type"=>"text","value"=>$homeWorkQuestion->title], 
+        <x-home-form  id="c" name="admin.home-work" :params='["home_work"=>$homeWork->slug,"home_work_book"=>$homeWorkBook->slug,"home_work_question"=>$homeWorkQuestion->slug]'  :cancel="route('admin.home-work.show',['home_work'=>$homeWork->slug,'home_work_book'=>$homeWorkBook->slug])"   frmID="learnForm" btnsubmit="Save" :fields='[
+            ["name"=>"redirect", "value"=>route("admin.home-work.show",["home_work"=>$homeWork->slug,"home_work_book"=>$homeWorkBook->slug]),"type"=>"hidden"],
             ["name"=>"home_work_type","event"=>["change"=>"cclickback"] ,"label"=>"Home Work Type","placeholder"=>"Select Home Work Type","type"=>"select","size"=>4,"value"=>$homeWorkQuestion->home_work_type,"options"=>[["value"=>"short_notes","text"=>"Short Note Questions"],["value"=>"mcq","text"=>"MCQs Questions"]]],
-             
-           
              ["name"=>"description", "addclass"=>"mcq_question","display"=>"block" , "label"=>"Question","size"=>12,"type"=>"editor","value"=>$homeWorkQuestion->description], 
              ["name"=>"answer", "addclass"=>"mcq_question","display"=>"block" ,"label"=>"answer" ,"type"=>"choice" ,"size"=>12 ,"value"=>$choices],
              ["name"=>"explanation", "addclass"=>"mcq_question","display"=>"block" , "label"=>"Explanation","size"=>12,"type"=>"editor" ,"value"=>$homeWorkQuestion->explanation ],

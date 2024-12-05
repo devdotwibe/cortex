@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'Homework Submission -> '.$homeWork->term_name)
+@section('title', 'Homework Submission-'.$homeWork->term_name)
 @section('content')
 
 <section class="header_nav">
@@ -12,18 +12,18 @@
                 </a>
             </div>
 
-            <h2> Homework Submission  -> {{ $homeWork->term_name  }}</h2>
+            <h2> Homework Submission -> {{ $homeWork->term_name  }} -> {{ $homeWorkBook->title }}</h2>
         </div>
-        <div class="header_content">
+        {{-- <div class="header_content">
              <div class="form-group">
                 <select  id="booklet-list" class="select2 form-control" data-placeholder="Select an Booklet" data-allow-clear="true" data-ajax--url="{{route('admin.home-work.create',$homeWork->slug)}}"></select>
              </div>
-        </div>
+        </div> --}}
          
         <div class="header_right">
             <ul class="nav_bar">
                 {{-- <li class="nav_item"><a class="nav_link btn"  data-bs-toggle="modal" data-bs-target="#user-acces-modal" data-target="#user-acces-modal" >User Access</a></li> --}}
-                <li class="nav_item"><a href="{{route('admin.home-work.create',$homeWork->slug)}}"  class="nav_link btn">Add Homework</a></li>
+                <li class="nav_item"><a href="{{route('admin.home-work.create',['home_work'=>$homeWork->slug,'home_work_book'=>$homeWorkBook->slug])}}"  class="nav_link btn">Add Homework</a></li>
             </ul>
         </div>
     </div>
@@ -32,17 +32,13 @@
 <section class="content_section admin_section"> 
     <div class="container">
         <div class="row">
-            <x-ajax-table :bulkaction="true" bulkactionlink="{{ route('admin.home-work.bulkaction', ['home_work' => $homeWork->slug]) }}"  tableid="categoryquestiontable"   
+            <x-ajax-table :bulkaction="true" bulkactionlink="{{ route('admin.home-work.bulkaction', ['home_work' => $homeWork->slug,'home_work_book'=>$homeWorkBook->slug]) }}"  tableid="categoryquestiontable"   
             
                 :bulkotheraction='[
                     ["name"=>"Enable Visible Access","value"=>"visible_status"],
                     ["name"=>"Disable Visible Access","value"=>"visible_status_disable"],
                    
                 ]' 
-            
-            
-            
-            
             :coloumns='[
                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
                 ["th"=>"Question","name"=>"question","data"=>"question"], 

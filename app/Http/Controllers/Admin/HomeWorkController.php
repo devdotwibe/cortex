@@ -15,30 +15,28 @@ use Illuminate\Support\Facades\Storage;
 class HomeWorkController extends Controller
 {
     use ResourceController;
-    public function show(Request $request, HomeWork $homeWork)
+    public function index(Request $request, HomeWork $homeWork)
+    {
+        $booklets = HomeWorkBook::where('home_work_id',$homeWork->id)->get();
+        return view('admin.home-work.index', compact('homeWork','booklets'));
+    }
+    public function show(Request $request,HomeWork $homeWork,HomeWorkBook $homeWorkBook)
     {
         self::reset();
         self::$model = HomeWorkQuestion::class;
         self::$routeName = "admin.home-work";
         self::$defaultActions = [''];
-        if ($request->ajax()) {
-            if (!empty($request->booklet)) {
-                $this->where('home_work_book_id', $request->booklet);
-            }
-
-            $this->orderBy('order_no', 'ASC');
-
+        $this->where('home_work_book_id', $homeWorkBook->id);
+        
+        if ($request->ajax()) { 
+           $this->orderBy('order_no', 'ASC');
             $examCount = HomeWorkQuestion::where('home_work_id',$homeWork->id)->count();
 
             return $this->where('home_work_id', $homeWork->id)
-
-                ->addAction(function ($data) use ($homeWork,$examCount) {
-
-                    $button = '';  
-
-                    $selected ="";
-
-                $results = "";
+                ->addAction(function ($data) use ($homeWork,$homeWorkBook) {
+                  $button = '';  
+                  $selected ="";
+                   $results = "";
 
                 for ($i = 1; $i <= $examCount; $i++) {
 
@@ -50,20 +48,19 @@ class HomeWorkController extends Controller
                 $button .= '<select name="work_update_coordinator" onchange="OrderChange(this)" data-type="home_work" data-id="' . $data->id . '" data-exam="" data-category="' . $data->home_work_id . '" data-subcategory=""  data-subcategoryset="" >'; 
                 $button .= $results;
                 $button .= '</select>';
-
                     return '
-                   
-                    <a href="' . route("admin.home-work.edit", ["home_work" => $homeWork->slug, "home_work_question" => $data->slug]) . '" class="btn btn-icons edit_btn">
-                        <span class="adminside-icon">
-                        <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
-                        </span>
-                        <span class="adminactive-icon">
-                            <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active" title="Edit">
-                        </span>
-                    </a>
+ <a href="' . route("admin.home-work.edit", ["home_work" => $homeWork->slug,"home_work_book"=>$homeWorkBook->slug, "home_work_question" => $data->slug]) . '" class="btn btn-icons edit_btn">
+    <span class="adminside-icon">
+      <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
+    </span>
+    <span class="adminactive-icon">
+        <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active" title="Edit">
+    </span>
+</a>
 
 
-                     <a  class="btn btn-icons dlt_btn" data-delete="' . route("admin.home-work.destroy", ["home_work" => $homeWork->slug, "home_work_question" => $data->slug]) . '">
+
+                     <a  class="btn btn-icons dlt_btn" data-delete="' . route("admin.home-work.destroy", ["home_work" => $homeWork->slug,"home_work_book"=>$homeWorkBook->slug, "home_work_question" => $data->slug]) . '">
                             <span class="adminside-icon">
                                 <img src="' . asset("assets/images/icons/material-symbols_delete-outline.svg") . '" alt="Delete">
                             </span>
@@ -94,34 +91,33 @@ class HomeWorkController extends Controller
 
                 ->buildTable(['visibility', 'question']);
         }
-        return view('admin.home-work.show', compact('homeWork'));
+        return view('admin.home-work.show', compact('homeWork','homeWorkBook'));
     }
-    public function create(Request $request, HomeWork $homeWork)
+    public function create(Request $request, HomeWork $homeWork,HomeWorkBook $homeWorkBook)
     {
         if ($request->ajax()) {
             self::reset();
             self::$model = HomeWorkBook::class;
             return $this->where('home_work_id', $homeWork->id)->buildSelectOption('title');
         }
-        return view('admin.home-work.create', compact('homeWork'));
+        return view('admin.home-work.create', compact('homeWork','homeWorkBook'));
     }
-    public function edit(Request $request, HomeWork $homeWork, HomeWorkQuestion $homeWorkQuestion)
+    public function edit(Request $request, HomeWork $homeWork, HomeWorkBook $homeWorkBook,HomeWorkQuestion $homeWorkQuestion)
     {
         if ($request->ajax()) {
             self::reset();
             self::$model = HomeWorkBook::class;
             return $this->where('home_work_id', $homeWork->id)->buildSelectOption('title');
         }
-        return view('admin.home-work.edit', compact('homeWork', 'homeWorkQuestion'));
+        return view('admin.home-work.edit', compact('homeWork', 'homeWorkQuestion','homeWorkBook'));
     }
-    public function update(Request $request, HomeWork $homeWork, HomeWorkQuestion $homeWorkQuestion)
+    public function update(Request $request, HomeWork $homeWork,HomeWorkBook $homeWorkBook, HomeWorkQuestion $homeWorkQuestion)
     {
 
         switch ($request->input('home_work_type', "")) {
 
             case 'short_notes':
                 $data = $request->validate([
-                    "home_work_book_id" => ['required'],
                     "short_question" => ['required'],
                     "short_answer" => ["required"],
                 ]);
@@ -129,12 +125,9 @@ class HomeWorkController extends Controller
             case 'mcq':
                 // dd($request);
                 $data = $request->validate([
-                    "home_work_book_id" => ['required'],
                     "description" => ['required'],
                     "answer" => ['required'],
-                   "answer.*" => ["required_without_all:choice_answer_image.*,file_answer.*", 'string', 'max:150', 'nullable'],
-                  
-
+                   "answer.*" => ["required_without_all:choice_answer_image.*,file_answer.*", 'string', 'max:150', 'nullable'],                 
                     "file_answer.*" => ["required_without_all:answer.*,choice_answer_image.*", 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
                     "explanation" => ['nullable']
                 ], [
@@ -146,15 +139,11 @@ class HomeWorkController extends Controller
 
             default:
                 $data = $request->validate([
-                    "home_work_book_id" => ['required'],
-                    "title" => ['required'],
                     "home_work_type" => ["required"],
                 ]);
                 break;
         }
 
-        $data['title'] = $request->title;
-        $data['home_work_id'] = $homeWork->id;
         $data['home_work_type'] = $request->home_work_type;
         $homeWorkQuestion->update($data);
         $ansIds = [];
@@ -187,9 +176,6 @@ class HomeWorkController extends Controller
 
             } else {
                 $data = [
-                    "home_work_id" => $homeWork->id,
-                    "home_work_book_id" => $homeWorkQuestion->home_work_book_id,
-                    "home_work_question_id" => $homeWorkQuestion->id,
                     "iscorrect" => $k == ($request->choice_answer ?? 0) ? true : false,
                     "title" => $ans
                 ];
@@ -207,21 +193,19 @@ class HomeWorkController extends Controller
         $redirect = $request->redirect ?? route('admin.home-work.show', $homeWork->slug);
         return redirect($redirect)->with("success", "Question has been successfully updated");
     }
-    public function store(Request $request, HomeWork $homeWork)
+    public function store(Request $request, HomeWork $homeWork,HomeWorkBook $homeWorkBook)
     {
 
         switch ($request->input('home_work_type', "")) {
 
             case 'short_notes':
                 $data = $request->validate([
-                    "home_work_book_id" => ['required'],
                     "short_question" => ['required'],
                     "short_answer" => ["required"],
                 ]);
                 break;
             case 'mcq':
                 $data = $request->validate([
-                    "home_work_book_id" => ['required'],
                     "description" => ['required'],
                     "answer" => ['required'],
                     "answer.*" => ["required_without:file_answer", 'string', 'max:150', 'nullable'],
@@ -236,12 +220,12 @@ class HomeWorkController extends Controller
 
             default:
                 $data = $request->validate([
-                    "home_work_book_id" => ['required'],
                     "title" => ['required'],
                     "home_work_type" => ["required"],
                 ]);
                 break;
         }
+
 
         $question_count = HomeWorkQuestion::where('home_work_id', $homeWork->id)->count();
 
@@ -257,6 +241,7 @@ class HomeWorkController extends Controller
 
         $data['title'] = $request->title;
         $data['home_work_id'] = $homeWork->id;
+        $data['home_work_book_id'] = $homeWorkBook->id;
         $data['home_work_type'] = $request->home_work_type;
         $question = HomeWorkQuestion::store($data);
 
@@ -401,9 +386,8 @@ class HomeWorkController extends Controller
 // }
 
 
-    public function bulkaction(Request $request, HomeWork $homeWork)
+    public function bulkaction(Request $request, HomeWork $homeWork,HomeWorkBook $homeWorkBook)
     {
-        $booklet = $request->input('home_work_book_id');
 
         if (!empty($request->deleteaction)) {
 
@@ -455,13 +439,13 @@ class HomeWorkController extends Controller
                 default:
                     break;
             }
-
-
+            $selectBoxValues = is_array($request->input('selectbox', [])) ? $request->input('selectbox', []) : [];
+            HomeWorkQuestion::whereIn('id', $selectBoxValues)->update($data);
 
             if ($request->ajax()) {
                 return response()->json(["success" => "Questions updated successfully"]);
             }
-            return redirect()->route('admin.home-work.show', $homeWork->slug)
+            return redirect()->route('admin.home-work.show', ['home_work'=>$homeWork->slug,'home_work_book'=>$homeWorkBook->slug])
                 ->with("success", "Questions updated successfully");
         }
     }
