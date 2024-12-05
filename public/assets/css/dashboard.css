@@ -337,6 +337,10 @@ main {
     align-items: center;
 }
 
+.category.cat-1 {
+    margin: 14px 0 2px;
+}
+
 .tips-class .category a {
     width: 100%;
     display: flex;
@@ -1791,6 +1795,7 @@ section.post-section .post-item .post-actions a.post-action-btn span {
     border: 1px solid #e9eaeb;
     display: inline-flex;
     flex-wrap: wrap;
+    margin: 5px 0 10px;
 }
 
 .class-term .class-term-content .zoom-list .zoom-item .zoom-id {
