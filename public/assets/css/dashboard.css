@@ -4288,6 +4288,7 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
     border-radius: 10px;
     transition: all .25s ease-in-out;
     height: 100%;
+    background: #F9FBFA;
 }
 
 .live-class-section .card.workshop-card {
@@ -4295,6 +4296,7 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
     border-radius: 10px;
     transition: all .25s ease-in-out;
     height: 100%;
+    background: #FBFDFF;
 }
 
 .live-class-section .card .card-body {
@@ -4347,6 +4349,11 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 
 .live-class-section .col-md-6 {
     max-width: 418px;
+    margin: 0 1% 0 0;
+}
+
+.live-class-section .col-md-6:last-child {
+    margin-right: 0;
 }
 
 .live-class-section .row {
