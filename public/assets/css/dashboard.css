@@ -2228,13 +2228,13 @@ button.btn-slider img {
 
 .sidebar-content ul li.side-item a:hover {
     background: #EFEFEF;
-    color: #FFCD56;
+    font-weight: bold;
     border: 1px solid #dadada;
 }
 
 .sidebar-content ul li.side-item.active a {
     background: #EFEFEF;
-    color: #FFCD56;
+    font-weight: bold;
     border: 1px solid #dadada;
 }
 
