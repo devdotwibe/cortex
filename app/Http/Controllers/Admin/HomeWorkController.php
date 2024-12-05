@@ -290,6 +290,10 @@ class HomeWorkController extends Controller
         
         $homeWorkQuestion->admin_id = $admin->id;
 
+        HomeWorkQuestion::where('order_no','>',$homeWorkQuestion->order_no)
+        ->where('home_work_id', $homeWorkQuestion->home_work_id)
+        ->decrement('order_no');
+
         $homeWorkQuestion->save();
         
         $homeWorkQuestion->delete();

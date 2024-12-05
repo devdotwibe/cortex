@@ -56,23 +56,27 @@ class LearnController extends Controller
         $category_sub=SubCategory::whereHas('learns')->first();
         
         if (empty($request->sub_category)) {
-            
-            $this->where('sub_category_id', $category_sub->id);
-        }
 
-        $sub_category =$category_sub->id;
+            $this->where('sub_category_id', $category_sub->id);
+            $sub_category =$category_sub->id;
+        }
 
         if ($request->ajax()) {
             if (!empty($request->sub_category)) {
                 $this->where('sub_category_id', $request->sub_category);
 
                 $sub_category = $request->sub_category;
+
+                $examCount = Learn::where('category_id',$category->id)->where('sub_category_id',$sub_category)->count();
+            }
+            else
+            {
+                $sub_category =$category_sub->id;
+
+                $examCount = Learn::where('category_id',$category->id)->where('sub_category_id',$sub_category)->count();
             }
            
-
             $this->orderBy('order_no', 'ASC');
-
-            $examCount = Learn::where('category_id',$category->id)->where('sub_category_id',$sub_category)->count();
 
             return $this->where('category_id', $category->id)
                 ->addAction(function ($data) use ($category,$examCount) {
@@ -87,7 +91,7 @@ class LearnController extends Controller
 
                     $selected = ($data->order_no == $i) ? 'selected' : ''; 
 
-                    $results .= '<option value="' . $i . '" ' . $selected . '>' . $i . '</option>';
+                    $results .= '<option data-order="'.$data->order_no.'" value="' . $i . '" ' . $selected . '>' . $i . '</option>';
                 }
 
                 $button .= '<select name="work_update_coordinator" onchange="OrderChange(this)" data-type="learn" data-id="' . $data->id . '" data-exam="" data-category="' . $data->category_id . '" data-subcategory="' . $data->sub_category_id . '"  data-subcategoryset="" >'; 
@@ -139,7 +143,7 @@ class LearnController extends Controller
             ]);
             $exam = Exam::find($exam->id);
         }
-        return view("admin.learn.show", compact('category', 'exam','category_sub'));
+        return view("admin.learn.show", compact('category', 'exam'));
     }
 
 
@@ -417,6 +421,11 @@ class LearnController extends Controller
         $admin = Auth::guard('admin')->user();
         
         $learn->admin_id = $admin->id;
+
+        Learn::where('order_no','>',$learn->order_no)
+        ->where('category_id',$learn->category_id)
+        ->where('sub_category_id',$learn->sub_category_id)
+        ->decrement('order_no');
 
         $learn->save();
 

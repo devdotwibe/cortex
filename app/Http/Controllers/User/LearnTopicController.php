@@ -132,7 +132,7 @@ class LearnTopicController extends Controller
                 $learn = Learn::findSlug($request->question);
                 return LearnAnswer::where('learn_id', $learn->id)->get(['slug', 'title', 'image']);
             }
-            return Learn::where('category_id', $category->id)->where('sub_category_id', $subCategory->id)->paginate(1, ['slug', 'learn_type', 'title', 'short_question', 'video_url', 'note', 'mcq_question']);
+            return Learn::where('category_id', $category->id)->where('sub_category_id', $subCategory->id)->orderBy('order_no')->paginate(1, ['slug', 'learn_type', 'title', 'short_question', 'video_url', 'note', 'mcq_question']);
         }
         $learncount = Learn::where('category_id', $category->id)->where('sub_category_id', $subCategory->id)->count();
         $review = Learn::where('category_id', $category->id)
@@ -167,7 +167,7 @@ class LearnTopicController extends Controller
                 $question = UserReviewQuestion::findSlug($request->question);
                 return UserReviewAnswer::where('user_review_question_id', $question->id)->get(['slug', 'title', 'user_answer', 'iscorrect', 'description', 'image']);
             }
-            $data = UserReviewQuestion::whereIn('review_type', ['mcq', 'short_notes'])->where('user_id', $user->id)->where('user_exam_review_id', $userExamReview->id)->paginate(1, ['title', 'note', 'slug', 'review_type', 'user_answer', 'currect_answer', 'explanation']);
+            $data = UserReviewQuestion::whereIn('review_type', ['mcq', 'short_notes'])->where('user_id', $user->id)->where('user_exam_review_id', $userExamReview->id)->orderBy('order_no')->paginate(1, ['title', 'note', 'slug', 'review_type', 'user_answer', 'currect_answer', 'explanation']);
 
             $data_questions = UserReviewQuestion::whereIn('review_type', ['mcq', 'short_notes'])->where('user_id', $user->id)->where('user_exam_review_id', $userExamReview->id)->get();
 

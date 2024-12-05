@@ -31,7 +31,8 @@ class ExamRetryQuestion extends Model
         'sub_question',
         'category_id',
         'sub_category_id',
-        'sub_category_set'
+        'sub_category_set',
+        'order_no'
     ];
     protected $appends=[
         'total_user_taken_time', 
