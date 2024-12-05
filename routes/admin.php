@@ -426,18 +426,15 @@ Route::name('admin.')->prefix('admin')->group(function () {
 
         });
         Route::prefix('home-work')->name('home-work.')->group(function () {
-            Route::get('/{home_work}', [HomeWorkController::class, 'show'])->name('show');
-            Route::get('/{home_work}/question/create', [HomeWorkController::class, 'create'])->name('create');
-            Route::post('/{home_work}/question/create', [HomeWorkController::class, 'store'])->name('store');
-            Route::get('/{home_work}/question/{home_work_question}/edit', [HomeWorkController::class, 'edit'])->name('edit');
-            Route::put('/{home_work}/question/{home_work_question}/edit', [HomeWorkController::class, 'update'])->name('update');
-            Route::delete('/{home_work}/question/{home_work_question}/destroy', [HomeWorkController::class, 'destroy'])->name('destroy');
+            Route::get('/{home_work}/index', [HomeWorkController::class, 'index'])->name('index');
+            Route::get('/{home_work}/{home_work_book}', [HomeWorkController::class, 'show'])->name('show');
+            Route::get('/{home_work}/{home_work_book}/question/create', [HomeWorkController::class, 'create'])->name('create');
+            Route::post('/{home_work}/{home_work_book}/question/create', [HomeWorkController::class, 'store'])->name('store');
+            Route::get('/{home_work}/{home_work_book}/question/{home_work_question}/edit', [HomeWorkController::class, 'edit'])->name('edit');
+            Route::put('/{home_work}/{home_work_book}/question/{home_work_question}/edit', [HomeWorkController::class, 'update'])->name('update');
+            Route::delete('/{home_work}/{home_work_book}/question/{home_work_question}/destroy', [HomeWorkController::class, 'destroy'])->name('destroy');
             Route::get('/{home_work}/question/{home_work_question}/visibility', [HomeWorkController::class, 'questionvisibility'])->name('visibility');
-
-            Route::post('/{home_work}/bulk/action', [HomeWorkController::class, 'bulkaction'])->name('bulkaction');
-
-
-
+            Route::post('/{home_work}/{home_work_book}/bulk/action', [HomeWorkController::class, 'bulkaction'])->name('bulkaction');
             Route::post('/home-work/booklet/create', [HomeWorkController::class, 'storebooklet'])->name('storebooklet');
             Route::get('/home-work/booklet/{home_work_book}/show', [HomeWorkController::class, 'showbooklet'])->name('showbooklet');
             Route::put('/home-work/booklet/{home_work_book}/update', [HomeWorkController::class, 'updatebooklet'])->name('updatebooklet');
