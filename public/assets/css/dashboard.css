@@ -4383,6 +4383,7 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 
 .content_section .row {
     margin: 0;
+    justify-content: center;
 }
 
 .content_section .card {
@@ -5371,13 +5372,15 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 
 .private_section .workshopclass .card {
     border: 1px solid #3F8D26;
-    border-radius: 20px;
+    border-radius: 10px;
     transition: all .25s ease-in-out;
     height: 100%;
+    background: #F9FBFA;
 }
 
 .private_section .card .card-body {
     padding: 40px;
+    background: #F9FBFA;
 }
 
 .private_section .card .card-body .category-image {
@@ -5416,10 +5419,18 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
     line-height: 1.56;
 }
 
+.private_section .workshopclass .card .card-body .category p {
+    color: #3F8D26;
+}
+
 .private_section .intensivework .card h3 {
     font-size: 24px;
     color: #334CA9;
     margin: 0 0 20px;
+}
+
+.private_section .workshopclass .card .card-body .category p {
+    color: #334CA9;
 }
 
 .private_section .card:hover {
@@ -5428,9 +5439,10 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 
 .private_section .intensivework .card {
     border: 1px solid #334CA9;
-    border-radius: 20px;
+    border-radius: 10px;
     transition: all .25s ease-in-out;
     height: 100%;
+    background: #FBFDFF;
 }
 
 .private_section .card .card-body .category button.btn-live-class {
@@ -5529,7 +5541,15 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 }
 
 .private_section .row .col-md-6.privateclass {
-    max-width: 440px;
+    max-width: 418px;
+}
+
+.private_section .row .col-md-6 {
+    margin: 0 1% 0 0;
+}
+
+.private_section .row .col-md-6:last-child {
+    margin-right: 0;
 }
 
 #live-private-modal .modal-dialog {
@@ -8009,6 +8029,10 @@ nav.navbar.top-barhide {
         height: calc(100vh - 200px);
     }
 
+    .private_section .row .col-md-6 {
+        width: 49%;
+    }
+
 }
 
 @media screen and (max-width:1199px) {
@@ -8977,6 +9001,11 @@ nav.navbar.top-barhide {
 
     .live-class-section .col-md-6 {
         width: 100%;
+    }
+
+    .private_section .row .col-md-6 {
+        width: 100%;
+        margin: 0;
     }
 }
 
