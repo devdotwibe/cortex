@@ -48,9 +48,10 @@
 <section class="content_section admin_section">
     <div class="container">
         <div class="row">
-            <x-ajax-table :bulkaction="true" bulkactionlink="{{route('admin.full-mock-exam.bulkaction')}}"
+            <x-ajax-table :bulkaction="true" :beforeajax="true" bulkactionlink="{{route('admin.full-mock-exam.bulkaction', ['exam'=>$exam->slug] )}}"
             
-            
+            tableid="categoryquestiontable"
+             
             :bulkotheraction='[
                 ["name"=>"Enable Visible Access","value"=>"visible_status"],
                 ["name"=>"Disable Visible Access","value"=>"visible_status_disable"],
@@ -81,6 +82,51 @@ $(function() {
     }, 500); 
 });
 
+        function OrderChange(element)
+
+        {
+            var id = $(element).attr('data-id');
+
+            var value = $(element).val();
+
+            var exam_id = $(element).attr('data-exam');
+
+            var category_id = $(element).attr('data-category');
+
+            var subcategory_id = $(element).attr('data-subcategory');
+
+            var subcategoryset = $(element).attr('data-subcategoryset');
+
+            var type = $(element).attr('data-type');
+
+            console.log(value,id);
+
+            var url = '{{route('admin.order_change')}}';
+
+            $.ajax({
+                url: url,
+
+                method: 'POST',
+                data: {
+                    id: id,
+                    value: value,
+                    exam_id: exam_id,
+                    category_id: category_id,
+                    subcategory_id: subcategory_id,
+                    subcategoryset: subcategoryset,
+                    type: type,
+                },
+                success: function(res) {
+
+                    console.log(res);
+                    $('#table-categoryquestiontable').DataTable().ajax.reload(); 
+
+                }
+
+            });
+
+        }
+
         var questiontable = null;
         function questiontableinit(table) {
             questiontable = table
@@ -110,6 +156,7 @@ $(function() {
  
         function questionbeforeajax(data){
             data.category=$('#cat-list').val()||null;
+            console.log(data)
             return data;
         }
 
@@ -122,6 +169,7 @@ $(function() {
                 if (questiontable != null) {
                     questiontable.ajax.reload()
                 }
+                $('#cat_id').val($('#cat-list').val())
             })
         })
     </script>

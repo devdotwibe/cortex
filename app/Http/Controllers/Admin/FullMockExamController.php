@@ -10,6 +10,7 @@ use App\Models\Question;
 use App\Models\SubCategory;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class FullMockExamController extends Controller
@@ -26,22 +27,50 @@ class FullMockExamController extends Controller
         self::$defaultActions=["delete"];
 
         if($request->ajax()){
+
             if(!empty($request->category)){
+
                 $this->where('category_id',$request->category);
             }
+        
+            $this->orderBy('order_no', 'ASC');
+
+            $examCount = Question::where('exam_id',$exam->id??0)->count();
+
             return $this->where('exam_id',$exam->id) 
-                ->addAction(function($data)use($exam){
+
+                ->addAction(function($data)use($exam,$examCount){
+
+                    $button = '';  
+
+                    $selected ="";
+
+                    $results = "";
+
+                    for ($i = 1; $i <= $examCount; $i++) {
+
+                        $selected = ($data->order_no == $i) ? 'selected' : ''; 
+
+                        $results .= '<option value="' . $i . '" ' . $selected . '>' . $i . '</option>';
+                    }
+
+                    $button .= '<select name="work_update_coordinator" onchange="OrderChange(this)" data-type="full_mock" data-id="' . $data->id . '" data-exam="' . $data->exam_id . '" data-category="' . $data->category_id . '" data-subcategory=""  data-subcategoryset="">'; 
+                    $button .= $results;
+                    $button .= '</select>';
+                    
                     return '
                     
 
-                      <a href="'.route("admin.full-mock-exam.edit",["exam"=>$exam->slug,"question"=>$data->slug]).'" class="btn btn-icons edit_btn">
-    <span class="adminside-icon">
-      <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
-    </span>
-    <span class="adminactive-icon">
-        <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active" title="Edit">
-    </span>
-</a>
+                <a href="'.route("admin.full-mock-exam.edit",["exam"=>$exam->slug,"question"=>$data->slug]).'" class="btn btn-icons edit_btn">
+                    <span class="adminside-icon">
+                    <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
+                    </span>
+                    <span class="adminactive-icon">
+                        <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active" title="Edit">
+                    </span>
+                </a>
+
+                 ' . $button . '
 
 
                     ';
@@ -112,14 +141,41 @@ class FullMockExamController extends Controller
     } 
 
 
-    public function bulkaction(Request $request)
+    public function bulkaction(Request $request,Exam $exam)
     {
         if (!empty($request->deleteaction)) {
             if ($request->input('select_all', 'no') == "yes") {
-                Question::where('id', '>', 0)->delete();
+
+                if($request->category){
+
+                    
+                $admin = Auth::guard('admin')->user();
+                                
+                Question::where('exam_id', $exam->id)->where('category_id',$request->category)
+                ->update(['admin_id' => $admin->id]);
+
+                    Question::where('exam_id', $exam->id)
+                            ->where('category_id',$request->category)
+                            ->delete();     
+                }else{
+
+                    $admin = Auth::guard('admin')->user();
+                                
+                    Question::where('exam_id', $exam->id)
+                    ->update(['admin_id' => $admin->id]);
+
+                    Question::where('exam_id', $exam->id)->delete();     
+                }
             } else {
+
+                $admin = Auth::guard('admin')->user();
+                                
+                Question::whereIn('id', $request->input('selectbox', []))
+                ->update(['admin_id' => $admin->id]);
+
                 Question::whereIn('id', $request->input('selectbox', []))->delete();
             }
+
             if ($request->ajax()) {
                 return response()->json(["success" => "Questions deleted success"]);
             }
@@ -145,7 +201,13 @@ class FullMockExamController extends Controller
                     break;
             }
             if ($request->input('select_all', 'no') == "yes") {
-                Question::where('id', '>', 0)->update($data);
+                if($request->category){
+                    Question::where('exam_id', $exam->id)
+                            ->where('category_id',$request->category)
+                            ->update($data);
+                }else{
+                    Question::where('exam_id', $exam->id)->update($data);
+                }
             } else {
                 Question::whereIn('id', $request->input('selectbox', []))->update($data);
             }

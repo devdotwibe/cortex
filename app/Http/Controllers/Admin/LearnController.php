@@ -11,6 +11,7 @@ use App\Models\Setname;
 use App\Models\SubCategory;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class LearnController extends Controller
@@ -52,23 +53,63 @@ class LearnController extends Controller
         self::$routeName = "admin.learn";
         self::$defaultActions = [];
 
+        $category_sub=SubCategory::whereHas('learns')->first();
+        
+        if (empty($request->sub_category)) {
+
+            $this->where('sub_category_id', $category_sub->id);
+            $sub_category =$category_sub->id;
+        }
+
         if ($request->ajax()) {
             if (!empty($request->sub_category)) {
                 $this->where('sub_category_id', $request->sub_category);
+
+                $sub_category = $request->sub_category;
+
+                $examCount = Learn::where('category_id',$category->id)->where('sub_category_id',$sub_category)->count();
             }
+            else
+            {
+                $sub_category =$category_sub->id;
+
+                $examCount = Learn::where('category_id',$category->id)->where('sub_category_id',$sub_category)->count();
+            }
+           
+            $this->orderBy('order_no', 'ASC');
+
             return $this->where('category_id', $category->id)
-                ->addAction(function ($data) use ($category) {
+                ->addAction(function ($data) use ($category,$examCount) {
+
+                    $button = '';  
+
+                    $selected ="";
+
+                $results = "";
+
+                for ($i = 1; $i <= $examCount; $i++) {
+
+                    $selected = ($data->order_no == $i) ? 'selected' : ''; 
+
+                    $results .= '<option data-order="'.$data->order_no.'" value="' . $i . '" ' . $selected . '>' . $i . '</option>';
+                }
+
+                $button .= '<select name="work_update_coordinator" onchange="OrderChange(this)" data-type="learn" data-id="' . $data->id . '" data-exam="" data-category="' . $data->category_id . '" data-subcategory="' . $data->sub_category_id . '"  data-subcategoryset="" >'; 
+                $button .= $results;
+                $button .= '</select>';
+
+
                     return '
                   
 
                      <a href="' . route("admin.learn.edit", ["category" => $category->slug, "learn" => $data->slug]) . '" class="btn btn-icons edit_btn">
-    <span class="adminside-icon">
-      <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
-    </span>
-    <span class="adminactive-icon">
-        <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active" title="Edit">
-    </span>
-</a>
+                        <span class="adminside-icon">
+                        <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
+                        </span>
+                        <span class="adminactive-icon">
+                            <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active" title="Edit">
+                        </span>
+                    </a>
 
 
                     
@@ -80,6 +121,8 @@ class LearnController extends Controller
                                 <img src="' . asset("assets/images/iconshover/material-symbols_delete-yellow.svg") . '" alt="Delete Active" title="Delete">
                             </span>
                         </a> 
+
+                         ' . $button . '
 
                     ';
                 })->addColumn('visibility', function ($data) {
@@ -219,6 +262,18 @@ class LearnController extends Controller
                 break;
         }
 
+
+        $question_count = Learn::where('category_id', $request->category_id)->where('sub_category_id', $request->sub_category_id)->count();
+
+        
+        if(!empty($question_count))
+        {
+            $learn_data['order_no'] = $question_count+1; 
+        }
+        else
+        {
+            $learn_data['order_no'] = 1; 
+        }
 
         $learn_data['title'] = $request->title;
 
@@ -362,7 +417,20 @@ class LearnController extends Controller
     public function destroy(Request $request, Category $category, Learn $learn)
     {
         LearnAnswer::where('learn_id', $learn->id)->delete();
+
+        $admin = Auth::guard('admin')->user();
+        
+        $learn->admin_id = $admin->id;
+
+        Learn::where('order_no','>',$learn->order_no)
+        ->where('category_id',$learn->category_id)
+        ->where('sub_category_id',$learn->sub_category_id)
+        ->decrement('order_no');
+
+        $learn->save();
+
         $learn->delete();
+        
         if ($request->ajax()) {
             return response()->json(["success" => "Learn has been successfully deleted"]);
         }
@@ -390,16 +458,25 @@ class LearnController extends Controller
             if ($request->input('select_all', 'no') == "yes") {
                
                 $selectAllValues = json_decode($request->select_all_values, true);
+                
+                $admin = Auth::guard('admin')->user();
+                                
+                Learn::whereIn('id', $selectAllValues)
+                ->update(['admin_id' => $admin->id]);
+
                 Learn::whereIn('id', $selectAllValues)  
                     ->delete();
+
             } else {
-                // Ensure selectbox is an array or default to an empty array
+               
                 $selectBoxValues = is_array($request->input('selectbox', [])) ? $request->input('selectbox', []) : [];
                 
-                Learn::whereIn('id', $selectBoxValues)
-                    ->where('category_id', $category->id)
-                    ->where('sub_category_id', $subcategoryId) // Ensure the delete is done for the correct subcategory
-                    ->delete();
+                $admin = Auth::guard('admin')->user();
+
+                Learn::whereIn('id', $selectBoxValues)->update(['admin_id' => $admin->id]);
+         
+                Learn::whereIn('id', $selectBoxValues)->delete();
+                   
             }
             
     

@@ -64,7 +64,7 @@ class PrivateClassHomeWorkController extends Controller
                 $question = HomeWorkQuestion::findSlug($request->question);
                 return HomeWorkAnswer::where('home_work_question_id', $question->id)->get(['slug', 'title', 'image']);
             }
-            return HomeWorkQuestion::where('home_work_id', $homeWork->id)->where('home_work_book_id', $homeWorkBook->id)->paginate(1, ['slug', 'title', 'description', 'duration', 'short_question', 'home_work_type']);
+            return HomeWorkQuestion::where('home_work_id', $homeWork->id)->where('home_work_book_id', $homeWorkBook->id)->orderBy('order_no')->paginate(1, ['slug', 'title', 'description', 'duration', 'short_question', 'home_work_type']);
         }
         $questioncount = HomeWorkQuestion::where('home_work_id', $homeWork->id)->where('home_work_book_id', $homeWorkBook->id)->count();
         return view('user.home-work.booklet', compact('homeWork', 'homeWorkBook', 'questioncount', 'user'));
@@ -142,7 +142,7 @@ class PrivateClassHomeWorkController extends Controller
                 return HomeWorkReviewAnswer::where('home_work_review_question_id', $question->id)->where('home_work_review_id', $homeWorkReview->id)->get();
             }
 
-            $data = HomeWorkReviewQuestion::whereIn('review_type', ['mcq', 'short_notes'])->where('home_work_review_id', $homeWorkReview->id)->where('user_id', $user->id)->paginate(1);
+            $data = HomeWorkReviewQuestion::whereIn('review_type', ['mcq', 'short_notes'])->where('home_work_review_id', $homeWorkReview->id)->where('user_id', $user->id)->orderBy('order_no')->paginate(1);
 
             $data_questions = HomeWorkReviewQuestion::whereIn('review_type', ['mcq', 'short_notes'])->where('home_work_review_id', $homeWorkReview->id)->where('user_id', $user->id)->get();
 
