@@ -7,10 +7,12 @@ use App\Trait\ResourceModel;
 use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 #[ScopedBy([VisibleStatus::class])]
 class HomeWorkQuestion extends Model
 {
-    use HasFactory, ResourceModel;
+    use HasFactory, ResourceModel,SoftDeletes;
     protected $fillable = [
         'slug',
         'title',
@@ -23,6 +25,8 @@ class HomeWorkQuestion extends Model
         'home_work_id',
         'home_work_book_id',
         'home_work_type',
+        'order_no',
+        'admin_id',
     ];
     public function homeWorkBook()
     {

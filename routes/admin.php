@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\Admin\BackUpController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\FaqController;
@@ -145,10 +146,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
 
         Route::prefix('full-mock-exam')->name('full-mock-exam.')->group(function () {
             Route::get('/{exam}', [FullMockExamController::class, 'index'])->name('index');
-
-            Route::post('/full-mock-exam/bulk/action', [FullMockExamController::class, 'bulkaction'])->name('bulkaction');
-
-
+            Route::post('/{exam}/bulk/action', [FullMockExamController::class, 'bulkaction'])->name('bulkaction');
             Route::get('/{exam}/question/{question}', [FullMockExamController::class, 'show'])->name('show');
             Route::get('/{exam}/create', [FullMockExamController::class, 'create'])->name('create');
             Route::get('/{exam}/question/{question}/edit', [FullMockExamController::class, 'edit'])->name('edit');
@@ -187,7 +185,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
 
                 // Route::post('/topic-test/bulk/action',[TopicTestController::class,'bulkaction'])->name('bulkaction');
 
-                Route::post('/{category}/bulk/action', [TopicTestController::class, 'bulkaction'])->name('bulkaction');
+                Route::post('/{category}/{exam}/bulk/action', [TopicTestController::class, 'bulkaction'])->name('bulkaction');
 
 
                 Route::get('/{category}/create', [TopicTestController::class, 'create'])->name('create');
@@ -200,6 +198,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
 
 
         Route::resource("/question", QuestionController::class);
+        Route::post('/order_change', [QuestionController::class, 'order_change'])->name('order_change');
         Route::get('/question/{question}/visibility', [QuestionController::class, 'visibility'])->name('question.visibility');
         Route::post('question/delete/image', [QuestionController::class, 'deleteImage'])->name('delete.image');
 
@@ -657,6 +656,20 @@ Route::name('admin.')->prefix('admin')->group(function () {
                 Route::post('/update_admin_user', [AdminUserController::class, 'update_admin_user'])->name('update_admin_user');
 
             });
+
+            Route::prefix('back_up_files')->name('back_up_files.')->group(function () {
+
+                Route::get('/', [BackUpController::class, 'index'])->name('index');
+
+                Route::post('/store', [BackUpController::class, 'store'])->name('store');
+
+                Route::post('/edit', [BackUpController::class, 'edit'])->name('edit');
+
+                Route::delete('/destroy/{admin_user}', [BackUpController::class, 'destroy'])->name('destroy');
+
+            });
+
+
         });
 
 

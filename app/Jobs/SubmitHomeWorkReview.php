@@ -59,7 +59,8 @@ class SubmitHomeWorkReview implements ShouldQueue
                 'home_work_book_id' => $this->review->home_work_book_id,
                 'home_work_question_id' => $question->id,
                 'user_id' => $this->review->user_id,
-                'time_taken' => $takentime[$question->slug] ?? 0
+                'time_taken' => $takentime[$question->slug] ?? 0,
+                'order_no'=>$question->order_no,
             ]);
 
             $takentimereview[$revquestion->slug] = $takentime[$question->slug] ?? 0;

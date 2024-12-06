@@ -121,7 +121,8 @@ class TopicExamController extends Controller
                     'title_text'=>$question->title_text, 
                     'sub_question'=>$question->sub_question, 
                     'question_id'=>$question->id,
-                    'user_id'=>$user->id
+                    'user_id'=>$user->id,
+                    'order_no'=>$question->order_no
                 ]);
                 foreach($question->answers as $answer){
                     UserExamAnswer::store([
@@ -170,7 +171,7 @@ class TopicExamController extends Controller
                     // return UserExamAnswer::where('user_exam_question_id', $question->id)->with('answer')->get(['slug', 'title']);
                     return UserExamAnswer::where('user_exam_question_id', $question->id)->with('answer')->select(['slug', 'title', 'answer_id'])->get();
                 }
-                return UserExamQuestion::where('user_exam_id', $attemt->id)->paginate(1, ['slug', 'title', 'description', 'duration','title_text','sub_question']);
+                return UserExamQuestion::where('user_exam_id', $attemt->id)->orderBy('order_no')->paginate(1, ['slug', 'title', 'description', 'duration','title_text','sub_question']);
             }
             $questioncount = UserExamQuestion::where('user_exam_id', $attemt->id)->where('exam_id', $exam->id)->count();
             $endtime = 0;
@@ -311,7 +312,7 @@ class TopicExamController extends Controller
                 return UserReviewAnswer::where('user_review_question_id', $question->id)->get();
             }
 
-            $data = UserReviewQuestion::whereIn('review_type', ['mcq'])->where('user_exam_review_id', $userExamReview->id)->where('user_id', $user->id)->paginate(1);
+            $data = UserReviewQuestion::whereIn('review_type', ['mcq'])->where('user_exam_review_id', $userExamReview->id)->where('user_id', $user->id)->orderBy('order_no')->paginate(1);
 
             $data_questions = UserReviewQuestion::whereIn('review_type',['mcq'])->where('user_id',$user->id)->where('user_exam_review_id',$userExamReview->id)->get();
 
@@ -579,7 +580,7 @@ class TopicExamController extends Controller
                     $question = UserExamQuestion::findSlug($request->question);
                     return UserExamAnswer::where('user_exam_question_id', $question->id)->get(['slug', 'title','image']);
                 }
-                return UserExamQuestion::whereNotIn('slug', session("exam-retry-questions" . $userExamReview->id, []))->where('user_exam_id',$userExam->id)->paginate(1, ['slug', 'title', 'description', 'duration']);
+                return UserExamQuestion::whereNotIn('slug', session("exam-retry-questions" . $userExamReview->id, []))->where('user_exam_id',$userExam->id)->orderBy('order_no')->paginate(1, ['slug', 'title', 'description', 'duration','title_text','sub_question']);
             }
             $questioncount = UserExamQuestion::whereNotIn('slug', session("exam-retry-questions" . $userExamReview->id, []))->where('user_exam_id',$userExam->id)->count();
             $endtime = 1 * $questioncount;
@@ -734,7 +735,7 @@ class TopicExamController extends Controller
                 return ExamRetryAnswer::where('exam_retry_question_id', $question->id)->get();
             }
 
-            $data = ExamRetryQuestion::whereIn('review_type', ['mcq'])->where('exam_retry_review_id', $examRetryReview->id)->where('user_id', $user->id)->paginate(1);
+            $data = ExamRetryQuestion::whereIn('review_type', ['mcq'])->where('exam_retry_review_id', $examRetryReview->id)->where('user_id', $user->id)->orderBy('order_no')->paginate(1);
 
             $data_questions = ExamRetryQuestion::whereIn('review_type',['mcq'])->where('user_id',$user->id)->where('exam_retry_review_id',$examRetryReview->id)->get();
 

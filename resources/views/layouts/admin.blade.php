@@ -501,6 +501,26 @@
                 @endif
 
 
+                
+                @if ($admin->role === 'master')
+
+                    <li class="side-item {{ request()->is('admin/live-class*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.back_up_files.index') }}">
+                            <span class="side-icon">
+                                <img src="{{ asset('assets/images/iconshover/onlineteaching.svg') }}"
+                                    alt="Dashboard">
+                            </span>
+                            <span class="active-icon">
+                                <img src="{{ asset('assets/images/icons/onlineteaching.svg') }}" alt="Dashboard">
+                            </span>
+                            <span class="menutext">
+                                Back up Files
+                            </span>
+                        </a>
+                    </li>
+                @endif
+
+
                 <li class="side-item logout">
                     <a href="{{ route('admin.logout') }}" class="log-out">
                         <span class="side-icon">

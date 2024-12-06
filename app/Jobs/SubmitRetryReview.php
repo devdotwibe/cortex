@@ -100,7 +100,8 @@ class SubmitRetryReview implements ShouldQueue
                 'time_taken'=>$takentime[$question->slug]??0,
                 'category_id'=>$question->category_id,
                 'sub_category_id'=>$question->sub_category_id,
-                'sub_category_set'=>$question->sub_category_set
+                'sub_category_set'=>$question->sub_category_set,
+                'order_no'=>$question->order_no,
             ]);
             // $takentimereview[$revquestion->slug]=$takentime[$question->slug]??0;
             
@@ -155,7 +156,8 @@ class SubmitRetryReview implements ShouldQueue
                 'time_taken'=>$takentime[$question->slug]??0,
                 'category_id'=>$question->category_id,
                 'sub_category_id'=>$question->sub_category_id,
-                'sub_category_set'=>$question->sub_category_set
+                'sub_category_set'=>$question->sub_category_set,
+                'order_no'=>$question->order_no,
             ]);
             
             // $takentimereview[$revquestion->slug]=$takentime[$question->slug]??0;

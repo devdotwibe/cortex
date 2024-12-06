@@ -125,6 +125,7 @@ class SubmitReview implements ShouldQueue
                 'exam_id'=> $this->review->exam_id,
                 'question_id'=> $learn->id,
                 'user_id'=>$this->review->user_id,
+                'order_no'=> $learn->order_no,
             ]);
             if($learn->learn_type=='mcq'){
                 foreach($learn->learnanswers as $ans){
@@ -173,7 +174,8 @@ class SubmitReview implements ShouldQueue
                 'title_text'=> $question->title_text,
                 'sub_question'=> $question->sub_question,
                 'user_id'=>$this->review->user_id,
-                'time_taken'=>$takentime[$question->slug]??0
+                'time_taken'=>$takentime[$question->slug]??0,
+                'order_no'=> $question->order_no,
             ]);
             
             $takentimereview[$revquestion->slug]=$takentime[$question->slug]??0;
@@ -225,7 +227,8 @@ class SubmitReview implements ShouldQueue
                 'title_text'=> $question->title_text,
                 'sub_question'=> $question->sub_question,
                 'user_id'=>$this->review->user_id,
-                'time_taken'=>$takentime[$question->slug]??0
+                'time_taken'=>$takentime[$question->slug]??0,
+                'order_no'=>$question->order_no
             ]);
             
             $takentimereview[$revquestion->slug]=$takentime[$question->slug]??0;
@@ -274,7 +277,8 @@ class SubmitReview implements ShouldQueue
                 'title_text'=> $question->title_text,
                 'sub_question'=> $question->sub_question,
                 'user_id'=>$this->review->user_id,
-                'time_taken'=>$takentime[$question->slug]??0
+                'time_taken'=>$takentime[$question->slug]??0,
+                'order_no'=>$question->order_no
             ]);
             $takentimereview[$revquestion->slug]=$takentime[$question->slug]??0;
             

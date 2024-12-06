@@ -80,6 +80,53 @@ $(function() {
     }, 500); 
 });
 
+
+
+function OrderChange(element)
+
+    {
+        var id = $(element).attr('data-id');
+
+        var value = $(element).val();
+
+        var exam_id = $(element).attr('data-exam');
+
+        var category_id = $(element).attr('data-category');
+
+        var subcategory_id = $(element).attr('data-subcategory');
+
+        var subcategoryset = $(element).attr('data-subcategoryset');
+
+        var type = $(element).attr('data-type');
+
+        console.log(value,id);
+
+        var url = '{{route('admin.order_change')}}';
+
+        $.ajax({
+            url: url,
+
+            method: 'POST',
+            data: {
+                id: id,
+                value: value,
+                exam_id: exam_id,
+                category_id: category_id,
+                subcategory_id: subcategory_id,
+                subcategoryset: subcategoryset,
+                type: type,
+            },
+            success: function(res) {
+
+                console.log(res);
+                $('#table-categoryquestiontable').DataTable().ajax.reload(); 
+
+            }
+
+        });
+
+    }
+    
         var questiontable = null;
         function questiontableinit(table) {
             questiontable = table

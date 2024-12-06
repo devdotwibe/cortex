@@ -9,6 +9,7 @@ use App\Models\HomeWorkBook;
 use App\Models\HomeWorkQuestion;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class HomeWorkController extends Controller
@@ -27,9 +28,26 @@ class HomeWorkController extends Controller
         self::$defaultActions = [''];
         $this->where('home_work_book_id', $homeWorkBook->id);
         
-        if ($request->ajax()) {            
+        if ($request->ajax()) { 
+           $this->orderBy('order_no', 'ASC');
+            $examCount = HomeWorkQuestion::where('home_work_id',$homeWork->id)->count();
+
             return $this->where('home_work_id', $homeWork->id)
                 ->addAction(function ($data) use ($homeWork,$homeWorkBook) {
+                  $button = '';  
+                  $selected ="";
+                   $results = "";
+
+                for ($i = 1; $i <= $examCount; $i++) {
+
+                    $selected = ($data->order_no == $i) ? 'selected' : ''; 
+
+                    $results .= '<option value="' . $i . '" ' . $selected . '>' . $i . '</option>';
+                }
+
+                $button .= '<select name="work_update_coordinator" onchange="OrderChange(this)" data-type="home_work" data-id="' . $data->id . '" data-exam="" data-category="' . $data->home_work_id . '" data-subcategory=""  data-subcategoryset="" >'; 
+                $button .= $results;
+                $button .= '</select>';
                     return '
  <a href="' . route("admin.home-work.edit", ["home_work" => $homeWork->slug,"home_work_book"=>$homeWorkBook->slug, "home_work_question" => $data->slug]) . '" class="btn btn-icons edit_btn">
     <span class="adminside-icon">
@@ -41,8 +59,6 @@ class HomeWorkController extends Controller
 </a>
 
 
-                     
-
 
                      <a  class="btn btn-icons dlt_btn" data-delete="' . route("admin.home-work.destroy", ["home_work" => $homeWork->slug,"home_work_book"=>$homeWorkBook->slug, "home_work_question" => $data->slug]) . '">
                             <span class="adminside-icon">
@@ -52,6 +68,8 @@ class HomeWorkController extends Controller
                                 <img src="' . asset("assets/images/iconshover/material-symbols_delete-yellow.svg") . '" alt="Delete Active" title="Delete">
                             </span>
                         </a> 
+
+                         ' . $button . '
 
                     ';
                 })->addColumn('visibility', function ($data) use ($homeWork) {
@@ -208,6 +226,20 @@ class HomeWorkController extends Controller
                 break;
         }
 
+
+        $question_count = HomeWorkQuestion::where('home_work_id', $homeWork->id)->count();
+
+        
+        if(!empty($question_count))
+        {
+            $data['order_no'] = $question_count+1; 
+        }
+        else
+        {
+            $data['order_no'] = 1; 
+        }
+
+        $data['title'] = $request->title;
         $data['home_work_id'] = $homeWork->id;
         $data['home_work_book_id'] = $homeWorkBook->id;
         $data['home_work_type'] = $request->home_work_type;
@@ -239,6 +271,16 @@ class HomeWorkController extends Controller
     }
     public function destroy(Request $request, HomeWork $homeWork, HomeWorkQuestion $homeWorkQuestion)
     {
+        $admin = Auth::guard('admin')->user();
+        
+        $homeWorkQuestion->admin_id = $admin->id;
+
+        HomeWorkQuestion::where('order_no','>',$homeWorkQuestion->order_no)
+        ->where('home_work_id', $homeWorkQuestion->home_work_id)
+        ->decrement('order_no');
+
+        $homeWorkQuestion->save();
+        
         $homeWorkQuestion->delete();
         if ($request->ajax()) {
             return response()->json(["success" => "Question has been deleted"]);
@@ -354,6 +396,11 @@ class HomeWorkController extends Controller
 
                 $selectAllValues = json_decode($request->select_all_values, true);
 
+                $admin = Auth::guard('admin')->user();
+                
+                HomeWorkQuestion::whereIn('id', $selectAllValues)
+                ->update(['admin_id' => $admin->id]);
+
                 HomeWorkQuestion::whereIn('id', $selectAllValues)
                     ->delete();
 
@@ -363,11 +410,12 @@ class HomeWorkController extends Controller
 
                 $selectBoxValues = is_array($request->input('selectbox', [])) ? $request->input('selectbox', []) : [];
 
-
+                $admin = Auth::guard('admin')->user();
+                
                 HomeWorkQuestion::whereIn('id', $selectBoxValues)
-                    ->where('home_work_id', $homeWork->id)
-                    ->where('home_work_book_id', $homeWorkBook->id)
-                    ->delete();
+                ->update(['admin_id' => $admin->id]);
+
+                HomeWorkQuestion::whereIn('id', $selectBoxValues)->delete();  
             }
 
             if ($request->ajax()) {

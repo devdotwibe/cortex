@@ -12,6 +12,7 @@ use App\Models\Setname;
 use App\Models\SubCategory;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class TopicTestController extends Controller
@@ -52,9 +53,32 @@ class TopicTestController extends Controller
             }
             $this->orderBy('order_no', 'ASC');
 
+            
+            $examCount = Question::where('category_id',$category->id)->where('exam_id',$exam->id??0)->count();
+
             return $this->where('exam_id',$exam->id)
                 ->where('category_id',$category->id)
-                ->addAction(function($data)use($category){
+
+                ->addAction(function($data)use($category,$examCount){
+
+                    $button = '';  
+
+                    $selected ="";
+
+                $results = "";
+
+                for ($i = 1; $i <= $examCount; $i++) {
+
+                    $selected = ($data->order_no == $i) ? 'selected' : ''; 
+
+                    $results .= '<option value="' . $i . '" ' . $selected . '>' . $i . '</option>';
+                }
+
+                $button .= '<select name="work_update_coordinator" onchange="OrderChange(this)" data-type="topic_test" data-id="' . $data->id . '" data-exam="' . $data->exam_id . '" data-category="' . $data->category_id . '" data-subcategory=""  data-subcategoryset="" >'; 
+                $button .= $results;
+                $button .= '</select>';
+
+                
                     return '
                    
                         <a href="'.route("admin.topic-test.edit",["category"=>$category->slug,"question"=>$data->slug]).'" class="btn btn-icons edit_btn">
@@ -66,6 +90,7 @@ class TopicTestController extends Controller
                 </span>
             </a>
 
+              ' . $button . '
 
 
                     ';
@@ -296,12 +321,22 @@ class TopicTestController extends Controller
     {
         if (!empty($request->deleteaction)) {
             if ($request->input('select_all', 'no') == "yes") {
-                // Delete all questions corresponding to the specific setname
+               
+                $admin = Auth::guard('admin')->user();
+                                
+                Question::where('exam_id', $exam->id)->where('category_id',$request->category)
+                ->update(['admin_id' => $admin->id]);
+                
                 Question::where('category_id', $category->id)
                         ->where('exam_id',$exam->id)
                         ->delete();
             } else {
-                // Delete selected questions only
+
+                $admin = Auth::guard('admin')->user();
+                                
+                Question::whereIn('id', $request->input('selectbox', []))
+                ->update(['admin_id' => $admin->id]);
+                
                 Question::whereIn('id', $request->input('selectbox', []))->delete();
             }
     

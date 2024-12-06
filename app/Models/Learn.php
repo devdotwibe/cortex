@@ -7,11 +7,12 @@ use App\Trait\ResourceModel;
 use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 #[ScopedBy([VisibleStatus::class])]
 class Learn extends Model
 {
-    use HasFactory,ResourceModel;
+    use HasFactory,ResourceModel,SoftDeletes;
 
     protected $fillable = [
         'slug',
@@ -25,11 +26,17 @@ class Learn extends Model
         'mcq_question',
         'category_id',
         'sub_category_id',
-        'visible_status'
+        'visible_status',
+        'order_no',
+        'admin_id',
     ];
 
 
-
+    public function adminUser()
+    {
+        return $this->belongsTo(Admin::class,'admin_id');
+    }
+    
     public function learnanswers()
     {
         return $this->hasMany(LearnAnswer::class,'learn_id','id');
