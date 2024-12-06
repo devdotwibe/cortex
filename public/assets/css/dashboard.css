@@ -2233,13 +2233,13 @@ button.btn-slider img {
 
 .sidebar-content ul li.side-item a:hover {
     background: #EFEFEF;
-    font-weight: bold;
+    font-weight: 500;
     border: 1px solid #dadada;
 }
 
 .sidebar-content ul li.side-item.active a {
     background: #EFEFEF;
-    font-weight: bold;
+    font-weight: 500;
     border: 1px solid #dadada;
 }
 
@@ -4338,6 +4338,7 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 
 .live-class-section .card .card-body .category p {
     font-size: 16px;
+    color: #000;
     line-height: 1.56;
 }
 
@@ -5414,7 +5415,7 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 
 .private_section .card .card-body .category p {
     font-size: 20px;
-    color: #4A4A4A;
+    color: #000000;
     line-height: 1.56;
 }
 
