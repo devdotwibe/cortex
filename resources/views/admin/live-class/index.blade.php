@@ -53,13 +53,13 @@
                                                 </h3>
                                                 <p>
                                                     @if (!empty($live_class->class_description_1))
-                                                        {{ $live_class->class_description_1 }}
+                                                        {!! $live_class->class_description_1 !!}
                                                     @else
                                                         Receive a personalised learning experience with regular feedback by
                                                         entrolling with our tutors Desinged for Year 5 students
                                                     @endif
                                                 </p>
-
+                                                 
                                             </div>
 
                                         </div>
