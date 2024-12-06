@@ -363,12 +363,12 @@
                             if (!firstInvalidFeedback) {
                                 firstInvalidFeedback = feedbackElement;
                             }
-                        } else if(answerValue && answerValue.length>100){
+                        } else if(answerValue && answerValue.length>200){
                             isValid = false;
                             answerField.addClass("is-invalid");
                             fileField.addClass("is-invalid"); 
                             const feedbackElement = fileField.next(".invalid-feedback");
-                            feedbackElement.text("Answer lenghth should not be greater than 150.").show();
+                            feedbackElement.text("Answer lenghth should not be greater than 200.").show();
                             if (!firstInvalidFeedback) {
                                 firstInvalidFeedback = feedbackElement;
                             }
