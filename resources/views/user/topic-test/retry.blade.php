@@ -491,15 +491,15 @@ function HideTime() {
                                         <div class="mcq-group">
                                             <h5><span>{{$exam->subtitle($category->id,"Topic ".($category->getIdx()+1))}}</span><span> : </span><span>{{$category->name}}</span></h5>
                                             <div class="mcq-title-text" ${v.title_text?"":'style="display:none"'}>
-                                              <p>  ${v.title_text||""}</p>
+                                              ${v.title_text||""}
                                             </div>
                                             <div id="mcq-${lesseonId}" class="mcq-description">
-                                                <p> ${v.description||""} </p>
+                                                ${v.description||""}
                                             </div>
                                         </div> 
                                         <div class="mcq-answer mcq-group-right">
                                             <div  class="mcq-description">
-                                                <p> ${v.sub_question||""} </p>
+                                                ${v.sub_question||""}
                                             </div> 
                                             <div id="mcq-${lesseonId}-ans" class="form-group" >
                                                 <div class="form-data" >
