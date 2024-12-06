@@ -2233,13 +2233,13 @@ button.btn-slider img {
 
 .sidebar-content ul li.side-item a:hover {
     background: #EFEFEF;
-    font-weight: bold;
+    font-weight: 500;
     border: 1px solid #dadada;
 }
 
 .sidebar-content ul li.side-item.active a {
     background: #EFEFEF;
-    font-weight: bold;
+    font-weight: 500;
     border: 1px solid #dadada;
 }
 
@@ -5375,6 +5375,7 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
     transition: all .25s ease-in-out;
     height: 100%;
     background: #F9FBFA;
+    overflow: hidden;
 }
 
 .private_section .card .card-body {
@@ -5414,13 +5415,14 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 
 .private_section .card .card-body .category p {
     font-size: 20px;
-    color: #4A4A4A;
+    color: #000000;
     line-height: 1.56;
 }
 
 .private_section .workshopclass .card .card-body .category p {
     color: #3F8D26;
 }
+
 
 .private_section .intensivework .card h3 {
     font-size: 24px;
@@ -5432,6 +5434,7 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
     color: #334CA9;
 }
 
+
 .private_section .card:hover {
     transform: scale(1.01);
 }
@@ -5442,6 +5445,7 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
     transition: all .25s ease-in-out;
     height: 100%;
     background: #FBFDFF;
+    overflow: hidden;
 }
 
 .private_section .card .card-body .category button.btn-live-class {
@@ -5550,6 +5554,15 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 .private_section .row .col-md-6:last-child {
     margin-right: 0;
 }
+
+.admin_section.private_section > .container > .row > a {
+    width: 49%;
+}
+
+.admin_section.private_section .row > a .col-md-6.privateclass.intensivework {
+    width: 100%;
+}
+
 
 #live-private-modal .modal-dialog {
     max-width: 1000px;
@@ -9190,6 +9203,10 @@ nav.navbar.top-barhide {
 
     .questionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-group {
         height: inherit !important;
+    }
+
+    .admin_section.private_section > .container > .row > a {
+        width: 100%;
     }
 
 }
