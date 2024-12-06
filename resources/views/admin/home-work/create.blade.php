@@ -6,7 +6,7 @@
     <div class="header_wrapp">
         <div class="header_title">
             <div class="back-btn" id="back-btn" style="display: block"> <!-- Ensure proper display value -->
-                <a href="{{ route('admin.home-work.show',$homeWork->slug) }}">
+                <a href="{{ route('admin.home-work.show',['home_work'=>$homeWork->slug,'home_work_book'=>$homeWorkBook->slug]) }}">
                     <img src="{{ asset('assets/images/leftarrowblack.svg') }}" alt="">
                 </a>
             </div>
@@ -18,10 +18,9 @@
 <section class="invite-wrap mt-2">
     <div class="container">
 
-        <x-create-form name="admin.home-work" :params='["home_work"=>$homeWork->slug]'  :cancel="route('admin.home-work.show',$homeWork->slug)" frmID="learnForm" btnsubmit="Save" :fields='[
-            ["name"=>"redirect", "value"=>route("admin.home-work.show",$homeWork->slug),"type"=>"hidden"],
-             ["name"=>"home_work_book_id" ,"label"=>"Week Booklet","ajaxurl"=>route("admin.home-work.create",$homeWork->slug),"type"=>"select","size"=>4],
-              ["name"=>"title", "placeholder"=>"Title","label"=>"Title","size"=>4,"type"=>"text"], 
+        <x-create-form name="admin.home-work" :params='["home_work"=>$homeWork->slug,"home_work_book"=>$homeWorkBook->slug]'  :cancel="route('admin.home-work.show',['home_work'=>$homeWork->slug,'home_work_book'=>$homeWorkBook->slug])" frmID="learnForm" btnsubmit="Save" :fields='[
+            ["name"=>"redirect", "value"=>route("admin.home-work.show",["home_work"=>$homeWork->slug,"home_work_book"=>$homeWorkBook->slug]),"type"=>"hidden"],
+            
             ["name"=>"home_work_type","event"=>["change"=>"cclickback"] ,"label"=>"Home Work Type","placeholder"=>"Select Home Work Type","type"=>"select","size"=>4,"options"=>[["value"=>"short_notes","text"=>"Short Note Questions"],["value"=>"mcq","text"=>"MCQs Questions"]]],
              
            

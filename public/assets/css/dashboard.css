@@ -4338,7 +4338,7 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 
 .live-class-section .card .card-body .category p {
     font-size: 16px;
-    color: #000;
+    color: #398F17;
     line-height: 1.56;
 }
 
@@ -4365,9 +4365,9 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
     justify-content: center;
 }
 
-/* .live-class-section .workshop .card .card-body .category p {
+.live-class-section .workshop .card .card-body .category p {
     color: #3A47B0;
-} */
+}
 
 .learn-inner-section .lesson .lesson-body {
     margin: 0;
@@ -5419,9 +5419,10 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
     line-height: 1.56;
 }
 
-/* .private_section .workshopclass .card .card-body .category p {
+.private_section .workshopclass .card .card-body .category p {
     color: #3F8D26;
-} */
+}
+
 
 .private_section .intensivework .card h3 {
     font-size: 24px;
@@ -5429,9 +5430,10 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
     margin: 0 0 20px;
 }
 
-/* .private_section .workshopclass .card .card-body .category p {
+.private_section .workshopclass .card .card-body .category p {
     color: #334CA9;
-} */
+}
+
 
 .private_section .card:hover {
     transform: scale(1.01);
