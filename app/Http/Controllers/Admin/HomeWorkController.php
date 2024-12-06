@@ -269,7 +269,7 @@ class HomeWorkController extends Controller
         $redirect = $request->redirect ?? route('admin.home-work.show', $homeWork->slug);
         return redirect($redirect)->with("success", "Question has been successfully created");
     }
-    public function destroy(Request $request, HomeWork $homeWork, HomeWorkQuestion $homeWorkQuestion)
+    public function destroy(Request $request, HomeWork $homeWork,HomeWorkBook $homeWorkBook, HomeWorkQuestion $homeWorkQuestion)
     {
         $admin = Auth::guard('admin')->user();
         
