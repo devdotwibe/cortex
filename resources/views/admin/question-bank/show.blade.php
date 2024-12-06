@@ -20,8 +20,8 @@
             </h2> --}}
 
              <h2>
-                <a href="{{ route() }}">{{$category->name}}</a> -> 
-                <a href="{{ route() }}">{{$subcategory->name}}</a> -> 
+                <a href="">{{$category->name}}</a> -> 
+                <a href="">{{$subcategory->name}}</a> -> 
                 {{ $setname->name }} -> Questions
             </h2> 
 
