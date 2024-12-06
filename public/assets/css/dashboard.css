@@ -2233,13 +2233,13 @@ button.btn-slider img {
 
 .sidebar-content ul li.side-item a:hover {
     background: #EFEFEF;
-    font-weight: 600;
+    font-weight: 500;
     border: 1px solid #dadada;
 }
 
 .sidebar-content ul li.side-item.active a {
     background: #EFEFEF;
-    font-weight: 600;
+    font-weight: 500;
     border: 1px solid #dadada;
 }
 
