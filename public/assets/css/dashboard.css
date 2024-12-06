@@ -5553,7 +5553,7 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
     margin-right: 0;
 }
 
-.admin_section.private_section .row > a {
+.admin_section.private_section > .container > .row > a {
     width: 49%;
 }
 
@@ -9203,7 +9203,7 @@ nav.navbar.top-barhide {
         height: inherit !important;
     }
 
-    .admin_section.private_section .row > a {
+    .admin_section.private_section > .container > .row > a {
         width: 100%;
     }
 
