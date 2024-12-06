@@ -368,7 +368,7 @@
                             answerField.addClass("is-invalid");
                             fileField.addClass("is-invalid"); 
                             const feedbackElement = fileField.next(".invalid-feedback");
-                            feedbackElement.text("Answer lenghth should not be greater than 150.").show();
+                            feedbackElement.text("Answer lenghth should not be greater than 200.").show();
                             if (!firstInvalidFeedback) {
                                 firstInvalidFeedback = feedbackElement;
                             }
