@@ -871,7 +871,7 @@ button.close {
 .exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check img.answer-image {
     max-width: 240px;
     margin: 6px 0 0;
-    width: 100%;
+    width: auto;
 }
 
 .exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check input:checked {
