@@ -210,7 +210,7 @@ Receive a personalised learning experience with regular feedback by enrolling wi
 
                                             <p>
                                                 @if (!empty($live_class->class_description_2))
-                                                    {{ $live_class->class_description_2 }}
+                                                    {!! $live_class->class_description_2 !!}
                                                 @else
                                                     These open group sessions condense the entire Thinking Skills curriculum
                                                     into ten intensive lessions Designed for Year 6 students
