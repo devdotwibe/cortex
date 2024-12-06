@@ -5423,6 +5423,7 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
     color: #3F8D26;
 } */
 
+
 .private_section .intensivework .card h3 {
     font-size: 24px;
     color: #334CA9;
@@ -5432,6 +5433,7 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 /* .private_section .workshopclass .card .card-body .category p {
     color: #334CA9;
 } */
+
 
 .private_section .card:hover {
     transform: scale(1.01);
