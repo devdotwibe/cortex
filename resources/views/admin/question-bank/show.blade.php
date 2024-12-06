@@ -20,8 +20,8 @@
             </h2> --}}
 
              <h2>
-                <a href="">{{$category->name}}</a> -> 
-                <a href="">{{$subcategory->name}}</a> -> 
+                <a>{{$category->name}}</a> -> 
+                <a>{{$subcategory->name}}</a> -> 
                 {{ $setname->name }} -> Questions
             </h2> 
 
