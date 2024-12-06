@@ -111,17 +111,6 @@ class CommunityControllerController extends Controller
         $admin = Auth::guard('admin')->user();
         $type = $request->type ?? "post";
 
-
-        $sanitizedDescription = preg_replace('/https?:\/\/[^\s]+/', '', $request->input('description'));
-    $sanitizedDescription = strip_tags($sanitizedDescription);
-
-    // Merge sanitized description back into the request
-    $request->merge([
-        'description' => $sanitizedDescription,
-    ]);
-
-
-    
         if ($type == "post") {
             $data = $request->validate([
                 'type' => ["required"],
