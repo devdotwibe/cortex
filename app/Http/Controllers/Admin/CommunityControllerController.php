@@ -121,37 +121,28 @@ class CommunityControllerController extends Controller
     ]);
 
 
-
+    
         if ($type == "post") {
             $data = $request->validate([
                 'type' => ["required"],
 
-                 'description' => [
-                'required',
-                'string',
-                'max:300',
-                function ($attribute, $value, $fail) {
+                'description' => ["required", 'string', "max:300", function ($attribute, $value, $fail) {
                     if (preg_match('/#/', $value)) {
                         $fail('Hashtags are not allowed in the description.');
                     }
-                },
-            ],
+                }],
+
                 'hashtag' => ["nullable", 'string', 'max:500'],
                 'image' => ["nullable"],
             ]);
         } else {
             $data = $request->validate([
                 // 'description' => ["required"],
-                'description' => [
-                    'required',
-                    'string',
-                    'max:300',
-                    function ($attribute, $value, $fail) {
-                        if (preg_match('/#/', $value)) {
-                            $fail('Hashtags are not allowed in the description.');
-                        }
-                    },
-                ],
+                'description' => ["required", 'string', "max:300", function ($attribute, $value, $fail) {
+                    if (preg_match('/#/', $value)) {
+                        $fail('Hashtags are not allowed in the description.');
+                    }
+                }],
 
                 'type' => ["required"],
                 'option' => ["required", 'array', 'min:2', 'max:5'],
