@@ -9203,6 +9203,10 @@ nav.navbar.top-barhide {
         height: inherit !important;
     }
 
+    .admin_section.private_section .row > a {
+        width: 100%;
+    }
+
 }
 
 
