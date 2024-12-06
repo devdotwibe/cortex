@@ -116,7 +116,37 @@ class ImportQuestions implements ShouldQueue
                     "sub_question" => (isset($this->fields['sub_question']) && isset($row[$this->fields['sub_question']])) ? nl2br($row[$this->fields['sub_question']]) : null,
                     "explanation" => (isset($this->fields['explanation']) && isset($row[$this->fields['explanation']])) ? nl2br($row[$this->fields['explanation']]) : null,
                 ]);
-            } else{
+            }
+            else if($this->exam->name=="question-bank"){
+
+                $question_count = Question::where('category_id',optional($this->category)->id)
+                ->where('sub_category_id',optional($this->subCategory)->id)
+                ->where('sub_category_set',optional($this->setname)->id)
+                ->where('exam_id', $this->exam->id)->count();
+                
+                if(!empty($question_count))
+                {
+                    $order = $question_count+1; 
+                }
+                else
+                {
+                    $order = 1; 
+                }
+
+                $question=Question::store([
+                    "order_no"=>$order,
+                    "exam_id"=>$this->exam->id,
+                    "category_id"=>optional($this->category)->id,
+                    "sub_category_id"=>optional($this->subCategory)->id,
+                    "sub_category_set"=>optional($this->setname)->id,
+                    "description"=>nl2br($row[$this->fields['description']]),
+                    "explanation" => (isset($this->fields['explanation']) && isset($row[$this->fields['explanation']])) ? nl2br($row[$this->fields['explanation']]) : null,
+                    "title_text" => (isset($this->fields['title_text']) && isset($row[$this->fields['title_text']])) ? nl2br($row[$this->fields['title_text']]) : null,
+                    "sub_question" => (isset($this->fields['sub_question']) && isset($row[$this->fields['sub_question']])) ? nl2br($row[$this->fields['sub_question']]) : null,
+                ]);
+
+            }
+             else{
 
                 $question_count = Question::where('category_id',optional($this->category)->id)
                 ->where('exam_id', $this->exam->id)->count();
