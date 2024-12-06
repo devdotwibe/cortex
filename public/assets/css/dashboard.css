@@ -2196,6 +2196,7 @@ button.btn-slider:before {
 button.btn-slider img {
     display: block;
     transition: all .25s ease-in-out;
+    position: relative;
 }
 
 aside.side_bar.slider-btn .btn-slider img {
