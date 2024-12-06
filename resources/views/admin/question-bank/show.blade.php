@@ -10,7 +10,9 @@
     <div class="header_wrapp">
         <div class="header_title">
             <div class="back-btn" id="back-btn" style="display: block"> <!-- Ensure proper display value -->
-                <a href="{{ route('admin.question-bank.subcategoryset') }}">
+                {{-- <a href="{{ route('admin.question-bank.subcategoryset') }}"> --}}
+                    <a href="{{ route('admin.question-bank.subcategoryset', ['sub_category' => $subCategory, 'setname' => $setName]) }}">
+
                     <img src="{{ asset('assets/images/leftarrowblack.svg') }}" alt="">
                 </a>
             </div>
