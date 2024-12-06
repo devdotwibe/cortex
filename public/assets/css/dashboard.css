@@ -2165,10 +2165,23 @@ button.btn-slider {
     transform: translateY(-50%);
     z-index: 9;
     padding: 0;
-    width: 26px;
+    width: 28px;
     height: 32px;
     transition: all .25s ease-in-out;
+    /*background: #ffffff;
+    border-radius: 0 30px 30px 0;*/
+}
+
+button.btn-slider:before {
+    content: "";
+    position: absolute;
+    left: 7px;
+    top: 0;
+    right: 0;
+    width: 19px;
+    height: 100%;
     background: #ffffff;
+    display: block;
     border-radius: 0 30px 30px 0;
 }
 
