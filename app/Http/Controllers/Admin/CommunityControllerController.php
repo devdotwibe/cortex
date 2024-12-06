@@ -111,27 +111,47 @@ class CommunityControllerController extends Controller
         $admin = Auth::guard('admin')->user();
         $type = $request->type ?? "post";
 
+
+        $sanitizedDescription = preg_replace('/https?:\/\/[^\s]+/', '', $request->input('description'));
+    $sanitizedDescription = strip_tags($sanitizedDescription);
+
+    // Merge sanitized description back into the request
+    $request->merge([
+        'description' => $sanitizedDescription,
+    ]);
+
+
+
         if ($type == "post") {
             $data = $request->validate([
                 'type' => ["required"],
 
-                'description' => ["required", 'string', "max:300", function ($attribute, $value, $fail) {
+                 'description' => [
+                'required',
+                'string',
+                'max:300',
+                function ($attribute, $value, $fail) {
                     if (preg_match('/#/', $value)) {
                         $fail('Hashtags are not allowed in the description.');
                     }
-                }],
-
+                },
+            ],
                 'hashtag' => ["nullable", 'string', 'max:500'],
                 'image' => ["nullable"],
             ]);
         } else {
             $data = $request->validate([
                 // 'description' => ["required"],
-                'description' => ["required", 'string', "max:300", function ($attribute, $value, $fail) {
-                    if (preg_match('/#/', $value)) {
-                        $fail('Hashtags are not allowed in the description.');
-                    }
-                }],
+                'description' => [
+                    'required',
+                    'string',
+                    'max:300',
+                    function ($attribute, $value, $fail) {
+                        if (preg_match('/#/', $value)) {
+                            $fail('Hashtags are not allowed in the description.');
+                        }
+                    },
+                ],
 
                 'type' => ["required"],
                 'option' => ["required", 'array', 'min:2', 'max:5'],
