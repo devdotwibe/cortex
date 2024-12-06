@@ -573,7 +573,7 @@ class TermController extends Controller
 
         foreach ($HomeWork as $row) {
           
-            $row->inner_url=route('admin.home-work.show', $row->slug);
+            $row->inner_url=route('admin.home-work.index', $row->slug);
            
             $term_names[]=$row;
         }
