@@ -53,13 +53,13 @@
                                                 </h3>
                                                 <p>
                                                     @if (!empty($live_class->class_description_1))
-                                                        {{ $live_class->class_description_1 }}
+                                                        {!! $live_class->class_description_1 !!}
                                                     @else
                                                         Receive a personalised learning experience with regular feedback by
                                                         entrolling with our tutors Desinged for Year 5 students
                                                     @endif
                                                 </p>
-
+                                                 
                                             </div>
 
                                         </div>
@@ -153,7 +153,7 @@ Receive a personalised learning experience with regular feedback by enrolling wi
 
                                             <button type="button" onclick="CardBoxOneToggle(event)"
                                                 class="btn btn-secondary">Cancel</button>
-0
+
                                         </div>
 
 
@@ -210,7 +210,7 @@ Receive a personalised learning experience with regular feedback by enrolling wi
 
                                             <p>
                                                 @if (!empty($live_class->class_description_2))
-                                                    {{ $live_class->class_description_2 }}
+                                                    {!! $live_class->class_description_2 !!}
                                                 @else
                                                     These open group sessions condense the entire Thinking Skills curriculum
                                                     into ten intensive lessions Designed for Year 6 students
