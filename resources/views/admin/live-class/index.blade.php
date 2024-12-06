@@ -45,8 +45,7 @@
                                             <div class="category-content">
 
                                                 <h3>
-                                                    @if (!empty($live_class->class_title_1))
-                                                        {!! $live_class->class_title_1 !!}
+                                                  
                                                     @else
                                                         Private Class Room
                                                     @endif
