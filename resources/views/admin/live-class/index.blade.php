@@ -46,11 +46,15 @@
 
                                                 <h3>
                                                     @if (!empty($live_class->class_title_1))
-                                                        {{ $live_class->class_title_1 }}
+                                                        {!! $live_class->class_title_1 !!}
                                                     @else
                                                         Private Class Room
                                                     @endif
                                                 </h3>
+
+                                              
+
+
                                                 <p>
                                                     @if (!empty($live_class->class_description_1))
                                                         {{ $live_class->class_description_1 }}
@@ -135,7 +139,7 @@
 
                                                     <textarea class="form-control" name="class_description_1" id="class_description_1" rows="3">
                                                     @if (!empty($live_class->class_description_1))
-
+{{ $live_class->class_description_1 }}
 @else
 Receive a personalised learning experience with regular feedback by enrolling with our tutors. Designed for Year 5 students.
 @endif
