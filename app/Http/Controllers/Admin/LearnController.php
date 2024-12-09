@@ -53,8 +53,14 @@ class LearnController extends Controller
         self::$routeName = "admin.learn";
         self::$defaultActions = [];
 
-        $category_sub=SubCategory::where('category_id',$category->id)->first();
-        
+        if(!empty($request->subcat))
+        {
+            $category_sub=SubCategory::find($request->subcat);
+        }
+        else
+        {
+            $category_sub=SubCategory::where('category_id',$category->id)->first();
+        }
 
         if ($request->ajax()) {
 
@@ -300,7 +306,7 @@ class LearnController extends Controller
             }
         }
 
-        $redirect = $request->redirect ?? route('admin.learn.index');
+        $redirect = $request->redirect.'?subcat='.$request->sub_category_id ?? route('admin.learn.index');
         return redirect($redirect)->with("success", "Learn has been successfully created");
     }
     public function update(Request $request, Category $category, Learn $learn)
