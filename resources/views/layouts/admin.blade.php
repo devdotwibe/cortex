@@ -132,7 +132,7 @@
                                 <img src="{{ asset('assets/images/iconshover/user.svg') }}" alt="Users">
                             </span>
                             <span class="active-icon">
-                                <img src="{{ asset('assets/images/icons/user.svg') }}" alt="Users" title="Users" data-title="Users" class="titledisplay">
+                                <img src="{{ asset('assets/images/icons/user.svg') }}" alt="Users">
                             </span>
                             <span class="menutext">
                                 Users
@@ -148,7 +148,7 @@
                                 <img src="{{ asset('assets/images/iconshover/community.svg') }}" alt="Dashboard">
                             </span>
                             <span class="active-icon">
-                                <img src="{{ asset('assets/images/icons/community.svg') }}" alt="Dashboard" title="Admin Users" data-title="Admin Users" class="titledisplay">
+                                <img src="{{ asset('assets/images/icons/community.svg') }}" alt="Dashboard">
                             </span>
                             <span class="menutext">
                                 Admin Users
@@ -177,7 +177,7 @@
                                 <img src="{{ asset('assets/images/iconshover/learn.svg') }}" alt="Learn Icon">
                             </span>
                             <span class="active-icon">
-                                <img src="{{ asset('assets/images/icons/learn.svg') }}" alt="Learn Active Icon" title="Learn" data-title="Learn"  class="titledisplay">
+                                <img src="{{ asset('assets/images/icons/learn.svg') }}" alt="Learn Active Icon">
                             </span>
                             <span class="menutext">
                                 Learn
@@ -195,7 +195,7 @@
                                 <img src="{{ asset('assets/images/iconshover/options.svg') }}" alt="Options">
                             </span>
                             <span class="active-icon">
-                                <img src="{{ asset('assets/images/icons/options.svg') }}" alt="Options" title="Options" data-title="Options" class="titledisplay">
+                                <img src="{{ asset('assets/images/icons/options.svg') }}" alt="Options">
                             </span>
                             <span class="menutext">Options</span>
                         </a>
@@ -210,7 +210,7 @@
                                     </span>
                                     <span class="active-icon">
                                         <img src="{{ asset('assets/images/icons/categoryyellow.svg') }}"
-                                            alt="Category Active" title="Category" data-title="Category" class="titledisplay">
+                                            alt="Category Active">
                                     </span>
                                     <span class="menutext">Category</span>
                                 </a>
@@ -225,7 +225,7 @@
                                     </span>
                                     <span class="active-icon">
                                         <img src="{{ asset('assets/images/icons/examsimulator5.svg') }}"
-                                            alt="Exam Simulator Active" title="Exam Simulator" data-title="Exam Simulator" class="titledisplay">
+                                            alt="Exam Simulator Active">
                                     </span>
                                     <span class="menutext">Exam Simulator</span>
                                 </a>
@@ -240,7 +240,7 @@
                                     </span>
                                     <span class="active-icon">
                                         <img src="{{ asset('assets/images/icons/payment.svg') }}"
-                                            alt="Payment Active" title="Payment" data-title="Payment" class="titledisplay">
+                                            alt="Payment Active">
                                     </span>
                                     <span class="menutext">Payment</span>
                                 </a>
@@ -254,7 +254,7 @@
                                             alt="Price">
                                     </span>
                                     <span class="active-icon">
-                                        <img src="{{ asset('assets/images/icons/price.svg') }}" alt="Price Active" title="Price" data-title="Price" class="titledisplay">
+                                        <img src="{{ asset('assets/images/icons/price.svg') }}" alt="Price Active">
                                     </span>
                                     <span class="menutext">Price</span>
                                 </a>
@@ -269,7 +269,7 @@
                                     </span>
                                     <span class="active-icon">
                                         <img src="{{ asset('assets/images/icons/coupon1.svg') }}"
-                                            alt="Coupon and Settings Active" title="Coupon and Settings" data-title="Coupon and Settings" class="titledisplay">
+                                            alt="Coupon and Settings Active">
                                     </span>
                                     <span class="menutext">Coupon and Settings</span>
                                 </a>
@@ -286,7 +286,7 @@
                                 <img src="{{ asset('assets/images/iconshover/questionbank.svg') }}" alt="Dashboard">
                             </span>
                             <span class="active-icon">
-                                <img src="{{ asset('assets/images/icons/questionbank.svg') }}" alt="Dashboard" title="Question Bank" data-title="Question Bank" class="titledisplay">
+                                <img src="{{ asset('assets/images/icons/questionbank.svg') }}" alt="Dashboard">
                             </span>
                             <span class="menutext">
                                 Question Bank
@@ -306,7 +306,7 @@
                                     alt="Exam Simulator">
                             </span>
                             <span class="active-icon">
-                                <img src="{{ asset('assets/images/icons/examsimulator.svg') }}" alt="Exam Simulator" title="Exam Simulator" data-title="Exam Simulator" class="titledisplay">
+                                <img src="{{ asset('assets/images/icons/examsimulator.svg') }}" alt="Exam Simulator">
                             </span>
                             <span class="menutext">
                                 Exam Simulator
@@ -325,7 +325,7 @@
                                         </span>
                                         <span class="active-icon">
                                             <img src="{{ asset('assets/images/icons/topictest.svg') }}"
-                                                alt="Topic Test Active" title="Topic Test" data-title="Topic Test" class="titledisplay">
+                                                alt="Topic Test Active">
                                         </span>
                                         <span class="menutext">
                                             Topic Test
@@ -345,7 +345,7 @@
                                     </span>
                                     <span class="active-icon">
                                         <img src="{{ asset('assets/images/icons/mockexam.svg') }}"
-                                            alt="Full Mock Exam Active" title="Full Mock Exam" data-title="Full Mock Exam"  class="titledisplay">
+                                            alt="Full Mock Exam Active">
                                     </span>
                                     <span class="menutext">
                                         Full Mock Exam
@@ -370,7 +370,7 @@
                                     alt="Dashboard">
                             </span>
                             <span class="active-icon">
-                                <img src="{{ asset('assets/images/icons/onlineteaching.svg') }}" alt="Dashboard" title="Live Teaching" data-title="Live Teaching" class="titledisplay">
+                                <img src="{{ asset('assets/images/icons/onlineteaching.svg') }}" alt="Dashboard">
                             </span>
                             <span class="menutext">
                                 Live Teaching
@@ -387,7 +387,7 @@
                                 <img src="{{ asset('assets/images/iconshover/community.svg') }}" alt="Dashboard">
                             </span>
                             <span class="active-icon">
-                                <img src="{{ asset('assets/images/icons/community.svg') }}" alt="Dashboard" title="Community" data-title="Community" class="titledisplay">
+                                <img src="{{ asset('assets/images/icons/community.svg') }}" alt="Dashboard">
                             </span>
                             <span class="menutext">
                                 Community
@@ -403,7 +403,7 @@
                                 <img src="{{ asset('assets/images/iconshover/pages.svg') }}" alt="Pages">
                             </span>
                             <span class="active-icon">
-                                <img src="{{ asset('assets/images/icons/pages.svg') }}" alt="Pages Active" title="Pages" data-title="Pages" class="titledisplay">
+                                <img src="{{ asset('assets/images/icons/pages.svg') }}" alt="Pages Active">
                             </span>
                             <span class="menutext">Pages</span>
                         </a>
@@ -415,7 +415,7 @@
                                             alt="Home">
                                     </span>
                                     <span class="active-icon">
-                                        <img src="{{ asset('assets/images/icons/home.svg') }}" alt="Home Active" title="Home" data-title="Home" class="titledisplay">
+                                        <img src="{{ asset('assets/images/icons/home.svg') }}" alt="Home Active">
                                     </span>
                                     <span class="menutext">Home</span>
                                 </a>
@@ -427,7 +427,7 @@
                                             alt="FAQ">
                                     </span>
                                     <span class="active-icon">
-                                        <img src="{{ asset('assets/images/icons/faq.svg') }}" alt="FAQ Active" title="FAQ" data-title="FAQ" class="titledisplay">
+                                        <img src="{{ asset('assets/images/icons/faq.svg') }}" alt="FAQ Active">
                                     </span>
                                     <span class="menutext">FAQ</span>
                                 </a>
@@ -440,7 +440,7 @@
                                     </span>
                                     <span class="active-icon">
                                         <img src="{{ asset('assets/images/icons/support.svg') }}"
-                                            alt="Support Active" title="Support" data-title="Support" class="titledisplay">
+                                            alt="Support Active">
                                     </span>
                                     <span class="menutext">Support</span>
                                 </a>
@@ -453,7 +453,7 @@
                                     </span>
                                     <span class="active-icon">
                                         <img src="{{ asset('assets/images/icons/tipsandadvice.svg') }}"
-                                            alt="Tips and Advice Active" title="Tips and Advice" data-title="Tips and Advice" class="titledisplay">
+                                            alt="Tips and Advice Active">
                                     </span>
                                     <span class="menutext">Tips and Advice</span>
                                 </a>
@@ -465,7 +465,7 @@
                                             alt="Course">
                                     </span>
                                     <span class="active-icon">
-                                        <img src="{{ asset('assets/images/icons/course.svg') }}" alt="Course Active" title="Course" data-title="Course" class="titledisplay">
+                                        <img src="{{ asset('assets/images/icons/course.svg') }}" alt="Course Active">
                                     </span>
                                     <span class="menutext">Course</span>
                                 </a>
@@ -478,7 +478,7 @@
                                     </span>
                                     <span class="active-icon">
                                         <img src="{{ asset('assets/images/icons/privacy.svg') }}"
-                                            alt="Privacy Policy Active" title="Privacy Policy" data-title="Privacy Policy" class="titledisplay">
+                                            alt="Privacy Policy Active">
                                     </span>
                                     <span class="menutext">Privacy Policy</span>
                                 </a>
@@ -491,7 +491,7 @@
                                     </span>
                                     <span class="active-icon">
                                         <img src="{{ asset('assets/images/icons/terms.svg') }}"
-                                            alt="Terms & Conditions Active" title="Terms & Conditions" data-title="Terms & Conditions" class="titledisplay">
+                                            alt="Terms & Conditions Active">
                                     </span>
                                     <span class="menutext">Terms & Conditions</span>
                                 </a>
@@ -511,7 +511,7 @@
                                     alt="Dashboard">
                             </span>
                             <span class="active-icon">
-                                <img src="{{ asset('assets/images/icons/onlineteaching.svg') }}" alt="Dashboard" title="Back up Files" data-title="Back up Files"  class="titledisplay">
+                                <img src="{{ asset('assets/images/icons/onlineteaching.svg') }}" alt="Dashboard">
                             </span>
                             <span class="menutext">
                                 Back up Files
@@ -527,7 +527,7 @@
                             <img src="{{ asset('assets/images/log-out.svg') }}" alt="log-out">
                         </span>
                         <span class="active-icon">
-                            <img src="{{ asset('assets/images/log-out-1.svg') }}" alt="log-out" title="Log Out" data-title="Log Out" class="titledisplay">
+                            <img src="{{ asset('assets/images/log-out-1.svg') }}" title="Log Out" alt="log-out" data-title="Log Out" class="titledisplay">
                         </span> <span class="menutext">Log Out</span>
                     </a>
                 </li>
@@ -564,8 +564,7 @@
             // Get the current state and save it in localStorage
             const isCollapsed = $('.side_bar').hasClass('slider-btn');
             const isCollapsed1 = $('.sliderbody').hasClass('slider-active');
-
-            if (isCollapsed) {
+if (isCollapsed) {
               
                 
                 $('.titledisplay').removeAttr('title');
@@ -581,7 +580,6 @@
              });
             }
 
-
             localStorage.setItem('sidebarCollapsed', isCollapsed);
 
             localStorage.setItem('sidebarCollapsed1', isCollapsed1);
@@ -590,34 +588,19 @@
         // Function to initialize sidebar state based on localStorage
         function initializeSidebar() {
 
-            const inisCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+            const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
 
-            const inisCollapsed1 = localStorage.getItem('sidebarCollapsed1') === 'true';
+            const isCollapsed1 = localStorage.getItem('sidebarCollapsed1') === 'true';
+            
 
             // Apply the class based on stored state
-            if (inisCollapsed) {
-                $('.side_bar').removeClass('slider-btn');
-                
-                $('.titledisplay').removeAttr('title');
-            } else {
-              
-                
+            if (isCollapsed) {
                 $('.side_bar').addClass('slider-btn');
-                
-                
-                $('.titledisplay').each(function () {
-                    // Retrieve the data-title attribute value
-                    var title = $(this).data('title');
-
-                    // Set the title attribute with the value
-                    $(this).attr('title', title);
-             });
+            } else {
+                $('.side_bar').removeClass('slider-btn');
             }
 
-
-
-
-            if (inisCollapsed1) {
+            if (isCollapsed1) {
                 $('.sliderbody').addClass('slider-active');
             } else {
                 $('.sliderbody').removeClass('slider-active');
