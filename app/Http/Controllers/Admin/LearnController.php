@@ -67,6 +67,7 @@ class LearnController extends Controller
             }
             else
             {
+                dd('test');
                 $this->where('sub_category_id', $category_sub->id);
 
                 $sub_category =$category_sub->id;
