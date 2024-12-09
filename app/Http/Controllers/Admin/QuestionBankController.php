@@ -97,7 +97,7 @@ class QuestionBankController extends Controller
                     $results .= '<option value="' . $i . '" ' . $selected . '>' . $i . '</option>';
                 }
 
-                $button .= '<select name="work_update_coordinator" onchange="OrderChange(this)" data-type="question_bank" data-id="' . $data->id . '" data-exam="' . $data->exam_id . '" data-category="' . $data->category_id . '" data-subcategory="' . $data->sub_category_id . '"  data-subcategoryset="' . $data->sub_category_set . '">'; 
+                $button .= '<select name="work_update_coordinator" onchange="OrderChange(this)" data-type="question_bank" data-id="' . $data->id . '" data-exam="' . $data->exam_id . '" data-category="' . $data->category_id . '" data-subcategory="' . $data->sub_category_id . '"  data-subcategoryset="' . $data->sub_category_set . '" data-homeworkbook="" >'; 
                 $button .= $results;
                 $button .= '</select>';
 

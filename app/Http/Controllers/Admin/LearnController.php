@@ -94,7 +94,7 @@ class LearnController extends Controller
                     $results .= '<option data-order="'.$data->order_no.'" value="' . $i . '" ' . $selected . '>' . $i . '</option>';
                 }
 
-                $button .= '<select name="work_update_coordinator" onchange="OrderChange(this)" data-type="learn" data-id="' . $data->id . '" data-exam="" data-category="' . $data->category_id . '" data-subcategory="' . $data->sub_category_id . '"  data-subcategoryset="" >'; 
+                $button .= '<select name="work_update_coordinator" onchange="OrderChange(this)" data-type="learn" data-id="' . $data->id . '" data-exam="" data-category="' . $data->category_id . '" data-subcategory="' . $data->sub_category_id . '"  data-subcategoryset="" data-homeworkbook="" >'; 
                 $button .= $results;
                 $button .= '</select>';
 

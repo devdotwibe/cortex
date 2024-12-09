@@ -45,7 +45,7 @@ class HomeWorkController extends Controller
                     $results .= '<option value="' . $i . '" ' . $selected . '>' . $i . '</option>';
                 }
 
-                $button .= '<select name="work_update_coordinator" onchange="OrderChange(this)" data-type="home_work" data-id="' . $data->id . '" data-exam="" data-category="' . $data->home_work_id . '" data-subcategory=""  data-subcategoryset="" >'; 
+                $button .= '<select name="work_update_coordinator" onchange="OrderChange(this)" data-type="home_work" data-id="' . $data->id . '" data-exam="" data-category="' . $data->home_work_id . '" data-subcategory=""  data-subcategoryset="" data-homeworkbook="' . $data->home_work_book_id . '" >'; 
                 $button .= $results;
                 $button .= '</select>';
                     return '
@@ -229,7 +229,7 @@ class HomeWorkController extends Controller
         }
 
 
-        $question_count = HomeWorkQuestion::where('home_work_id', $homeWork->id)->count();
+        $question_count = HomeWorkQuestion::where('home_work_id', $homeWork->id)->where('home_work_book_id',$homeWorkBook->id)->count();
 
         
         if(!empty($question_count))
