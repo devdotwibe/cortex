@@ -53,7 +53,7 @@ class LearnController extends Controller
         self::$routeName = "admin.learn";
         self::$defaultActions = [];
 
-        $category_sub=SubCategory::whereHas('learns')->where('category_id',$category)->first();
+        $category_sub=SubCategory::where('category_id',$category)->first();
         
 
         if ($request->ajax()) {
