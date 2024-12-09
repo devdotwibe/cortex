@@ -594,27 +594,13 @@
 
             const isCollapsed1 = localStorage.getItem('sidebarCollapsed1') === 'true';
 
-            // Apply the class based on stored state
             if (isCollapsed) {
-                $('.side_bar').removeClass('slider-btn');
-                
-                $('.titledisplay').removeAttr('title');
-            } else {
-              
-                
                 $('.side_bar').addClass('slider-btn');
-                
-                
-                $('.titledisplay').each(function () {
-                    // Retrieve the data-title attribute value
-                    var title = $(this).data('title');
-
-                    // Set the title attribute with the value
-                    $(this).attr('title', title);
-             });
+                $('.titledisplay').attr('title').prop(true);   
+            } else {
+                $('.side_bar').removeClass('slider-btn');
+                $('.titledisplay').attr('title').prop(false);  
             }
-
-
 
 
             if (isCollapsed1) {
