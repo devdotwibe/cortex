@@ -14,6 +14,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class ImportQuestions implements ShouldQueue
@@ -76,14 +77,14 @@ class ImportQuestions implements ShouldQueue
      */
     public function handle(): void
     {
-        OptionHelper::setData("{$this->exam->name}-import-question",'started');
-        OptionHelper::setData("{$this->exam->name}-import-question-status",'progress');
+        OptionHelper::setData("{$this->exam->name}-import-question-{$this->exam->slug}",'started');
+        OptionHelper::setData("{$this->exam->name}-import-question-status-{$this->exam->slug}",'progress');
         $datalist=Storage::json("importfile/{$this->filename}")??[];
       
         $count=count($datalist);
-        
+        Log::info('Count:'.$count);
         foreach ($datalist as $i => $row) {
-            if(OptionHelper::getData("{$this->exam->name}-import-question","stop")=="stop"){
+            if(OptionHelper::getData("{$this->exam->name}-import-question-{$this->exam->slug}","stop")=="stop"){
                 break;
             }
             $row=$datalist[$i];
@@ -209,14 +210,14 @@ class ImportQuestions implements ShouldQueue
                 ]);
             }
             $i++;
-            OptionHelper::setData("{$this->exam->name}-import-question-completed",round($i*100/$count,2));
+            OptionHelper::setData("{$this->exam->name}-import-question-completed-{$this->exam->slug}",round($i*100/$count,2));
         }
-        OptionHelper::setData("{$this->exam->name}-import-question",'end');
+        OptionHelper::setData("{$this->exam->name}-import-question-{$this->exam->slug}",'end');
         sleep(1);
         Storage::delete("importfile/{$this->filename}");
-        OptionHelper::setData("{$this->exam->name}-import-question",null);
-        OptionHelper::setData("{$this->exam->name}-import-question-status",null);
-        OptionHelper::setData("{$this->exam->name}-import-question-completed",null);
+        OptionHelper::setData("{$this->exam->name}-import-question-{$this->exam->slug}",null);
+        OptionHelper::setData("{$this->exam->name}-import-question-status-{$this->exam->slug}",null);
+        OptionHelper::setData("{$this->exam->name}-import-question-completed-{$this->exam->slug}",null);
     } 
 
 }
