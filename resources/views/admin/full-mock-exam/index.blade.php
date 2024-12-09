@@ -162,6 +162,7 @@ $(function() {
 
         function importupdate(){ 
             questiontable.ajax.reload()
+            location.reload();
         } 
 
         $(function(){

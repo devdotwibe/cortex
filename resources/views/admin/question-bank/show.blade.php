@@ -188,6 +188,8 @@ $(function() {
         function importupdate(){
             // isrefresh=true;
             questiontable.ajax.reload()
+            location.reload();
+
         }
         // async function loadstatus(){
         //     let response=await fetch("{{route('admin.uploadstatus','question-bank-import-question')}}",{

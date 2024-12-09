@@ -152,6 +152,8 @@ $(function() {
         var questiontable = null;
         function importupdate(){ 
             questiontable.ajax.reload()
+            location.reload();
+
         }
         function questiontableinit(table) {
             questiontable = table
