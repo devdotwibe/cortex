@@ -39,10 +39,9 @@
 
                                     {{-- <a class="btn btn-warning btn-lg video-btn" id="explanation_video" href="{{route('full-mock-exam.explanation_video',$userExamReview->slug)}}">Explanation Video</a> --}}
                                     @if(!empty($userExamReview->slug))
-                                        <a class="btn btn-warning btn-lg video-btn" id="explanation_video" href="{{ route('full-mock-exam.explanation_video', $userExamReview->slug) }}">Explanation Video</a>
-                                    @else
-                                        <a class="btn btn-warning btn-lg video-btn" id="explanation_video" href="#" onclick="return false;">Explanation Video</a>
-                                    @endif
+                                    <a class="btn btn-warning btn-lg video-btn" id="explanation_video" href="{{ route('full-mock-exam.explanation_video', $userExamReview->slug) }}">Explanation Video</a>
+                                @endif
+                                
 
 
                                     <a href="{{route('full-mock-exam.index')}}" class="btn btn-outline-dark btn-lg">Exit Set</a>
