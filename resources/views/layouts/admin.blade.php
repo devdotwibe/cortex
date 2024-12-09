@@ -590,12 +590,12 @@
         // Function to initialize sidebar state based on localStorage
         function initializeSidebar() {
 
-            const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+            const inisCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
 
-            const isCollapsed1 = localStorage.getItem('sidebarCollapsed1') === 'true';
+            const inisCollapsed1 = localStorage.getItem('sidebarCollapsed1') === 'true';
 
             // Apply the class based on stored state
-            if (isCollapsed) {
+            if (inisCollapsed) {
                 $('.side_bar').removeClass('slider-btn');
                 
                 $('.titledisplay').removeAttr('title');
@@ -617,7 +617,7 @@
 
 
 
-            if (isCollapsed1) {
+            if (inisCollapsed1) {
                 $('.sliderbody').addClass('slider-active');
             } else {
                 $('.sliderbody').removeClass('slider-active');
