@@ -565,6 +565,25 @@
             const isCollapsed = $('.side_bar').hasClass('slider-btn');
             const isCollapsed1 = $('.sliderbody').hasClass('slider-active');
 
+            if (isCollapsed) {
+                $('.side_bar').removeClass('slider-btn');
+                
+                $('.titledisplay').removeAttr('title');
+            } else {
+              
+                
+                $('.side_bar').addClass('slider-btn');
+                
+                
+                $('.titledisplay').each(function () {
+                    // Retrieve the data-title attribute value
+                    var title = $(this).data('title');
+
+                    // Set the title attribute with the value
+                    $(this).attr('title', title);
+             });
+            }
+
 
             localStorage.setItem('sidebarCollapsed', isCollapsed);
 
