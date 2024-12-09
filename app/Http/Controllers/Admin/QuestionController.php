@@ -36,7 +36,7 @@ class QuestionController extends Controller
                     "sub_category_set"=>['required'],
                     "description"=>['required'],
                     // "duration"=>["required"],
-                    "answer.*" => ["required_without:file_answer.*", 'max:150','nullable'],
+                    "answer.*" => ["required_without:file_answer.*", 'max:200','nullable'],
                     "file_answer.*" => ["required_without:answer.*", 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
                     "explanation"=>['nullable'],
                     "title_text"=>['nullable'],
@@ -54,7 +54,7 @@ class QuestionController extends Controller
                     "category_id"=>['required'],
                     "description"=>['required'],
                     // "duration"=>["required"],
-                    "answer.*" => ["required_without:file_answer.*", 'string', 'max:150','nullable'],
+                    "answer.*" => ["required_without:file_answer.*", 'string', 'max:200','nullable'],
                     "file_answer.*" => ["required_without:answer.*", 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
                     "explanation"=>['nullable'],
                     "title_text"=>['nullable'],
@@ -73,7 +73,7 @@ class QuestionController extends Controller
                     "category_id"=>['required'], 
                     "description"=>['required'],
                     // "duration"=>["required"],
-                    "answer.*" => ["required_without:file_answer.*", 'string', 'max:150','nullable'],
+                    "answer.*" => ["required_without:file_answer.*", 'string', 'max:200','nullable'],
                     "file_answer.*" => ["required_without:answer.*", 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
                     "explanation"=>['nullable'],
                     "title_text"=>['nullable'],
@@ -93,7 +93,7 @@ class QuestionController extends Controller
                     "sub_category_set"=>['nullable'],
                     "description"=>['required'],
                     "duration"=>["required"],
-                    "answer.*" => ["required_without:file_answer", 'string', 'max:150','nullable'],
+                    "answer.*" => ["required_without:file_answer", 'string', 'max:200','nullable'],
                     "file_answer.*" => ["required_without:answer", 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
                 ],[
                     'answer.*.required_without' => 'The answer field is required when image answer is not provided.',
@@ -209,7 +209,7 @@ class QuestionController extends Controller
                     "sub_category_set"=>['required'],
                     "description"=>['required'],
                     //"duration"=>["required"],
-                    "answer.*" => [ 'string', 'max:150','nullable'],
+                    "answer.*" => [ 'string', 'max:200','nullable'],
                     "file_answer.*" => [ 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048','nullable'],
                     "explanation"=>['nullable'],
                     "title_text"=>['nullable'],
@@ -226,7 +226,7 @@ class QuestionController extends Controller
                     "category_id"=>['required'],
                     "description"=>['required'],
                     // "duration"=>["required"],
-                    "answer.*" => [ 'string', 'max:150','nullable'],
+                    "answer.*" => [ 'string', 'max:200','nullable'],
                     "file_answer.*" => [ 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048','nullable'],
                     "explanation"=>['nullable'],
                     "title_text"=>['nullable'],
@@ -241,7 +241,7 @@ class QuestionController extends Controller
                     "category_id"=>['required'], 
                     "description"=>['required'],
                     // "duration"=>["required"],
-                    "answer.*" => [ 'string', 'max:150','nullable'],
+                    "answer.*" => [ 'string', 'max:200','nullable'],
                     "file_answer.*" => [ 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048','nullable'],
                     "explanation"=>['nullable'],
                     "title_text"=>['nullable'],
@@ -258,7 +258,7 @@ class QuestionController extends Controller
                     "sub_category_set"=>['nullable'],
                     "description"=>['required'],
                     "duration"=>["required"],
-                    "answer.*" => [ 'string', 'max:150','nullable'],
+                    "answer.*" => [ 'string', 'max:200','nullable'],
                     "file_answer.*" => [ 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048','nullable'],
                     "explanation"=>['nullable'],
                 ],[
@@ -337,6 +337,8 @@ class QuestionController extends Controller
         $subcategory_id = $request->subcategory_id;
 
         $subcategoryset = $request->subcategoryset;
+
+        $home_work_book_id = $request->home_work_book;
 
         $type = $request->type;
     
@@ -646,7 +648,7 @@ class QuestionController extends Controller
 
                         case 'home_work':
 
-                            $questionToUpdate = HomeWorkQuestion:: where('home_work_id', $category_id)->get();
+                            $questionToUpdate = HomeWorkQuestion:: where('home_work_id', $category_id)->where('home_work_book_id',$home_work_book_id)->get();
                           
                                     // foreach($questionToUpdate as $k => $item)
                                     // {
@@ -659,6 +661,7 @@ class QuestionController extends Controller
         
                                     $questionToUpdate = HomeWorkQuestion::where('id', $question_id)
                                         ->where('home_work_id', $category_id)
+                                        ->where('home_work_book_id',$home_work_book_id)
                                         ->first();
         
                                     if (!empty($questionToUpdate)) {
@@ -670,6 +673,7 @@ class QuestionController extends Controller
                                             if (abs($currentOrder - $newOrder) == 1) {
                                          
                                                 $otherQuestion = HomeWorkQuestion::where('home_work_id', $category_id)
+                                                    ->where('home_work_book_id',$home_work_book_id)
                                                     ->where('order_no', $newOrder)
                                                     ->first();
                                     
@@ -685,6 +689,7 @@ class QuestionController extends Controller
                                                 if ($newOrder > $currentOrder) {
                                                 
                                                     HomeWorkQuestion::where('home_work_id', $category_id)
+                                                        ->where('home_work_book_id',$home_work_book_id)
                                                         ->where('order_no', '>', $currentOrder)
                                                         ->where('order_no', '<=', $newOrder)
                                                         ->decrement('order_no');  
@@ -692,6 +697,7 @@ class QuestionController extends Controller
                                                 else {
                                                 
                                                     HomeWorkQuestion::where('home_work_id', $category_id)
+                                                        ->where('home_work_book_id',$home_work_book_id)
                                                         ->where('order_no', '<', $currentOrder)
                                                         ->where('order_no', '>=', $newOrder)
                                                         ->increment('order_no');

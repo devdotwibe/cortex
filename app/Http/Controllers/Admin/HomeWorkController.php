@@ -30,7 +30,7 @@ class HomeWorkController extends Controller
         
         if ($request->ajax()) { 
            $this->orderBy('order_no', 'ASC');
-            $examCount = HomeWorkQuestion::where('home_work_id',$homeWork->id)->count();
+            $examCount = HomeWorkQuestion::where('home_work_id',$homeWork->id)->where('home_work_book_id', $homeWorkBook->id)->count();
 
             return $this->where('home_work_id', $homeWork->id)
                 ->addAction(function ($data) use ($homeWork,$homeWorkBook,$examCount) {
@@ -45,7 +45,7 @@ class HomeWorkController extends Controller
                     $results .= '<option value="' . $i . '" ' . $selected . '>' . $i . '</option>';
                 }
 
-                $button .= '<select name="work_update_coordinator" onchange="OrderChange(this)" data-type="home_work" data-id="' . $data->id . '" data-exam="" data-category="' . $data->home_work_id . '" data-subcategory=""  data-subcategoryset="" >'; 
+                $button .= '<select name="work_update_coordinator" onchange="OrderChange(this)" data-type="home_work" data-id="' . $data->id . '" data-exam="" data-category="' . $data->home_work_id . '" data-subcategory=""  data-subcategoryset="" data-homeworkbook="' . $data->home_work_book_id . '" >'; 
                 $button .= $results;
                 $button .= '</select>';
                     return '
@@ -127,10 +127,11 @@ class HomeWorkController extends Controller
                 $data = $request->validate([
                     "description" => ['required'],
                     "answer" => ['required'],
-                   "answer.*" => ["required_without_all:choice_answer_image.*,file_answer.*", 'string', 'max:150', 'nullable'],                 
+                   "answer.*" => ["required_without_all:choice_answer_image.*,file_answer.*", 'string', 'max:200', 'nullable'],                 
                     "file_answer.*" => ["required_without_all:answer.*,choice_answer_image.*", 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
                     "explanation" => ['nullable']
                 ], [
+                    'answer.*.max' => 'The answer field must not be greater than 200 characters.',
                     'answer.*.required_without_all' => 'The answer field is required when file answer is not provided.',
                     'file_answer.*.required_without_all' => 'The file answer is required when answer is not provided.',
                     'file_answer.*.mimes' => 'Each file answer must be an image (jpeg, png, jpg, gif).',
@@ -208,10 +209,11 @@ class HomeWorkController extends Controller
                 $data = $request->validate([
                     "description" => ['required'],
                     "answer" => ['required'],
-                    "answer.*" => ["required_without:file_answer", 'string', 'max:150', 'nullable'],
+                    "answer.*" => ["required_without:file_answer", 'string', 'max:200', 'nullable'],
                     "file_answer.*" => ["required_without:answer", 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
                     "explanation" => ['nullable']
                 ], [
+                    'answer.*.max' => 'The answer field must not be greater than 200 characters.',
                     'answer.*.required_without' => 'The answer field is required when file answer is not provided.',
                     'file_answer.*.required_without' => 'The file answer is required when answer is not provided.',
                     'file_answer.*.mimes' => 'Each file answer must be an image (jpeg, png, jpg, gif).',
@@ -227,7 +229,7 @@ class HomeWorkController extends Controller
         }
 
 
-        $question_count = HomeWorkQuestion::where('home_work_id', $homeWork->id)->count();
+        $question_count = HomeWorkQuestion::where('home_work_id', $homeWork->id)->where('home_work_book_id',$homeWorkBook->id)->count();
 
         
         if(!empty($question_count))
