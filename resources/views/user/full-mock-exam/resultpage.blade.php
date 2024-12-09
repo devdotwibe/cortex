@@ -38,7 +38,7 @@
                                     <a class="btn btn-warning btn-lg" id="review-link" href="{{route('full-mock-exam.preview',$userExamReview->slug)}}">Review Set</a>
 
                                     {{-- <a class="btn btn-warning btn-lg video-btn" id="explanation_video" href="{{route('full-mock-exam.explanation_video',$userExamReview->slug)}}">Explanation Video</a> --}}
-                                    @if(!empty($userExamReview->slug))
+                                    @if(!empty($userExamReview->explanation_video))
                                     <a class="btn btn-warning btn-lg video-btn" id="explanation_video" href="{{ route('full-mock-exam.explanation_video', $userExamReview->slug) }}">Explanation Video</a>
                                 @endif
                                 
