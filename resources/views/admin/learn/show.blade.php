@@ -135,7 +135,7 @@ function OrderChange(element)
             }, 'json');
         }
         function questionbeforeajax(data){
-            data.sub_category=$('#subcat-list').val()||null;
+            data.sub_category=$('#subcat-list').val()||"{{ $category->id }}";
             data.select_all_values = $('#select_all_values').val()||null;
             return data;
         }
@@ -148,23 +148,7 @@ function OrderChange(element)
         //     })
         // })
 
-        $(document).ready(function() {
-                // Initialize Select2 dropdown
-                $('#subcat-list').select2();
-
-                // Pre-select a value after the page loads
-                var preselectedValue = "{{ $category->id }}"; // Or get the selected value from a controller variable
-
-                // Set the value of the dropdown dynamically
-                if (preselectedValue) {
-                    $('#subcat-list').val(preselectedValue).trigger('change');
-                }
-
-                // Optionally handle any other default behavior or AJAX requests
-                $('#subcat-list').on('change', function() {
-                    // Handle value change if needed
-                });
-            });
+  
 
     </script>
 @endpush
