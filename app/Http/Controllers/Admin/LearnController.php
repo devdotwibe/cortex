@@ -242,7 +242,7 @@ class LearnController extends Controller
                     "category_id" => ['required'],
                     "sub_category_id" => ['required'],
                     "mcq_question" => ['required'],
-                    "mcq_answer.*" => ["required_without:file_mcq_answer", 'string', 'max:150','nullable'],
+                    "mcq_answer.*" => ["required_without:file_mcq_answer", 'string', 'max:200','nullable'],
                     "file_mcq_answer.*" => ["required_without:mcq_answer", 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
                     "explanation" => ['nullable']
                 ], [
@@ -339,7 +339,7 @@ class LearnController extends Controller
                     "category_id" => ['required'],
                     "sub_category_id" => ['required'],
                     "mcq_question" => ['required'],
-                    "mcq_answer.*" => [ 'string', 'max:150','nullable'],
+                    "mcq_answer.*" => [ 'string', 'max:200','nullable'],
                     "file_mcq_answer.*" => [ 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048','nullable'],
                     "explanation" => ['nullable']
                 ], [
