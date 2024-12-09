@@ -30,7 +30,7 @@ class HomeWorkController extends Controller
         
         if ($request->ajax()) { 
            $this->orderBy('order_no', 'ASC');
-            $examCount = HomeWorkQuestion::where('home_work_id',$homeWork->id)->count();
+            $examCount = HomeWorkQuestion::where('home_work_id',$homeWork->id)->where('home_work_book_id', $homeWorkBook->id)->count();
 
             return $this->where('home_work_id', $homeWork->id)
                 ->addAction(function ($data) use ($homeWork,$homeWorkBook,$examCount) {
