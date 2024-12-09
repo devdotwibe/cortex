@@ -121,6 +121,8 @@ $(function() {
 
                 var type = $(element).attr('data-type');
 
+                var home_work_book = $(element).attr('data-homeworkbook');
+
                 console.log(value,id);
 
                 var url = '{{route('admin.order_change')}}';
@@ -137,6 +139,8 @@ $(function() {
                         subcategory_id: subcategory_id,
                         subcategoryset: subcategoryset,
                         type: type,
+                        type: type,
+                        home_work_book: home_work_book,
                     },
                     success: function(res) {
 

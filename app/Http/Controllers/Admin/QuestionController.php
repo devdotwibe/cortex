@@ -338,6 +338,8 @@ class QuestionController extends Controller
 
         $subcategoryset = $request->subcategoryset;
 
+        $home_work_book_id = $request->home_work_book;
+
         $type = $request->type;
     
             switch ($type) {
@@ -646,7 +648,7 @@ class QuestionController extends Controller
 
                         case 'home_work':
 
-                            $questionToUpdate = HomeWorkQuestion:: where('home_work_id', $category_id)->get();
+                            $questionToUpdate = HomeWorkQuestion:: where('home_work_id', $category_id)->where('home_work_book_id',$home_work_book_id)->get();
                           
                                     // foreach($questionToUpdate as $k => $item)
                                     // {
@@ -659,6 +661,7 @@ class QuestionController extends Controller
         
                                     $questionToUpdate = HomeWorkQuestion::where('id', $question_id)
                                         ->where('home_work_id', $category_id)
+                                        ->where('home_work_book_id',$home_work_book_id)
                                         ->first();
         
                                     if (!empty($questionToUpdate)) {
@@ -670,6 +673,7 @@ class QuestionController extends Controller
                                             if (abs($currentOrder - $newOrder) == 1) {
                                          
                                                 $otherQuestion = HomeWorkQuestion::where('home_work_id', $category_id)
+                                                    ->where('home_work_book_id',$home_work_book_id)
                                                     ->where('order_no', $newOrder)
                                                     ->first();
                                     
@@ -685,6 +689,7 @@ class QuestionController extends Controller
                                                 if ($newOrder > $currentOrder) {
                                                 
                                                     HomeWorkQuestion::where('home_work_id', $category_id)
+                                                        ->where('home_work_book_id',$home_work_book_id)
                                                         ->where('order_no', '>', $currentOrder)
                                                         ->where('order_no', '<=', $newOrder)
                                                         ->decrement('order_no');  
@@ -692,6 +697,7 @@ class QuestionController extends Controller
                                                 else {
                                                 
                                                     HomeWorkQuestion::where('home_work_id', $category_id)
+                                                        ->where('home_work_book_id',$home_work_book_id)
                                                         ->where('order_no', '<', $currentOrder)
                                                         ->where('order_no', '>=', $newOrder)
                                                         ->increment('order_no');
