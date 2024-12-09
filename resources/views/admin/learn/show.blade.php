@@ -153,7 +153,7 @@ function OrderChange(element)
                 $('#subcat-list').select2();
 
                 // Pre-select a value after the page loads
-                var preselectedValue = "{{ old('subcat') }}"; // Or get the selected value from a controller variable
+                var preselectedValue = "{{ $category->id }}"; // Or get the selected value from a controller variable
 
                 // Set the value of the dropdown dynamically
                 if (preselectedValue) {
