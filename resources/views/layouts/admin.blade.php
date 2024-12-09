@@ -591,28 +591,15 @@ if (isCollapsed) {
             const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
 
             const isCollapsed1 = localStorage.getItem('sidebarCollapsed1') === 'true';
+            
 
-
+            // Apply the class based on stored state
             if (isCollapsed) {
-                $('.side_bar').removeClass('slider-btn');
-                
-                $('.titledisplay').removeAttr('title');
-            } else {
-              
-                
                 $('.side_bar').addClass('slider-btn');
-                
-                
-                $('.titledisplay').each(function () {
-                    // Retrieve the data-title attribute value
-                    var title = $(this).data('title');
-
-                    // Set the title attribute with the value
-                    $(this).attr('title', title);
-             });
+            } else {
+                $('.side_bar').removeClass('slider-btn');
             }
 
-          
             if (isCollapsed1) {
                 $('.sliderbody').addClass('slider-active');
             } else {
