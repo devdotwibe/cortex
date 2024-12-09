@@ -213,6 +213,7 @@ class HomeWorkController extends Controller
                     "file_answer.*" => ["required_without:answer", 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
                     "explanation" => ['nullable']
                 ], [
+                    'answer.*.max' => 'The answer field must not be greater than 200 characters.',
                     'answer.*.required_without' => 'The answer field is required when file answer is not provided.',
                     'file_answer.*.required_without' => 'The file answer is required when answer is not provided.',
                     'file_answer.*.mimes' => 'Each file answer must be an image (jpeg, png, jpg, gif).',
