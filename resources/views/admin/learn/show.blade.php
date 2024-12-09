@@ -14,7 +14,7 @@
         <div class="header_content">
             <div class="form-group">
                 <select id="subcat-list" class="select2 form-control" data-placeholder="Select a Sub Category" data-allow-clear="true" data-ajax--url="{{ route('admin.learn.create', $category->slug) }}">
-                    <option value="0">defalut</option>
+                    <option value="{{$category_sub->id}}">{{$category_sub->name}}</option>
                 </select>
             </div>
         </div>

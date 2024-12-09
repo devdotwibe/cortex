@@ -141,7 +141,7 @@ class LearnController extends Controller
             ]);
             $exam = Exam::find($exam->id);
         }
-        return view("admin.learn.show", compact('category', 'exam'));
+        return view("admin.learn.show", compact('category', 'exam','category_sub'));
     }
 
 
