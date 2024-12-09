@@ -140,12 +140,31 @@ function OrderChange(element)
             return data;
         }
 
-        $(function(){
-            $('.select2').select2().change(function(){
-                if (questiontable != null) {
-                    questiontable.ajax.reload()
+        // $(function(){
+        //     $('.select2').select2().change(function(){
+        //         if (questiontable != null) {
+        //             questiontable.ajax.reload()
+        //         }
+        //     })
+        // })
+
+        $(document).ready(function() {
+                // Initialize Select2 dropdown
+                $('#subcat-list').select2();
+
+                // Pre-select a value after the page loads
+                var preselectedValue = "{{ old('subcat') }}"; // Or get the selected value from a controller variable
+
+                // Set the value of the dropdown dynamically
+                if (preselectedValue) {
+                    $('#subcat-list').val(preselectedValue).trigger('change');
                 }
-            })
-        })
+
+                // Optionally handle any other default behavior or AJAX requests
+                $('#subcat-list').on('change', function() {
+                    // Handle value change if needed
+                });
+            });
+
     </script>
 @endpush
