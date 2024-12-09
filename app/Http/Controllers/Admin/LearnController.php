@@ -53,7 +53,7 @@ class LearnController extends Controller
         self::$routeName = "admin.learn";
         self::$defaultActions = [];
 
-        $category_sub=SubCategory::whereHas('learns')->first();
+        $category_sub=SubCategory::whereHas('learns')->where('category_id',$category)->first();
         
 
         if ($request->ajax()) {
@@ -67,7 +67,8 @@ class LearnController extends Controller
             }
             else
             {
-              
+                $this->where('sub_category_id', $category_sub->id);
+
                 $sub_category =$category_sub->id;
 
                 $examCount = Learn::where('category_id',$category->id)->where('sub_category_id',$sub_category)->count();
