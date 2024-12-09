@@ -415,7 +415,7 @@ class LearnController extends Controller
         }
         LearnAnswer::where('learn_id', $learn->id)->whereNotIn('id', $ansIds)->delete();
 
-        $redirect = $request->redirect ?? route('admin.learn.index');
+        $redirect = $request->redirect.'?subcat='.$request->sub_category_id ?? route('admin.learn.index');
         return redirect($redirect)->with("success", "Learn has been successfully updated");
     }
     public function destroy(Request $request, Category $category, Learn $learn)
