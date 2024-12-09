@@ -527,7 +527,7 @@
                             <img src="{{ asset('assets/images/log-out.svg') }}" alt="log-out">
                         </span>
                         <span class="active-icon">
-                            <img src="{{ asset('assets/images/log-out-1.svg') }}" alt="log-out">
+                            <img src="{{ asset('assets/images/log-out-1.svg') }}" title="Log Out" alt="log-out" data-title="Log Out" class="titledisplay">
                         </span> <span class="menutext">Log Out</span>
                     </a>
                 </li>
@@ -564,7 +564,21 @@
             // Get the current state and save it in localStorage
             const isCollapsed = $('.side_bar').hasClass('slider-btn');
             const isCollapsed1 = $('.sliderbody').hasClass('slider-active');
+if (isCollapsed) {
+              
+                
+                $('.titledisplay').removeAttr('title');
+            } else {
+              
+            
+                $('.titledisplay').each(function () {
+                    // Retrieve the data-title attribute value
+                    var title = $(this).data('title');
 
+                    // Set the title attribute with the value
+                    $(this).attr('title', title);
+             });
+            }
 
             localStorage.setItem('sidebarCollapsed', isCollapsed);
 
@@ -578,13 +592,27 @@
 
             const isCollapsed1 = localStorage.getItem('sidebarCollapsed1') === 'true';
 
-            // Apply the class based on stored state
+
             if (isCollapsed) {
-                $('.side_bar').addClass('slider-btn');
-            } else {
                 $('.side_bar').removeClass('slider-btn');
+                
+                $('.titledisplay').removeAttr('title');
+            } else {
+              
+                
+                $('.side_bar').addClass('slider-btn');
+                
+                
+                $('.titledisplay').each(function () {
+                    // Retrieve the data-title attribute value
+                    var title = $(this).data('title');
+
+                    // Set the title attribute with the value
+                    $(this).attr('title', title);
+             });
             }
 
+          
             if (isCollapsed1) {
                 $('.sliderbody').addClass('slider-active');
             } else {
