@@ -38,7 +38,9 @@
                                         <a class="btn btn-warning btn-lg" id="review-link" href="{{route('full-mock-exam.retry',$userExamReview->slug)}}">Retry In-Correct</a>
                                     @endif
                                     <a class="btn btn-warning btn-lg" id="review-link" href="{{route('full-mock-exam.retry.preview', ['user_exam_review' => $userExamReview->slug, 'exam_retry_review' => $examRetryReview->slug])}}">Review Set</a>
-                                    <a class="btn btn-warning btn-lg video-btn" id="explanation_video" href="{{route('full-mock-exam.explanation_video',$userExamReview->slug)}}">Explanation Video</a>
+                                    @if(!empty($exam->explanation_video))
+                                    <a class="btn btn-warning btn-lg video-btn" id="explanation_video" href="{{ route('full-mock-exam.explanation_video', $userExamReview->slug) }}">Explanation Video</a>
+                                @endif
                                     <a href="{{route('full-mock-exam.index')}}" class="btn btn-outline-dark btn-lg">Exit Set</a>
                                 </div>
                             </div>

@@ -30,9 +30,9 @@
                             ["name"=>"explanation","label"=>"Explanation"],
                         ]' onupdate="importupdate" ></x-ajax-import>
                     </li> 
-                    <li class="nav_item import-cancel-btn" @if(get_option('topic-test-import-question','')!=="started") style="display: none" @endif >
-                        <a href="{{route('admin.uploadcancel','topic-test-import-question')}}">
-                            <p id="import-cancel-btn-text">0 % Complete</p>
+                    <li class="nav_item import-cancel-btn" @if(get_option('topic-test-import-question-'.$category->slug,'')!=="started") style="display: none" @endif >
+                        <a href="{{route('admin.uploadcancel','topic-test-import-question-'.$category->slug)}}">
+                            <p id="import-cancel-btn-text">{{ get_option('topic-test-import-question-completed-'.$category->slug) }} % Completed</p>
                             <span class="btn btn-danger">Cancel</span>
                         </a>
                     </li>
@@ -156,6 +156,8 @@ $(function() {
         var questiontable = null;
         function importupdate(){ 
             questiontable.ajax.reload()
+            location.reload();
+
         }
         function questiontableinit(table) {
             questiontable = table
