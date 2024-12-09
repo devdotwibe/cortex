@@ -132,7 +132,7 @@
                                 <img src="{{ asset('assets/images/iconshover/user.svg') }}" alt="Users">
                             </span>
                             <span class="active-icon">
-                                <img src="{{ asset('assets/images/icons/user.svg') }}" alt="Users"z>
+                                <img src="{{ asset('assets/images/icons/user.svg') }}" alt="Users">
                             </span>
                             <span class="menutext">
                                 Users
