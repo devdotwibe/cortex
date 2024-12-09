@@ -554,22 +554,66 @@
         //     $('.side_bar').toggleClass('slider-btn');
         // }
 
+        // function ChangeMenu() {
+
+
+        //     $('.sliderbody').toggleClass('slider-active');
+
+        //     $('.side_bar').toggleClass('slider-btn');
+
+        //     // Get the current state and save it in localStorage
+        //     const isCollapsed = $('.side_bar').hasClass('slider-btn');
+        //     const isCollapsed1 = $('.sliderbody').hasClass('slider-active');
+
+
+        //     localStorage.setItem('sidebarCollapsed', isCollapsed);
+
+        //     localStorage.setItem('sidebarCollapsed1', isCollapsed1);
+        // }
+
         function ChangeMenu() {
+    // Toggle classes for sidebar collapse/expand
+    $('.sliderbody').toggleClass('slider-active');
+    $('.side_bar').toggleClass('slider-btn');
 
+    // Get the collapsed state
+    const isCollapsed = $('.side_bar').hasClass('slider-btn');
 
-            $('.sliderbody').toggleClass('slider-active');
+    // Save state in localStorage
+    localStorage.setItem('sidebarCollapsed', isCollapsed);
 
-            $('.side_bar').toggleClass('slider-btn');
-
-            // Get the current state and save it in localStorage
-            const isCollapsed = $('.side_bar').hasClass('slider-btn');
-            const isCollapsed1 = $('.sliderbody').hasClass('slider-active');
-
-
-            localStorage.setItem('sidebarCollapsed', isCollapsed);
-
-            localStorage.setItem('sidebarCollapsed1', isCollapsed1);
+    // Update titles for menu items
+    $('.side-item a').each(function () {
+        if (isCollapsed) {
+            // Add title from data-title
+            $(this).attr('title', $(this).data('title'));
+        } else {
+            // Remove title
+            $(this).removeAttr('title');
         }
+    });
+}
+
+// Apply title state on page load
+$(document).ready(function () {
+    const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+
+    // Toggle sidebar state
+    if (isCollapsed) {
+        $('.sliderbody').addClass('slider-active');
+        $('.side_bar').addClass('slider-btn');
+    }
+
+    // Update titles based on state
+    $('.side-item a').each(function () {
+        if (isCollapsed) {
+            $(this).attr('title', $(this).data('title'));
+        } else {
+            $(this).removeAttr('title');
+        }
+    });
+});
+
 
         // Function to initialize sidebar state based on localStorage
         function initializeSidebar() {
