@@ -581,9 +581,12 @@
             // Apply the class based on stored state
             if (isCollapsed) {
                 $('.side_bar').addClass('slider-btn');
+                $('.titledisplay').attr('title', 'true'); // Correctly set the title attribute
             } else {
                 $('.side_bar').removeClass('slider-btn');
+                $('.titledisplay').removeAttr('title'); // Remove the title attribute
             }
+
 
             if (isCollapsed1) {
                 $('.sliderbody').addClass('slider-active');
