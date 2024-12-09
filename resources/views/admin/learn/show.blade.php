@@ -135,20 +135,18 @@ function OrderChange(element)
             }, 'json');
         }
         function questionbeforeajax(data){
-            data.sub_category=$('#subcat-list').val()||"{{ $category->id }}";
+            data.sub_category=$('#subcat-list').val()||null;
             data.select_all_values = $('#select_all_values').val()||null;
             return data;
         }
 
-        // $(function(){
-        //     $('.select2').select2().change(function(){
-        //         if (questiontable != null) {
-        //             questiontable.ajax.reload()
-        //         }
-        //     })
-        // })
-
-  
-
+        $(function(){
+            $('.select2').select2().change(function(){
+                if (questiontable != null) {
+                    questiontable.ajax.reload()
+                }
+            })
+        })
+        
     </script>
 @endpush
