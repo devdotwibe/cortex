@@ -127,7 +127,7 @@ class HomeWorkController extends Controller
                 $data = $request->validate([
                     "description" => ['required'],
                     "answer" => ['required'],
-                   "answer.*" => ["required_without_all:choice_answer_image.*,file_answer.*", 'string', 'max:150', 'nullable'],                 
+                   "answer.*" => ["required_without_all:choice_answer_image.*,file_answer.*", 'string', 'max:200', 'nullable'],                 
                     "file_answer.*" => ["required_without_all:answer.*,choice_answer_image.*", 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
                     "explanation" => ['nullable']
                 ], [
@@ -208,7 +208,7 @@ class HomeWorkController extends Controller
                 $data = $request->validate([
                     "description" => ['required'],
                     "answer" => ['required'],
-                    "answer.*" => ["required_without:file_answer", 'string', 'max:150', 'nullable'],
+                    "answer.*" => ["required_without:file_answer", 'string', 'max:200', 'nullable'],
                     "file_answer.*" => ["required_without:answer", 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
                     "explanation" => ['nullable']
                 ], [
