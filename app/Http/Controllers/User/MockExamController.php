@@ -265,7 +265,10 @@ class MockExamController extends Controller
                                     ->where('user_id',$user->id)
                                     ->count();
         $category=Category::all();
-        return view('user.full-mock-exam.resultpage',compact('chartdata','chartbackgroundColor','chartlabel','category','userExamReview','passed','attemttime','questioncount','attemtcount'));
+
+        $exam=Exam::where('id',$userExamReview->exam_id)->first();
+
+        return view('user.full-mock-exam.resultpage',compact('chartdata','chartbackgroundColor','chartlabel','category','userExamReview','passed','attemttime','questioncount','attemtcount','exam'));
         
     }
 
