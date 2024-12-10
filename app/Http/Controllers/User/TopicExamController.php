@@ -47,7 +47,7 @@ class TopicExamController extends Controller
             $exam = Exam::find($exam->id);
         }
         $categorys = $this->where(function ($qry) use ($exam) {
-            $qry->whereIn("id", Question::where('exam_id', $exam->id)->select('category_id'));
+            // $qry->whereIn("id", Question::where('exam_id', $exam->id)->select('category_id'));
         })->buildResult();
 
         /**
