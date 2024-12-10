@@ -6490,7 +6490,7 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 }
 
 .questionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer {
-    height: calc(100vh - 172px) !important;
+    height: calc(100vh - 225px) !important;
     padding: 0 50px 0;
     margin: 0 0 50px;
     overflow-y: auto;
