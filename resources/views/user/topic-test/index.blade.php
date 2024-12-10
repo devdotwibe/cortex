@@ -12,7 +12,7 @@
     <div class="container">
         <div class="row">
             @foreach ($categorys as $k=> $item)
-            @if($item->time_of_exam && $item->time_of_exam !== '00 : 00')
+            {{-- @if($item->time_of_exam && $item->time_of_exam !== '00 : 00') --}}
             <div class="col-md-6">
 
                     <div class="card">
