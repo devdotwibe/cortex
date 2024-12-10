@@ -3365,7 +3365,7 @@ aside.side_bar.slider-btn .sidebar-content ul ul li.side-item a {
 }
 
 .questionclass .mcq-container-wrap.nopaginationclass .lesson .lesson-body .mcq-container .mcq-group, .questionclass .mcq-container-wrap.nopaginationclass .lesson .lesson-body .mcq-container .mcq-answer {
-    height: calc(100vh - 229px) !important;
+    height: calc(100vh - 238px) !important;
     min-height: inherit !important;
 }
 
@@ -6490,7 +6490,7 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 }
 
 .questionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer {
-    height: calc(100vh - 172px) !important;
+    height: calc(100vh - 244px) !important;
     padding: 0 50px 0;
     margin: 0 0 50px;
     overflow-y: auto;
@@ -7980,7 +7980,7 @@ nav.navbar.top-barhide {
     }
 
     .questionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer {
-        height: calc(100vh - 172px) !important;
+        height: calc(100vh - 200px) !important;
     }
     
     .critical-reasoning h2 {
