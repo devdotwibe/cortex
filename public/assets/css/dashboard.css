@@ -3268,7 +3268,7 @@ aside.side_bar.slider-btn .sidebar-content ul ul li.side-item a {
     position: absolute;
     width: 1px;
     height: 100%;
-    top: 0;
+    top: -28px;
     left: 50%;
     transform: translateX(-50%);
     background: #1789fa;
