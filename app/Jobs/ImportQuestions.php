@@ -14,6 +14,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class ImportQuestions implements ShouldQueue
@@ -76,14 +77,14 @@ class ImportQuestions implements ShouldQueue
      */
     public function handle(): void
     {
-        OptionHelper::setData("{$this->exam->name}-import-question",'started');
-        OptionHelper::setData("{$this->exam->name}-import-question-status",'progress');
+        OptionHelper::setData("{$this->exam->name}-import-question-{$this->exam->slug}",'started');
+        OptionHelper::setData("{$this->exam->name}-import-question-status-{$this->exam->slug}",'progress');
         $datalist=Storage::json("importfile/{$this->filename}")??[];
       
         $count=count($datalist);
-        
+        Log::info('Count:'.$count);
         foreach ($datalist as $i => $row) {
-            if(OptionHelper::getData("{$this->exam->name}-import-question","stop")=="stop"){
+            if(OptionHelper::getData("{$this->exam->name}-import-question-{$this->exam->slug}","stop")=="stop"){
                 break;
             }
             $row=$datalist[$i];
@@ -112,9 +113,9 @@ class ImportQuestions implements ShouldQueue
                     "sub_category_id"=>optional($this->subCategory)->id,
                     "sub_category_set"=>optional($this->setname)->id,
                     "description"=>nl2br($row[$this->fields['description']]),
-                    "title_text" => (isset($this->fields['title_text']) && isset($row[$this->fields['title_text']])) ? nl2br($row[$this->fields['title_text']]) : null,
-                    "sub_question" => (isset($this->fields['sub_question']) && isset($row[$this->fields['sub_question']])) ? nl2br($row[$this->fields['sub_question']]) : null,
-                    "explanation" => (isset($this->fields['explanation']) && isset($row[$this->fields['explanation']])) ? nl2br($row[$this->fields['explanation']]) : null,
+                    "title_text" => (isset($this->fields['title_text']) && isset($row[$this->fields['title_text']])) ? '<p>' . nl2br($row[$this->fields['title_text']]) . '</p>' : null,
+                    "sub_question" => (isset($this->fields['sub_question']) && isset($row[$this->fields['sub_question']])) ? '<p>' . nl2br($row[$this->fields['sub_question']]) . '</p>' : null,
+                    "explanation" => (isset($this->fields['explanation']) && isset($row[$this->fields['explanation']])) ? '<p>' . nl2br($row[$this->fields['explanation']]) . '</p>': null,
                 ]);
             }
             else if($this->exam->name=="question-bank"){
@@ -140,9 +141,9 @@ class ImportQuestions implements ShouldQueue
                     "sub_category_id"=>optional($this->subCategory)->id,
                     "sub_category_set"=>optional($this->setname)->id,
                     "description"=>nl2br($row[$this->fields['description']]),
-                    "explanation" => (isset($this->fields['explanation']) && isset($row[$this->fields['explanation']])) ? nl2br($row[$this->fields['explanation']]) : null,
-                    "title_text" => (isset($this->fields['title_text']) && isset($row[$this->fields['title_text']])) ? nl2br($row[$this->fields['title_text']]) : null,
-                    "sub_question" => (isset($this->fields['sub_question']) && isset($row[$this->fields['sub_question']])) ? nl2br($row[$this->fields['sub_question']]) : null,
+                    "explanation" => (isset($this->fields['explanation']) && isset($row[$this->fields['explanation']])) ? '<p>' . nl2br($row[$this->fields['explanation']]) . '</p>'  : null,
+                    "title_text" => (isset($this->fields['title_text']) && isset($row[$this->fields['title_text']])) ? '<p>' . nl2br($row[$this->fields['title_text']]) . '</p>'  : null,
+                    "sub_question" => (isset($this->fields['sub_question']) && isset($row[$this->fields['sub_question']])) ? '<p>' . nl2br($row[$this->fields['sub_question']]) . '</p>'  : null,
                 ]);
 
             }
@@ -167,9 +168,9 @@ class ImportQuestions implements ShouldQueue
                     "sub_category_id"=>optional($this->subCategory)->id,
                     "sub_category_set"=>optional($this->setname)->id,
                     "description"=>nl2br($row[$this->fields['description']]),
-                    "explanation" => (isset($this->fields['explanation']) && isset($row[$this->fields['explanation']])) ? nl2br($row[$this->fields['explanation']]) : null,
-                    "title_text" => (isset($this->fields['title_text']) && isset($row[$this->fields['title_text']])) ? nl2br($row[$this->fields['title_text']]) : null,
-                    "sub_question" => (isset($this->fields['sub_question']) && isset($row[$this->fields['sub_question']])) ? nl2br($row[$this->fields['sub_question']]) : null,
+                    "explanation" => (isset($this->fields['explanation']) && isset($row[$this->fields['explanation']])) ? '<p>' . nl2br($row[$this->fields['explanation']]) . '</p>' : null,
+                    "title_text" => (isset($this->fields['title_text']) && isset($row[$this->fields['title_text']])) ? '<p>' . nl2br($row[$this->fields['title_text']]) . '</p>' : null,
+                    "sub_question" => (isset($this->fields['sub_question']) && isset($row[$this->fields['sub_question']])) ? '<p>' . nl2br($row[$this->fields['sub_question']]) . '</p>' : null,
                 ]);
             }
             if(isset($this->fields['answer_1']) && isset($row[$this->fields['answer_1']]))
@@ -209,14 +210,14 @@ class ImportQuestions implements ShouldQueue
                 ]);
             }
             $i++;
-            OptionHelper::setData("{$this->exam->name}-import-question-completed",round($i*100/$count,2));
+            OptionHelper::setData("{$this->exam->name}-import-question-completed-{$this->exam->slug}",round($i*100/$count,2));
         }
-        OptionHelper::setData("{$this->exam->name}-import-question",'end');
+        OptionHelper::setData("{$this->exam->name}-import-question-{$this->exam->slug}",'end');
         sleep(1);
         Storage::delete("importfile/{$this->filename}");
-        OptionHelper::setData("{$this->exam->name}-import-question",null);
-        OptionHelper::setData("{$this->exam->name}-import-question-status",null);
-        OptionHelper::setData("{$this->exam->name}-import-question-completed",null);
+        OptionHelper::setData("{$this->exam->name}-import-question-{$this->exam->slug}",null);
+        OptionHelper::setData("{$this->exam->name}-import-question-status-{$this->exam->slug}",null);
+        OptionHelper::setData("{$this->exam->name}-import-question-completed-{$this->exam->slug}",null);
     } 
 
 }
