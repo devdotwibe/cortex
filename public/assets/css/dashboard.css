@@ -841,7 +841,7 @@ button.close {
 
 .exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check {
     padding-left: 20px;
-    margin: 0 0 30px;
+    margin: 0 0 20px;
     font-size: 16px;
     display: flex;
     flex-wrap: wrap;
@@ -3338,6 +3338,7 @@ aside.side_bar.slider-btn .sidebar-content ul ul li.side-item a {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
+    margin: 0 !important;
 }
 
 .bartop-hide .exam-container .lesson {
