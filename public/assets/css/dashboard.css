@@ -7980,7 +7980,7 @@ nav.navbar.top-barhide {
     }
 
     .questionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer {
-        height: calc(100vh - 172px) !important;
+        height: calc(100vh - 200px) !important;
     }
     
     .critical-reasoning h2 {
