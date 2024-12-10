@@ -35,7 +35,7 @@
         <div class="header_right">
             <ul class="nav_bar">
                 <li class="nav_item"><a href="{{route('admin.question-bank.create',$setname->slug)}}" class="nav_link btn">New Questions</a></li>
-                <li class="nav_item import-upload-btn" @if(get_option('question-bank-import-question','')=="started") style="display: none" @endif>
+                <li class="nav_item import-upload-btn" @if(get_option('question-bank-import-question-'.$setname->slug,'')=="started") style="display: none" @endif>
                     <x-ajax-import 
                         :url="route('admin.question-bank.import',$setname->slug)" 
                         :fields='[
@@ -50,9 +50,9 @@
                             ["name"=>"explanation","label"=>"Explanation"],
                         ]' onupdate="importupdate" ></x-ajax-import>
                 </li> 
-                <li class="nav_item import-cancel-btn" @if(get_option('question-bank-import-question','')!=="started") style="display: none" @endif >
-                    <a href="{{route('admin.uploadcancel','question-bank-import-question')}}">
-                        <p id="import-cancel-btn-text">0 % Complete</p>
+                <li class="nav_item import-cancel-btn" @if(get_option('question-bank-import-question-'.$setname->slug,'')!=="started") style="display: none" @endif >
+                    <a href="{{route('admin.uploadcancel','question-bank-import-question-'.$setname->slug)}}">
+                        <p id="import-cancel-btn-text">{{ get_option('question-bank-import-question-completed-'.$setname->slug) }} % Completed</p>
                         <span class="btn btn-danger">Cancel</span>
                     </a>
                 </li>
@@ -191,6 +191,8 @@ $(function() {
         function importupdate(){
             // isrefresh=true;
             questiontable.ajax.reload()
+            location.reload();
+
         }
         // async function loadstatus(){
         //     let response=await fetch("{{route('admin.uploadstatus','question-bank-import-question')}}",{
