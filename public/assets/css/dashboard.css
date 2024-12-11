@@ -3191,7 +3191,7 @@ aside.side_bar.slider-btn .sidebar-content ul ul li.side-item a {
     content: "";
     position: absolute;
     width: 1px;
-    height: 120%;
+    height: 107%;
     top: -28px;
     left: 50%;
     transform: translateX(-50%);
@@ -3639,6 +3639,11 @@ aside.side_bar.slider-btn .sidebar-content ul ul li.side-item a {
         min-width: inherit;
     }
 
+    .exam-container .mcq-container-wrap .lesson .lesson-body .mcq-container:after {
+        height: 110%;
+    }
+    
+
 }
 
 @media screen and (max-width:991px) {
@@ -3648,6 +3653,10 @@ aside.side_bar.slider-btn .sidebar-content ul ul li.side-item a {
 
     .exam-container .container-wrap .lesson #lesson-footer-pagination {
         bottom: -6px;
+    }
+
+    .exam-container .mcq-container-wrap .lesson .lesson-body .mcq-container:after {
+        height: 115%;
     }
 
 }
