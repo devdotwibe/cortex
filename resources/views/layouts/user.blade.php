@@ -85,7 +85,7 @@
                             <img src="{{asset("assets/images/iconshover/dashboard.svg")}}" alt="Dashboard">
                         </span>
                         <span class="active-icon">
-                            <img src="{{asset("assets/images/icons/dashboard.svg")}}" alt="Dashboard">
+                            <img src="{{asset("assets/images/icons/dashboard.svg")}}" alt="Dashboard" title="Home" data-title="Home" class="titledisplay">
                         </span>
                         <span class="menutext">
                         Home
@@ -115,7 +115,7 @@
                             <img src="{{asset("assets/images/iconshover/learn.svg")}}" alt="Dashboard">
                         </span>
                         <span class="active-icon">
-                            <img src="{{asset("assets/images/icons/learn.svg")}}" alt="Dashboard">
+                            <img src="{{asset("assets/images/icons/learn.svg")}}" alt="Dashboard" title="Learn" data-title="Learn" class="titledisplay">
                         </span>
                         <span class="menutext">
                         Learn
@@ -129,7 +129,7 @@
                             <img src="{{asset("assets/images/iconshover/questionbank.svg")}}" alt="Dashboard">
                         </span>
                         <span class="active-icon">
-                            <img src="{{asset("assets/images/icons/questionbank.svg")}}" alt="Dashboard">
+                            <img src="{{asset("assets/images/icons/questionbank.svg")}}" alt="Dashboard" title="Question Bank" data-title="Question Bank" class="titledisplay">
                         </span>
                         <span class="menutext">
                         Question Bank
@@ -145,7 +145,7 @@
                             <img src="{{ asset('assets/images/iconshover/examsimulator.svg') }}" alt="Exam Simulator">
                         </span>
                         <span class="active-icon">
-                            <img src="{{ asset('assets/images/icons/examsimulator.svg') }}" alt="Exam Simulator">
+                            <img src="{{ asset('assets/images/icons/examsimulator.svg') }}" alt="Exam Simulator" title="Exam Simulator" data-title="Exam Simulator" class="titledisplay">
                         </span>
                         <span class="menutext">Exam Simulator</span>
                     </a>
@@ -156,7 +156,7 @@
                                     <img src="{{ asset('assets/images/iconshover/topictesthover.svg') }}" alt="Topic Test">
                                 </span>
                                 <span class="active-icon">
-                                    <img src="{{ asset('assets/images/icons/topictest.svg') }}" alt="Topic Test Active">
+                                    <img src="{{ asset('assets/images/icons/topictest.svg') }}" alt="Topic Test Active" title="Topic Test" data-title="Topic Test" class="titledisplay">
                                 </span>
                                 <span class="menutext">Topic Test</span>
                             </a>
@@ -167,7 +167,7 @@
                                     <img src="{{ asset('assets/images/iconshover/mockexamhover.svg') }}" alt="Full Mock Exam">
                                 </span>
                                 <span class="active-icon">
-                                    <img src="{{ asset('assets/images/icons/mockexam.svg') }}" alt="Full Mock Exam Active">
+                                    <img src="{{ asset('assets/images/icons/mockexam.svg') }}" alt="Full Mock Exam Active" title="Full Mock Exam" data-title="Full Mock Exam" class="titledisplay">
                                 </span>
                                 <span class="menutext">Full Mock Exam</span>
                             </a>
@@ -186,7 +186,7 @@
                             <img src="{{asset("assets/images/iconshover/onlineteaching.svg")}}" alt="Dashboard">
                         </span>
                         <span class="active-icon">
-                            <img src="{{asset("assets/images/icons/onlineteaching.svg")}}" alt="Dashboard">
+                            <img src="{{asset("assets/images/icons/onlineteaching.svg")}}" alt="Dashboard" title="Live Teaching" data-title="Live Teaching" class="titledisplay">
                         </span>
                         <span class="menutext">
                         Live Teaching
@@ -202,7 +202,7 @@
                             <img src="{{asset("assets/images/iconshover/analytics.svg")}}" alt="Dashboard">
                         </span>
                         <span class="active-icon">
-                            <img src="{{asset("assets/images/icons/analytics.svg")}}" alt="Dashboard">
+                            <img src="{{asset("assets/images/icons/analytics.svg")}}" alt="Dashboard" title="Analytics" data-title="Analytics" class="titledisplay">
                         </span>
                         <span class="menutext">
                         Analytics
@@ -218,7 +218,7 @@
                             <img src="{{asset("assets/images/iconshover/community.svg")}}" alt="Dashboard">
                         </span>
                         <span class="active-icon">
-                            <img src="{{asset("assets/images/icons/community.svg")}}" alt="Dashboard">
+                            <img src="{{asset("assets/images/icons/community.svg")}}" alt="Dashboard" title="Community" data-title="Community" class="titledisplay">
                         </span>
                         <span class="menutext">
                         Community
@@ -239,7 +239,7 @@
                              <img src="{{asset("assets/images/iconshover/tipsandadvice.svg")}}" alt="Dashboard">
                          </span>
                          <span class="active-icon">
-                             <img src="{{asset("assets/images/icons/tipsandadvice.svg")}}" alt="Dashboard">
+                             <img src="{{asset("assets/images/icons/tipsandadvice.svg")}}" alt="Dashboard" title="Tips And Advice" data-title="Tips And Advice" class="titledisplay">
                          </span>
                          <span class="menutext">
                          Tips And Advice
@@ -293,7 +293,7 @@
              <img src="{{asset("assets/images/iconshover/tipsandadvice.svg")}}" alt="Dashboard">
          </span>
          <span class="active-icon">
-             <img src="{{asset("assets/images/icons/tipsandadvice.svg")}}" alt="Dashboard">
+             <img src="{{asset("assets/images/icons/tipsandadvice.svg")}}" alt="Dashboard" title="Shop" data-title="Shop" class="titledisplay">
          </span>
          <span class="menutext">
          Shop
@@ -312,7 +312,7 @@
                              <img src="{{asset("assets/images/iconshover/support.svg")}}" alt="Dashboard">
                          </span>
                          <span class="active-icon">
-                             <img src="{{asset("assets/images/icons/support.svg")}}" alt="Dashboard">
+                             <img src="{{asset("assets/images/icons/support.svg")}}" alt="Dashboard" title="Support" data-title="Support" class="titledisplay">
                          </span>
                          <span class="menutext">
                          Support
@@ -326,7 +326,7 @@
                             <img src="{{asset("assets/images/log-out.svg")}}" alt="log-out">
                         </span>
                         <span class="active-icon">
-                            <img src="{{asset("assets/images/log-out-1.svg")}}" alt="log-out">
+                            <img src="{{asset("assets/images/log-out-1.svg")}}" alt="log-out" title="Log Out" data-title="Log Out" class="titledisplay">
                         </span>
                         <span class="menutext"> Log Out </span>
                     </a>
@@ -417,7 +417,21 @@
     const isCollapsed = $('.side_bar').hasClass('slider-btn');
     const isCollapsed1 = $('.sliderbody').hasClass('slider-active');
 
+    if (isCollapsed) {
+              
+                
+              $('.titledisplay').removeAttr('title');
+          } else {
+            
+          
+              $('.titledisplay').each(function () {
+                  // Retrieve the data-title attribute value
+                  var title = $(this).data('title');
 
+                  // Set the title attribute with the value
+                  $(this).attr('title', title);
+           });
+          }
     localStorage.setItem('sidebarCollapsed', isCollapsed);
 
     localStorage.setItem('sidebarCollapsed1', isCollapsed1);
@@ -431,11 +445,24 @@ function initializeSidebar() {
     const isCollapsed1 = localStorage.getItem('sidebarCollapsed1') === 'true';
 
     // Apply the class based on stored state
-    if (isCollapsed) {
-        $('.side_bar').addClass('slider-btn');
-    } else {
-        $('.side_bar').removeClass('slider-btn');
-    }
+    if (!isCollapsed) {
+                $('.side_bar').removeClass('slider-btn');
+                
+                $('.titledisplay').removeAttr('title');
+            } else {
+              
+                
+                $('.side_bar').addClass('slider-btn');
+                
+                
+                $('.titledisplay').each(function () {
+                    // Retrieve the data-title attribute value
+                    var title = $(this).data('title');
+
+                    // Set the title attribute with the value
+                    $(this).attr('title', title);
+             });
+            }
 
     if (isCollapsed1) {
         $('.sliderbody').addClass('slider-active');

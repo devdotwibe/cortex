@@ -53,15 +53,17 @@ class LearnController extends Controller
         self::$routeName = "admin.learn";
         self::$defaultActions = [];
 
-        $category_sub=SubCategory::whereHas('learns')->first();
-        
-        if (empty($request->sub_category)) {
-
-            $this->where('sub_category_id', $category_sub->id);
-            $sub_category =$category_sub->id;
+        if(!empty($request->subcat))
+        {
+            $category_sub=SubCategory::find($request->subcat);
+        }
+        else
+        {
+            $category_sub=SubCategory::where('category_id',$category->id)->first();
         }
 
         if ($request->ajax()) {
+
             if (!empty($request->sub_category)) {
                 $this->where('sub_category_id', $request->sub_category);
 
@@ -71,6 +73,8 @@ class LearnController extends Controller
             }
             else
             {
+                $this->where('sub_category_id', $category_sub->id);
+
                 $sub_category =$category_sub->id;
 
                 $examCount = Learn::where('category_id',$category->id)->where('sub_category_id',$sub_category)->count();
@@ -143,7 +147,7 @@ class LearnController extends Controller
             ]);
             $exam = Exam::find($exam->id);
         }
-        return view("admin.learn.show", compact('category', 'exam'));
+        return view("admin.learn.show", compact('category', 'exam','category_sub'));
     }
 
 
@@ -302,7 +306,7 @@ class LearnController extends Controller
             }
         }
 
-        $redirect = $request->redirect ?? route('admin.learn.index');
+        $redirect = $request->redirect.'?subcat='.$request->sub_category_id ?? route('admin.learn.index');
         return redirect($redirect)->with("success", "Learn has been successfully created");
     }
     public function update(Request $request, Category $category, Learn $learn)
@@ -411,7 +415,7 @@ class LearnController extends Controller
         }
         LearnAnswer::where('learn_id', $learn->id)->whereNotIn('id', $ansIds)->delete();
 
-        $redirect = $request->redirect ?? route('admin.learn.index');
+        $redirect = $request->redirect.'?subcat='.$request->sub_category_id ?? route('admin.learn.index');
         return redirect($redirect)->with("success", "Learn has been successfully updated");
     }
     public function destroy(Request $request, Category $category, Learn $learn)

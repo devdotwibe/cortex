@@ -579,11 +579,20 @@
             const isCollapsed1 = localStorage.getItem('sidebarCollapsed1') === 'true';
 
             // Apply the class based on stored state
-            if (isCollapsed) {
+            if (!isCollapsed) {
+                $('.side_bar').removeClass('slider-btn');
+                
+                $('.titledisplay').removeAttr('title');
+            } else {
+              
+                
                 $('.side_bar').addClass('slider-btn');
             } else {
                 $('.side_bar').removeClass('slider-btn');
             }
+
+
+
 
             if (isCollapsed1) {
                 $('.sliderbody').addClass('slider-active');
