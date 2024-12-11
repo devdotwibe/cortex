@@ -207,7 +207,7 @@ class QuestionController extends Controller
                     "category_id"=>['required'],
                     "sub_category_id"=>['required'],
                     "sub_category_set"=>['required'],
-                    "description"=>['required'],
+                    // "description"=>['required'],
                     //"duration"=>["required"],
                     "answer.*" => [ 'string', 'max:200','nullable'],
                     "file_answer.*" => [ 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048','nullable'],
@@ -224,7 +224,7 @@ class QuestionController extends Controller
             case 'full-mock-exam':
                 $questiondat=$request->validate([ 
                     "category_id"=>['required'],
-                    "description"=>['required'],
+                    // "description"=>['required'],
                     // "duration"=>["required"],
                     "answer.*" => [ 'string', 'max:200','nullable'],
                     "file_answer.*" => [ 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048','nullable'],
@@ -239,7 +239,7 @@ class QuestionController extends Controller
             case 'topic-test':
                 $questiondat=$request->validate([ 
                     "category_id"=>['required'], 
-                    "description"=>['required'],
+                    // "description"=>['required'],
                     // "duration"=>["required"],
                     "answer.*" => [ 'string', 'max:200','nullable'],
                     "file_answer.*" => [ 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048','nullable'],
