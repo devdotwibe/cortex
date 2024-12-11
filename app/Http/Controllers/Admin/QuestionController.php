@@ -167,6 +167,8 @@ class QuestionController extends Controller
             break;
         }
 
+        $questiondat['description']=$request->description;
+
         $question = Question::store($questiondat);
         $existingFiles = $request->input("existing_file_answer");
 
@@ -266,6 +268,8 @@ class QuestionController extends Controller
                 ]);
                 break;
         }
+
+        $questiondat['description']=$request->description;
 
         $questiondat['order']=$request->order;
 
