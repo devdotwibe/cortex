@@ -209,7 +209,7 @@ section{width: 100%; float: left;}
 .review-wrapp .review-col2 .review-slider .review-box .review-content {  width: 58%;  padding: 95px 50px;}
 .review-wrapp .review-col2 .review-slider .review-box .review-content h3 {  font-size: 24px;  font-weight: 500;  margin: 0 0 20px;}
 .review-wrapp .review-col2 .review-slider .review-box .review-content  .rating {  display: block;  width: auto;  margin: 0 0 20px;}
-.review-wrapp .review-col2 .review-slider .review-box .review-content .rating img { width: auto;  display: block;}
+.review-wrapp .review-col2 .review-slider .review-box .review-content .rating img { width: auto;  display: inline-block;}
 .review-wrapp .review-col2 .review-slider .review-box .review-content p {  font-size: 20px;}
 .review-wrapp button.slick-next{width: 68px; height: 68px; background: url(../images/slider-next.svg) no-repeat center / 100%; z-index: 9;}
 .review-wrapp button.slick-prev{width: 68px; height: 68px; background: url(../images/slider-prev.svg) no-repeat center / 100%; z-index: 9;}
