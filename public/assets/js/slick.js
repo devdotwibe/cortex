@@ -42,20 +42,19 @@
                 adaptiveHeight: false,
                 appendArrows: $(element),
                 appendDots: $(element),
-                dots: true,
                 arrows: false,
                 asNavFor: null,
-                // prevArrow: '<button class="slick-prev" aria-label="Previous" type="button">Previous</button>',
-                // nextArrow: '<button class="slick-next" aria-label="Next" type="button">Next</button>',
+                prevArrow: '<button class="slick-prev" aria-label="Previous" type="button">Previous</button>',
+                nextArrow: '<button class="slick-next" aria-label="Next" type="button">Next</button>',
                 autoplay: false,
                 autoplaySpeed: 3000,
                 centerMode: false,
                 centerPadding: '50px',
                 cssEase: 'ease',
-                // customPaging: function(slider, i) {
-                //     return $('<button type="button" />').text(i + 1);
-                // },
-               
+                customPaging: function(slider, i) {
+                    return $('<button type="button" />').text(i + 1);
+                },
+                dots: true,
                 dotsClass: 'slick-dots',
                 draggable: true,
                 easing: 'linear',
@@ -485,7 +484,7 @@
         var _ = this,
             i, dot;
 
-        if (_.options.dots === true) {
+        if (_.options.dots === true && _.slideCount > _.options.slidesToShow) {
 
             _.$slider.addClass('slick-dotted');
 
@@ -1394,7 +1393,7 @@
 
         var _ = this;
 
-        if (_.options.dots === true ) {
+        if (_.options.dots === true && _.slideCount > _.options.slidesToShow) {
             $('li', _.$dots).on('click.slick', {
                 message: 'index'
             }, _.changeSlide);
@@ -1483,7 +1482,7 @@
 
         }
 
-        if (_.options.dots === true ) {
+        if (_.options.dots === true && _.slideCount > _.options.slidesToShow) {
 
             _.$dots.show();
 
@@ -2601,7 +2600,7 @@
 
         }
 
-        if (_.options.dots === true) {
+        if (_.options.dots === true && _.slideCount > _.options.slidesToShow) {
 
             _.$dots.hide();
 
