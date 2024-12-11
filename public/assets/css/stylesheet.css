@@ -335,7 +335,7 @@ footer .footer-row1 p a:hover { color: #fff;}
 .detail-wrapp h3 { font-size: 30px; font-weight: 700; margin: 0 0 26px;}
 .detail-wrapp p { font-size: 20px; line-height: 1.3; color: #696969; margin: 0 0 24px;}
 .detail-wrapp ul { width: 100%;}
-.detail-wrapp ul li { font-size: 20px; line-height: 1.56; color: #696969;  margin: 0 0 20px; padding-left: 42px; background: url(../images/tick-mark.svg) no-repeat center; background-size: 22px; background-position-x: 7px; background-position-y: 4px;}
+.detail-wrapp ul li { font-size: 20px; line-height: 1.56; color: #696969;  margin: 0 0 20px; padding-left: 42px; background: url(../images/tick-green.svg) no-repeat center; background-size: 22px; background-position-x: 7px; background-position-y: 4px;}
 .detail-wrapp .detail-row:nth-child(2n) { flex-direction: row-reverse;}
 .detail-wrapp .detail-col2 .detail-img { width: 100%; position: relative; padding: 10% 10% 0 0;  z-index: 1;}
 .detail-wrapp .detail-col2 .detail-img::after{ content: ""; position: absolute; background: url(../images/detail-shape.png) no-repeat center / contain; background-position-x: 100%; width: 100%; height: 100%; right: -17%; top: -10%; z-index: -1;}
