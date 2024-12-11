@@ -51,9 +51,9 @@
                 centerMode: false,
                 centerPadding: '50px',
                 cssEase: 'ease',
-                customPaging: function(slider, i) {
-                    return $('<button type="button" />').text(i + 1);
-                },
+                // customPaging: function(slider, i) {
+                //     return $('<button type="button" />').text(i + 1);
+                // },
                 dots: true,
                 dotsClass: 'slick-dots',
                 draggable: true,
