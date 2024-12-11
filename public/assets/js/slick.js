@@ -42,7 +42,7 @@
                 adaptiveHeight: false,
                 appendArrows: $(element),
                 appendDots: $(element),
-                arrows: true,
+                arrows: false,
                 asNavFor: null,
                 prevArrow: '<button class="slick-prev" aria-label="Previous" type="button">Previous</button>',
                 nextArrow: '<button class="slick-next" aria-label="Next" type="button">Next</button>',
@@ -54,7 +54,7 @@
                 customPaging: function(slider, i) {
                     return $('<button type="button" />').text(i + 1);
                 },
-                dots: false,
+                dots: true,
                 dotsClass: 'slick-dots',
                 draggable: true,
                 easing: 'linear',
