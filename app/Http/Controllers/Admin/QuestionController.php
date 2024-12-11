@@ -34,7 +34,7 @@ class QuestionController extends Controller
                     "category_id"=>['required'],
                     "sub_category_id"=>['required'],
                     "sub_category_set"=>['required'],
-                    "description"=>['required'],
+                    // "description"=>['required'],
                     // "duration"=>["required"],
                     "answer.*" => ["required_without:file_answer.*", 'max:200','nullable'],
                     "file_answer.*" => ["required_without:answer.*", 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
@@ -52,7 +52,7 @@ class QuestionController extends Controller
                 $questiondat=$request->validate([
                     "exam_id"=>['required'],
                     "category_id"=>['required'],
-                    "description"=>['required'],
+                    // "description"=>['required'],
                     // "duration"=>["required"],
                     "answer.*" => ["required_without:file_answer.*", 'string', 'max:200','nullable'],
                     "file_answer.*" => ["required_without:answer.*", 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
@@ -71,7 +71,7 @@ class QuestionController extends Controller
                 $questiondat=$request->validate([
                     "exam_id"=>['required'],
                     "category_id"=>['required'], 
-                    "description"=>['required'],
+                    // "description"=>['required'],
                     // "duration"=>["required"],
                     "answer.*" => ["required_without:file_answer.*", 'string', 'max:200','nullable'],
                     "file_answer.*" => ["required_without:answer.*", 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
