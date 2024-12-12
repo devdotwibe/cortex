@@ -675,7 +675,7 @@
                 const question = $(this).data('question');
                 const answer = $(this).val();
 
-                console.log('saved-inputs',answer);
+                console.log('saved-inputs not cheked',answer);
 
                 updatequestionanswer(question, answer);
                 verifyquestion(question, answer);
