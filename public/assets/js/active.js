@@ -18,7 +18,7 @@
     // ***********************************
     if ($.fn.slick) {
         $('.autoplay').slick({
-			dots: false,
+			dots: true,
 			speed: 2000,
             arrows: false,
 			autoplay: true,
@@ -33,6 +33,7 @@
       		breakpoint: 1024,
 			settings: {
 			arrows: false,
+			dots: true,
 			slidesToShow: 1,
 			slidesToScroll: 1
 		}
@@ -41,6 +42,7 @@
 			breakpoint: 901,
 			settings: {
 			arrows: false,
+			dots: true,
 			slidesToShow: 1,
 			slidesToScroll: 1
 		}
