@@ -17,7 +17,7 @@
     // :: 5.0 Slick Slider Active Code
     // ***********************************
     if ($.fn.slick) {
-        $('.autoplay').slick({
+        $('.review-slider').slick({
 			dots: true,
 			speed: 2000,
             arrows: false,
