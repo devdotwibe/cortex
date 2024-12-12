@@ -491,7 +491,7 @@
                             refreshquestionanswer(v.slug,function(data){
                                 $(`#mcq-${lesseonId}-list input[value="${data.value}"]`).prop("checked",true)
 
-                                console.log('anser',data.value);
+                                console.log('anser-data',data.value);
 
                                 if(data.value){
                                     summery.answeridx.push(summery.cudx) 
