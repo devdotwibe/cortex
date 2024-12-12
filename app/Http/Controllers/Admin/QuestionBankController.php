@@ -23,7 +23,7 @@ class QuestionBankController extends Controller
         self::reset();
         self::$model = Category::class;
         self::$routeName = "admin.question-bank";
-        $categorys = $this->buildResult();
+        $categorys = $this->where('created_at','asc')->buildResult();
 
         $exam = Exam::where("name", 'question-bank')->first();
         if (empty($exam)) {
