@@ -522,7 +522,7 @@
                     </div>
                 </div>
                 <div class="review-col2">
-                    <div class="slider autoplay">
+                    <div class="slider review-slider">
                         @foreach ($feed as $review)
                             <!-- Ensure you're using the correct variable here -->
 
