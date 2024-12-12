@@ -23,7 +23,7 @@ class Category extends Model
 
     public function subcategories()
     {
-        return $this->hasMany(SubCategory::class,'category_id','id');
+        return $this->hasMany(SubCategory::class,'category_id','id')->orderBy('created_at', 'asc');
     }
     public function question()
     {
