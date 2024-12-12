@@ -673,6 +673,8 @@
                 const question = $(this).data('question');
                 const answer = $(this).val();
 
+                console.log('saved-inputs',answer);
+
                 updatequestionanswer(question, answer);
                 verifyquestion(question, answer);
 
@@ -684,6 +686,9 @@
                     summery.notansweridx = summery.notansweridx.filter(item => item !== summery.cudx);
                     summery.save();
                     refreshstatus(summery.cudx, 'answered');
+
+                    console.log('ans-saved 1',summery.cudx);
+
                 } else {
                     // Add to not-answered, remove from answered
                     summery.notansweridx.push(summery.cudx);
@@ -691,6 +696,8 @@
                     summery.answeridx = summery.answeridx.filter(item => item !== summery.cudx);
                     summery.save();
                     refreshstatus(summery.cudx, 'not-answered');
+
+                    console.log('ans-saved 2',summery.cudx);
                 }
             });
         }
