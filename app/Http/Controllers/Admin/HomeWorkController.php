@@ -393,33 +393,29 @@ class HomeWorkController extends Controller
 
         if (!empty($request->deleteaction)) {
 
-            if ($request->input('select_all', 'no') == "yes") {
+            // if ($request->input('select_all', 'no') == "yes") {
+            //     $selectAllValues = json_decode($request->select_all_values, true);
+            //     $admin = Auth::guard('admin')->user();
+            //     HomeWorkQuestion::whereIn('id', $selectAllValues)
+            //     ->update(['admin_id' => $admin->id]);
+            //     HomeWorkQuestion::whereIn('id', $selectAllValues)
+            //         ->delete();
+            // } else {
 
-
-                $selectAllValues = json_decode($request->select_all_values, true);
-
-                $admin = Auth::guard('admin')->user();
+            //     $selectBoxValues = is_array($request->input('selectbox', [])) ? $request->input('selectbox', []) : [];
+            //     $admin = Auth::guard('admin')->user();
                 
-                HomeWorkQuestion::whereIn('id', $selectAllValues)
-                ->update(['admin_id' => $admin->id]);
+            //     HomeWorkQuestion::whereIn('id', $selectBoxValues)
+            //     ->update(['admin_id' => $admin->id]);
 
-                HomeWorkQuestion::whereIn('id', $selectAllValues)
-                    ->delete();
-
-
-
-            } else {
-
-                $selectBoxValues = is_array($request->input('selectbox', [])) ? $request->input('selectbox', []) : [];
-
-                $admin = Auth::guard('admin')->user();
-                
-                HomeWorkQuestion::whereIn('id', $selectBoxValues)
-                ->update(['admin_id' => $admin->id]);
-
-                HomeWorkQuestion::whereIn('id', $selectBoxValues)->delete();  
-            }
-
+            //     HomeWorkQuestion::whereIn('id', $selectBoxValues)->delete();  
+            // }
+            $selectBoxValues = is_array($request->input('selectbox', [])) ? $request->input('selectbox', []) : [];
+            $admin = Auth::guard('admin')->user();
+            HomeWorkQuestion::whereIn('id', $selectBoxValues)
+            ->update(['admin_id' => $admin->id]);
+            HomeWorkQuestion::whereIn('id', $selectBoxValues)->delete();  
+            
             if ($request->ajax()) {
                 return response()->json(["success" => "Questions deleted successfully"]);
             }

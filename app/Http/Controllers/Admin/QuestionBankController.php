@@ -85,15 +85,10 @@ class QuestionBankController extends Controller
             ->addAction(function ($data) use ($setname,$examCount) {
 
                 $button = '';  
-
                 $selected ="";
-
                 $results = "";
-
                 for ($i = 1; $i <= $examCount; $i++) {
-
                     $selected = ($data->order_no == $i) ? 'selected' : ''; 
-
                     $results .= '<option value="' . $i . '" ' . $selected . '>' . $i . '</option>';
                 }
 
@@ -275,13 +270,14 @@ class QuestionBankController extends Controller
     public function bulkaction(Request $request, Setname $setname)
     {
         if (!empty($request->deleteaction)) {
-            if ($request->input('select_all', 'no') == "yes") {
-                // Delete all questions corresponding to the specific setname
-                Question::where('sub_category_set', $setname->id)->delete();
-            } else {
-                // Delete selected questions only
-                Question::whereIn('id', $request->input('selectbox', []))->delete();
-            }
+            // if ($request->input('select_all', 'no') == "yes") {
+            //     // Delete all questions corresponding to the specific setname
+            //     Question::where('sub_category_set', $setname->id)->delete();
+            // } else {
+            //     // Delete selected questions only
+            //     Question::whereIn('id', values: $request->input('selectbox', []))->delete();
+            // }
+            Question::whereIn('id', values: $request->input('selectbox', []))->delete();
 
             if ($request->ajax()) {
                 return response()->json(["success" => "Questions deleted successfully"]);
@@ -305,13 +301,14 @@ class QuestionBankController extends Controller
                     break;
             }
 
-            if ($request->input('select_all', 'no') == "yes") {
-                // Update visibility status for all questions corresponding to the specific setname
-                Question::where('sub_category_set', $setname->id)->update($data);
-            } else {
-                // Update visibility status for selected questions only
-                Question::whereIn('id', $request->input('selectbox', []))->update($data);
-            }
+            // if ($request->input('select_all', 'no') == "yes") {
+            //     // Update visibility status for all questions corresponding to the specific setname
+            //     Question::where('sub_category_set', $setname->id)->update($data);
+            // } else {
+            //     // Update visibility status for selected questions only
+            //     Question::whereIn('id', $request->input('selectbox', []))->update($data);
+            // }
+            Question::whereIn('id', $request->input('selectbox', []))->update($data);
 
             if ($request->ajax()) {
                 return response()->json(["success" => "Questions updated successfully"]);
