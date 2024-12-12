@@ -647,7 +647,7 @@
 
             console.log('yyyy',$('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length);
 
-            console.log('ppppp',$('#lesson-questionlist-list .forms-inputs .answer_type input[name="answer"]').length);
+            console.log('ppppp',$('#lesson-questionlist-list .answer_type input[name="answer"]').length);
 
             if($('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length>0){
                 $('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]:checked').each(function(){
