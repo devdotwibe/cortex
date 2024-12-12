@@ -666,6 +666,7 @@
                     }
                 })
             }
+            console.log('saved-inputs not chekertyrtyrtyrtd');
 
             if ($('#lesson-questionlist-list .forms-inputs .answer_type input[name="answer"]').length > 0) {
                 $('#lesson-questionlist-list .forms-inputs .answer_type input[name="answer"]').each(function() {
