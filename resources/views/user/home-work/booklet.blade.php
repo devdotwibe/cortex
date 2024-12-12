@@ -443,7 +443,7 @@
                                             <div id="note-${lesseonId}-ans" class="form-group">
                                                 <div class="form-data">
                                                     <div class="forms-inputs mb-4">
-                                                        <input type="text" name="answer" data-question="${v.slug}" id="user-answer-${lesseonId}" value="" class="form-control" placeholder="Write your answer here" aria-placeholder="Write your answer here" autocomplete="off" >
+                                                        <input type="text" name="answer" data-question="${v.slug}" id="user-answer-${lesseonId}" value="" class="form-control answer_type" placeholder="Write your answer here" aria-placeholder="Write your answer here" autocomplete="off" >
                                                         <div class="invalid-feedback" id="error-answer-field" >The field is required</div>
                                                     </div>
                                                 </div>
@@ -643,32 +643,32 @@
             summery.save() 
          }
          async function updateandsave(callback){ 
-            // if($('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length>0){
-            //     $('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]:checked').each(function(){
+            if($('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length>0){
+                $('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]:checked').each(function(){
 
-            //         updatequestionanswer($(this).data('question'),$(this).val());
-            //         verifyquestion($(this).data('question'),$(this).val());
-            //         if($(this).val()){
-            //             summery.answeridx.push(summery.cudx) 
-            //             summery.answeridx = [...new Set(summery.answeridx)]
-            //             summery.notansweridx=summery.notansweridx.filter(item => item !== summery.cudx)
-            //             summery.save();
-            //             refreshstatus(summery.cudx,'answered');
+                    updatequestionanswer($(this).data('question'),$(this).val());
+                    verifyquestion($(this).data('question'),$(this).val());
+                    if($(this).val()){
+                        summery.answeridx.push(summery.cudx) 
+                        summery.answeridx = [...new Set(summery.answeridx)]
+                        summery.notansweridx=summery.notansweridx.filter(item => item !== summery.cudx)
+                        summery.save();
+                        refreshstatus(summery.cudx,'answered');
 
-            //         }else{
-            //             summery.notansweridx.push(summery.cudx) 
-            //             summery.notansweridx = [...new Set(summery.notansweridx)]
-            //             summery.answeridx=summery.answeridx.filter(item => item !== summery.cudx)
-            //             summery.save();
-            //             refreshstatus(summery.cudx,'not-answered');
+                    }else{
+                        summery.notansweridx.push(summery.cudx) 
+                        summery.notansweridx = [...new Set(summery.notansweridx)]
+                        summery.answeridx=summery.answeridx.filter(item => item !== summery.cudx)
+                        summery.save();
+                        refreshstatus(summery.cudx,'not-answered');
 
                      
-            //         }
-            //     })
-            // }
+                    }
+                })
+            }
 
-            if ($('#lesson-questionlist-list .forms-inputs input[name="answer"]').length > 0) {
-                $('#lesson-questionlist-list .forms-inputs input[name="answer"]').each(function() {
+            if ($('#lesson-questionlist-list .forms-inputs .answer_type input[name="answer"]').length > 0) {
+                $('#lesson-questionlist-list .forms-inputs .answer_type input[name="answer"]').each(function() {
                 const question = $(this).data('question');
                 const answer = $(this).val();
 
