@@ -493,13 +493,13 @@
 
                                 console.log('anser-data',data.value);
 
-                                // if(data.value){
-                                //     summery.answeridx.push(summery.cudx) 
-                                //     summery.answeridx = [...new Set(summery.answeridx)]
-                                //     summery.notansweridx=summery.notansweridx.filter(item => item !== summery.cudx)
-                                //     summery.save();
-                                //     refreshstatus(summery.cudx,'answered');
-                                // }
+                                if(data.value){
+                                    summery.answeridx.push(summery.cudx) 
+                                    summery.answeridx = [...new Set(summery.answeridx)]
+                                    summery.notansweridx=summery.notansweridx.filter(item => item !== summery.cudx)
+                                    summery.save();
+                                    refreshstatus(summery.cudx,'answered');
+                                }
                             }) 
                         },'json').fail(function(xhr,status,error){
                             showToast("Error: " + error, 'danger'); 
