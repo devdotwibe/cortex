@@ -139,7 +139,7 @@ class PrivateClassHomeWorkController extends Controller
         if ($request->ajax()) {
             if (!empty($request->question)) {
                 $question = HomeWorkReviewQuestion::findSlug($request->question);
-                return HomeWorkReviewAnswer::where('home_work_review_question_id', $question->id)->where('home_work_review_id', $homeWorkReview->id)->order('created_at','desc')->get();
+                return HomeWorkReviewAnswer::where('home_work_review_question_id', $question->id)->where('home_work_review_id', $homeWorkReview->id)->get();
             }
 
             $data = HomeWorkReviewQuestion::whereIn('review_type', ['mcq', 'short_notes'])->where('home_work_review_id', $homeWorkReview->id)->where('user_id', $user->id)->orderBy('order_no')->paginate(1);
