@@ -594,7 +594,6 @@
                 }),
             }); 
 
-            console.log('updated',ans);
          }
          async function refreshquestionanswer(question,callback){
             const csrf= $('meta[name="csrf-token"]').attr('content'); 
@@ -647,7 +646,6 @@
             if($('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length>0){
                 $('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]:checked').each(function(){
 
-                    console.log('anser',$(this).val());
                     updatequestionanswer($(this).data('question'),$(this).val());
                     verifyquestion($(this).data('question'),$(this).val());
                     if($(this).val()){
@@ -657,7 +655,6 @@
                         summery.save();
                         refreshstatus(summery.cudx,'answered');
 
-                        console.log('saved anser 55',$(this).val())
                     }else{
                         summery.notansweridx.push(summery.cudx) 
                         summery.notansweridx = [...new Set(summery.notansweridx)]
@@ -665,10 +662,12 @@
                         summery.save();
                         refreshstatus(summery.cudx,'not-answered');
 
-                        console.log('saved not anser 55',$(this).val())
+                     
                     }
                 })
             }
+
+            //multiple resquests 12-12-2024
 
         //     if ($('#lesson-questionlist-list .forms-inputs input[name="answer"]').length > 0) {
         //         $('#lesson-questionlist-list .forms-inputs input[name="answer"]').each(function() {
