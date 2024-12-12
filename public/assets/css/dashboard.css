@@ -3656,7 +3656,7 @@ aside.side_bar.slider-btn .sidebar-content ul ul li.side-item a {
     }
 
     .exam-container .mcq-container-wrap .lesson .lesson-body .mcq-container:after {
-        height: 115%;
+        height: 33vw;
     }
 
 }
@@ -8658,9 +8658,9 @@ nav.navbar.top-barhide {
         width: 49%;
     }
 
-    .exam-container .mcq-container-wrap .lesson .lesson-body .mcq-container:after {
+    /* .exam-container .mcq-container-wrap .lesson .lesson-body .mcq-container:after {
         top: 0;
-    }
+    } */
 
 }
 
