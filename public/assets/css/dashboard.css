@@ -8659,7 +8659,7 @@ nav.navbar.top-barhide {
     }
 
     .exam-container .mcq-container-wrap .lesson .lesson-body .mcq-container:after {
-        height: 120%;
+        top: 0;
     }
 
 }
