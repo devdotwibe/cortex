@@ -9062,6 +9062,10 @@ nav.navbar.top-barhide {
         width: 100%;
         margin: 0;
     }
+
+    .exam-container .mcq-container-wrap .lesson .lesson-body .mcq-container:after {
+        top: -30px;
+    }
 }
 
 @media screen and (max-width:600px) {
@@ -9101,7 +9105,7 @@ nav.navbar.top-barhide {
     .exam-container.answerclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer {
         width: 100%;
         /* padding: 0 0 0; */
-        height: inherit;
+        height: inherit !important;
     }
 
     .exam-container.answerclass .mcq-container-wrap {
