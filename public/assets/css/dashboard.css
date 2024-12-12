@@ -3656,7 +3656,7 @@ aside.side_bar.slider-btn .sidebar-content ul ul li.side-item a {
     }
 
     .exam-container .mcq-container-wrap .lesson .lesson-body .mcq-container:after {
-        height: 33vw;
+        height: 120%;
     }
 
 }
