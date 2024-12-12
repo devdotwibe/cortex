@@ -643,29 +643,29 @@
             summery.save() 
          }
          async function updateandsave(callback){ 
-            if($('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length>0){
-                $('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]:checked').each(function(){
+            // if($('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length>0){
+            //     $('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]:checked').each(function(){
 
-                    updatequestionanswer($(this).data('question'),$(this).val());
-                    verifyquestion($(this).data('question'),$(this).val());
-                    if($(this).val()){
-                        summery.answeridx.push(summery.cudx) 
-                        summery.answeridx = [...new Set(summery.answeridx)]
-                        summery.notansweridx=summery.notansweridx.filter(item => item !== summery.cudx)
-                        summery.save();
-                        refreshstatus(summery.cudx,'answered');
+            //         updatequestionanswer($(this).data('question'),$(this).val());
+            //         verifyquestion($(this).data('question'),$(this).val());
+            //         if($(this).val()){
+            //             summery.answeridx.push(summery.cudx) 
+            //             summery.answeridx = [...new Set(summery.answeridx)]
+            //             summery.notansweridx=summery.notansweridx.filter(item => item !== summery.cudx)
+            //             summery.save();
+            //             refreshstatus(summery.cudx,'answered');
 
-                    }else{
-                        summery.notansweridx.push(summery.cudx) 
-                        summery.notansweridx = [...new Set(summery.notansweridx)]
-                        summery.answeridx=summery.answeridx.filter(item => item !== summery.cudx)
-                        summery.save();
-                        refreshstatus(summery.cudx,'not-answered');
+            //         }else{
+            //             summery.notansweridx.push(summery.cudx) 
+            //             summery.notansweridx = [...new Set(summery.notansweridx)]
+            //             summery.answeridx=summery.answeridx.filter(item => item !== summery.cudx)
+            //             summery.save();
+            //             refreshstatus(summery.cudx,'not-answered');
 
                      
-                    }
-                })
-            }
+            //         }
+            //     })
+            // }
 
             if ($('#lesson-questionlist-list .forms-inputs input[name="answer"]').length > 0) {
                 $('#lesson-questionlist-list .forms-inputs input[name="answer"]').each(function() {
@@ -675,7 +675,7 @@
                 console.log('saved-inputs not cheked',answer);
 
                 updatequestionanswer(question, answer);
-                // verifyquestion(question, answer);
+                verifyquestion(question, answer);
 
                 // Update summary based on whether an answer is provided
                 if (answer) {
