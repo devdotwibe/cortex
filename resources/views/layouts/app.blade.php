@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/slick-theme.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/slider.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/stylesheet.css') }}">
 
 
@@ -165,9 +166,12 @@
     <script src="{{ asset('assets/js/jquery-3.7.0.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/js/slick.js') }}"></script>
+    <script src="{{ asset('assets/js/active.js') }}"></script>
+    <script src="{{ asset('assets/js/slider.js') }}"></script>
     <script src="{{ asset('assets/js/sticky-cards.js') }}"></script>
     <script src="{{ asset('assets/js/aos.js') }}"></script>
     <script src="{{ asset('assets/js/scripts.js') }}"></script>
+    
 
 
     <script>
