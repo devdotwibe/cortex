@@ -667,8 +667,6 @@
                 })
             }
 
-            //multiple resquests 12-12-2024
-
             if ($('#lesson-questionlist-list .forms-inputs input[name="answer"]').length > 0) {
                 $('#lesson-questionlist-list .forms-inputs input[name="answer"]').each(function() {
                 const question = $(this).data('question');
@@ -676,8 +674,8 @@
 
                 console.log('saved-inputs not cheked',answer);
 
-                updatequestionanswer(question, answer);
-                verifyquestion(question, answer);
+                // updatequestionanswer(question, answer);
+                // verifyquestion(question, answer);
 
                 // Update summary based on whether an answer is provided
                 if (answer) {
