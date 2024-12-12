@@ -674,8 +674,8 @@
             }
 
 
-            if ($('#lesson-questionlist-list .forms-inputs .answer_type input[name="answer"]').length > 0) {
-                $('#lesson-questionlist-list .forms-inputs .answer_type input[name="answer"]').each(function() {
+            if ($('#lesson-questionlist-list .answer_type input[name="answer"]').length > 0) {
+                $('#lesson-questionlist-list .answer_type input[name="answer"]').each(function() {
                 const question = $(this).data('question');
                 const answer = $(this).val();
 
