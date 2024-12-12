@@ -720,9 +720,10 @@
             loadlesson(progressurl) 
             $('.lesson-left button.left-btn,.lesson-right button.right-btn').click(function(){  
                 const pageurl=$(this).data('pageurl');  
-                updateandsave(function(){
-                    loadlesson(pageurl)
-                })
+                // updateandsave(function(){
+                //     loadlesson(pageurl)
+                // })
+                console.log('pageurl')
             });  
 
             $('.lesson-finish button.finish-btn').click(function(){  
