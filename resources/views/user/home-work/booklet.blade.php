@@ -657,13 +657,15 @@
                         summery.save();
                         refreshstatus(summery.cudx,'answered');
 
-                        console.log('saved anser',$(this).val())
+                        console.log('saved anser 55',$(this).val())
                     }else{
                         summery.notansweridx.push(summery.cudx) 
                         summery.notansweridx = [...new Set(summery.notansweridx)]
                         summery.answeridx=summery.answeridx.filter(item => item !== summery.cudx)
                         summery.save();
                         refreshstatus(summery.cudx,'not-answered');
+
+                        console.log('saved not anser 55',$(this).val())
                     }
                 })
             }
@@ -687,7 +689,7 @@
                     summery.save();
                     refreshstatus(summery.cudx, 'answered');
 
-                    console.log('ans-saved 1',summery.cudx);
+                    console.log('ans-saved 1',summery.cudx,answer);
 
                 } else {
                     // Add to not-answered, remove from answered
@@ -697,7 +699,7 @@
                     summery.save();
                     refreshstatus(summery.cudx, 'not-answered');
 
-                    console.log('ans-saved 2',summery.cudx);
+                    console.log('ans-saved 2',summery.cudx ,answer);
                 }
             });
         }
