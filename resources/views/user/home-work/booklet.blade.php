@@ -593,6 +593,8 @@
                     value:ans
                 }),
             }); 
+
+            console.log('updated',ans);
          }
          async function refreshquestionanswer(question,callback){
             const csrf= $('meta[name="csrf-token"]').attr('content'); 
@@ -654,6 +656,8 @@
                         summery.notansweridx=summery.notansweridx.filter(item => item !== summery.cudx)
                         summery.save();
                         refreshstatus(summery.cudx,'answered');
+
+                        console.log('saved anser',$(this).val())
                     }else{
                         summery.notansweridx.push(summery.cudx) 
                         summery.notansweridx = [...new Set(summery.notansweridx)]
