@@ -3338,7 +3338,7 @@ aside.side_bar.slider-btn .sidebar-content ul ul li.side-item a {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-    margin: 0 0 8px !important;
+    margin: 0 0 14px !important;
 }
 
 .bartop-hide .exam-container .lesson {
