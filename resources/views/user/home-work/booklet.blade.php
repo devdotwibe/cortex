@@ -674,7 +674,7 @@
 
                 console.log('saved-inputs not cheked',answer);
 
-                // updatequestionanswer(question, answer);
+                updatequestionanswer(question, answer);
                 // verifyquestion(question, answer);
 
                 // Update summary based on whether an answer is provided
