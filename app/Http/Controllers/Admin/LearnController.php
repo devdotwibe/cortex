@@ -459,30 +459,33 @@ class LearnController extends Controller
         
         if (!empty($request->deleteaction)  ) {
 
-            if ($request->input('select_all', 'no') == "yes") {
+            // if ($request->input('select_all', 'no') == "yes") {
                
-                $selectAllValues = json_decode($request->select_all_values, true);
+            //     $selectAllValues = json_decode($request->select_all_values, true);
                 
-                $admin = Auth::guard('admin')->user();
+            //     $admin = Auth::guard('admin')->user();
                                 
-                Learn::whereIn('id', $selectAllValues)
-                ->update(['admin_id' => $admin->id]);
+            //     Learn::whereIn('id', $selectAllValues)
+            //     ->update(['admin_id' => $admin->id]);
 
-                Learn::whereIn('id', $selectAllValues)  
-                    ->delete();
+            //     Learn::whereIn('id', $selectAllValues)  
+            //         ->delete();
 
-            } else {
+            // } else {
                
-                $selectBoxValues = is_array($request->input('selectbox', [])) ? $request->input('selectbox', []) : [];
+            //     $selectBoxValues = is_array($request->input('selectbox', [])) ? $request->input('selectbox', []) : [];
                 
-                $admin = Auth::guard('admin')->user();
+            //     $admin = Auth::guard('admin')->user();
 
-                Learn::whereIn('id', $selectBoxValues)->update(['admin_id' => $admin->id]);
+            //     Learn::whereIn('id', $selectBoxValues)->update(['admin_id' => $admin->id]);
          
-                Learn::whereIn('id', $selectBoxValues)->delete();
+            //     Learn::whereIn('id', $selectBoxValues)->delete();
                    
-            }
-            
+            // }
+            $selectBoxValues = is_array($request->input('selectbox', [])) ? $request->input('selectbox', []) : [];                
+            $admin = Auth::guard('admin')->user();
+            Learn::whereIn('id', $selectBoxValues)->update(['admin_id' => $admin->id]);
+            Learn::whereIn('id', $selectBoxValues)->delete();
     
             if ($request->ajax()) {
                 return response()->json(["success" => "Questions deleted successfully"]);

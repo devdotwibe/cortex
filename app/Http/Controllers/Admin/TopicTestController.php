@@ -320,26 +320,30 @@ class TopicTestController extends Controller
     public function bulkaction(Request $request, Category $category ,Exam $exam)
     {
         if (!empty($request->deleteaction)) {
-            if ($request->input('select_all', 'no') == "yes") {
+            // if ($request->input('select_all', 'no') == "yes") {
                
-                $admin = Auth::guard('admin')->user();
+            //     $admin = Auth::guard('admin')->user();
                                 
-                Question::where('exam_id', $exam->id)->where('category_id',$request->category)
-                ->update(['admin_id' => $admin->id]);
+            //     Question::where('exam_id', $exam->id)->where('category_id',$request->category)
+            //     ->update(['admin_id' => $admin->id]);
                 
-                Question::where('category_id', $category->id)
-                        ->where('exam_id',$exam->id)
-                        ->delete();
-            } else {
+            //     Question::where('category_id', $category->id)
+            //             ->where('exam_id',$exam->id)
+            //             ->delete();
+            // } else {
 
-                $admin = Auth::guard('admin')->user();
+            //     $admin = Auth::guard('admin')->user();
                                 
-                Question::whereIn('id', $request->input('selectbox', []))
-                ->update(['admin_id' => $admin->id]);
+            //     Question::whereIn('id', $request->input('selectbox', []))
+            //     ->update(['admin_id' => $admin->id]);
                 
-                Question::whereIn('id', $request->input('selectbox', []))->delete();
-            }
-    
+            //     Question::whereIn('id', $request->input('selectbox', []))->delete();
+            // }
+            $admin = Auth::guard('admin')->user();                                
+            Question::whereIn('id', $request->input('selectbox', []))
+                    ->update(['admin_id' => $admin->id]);            
+            Question::whereIn('id', $request->input('selectbox', []))->delete();
+
             if ($request->ajax()) {
                 return response()->json(["success" => "Questions deleted successfully"]);
             }
@@ -362,16 +366,17 @@ class TopicTestController extends Controller
                     break;
             }
     
-            if ($request->input('select_all', 'no') == "yes") {
-                // Update visibility status for all questions corresponding to the specific setname
-                Question::where('category_id', $category->id)
-                        ->where('exam_id',$exam->id)
-                        ->update($data);
-            } else {
-                // Update visibility status for selected questions only
-                Question::whereIn('id', $request->input('selectbox', []))->update($data);
-            }
-    
+            // if ($request->input('select_all', 'no') == "yes") {
+            //     // Update visibility status for all questions corresponding to the specific setname
+            //     Question::where('category_id', $category->id)
+            //             ->where('exam_id',$exam->id)
+            //             ->update($data);
+            // } else {
+            //     // Update visibility status for selected questions only
+            //     Question::whereIn('id', $request->input('selectbox', []))->update($data);
+            // }
+            Question::whereIn('id', $request->input('selectbox', []))->update($data);
+
             if ($request->ajax()) {
                 return response()->json(["success" => "Questions updated successfully"]);
             }
