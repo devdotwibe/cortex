@@ -490,6 +490,9 @@
                             })
                             refreshquestionanswer(v.slug,function(data){
                                 $(`#mcq-${lesseonId}-list input[value="${data.value}"]`).prop("checked",true)
+
+                                console.log('anser',data.value);
+
                                 if(data.value){
                                     summery.answeridx.push(summery.cudx) 
                                     summery.answeridx = [...new Set(summery.answeridx)]
@@ -641,6 +644,8 @@
          async function updateandsave(callback){ 
             if($('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length>0){
                 $('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]:checked').each(function(){
+
+                    console.log('anser',$(this).val());
                     updatequestionanswer($(this).data('question'),$(this).val());
                     verifyquestion($(this).data('question'),$(this).val());
                     if($(this).val()){
