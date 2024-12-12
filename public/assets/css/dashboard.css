@@ -3367,6 +3367,7 @@ aside.side_bar.slider-btn .sidebar-content ul ul li.side-item a {
 .questionclass .mcq-container-wrap.nopaginationclass .lesson .lesson-body .mcq-container .mcq-group, .questionclass .mcq-container-wrap.nopaginationclass .lesson .lesson-body .mcq-container .mcq-answer {
     height: calc(100vh - 238px) !important;
     min-height: inherit !important;
+    margin: 0;
 }
 
 .questionclass .mcq-container-wrap.nopaginationclass .lesson .lesson-body {
