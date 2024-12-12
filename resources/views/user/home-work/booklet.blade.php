@@ -490,13 +490,16 @@
                             })
                             refreshquestionanswer(v.slug,function(data){
                                 $(`#mcq-${lesseonId}-list input[value="${data.value}"]`).prop("checked",true)
-                                if(data.value){
-                                    summery.answeridx.push(summery.cudx) 
-                                    summery.answeridx = [...new Set(summery.answeridx)]
-                                    summery.notansweridx=summery.notansweridx.filter(item => item !== summery.cudx)
-                                    summery.save();
-                                    refreshstatus(summery.cudx,'answered');
-                                }
+
+                                console.log('anser-data',data.value);
+
+                                // if(data.value){
+                                //     summery.answeridx.push(summery.cudx) 
+                                //     summery.answeridx = [...new Set(summery.answeridx)]
+                                //     summery.notansweridx=summery.notansweridx.filter(item => item !== summery.cudx)
+                                //     summery.save();
+                                //     refreshstatus(summery.cudx,'answered');
+                                // }
                             }) 
                         },'json').fail(function(xhr,status,error){
                             showToast("Error: " + error, 'danger'); 
@@ -590,6 +593,7 @@
                     value:ans
                 }),
             }); 
+
          }
          async function refreshquestionanswer(question,callback){
             const csrf= $('meta[name="csrf-token"]').attr('content'); 
@@ -641,6 +645,7 @@
          async function updateandsave(callback){ 
             if($('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length>0){
                 $('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]:checked').each(function(){
+
                     updatequestionanswer($(this).data('question'),$(this).val());
                     verifyquestion($(this).data('question'),$(this).val());
                     if($(this).val()){
@@ -649,42 +654,54 @@
                         summery.notansweridx=summery.notansweridx.filter(item => item !== summery.cudx)
                         summery.save();
                         refreshstatus(summery.cudx,'answered');
+
                     }else{
                         summery.notansweridx.push(summery.cudx) 
                         summery.notansweridx = [...new Set(summery.notansweridx)]
                         summery.answeridx=summery.answeridx.filter(item => item !== summery.cudx)
                         summery.save();
                         refreshstatus(summery.cudx,'not-answered');
+
+                     
                     }
                 })
             }
 
-            if ($('#lesson-questionlist-list .forms-inputs input[name="answer"]').length > 0) {
-                $('#lesson-questionlist-list .forms-inputs input[name="answer"]').each(function() {
-                const question = $(this).data('question');
-                const answer = $(this).val();
+            //multiple resquests 12-12-2024
 
-                updatequestionanswer(question, answer);
-                verifyquestion(question, answer);
+        //     if ($('#lesson-questionlist-list .forms-inputs input[name="answer"]').length > 0) {
+        //         $('#lesson-questionlist-list .forms-inputs input[name="answer"]').each(function() {
+        //         const question = $(this).data('question');
+        //         const answer = $(this).val();
 
-                // Update summary based on whether an answer is provided
-                if (answer) {
-                    // Add to answered, remove from not-answered
-                    summery.answeridx.push(summery.cudx);
-                    summery.answeridx = [...new Set(summery.answeridx)];
-                    summery.notansweridx = summery.notansweridx.filter(item => item !== summery.cudx);
-                    summery.save();
-                    refreshstatus(summery.cudx, 'answered');
-                } else {
-                    // Add to not-answered, remove from answered
-                    summery.notansweridx.push(summery.cudx);
-                    summery.notansweridx = [...new Set(summery.notansweridx)];
-                    summery.answeridx = summery.answeridx.filter(item => item !== summery.cudx);
-                    summery.save();
-                    refreshstatus(summery.cudx, 'not-answered');
-                }
-            });
-        }
+        //         console.log('saved-inputs not cheked',answer);
+
+        //         updatequestionanswer(question, answer);
+        //         verifyquestion(question, answer);
+
+        //         // Update summary based on whether an answer is provided
+        //         if (answer) {
+        //             // Add to answered, remove from not-answered
+        //             summery.answeridx.push(summery.cudx);
+        //             summery.answeridx = [...new Set(summery.answeridx)];
+        //             summery.notansweridx = summery.notansweridx.filter(item => item !== summery.cudx);
+        //             summery.save();
+        //             refreshstatus(summery.cudx, 'answered');
+
+        //             console.log('ans-saved 1',summery.cudx,answer);
+
+        //         } else {
+        //             // Add to not-answered, remove from answered
+        //             summery.notansweridx.push(summery.cudx);
+        //             summery.notansweridx = [...new Set(summery.notansweridx)];
+        //             summery.answeridx = summery.answeridx.filter(item => item !== summery.cudx);
+        //             summery.save();
+        //             refreshstatus(summery.cudx, 'not-answered');
+
+        //             console.log('ans-saved 2',summery.cudx ,answer);
+        //         }
+        //     });
+        // }
 
             updateprogress(callback) 
          }

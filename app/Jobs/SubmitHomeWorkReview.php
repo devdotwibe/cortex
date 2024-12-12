@@ -47,21 +47,47 @@ class SubmitHomeWorkReview implements ShouldQueue
         $takentimereview = [];
         foreach (HomeWorkQuestion::where('home_work_id', $homeWork->id)->where('home_work_book_id', $homeWorkBook->id)->get() as $k => $question) {
             $user_answer = $user->progress("home-work-{$homeWork->id}-booklet-{$homeWorkBook->id}-answer-of-" . $question->slug, "");
-            $revquestion = HomeWorkReviewQuestion::store([
-                'title' => $question->title,
-                'home_work_review_id' => $this->review->id,
-                'review_type' => $question->home_work_type,
-                'note' => $question->description,
-                'explanation' => $question->explanation,
-                'currect_answer' => $question->short_answer ?? "",
-                'user_answer' => $user_answer,
-                'home_work_id' => $this->review->home_work_id,
-                'home_work_book_id' => $this->review->home_work_book_id,
-                'home_work_question_id' => $question->id,
-                'user_id' => $this->review->user_id,
-                'time_taken' => $takentime[$question->slug] ?? 0,
-                'order_no'=>$question->order_no,
-            ]);
+
+            if($question->home_work_type =='mcq')
+            {
+                $revquestion = HomeWorkReviewQuestion::store([
+                    'title' => $question->title,
+                    'home_work_review_id' => $this->review->id,
+                    'review_type' => $question->home_work_type,
+                    'note' => $question->description,
+                    'explanation' => $question->explanation,
+                    'currect_answer' => $question->short_answer ?? "",
+                    'user_answer' => $user_answer,
+                    'home_work_id' => $this->review->home_work_id,
+                    'home_work_book_id' => $this->review->home_work_book_id,
+                    'home_work_question_id' => $question->id,
+                    'user_id' => $this->review->user_id,
+                    'time_taken' => $takentime[$question->slug] ?? 0,
+                    'order_no'=>$question->order_no,
+                ]);
+
+            }
+            else
+            {
+                $revquestion = HomeWorkReviewQuestion::store([
+                    'title' => $question->title,
+                    'home_work_review_id' => $this->review->id,
+                    'review_type' => $question->home_work_type,
+                    'note' => $question->short_question,
+                    'explanation' => $question->explanation,
+                    'currect_answer' => $question->short_answer ?? "",
+                    'user_answer' => $user_answer,
+                    'home_work_id' => $this->review->home_work_id,
+                    'home_work_book_id' => $this->review->home_work_book_id,
+                    'home_work_question_id' => $question->id,
+                    'user_id' => $this->review->user_id,
+                    'time_taken' => $takentime[$question->slug] ?? 0,
+                    'order_no'=>$question->order_no,
+                ]);
+
+            }
+
+           
 
             $takentimereview[$revquestion->slug] = $takentime[$question->slug] ?? 0;
             if ($question->home_work_type == 'mcq') {

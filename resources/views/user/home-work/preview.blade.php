@@ -56,9 +56,9 @@
                 {{-- <a class="lesson-exit float-start" href="{{route('home-work.show',$homeWork->slug)}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
                 <img src="{{asset("assets/images/exiticon.svg")}}" alt="exiticon">
             </a> --}}
-                <div class="lesson-title">
+                {{-- <div class="lesson-title">
                     <h5><span>{{ $homeWorkBook->title }}</span></h5>
-                </div>
+                </div> --}}
                 <div class="lesson-body">
                     <div class="row" id="lesson-questionlist-list" style="display: none">
                     </div>
