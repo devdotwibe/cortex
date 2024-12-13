@@ -731,6 +731,11 @@
             $('.lesson-finish button.finish-btn').click(function(){  
                 updateandsave(function(){
                     var unfinishcount=summery.totalcount-summery.questionids.length; 
+
+                    console.log(summery.totalcount,'tottal');
+
+                    console.log(summery.questionids.length,'questno');
+
                     if(unfinishcount>0){
                         $('.unfinish-message').show().find('.unfinish-count').text(unfinishcount)
                     }else{
