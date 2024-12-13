@@ -75,9 +75,13 @@ class LearnController extends Controller
             {
                 $this->where('sub_category_id', $category_sub->id);
 
-                $sub_category =$category_sub->id;
+                if(!empty(optional($category_sub)->id))
+                {
+                    $sub_category =$category_sub->id;
 
-                $examCount = Learn::where('category_id',$category->id)->where('sub_category_id',$sub_category)->count();
+                    $examCount = Learn::where('category_id',$category->id)->where('sub_category_id',$sub_category)->count();
+                }
+                $examCount = Learn::where('category_id',$category->id)->count();
             }
            
             $this->orderBy('order_no', 'ASC');
@@ -495,7 +499,7 @@ class LearnController extends Controller
                 ->where('sub_category_id',$learn->sub_category_id)
                 ->decrement('order_no');
             }
-            
+
             Learn::whereIn('id', $selectBoxValues)->delete();
     
             if ($request->ajax()) {
