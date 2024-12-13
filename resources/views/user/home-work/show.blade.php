@@ -22,7 +22,7 @@
             <div class="col-md-6">
                 <div class="card mb-3">
                     <div class="card-body">
-                        @if ($user->progress("home-work-{$homeWork->id}-booklet-{$item->id}-complete-review", 'no') == 'yes')
+                        @if ($user->progress("home-work-{$homeWork->id}-booklet-{$item->id}-complete-review", 'no') == 'no')
 
                         @elseif($user->progress("home-work-{$homeWork->id}-booklet-{$item->id}-complete-date", '') == '')
                         @guest('admin')  <a  onclick="confimbooklet('{{route('home-work.booklet',['home_work'=>$homeWork->slug,'home_work_book'=>$item->slug])}}','{{$item->title}}')"> @endguest
