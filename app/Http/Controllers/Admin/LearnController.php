@@ -73,11 +73,16 @@ class LearnController extends Controller
             }
             else
             {
-                $this->where('sub_category_id', $category_sub->id);
+        
+                if(!empty(optional($category_sub)->id))
+                {
+                    $this->where('sub_category_id', $category_sub->id);
 
-                $sub_category =$category_sub->id;
+                    $sub_category =$category_sub->id;
 
-                $examCount = Learn::where('category_id',$category->id)->where('sub_category_id',$sub_category)->count();
+                    $examCount = Learn::where('category_id',$category->id)->where('sub_category_id',$sub_category)->count();
+                }
+                $examCount = Learn::where('category_id',$category->id)->count();
             }
            
             $this->orderBy('order_no', 'ASC');
@@ -485,7 +490,45 @@ class LearnController extends Controller
             $selectBoxValues = is_array($request->input('selectbox', [])) ? $request->input('selectbox', []) : [];                
             $admin = Auth::guard('admin')->user();
             Learn::whereIn('id', $selectBoxValues)->update(['admin_id' => $admin->id]);
-            Learn::whereIn('id', $selectBoxValues)->delete();
+
+            $learns =  Learn::whereIn('id', $selectBoxValues)->orderBy('order_no','asc')->get();
+
+            $ids = [];
+
+            if ($learns->isNotEmpty()) {
+
+                $firstLearn = $learns->first();
+
+                $order_no =  Learn::where('order_no','>',$firstLearn->order_no)->first();
+            
+                Learn::whereIn('id', $selectBoxValues)->delete();
+
+                if(!empty($order_no))
+                {
+                    Learn::where('order_no', '>', $firstLearn->order_no)
+                    ->where('category_id', $firstLearn->category_id)
+                    ->where('sub_category_id', $firstLearn->sub_category_id)
+                    ->decrement('order_no');
+
+                    dd('test');
+                }
+         
+            }
+
+            // foreach($learns as $learn)
+            // {
+            //     Learn::where('order_no','>',$learn->order_no)
+            //     ->where('category_id',$learn->category_id)
+            //     ->where('sub_category_id',$learn->sub_category_id)
+            //     ->decrement('order_no');
+
+            //     $ids[] =$learn->order_no;
+
+            //     $learn->delete();
+            // }
+            // dd($ids);
+
+            // Learn::whereIn('id', $selectBoxValues)->delete();
     
             if ($request->ajax()) {
                 return response()->json(["success" => "Questions deleted successfully"]);

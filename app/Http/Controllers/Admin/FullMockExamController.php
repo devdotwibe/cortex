@@ -178,6 +178,16 @@ class FullMockExamController extends Controller
                 $admin = Auth::guard('admin')->user();                               
                 Question::whereIn('id', $request->input('selectbox', []))
                         ->update(['admin_id' => $admin->id]);
+
+                $questions = Question::whereIn('id', $request->input('selectbox', []))->delete();
+
+                foreach($questions as $question)
+                {
+                    Question::where('order_no','>',$question->order_no)
+                    ->where('exam_id', $question->exam_id)
+                    ->decrement('order_no');
+                }  
+
                 Question::whereIn('id', $request->input('selectbox', []))->delete();
 
             if ($request->ajax()) {

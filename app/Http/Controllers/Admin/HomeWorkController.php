@@ -414,6 +414,16 @@ class HomeWorkController extends Controller
             $admin = Auth::guard('admin')->user();
             HomeWorkQuestion::whereIn('id', $selectBoxValues)
             ->update(['admin_id' => $admin->id]);
+
+            $homeWorkQuestions = HomeWorkQuestion::whereIn('id', $selectBoxValues)->get();
+
+            foreach($homeWorkQuestions as $homeWorkQuestion)
+            {
+                HomeWorkQuestion::where('order_no','>',$homeWorkQuestion->order_no)
+                ->where('home_work_id', $homeWorkQuestion->home_work_id)
+                ->decrement('order_no');
+            }
+
             HomeWorkQuestion::whereIn('id', $selectBoxValues)->delete();  
             
             if ($request->ajax()) {

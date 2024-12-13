@@ -540,7 +540,10 @@
          async function updateprogress(callback){  
             try { 
                 const csrf= $('meta[name="csrf-token"]').attr('content');  
-                var currentprogress=(summery.questionids.length*100/summery.totalcount)
+                // var currentprogress=(summery.questionids.length*100/summery.totalcount)
+
+                var currentprogress=(summery.answeridx.length*100/summery.totalcount)
+
                 const response1 = await fetch("{{route('progress')}}", {
                     method: 'POST',
                     headers: {
