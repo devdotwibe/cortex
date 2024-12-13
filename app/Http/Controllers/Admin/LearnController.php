@@ -493,28 +493,29 @@ class LearnController extends Controller
 
             $learns =  Learn::whereIn('id', $selectBoxValues)->orderBy('order_no','asc')->get();
 
-            $ids = [];
-
-            if ($learns->isNotEmpty()) {
-
                 $firstLearn = $learns->first();
-
-                $order_no =  Learn::where('order_no','>',$firstLearn->order_no)->first();
             
                 Learn::whereIn('id', $selectBoxValues)->delete();
 
-                if(!empty($order_no))
+                $all_learn = Learn::where('category_id', $firstLearn->category_id)->where('sub_category_id', $firstLearn->sub_category_id)->get();
+
+                foreach( $all_learn  as $item)
                 {
-                    Learn::where('order_no', '>', $firstLearn->order_no)
-                    ->where('category_id', $firstLearn->category_id)
-                    ->where('sub_category_id', $firstLearn->sub_category_id)
-                    ->decrement('order_no');
+                    $question_count = Learn::where('order_no','<',$item->order_no)->where('category_id', $item->category_id)->where('sub_category_id', $item->sub_category_id)->count();
 
-                    dd('test');
+                    if(!empty($question_count))
+                    {
+                        $item->order_no = $question_count+1; 
+                    }
+                    else
+                    {
+                        $item->order_no =1; 
+                    }
+
+                    $item->save();
+
                 }
-         
-            }
-
+       
             // foreach($learns as $learn)
             // {
             //     Learn::where('order_no','>',$learn->order_no)
