@@ -499,9 +499,11 @@ class LearnController extends Controller
                 ->where('category_id',$learn->category_id)
                 ->where('sub_category_id',$learn->sub_category_id)
                 ->decrement('order_no');
+
+                $learn->delete();
             }
 
-            Learn::whereIn('id', $selectBoxValues)->delete();
+            // Learn::whereIn('id', $selectBoxValues)->delete();
     
             if ($request->ajax()) {
                 return response()->json(["success" => "Questions deleted successfully"]);
