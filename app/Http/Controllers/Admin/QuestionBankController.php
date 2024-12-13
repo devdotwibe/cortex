@@ -277,6 +277,19 @@ class QuestionBankController extends Controller
             //     // Delete selected questions only
             //     Question::whereIn('id', values: $request->input('selectbox', []))->delete();
             // }
+
+            $questions = Question::whereIn('id', values: $request->input('selectbox', []))->get();
+
+            foreach($questions as $question)
+            {
+                Question::where('order_no','>',$question->order_no)
+                ->where('category_id', $question->category_id)
+                ->where('sub_category_id', $question->sub_category_id)
+                ->where('sub_category_set', $question->sub_category_set)
+                ->where('exam_id', $question->exam_id)
+                ->decrement('order_no');
+            }
+
             Question::whereIn('id', values: $request->input('selectbox', []))->delete();
 
             if ($request->ajax()) {
