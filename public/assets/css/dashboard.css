@@ -3663,6 +3663,10 @@ aside.side_bar.slider-btn .sidebar-content ul ul li.side-item a {
         top: -26px;
     }
 
+    .exam-container .container-wrap .lesson .lesson-body .mcq-row:after {
+        height: 104%;
+    }
+
 }
 
 .exam-container .question-bank-review .lesson #lesson-footer-pagination button.btn {
