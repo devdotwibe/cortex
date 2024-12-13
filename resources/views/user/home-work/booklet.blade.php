@@ -730,7 +730,10 @@
 
             $('.lesson-finish button.finish-btn').click(function(){  
                 updateandsave(function(){
-                    var unfinishcount=summery.totalcount-summery.notansweridx.length; 
+
+                    var unfinishcount=summery.notansweridx.length; 
+
+                    // var unfinishcount=summery.totalcount-summery.notansweridx.length; 
 
                     console.log(summery.totalcount,'tottal');
 
