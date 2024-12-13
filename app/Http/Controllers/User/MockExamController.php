@@ -300,7 +300,7 @@ class MockExamController extends Controller
             }
             $data = UserReviewQuestion::whereIn('review_type',['mcq'])->where('user_exam_review_id',$userExamReview->id)->where('user_id',$user->id)->orderBy('order_no')->paginate(1);
 
-            $data_questions = UserReviewQuestion::whereIn('review_type',['mcq'])->where('user_id',$user->id)->where('user_exam_review_id',$userExamReview->id)->get();
+            $data_questions = UserReviewQuestion::whereIn('review_type',['mcq'])->where('user_id',$user->id)->where('user_exam_review_id',$userExamReview->id)->orderBy('order_no')->get();
 
             $user_review = UserReviewAnswer::where('user_id',$user->id)->where('user_answer',true)->where('user_exam_review_id',$userExamReview->id)->get();
 
@@ -643,7 +643,7 @@ class MockExamController extends Controller
 
         $data = ExamRetryQuestion::whereIn('review_type', ['mcq'])->where('exam_retry_review_id', $examRetryReview->id)->where('user_id', $user->id)->orderBy('order_no')->paginate(1);
 
-        $data_questions = ExamRetryQuestion::whereIn('review_type',['mcq'])->where('user_id',$user->id)->where('exam_retry_review_id',$examRetryReview->id)->get();
+        $data_questions = ExamRetryQuestion::whereIn('review_type',['mcq'])->where('user_id',$user->id)->where('exam_retry_review_id',$examRetryReview->id)->orderBy('order_no')->get();
 
         $exam_review = ExamRetryAnswer::where('user_id',$user->id)->where('user_answer',true)->where('exam_retry_review_id',$examRetryReview->id)->get();
 
