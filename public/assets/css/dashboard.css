@@ -7097,9 +7097,16 @@ nav.navbar.header-class {
 
 
 .exam-container .container-wrap .lesson .lesson-body p,
-.exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check label {
+.exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check label,
+.exam-container .container-wrap .lesson .lesson-body p sup, 
+.exam-container .container-wrap .lesson .lesson-body p sub {
     font-family: 'Arial';
     line-height: 1.5;
+}
+
+.exam-container .container-wrap .lesson .lesson-body p sup, .exam-container .container-wrap .lesson .lesson-body p sub {
+    position: relative;
+    font-size: 12px;
 }
 
 .exam-container.answerclass.onequestionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .correctanswerclass label {
