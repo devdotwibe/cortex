@@ -493,6 +493,8 @@ class LearnController extends Controller
 
             $learns =  Learn::whereIn('id', $selectBoxValues)->orderBy('order_no','asc')->get();
 
+            $ids = [];
+
             foreach($learns as $learn)
             {
                 Learn::where('order_no','>',$learn->order_no)
@@ -500,8 +502,11 @@ class LearnController extends Controller
                 ->where('sub_category_id',$learn->sub_category_id)
                 ->decrement('order_no');
 
+                $ids[] =$learn->order_no;
+
                 $learn->delete();
             }
+            dd($ids);
 
             // Learn::whereIn('id', $selectBoxValues)->delete();
     
