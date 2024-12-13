@@ -734,7 +734,7 @@
             $('.lesson-finish button.finish-btn').click(function(){  
                 updateandsave(function(){
 
-                    var unfinishcount=summery.notansweridx.length; 
+                    var unfinishcount=summery.notansweridx.length + summery.totalcount-(summery.answeridx.length+summery.notansweridx.length); 
 
                     // var unfinishcount=summery.totalcount-summery.notansweridx.length; 
 
