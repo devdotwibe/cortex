@@ -485,6 +485,17 @@ class LearnController extends Controller
             $selectBoxValues = is_array($request->input('selectbox', [])) ? $request->input('selectbox', []) : [];                
             $admin = Auth::guard('admin')->user();
             Learn::whereIn('id', $selectBoxValues)->update(['admin_id' => $admin->id]);
+
+            $learns =  Learn::whereIn('id', $selectBoxValues)->get();
+
+            foreach($learns as $learn)
+            {
+                Learn::where('order_no','>',$learn->order_no)
+                ->where('category_id',$learn->category_id)
+                ->where('sub_category_id',$learn->sub_category_id)
+                ->decrement('order_no');
+            }
+            
             Learn::whereIn('id', $selectBoxValues)->delete();
     
             if ($request->ajax()) {
