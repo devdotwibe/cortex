@@ -491,7 +491,7 @@ class LearnController extends Controller
             $admin = Auth::guard('admin')->user();
             Learn::whereIn('id', $selectBoxValues)->update(['admin_id' => $admin->id]);
 
-            $learns =  Learn::whereIn('id', $selectBoxValues)->orderBy('order_no')->get();
+            $learns =  Learn::whereIn('id', $selectBoxValues)->orderBy('order_no','asc')->get();
 
             foreach($learns as $learn)
             {
