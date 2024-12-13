@@ -505,9 +505,12 @@ class LearnController extends Controller
 
                 if(!empty($order_no))
                 {
-                    Learn::where('order_no', '>', $firstLearn->order_no)
-                    ->where('category_id', $firstLearn->category_id)
-                    ->where('sub_category_id', $firstLearn->sub_category_id)
+
+                    $order_l=  Learn::where('order_no',$order_no)->first();
+
+                    Learn::where('order_no', '<', $order_l->order_no)
+                    ->where('category_id', $order_l->category_id)
+                    ->where('sub_category_id', $order_l->sub_category_id)
                     ->decrement('order_no');
 
                     dd('test');
