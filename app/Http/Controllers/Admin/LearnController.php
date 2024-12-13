@@ -495,18 +495,38 @@ class LearnController extends Controller
 
             $ids = [];
 
-            foreach($learns as $learn)
-            {
-                Learn::where('order_no','>',$learn->order_no)
-                ->where('category_id',$learn->category_id)
-                ->where('sub_category_id',$learn->sub_category_id)
-                ->decrement('order_no');
+            if ($learns->isNotEmpty()) {
 
-                $ids[] =$learn->order_no;
+                $firstLearn = $learns->first();
 
-                $learn->delete();
+                $order_no =  Learn::where('order_no','>',$firstLearn->order_no)->first();
+            
+                Learn::whereIn('id', $selectBoxValues)->delete();
+
+                if(!empty($order_no))
+                {
+                    Learn::where('order_no', '>', $firstLearn->order_no)
+                    ->where('category_id', $firstLearn->category_id)
+                    ->where('sub_category_id', $firstLearn->sub_category_id)
+                    ->decrement('order_no');
+
+                    dd('test');
+                }
+         
             }
-            dd($ids);
+
+            // foreach($learns as $learn)
+            // {
+            //     Learn::where('order_no','>',$learn->order_no)
+            //     ->where('category_id',$learn->category_id)
+            //     ->where('sub_category_id',$learn->sub_category_id)
+            //     ->decrement('order_no');
+
+            //     $ids[] =$learn->order_no;
+
+            //     $learn->delete();
+            // }
+            // dd($ids);
 
             // Learn::whereIn('id', $selectBoxValues)->delete();
     
