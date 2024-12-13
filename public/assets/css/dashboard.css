@@ -7097,7 +7097,9 @@ nav.navbar.header-class {
 
 
 .exam-container .container-wrap .lesson .lesson-body p,
-.exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check label {
+.exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check label,
+.exam-container .container-wrap .lesson .lesson-body p sup, 
+.exam-container .container-wrap .lesson .lesson-body p sub {
     font-family: 'Arial';
     line-height: 1.5;
 }
