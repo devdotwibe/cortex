@@ -7106,8 +7106,7 @@ nav.navbar.header-class {
 
 .exam-container .container-wrap .lesson .lesson-body p sup, .exam-container .container-wrap .lesson .lesson-body p sub {
     position: relative;
-    font-size: 11px;
-    top: -6px;
+    font-size: 12px;
 }
 
 .exam-container.answerclass.onequestionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .correctanswerclass label {
