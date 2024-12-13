@@ -493,11 +493,11 @@ class LearnController extends Controller
 
             $learns =  Learn::whereIn('id', $selectBoxValues)->orderBy('order_no','asc')->get();
 
-            $learn_data = $learns->first();
+                $firstLearn = $learns->first();
+            
+                Learn::whereIn('id', $selectBoxValues)->delete();
 
-            Learn::whereIn('id', $selectBoxValues)->delete();
-
-            $all_learn = Learn::where('category_id', $learn_data->category_id)->where('sub_category_id', $learn_data->sub_category_id)->get();
+                $all_learn = Learn::where('category_id', $firstLearn->category_id)->where('sub_category_id', $firstLearn->sub_category_id)->get();
 
                 foreach( $all_learn  as $item)
                 {
@@ -515,9 +515,7 @@ class LearnController extends Controller
                     $item->save();
 
                 }
-        
-            }
-
+       
             // foreach($learns as $learn)
             // {
             //     Learn::where('order_no','>',$learn->order_no)
