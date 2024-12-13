@@ -730,13 +730,13 @@
 
             $('.lesson-finish button.finish-btn').click(function(){  
                 updateandsave(function(){
-                    var unfinishcount=summery.totalcount-summery.questionids.length; 
+                    var unfinishcount=summery.totalcount-summery.notansweridx.length; 
 
                     console.log(summery.totalcount,'tottal');
 
-                    console.log(summery.questionids.length,'questno');
+                    // console.log(summery.questionids.length,'questno'); //prre update count
 
-                    console.log(summery.notansweridx.length,'questno');
+                    // console.log(summery.notansweridx.length,'questno');
                     
                     if(unfinishcount>0){
                         $('.unfinish-message').show().find('.unfinish-count').text(unfinishcount)
