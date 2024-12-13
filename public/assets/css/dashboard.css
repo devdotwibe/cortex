@@ -737,6 +737,7 @@ button.close {
 
 .exam-container .container-wrap .lesson .lesson-body .mcq-row {
     padding: 20px 30px 0;
+    position: relative;
 }
 
 .exam-container .container-wrap .lesson .lesson-body .note-title {
@@ -3263,12 +3264,12 @@ aside.side_bar.slider-btn .sidebar-content ul ul li.side-item a {
     padding: 0 0 0 35px;
 }
 
-.exam-container .question-bank-review .lesson .lesson-body .mcq-container:after {
+.exam-container .container-wrap .lesson .lesson-body .mcq-row:after {
     content: "";
     position: absolute;
     width: 1px;
     height: 100%;
-    top: -28px;
+    top: 0;
     left: 50%;
     transform: translateX(-50%);
     background: #1789fa;
