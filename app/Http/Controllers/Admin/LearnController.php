@@ -501,7 +501,7 @@ class LearnController extends Controller
 
                 foreach( $all_learn  as $item)
                 {
-                    $question_count = Learn::where('order_no','<',$item->order_no)->where('category_id', $learn_data->category_id)->where('sub_category_id', $learn_data->sub_category_id)->count();
+                    $question_count = Learn::where('order_no','<',$item->order_no)->where('category_id', $item->category_id)->where('sub_category_id', $item->sub_category_id)->count();
 
                     if(!empty($question_count))
                     {
