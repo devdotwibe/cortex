@@ -736,6 +736,8 @@
 
                     console.log(summery.questionids.length,'questno');
 
+                    console.log(summery.notansweridx.length,'questno');
+                    
                     if(unfinishcount>0){
                         $('.unfinish-message').show().find('.unfinish-count').text(unfinishcount)
                     }else{
