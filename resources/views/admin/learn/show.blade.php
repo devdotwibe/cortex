@@ -17,8 +17,11 @@
                     @if(!empty(optional($category_sub)->id))
 
                         <option value="{{$category_sub->id}}">{{$category_sub->name}}</option>
+                    @else
 
+                        <option value="0"></option>
                     @endif
+                    
                 </select>
             </div>
         </div>
