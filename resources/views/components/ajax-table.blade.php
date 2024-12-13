@@ -233,8 +233,10 @@
                     url: "{{ $url }}",
                     data: function(d) {
                         @if ($bulkaction)
-                            d.select_all = $('#table-{{ $tableid }}-bulk').is(':checked') ?
-                                "yes" : "no";
+                            // d.select_all = $('#table-{{ $tableid }}-bulk').is(':checked') ?
+                            //     "yes" : "no";
+                            d.select_all = "no";
+                            $('#table-{{ $tableid }}-bulk').prop('checked', false);
                             d.select_all_values = $('#select_all_values').val();
                         @endif
 
