@@ -701,6 +701,8 @@
                     summery.save();
                     refreshstatus(summery.cudx, 'not-answered');
 
+                    console.log('short not answerd');
+
                 }
             });
         }
