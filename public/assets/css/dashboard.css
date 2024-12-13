@@ -9271,6 +9271,10 @@ nav.navbar.top-barhide {
         width: 100%;
     }
 
+    .exam-container .container-wrap .lesson .lesson-body .mcq-row:after {
+        display: none;
+    }
+
 }
 
 
