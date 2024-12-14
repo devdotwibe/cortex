@@ -783,6 +783,7 @@
             $('.exam-exit a').click(function(e){
                 e.preventDefault();
                 e.stopPropagation();
+
                 const csrf= $('meta[name="csrf-token"]').attr('content'); 
                 await fetch("{{route('progress')}}", {
                     method: 'POST',
@@ -796,11 +797,8 @@
                         value:'complete'
                     }),
                 }); 
-
+                
                 localStorage.removeItem("home-work-booklet")
-                summery.timerActive=false;
-                summery.examActive=false;
-                summery.save() 
                 exitconfirm($(this).attr("href")); 
             }) 
          })
