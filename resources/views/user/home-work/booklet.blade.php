@@ -784,6 +784,9 @@
                 e.preventDefault();
                 e.stopPropagation();
                 localStorage.removeItem("home-work-booklet")
+                summery.timerActive=false;
+                summery.examActive=false;
+                summery.save() 
                 exitconfirm($(this).attr("href")); 
             }) 
          })
