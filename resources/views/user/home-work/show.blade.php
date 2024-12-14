@@ -93,6 +93,7 @@
                         <th>Date</th>
                         <th>Progress</th>
                         <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody >
@@ -110,7 +111,7 @@
                     url:url
                 },
                 order: [
-                    [0, 'DESC']
+                    [4, 'ASC']
                 ],
                 initComplete: function() {
                     var info = this.api().page.info(); 
@@ -167,7 +168,14 @@
                     {
                         data: 'action', 
                         orderable: false,
-                        searchable: false, 
+                        searchable: false,  
+                    },
+                    {
+                        data: 'updated_at',
+                        name: 'updated_at',
+                        orderable: false,
+                        searchable: false,
+                        visible: false,
                     },
                 ],
             }) 
