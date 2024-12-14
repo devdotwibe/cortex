@@ -27,7 +27,7 @@
                         @elseif($user->progress("home-work-{$homeWork->id}-booklet-{$item->id}-complete-date", '') == '')
                         @guest('admin')  <a  onclick="confimbooklet('{{route('home-work.booklet',['home_work'=>$homeWork->slug,'home_work_book'=>$item->slug])}}','{{$item->title}}')"> @endguest
                         @else
-                        <a  onclick="loadbooklethistory('{{route('home-work.history',['home_work'=>$homeWork->slug,'home_work_book'=>$item->slug])}}','{{$item->title}}')">
+                        <a  onclick="loadbooklethistory('{{route('home-work.booklet',['home_work'=>$homeWork->slug,'home_work_book'=>$item->slug])}}','{{$item->title}}')">
                         @endif
                             <div class="category">
                                 <div class="category-content"> 
@@ -116,6 +116,7 @@
                 initComplete: function() {
                     var info = this.api().page.info(); 
                     var json = this.api().ajax.json();
+                    console.log(json);
                     $('#restart-btn').attr('href', json.url);
                     $('#review-history-label').html(` ${json.name} `)
                     if (info.pages > 1) {

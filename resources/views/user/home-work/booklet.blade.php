@@ -785,19 +785,7 @@
                 e.stopPropagation();
 
                 const csrf= $('meta[name="csrf-token"]').attr('content'); 
-                await fetch("{{route('progress')}}", {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': csrf,
-                        'X-Requested-With': 'XMLHttpRequest'
-                    },
-                    body: JSON.stringify({
-                        name:"home-work-{{$homeWork->id}}-booklet-{{$homeWorkBook->id}}-complete-review",
-                        value:'complete'
-                    }),
-                }); 
-
+             
                 localStorage.removeItem("home-work-booklet");
                 exitconfirm($(this).attr("href")); 
             }) 
