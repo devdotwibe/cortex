@@ -118,11 +118,11 @@
                     var json = this.api().ajax.json();
                     console.log(json);
 
-                    // $('#restart-btn').attr('href', json.url);
+                    $('#restart-btn').attr('href', json.url);
                 
                     // $('#restart-btn').onclick('confimbooklet(`${json.url}'','${json.name}')');
 
-                    $('#restart-btn').attr('onclick', `confimbooklet('${json.url}', '${json.name}')`);
+                    // $('#restart-btn').attr('onclick', `confimbooklet('${json.url}', '${json.name}')`);
 
 
                     //  $('#restart-btn').attr('href','{{route('home-work.booklet', ['home_work' => $homeWork->slug, 'home_work_book' => $homeWorkBook->slug])');
@@ -142,7 +142,7 @@
                 drawCallback: function() {
                     var info = this.api().page.info();
                     var json = this.api().ajax.json();
-                    // $('#restart-btn').attr('href', json.url);
+                    $('#restart-btn').attr('href', json.url);
 
                     $('#restart-btn').attr('onclick', `confimbooklet('${json.url}', '${json.name}')`);
 
