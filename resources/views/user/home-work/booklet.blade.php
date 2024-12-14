@@ -780,7 +780,7 @@
            
             // setInterval(countownRun,1000)
 
-            $('.exam-exit a').click(function(e){
+            $('.exam-exit a').click(async function(e){
                 e.preventDefault();
                 e.stopPropagation();
 
