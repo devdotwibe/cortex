@@ -65,7 +65,7 @@
                             </div>
                         </div>
                     </div>
-                    @guest('admin') <a type="button" href="" id="restart-btn" class="btn btn-dark">Re-Start Booklet</a> @endguest
+                    @guest('admin') <a type="button" id="restart-btn" class="btn btn-dark">Re-Start Booklet</a> @endguest
                 </div>
             </div>
         </div>
@@ -122,7 +122,7 @@
                 
                     // $('#restart-btn').onclick('confimbooklet(`${json.url}'','${json.name}')');
 
-                    $('#restart-btn').attr('onclick', `confirmbooklet('${json.url}', '${json.name}')`);
+                    $('#restart-btn').attr('onclick', `confimbooklet('${json.url}', '${json.name}')`);
 
 
                     //  $('#restart-btn').attr('href','{{route('home-work.booklet', ['home_work' => $homeWork->slug, 'home_work_book' => $homeWorkBook->slug])');
@@ -144,8 +144,8 @@
                     var json = this.api().ajax.json();
                     // $('#restart-btn').attr('href', json.url);
 
-                    $('#restart-btn').attr('onclick', `confirmbooklet('${json.url}', '${json.name}')`);
-                    
+                    $('#restart-btn').attr('onclick', `confimbooklet('${json.url}', '${json.name}')`);
+
                     $('#review-history-label').html(` ${json.name} `)
                     if (info.pages > 1) {
                         $("#attemt-list-table_wrapper .pagination").show();
