@@ -117,8 +117,15 @@
                     var info = this.api().page.info(); 
                     var json = this.api().ajax.json();
                     console.log(json);
+
                     // $('#restart-btn').attr('href', json.url);
-                     $('#restart-btn').attr('href','{{route('home-work.history',['home_work'=>$homeWork->slug,'home_work_book'=>$item->slug])}}','{{$item->title}}');
+                
+                    // $('#restart-btn').onclick('confimbooklet(`${json.url}'','${json.name}')');
+                    
+                    $('#restart-btn').attr('onclick', `confirmbooklet('${json.url}', '${json.name}')`);
+
+
+                    //  $('#restart-btn').attr('href','{{route('home-work.booklet', ['home_work' => $homeWork->slug, 'home_work_book' => $homeWorkBook->slug])');
                     
                     $('#review-history-label').html(` ${json.name} `)
                     if (info.pages > 1) {
