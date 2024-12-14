@@ -121,7 +121,7 @@
                     // $('#restart-btn').attr('href', json.url);
                 
                     // $('#restart-btn').onclick('confimbooklet(`${json.url}'','${json.name}')');
-                    
+
                     $('#restart-btn').attr('onclick', `confirmbooklet('${json.url}', '${json.name}')`);
 
 
@@ -142,7 +142,10 @@
                 drawCallback: function() {
                     var info = this.api().page.info();
                     var json = this.api().ajax.json();
-                    $('#restart-btn').attr('href', json.url);
+                    // $('#restart-btn').attr('href', json.url);
+
+                    $('#restart-btn').attr('onclick', `confirmbooklet('${json.url}', '${json.name}')`);
+                    
                     $('#review-history-label').html(` ${json.name} `)
                     if (info.pages > 1) {
                         $("#attemt-list-table_wrapper .pagination").show();
