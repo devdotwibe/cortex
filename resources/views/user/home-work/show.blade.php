@@ -111,7 +111,7 @@
                     url:url
                 },
                 order: [
-                    [4, 'DESC']
+                    [4, 'ASC']
                 ],
                 initComplete: function() {
                     var info = this.api().page.info(); 
