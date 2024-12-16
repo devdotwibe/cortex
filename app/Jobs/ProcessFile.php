@@ -8,13 +8,12 @@ use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Exception;
-use Illuminate\Bus\Queueable as BusQueueable;
 use Illuminate\Support\Facades\Cache;
 use Imagick;
 
 class ProcessFile implements ShouldQueue
 {
-    use BusQueueable;
+    use Queueable;
 
     protected $filepath;
     protected $user;
