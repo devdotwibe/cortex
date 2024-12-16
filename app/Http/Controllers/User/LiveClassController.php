@@ -196,6 +196,8 @@ class LiveClassController extends Controller
             $imginfo->pingImage($filepath);    
         
             $count= $imginfo->getNumberImages();
+
+            dd($count);
         
             $imagic = new \Imagick();
             $imagic->setResolution(570, 800);
@@ -203,8 +205,6 @@ class LiveClassController extends Controller
             
             $imgdata=[]; 
 
-            dd('test');
-            
             $hash=md5("$filepath/render".time());
             foreach ($imagic as $pageIndex => $page) {
                 $bytefile=sprintf("$hash-%02d.jpg",$pageIndex);
