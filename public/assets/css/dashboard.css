@@ -3282,7 +3282,7 @@ aside.side_bar.slider-btn .sidebar-content ul ul li.side-item a {
     border-block: 1px solid #1789fa;
 }
 
-.exam-container .container-wrap .lesson .lesson-body #lesson-questionlist-list.mcq-row:after {
+.exam-container .container-wrap .lesson .lesson-body #lesson-questionlist-list .mcq-row:after {
     display: none;
 }
 
