@@ -258,31 +258,31 @@ class LiveClassController extends Controller
                         // Read a specific page from the PDF
                         $page->readImage("$filepath"."[$pageIndex]");
                         
-                        $bytefile = sprintf("$hash-%02d.jpg", $pageIndex);
+                        // $bytefile = sprintf("$hash-%02d.jpg", $pageIndex);
                         
-                        // Set the image format and compression quality
-                        $page->setImageFormat('jpeg');
-                        $page->setCompressionQuality(99);
+                        // // Set the image format and compression quality
+                        // $page->setImageFormat('jpeg');
+                        // $page->setCompressionQuality(99);
                         
-                        // Write the image to the specified location
-                        $page->writeImage("$cachepath/$bytefile");
+                        // // Write the image to the specified location
+                        // $page->writeImage("$cachepath/$bytefile");
         
-                        // Get image dimensions
-                        $width = $page->getImageWidth();
-                        $height = $page->getImageHeight();
+                        // // Get image dimensions
+                        // // $width = $page->getImageWidth();
+                        // // $height = $page->getImageHeight();
         
-                        // Prepare the image data
-                        $imgdata[] = [
-                            'page' => $pageIndex + 1,
-                            'width' => $width,
-                            'height' => $height,
-                            "data" => $bytefile,
-                            'url' => route("live-class.privateclass.lessonpdf.load", [
-                                'live' => $user->slug, 
-                                'sub_lesson_material' => $subLessonMaterial->slug,
-                                "file" => $bytefile
-                            ])
-                        ];
+                        // // Prepare the image data
+                        // $imgdata[] = [
+                        //     'page' => $pageIndex + 1,
+                        //     'width' => $width,
+                        //     'height' => $height,
+                        //     "data" => $bytefile,
+                        //     'url' => route("live-class.privateclass.lessonpdf.load", [
+                        //         'live' => $user->slug, 
+                        //         'sub_lesson_material' => $subLessonMaterial->slug,
+                        //         "file" => $bytefile
+                        //     ])
+                        // ];
         
                         // Clear memory
                         $page->clear();
