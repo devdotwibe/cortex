@@ -14,6 +14,7 @@ use App\Models\TermAccess;
 use App\Models\Timetable;
 use App\Models\User;
 use App\Support\Helpers\ImageHelper;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -192,17 +193,43 @@ class LiveClassController extends Controller
         if(!File::exists("$cachepath/render.map.json")){
 
          
-            $imginfo = new \Imagick();
-            $imginfo->pingImage($filepath);    
+            // $imginfo = new \Imagick();
+            // $imginfo->pingImage($filepath);    
         
-            $count= $imginfo->getNumberImages();
+            // $count= $imginfo->getNumberImages();
 
-            $imagic = new \Imagick();
-            $imagic->setResolution(570, 800);
-            $imagic->readImage($filepath);
+            // $imagic = new \Imagick();
+            // $imagic->setResolution(570, 800);
+            // $imagic->readImage($filepath);
 
-            dd($imagic->readImage($filepath));
+            try {
+                // Initialize Imagick objects
+                $imginfo = new \Imagick();
+                $imginfo->pingImage($filepath);  // Check if the image is valid
+                
+                $count = $imginfo->getNumberImages();  // Get number of images in multi-page image
+                if ($count == 0) {
+                    throw new Exception("The image has no pages or is empty.");
+                }
             
+                // Initialize Imagick to read the image
+                $imagic = new \Imagick();
+                $imagic->setResolution(570, 800);  // Set resolution for the image
+                $imagic->readImage($filepath);     // Read the image into Imagick
+            
+                // Proceed with further processing (e.g., saving or manipulating the image)
+                // Example: $imagic->writeImage('output.jpg');
+                
+            } catch (\ImagickException $e) {
+                // Handle Imagick-specific errors
+                error_log("Imagick Error: " . $e->getMessage());
+                echo "There was an error processing the image.";
+            } catch (Exception $e) {
+                // Handle other exceptions
+                error_log("Error: " . $e->getMessage());
+                echo "There was an error processing the image.";
+            }
+
             $imgdata=[]; 
 
             $hash=md5("$filepath/render".time());
