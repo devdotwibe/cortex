@@ -192,7 +192,6 @@ class LiveClassController extends Controller
         //     ]);
         // }
 
-        dd('ter');
 
         if(!File::exists("$cachepath/render.map.json")){
 
@@ -211,7 +210,7 @@ class LiveClassController extends Controller
       
             $imgdata=[]; 
 
-            
+            dd('ter');
 
             $hash=md5("$filepath/render".time());
             foreach ($imagic as $pageIndex => $page) {
