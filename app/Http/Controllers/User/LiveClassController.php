@@ -213,27 +213,27 @@ class LiveClassController extends Controller
                 $page->setImageFormat('jpeg');
                 // if($page->get)
                 dd($page->getImageLength());
-                $page->setCompressionQuality(99);
-                $imagic->writeImage("$cachepath/$bytefile");
-                $width = $page->getImageWidth();
-                $height = $page->getImageHeight();
-                $imgdata[] = [
-                    'page' => $pageIndex + 1, 
-                    'width' => $width,
-                    'height' => $height,
-                    "data" => $bytefile,
-                    'url'=> route("live-class.privateclass.lessonpdf.load",['live' => $user->slug, 'sub_lesson_material' => $subLessonMaterial->slug,"file"=>$bytefile])
-                ];
+                // $page->setCompressionQuality(99);
+                // $imagic->writeImage("$cachepath/$bytefile");
+                // $width = $page->getImageWidth();
+                // $height = $page->getImageHeight();
+                // $imgdata[] = [
+                //     'page' => $pageIndex + 1, 
+                //     'width' => $width,
+                //     'height' => $height,
+                //     "data" => $bytefile,
+                //     'url'=> route("live-class.privateclass.lessonpdf.load",['live' => $user->slug, 'sub_lesson_material' => $subLessonMaterial->slug,"file"=>$bytefile])
+                // ];
             }
             $imagic->clear();  
             $imagic->destroy(); 
-            file_put_contents("$cachepath/render.map.json",json_encode($imgdata));
+            // file_put_contents("$cachepath/render.map.json",json_encode($imgdata));
         }else{
-            $imgdata=json_decode(file_get_contents("$cachepath/render.map.json"),true); 
+            // $imgdata=json_decode(file_get_contents("$cachepath/render.map.json"),true); 
         }
       
         // $pdfmap['url']=route('live-class.privateclass.lessonpdf', ["live" =>$user->slug,"sub_lesson_material"=>$subLessonMaterial->slug ]);
-        return view('user.live-class.pdfrender',compact('user','live_class','subLessonMaterial','lessonMaterial','imgdata')); 
+        // return view('user.live-class.pdfrender',compact('user','live_class','subLessonMaterial','lessonMaterial','imgdata')); 
 
     }
     public function privateclasslessonpdfload(Request  $request,$live,SubLessonMaterial $subLessonMaterial,$file){
