@@ -14,6 +14,7 @@ use App\Models\TermAccess;
 use App\Models\Timetable;
 use App\Models\User;
 use App\Support\Helpers\ImageHelper;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -189,20 +190,21 @@ class LiveClassController extends Controller
         //         "data"=>file_get_contents($path)
         //     ]);
         // }
+
         if(!File::exists("$cachepath/render.map.json")){
 
-         
+                ini_set('memory_limit', '512M');
+                ini_set('max_execution_time', 300);
+
             $imginfo = new \Imagick();
             $imginfo->pingImage($filepath);    
         
             $count= $imginfo->getNumberImages();
 
-            dd($count);
-        
             $imagic = new \Imagick();
             $imagic->setResolution(570, 800);
             $imagic->readImage($filepath);
-            
+      
             $imgdata=[]; 
 
             $hash=md5("$filepath/render".time());
@@ -230,6 +232,7 @@ class LiveClassController extends Controller
       
         // $pdfmap['url']=route('live-class.privateclass.lessonpdf', ["live" =>$user->slug,"sub_lesson_material"=>$subLessonMaterial->slug ]);
         return view('user.live-class.pdfrender',compact('user','live_class','subLessonMaterial','lessonMaterial','imgdata')); 
+
     }
     public function privateclasslessonpdfload(Request  $request,$live,SubLessonMaterial $subLessonMaterial,$file){
         $cachepath=Storage::disk('private')->path('cache/'.md5($subLessonMaterial->pdf_file)); 
