@@ -256,7 +256,7 @@ class LiveClassController extends Controller
                         $page->setResolution(570, 800);  // Set resolution for image quality
                         
                         // Read a specific page from the PDF
-                        $page->readImage("$filepath[$pageIndex]");
+                        $page->readImage("$filepath"."[$pageIndex]");
                         
                         $bytefile = sprintf("$hash-%02d.jpg", $pageIndex);
                         
