@@ -196,6 +196,7 @@ class LiveClassController extends Controller
                 // ini_set('memory_limit', '512M');
                 // ini_set('max_execution_time', 300);
 
+                dd('ter');
             $imginfo = new \Imagick();
             $imginfo->pingImage($filepath);    
         
@@ -207,7 +208,7 @@ class LiveClassController extends Controller
       
             $imgdata=[]; 
 
-            dd('ter');
+            
 
             $hash=md5("$filepath/render".time());
             foreach ($imagic as $pageIndex => $page) {
