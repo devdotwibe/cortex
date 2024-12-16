@@ -208,9 +208,10 @@ class LiveClassController extends Controller
                 $page = new \Imagick();
                 $page->setResolution(570, 800);
                 
-            dd('ioio');
+          
 
                 $page->readImage("$filepath"."[$pageIndex]");
+                dd('ioio');
                 $bytefile=sprintf("$hash-%02d.jpg",$pageIndex);
                 $page->setImageFormat('jpeg');
                 $page->setCompressionQuality(99);
