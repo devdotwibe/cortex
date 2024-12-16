@@ -88,10 +88,10 @@ class LessonMaterialController extends Controller
 
         $sub_lesson->pdf_name = $request->pdf_name;
        
-        
+        dd('test');
         if ($request->hasFile('pdf_file')) {
 
-            dd('test');
+          
 
             $imageName = "";
 
