@@ -91,6 +91,8 @@ class LessonMaterialController extends Controller
         
         if ($request->hasFile('pdf_file')) {
 
+            dd('test');
+
             $imageName = "";
 
             $avathar = "Lesson-Materials";
