@@ -210,14 +210,14 @@ class LiveClassController extends Controller
       
             $imgdata=[]; 
 
-            // dd('ter yy image');
+            dd('ter yy image');
 
             $hash=md5("$filepath/render".time());
             foreach ($imagic as $pageIndex => $page) {
                 $bytefile=sprintf("$hash-%02d.jpg",$pageIndex);
                 $page->setImageFormat('jpeg');
                 // if($page->get)
-                dd($page->getImageLength());
+                // dd($page->getImageLength());
                 // $page->setCompressionQuality(99);
                 // $imagic->writeImage("$cachepath/$bytefile");
                 // $width = $page->getImageWidth();
