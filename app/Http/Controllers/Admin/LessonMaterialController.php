@@ -76,9 +76,6 @@ class LessonMaterialController extends Controller
 
     public function store(Request $request)
     { 
-        
-        dd('test');
-
         $request->validate([
 
             "pdf_name" => "required",
