@@ -3265,7 +3265,7 @@ aside.side_bar.slider-btn .sidebar-content ul ul li.side-item a {
     padding: 0 0 0 35px;
 }
 
-.exam-container .container-wrap .lesson .lesson-body .mcq-row:after {
+.exam-container .container-wrap.mcq-container-wrap .lesson .lesson-body .mcq-row:after {
     content: "";
     position: absolute;
     width: 1px;
@@ -3663,7 +3663,7 @@ aside.side_bar.slider-btn .sidebar-content ul ul li.side-item a {
         top: -26px;
     }
 
-    .exam-container .container-wrap .lesson .lesson-body .mcq-row:after {
+    .exam-container .container-wrap.mcq-container-wrap .lesson .lesson-body .mcq-row:after {
         height: 104%;
     }
 
@@ -8657,7 +8657,7 @@ nav.navbar.top-barhide {
     }
 
     .exam-container.questionclass.answerclass .container-wrap {
-        padding-bottom: 3em !important;
+        padding-bottom: 2.9em !important;
     }
 
     .exam-container .container-wrap.homeclass .lesson #lesson-footer-pagination {
@@ -9271,7 +9271,7 @@ nav.navbar.top-barhide {
         width: 100%;
     }
 
-    .exam-container .container-wrap .lesson .lesson-body .mcq-row:after {
+    .exam-container .container-wrap.mcq-container-wrap .lesson .lesson-body .mcq-row:after {
         display: none;
     }
 
