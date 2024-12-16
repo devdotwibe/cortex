@@ -209,9 +209,9 @@ class LiveClassController extends Controller
                 $page->setResolution(570, 800);
                 
           
-
-                $page->readImage("$filepath"."[$pageIndex]");
                 dd('ioio');
+                $page->readImage("$filepath"."[$pageIndex]");
+               
                 $bytefile=sprintf("$hash-%02d.jpg",$pageIndex);
                 $page->setImageFormat('jpeg');
                 $page->setCompressionQuality(99);
