@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('home_work_review_questions', function (Blueprint $table) {
 
-            $table->longText('currect_answer')->nullable();
+            $table->longText('currect_answer')->nullable()->change();
         });
     }
 
