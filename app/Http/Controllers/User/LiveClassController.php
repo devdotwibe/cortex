@@ -197,48 +197,41 @@ class LiveClassController extends Controller
 
                 // ini_set('memory_limit', '512M');
                 // ini_set('max_execution_time', 300);
-
-              
+            $hash=md5("$filepath/render".time());              
             $imginfo = new \Imagick();
-            $imginfo->pingImage($filepath);    
-        
+            $imginfo->pingImage($filepath);
             $count= $imginfo->getNumberImages();
-
-            $imagic = new \Imagick();
-            $imagic->setResolution(570, 800);
-            // $imagic->readImage($filepath);
-      
             $imgdata=[]; 
 
-            dd('ter yy image');
+            for ($pageIndex=0; $pageIndex <$count ; $pageIndex++) { 
 
-            $hash=md5("$filepath/render".time());
-            foreach ($imagic as $pageIndex => $page) {
+                $page = new \Imagick();
+                $page->setResolution(570, 800);
+                $page->readImage("$filepath"."[$pageIndex]");
                 $bytefile=sprintf("$hash-%02d.jpg",$pageIndex);
                 $page->setImageFormat('jpeg');
-                // if($page->get)
-                // dd($page->getImageLength());
-                // $page->setCompressionQuality(99);
-                // $imagic->writeImage("$cachepath/$bytefile");
-                // $width = $page->getImageWidth();
-                // $height = $page->getImageHeight();
-                // $imgdata[] = [
-                //     'page' => $pageIndex + 1, 
-                //     'width' => $width,
-                //     'height' => $height,
-                //     "data" => $bytefile,
-                //     'url'=> route("live-class.privateclass.lessonpdf.load",['live' => $user->slug, 'sub_lesson_material' => $subLessonMaterial->slug,"file"=>$bytefile])
-                // ];
+                $page->setCompressionQuality(99);
+                $page->writeImage("$cachepath/$bytefile");
+                $width = $page->getImageWidth();
+                $height = $page->getImageHeight();
+                $imgdata[] = [
+                    'page' => $pageIndex + 1, 
+                    'width' => $width,
+                    'height' => $height,
+                    "data" => $bytefile,
+                    'url'=> route("live-class.privateclass.lessonpdf.load",['live' => $user->slug, 'sub_lesson_material' => $subLessonMaterial->slug,"file"=>$bytefile])
+                ];
+                $page->clear();  
+                $page->destroy(); 
             }
-            $imagic->clear();  
-            $imagic->destroy(); 
-            // file_put_contents("$cachepath/render.map.json",json_encode($imgdata));
+       
+            file_put_contents("$cachepath/render.map.json",json_encode($imgdata));
         }else{
-            // $imgdata=json_decode(file_get_contents("$cachepath/render.map.json"),true); 
+            $imgdata=json_decode(file_get_contents("$cachepath/render.map.json"),true); 
         }
       
         // $pdfmap['url']=route('live-class.privateclass.lessonpdf', ["live" =>$user->slug,"sub_lesson_material"=>$subLessonMaterial->slug ]);
-        // return view('user.live-class.pdfrender',compact('user','live_class','subLessonMaterial','lessonMaterial','imgdata')); 
+        return view('user.live-class.pdfrender',compact('user','live_class','subLessonMaterial','lessonMaterial','imgdata')); 
 
     }
     public function privateclasslessonpdfload(Request  $request,$live,SubLessonMaterial $subLessonMaterial,$file){
