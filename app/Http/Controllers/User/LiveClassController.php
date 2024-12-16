@@ -234,7 +234,9 @@ class LiveClassController extends Controller
         if (!File::exists("$cachepath/render.map.json")) {
             try {
                 // Increase memory limit to handle large PDF files
-                ini_set('memory_limit', '256M');
+                ini_set('memory_limit', '512M');
+                ini_set('max_execution_time', 300);
+        
                 
                 // Initialize Imagick to fetch image metadata
                 $imginfo = new \Imagick();
@@ -302,7 +304,7 @@ class LiveClassController extends Controller
         // Return the view with the image data and other required variables
         return view('user.live-class.pdfrender', compact('user', 'live_class', 'subLessonMaterial', 'lessonMaterial', 'imgdata'));
 
-        
+
     }
     public function privateclasslessonpdfload(Request  $request,$live,SubLessonMaterial $subLessonMaterial,$file){
         $cachepath=Storage::disk('private')->path('cache/'.md5($subLessonMaterial->pdf_file)); 
