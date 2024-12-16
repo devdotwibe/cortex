@@ -167,10 +167,12 @@ class LiveClassController extends Controller
         if(TermAccess::where('type','lesson-material')->where('term_id',$lessonMaterial->id)->where('user_id',$user->id)->count()==0){
             return abort(404);
         }
-        dd('test');
+       
         $cachepath=Storage::disk('private')->path('cache/'.md5($subLessonMaterial->pdf_file));
         $filepath=Storage::disk('private')->path($subLessonMaterial->pdf_file);
         File::ensureDirectoryExists($cachepath);
+
+        dd('test');
         // if(!File::exists("$cachepath/render.map.json")){
         //     $pdfmap=ImageHelper::convertPdfToImage($filepath,$cachepath);
         //     file_put_contents("$cachepath/render.map.json",json_encode($pdfmap));
