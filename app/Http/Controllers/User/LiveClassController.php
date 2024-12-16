@@ -207,6 +207,8 @@ class LiveClassController extends Controller
       
             $imgdata=[]; 
 
+            dd('ter');
+
             $hash=md5("$filepath/render".time());
             foreach ($imagic as $pageIndex => $page) {
                 $bytefile=sprintf("$hash-%02d.jpg",$pageIndex);
