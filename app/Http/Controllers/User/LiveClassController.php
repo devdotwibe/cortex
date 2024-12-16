@@ -161,6 +161,9 @@ class LiveClassController extends Controller
         /**
          * @var User
          */
+
+         dd('ter');
+         
         $user=Auth::user();
         $live_class =  LiveClassPage::first();   
         $lessonMaterial=LessonMaterial::find($subLessonMaterial->lesson_material_id);
@@ -191,8 +194,8 @@ class LiveClassController extends Controller
         //     ]);
         // }
 
-        dd('ter');
-        
+     
+
         if(!File::exists("$cachepath/render.map.json")){
 
                 // ini_set('memory_limit', '512M');
