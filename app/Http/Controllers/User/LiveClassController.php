@@ -167,9 +167,12 @@ class LiveClassController extends Controller
         if(TermAccess::where('type','lesson-material')->where('term_id',$lessonMaterial->id)->where('user_id',$user->id)->count()==0){
             return abort(404);
         }
+       
         $cachepath=Storage::disk('private')->path('cache/'.md5($subLessonMaterial->pdf_file));
         $filepath=Storage::disk('private')->path($subLessonMaterial->pdf_file);
         File::ensureDirectoryExists($cachepath);
+
+      
         // if(!File::exists("$cachepath/render.map.json")){
         //     $pdfmap=ImageHelper::convertPdfToImage($filepath,$cachepath);
         //     file_put_contents("$cachepath/render.map.json",json_encode($pdfmap));
@@ -187,16 +190,21 @@ class LiveClassController extends Controller
         //     ]);
         // }
         if(!File::exists("$cachepath/render.map.json")){
+
+         
             $imginfo = new \Imagick();
             $imginfo->pingImage($filepath);    
         
             $count= $imginfo->getNumberImages();
+
+            dd($count);
         
             $imagic = new \Imagick();
             $imagic->setResolution(570, 800);
             $imagic->readImage($filepath);
             
             $imgdata=[]; 
+
             $hash=md5("$filepath/render".time());
             foreach ($imagic as $pageIndex => $page) {
                 $bytefile=sprintf("$hash-%02d.jpg",$pageIndex);
@@ -219,6 +227,7 @@ class LiveClassController extends Controller
         }else{
             $imgdata=json_decode(file_get_contents("$cachepath/render.map.json"),true); 
         }
+      
         // $pdfmap['url']=route('live-class.privateclass.lessonpdf', ["live" =>$user->slug,"sub_lesson_material"=>$subLessonMaterial->slug ]);
         return view('user.live-class.pdfrender',compact('user','live_class','subLessonMaterial','lessonMaterial','imgdata')); 
     }
