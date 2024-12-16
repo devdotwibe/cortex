@@ -191,12 +191,14 @@ class LiveClassController extends Controller
         //     ]);
         // }
 
+        dd('ter');
+        
         if(!File::exists("$cachepath/render.map.json")){
 
                 // ini_set('memory_limit', '512M');
                 // ini_set('max_execution_time', 300);
 
-                dd('ter');
+              
             $imginfo = new \Imagick();
             $imginfo->pingImage($filepath);    
         
