@@ -167,6 +167,7 @@ class LiveClassController extends Controller
         if(TermAccess::where('type','lesson-material')->where('term_id',$lessonMaterial->id)->where('user_id',$user->id)->count()==0){
             return abort(404);
         }
+        dd('test');
         $cachepath=Storage::disk('private')->path('cache/'.md5($subLessonMaterial->pdf_file));
         $filepath=Storage::disk('private')->path($subLessonMaterial->pdf_file);
         File::ensureDirectoryExists($cachepath);
@@ -219,7 +220,7 @@ class LiveClassController extends Controller
         }else{
             $imgdata=json_decode(file_get_contents("$cachepath/render.map.json"),true); 
         }
-        dd('test');
+      
         // $pdfmap['url']=route('live-class.privateclass.lessonpdf', ["live" =>$user->slug,"sub_lesson_material"=>$subLessonMaterial->slug ]);
         return view('user.live-class.pdfrender',compact('user','live_class','subLessonMaterial','lessonMaterial','imgdata')); 
     }
