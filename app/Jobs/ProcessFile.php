@@ -4,17 +4,16 @@ namespace App\Jobs;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\Queueable; 
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Exception;
-use Illuminate\Foundation\Queue\Queueable as QueueQueueable;
+use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Cache;
 use Imagick;
 
 class ProcessFile implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, QueueQueueable, SerializesModels;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $filepath;
     protected $user;
