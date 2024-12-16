@@ -189,10 +189,9 @@ class LiveClassController extends Controller
         //         "data"=>file_get_contents($path)
         //     ]);
         // }
-        if(File::exists("$cachepath/render.map.json")){
+        if(!File::exists("$cachepath/render.map.json")){
 
-            dd('test');
-            
+         
             $imginfo = new \Imagick();
             $imginfo->pingImage($filepath);    
         
@@ -203,6 +202,9 @@ class LiveClassController extends Controller
             $imagic->readImage($filepath);
             
             $imgdata=[]; 
+
+            dd('test');
+            
             $hash=md5("$filepath/render".time());
             foreach ($imagic as $pageIndex => $page) {
                 $bytefile=sprintf("$hash-%02d.jpg",$pageIndex);
